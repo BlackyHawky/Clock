@@ -374,7 +374,8 @@ public class HandleApiCalls extends Activity {
         }
 
         // Schedule the next instance.
-        final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
+        final Calendar now = DataModel.getDataModel().getCalendar();
+        final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
         setupInstance(alarmInstance, skipUi);
 
         final String time = DateFormat.getTimeFormat(this)

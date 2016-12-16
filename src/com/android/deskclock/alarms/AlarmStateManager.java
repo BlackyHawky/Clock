@@ -17,6 +17,7 @@ package com.android.deskclock.alarms;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -49,6 +50,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.content.Context.ALARM_SERVICE;
 import static android.provider.Settings.System.NEXT_ALARM_FORMATTED;
 
 /**
@@ -142,8 +144,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
             new AlarmManagerStateChangeScheduler();
 
     private static Calendar getCurrentTime() {
-        return sCurrentTimeFactory == null ?
-                Calendar.getInstance() : sCurrentTimeFactory.getCurrentTime();
+        return sCurrentTimeFactory == null
+                ? DataModel.getDataModel().getCalendar()
+                : sCurrentTimeFactory.getCurrentTime();
     }
 
     static void setCurrentTimeFactory(CurrentTimeFactory currentTimeFactory) {
@@ -226,11 +229,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // alarm that is going to fire next. The operation is constructed such that it is ignored
         // by AlarmStateManager.
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(
-                Context.ALARM_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
-        int flags = nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0;
-        PendingIntent operation = PendingIntent.getBroadcast(context, 0 /* requestCode */,
+        final int flags = nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0;
+        final PendingIntent operation = PendingIntent.getBroadcast(context, 0 /* requestCode */,
                 AlarmStateManager.createIndicatorIntent(context), flags);
 
         if (nextAlarm != null) {
@@ -242,9 +244,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     AlarmNotifications.createViewAlarmIntent(context, nextAlarm),
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager.AlarmClockInfo info =
-                    new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
-            alarmManager.setAlarmClock(info, operation);
+            final AlarmClockInfo info = new AlarmClockInfo(alarmTime, viewIntent);
+            Utils.updateNextAlarm(alarmManager, info, operation);
         } else if (operation != null) {
             LogUtils.i("Canceling upcoming AlarmClockInfo");
             alarmManager.cancel(operation);
@@ -1008,7 +1009,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            final AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             if (Utils.isMOrLater()) {
                 // Ensure the alarm fires even if the device is dozing.
                 am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
@@ -1027,7 +1028,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     PendingIntent.FLAG_NO_CREATE);
 
             if (pendingIntent != null) {
-                AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
                 am.cancel(pendingIntent);
                 pendingIntent.cancel();
             }
