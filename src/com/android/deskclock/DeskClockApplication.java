@@ -25,7 +25,6 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.DataModel;
-import com.android.deskclock.events.Events;
 import com.android.deskclock.events.LogEventTracker;
 import com.android.deskclock.uidata.UiDataModel;
 
@@ -41,7 +40,7 @@ public class DeskClockApplication extends Application {
         DataModel.getDataModel().init(applicationContext, prefs);
         UiDataModel.getUiDataModel().init(applicationContext, prefs);
         Controller.getController().setContext(applicationContext);
-        Events.addEventTracker(new LogEventTracker(applicationContext));
+        Controller.getController().addEventTracker(new LogEventTracker(applicationContext));
     }
 
     /**

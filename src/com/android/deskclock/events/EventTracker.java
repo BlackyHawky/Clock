@@ -20,14 +20,12 @@ import android.support.annotation.StringRes;
 
 public interface EventTracker {
     /**
-     * Send category, action and label describing an event to Log system.
+     * Record the event in some form or fashion.
      *
-     * @param category string resource id indicating Alarm, Clock, Timer or Stopwatch or 0 for no
-     *                 category
-     * @param action string resource id indicating how the entity was altered;
-     *               e.g. create, delete, fire, etc or 0 for no action
-     * @param label string resource id indicating where the action originated;
-     *              e.g. DeskClock (UI), Intent, Notification, etc. or 0 for no label
+     * @param category indicates what entity raised the event: Alarm, Clock, Timer or Stopwatch
+     * @param action indicates how the entity was altered; e.g. create, delete, fire, etc.
+     * @param label indicates where the action originated; e.g. DeskClock (UI), Intent,
+     *      Notification, etc.; 0 indicates no label could be established
      */
     void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label);
 }
