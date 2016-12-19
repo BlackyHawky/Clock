@@ -16,12 +16,18 @@
 
 package com.android.deskclock.controller;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.VoiceInteractor;
+import android.app.VoiceInteractor.AbortVoiceRequest;
+import android.app.VoiceInteractor.CompleteVoiceRequest;
+import android.app.VoiceInteractor.Prompt;
+import android.os.Build;
 
-/**
- * Implementations of this interface are consulted to terminate a voice interaction session.
- */
-public interface VoiceController {
+import com.android.deskclock.Utils;
+
+@TargetApi(Build.VERSION_CODES.M)
+class VoiceController {
     /**
      * If the {@code activity} is currently hosting a voice interaction session, indicate the voice
      * command was processed successfully.
@@ -29,7 +35,17 @@ public interface VoiceController {
      * @param activity an Activity that may be hosting a voice interaction session
      * @param message to be spoken to the user to indicate success
      */
-    void notifyVoiceSuccess(Activity activity, String message);
+    void notifyVoiceSuccess(Activity activity, String message) {
+        if (!Utils.isMOrLater()) {
+            return;
+        }
+
+        final VoiceInteractor voiceInteractor = activity.getVoiceInteractor();
+        if (voiceInteractor != null) {
+            final Prompt prompt = new Prompt(message);
+            voiceInteractor.submitRequest(new CompleteVoiceRequest(prompt, null));
+        }
+    }
 
     /**
      * If the {@code activity} is currently hosting a voice interaction session, indicate the voice
@@ -38,5 +54,15 @@ public interface VoiceController {
      * @param activity an Activity that may be hosting a voice interaction session
      * @param message to be spoken to the user to indicate failure
      */
-    void notifyVoiceFailure(Activity activity, String message);
+    void notifyVoiceFailure(Activity activity, String message) {
+        if (!Utils.isMOrLater()) {
+            return;
+        }
+
+        final VoiceInteractor voiceInteractor = activity.getVoiceInteractor();
+        if (voiceInteractor != null) {
+            final Prompt prompt = new Prompt(message);
+            voiceInteractor.submitRequest(new AbortVoiceRequest(prompt, null));
+        }
+    }
 }

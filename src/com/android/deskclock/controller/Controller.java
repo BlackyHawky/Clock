@@ -29,7 +29,7 @@ import static com.android.deskclock.Utils.enforceMainLooper;
  * Interactions with Android framework components responsible for part of the user experience are
  * handled via this singleton.
  */
-public final class Controller implements VoiceController {
+public final class Controller {
 
     private static final Controller sController = new Controller();
 
@@ -54,9 +54,7 @@ public final class Controller implements VoiceController {
         if (mContext != context) {
             mContext = context.getApplicationContext();
             mEventController = new EventController();
-            if (Utils.isMOrLater()) {
-                mVoiceController = new DefaultVoiceController();
-            }
+            mVoiceController = new VoiceController();
             if (Utils.isNMR1OrLater()) {
                 mShortcutController = new ShortcutController(mContext);
             }
@@ -99,28 +97,12 @@ public final class Controller implements VoiceController {
     // Voice Interaction
     //
 
-    /**
-     * @param voiceController the new delegate to control future voice interaction sessions
-     * @return the old delegate that controlled prior voice interaction sessions
-     */
-    public VoiceController setVoiceController(VoiceController voiceController) {
-        final VoiceController oldVoiceController = mVoiceController;
-        mVoiceController = voiceController;
-        return oldVoiceController;
-    }
-
-    @Override
     public void notifyVoiceSuccess(Activity activity, String message) {
-        if (mVoiceController != null) {
-            mVoiceController.notifyVoiceSuccess(activity, message);
-        }
+        mVoiceController.notifyVoiceSuccess(activity, message);
     }
 
-    @Override
     public void notifyVoiceFailure(Activity activity, String message) {
-        if (mVoiceController != null) {
-            mVoiceController.notifyVoiceFailure(activity, message);
-        }
+        mVoiceController.notifyVoiceFailure(activity, message);
     }
 
     //
