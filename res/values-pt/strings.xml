@@ -309,7 +309,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Deslize para a esquerda para adiar ou para a direita para dispensar"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Toque do timer"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibração do temporizador"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibração do timer"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer pausado"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timers pausados"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Toque para ver seus temporizadores"</string>

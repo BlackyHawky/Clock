@@ -20,7 +20,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Ջնջել զարթուցիչը"</string>
     <string name="label" msgid="162189613902857319">"Պիտակ"</string>
     <string name="default_label" msgid="5590025289805630372">"Զարթուցիչ"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռալ"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռոց"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Կրկնել"</string>
     <string name="alert" msgid="6506982899651975645">"Զարթուցիչի զանգերանգը"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Զարթուցիչի կանխադրված ձայնը"</string>
