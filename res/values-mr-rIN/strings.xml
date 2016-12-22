@@ -212,26 +212,12 @@
     <string name="hours_label" msgid="3393478155635368097">"ता"</string>
     <string name="minutes_label" msgid="3568098128251438588">"मि"</string>
     <string name="seconds_label" msgid="124655952824003246">"से"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"तास"</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"मिनिटे"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"सेकंद"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"माझी वेळ <xliff:g id="TIME">%s</xliff:g> आहे"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"लॅप वेळा:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"लॅप <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> तास</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> तास</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> मिनिट</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> मिनिटे</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> सेकंद</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> सेकंद</item>
-    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"टाइमर जोडा"</string>
     <string name="timer_start" msgid="6158486445614356442">"प्रारंभ करा"</string>
     <string name="timer_delete" msgid="8699122001991909302">"हटवा"</string>

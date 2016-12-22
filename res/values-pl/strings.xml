@@ -230,32 +230,12 @@
     <string name="hours_label" msgid="3393478155635368097">"g"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"godz."</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"min"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"s"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"Nr <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"Nr <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mój czas to <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Czasy okrążeń:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Okrążenie <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> godziny</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> godzin</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> godziny</item>
-      <item quantity="one">1 godzina</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> minut</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
-      <item quantity="one">1 minuta</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> sekundy</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> sekund</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> sekundy</item>
-      <item quantity="one">1 sekunda</item>
-    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Dodaj minutnik"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Usuń"</string>

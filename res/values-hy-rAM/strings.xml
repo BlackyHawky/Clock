@@ -20,7 +20,7 @@
     <string name="app_label" msgid="6674495003718166674">"Ժամացույց"</string>
     <string name="label" msgid="162189613902857319">"Պիտակ"</string>
     <string name="default_label" msgid="5590025289805630372">"Զարթուցիչ"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռալ"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռոց"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Կրկնել"</string>
     <string name="delete" msgid="5732434972457000541">"Ջնջել"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Զարթուցիչի կանխադրված ձայնը"</string>
@@ -212,26 +212,12 @@
     <string name="hours_label" msgid="3393478155635368097">"ժ"</string>
     <string name="minutes_label" msgid="3568098128251438588">"ր"</string>
     <string name="seconds_label" msgid="124655952824003246">"վ"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"ժամ"</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"րոպե"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"վայրկյան"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>:<xliff:g id="MINUTES">%2$s</xliff:g>:<xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Իմ ժամանակն է <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Շրջանի ժամանակը՝"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Շրջան <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ժամ</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ժամ</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> վայրկյան</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> վայրկյան</item>
-    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Ավելացնել ժամաչափ"</string>
     <string name="timer_start" msgid="6158486445614356442">"Մեկնարկել"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Ջնջել"</string>

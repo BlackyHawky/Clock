@@ -212,26 +212,12 @@
     <string name="hours_label" msgid="3393478155635368097">"s"</string>
     <string name="minutes_label" msgid="3568098128251438588">"d"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"saa"</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"dakika"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"sekunde"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Muda wangu ni <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Muda wa mzunguko:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Mzunguko wa <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="other">Saa <xliff:g id="NUMBER">%d</xliff:g></item>
-      <item quantity="one">Saa 1</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="other">Dakika <xliff:g id="NUMBER">%d</xliff:g> </item>
-      <item quantity="one">Dakika 1</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="other">Sekunde <xliff:g id="NUMBER">%d</xliff:g> </item>
-      <item quantity="one">Sekunde 1</item>
-    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Ongeza Kipima wakati"</string>
     <string name="timer_start" msgid="6158486445614356442">"Anza"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Futa"</string>

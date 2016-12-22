@@ -248,38 +248,12 @@
     <string name="hours_label" msgid="3393478155635368097">"س"</string>
     <string name="minutes_label" msgid="3568098128251438588">"د"</string>
     <string name="seconds_label" msgid="124655952824003246">"ث"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"ساعات"</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"دقائق"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"ثوانٍ"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>، <xliff:g id="MINUTES">%2$s</xliff:g>، <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"الدورة <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"الدورة <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"عدد مرات الدورة:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"الدورة <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> hours</item>
-      <item quantity="two">ساعتان (<xliff:g id="NUMBER">%d</xliff:g>)</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> ساعات</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> ساعة</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الساعات</item>
-      <item quantity="one">ساعة واحدة</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> minutes</item>
-      <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%d</xliff:g>)</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> دقائق</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> دقيقة</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الدقائق</item>
-      <item quantity="one">دقيقة واحدة</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> seconds</item>
-      <item quantity="two">ثانيتان (<xliff:g id="NUMBER">%d</xliff:g>)</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> ثوانٍ</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> ثانية</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الثواني</item>
-      <item quantity="one">ثانية واحدة</item>
-    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"إضافة موقت"</string>
     <string name="timer_start" msgid="6158486445614356442">"بدء"</string>
     <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
