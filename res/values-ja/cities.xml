@@ -20,7 +20,7 @@
     <string name="C1" msgid="3622720549928625541">"あ<xliff:g id="SEPARATOR">=</xliff:g>アビジャン<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"あ<xliff:g id="SEPARATOR">=</xliff:g>アクラ<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
     <string name="C3" msgid="5172979423931428620">"あ<xliff:g id="SEPARATOR">=</xliff:g>アジスアベバ<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
-    <string name="C4" msgid="4450258423854546267">"あ<xliff:g id="SEPARATOR">=</xliff:g>アルジェー<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
+    <string name="C4" msgid="4450258423854546267">"あ<xliff:g id="SEPARATOR">=</xliff:g>アルジェ<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
     <string name="C5" msgid="8063142106679202722">"は<xliff:g id="SEPARATOR">=</xliff:g>ブランタイア<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g>"</string>
     <string name="C6" msgid="1620940469531839828">"は<xliff:g id="SEPARATOR">=</xliff:g>ブラザビル<xliff:g id="TIMEZONE">|Africa/Brazzaville</xliff:g>"</string>
     <string name="C7" msgid="8450502029020824529">"か<xliff:g id="SEPARATOR">=</xliff:g>カイロ<xliff:g id="TIMEZONE">|Africa/Cairo</xliff:g>"</string>
@@ -117,7 +117,7 @@
     <string name="C100" msgid="5995329947852415813">"あ<xliff:g id="SEPARATOR">=</xliff:g>アンマン<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
     <string name="C101" msgid="5760056604239047274">"あ<xliff:g id="SEPARATOR">=</xliff:g>アナジル<xliff:g id="TIMEZONE">|Asia/Anadyr</xliff:g>"</string>
     <string name="C102" msgid="9000357065825182754">"あ<xliff:g id="SEPARATOR">=</xliff:g>アクタウ<xliff:g id="TIMEZONE">|Asia/Aqtau</xliff:g>"</string>
-    <string name="C103" msgid="8781982253489209791">"は<xliff:g id="SEPARATOR">=</xliff:g>バグダード<xliff:g id="TIMEZONE">|Asia/Baghdad</xliff:g>"</string>
+    <string name="C103" msgid="8781982253489209791">"は<xliff:g id="SEPARATOR">=</xliff:g>バグダッド<xliff:g id="TIMEZONE">|Asia/Baghdad</xliff:g>"</string>
     <string name="C104" msgid="4021122575041916540">"は<xliff:g id="SEPARATOR">=</xliff:g>バーレーン<xliff:g id="TIMEZONE">|Asia/Bahrain</xliff:g>"</string>
     <string name="C105" msgid="1812915124794679606">"は<xliff:g id="SEPARATOR">=</xliff:g>バクー<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"は<xliff:g id="SEPARATOR">=</xliff:g>バンコク<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
