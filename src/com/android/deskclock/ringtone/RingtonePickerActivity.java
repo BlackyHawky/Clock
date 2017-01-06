@@ -355,7 +355,9 @@ public class RingtonePickerActivity extends BaseActivity
         mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
 
         // Launch the confirmation dialog.
-        ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(), toRemove.getUri());
+        final FragmentManager manager = getFragmentManager();
+        final boolean hasPermissions = toRemove.hasPermissions();
+        ConfirmRemoveCustomRingtoneDialogFragment.show(manager, toRemove.getUri(), hasPermissions);
         return true;
     }
 
@@ -433,36 +435,48 @@ public class RingtonePickerActivity extends BaseActivity
     public static class ConfirmRemoveCustomRingtoneDialogFragment extends DialogFragment {
 
         private static final String ARG_RINGTONE_URI_TO_REMOVE = "arg_ringtone_uri_to_remove";
+        private static final String ARG_RINGTONE_HAS_PERMISSIONS = "arg_ringtone_has_permissions";
 
-        static void show(FragmentManager manager, Uri toRemove) {
+        static void show(FragmentManager manager, Uri toRemove, boolean hasPermissions) {
             if (manager.isDestroyed()) {
                 return;
             }
 
             final Bundle args = new Bundle();
             args.putParcelable(ARG_RINGTONE_URI_TO_REMOVE, toRemove);
+            args.putBoolean(ARG_RINGTONE_HAS_PERMISSIONS, hasPermissions);
 
             final DialogFragment fragment = new ConfirmRemoveCustomRingtoneDialogFragment();
             fragment.setArguments(args);
+            fragment.setCancelable(hasPermissions);
             fragment.show(manager, "confirm_ringtone_remove");
         }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Uri toRemove = getArguments().getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+            final Bundle arguments = getArguments();
+            final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
             final DialogInterface.OnClickListener okListener =
                     new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ((RingtonePickerActivity) getActivity()).removeCustomRingtone(toRemove);
-                }
-            };
-            return new AlertDialog.Builder(getActivity())
-                    .setPositiveButton(R.string.remove_sound, okListener)
-                    .setNegativeButton(android.R.string.cancel, null /* listener */)
-                    .setMessage(R.string.confirm_remove_custom_ringtone)
-                    .create();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((RingtonePickerActivity) getActivity()).removeCustomRingtone(toRemove);
+                        }
+                    };
+
+            if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
+                return new AlertDialog.Builder(getActivity())
+                        .setPositiveButton(R.string.remove_sound, okListener)
+                        .setNegativeButton(android.R.string.cancel, null /* listener */)
+                        .setMessage(R.string.confirm_remove_custom_ringtone)
+                        .create();
+            } else {
+                return new AlertDialog.Builder(getActivity())
+                        .setPositiveButton(R.string.remove_sound, okListener)
+                        .setMessage(R.string.custom_ringtone_lost_permissions)
+                        .create();
+            }
         }
     }
 
@@ -503,6 +517,11 @@ public class RingtonePickerActivity extends BaseActivity
                 case RingtoneViewHolder.CLICK_LONG_PRESS:
                     mIndexOfRingtoneToRemove = viewHolder.getAdapterPosition();
                     break;
+
+                case RingtoneViewHolder.CLICK_NO_PERMISSIONS:
+                    ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
+                            ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
+                    break;
             }
         }
     }
@@ -524,6 +543,10 @@ public class RingtonePickerActivity extends BaseActivity
         @Override
         protected String doInBackground(Void... voids) {
             final ContentResolver contentResolver = mContext.getContentResolver();
+
+            // Take the long-term permission to read (playback) the audio at the uri.
+            contentResolver.takePersistableUriPermission(mUri, FLAG_GRANT_READ_URI_PERMISSION);
+
             try (Cursor cursor = contentResolver.query(mUri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     // If the file was a media file, return its title.
@@ -554,10 +577,6 @@ public class RingtonePickerActivity extends BaseActivity
 
         @Override
         protected void onPostExecute(String title) {
-            // Take the long-term permission to read (playback) the audio at the uri.
-            final ContentResolver cr = getContentResolver();
-            cr.takePersistableUriPermission(mUri, FLAG_GRANT_READ_URI_PERMISSION);
-
             // Add the new custom ringtone to the data model.
             DataModel.getDataModel().addCustomRingtone(mUri, title);
 

@@ -62,6 +62,9 @@
     <!-- Label for "Device sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
     <string name="device_sounds">Device sounds</string>
 
+    <!-- Text that explains that the ringtone is inaccessible to the app [CHAR LIMIT=NONE] -->
+    <string name="custom_ringtone_lost_permissions">The sound content cannot be accessed.</string>
+
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
 

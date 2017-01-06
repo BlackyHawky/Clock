@@ -27,17 +27,24 @@ import static android.support.v7.widget.RecyclerView.NO_ID;
 abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 
     private final String mName;
+    private final boolean mHasPermissions;
     private boolean mSelected;
     private boolean mPlaying;
 
     RingtoneHolder(Uri uri, String name) {
+        this(uri, name, true);
+    }
+
+    RingtoneHolder(Uri uri, String name, boolean hasPermissions) {
         super(uri, NO_ID);
         mName = name;
+        mHasPermissions = hasPermissions;
     }
 
     long getId() { return itemId; }
-
+    boolean hasPermissions() { return mHasPermissions; }
     Uri getUri() { return item; }
+
     boolean isSilent() { return Utils.RINGTONE_SILENT.equals(getUri()); }
 
     boolean isSelected() { return mSelected; }

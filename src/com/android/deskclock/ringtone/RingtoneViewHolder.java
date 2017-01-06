@@ -16,6 +16,7 @@
 
 package com.android.deskclock.ringtone;
 
+import android.graphics.PorterDuff;
 import android.support.v4.content.ContextCompat;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
 
 import static android.view.View.GONE;
@@ -42,6 +44,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     static final int VIEW_TYPE_CUSTOM_SOUND = -R.layout.ringtone_item_sound;
     static final int CLICK_NORMAL = 0;
     static final int CLICK_LONG_PRESS = -1;
+    static final int CLICK_NO_PERMISSIONS = -2;
 
     private final View mSelectedView;
     private final TextView mNameView;
@@ -59,13 +62,21 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
         mNameView.setText(itemHolder.getName());
-        mNameView.setAlpha(itemHolder.isSelected() ? 1f : .63f);
-
-        mImageView.setAlpha(itemHolder.isSelected() ? 1f : .63f);
+        final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
+        mNameView.setAlpha(opaque ? 1f : .63f);
+        mImageView.setAlpha(opaque ? 1f : .63f);
+        mImageView.clearColorFilter();
 
         final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
-            mImageView.setImageResource(R.drawable.placeholder_album_artwork);
+            if (!itemHolder.hasPermissions()) {
+                mImageView.setImageResource(R.drawable.ic_ringtone_not_found);
+                final int colorAccent = ThemeUtils.resolveColor(itemView.getContext(),
+                        R.attr.colorAccent);
+                mImageView.setColorFilter(colorAccent, PorterDuff.Mode.SRC_ATOP);
+            } else {
+                mImageView.setImageResource(R.drawable.placeholder_album_artwork);
+            }
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
             mImageView.setImageResource(R.drawable.ic_ringtone_silent);
         } else if (itemHolder.isPlaying()) {
@@ -87,7 +98,11 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
     @Override
     public void onClick(View view) {
-        notifyItemClicked(RingtoneViewHolder.CLICK_NORMAL);
+        if (getItemHolder().hasPermissions()) {
+            notifyItemClicked(RingtoneViewHolder.CLICK_NORMAL);
+        } else {
+            notifyItemClicked(RingtoneViewHolder.CLICK_NO_PERMISSIONS);
+        }
     }
 
     @Override

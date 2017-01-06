@@ -855,6 +855,14 @@ public final class DataModel {
     }
 
     /**
+     * Recheck the permission to read each custom ringtone.
+     */
+    public void loadRingtonePermissions() {
+        enforceNotMainLooper();
+        mRingtoneModel.loadRingtonePermissions();
+    }
+
+    /**
      * @param uri the uri of a ringtone
      * @return the title of the ringtone with the {@code uri}; {@code null} if it cannot be fetched
      */

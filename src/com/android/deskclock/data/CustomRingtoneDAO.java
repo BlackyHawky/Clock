@@ -62,7 +62,7 @@ final class CustomRingtoneDAO {
                 .putStringSet(RINGTONE_IDS, ids)
                 .apply();
 
-        return new CustomRingtone(id, uri, title);
+        return new CustomRingtone(id, uri, title, true);
     }
 
     /**
@@ -95,7 +95,7 @@ final class CustomRingtoneDAO {
             final long idLong = Long.parseLong(id);
             final Uri uri = Uri.parse(prefs.getString(RINGTONE_URI + id, null));
             final String title = prefs.getString(RINGTONE_TITLE + id, null);
-            ringtones.add(new CustomRingtone(idLong, uri, title));
+            ringtones.add(new CustomRingtone(idLong, uri, title, true));
         }
 
         return ringtones;

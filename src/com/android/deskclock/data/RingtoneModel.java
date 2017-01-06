@@ -16,12 +16,14 @@
 
 package com.android.deskclock.data;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.UriPermission;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.Ringtone;
@@ -30,6 +32,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.ArrayMap;
+import android.util.ArraySet;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
@@ -37,7 +40,9 @@ import com.android.deskclock.provider.Alarm;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
@@ -111,6 +116,26 @@ final class RingtoneModel {
 
     List<CustomRingtone> getCustomRingtones() {
         return Collections.unmodifiableList(getMutableCustomRingtones());
+    }
+
+    @SuppressLint("NewApi")
+    void loadRingtonePermissions() {
+        final List<CustomRingtone> ringtones = getMutableCustomRingtones();
+        if (ringtones.isEmpty()) {
+            return;
+        }
+
+        final List<UriPermission> uriPermissions =
+                mContext.getContentResolver().getPersistedUriPermissions();
+        final Set<Uri> permissions = new ArraySet<>(uriPermissions.size());
+        for (UriPermission uriPermission : uriPermissions) {
+            permissions.add(uriPermission.getUri());
+        }
+
+        for (ListIterator<CustomRingtone> i = ringtones.listIterator(); i.hasNext();) {
+            final CustomRingtone ringtone = i.next();
+            i.set(ringtone.setHasPermissions(permissions.contains(ringtone.getUri())));
+        }
     }
 
     void loadRingtoneTitles() {

@@ -21,7 +21,7 @@ import com.android.deskclock.data.CustomRingtone;
 class CustomRingtoneHolder extends RingtoneHolder {
 
     CustomRingtoneHolder(CustomRingtone ringtone) {
-        super(ringtone.getUri(), ringtone.getTitle());
+        super(ringtone.getUri(), ringtone.getTitle(), ringtone.hasPermissions());
     }
 
     @Override

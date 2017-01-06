@@ -33,15 +33,28 @@ public final class CustomRingtone implements Comparable<CustomRingtone> {
     /** The title describing the file at the given uri; typically the file name. */
     private final String mTitle;
 
-    CustomRingtone(long id, Uri uri, String title) {
+    /** {@code true} iff the application has permission to read the content of {@code mUri uri}. */
+    private final boolean mHasPermissions;
+
+    CustomRingtone(long id, Uri uri, String title, boolean hasPermissions) {
         mId = id;
         mUri = uri;
         mTitle = title;
+        mHasPermissions = hasPermissions;
     }
 
     public long getId() { return mId; }
     public Uri getUri() { return mUri; }
     public String getTitle() { return mTitle; }
+    public boolean hasPermissions() { return mHasPermissions; }
+
+    CustomRingtone setHasPermissions(boolean hasPermissions) {
+        if (mHasPermissions == hasPermissions) {
+            return this;
+        }
+
+        return new CustomRingtone(mId, mUri, mTitle, hasPermissions);
+    }
 
     @Override
     public int compareTo(@NonNull CustomRingtone other) {
