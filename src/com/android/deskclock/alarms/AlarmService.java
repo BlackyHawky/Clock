@@ -62,11 +62,14 @@ public class AlarmService extends Service {
     /** Private action used to stop an alarm with this service. */
     public static final String STOP_ALARM_ACTION = "STOP_ALARM";
 
-    /** Binder given to AlarmActivity */
+    /** Binder given to AlarmActivity. */
     private final IBinder mBinder = new Binder();
 
     /** Whether the service is currently bound to AlarmActivity */
     private boolean mIsBound = false;
+
+    /** Listener for changes in phone state. */
+    private final PhoneStateChangeListener mPhoneStateListener = new PhoneStateChangeListener();
 
     /** Whether the receiver is currently registered */
     private boolean mIsRegistered = false;
@@ -99,22 +102,7 @@ public class AlarmService extends Service {
     }
 
     private TelephonyManager mTelephonyManager;
-    private int mInitialCallState;
     private AlarmInstance mCurrentAlarm = null;
-
-    private PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
-        @Override
-        public void onCallStateChanged(int state, String ignored) {
-            // The user might already be in a call when the alarm fires. When
-            // we register onCallStateChanged, we get the initial in-call state
-            // which kills the alarm. Check against the initial call state so
-            // we don't kill the alarm during a call.
-            if (state != TelephonyManager.CALL_STATE_IDLE && state != mInitialCallState) {
-                startService(AlarmStateManager.createStateChangeIntent(AlarmService.this,
-                        "AlarmService", mCurrentAlarm, AlarmInstance.MISSED_STATE));
-            }
-        }
-    };
 
     private void startAlarm(AlarmInstance instance) {
         LogUtils.v("AlarmService.start with instance: " + instance.mId);
@@ -127,8 +115,7 @@ public class AlarmService extends Service {
 
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
-        mInitialCallState = mTelephonyManager.getCallState();
-        mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        mTelephonyManager.listen(mPhoneStateListener.init(), PhoneStateListener.LISTEN_CALL_STATE);
         AlarmKlaxon.start(this, mCurrentAlarm);
         sendBroadcast(new Intent(ALARM_ALERT_ACTION));
     }
@@ -253,6 +240,28 @@ public class AlarmService extends Service {
         if (mIsRegistered) {
             unregisterReceiver(mActionsReceiver);
             mIsRegistered = false;
+        }
+    }
+
+    private final class PhoneStateChangeListener extends PhoneStateListener {
+
+        private int mPhoneCallState;
+
+        PhoneStateChangeListener init() {
+            mPhoneCallState = -1;
+            return this;
+        }
+
+        @Override
+        public void onCallStateChanged(int state, String ignored) {
+            if (mPhoneCallState == -1) {
+                mPhoneCallState = state;
+            }
+
+            if (state != TelephonyManager.CALL_STATE_IDLE && state != mPhoneCallState) {
+                startService(AlarmStateManager.createStateChangeIntent(AlarmService.this,
+                        "AlarmService", mCurrentAlarm, AlarmInstance.MISSED_STATE));
+            }
         }
     }
 }
