@@ -106,7 +106,7 @@
     <string name="settings" msgid="5849739030579520686">"Configuración"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de alarma"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Subir el volumen de forma gradual"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
@@ -265,7 +265,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj local automático"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Agrega un reloj con la hora de tu ubicación mientras recorres áreas en las que la hora es diferente."</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Agrega un reloj con la hora de tu ciudad mientras recorres áreas en las que la hora es diferente."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
     <string name="city_checked" msgid="616847871968019">"Se marcó <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
