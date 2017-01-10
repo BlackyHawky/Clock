@@ -56,11 +56,11 @@
     <!-- Text that explains what happens to alarms and timers after removing the custom ringtone sound they use [CHAR LIMIT=NONE] -->
     <string name="confirm_remove_custom_ringtone">Alarms and timers using this sound will play the default sound instead.</string>
 
-    <!-- Label for Music section on ringtone selection screen [CHAR LIMIT=30] -->
-    <string name="music">Music</string>
+    <!-- Label for "Your sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
+    <string name="your_sounds">Your sounds</string>
 
-    <!-- Label for Ringtones section on ringtone selection screen [CHAR LIMIT=30] -->
-    <string name="ringtones">Ringtones</string>
+    <!-- Label for "Device sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
+    <string name="device_sounds">Device sounds</string>
 
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
