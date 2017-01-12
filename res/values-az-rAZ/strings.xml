@@ -29,8 +29,8 @@
     <string name="add_new_sound" msgid="2546936797351540244">"Yenisini əlavə edin"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Silin"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Bu səsi istifadə edən zəngli saat və taymerlər əvəzinə defolt səsi istifadə edəcək."</string>
-    <string name="music" msgid="3299572469993696378">"Musiqi"</string>
-    <string name="ringtones" msgid="2548286573030531045">"Zəng səsləri"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Sizin səslər"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Cihazın səsləri"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Taymerin Vaxtı Bitdi"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Sabah"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Bu gün"</string>

@@ -29,8 +29,8 @@
     <string name="add_new_sound" msgid="2546936797351540244">"ਨਵੀਂ ਰਿੰਗਟੋਨ ਧੁਨੀ ਸ਼ਾਮਲ ਕਰੋ"</string>
     <string name="remove_sound" msgid="2064643204455734239">"ਹਟਾਓ"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ਇਸ ਧੁਨੀ ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੇ ਅਲਾਰਮ ਅਤੇ ਟਾਇਮਰ ਇਸ ਦੀ ਬਜਾਏ ਪੂਰਵ-ਨਿਰਧਾਰਤ ਧੁਨੀ ਵਜਾਉਣਗੇ।"</string>
-    <string name="music" msgid="3299572469993696378">"ਸੰਗੀਤ"</string>
-    <string name="ringtones" msgid="2548286573030531045">"ਰਿੰਗਟੋਨਾਂ"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"ਤੁਹਾਡੀਆਂ ਧੁਨੀਆਂ"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"ਡੀਵਾਈਸ ਧੁਨੀਆਂ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ਟਾਈਮਰ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋਈ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ਕੱਲ੍ਹ ਨੂੰ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ਅੱਜ"</string>

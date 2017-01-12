@@ -29,8 +29,8 @@
     <string name="add_new_sound" msgid="2546936797351540244">"Thêm âm thanh mới"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Xóa"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Cảnh báo và bộ hẹn giờ sử dụng âm thanh này sẽ phát âm thanh mặc định để thay thế."</string>
-    <string name="music" msgid="3299572469993696378">"Âm nhạc"</string>
-    <string name="ringtones" msgid="2548286573030531045">"Nhạc chuông"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Âm thanh của bạn"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Âm thanh thiết bị"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Bộ hẹn giờ đã hết hạn"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ngày mai"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hôm nay"</string>

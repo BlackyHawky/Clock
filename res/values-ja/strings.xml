@@ -29,8 +29,10 @@
     <string name="add_new_sound" msgid="2546936797351540244">"新しく追加"</string>
     <string name="remove_sound" msgid="2064643204455734239">"削除"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"この音を使用するアラームとタイマーでは、代わりにデフォルトの音が使用されます。"</string>
-    <string name="music" msgid="3299572469993696378">"音楽"</string>
-    <string name="ringtones" msgid="2548286573030531045">"着信音"</string>
+    <!-- no translation found for your_sounds (1672779351352629681) -->
+    <skip />
+    <!-- no translation found for device_sounds (1584894148222639823) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今日"</string>

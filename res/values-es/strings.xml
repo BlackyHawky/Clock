@@ -29,8 +29,8 @@
     <string name="add_new_sound" msgid="2546936797351540244">"Añadir nuevo"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Quitar"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Las alarmas y los temporizadores que usen este sonido reproducirán en su lugar la melodía predeterminada."</string>
-    <string name="music" msgid="3299572469993696378">"Música"</string>
-    <string name="ringtones" msgid="2548286573030531045">"Tonos de llamada"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Tus sonidos"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Sonidos del dispositivo"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
