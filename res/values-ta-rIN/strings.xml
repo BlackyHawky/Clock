@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"இந்த ஒலியைப் பயன்படுத்தும் அலாரங்களும் டைமர்களும், அதற்குப் பதிலாக இயல்பு ஒலியை இயக்கும்."</string>
     <string name="your_sounds" msgid="1672779351352629681">"உங்கள் ஒலிகள்"</string>
     <string name="device_sounds" msgid="1584894148222639823">"சாதன ஒலிகள்"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ஒலி உள்ளடக்கத்தை அணுக முடியவில்லை."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"டைமர் காலாவதியானது"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"நாளை"</string>
     <string name="alarm_today" msgid="7873594221106531654">"இன்று"</string>

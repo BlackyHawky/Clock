@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ਇਸ ਧੁਨੀ ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੇ ਅਲਾਰਮ ਅਤੇ ਟਾਇਮਰ ਇਸ ਦੀ ਬਜਾਏ ਪੂਰਵ-ਨਿਰਧਾਰਤ ਧੁਨੀ ਵਜਾਉਣਗੇ।"</string>
     <string name="your_sounds" msgid="1672779351352629681">"ਤੁਹਾਡੀਆਂ ਧੁਨੀਆਂ"</string>
     <string name="device_sounds" msgid="1584894148222639823">"ਡੀਵਾਈਸ ਧੁਨੀਆਂ"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ਧੁਨੀ ਸਮੱਗਰੀ \'ਤੇ ਪਹੁੰਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ।"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ਟਾਈਮਰ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋਈ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ਕੱਲ੍ਹ ਨੂੰ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ਅੱਜ"</string>

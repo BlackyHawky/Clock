@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"हा ध्वनी वापरणारे अलार्म आणि टायमर त्याऐवजी डीफॉल्ट ध्वनी प्ले करतील."</string>
     <string name="your_sounds" msgid="1672779351352629681">"आपले ध्वनी"</string>
     <string name="device_sounds" msgid="1584894148222639823">"डिव्हाइसचे ध्वनी"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ध्वनी सामग्रीत प्रवेश केला जाऊ शकत नाही."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"टायमर कालबाह्य झाला"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"उद्या"</string>
     <string name="alarm_today" msgid="7873594221106531654">"आज"</string>

@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ይህን ድምጽ የሚጠቀሙ ማንቂያዎች እና ሰዓት ቆጣሪዎች በምትኩ ነባሪውን ድምጽ ያጫውታሉ።"</string>
     <string name="your_sounds" msgid="1672779351352629681">"የእርስዎ ድምጾች"</string>
     <string name="device_sounds" msgid="1584894148222639823">"የመሣሪያ ድምጾች"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"የድምጽ ይዘቱ ሊደረስበት አልቻለም።"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ሰዓት ቆጣሪው ጊዜው አልፏል"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ነገ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ዛሬ"</string>

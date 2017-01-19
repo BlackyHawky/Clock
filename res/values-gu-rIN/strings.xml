@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"આ ધ્વનિનો ઉપયોગ કરી રહેલ એલાર્મ્સ અને ટાઇમર્સ તેના બદલે ડિફૉલ્ટ ધ્વનિ ચલાવશે."</string>
     <string name="your_sounds" msgid="1672779351352629681">"તમારી ધ્વનિઓ"</string>
     <string name="device_sounds" msgid="1584894148222639823">"ઉપકરણ ધ્વનિઓ"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ધ્વનિ સામગ્રી ઍક્સેસ કરી શકાતી નથી."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ટાઇમરની સમય સીમા સમાપ્ત થઈ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"આવતીકાલે"</string>
     <string name="alarm_today" msgid="7873594221106531654">"આજે"</string>

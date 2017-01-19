@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Будильники й таймери, у яких використовується цей сигнал, відтворюватимуть сигнал за умовчанням."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Ваші звуки"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Звуки на пристрої"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Немає доступу до звуків."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Час таймера вичерпано"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Завтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сьогодні"</string>

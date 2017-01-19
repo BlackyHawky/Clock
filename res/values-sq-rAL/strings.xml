@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarmet dhe kohëmatësit që përdorin këtë tingull do të luajnë tingullin e parazgjedhur në vend të tij."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Tingujt e tu"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Tingujt e pajisjes"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Përmbajtja e tingullit nuk mund të hapet:"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Kohëmatësi skadoi"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Nesër"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>

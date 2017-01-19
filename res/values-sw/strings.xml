@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Kengele na vipima muda vinavyotumia sauti hii vitacheza sauti chaguo msingi badala yake."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Sauti zako"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sauti za vifaa"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Maudhui ya sauti hayawezi kufikiwa."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Muda wa kulia umepita"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Kesho"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Leo"</string>

@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ಈ ಧ್ವನಿಯನ್ನು ಬಳಸಿಕೊಂಡು ಅಲಾರಮ್‌ಗಳು ಮತ್ತು ಟೈಮರ್‌ಗಳು ಡಿಫಾಲ್ಟ್ ಧ್ವನಿಯ ಬದಲಿಗೆ ಪ್ಲೇ ಮಾಡುತ್ತದೆ."</string>
     <string name="your_sounds" msgid="1672779351352629681">"ನಿಮ್ಮ ಧ್ವನಿಗಳು"</string>
     <string name="device_sounds" msgid="1584894148222639823">"ಸಾಧನ ಧ್ವನಿಗಳು"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ಧ್ವನಿ ವಿಷಯವನ್ನು ಪ್ರವೇಶಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ಟೈಮರ್ ಅವಧಿ ಮೀರಿದೆ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ನಾಳೆ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ಇಂದು"</string>

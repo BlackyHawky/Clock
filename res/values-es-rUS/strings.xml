@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"En lugar de usar este sonido, las alarmas y los temporizadores reproducirán el sonido predeterminado."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Tus sonidos"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sonidos del dispositivo"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"No se puede acceder al contenido de sonido."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>

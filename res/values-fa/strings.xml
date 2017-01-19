@@ -29,10 +29,9 @@
     <string name="add_new_sound" msgid="2546936797351540244">"افزودن مورد جدید"</string>
     <string name="remove_sound" msgid="2064643204455734239">"حذف"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"هشدارها و تایمرهایی که از این صدا استفاده می‌کنند از این به بعد با صدای پیش‌فرض پخش می‌شوند."</string>
-    <!-- no translation found for your_sounds (1672779351352629681) -->
-    <skip />
-    <!-- no translation found for device_sounds (1584894148222639823) -->
-    <skip />
+    <string name="your_sounds" msgid="1672779351352629681">"صداهای شما"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"صداهای دستگاه"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"محتوای صوتی قابل دسترسی نیست."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"تایمر به پایان رسید"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"فردا"</string>
     <string name="alarm_today" msgid="7873594221106531654">"امروز"</string>

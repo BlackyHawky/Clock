@@ -29,10 +29,9 @@
     <string name="add_new_sound" msgid="2546936797351540244">"新增"</string>
     <string name="remove_sound" msgid="2064643204455734239">"移除"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"使用此提示音的闹钟和计时器将改为播放默认提示音。"</string>
-    <!-- no translation found for your_sounds (1672779351352629681) -->
-    <skip />
-    <!-- no translation found for device_sounds (1584894148222639823) -->
-    <skip />
+    <string name="your_sounds" msgid="1672779351352629681">"您的提示音"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"设备提示音"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"无法访问提示音内容。"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"计时结束"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今天"</string>

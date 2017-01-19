@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"অ্যালার্ম এবং টাইমারগুলি বাজানোর জন্য ডিফল্ট ধ্বনির পরিবর্তে এই ধ্বনিটি বাজাবে৷"</string>
     <string name="your_sounds" msgid="1672779351352629681">"আপনার শব্দ"</string>
     <string name="device_sounds" msgid="1584894148222639823">"ডিভাইসের শব্দ"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"শব্দের সামগ্রী অ্যাক্সেস করা যাবে না।"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"টাইমারের মেয়াদ শেষ হয়ে গেছে"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"আগামীকাল"</string>
     <string name="alarm_today" msgid="7873594221106531654">"আজ"</string>

@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Алармите и тајмерите што го користат звуков, наместо тоа, ќе се пуштаат со стандардниот звук."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Ваши звуци"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Звуци од уредот"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Не може да се пристапи до мелодијата."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Тајмерот истече"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Утре"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Денес"</string>

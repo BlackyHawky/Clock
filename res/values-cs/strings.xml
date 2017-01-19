@@ -29,10 +29,9 @@
     <string name="add_new_sound" msgid="2546936797351540244">"Přidat nový"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Odstranit"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Budíky a časovače, které používají tento zvuk, budou místo něj přehrávat výchozí zvuk."</string>
-    <!-- no translation found for your_sounds (1672779351352629681) -->
-    <skip />
-    <!-- no translation found for device_sounds (1584894148222639823) -->
-    <skip />
+    <string name="your_sounds" msgid="1672779351352629681">"Vybrané zvuky"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Zvuky zařízení"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Zvukový obsah nelze otevřít."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Časovač vypršel"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Zítra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Dnes"</string>

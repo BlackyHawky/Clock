@@ -31,6 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Wekkers en aftellers wat hierdie klank gebruik, sal in plaas daarvan die verstekklank speel."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Jou klanke"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Toestelklanke"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Daar kan nie by die klankinhoud ingegaan word nie."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Afteller het verstryk"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Môre"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Vandag"</string>
