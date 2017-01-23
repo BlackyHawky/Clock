@@ -80,7 +80,7 @@ final class AlarmNotifications {
      * This value is coordinated with notification ids from
      * {@link com.android.deskclock.data.NotificationModel}
      */
-    private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 6;
+    private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 7;
 
     static synchronized void showLowPriorityNotification(Context context,
             AlarmInstance instance) {

@@ -43,6 +43,7 @@ final class NotificationModel {
     // Used elsewhere:
     // Integer.MAX_VALUE - 4
     // Integer.MAX_VALUE - 5
+    // Integer.MAX_VALUE - 7
     //
 
     /**
