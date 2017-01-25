@@ -46,6 +46,7 @@ public final class AlarmTimeClickHandler {
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
 
     private final Fragment mFragment;
+    private final Context mContext;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private final ScrollHandler mScrollHandler;
 
@@ -55,6 +56,7 @@ public final class AlarmTimeClickHandler {
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
             AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
         mFragment = fragment;
+        mContext = mFragment.getActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
         mScrollHandler = smoothScrollController;
         if (savedState != null) {
@@ -92,8 +94,7 @@ public final class AlarmTimeClickHandler {
 
             if (newState) {
                 // Buzz the vibrator to preview the alarm firing behavior.
-                final Context context = mFragment.getActivity();
-                final Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                final Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
                 if (v.hasVibrator()) {
                     v.vibrate(300);
                 }
@@ -161,11 +162,10 @@ public final class AlarmTimeClickHandler {
     }
 
     public void dismissAlarmInstance(AlarmInstance alarmInstance) {
-        final Context context = mFragment.getActivity().getApplicationContext();
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
-                context, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance,
+                mContext, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance,
                 AlarmInstance.PREDISMISSED_STATE);
-        context.startService(dismissIntent);
+        mContext.startService(dismissIntent);
         mAlarmUpdateHandler.showPredismissToast(alarmInstance);
     }
 
@@ -173,10 +173,9 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-        final Context context = mFragment.getActivity();
         final Intent intent =
-                RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
-        context.startActivity(intent);
+                RingtonePickerActivity.createAlarmRingtonePickerIntent(mContext, alarm);
+        mContext.startActivity(intent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
