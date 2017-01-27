@@ -61,7 +61,14 @@ final class StopwatchDAO {
         final long lastStartTime = prefs.getLong(LAST_START_TIME, Stopwatch.UNUSED);
         final long lastWallClockTime = prefs.getLong(LAST_WALL_CLOCK_TIME, Stopwatch.UNUSED);
         final long accumulatedTime = prefs.getLong(ACCUMULATED_TIME, 0);
-        return new Stopwatch(state, lastStartTime, lastWallClockTime, accumulatedTime);
+        Stopwatch s = new Stopwatch(state, lastStartTime, lastWallClockTime, accumulatedTime);
+
+        // If the stopwatch reports an illegal (negative) amount of time, remove the bad data.
+        if (s.getTotalTime() < 0) {
+            s = s.reset();
+            setStopwatch(prefs, s);
+        }
+        return s;
     }
 
     /**

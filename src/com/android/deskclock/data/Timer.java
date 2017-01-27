@@ -139,14 +139,18 @@ public final class Timer {
 
     /**
      * @return the total amount of time remaining up to this moment; expired and missed timers will
-     * return a negative amount
+     *      return a negative amount
      */
     public long getRemainingTime() {
-        if (mState == RUNNING || mState == EXPIRED || mState == MISSED) {
-            return mRemainingTime - (now() - mLastStartTime);
+        if (mState == PAUSED || mState == RESET) {
+            return mRemainingTime;
         }
 
-        return mRemainingTime;
+        // In practice, "now" can be any value due to device reboots. When the real-time clock
+        // is reset, there is no more guarantee that "now" falls after the last start time. To
+        // ensure the timer is monotonically decreasing, normalize negative time segments to 0,
+        final long timeSinceStart = now() - mLastStartTime;
+        return mRemainingTime - Math.max(0, timeSinceStart);
     }
 
     /**
