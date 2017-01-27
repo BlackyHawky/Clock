@@ -17,13 +17,13 @@
 package com.android.deskclock.widget;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 /**
  * A TextView which automatically re-sizes its text to fit within its boundaries.
  */
-public class AutoSizingTextView extends TextView {
+public class AutoSizingTextView extends AppCompatTextView {
 
     private final TextSizeHelper mTextSizeHelper;
 

@@ -18,8 +18,6 @@ package com.android.deskclock.timer;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.SystemClock;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
@@ -81,7 +79,7 @@ public class TimerItem extends LinearLayout {
         final int colorAccent = ThemeUtils.resolveColor(c, R.attr.colorAccent);
         final int textColorPrimary = ThemeUtils.resolveColor(c, android.R.attr.textColorPrimary);
         mTimerText.setTextColor(new ColorStateList(
-                new int[][] { { ~state_activated, ~state_pressed }, {} },
+                new int[][] { { -state_activated, -state_pressed }, {} },
                 new int[] { textColorPrimary, colorAccent }));
     }
 
