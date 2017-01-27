@@ -632,8 +632,8 @@ public class DeskClock extends BaseActivity
             final Snackbar snackbar = createSnackbar(mSilentSetting.getLabelResId());
 
             // Set the associated corrective action if one exists.
-            final int actionResId = mSilentSetting.getActionResId();
-            if (actionResId != 0) {
+            if (mSilentSetting.isActionEnabled(DeskClock.this)) {
+                final int actionResId = mSilentSetting.getActionResId();
                 snackbar.setAction(actionResId, mSilentSetting.getActionListener());
             }
 

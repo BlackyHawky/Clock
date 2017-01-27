@@ -27,6 +27,7 @@ import android.os.Looper;
 import android.support.annotation.StringRes;
 import android.view.View;
 
+import com.android.deskclock.Predicate;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerService;
@@ -61,30 +62,39 @@ public final class DataModel {
 
     /** Indicates the reason alarms may not fire or may fire silently. */
     public enum SilentSetting {
-        DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, null),
+        DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, Predicate.FALSE, null),
         MUTED_VOLUME(R.string.alarm_volume_muted,
                 R.string.unmute_alarm_volume,
+                Predicate.TRUE,
                 new UnmuteAlarmVolumeListener()),
         SILENT_RINGTONE(R.string.silent_default_alarm_ringtone,
                 R.string.change_setting_action,
+                new ChangeSoundActionPredicate(),
                 new ChangeSoundSettingsListener()),
         BLOCKED_NOTIFICATIONS(R.string.app_notifications_blocked,
                 R.string.change_setting_action,
+                Predicate.TRUE,
                 new ChangeAppNotificationSettingsListener());
 
         private final @StringRes int mLabelResId;
         private final @StringRes int mActionResId;
+        private final Predicate<Context> mActionEnabled;
         private final View.OnClickListener mActionListener;
 
-        SilentSetting(int labelResId, int actionResId, View.OnClickListener actionListener) {
+        SilentSetting(int labelResId, int actionResId, Predicate<Context> actionEnabled,
+                View.OnClickListener actionListener) {
             mLabelResId = labelResId;
             mActionResId = actionResId;
+            mActionEnabled = actionEnabled;
             mActionListener = actionListener;
         }
 
         public @StringRes int getLabelResId() { return mLabelResId; }
         public @StringRes int getActionResId() { return mActionResId; }
         public View.OnClickListener getActionListener() { return mActionListener; }
+        public boolean isActionEnabled(Context context) {
+            return mLabelResId != 0 && mActionEnabled.apply(context);
+        }
 
         private static class UnmuteAlarmVolumeListener implements View.OnClickListener {
             @Override
@@ -104,6 +114,14 @@ public final class DataModel {
                 final Context context = v.getContext();
                 context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
                         .addFlags(FLAG_ACTIVITY_NEW_TASK));
+            }
+        }
+
+        private static class ChangeSoundActionPredicate implements Predicate<Context> {
+            @Override
+            public boolean apply(Context context) {
+                final Intent intent = new Intent(ACTION_SOUND_SETTINGS);
+                return intent.resolveActivity(context.getPackageManager()) != null;
             }
         }
 
