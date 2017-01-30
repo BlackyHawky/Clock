@@ -664,6 +664,8 @@ public final class TimerFragment extends DeskClockFragment {
                         super.onAnimationEnd(animation);
                         mTimersView.setTranslationY(0f);
                         mCreateTimerView.setTranslationY(0f);
+                        mTimersView.setAlpha(1f);
+                        mCreateTimerView.setAlpha(1f);
                     }
                 });
                 animatorSet.start();
