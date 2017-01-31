@@ -62,7 +62,9 @@ public final class DataModel {
 
     /** Indicates the reason alarms may not fire or may fire silently. */
     public enum SilentSetting {
+        @SuppressWarnings("unchecked")
         DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, Predicate.FALSE, null),
+        @SuppressWarnings("unchecked")
         MUTED_VOLUME(R.string.alarm_volume_muted,
                 R.string.unmute_alarm_volume,
                 Predicate.TRUE,
@@ -71,6 +73,7 @@ public final class DataModel {
                 R.string.change_setting_action,
                 new ChangeSoundActionPredicate(),
                 new ChangeSoundSettingsListener()),
+        @SuppressWarnings("unchecked")
         BLOCKED_NOTIFICATIONS(R.string.app_notifications_blocked,
                 R.string.change_setting_action,
                 Predicate.TRUE,
