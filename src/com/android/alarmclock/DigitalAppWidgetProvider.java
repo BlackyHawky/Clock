@@ -156,7 +156,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final DataModel dm = DataModel.getDataModel();
         dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
 
-        updateDayChangeCallback(context);
+        if (widgetIds.length > 0) {
+            updateDayChangeCallback(context);
+        }
     }
 
     /**

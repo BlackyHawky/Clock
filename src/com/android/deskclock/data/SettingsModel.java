@@ -48,9 +48,6 @@ final class SettingsModel {
         mPrefs = prefs;
         mTimeModel = timeModel;
 
-        // Attempt to set the user's default home timezone.
-        SettingsDAO.setDefaultHomeTimeZone(context, prefs, TimeZone.getDefault());
-
         // Set the user's default display seconds preference if one has not yet been chosen.
         SettingsDAO.setDefaultDisplayClockSeconds(mContext, prefs);
     }
@@ -72,7 +69,7 @@ final class SettingsModel {
     }
 
     TimeZone getHomeTimeZone() {
-        return SettingsDAO.getHomeTimeZone(mPrefs);
+        return SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
     }
 
     ClockStyle getClockStyle() {
@@ -102,9 +99,10 @@ final class SettingsModel {
 
         // Show the home clock if the current time and home time differ.
         // (By using UTC offset for this comparison the various DST rules are considered)
-        final TimeZone homeTimeZone = SettingsDAO.getHomeTimeZone(mPrefs);
+        final TimeZone defaultTZ = TimeZone.getDefault();
+        final TimeZone homeTimeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, defaultTZ);
         final long now = System.currentTimeMillis();
-        return homeTimeZone.getOffset(now) != TimeZone.getDefault().getOffset(now);
+        return homeTimeZone.getOffset(now) != defaultTZ.getOffset(now);
     }
 
     Uri getDefaultTimerRingtoneUri() {

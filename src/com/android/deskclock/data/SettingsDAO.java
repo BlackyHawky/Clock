@@ -111,32 +111,22 @@ final class SettingsDAO {
     /**
      * @return the user's home timezone
      */
-    static TimeZone getHomeTimeZone(SharedPreferences prefs) {
-        final String defaultTimeZoneId = TimeZone.getDefault().getID();
-        final String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, defaultTimeZoneId);
+    static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
+        String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
+
+        // If no home timezone has yet been recorded, do so now.
+        if (timeZoneId == null) {
+            timeZoneId = defaultTZ.getID();
+
+            // If the default timezone from framework is acceptable, save it.
+            if (getTimeZones(context, System.currentTimeMillis()).contains(timeZoneId)) {
+                prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
+            }
+        }
+
+        // The timezone returned here may be a valid value from prior calls or a temporary value
+        // created using the given default timezone.
         return TimeZone.getTimeZone(timeZoneId);
-    }
-
-    /**
-     * Sets the user's home timezone to the current system timezone if no home timezone is yet set
-     * and the given timezone exists in {@link #getTimeZones the approved list}.
-     *
-     * @param tz the timezone to set as the user's home timezone if necessary
-     */
-    static void setDefaultHomeTimeZone(Context context, SharedPreferences prefs, TimeZone tz) {
-        final String homeTimeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
-
-        // If a default home timezone has been established, bail.
-        if (homeTimeZoneId != null) {
-            return;
-        }
-
-        // If the given timezone isn't allowed, bail.
-        if (!getTimeZones(context, System.currentTimeMillis()).contains(tz.getID())) {
-            return;
-        }
-
-        prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, tz.getID()).apply();
     }
 
     /**
