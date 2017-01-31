@@ -169,13 +169,13 @@ public final class AlarmTimeClickHandler {
         mAlarmUpdateHandler.showPredismissToast(alarmInstance);
     }
 
-    public void onRingtoneClicked(Alarm alarm) {
+    public void onRingtoneClicked(Context context, Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
         final Intent intent =
-                RingtonePickerActivity.createAlarmRingtonePickerIntent(mContext, alarm);
-        mContext.startActivity(intent);
+                RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
+        context.startActivity(intent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {

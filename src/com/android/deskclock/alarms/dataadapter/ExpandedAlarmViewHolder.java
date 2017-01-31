@@ -152,7 +152,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getAlarmTimeClickHandler().onRingtoneClicked(getItemHolder().item);
+                getAlarmTimeClickHandler().onRingtoneClicked(context, getItemHolder().item);
             }
         });
         // Delete alarm handler
