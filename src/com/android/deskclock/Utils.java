@@ -25,7 +25,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -184,21 +183,6 @@ public class Utils {
     public static float calculateRadiusOffset(
             float strokeSize, float dotStrokeSize, float markerStrokeSize) {
         return Math.max(strokeSize, Math.max(dotStrokeSize, markerStrokeSize));
-    }
-
-    /**
-     * Uses {@link Utils#calculateRadiusOffset(float, float, float)} after fetching the values
-     * from the resources.
-     */
-    public static float calculateRadiusOffset(Resources resources) {
-        if (resources != null) {
-            float strokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
-            float dotStrokeSize = resources.getDimension(R.dimen.circletimer_dot_size);
-            float markerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
-            return calculateRadiusOffset(strokeSize, dotStrokeSize, markerStrokeSize);
-        } else {
-            return 0f;
-        }
     }
 
     /**
