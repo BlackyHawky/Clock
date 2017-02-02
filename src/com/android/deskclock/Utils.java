@@ -202,7 +202,28 @@ public class Utils {
     }
 
     /**
-     * For screensavers to set whether the digital or analog clock should be displayed.
+     * Configure the clock that is visible to display seconds. The clock that is not visible never
+     * displays seconds to avoid it scheduling unnecessary ticking runnables.
+     */
+    public static void setClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
+        final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                setTimeFormat(digitalClock, false);
+                analogClock.enableSeconds(displaySeconds);
+                return;
+            case DIGITAL:
+                analogClock.enableSeconds(false);
+                setTimeFormat(digitalClock, displaySeconds);
+                return;
+        }
+
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
+    }
+
+    /**
+     * Set whether the digital or analog clock should be displayed in the application.
      * Returns the view to be displayed.
      */
     public static View setClockStyle(View digitalClock, View analogClock) {

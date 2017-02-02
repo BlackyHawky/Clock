@@ -129,27 +129,15 @@ public final class ClockFragment extends DeskClockFragment {
             mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = (AnalogClock) mClockFrame.findViewById(R.id.analog_clock);
             Utils.setClockIconTypeface(mClockFrame);
-            Utils.refreshAlarm(context, mClockFrame);
-            boolean enableSeconds = DataModel.getDataModel().getDisplayClockSeconds();
-            Utils.setTimeFormat(mDigitalClock, enableSeconds);
-            mAnalogClock.enableSeconds(enableSeconds);
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
+            Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
         }
 
         // Schedule a runnable to update the date every quarter hour.
         UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
         return fragmentView;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (mDigitalClock != null) {
-            Utils.setTimeFormat(mDigitalClock, DataModel.getDataModel().getDisplayClockSeconds());
-        }
     }
 
     @Override
@@ -167,9 +155,10 @@ public final class ClockFragment extends DeskClockFragment {
             activity.registerReceiver(mAlarmChangeReceiver, filter);
         }
 
-        // Resume can be invoked after changing the clock style.
+        // Resume can be invoked after changing the clock style or seconds display.
         if (mDigitalClock != null && mAnalogClock != null) {
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
+            Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
         }
 
         final View view = getView();
@@ -547,13 +536,11 @@ public final class ClockFragment extends DeskClockFragment {
                     String dateFormatForAccessibility, boolean showHairline) {
                 Utils.refreshAlarm(context, itemView);
 
-                final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
-                Utils.setTimeFormat(mDigitalClock, displaySeconds);
-                mAnalogClock.enableSeconds(displaySeconds);
-
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
                 mHairline.setVisibility(showHairline ? VISIBLE : GONE);
+
+                Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
             }
         }
     }
