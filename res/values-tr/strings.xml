@@ -239,7 +239,7 @@
     <item msgid="8483930821046925592">"Dijital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Otomatik ev saati"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat diliminin farklı olduğu bir bölgede seyahat ederken  ülkeniz için bir saat ekleyin"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat diliminin farklı olduğu bir bölgede seyahat ederken yaşadığınız yerin saatini ekleyin"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Ev saat dilimi"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Ev saat dilimi"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"İptal"</string>

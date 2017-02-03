@@ -205,7 +205,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"මකන්න"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> මකන්න"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"මිනිත්තු 1 ක් එක් කරන්න"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"1 මිනි එකතු කරන්න"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"වි 1 එක් කරන්න"</string>
     <string name="timer_stop" msgid="3361154678667736722">"නතර කරන්න"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"සියලු ටයිමර නවත්වන්න"</string>
     <string name="timer_reset" msgid="7848424809190171640">"යළි පිහිටුවන්න"</string>

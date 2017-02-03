@@ -108,7 +108,7 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"Desactivado"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> segundos"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"segundos"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
@@ -239,7 +239,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj local automático"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Agrega un reloj con la hora de tu ubicación mientras recorres áreas en las que la hora es diferente."</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Agrega un reloj con la hora de tu ciudad mientras recorres áreas en las que la hora es diferente."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancelar"</string>

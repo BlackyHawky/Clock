@@ -356,7 +356,7 @@
     <string name="night_mode_title" msgid="5983813889469616299">"夜间模式"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"将屏幕亮度调至非常低（适合光线昏暗的环境）"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"折叠闹钟"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"收起闹钟"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"撤消"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"闹钟已删除"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>

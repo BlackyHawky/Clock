@@ -172,7 +172,7 @@
     <string name="ringtone_description" msgid="7580922112921069925">"Dzwonek"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informacje o pogodzie są w tej chwili niedostępne."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Usługa odtwarzania dźwięku alarmów ustawionych w zegarze"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"Wczytywanie dzwonka…"</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"Wczytuję dzwonek…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Usługa odtwarzania dźwięku minutników ustawionych w zegarze."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Ustaw alarm"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
@@ -260,7 +260,7 @@
     <item msgid="917900462224167608">"Analogowy"</item>
     <item msgid="8483930821046925592">"Cyfrowy"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Zegar dla mojej strefy czasowej"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Zegar dla domowej strefy czasowej"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Gdy jestem w innej strefie czasowej, pokazuj też czas w moim kraju"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domowa strefa czasowa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domowa strefa czasowa"</string>

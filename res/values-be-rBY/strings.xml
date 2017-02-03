@@ -102,7 +102,7 @@
     <string name="every_day" msgid="4100909974923444602">"Штодзень"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Выбраць гадзіннiк"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Гадзіннік са стрэлкамі"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Са стрэлкамі"</string>
     <string name="help" msgid="7786263119482654015">"даведка"</string>
     <string name="settings" msgid="5849739030579520686">"Налады"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Iнтэрвал паўтору"</string>
