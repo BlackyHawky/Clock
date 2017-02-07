@@ -114,7 +114,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Ceas digital"</string>
     <string name="settings" msgid="5849739030579520686">"Setări"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durata amânării"</string>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Măriți volumul treptat"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Mărește treptat volumul"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Dezactivează după"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minute</item>
@@ -268,7 +268,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Orașe"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Ceas"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afișare oră cu secunde"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afișează ora cu secunde"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Schimbați data și ora"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogic"</item>
