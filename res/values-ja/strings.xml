@@ -77,7 +77,7 @@
     <string name="day_concat" msgid="971998564991636532">"、 "</string>
     <string name="loading_widget" msgid="5306242862476796500">"読み込んでいます…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"アナログ時計"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"デジタルクロック"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"デジタル時計"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"スヌーズの長さ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

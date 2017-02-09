@@ -27,7 +27,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Apagar"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Descartar ahora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
