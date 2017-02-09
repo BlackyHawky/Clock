@@ -114,19 +114,21 @@ final class SettingsDAO {
     static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
         String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
 
-        // If no home timezone has yet been recorded, do so now.
-        if (timeZoneId == null) {
-            timeZoneId = defaultTZ.getID();
-
-            // If the default timezone from framework is acceptable, save it.
-            if (getTimeZones(context, System.currentTimeMillis()).contains(timeZoneId)) {
-                prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
-            }
+        // If the recorded home timezone is legal, use it.
+        final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis());
+        if (timeZones.contains(timeZoneId)) {
+            return TimeZone.getTimeZone(timeZoneId);
         }
 
-        // The timezone returned here may be a valid value from prior calls or a temporary value
-        // created using the given default timezone.
-        return TimeZone.getTimeZone(timeZoneId);
+        // No legal home timezone has yet been recorded, attempt to record the default.
+        timeZoneId = defaultTZ.getID();
+        if (timeZones.contains(timeZoneId)) {
+            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
+        }
+
+        // The timezone returned here may be valid or invalid. When it matches TimeZone.getDefault()
+        // the Home city will not show, regardless of its validity.
+        return defaultTZ;
     }
 
     /**
