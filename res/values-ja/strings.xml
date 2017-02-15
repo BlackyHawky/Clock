@@ -370,7 +370,7 @@
     </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"このタイマーを削除しますか？"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"この都市を削除しますか？"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"デジタルクロック"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"デジタル時計"</string>
     <string name="no_alarms" msgid="6429431324842022917">"アラームはありません"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"アラーム未設定"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"次のアラームはありません"</string>

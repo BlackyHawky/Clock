@@ -43,7 +43,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"¡Despierta!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"No"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Apagar"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Descartar ahora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
