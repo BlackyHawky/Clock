@@ -174,6 +174,15 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        if (!isTabSelected()) {
+            TimePickerCompat.removeTimeEditDialog(getFragmentManager());
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 

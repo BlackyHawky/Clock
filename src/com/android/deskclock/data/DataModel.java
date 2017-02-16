@@ -23,6 +23,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.StringRes;
 
+import com.android.deskclock.timer.TimerService;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -106,6 +108,24 @@ public final class DataModel {
     }
 
     /**
+     * Updates all timers and the stopwatch after the device has shutdown and restarted.
+     */
+    public void updateAfterReboot() {
+        enforceMainLooper();
+        mTimerModel.updateTimersAfterReboot();
+        mStopwatchModel.setStopwatch(getStopwatch().updateAfterReboot());
+    }
+
+    /**
+     * Updates all timers and the stopwatch after the device's time has changed.
+     */
+    public void updateAfterTimeSet() {
+        enforceMainLooper();
+        mTimerModel.updateTimersAfterTimeSet();
+        mStopwatchModel.setStopwatch(getStopwatch().updateAfterTimeSet());
+    }
+
+    /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
      */
@@ -151,6 +171,7 @@ public final class DataModel {
 
             // Refresh all notifications in response to a change in app open state.
             mTimerModel.updateNotification();
+            mTimerModel.updateMissedNotification();
             mStopwatchModel.updateNotification();
         }
     }
@@ -170,6 +191,7 @@ public final class DataModel {
     public void updateAllNotifications() {
         enforceMainLooper();
         mTimerModel.updateNotification();
+        mTimerModel.updateMissedNotification();
         mStopwatchModel.updateNotification();
     }
 
@@ -250,6 +272,22 @@ public final class DataModel {
         mCityModel.toggleCitySort();
     }
 
+    /**
+     * @param cityListener listener to be notified when the world city list changes
+     */
+    public void addCityListener(CityListener cityListener) {
+        enforceMainLooper();
+        mCityModel.addCityListener(cityListener);
+    }
+
+    /**
+     * @param cityListener listener that no longer needs to be notified of world city list changes
+     */
+    public void removeCityListener(CityListener cityListener) {
+        enforceMainLooper();
+        mCityModel.removeCityListener(cityListener);
+    }
+
     //
     // Timers
     //
@@ -327,8 +365,24 @@ public final class DataModel {
      * @param timer the timer to be started
      */
     public void startTimer(Timer timer) {
+        startTimer(null, timer);
+    }
+
+    /**
+     * @param service used to start foreground notifications for expired timers
+     * @param timer the timer to be started
+     */
+    public void startTimer(Service service, Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.start());
+        final Timer started = timer.start();
+        mTimerModel.updateTimer(started);
+        if (timer.getRemainingTime() <= 0) {
+            if (service != null) {
+                expireTimer(service, started);
+            } else {
+                mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
+            }
+        }
     }
 
     /**
@@ -349,6 +403,15 @@ public final class DataModel {
     }
 
     /**
+     * @param timer the timer to be reset
+     * @return the reset {@code timer}
+     */
+    public Timer resetTimer(Timer timer) {
+        enforceMainLooper();
+        return mTimerModel.resetTimer(timer, false /* allowDelete */, 0 /* eventLabelId */);
+    }
+
+    /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
@@ -359,17 +422,7 @@ public final class DataModel {
      */
     public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        return mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
-    }
-
-    /**
-     * Resets all timers.
-     *
-     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     */
-    public void resetTimers(@StringRes int eventLabelId) {
-        enforceMainLooper();
-        mTimerModel.resetTimers(eventLabelId);
+        return mTimerModel.resetTimer(timer, true /* allowDelete */, eventLabelId);
     }
 
     /**
@@ -393,6 +446,17 @@ public final class DataModel {
     }
 
     /**
+     * Resets all missed timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetMissedTimers(@StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetMissedTimers(eventLabelId);
+    }
+
+
+    /**
      * @param timer the timer to which a minute should be added to the remaining time
      */
     public void addTimerMinute(Timer timer) {
@@ -407,6 +471,29 @@ public final class DataModel {
     public void setTimerLabel(Timer timer, String label) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.setLabel(label));
+    }
+
+    /**
+     * @param timer  the timer whose {@code length} to change
+     * @param length the new length of the timer in milliseconds
+     */
+    public void setTimerLength(Timer timer, long length) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setLength(length));
+    }
+
+    /**
+     * @param timer         the timer whose {@code remainingTime} to change
+     * @param remainingTime the new remaining time of the timer in milliseconds
+     */
+    public void setRemainingTime(Timer timer, long remainingTime) {
+        enforceMainLooper();
+
+        final Timer updated = timer.setRemainingTime(remainingTime);
+        mTimerModel.updateTimer(updated);
+        if (timer.isRunning() && timer.getRemainingTime() <= 0) {
+            mContext.startService(TimerService.createTimerExpiredIntent(mContext, updated));
+        }
     }
 
     /**

@@ -51,12 +51,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         preemptiveDismissContainer = itemView.findViewById(R.id.preemptive_dismiss_container);
         preemptiveDismissButton =
                 (TextView) itemView.findViewById(R.id.preemptive_dismiss_button);
-
         preemptiveDismissButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlarmInstance alarmInstance = getItemHolder().getAlarmInstance();
-                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
+                if (alarmInstance != null) {
+                    getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
+                }
             }
         });
         onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,10 +97,12 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
                     ? context.getString(R.string.alarm_alert_snooze_until,
                             AlarmUtils.getAlarmText(context, alarmInstance, false))
-                    : context.getString(R.string.alarm_alert_dismiss_now_text);
+                    : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
+            preemptiveDismissButton.setClickable(true);
         } else {
             preemptiveDismissContainer.setVisibility(View.GONE);
+            preemptiveDismissButton.setClickable(false);
         }
         return canBind;
     }

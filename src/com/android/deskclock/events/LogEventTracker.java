@@ -31,21 +31,12 @@ public final class LogEventTracker implements EventTracker {
     }
 
     @Override
-    public void sendView(String screenName) {
-        LOGGER.d("viewing screen %s", screenName);
-    }
-
-    @Override
     public void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label) {
-        sendEvent(safeGetString(category), safeGetString(action), safeGetString(label));
-    }
-
-    @Override
-    public void sendEvent(String category, String action, String label) {
-        if (label == null) {
-            LOGGER.d("[%s] [%s]", category, action);
+        if (label == 0) {
+            LOGGER.d("[%s] [%s]", safeGetString(category), safeGetString(action));
         } else {
-            LOGGER.d("[%s] [%s] [%s]", category, action, label);
+            LOGGER.d("[%s] [%s] [%s]", safeGetString(category), safeGetString(action),
+                    safeGetString(label));
         }
     }
 

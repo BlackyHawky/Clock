@@ -17,7 +17,6 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,12 +31,22 @@ import com.android.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmSelectionActivity extends ListActivity {
 
+    /** Used by default when an invalid action provided. */
+    private static final int ACTION_INVALID = -1;
+
+    /** Action used to signify alarm should be dismissed on selection. */
+    public static final int ACTION_DISMISS = 0;
+
+    public static final String EXTRA_ACTION = "com.android.deskclock.EXTRA_ACTION";
     public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
 
     private final List<AlarmSelection> mSelections = new ArrayList<>();
+
+    private int mAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,7 @@ public class AlarmSelectionActivity extends ListActivity {
 
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = intent.getParcelableArrayExtra(EXTRA_ALARMS);
+        mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
 
         // reading alarms from intent
         // PickSelection is started only if there are more than 1 relevant alarm
@@ -70,7 +80,7 @@ public class AlarmSelectionActivity extends ListActivity {
             final Alarm alarm = (Alarm) parcelable;
 
             // filling mSelections that go into the UI picker list
-            final String label = String.format("%d %02d", alarm.hour, alarm.minutes);
+            final String label = String.format(Locale.US, "%d %02d", alarm.hour, alarm.minutes);
             mSelections.add(new AlarmSelection(label, alarm));
         }
 
@@ -84,26 +94,32 @@ public class AlarmSelectionActivity extends ListActivity {
         final AlarmSelection selection = mSelections.get((int) id);
         final Alarm alarm = selection.getAlarm();
         if (alarm != null) {
-            new ProcessAlarmActionAsync(this, alarm, this).execute();
+            new ProcessAlarmActionAsync(alarm, this, mAction).execute();
         }
         finish();
     }
 
     private static class ProcessAlarmActionAsync extends AsyncTask<Void, Void, Void> {
 
-        private final Context mContext;
         private final Alarm mAlarm;
         private final Activity mActivity;
+        private final int mAction;
 
-        public ProcessAlarmActionAsync(Context context, Alarm alarm, Activity activity) {
-            mContext = context;
+        public ProcessAlarmActionAsync(Alarm alarm, Activity activity, int action) {
             mAlarm = alarm;
             mActivity = activity;
+            mAction = action;
         }
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            HandleApiCalls.dismissAlarm(mAlarm, mContext, mActivity);
+            switch (mAction) {
+                case ACTION_DISMISS:
+                    HandleApiCalls.dismissAlarm(mAlarm, mActivity);
+                    break;
+                case ACTION_INVALID:
+                    LogUtils.i("Invalid action");
+            }
             return null;
         }
     }

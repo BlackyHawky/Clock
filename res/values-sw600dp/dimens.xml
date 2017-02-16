@@ -18,9 +18,6 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="label_text_size">18sp</dimen>
-    <dimen name="ampm_text_size">54dip</dimen>
-    <dimen name="date_text_size">15sp</dimen>
-    <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">48dip</dimen>
     <dimen name="screensaver_margin">20dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
@@ -34,7 +31,6 @@
     <dimen name="medium_font_size">96sp</dimen>
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="alarm_label_size">18sp</dimen>
-    <dimen name="body_font_size">20sp</dimen>
     <dimen name="day_button_font_size">20sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
     <dimen name="no_alarm_font_size">20sp</dimen>
@@ -44,18 +40,13 @@
     <dimen name="fab_alarm_size">80dp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
-    <dimen name="medium_font_padding">24dp</dimen>
 
-    <dimen name="small_space">32dp</dimen>
     <dimen name="medium_space_top">46dp</dimen>
-    <dimen name="medium_space_bottom">18dp</dimen>
 
     <dimen name="label_margin_big">8dp</dimen>
-    <dimen name="label_margin_small">4dp</dimen>
 
     <dimen name="dialpad_font_size">56sp</dimen>
     <dimen name="timer_setup_font_size">86sp</dimen>
-    <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_margin">21sp</dimen>
 
     <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
@@ -64,9 +55,6 @@
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>
-
-     <!-- Width of the clock, for use with alarm buttons. -->
-    <dimen name="alarm_alert_display_width">550dip</dimen>
 
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">200dp</dimen>

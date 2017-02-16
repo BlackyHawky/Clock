@@ -133,7 +133,7 @@ final class StopwatchModel {
      * @return a newly recorded lap completed now; {@code null} if no more laps can be added
      */
     Lap addLap() {
-        if (!canAddMoreLaps()) {
+        if (!mStopwatch.isRunning() || !canAddMoreLaps()) {
             return null;
         }
 
