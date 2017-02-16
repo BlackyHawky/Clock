@@ -350,6 +350,22 @@ public final class UiDataModel {
     }
 
     //
+    // Shortcut Ids
+    //
+
+    /**
+     * @param category which category of shortcut of which to get the id
+     * @param action the desired action to perform
+     * @return the id of the shortcut
+     */
+    public String getShortcutId(@StringRes int category, @StringRes int action) {
+        if (category == R.string.category_stopwatch) {
+            return mContext.getString(category);
+        }
+        return mContext.getString(category) + "_" + mContext.getString(action);
+    }
+
+    //
     // Timed Callbacks
     //
 

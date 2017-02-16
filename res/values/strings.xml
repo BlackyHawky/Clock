@@ -53,9 +53,6 @@
     <!-- Button labels on the alarm dialog: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
 
-    <!-- Button labels on the pre-dismiss alarm notifications: Dismiss now -->
-    <string name="alarm_alert_dismiss_now_text">Dismiss now</string>
-
     <!-- Alarm Alert screen: this message is shown after an alarm rung
          unattended for a number of minutes.  It tells the user that
          the alarm has been silenced.-->
@@ -347,8 +344,8 @@
     <string name="menu_item_settings">Settings</string>
     <!-- Menu item on most screens to get to the help information -->
     <string name="menu_item_help">Help</string>
-    <!-- Menu item on clock screen to enter night mode. -->
-    <string name="menu_item_night_mode">Night mode</string>
+    <!-- Menu item on clock screen to enter screen saver. -->
+    <string name="menu_item_night_mode">Screen saver</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->
@@ -448,8 +445,17 @@
         remaining. Arg is the number of timers. [CHAR LIMIT=25]
     -->
     <string name="timer_multi_times_up"><xliff:g id="NUM_TIMERS" example="2">%d</xliff:g> timers expired</string>
+    <!--
+        Notification content shown when multiple timers have been missed. Arg is the number of
+        timers. [CHAR LIMIT=25]
+    -->
+    <string name="timer_multi_missed"><xliff:g id="number" example="2">%d</xliff:g> timers missed</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
+    <!-- Label associated with a notification for a missed Timer. [CHAR LIMIT=30] -->
+    <string name="missed_timer_notification_label">Missed timer</string>
+    <!-- Label associated with a notification for a missed named Timer. [CHAR LIMIT=NONE] -->
+    <string name="missed_named_timer_notification_label">Missed timer: <xliff:g id="name" example="Pick up kids">%s</xliff:g></string>
     <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
     <string name="timer_pause">Pause</string>
     <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
@@ -701,6 +707,37 @@
         <item>"Asia/Jakarta"</item>
     </string-array>
 
+    <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_new_alarm_short">New alarm</string>
+    <!-- Long label for a shortcut to create a new alarm. The maximum length is ~25 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_new_alarm_long">Create new alarm</string>
+    <!-- Short label for a shortcut to create a new timer. The maximum length is ~10 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_new_timer_short">New timer</string>
+    <!-- Long label for a shortcut to create a new timer. The maximum length is ~25 characters
+    (longer translations may be truncated). -->
+    <string name="shortcut_new_timer_long">Create new timer</string>
+    <!-- Short label for a shortcut to start the stopwatch. The maximum length is ~10 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_start_stopwatch_short">Start</string>
+    <!-- Long label for a shortcut to start the stopwatch. The maximum length is ~25 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_start_stopwatch_long">Start stopwatch</string>
+    <!-- Short label for a shortcut to pause the stopwatch. The maximum length is ~10 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_pause_stopwatch_short">Pause</string>
+    <!-- Long label for a shortcut to pause the stopwatch. The maximum length is ~25 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_pause_stopwatch_long">Pause stopwatch</string>
+    <!-- Short label for a shortcut to start the screensaver. The maximum length is ~10 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_start_screensaver_short">Screen saver</string>
+    <!-- Long label for a shortcut to start the screensaver. The maximum length is ~25 characters
+         (longer translations may be truncated). -->
+    <string name="shortcut_start_screensaver_long">Start screen saver</string>
+
     <!-- Header in the preferences settings for the section pertaining to alarms -->
     <string name="alarm_settings">Alarms</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
@@ -744,9 +781,9 @@
     <!-- screensaver settings strings -->
     <!-- Title for the screen saver settings activity. -->
     <string name="screensaver_settings">Screen saver settings</string>
-    <!-- Title for check box to pick intensity of display diminuation during dream mode -->
+    <!-- Title for check box to pick intensity of display diminuation during screen saver -->
     <string name="night_mode_title">Night mode</string>
-    <!-- Describes intensity of display diminuation during dream mode -->
+    <!-- Describes intensity of display diminuation during screen saver -->
     <string name="night_mode_summary">Very dim display (for dark rooms)</string>
 
     <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
@@ -774,6 +811,13 @@
     -->
     <string name="invalid_time">Invalid time <xliff:g id="invalid_hour" example="25">%1$d</xliff:g>:<xliff:g id="invalid_minutes" example="63">%2$d</xliff:g> <xliff:g id="invalid_ampm" example="PM">%3$s</xliff:g></string>
 
+    <!-- String that indicates no alarm can be located with the given deeplink. This happens when a
+    user sends a voice command to mutate an existing alarm but the deeplink no longer refers to a
+    valid alarm.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="cannot_locate_alarm">Unable to locate alarm.</string>
+
     <!-- String that represents that no alarm has been specified for a requested hour:minutes.
     This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
     alarms specified for that time. %s represents the time of the alarm.
@@ -788,6 +832,29 @@
     -->
     <string name="no_scheduled_alarms">No scheduled alarms</string>
 
+    <!-- String that indicates the alarm is still scheduled and cannot yet be snoozed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="cannot_snooze_scheduled_alarm">The alarm has not yet fired.</string>
+
+    <!-- String that indicates the alarm is missed and cannot be snoozed or dismissed. This
+    happens when a user sends a voice command 'dismiss alarm' or 'snooze alarm' but the alarm is
+    already in the missed state.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_missed">The alarm is already missed.</string>
+
+    <!-- String that indicates the alarm is dismissed or predismissed and cannot be snoozed or
+    dismissed again.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_dismissed">The alarm is already dismissed.</string>
+
+    <!-- String that indicates the alarm is snoozed cannot be snoozed again.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_snoozed">The alarm is already snoozed.</string>
+
     <!-- String that represents that the user specified that they want to select an alarm to
     dismiss by specifying a 'label' but they didn't specify any labels.
     [CHAR LIMIT=NONE]
@@ -800,36 +867,6 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="no_alarms_with_label">No alarms contain the label</string>
-
-    <!-- String that represents that the user has sent a voice command 'stop the stopwatch' or
-    'lap the stopwatch' when the stopwatch wasn't running so the command wasn't executed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_isnt_running">Stopwatch isn\'t running</string>
-
-    <!-- String that represents that the user has successfully sent a voice command pausing
-     the stopwatch.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_paused">Stopwatch paused</string>
-
-    <!-- String that represents that the user has successfully sent a voice command resetting
-    the stopwatch.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_reset">Stopwatch reset</string>
-
-    <!-- String that represents that the user has successfully sent a voice command lapping
-    the stopwatch.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_lapped">Stopwatch lapped</string>
-
-    <!-- String that represents that the user has successfully sent a voice command starting
-    the stopwatch.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_started">Stopwatch started</string>
 
     <!-- String that represents that the user has sent a voice command 'dismiss my alarm at 3pm' when
     there was no alarm scheduled for that time (they might have had an alarm for 3pm on the list
@@ -850,33 +887,10 @@
     -->
     <string name="alarm_is_set">Alarm is set for <xliff:g id="alarm_time" example="14:20">%s</xliff:g></string>
 
-    <!-- String that represents that the user attempted to control a timer with a voice action when
-    no timers are defined.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="no_timers_exist">No timers exist</string>
-
-    <!-- String that represents that the user attempted to control a timer with a voice action when
-    more than one timer is defined.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="too_many_timers_exist">More than one timer exists</string>
-
-    <!-- String that represents that the user attempted to control a timer with a voice action but
-    the timer could not be located.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="timer_does_not_exist">The timer has been removed.</string>
-
     <!-- String that represents that the user has successfully created a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_created">Timer created</string>
-
-    <!-- String that represents that the user has successfully reset a timer through a voice action.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="timer_was_reset">Timer reset</string>
 
     <!-- String that represents that the user has successfully reset a timer through a voice action
     that was marked as deleteAfterUse and was thus deleted instead.
@@ -884,50 +898,11 @@
     -->
     <string name="timer_deleted">Timer deleted</string>
 
-    <!-- String that represents that the user has successfully started a timer through a voice action.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="timer_started">Timer started</string>
-
     <!-- String that represents that the user attempted to start a timer through a voice action
     but specified invalid length.
     [CHAR LIMIT=NONE]
     -->
     <string name="invalid_timer_length">Invalid timer length</string>
-
-    <!-- String that represents that the user attempted to add or delete a world clock through
-    a voice action
-    but they didn't specify a city so no world clock was selected.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="no_city_selected">No city selected</string>
-
-    <!-- String that represents that the user attempted to add or delete a world clock through
-    a voice action
-    but the city they specified wasn't listed in the database.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="the_city_you_specified_is_not_available">The city you specified is not available</string>
-
-    <!-- String that represents that the user attempted to add a world clock through a voice action
-    but the city they specified is already added to the list.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="the_city_already_added">That city has already been added</string>
-
-    <!-- String that represents that the user successfully added a world clock through a
-    voice action
-    %s represents the name of the city they added.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="city_added"><xliff:g id="city_name" example="Paris">%s</xliff:g> added</string>
-
-    <!-- String that represents that the user successfully deleted a world clock through
-    a voice action
-    %s represents the name of the city they deleted.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="city_deleted"><xliff:g id="city_name" example="Paris">%s</xliff:g> deleted</string>
 
     <!-- String that represents that the user attempted to dismiss an alarm that is more than
     24 hours away

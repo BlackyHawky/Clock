@@ -15,17 +15,14 @@
 -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="@dimen/fab_alarm_size"
-        android:height="@dimen/fab_alarm_size"
-        android:viewportHeight="224.0"
-        android:viewportWidth="224.0">
+    android:width="@dimen/fab_alarm_size"
+    android:height="@dimen/fab_alarm_size"
+    android:viewportHeight="56.0"
+    android:viewportWidth="56.0">
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M-224.3,48h128v128h-128V48z" />
+        android:pathData="M28,20c-5.2,0 -9.3,4.2 -9.3,9.3c0,5.2 4.2,9.3 9.3,9.3c5.2,0 9.3,-4.2 9.3,-9.3C37.3,24.2 33.2,20 28,20zM33,34.5l-6.3,-3.8v-8h2v7l5.3,3.2L33,34.5z" />
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M112,80.4c-20.6,0 -37.3,16.7 -37.3,37.3c0,20.6 16.7,37.3 37.3,37.3s37.3,-16.7 37.3,-37.3C149.3,97.1 132.6,80.4 112,80.4zM132,138.2L106.7,123V91h8v28l21.3,12.6L132,138.2z" />
-    <path
-        android:fillColor="#FFFFFFFF"
-        android:pathData="M112,0C50.1,0 0,50.1 0,112s50.1,112 112,112s112,-50.1 112,-112S173.9,0 112,0zM83.2,58.3l6.8,8.2L65.5,87l-6.9,-8.2L83.2,58.3zM112,165.7c-26.6,0 -48,-21.5 -48,-48s21.5,-48 48,-48s48,21.5 48,48S138.5,165.7 112,165.7zM158.5,87l-24.5,-20.6l6.9,-8.2l24.5,20.6L158.5,87z" />
+        android:pathData="M28,0C12.5,0 0,12.5 0,28c0,15.5 12.5,28 28,28c15.5,0 28,-12.5 28,-28C56,12.5 43.5,0 28,0zM20.8,14.5l1.7,2l-6.1,5.1l-1.7,-2L20.8,14.5zM28,41.3c-6.6,0 -12,-5.4 -12,-12s5.4,-12 12,-12c6.6,0 12,5.4 12,12S34.6,41.3 28,41.3zM39.6,21.7l-6.1,-5.1l1.7,-2l6.1,5.1L39.6,21.7z" />
 </vector>

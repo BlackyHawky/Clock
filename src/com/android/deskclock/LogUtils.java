@@ -54,6 +54,10 @@ public class LogUtils {
         DEFAULT_LOGGER.wtf(message, args);
     }
 
+    public static void wtf(Throwable e) {
+        DEFAULT_LOGGER.wtf(e);
+    }
+
     public final static class Logger {
 
         /**
@@ -121,6 +125,12 @@ public class LogUtils {
             if (isWtfLoggable()) {
                 Log.wtf(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
+            }
+        }
+
+        public void wtf(Throwable e) {
+            if (isWtfLoggable()) {
+                Log.wtf(logTag, e);
             }
         }
     }

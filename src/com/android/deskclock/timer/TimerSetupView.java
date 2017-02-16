@@ -193,7 +193,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             updateTime();
 
             // Update talkback to read the number being deleted or its original description.
-            final String number = mInputPointer < 0 ? "" : Integer.toString(mInput[mInputPointer]);
+            final String number = mInputPointer < 0 ? "" : Integer.toString(mInput[0]);
             final String cd = getResources().getString(R.string.timer_descriptive_delete, number);
             mDelete.setContentDescription(cd);
         }
@@ -262,7 +262,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     private void updateTime() {
         final int seconds = mInput[1] * 10 + mInput[0];
+        final int minutes = mInput[3] * 10 + mInput[2];
+        final int hours = mInput[5] * 10 + mInput[4];
         mEnteredTime.setTime(mInput[5], mInput[4], mInput[3], mInput[2], seconds);
+        mEnteredTime.setContentDescription(createContentDescription(hours, minutes, seconds));
     }
 
     private void updateDeleteButtonAndDivider() {
@@ -273,5 +276,18 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     private void updateFab() {
         mFabContainer.updateFab(FAB_ONLY_SHRINK_AND_EXPAND);
+    }
+
+    private CharSequence createContentDescription(int hours, int minutes, int seconds) {
+        final Resources r = getResources();
+        final String hoursFormatted = r.getQuantityString(
+                R.plurals.Nhours_description, hours, hours);
+        final String minutesFormatted = r.getQuantityString(
+                R.plurals.Nminutes_description, minutes, minutes);
+        final String secondsFormatted = r.getQuantityString(
+                R.plurals.Nseconds_description, seconds, seconds);
+        return (hours == 0 ? "" : hoursFormatted + ", ")
+                + (minutes == 0 ? "" : minutesFormatted + ", ")
+                + secondsFormatted;
     }
 }
