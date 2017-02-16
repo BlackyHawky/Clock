@@ -38,14 +38,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
 import android.support.annotation.DrawableRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.os.BuildCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -56,7 +55,6 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -160,6 +158,13 @@ public class Utils {
     */
     public static boolean isNOrLater() {
        return BuildCompat.isAtLeastN();
+    }
+
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#NMR1} or later
+     */
+    public static boolean isNMR1OrLater() {
+        return BuildCompat.isAtLeastNMR1();
     }
 
     /**
@@ -617,5 +622,13 @@ public class Utils {
      */
     public static boolean isLandscape(Context context) {
         return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    }
+
+    public static long now() {
+        return SystemClock.elapsedRealtime();
+    }
+
+    public static long wallClock() {
+        return System.currentTimeMillis();
     }
 }

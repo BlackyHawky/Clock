@@ -17,9 +17,6 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <dimen name="ampm_text_size">32dip</dimen>
-    <dimen name="date_text_size">15sp</dimen>
-    <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">24dip</dimen>
 
     <dimen name="dialpad_font_size">24sp</dimen>

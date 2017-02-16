@@ -55,12 +55,12 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/drop_shadow" />
-
         <com.android.deskclock.widget.RtlViewPager
             android:id="@+id/desk_clock_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <include layout="@layout/drop_shadow" />
 
     </FrameLayout>
 
@@ -70,7 +70,7 @@
         android:layout_gravity="bottom"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        app:layout_behavior="com.android.deskclock.widget.toast.LinearLayoutWithSnackbarBehavior">
+        app:layout_behavior="com.android.deskclock.widget.toast.SnackbarSlidingBehavior">
 
         <FrameLayout
             android:layout_width="0dp"

@@ -58,6 +58,9 @@ final class CityModel {
     @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
+    /** List of listeners to invoke upon world city list change */
+    private final List<CityListener> mCityListeners = new ArrayList<>();
+
     /** Maps city ID to city instance. */
     private Map<String, City> mCityMap;
 
@@ -84,6 +87,14 @@ final class CityModel {
         // Clear caches affected by preferences when preferences change.
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
+    }
+
+    void addCityListener(CityListener cityListener) {
+        mCityListeners.add(cityListener);
+    }
+
+    void removeCityListener(CityListener cityListener) {
+        mCityListeners.remove(cityListener);
     }
 
     /**
@@ -178,6 +189,7 @@ final class CityModel {
      * @param cities the new collection of cities selected for display by the user
      */
     void setSelectedCities(Collection<City> cities) {
+        final List<City> oldCities = getAllCities();
         CityDAO.setSelectedCities(mContext, cities);
 
         // Clear caches affected by this update.
@@ -186,7 +198,7 @@ final class CityModel {
         mUnselectedCities = null;
 
         // Broadcast the change to the selected cities for the benefit of widgets.
-        sendCitiesChangedBroadcast();
+        fireCitiesChanged(oldCities, getAllCities());
     }
 
     /**
@@ -219,14 +231,6 @@ final class CityModel {
         mUnselectedCities = null;
     }
 
-    /**
-     * @param cityId identifies a city
-     * @return the corresponding city
-     */
-    City getCityById(String cityId) {
-        return getCityMap().get(cityId);
-    }
-
     private Map<String, City> getCityMap() {
         if (mCityMap == null) {
             mCityMap = CityDAO.getCities(mContext);
@@ -244,8 +248,11 @@ final class CityModel {
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }
 
-    private void sendCitiesChangedBroadcast() {
+    private void fireCitiesChanged(List<City> oldCities, List<City> newCities) {
         mContext.sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_CHANGED));
+        for (CityListener cityListener : mCityListeners) {
+            cityListener.citiesChanged(oldCities, newCities);
+        }
     }
 
     /**
@@ -273,7 +280,8 @@ final class CityModel {
                 case SettingsActivity.KEY_HOME_TZ:
                     mHomeCity = null;
                 case SettingsActivity.KEY_AUTO_HOME_CLOCK:
-                    sendCitiesChangedBroadcast();
+                    final List<City> cities = getAllCities();
+                    fireCitiesChanged(cities, cities);
                     break;
             }
         }

@@ -19,6 +19,7 @@
     <string name="category_clock">Clock</string>
     <string name="category_timer">Timer</string>
     <string name="category_stopwatch">Stopwatch</string>
+    <string name="category_screensaver">Screensaver</string>
     <string name="category_analog_widget">Analog Widget</string>
     <string name="category_digital_widget">Digital Widget</string>
 
@@ -27,7 +28,6 @@
     <string name="action_hide">Hide</string>
     <string name="action_snooze">Snooze</string>
     <string name="action_create">Create</string>
-    <string name="action_add">Add</string>
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
     <string name="action_start">Start</string>
@@ -43,7 +43,6 @@
     <string name="label_deskclock">DeskClock</string>
     <string name="label_notification">Notification</string>
     <string name="label_intent">Intent</string>
-    <string name="label_widget">Widget</string>
     <string name="label_hardware_button">HardwareButton</string>
-    <string name="label_reboot">Reboot</string>
+    <string name="label_shortcut">Shortcut</string>
 </resources>
