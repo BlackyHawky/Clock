@@ -33,6 +33,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextClock;
 
+import com.android.deskclock.events.Events;
 import com.android.deskclock.uidata.UiDataModel;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
@@ -115,6 +116,12 @@ public class ScreensaverActivity extends AppCompatActivity {
         Utils.dimClockView(true, mSaverView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);
+
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final int eventLabel = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, 0);
+            Events.sendScreensaverEvent(R.string.action_show, eventLabel);
+        }
     }
 
     @Override

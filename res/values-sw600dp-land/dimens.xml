@@ -17,14 +17,10 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <dimen name="ampm_text_size">90dip</dimen>
-    <dimen name="date_text_size">15sp</dimen>
-    <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
 
     <dimen name="dialpad_font_size">42sp</dimen>
     <dimen name="timer_setup_font_size">78sp</dimen>
-    <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_margin">19sp</dimen>
 
     <!-- Size of margin for circles. -->

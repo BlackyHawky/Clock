@@ -96,7 +96,7 @@ public class TimerItemFragment extends Fragment {
             final Timer timer = getTimer();
             if (timer.isPaused()) {
                 DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
-            } else if (timer.isRunning() || timer.isExpired()) {
+            } else if (timer.isRunning() || timer.isExpired() || timer.isMissed()) {
                 DataModel.getDataModel().addTimerMinute(timer);
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
             }

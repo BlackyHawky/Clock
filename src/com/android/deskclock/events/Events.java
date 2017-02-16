@@ -25,6 +25,9 @@ import java.util.Collection;
 
 public final class Events {
 
+    /** Extra describing the entity responsible for the action being performed. */
+    public static final String EXTRA_EVENT_LABEL = "com.android.deskclock.extra.EVENT_LABEL";
+
     private static final Collection<EventTracker> sEventTrackers = new ArrayList<>();
 
     public static void addEventTracker(EventTracker eventTracker) {
@@ -56,7 +59,7 @@ public final class Events {
     }
 
     /**
-     * Tracks an timer event.
+     * Tracks a timer event.
      *
      * @param action resource id of event action
      * @param label resource id of event label
@@ -66,13 +69,23 @@ public final class Events {
     }
 
     /**
-     * Tracks an stopwatch event.
+     * Tracks a stopwatch event.
      *
      * @param action resource id of event action
      * @param label resource id of event label
      */
     public static void sendStopwatchEvent(@StringRes int action, @StringRes int label) {
         sendEvent(R.string.category_stopwatch, action, label);
+    }
+
+    /**
+     * Tracks a screensaver event.
+     *
+     * @param action resource id of event action
+     * @param label resource id of event label
+     */
+    public static void sendScreensaverEvent(@StringRes int action, @StringRes int label) {
+        sendEvent(R.string.category_screensaver, action, label);
     }
 
     /**
@@ -88,34 +101,6 @@ public final class Events {
             @StringRes int label) {
         for (EventTracker eventTracker : sEventTrackers) {
             eventTracker.sendEvent(category, action, label);
-        }
-    }
-
-    /**
-     * Tracks an event. Events have a category, action, label and value. This
-     * method can be used to track events such as button presses or other user
-     * interactions with your application (value is not used in this app).
-     *
-     * @param category the event category
-     * @param action the event action
-     * @param label the event label
-     */
-    public static void sendEvent(String category, String action, String label) {
-        if (category != null && action != null) {
-            for (EventTracker eventTracker : sEventTrackers) {
-                eventTracker.sendEvent(category, action, label);
-            }
-        }
-    }
-
-    /**
-     * Tracks entering a view with a new app screen name.
-     *
-     * @param screenName the new app screen name
-     */
-    public static void sendView(String screenName) {
-        for (EventTracker eventTracker : sEventTrackers) {
-            eventTracker.sendView(screenName);
         }
     }
 }

@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Set;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
+import static android.text.format.DateUtils.*;
 import static com.android.deskclock.data.Timer.State.EXPIRED;
 import static com.android.deskclock.data.Timer.State.RESET;
 
@@ -56,6 +57,12 @@ import static com.android.deskclock.data.Timer.State.RESET;
  * All {@link Timer} data is accessed via this model.
  */
 final class TimerModel {
+
+    /**
+     * Running timers less than this threshold are left running/expired; greater than this
+     * threshold are considered missed.
+     */
+    private static final long MISSED_THRESHOLD = -MINUTE_IN_MILLIS;
 
     private final Context mContext;
 
@@ -104,6 +111,9 @@ final class TimerModel {
 
     /** A mutable copy of the expired timers. */
     private List<Timer> mExpiredTimers;
+
+    /** A mutable copy of the missed timers. */
+    private List<Timer> mMissedTimers;
 
     /** Delegate that builds platform-specific timer notifications. */
     private NotificationBuilder mNotificationBuilder;
@@ -161,6 +171,13 @@ final class TimerModel {
     }
 
     /**
+     * @return all missed timers in their expiration order
+     */
+    List<Timer> getMissedTimers() {
+        return Collections.unmodifiableList(getMutableMissedTimers());
+    }
+
+    /**
      * @param timerId identifies the timer to return
      * @return the timer with the given {@code timerId}
      */
@@ -191,8 +208,8 @@ final class TimerModel {
      */
     Timer addTimer(long length, String label, boolean deleteAfterUse) {
         // Create the timer instance.
-        Timer timer = new Timer(-1, RESET, length, length, Long.MIN_VALUE, length, label,
-                deleteAfterUse);
+        Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length,
+                label, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mContext, timer);
@@ -254,9 +271,10 @@ final class TimerModel {
         doRemoveTimer(timer);
 
         // Update the timer notifications after removing the timer data.
-        updateNotification();
         if (timer.isExpired()) {
             updateHeadsUpNotification();
+        } else {
+            updateNotification();
         }
     }
 
@@ -265,37 +283,55 @@ final class TimerModel {
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
-     * @param timer the timer to be reset
+     * @param timer        the timer to be reset
+     * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
+     *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
-        final Timer result = doResetOrDeleteTimer(timer, eventLabelId);
+    Timer resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
+        final Timer result = doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
 
         // Update the notification after updating the timer data.
-        updateNotification();
-
-        // If the timer stopped being expired, update the heads-up notification.
-        if (timer.isExpired()) {
+        if (timer.isMissed()) {
+            updateMissedNotification();
+        } else if (timer.isExpired()) {
             updateHeadsUpNotification();
+        } else {
+            updateNotification();
         }
 
         return result;
     }
 
     /**
-     * Reset all timers.
-     *
-     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     * Update timers after system reboot.
      */
-    void resetTimers(@StringRes int eventLabelId) {
+    void updateTimersAfterReboot() {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
-            doResetOrDeleteTimer(timer, eventLabelId);
+            doUpdateAfterRebootTimer(timer);
         }
 
-        // Update the notifications once after all timers are reset.
+        // Update the notifications once after all timers are updated.
         updateNotification();
+        updateMissedNotification();
+        updateHeadsUpNotification();
+    }
+
+
+    /**
+     * Update timers after time set.
+     */
+    void updateTimersAfterTimeSet() {
+        final List<Timer> timers = new ArrayList<>(getTimers());
+        for (Timer timer : timers) {
+            doUpdateAfterTimeSetTimer(timer);
+        }
+
+        // Update the notifications once after all timers are updated.
+        updateNotification();
+        updateMissedNotification();
         updateHeadsUpNotification();
     }
 
@@ -308,13 +344,29 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isExpired()) {
-                doResetOrDeleteTimer(timer, eventLabelId);
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
             }
         }
 
         // Update the notifications once after all timers are updated.
-        updateNotification();
         updateHeadsUpNotification();
+    }
+
+    /**
+     * Reset all missed timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    void resetMissedTimers(@StringRes int eventLabelId) {
+        final List<Timer> timers = new ArrayList<>(getTimers());
+        for (Timer timer : timers) {
+            if (timer.isMissed()) {
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
+            }
+        }
+
+        // Update the notifications once after all timers are updated.
+        updateMissedNotification();
     }
 
     /**
@@ -326,7 +378,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isRunning() || timer.isPaused()) {
-                doResetOrDeleteTimer(timer, eventLabelId);
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
             }
         }
 
@@ -430,6 +482,21 @@ final class TimerModel {
         return mExpiredTimers;
     }
 
+    private List<Timer> getMutableMissedTimers() {
+        if (mMissedTimers == null) {
+            mMissedTimers = new ArrayList<>();
+
+            for (Timer timer : getMutableTimers()) {
+                if (timer.isMissed()) {
+                    mMissedTimers.add(timer);
+                }
+            }
+            Collections.sort(mMissedTimers, Timer.EXPIRY_COMPARATOR);
+        }
+
+        return mMissedTimers;
+    }
+
     /**
      * This method updates timer data without updating notifications. This is useful in bulk-update
      * scenarios so the notifications are only rebuilt once.
@@ -457,6 +524,10 @@ final class TimerModel {
         // Clear the cache of expired timers if the timer changed to/from expired.
         if (before.isExpired() || timer.isExpired()) {
             mExpiredTimers = null;
+        }
+        // Clear the cache of missed timers if the timer changed to/from missed.
+        if (before.isMissed() || timer.isMissed()) {
+            mMissedTimers = null;
         }
 
         // Update the timer expiration callback.
@@ -499,6 +570,11 @@ final class TimerModel {
             mExpiredTimers = null;
         }
 
+        // Clear the cache of missed timers if a new missed timer was added.
+        if (timer.isMissed()) {
+            mMissedTimers = null;
+        }
+
         // Update the timer expiration callback.
         updateAlarmManager();
 
@@ -520,11 +596,16 @@ final class TimerModel {
      * to exist.
      *
      * @param timer the timer to be reset
+     * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
+     *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    private Timer doResetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
-        if (timer.isExpired() && timer.getDeleteAfterUse()) {
+    private Timer doResetOrDeleteTimer(Timer timer, boolean allowDelete,
+            @StringRes int eventLabelId) {
+        if (allowDelete
+                && (timer.isExpired() || timer.isMissed())
+                && timer.getDeleteAfterUse()) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
@@ -541,6 +622,25 @@ final class TimerModel {
 
         return timer;
     }
+
+    /**
+     * This method updates/removes timer data after a reboot without updating notifications.
+     *
+     * @param timer the timer to be updated
+     */
+    private void doUpdateAfterRebootTimer(Timer timer) {
+        Timer updated = timer.updateAfterReboot();
+        if (updated.getRemainingTime() < MISSED_THRESHOLD && updated.isRunning()) {
+            updated = updated.miss();
+        }
+        doUpdateTimer(updated);
+    }
+
+    private void doUpdateAfterTimeSetTimer(Timer timer) {
+        final Timer updated = timer.updateAfterTimeSet();
+        doUpdateTimer(updated);
+    }
+
 
     /**
      * Updates the callback given to this application from the {@link AlarmManager} that signals the
@@ -641,6 +741,31 @@ final class TimerModel {
                 getNotificationBuilder().build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
+
+    }
+
+    /**
+     * Updates the notification controlling missed timers. This notification is only displayed when
+     * the application is not open.
+     */
+    void updateMissedNotification() {
+        // Notifications should be hidden if the app is open.
+        if (mNotificationModel.isApplicationInForeground()) {
+            mNotificationManager.cancel(mNotificationModel.getMissedTimerNotificationId());
+            return;
+        }
+
+        final List<Timer> missed = getMissedTimers();
+
+        if (missed.isEmpty()) {
+            mNotificationManager.cancel(mNotificationModel.getMissedTimerNotificationId());
+            return;
+        }
+
+        final Notification notification = getNotificationBuilder().buildMissed(mContext,
+                mNotificationModel, missed);
+        final int notificationId = mNotificationModel.getMissedTimerNotificationId();
+        mNotificationManager.notify(notificationId, notification);
     }
 
     /**
@@ -687,6 +812,7 @@ final class TimerModel {
         @Override
         public void onReceive(Context context, Intent intent) {
             updateNotification();
+            updateMissedNotification();
             updateHeadsUpNotification();
         }
     }
@@ -720,6 +846,10 @@ final class TimerModel {
      * An API for building platform-specific timer notifications.
      */
     public interface NotificationBuilder {
+
+        int REQUEST_CODE_UPCOMING = 0;
+        int REQUEST_CODE_MISSING = 1;
+
         /**
          * @param context a context to use for fetching resources
          * @param nm from which notification data are fetched
@@ -734,5 +864,12 @@ final class TimerModel {
          * @return a heads-up notification reporting the state of the {@code expiredTimers}
          */
         Notification buildHeadsUp(Context context, List<Timer> expiredTimers);
+
+        /**
+         * @param context a context to use for fetching resources
+         * @param missedTimers all missed timers
+         * @return a heads-up notification reporting the state of the {@code missedTimers}
+         */
+        Notification buildMissed(Context context, NotificationModel nm, List<Timer> missedTimers);
     }
 }

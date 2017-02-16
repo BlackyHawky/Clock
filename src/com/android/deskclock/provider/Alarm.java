@@ -133,10 +133,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public static Intent createIntent(Context context, Class<?> cls, long alarmId) {
-        return new Intent(context, cls).setData(getUri(alarmId));
+        return new Intent(context, cls).setData(getContentUri(alarmId));
     }
 
-    public static Uri getUri(long alarmId) {
+    public static Uri getContentUri(long alarmId) {
         return ContentUris.withAppendedId(CONTENT_URI, alarmId);
     }
 
@@ -158,12 +158,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Get alarm by id.
      *
-     * @param cr to perform the query on.
+     * @param cr provides access to the content model
      * @param alarmId for the desired alarm.
      * @return alarm if found, null otherwise
      */
     public static Alarm getAlarm(ContentResolver cr, long alarmId) {
-        try (Cursor cursor = cr.query(getUri(alarmId), QUERY_COLUMNS, null, null, null)) {
+        try (Cursor cursor = cr.query(getContentUri(alarmId), QUERY_COLUMNS, null, null, null)) {
             if (cursor.moveToFirst()) {
                 return new Alarm(cursor);
             }
@@ -171,11 +171,21 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
         return null;
     }
+    /**
+     * Get alarm for the {@code contentUri}.
+     *
+     * @param cr provides access to the content model
+     * @param contentUri the {@link #getContentUri deeplink} for the desired alarm
+     * @return instance if found, null otherwise
+     */
+    public static Alarm getAlarm(ContentResolver cr, Uri contentUri) {
+        return getAlarm(cr, ContentUris.parseId(contentUri));
+    }
 
     /**
      * Get all alarms given conditions.
      *
-     * @param cr to perform the query on.
+     * @param cr provides access to the content model
      * @param selection A filter declaring which rows to return, formatted as an
      *         SQL WHERE clause (excluding the WHERE itself). Passing null will
      *         return all rows for the given URI.
@@ -221,13 +231,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public static boolean updateAlarm(ContentResolver contentResolver, Alarm alarm) {
         if (alarm.id == Alarm.INVALID_ID) return false;
         ContentValues values = createContentValues(alarm);
-        long rowsUpdated = contentResolver.update(getUri(alarm.id), values, null, null);
+        long rowsUpdated = contentResolver.update(getContentUri(alarm.id), values, null, null);
         return rowsUpdated == 1;
     }
 
     public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
         if (alarmId == INVALID_ID) return false;
-        int deletedRows = contentResolver.delete(getUri(alarmId), "", null);
+        int deletedRows = contentResolver.delete(getContentUri(alarmId), "", null);
         return deletedRows == 1;
     }
 
@@ -305,6 +315,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         label = p.readString();
         alert = p.readParcelable(null);
         deleteAfterUse = p.readInt() == 1;
+    }
+
+    /**
+     * @return the deeplink that identifies this alarm
+     */
+    public Uri getContentUri() {
+        return getContentUri(id);
     }
 
     public String getLabelOrDefault(Context context) {
