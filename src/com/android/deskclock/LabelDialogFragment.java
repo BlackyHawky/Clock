@@ -80,7 +80,10 @@ public class LabelDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(KEY_LABEL, mLabelBox.getText().toString());
+        // As long as the label box exists, save its state.
+        if (mLabelBox != null) {
+            outState.putString(KEY_LABEL, mLabelBox.getText().toString());
+        }
     }
 
     @Override

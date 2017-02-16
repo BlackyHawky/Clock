@@ -31,6 +31,9 @@ import com.android.deskclock.R;
 import com.android.deskclock.RingtonePreviewKlaxon;
 import com.android.deskclock.data.DataModel;
 
+import static android.content.Context.AUDIO_SERVICE;
+import static android.media.AudioManager.STREAM_ALARM;
+
 public class AlarmVolumePreference extends Preference {
 
     private static final long ALARM_PREVIEW_DURATION_MS = 2000;
@@ -47,24 +50,23 @@ public class AlarmVolumePreference extends Preference {
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
+        final Context context = getContext();
+        final AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
-        final Context context = getContext();
-        final AudioManager audioManager =
-                (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         mSeekbar = (SeekBar) holder.findViewById(R.id.alarm_volume_slider);
-        mSeekbar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
-        mSeekbar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
+        mSeekbar.setMax(audioManager.getStreamMaxVolume(STREAM_ALARM));
+        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM));
         mAlarmIcon = (ImageView) holder.findViewById(R.id.alarm_icon);
-        updateIcon();
+        onSeekbarChanged();
 
         final ContentObserver volumeObserver = new ContentObserver(mSeekbar.getHandler()) {
             @Override
             public void onChange(boolean selfChange) {
                 // Volume was changed elsewhere, update our slider.
-                mSeekbar.setProgress(audioManager.getStreamVolume(
-                        AudioManager.STREAM_ALARM));
+                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM));
             }
         };
 
@@ -81,14 +83,13 @@ public class AlarmVolumePreference extends Preference {
             }
         });
 
-
         mSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, progress, 0);
+                    audioManager.setStreamVolume(STREAM_ALARM, progress, 0);
                 }
-                updateIcon();
+                onSeekbarChanged();
             }
 
             @Override
@@ -114,7 +115,7 @@ public class AlarmVolumePreference extends Preference {
         });
     }
 
-    private void updateIcon() {
+    private void onSeekbarChanged() {
         mAlarmIcon.setImageResource(mSeekbar.getProgress() == 0 ?
                 R.drawable.ic_alarm_off_24dp : R.drawable.ic_alarm_small);
     }

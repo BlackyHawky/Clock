@@ -336,7 +336,11 @@ public final class RingtonePickerDialogFragment extends DialogFragment implement
 
             // Force the ringtone manager to load its ringtones. The cursor will be cached
             // internally by the ringtone manager.
-            ringtoneManager.getCursor();
+            try {
+                ringtoneManager.getCursor();
+            } catch (Exception e) {
+                LogUtils.e("Error getting Ringtone Manager cursor", e);
+            }
 
             return ringtoneManager;
         }
@@ -348,7 +352,11 @@ public final class RingtonePickerDialogFragment extends DialogFragment implement
                     mRingtoneCursor.close();
                 }
                 mRingtoneManager = ringtoneManager;
-                mRingtoneCursor = mRingtoneManager.getCursor();
+                try {
+                    mRingtoneCursor = mRingtoneManager.getCursor();
+                } catch (Exception e) {
+                    LogUtils.e("Error getting Ringtone Manager cursor", e);
+                }
             }
             super.deliverResult(ringtoneManager);
         }
@@ -413,7 +421,11 @@ public final class RingtonePickerDialogFragment extends DialogFragment implement
          */
         public RingtoneAdapter setRingtoneManager(RingtoneManager ringtoneManager) {
             mRingtoneManager = ringtoneManager;
-            mRingtoneCursor = ringtoneManager == null ? null : ringtoneManager.getCursor();
+            try {
+                mRingtoneCursor = ringtoneManager == null ? null : ringtoneManager.getCursor();
+            } catch (Exception e) {
+                LogUtils.e("Error getting Ringtone Manager cursor", e);
+            }
             notifyDataSetChanged();
 
             return this;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright (C) 2015 The Android Open Source Project
+  Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +17,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.deskclock"
-    android:versionCode="452"
-    android:versionName="4.5.2">
+    package="com.android.deskclock">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
@@ -53,11 +50,9 @@
         android:requiredForAllUsers="true"
         android:supportsRtl="true">
 
-        <provider
-            android:name=".provider.ClockProvider"
-            android:authorities="com.android.deskclock"
-            android:directBootAware="true"
-            android:exported="false" />
+        <!-- ============================================================== -->
+        <!-- Main app components.                                           -->
+        <!-- ============================================================== -->
 
         <activity
             android:name=".DeskClock"
@@ -67,33 +62,9 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity-alias
-            android:name=".DockClock"
-            android:enabled="false"
-            android:label="@string/app_label"
-            android:launchMode="singleTask"
-            android:targetActivity="DeskClock"
-            android:theme="@style/DeskClockTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.DESK_DOCK" />
-            </intent-filter>
-        </activity-alias>
-
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/settings"
-            android:taskAffinity=""
-            android:theme="@style/SettingsTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
@@ -101,12 +72,62 @@
             android:name=".worldclock.CitySelectionActivity"
             android:excludeFromRecents="true"
             android:label="@string/cities_activity_title"
+            android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/CitiesTheme">
+            android:theme="@style/CitiesTheme" />
+
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/settings"
+            android:parentActivityName=".DeskClock"
+            android:taskAffinity=""
+            android:theme="@style/SettingsTheme" />
+
+        <activity
+            android:name=".HandleShortcuts"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <!-- ============================================================== -->
+        <!-- AlarmClock API components.                                     -->
+        <!-- ============================================================== -->
+
+        <activity
+            android:name=".HandleApiCalls"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.DISMISS_ALARM" />
+                <action android:name="android.intent.action.SHOW_ALARMS" />
+                <action android:name="android.intent.action.SHOW_TIMERS" />
+                <action android:name="android.intent.action.SNOOZE_ALARM" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name=".HandleSetAlarmApiCalls"
+            android:permission="com.android.alarm.permission.SET_ALARM"
+            android:targetActivity=".HandleApiCalls">
+            <intent-filter>
+                <action android:name="android.intent.action.SET_ALARM" />
+                <action android:name="android.intent.action.SET_TIMER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- ============================================================== -->
+        <!-- Alarm components.                                              -->
+        <!-- ============================================================== -->
 
         <activity
             android:name=".alarms.AlarmActivity"
@@ -119,147 +140,112 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
+            android:name=".AlarmSelectionActivity"
+            android:label="@string/dismiss_alarm"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
+
+        <provider
+            android:name=".provider.ClockProvider"
+            android:authorities="com.android.deskclock"
+            android:directBootAware="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".AlarmInitReceiver"
+            android:directBootAware="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".alarms.AlarmStateManager"
+            android:directBootAware="true" />
+
+        <service
+            android:name=".alarms.AlarmService"
+            android:directBootAware="true" />
+
+        <!-- ============================================================== -->
+        <!-- Timer components.                                              -->
+        <!-- ============================================================== -->
+
+        <activity
+            android:name=".timer.ExpiredTimersActivity"
+            android:configChanges="screenSize|keyboardHidden|keyboard|navigation"
+            android:directBootAware="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:resizeableActivity="false"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/ExpiredTimersActivityTheme" />
+
+        <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
+        <receiver
+            android:name="com.android.deskclock.timer.TimerReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="times_up" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".timer.TimerService"
+            android:description="@string/timer_service_desc"
+            android:directBootAware="true" />
+
+        <!-- ============================================================== -->
+        <!-- Stopwatch components.                                          -->
+        <!-- ============================================================== -->
+
+        <service
+            android:name=".stopwatch.StopwatchService"
+            android:description="@string/stopwatch_service_desc"
+            android:directBootAware="true" />
+
+
+        <!-- ============================================================== -->
+        <!-- Screen saver components.                                       -->
+        <!-- ============================================================== -->
+
+        <activity
             android:name=".ScreensaverActivity"
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:taskAffinity=""
             android:theme="@style/ScreensaverActivityTheme" />
 
-        <receiver
-            android:name=".alarms.AlarmStateManager"
-            android:directBootAware="true"
-            android:exported="false" />
+        <activity
+            android:name=".settings.ScreensaverSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/screensaver_settings"
+            android:taskAffinity=""
+            android:theme="@style/SettingsTheme" />
 
         <service
-            android:name=".alarms.AlarmService"
-            android:directBootAware="true"
-            android:exported="false" />
+            android:name=".Screensaver"
+            android:label="@string/app_label"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
 
-        <activity
-            android:name=".HandleApiCalls"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:permission="com.android.alarm.permission.SET_ALARM"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.SET_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.DISMISS_ALARM" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SNOOZE_ALARM" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SHOW_ALARMS" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SET_TIMER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-        </activity>
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/screensaver_info" />
+        </service>
 
-        <activity-alias
-            android:name="HandleSetAlarm"
-            android:exported="true"
-            android:targetActivity=".HandleApiCalls" />
-
-        <activity
-            android:name=".HandleDeskClockApiCalls"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:permission="com.android.alarm.permission.SET_ALARM"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.SHOW_CLOCK" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.ADD_CLOCK" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.DELETE_CLOCK" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.START_TIMER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.RESET_TIMER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.PAUSE_TIMER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.SHOW_TIMERS" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.DELETE_TIMER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.SHOW_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.START_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.PAUSE_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.LAP_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.RESET_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-        </activity>
-
-        <receiver
-            android:name=".AlarmInitReceiver"
-            android:directBootAware="true">
-            <intent-filter>
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
+        <!-- ============================================================== -->
+        <!-- App widget components.                                         -->
+        <!-- ============================================================== -->
 
         <receiver
             android:name="com.android.alarmclock.AnalogAppWidgetProvider"
@@ -280,12 +266,13 @@
             android:name="com.android.alarmclock.DigitalAppWidgetProvider"
             android:label="@string/digital_gadget">
             <intent-filter>
-                <action android:name="android.intent.action.SCREEN_ON" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.android.deskclock.ALARM_CHANGED" />
                 <action android:name="com.android.deskclock.ON_DAY_CHANGE" />
                 <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />
@@ -297,75 +284,7 @@
 
         <service
             android:name="com.android.alarmclock.DigitalAppWidgetCityService"
-            android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
-        <!-- Screen saver implementation -->
-        <service
-            android:name=".Screensaver"
-            android:exported="true"
-            android:label="@string/app_label"
-            android:permission="android.permission.BIND_DREAM_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.dreams.DreamService" />
-                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <meta-data
-                android:name="android.service.dream"
-                android:resource="@xml/screensaver_info" />
-        </service>
-
-        <!-- Settings activity for screensaver -->
-        <activity
-            android:name=".settings.ScreensaverSettingsActivity"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:label="@string/screensaver_settings"
-            android:taskAffinity=""
-            android:theme="@style/SettingsTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".AlarmSelectionActivity"
-            android:label="@string/dismiss_alarm"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" />
-
-        <!-- This activity displays only the timers that have expired with only a reset button
-         present. This makes the activity appropriate for display above the lock screen so that
-         users have the limited ability to silence expired timers but nothing else. -->
-        <activity
-            android:name=".timer.ExpiredTimersActivity"
-            android:configChanges="screenSize|keyboardHidden|keyboard|navigation"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:resizeableActivity="false"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/ExpiredTimersActivityTheme" />
-
-        <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
-        <receiver android:name="com.android.deskclock.timer.TimerReceiver"
-                  android:exported="false">
-            <intent-filter>
-                <action android:name="times_up" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".timer.TimerService"
-            android:description="@string/timer_service_desc"
-            android:exported="false"
-            tools:ignore="ManifestResource" />
-
-        <service
-            android:name=".stopwatch.StopwatchService"
-            android:description="@string/stopwatch_service_desc"
-            android:exported="false"
-            tools:ignore="ManifestResource" />
 
     </application>
 </manifest>

@@ -20,13 +20,6 @@ import android.support.annotation.StringRes;
 
 public interface EventTracker {
     /**
-     * Send screen view tracking to Log system.
-     *
-     * @param screenName Screen name to be logged
-     */
-    void sendView(String screenName);
-
-    /**
      * Send category, action and label describing an event to Log system.
      *
      * @param category string resource id indicating Alarm, Clock, Timer or Stopwatch or 0 for no
@@ -37,13 +30,4 @@ public interface EventTracker {
      *              e.g. DeskClock (UI), Intent, Notification, etc. or 0 for no label
      */
     void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label);
-
-    /**
-     * Send category, action and label describing an event to Log system.
-     *
-     * @param category Alarm, Clock, Timer or Stopwatch
-     * @param action how the entity was altered; e.g. create, delete, fire, etc
-     * @param label where the action originated; e.g. DeskClock (UI), Intent, Notification, etc.
-     */
-    void sendEvent(String category, String action, String label);
 }

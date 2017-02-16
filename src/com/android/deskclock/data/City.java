@@ -18,6 +18,7 @@ package com.android.deskclock.data;
 
 import java.text.Collator;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -102,7 +103,8 @@ public final class City {
 
     @Override
     public String toString() {
-        return String.format("City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
+        return String.format(Locale.US,
+                "City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
                 mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
     }
 
@@ -129,7 +131,7 @@ public final class City {
      */
     public static final class UtcOffsetComparator implements Comparator<City> {
 
-        private final Comparator<City> mDelegate1 = new UtcOffsetIndexComparator();;
+        private final Comparator<City> mDelegate1 = new UtcOffsetIndexComparator();
 
         private final Comparator<City> mDelegate2 = new NameComparator();
 
