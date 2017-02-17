@@ -142,7 +142,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"নাম অনুসারে সাজান"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"নির্বাচন করা শহরগুলি"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"পুনঃসূচনা"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"পুনরায় সেট করুন"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"আবার সেট করুন"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"শুরু করুন"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"বিরাম দিন"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ল্যাপ"</string>
@@ -176,14 +176,14 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 মিনিট যোগ করুন"</string>
     <string name="timer_stop" msgid="3361154678667736722">"থামান"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"সব টাইমার বন্ধ করুন"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"পুনরায় সেট করুন"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"আবার সেট করুন"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"বাতিল করুন"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"টাইমার বাতিল করা হয়েছে"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"সময় শেষ"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g>টি টাইমারের সময় শেষ হয়েছে"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"টাইমার"</string>
     <string name="timer_pause" msgid="3748323712728398743">"বিরাম দিন"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"সমস্ত টাইমার পুনরায় সেট করুন"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"সমস্ত টাইমার আবার সেট করুন"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"আপনি আসলেই এক গতিময় দৈত্য।"</item>
     <item msgid="6332879039890727169">"আপনার শ্রমের ফসল উপভোগ করুন।"</item>
@@ -332,7 +332,7 @@
     <string name="no_alarms_with_label" msgid="6250998794542941665">"লেবেলটিতে কোনো অ্যালার্ম নির্দিষ্ট করা নেই"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"স্টপওয়াচ চলছে না"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"স্টপ ওয়াচকে বিরাম দেওয়া হয়েছে"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"স্টপওয়াচ পুনরায় সেট হয়েছে"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"স্টপওয়াচ আবার সেট হয়েছে"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"স্টপওয়াচ ল্যাপ করা হয়েছে"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"স্টপওয়াচ শুরু হয়েছে"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"এই সময়ের জন্য কোনো অ্যালার্ম পূর্বনির্ধারিত করা নেই"</string>
@@ -342,7 +342,7 @@
     <string name="too_many_timers_exist" msgid="6339194231767431627">"একটির থেকে বেশি টাইমার বিদ্যমান"</string>
     <string name="timer_does_not_exist" msgid="4457482976523984231">"টাইমরটিকে সরানো হয়েছে৷"</string>
     <string name="timer_created" msgid="4381027137335885547">"টাইমার তৈরি হয়েছে"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"টাইমার পুনরায় সেট করা হয়েছে"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"টাইমার আবার সেট করা হয়েছে"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"টাইমার মুছে ফেলা হয়েছে"</string>
     <string name="timer_started" msgid="6715582052946641641">"টাইমার শুরু হয়েছে"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"অবৈধ টাইমার দৈর্ঘ্য"</string>
