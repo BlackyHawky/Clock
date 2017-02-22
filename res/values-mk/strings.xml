@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Утре"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Денес"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Отфрли"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Отфрли сега"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Пропуштен аларм"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Одложен"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Градови"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Поставки"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Помош"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Ноќен режим"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Заштитник"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Подреди по време"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Подреди по име"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Избрани градови"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Тајмерот е откажан"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Времето истече"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> тајмери се истечени"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> тајмери се пропуштени"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Тајмер"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Пропуштен тајмер"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Пропуштен тајмер: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Паузирај"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Ресетирај ги сите тајмери"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"Тонга"</item>
     <item msgid="5176858645450908751">"Џакарта"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Нов аларм"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Создајте нов аларм"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Нов тајмер"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Создајте нов тајмер"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Вклучи"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Стартувајте ја стоперката"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Пауза"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Паузирајте ја стоперката"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Заштитник"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Стартувајте заштитник"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Аларми"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Обработува дејства од известувањата на тајмерот."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обработува дејства од известувањата на стоперката."</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Следен аларм: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Нема аларми"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Неважечко време <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Алармот не може да се лоцира."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Нема аларм во <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Нема закажани аларми"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Алармот сѐ уште не е вклучен."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Алармот е веќе пропуштен."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Алармот е веќе отфрлен."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Алармот е веќе одложен."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Не е наведена етикета"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Ниеден аларм не ја содржи етикетата"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Штоперицата не работи"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Стоперката е паузирана"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Штоперицата се ресетираше"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Штоперицата се преклопи"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Штоперицата се вклучи"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Нема закажано аларм во ова време"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Алармот во <xliff:g id="ALARM_TIME">%s</xliff:g> е отфрлен"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Алармот е поставен за <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Нема тајмери"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Има повеќе од еден тајмер"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Тајмерот е отстранет."</string>
     <string name="timer_created" msgid="4381027137335885547">"Тајмерот е создаден"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Тајмерот е ресетиран"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Тајмерот е избришан"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Тајмерот е вклучен"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Неважечка должина на тајмер"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Нема избран град"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Градот што го зададовте не е достапен"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Тој град веќе е додаден"</string>
-    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> е додаден"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> е избришан"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Алармот во <xliff:g id="ALARM_TIME">%s</xliff:g> не може да се отфрли бидејќи до тогаш има повеќе од 24 часа"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Отфрли аларм"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Одберете кој аларм ќе го отфрлите"</string>

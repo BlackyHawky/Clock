@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mâine"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Astăzi"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Închideți"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Închideți acum"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmă ratată"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Amânată"</string>
@@ -145,7 +144,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Orașe"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Setări"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajutor"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Modul Noapte"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Screensaver"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortați după oră"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortați după nume"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Orașele selectate"</string>
@@ -192,7 +191,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Temporizator anulat"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Timpul a expirat!"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> temporizatoare expirate"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> temporizatoare ratate"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporizator"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Temporizator ratat"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Temporizator ratat: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Întrerupeți"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Resetați-le pe toate"</string>
   <string-array name="sw_share_strings">
@@ -311,6 +313,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarmă nouă"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Creați o alarmă nouă"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Temporizator nou"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Creați temporizator nou"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Porniți"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Porniți cronometrul"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Întrerupeți"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Întrerupeți cronometrul"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Porniți screensaverul"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarme"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesează acțiunile din notificările de la temporizator."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesează acțiunile din notificările de la cronometru."</string>
@@ -337,31 +349,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Alarma următoare: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Nu sunt alarme"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Oră nevalidă <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Alarma nu poate fi localizată."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Nicio alarmă la <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nicio alarmă programată"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Alarma nu s-a declanșat încă."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Alarma este deja ratată."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Alarma este deja închisă."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Alarma este deja amânată."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nicio etichetă specificată"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Nicio alarmă nu conține eticheta"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Cronometrul nu este pornit"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Cronometru întrerupt"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Cronometrul a fost resetat"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Cronometrul a înregistrat o tură"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Cronometrul a fost pornit"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nicio alarmă programată pentru această oră"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost închisă"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma este setată pentru <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Nu există niciun temporizator"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Există mai multe temporizatoare"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Temporizatorul a fost eliminat."</string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizator creat"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Temporizatorul a fost resetat"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Temporizatorul a fost șters"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Temporizatorul a fost pornit"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durată nevalidă pentru temporizator"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Niciun oraș selectat"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Orașul pe care l-ați specificat nu este disponibil"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Orașul a fost adăugat deja"</string>
-    <string name="city_added" msgid="1335509457349179514">"Orașul <xliff:g id="CITY_NAME">%s</xliff:g> a fost adăugat"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"Orașul <xliff:g id="CITY_NAME">%s</xliff:g> a fost șters"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> nu poate fi închisă încă, deoarece este setată peste mai mult de 24 de ore"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Închideți alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Alegeți alarma pe care doriți să o închideți"</string>

@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Kesho"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Leo"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ondoa"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Ondoa sasa"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Kengele ambayo haikushughulikiwa"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Yamepumzishwa"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Miji"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mipangilio"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Usaidizi"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Modi ya usiku"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Taswira ya skrini"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Panga kwa saa"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Panga kwa jina"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Miji Iliyochaguliwa"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Kipima muda kimeghairiwa"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Muda umekwisha"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Muda wa vipima muda <xliff:g id="NUM_TIMERS">%d</xliff:g> umekwisha"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"Vipima muda <xliff:g id="NUMBER">%d</xliff:g> ambavyo hukusikia"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Kipima wakati"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Kipima muda ambacho hukusikia"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Kipima muda ambacho hukusikia: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Sitisha"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Anzisha vipima wakati vyote upya"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Kengele mpya"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Weka kengele mpya"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Kipima wakati kipya"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Weka kipima wakati kipya"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Anzisha"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Anzisha kipima muda"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Sitisha"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Sitisha kipima muda"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Taswira ya skrini"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Anzisha taswira ya skrini"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Kengele"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Huchakata vitendo kutoka arifa za kipima muda."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Huchakata vitendo kutoka arifa za saa ya kupima muda."</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Kengele inayofuata: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Hakuna Kengele Zilizowekwa"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Wakati usio sahihi <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Imeshindwa kufikia kengele."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Hakuna kengele ya saa <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Hakuna kengele zilizoratibiwa"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Bado kengele haijalia."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Tayari umekosa kengele."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Tayari umeondoa kengele."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Tayari umeahirisha kengele."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Hakuna lebo iliyobainishwa"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Hakuna kengele zilizo na lebo hii"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Saa ya kupima muda haitumiki"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Saa ya kupima muda imesitishwa"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Muda wa kipima muda umewekwa upya"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Kipima muda kimekamilisha muda wa mzunguko"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Kipima muda kimeanzishwa"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Hakuna kengele iliyoratibiwa wakati huu"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Kengele ya <xliff:g id="ALARM_TIME">%s</xliff:g> imeondolewa"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Kengele imewekwa ya saa <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Hakuna vipima muda"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Kuna zaidi ya kipima muda kimoja"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Kipima muda kimeondolewa."</string>
     <string name="timer_created" msgid="4381027137335885547">"Kipimaji muda kimewekwa"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Kipima muda kimewekwa upya"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Kipima muda kimefutwa"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Kipima muda kimeanzishwa"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Urefu usio sahihi wa kipimaji muda"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Hujachagua jiji"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Jiji ulilobainisha halipo"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Jiji hilo limeongezwa tayari"</string>
-    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> imeongezwa"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> imefutwa"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Kengele ya saa <xliff:g id="ALARM_TIME">%s</xliff:g> bado haiwezi kuondolewa, ina zaidi ya saa 24 kabla muda wake ufike"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ondoa kengele"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Chagua kengele utakayoondoa"</string>

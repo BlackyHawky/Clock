@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Վաղը"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Այսօր"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Փակել հիմա"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Բաց թողնված ազդանշան"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Ննջեցված է"</string>
@@ -113,7 +112,7 @@
     <item msgid="3993530639455360921">"Կիրակի"</item>
     <item msgid="8594709368683324282">"Երկուշաբթի"</item>
   </string-array>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Զարթուցիչի ձայնի բարձրությունը"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Զարթուցիչի ձայնի ուժգնությունը"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Լուռ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Անհայտ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Զարթուցիչի ձայնն անջատված է"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Քաղաքներ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Օգնություն"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Գիշերային ռեժիմ"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Էկրանի խնայարար"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Դասակարգել ըստ ժամանակի"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Դասակարգել ըստ անունների"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Ընտրված քաղաքներ"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Ժամաչափը չեղարկվել է"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ժամանակը սպառվել է"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ժամանակաչափ սպառվել է"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"Բաց է թողնվել <xliff:g id="NUMBER">%d</xliff:g> ժամաչափ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Ժամաչափ"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Բաց թողնված ժամաչափ"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Բաց թողնված ժամաչափ՝ <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Դադարեցնել"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Վերակայել բոլոր ժամաչափերը"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"Տոնգա"</item>
     <item msgid="5176858645450908751">"Ջակարտա"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Նոր զարթուցիչ"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Ստեղծել նոր զարթուցիչ"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Նոր ժամաչափ"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Ստեղծել նոր ժամաչափ"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Գործարկել"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Գործարկել վարկենաչափը"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Դադարեցնել"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Դադարեցնել վայրկենաչափը"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Էկրանի խնայարար"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Գործարկել էկրանի խնայարարը"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Զարթուցիչներ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Մշակում է ժամաչափի ծանուցումներից ծագող գործողությունները:"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Մշակում է վայրկենաչափի ծանուցումներից ծագող գործողությունները:"</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Հաջորդ զարթուցիչը՝ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Զարթուցիչներ չկան"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Անվավեր ժամանակ՝ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Զարթուցիչը չի գտնվում:"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>-ի համար նշանակված զարթուցիչ չկա"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Հերթագրված զարթուցիչներ չկան"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Զարթուցիչը դեռ չի կարող հետաձգվել:"</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Զարթուցիչն արդեն բաց է թողվել:"</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Զարթուցիչի պատուհանն արդեն փակվել է:"</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Զարթուցիչն արդեն հետաձգվել է:"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Նշված պիտակ չկա"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Ոչ մի զարթուցիչ պիտակ չունի"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Վայրկյանաչափը չի աշխատում"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Վայրկենաչափը կանգնեցվել է"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Վայրկյանաչափը վերակայվեց"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Վայրկյանաչափը միացված է"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Վայրկյանաչափը մեկնարկել է"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Այս ժամանակի համար նշանակված զարթուցիչ չկա"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Ժ. <xliff:g id="ALARM_TIME">%s</xliff:g>-ի զարթուցիչը անտեսված է"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Զարթուցիչը դրված է <xliff:g id="ALARM_TIME">%s</xliff:g>-ին"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Ժամաչափեր չկան"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Առկա է մեկից ավելի ժամաչափ"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Ժամաչափը հեռացվել է:"</string>
     <string name="timer_created" msgid="4381027137335885547">"Ժամաչափը ստեղծված է"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Ժամաչափը վերակայված է"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Ժամաչափը ջնջված է"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Ժամաչափը սկսված է"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ժամաչափի տևողությունը սխալ է"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Ընտրված քաղաք չկա"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Նշված քաղաքը հասանելի չէ"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Այդ քաղաքն արդեն ավելացվել է"</string>
-    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g>-ը ավելացվեց"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g>-ը ջնջվեց"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Չեք կարող անտեսել ժ. <xliff:g id="ALARM_TIME">%s</xliff:g>-ի զարթուցիչը, քանի որ դեռ 24 ժամ կա դրան"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Փակել զարթուցիչը"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Ընտրեք՝ որ զարթուցիչը փակել"</string>

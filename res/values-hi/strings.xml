@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"कल"</string>
     <string name="alarm_today" msgid="7873594221106531654">"आज"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"खारिज करें"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"अभी ख़ारिज करें"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"छूटा हुआ अलार्म"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"याद दिलाया"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"शहर"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"सेटिंग"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"सहायता"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"रात्रि मोड"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"स्क्रीन सेवर"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"समय द्वारा क्रमित करें"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"नाम द्वारा क्रमित करें"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"चुनिंदा शहर"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"टाइमर रोक दिया गया"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"समय समाप्त"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टाइमर की समय-सीमा समाप्त"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर छूट गए"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"छूटा हुआ टाइमर"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"छूटा हुआ टाइमर: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"रोकें"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"सभी टाइमर रीसेट करें"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"टोंगा"</item>
     <item msgid="5176858645450908751">"जकार्ता"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"नया अलार्म"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"नया अलार्म बनाएं"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"नया टाइमर"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"नया टाइमर बनाएं"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"शुरू करें"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"स्टॉपवॉच शुरू करें"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"रोकें"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"स्टॉपवॉच रोकें"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"स्क्रीनसेवर"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"स्क्रीन सेवर शुरू करें"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर नोटिफिकेशन से कार्यवाइयां संसाधित करती है."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्‍टॉपवॉच नोटिफिकेशन से कार्यवाइयां संसाधित करती है."</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"अगला अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"कोई अलार्म नहीं"</string>
     <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"अलार्म का पता लगाने में असमर्थ."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> बजे का कोई अलार्म नहीं"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"कोई शेड्यूल किया गया अलार्म नहीं"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"अलार्म अभी तक बजा नहीं है."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"अलार्म का समय पहले ही निकल गया है."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"अलार्म पहले से ही खारिज है."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"अलार्म का समय पहले ही याद दिलाया जा चुका है."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"कोई भी लेबल निर्दिष्‍ट नहीं है"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"किसी भी अलार्म में लेबल शामिल नहीं है"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"स्टॉपवॉच नहीं चल रही है"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"स्टॉपवॉच को रोका गया"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"स्टॉपवॉच को रीसेट किया गया"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"स्टॉपवॉच को लैप किया गया"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"स्टॉपवॉच प्रारंभ की गई"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"इस समय के लिए कोई अलार्म शेड्यूल नहीं किया गया है"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म को ख़ारिज किया गया"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> के लिए अलार्म सेट है"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"कोई टाइमर मौजूद नहीं है"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"एक से अधिक टाइमर मौजूद हैं"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"टाइमर निकाल दिया गया है."</string>
     <string name="timer_created" msgid="4381027137335885547">"टाइमर बनाया गया"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"टाइमर रीसेट किया गया"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"टाइमर हटाया गया"</string>
-    <string name="timer_started" msgid="6715582052946641641">"टाइमर प्रारंभ हो गया"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर अवधि"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"कोई शहर नहीं चुना गया"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"आपके द्वारा निर्दिष्ट शहर उपलब्ध नहीं है"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"उस शहर को पहले से जोड़ा गया है"</string>
-    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> जोड़ा गया"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> हटाया गया"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म को अभी ख़ारिज नहीं किया जा सकता, अभी इसमें 24 घंटे का समय शेष है"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म ख़ारिज करें"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"वह अलार्म चुनें जिसे ख़ारिज किया जाना है"</string>

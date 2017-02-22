@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Ignorer"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarme manquée"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Répétée"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Villes"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Paramètres"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Aide"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode Nuit"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Économiseur d\'écran"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Trier par heure"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Trier par nom"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Villes sélectionnées"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Le minuteur a été annulé."</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Le temps est écoulé."</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteurs ont expiré."</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> rappels manqués"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Rappel manqué"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Rappel manqué : <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interrompre"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Réinit. minuteurs"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nouvelle alarme"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Créer une alarme"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Nouveau minuteur"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Créer un minuteur"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Démarrer"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Lancer le chronomètre"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Suspendre"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Suspendre le chronomètre"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Économ. d\'écran"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Prochaine alarme : <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Heure non valide <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Impossible de localiser l\'alarme."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Aucune alarme définie à <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>."</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Aucune alarme n\'est programmée."</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"L\'alarme n\'a pas encore été déclenchée."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"L\'alarme a déjà été manquée."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"L\'alarme a déjà été ignorée."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"L\'alarme a déjà été mise en attente."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Aucun libellé spécifié."</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Aucune alarme ne comporte le libellé"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Le chronomètre n\'est pas lancé."</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Le chronomètre a bien été interrompu."</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Le chronomètre a bien été réinitialisé."</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Le chronomètre a bien enregistré un tour."</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Le chronomètre a bien été lancé."</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Aucune alarme n\'est programmée à cette heure."</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"L\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> a été ignorée."</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarme à <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Aucun minuteur défini."</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Plusieurs minuteurs sont définis."</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Le minuteur a été supprimé."</string>
     <string name="timer_created" msgid="4381027137335885547">"Le minuteur a bien été créé."</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Le minuteur a été remis à zéro."</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Le minuteur a été supprimé."</string>
-    <string name="timer_started" msgid="6715582052946641641">"Le minuteur a été lancé."</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durée de minuteur incorrecte."</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Aucune ville n\'a été sélectionnée."</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"La ville indiquée n\'est pas disponible."</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Cette ville a déjà été ajoutée."</string>
-    <string name="city_added" msgid="1335509457349179514">"Une horloge a été ajoutée pour <xliff:g id="CITY_NAME">%s</xliff:g>."</string>
-    <string name="city_deleted" msgid="3935141305276867838">"Une horloge a été supprimée pour <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Impossible d\'ignorer l\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> pour le moment, car celle-ci est prévue pour dans plus de 24 heures."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorer l\'alarme"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Veuillez sélectionner l\'alarme que vous souhaitez ignorer."</string>

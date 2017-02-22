@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"రేపు"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ఈ రోజు"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"తీసివేయి"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"ఇప్పుడే తీసివేయి"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"అలారంకు ప్రతిస్పందన లేదు"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"తాత్కా. ఆఫ్"</string>
@@ -137,7 +136,7 @@
     <string name="button_cities" msgid="4555761857494501363">"నగరాలు"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"సెట్టింగ్‌లు"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"సహాయం"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"రాత్రి మోడ్"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"స్క్రీన్ సేవర్"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"సమయం ద్వారా క్రమబద్ధీకరించు"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"పేరు ద్వారా క్రమబద్ధీకరించు"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ఎంచుకున్న నగరాలు"</string>
@@ -181,7 +180,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"టైమర్ రద్దు చేయబడింది"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"సమయం ముగిసింది"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> టైమర్‌ల సమయం గడిచిపోయిం."</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు చూసుకోలేదు"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"టైమర్"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"చూసుకోలేకపోయిన టైమర్"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"ఈ టైమర్ చూసుకోలేదు: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"పాజ్ చేయి"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"టైమర్‌లన్నీ రీసెట్ చేయి"</string>
   <string-array name="sw_share_strings">
@@ -300,6 +302,16 @@
     <item msgid="5911600083231840181">"టోంగా"</item>
     <item msgid="5176858645450908751">"జకార్తా"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"కొత్త అలారం"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"కొత్త అలారాన్ని సృష్టించు"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"కొత్త టైమర్"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"కొత్త టైమర్‌ను సృష్టించు"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"ఆరంభిస్తుంది"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"స్టాప్‌వాచ్ ప్రారంభించు"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"పాజ్ చేస్తుంది"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"స్టాప్‌వాచ్‌ను పాజ్ చేయి"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"స్క్రీన్ సేవర్"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"స్క్రీన్ సేవర్ ప్రారంభించు"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"అలారాలు"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"టైమర్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"స్టాప్‌వాచ్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
@@ -326,31 +338,21 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"తదుపరి అలారం: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"అలారాలు లేవు"</string>
     <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> సమయం చెల్లదు"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"అలారాన్ని గుర్తించడం సాధ్యపడలేదు."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>కి అలారం ఏదీ లేదు"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"షెడ్యూల్ చేసిన అలారాలు ఏవీ లేవు"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"అలారాన్ని ఇంకా మోగలేదు."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"అలారం ఇప్పటికే మిస్ అయింది."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"అలారం ఇప్పటికే తీసివేయబడింది."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"అలారం ఇప్పటికే తాత్కాలికంగా ఆపివేయబడింది."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"లేబుల్ ఏదీ పేర్కొనలేదు"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"లేబుల్‌ను కలిగి ఉన్న అలారాలు ఏవీ లేవు"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"స్టాప్‌వాచ్ అమలు కావడం లేదు"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"స్టాప్‌వాచ్ పాజ్ చేయబడింది"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"స్టాప్‌వాచ్ రీసెట్ చేయబడింది"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"స్టాప్‌వాచ్ ల్యాప్ చేయబడింది"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"స్టాప్‌వాచ్ ప్రారంభించబడింది"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ఈ సమయానికి అలారం ఏదీ షెడ్యూల్ చేయబడలేదు"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> అలారాన్ని తీసివేసారు"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>కి అలారాన్ని సెట్ చేసారు"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"టైమర్‌లేవీ లేవు"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"ఒకటి కంటే ఎక్కువ టైమర్‌లు ఉన్నాయి"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"టైమర్ తీసివేయబడింది."</string>
     <string name="timer_created" msgid="4381027137335885547">"టైమర్‌ను సృష్టించారు"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"టైమర్‌ను రీసెట్ చేసారు"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"టైమర్‌ను తొలగించారు"</string>
-    <string name="timer_started" msgid="6715582052946641641">"టైమర్‌ను ప్రారంభించారు"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"టైమర్ నిడివి చెల్లదు"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"నగరం ఏదీ ఎంచుకోలేదు"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"మీరు పేర్కొన్న నగరం అందుబాటులో లేదు"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"ఆ నగరాన్ని ఇప్పటికే జోడించారు"</string>
-    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g>ని జోడించారు"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g>ని తొలగించారు"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> అలారాన్ని ఇప్పటికీ తీసివేయలేరు, ఇంకా 24 గంటలు పైగా సమయం ఉంది"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"అలారంను తీసివేయండి"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"తీసివేయాల్సిన అలారాన్ని ఎంచుకోండి"</string>
