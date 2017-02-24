@@ -16,6 +16,8 @@
 package com.android.deskclock.widget.selector;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.TextTime;
 
@@ -36,7 +40,8 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public @NonNull View getView(int position, @Nullable View convertView,
+            @NonNull ViewGroup parent) {
         final Context context = getContext();
         View row = convertView;
         if (row == null) {
@@ -60,7 +65,8 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
                     context.getResources().getString(R.string.alarm_tomorrow) :
                     context.getResources().getString(R.string.alarm_today);
         } else {
-            daysOfWeek = alarm.daysOfWeek.toString(context, 0);
+            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
         }
 
         final TextView daysOfWeekView = (TextView) row.findViewById(R.id.daysOfWeek);

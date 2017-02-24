@@ -25,5 +25,5 @@
     android:paddingStart="20dp"
     android:text="@string/selected_cities_label"
     android:textAlignment="viewStart"
-    android:textColor="@color/clock_white"
+    android:textColor="@color/white"
     android:textSize="20sp" />

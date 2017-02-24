@@ -78,7 +78,7 @@ public class StopwatchLandscapeLayout extends ViewGroup {
         super.onFinishInflate();
 
         mLapsListView = findViewById(R.id.laps_list);
-        mStopwatchView = findViewById(R.id.stopwatch);
+        mStopwatchView = findViewById(R.id.stopwatch_time_wrapper);
     }
 
     @Override

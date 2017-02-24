@@ -31,13 +31,11 @@ import java.util.Set;
 @TargetApi(Build.VERSION_CODES.N_MR1)
 public final class ShortcutEventTracker implements EventTracker {
 
-    private final Context mContext;
     private final ShortcutManager mShortcutManager;
     private final Set<String> shortcuts = new ArraySet<>(5);
 
     public ShortcutEventTracker(Context context) {
-        mContext = context;
-        mShortcutManager = mContext.getSystemService(ShortcutManager.class);
+        mShortcutManager = context.getSystemService(ShortcutManager.class);
         final UiDataModel uidm = UiDataModel.getUiDataModel();
         shortcuts.add(uidm.getShortcutId(R.string.category_alarm, R.string.action_create));
         shortcuts.add(uidm.getShortcutId(R.string.category_timer, R.string.action_create));
@@ -52,12 +50,5 @@ public final class ShortcutEventTracker implements EventTracker {
         if (shortcuts.contains(shortcutId)) {
             mShortcutManager.reportShortcutUsed(shortcutId);
         }
-    }
-
-    /**
-     * @return Resource string represented by a given resource id, null if resId is invalid (0).
-     */
-    private String safeGetString(@StringRes int resId) {
-        return resId == 0 ? null : mContext.getString(resId);
     }
 }

@@ -48,9 +48,15 @@ public class TimerCircleFrameLayout extends FrameLayout {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        final int paddingLeft = getPaddingLeft();
+        final int paddingRight = getPaddingRight();
+
+        final int paddingTop = getPaddingTop();
+        final int paddingBottom = getPaddingBottom();
+
         // Fetch the exact sizes imposed by the parent container.
-        final int width = MeasureSpec.getSize(widthMeasureSpec);
-        final int height = MeasureSpec.getSize(heightMeasureSpec);
+        final int width = MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight;
+        final int height = MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom;
         final int smallestDimension = Math.min(width, height);
 
         // Fetch the absolute maximum circle size allowed.
@@ -58,8 +64,10 @@ public class TimerCircleFrameLayout extends FrameLayout {
         final int size = Math.min(smallestDimension, maxSize);
 
         // Set the size of this container.
-        widthMeasureSpec = MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY);
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY);
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingLeft + paddingRight,
+                MeasureSpec.EXACTLY);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(size + paddingTop + paddingBottom,
+                MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

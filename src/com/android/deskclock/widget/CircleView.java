@@ -131,7 +131,7 @@ public class CircleView extends View {
     @Override
     public boolean hasOverlappingRendering() {
         // only if we have a background, which we shouldn't...
-        return getBackground() != null && getBackground().getCurrent() != null;
+        return getBackground() != null;
     }
 
     /**
@@ -188,13 +188,6 @@ public class CircleView extends View {
     }
 
     /**
-     * @return the x-coordinate of the center of the circle
-     */
-    public final float getCenterX() {
-        return mCenterX;
-    }
-
-    /**
      * Sets the x-coordinate for the center of the circle and invalidates only the affected area.
      *
      * @param centerX the x-coordinate to use, relative to the view's bounds
@@ -215,13 +208,6 @@ public class CircleView extends View {
         mGravity &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
 
         return this;
-    }
-
-    /**
-     * @return the y-coordinate of the center of the circle
-     */
-    public final float getCenterY() {
-        return mCenterY;
     }
 
     /**

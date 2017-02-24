@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -24,6 +25,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.v7.widget.RecyclerView.NO_ID;
 
 /**
  * Base adapter class for displaying a collection of items. Provides functionality for handling
@@ -33,7 +36,9 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
         extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     /**
-     * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)}.
+     * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)} or
+     * {@link #notifyItemChanged(int, Object)} if payloads are present (in order to do in-place
+     * change animations).
      */
     private final OnItemChangedListener mItemChangedNotifier = new OnItemChangedListener() {
         @Override
@@ -44,6 +49,17 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
             final int position = mItemHolders.indexOf(itemHolder);
             if (position != RecyclerView.NO_POSITION) {
                 notifyItemChanged(position);
+            }
+        }
+
+        @Override
+        public void onItemChanged(ItemHolder<?> itemHolder, Object payload) {
+            if (mOnItemChangedListener != null) {
+                mOnItemChangedListener.onItemChanged(itemHolder, payload);
+            }
+            final int position = mItemHolders.indexOf(itemHolder);
+            if (position != RecyclerView.NO_POSITION) {
+                notifyItemChanged(position, payload);
             }
         }
     };
@@ -177,6 +193,40 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
     }
 
     /**
+     * Inserts the specified item holder at the specified position. Invokes
+     * {@link #notifyItemInserted} to update the UI.
+     *
+     * @param position   the index to which to add the item holder
+     * @param itemHolder the item holder to add
+     * @return this object, allowing calls to methods in this class to be chained
+     */
+    public ItemAdapter addItem(int position, @NonNull T itemHolder) {
+        itemHolder.addOnItemChangedListener(mItemChangedNotifier);
+        position = Math.min(position, mItemHolders.size());
+        mItemHolders.add(position, itemHolder);
+        notifyItemInserted(position);
+        return this;
+    }
+
+    /**
+     * Removes the first occurrence of the specified element from this list, if it is present
+     * (optional operation). If this list does not contain the element, it is unchanged. Invokes
+     * {@link #notifyItemRemoved} to update the UI.
+     *
+     * @param itemHolder the item holder to remove
+     * @return this object, allowing calls to methods in this class to be chained
+     */
+    public ItemAdapter removeItem(@NonNull T itemHolder) {
+        final int index = mItemHolders.indexOf(itemHolder);
+        if (index >= 0) {
+            itemHolder = mItemHolders.remove(index);
+            itemHolder.removeOnItemChangedListener(mItemChangedNotifier);
+            notifyItemRemoved(index);
+        }
+        return this;
+    }
+
+    /**
      * Sets the listener to be invoked whenever any item changes.
      */
     public void setOnItemChangedListener(OnItemChangedListener listener) {
@@ -190,7 +240,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
 
     @Override
     public long getItemId(int position) {
-        return mItemHolders.get(position).itemId;
+        return hasStableIds() ? mItemHolders.get(position).itemId : NO_ID;
     }
 
     public T findItemById(long id) {
@@ -308,6 +358,16 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
         public final void notifyItemChanged() {
             for (OnItemChangedListener listener : mOnItemChangedListeners) {
                 listener.onItemChanged(this);
+            }
+        }
+
+        /**
+         * Invokes {@link OnItemChangedListener#onItemChanged(ItemHolder, Object)} for all
+         * listeners added via {@link #addOnItemChangedListener(OnItemChangedListener)}.
+         */
+        public final void notifyItemChanged(Object payload) {
+            for (OnItemChangedListener listener : mOnItemChangedListeners) {
+                listener.onItemChanged(this, payload);
             }
         }
 
@@ -457,7 +517,16 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
          *
          * @param itemHolder the item holder that has changed
          */
-        public void onItemChanged(ItemHolder<?> itemHolder);
+        void onItemChanged(ItemHolder<?> itemHolder);
+
+
+        /**
+         * Invoked by {@link ItemHolder#notifyItemChanged(Object payload)}.
+         *
+         * @param itemHolder the item holder that has changed
+         * @param payload the payload object
+         */
+        void onItemChanged(ItemAdapter.ItemHolder<?> itemHolder, Object payload);
     }
 
     /**
@@ -470,6 +539,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
          * @param viewHolder the {@link ItemViewHolder} containing the view that was clicked
          * @param id         the unique identifier for the click action that has occurred
          */
-        public void onItemClicked(ItemViewHolder<?> viewHolder, int id);
+        void onItemClicked(ItemViewHolder<?> viewHolder, int id);
     }
 }

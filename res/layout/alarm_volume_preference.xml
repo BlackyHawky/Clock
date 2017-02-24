@@ -39,7 +39,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="@dimen/touch_target_min_size">
 
         <ImageView
             android:id="@+id/alarm_icon"
@@ -47,12 +47,14 @@
             android:layout_height="match_parent"
             android:importantForAccessibility="no" />
 
+        <!-- Specify maxHeight to properly set the track height on API < 23 -->
         <SeekBar
             android:id="@+id/alarm_volume_slider"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:maxHeight="@dimen/touch_target_min_size" />
 
     </LinearLayout>
 

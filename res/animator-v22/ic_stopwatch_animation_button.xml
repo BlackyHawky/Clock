@@ -15,11 +15,10 @@
      limitations under the License.
 -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android" >
-    <objectAnimator
-        android:duration="267"
-        android:propertyXName="translateX"
-        android:propertyYName="translateY"
-        android:pathData="M 12,12 c 0,0.16667 0,1 0,1 l 0,-1 "
-        android:interpolator="@interpolator/ic_stopwatch_button_translatex_interpolator" />
-</set>
+<objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="267"
+    android:interpolator="@anim/ic_stopwatch_button_translatex_interpolator"
+    android:pathData="M 12,12 c 0,0.16667 0,1 0,1 l 0,-1 "
+    android:propertyXName="translateX"
+    android:propertyYName="translateY" />

@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="?attr/selectableItemBackground"
     android:minHeight="@dimen/cities_list_item_height"
     android:orientation="horizontal">
     <TextView
@@ -29,7 +29,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="@dimen/label_text_size"
-        android:textColor="@color/clock_white" />
+        android:textColor="@color/white" />
     <CheckBox
         android:id="@+id/city_onoff"
         android:layout_height="wrap_content"

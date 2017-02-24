@@ -25,17 +25,15 @@
     <android.support.percent.PercentFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center">
+        android:layout_weight="1">
 
         <com.android.deskclock.TimerCircleFrameLayout
+            android:layout_gravity="center"
             app:layout_aspectRatio="100%"
-            app:layout_widthPercent="@fraction/timer_circle_width_percent"
             app:layout_heightPercent="@fraction/timer_circle_height_percent"
-            android:layout_gravity="center">
+            app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
             <com.android.deskclock.CircleButtonsLayout
-                android:id="@+id/timer_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -44,34 +42,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <com.android.deskclock.timer.CountingTimerView
+                <com.android.deskclock.widget.AutoSizingTextView
                     android:id="@+id/timer_time_text"
+                    style="@style/display_time"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:textSize="70sp" />
 
                 <Button
                     android:id="@+id/timer_label"
-                    style="?android:attr/borderlessButtonStyle"
+                    style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="top|center_horizontal"
                     android:clickable="false"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:hint="@string/label"
                     android:maxLines="1"
+                    android:minHeight="@dimen/touch_target_min_size"
+                    android:minWidth="@dimen/touch_target_min_size"
                     android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/reset_add"
-                    android:layout_width="@dimen/fab_button_size"
-                    android:layout_height="@dimen/fab_button_size"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
                     android:contentDescription="@string/timer_plus_one"
                     android:gravity="center"
-                    android:padding="@dimen/fab_button_padding"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_plusone" />
+                    android:scaleType="centerInside" />
 
             </com.android.deskclock.CircleButtonsLayout>
 

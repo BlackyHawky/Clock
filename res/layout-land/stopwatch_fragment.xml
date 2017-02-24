@@ -31,19 +31,18 @@
     <com.android.deskclock.stopwatch.StopwatchLandscapeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="@integer/guttered_content_width_percent">
+        android:layout_weight="@integer/guttered_content_width_percent"
+        android:paddingBottom="@dimen/fab_height">
 
-        <!-- A circle in the stopwatch_view implies it should be sized in the remaining area. -->
-        <com.android.deskclock.TimerCircleFrameLayout
-            android:id="@+id/stopwatch"
+        <FrameLayout
+            android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/fab_height">
+            android:layout_gravity="center">
 
-            <include layout="@layout/stopwatch_view" />
+            <include layout="@layout/stopwatch_time" />
 
-        </com.android.deskclock.TimerCircleFrameLayout>
+        </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/laps_list"

@@ -38,6 +38,17 @@
     <string name="action_show">Show</string>
     <string name="action_add_minute">Add Minute</string>
     <string name="action_lap">Lap</string>
+    <string name="action_enable">Enable</string>
+    <string name="action_disable">Disable</string>
+    <string name="action_expand">Expand</string>
+    <string name="action_collapse">Collapse</string>
+    <string name="action_expand_implied">Expand Implied</string>
+    <string name="action_collapse_implied">Collapse Implied</string>
+    <string name="action_set_time">Set Time</string>
+    <string name="action_set_label">Set Label</string>
+    <string name="action_set_ringtone">Set Ringtone</string>
+    <string name="action_toggle_vibrate">Toggle Vibrate</string>
+    <string name="action_toggle_repeat_days">Toggle Repeat Days</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

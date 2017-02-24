@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.uidata.UiDataModel;
@@ -42,20 +41,20 @@ public class HandleShortcuts extends Activity {
             switch (action) {
                 case StopwatchService.ACTION_PAUSE_STOPWATCH:
                     Events.sendStopwatchEvent(R.string.action_pause, R.string.label_shortcut);
-                    DataModel.getDataModel().pauseStopwatch();
 
                     // Open DeskClock positioned on the stopwatch tab.
                     UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                    startActivity(new Intent(this, DeskClock.class));
+                    startActivity(new Intent(this, DeskClock.class)
+                            .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
                     setResult(RESULT_OK);
                     break;
                 case StopwatchService.ACTION_START_STOPWATCH:
                     Events.sendStopwatchEvent(R.string.action_start, R.string.label_shortcut);
-                    DataModel.getDataModel().startStopwatch();
 
                     // Open DeskClock positioned on the stopwatch tab.
                     UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                    startActivity(new Intent(this, DeskClock.class));
+                    startActivity(new Intent(this, DeskClock.class)
+                            .setAction(StopwatchService.ACTION_START_STOPWATCH));
                     setResult(RESULT_OK);
                     break;
                 default:

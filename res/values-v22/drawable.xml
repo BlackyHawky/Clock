@@ -21,5 +21,9 @@
     <item name="ic_tab_clock" type="drawable">@drawable/ic_tab_clock_animated</item>
     <item name="ic_tab_timer" type="drawable">@drawable/ic_tab_timer_animated</item>
     <item name="ic_tab_stopwatch" type="drawable">@drawable/ic_tab_stopwatch_animated</item>
+    <item name="ic_ringtone_active" type="drawable">@drawable/ic_ringtone_active_animated</item>
+
+    <item name="ic_caret_up" type="drawable">@drawable/ic_caret_up_animation</item>
+    <item name="ic_caret_down" type="drawable">@drawable/ic_caret_down_animation</item>
 
 </resources>

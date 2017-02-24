@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.data.Weekdays;
 
 import java.util.Calendar;
 
@@ -163,7 +164,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.id = cursor.getLong(0);
                     alarm.hour = cursor.getInt(1);
                     alarm.minutes = cursor.getInt(2);
-                    alarm.daysOfWeek = new DaysOfWeek(cursor.getInt(3));
+                    alarm.daysOfWeek = Weekdays.fromBits(cursor.getInt(3));
                     alarm.enabled = cursor.getInt(4) == 1;
                     alarm.vibrate = cursor.getInt(5) == 1;
                     alarm.label = cursor.getString(6);

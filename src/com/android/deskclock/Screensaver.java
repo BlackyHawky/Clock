@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -41,20 +41,22 @@ public final class Screensaver extends DreamService {
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
 
-    private View mContentView, mSaverView;
-    private View mAnalogClock, mDigitalClock;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
+    private View mContentView;
+    private View mMainClockView;
+    private TextClock mDigitalClock;
+    private AnalogClock mAnalogClock;
+
     /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
-        ? new ContentObserver(new Handler()) {
-            @Override
-            public void onChange(boolean selfChange) {
-                Utils.refreshAlarm(Screensaver.this, mContentView);
-            }
-        }
-        : null;
+    private final ContentObserver mSettingsContentObserver =
+            Utils.isLOrLater() ? null : new ContentObserver(new Handler()) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    Utils.refreshAlarm(Screensaver.this, mContentView);
+                }
+            };
 
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
@@ -77,9 +79,9 @@ public final class Screensaver extends DreamService {
     @Override
     public void onCreate() {
         LOGGER.v("Screensaver created");
-        super.onCreate();
 
-        setTheme(R.style.ScreensaverActivityTheme);
+        setTheme(R.style.Theme_DeskClock);
+        super.onCreate();
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
@@ -91,24 +93,34 @@ public final class Screensaver extends DreamService {
         super.onAttachedToWindow();
 
         setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.digital_clock);
-        mAnalogClock = findViewById(R.id.analog_clock);
-        mSaverView = findViewById(R.id.main_clock);
-        mContentView = (View) mSaverView.getParent();
+
+        mContentView = findViewById(R.id.saver_container);
+        mMainClockView = mContentView.findViewById(R.id.main_clock);
+        mDigitalClock = (TextClock) mMainClockView.findViewById(R.id.digital_clock);
+        mAnalogClock = (AnalogClock) mMainClockView.findViewById(R.id.analog_clock);
 
         setClockStyle();
-        Utils.setTimeFormat((TextClock) mDigitalClock);
+        Utils.setClockIconTypeface(mContentView);
+        Utils.setTimeFormat(mDigitalClock, false);
+        mAnalogClock.enableSeconds(false);
 
-        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);
+        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 
         // We want the screen saver to exit upon user interaction.
         setInteractive(false);
-
         setFullscreen(true);
 
         // Setup handlers for time reference changes and date updates.
-        final IntentFilter filter = new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
-        registerReceiver(mAlarmChangedReceiver, filter);
+        if (Utils.isLOrLater()) {
+            registerReceiver(mAlarmChangedReceiver,
+                    new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED));
+        }
 
         if (mSettingsContentObserver != null) {
             @SuppressWarnings("deprecation")
@@ -117,7 +129,7 @@ public final class Screensaver extends DreamService {
         }
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        Utils.refreshAlarm(Screensaver.this, mContentView);
+        Utils.refreshAlarm(this, mContentView);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
@@ -136,7 +148,9 @@ public final class Screensaver extends DreamService {
         stopPositionUpdater();
 
         // Tear down handlers for time reference changes and date updates.
-        unregisterReceiver(mAlarmChangedReceiver);
+        if (Utils.isLOrLater()) {
+            unregisterReceiver(mAlarmChangedReceiver);
+        }
     }
 
     @Override
@@ -144,17 +158,13 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
 
-        // Ignore the configuration change if no window exists.
-        if (getWindow() != null) {
-            // Restart the position updater via a PreDrawListener after layout is complete.
-            startPositionUpdater();
-        }
+        startPositionUpdater();
     }
 
     private void setClockStyle() {
         Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
         final boolean dimNightMode = DataModel.getDataModel().getScreensaverNightModeOn();
-        Utils.dimClockView(dimNightMode, mSaverView);
+        Utils.dimClockView(dimNightMode, mMainClockView);
         setScreenBright(!dimNightMode);
     }
 
@@ -164,21 +174,25 @@ public final class Screensaver extends DreamService {
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
-        mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
+        if (mContentView != null) {
+            mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
+        }
     }
 
     /**
      * This activity is no longer in the foreground; position callbacks should be removed.
      */
     private void stopPositionUpdater() {
-        mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        if (mContentView != null) {
+            mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        }
         mPositionUpdater.stop();
     }
 
     private final class StartPositionUpdater implements OnPreDrawListener {
         /**
          * This callback occurs after initial layout has completed. It is an appropriate place to
-         * select a random position for {@link #mSaverView} and schedule future callbacks to update
+         * select a random position for {@link #mMainClockView} and schedule future callbacks to update
          * its position.
          *
          * @return {@code true} to continue with the drawing pass

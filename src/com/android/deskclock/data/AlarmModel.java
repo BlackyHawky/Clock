@@ -19,25 +19,17 @@ package com.android.deskclock.data;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.ArrayMap;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.provider.Alarm;
-
-import java.util.Map;
 
 /**
  * All alarm data will eventually be accessed via this model.
  */
 final class AlarmModel {
-
-    private final Context mContext;
 
     /** The model from which settings are fetched. */
     private final SettingsModel mSettingsModel;
@@ -45,15 +37,11 @@ final class AlarmModel {
     /** The uri of the default ringtone to play for new alarms; mirrors last selection. */
     private Uri mDefaultAlarmRingtoneUri;
 
-    /** Maps ringtone uri to ringtone title; looking up a title from scratch is expensive. */
-    private final Map<Uri, String> mRingtoneTitles = new ArrayMap<>(8);
-
     AlarmModel(Context context, SettingsModel settingsModel) {
-        mContext = context;
         mSettingsModel = settingsModel;
 
         // Clear caches affected by system settings when system settings change.
-        final ContentResolver cr = mContext.getContentResolver();
+        final ContentResolver cr = context.getContentResolver();
         final ContentObserver observer = new SystemAlarmAlertChangeObserver();
         cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, observer);
     }
@@ -74,28 +62,20 @@ final class AlarmModel {
         }
     }
 
-    String getAlarmRingtoneTitle(Uri uri) {
-        // Special case: no ringtone has a title of "Silent".
-        if (Alarm.NO_RINGTONE_URI.equals(uri)) {
-            return mContext.getString(R.string.silent_ringtone_title);
-        }
+    long getAlarmCrescendoDuration() {
+        return mSettingsModel.getAlarmCrescendoDuration();
+    }
 
-        // Check the cache.
-        String title = mRingtoneTitles.get(uri);
+    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+        return mSettingsModel.getAlarmVolumeButtonBehavior();
+    }
 
-        if (title == null) {
-            // This is slow because a media player is created during Ringtone object creation.
-            final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-            if (ringtone == null) {
-                LogUtils.e("No ringtone for uri: %s", uri);
-                return mContext.getString(R.string.unknown_ringtone_title);
-            }
+    int getAlarmTimeout() {
+        return mSettingsModel.getAlarmTimeout();
+    }
 
-            // Cache the title for later use.
-            title = ringtone.getTitle(mContext);
-            mRingtoneTitles.put(uri, title);
-        }
-        return title;
+    int getSnoozeLength() {
+        return mSettingsModel.getSnoozeLength();
     }
 
     /**
@@ -111,13 +91,7 @@ final class AlarmModel {
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-
-            LogUtils.i("Detected change to system default alarm ringtone; clearing caches");
-
             mDefaultAlarmRingtoneUri = null;
-
-            // Titles such as "Default ringtone (Oxygen)" are wrong after default ringtone changes.
-            mRingtoneTitles.clear();
         }
     }
 }

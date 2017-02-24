@@ -20,17 +20,19 @@ import android.app.Fragment;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
-
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 
 public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
     /** The tab associated with this fragment. */
     private final Tab mTab;
+
+    /** The container that houses the fab and its left and right buttons. */
+    private FabContainer mFabContainer;
 
     public DeskClockFragment(Tab tab) {
         mTab = tab;
@@ -52,12 +54,17 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull ImageButton left) {
+    public void onLeftButtonClick(@NonNull Button left) {
         // Do nothing here, only in derived classes
     }
 
     @Override
-    public void onRightButtonClick(@NonNull ImageButton right) {
+    public void onRightButtonClick(@NonNull Button right) {
+        // Do nothing here, only in derived classes
+    }
+
+    @Override
+    public void onMorphFab(@NonNull ImageView fab) {
         // Do nothing here, only in derived classes
     }
 
@@ -69,22 +76,22 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     /**
-     * Requests that the parent activity update the fab and buttons.
-     *
-     * @param updateType the manner in which the fab container should be updated
+     * @param fabContainer the container that houses the fab and its left and right buttons
      */
-    @Override
-    public final void updateFab(FabContainer.UpdateType updateType) {
-        final FabContainer parentFabContainer = (FabContainer) getActivity();
-        if (parentFabContainer != null) {
-            parentFabContainer.updateFab(updateType);
-        }
+    public final void setFabContainer(FabContainer fabContainer) {
+        mFabContainer = fabContainer;
     }
 
+    /**
+     * Requests that the parent activity update the fab and buttons.
+     *
+     * @param updateTypes the manner in which the fab container should be updated
+     */
     @Override
-    public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
-        // Pass through to onUpdateFabButtons because there is no spec for morphing button icon.
-        onUpdateFabButtons(left, right);
+    public final void updateFab(@UpdateFabFlag int updateTypes) {
+        if (mFabContainer != null) {
+            mFabContainer.updateFab(updateTypes);
+        }
     }
 
     /**
@@ -92,6 +99,13 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
      */
     public final boolean isTabSelected() {
         return UiDataModel.getUiDataModel().getSelectedTab() == mTab;
+    }
+
+    /**
+     * Select the tab that displays this fragment.
+     */
+    public final void selectTab() {
+        UiDataModel.getUiDataModel().setSelectedTab(mTab);
     }
 
     /**

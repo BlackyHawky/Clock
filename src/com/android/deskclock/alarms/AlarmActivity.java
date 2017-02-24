@@ -33,13 +33,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.animation.PathInterpolatorCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,20 +51,22 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
+import com.android.deskclock.BaseActivity;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.CircleView;
 
 import java.util.List;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
-public class AlarmActivity extends AppCompatActivity
+public class AlarmActivity extends BaseActivity
         implements View.OnClickListener, View.OnTouchListener {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
@@ -125,7 +127,7 @@ public class AlarmActivity extends AppCompatActivity
 
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
-    private String mVolumeBehavior;
+    private AlarmVolumeButtonBehavior mVolumeBehavior;
     private int mCurrentHourColor;
     private boolean mReceiverRegistered;
     /** Whether the AlarmService is currently bound */
@@ -154,6 +156,7 @@ public class AlarmActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
         if (mAlarmInstance == null) {
@@ -170,9 +173,7 @@ public class AlarmActivity extends AppCompatActivity
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
-        mVolumeBehavior = Utils.getDefaultSharedPreferences(this)
-                .getString(SettingsActivity.KEY_VOLUME_BUTTONS,
-                        SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
+        mVolumeBehavior = DataModel.getDataModel().getAlarmVolumeButtonBehavior();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -187,7 +188,7 @@ public class AlarmActivity extends AppCompatActivity
         sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!getResources().getBoolean(R.bool.config_rotateAlarmAlert)) {
+        if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -210,9 +211,9 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        Utils.setTimeFormat(digitalClock);
+        Utils.setTimeFormat(digitalClock, false);
 
-        mCurrentHourColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
+        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.windowBackground);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
@@ -285,31 +286,31 @@ public class AlarmActivity extends AppCompatActivity
         // Do this in dispatch to intercept a few of the system keys.
         LOGGER.v("dispatchKeyEvent: %s", keyEvent);
 
-        switch (keyEvent.getKeyCode()) {
+        final int keyCode = keyEvent.getKeyCode();
+        switch (keyCode) {
             // Volume keys and camera keys dismiss the alarm.
-            case KeyEvent.KEYCODE_POWER:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_MUTE:
             case KeyEvent.KEYCODE_HEADSETHOOK:
             case KeyEvent.KEYCODE_CAMERA:
             case KeyEvent.KEYCODE_FOCUS:
-                if (!mAlarmHandled && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
-                        case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
-                            snooze();
-                            break;
-                        case SettingsActivity.VOLUME_BEHAVIOR_DISMISS:
-                            dismiss();
-                            break;
-                        default:
-                            break;
+                        case SNOOZE:
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                snooze();
+                            }
+                            return true;
+                        case DISMISS:
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                dismiss();
+                            }
+                            return true;
                     }
                 }
-                return true;
-            default:
-                return super.dispatchKeyEvent(keyEvent);
         }
+        return super.dispatchKeyEvent(keyEvent);
     }
 
     @Override
@@ -485,17 +486,17 @@ public class AlarmActivity extends AppCompatActivity
         mAlarmHandled = true;
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
-        final int accentColor = Utils.obtainStyledColor(this, R.attr.colorAccent, Color.RED);
+        final int colorAccent = ThemeUtils.resolveColor(this, R.attr.colorAccent);
         setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
 
-        final int snoozeMinutes = AlarmStateManager.getSnoozedMinutes(this);
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         final String infoText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_duration, snoozeMinutes, snoozeMinutes);
         final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
         getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText,
-                accessibilityText, accentColor, accentColor).start();
+                accessibilityText, colorAccent, colorAccent).start();
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 

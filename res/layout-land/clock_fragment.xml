@@ -59,6 +59,7 @@
         android:clickable="false"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/fab_height"
+        android:paddingTop="16dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 

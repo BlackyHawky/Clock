@@ -59,7 +59,7 @@ class ShortcutController {
         mComponentName = new ComponentName(mContext, DeskClock.class);
         mShortcutManager = mContext.getSystemService(ShortcutManager.class);
         mUserManager = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
-        Events.addEventTracker(new ShortcutEventTracker(mContext));
+        Controller.getController().addEventTracker(new ShortcutEventTracker(mContext));
         DataModel.getDataModel().addStopwatchListener(new StopwatchWatcher());
     }
 
