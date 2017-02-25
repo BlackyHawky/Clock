@@ -13,6 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -24,62 +25,29 @@
         android:layout_weight="29"
         android:orientation="vertical">
 
-        <FrameLayout
+        <TextClock
+            android:id="@+id/digital_clock"
+            style="@style/world_clock_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextClock
-                android:id="@+id/digital_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:textColor="@color/clock_white"
-                android:textSize="@dimen/world_clock_digital_font_size" />
-
-            <com.android.deskclock.AnalogClock
-                android:id="@+id/analog_clock"
-                android:layout_width="@dimen/world_clock_analog_size"
-                android:layout_height="@dimen/world_clock_analog_size"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
-                android:gravity="center" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center_horizontal"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:includeFontPadding="false" />
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        <com.android.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="@dimen/world_clock_analog_size"
+            android:layout_height="@dimen/world_clock_analog_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
 
-                <TextView
-                    android:id="@+id/city_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textAppearance="@style/PrimaryLabelTextAppearance" />
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/city_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/style_label_space"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textAppearance="@style/SecondaryLabelTextAppearance" />
-
-        </LinearLayout>
+        <include
+            layout="@layout/world_clock_city_container"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

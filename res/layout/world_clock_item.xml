@@ -26,53 +26,36 @@
         android:layout_height="match_parent"
         android:layout_weight="@integer/gutter_width_percent" />
 
-    <com.android.deskclock.widget.EllipsizeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="@integer/guttered_content_width_percent"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/city_name"
+        <include
+            layout="@layout/world_clock_city_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextClock
+            android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:paddingStart="24dp"
+            android:layout_gravity="end"
             android:singleLine="true"
-            android:textAppearance="@style/PrimaryLabelTextAppearance" />
+            android:textAppearance="@style/world_clock_time"/>
 
-        <TextView
-            android:id="@+id/city_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/style_label_space"
-            android:ellipsize="none"
-            android:singleLine="true"
-            android:textAppearance="@style/SecondaryLabelTextAppearance" />
+        <com.android.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="@dimen/world_clock_analog_size"
+            android:layout_height="@dimen/world_clock_analog_size"
+            android:paddingStart="24dp"
+            android:layout_gravity="end"
+            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextClock
-                android:id="@+id/digital_clock"
-                style="@style/medium_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:baselineAligned="true"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <com.android.deskclock.AnalogClock
-                android:id="@+id/analog_clock"
-                android:layout_width="@dimen/world_clock_analog_size"
-                android:layout_height="@dimen/world_clock_analog_size"
-                android:layout_gravity="end"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
-
-        </FrameLayout>
-
-    </com.android.deskclock.widget.EllipsizeLayout>
+    </LinearLayout>
 
     <!-- Right gutter. -->
     <Space

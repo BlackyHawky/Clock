@@ -22,13 +22,19 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.VisibleForTesting;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 
 import java.util.Calendar;
+import java.util.TimeZone;
+
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
 
 /**
  * Based on {@link android.widget.TextClock}, This widget displays a constant time of day using
@@ -36,8 +42,13 @@ import java.util.Calendar;
  */
 public class TextTime extends TextView {
 
-    private static final CharSequence DEFAULT_FORMAT_12_HOUR = "h:mm a";
-    private static final CharSequence DEFAULT_FORMAT_24_HOUR = "H:mm";
+    /** UTC does not have DST rules and will not alter the {@link #mHour} and {@link #mMinute}. */
+    private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    static final CharSequence DEFAULT_FORMAT_12_HOUR = "h:mm a";
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    static final CharSequence DEFAULT_FORMAT_24_HOUR = "H:mm";
 
     private CharSequence mFormat12;
     private CharSequence mFormat24;
@@ -75,8 +86,8 @@ public class TextTime extends TextView {
     public TextTime(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
-        setFormat24Hour(Utils.get24ModeFormat());
+        setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */, false));
+        setFormat24Hour(Utils.get24ModeFormat(false));
 
         chooseFormat();
     }
@@ -108,7 +119,7 @@ public class TextTime extends TextView {
     }
 
     private void chooseFormat() {
-        final boolean format24Requested = DateFormat.is24HourFormat(getContext());
+        final boolean format24Requested = DataModel.getDataModel().is24HourFormat();
         if (format24Requested) {
             mFormat = mFormat24 == null ? DEFAULT_FORMAT_24_HOUR : mFormat24;
         } else {
@@ -152,9 +163,11 @@ public class TextTime extends TextView {
     }
 
     private void updateTime() {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, mHour);
-        calendar.set(Calendar.MINUTE, mMinute);
+        // Format the time relative to UTC to ensure hour and minute are not adjusted for DST.
+        final Calendar calendar = DataModel.getDataModel().getCalendar();
+        calendar.setTimeZone(UTC);
+        calendar.set(HOUR_OF_DAY, mHour);
+        calendar.set(MINUTE, mMinute);
         final CharSequence text = DateFormat.format(mFormat, calendar);
         setText(text);
         // Strip away the spans from text so talkback is not confused

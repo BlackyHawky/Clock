@@ -16,11 +16,7 @@
 
 package com.android.deskclock.uidata;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.android.deskclock.Utils;
 
 import static com.android.deskclock.uidata.UiDataModel.Tab;
 
@@ -29,34 +25,23 @@ import static com.android.deskclock.uidata.UiDataModel.Tab;
  */
 final class TabDAO {
 
+    /** Key to a preference that stores the ordinal of the selected tab. */
     private static final String KEY_SELECTED_TAB = "selected_tab";
-
-    // Lazily instantiated and cached for the life of the application.
-    private static SharedPreferences sPrefs;
 
     private TabDAO() {}
 
     /**
      * @return an enumerated value indicating the currently selected primary tab
      */
-    static Tab getSelectedTab(Context context) {
-        final SharedPreferences prefs = getSharedPreferences(context);
-        final int selectedTabOrdinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
-        return Tab.values()[selectedTabOrdinal];
+    static Tab getSelectedTab(SharedPreferences prefs) {
+        final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
+        return Tab.values()[ordinal];
     }
 
     /**
      * @param tab an enumerated value indicating the newly selected primary tab
      */
-    static void setSelectedTab(Context context, Tab tab) {
-        getSharedPreferences(context).edit().putInt(KEY_SELECTED_TAB, tab.ordinal()).apply();
-    }
-
-    private static SharedPreferences getSharedPreferences(Context context) {
-        if (sPrefs == null) {
-            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
-        }
-
-        return sPrefs;
+    static void setSelectedTab(SharedPreferences prefs, Tab tab) {
+        prefs.edit().putInt(KEY_SELECTED_TAB, tab.ordinal()).apply();
     }
 }

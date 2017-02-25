@@ -58,7 +58,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         wl.acquire();
 
         // We need to increment the global id out of the async task to prevent race conditions
-        AlarmStateManager.updateGlobalIntentId(context);
+        DataModel.getDataModel().updateGlobalIntentId();
 
         // Updates stopwatch and timer data after a device reboot so they are as accurate as
         // possible.

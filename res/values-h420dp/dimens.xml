@@ -15,7 +15,5 @@
 -->
 
 <resources>
-    <dimen name="alarm_time_font_size">64sp</dimen>
-
     <dimen name="day_button_font_size">18sp</dimen>
 </resources>

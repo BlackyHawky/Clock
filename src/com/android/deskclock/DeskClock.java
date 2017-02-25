@@ -20,70 +20,44 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.ContentObserver;
-import android.media.AudioManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
-import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.DataModel.SilentSetting;
+import com.android.deskclock.data.OnSilentSettingsListener;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.uidata.UiDataModel.Tab;
-import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
 
-import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
-import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
-import static android.media.AudioManager.FLAG_SHOW_UI;
-import static android.media.AudioManager.STREAM_ALARM;
-import static android.media.RingtoneManager.TYPE_ALARM;
-import static android.provider.Settings.System.CONTENT_URI;
-import static android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
 import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -91,14 +65,6 @@ import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMME
  */
 public class DeskClock extends BaseActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
-
-    /** The Uri to the settings entry that stores alarm stream volume. */
-    private static final Uri VOLUME_URI = Uri.withAppendedPath(CONTENT_URI, "volume_alarm_speaker");
-
-    /** The intent filter that identifies do-not-disturb change broadcasts. */
-    @SuppressLint("NewApi")
-    private static final IntentFilter DND_CHANGE_FILTER
-            = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
 
     /** Models the interesting state of display the {@link #mFab} button may inhabit. */
     private enum FabState { SHOWING, HIDE_ARMED, HIDING }
@@ -115,38 +81,21 @@ public class DeskClock extends BaseActivity
     /** Hides, updates, and shows only the {@link #mFab}; the buttons are untouched. */
     private final AnimatorSet mUpdateFabOnlyAnimation = new AnimatorSet();
 
+    /** Hides, updates, and shows only the {@link #mLeftButton} and {@link #mRightButton}. */
+    private final AnimatorSet mUpdateButtonsOnlyAnimation = new AnimatorSet();
+
     /** Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends. */
     private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
 
     /** Updates the user interface to reflect the selected tab from the backing model. */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
 
-    /** Displays a snackbar explaining that the system default alarm ringtone is silent. */
-    private final Runnable mShowSilentAlarmSnackbarRunnable = new ShowSilentAlarmSnackbarRunnable();
+    /** Shows/hides a snackbar explaining which setting is suppressing alarms from firing. */
+    private final OnSilentSettingsListener mSilentSettingChangeWatcher =
+            new SilentSettingChangeWatcher();
 
-    /** Observes default alarm ringtone changes while the app is in the foreground. */
-    private final ContentObserver mAlarmRingtoneChangeObserver = new AlarmRingtoneChangeObserver();
-
-    /** Displays a snackbar explaining that the alarm volume is muted. */
-    private final Runnable mShowMutedVolumeSnackbarRunnable = new ShowMutedVolumeSnackbarRunnable();
-
-    /** Observes alarm volume changes while the app is in the foreground. */
-    private final ContentObserver mAlarmVolumeChangeObserver = new AlarmVolumeChangeObserver();
-
-    /** Displays a snackbar explaining that do-not-disturb is blocking alarms. */
-    private final Runnable mShowDNDBlockingSnackbarRunnable = new ShowDNDBlockingSnackbarRunnable();
-
-    /** Observes do-not-disturb changes while the app is in the foreground. */
-    private final BroadcastReceiver mDoNotDisturbChangeReceiver = new DoNotDisturbChangeReceiver();
-
-    /** Used to query the alarm volume and display the system control to change the alarm volume. */
-    private AudioManager mAudioManager;
-
-    /** Used to query the do-not-disturb setting value, also called "interruption filter". */
-    private NotificationManager mNotificationManager;
-
-    /** {@code true} permits the muted alarm volume snackbar to show when starting this activity. */
-    private boolean mShowSilencedAlarmsSnackbar;
+    /** Displays a snackbar explaining why alarms may not fire or may fire silently. */
+    private Runnable mShowSilentSettingSnackbarRunnable;
 
     /** The view to which snackbar items are anchored. */
     private View mSnackbarAnchor;
@@ -158,19 +107,19 @@ public class DeskClock extends BaseActivity
     private ImageView mFab;
 
     /** The button left of the {@link #mFab} shared across all tabs in the user interface. */
-    private ImageButton mLeftButton;
+    private Button mLeftButton;
 
     /** The button right of the {@link #mFab} shared across all tabs in the user interface. */
-    private ImageButton mRightButton;
+    private Button mRightButton;
 
     /** The controller that shows the drop shadow when content is not scrolled to the top. */
     private DropShadowController mDropShadowController;
 
     /** The ViewPager that pages through the fragments representing the content of the tabs. */
-    private RtlViewPager mFragmentTabPager;
+    private ViewPager mFragmentTabPager;
 
     /** Generates the fragments that are displayed by the {@link #mFragmentTabPager}. */
-    private TabFragmentAdapter mFragmentTabPagerAdapter;
+    private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
 
     /** The container that stores the tab headers. */
     private TabLayout mTabLayout;
@@ -191,43 +140,68 @@ public class DeskClock extends BaseActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.desk_clock);
-
-        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        // Don't show the volume muted snackbar on rotations.
-        mShowSilencedAlarmsSnackbar = savedInstanceState == null;
-        mSnackbarAnchor = findViewById(R.id.coordinator);
+        mSnackbarAnchor = findViewById(R.id.content);
 
         // Configure the toolbar.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         // Configure the menu item controllers add behavior to the toolbar.
-        mOptionsMenuManager
-                .addMenuItemController(new NightModeMenuItemController(this))
-                .addMenuItemController(new SettingsMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this));
+        mOptionsMenuManager.addMenuItemController(
+                new NightModeMenuItemController(this), new SettingsMenuItemController(this));
+        mOptionsMenuManager.addMenuItemController(
+                MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
         // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
         onCreateOptionsMenu(toolbar.getMenu());
 
         // Create the tabs that make up the user interface.
-        mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        for (int i = 0; i < UiDataModel.getUiDataModel().getTabCount(); i++) {
-            final Tab tab = UiDataModel.getUiDataModel().getTab(i);
-            mTabLayout.addTab(mTabLayout.newTab()
-                    .setIcon(tab.getIconId())
-                    .setContentDescription(tab.getContentDescriptionId()));
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        final int tabCount = UiDataModel.getUiDataModel().getTabCount();
+        final boolean showTabLabel = getResources().getBoolean(R.bool.showTabLabel);
+        final boolean showTabHorizontally = getResources().getBoolean(R.bool.showTabHorizontally);
+        for (int i = 0; i < tabCount; i++) {
+            final UiDataModel.Tab tabModel = UiDataModel.getUiDataModel().getTab(i);
+            final @StringRes int labelResId = tabModel.getLabelResId();
+
+            final TabLayout.Tab tab = mTabLayout.newTab()
+                    .setTag(tabModel)
+                    .setIcon(tabModel.getIconResId())
+                    .setContentDescription(labelResId);
+
+            if (showTabLabel) {
+                tab.setText(labelResId);
+                tab.setCustomView(R.layout.tab_item);
+
+                @SuppressWarnings("ConstantConditions")
+                final TextView text = (TextView) tab.getCustomView()
+                        .findViewById(android.R.id.text1);
+                text.setTextColor(mTabLayout.getTabTextColors());
+
+                // Bind the icon to the TextView.
+                final Drawable icon = tab.getIcon();
+                if (showTabHorizontally) {
+                    // Remove the icon so it doesn't affect the minimum TabLayout height.
+                    tab.setIcon(null);
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
+                } else {
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(null, icon, null, null);
+                }
+            }
+
+            mTabLayout.addTab(tab);
         }
 
         // Configure the buttons shared by the tabs.
         mFab = (ImageView) findViewById(R.id.fab);
-        mLeftButton = (ImageButton) findViewById(R.id.left_button);
-        mRightButton = (ImageButton) findViewById(R.id.right_button);
+        mLeftButton = (Button) findViewById(R.id.left_button);
+        mRightButton = (Button) findViewById(R.id.right_button);
 
         mFab.setOnClickListener(new OnClickListener() {
             @Override
@@ -248,90 +222,94 @@ public class DeskClock extends BaseActivity
             }
         });
 
-        // Build the reusable animations that hide and show the fab and left/right buttons.
-        // These may be used independently or be chained together.
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
-        mHideAnimation
-                .setDuration(duration)
-                .play(getScaleAnimator(mFab, 1f, 0f))
-                .with(getAlphaAnimator(mLeftButton, 1f, 0f))
-                .with(getAlphaAnimator(mRightButton, 1f, 0f));
 
-        mShowAnimation
-                .setDuration(duration)
-                .play(getScaleAnimator(mFab, 0f, 1f))
-                .with(getAlphaAnimator(mLeftButton, 0f, 1f))
-                .with(getAlphaAnimator(mRightButton, 0f, 1f));
-
-        // Build the reusable animation that hides and shows only the fab.
         final ValueAnimator hideFabAnimation = getScaleAnimator(mFab, 1f, 0f);
+        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+
+        final ValueAnimator leftHideAnimation = getScaleAnimator(mLeftButton, 1f, 0f);
+        final ValueAnimator rightHideAnimation = getScaleAnimator(mRightButton, 1f, 0f);
+        final ValueAnimator leftShowAnimation = getScaleAnimator(mLeftButton, 0f, 1f);
+        final ValueAnimator rightShowAnimation = getScaleAnimator(mRightButton, 0f, 1f);
+
         hideFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 getSelectedDeskClockFragment().onUpdateFab(mFab);
             }
         });
-        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+
+        leftHideAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getSelectedDeskClockFragment().onUpdateFabButtons(mLeftButton, mRightButton);
+            }
+        });
+
+        // Build the reusable animations that hide and show the fab and left/right buttons.
+        // These may be used independently or be chained together.
+        mHideAnimation
+                .setDuration(duration)
+                .play(hideFabAnimation)
+                .with(leftHideAnimation)
+                .with(rightHideAnimation);
+
+        mShowAnimation
+                .setDuration(duration)
+                .play(showFabAnimation)
+                .with(leftShowAnimation)
+                .with(rightShowAnimation);
+
+        // Build the reusable animation that hides and shows only the fab.
         mUpdateFabOnlyAnimation
                 .setDuration(duration)
                 .play(showFabAnimation)
                 .after(hideFabAnimation);
 
+        // Build the reusable animation that hides and shows only the buttons.
+        mUpdateButtonsOnlyAnimation
+                .setDuration(duration)
+                .play(leftShowAnimation)
+                .with(rightShowAnimation)
+                .after(leftHideAnimation)
+                .after(rightHideAnimation);
+
         // Customize the view pager.
-        mFragmentTabPagerAdapter = new TabFragmentAdapter(this);
-        mFragmentTabPager = (RtlViewPager) findViewById(R.id.desk_clock_pager);
+        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
+        mFragmentTabPager = (ViewPager) findViewById(R.id.desk_clock_pager);
         // Keep all four tabs to minimize jank.
         mFragmentTabPager.setOffscreenPageLimit(3);
         // Set Accessibility Delegate to null so view pager doesn't intercept movements and
         // prevent the fab from being selected.
         mFragmentTabPager.setAccessibilityDelegate(null);
         // Mirror changes made to the selected page of the view pager into UiDataModel.
-        mFragmentTabPager.setOnRTLPageChangeListener(new PageChangeWatcher());
+        mFragmentTabPager.addOnPageChangeListener(new PageChangeWatcher());
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
-        // Selecting a tab implicitly selects a page in the view pager.
-        mTabLayout.setOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mFragmentTabPager));
+        // Mirror changes made to the selected tab into UiDataModel.
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                UiDataModel.getUiDataModel().setSelectedTab((UiDataModel.Tab) tab.getTag());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
-
-        if (savedInstanceState == null) {
-            // Set the background color to initially match the theme value so that we can
-            // smoothly transition to the dynamic color.
-            final int backgroundColor = ContextCompat.getColor(this, R.color.default_background);
-            adjustAppColor(backgroundColor, false /* animate */);
-        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (mShowSilencedAlarmsSnackbar) {
-            if (isDoNotDisturbBlockingAlarms()) {
-                mSnackbarAnchor.postDelayed(mShowDNDBlockingSnackbarRunnable, SECOND_IN_MILLIS);
-            } else if (isAlarmStreamMuted()) {
-                mSnackbarAnchor.postDelayed(mShowMutedVolumeSnackbarRunnable, SECOND_IN_MILLIS);
-            } else if (isSystemAlarmRingtoneSilent()) {
-                mSnackbarAnchor.postDelayed(mShowSilentAlarmSnackbarRunnable, SECOND_IN_MILLIS);
-            }
-        }
-
-        // Subsequent starts of this activity should show the snackbar by default.
-        mShowSilencedAlarmsSnackbar = true;
-
-        final ContentResolver cr = getContentResolver();
-        // Watch for system alarm ringtone changes while the app is in the foreground.
-        cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, mAlarmRingtoneChangeObserver);
-
-        // Watch for alarm volume changes while the app is in the foreground.
-        cr.registerContentObserver(VOLUME_URI, false, mAlarmVolumeChangeObserver);
-
-        if (Utils.isMOrLater()) {
-            // Watch for do-not-disturb changes while the app is in the foreground.
-            registerReceiver(mDoNotDisturbChangeReceiver, DND_CHANGE_FILTER);
-        }
-
+        DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
         DataModel.getDataModel().setApplicationInForeground(true);
     }
 
@@ -340,10 +318,11 @@ public class DeskClock extends BaseActivity
         super.onResume();
 
         final View dropShadow = findViewById(R.id.drop_shadow);
-        mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel());
+        mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel(),
+                mSnackbarAnchor.findViewById(R.id.tab_hairline));
 
-        // Honor the selected tab in case it changed while the app was paused.
-        updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
+        // ViewPager does not save state; this honors the selected tab in the user interface.
+        updateCurrentTab();
     }
 
     @Override
@@ -376,25 +355,11 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onStop() {
+        DataModel.getDataModel().removeSilentSettingsListener(mSilentSettingChangeWatcher);
         if (!isChangingConfigurations()) {
             DataModel.getDataModel().setApplicationInForeground(false);
         }
 
-        // Stop watching for system alarm ringtone changes while the app is in the background.
-        getContentResolver().unregisterContentObserver(mAlarmRingtoneChangeObserver);
-
-        // Stop watching for alarm volume changes while the app is in the background.
-        getContentResolver().unregisterContentObserver(mAlarmVolumeChangeObserver);
-
-        if (Utils.isMOrLater()) {
-            // Stop watching for do-not-disturb changes while the app is in the background.
-            unregisterReceiver(mDoNotDisturbChangeReceiver);
-        }
-
-        // Remove any scheduled work to show snackbars; it is no longer relevant.
-        mSnackbarAnchor.removeCallbacks(mShowSilentAlarmSnackbarRunnable);
-        mSnackbarAnchor.removeCallbacks(mShowDNDBlockingSnackbarRunnable);
-        mSnackbarAnchor.removeCallbacks(mShowMutedVolumeSnackbarRunnable);
         super.onStop();
     }
 
@@ -439,60 +404,51 @@ public class DeskClock extends BaseActivity
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (getSelectedDeskClockFragment().onKeyDown(keyCode,event)) {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * @param color the newly installed window background color
-     */
-    @Override
-    protected void onAppColorChanged(@ColorInt int color) {
-        super.onAppColorChanged(color);
-
-        // Notify each fragment of the background color change.
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            mFragmentTabPagerAdapter.getItem(i).onAppColorChanged(color);
-        }
+        return getSelectedDeskClockFragment().onKeyDown(keyCode,event)
+                || super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public void updateFab(UpdateType updateType) {
-        switch (updateType) {
-            case DISABLE_BUTTONS: {
-                mLeftButton.setEnabled(false);
-                mRightButton.setEnabled(false);
-                break;
-            }
-            case FAB_AND_BUTTONS_IMMEDIATE: {
-                final DeskClockFragment f = getSelectedDeskClockFragment();
-                f.onUpdateFab(mFab);
-                f.onUpdateFabButtons(mLeftButton, mRightButton);
-                break;
-            }
-            case FAB_AND_BUTTONS_MORPH: {
-                final DeskClockFragment f = getSelectedDeskClockFragment();
-                f.onUpdateFab(mFab);
-                f.onMorphFabButtons(mLeftButton, mRightButton);
-                break;
-            }
-            case FAB_ONLY_SHRINK_AND_EXPAND: {
+    public void updateFab(@UpdateFabFlag int updateType) {
+        final DeskClockFragment f = getSelectedDeskClockFragment();
+
+        switch (updateType & FAB_ANIMATION_MASK) {
+            case FAB_SHRINK_AND_EXPAND:
                 mUpdateFabOnlyAnimation.start();
                 break;
-            }
-            case FAB_AND_BUTTONS_SHRINK_AND_EXPAND: {
-                // Ensure there is never more than one mAutoStartShowListener registered.
-                mHideAnimation.removeListener(mAutoStartShowListener);
-                mHideAnimation.addListener(mAutoStartShowListener);
-                mHideAnimation.start();
+            case FAB_IMMEDIATE:
+                f.onUpdateFab(mFab);
                 break;
-            }
-            case FAB_REQUESTS_FOCUS: {
+            case FAB_MORPH:
+                f.onMorphFab(mFab);
+                break;
+        }
+        switch (updateType & FAB_REQUEST_FOCUS_MASK) {
+            case FAB_REQUEST_FOCUS:
                 mFab.requestFocus();
                 break;
-            }
+        }
+        switch (updateType & BUTTONS_ANIMATION_MASK) {
+            case BUTTONS_IMMEDIATE:
+                f.onUpdateFabButtons(mLeftButton, mRightButton);
+                break;
+            case BUTTONS_SHRINK_AND_EXPAND:
+                mUpdateButtonsOnlyAnimation.start();
+                break;
+        }
+        switch (updateType & BUTTONS_DISABLE_MASK) {
+            case BUTTONS_DISABLE:
+                mLeftButton.setClickable(false);
+                mRightButton.setClickable(false);
+                break;
+        }
+        switch (updateType & FAB_AND_BUTTONS_SHRINK_EXPAND_MASK) {
+            case FAB_AND_BUTTONS_SHRINK:
+                mHideAnimation.start();
+                break;
+            case FAB_AND_BUTTONS_EXPAND:
+                mShowAnimation.start();
+                break;
         }
     }
 
@@ -506,91 +462,44 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Configure the {@link #mFragmentTabPager} and {@link #mTabLayout} to display the tab at the
-     * given {@code index}.
-     *
-     * @param index the index of the page to display
+     * Configure the {@link #mFragmentTabPager} and {@link #mTabLayout} to display UiDataModel's
+     * selected tab.
      */
-    private void updateCurrentTab(int index) {
-        final TabLayout.Tab tab = mTabLayout.getTabAt(index);
-        if (tab != null && !tab.isSelected()) {
-            tab.select();
+    private void updateCurrentTab() {
+        // Fetch the selected tab from the source of truth: UiDataModel.
+        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+
+        // Update the selected tab in the tablayout if it does not agree with UiDataModel.
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            final TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null && tab.getTag() == selectedTab && !tab.isSelected()) {
+                tab.select();
+                break;
+            }
         }
-        if (mFragmentTabPager.getCurrentItem() != index) {
-            mFragmentTabPager.setCurrentItem(index);
+
+        // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
+        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
+            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
+                mFragmentTabPager.setCurrentItem(i);
+                break;
+            }
         }
     }
 
+    /**
+     * @return the DeskClockFragment that is currently selected according to UiDataModel
+     */
     private DeskClockFragment getSelectedDeskClockFragment() {
-        final int index = UiDataModel.getUiDataModel().getSelectedTabIndex();
-        return mFragmentTabPagerAdapter.getItem(index);
-    }
-
-    private boolean isSystemAlarmRingtoneSilent() {
-        try {
-            return RingtoneManager.getActualDefaultRingtoneUri(this, TYPE_ALARM) == null;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
-        }
-    }
-
-    private void showSilentRingtoneSnackbar() {
-        final OnClickListener changeClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
+            if (fragment.isTabSelected()) {
+                return fragment;
             }
-        };
-
-        SnackbarManager.show(
-                createSnackbar(R.string.silent_default_alarm_ringtone)
-                        .setAction(R.string.change_default_alarm_ringtone, changeClickListener)
-        );
-    }
-
-    private boolean isAlarmStreamMuted() {
-        try {
-            return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
         }
-    }
-
-    private void showAlarmVolumeMutedSnackbar() {
-        final OnClickListener unmuteClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set the alarm volume to ~30% of max and show the slider UI.
-                final int index = mAudioManager.getStreamMaxVolume(STREAM_ALARM) / 3;
-                mAudioManager.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
-            }
-        };
-
-        SnackbarManager.show(
-                createSnackbar(R.string.alarm_volume_muted)
-                        .setAction(R.string.unmute_alarm_volume, unmuteClickListener)
-        );
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private boolean isDoNotDisturbBlockingAlarms() {
-        if (!Utils.isMOrLater()) {
-            return false;
-        }
-
-        try {
-            return mNotificationManager.getCurrentInterruptionFilter() == INTERRUPTION_FILTER_NONE;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
-        }
-    }
-
-    private void showDoNotDisturbIsBlockingAlarmsSnackbar() {
-        SnackbarManager.show(createSnackbar(R.string.alarms_blocked_by_dnd));
+        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+        throw new IllegalStateException("Unable to locate selected fragment (" + selectedTab + ")");
     }
 
     /**
@@ -624,7 +533,6 @@ public class DeskClock extends BaseActivity
                 mHideAnimation.addListener(mAutoStartShowListener);
                 mHideAnimation.start();
                 mFabState = FabState.HIDING;
-
             } else if (mPriorState == SCROLL_STATE_SETTLING && state == SCROLL_STATE_DRAGGING) {
                 // The user has interrupted settling on a tab and the fab button must be re-hidden.
                 if (mShowAnimation.isStarted()) {
@@ -663,7 +571,7 @@ public class DeskClock extends BaseActivity
 
         @Override
         public void onPageSelected(int position) {
-            UiDataModel.getUiDataModel().setSelectedTabIndex(position);
+            mFragmentTabPagerAdapter.getDeskClockFragment(position).selectTab();
         }
     }
 
@@ -689,87 +597,47 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Displays a snackbar that indicates the system default alarm ringtone currently silent and
-     * offers an action that displays the system alarm ringtone setting to adjust it.
+     * Shows/hides a snackbar as silencing settings are enabled/disabled.
      */
-    private final class ShowSilentAlarmSnackbarRunnable implements Runnable {
+    private final class SilentSettingChangeWatcher implements OnSilentSettingsListener {
         @Override
-        public void run() {
-            showSilentRingtoneSnackbar();
-        }
-    }
+        public void onSilentSettingsChange(SilentSetting before, SilentSetting after) {
+            if (mShowSilentSettingSnackbarRunnable != null) {
+                mSnackbarAnchor.removeCallbacks(mShowSilentSettingSnackbarRunnable);
+                mShowSilentSettingSnackbarRunnable = null;
+            }
 
-    /**
-     * Displays a snackbar that indicates the alarm volume is currently muted and offers an action
-     * that displays the system volume control to adjust it.
-     */
-    private final class ShowMutedVolumeSnackbarRunnable implements Runnable {
-        @Override
-        public void run() {
-            showAlarmVolumeMutedSnackbar();
-        }
-    }
-
-    /**
-     * Displays a snackbar that indicates the do-not-disturb setting is currently blocking alarms.
-     */
-    private final class ShowDNDBlockingSnackbarRunnable implements Runnable {
-        @Override
-        public void run() {
-            showDoNotDisturbIsBlockingAlarmsSnackbar();
-        }
-    }
-
-    /**
-     * Observe changes to the system default alarm ringtone while the application is in the
-     * foreground and show/hide the snackbar that warns when the ringtone is silent.
-     */
-    private final class AlarmRingtoneChangeObserver extends ContentObserver {
-        private AlarmRingtoneChangeObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            if (isSystemAlarmRingtoneSilent()) {
-                showSilentRingtoneSnackbar();
-            } else {
+            if (after == null) {
                 SnackbarManager.dismiss();
+            } else {
+                mShowSilentSettingSnackbarRunnable = new ShowSilentSettingSnackbarRunnable(after);
+                mSnackbarAnchor.postDelayed(mShowSilentSettingSnackbarRunnable, SECOND_IN_MILLIS);
             }
         }
     }
 
     /**
-     * Observe changes to the alarm stream volume while the application is in the foreground and
-     * show/hide the snackbar that warns when the alarm volume is muted.
+     * Displays a snackbar that indicates a system setting is currently silencing alarms.
      */
-    private final class AlarmVolumeChangeObserver extends ContentObserver {
-        private AlarmVolumeChangeObserver() {
-            super(new Handler());
+    private final class ShowSilentSettingSnackbarRunnable implements Runnable {
+
+        private final SilentSetting mSilentSetting;
+
+        private ShowSilentSettingSnackbarRunnable(SilentSetting silentSetting) {
+            mSilentSetting = silentSetting;
         }
 
-        @Override
-        public void onChange(boolean selfChange) {
-            if (isAlarmStreamMuted()) {
-                showAlarmVolumeMutedSnackbar();
-            } else {
-                SnackbarManager.dismiss();
-            }
-        }
-    }
+        public void run() {
+            // Create a snackbar with a message explaining the setting that is silencing alarms.
+            final Snackbar snackbar = createSnackbar(mSilentSetting.getLabelResId());
 
-    /**
-     * Observe changes to the do-not-disturb setting while the application is in the foreground
-     * and show/hide the snackbar that warns when the setting is blocking alarms.
-     */
-    private final class DoNotDisturbChangeReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (isDoNotDisturbBlockingAlarms()) {
-                showDoNotDisturbIsBlockingAlarmsSnackbar();
-            } else {
-                SnackbarManager.dismiss();
+            // Set the associated corrective action if one exists.
+            if (mSilentSetting.isActionEnabled(DeskClock.this)) {
+                final int actionResId = mSilentSetting.getActionResId();
+                snackbar.setAction(actionResId, mSilentSetting.getActionListener());
             }
+
+            SnackbarManager.show(snackbar);
         }
     }
 
@@ -778,11 +646,10 @@ public class DeskClock extends BaseActivity
      */
     private final class TabChangeWatcher implements TabListener {
         @Override
-        public void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab) {
-            final int index = newSelectedTab.ordinal();
-
+        public void selectedTabChanged(UiDataModel.Tab oldSelectedTab,
+                UiDataModel.Tab newSelectedTab) {
             // Update the view pager and tab layout to agree with the model.
-            updateCurrentTab(index);
+            updateCurrentTab();
 
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.
@@ -808,49 +675,6 @@ public class DeskClock extends BaseActivity
             if (!mHideAnimation.isStarted()) {
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
-        }
-    }
-
-    /**
-     * This adapter produces the DeskClockFragments that are the contents of the tabs.
-     */
-    private static final class TabFragmentAdapter extends FragmentPagerAdapter {
-
-        private final FragmentManager mFragmentManager;
-        private final Context mContext;
-
-        TabFragmentAdapter(AppCompatActivity activity) {
-            super(activity.getFragmentManager());
-            mContext = activity;
-            mFragmentManager = activity.getFragmentManager();
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            position = UiDataModel.getUiDataModel().getTabLayoutIndex(position);
-            return super.instantiateItem(container, position);
-        }
-
-        @Override
-        public DeskClockFragment getItem(int position) {
-            final String tag = makeFragmentName(R.id.desk_clock_pager, position);
-            Fragment fragment = mFragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                final Tab tab = UiDataModel.getUiDataModel().getTab(position);
-                final String fragmentClassName = tab.getFragmentClassName();
-                fragment = Fragment.instantiate(mContext, fragmentClassName);
-            }
-            return (DeskClockFragment) fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return UiDataModel.getUiDataModel().getTabCount();
-        }
-
-        /** This implementation duplicated from {@link FragmentPagerAdapter#makeFragmentName}. */
-        private String makeFragmentName(int viewId, long id) {
-            return "android:switcher:" + viewId + ":" + id;
         }
     }
 }

@@ -27,8 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationManagerCompat;
@@ -49,7 +47,7 @@ import java.util.List;
 import java.util.Set;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
-import static android.text.format.DateUtils.*;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.deskclock.data.Timer.State.EXPIRED;
 import static com.android.deskclock.data.Timer.State.RESET;
 
@@ -66,6 +64,8 @@ final class TimerModel {
 
     private final Context mContext;
 
+    private final SharedPreferences mPrefs;
+
     /** The alarm manager system service that calls back when timers expire. */
     private final AlarmManager mAlarmManager;
 
@@ -74,6 +74,9 @@ final class TimerModel {
 
     /** The model from which notification data are fetched. */
     private final NotificationModel mNotificationModel;
+
+    /** The model from which ringtone data are fetched. */
+    private final RingtoneModel mRingtoneModel;
 
     /** Used to create and destroy system notifications related to timers. */
     private final NotificationManagerCompat mNotificationManager;
@@ -91,6 +94,9 @@ final class TimerModel {
 
     /** The listeners to notify when a timer is added, updated or removed. */
     private final List<TimerListener> mTimerListeners = new ArrayList<>();
+
+    /** Delegate that builds platform-specific timer notifications. */
+    private final TimerNotificationBuilder mNotificationBuilder = new TimerNotificationBuilder();
 
     /**
      * The ids of expired timers for which the ringer is ringing. Not all expired timers have their
@@ -115,9 +121,6 @@ final class TimerModel {
     /** A mutable copy of the missed timers. */
     private List<Timer> mMissedTimers;
 
-    /** Delegate that builds platform-specific timer notifications. */
-    private NotificationBuilder mNotificationBuilder;
-
     /**
      * The service that keeps this application in the foreground while a heads-up timer
      * notification is displayed. Marking the service as foreground prevents the operating system
@@ -125,19 +128,21 @@ final class TimerModel {
      */
     private Service mService;
 
-    TimerModel(Context context, SettingsModel settingsModel, NotificationModel notificationModel) {
+    TimerModel(Context context, SharedPreferences prefs, SettingsModel settingsModel,
+            RingtoneModel ringtoneModel, NotificationModel notificationModel) {
         mContext = context;
+        mPrefs = prefs;
         mSettingsModel = settingsModel;
+        mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
 
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
         // Clear caches affected by preferences when preferences change.
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
-        // Update stopwatch notification when locale changes.
+        // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
     }
@@ -173,7 +178,7 @@ final class TimerModel {
     /**
      * @return all missed timers in their expiration order
      */
-    List<Timer> getMissedTimers() {
+    private List<Timer> getMissedTimers() {
         return Collections.unmodifiableList(getMutableMissedTimers());
     }
 
@@ -212,7 +217,7 @@ final class TimerModel {
                 label, deleteAfterUse);
 
         // Add the timer to permanent storage.
-        timer = TimerDAO.addTimer(mContext, timer);
+        timer = TimerDAO.addTimer(mPrefs, timer);
 
         // Add the timer to the cache.
         getMutableTimers().add(0, timer);
@@ -318,7 +323,6 @@ final class TimerModel {
         updateMissedNotification();
         updateHeadsUpNotification();
     }
-
 
     /**
      * Update timers after time set.
@@ -435,8 +439,7 @@ final class TimerModel {
                     // Special case: default ringtone has a title of "Timer Expired".
                     mTimerRingtoneTitle = mContext.getString(R.string.default_timer_ringtone_title);
                 } else {
-                    final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-                    mTimerRingtoneTitle = ringtone.getTitle(mContext);
+                    mTimerRingtoneTitle = mRingtoneModel.getRingtoneTitle(uri);
                 }
             }
         }
@@ -445,14 +448,22 @@ final class TimerModel {
     }
 
     /**
-     * @return whether vibration is enabled for timers.
+     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    long getTimerCrescendoDuration() {
+        return mSettingsModel.getTimerCrescendoDuration();
+    }
+
+    /**
+     * @return {@code true} if the device vibrates when timers expire
      */
     boolean getTimerVibrate() {
         return mSettingsModel.getTimerVibrate();
     }
 
     /**
-     * @param enabled whether the
+     * @param enabled {@code true} if the device should vibrate when timers expire
      */
     void setTimerVibrate(boolean enabled) {
         mSettingsModel.setTimerVibrate(enabled);
@@ -460,7 +471,7 @@ final class TimerModel {
 
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
-            mTimers = TimerDAO.getTimers(mContext);
+            mTimers = TimerDAO.getTimers(mPrefs);
             Collections.sort(mTimers, Timer.ID_COMPARATOR);
         }
 
@@ -516,7 +527,7 @@ final class TimerModel {
         }
 
         // Update the timer in permanent storage.
-        TimerDAO.updateTimer(mContext, timer);
+        TimerDAO.updateTimer(mPrefs, timer);
 
         // Update the timer in the cache.
         final Timer oldTimer = timers.set(index, timer);
@@ -550,9 +561,9 @@ final class TimerModel {
      *
      * @param timer an existing timer to be removed
      */
-    void doRemoveTimer(Timer timer) {
+    private void doRemoveTimer(Timer timer) {
         // Remove the timer from permanent storage.
-        TimerDAO.removeTimer(mContext, timer);
+        TimerDAO.removeTimer(mPrefs, timer);
 
         // Remove the timer from the cache.
         final List<Timer> timers = getMutableTimers();
@@ -738,7 +749,7 @@ final class TimerModel {
 
         // Otherwise build and post a notification reflecting the latest unexpired timers.
         final Notification notification =
-                getNotificationBuilder().build(mContext, mNotificationModel, unexpired);
+                mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
 
@@ -762,7 +773,7 @@ final class TimerModel {
             return;
         }
 
-        final Notification notification = getNotificationBuilder().buildMissed(mContext,
+        final Notification notification = mNotificationBuilder.buildMissed(mContext,
                 mNotificationModel, missed);
         final int notificationId = mNotificationModel.getMissedTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
@@ -788,29 +799,18 @@ final class TimerModel {
         }
 
         // Otherwise build and post a foreground notification reflecting the latest expired timers.
-        final Notification notification = getNotificationBuilder().buildHeadsUp(mContext, expired);
+        final Notification notification = mNotificationBuilder.buildHeadsUp(mContext, expired);
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         mService.startForeground(notificationId, notification);
     }
 
-    private NotificationBuilder getNotificationBuilder() {
-        if (mNotificationBuilder == null) {
-            if (Utils.isNOrLater()) {
-                mNotificationBuilder = new TimerNotificationBuilderN();
-            } else {
-                mNotificationBuilder = new TimerNotificationBuilderPreN();
-            }
-        }
-
-        return mNotificationBuilder;
-    }
-
     /**
-     * Update the stopwatch notification in response to a locale change.
+     * Update the timer notification in response to a locale change.
      */
     private final class LocaleChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            mTimerRingtoneTitle = null;
             updateNotification();
             updateMissedNotification();
             updateHeadsUpNotification();
@@ -840,36 +840,5 @@ final class TimerModel {
         } else {
             am.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
         }
-    }
-
-    /**
-     * An API for building platform-specific timer notifications.
-     */
-    public interface NotificationBuilder {
-
-        int REQUEST_CODE_UPCOMING = 0;
-        int REQUEST_CODE_MISSING = 1;
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param nm from which notification data are fetched
-         * @param unexpiredTimers all running and paused timers
-         * @return a notification reporting the state of the {@code unexpiredTimers}
-         */
-        Notification build(Context context, NotificationModel nm, List<Timer> unexpiredTimers);
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param expiredTimers all expired timers
-         * @return a heads-up notification reporting the state of the {@code expiredTimers}
-         */
-        Notification buildHeadsUp(Context context, List<Timer> expiredTimers);
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param missedTimers all missed timers
-         * @return a heads-up notification reporting the state of the {@code missedTimers}
-         */
-        Notification buildMissed(Context context, NotificationModel nm, List<Timer> missedTimers);
     }
 }

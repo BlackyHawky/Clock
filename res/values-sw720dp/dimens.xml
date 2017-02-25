@@ -17,9 +17,7 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-
     <dimen name="big_font_size">152sp</dimen>
-    <dimen name="medium_font_size">80sp</dimen>
 
     <dimen name="analog_clock_size">312dp</dimen>
 

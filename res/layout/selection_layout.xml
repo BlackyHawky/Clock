@@ -29,7 +29,7 @@
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/time_picker_cancel"
+        android:text="@android:string/cancel"
         android:clickable="true"
         android:gravity="end"
         android:background="@android:color/transparent"

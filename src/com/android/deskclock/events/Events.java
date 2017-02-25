@@ -19,24 +19,15 @@ package com.android.deskclock.events;
 import android.support.annotation.StringRes;
 
 import com.android.deskclock.R;
+import com.android.deskclock.controller.Controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+/**
+ * This thin layer over {@link Controller#sendEvent} eases the API usage.
+ */
 public final class Events {
 
     /** Extra describing the entity responsible for the action being performed. */
     public static final String EXTRA_EVENT_LABEL = "com.android.deskclock.extra.EVENT_LABEL";
-
-    private static final Collection<EventTracker> sEventTrackers = new ArrayList<>();
-
-    public static void addEventTracker(EventTracker eventTracker) {
-        sEventTrackers.add(eventTracker);
-    }
-
-    public static void removeEventTracker(EventTracker eventTracker) {
-        sEventTrackers.remove(eventTracker);
-    }
 
     /**
      * Tracks an alarm event.
@@ -99,8 +90,6 @@ public final class Events {
      */
     public static void sendEvent(@StringRes int category, @StringRes int action,
             @StringRes int label) {
-        for (EventTracker eventTracker : sEventTrackers) {
-            eventTracker.sendEvent(category, action, label);
-        }
+        Controller.getController().sendEvent(category, action, label);
     }
 }

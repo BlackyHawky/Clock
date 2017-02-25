@@ -1,58 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2015 The Android Open Source Project
+<!--
+  Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="SettingsAlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
-        <item name="android:colorAccent">?attr/colorAccent</item>
-    </style>
-
-    <!-- Custom notification content styles -->
-    <!-- copied TextAppearance.Material.Button -->
-    <style name="TextAppearance.StatusBar.EventContent.Action">
+    <style name="body">
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/black_54p</item>
-    </style>
-
-    <style name="TextAppearance.StatusBar.EventContent" tools:ignore="PrivateResource">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black_54p</item>
-    </style>
-    <style name="TextAppearance.StatusBar.EventContent.Title" tools:ignore="PrivateResource">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/black_87p</item>
-    </style>
-
-    <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">
-        <item name="android:textColorPrimary">?attr/colorAccent</item>
-        <item name="android:textColorPrimaryInverse">?android:attr/textColorPrimary</item>
-        <item name="android:textColorSecondaryInverse">@color/white</item>
-        <item name="android:timePickerStyle">@style/TimePickerStyle</item>
-        <item name="android:windowBackground">@color/time_picker_gray</item>
-
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="colorAccent">@color/color_accent</item>
-    </style>
-
-    <style name="TimePickerStyle" parent="android:Widget.Material.TimePicker" >
-        <item name="android:headerBackground">@android:color/transparent</item>
-        <item name="android:numbersBackgroundColor">@android:color/transparent</item>
-        <item name="android:numbersTextColor">@color/white</item>
     </style>
 
     <style name="PrimaryLabelTextAppearance" parent="PrimaryLabelTextParentAppearance">
@@ -61,14 +29,6 @@
 
     <style name="SecondaryLabelTextAppearance" parent="SecondaryLabelTextParentAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="CitiesTheme" parent="BaseActivityTheme">
-        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
-        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
-        <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
     </style>
 
 </resources>

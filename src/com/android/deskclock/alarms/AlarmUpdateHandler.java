@@ -105,7 +105,6 @@ public final class AlarmUpdateHandler {
                 new AsyncTask<Void, Void, AlarmInstance>() {
                     @Override
                     protected AlarmInstance doInBackground(Void... parameters) {
-                        Events.sendAlarmEvent(R.string.action_update, R.string.label_deskclock);
                         ContentResolver cr = mAppContext.getContentResolver();
 
                         // Update alarm
@@ -163,7 +162,6 @@ public final class AlarmUpdateHandler {
                     // Nothing to do here, just return.
                     return false;
                 }
-                Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
                 AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
                 return Alarm.deleteAlarm(mAppContext.getContentResolver(), alarm.id);
             }

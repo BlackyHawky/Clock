@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,8 +57,7 @@ final class CityDAO {
      * @param cityMap maps city ids to city instances
      * @return the list of city ids selected for display by the user
      */
-    static List<City> getSelectedCities(Context context, Map<String, City> cityMap) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static List<City> getSelectedCities(SharedPreferences prefs, Map<String, City> cityMap) {
         final int size = prefs.getInt(NUMBER_OF_CITIES, 0);
         final List<City> selectedCities = new ArrayList<>(size);
 
@@ -77,8 +75,7 @@ final class CityDAO {
     /**
      * @param cities the collection of cities selected for display by the user
      */
-    static void setSelectedCities(Context context, Collection<City> cities) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setSelectedCities(SharedPreferences prefs, Collection<City> cities) {
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(NUMBER_OF_CITIES, cities.size());
 
@@ -125,17 +122,11 @@ final class CityDAO {
                     throw new IllegalStateException(message);
                 }
 
-                // Attempt to resolve the time zone id to a valid time zone.
-                final String tzId = cityParts[1];
-                final TimeZone tz = TimeZone.getTimeZone(tzId);
-                // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
-                if ("GMT".equals(tz.getID())) {
-                    final String message = String.format(
-                            "Unable to locate timezone with id %s", tzId);
-                    throw new IllegalStateException(message);
+                final City city = createCity(id, cityParts[0], cityParts[1]);
+                // Skip cities whose timezone cannot be resolved.
+                if (city != null) {
+                    cities.put(id, city);
                 }
-
-                cities.put(id, createCity(id, cityParts[0], tz));
             }
         } finally {
             cityStrings.recycle();
@@ -149,10 +140,16 @@ final class CityDAO {
      * @param formattedName "[index string]=[name]" or "[index string]=[name]:[phonetic name]",
      *                      If [index string] is empty, use the first character of name as index,
      *                      If phonetic name is empty, use the name itself as phonetic name.
-     * @param tz the timezone in which the city is located
+     * @param tzId the string id of the timezone a given city is located in
      */
     @VisibleForTesting
-    static City createCity(String id, String formattedName, TimeZone tz) {
+    static City createCity(String id, String formattedName, String tzId) {
+        final TimeZone tz = TimeZone.getTimeZone(tzId);
+        // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
+        if ("GMT".equals(tz.getID())) {
+            return null;
+        }
+
         final String[] parts = formattedName.split("[=:]");
         final String name = parts[1];
         // Extract index string from input, use the first character of city name as the index string

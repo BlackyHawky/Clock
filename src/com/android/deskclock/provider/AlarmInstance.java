@@ -27,9 +27,8 @@ import android.net.Uri;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.settings.SettingsActivity;
+import com.android.deskclock.data.DataModel;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -50,11 +49,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * Offset from alarm time to stop showing missed notification.
      */
     private static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
-
-    /**
-     * Default timeout for alarms in minutes.
-     */
-    private static final String DEFAULT_ALARM_TIMEOUT_SETTING = "10";
 
     /**
      * AlarmInstances start with an invalid id when it hasn't been saved to the database.
@@ -278,12 +272,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return deletedRows == 1;
     }
 
-    /**
-     * @param context
-     * @param contentResolver provides access to the content model
-     * @param alarmId identifies the alarm in question
-     * @param instanceId identifies the instance to keep; all other instances will be removed
-     */
     public static void deleteOtherInstances(Context context, ContentResolver contentResolver,
             long alarmId, long instanceId) {
         final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
@@ -442,13 +430,10 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Return the time when the alarm should stop firing and be marked as missed.
      *
-     * @param context to figure out the timeout setting
      * @return the time when alarm should be silence, or null if never
      */
-    public Calendar getTimeout(Context context) {
-        String timeoutSetting = Utils.getDefaultSharedPreferences(context)
-                .getString(SettingsActivity.KEY_AUTO_SILENCE, DEFAULT_ALARM_TIMEOUT_SETTING);
-        int timeoutMinutes = Integer.parseInt(timeoutSetting);
+    public Calendar getTimeout() {
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
 
         // Alarm silence has been set to "None"
         if (timeoutMinutes < 0) {
