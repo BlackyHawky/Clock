@@ -34,12 +34,12 @@ public final class RingtonePreviewKlaxon {
     public static void start(Context context, Uri uri) {
         stop(context);
         LogUtils.i("RingtonePreviewKlaxon.start()");
-        getAsyncRingtonePlayer(context).play(uri);
+        getAsyncRingtonePlayer(context).play(uri, 0);
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(), null);
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
         }
 
         return sAsyncRingtonePlayer;

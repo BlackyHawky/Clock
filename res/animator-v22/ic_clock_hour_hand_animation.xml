@@ -25,7 +25,7 @@
             android:valueFrom="117.75"
             android:valueTo="116.68351"
             android:valueType="floatType"
-            android:interpolator="@interpolator/ic_clock_animation_interpolator_1" />
+            android:interpolator="@anim/ic_clock_animation_interpolator_1" />
         <objectAnimator
             android:duration="41"
             android:propertyName="translateX"
@@ -95,7 +95,7 @@
             android:valueFrom="114.26022"
             android:valueTo="114.25"
             android:valueType="floatType"
-            android:interpolator="@interpolator/ic_clock_animation_interpolator_0" />
+            android:interpolator="@anim/ic_clock_animation_interpolator_0" />
     </set>
     <set
         android:ordering="sequentially" >
@@ -105,7 +105,7 @@
             android:valueFrom="128.25"
             android:valueTo="128.05357"
             android:valueType="floatType"
-            android:interpolator="@interpolator/ic_clock_animation_interpolator_1" />
+            android:interpolator="@anim/ic_clock_animation_interpolator_1" />
         <objectAnimator
             android:duration="41"
             android:propertyName="translateY"
@@ -175,7 +175,7 @@
             android:valueFrom="124.41091"
             android:valueTo="124.0"
             android:valueType="floatType"
-            android:interpolator="@interpolator/ic_clock_animation_interpolator_0" />
+            android:interpolator="@anim/ic_clock_animation_interpolator_0" />
     </set>
     <objectAnimator
         android:duration="833"

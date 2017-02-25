@@ -24,6 +24,7 @@ import android.os.Looper;
 import android.provider.AlarmClock;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -57,10 +58,7 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     @Override
     public void run() {
-        // only allow on background thread
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            throw new IllegalStateException("Must be called on a background thread");
-        }
+        Utils.enforceNotMainLooper();
 
         final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
         // if search mode isn't specified show all alarms in the UI picker
@@ -175,6 +173,6 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     private void notifyFailureAndLog(String reason, Activity activity) {
         LogUtils.e(reason);
-        Voice.notifyFailure(activity, reason);
+        Controller.getController().notifyVoiceFailure(activity, reason);
     }
 }

@@ -42,22 +42,22 @@
                 android:id="@+id/analog_clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog"
                 android:layout_marginEnd="@dimen/analog_clock_margin"
                 android:layout_marginLeft="@dimen/analog_clock_margin"
                 android:layout_marginRight="@dimen/analog_clock_margin"
                 android:layout_marginStart="@dimen/analog_clock_margin"
                 android:layout_marginTop="@dimen/circle_margin_top" />
 
-            <TextClock
+            <com.android.deskclock.widget.AutoSizingTextClock
                 android:id="@+id/digital_clock"
-                style="@style/big_thin"
+                style="@style/display_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
+                android:includeFontPadding="false"
+                android:paddingTop="@dimen/main_clock_digital_padding"
                 android:singleLine="true"
-                android:textColor="@color/clock_white"
-                android:textSize="@dimen/main_clock_font_size" />
+                android:textSize="@dimen/main_clock_digital_font_size" />
 
         </FrameLayout>
 

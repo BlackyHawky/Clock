@@ -18,17 +18,35 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.text.format.DateUtils;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
 import com.android.deskclock.settings.SettingsActivity;
 
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static android.text.format.DateUtils.HOUR_IN_MILLIS;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
+import static com.android.deskclock.data.Weekdays.Order.MON_TO_SUN;
+import static com.android.deskclock.data.Weekdays.Order.SAT_TO_FRI;
+import static com.android.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
 
 /**
  * This class encapsulates the storage of application preferences in {@link SharedPreferences}.
@@ -41,14 +59,34 @@ final class SettingsDAO {
     /** Key to a preference that stores the default ringtone for new alarms. */
     private static final String KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
+    /** Key to a preference that stores the global broadcast id. */
+    private static final String KEY_ALARM_GLOBAL_ID = "intent.extra.alarm.global.id";
+
+    /** Key to a preference that indicates whether restore (of backup and restore) has completed. */
+    private static final String KEY_RESTORE_BACKUP_FINISHED = "restore_finished";
+
     private SettingsDAO() {}
+
+    /**
+     * @return the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    static int getGlobalIntentId(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_GLOBAL_ID, -1);
+    }
+
+    /**
+     * Update the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    static void updateGlobalIntentId(SharedPreferences prefs) {
+        final int globalId = prefs.getInt(KEY_ALARM_GLOBAL_ID, -1) + 1;
+        prefs.edit().putInt(KEY_ALARM_GLOBAL_ID, globalId).apply();
+    }
 
     /**
      * @return an enumerated value indicating the order in which cities are ordered
      */
-    static CitySort getCitySort(Context context) {
+    static CitySort getCitySort(SharedPreferences prefs) {
         final int defaultSortOrdinal = CitySort.NAME.ordinal();
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final int citySortOrdinal = prefs.getInt(KEY_SORT_PREFERENCE, defaultSortOrdinal);
         return CitySort.values()[citySortOrdinal];
     }
@@ -56,10 +94,9 @@ final class SettingsDAO {
     /**
      * Adjust the sort order of cities.
      */
-    static void toggleCitySort(Context context) {
-        final CitySort oldSort = getCitySort(context);
+    static void toggleCitySort(SharedPreferences prefs) {
+        final CitySort oldSort = getCitySort(prefs);
         final CitySort newSort = oldSort == CitySort.NAME ? CitySort.UTC_OFFSET : CitySort.NAME;
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         prefs.edit().putInt(KEY_SORT_PREFERENCE, newSort.ordinal()).apply();
     }
 
@@ -67,53 +104,77 @@ final class SettingsDAO {
      * @return {@code true} if a clock for the user's home timezone should be automatically
      *      displayed when it doesn't match the current timezone
      */
-    static boolean getAutoShowHomeClock(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false);
+    static boolean getAutoShowHomeClock(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, true);
     }
 
     /**
      * @return the user's home timezone
      */
-    static TimeZone getHomeTimeZone(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        final String defaultTimeZoneId = TimeZone.getDefault().getID();
-        final String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, defaultTimeZoneId);
-        return TimeZone.getTimeZone(timeZoneId);
-    }
+    static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
+        String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
 
-    /**
-     * Sets the user's home timezone to the current system timezone if no home timezone is yet set.
-     *
-     * @param homeTimeZone the timezone to set as the user's home timezone if necessary
-     */
-    static void setDefaultHomeTimeZone(Context context, TimeZone homeTimeZone) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        final String homeTimeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
-        if (homeTimeZoneId == null) {
-            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone.getID()).apply();
+        // If the recorded home timezone is legal, use it.
+        final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis());
+        if (timeZones.contains(timeZoneId)) {
+            return TimeZone.getTimeZone(timeZoneId);
         }
+
+        // No legal home timezone has yet been recorded, attempt to record the default.
+        timeZoneId = defaultTZ.getID();
+        if (timeZones.contains(timeZoneId)) {
+            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
+        }
+
+        // The timezone returned here may be valid or invalid. When it matches TimeZone.getDefault()
+        // the Home city will not show, regardless of its validity.
+        return defaultTZ;
     }
 
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
-    static ClockStyle getClockStyle(Context context) {
-        return getClockStyle(context, SettingsActivity.KEY_CLOCK_STYLE);
+    static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
+        return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
+    }
+
+    /**
+     * @return a value indicating whether analog or digital clocks are displayed in the app
+     */
+    static boolean getDisplayClockSeconds(SharedPreferences prefs) {
+       return prefs.getBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
+    }
+
+    /**
+     * @param displaySeconds whether or not to display seconds on main clock
+     */
+    static void setDisplayClockSeconds(SharedPreferences prefs, boolean displaySeconds) {
+        prefs.edit().putBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
+    }
+
+    /**
+     * Sets the user's display seconds preference based on the currently selected clock if one has
+     * not yet been manually chosen.
+     */
+    static void setDefaultDisplayClockSeconds(Context context, SharedPreferences prefs) {
+        if (!prefs.contains(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
+            // If on analog clock style on upgrade, default to true. Otherwise, default to false.
+            final boolean isAnalog = getClockStyle(context, prefs) == ClockStyle.ANALOG;
+            setDisplayClockSeconds(prefs, isAnalog);
+        }
     }
 
     /**
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver
      */
-    static ClockStyle getScreensaverClockStyle(Context context) {
-        return getClockStyle(context, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
+    static ClockStyle getScreensaverClockStyle(Context context, SharedPreferences prefs) {
+        return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
     }
 
     /**
      * @return {@code true} if the screen saver should be dimmed for lower contrast at night
      */
-    static boolean getScreensaverNightModeOn(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static boolean getScreensaverNightModeOn(SharedPreferences prefs) {
         return prefs.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
     }
 
@@ -121,8 +182,7 @@ final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */
-    static Uri getTimerRingtoneUri(Context context, Uri defaultUri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
         final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
@@ -130,24 +190,21 @@ final class SettingsDAO {
     /**
      * @return whether timer vibration is enabled. false by default.
      */
-    static boolean getTimerVibrate(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static boolean getTimerVibrate(SharedPreferences prefs) {
         return prefs.getBoolean(SettingsActivity.KEY_TIMER_VIBRATE, false);
     }
 
     /**
      * @param enabled whether vibration will be turned on for all timers.
      */
-    static void setTimerVibrate(Context context, boolean enabled) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setTimerVibrate(SharedPreferences prefs, boolean enabled) {
         prefs.edit().putBoolean(SettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
     }
 
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
-    static void setTimerRingtoneUri(Context context, Uri uri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {
         prefs.edit().putString(SettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
     }
 
@@ -155,25 +212,176 @@ final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */
-    static Uri getDefaultAlarmRingtoneUri(Context context, Uri defaultUri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Uri getDefaultAlarmRingtoneUri(SharedPreferences prefs) {
         final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
-        return uriString == null ? defaultUri : Uri.parse(uriString);
+        return uriString == null ? Settings.System.DEFAULT_ALARM_ALERT_URI : Uri.parse(uriString);
     }
+
     /**
      * @param uri identifies the default ringtone to play for new alarms
      */
-    static void setDefaultAlarmRingtoneUri(Context context, Uri uri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setDefaultAlarmRingtoneUri(SharedPreferences prefs, Uri uri) {
         prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
     }
 
-    private static ClockStyle getClockStyle(Context context, String prefKey) {
+    /**
+     * @return the duration, in milliseconds, of the crescendo to apply to alarm ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    static long getAlarmCrescendoDuration(SharedPreferences prefs) {
+        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_ALARM_CRESCENDO, "0");
+        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
+     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    static long getTimerCrescendoDuration(SharedPreferences prefs) {
+        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_TIMER_CRESCENDO, "0");
+        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
+     * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
+     *      {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
+     */
+    static Weekdays.Order getWeekdayOrder(SharedPreferences prefs) {
+        final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
+        final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
+        final int firstCalendarDay = Integer.parseInt(value);
+        switch (firstCalendarDay) {
+            case SATURDAY: return SAT_TO_FRI;
+            case SUNDAY: return SUN_TO_SAT;
+            case MONDAY: return MON_TO_SUN;
+            default:
+                throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
+        }
+    }
+
+    /**
+     * @return {@code true} if the restore process (of backup and restore) has completed
+     */
+    static boolean isRestoreBackupFinished(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_RESTORE_BACKUP_FINISHED, false);
+    }
+
+    /**
+     * @param finished {@code true} means the restore process (of backup and restore) has completed
+     */
+    static void setRestoreBackupFinished(SharedPreferences prefs, boolean finished) {
+        if (finished) {
+            prefs.edit().putBoolean(KEY_RESTORE_BACKUP_FINISHED, true).apply();
+        } else {
+            prefs.edit().remove(KEY_RESTORE_BACKUP_FINISHED).apply();
+        }
+    }
+
+    /**
+     * @return the behavior to execute when volume buttons are pressed while firing an alarm
+     */
+    static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
+        final String defaultValue = SettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
+        final String value = prefs.getString(SettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
+        switch (value) {
+            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR: return NOTHING;
+            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE: return SNOOZE;
+            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS: return DISMISS;
+            default:
+                throw new IllegalArgumentException("Unknown volume button behavior: " + value);
+        }
+    }
+
+    /**
+     * @return the number of minutes an alarm may ring before it has timed out and becomes missed
+     */
+    static int getAlarmTimeout(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings.xml
+        final String string = prefs.getString(SettingsActivity.KEY_AUTO_SILENCE, "10");
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * @return the number of minutes an alarm will remain snoozed before it rings again
+     */
+    static int getSnoozeLength(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings.xml
+        final String string = prefs.getString(SettingsActivity.KEY_ALARM_SNOOZE, "10");
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * @param currentTime timezone offsets created relative to this time
+     * @return a description of the time zones available for selection
+     */
+    static TimeZones getTimeZones(Context context, long currentTime) {
+        final Locale locale = Locale.getDefault();
+        final Resources resources = context.getResources();
+        final String[] timeZoneIds = resources.getStringArray(R.array.timezone_values);
+        final String[] timeZoneNames = resources.getStringArray(R.array.timezone_labels);
+
+        // Verify the data is consistent.
+        if (timeZoneIds.length != timeZoneNames.length) {
+            final String message = String.format(Locale.US,
+                    "id count (%d) does not match name count (%d) for locale %s",
+                    timeZoneIds.length, timeZoneNames.length, locale);
+            throw new IllegalStateException(message);
+        }
+
+        // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
+        final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
+        for (int i = 0; i < timeZoneIds.length; i++) {
+            final String id = timeZoneIds[i];
+            final String name = timeZoneNames[i].replaceAll("\"", "");
+            descriptors[i] = new TimeZoneDescriptor(locale, id, name, currentTime);
+        }
+        Arrays.sort(descriptors);
+
+        // Transfer the TimeZoneDescriptors into parallel arrays for easy consumption by the caller.
+        final CharSequence[] tzIds = new CharSequence[descriptors.length];
+        final CharSequence[] tzNames = new CharSequence[descriptors.length];
+        for (int i = 0; i < descriptors.length; i++) {
+            final TimeZoneDescriptor descriptor = descriptors[i];
+            tzIds[i] = descriptor.mTimeZoneId;
+            tzNames[i] = descriptor.mTimeZoneName;
+        }
+
+        return new TimeZones(tzIds, tzNames);
+    }
+
+    private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {
         final String defaultStyle = context.getString(R.string.default_clock_style);
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        final String clockStyle = prefs.getString(prefKey, defaultStyle);
+        final String clockStyle = prefs.getString(key, defaultStyle);
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
         // accent to character, which breaks the enum conversion.
         return ClockStyle.valueOf(clockStyle.toUpperCase(Locale.US));
+    }
+
+    /**
+     * These descriptors have a natural order from furthest ahead of GMT to furthest behind GMT.
+     */
+    private static class TimeZoneDescriptor implements Comparable<TimeZoneDescriptor> {
+
+        private final int mOffset;
+        private final String mTimeZoneId;
+        private final String mTimeZoneName;
+
+        private TimeZoneDescriptor(Locale locale, String id, String name, long currentTime) {
+            mTimeZoneId = id;
+
+            final TimeZone tz = TimeZone.getTimeZone(id);
+            mOffset = tz.getOffset(currentTime);
+
+            final char sign = mOffset < 0 ? '-' : '+';
+            final int absoluteGMTOffset = Math.abs(mOffset);
+            final long hour = absoluteGMTOffset / HOUR_IN_MILLIS;
+            final long minute = (absoluteGMTOffset / MINUTE_IN_MILLIS) % 60;
+            mTimeZoneName = String.format(locale, "(GMT%s%d:%02d) %s", sign, hour, minute, name);
+        }
+
+        @Override
+        public int compareTo(@NonNull TimeZoneDescriptor other) {
+            return mOffset - other.mOffset;
+        }
     }
 }

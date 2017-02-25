@@ -17,7 +17,6 @@
 <!-- This TimerItem discards the circle because space is limited. -->
 <com.android.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -27,52 +26,99 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.android.deskclock.timer.CountingTimerView
-            android:id="@+id/timer_time_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/timer_label"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="top|center_horizontal"
-            android:clickable="false"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:hint="@string/label"
-            android:maxLines="1"
-            android:textAppearance="@style/SecondaryLabelTextAppearance" />
-
-        <!-- Center the reset/add button on the third of the container above the delete button. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fab_height"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/reset_add"
-                    android:layout_width="@dimen/fab_button_size"
-                    android:layout_height="@dimen/fab_button_size"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/timer_plus_one"
-                    android:gravity="center"
-                    android:padding="@dimen/fab_button_padding"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_plusone" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
 
-            </FrameLayout>
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
+                    <Button
+                        android:id="@+id/timer_label"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:hint="@string/label"
+                        android:maxLines="1"
+                        android:minHeight="@dimen/touch_target_min_size"
+                        android:minWidth="@dimen/touch_target_min_size"
+                        android:textAppearance="@style/SecondaryLabelTextAppearance" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/reset_add"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/timer_plus_one"
+                        android:gravity="center"
+                        android:scaleType="centerInside" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <com.android.deskclock.widget.AutoSizingTextView
+                        android:id="@+id/timer_time_text"
+                        style="@style/display_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:textSize="70sp" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

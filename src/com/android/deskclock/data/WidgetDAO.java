@@ -16,10 +16,7 @@
 
 package com.android.deskclock.data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.android.deskclock.Utils;
 
 /**
  * This class encapsulates the transfer of data between widget objects and their permanent storage
@@ -37,8 +34,7 @@ final class WidgetDAO {
      * @param count the number of widgets of the given type
      * @return the delta between the new count and the old count
      */
-    static int updateWidgetCount(Context context, Class widgetProviderClass, int count) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static int updateWidgetCount(SharedPreferences prefs, Class widgetProviderClass, int count) {
         final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
         final int oldCount = prefs.getInt(key, 0);
         if (count == 0) {

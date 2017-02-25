@@ -19,14 +19,12 @@ package com.android.deskclock;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -38,13 +36,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.os.BuildCompat;
+import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -60,8 +60,6 @@ import android.widget.TextView;
 
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.provider.DaysOfWeek;
-import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.uidata.UiDataModel;
 
 import java.text.NumberFormat;
@@ -69,7 +67,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -87,23 +84,6 @@ public class Utils {
      */
     public static final Uri RINGTONE_SILENT = Uri.EMPTY;
 
-    // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
-    private static String[] sShortWeekdays = null;
-    private static final String DATE_FORMAT_SHORT = "ccccc";
-
-    // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
-    private static String[] sLongWeekdays = null;
-    private static final String DATE_FORMAT_LONG = "EEEE";
-
-    public static final int DEFAULT_WEEK_START = Calendar.getInstance().getFirstDayOfWeek();
-
-    private static Locale sLocaleUsedForWeekdays;
-
-    /**
-     * Temporary array used by {@link #obtainStyledColor(Context, int, int)}.
-     */
-    private static final int[] TEMP_ARRAY = new int[1];
-
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {
             throw new IllegalAccessError("May only call from main thread.");
@@ -114,6 +94,15 @@ public class Utils {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalAccessError("May not call from main thread.");
         }
+    }
+
+    public static int indexOf(Object[] array, Object item) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -154,14 +143,14 @@ public class Utils {
     }
 
     /**
-    * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
-    */
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
+     */
     public static boolean isNOrLater() {
-       return BuildCompat.isAtLeastN();
+        return BuildCompat.isAtLeastN();
     }
 
     /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#NMR1} or later
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#N_MR1} or later
      */
     public static boolean isNMR1OrLater() {
         return BuildCompat.isAtLeastNMR1();
@@ -197,22 +186,28 @@ public class Utils {
     }
 
     /**
-     * Uses {@link Utils#calculateRadiusOffset(float, float, float)} after fetching the values
-     * from the resources.
+     * Configure the clock that is visible to display seconds. The clock that is not visible never
+     * displays seconds to avoid it scheduling unnecessary ticking runnables.
      */
-    public static float calculateRadiusOffset(Resources resources) {
-        if (resources != null) {
-            float strokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
-            float dotStrokeSize = resources.getDimension(R.dimen.circletimer_dot_size);
-            float markerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
-            return calculateRadiusOffset(strokeSize, dotStrokeSize, markerStrokeSize);
-        } else {
-            return 0f;
+    public static void setClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
+        final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                setTimeFormat(digitalClock, false);
+                analogClock.enableSeconds(displaySeconds);
+                return;
+            case DIGITAL:
+                analogClock.enableSeconds(false);
+                setTimeFormat(digitalClock, displaySeconds);
+                return;
         }
+
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
     }
 
     /**
-     * For screensavers to set whether the digital or analog clock should be displayed.
+     * Set whether the digital or analog clock should be displayed in the application.
      * Returns the view to be displayed.
      */
     public static View setClockStyle(View digitalClock, View analogClock) {
@@ -267,7 +262,7 @@ public class Utils {
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the service
-     * @param intent an Intent describing the service to be started
+     * @param intent  an Intent describing the service to be started
      * @return a PendingIntent that will start a service
      */
     public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
@@ -278,7 +273,7 @@ public class Utils {
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the activity
-     * @param intent an Intent describing the activity to be started
+     * @param intent  an Intent describing the activity to be started
      * @return a PendingIntent that will start an activity
      */
     public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
@@ -302,7 +297,7 @@ public class Utils {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static String getNextAlarmLOrLater(Context context) {
         final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final AlarmManager.AlarmClockInfo info = am.getNextAlarmClock();
+        final AlarmClockInfo info = getNextAlarmClock(am);
         if (info != null) {
             final long triggerTime = info.getTriggerTime();
             final Calendar alarmTime = Calendar.getInstance();
@@ -311,6 +306,16 @@ public class Utils {
         }
 
         return null;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static AlarmClockInfo getNextAlarmClock(AlarmManager am) {
+        return am.getNextAlarmClock();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void updateNextAlarm(AlarmManager am, AlarmClockInfo info, PendingIntent op) {
+        am.setAlarmClock(info, op);
     }
 
     public static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
@@ -337,11 +342,15 @@ public class Utils {
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
-            nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
         } else {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         }
+    }
+
+    public static void setClockIconTypeface(View clock) {
+        final TextView nextAlarmIconView = (TextView) clock.findViewById(R.id.nextAlarmIcon);
+        nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
     }
 
     /**
@@ -367,24 +376,27 @@ public class Utils {
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      *
-     * @param clock   - TextClock to format
+     * @param clock          TextClock to format
+     * @param includeSeconds whether or not to include seconds in the clock's time
      */
-    public static void setTimeFormat(TextClock clock) {
+    public static void setTimeFormat(TextClock clock, boolean includeSeconds) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */));
+            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */, includeSeconds));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormat());
+            clock.setFormat24Hour(get24ModeFormat(includeSeconds));
         }
     }
 
     /**
-     * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
-     *                  am/pm string to the time string
-     * @return format string for 12 hours mode time
+     * @param amPmRatio      a value between 0 and 1 that is the ratio of the relative size of the
+     *                       am/pm string to the time string
+     * @param includeSeconds whether or not to include seconds in the time string
+     * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(float amPmRatio) {
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
+    public static CharSequence get12ModeFormat(float amPmRatio, boolean includeSeconds) {
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                includeSeconds ? "hmsa" : "hma");
         if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("a", "").trim();
         }
@@ -408,8 +420,9 @@ public class Utils {
         return sp;
     }
 
-    public static CharSequence get24ModeFormat() {
-        return DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
+    public static CharSequence get24ModeFormat(boolean includeSeconds) {
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                includeSeconds ? "Hms" : "Hm");
     }
 
     /**
@@ -436,7 +449,7 @@ public class Utils {
      * e.g. Given 8:00pm on 1/1/2016 and time zones in LA and NY this method would return a Date for
      * midnight on 1/2/2016 in the NY timezone since it changes days first.
      *
-     * @param time a point in time from which to compute midnight on the subsequent day
+     * @param time  a point in time from which to compute midnight on the subsequent day
      * @param zones a collection of time zones
      * @return the nearest point in the future at which any of the time zones changes days
      */
@@ -461,86 +474,6 @@ public class Utils {
         }
 
         return next == null ? null : next.getTime();
-    }
-
-    /**
-     * Convenience method for retrieving a themed color value.
-     *
-     * @param context  the {@link Context} to resolve the theme attribute against
-     * @param attr     the attribute corresponding to the color to resolve
-     * @param defValue the default color value to use if the attribute cannot be resolved
-     * @return the color value of the resolve attribute
-     */
-    public static int obtainStyledColor(Context context, int attr, int defValue) {
-        TEMP_ARRAY[0] = attr;
-        final TypedArray a = context.obtainStyledAttributes(TEMP_ARRAY);
-        try {
-            return a.getColor(0, defValue);
-        } finally {
-            a.recycle();
-        }
-    }
-
-    /**
-     * @param firstDay is the result from getZeroIndexedFirstDayOfWeek
-     * @return Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
-     */
-    public static String getShortWeekday(int position, int firstDay) {
-        generateShortAndLongWeekdaysIfNeeded();
-        return sShortWeekdays[(position + firstDay) % DaysOfWeek.DAYS_IN_A_WEEK];
-    }
-
-    /**
-     * @param firstDay is the result from getZeroIndexedFirstDayOfWeek
-     * @return Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
-     */
-    public static String getLongWeekday(int position, int firstDay) {
-        generateShortAndLongWeekdaysIfNeeded();
-        return sLongWeekdays[(position + firstDay) % DaysOfWeek.DAYS_IN_A_WEEK];
-    }
-
-    // Return the first day of the week value corresponding to Calendar.<WEEKDAY> value, which is
-    // 1-indexed starting with Sunday.
-    public static int getFirstDayOfWeek(Context context) {
-        return Integer.parseInt(getDefaultSharedPreferences(context)
-                .getString(SettingsActivity.KEY_WEEK_START, String.valueOf(DEFAULT_WEEK_START)));
-    }
-
-    // Return the first day of the week value corresponding to a week with Sunday at 0 index.
-    public static int getZeroIndexedFirstDayOfWeek(Context context) {
-        return getFirstDayOfWeek(context) - 1;
-    }
-
-    private static boolean localeHasChanged() {
-        return sLocaleUsedForWeekdays != Locale.getDefault();
-    }
-
-    /**
-     * Generate arrays of short and long weekdays, starting from Sunday
-     */
-    private static void generateShortAndLongWeekdaysIfNeeded() {
-        if (sShortWeekdays != null && sLongWeekdays != null && !localeHasChanged()) {
-            // nothing to do
-            return;
-        }
-
-        final Locale locale = Locale.getDefault();
-        final SimpleDateFormat shortFormat = new SimpleDateFormat(DATE_FORMAT_SHORT, locale);
-        final SimpleDateFormat longFormat = new SimpleDateFormat(DATE_FORMAT_LONG, locale);
-
-        sShortWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
-        sLongWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
-
-        // Create a date (2014/07/20) that is a Sunday
-        final long aSunday = new GregorianCalendar(2014, Calendar.JULY, 20).getTimeInMillis();
-        for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
-            final long dayMillis = aSunday + i * DateUtils.DAY_IN_MILLIS;
-            sShortWeekdays[i] = shortFormat.format(new Date(dayMillis));
-            sLongWeekdays[i] = longFormat.format(new Date(dayMillis));
-        }
-
-        // Track the Locale used to generate these weekdays
-        sLocaleUsedForWeekdays = Locale.getDefault();
     }
 
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
@@ -587,28 +520,6 @@ public class Utils {
     }
 
     /**
-     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
-     */
-    @TargetApi(Build.VERSION_CODES.N)
-    public static SharedPreferences getDefaultSharedPreferences(Context context) {
-        final Context storageContext;
-        if (isNOrLater()) {
-            // All N devices have split storage areas, but we may need to
-            // migrate existing preferences into the new device encrypted
-            // storage area, which is where our data lives from now on.
-            storageContext = context.createDeviceProtectedStorageContext();
-            if (!storageContext.moveSharedPreferencesFrom(context,
-                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
-                LogUtils.wtf("Failed to migrate shared preferences");
-            }
-        } else {
-            storageContext = context;
-        }
-
-        return PreferenceManager.getDefaultSharedPreferences(storageContext);
-    }
-
-    /**
      * @param context from which to query the current device configuration
      * @return {@code true} if the device is currently in portrait or reverse portrait orientation
      */
@@ -625,10 +536,93 @@ public class Utils {
     }
 
     public static long now() {
-        return SystemClock.elapsedRealtime();
+        return DataModel.getDataModel().elapsedRealtime();
     }
 
     public static long wallClock() {
-        return System.currentTimeMillis();
+        return DataModel.getDataModel().currentTimeMillis();
+    }
+
+    /**
+     * @param context to obtain strings.
+     * @param displayMinutes whether or not minutes should be included
+     * @param isAhead {@code true} if the time should be marked 'ahead', else 'behind'
+     * @param hoursDifferent the number of hours the time is ahead/behind
+     * @param minutesDifferent the number of minutes the time is ahead/behind
+     * @return String describing the hours/minutes ahead or behind
+     */
+    public static String createHoursDifferentString(Context context, boolean displayMinutes,
+            boolean isAhead, int hoursDifferent, int minutesDifferent) {
+        String timeString;
+        if (displayMinutes && hoursDifferent != 0) {
+            // Both minutes and hours
+            final String hoursShortQuantityString =
+                    Utils.getNumberFormattedQuantityString(context,
+                            R.plurals.hours_short, Math.abs(hoursDifferent));
+            final String minsShortQuantityString =
+                    Utils.getNumberFormattedQuantityString(context,
+                            R.plurals.minutes_short, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead
+                    ? R.string.world_hours_minutes_ahead
+                    : R.string.world_hours_minutes_behind;
+            timeString = context.getString(stringType, hoursShortQuantityString,
+                    minsShortQuantityString);
+        } else {
+            // Minutes alone or hours alone
+            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(
+                    context, R.plurals.hours, Math.abs(hoursDifferent));
+            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(
+                    context, R.plurals.minutes, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_time_ahead
+                    : R.string.world_time_behind;
+            timeString = context.getString(stringType, displayMinutes
+                    ? minutesQuantityString : hoursQuantityString);
+        }
+        return timeString;
+    }
+
+    /**
+     * @param context The context from which to obtain strings
+     * @param hours Hours to display (if any)
+     * @param minutes Minutes to display (if any)
+     * @param seconds Seconds to display
+     * @return Provided time formatted as a String
+     */
+    static String getTimeString(Context context, int hours, int minutes, int seconds) {
+        if (hours != 0) {
+            return context.getString(R.string.hours_minutes_seconds, hours, minutes, seconds);
+        }
+        if (minutes != 0) {
+            return context.getString(R.string.minutes_seconds, minutes, seconds);
+        }
+        return context.getString(R.string.seconds, seconds);
+    }
+
+    public static final class ClickAccessibilityDelegate extends AccessibilityDelegateCompat {
+
+        /** The label for talkback to apply to the view */
+        private final String mLabel;
+
+        /** Whether or not to always make the view visible to talkback */
+        private final boolean mIsAlwaysAccessibilityVisible;
+
+        public ClickAccessibilityDelegate(String label) {
+            this(label, false);
+        }
+
+        public ClickAccessibilityDelegate(String label, boolean isAlwaysAccessibilityVisible) {
+            mLabel = label;
+            mIsAlwaysAccessibilityVisible = isAlwaysAccessibilityVisible;
+        }
+
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
+            super.onInitializeAccessibilityNodeInfo(host, info);
+            if (mIsAlwaysAccessibilityVisible) {
+                info.setVisibleToUser(true);
+            }
+            info.addAction(new AccessibilityActionCompat(
+                    AccessibilityActionCompat.ACTION_CLICK.getId(), mLabel));
+        }
     }
 }

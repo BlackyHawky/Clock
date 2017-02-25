@@ -14,31 +14,10 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<com.android.deskclock.widget.TextTime
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:id="@+id/digital_clock"
+    style="@style/display_time"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
-    android:orientation="horizontal">
-
-    <com.android.deskclock.widget.TextTime
-        android:id="@+id/digital_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:textColor="@color/clock_white"
-        android:textSize="@dimen/alarm_time_font_size" />
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/onoff"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/touch_target_min_size"
-        android:layout_gravity="center_vertical|end"
-        android:theme="@style/ControlAccentThemeOverlay" />
-
-</LinearLayout>
+    android:background="?attr/selectableItemBackground"/>

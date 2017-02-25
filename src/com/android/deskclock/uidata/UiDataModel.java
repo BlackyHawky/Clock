@@ -16,15 +16,11 @@
 
 package com.android.deskclock.uidata;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.util.SparseArray;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.ClockFragment;
@@ -32,7 +28,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.timer.TimerFragment;
 
-import java.util.Locale;
+import java.util.Calendar;
 
 import static com.android.deskclock.Utils.enforceMainLooper;
 
@@ -49,18 +45,18 @@ public final class UiDataModel {
         STOPWATCH(StopwatchFragment.class, R.drawable.ic_tab_stopwatch, R.string.menu_stopwatch);
 
         private final String mFragmentClassName;
-        private final @DrawableRes int mIconId;
-        private final @StringRes int mContentDescriptionId;
+        private final @DrawableRes int mIconResId;
+        private final @StringRes int mLabelResId;
 
-        Tab(Class fragmentClass, @DrawableRes int iconId, @StringRes int contentDescriptionId) {
+        Tab(Class fragmentClass, @DrawableRes int iconResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
-            mIconId = iconId;
-            mContentDescriptionId = contentDescriptionId;
+            mIconResId = iconResId;
+            mLabelResId = labelResId;
         }
 
         public String getFragmentClassName() { return mFragmentClassName; }
-        public int getIconId() { return mIconId; }
-        public int getContentDescriptionId() { return mContentDescriptionId; }
+        public @DrawableRes int getIconResId() { return mIconResId; }
+        public @StringRes int getLabelResId() { return mLabelResId; }
     }
 
     /** The single instance of this data model that exists for the life of the application. */
@@ -70,24 +66,13 @@ public final class UiDataModel {
         return sUiDataModel;
     }
 
-    /** Clears data structures containing data that is locale-sensitive. */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
-
-    /**
-     * Caches formatted numbers in the current locale padded with zeroes to requested lengths.
-     * The first level of the cache maps length to the second level of the cache.
-     * The second level of the cache maps an integer to a formatted String in the current locale.
-     */
-    private final SparseArray<SparseArray<String>> mNumberFormatCache = new SparseArray<>(3);
-
     private Context mContext;
 
     /** The model from which tab data are fetched. */
     private TabModel mTabModel;
 
-    /** The model from which colors are fetched. */
-    private ColorModel mColorModel;
+    /** The model from which formatted strings are fetched. */
+    private FormattedStringModel mFormattedStringModel;
 
     /** The model from which timed callbacks originate. */
     private PeriodicCallbackModel mPeriodicCallbackModel;
@@ -97,19 +82,14 @@ public final class UiDataModel {
     /**
      * The context may be set precisely once during the application life.
      */
-    public void setContext(Context context) {
-        if (mContext != null) {
-            throw new IllegalStateException("context has already been set");
+    public void init(Context context, SharedPreferences prefs) {
+        if (mContext != context) {
+            mContext = context.getApplicationContext();
+
+            mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
+            mFormattedStringModel = new FormattedStringModel(mContext);
+            mTabModel = new TabModel(prefs);
         }
-        mContext = context.getApplicationContext();
-
-        mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
-        mColorModel = new ColorModel(mPeriodicCallbackModel);
-        mTabModel = new TabModel(mContext);
-
-        // Clear caches affected by locale when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
     }
 
     /**
@@ -122,7 +102,7 @@ public final class UiDataModel {
     }
 
     //
-    // Number Formatting
+    // Formatted Strings
     //
 
     /**
@@ -135,8 +115,8 @@ public final class UiDataModel {
      * @throws IllegalArgumentException if {@code value} is negative
      */
     public String getFormattedNumber(int value) {
-        final int length = (int) Math.log10(value);
-        return getFormattedNumber(false, value, length == 0 ? 1 : length);
+        enforceMainLooper();
+        return mFormattedStringModel.getFormattedNumber(value);
     }
 
     /**
@@ -151,7 +131,8 @@ public final class UiDataModel {
      * @throws IllegalArgumentException if {@code value} is negative
      */
     public String getFormattedNumber(int value, int length) {
-        return getFormattedNumber(false, value, length);
+        enforceMainLooper();
+        return mFormattedStringModel.getFormattedNumber(value, length);
     }
 
     /**
@@ -169,55 +150,44 @@ public final class UiDataModel {
      * @throws IllegalArgumentException if {@code value} is negative
      */
     public String getFormattedNumber(boolean negative, int value, int length) {
-        if (value < 0) {
-            throw new IllegalArgumentException("value may not be negative: " + value);
-        }
-
-        // Look up the value cache using the length; -ve and +ve values are cached separately.
-        final int lengthCacheKey = negative ? -length : length;
-        SparseArray<String> valueCache = mNumberFormatCache.get(lengthCacheKey);
-        if (valueCache == null) {
-            valueCache = new SparseArray<>((int) Math.pow(10, length));
-            mNumberFormatCache.put(lengthCacheKey, valueCache);
-        }
-
-        // Look up the cached formatted value using the value.
-        String formatted = valueCache.get(value);
-        if (formatted == null) {
-            final String sign = negative ? "−" : "";
-            formatted = String.format(Locale.getDefault(), sign + "%0" + length + "d", value);
-            valueCache.put(value, formatted);
-        }
-
-        return formatted;
-    }
-
-    //
-    // Colors
-    //
-
-    /**
-     * @param colorListener to be notified when the app's color changes
-     */
-    public void addOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
         enforceMainLooper();
-        mColorModel.addOnAppColorChangeListener(colorListener);
+        return mFormattedStringModel.getFormattedNumber(negative, value, length);
     }
 
     /**
-     * @param colorListener to be notified when the app's color changes
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
+     * @return single-character version of weekday name; e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    public void removeOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
+    public String getShortWeekday(int calendarDay) {
         enforceMainLooper();
-        mColorModel.removeOnAppColorChangeListener(colorListener);
+        return mFormattedStringModel.getShortWeekday(calendarDay);
     }
 
     /**
-     * @return the color of the application window background
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
+     * @return full weekday name; e.g.: 'Sunday', 'Monday', 'Tuesday', etc.
      */
-    public @ColorInt int getWindowBackgroundColor() {
+    public String getLongWeekday(int calendarDay) {
         enforceMainLooper();
-        return mColorModel.getAppColor();
+        return mFormattedStringModel.getLongWeekday(calendarDay);
     }
 
     //
@@ -230,6 +200,14 @@ public final class UiDataModel {
     public long getShortAnimationDuration() {
         enforceMainLooper();
         return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
+    }
+
+    /**
+     * @return the duration in milliseconds of long animations
+     */
+    public long getLongAnimationDuration() {
+        enforceMainLooper();
+        return mContext.getResources().getInteger(android.R.integer.config_longAnimTime);
     }
 
     //
@@ -261,28 +239,21 @@ public final class UiDataModel {
     }
 
     /**
-     * @param index the index of the tab
-     * @return the tab at the given {@code index}
+     * @param ordinal the ordinal of the tab
+     * @return the tab at the given {@code ordinal}
      */
-    public Tab getTab(int index) {
+    public Tab getTab(int ordinal) {
         enforceMainLooper();
-        return mTabModel.getTab(index);
+        return mTabModel.getTab(ordinal);
     }
 
     /**
-     * @return the index of the currently selected primary tab
+     * @param position the position of the tab in the user interface
+     * @return the tab at the given {@code ordinal}
      */
-    public int getSelectedTabIndex() {
+    public Tab getTabAt(int position) {
         enforceMainLooper();
-        return mTabModel.getSelectedTabIndex();
-    }
-
-    /**
-     * @param index the index of the tab to select
-     */
-    public void setSelectedTabIndex(int index) {
-        enforceMainLooper();
-        mTabModel.setSelectedTabIndex(index);
+        return mTabModel.getTabAt(position);
     }
 
     /**
@@ -334,19 +305,6 @@ public final class UiDataModel {
     public boolean isSelectedTabScrolledToTop() {
         enforceMainLooper();
         return mTabModel.isTabScrolledToTop(getSelectedTab());
-    }
-
-    /**
-     * This method converts the given {@code ltrTabIndex} which assumes Left-To-Right layout of the
-     * tabs into an index that respects the system layout, which may be Left-To-Right or
-     * Right-To-Left.
-     *
-     * @param ltrTabIndex the tab index assuming left-to-right layout direction
-     * @return the tab index in the current layout direction
-     */
-    public int getTabLayoutIndex(int ltrTabIndex) {
-        enforceMainLooper();
-        return mTabModel.getTabLayoutIndex(ltrTabIndex);
     }
 
     //
@@ -411,15 +369,5 @@ public final class UiDataModel {
     public void removePeriodicCallback(Runnable runnable) {
         enforceMainLooper();
         mPeriodicCallbackModel.removePeriodicCallback(runnable);
-    }
-
-    /**
-     * Cached information that is locale-sensitive must be cleared in response to locale changes.
-     */
-    private final class LocaleChangedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            mNumberFormatCache.clear();
-        }
     }
 }

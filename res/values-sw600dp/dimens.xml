@@ -28,7 +28,6 @@
 
     <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="big_font_size">115sp</dimen>
-    <dimen name="medium_font_size">96sp</dimen>
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="alarm_label_size">18sp</dimen>
     <dimen name="day_button_font_size">20sp</dimen>
@@ -45,12 +44,10 @@
 
     <dimen name="label_margin_big">8dp</dimen>
 
-    <dimen name="dialpad_font_size">56sp</dimen>
-    <dimen name="timer_setup_font_size">86sp</dimen>
-    <dimen name="timer_setup_delete_margin">21sp</dimen>
-
     <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
     <dimen name="timer_setup_top_margin">24sp</dimen>
+    <dimen name="timer_setup_delete_margin">21sp</dimen>
+    <dimen name="timer_setup_digit_font_size">86sp</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>

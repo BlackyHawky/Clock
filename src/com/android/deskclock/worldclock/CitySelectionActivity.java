@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.android.deskclock.worldclock;
@@ -39,10 +39,10 @@ import com.android.deskclock.BaseActivity;
 import com.android.deskclock.DropShadowController;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemController;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.SearchMenuItemController;
 import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.android.deskclock.data.City;
@@ -62,32 +62,42 @@ import static android.view.Menu.NONE;
 
 /**
  * This activity allows the user to alter the cities selected for display.
- *
+ * <p/>
  * Note, it is possible for two instances of this Activity to exist simultaneously:
- *
+ * <p/>
  * <ul>
- *     <li>Clock Tab-> Tap Floating Action Button</li>
- *     <li>Digital Widget -> Tap any city clock</li>
+ * <li>Clock Tab-> Tap Floating Action Button</li>
+ * <li>Digital Widget -> Tap any city clock</li>
  * </ul>
- *
+ * <p/>
  * As a result, {@link #onResume()} conservatively refreshes itself from the backing
  * {@link DataModel} which may have changed since this activity was last displayed.
  */
 public final class CitySelectionActivity extends BaseActivity {
 
-    /** The list of all selected and unselected cities, indexed and possibly filtered. */
+    /**
+     * The list of all selected and unselected cities, indexed and possibly filtered.
+     */
     private ListView mCitiesList;
 
-    /** The adapter that presents all of the selected and unselected cities. */
+    /**
+     * The adapter that presents all of the selected and unselected cities.
+     */
     private CityAdapter mCitiesAdapter;
 
-    /** Manages all action bar menu display and click handling. */
+    /**
+     * Manages all action bar menu display and click handling.
+     */
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
-    /** Menu item controller for search view. */
+    /**
+     * Menu item controller for search view.
+     */
     private SearchMenuItemController mSearchMenuItemController;
 
-    /** The controller that shows the drop shadow when content is not scrolled to the top. */
+    /**
+     * The controller that shows the drop shadow when content is not scrolled to the top.
+     */
     private DropShadowController mDropShadowController;
 
     @Override
@@ -98,18 +108,18 @@ public final class CitySelectionActivity extends BaseActivity {
         mSearchMenuItemController =
                 new SearchMenuItemController(getSupportActionBar().getThemedContext(),
                         new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
+                            @Override
+                            public boolean onQueryTextSubmit(String query) {
+                                return false;
+                            }
 
-                    @Override
-                    public boolean onQueryTextChange(String query) {
-                        mCitiesAdapter.filter(query);
-                        updateFastScrolling();
-                        return true;
-                    }
-                }, savedInstanceState);
+                            @Override
+                            public boolean onQueryTextChange(String query) {
+                                mCitiesAdapter.filter(query);
+                                updateFastScrolling();
+                                return true;
+                            }
+                        }, savedInstanceState);
         mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
                 .addMenuItemController(mSearchMenuItemController)
@@ -118,7 +128,6 @@ public final class CitySelectionActivity extends BaseActivity {
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this));
         mCitiesList = (ListView) findViewById(R.id.cities_list);
-        mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);
 
         updateFastScrolling();
@@ -180,7 +189,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
     /**
      * This adapter presents data in 2 possible modes. If selected cities exist the format is:
-     *
+     * <p/>
      * <pre>
      * Selected Cities
      *   City 1 (alphabetically first)
@@ -193,9 +202,9 @@ public final class CitySelectionActivity extends BaseActivity {
      *   City B2 (alphabetically second starting with B)
      *   ...
      * </pre>
-     *
+     * <p/>
      * If selected cities do not exist, that section is removed and all that remains is:
-     *
+     * <p/>
      * <pre>
      * A City A1 (alphabetically first starting with A)
      *   City A2 (alphabetically second starting with A)
@@ -208,44 +217,68 @@ public final class CitySelectionActivity extends BaseActivity {
     private static final class CityAdapter extends BaseAdapter implements View.OnClickListener,
             CompoundButton.OnCheckedChangeListener, SectionIndexer {
 
-        /** The type of the single optional "Selected Cities" header entry. */
+        /**
+         * The type of the single optional "Selected Cities" header entry.
+         */
         private static final int VIEW_TYPE_SELECTED_CITIES_HEADER = 0;
 
-        /** The type of each city entry. */
+        /**
+         * The type of each city entry.
+         */
         private static final int VIEW_TYPE_CITY = 1;
 
         private final Context mContext;
 
         private final LayoutInflater mInflater;
 
-        /** The 12-hour time pattern for the current locale. */
+        /**
+         * The 12-hour time pattern for the current locale.
+         */
         private final String mPattern12;
 
-        /** The 24-hour time pattern for the current locale. */
+        /**
+         * The 24-hour time pattern for the current locale.
+         */
         private final String mPattern24;
 
-        /** {@code true} time should honor {@link #mPattern24}; {@link #mPattern12} otherwise. */
+        /**
+         * {@code true} time should honor {@link #mPattern24}; {@link #mPattern12} otherwise.
+         */
         private boolean mIs24HoursMode;
 
-        /** A calendar used to format time in a particular timezone. */
+        /**
+         * A calendar used to format time in a particular timezone.
+         */
         private final Calendar mCalendar;
 
-        /** The list of cities which may be filtered by a search term. */
+        /**
+         * The list of cities which may be filtered by a search term.
+         */
         private List<City> mFilteredCities = Collections.emptyList();
 
-        /** A mutable set of cities currently selected by the user. */
+        /**
+         * A mutable set of cities currently selected by the user.
+         */
         private final Set<City> mUserSelectedCities = new ArraySet<>();
 
-        /** The number of user selections at the top of the adapter to avoid indexing. */
+        /**
+         * The number of user selections at the top of the adapter to avoid indexing.
+         */
         private int mOriginalUserSelectionCount;
 
-        /** The precomputed section headers. */
+        /**
+         * The precomputed section headers.
+         */
         private String[] mSectionHeaders;
 
-        /** The corresponding location of each precomputed section header. */
+        /**
+         * The corresponding location of each precomputed section header.
+         */
         private Integer[] mSectionHeaderPositions;
 
-        /** Menu item controller for search. Search query is maintained here. */
+        /**
+         * Menu item controller for search. Search query is maintained here.
+         */
         private final SearchMenuItemController mSearchMenuItemController;
 
         public CityAdapter(Context context, SearchMenuItemController searchMenuItemController) {
@@ -308,6 +341,9 @@ public final class CitySelectionActivity extends BaseActivity {
 
                 case VIEW_TYPE_CITY:
                     final City city = getItem(position);
+                    if (city == null) {
+                        throw new IllegalStateException("The desired city does not exist");
+                    }
                     final TimeZone timeZone = city.getTimeZone();
 
                     // Inflate a new view if necessary.
@@ -402,6 +438,9 @@ public final class CitySelectionActivity extends BaseActivity {
                     // Add a section if this position should show the section index.
                     if (getShowIndex(position)) {
                         final City city = getItem(position);
+                        if (city == null) {
+                            throw new IllegalStateException("The desired city does not exist");
+                        }
                         switch (getCitySort()) {
                             case NAME:
                                 sections.add(city.getIndexString());
@@ -500,8 +539,13 @@ public final class CitySelectionActivity extends BaseActivity {
             return !TextUtils.isEmpty(mSearchMenuItemController.getQueryText().trim());
         }
 
-        private Collection<City> getSelectedCities() { return mUserSelectedCities; }
-        private boolean hasHeader() { return !isFiltering() && mOriginalUserSelectionCount > 0; }
+        private Collection<City> getSelectedCities() {
+            return mUserSelectedCities;
+        }
+
+        private boolean hasHeader() {
+            return !isFiltering() && mOriginalUserSelectionCount > 0;
+        }
 
         private DataModel.CitySort getCitySort() {
             return DataModel.getDataModel().getCitySort();

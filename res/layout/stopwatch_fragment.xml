@@ -19,8 +19,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:baselineAligned="false"
+    android:gravity="center"
     android:orientation="vertical">
 
     <android.support.percent.PercentFrameLayout
@@ -29,12 +29,19 @@
         android:layout_gravity="center">
 
         <com.android.deskclock.TimerCircleFrameLayout
+            android:id="@+id/stopwatch_time_wrapper"
+            android:layout_gravity="center"
             app:layout_aspectRatio="100%"
-            app:layout_widthPercent="@fraction/timer_circle_width_percent"
             app:layout_heightPercent="@fraction/timer_circle_height_percent"
-            android:layout_gravity="center">
+            app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
-            <include layout="@layout/stopwatch_view" />
+            <include layout="@layout/stopwatch_time" />
+
+            <!-- Sufficient space exists to include the bounding stopwatch circle. -->
+            <com.android.deskclock.stopwatch.StopwatchCircleView
+                android:id="@+id/stopwatch_circle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </com.android.deskclock.TimerCircleFrameLayout>
 
