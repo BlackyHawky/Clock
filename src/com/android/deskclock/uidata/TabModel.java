@@ -16,7 +16,7 @@
 
 package com.android.deskclock.uidata;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import static com.android.deskclock.uidata.UiDataModel.Tab;
  */
 final class TabModel {
 
-    private final Context mContext;
+    private final SharedPreferences mPrefs;
 
     /** The listeners to notify when the selected tab is changed. */
     private final List<TabListener> mTabListeners = new ArrayList<>();
@@ -46,8 +46,8 @@ final class TabModel {
     /** An enumerated value indicating the currently selected tab. */
     private Tab mSelectedTab;
 
-    TabModel(Context context) {
-        mContext = context;
+    TabModel(SharedPreferences prefs) {
+        mPrefs = prefs;
         Arrays.fill(mTabScrolledToTop, true);
     }
 
@@ -77,25 +77,25 @@ final class TabModel {
     }
 
     /**
-     * @param index the index of the tab
-     * @return the tab at the given {@code index}
+     * @param ordinal the ordinal (left-to-right index) of the tab
+     * @return the tab at the given {@code ordinal}
      */
-    Tab getTab(int index) {
-        return Tab.values()[index];
+    Tab getTab(int ordinal) {
+        return Tab.values()[ordinal];
     }
 
     /**
-     * @return the index of the currently selected primary tab
+     * @param position the position of the tab in the user interface
+     * @return the tab at the given {@code ordinal}
      */
-    int getSelectedTabIndex() {
-        return getSelectedTab().ordinal();
-    }
-
-    /**
-     * @param index the index of the tab to select
-     */
-    void setSelectedTabIndex(int index) {
-        setSelectedTab(Tab.values()[index]);
+    Tab getTabAt(int position) {
+        final int ordinal;
+        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL) {
+            ordinal = getTabCount() - position - 1;
+        } else {
+            ordinal = position;
+        }
+        return getTab(ordinal);
     }
 
     /**
@@ -103,7 +103,7 @@ final class TabModel {
      */
     Tab getSelectedTab() {
         if (mSelectedTab == null) {
-            mSelectedTab = TabDAO.getSelectedTab(mContext);
+            mSelectedTab = TabDAO.getSelectedTab(mPrefs);
         }
         return mSelectedTab;
     }
@@ -115,7 +115,7 @@ final class TabModel {
         final Tab oldSelectedTab = getSelectedTab();
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;
-            TabDAO.setSelectedTab(mContext, tab);
+            TabDAO.setSelectedTab(mPrefs, tab);
 
             // Notify of the tab change.
             for (TabListener tl : mTabListeners) {
@@ -130,17 +130,6 @@ final class TabModel {
                 }
             }
         }
-    }
-
-    /**
-     * @param ltrTabIndex the tab index assuming left-to-right layout direction
-     * @return the tab index in the current layout direction
-     */
-    int getTabLayoutIndex(int ltrTabIndex) {
-        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL) {
-            return getTabCount() - ltrTabIndex - 1;
-        }
-        return ltrTabIndex;
     }
 
     //

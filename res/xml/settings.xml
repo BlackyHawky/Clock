@@ -17,25 +17,29 @@
     android:title="@string/settings">
     <PreferenceCategory
         android:title="@string/clock_settings">
-        <ListPreference
-            android:key="clock_style"
-            android:title="@string/clock_style"
+        <com.android.deskclock.settings.SimpleMenuPreference
+            android:defaultValue="@string/default_clock_style"
+            android:dialogTitle="@string/clock_style"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
-            android:defaultValue="@string/default_clock_style"
-            android:dialogTitle="@string/clock_style" />
+            android:key="clock_style"
+            android:title="@string/clock_style" />
 
         <SwitchPreferenceCompat
+            android:key="display_clock_seconds"
+            android:title="@string/display_clock_seconds_pref" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
             android:key="automatic_home_clock"
-            android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
-            android:defaultValue="true" />
+            android:title="@string/automatic_home_clock" />
 
         <ListPreference
-            android:key="home_time_zone"
+            android:dialogTitle="@string/home_time_zone_title"
             android:entries="@array/timezone_labels"
             android:entryValues="@array/timezone_values"
-            android:dialogTitle="@string/home_time_zone_title"
+            android:key="home_time_zone"
             android:title="@string/home_time_zone" />
 
         <Preference
@@ -46,59 +50,69 @@
     <PreferenceCategory
         android:title="@string/alarm_settings">
         <ListPreference
-            android:key="auto_silence"
-            android:title="@string/auto_silence_title"
+            android:defaultValue="10"
+            android:dialogTitle="@string/auto_silence_title"
             android:entries="@array/auto_silence_entries"
             android:entryValues="@array/auto_silence_values"
-            android:defaultValue="10"
-            android:dialogTitle="@string/auto_silence_title" />
+            android:key="auto_silence"
+            android:title="@string/auto_silence_title" />
 
-        <com.android.deskclock.settings.SnoozeLengthDialogPreference
+        <ListPreference
+            android:defaultValue="10"
+            android:dialogTitle="@string/snooze_duration_title"
+            android:entries="@array/snooze_duration_entries"
+            android:entryValues="@array/snooze_duration_values"
             android:key="snooze_duration"
-            android:title="@string/snooze_duration_title"
-            android:dialogLayout="@layout/snooze_length_picker" />
+            android:title="@string/snooze_duration_title" />
 
         <com.android.deskclock.settings.AlarmVolumePreference
             android:key="volume_setting"
-            android:title="@string/alarm_volume_title"
-            android:layout="@layout/alarm_volume_preference" />
-
-        <com.android.deskclock.settings.CrescendoLengthDialogPreference
-            android:key="alarm_crescendo_duration"
-            android:title="@string/crescendo_duration_title"
-            android:dialogLayout="@layout/crescendo_length_picker" />
+            android:layout="@layout/alarm_volume_preference"
+            android:title="@string/alarm_volume_title" />
 
         <ListPreference
-            android:key="volume_button_setting"
-            android:title="@string/volume_button_setting_title"
+            android:defaultValue="0"
+            android:dialogTitle="@string/crescendo_duration_title"
+            android:entries="@array/crescendo_entries"
+            android:entryValues="@array/crescendo_values"
+            android:key="alarm_crescendo_duration"
+            android:title="@string/crescendo_duration_title" />
+
+        <com.android.deskclock.settings.SimpleMenuPreference
+            android:defaultValue="0"
             android:dialogTitle="@string/volume_button_setting_title"
             android:entries="@array/volume_button_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
-            android:defaultValue="0" />
+            android:key="volume_button_setting"
+            android:title="@string/volume_button_setting_title" />
 
-        <ListPreference
-            android:key="week_start"
-            android:title="@string/week_start_title"
+        <com.android.deskclock.settings.SimpleMenuPreference
             android:dialogTitle="@string/week_start_title"
             android:entries="@array/week_start_entries"
-            android:entryValues="@array/week_start_values" />
+            android:entryValues="@array/week_start_values"
+            android:key="week_start"
+            android:title="@string/week_start_title" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/timer_settings">
         <Preference
             android:key="timer_ringtone"
-            android:title="@string/timer_ringtone_title" />
+            android:title="@string/timer_sound" />
 
-        <com.android.deskclock.settings.CrescendoLengthDialogPreference
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/crescendo_duration_title"
+            android:entries="@array/crescendo_entries"
+            android:entryValues="@array/crescendo_values"
             android:key="timer_crescendo_duration"
-            android:title="@string/crescendo_duration_title"
-            android:dialogLayout="@layout/crescendo_length_picker" />
+            android:title="@string/crescendo_duration_title" />
+
 
         <SwitchPreferenceCompat
+            android:defaultValue="false"
             android:key="timer_vibrate"
-            android:title="@string/timer_vibrate_title"
-            android:defaultValue="false" />
+            android:title="@string/timer_vibrate_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

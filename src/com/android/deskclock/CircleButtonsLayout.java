@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -18,7 +18,7 @@ public class CircleButtonsLayout extends FrameLayout {
 
     private float mDiamOffset;
     private View mCircleView;
-    private ImageButton mResetAddButton;
+    private Button mResetAddButton;
     private TextView mLabel;
 
     @SuppressWarnings("unused")
@@ -50,7 +50,7 @@ public class CircleButtonsLayout extends FrameLayout {
         if (mLabel == null) {
             mCircleView = findViewById(R.id.timer_time);
             mLabel = (TextView) findViewById(R.id.timer_label);
-            mResetAddButton = (ImageButton) findViewById(R.id.reset_add);
+            mResetAddButton = (Button) findViewById(R.id.reset_add);
         }
 
         final int frameWidth = mCircleView.getMeasuredWidth();

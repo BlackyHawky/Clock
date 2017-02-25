@@ -27,9 +27,12 @@ import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
-import com.android.deskclock.settings.SettingsActivity;
 
+/**
+ * Manages playing the timer ringtone and vibrating the device.
+ */
 public abstract class TimerKlaxon {
+
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
@@ -58,7 +61,8 @@ public abstract class TimerKlaxon {
             LogUtils.i("Playing silent ringtone for timer");
         } else {
             final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
-            getAsyncRingtonePlayer(context).play(uri);
+            final long crescendoDuration = DataModel.getDataModel().getTimerCrescendoDuration();
+            getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
         }
 
         if (DataModel.getDataModel().getTimerVibrate()) {
@@ -86,8 +90,7 @@ public abstract class TimerKlaxon {
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(),
-                    SettingsActivity.KEY_TIMER_CRESCENDO);
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
         }
 
         return sAsyncRingtonePlayer;

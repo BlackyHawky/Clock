@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
@@ -39,24 +38,17 @@ import com.android.deskclock.uidata.UiDataModel;
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
 
-public class ScreensaverActivity extends AppCompatActivity {
+public class ScreensaverActivity extends BaseActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
     /** These flags keep the screen on if the device is plugged in. */
-    private static final int sWindowFlags = WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+    private static final int WINDOW_FLAGS = WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
             | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
             | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
             | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
-    private MoveScreensaverRunnable mPositionUpdater;
-
-    private View mContentView, mSaverView;
-    private View mAnalogClock, mDigitalClock;
-
-    private String mDateFormat;
-    private String mDateFormatForAccessibility;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -98,24 +90,43 @@ public class ScreensaverActivity extends AppCompatActivity {
         }
     };
 
+    private String mDateFormat;
+    private String mDateFormatForAccessibility;
+
+    private View mContentView;
+    private View mMainClockView;
+
+    private MoveScreensaverRunnable mPositionUpdater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
+
         setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.digital_clock);
-        mAnalogClock = findViewById(R.id.analog_clock);
-        mSaverView = findViewById(R.id.main_clock);
         mContentView = findViewById(R.id.saver_container);
+        mMainClockView = mContentView.findViewById(R.id.main_clock);
+
+        final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
+        final AnalogClock analogClock =
+                (AnalogClock) mMainClockView.findViewById(R.id.analog_clock);
+
+        Utils.setClockIconTypeface(mMainClockView);
+        Utils.setTimeFormat((TextClock) digitalClock, false);
+        Utils.setClockStyle(digitalClock, analogClock);
+        Utils.dimClockView(true, mMainClockView);
+        analogClock.enableSeconds(false);
+
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
 
-        Utils.setTimeFormat((TextClock) mDigitalClock);
-        Utils.setClockStyle(mDigitalClock, mAnalogClock);
-        Utils.dimClockView(true, mSaverView);
-
-        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);
+        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 
         final Intent intent = getIntent();
         if (intent != null) {
@@ -132,7 +143,9 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        if (Utils.isLOrLater()) {
+            filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        }
         registerReceiver(mIntentReceiver, filter);
 
         if (mSettingsContentObserver != null) {
@@ -146,9 +159,6 @@ public class ScreensaverActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
-
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
 
@@ -156,8 +166,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
         final Intent intent = registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
-        final int plugged = intent.getIntExtra(EXTRA_PLUGGED, 0);
-        final boolean pluggedIn = plugged != 0;
+        final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
     }
 
@@ -191,9 +200,9 @@ public class ScreensaverActivity extends AppCompatActivity {
         final WindowManager.LayoutParams winParams = win.getAttributes();
         winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (pluggedIn) {
-            winParams.flags |= sWindowFlags;
+            winParams.flags |= WINDOW_FLAGS;
         } else {
-            winParams.flags &= (~sWindowFlags);
+            winParams.flags &= (~WINDOW_FLAGS);
         }
         win.setAttributes(winParams);
     }
@@ -215,10 +224,10 @@ public class ScreensaverActivity extends AppCompatActivity {
         mPositionUpdater.stop();
     }
 
-    private class StartPositionUpdater implements OnPreDrawListener {
+    private final class StartPositionUpdater implements OnPreDrawListener {
         /**
          * This callback occurs after initial layout has completed. It is an appropriate place to
-         * select a random position for {@link #mSaverView} and schedule future callbacks to update
+         * select a random position for {@link #mMainClockView} and schedule future callbacks to update
          * its position.
          *
          * @return {@code true} to continue with the drawing pass
@@ -233,6 +242,17 @@ public class ScreensaverActivity extends AppCompatActivity {
                 mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
             }
             return true;
+        }
+    }
+
+    private final class InteractionListener implements View.OnSystemUiVisibilityChangeListener {
+        @Override
+        public void onSystemUiVisibilityChange(int visibility) {
+            // When the user interacts with the screen, the navigation bar reappears
+            if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                // We want the screen saver to exit upon user interaction.
+                finish();
+            }
         }
     }
 }

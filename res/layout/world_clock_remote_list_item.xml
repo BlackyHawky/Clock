@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@color/clock_white" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@color/clock_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/city_widget_name_font_size" />
 
                 </FrameLayout>
@@ -82,7 +82,7 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@color/clock_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/city_widget_name_font_size" />
 
             </LinearLayout>
@@ -104,7 +104,7 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@color/clock_white" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@color/clock_white"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/city_widget_name_font_size" />
 
                 </FrameLayout>
@@ -144,7 +144,7 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@color/clock_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/city_widget_name_font_size" />
 
             </LinearLayout>

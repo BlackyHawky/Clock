@@ -33,7 +33,7 @@
         android:format24Hour="@string/lock_screen_24_hour_format"
         android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@color/clock_white" />
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white" />
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/nextAlarmIcon"
@@ -70,7 +70,7 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

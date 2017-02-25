@@ -25,14 +25,15 @@ import android.os.Vibrator;
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.settings.SettingsActivity;
 
 /**
- * Manages playing ringtone and vibrating the device.
+ * Manages playing alarm ringtones and vibrating the device.
  */
-public final class AlarmKlaxon {
-    private static final long[] sVibratePattern = {500, 500};
+final class AlarmKlaxon {
+
+    private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
     private static AsyncRingtonePlayer sAsyncRingtonePlayer;
@@ -54,7 +55,8 @@ public final class AlarmKlaxon {
         LogUtils.v("AlarmKlaxon.start()");
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
-            getAsyncRingtonePlayer(context).play(instance.mRingtone);
+            final long crescendoDuration = DataModel.getDataModel().getAlarmCrescendoDuration();
+            getAsyncRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
         }
 
         if (instance.mVibrate) {
@@ -62,7 +64,7 @@ public final class AlarmKlaxon {
             if (Utils.isLOrLater()) {
                 vibrateLOrLater(vibrator);
             } else {
-                vibrator.vibrate(sVibratePattern, 0);
+                vibrator.vibrate(VIBRATE_PATTERN, 0);
             }
         }
 
@@ -71,7 +73,7 @@ public final class AlarmKlaxon {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static void vibrateLOrLater(Vibrator vibrator) {
-        vibrator.vibrate(sVibratePattern, 0, new AudioAttributes.Builder()
+        vibrator.vibrate(VIBRATE_PATTERN, 0, new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .build());
@@ -83,8 +85,7 @@ public final class AlarmKlaxon {
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(),
-                    SettingsActivity.KEY_ALARM_CRESCENDO);
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
         }
 
         return sAsyncRingtonePlayer;

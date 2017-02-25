@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.android.deskclock.AlarmRecyclerView
         android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +29,8 @@
         android:fadingEdgeLength="0dp"
         android:paddingBottom="@dimen/fab_height"
         android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:splitMotionEvents="false" />
 
     <TextView
         android:id="@+id/alarms_empty_view"

@@ -24,9 +24,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
-
-import com.android.deskclock.uidata.OnAppColorChangeListener;
-import com.android.deskclock.uidata.UiDataModel;
+import android.view.View;
 
 import static com.android.deskclock.AnimatorUtils.ARGB_EVALUATOR;
 
@@ -34,12 +32,6 @@ import static com.android.deskclock.AnimatorUtils.ARGB_EVALUATOR;
  * Base activity class that changes the app window's color based on the current hour.
  */
 public abstract class BaseActivity extends AppCompatActivity {
-
-    /** Key used to save/restore the current app window color from the saved instance state. */
-    private static final String KEY_WINDOW_COLOR = "window_color";
-
-    /** Reacts to app window color changes from the model when this activity is forward. */
-    private final OnAppColorChangeListener mAppColorChangeListener = new AppColorChangeListener();
 
     /** Sets the app window color on each frame of the {@link #mAppColorAnimator}. */
     private final AppColorAnimationListener mAppColorAnimationListener
@@ -55,46 +47,29 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final @ColorInt int currentColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
-        final @ColorInt int bgColor = savedInstanceState == null ? currentColor
-                : savedInstanceState.getInt(KEY_WINDOW_COLOR, currentColor);
-        adjustAppColor(bgColor, false /* animate */);
+        // Allow the content to layout behind the status and navigation bars.
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+        final @ColorInt int color = ThemeUtils.resolveColor(this, android.R.attr.windowBackground);
+        adjustAppColor(color, false /* animate */);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // Start updating the app window color each time it changes.
-        UiDataModel.getUiDataModel().addOnAppColorChangeListener(mAppColorChangeListener);
-
         // Ensure the app window color is up-to-date.
-        final @ColorInt int bgColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
-        adjustAppColor(bgColor, true /* animate */);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        // Stop updating the app window color when not active.
-        UiDataModel.getUiDataModel().removeOnAppColorChangeListener(mAppColorChangeListener);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // Save the app window color so we can animate the change when the activity is restored.
-        if (mBackground != null) {
-            outState.putInt(KEY_WINDOW_COLOR, mBackground.getColor());
-        }
+        final @ColorInt int color = ThemeUtils.resolveColor(this, android.R.attr.windowBackground);
+        adjustAppColor(color, false /* animate */);
     }
 
     /**
      * Adjusts the current app window color of this activity; animates the change if desired.
      *
-     * @param color the ARGB value to set as the current app window color
+     * @param color   the ARGB value to set as the current app window color
      * @param animate {@code true} if the change should be animated
      */
     protected void adjustAppColor(@ColorInt int color, boolean animate) {
@@ -123,30 +98,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Subclasses may react to the new app window color as they see fit.
-     *
-     * @param color the newly installed app window color
-     */
-    protected void onAppColorChanged(@ColorInt int color) {
-        // Do nothing here, only in derived classes
-    }
-
     private void setAppColor(@ColorInt int color) {
         mBackground.setColor(color);
-
-        // Allow the activity and its hierarchy to react to the app window color change.
-        onAppColorChanged(color);
-    }
-
-    /**
-     * Alters the app window color each time the model reports a change.
-     */
-    private final class AppColorChangeListener implements OnAppColorChangeListener {
-        @Override
-        public void onAppColorChange(@ColorInt int oldColor, @ColorInt int newColor) {
-            adjustAppColor(newColor, true /* animate */);
-        }
     }
 
     /**

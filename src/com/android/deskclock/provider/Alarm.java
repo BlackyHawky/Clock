@@ -30,6 +30,7 @@ import android.os.Parcelable;
 
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -118,7 +119,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(ENABLED, alarm.enabled ? 1 : 0);
         values.put(HOUR, alarm.hour);
         values.put(MINUTES, alarm.minutes);
-        values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBitSet());
+        values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
@@ -152,7 +153,31 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
-                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER);
+                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
+            @Override
+            public void onContentChanged() {
+                // There is a bug in Loader which can result in stale data if a loader is stopped
+                // immediately after a call to onContentChanged. As a workaround we stop the
+                // loader before delivering onContentChanged to ensure mContentChanged is set to
+                // true before forceLoad is called.
+                if (isStarted() && !isAbandoned()) {
+                    stopLoading();
+                    super.onContentChanged();
+                    startLoading();
+                } else {
+                    super.onContentChanged();
+                }
+            }
+
+            @Override
+            public Cursor loadInBackground() {
+                // Prime the ringtone title cache for later access. Most alarms will refer to
+                // system ringtones.
+                DataModel.getDataModel().loadRingtoneTitles();
+
+                return super.loadInBackground();
+            }
+        };
     }
 
     /**
@@ -209,16 +234,13 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public static boolean isTomorrow(Alarm alarm, Calendar now) {
-        final int alarmHour = alarm.hour;
-        final int currHour = now.get(Calendar.HOUR_OF_DAY);
-        // If the alarm is not snoozed and the time is less than the current time, it must be
-        // firing tomorrow.
-        // If the alarm is snoozed, return "false" to indicate that this alarm is firing today.
-        // (The alarm must have already rung today in order to be snoozed, and this function is only
-        // called on non-repeating alarms.)
-        return alarm.instanceState != AlarmInstance.SNOOZE_STATE
-                && (alarmHour < currHour
-                || (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE)));
+        if (alarm.instanceState == AlarmInstance.SNOOZE_STATE) {
+            return false;
+        }
+
+        final int totalAlarmMinutes = alarm.hour * 60 + alarm.minutes;
+        final int totalNowMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
+        return totalAlarmMinutes <= totalNowMinutes;
     }
 
     public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
@@ -257,7 +279,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public boolean enabled;
     public int hour;
     public int minutes;
-    public DaysOfWeek daysOfWeek;
+    public Weekdays daysOfWeek;
     public boolean vibrate;
     public String label;
     public Uri alert;
@@ -275,7 +297,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.hour = hour;
         this.minutes = minutes;
         this.vibrate = true;
-        this.daysOfWeek = new DaysOfWeek(0);
+        this.daysOfWeek = Weekdays.NONE;
         this.label = "";
         this.alert = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
         this.deleteAfterUse = false;
@@ -286,7 +308,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         enabled = c.getInt(ENABLED_INDEX) == 1;
         hour = c.getInt(HOUR_INDEX);
         minutes = c.getInt(MINUTES_INDEX);
-        daysOfWeek = new DaysOfWeek(c.getInt(DAYS_OF_WEEK_INDEX));
+        daysOfWeek = Weekdays.fromBits(c.getInt(DAYS_OF_WEEK_INDEX));
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
@@ -310,7 +332,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         enabled = p.readInt() == 1;
         hour = p.readInt();
         minutes = p.readInt();
-        daysOfWeek = new DaysOfWeek(p.readInt());
+        daysOfWeek = Weekdays.fromBits(p.readInt());
         vibrate = p.readInt() == 1;
         label = p.readString();
         alert = p.readParcelable(null);
@@ -344,7 +366,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(enabled ? 1 : 0);
         p.writeInt(hour);
         p.writeInt(minutes);
-        p.writeInt(daysOfWeek.getBitSet());
+        p.writeInt(daysOfWeek.getBits());
         p.writeInt(vibrate ? 1 : 0);
         p.writeString(label);
         p.writeParcelable(alert, flags);
@@ -366,8 +388,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     /**
      *
-     * @param currentTime
-     * @return Previous firing time, or null if this is a one-time alarm.
+     * @param currentTime the current time
+     * @return previous firing time, or null if this is a one-time alarm.
      */
     public Calendar getPreviousAlarmTime(Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
@@ -379,7 +401,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         previousInstanceTime.set(Calendar.SECOND, 0);
         previousInstanceTime.set(Calendar.MILLISECOND, 0);
 
-        int subtractDays = daysOfWeek.calculateDaysToPreviousAlarm(previousInstanceTime);
+        final int subtractDays = daysOfWeek.getDistanceToPreviousDay(previousInstanceTime);
         if (subtractDays > 0) {
             previousInstanceTime.add(Calendar.DAY_OF_WEEK, -subtractDays);
             return previousInstanceTime;
@@ -404,7 +426,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         // The day of the week might be invalid, so find next valid one
-        int addDays = daysOfWeek.calculateDaysToNextAlarm(nextInstanceTime);
+        final int addDays = daysOfWeek.getDistanceToNextDay(nextInstanceTime);
         if (addDays > 0) {
             nextInstanceTime.add(Calendar.DAY_OF_WEEK, addDays);
         }

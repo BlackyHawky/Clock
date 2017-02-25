@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="caret_up"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
+    <group
+        android:name="caret02"
+        android:rotation="90"
+        android:translateX="12"
+        android:translateY="9">
+        <group
+            android:name="caret02_l"
+            android:rotation="-45">
+            <group
+                android:name="caret02_l_pivot"
+                android:translateY="4">
+                <group
+                    android:name="caret02_l_rect_position"
+                    android:translateY="-1">
+                    <path
+                        android:name="caret02_l_rect"
+                        android:fillColor="#FFFFFFFF"
+                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z"/>
+                </group>
+            </group>
+        </group>
+        <group
+            android:name="caret02_r"
+            android:rotation="45">
+            <group
+                android:name="caret02_r_pivot"
+                android:translateY="-4">
+                <group
+                    android:name="caret02_r_rect_position"
+                    android:translateY="1">
+                    <path
+                        android:name="caret02_r_rect"
+                        android:fillColor="#FFFFFFFF"
+                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z"/>
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

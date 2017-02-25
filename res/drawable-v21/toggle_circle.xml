@@ -14,18 +14,20 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/clock_white">
-    <item>
-        <bitmap
-            android:src="@drawable/bg_day_selected"
-            android:tint="@color/bg_day_tint_color"
-            android:gravity="center" />
-    </item>
-    <item android:id="@android:id/mask">
-        <bitmap
-            android:src="@drawable/bg_day_selected"
-            android:gravity="center" />
-    </item>
-</ripple>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/checked"
+        android:drawable="@drawable/bg_day_button_white"
+        android:state_checked="true" />
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@drawable/bg_day_button_transparent" />
+    <transition
+        android:drawable="@drawable/bg_day_button_unchecked_to_checked_anim"
+        android:fromId="@+id/unchecked"
+        android:toId="@+id/checked" />
+    <transition
+        android:drawable="@drawable/bg_day_button_checked_to_unchecked_anim"
+        android:fromId="@+id/checked"
+        android:toId="@+id/unchecked" />
+</animated-selector>

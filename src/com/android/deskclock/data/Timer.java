@@ -72,8 +72,8 @@ public final class Timer {
     /** The minimum duration of a timer. */
     public static final long MIN_LENGTH = SECOND_IN_MILLIS;
 
-    /** The maximum duration of a timer. */
-    public static final long MAX_LENGTH =
+    /** The maximum duration of a new timer created via the user interface. */
+    static final long MAX_LENGTH =
             99 * HOUR_IN_MILLIS + 99 * MINUTE_IN_MILLIS + 99 * SECOND_IN_MILLIS;
 
     static final long UNUSED = Long.MIN_VALUE;
@@ -139,14 +139,18 @@ public final class Timer {
 
     /**
      * @return the total amount of time remaining up to this moment; expired and missed timers will
-     * return a negative amount
+     *      return a negative amount
      */
     public long getRemainingTime() {
-        if (mState == RUNNING || mState == EXPIRED || mState == MISSED) {
-            return mRemainingTime - (now() - mLastStartTime);
+        if (mState == PAUSED || mState == RESET) {
+            return mRemainingTime;
         }
 
-        return mRemainingTime;
+        // In practice, "now" can be any value due to device reboots. When the real-time clock
+        // is reset, there is no more guarantee that "now" falls after the last start time. To
+        // ensure the timer is monotonically decreasing, normalize negative time segments to 0,
+        final long timeSinceStart = now() - mLastStartTime;
+        return mRemainingTime - Math.max(0, timeSinceStart);
     }
 
     /**
@@ -301,12 +305,11 @@ public final class Timer {
     }
 
     /**
-     * @return a copy of this timer with the given {@code length}
+     * @return a copy of this timer with the given {@code length} or this timer if the length could
+     *      not be legally adjusted
      */
     Timer setLength(long length) {
-        if (mLength == length
-                || length <= 0L
-                || length > MAX_LENGTH) {
+        if (mLength == length || length <= Timer.MIN_LENGTH) {
             return this;
         }
 
@@ -325,11 +328,12 @@ public final class Timer {
     }
 
     /**
-     * @return a copy of this timer with the given {@code remainingTime}
+     * @return a copy of this timer with the given {@code remainingTime} or this timer if the
+     *      remaining time could not be legally adjusted
      */
     Timer setRemainingTime(long remainingTime) {
-        // Do not allow the remaining time to exceed the maximum.
-        if (mRemainingTime == remainingTime || remainingTime > MAX_LENGTH) {
+        // Do not change the remaining time of a reset timer.
+        if (mRemainingTime == remainingTime || mState == RESET) {
             return this;
         }
 
@@ -355,11 +359,16 @@ public final class Timer {
 
     /**
      * @return a copy of this timer with an additional minute added to the remaining time and total
-     *      length, or this Timer if adding a minute would exceed the maximum timer duration
+     *      length, or this Timer if the minute could not be added
      */
     Timer addMinute() {
-        final long remainingTime = (mState == EXPIRED || mState == MISSED) ? 0L : mRemainingTime;
-        return setRemainingTime(remainingTime + MINUTE_IN_MILLIS);
+        // Expired and missed timers restart with 60 seconds of remaining time.
+        if (mState == EXPIRED || mState == MISSED) {
+            return setRemainingTime(MINUTE_IN_MILLIS);
+        }
+
+        // Otherwise try to add a minute to the remaining time.
+        return setRemainingTime(mRemainingTime + MINUTE_IN_MILLIS);
     }
 
     @Override
@@ -370,7 +379,6 @@ public final class Timer {
         final Timer timer = (Timer) o;
 
         return mId == timer.mId;
-
     }
 
     @Override
@@ -381,7 +389,7 @@ public final class Timer {
     /**
      * Orders timers by their IDs. Oldest timers are at the bottom. Newest timers are at the top.
      */
-    public static Comparator<Timer> ID_COMPARATOR = new Comparator<Timer>() {
+    static Comparator<Timer> ID_COMPARATOR = new Comparator<Timer>() {
         @Override
         public int compare(Timer timer1, Timer timer2) {
             return Integer.compare(timer2.getId(), timer1.getId());
@@ -399,7 +407,7 @@ public final class Timer {
      *     <li>{@link State#RESET RESET} timers; ties broken by {@link #getLength()}</li>
      * </ol>
      */
-    public static Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<Timer>() {
+    static Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<Timer>() {
 
         private final List<State> stateExpiryOrder = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED,
                 RESET);

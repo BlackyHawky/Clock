@@ -13,32 +13,17 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
-    android:id="@+id/preemptive_dismiss_container"
+<Button
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:id="@+id/preemptive_dismiss_button"
+    style="?attr/borderlessButtonStyle"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:visibility="gone" >
-
-    <Button
-        android:id="@+id/preemptive_dismiss_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tall_row_height"
-        android:background="?attr/selectableItemBackground"
-        android:drawableStart="@drawable/ic_alarm_off_white_24dp"
-        android:drawablePadding="@dimen/alarm_horizontal_padding"
-        android:gravity="start|center_vertical"
-        android:paddingStart="@dimen/icon_margin"
-        android:textAllCaps="false"
-        android:textColor="@color/clock_white"
-        android:textSize="@dimen/alarm_text_font_size" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/hairline_height"
-        android:layout_marginEnd="@dimen/hairline_side_padding"
-        android:layout_marginStart="@dimen/hairline_side_padding"
-        android:background="@color/hairline" />
-
-</LinearLayout>
+    android:minHeight="@dimen/touch_target_min_size"
+    android:drawablePadding="@dimen/alarm_horizontal_padding"
+    android:drawableStart="@drawable/ic_alarm_off_white_24dp"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/icon_margin"
+    android:textAllCaps="false"
+    android:textAppearance="@style/body"
+    android:visibility="gone"/>

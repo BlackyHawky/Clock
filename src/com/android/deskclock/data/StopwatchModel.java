@@ -21,10 +21,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationManagerCompat;
-
-import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +35,8 @@ import java.util.List;
 final class StopwatchModel {
 
     private final Context mContext;
+
+    private final SharedPreferences mPrefs;
 
     /** The model from which notification data are fetched. */
     private final NotificationModel mNotificationModel;
@@ -51,7 +52,8 @@ final class StopwatchModel {
     private final List<StopwatchListener> mStopwatchListeners = new ArrayList<>();
 
     /** Delegate that builds platform-specific stopwatch notifications. */
-    private NotificationBuilder mNotificationBuilder;
+    private final StopwatchNotificationBuilder mNotificationBuilder =
+            new StopwatchNotificationBuilder();
 
     /** The current state of the stopwatch. */
     private Stopwatch mStopwatch;
@@ -59,8 +61,9 @@ final class StopwatchModel {
     /** A mutable copy of the recorded stopwatch laps. */
     private List<Lap> mLaps;
 
-    StopwatchModel(Context context, NotificationModel notificationModel) {
+    StopwatchModel(Context context, SharedPreferences prefs, NotificationModel notificationModel) {
         mContext = context;
+        mPrefs = prefs;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
 
@@ -88,7 +91,7 @@ final class StopwatchModel {
      */
     Stopwatch getStopwatch() {
         if (mStopwatch == null) {
-            mStopwatch = StopwatchDAO.getStopwatch(mContext);
+            mStopwatch = StopwatchDAO.getStopwatch(mPrefs);
         }
 
         return mStopwatch;
@@ -100,7 +103,7 @@ final class StopwatchModel {
     Stopwatch setStopwatch(Stopwatch stopwatch) {
         final Stopwatch before = getStopwatch();
         if (before != stopwatch) {
-            StopwatchDAO.setStopwatch(mContext, stopwatch);
+            StopwatchDAO.setStopwatch(mPrefs, stopwatch);
             mStopwatch = stopwatch;
 
             // Refresh the stopwatch notification to reflect the latest stopwatch state.
@@ -141,7 +144,7 @@ final class StopwatchModel {
         final List<Lap> laps = getMutableLaps();
 
         final int lapNumber = laps.size() + 1;
-        StopwatchDAO.addLap(mContext, lapNumber, totalTime);
+        StopwatchDAO.addLap(mPrefs, lapNumber, totalTime);
 
         final long prevAccumulatedTime = laps.isEmpty() ? 0 : laps.get(0).getAccumulatedTime();
         final long lapTime = totalTime - prevAccumulatedTime;
@@ -167,7 +170,7 @@ final class StopwatchModel {
      */
     @VisibleForTesting
     void clearLaps() {
-        StopwatchDAO.clearLaps(mContext);
+        StopwatchDAO.clearLaps(mPrefs);
         getMutableLaps().clear();
     }
 
@@ -228,28 +231,16 @@ final class StopwatchModel {
 
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification =
-                getNotificationBuilder().build(mContext, mNotificationModel, stopwatch);
+                mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 
     private List<Lap> getMutableLaps() {
         if (mLaps == null) {
-            mLaps = StopwatchDAO.getLaps(mContext);
+            mLaps = StopwatchDAO.getLaps(mPrefs);
         }
 
         return mLaps;
-    }
-
-    private NotificationBuilder getNotificationBuilder() {
-        if (mNotificationBuilder == null) {
-            if (Utils.isNOrLater()) {
-                mNotificationBuilder = new StopwatchNotificationBuilderN();
-            } else {
-                mNotificationBuilder = new StopwatchNotificationBuilderPreN();
-            }
-        }
-
-        return mNotificationBuilder;
     }
 
     /**
@@ -260,18 +251,5 @@ final class StopwatchModel {
         public void onReceive(Context context, Intent intent) {
             updateNotification();
         }
-    }
-
-    /**
-     * An API for building platform-specific stopwatch notifications.
-     */
-    public interface NotificationBuilder {
-        /**
-         * @param context a context to use for fetching resources
-         * @param nm from which notification data are fetched
-         * @param stopwatch the stopwatch guaranteed to be running or paused
-         * @return a notification reporting the state of the {@code stopwatch}
-         */
-        Notification build(Context context, NotificationModel nm, Stopwatch stopwatch);
     }
 }

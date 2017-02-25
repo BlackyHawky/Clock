@@ -17,7 +17,7 @@
 package com.android.deskclock.timer;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +27,7 @@ import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
+import com.android.deskclock.data.TimerStringFormatter;
 import com.android.deskclock.events.Events;
 
 public class TimerItemFragment extends Fragment {
@@ -63,6 +64,7 @@ public class TimerItemFragment extends Fragment {
         final TimerItem view = (TimerItem) inflater.inflate(R.layout.timer_item, container, false);
         view.findViewById(R.id.reset_add).setOnClickListener(new ResetAddListener());
         view.findViewById(R.id.timer_label).setOnClickListener(new EditLabelListener());
+        view.findViewById(R.id.timer_time_text).setOnClickListener(new TimeTextListener());
         view.update(timer);
 
         return view;
@@ -90,7 +92,7 @@ public class TimerItemFragment extends Fragment {
         return DataModel.getDataModel().getTimer(getTimerId());
     }
 
-    private class ResetAddListener implements View.OnClickListener {
+    private final class ResetAddListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             final Timer timer = getTimer();
@@ -99,23 +101,36 @@ public class TimerItemFragment extends Fragment {
             } else if (timer.isRunning() || timer.isExpired() || timer.isMissed()) {
                 DataModel.getDataModel().addTimerMinute(timer);
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
+
+                final Context context = v.getContext();
+                // Must use getTimer() because old timer is no longer accurate.
+                final long currentTime = getTimer().getRemainingTime();
+                if (currentTime > 0) {
+                    v.announceForAccessibility(TimerStringFormatter.formatString(
+                            context, R.string.timer_accessibility_one_minute_added, currentTime,
+                            true));
+                }
             }
         }
     }
 
-    private class EditLabelListener implements View.OnClickListener {
-
-        private static final String TAG = "label_dialog";
-
+    private final class EditLabelListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
-            final Fragment existingFragment = getFragmentManager().findFragmentByTag(TAG);
-            if (existingFragment != null) {
-                ft.remove(existingFragment);
+            final LabelDialogFragment fragment = LabelDialogFragment.newInstance(getTimer());
+            LabelDialogFragment.show(getFragmentManager(), fragment);
+        }
+    }
+
+    private final class TimeTextListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final Timer clickedTimer = getTimer();
+            if (clickedTimer.isPaused() || clickedTimer.isReset()) {
+                DataModel.getDataModel().startTimer(clickedTimer);
+            } else if (clickedTimer.isRunning()) {
+                DataModel.getDataModel().pauseTimer(clickedTimer);
             }
-            ft.addToBackStack(null);
-            LabelDialogFragment.newInstance(getTimer()).show(ft, TAG);
         }
     }
 }

@@ -29,12 +29,13 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.timer.TimerFragment;
 import com.android.deskclock.timer.TimerService;
 import com.android.deskclock.uidata.UiDataModel;
@@ -125,7 +126,7 @@ public class HandleApiCalls extends Activity {
                 context.getContentResolver(), alarm.id);
         if (instance == null) {
             final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
-            Voice.notifyFailure(activity, reason);
+            Controller.getController().notifyVoiceFailure(activity, reason);
             LOGGER.i("No alarm instance to dismiss");
             return;
         }
@@ -150,17 +151,16 @@ public class HandleApiCalls extends Activity {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(
                     R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
-            Voice.notifyFailure(activity, reason);
+            Controller.getController().notifyVoiceFailure(activity, reason);
             LOGGER.i("Can't dismiss alarm more than 24 hours in advance");
         }
 
         // Log the successful dismissal.
         final String reason = context.getString(R.string.alarm_is_dismissed, time);
-        Voice.notifySuccess(activity, reason);
+        Controller.getController().notifyVoiceSuccess(activity, reason);
         LOGGER.i("Alarm dismissed: " + instance);
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
     }
-
 
     private static class DismissAlarmAsync extends AsyncTask<Void, Void, Void> {
 
@@ -180,7 +180,7 @@ public class HandleApiCalls extends Activity {
             final List<Alarm> alarms = getEnabledAlarms(mContext);
             if (alarms.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_scheduled_alarms);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 LOGGER.i("No scheduled alarms");
                 return null;
             }
@@ -203,7 +203,8 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ACTION, ACTION_DISMISS)
                         .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[alarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -222,7 +223,8 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ALARMS,
                                 matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -264,7 +266,7 @@ public class HandleApiCalls extends Activity {
                     cr, FIRED_STATE);
             if (alarmInstances.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_firing_alarms);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 LOGGER.i("No firing alarms");
                 return null;
             }
@@ -284,7 +286,7 @@ public class HandleApiCalls extends Activity {
         final String reason = context.getString(R.string.alarm_is_snoozed, time);
         AlarmStateManager.setSnoozeState(context, alarmInstance, true);
 
-        Voice.notifySuccess(activity, reason);
+        Controller.getController().notifyVoiceSuccess(activity, reason);
         LOGGER.i("Alarm snoozed: " + alarmInstance);
         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
     }
@@ -300,7 +302,8 @@ public class HandleApiCalls extends Activity {
             hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, hour);
             if (hour < 0 || hour > 23) {
                 final int mins = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
-                Voice.notifyFailure(this, getString(R.string.invalid_time, hour, mins, " "));
+                final String voiceMessage = getString(R.string.invalid_time, hour, mins, " ");
+                Controller.getController().notifyVoiceFailure(this, voiceMessage);
                 LOGGER.i("Illegal hour: " + hour);
                 return;
             }
@@ -309,7 +312,8 @@ public class HandleApiCalls extends Activity {
         // Validate the minute, if one was given.
         final int minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
         if (minutes < 0 || minutes > 59) {
-            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+            final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Illegal minute: " + minutes);
             return;
         }
@@ -330,7 +334,8 @@ public class HandleApiCalls extends Activity {
 
             // Open DeskClock which is now positioned on the alarms tab.
             startActivity(createAlarm);
-            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+            final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Missing alarm time; opening UI");
             return;
         }
@@ -369,12 +374,13 @@ public class HandleApiCalls extends Activity {
         }
 
         // Schedule the next instance.
-        final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
+        final Calendar now = DataModel.getDataModel().getCalendar();
+        final AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
         setupInstance(alarmInstance, skipUi);
 
         final String time = DateFormat.getTimeFormat(this)
                 .format(alarmInstance.getAlarmTime().getTime());
-        Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
+        Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
     }
 
     private void handleShowAlarms(Intent intent) {
@@ -415,8 +421,9 @@ public class HandleApiCalls extends Activity {
 
         // Verify that the timer length is between one second and one day.
         final long lengthMillis = SECOND_IN_MILLIS * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
-        if (lengthMillis < Timer.MIN_LENGTH || lengthMillis > Timer.MAX_LENGTH) {
-            Voice.notifyFailure(this, getString(R.string.invalid_timer_length));
+        if (lengthMillis < Timer.MIN_LENGTH) {
+            final String voiceMessage = getString(R.string.invalid_timer_length);
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Invalid timer length requested: " + lengthMillis);
             return;
         }
@@ -444,7 +451,7 @@ public class HandleApiCalls extends Activity {
         // Start the selected timer.
         DataModel.getDataModel().startTimer(timer);
         Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
-        Voice.notifySuccess(this, getString(R.string.timer_created));
+        Controller.getController().notifyVoiceSuccess(this, getString(R.string.timer_created));
 
         // If not instructed to skip the UI, display the running timer.
         if (!skipUi) {
@@ -484,7 +491,7 @@ public class HandleApiCalls extends Activity {
         alarm.vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, alarm.vibrate);
         alarm.alert = getAlertFromIntent(intent, alarm.alert);
         alarm.label = getLabelFromIntent(intent, alarm.label);
-        alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek.getBitSet());
+        alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {
@@ -492,27 +499,26 @@ public class HandleApiCalls extends Activity {
         return message == null ? "" : message;
     }
 
-    private static DaysOfWeek getDaysFromIntent(Intent intent, int defaultDaysBitset) {
+    private static Weekdays getDaysFromIntent(Intent intent, Weekdays defaultWeekdays) {
         if (!intent.hasExtra(AlarmClock.EXTRA_DAYS)) {
-            return new DaysOfWeek(defaultDaysBitset);
+            return defaultWeekdays;
         }
 
-        final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
-        final ArrayList<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
+        final List<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
         if (days != null) {
             final int[] daysArray = new int[days.size()];
             for (int i = 0; i < days.size(); i++) {
                 daysArray[i] = days.get(i);
             }
-            daysOfWeek.setDaysOfWeek(true, daysArray);
+            return Weekdays.fromCalendarDays(daysArray);
         } else {
             // API says to use an ArrayList<Integer> but we allow the user to use a int[] too.
             final int[] daysArray = intent.getIntArrayExtra(AlarmClock.EXTRA_DAYS);
             if (daysArray != null) {
-                daysOfWeek.setDaysOfWeek(true, daysArray);
+                return Weekdays.fromCalendarDays(daysArray);
             }
         }
-        return daysOfWeek;
+        return defaultWeekdays;
     }
 
     private static Uri getAlertFromIntent(Intent intent, Uri defaultUri) {
@@ -563,7 +569,7 @@ public class HandleApiCalls extends Activity {
         // Days is treated differently than other fields because if days is not specified, it
         // explicitly means "not recurring".
         selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
-        args.add(String.valueOf(getDaysFromIntent(intent, DaysOfWeek.NO_DAYS_SET).getBitSet()));
+        args.add(String.valueOf(getDaysFromIntent(intent, Weekdays.NONE).getBits()));
 
         if (intent.hasExtra(AlarmClock.EXTRA_VIBRATE)) {
             selection.append(" AND ").append(Alarm.VIBRATE).append("=?");

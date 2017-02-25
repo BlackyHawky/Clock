@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
@@ -100,10 +101,15 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + " = " + InstancesColumns.ALARM_ID + ")";
 
     private static final String ALARM_JOIN_INSTANCE_WHERE_STATEMENT =
-            InstancesColumns.ALARM_STATE + " IS NULL OR " +
-            InstancesColumns.ALARM_STATE + " = (SELECT MIN(" + InstancesColumns.ALARM_STATE +
-                    ") FROM " + INSTANCES_TABLE_NAME + " WHERE " + InstancesColumns.ALARM_ID +
-                    " = " + ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + ")";
+            INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " IS NULL OR " +
+            INSTANCES_TABLE_NAME + "." + InstancesColumns._ID + " = (" +
+                    "SELECT " + InstancesColumns._ID +
+                    " FROM " + INSTANCES_TABLE_NAME +
+                    " WHERE " + InstancesColumns.ALARM_ID +
+                    " = " + ALARMS_TABLE_NAME + "." + AlarmsColumns._ID +
+                    " ORDER BY " + InstancesColumns.ALARM_STATE + ", " +
+                    InstancesColumns.YEAR + ", " + InstancesColumns.MONTH + ", " +
+                    InstancesColumns.DAY + " LIMIT 1)";
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
@@ -139,8 +145,8 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projectionIn, String selection, String[] selectionArgs,
-            String sort) {
+    public Cursor query(@NonNull Uri uri, String[] projectionIn, String selection,
+            String[] selectionArgs, String sort) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
@@ -184,7 +190,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         int match = sURIMatcher.match(uri);
         switch (match) {
             case ALARMS:
@@ -201,7 +207,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String where, String[] whereArgs) {
         int count;
         String alarmId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -228,7 +234,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues initialValues) {
+    public Uri insert(@NonNull Uri uri, ContentValues initialValues) {
         long rowId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (sURIMatcher.match(uri)) {
@@ -248,7 +254,7 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String where, String[] whereArgs) {
+    public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
         int count;
         String primaryKey;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();

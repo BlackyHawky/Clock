@@ -16,7 +16,7 @@
 
 package com.android.deskclock.data;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.StringRes;
 
 import com.android.deskclock.R;
@@ -27,10 +27,10 @@ import com.android.deskclock.events.Events;
  */
 final class WidgetModel {
 
-    private final Context mContext;
+    private final SharedPreferences mPrefs;
 
-    WidgetModel(Context context) {
-        mContext = context;
+    WidgetModel(SharedPreferences prefs) {
+        mPrefs = prefs;
     }
 
     /**
@@ -39,7 +39,7 @@ final class WidgetModel {
      * @param eventCategoryId identifies the category of event to send
      */
     void updateWidgetCount(Class widgetClass, int count, @StringRes int eventCategoryId) {
-        int delta = WidgetDAO.updateWidgetCount(mContext, widgetClass, count);
+        int delta = WidgetDAO.updateWidgetCount(mPrefs, widgetClass, count);
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);
         }

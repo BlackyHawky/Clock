@@ -48,6 +48,9 @@ public final class DropShadowController {
     /** The component that displays a drop shadow. */
     private final View mDropShadowView;
 
+    /** Tab bar's hairline, which is hidden whenever the drop shadow is displayed. */
+    private View mHairlineView;
+
     // Supported sources of scroll position include: ListView, RecyclerView and UiDataModel.
     private RecyclerView mRecyclerView;
     private UiDataModel mUiDataModel;
@@ -56,12 +59,15 @@ public final class DropShadowController {
     /**
      * @param dropShadowView to be hidden/shown as {@code uiDataModel} reports scrolling changes
      * @param uiDataModel models the vertical scrolling state of the application's selected tab
+     * @param hairlineView at the bottom of the tab bar to be hidden or shown when the drop shadow
+     *                     is displayed or hidden, respectively.
      */
-    public DropShadowController(View dropShadowView, UiDataModel uiDataModel) {
+    public DropShadowController(View dropShadowView, UiDataModel uiDataModel, View hairlineView) {
         this(dropShadowView);
         mUiDataModel = uiDataModel;
         mUiDataModel.addTabScrollListener(mScrollChangeWatcher);
-        updateDropShadow(uiDataModel.isSelectedTabScrolledToTop());
+        mHairlineView = hairlineView;
+        updateDropShadow(!uiDataModel.isSelectedTabScrolledToTop());
     }
 
     /**
@@ -72,7 +78,7 @@ public final class DropShadowController {
         this(dropShadowView);
         mListView = listView;
         mListView.setOnScrollListener(mScrollChangeWatcher);
-        updateDropShadow(Utils.isScrolledToTop(listView));
+        updateDropShadow(!Utils.isScrolledToTop(listView));
     }
 
     /**
@@ -83,7 +89,7 @@ public final class DropShadowController {
         this(dropShadowView);
         mRecyclerView = recyclerView;
         mRecyclerView.addOnScrollListener(mScrollChangeWatcher);
-        updateDropShadow(Utils.isScrolledToTop(recyclerView));
+        updateDropShadow(!Utils.isScrolledToTop(recyclerView));
     }
 
     private DropShadowController(View dropShadowView) {
@@ -107,23 +113,29 @@ public final class DropShadowController {
     }
 
     /**
-     * @param scrolledToTop {@code true} indicates the drop shadow should be hidden;
-     *      {@code false} indicates the drop shadow should be displayed
+     * @param shouldShowDropShadow {@code true} indicates the drop shadow should be displayed;
+     *      {@code false} indicates the drop shadow should be hidden
      */
-    private void updateDropShadow(boolean scrolledToTop) {
-        if (scrolledToTop && mDropShadowView.getAlpha() != 0f) {
+    private void updateDropShadow(boolean shouldShowDropShadow) {
+        if (!shouldShowDropShadow && mDropShadowView.getAlpha() != 0f) {
             if (DataModel.getDataModel().isApplicationInForeground()) {
                 mDropShadowAnimator.reverse();
             } else {
                 mDropShadowView.setAlpha(0f);
             }
+            if (mHairlineView != null) {
+                mHairlineView.setVisibility(View.VISIBLE);
+            }
         }
 
-        if (!scrolledToTop && mDropShadowView.getAlpha() != 1f) {
+        if (shouldShowDropShadow && mDropShadowView.getAlpha() != 1f) {
             if (DataModel.getDataModel().isApplicationInForeground()) {
                 mDropShadowAnimator.start();
             } else {
                 mDropShadowView.setAlpha(1f);
+            }
+            if (mHairlineView != null) {
+                mHairlineView.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -137,7 +149,7 @@ public final class DropShadowController {
         // RecyclerView scrolled.
         @Override
         public void onScrolled(RecyclerView view, int dx, int dy) {
-            updateDropShadow(Utils.isScrolledToTop(view));
+            updateDropShadow(!Utils.isScrolledToTop(view));
         }
 
         // ListView scrolled.
@@ -147,12 +159,12 @@ public final class DropShadowController {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
                 int totalItemCount) {
-            updateDropShadow(Utils.isScrolledToTop(view));
+            updateDropShadow(!Utils.isScrolledToTop(view));
         }
 
         // UiDataModel reports scroll change.
         public void selectedTabScrollToTopChanged(Tab selectedTab, boolean scrolledToTop) {
-            updateDropShadow(scrolledToTop);
+            updateDropShadow(!scrolledToTop);
         }
     }
 }

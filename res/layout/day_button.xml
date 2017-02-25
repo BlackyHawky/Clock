@@ -15,14 +15,16 @@
   ~ limitations under the License
   -->
 
-<CheckBox
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="0dp"
-    android:layout_height="48dp"
-    android:layout_weight="1"
-    android:background="@drawable/toggle_circle"
-    android:button="@null"
-    android:gravity="center"
-    android:minWidth="0dp"
-    android:minHeight="0dp"
-    android:textSize="@dimen/day_button_font_size" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="0dp"
+             android:layout_height="48dp"
+             android:layout_weight="1">
+    <CheckBox
+        android:id="@+id/day_button_box"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/toggle_circle"
+        android:button="@null"
+        android:gravity="center"
+        android:textSize="@dimen/day_button_font_size" />
+</FrameLayout>

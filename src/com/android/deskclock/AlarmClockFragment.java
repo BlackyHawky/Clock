@@ -22,29 +22,26 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
 import com.android.deskclock.alarms.ScrollHandler;
-import com.android.deskclock.alarms.TimePickerCompat;
+import com.android.deskclock.alarms.TimePickerDialogFragment;
 import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.android.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.android.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
-import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.uidata.UiDataModel;
@@ -62,9 +59,8 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        RingtonePickerDialogFragment.OnRingtoneSelectedListener,
         ScrollHandler,
-        TimePickerCompat.OnTimeSetListener {
+        TimePickerDialogFragment.OnTimeSetListener {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -104,11 +100,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void processTimeSet(int hourOfDay, int minute) {
-        mAlarmTimeClickHandler.processTimeSet(hourOfDay, minute);
-    }
-
-    @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         mCursorLoader = getLoaderManager().initLoader(0, null, this);
@@ -124,7 +115,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         final Context context = getActivity();
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.alarms_recycler_view);
-        mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager = new LinearLayoutManager(context) {
+            @Override
+            protected int getExtraLayoutSpace(RecyclerView.State state) {
+                final int extraSpace = super.getExtraLayoutSpace(state);
+                if (state.willRunPredictiveAnimations()) {
+                    return Math.max(getHeight(), extraSpace);
+                }
+                return extraSpace;
+            }
+        };
         mRecyclerView.setLayoutManager(mLayoutManager);
         mMainLayout = (ViewGroup) v.findViewById(R.id.main);
         mAlarmUpdateHandler = new AlarmUpdateHandler(context, this, mMainLayout);
@@ -139,7 +139,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
-        mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(context, inflater),
+        mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(context),
                 null, ExpandedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
             @Override
@@ -164,12 +164,20 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     mExpandedAlarmId = Alarm.INVALID_ID;
                 }
             }
+
+            @Override
+            public void onItemChanged(ItemAdapter.ItemHolder<?> holder, Object payload) {
+                /* No additional work to do */
+            }
         });
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
         mRecyclerView.addOnLayoutChangeListener(scrollPositionWatcher);
         mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
-
+        final ItemAnimator itemAnimator = new ItemAnimator();
+        itemAnimator.setChangeDuration(300L);
+        itemAnimator.setMoveDuration(300L);
+        mRecyclerView.setItemAnimator(itemAnimator);
         return v;
     }
 
@@ -178,7 +186,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         super.onStart();
 
         if (!isTabSelected()) {
-            TimePickerCompat.removeTimeEditDialog(getFragmentManager());
+            TimePickerDialogFragment.removeTimeEditDialog(getFragmentManager());
         }
     }
 
@@ -186,8 +194,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onResume() {
         super.onResume();
 
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
+        if (intent == null) {
+            return;
+        }
+
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
             UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
             if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
@@ -213,10 +229,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
-
-        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
-        // alarms when midnight passes.
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
     }
 
     @Override
@@ -252,21 +264,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void setLabel(Alarm alarm, String label) {
         alarm.label = label;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-    }
-
-    @Override
-    public void onRingtoneSelected(String tag, Uri ringtoneUri) {
-        // Update the default ringtone for future new alarms.
-        DataModel.getDataModel().setDefaultAlarmRingtoneUri(ringtoneUri);
-
-        final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
-        if (alarm == null) {
-            LogUtils.e("Could not get selected alarm to set ringtone");
-            return;
-        }
-        alarm.alert = ringtoneUri;
-        // Save the change to alarm.
-        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false /* popToast */, true /* minorUpdate */);
     }
 
     @Override
@@ -324,7 +321,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             mItemAdapter.setItems(items);
 
             // Show or hide the empty view as appropriate.
-            mEmptyViewController.setEmpty(items.isEmpty());
+            final boolean noAlarms = items.isEmpty();
+            mEmptyViewController.setEmpty(noAlarms);
+            if (noAlarms) {
+                // Ensure the drop shadow is hidden when no alarms exist.
+                setTabScrolledToTop(true);
+            }
 
             // Expand the correct alarm.
             if (mExpandedAlarmId != Alarm.INVALID_ID) {
@@ -394,7 +396,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         left.setVisibility(View.INVISIBLE);
         right.setVisibility(View.INVISIBLE);
     }
@@ -402,8 +404,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
-        TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
-                DateFormat.is24HourFormat(getActivity()));
+        TimePickerDialogFragment.show(this);
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
+        mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute);
+    }
+
+    public void removeItem(AlarmItemHolder itemHolder) {
+        mItemAdapter.removeItem(itemHolder);
     }
 
     /**

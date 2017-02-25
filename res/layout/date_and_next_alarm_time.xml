@@ -23,32 +23,29 @@
 
     <TextView
         android:id="@+id/date"
+        style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textAppearance="@style/PrimaryLabelTextAppearance"
-        android:textSize="12sp" />
+        android:textAllCaps="true" />
 
     <TextView
         android:id="@+id/nextAlarmIcon"
+        style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginEnd="@dimen/alarm_icon_padding"
         android:layout_marginStart="@dimen/alarm_icon_padding"
-        android:includeFontPadding="false"
         android:ellipsize="none"
-        android:singleLine="true"
-        android:text="@string/clock_emoji"
-        android:textColor="@color/clock_white"
-        android:textSize="20sp" />
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="@string/clock_emoji" />
 
     <TextView
         android:id="@+id/nextAlarm"
+        style="@style/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textAppearance="@style/PrimaryLabelTextAppearance"
-        android:textSize="12sp" />
+        android:textAllCaps="true" />
 
 </LinearLayout>

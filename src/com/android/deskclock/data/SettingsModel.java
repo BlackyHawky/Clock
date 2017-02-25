@@ -17,11 +17,12 @@
 package com.android.deskclock.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.provider.Settings;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 
@@ -34,50 +35,74 @@ final class SettingsModel {
 
     private final Context mContext;
 
+    private final SharedPreferences mPrefs;
+
+    /** The model from which time data are fetched. */
+    private final TimeModel mTimeModel;
+
     /** The uri of the default ringtone to use for timers until the user explicitly chooses one. */
     private Uri mDefaultTimerRingtoneUri;
 
-    SettingsModel(Context context) {
+    SettingsModel(Context context, SharedPreferences prefs, TimeModel timeModel) {
         mContext = context;
+        mPrefs = prefs;
+        mTimeModel = timeModel;
 
-        // Set the user's default home timezone if one has not yet been chosen.
-        SettingsDAO.setDefaultHomeTimeZone(mContext, TimeZone.getDefault());
+        // Set the user's default display seconds preference if one has not yet been chosen.
+        SettingsDAO.setDefaultDisplayClockSeconds(mContext, prefs);
+    }
+
+    int getGlobalIntentId() {
+        return SettingsDAO.getGlobalIntentId(mPrefs);
+    }
+
+    void updateGlobalIntentId() {
+        SettingsDAO.updateGlobalIntentId(mPrefs);
     }
 
     CitySort getCitySort() {
-        return SettingsDAO.getCitySort(mContext);
+        return SettingsDAO.getCitySort(mPrefs);
     }
 
     void toggleCitySort() {
-        SettingsDAO.toggleCitySort(mContext);
+        SettingsDAO.toggleCitySort(mPrefs);
     }
 
     TimeZone getHomeTimeZone() {
-        return SettingsDAO.getHomeTimeZone(mContext);
+        return SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
     }
 
     ClockStyle getClockStyle() {
-        return SettingsDAO.getClockStyle(mContext);
+        return SettingsDAO.getClockStyle(mContext, mPrefs);
+    }
+
+    boolean getDisplayClockSeconds() {
+        return SettingsDAO.getDisplayClockSeconds(mPrefs);
+    }
+
+    void setDisplayClockSeconds(boolean shouldDisplaySeconds) {
+        SettingsDAO.setDisplayClockSeconds(mPrefs, shouldDisplaySeconds);
     }
 
     ClockStyle getScreensaverClockStyle() {
-        return SettingsDAO.getScreensaverClockStyle(mContext);
+        return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
     }
 
     boolean getScreensaverNightModeOn() {
-        return SettingsDAO.getScreensaverNightModeOn(mContext);
+        return SettingsDAO.getScreensaverNightModeOn(mPrefs);
     }
 
     boolean getShowHomeClock() {
-        if (!SettingsDAO.getAutoShowHomeClock(mContext)) {
+        if (!SettingsDAO.getAutoShowHomeClock(mPrefs)) {
             return false;
         }
 
         // Show the home clock if the current time and home time differ.
         // (By using UTC offset for this comparison the various DST rules are considered)
-        final TimeZone homeTimeZone = SettingsDAO.getHomeTimeZone(mContext);
+        final TimeZone defaultTZ = TimeZone.getDefault();
+        final TimeZone homeTimeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, defaultTZ);
         final long now = System.currentTimeMillis();
-        return homeTimeZone.getOffset(now) != TimeZone.getDefault().getOffset(now);
+        return homeTimeZone.getOffset(now) != defaultTZ.getOffset(now);
     }
 
     Uri getDefaultTimerRingtoneUri() {
@@ -89,27 +114,62 @@ final class SettingsModel {
     }
 
     void setTimerRingtoneUri(Uri uri) {
-        SettingsDAO.setTimerRingtoneUri(mContext, uri);
+        SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
     }
 
     Uri getTimerRingtoneUri() {
-        return SettingsDAO.getTimerRingtoneUri(mContext, getDefaultTimerRingtoneUri());
+        return SettingsDAO.getTimerRingtoneUri(mPrefs, getDefaultTimerRingtoneUri());
+    }
+
+    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+        return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
+    }
+
+    int getAlarmTimeout() {
+        return SettingsDAO.getAlarmTimeout(mPrefs);
+    }
+
+    int getSnoozeLength() {
+        return SettingsDAO.getSnoozeLength(mPrefs);
     }
 
     Uri getDefaultAlarmRingtoneUri() {
-        return SettingsDAO.getDefaultAlarmRingtoneUri(mContext,
-                Settings.System.DEFAULT_ALARM_ALERT_URI);
+        return SettingsDAO.getDefaultAlarmRingtoneUri(mPrefs);
     }
 
     void setDefaultAlarmRingtoneUri(Uri uri) {
-        SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
+        SettingsDAO.setDefaultAlarmRingtoneUri(mPrefs, uri);
+    }
+
+    long getAlarmCrescendoDuration() {
+        return SettingsDAO.getAlarmCrescendoDuration(mPrefs);
+    }
+
+    long getTimerCrescendoDuration() {
+        return SettingsDAO.getTimerCrescendoDuration(mPrefs);
+    }
+
+    Weekdays.Order getWeekdayOrder() {
+        return SettingsDAO.getWeekdayOrder(mPrefs);
+    }
+
+    boolean isRestoreBackupFinished() {
+        return SettingsDAO.isRestoreBackupFinished(mPrefs);
+    }
+
+    void setRestoreBackupFinished(boolean finished) {
+        SettingsDAO.setRestoreBackupFinished(mPrefs, finished);
     }
 
     boolean getTimerVibrate() {
-        return SettingsDAO.getTimerVibrate(mContext);
+        return SettingsDAO.getTimerVibrate(mPrefs);
     }
 
     void setTimerVibrate(boolean enabled) {
-        SettingsDAO.setTimerVibrate(mContext, enabled);
+        SettingsDAO.setTimerVibrate(mPrefs, enabled);
+    }
+
+    TimeZones getTimeZones() {
+        return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }
 }

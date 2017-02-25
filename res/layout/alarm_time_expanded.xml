@@ -1,166 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2015 The Android Open Source Project
+<!--
+  Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
 
-<LinearLayout
+<android.support.v7.widget.GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:gravity="center_horizontal|top"
-    android:orientation="horizontal">
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    app:columnCount="8"
+    app:columnOrderPreserved="false"
+    app:rowCount="8">
 
-    <!-- Left gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+    <include
+        layout="@layout/alarm_time_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        app:layout_column="0"
+        app:layout_columnSpan="4"
+        app:layout_gravity="center_vertical"
+        app:layout_row="0" />
 
-    <!-- Guttered content. -->
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/onoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:minHeight="@dimen/touch_target_min_size"
+        android:minWidth="@dimen/touch_target_min_size"
+        android:theme="@style/ThemeOverlay.Control.Accent"
+        app:layout_column="6"
+        app:layout_columnSpan="2"
+        app:layout_gravity="center_vertical"
+        app:layout_row="0" />
+
+    <CheckBox
+        android:id="@+id/repeat_onoff"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:paddingEnd="@dimen/checkbox_start_padding"
+        android:paddingStart="@dimen/checkbox_start_padding"
+        android:text="@string/alarm_repeat"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        app:layout_row="1" />
+
+    <!-- Day buttons are put here programmatically -->
     <LinearLayout
+        android:id="@+id/repeat_days"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_column="0"
+        app:layout_columnSpan="8"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="2" />
+
+    <TextView
+        android:id="@+id/choose_ringtone"
+        style="@style/body"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:drawablePadding="@dimen/alarm_horizontal_padding"
+        android:ellipsize="marquee"
+        android:gravity="start|center_vertical"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingEnd="@dimen/icon_margin"
+        android:paddingStart="@dimen/icon_margin"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        app:layout_column="0"
+        app:layout_columnSpan="5"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="3" />
+
+    <CheckBox
+        android:id="@+id/vibrate_onoff"
+        style="@style/body"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:paddingEnd="@dimen/checkbox_start_padding"
+        android:paddingStart="@dimen/checkbox_start_padding"
+        android:text="@string/alarm_vibrate"
+        app:layout_column="5"
+        app:layout_columnSpan="3"
+        app:layout_gravity="center_vertical"
+        app:layout_row="3" />
+
+    <TextView
+        android:id="@+id/edit_label"
+        style="@style/body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="@integer/guttered_content_width_percent"
-        android:gravity="center_horizontal|top"
-        android:orientation="vertical">
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/alarm_horizontal_padding"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:hint="@string/label"
+        android:paddingBottom="12dp"
+        android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        android:paddingTop="12dp"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        app:layout_column="0"
+        app:layout_columnSpan="8"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="4" />
 
-        <include layout="@layout/alarm_time_summary" />
+    <include
+        layout="@layout/preemptive_dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_column="0"
+        app:layout_columnSpan="3"
+        app:layout_row="5" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/repeat_onoff"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/touch_target_min_size"
-                android:layout_gravity="center_vertical|start"
-                android:paddingEnd="@dimen/checkbox_start_padding"
-                android:paddingStart="@dimen/checkbox_start_padding"
-                android:text="@string/alarm_repeat"
-                android:textColor="@color/clock_white"
-                android:textSize="@dimen/alarm_text_font_size" />
-
-            <!-- Day buttons are put here programmatically -->
-            <LinearLayout
-                android:id="@+id/repeat_days"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/touch_target_min_size"
-                android:layout_gravity="top"
-                android:orientation="horizontal"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/choose_ringtone"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/touch_target_min_size"
-                    android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:drawablePadding="@dimen/alarm_horizontal_padding"
-                    android:ellipsize="marquee"
-                    android:gravity="center_vertical"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:paddingStart="@dimen/icon_margin"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/clock_white"
-                    android:textSize="@dimen/alarm_text_font_size" />
-
-                <CheckBox
-                    android:id="@+id/vibrate_onoff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/touch_target_min_size"
-                    android:paddingEnd="@dimen/checkbox_start_padding"
-                    android:paddingStart="@dimen/checkbox_start_padding"
-                    android:text="@string/alarm_vibrate"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/alarm_text_font_size" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/edit_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:hint="@string/label"
-                android:paddingBottom="12dp"
-                android:paddingStart="44dp"
-                android:paddingTop="12dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/alarm_text_font_size" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/hairline_height"
-                android:layout_marginEnd="@dimen/hairline_side_padding"
-                android:layout_marginStart="@dimen/hairline_side_padding"
-                android:background="@color/hairline" />
-
-            <include layout="@layout/preemptive_dismiss" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start">
-
-                <ImageButton
-                    android:id="@+id/delete"
-                    android:layout_width="@dimen/touch_target_min_size"
-                    android:layout_height="@dimen/touch_target_min_size"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
-                    android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
-                    android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/delete_alarm"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/ic_delete_small" />
-
-                <ImageButton
-                    android:id="@+id/arrow"
-                    android:layout_width="@dimen/touch_target_min_size"
-                    android:layout_height="@dimen/touch_target_min_size"
-                    android:layout_gravity="center_vertical|end"
-                    android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/collapse_alarm"
-                    android:rotation="@integer/chevron_rotate_180"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/ic_expand_more" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- Right gutter. -->
-    <Space
+    <View
+        android:id="@+id/hairline"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+        android:layout_height="@dimen/hairline_height"
+        android:layout_marginRight="@dimen/hairline_side_padding"
+        android:layout_marginLeft="@dimen/hairline_side_padding"
+        android:background="@color/hairline"
+        app:layout_column="0"
+        app:layout_columnSpan="8"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="6" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/delete"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:drawablePadding="@dimen/alarm_horizontal_padding"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="@dimen/checkbox_start_padding"
+        android:paddingStart="@dimen/icon_margin"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:textAppearance="@style/body"
+        app:layout_column="0"
+        app:layout_gravity="center_vertical"
+        app:layout_row="7" />
+
+    <ImageButton
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/collapse_alarm"
+        android:padding="@dimen/checkbox_start_padding"
+        android:scaleType="center"
+        app:layout_column="7"
+        app:layout_gravity="center_vertical"
+        app:layout_row="7"
+        app:srcCompat="@drawable/ic_caret_up" />
+
+</android.support.v7.widget.GridLayout>
