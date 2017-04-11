@@ -263,7 +263,7 @@
     <string name="open_date_settings" msgid="7712226973337806152">"ရက်စွဲနှင့် အချိန် ပြောင်းရန်"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"လက်တံနာရီ"</item>
-    <item msgid="8483930821046925592">"ဒီဂျစ်တယ်"</item>
+    <item msgid="8483930821046925592">"ဒစ်ဂျစ်တယ်"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"အလိုအလျောက် အိမ် နာရီ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"အချိန်မတူသည့် ဒေသမှာ ခရီးထွက်နေစဉ်၊ အိမ်အတွက် နာရီကို ထည့်ပါ"</string>
