@@ -403,8 +403,8 @@
     <string name="invalid_time" msgid="2782334750243998633">"La hora <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> no es válida"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"No hay ninguna alarma a las <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"No hay ninguna alarma programada"</string>
-    <string name="no_label_specified" msgid="2008482054428460626">"No se ha especificado ninguna etiqueta"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"No hay ninguna alarma con esa etiqueta"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"No se ha especificado ningún nombre"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"No hay ninguna alarma con ese nombre"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"No hay ninguna alarma programada para esta hora"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> ignorada"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma establecida a las <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
