@@ -63,8 +63,8 @@
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Engadiuse un minuto ao temporizador, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_stopped" msgid="2753501043114605474">"O temporizador está en pausa, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_started" msgid="8503877052873671219">"O temporizador estase executando, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_remaining_single" msgid="6782851171906765864">"queda"</string>
-    <string name="timer_remaining_multiple" msgid="6052775962092160851">"quedan"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"Queda"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"Quedan"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarma definida para dentro de menos de 1 minuto a partir de agora."</item>
     <item msgid="6002066367368421848">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g> a partir de agora."</item>
