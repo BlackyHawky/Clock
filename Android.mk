@@ -4,6 +4,7 @@ include $(CLEAR_VARS)
 LOCAL_RESOURCE_DIR := packages/apps/DeskClock/res
 
 ifeq ($(TARGET_BUILD_APPS),)
+LOCAL_RESOURCE_DIR += frameworks/support/compat/res
 LOCAL_RESOURCE_DIR += frameworks/support/design/res
 LOCAL_RESOURCE_DIR += frameworks/support/percent/res
 LOCAL_RESOURCE_DIR += frameworks/support/transition/res
@@ -13,6 +14,7 @@ LOCAL_RESOURCE_DIR += frameworks/support/v7/gridlayout/res
 LOCAL_RESOURCE_DIR += frameworks/support/v7/preference/res
 LOCAL_RESOURCE_DIR += frameworks/support/v7/recyclerview/res
 else
+LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/compat/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/design/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/percent/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/transition/res
@@ -46,6 +48,7 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-preference
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-recyclerview
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay
+LOCAL_AAPT_FLAGS += --extra-packages android.support.compat
 LOCAL_AAPT_FLAGS += --extra-packages android.support.design
 LOCAL_AAPT_FLAGS += --extra-packages android.support.percent
 LOCAL_AAPT_FLAGS += --extra-packages android.support.transition
