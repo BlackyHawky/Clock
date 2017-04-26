@@ -30,7 +30,7 @@
     <string name="remove_sound" msgid="2064643204455734239">"Fjern"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarmer og tidtakere som bruker denne lyden, spiller av standardlyden i stedet."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Lydene dine"</string>
-    <string name="device_sounds" msgid="1584894148222639823">"Enhetslyder"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Lyder fra enheten"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Lydinnholdet kan ikke nås."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Tidtakeren er utgått"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"I morgen"</string>
@@ -372,7 +372,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Prosesserer handlingene fra stoppeklokkevarsler."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Behandler handlingene fra stoppeklokkevarsler."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Satt på pause"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Sveip til høyre for å avvise"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Sveip til høyre for å slå av"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Sveip til venstre for å slumre"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Sveip til venstre for å slumre eller til høyre for å avvise"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Tidtakere"</string>
@@ -394,7 +394,7 @@
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> bak"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> foran"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> bak"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"I morgen kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"I morgen, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"I går kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"I morgen"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"I går"</string>

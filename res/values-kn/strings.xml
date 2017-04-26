@@ -35,7 +35,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ಟೈಮರ್ ಅವಧಿ ಮೀರಿದೆ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ನಾಳೆ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ಇಂದು"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ವಜಾಗೊಳಿಸು"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ವಜಾಗೊಳಿಸಿ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"ತಪ್ಪಿಹೋದ ಅಲಾರಮ್"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ"</string>
@@ -187,7 +187,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ಸ್ನೂಜ್"</item>
-    <item msgid="3450979320164769576">"ವಜಾಗೊಳಿಸು"</item>
+    <item msgid="3450979320164769576">"ವಜಾಗೊಳಿಸಿ"</item>
     <item msgid="7085774139907653538">"ವಾಲ್ಯೂಮ್ ನಿಯಂತ್ರಿಸಿ"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ಲೇಬಲ್"</string>

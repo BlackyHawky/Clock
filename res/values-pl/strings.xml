@@ -390,7 +390,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Przetwarza działania z powiadomień minutnika."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Przetwarza działania z powiadomień stopera."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Wstrzymano"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Przesuń w prawo, by zamknąć"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Przesuń w prawo, by wyłączyć"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Przesuń w lewo, by uśpić"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Przesuń w lewo, by odłożyć, lub w prawo, by zamknąć"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minutniki"</string>
