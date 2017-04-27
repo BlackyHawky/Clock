@@ -19,6 +19,7 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
         android-support-design \
         android-support-percent \
         android-support-transition \
+        android-support-v4 \
         android-support-v13 \
         android-support-v14-preference \
         android-support-v7-appcompat \
