@@ -72,7 +72,7 @@
     <item msgid="8182406852935468862">"Будилникът е настроен за след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="2532279224777213194">"Будилникът е настроен за след <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="5936557894247187717">"Будилникът е настроен за след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Будилникът е настроен за след <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Будилникът ще се включи след <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Будилникът е настроен за след <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">

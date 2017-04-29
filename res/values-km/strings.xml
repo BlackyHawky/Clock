@@ -24,7 +24,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"រោទ៍ឡើងវិញ"</string>
     <string name="delete" msgid="5732434972457000541">"លុប"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"សំឡេងម៉ោងរោទិ៍លំនាំដើម"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"សំឡេងម៉ោងរោទិ៍"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"សំឡេងម៉ោងរោទ៍"</string>
     <string name="timer_sound" msgid="896163086604894735">"សំឡេងកម្មវិធីកំណត់ពេល"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"បន្ថែម​ថ្មី"</string>
     <string name="remove_sound" msgid="2064643204455734239">"លុប"</string>
@@ -192,7 +192,7 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ស្លាក"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"សំឡេង​រោទ៍"</string>
-    <string name="menu_alarm" msgid="4772010125376647519">"ការ​ជូនដំណឹង"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"នាឡិការោទ៍"</string>
     <string name="menu_timer" msgid="6459070074762877114">"កម្មវិធី​កំណត់​ម៉ោង"</string>
     <string name="menu_clock" msgid="5612760670606829805">"នាឡិកា"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"នាឡិកា​បញ្ឈប់"</string>

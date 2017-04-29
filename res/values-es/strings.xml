@@ -35,7 +35,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Apagar"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
@@ -372,8 +372,8 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesa acciones de notificaciones del temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesa acciones de notificaciones del cronómetro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Deslizar hacia la derecha para descartar"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Deslizar hacia la izquierda para posponer"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Desliza hacia la derecha para descartar"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Desliza hacia la izquierda para posponer"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizadores"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibración del temporizador"</string>
@@ -390,9 +390,9 @@
     <string name="alarm_undo" msgid="5710042601177655254">"Deshacer"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma eliminada"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
-    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> antes"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> más"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> después"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g> antes"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g> más"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g> después"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Mañana, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Ayer, <xliff:g id="TIME">%1$s</xliff:g>"</string>

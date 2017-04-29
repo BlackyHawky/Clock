@@ -228,7 +228,7 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Moje je vrijeme <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Vremena krugova:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. krug"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"Dodaj mjerač"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Dodaj tajmer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Početak"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Izbriši"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Izbriši <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -399,9 +399,9 @@
     <string name="alarm_undo" msgid="5710042601177655254">"poništi"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm je izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
-    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> kasnije"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> naprijed"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> ranije"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> kasnije"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> naprijed"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ranije"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Sutra, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Jučer, <xliff:g id="TIME">%1$s</xliff:g>"</string>

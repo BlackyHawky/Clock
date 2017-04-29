@@ -403,7 +403,7 @@
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> iza"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ispred"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> iza"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Sutra, u <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Sutra, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Jučer, u <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"Sutra"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"Jučer"</string>

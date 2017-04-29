@@ -22,7 +22,7 @@
     <string name="default_label" msgid="5590025289805630372">"闹钟"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"振动"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"重复"</string>
-    <string name="delete" msgid="5732434972457000541">"删除闹钟"</string>
+    <string name="delete" msgid="5732434972457000541">"删除"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"默认闹钟提示音"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"闹钟提示音"</string>
     <string name="timer_sound" msgid="896163086604894735">"计时器提示音"</string>

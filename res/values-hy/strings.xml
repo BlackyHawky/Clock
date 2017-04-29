@@ -24,21 +24,21 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Կրկնել"</string>
     <string name="delete" msgid="5732434972457000541">"Ջնջել"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Զարթուցիչի կանխադրված ձայնը"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"Զարթուցիչի զանգերանգ"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Զարթուցիչի ազդանշան"</string>
     <string name="timer_sound" msgid="896163086604894735">"Ժամաչափի զանգերանգ"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Ավելացնել նորը"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Հեռացնել"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Այս զանգերանգն օգտագործող զարթուցիչները և ժամաչափերը փոխարենը կնվագարկեն կանխադրված զանգերանգը:"</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Ձեր ձայները"</string>
-    <string name="device_sounds" msgid="1584894148222639823">"Սարքի ձայները"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Ձեր ազդանշանները"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Սարքի ազդանշանները"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Ձայնային բովանդակությունը հասանելի չի հավելվածին"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Ժամաչափի ժամանակը սպառվել է"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Վաղը"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Այսօր"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անջատել"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Բաց թողնված ազդանշան"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Ննջեցված է"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Հետաձգված է"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
@@ -187,7 +187,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Հետաձգել"</item>
-    <item msgid="3450979320164769576">"Անտեսել"</item>
+    <item msgid="3450979320164769576">"Անջատել"</item>
     <item msgid="7085774139907653538">"Կառավարել ձայնի ուժգնությունը"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Պիտակ"</string>
@@ -200,7 +200,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Քաղաքներ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Օգնություն"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"Էկրանի խնայարար"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Էկրանապահ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Դասակարգել ըստ ժամանակի"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Դասակարգել ըստ անունների"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Ընտրված քաղաքներ"</string>
@@ -366,7 +366,7 @@
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Գործարկել վարկենաչափը"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Դադարեցնել"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Դադարեցնել վայրկենաչափը"</string>
-    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Էկրանի խնայարար"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Էկրանապահ"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Գործարկել էկրանի խնայարարը"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Զարթուցիչներ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Մշակում է ժամաչափի ծանուցումներից ծագող գործողությունները:"</string>
