@@ -63,8 +63,8 @@
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Um minuto adicionado ao temporizador, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Temporizador em pausa, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_started" msgid="8503877052873671219">"Temporizador a funcionar, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_remaining_single" msgid="6782851171906765864">"restante"</string>
-    <string name="timer_remaining_multiple" msgid="6052775962092160851">"restantes"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"Falta"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"Faltam"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarme definido para daqui a menos de 1 minuto."</item>
     <item msgid="6002066367368421848">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>."</item>

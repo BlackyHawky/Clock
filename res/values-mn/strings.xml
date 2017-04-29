@@ -176,7 +176,7 @@
     <item msgid="8594709368683324282">"Даваа"</item>
   </string-array>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Сэрүүлгийн дуу"</string>
-    <string name="silent_ringtone_title" msgid="6177287302898634765">"Чимээгүй"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Дуугүй"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Тодорхойгүй"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Сэрүүлгийн дууг хаасан"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Дууг нээх"</string>

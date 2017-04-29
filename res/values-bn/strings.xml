@@ -38,7 +38,7 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"মিসড অ্যালার্ম"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"পরে মনে করা"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"পরে মনে করানো হবে"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> মিনিট</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> মিনিট</item>
@@ -49,7 +49,7 @@
       <item quantity="one"><xliff:g id="MINUTES">%d</xliff:g> মিনিটের জন্য স্নুজ করা হচ্ছে৷</item>
       <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> মিনিটের জন্য স্নুজ করা হচ্ছে৷</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> পর্যন্ত স্নুজ হয়ে থাকবে"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> পর্যন্ত মনে করানো হবে"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"আসন্ন এলার্ম"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"আপনার মিসড অ্যালার্ম মুছে ফেলা হয়েছে"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"এক মিনিটেরও কম সময় বাকি আছে"</string>
@@ -223,9 +223,9 @@
     <string name="timer_start" msgid="6158486445614356442">"শুরু করুন"</string>
     <string name="timer_delete" msgid="8699122001991909302">"মুছুন"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> মুছুন"</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"1 মিনিট যোগ করুন"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"১ মিনিট যোগ করুন"</string>
     <string name="timer_add_minute" msgid="207816824783281446">"+ ১:০০"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"1 মিনিট যোগ করুন"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"১ মিনিট যোগ করুন"</string>
     <string name="timer_stop" msgid="3361154678667736722">"থামান"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"সব টাইমার বন্ধ করুন"</string>
     <string name="timer_reset" msgid="7848424809190171640">"আবার সেট করুন"</string>

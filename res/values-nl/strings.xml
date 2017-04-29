@@ -23,7 +23,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Trillen"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Herhalen"</string>
     <string name="delete" msgid="5732434972457000541">"Verwijderen"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Standaardalarmgeluid"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Standaard alarmgeluid"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Alarmgeluid"</string>
     <string name="timer_sound" msgid="896163086604894735">"Timergeluid"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Nieuw toevoegen"</string>
@@ -372,8 +372,8 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Verwerkt acties van timermeldingen."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerkt acties van stopwatchmeldingen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Onderbroken"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Veeg naar rechts om te sluiten"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Veeg naar links om de snoozestand in te schakelen"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Veeg naar rechts om uit te zetten"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Veeg naar links om te snoozen"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Veeg naar links om te snoozen of naar rechts om te sluiten"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Trillen voor timer"</string>

@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Часовник"</string>
-    <string name="label" msgid="162189613902857319">"Ознака"</string>
+    <string name="label" msgid="162189613902857319">"Етикета"</string>
     <string name="default_label" msgid="5590025289805630372">"Аларм"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибрации"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Се повторува"</string>
@@ -190,7 +190,7 @@
     <item msgid="3450979320164769576">"Отфрли"</item>
     <item msgid="7085774139907653538">"Контролирајте ја јачината на звукот"</item>
   </string-array>
-    <string name="label_description" msgid="8736179296142915727">"Ознака"</string>
+    <string name="label_description" msgid="8736179296142915727">"Етикета"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодија"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Аларм"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Тајмер"</string>

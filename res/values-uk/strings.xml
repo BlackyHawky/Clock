@@ -408,9 +408,9 @@
     <string name="alarm_undo" msgid="5710042601177655254">"відмінити"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник видалено"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
-    <string name="world_time_ahead" msgid="625559988238637652">"Залишилося <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"На <xliff:g id="TIME">%1$s</xliff:g> пізніше"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"Минуло <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"Залишилося <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"На <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> пізніше"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"Минуло <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Завтра, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Учора, <xliff:g id="TIME">%1$s</xliff:g>"</string>

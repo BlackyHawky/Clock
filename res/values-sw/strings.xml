@@ -30,7 +30,7 @@
     <string name="remove_sound" msgid="2064643204455734239">"Ondoa"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Kengele na vipima muda vinavyotumia sauti hii vitacheza sauti chaguo msingi badala yake."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Sauti zako"</string>
-    <string name="device_sounds" msgid="1584894148222639823">"Sauti za vifaa"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Sauti za kifaa"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Maudhui ya sauti hayawezi kufikiwa."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Muda wa kulia umepita"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Kesho"</string>
@@ -38,7 +38,7 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ondoa"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Kengele ambayo haikushughulikiwa"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Yamepumzishwa"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Imeahirishwa"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="other">Dak <xliff:g id="NUMBER">%d</xliff:g> </item>
       <item quantity="one">Dak 1</item>
@@ -66,14 +66,14 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"imesalia"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"zimesalia"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Kengele imewekwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
-    <item msgid="6002066367368421848">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
-    <item msgid="8824719306247973774">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-    <item msgid="8182406852935468862">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-    <item msgid="2532279224777213194">"Kengele imewekwa kwa <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="5936557894247187717">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-    <item msgid="9115697840826129603">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-    <item msgid="2332583385137381060">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="6450913786084215050">"Kengele imewashwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
+    <item msgid="6002066367368421848">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8824719306247973774">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8182406852935468862">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
+    <item msgid="2532279224777213194">"Kengele imewashwa na italia dakika <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="5936557894247187717">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="9115697840826129603">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="2332583385137381060">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other">Siku <xliff:g id="NUMBER">%s</xliff:g></item>
@@ -407,7 +407,7 @@
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Hakuna kengele zilizo na lebo hii"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Hakuna kengele iliyoratibiwa wakati huu"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Kengele ya <xliff:g id="ALARM_TIME">%s</xliff:g> imeondolewa"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Kengele imewekwa ya saa <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Kengele imewashwa na italia <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Kipimaji muda kimewekwa"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Kipima muda kimefutwa"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Urefu usio sahihi wa kipimaji muda"</string>

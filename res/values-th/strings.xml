@@ -219,7 +219,7 @@
     <string name="sw_share_main" msgid="7703563468204234405">"เวลาของฉันคือ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"เวลาสิ้นสุดรอบ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"สิ้นสุดรอบที่ <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"เพิ่มนาฬิกาจับเวลา"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"เพิ่มตัวจับเวลา"</string>
     <string name="timer_start" msgid="6158486445614356442">"เริ่ม"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ลบ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"ลบ <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -372,9 +372,9 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกานับถอยหลัง"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกาจับเวลา"</string>
     <string name="swn_paused" msgid="6364358842808263589">"หยุดชั่วคราวแล้ว"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"กวาดไปทางขวาเพื่อปิด"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"กวาดไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราว"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"กวาดไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราวหรือไปทางขวาเพื่อปิด"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"เลื่อนไปทางขวาเพื่อปิด"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราว"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราวหรือไปทางขวาเพื่อปิด"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ตัวจับเวลา"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ตัวจับเวลาสั่น"</string>
     <string name="timer_paused" msgid="5941160896040771462">"หยุดตัวจับเวลาชั่วคราวแล้ว"</string>
@@ -394,7 +394,7 @@
     <string name="world_time_behind" msgid="5395771290726167865">"ช้ากว่า <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"เร็วกว่า <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"ช้ากว่า <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"พรุ่งนี้เวลา <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"พรุ่งนี้ <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"เมื่อวานนี้เวลา <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"พรุ่งนี้"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"เมื่อวานนี้"</string>

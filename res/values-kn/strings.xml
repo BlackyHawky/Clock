@@ -22,7 +22,7 @@
     <string name="default_label" msgid="5590025289805630372">"ಅಲಾರಮ್"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"ವೈಬ್ರೇಟ್‌‌"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ಪುನರಾವರ್ತನೆ"</string>
-    <string name="delete" msgid="5732434972457000541">"ಅಳಿಸು"</string>
+    <string name="delete" msgid="5732434972457000541">"ಅಳಿಸಿ"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ಡಿಫಾಲ್ಟ್ ಅಲಾರಮ್ ಧ್ವನಿ"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"ಆಲಾರಾಂ ಧ್ವನಿ"</string>
     <string name="timer_sound" msgid="896163086604894735">"ಟೈಮರ್ ಧ್ವನಿ"</string>
@@ -35,7 +35,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ಟೈಮರ್ ಅವಧಿ ಮೀರಿದೆ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ನಾಳೆ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ಇಂದು"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ವಜಾಗೊಳಿಸು"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ವಜಾಗೊಳಿಸಿ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"ತಪ್ಪಿಹೋದ ಅಲಾರಮ್"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ"</string>
@@ -187,7 +187,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ಸ್ನೂಜ್"</item>
-    <item msgid="3450979320164769576">"ವಜಾಗೊಳಿಸು"</item>
+    <item msgid="3450979320164769576">"ವಜಾಗೊಳಿಸಿ"</item>
     <item msgid="7085774139907653538">"ವಾಲ್ಯೂಮ್ ನಿಯಂತ್ರಿಸಿ"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ಲೇಬಲ್"</string>
@@ -219,14 +219,14 @@
     <string name="sw_share_main" msgid="7703563468204234405">"ನನ್ನ ಸಮಯ <xliff:g id="TIME">%s</xliff:g> ಆಗಿದೆ"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ಲ್ಯಾಪ್ ಸಮಯಗಳು:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ಲ್ಯಾಪ್ <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"ಟೈಮರ್ ಸೇರಿಸು"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"ಟೈಮರ್ ಸೇರಿಸಿ"</string>
     <string name="timer_start" msgid="6158486445614356442">"ಪ್ರಾರಂಭಿಸಿ"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"ಅಳಿಸು"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"ಅಳಿಸಿ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ಅಳಿಸಿ"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 ನಿಮಿಷ ಸೇರಿಸಿ"</string>
     <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 ನಿಮಿಷ ಸೇರಿಸಿ"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"ನಿಲ್ಲಿಸು"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"ಎಲ್ಲಾ ಟೈಮರ್‌ಗಳನ್ನು ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ಮರುಹೊಂದಿಸಿ"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"ರದ್ದುಮಾಡಿ"</string>
