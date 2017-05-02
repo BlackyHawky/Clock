@@ -72,7 +72,7 @@
     <item msgid="8182406852935468862">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
     <item msgid="2532279224777213194">"Alarmen går i gang om <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="5936557894247187717">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
-    <item msgid="9115697840826129603">"Alarm er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
+    <item msgid="9115697840826129603">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
     <item msgid="2332583385137381060">"Alarm indstillet til <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
@@ -214,12 +214,12 @@
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g> og <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"Nr. <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"Nr. <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Min tid er <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Omgangstider:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Omgang <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"Tilføj en timer"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Tilføj timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slet"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Slet <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -392,9 +392,9 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> foran"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> bagud"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> og <xliff:g id="MINUTES">%2$s</xliff:g> foran"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> foran"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> og <xliff:g id="MINUTES">%2$s</xliff:g> bagud"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"I morgen kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"I morgen, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"I går kl. <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"I morgen"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"I går"</string>

@@ -237,7 +237,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Додај 1 мин"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Заустави"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Заустави све тајмере"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Поново подеси"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Ресетуј"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Откажи"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Тајмер је отказан"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Време је истекло"</string>
