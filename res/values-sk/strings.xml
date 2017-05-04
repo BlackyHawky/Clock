@@ -48,10 +48,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budík je vypnutý"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="few">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minúty.</item>
-      <item quantity="many">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minúty.</item>
-      <item quantity="other">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minút.</item>
-      <item quantity="one">Odložiť o 1 minútu.</item>
+      <item quantity="few">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minúty</item>
+      <item quantity="many">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minúty</item>
+      <item quantity="other">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minút</item>
+      <item quantity="one">Odložené o 1 minútu</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchádzajúci budík"</string>
