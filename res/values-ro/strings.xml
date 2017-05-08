@@ -47,9 +47,9 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarmă oprită"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânați"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="few">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> minute.</item>
-      <item quantity="other">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> de minute.</item>
-      <item quantity="one">Se amână pentru un minut.</item>
+      <item quantity="few">Se amână <xliff:g id="MINUTES">%d</xliff:g> minute.</item>
+      <item quantity="other">Se amână <xliff:g id="MINUTES">%d</xliff:g> de minute.</item>
+      <item quantity="one">Se amână un minut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Se amână până <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarma următoare"</string>
