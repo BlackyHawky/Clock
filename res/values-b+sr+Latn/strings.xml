@@ -237,7 +237,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Dodaj 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Zaustavi"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Zaustavi sve tajmere"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Ponovo podesi"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Resetuj"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Otkaži"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Tajmer je otkazan"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Vreme je isteklo"</string>

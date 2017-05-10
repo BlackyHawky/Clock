@@ -49,7 +49,7 @@
       <item quantity="other">延遲 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。</item>
       <item quantity="one">延遲 1 分鐘。</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"到 <xliff:g id="TIME">%s</xliff:g> 才重響"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"預定的鬧鐘"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"您錯過的鬧鐘已刪除"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"尚餘少於一分鐘"</string>
@@ -66,14 +66,14 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"尚餘"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"尚餘"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"已將鬧鐘設定在不到 1 分鐘後啟動。"</item>
-    <item msgid="6002066367368421848">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</item>
-    <item msgid="8824719306247973774">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</item>
-    <item msgid="8182406852935468862">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</item>
-    <item msgid="2532279224777213194">"已將鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
-    <item msgid="5936557894247187717">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
-    <item msgid="9115697840826129603">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
-    <item msgid="2332583385137381060">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
+    <item msgid="6450913786084215050">"鬧鐘設定在 1 分鐘內響起。"</item>
+    <item msgid="6002066367368421848">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後響起。"</item>
+    <item msgid="8824719306247973774">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</item>
+    <item msgid="8182406852935468862">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</item>
+    <item msgid="2532279224777213194">"鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
+    <item msgid="5936557894247187717">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
+    <item msgid="9115697840826129603">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
+    <item msgid="2332583385137381060">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 天</item>
@@ -105,7 +105,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"指針式時鐘"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數碼時鐘"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"重響時間長度"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"逐漸提升音量"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"鈴聲持續時間："</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -186,7 +186,7 @@
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"裝置已設定為完全靜音"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按鈕"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"重響"</item>
+    <item msgid="7972756698723318690">"延後"</item>
     <item msgid="3450979320164769576">"關閉"</item>
     <item msgid="7085774139907653538">"控制音量"</item>
   </string-array>
@@ -373,8 +373,8 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"秒錶通知的處理操作。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暫停"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"向右快速滑動可關閉鬧鐘"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"向左快速滑動可重響鬧鐘"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"向左快速滑動以重響，或向右關閉"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"向左快速滑動可延後"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"向左快速滑動以延後，或向右關閉"</string>
     <string name="timer_settings" msgid="7955522143086154795">"倒數計時器"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>
     <string name="timer_paused" msgid="5941160896040771462">"計時器已暫停"</string>
@@ -394,7 +394,7 @@
     <string name="world_time_behind" msgid="5395771290726167865">"遲 <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"早 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"遲 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"明天<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"明天，<xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"昨天<xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"明天"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"昨天"</string>
@@ -415,5 +415,5 @@
     <string name="dismiss_alarm" msgid="7204593078688533541">"關閉鬧鐘"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"選擇要關閉的鬧鐘"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"現時沒有響鬧"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘將於 10 分鐘後重響"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘已延後 10 分鐘"</string>
 </resources>

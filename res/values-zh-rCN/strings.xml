@@ -25,10 +25,10 @@
     <string name="delete" msgid="5732434972457000541">"删除"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"默认闹钟提示音"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"闹钟提示音"</string>
-    <string name="timer_sound" msgid="896163086604894735">"计时器提示音"</string>
+    <string name="timer_sound" msgid="896163086604894735">"定时器提示音"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"新增"</string>
     <string name="remove_sound" msgid="2064643204455734239">"移除"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"使用此提示音的闹钟和计时器将改为播放默认提示音。"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"使用此提示音的闹钟和定时器将改为播放默认提示音。"</string>
     <string name="your_sounds" msgid="1672779351352629681">"您的提示音"</string>
     <string name="device_sounds" msgid="1584894148222639823">"设备提示音"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"无法访问提示音内容。"</string>
@@ -60,9 +60,9 @@
     <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
-    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"计时器已增加一分钟，<xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"计时器已暂停，<xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"计时器运行中，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"定时器已增加一分钟，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"定时器已暂停，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"定时器运行中，<xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"还剩"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"还剩"</string>
   <string-array name="alarm_set">
@@ -193,7 +193,7 @@
     <string name="label_description" msgid="8736179296142915727">"标签"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"铃声"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"闹钟"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"计时器"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"定时器"</string>
     <string name="menu_clock" msgid="5612760670606829805">"时钟"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"秒表"</string>
     <string name="button_alarms" msgid="3907838219512538763">"添加闹钟"</string>
@@ -219,7 +219,7 @@
     <string name="sw_share_main" msgid="7703563468204234405">"我的时间：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"各圈时间："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第<xliff:g id="NUMBER">%d</xliff:g>圈"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"添加计时器"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"添加定时器"</string>
     <string name="timer_start" msgid="6158486445614356442">"开始"</string>
     <string name="timer_delete" msgid="8699122001991909302">"删除"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"删除 <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -227,18 +227,18 @@
     <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"加上1分钟"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
-    <string name="timer_stop_all" msgid="9080780442843034376">"停止所有计时器"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"停止所有定时器"</string>
     <string name="timer_reset" msgid="7848424809190171640">"重置"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
-    <string name="timer_canceled" msgid="7327923392567128060">"已取消计时器"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"已取消定时器"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"时间到"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> 个计时器已到期"</string>
-    <string name="timer_multi_missed" msgid="9085073572920385362">"错过了 <xliff:g id="NUMBER">%d</xliff:g> 个计时器"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"计时器"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"错过的计时器"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"错过的计时器：<xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> 个定时器已到期"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"错过了 <xliff:g id="NUMBER">%d</xliff:g> 个定时器"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"定时器"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"错过的定时器"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"错过的定时器：<xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"暂停"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"重置所有计时器"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"重置所有定时器"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
@@ -360,8 +360,8 @@
   </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新闹钟"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"设置新闹钟"</string>
-    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"新计时器"</string>
-    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"设置新计时器"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"新定时器"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"设置新定时器"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"启动"</string>
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"启动秒表"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"暂停"</string>
@@ -369,19 +369,19 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"屏保"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"启动屏保"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"处理可通过计时器通知执行的操作。"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"处理可通过定时器通知执行的操作。"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"处理可通过秒表通知执行的操作。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暂停"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"向右滑动可关闭闹钟"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"向左滑动可暂停闹钟"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"向左滑动可暂停，向右滑动可关闭"</string>
-    <string name="timer_settings" msgid="7955522143086154795">"计时器"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"计时器振动"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"计时器已暂停"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> 个计时器已暂停"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"点按即可查看您的计时器"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>个计时器"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"下一个计时器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"定时器"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"定时器振动"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"定时器已暂停"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> 个定时器已暂停"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"点按即可查看您的定时器"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>个定时器"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"下一个定时器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"屏保设置"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"夜间模式"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"将屏幕亮度调至非常低（适合光线昏暗的环境）"</string>
@@ -408,9 +408,9 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"未设置这个时间的闹钟"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"已关闭 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"已设置 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
-    <string name="timer_created" msgid="4381027137335885547">"已创建计时器"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"已删除计时器"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"计时器时长无效"</string>
+    <string name="timer_created" msgid="4381027137335885547">"已创建定时器"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"已删除定时器"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"定时器时长无效"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"距离 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟还有 24 小时以上，因此无法关闭此闹钟"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"关闭闹钟"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"请选择要关闭的闹钟"</string>
