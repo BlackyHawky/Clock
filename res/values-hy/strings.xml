@@ -176,7 +176,7 @@
     <item msgid="8594709368683324282">"Երկուշաբթի"</item>
   </string-array>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Զարթուցիչի ձայնի ուժգնությունը"</string>
-    <string name="silent_ringtone_title" msgid="6177287302898634765">"Լուռ"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Անձայն"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Անհայտ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Զարթուցիչի ձայնն անջատված է"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Միացնել ձայնը"</string>

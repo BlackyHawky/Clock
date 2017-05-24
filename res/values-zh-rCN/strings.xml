@@ -35,7 +35,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"计时结束"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今天"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"取消"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"关闭"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"错过的闹钟"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"已暂停"</string>
