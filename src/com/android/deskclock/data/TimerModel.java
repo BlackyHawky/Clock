@@ -340,11 +340,12 @@ final class TimerModel {
     }
 
     /**
-     * Reset all expired timers.
+     * Reset all expired timers. Exactly one parameter should be filled, with preference given to
+     * eventLabelId.
      *
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
-    void resetExpiredTimers(@StringRes int eventLabelId) {
+    void resetOrDeleteExpiredTimers(@StringRes int eventLabelId) {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isExpired()) {

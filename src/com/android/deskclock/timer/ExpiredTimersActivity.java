@@ -131,7 +131,8 @@ public class ExpiredTimersActivity extends BaseActivity {
                 case KeyEvent.KEYCODE_VOLUME_MUTE:
                 case KeyEvent.KEYCODE_CAMERA:
                 case KeyEvent.KEYCODE_FOCUS:
-                    DataModel.getDataModel().resetExpiredTimers(R.string.label_hardware_button);
+                    DataModel.getDataModel().resetOrDeleteExpiredTimers(
+                            R.string.label_hardware_button);
                     return true;
             }
         }
@@ -273,7 +274,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         public void onClick(View v) {
             stopUpdatingTime();
             DataModel.getDataModel().removeTimerListener(mTimerChangeWatcher);
-            DataModel.getDataModel().resetExpiredTimers(R.string.label_deskclock);
+            DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             finish();
         }
     }
