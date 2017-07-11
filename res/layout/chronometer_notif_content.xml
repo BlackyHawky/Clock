@@ -26,13 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Notification.Title" />
+        android:textAppearance="@style/TextAppearance.Compat.Notification.Title" />
 
     <TextView
         android:id="@+id/state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Notification" />
+        android:textAppearance="@style/TextAppearance.Compat.Notification" />
 
 </LinearLayout>
