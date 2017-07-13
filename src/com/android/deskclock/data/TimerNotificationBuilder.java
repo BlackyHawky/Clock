@@ -26,8 +26,8 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.DrawableRes;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
