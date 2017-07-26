@@ -40,14 +40,14 @@
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Suspenso"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
-      <item quantity="one">1 min.</item>
+      <item quantity="one">1 min</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme desl."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="other">Suspendido durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
-      <item quantity="one">Suspendido durante 1 minuto.</item>
+      <item quantity="one">Suspenso durante 1 minuto</item>
+      <item quantity="other">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Suspendido até à(s) <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próximo alarme"</string>
@@ -76,28 +76,28 @@
     <item msgid="2332583385137381060">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
       <item quantity="one">1 dia</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
       <item quantity="one">1 hora</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
       <item quantity="one">1 h</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
       <item quantity="one">1 min</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
       <item quantity="one">1 segundo</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos os dias"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -109,8 +109,8 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumento gradual do volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
@@ -173,7 +173,7 @@
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"sábado"</item>
     <item msgid="3993530639455360921">"domingo"</item>
-    <item msgid="8594709368683324282">"segunda-feira"</item>
+    <item msgid="8594709368683324282">"Segunda-feira"</item>
   </string-array>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume do alarme"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silencioso"</string>
