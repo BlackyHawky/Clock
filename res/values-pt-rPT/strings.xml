@@ -49,14 +49,14 @@
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Suspenso"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
-      <item quantity="one">1 min.</item>
+      <item quantity="one">1 min</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme desl."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="other">Suspendido durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
-      <item quantity="one">Suspendido durante 1 minuto.</item>
+      <item quantity="one">Suspenso durante 1 minuto</item>
+      <item quantity="other">Suspenso durante <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Suspendido até à(s) <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próximo alarme"</string>
@@ -65,8 +65,8 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> restantes"</string>
-    <string name="timer_remaining_single" msgid="6782851171906765864">"restante"</string>
-    <string name="timer_remaining_multiple" msgid="6052775962092160851">"restantes"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"Falta"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"Faltam"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarme definido para daqui a menos de 1 minuto."</item>
     <item msgid="6002066367368421848">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -78,16 +78,16 @@
     <item msgid="2332583385137381060">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
       <item quantity="one">1 dia</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
       <item quantity="one">1 hora</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos os dias"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -97,12 +97,12 @@
     <string name="settings" msgid="5849739030579520686">"Definições"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da suspensão"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">minutos</item>
       <item quantity="one">minuto</item>
+      <item quantity="other">minutos</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumento gradual do volume"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Desativado"</string>
@@ -110,8 +110,8 @@
     <string name="crescendo_picker_label" msgid="7758024047003091056">"segundos"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
@@ -127,7 +127,7 @@
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"sábado"</item>
     <item msgid="3993530639455360921">"domingo"</item>
-    <item msgid="8594709368683324282">"segunda-feira"</item>
+    <item msgid="8594709368683324282">"Segunda-feira"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Concluído"</string>
     <string name="revert" msgid="9100911171235162926">"Reverter"</string>
@@ -189,16 +189,16 @@
     <string name="sw_share_laps" msgid="614390674795945007">"Tempos de volta:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Volta <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> horas</item>
       <item quantity="one">1 hora</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> horas</item>
     </plurals>
     <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutos</item>
     </plurals>
     <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> segundos</item>
       <item quantity="one">1 segundo</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> segundos</item>
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Adicionar Temporizador"</string>
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
@@ -365,8 +365,8 @@
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> selecionados"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Eliminado"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">Eliminar os alarmes selecionados?</item>
-      <item quantity="one">Eliminar o alarme selecionado?</item>
+      <item quantity="one">Pretende eliminar o alarme selecionado?</item>
+      <item quantity="other">Pretende eliminar os alarmes selecionados?</item>
     </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Eliminar este temporizador?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Remover esta cidade?"</string>
