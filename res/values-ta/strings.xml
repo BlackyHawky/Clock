@@ -107,7 +107,7 @@
     <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையின் காலஅளவு"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"படிப்படியாக ஒலியளவை அதிகரி"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வெண்டியது"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வேண்டியது"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> நிமிடங்கள்</item>
       <item quantity="one">1 நிமிடம்</item>

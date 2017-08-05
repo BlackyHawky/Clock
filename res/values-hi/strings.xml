@@ -369,8 +369,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"स्क्रीनसेवर"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"स्क्रीन सेवर शुरू करें"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर नोटिफिकेशन से कार्यवाइयां संसाधित करती है."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्‍टॉपवॉच नोटिफिकेशन से कार्यवाइयां संसाधित करती है."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर नोटिफ़िकेशन से कार्यवाइयां संसाधित करती है."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्‍टॉपवॉच नोटिफ़िकेशन से कार्यवाइयां संसाधित करती है."</string>
     <string name="swn_paused" msgid="6364358842808263589">"रोका गया"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ख़ारिज करने के लिए दाएं स्वाइप करें"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"याद दिलाने के लिए बाएं स्वाइप करें"</string>

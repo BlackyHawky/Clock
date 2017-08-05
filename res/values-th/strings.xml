@@ -192,7 +192,7 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ป้ายกำกับ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"เสียงเรียกเข้า"</string>
-    <string name="menu_alarm" msgid="4772010125376647519">"เตือน"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"ปลุก"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ตัวจับเวลา"</string>
     <string name="menu_clock" msgid="5612760670606829805">"นาฬิกา"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"นาฬิกาจับเวลา"</string>
