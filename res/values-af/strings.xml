@@ -372,7 +372,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Verwerk handelinge van tydhouerkennisgewings af."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerk handelinge van stophorlosiekennisgewings af."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Laat wag"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Swiep na regs om toe te maak"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Swiep na regs om af te sit"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Swiep na links om te laat sluimer"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swiep links om te sluimer of regs om toe te maak"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Aftellers"</string>

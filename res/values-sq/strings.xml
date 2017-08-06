@@ -373,7 +373,7 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Përpunon veprimet nga njoftimet e kronometrit."</string>
     <string name="swn_paused" msgid="6364358842808263589">"U ndërpre"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Rrëshqit djathtas për ta larguar"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Rrëshqit majtas për ta dremitur"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Rrëshqit majtas për të dremitur"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Rrëshqit majtas për ta shtyrë, ose djathtas për ta hequr"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Kohëmatësit"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Dridhjet e kohëmatësit"</string>

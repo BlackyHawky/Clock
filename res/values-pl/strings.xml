@@ -390,7 +390,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Przetwarza działania z powiadomień minutnika."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Przetwarza działania z powiadomień stopera."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Wstrzymano"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Przesuń w prawo, by zamknąć"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Przesuń w prawo, by wyłączyć"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Przesuń w lewo, by uśpić"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Przesuń w lewo, by odłożyć, lub w prawo, by zamknąć"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minutniki"</string>
@@ -408,7 +408,7 @@
     <string name="alarm_undo" msgid="5710042601177655254">"cofnij"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm usunięto"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
-    <string name="world_time_ahead" msgid="625559988238637652">"Za <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> później"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> temu"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"Za <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> temu"</string>

@@ -38,7 +38,7 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Elvetés"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Elmulasztott ébresztő"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Elhalasztva"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Szundi"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> perc</item>
       <item quantity="one">1 perc</item>
@@ -372,8 +372,8 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Feldolgozza az időzítő értesítéseiből származó műveleteket."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Feldolgozza a stopperóra értesítéseiből származó műveleteket."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Szüneteltetve"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Az elutasításhoz csúsztassa gyorsan jobbra"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"A szundihoz csúsztassa gyorsan balra"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Az elvetéshez csúsztassa jobbra"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"A szundihoz csúsztassa balra"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"A szundihoz csúsztassa gyorsan balra, az elvetéshez pedig jobbra"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Időzítők"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Időzítő rezgése"</string>

@@ -69,11 +69,11 @@
     <item msgid="6450913786084215050">"ഇപ്പോൾ 1 മിനിറ്റിൽ താഴെ സമയത്തിനുള്ളിൽ അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> കാലയളവിലേക്ക് അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8824719306247973774">"ഇപ്പോൾ <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
-    <item msgid="8182406852935468862">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="2532279224777213194">"ഇപ്പോൾ മുതൽ <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="5936557894247187717">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="9115697840826129603">"ഇപ്പോൾ മുതൽ <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="2332583385137381060">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="8182406852935468862">"<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="2532279224777213194">"<xliff:g id="MINUTES">%3$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="5936557894247187717">"<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="9115697840826129603">"<xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="2332583385137381060">"<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജീകരിച്ചു."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ദിവസം</item>

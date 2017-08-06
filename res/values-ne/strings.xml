@@ -38,7 +38,7 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"खारेज गर्नुहोस्"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"छुटेको आलार्म"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"स्नुज भयो"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"स्नुज गरियो"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> मिनेट</item>
       <item quantity="one">1 मिनेट</item>
@@ -210,7 +210,7 @@
     <string name="sw_pause_button" msgid="2422084453454138042">"पज गर्नुहोस्"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ल्याप"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"साझेदारी गर्नुहोस्"</string>
-    <string name="hours_label" msgid="3393478155635368097">"घण्टा"</string>
+    <string name="hours_label" msgid="3393478155635368097">"घन्टा"</string>
     <string name="minutes_label" msgid="3568098128251438588">"मिनेट"</string>
     <string name="seconds_label" msgid="124655952824003246">"सेकेन्ड"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>

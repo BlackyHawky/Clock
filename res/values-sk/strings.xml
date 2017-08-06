@@ -48,10 +48,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budík je vypnutý"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="few">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minúty.</item>
-      <item quantity="many">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minúty.</item>
-      <item quantity="other">Odložiť o <xliff:g id="MINUTES">%d</xliff:g> minút.</item>
-      <item quantity="one">Odložiť o 1 minútu.</item>
+      <item quantity="few">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minúty</item>
+      <item quantity="many">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minúty</item>
+      <item quantity="other">Odložené o <xliff:g id="MINUTES">%d</xliff:g> minút</item>
+      <item quantity="one">Odložené o 1 minútu</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchádzajúci budík"</string>
@@ -232,8 +232,8 @@
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"č. <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"č. <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"Č. <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"Č. <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Môj čas je <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etáp:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. etapa"</string>
