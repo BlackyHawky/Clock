@@ -25,7 +25,7 @@
     <string name="delete" msgid="5732434972457000541">"Hapus"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Suara alarm default"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Bunyi alarm"</string>
-    <string name="timer_sound" msgid="896163086604894735">"Bunyi pewaktu"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Bunyi timer"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Tambah baru"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Hapus"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarm dan pewaktu yang menggunakan suara ini akan memutar suara default."</string>
@@ -107,7 +107,7 @@
     <string name="settings" msgid="5849739030579520686">"Setelan"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Lama penundaan"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Keraskan volume secara bertahap"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Senyapkan setelah"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Matikan setelah"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> menit</item>
       <item quantity="one">1 menit</item>

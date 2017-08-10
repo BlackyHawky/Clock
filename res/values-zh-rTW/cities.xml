@@ -226,13 +226,13 @@
     <string name="C214" msgid="5230836436291372485">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安提瓜<xliff:g id="TIMEZONE">|America/Antigua</xliff:g>"</string>
     <string name="C215" msgid="9104600827236874744">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>奧斯汀<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C216" msgid="1919768646168928906">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波士頓<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
-    <string name="C217" msgid="4879725034214879629">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡加立<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C217" msgid="4879725034214879629">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡加利<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
     <string name="C218" msgid="5884212032925236157">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>哥倫布<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C219" msgid="2081823206177849440">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達拉斯<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C220" msgid="6453910991331509621">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>諾克斯維爾<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C221" msgid="8383807404322146544">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>曼非斯<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C222" msgid="3700668026644596138">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>邁阿密<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
-    <string name="C223" msgid="221323185158028534">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>明尼阿波利斯<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C223" msgid="221323185158028534">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>明尼亞波利斯<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C224" msgid="5283127526588257314">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>渥太華<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C225" msgid="2397752406722350262">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>費城<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C226" msgid="9121074377966278110">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波特蘭<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
@@ -248,7 +248,7 @@
     <string name="C236" msgid="3687627401939103862">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖安東尼奧<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C237" msgid="4443158977093108877">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>傑克遜維爾<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C238" msgid="7416660474443881822">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴爾的摩<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
-    <string name="C239" msgid="4602819453157356596">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>納什維爾<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C239" msgid="4602819453157356596">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>納許維爾<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C240" msgid="6474976205162582188">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>密爾瓦基<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C241" msgid="9133192521877174743">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>俄克拉荷馬市<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C242" msgid="4837450655035932235">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>拉斯維加斯<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
