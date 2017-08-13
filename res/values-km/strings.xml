@@ -173,7 +173,7 @@
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"សៅរ៍"</item>
     <item msgid="3993530639455360921">"អាទិត្យ"</item>
-    <item msgid="8594709368683324282">"ច័ន្ទ"</item>
+    <item msgid="8594709368683324282">"ចន្ទ"</item>
   </string-array>
     <string name="alarm_volume_title" msgid="8506245173912428522">"កម្រិត​សំឡេង​រោទ៍"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ស្ងាត់"</string>
@@ -368,7 +368,7 @@
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"ផ្អាកនាឡិកាបញ្ឈប់"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"ធាតុរក្សាអេក្រង់"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"ចាប់ផ្តើមធាតុរក្សាអេក្រង់"</string>
-    <string name="alarm_settings" msgid="2947147071388290814">"សំឡេង​រោទ៍"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"ម៉ោង​រោទ៍"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ធ្វើដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ដំណើរការសកម្មភាពពីការជូនដំណឹងម៉ោងបញ្ឈប់"</string>
     <string name="swn_paused" msgid="6364358842808263589">"បានផ្អាក"</string>
