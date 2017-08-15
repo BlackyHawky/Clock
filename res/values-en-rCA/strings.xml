@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"Clock"</string>
+    <string name="label" msgid="162189613902857319">"Label"</string>
+    <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrate"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Repeat"</string>
+    <string name="delete" msgid="5732434972457000541">"Delete"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Default alarm sound"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Alarm sound"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Timer sound"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"Add new"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"Remove"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarms and timers using this sound will play the default sound instead."</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Your sounds"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Device sounds"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"The sound content cannot be accessed."</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Expired"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Tomorrow"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Today"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Dismiss"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Missed alarm"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Snoozed"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+      <item quantity="one">1 min</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm off"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
+      <item quantity="one">Snoozing for 1 minute.</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozing until <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Upcoming alarm"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Your missed alarm has been deleted"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Less than a minute remaining"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g> remaining"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"One minute added to timer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Timer paused, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Timer running, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"remaining"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"remaining"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Alarm set for less than 1 minute from now."</item>
+    <item msgid="6002066367368421848">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> from now."</item>
+    <item msgid="8824719306247973774">"Alarm set for <xliff:g id="HOURS">%2$s</xliff:g> from now."</item>
+    <item msgid="8182406852935468862">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> and <xliff:g id="HOURS">%2$s</xliff:g> from now."</item>
+    <item msgid="2532279224777213194">"Alarm set for <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
+    <item msgid="5936557894247187717">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
+    <item msgid="9115697840826129603">"Alarm set for <xliff:g id="HOURS">%2$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
+    <item msgid="2332583385137381060">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> days</item>
+      <item quantity="one">1 day</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hours</item>
+      <item quantity="one">1 hour</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hr</item>
+      <item quantity="one">1 hr</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
+      <item quantity="one">1 minute</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+      <item quantity="one">1 min</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> seconds</item>
+      <item quantity="one">1 second</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"Every day"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Loading…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Analogue clock"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Digital clock"</string>
+    <string name="settings" msgid="5849739030579520686">"Settings"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Snooze length"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Gradually increase volume"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silence after"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutes</item>
+      <item quantity="one">1 minute</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Never"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 minute"</item>
+    <item msgid="5431906692406316549">"5 minutes"</item>
+    <item msgid="7742728812068919959">"10 minutes"</item>
+    <item msgid="2855948657259647629">"15 minutes"</item>
+    <item msgid="6330196381284475079">"20 minutes"</item>
+    <item msgid="7809240121716151904">"25 minutes"</item>
+    <item msgid="4278641338024561333">"Never"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Off"</item>
+    <item msgid="7195451681426992018">"5 seconds"</item>
+    <item msgid="592917601923801901">"10 seconds"</item>
+    <item msgid="5050318776687582653">"15 seconds"</item>
+    <item msgid="6997726466563948756">"20 seconds"</item>
+    <item msgid="1237360231425097772">"25 seconds"</item>
+    <item msgid="248014374051498284">"30 seconds"</item>
+    <item msgid="6110450211551791852">"35 seconds"</item>
+    <item msgid="8010211657612404516">"40 seconds"</item>
+    <item msgid="3730631498119797451">"45 seconds"</item>
+    <item msgid="623829984393124488">"50 seconds"</item>
+    <item msgid="6390209981529164605">"55 seconds"</item>
+    <item msgid="5261571706794132923">"60 seconds"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 minute"</item>
+    <item msgid="4482596794620161030">"2 minutes"</item>
+    <item msgid="8478276201849960314">"3 minutes"</item>
+    <item msgid="4038456474851212478">"4 minutes"</item>
+    <item msgid="6298175579152122770">"5 minutes"</item>
+    <item msgid="9021860177999278496">"6 minutes"</item>
+    <item msgid="7224689200902680256">"7 minutes"</item>
+    <item msgid="4610012663985162123">"8 minutes"</item>
+    <item msgid="1717028898015659426">"9 minutes"</item>
+    <item msgid="8058492636464337699">"10 minutes"</item>
+    <item msgid="577767219993868603">"11 minutes"</item>
+    <item msgid="3710047869487864775">"12 minutes"</item>
+    <item msgid="3794200935630619331">"13 minutes"</item>
+    <item msgid="5462266433522229437">"14 minutes"</item>
+    <item msgid="2192100038569306041">"15 minutes"</item>
+    <item msgid="6636326047858437620">"16 minutes"</item>
+    <item msgid="2481054808772108352">"17 minutes"</item>
+    <item msgid="4080984064428458050">"18 minutes"</item>
+    <item msgid="5844319398703041730">"19 minutes"</item>
+    <item msgid="2334964289857921073">"20 minutes"</item>
+    <item msgid="4755209855817904977">"21 minutes"</item>
+    <item msgid="8414394445389367355">"22 minutes"</item>
+    <item msgid="2604612428763230265">"23 minutes"</item>
+    <item msgid="6871696471373403806">"24 minutes"</item>
+    <item msgid="1573685398431466364">"25 minutes"</item>
+    <item msgid="6999090368236684971">"26 minutes"</item>
+    <item msgid="7125056720603734703">"27 minutes"</item>
+    <item msgid="1695830988496463030">"28 minutes"</item>
+    <item msgid="6706610539793025916">"29 minutes"</item>
+    <item msgid="2898212818965905529">"30 minutes"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"Start week on"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Saturday"</item>
+    <item msgid="3993530639455360921">"Sunday"</item>
+    <item msgid="8594709368683324282">"Monday"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Alarm volume"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Silent"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"Unknown"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Alarm volume muted"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Unmute"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Default alarm ringtone is silent"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"Change"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Clock notifications are blocked"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Device is set to total silence"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Volume buttons"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"Snooze"</item>
+    <item msgid="3450979320164769576">"Dismiss"</item>
+    <item msgid="7085774139907653538">"Control volume"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"Label"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"Clock"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Add alarm"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Cities"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Settings"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Help"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Screensaver"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sort by time"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sort by name"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Selected Cities"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Resume"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Pause"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Lap"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Share"</string>
+    <string name="hours_label" msgid="3393478155635368097">"h"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"My time is <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Lap times:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Lap <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Add Timer"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Start"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Delete"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Delete <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Add 1 minute"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Add 1 min"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Stop all timers"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Reset"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Cancel"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Timer cancelled"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Time\'s up"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> timers expired"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> timers missed"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Missed timer"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Missed timer: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"Pause"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Reset all timers"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"You\'re quite the speed demon."</item>
+    <item msgid="6332879039890727169">"Enjoy the fruits of your labour."</item>
+    <item msgid="815382761274660130">"Androids are known to be fast, but not as fast as you!"</item>
+    <item msgid="7916250650982813737">"Phew."</item>
+    <item msgid="6836603904515182333">"L33t times."</item>
+    <item msgid="7508085100680861631">"Such prodigious velocity."</item>
+    <item msgid="5961245252909589573">"Let\'s do the time warp again."</item>
+    <item msgid="5211891900854545940">"Just a jump to the left."</item>
+    <item msgid="9071353477103826053">"You have a palette for haste."</item>
+    <item msgid="3785193933691117181">"Photonic velocity."</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"Home"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Cities"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Clock"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Style"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Display time with seconds"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Change date &amp; time"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"Analogue"</item>
+    <item msgid="8483930821046925592">"Digital"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatic home clock"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"While travelling in an area where the time is different, add a clock for home"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Home time zone"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Home time zone"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> ticked"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> unticked"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Marshall Islands"</item>
+    <item msgid="4196408495909011020">"Midway Island"</item>
+    <item msgid="1414384194857730006">"Hawaii"</item>
+    <item msgid="2687091371581931926">"Alaska"</item>
+    <item msgid="1922100269679049660">"Pacific Time"</item>
+    <item msgid="7156402158716866161">"Tijuana"</item>
+    <item msgid="1144117502254612241">"Arizona"</item>
+    <item msgid="101284182011722637">"Chihuahua"</item>
+    <item msgid="689121094232986897">"Mountain Time"</item>
+    <item msgid="5445331923942302756">"Central America"</item>
+    <item msgid="2749806434052452351">"Central Time"</item>
+    <item msgid="3997138870229703753">"Mexico City"</item>
+    <item msgid="5425567073027744888">"Saskatchewan"</item>
+    <item msgid="2877342865396629368">"Bogota"</item>
+    <item msgid="568682398893899670">"Eastern Time"</item>
+    <item msgid="668135984541863866">"Venezuela"</item>
+    <item msgid="3737474220861486223">"Atlantic Time (Barbados)"</item>
+    <item msgid="6279116051273436870">"Atlantic Time (Canada)"</item>
+    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="7776299003105932407">"Santiago"</item>
+    <item msgid="8636989494746218677">"Newfoundland"</item>
+    <item msgid="4402541016410147505">"Brasilia"</item>
+    <item msgid="2251184440733164084">"Buenos Aires"</item>
+    <item msgid="6202926618569004969">"Greenland"</item>
+    <item msgid="2355275037115290628">"Montevideo"</item>
+    <item msgid="1377549694711708945">"Mid-Atlantic"</item>
+    <item msgid="3457671272126347981">"Azores"</item>
+    <item msgid="3659315141063710840">"Cape Verde Islands"</item>
+    <item msgid="1260941741802367635">"Casablanca"</item>
+    <item msgid="8275203689687954762">"London, Dublin"</item>
+    <item msgid="5970179539479320905">"Amsterdam, Berlin"</item>
+    <item msgid="5396319478750517962">"Belgrade"</item>
+    <item msgid="8688787475056663004">"Brussels"</item>
+    <item msgid="3415827874921681622">"Sarajevo"</item>
+    <item msgid="402008965928320066">"Windhoek"</item>
+    <item msgid="6436942724959275569">"W. Africa Time"</item>
+    <item msgid="954536568417204026">"Amman, Jordan"</item>
+    <item msgid="8932745482008902551">"Athens, Istanbul"</item>
+    <item msgid="320025725949024510">"Beirut, Lebanon"</item>
+    <item msgid="7242083112551905970">"Cairo"</item>
+    <item msgid="7241520146011450419">"Helsinki"</item>
+    <item msgid="2717065017510546526">"Jerusalem"</item>
+    <item msgid="8698556287741466553">"Minsk"</item>
+    <item msgid="1797598357342084506">"Harare"</item>
+    <item msgid="5169119919905066998">"Baghdad"</item>
+    <item msgid="2615788116201065182">"Moscow"</item>
+    <item msgid="9084354867885584646">"Kuwait"</item>
+    <item msgid="1351570519986178268">"Nairobi"</item>
+    <item msgid="7094569580635877460">"Tehran"</item>
+    <item msgid="3953138772617909704">"Baku"</item>
+    <item msgid="2868893113598800752">"Tbilisi"</item>
+    <item msgid="7088581865802476373">"Yerevan"</item>
+    <item msgid="1941122257623887992">"Dubai"</item>
+    <item msgid="9194797225058249720">"Kabul"</item>
+    <item msgid="6486569254364577332">"Islamabad, Karachi"</item>
+    <item msgid="5487724896895412089">"Ural\'sk"</item>
+    <item msgid="364906869710826982">"Yekaterinburg"</item>
+    <item msgid="2106505051751383358">"Kolkata"</item>
+    <item msgid="6851586621581501447">"Sri Lanka"</item>
+    <item msgid="800438544128213134">"Kathmandu"</item>
+    <item msgid="6173621471007643021">"Astana"</item>
+    <item msgid="8645125891971581128">"Yangon"</item>
+    <item msgid="2886407505119737794">"Krasnoyarsk"</item>
+    <item msgid="3408222398188107090">"Bangkok"</item>
+    <item msgid="4441612937172851228">"Beijing"</item>
+    <item msgid="4936715789028996930">"Hong Kong"</item>
+    <item msgid="4261031143777385525">"Irkutsk"</item>
+    <item msgid="3538060959338191835">"Kuala Lumpur"</item>
+    <item msgid="1438847562643099201">"Perth"</item>
+    <item msgid="3063913827688244383">"Taipei"</item>
+    <item msgid="3502757135046564209">"Seoul"</item>
+    <item msgid="6107588684519111669">"Tokyo, Osaka"</item>
+    <item msgid="4350769099755608471">"Yakutsk"</item>
+    <item msgid="2422707004533526462">"Adelaide"</item>
+    <item msgid="1292192084554134339">"Darwin"</item>
+    <item msgid="1320883699470001716">"Brisbane"</item>
+    <item msgid="5137198806146386527">"Hobart"</item>
+    <item msgid="5920063686933941174">"Sydney, Canberra"</item>
+    <item msgid="615906039696009425">"Vladivostok"</item>
+    <item msgid="7738680449356275374">"Guam"</item>
+    <item msgid="2882915026380778227">"Magadan"</item>
+    <item msgid="8255615641810148152">"Auckland"</item>
+    <item msgid="3027153773466391728">"Fiji"</item>
+    <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"New alarm"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Create new alarm"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"New timer"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Create new timer"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Start"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Start stopwatch"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Pause"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Pause stopwatch"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Start screensaver"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarms"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Processes actions from timer notifications."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processes actions from stopwatch notifications."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Paused"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Swipe right to dismiss"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Swipe left to snooze"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Swipe left to snooze or right to dismiss"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer vibrate"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Timer paused"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timers paused"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tap to see your timers"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Next timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Screen-saver settings"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Night mode"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Very dim display (for dark rooms)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Expand alarm"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Collapse alarm"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Undo"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm deleted"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ahead"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> behind"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ahead"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> behind"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Tomorrow, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"Yesterday, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"Tomorrow"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"Yesterday"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Next alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"No Alarms"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Invalid time <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"No alarm at <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"No scheduled alarms"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"No label specified"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"No alarms contain the label"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"No alarm scheduled for this time"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm dismissed"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm is set for <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Timer created"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Timer deleted"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Invalid timer length"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm can\'t be dismissed yet, still more than 24 hours away"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Dismiss alarm"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Pick which alarm to dismiss"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"No firing alarms"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm snoozed for 10 minutes"</string>
+</resources>

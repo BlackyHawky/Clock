@@ -183,7 +183,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"डीफॉल्ट अलार्म रिंंगटोन शांत आहे"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"बदला"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"घड्याळ सूचना अवरोधित केल्या आहेत"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"डिव्हाइस संपूर्ण शांत वर सेट केले आहे"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"डीव्हाइस संपूर्ण शांत वर सेट केले आहे"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"व्हॉल्यूम बटणे"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"स्नूझ करा"</item>
