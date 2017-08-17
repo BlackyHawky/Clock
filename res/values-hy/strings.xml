@@ -367,7 +367,7 @@
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Դադարեցնել"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Դադարեցնել վայրկենաչափը"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Էկրանապահ"</string>
-    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Գործարկել էկրանի խնայարարը"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Միացնել էկրանապահը"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Զարթուցիչներ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Մշակում է ժամաչափի ծանուցումներից ծագող գործողությունները:"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Մշակում է վայրկենաչափի ծանուցումներից ծագող գործողությունները:"</string>
