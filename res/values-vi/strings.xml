@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Bộ hẹn giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Cài đặt trình bảo vệ màn hình"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Chế độ ban đêm"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Màn hình rất mờ (đối với phòng tối)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Màn hình rất mờ (dành cho phòng tối)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Mở rộng báo thức"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Thu gọn báo thức"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"hoàn tác"</string>
