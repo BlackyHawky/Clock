@@ -182,7 +182,7 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Ativar som"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"O toque padrão do alarme é o silencioso"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Alterar"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"As notificações do relógio estão bloqueadas"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"As notificações do relógio estão bloqueadas"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"O dispositivo está configurado para silêncio total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botões de volume"</string>
   <string-array name="volume_button_setting_entries">
