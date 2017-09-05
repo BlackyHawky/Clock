@@ -383,7 +383,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள்"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"அடுத்த டைமர்: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"ஸ்கிரீன் சேவர் அமைப்புகள்"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"இரவு பயன்முறை"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"இரவுப் பயன்முறை"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"மிகவும் மங்கலான காட்சி (இருண்ட அறைகளுக்கானது)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
