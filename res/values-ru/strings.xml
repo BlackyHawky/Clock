@@ -417,7 +417,7 @@
     <string name="world_tomorrow" msgid="7633067935455580920">"Завтра"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"Вчера"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Следующий будильник: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Будильник отключен"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Нет будильников"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Время (<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>) указано неверно"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"На <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> не установлено ни одного будильника"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Будильники не установлены"</string>
