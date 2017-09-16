@@ -183,7 +183,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"डीफॉल्ट अलार्म रिंंगटोन शांत आहे"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"बदला"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"घड्याळ सूचना अवरोधित केल्या आहेत"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"डीव्हाइस संपूर्ण शांत वर सेट केले आहे"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"डिव्हाइस संपूर्ण शांत वर सेट केले आहे"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"व्हॉल्यूम बटणे"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"स्नूझ करा"</item>
@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"पुढील टाइमर: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रीन सेव्हर सेटिंग्ज"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"रात्र मोड"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"खूप मंद प्रदर्शन (अंधार असलेल्या खोल्यांसाठी)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"खूप मंद डिस्प्ले (अंधार असलेल्या खोल्यांसाठी)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तृत करा"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म संकुचित करा"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"पूर्ववत करा"</string>

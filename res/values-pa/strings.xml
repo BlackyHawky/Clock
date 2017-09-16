@@ -183,7 +183,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ਪੂਰਵ-ਨਿਰਧਾਰਤ ਅਲਾਰਮ ਰਿੰਗਟੋਨ \'ਚੁੱਪ\' ਹੈ"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"ਬਦਲੋ"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"ਘੜੀ ਸੂਚਨਾਵਾਂ ਬਲੌਕ ਕੀਤੀਆਂ ਗਈਆਂ ਹਨ"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ਡੀਵਾਈਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਚੁੱਪ \'ਤੇ ਸੈੱਟ ਹੈ"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ਡੀਵਾਈਸ ਪੂਰਾ ਸ਼ਾਂਤ \'ਤੇ ਸੈੱਟ ਹੈ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ਵੌਲਿਊਮ ਬਟਨ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ਸਨੂਜ਼"</item>
