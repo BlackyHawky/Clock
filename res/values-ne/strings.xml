@@ -169,7 +169,7 @@
     <item msgid="6706610539793025916">"२९ मिनेट"</item>
     <item msgid="2898212818965905529">"३० मिनेट"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"हप्ता सुरू हुने दिन"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"हप्ता सुरु हुने दिन"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"शनिबार"</item>
     <item msgid="3993530639455360921">"आइतबार"</item>
