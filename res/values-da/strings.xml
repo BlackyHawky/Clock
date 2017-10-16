@@ -412,8 +412,8 @@
     <string name="timer_deleted" msgid="9110322362460029392">"Timeren blev slettet"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ugyldig timerlængde"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmen for kl. <xliff:g id="ALARM_TIME">%s</xliff:g> kan endnu ikke afvises. Der er stadig mere end 24 timer til, at den aktiveres"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Afvis alarm"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vælg, hvilken alarm der skal afvises"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Slå alarm fra"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vælg, hvilken alarm der skal slås fra"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ingen aktive alarmer"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmen kl. <xliff:g id="ALARM_TIME">%s</xliff:g> er udsat i 10 minutter"</string>
 </resources>

@@ -182,7 +182,7 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Ativar som"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"O toque padrão do alarme é o silencioso"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Alterar"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"As notificações do relógio estão bloqueadas"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"As notificações do relógio estão bloqueadas"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"O dispositivo está configurado para silêncio total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botões de volume"</string>
   <string-array name="volume_button_setting_entries">
@@ -382,7 +382,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Toque para ver seus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Configurações da proteção de tela"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Configurações do protetor de tela"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo noturno"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Tela muito escura (para salas escuras)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
