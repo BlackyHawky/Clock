@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"下一個計時器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"螢幕保護設定"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"夜間模式"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"非常暗淡的顯示 (適用於昏暗的室內環境)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"螢幕亮度非常低 (昏暗的室內環境適用)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
