@@ -382,7 +382,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"타이머를 보려면 탭하세요."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"스크린세이버 설정"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"화면 보호기 설정"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"디스플레이 아주 어둡게 하기(어두운 장소용)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>

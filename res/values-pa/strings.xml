@@ -183,7 +183,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ਪੂਰਵ-ਨਿਰਧਾਰਤ ਅਲਾਰਮ ਰਿੰਗਟੋਨ \'ਚੁੱਪ\' ਹੈ"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"ਬਦਲੋ"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"ਘੜੀ ਸੂਚਨਾਵਾਂ ਬਲੌਕ ਕੀਤੀਆਂ ਗਈਆਂ ਹਨ"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ਡੀਵਾਈਸ ਪੂਰੀ ਤਰ੍ਹਾਂ ਚੁੱਪ \'ਤੇ ਸੈੱਟ ਹੈ"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ਡੀਵਾਈਸ ਪੂਰਾ ਸ਼ਾਂਤ \'ਤੇ ਸੈੱਟ ਹੈ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ਵੌਲਿਊਮ ਬਟਨ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ਸਨੂਜ਼"</item>
@@ -379,7 +379,7 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ਟਾਈਮਰ ਥਰਥਰਾਹਟ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ਟਾਈਮਰ ਰੋਕਿਆ"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ਟਾਈਮਰ ਰੋਕੇ ਗਏ"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"ਆਪਣੇ ਟਾਈਮਰਾਂ ਨੂੰ ਵੇਖਣ ਲਈ ਟੈਪ ਕਰੋ"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"ਆਪਣੇ ਟਾਈਮਰਾਂ ਨੂੰ  ਦੇਖਣ  ਲਈ ਟੈਪ ਕਰੋ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ਟਾਈਮਰ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"ਅਗਲਾ ਟਾਈਮਰ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"ਸਕ੍ਰੀਨ ਸੇਵਰ ਸੈਟਿੰਗਾਂ"</string>
