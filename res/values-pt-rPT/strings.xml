@@ -239,7 +239,7 @@
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Temporizador perdido: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interromper"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Repor tds temp."</string>
-    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g> : <xliff:g id="MINUTES">%02d</xliff:g> : <xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
