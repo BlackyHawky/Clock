@@ -64,8 +64,6 @@ public class HandleApiCalls extends Activity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("HandleApiCalls");
 
-    static final String ACTION_SHOW_TIMERS = "android.intent.action.SHOW_TIMERS";
-
     private Context mAppContext;
 
     @Override
@@ -83,16 +81,17 @@ public class HandleApiCalls extends Activity {
             LOGGER.i("onCreate: " + intent);
 
             switch (action) {
+
                 case AlarmClock.ACTION_SET_ALARM:
                     handleSetAlarm(intent);
                     break;
                 case AlarmClock.ACTION_SHOW_ALARMS:
-                    handleShowAlarms(intent);
+                    handleShowAlarms();
                     break;
                 case AlarmClock.ACTION_SET_TIMER:
                     handleSetTimer(intent);
                     break;
-                case ACTION_SHOW_TIMERS:
+                case AlarmClock.ACTION_SHOW_TIMERS:
                     handleShowTimers(intent);
                     break;
                 case AlarmClock.ACTION_DISMISS_ALARM:
@@ -100,6 +99,9 @@ public class HandleApiCalls extends Activity {
                     break;
                 case AlarmClock.ACTION_SNOOZE_ALARM:
                     handleSnoozeAlarm(intent);
+                    break;
+                case AlarmClock.ACTION_DISMISS_TIMER:
+                    handleDismissTimer();
                     break;
             }
         } catch (Exception e) {
@@ -383,7 +385,12 @@ public class HandleApiCalls extends Activity {
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
     }
 
-    private void handleShowAlarms(Intent intent) {
+    private void handleDismissTimer() {
+        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_intent);
+        Controller.getController().notifyVoiceSuccess(this, getString(R.string.timer_dismissed));
+    }
+
+    private void handleShowAlarms() {
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
 
         // Open DeskClock positioned on the alarms tab.

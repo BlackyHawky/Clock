@@ -546,9 +546,9 @@ public final class DataModel {
      *
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      */
-    public void resetExpiredTimers(@StringRes int eventLabelId) {
+    public void resetOrDeleteExpiredTimers(@StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.resetExpiredTimers(eventLabelId);
+        mTimerModel.resetOrDeleteExpiredTimers(eventLabelId);
     }
 
     /**
