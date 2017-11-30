@@ -369,8 +369,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"محافظ صفحه"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"شروع محافظ صفحه‌نمایش"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"هشدارها"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"اقدامات را از اعلان‌های تایمر پردازش می‌کند."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"اقدامات را از اعلان‌های کرونومتر پردازش می‌کند."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"کنش‌ها را از اعلان‌های تایمر پردازش می‌کند."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"کنش‌ها را از اعلان‌های کرونومتر پردازش می‌کند."</string>
     <string name="swn_paused" msgid="6364358842808263589">"متوقف شد"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"برای ردکردن، انگشتتان را روی صفحه تند به راست بکشید"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"برای تعویق، انگشتتان را روی صفحه تند به چپ بکشید"</string>
@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"زنگ هشدار <xliff:g id="ALARM_TIME">%s</xliff:g> خاموش شد"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم می‌شود"</string>
     <string name="timer_created" msgid="4381027137335885547">"تایمر ایجاد شد"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"تایمر پذیرفته نشد"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"تایمر حذف شد"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"مدت زمان  تایمر نامعتبر است"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> اکنون نمی‌توانید زنگ هشدار را خاموش کنید، هنوز بیش از ۲۴ ساعت باقی‌مانده است"</string>
