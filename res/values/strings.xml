@@ -1007,9 +1007,11 @@
     -->
     <string name="timer_created">Timer created</string>
 
-    <!-- String that represents that the user has successfully reset a timer through a voice action
-    that was marked as deleteAfterUse and was thus deleted instead.
-    [CHAR LIMIT=NONE]
+    <!-- String that represents that the user has successfully dismissed a timer. [CHAR_LIMIT=NONE]
+    -->
+    <string name="timer_dismissed">Timer dismissed</string>
+
+    <!-- String that represents that the user has successfully deleted a timer. [CHAR LIMIT=NONE]
     -->
     <string name="timer_deleted">Timer deleted</string>
 
