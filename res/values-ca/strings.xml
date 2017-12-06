@@ -371,7 +371,7 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Processa les accions de les notificacions del temporitzador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processa les accions de les notificacions del cronòmetre."</string>
-    <string name="swn_paused" msgid="6364358842808263589">"Aturat"</string>
+    <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Llisca cap a la dreta per ignorar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Llisca cap a l\'esquerra per posposar"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Llisca cap a l\'esquerra per posposar l\'alarma o cap a la dreta per ignorar-la"</string>
