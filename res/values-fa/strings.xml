@@ -369,8 +369,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"محافظ صفحه"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"شروع محافظ صفحه‌نمایش"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"هشدارها"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"اقدامات را از اعلان‌های تایمر پردازش می‌کند."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"اقدامات را از اعلان‌های کرونومتر پردازش می‌کند."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"کنش‌ها را از اعلان‌های تایمر پردازش می‌کند."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"کنش‌ها را از اعلان‌های کرونومتر پردازش می‌کند."</string>
     <string name="swn_paused" msgid="6364358842808263589">"متوقف شد"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"برای ردکردن، انگشتتان را روی صفحه تند به راست بکشید"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"برای تعویق، انگشتتان را روی صفحه تند به چپ بکشید"</string>
