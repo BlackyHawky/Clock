@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnal deaktiv edildi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm <xliff:g id="ALARM_TIME">%s</xliff:g> üçün qurulub"</string>
     <string name="timer_created" msgid="4381027137335885547">"Vaxtölçən yaradıldı"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"Taymer silindi"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Vaxtölçən silindi"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Yanlış vaxtölçən müddəti"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnalı hələ deaktiv edilə bilməz, 24 saatdan artıq vaxt qalıb."</string>

@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Penggera <xliff:g id="ALARM_TIME">%s</xliff:g> diketepikan"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Penggera ditetapkan pada <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Pemasa dibuat"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"Pemasa diketepikan"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Pemasa dipadamkan"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Tempoh pemasa tidak sah"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Penggera <xliff:g id="ALARM_TIME">%s</xliff:g> belum boleh diketepikan lagi, masih ada lebih 24 jam sebelum penggera itu berbunyi"</string>

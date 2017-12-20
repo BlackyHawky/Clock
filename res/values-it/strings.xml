@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> ignorata"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Sveglia impostata per le ore <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer creato"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"Timer ignorato"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Timer eliminato"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durata del timer non valida"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Non è ancora possibile ignorare la sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> perché mancano ancora più di 24 ore all\'orario impostato"</string>
