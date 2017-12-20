@@ -374,7 +374,7 @@
     <string name="swn_paused" msgid="6364358842808263589">"Dijeda"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Geser ke kanan untuk menutup"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Geser ke kiri untuk menunda"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Gesek ke kiri untuk menunda atau ke kanan untuk menutup"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Geser ke kiri untuk menunda atau ke kanan untuk menutup"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer bergetar"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer dijeda"</string>

@@ -379,7 +379,7 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Mtetemo wa kipima muda"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Kipima wakati kimesitishwa"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vimesitishwa"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Gonga ili uone vipima muda vyako"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Gusa ili uone vipima muda vyako"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kinachofuata: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Mipangilio ya taswira ya skrini"</string>
