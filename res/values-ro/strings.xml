@@ -418,6 +418,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost închisă"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma este setată pentru <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizator creat"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"Temporizator închis"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Temporizatorul a fost șters"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durată nevalidă pentru temporizator"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> nu poate fi închisă încă, deoarece este setată peste mai mult de 24 de ore"</string>

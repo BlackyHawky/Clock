@@ -374,7 +374,7 @@
     <string name="swn_paused" msgid="6364358842808263589">"Dijeda"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Geser ke kanan untuk menutup"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Geser ke kiri untuk menunda"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Gesek ke kiri untuk menunda atau ke kanan untuk menutup"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Geser ke kiri untuk menunda atau ke kanan untuk menutup"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer bergetar"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer dijeda"</string>
@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditutup"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm disetel untuk <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer telah dibuat"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"Timer dihentikan"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Timer dihapus"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Lamanya pewaktu tidak valid"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> belum dapat ditutup, masih 24 jam lagi"</string>
