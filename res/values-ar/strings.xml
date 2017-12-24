@@ -445,6 +445,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"تم تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"تم ضبط المنبه على <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"تم إنشاء الموقت"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"تم تجاهل الموقِّت"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"تم حذف الموقِّت"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"مدة الموقت غير صالحة"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"لا يمكن تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من ٢٤ ساعة"</string>

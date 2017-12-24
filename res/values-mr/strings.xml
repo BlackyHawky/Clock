@@ -101,7 +101,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"दररोज"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"लोड करीत आहे..."</string>
+    <string name="loading_widget" msgid="5306242862476796500">"लोड करत आहे..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"अॅनालॉग घड्याळ"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"डिजिटल घड्याळ"</string>
     <string name="settings" msgid="5849739030579520686">"सेटिंग्ज"</string>
@@ -409,6 +409,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म डिसमिस केला"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> साठी अलार्म सेट केला"</string>
     <string name="timer_created" msgid="4381027137335885547">"टायमर तयार केले"</string>
+    <string name="timer_dismissed" msgid="7109801743030377916">"टाइमर डिसमिस केला"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटविला"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"अद्याप <xliff:g id="ALARM_TIME">%s</xliff:g> चा अलार्म डिसमिस केला जाऊ शकत नाही, अद्याप 24 तासांपेक्षा अधिक कालावधी आहे"</string>
