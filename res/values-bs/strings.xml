@@ -281,7 +281,7 @@
     <string name="city_checked" msgid="616847871968019">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> potvrđen"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> nije potvrđen"</string>
   <string-array name="timezone_labels">
-    <item msgid="5495601234086197399">"Marshallovi otoci"</item>
+    <item msgid="5495601234086197399">"Maršalova ostrva"</item>
     <item msgid="4196408495909011020">"Otok Midway"</item>
     <item msgid="1414384194857730006">"Havaji"</item>
     <item msgid="2687091371581931926">"Aljaska"</item>
