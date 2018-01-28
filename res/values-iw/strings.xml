@@ -427,9 +427,13 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> נסגרה"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"הוגדרה התראה לשעה <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"הטיימר נוצר"</string>
-    <string name="timer_dismissed" msgid="7109801743030377916">"הטיימר הופסק"</string>
+    <!-- no translation found for expired_timers_dismissed (1294953410988488149) -->
     <string name="timer_deleted" msgid="9110322362460029392">"הטיימר נמחק"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"משך טיימר לא חוקי"</string>
+    <!-- no translation found for invalid_timer (900957020728335675) -->
+    <skip />
+    <!-- no translation found for no_expired_timers (4624192298397846876) -->
+    <skip />
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"לא ניתן לסגור עדיין את ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g>, נותרו יותר מ-24 שעות"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"דחה את ההתראה"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"בחר איזו התראה לדחות"</string>

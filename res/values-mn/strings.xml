@@ -409,9 +409,13 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> сэрүүлгийг унртаасан"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>-д сэрүүлэг тавьсан байна"</string>
     <string name="timer_created" msgid="4381027137335885547">"Цаг хэмжигч үүсгэсэн"</string>
-    <string name="timer_dismissed" msgid="7109801743030377916">"Цаг хэмжигчийг цуцалсан"</string>
+    <!-- no translation found for expired_timers_dismissed (1294953410988488149) -->
     <string name="timer_deleted" msgid="9110322362460029392">"Цаг хэмжигчийг устгасан"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Цаг хэмжигчийн урт буруу байна"</string>
+    <!-- no translation found for invalid_timer (900957020728335675) -->
+    <skip />
+    <!-- no translation found for no_expired_timers (4624192298397846876) -->
+    <skip />
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> сэрүүлгийг одоогийн байдлаар унтраах боломжгүй байна. 24 цагийн хугацаа байна"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Дохиоллыг хэрэгсэхгүй болгох"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Цуцлах сэрүүлгийг сонгох"</string>

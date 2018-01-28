@@ -427,9 +427,13 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm na <xliff:g id="ALARM_TIME">%s</xliff:g> został zamknięty"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm jest ustawiony na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Minutnik został utworzony"</string>
-    <string name="timer_dismissed" msgid="7109801743030377916">"Minutnik wyłączony"</string>
+    <!-- no translation found for expired_timers_dismissed (1294953410988488149) -->
     <string name="timer_deleted" msgid="9110322362460029392">"Minutnik został usunięty"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nieprawidłowy czas w minutniku"</string>
+    <!-- no translation found for invalid_timer (900957020728335675) -->
+    <skip />
+    <!-- no translation found for no_expired_timers (4624192298397846876) -->
+    <skip />
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmu na <xliff:g id="ALARM_TIME">%s</xliff:g> nie można jeszcze zamknąć, bo włączy się dopiero za ponad 24 godziny"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Anuluj alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Wybierz, który alarm wyłączyć"</string>
