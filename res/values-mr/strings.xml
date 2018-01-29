@@ -409,13 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म डिसमिस केला"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> साठी अलार्म सेट केला"</string>
     <string name="timer_created" msgid="4381027137335885547">"टायमर तयार केले"</string>
-    <!-- no translation found for expired_timers_dismissed (1294953410988488149) -->
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> टाइमर डिसमिस केला</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमर डिसमिस केले</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटविला"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
-    <!-- no translation found for invalid_timer (900957020728335675) -->
-    <skip />
-    <!-- no translation found for no_expired_timers (4624192298397846876) -->
-    <skip />
+    <string name="invalid_timer" msgid="900957020728335675">"चुकीचा टाइमर निवडला"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"कोणतेही मुदत संपलेले टाइमर नाहीत"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"अद्याप <xliff:g id="ALARM_TIME">%s</xliff:g> चा अलार्म डिसमिस केला जाऊ शकत नाही, अद्याप 24 तासांपेक्षा अधिक कालावधी आहे"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म डिसमिस करा"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कोणता अलार्म डिसमिस करायचा ते निवडा"</string>

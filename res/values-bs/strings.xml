@@ -419,9 +419,9 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm postavljen za <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Tajmer kreiran"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-      <item quantity="one">Isključen je <xliff:g id="NUMBER">%d</xliff:g> tajmer</item>
-      <item quantity="few">Isključena su <xliff:g id="NUMBER">%d</xliff:g> tajmera</item>
-      <item quantity="other">Isključeno je <xliff:g id="NUMBER">%d</xliff:g> tajmera</item>
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> tajmer je isključen</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> tajmera su isključena</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> tajmera je isključeno</item>
     </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Tajmer izbrisan"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nevažeća dužina tajmera"</string>
