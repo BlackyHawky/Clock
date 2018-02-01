@@ -12,7 +12,7 @@ LOCAL_OVERRIDES_PACKAGES := AlarmClock
 LOCAL_SRC_FILES := $(call all-java-files-under, src gen)
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
-        android-support-design \
+        $(ANDROID_SUPPORT_DESIGN_TARGETS) \
         android-support-percent \
         android-support-transition \
         android-support-compat \
