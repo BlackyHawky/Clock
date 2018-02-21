@@ -416,7 +416,7 @@
     <string name="timer_deleted" msgid="9110322362460029392">"टाइमर हटाया गया"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर अवधि"</string>
     <string name="invalid_timer" msgid="900957020728335675">"गलत टाइमर चुना गया"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"खारिज करने के लिए समय सीमा पूरी कर चुका कोई टाइमर नहीं है"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"खारिज करने के लिए, समय सीमा पूरी कर चुका कोई टाइमर नहीं है"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म को अभी ख़ारिज नहीं किया जा सकता, अभी इसमें 24 घंटे का समय शेष है"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म ख़ारिज करें"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"वह अलार्म चुनें जिसे ख़ारिज किया जाना है"</string>
