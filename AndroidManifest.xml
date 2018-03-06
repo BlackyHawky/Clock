@@ -168,6 +168,7 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="org.codeaurora.poweroffalarm.action.UPDATE_ALARM" />
             </intent-filter>
         </receiver>
 
