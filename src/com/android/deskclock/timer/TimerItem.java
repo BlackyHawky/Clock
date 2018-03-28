@@ -19,7 +19,7 @@ package com.android.deskclock.timer;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.SystemClock;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.Button;

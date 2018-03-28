@@ -17,7 +17,7 @@
 package com.android.deskclock.data;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * A read-only domain object representing a custom ringtone chosen from the file system.

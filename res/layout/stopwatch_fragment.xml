@@ -23,7 +23,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <android.support.percent.PercentFrameLayout
+    <androidx.percentlayout.widget.PercentFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -45,9 +45,9 @@
 
         </com.android.deskclock.TimerCircleFrameLayout>
 
-    </android.support.percent.PercentFrameLayout>
+    </androidx.percentlayout.widget.PercentFrameLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/laps_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"

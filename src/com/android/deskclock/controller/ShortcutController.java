@@ -26,7 +26,7 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.UserManager;
 import android.provider.AlarmClock;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.HandleApiCalls;

@@ -18,7 +18,7 @@ package com.android.deskclock.controller;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.EventTracker;

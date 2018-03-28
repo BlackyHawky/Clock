@@ -27,7 +27,7 @@
         <item name="android:windowBackground">@color/default_background</item>
         <item name="android:windowContentOverlay">@null</item>
 
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="colorAccent">#DA4336</item>
         <item name="colorBackgroundFloating">#303030</item>
         <item name="colorControlActivated">@android:color/white</item>
@@ -38,32 +38,32 @@
     </style>
 
     <style name="Theme.DeskClock.Settings">
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="actionBarStyle">@style/Widget.ActionBar</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
 
-        <!-- Attributes from android.support.v7.preference -->
+        <!-- Attributes from androidx.preference.-->
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="Theme.DeskClock.RingtonePicker">
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="actionBarStyle">@style/Widget.ActionBar</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
 
     <style name="Theme.DeskClock.CitySelection">
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="actionBarStyle">@style/Widget.ActionBar.NoTitle</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
 
     <style name="ThemeOverlay.Control.Accent" parent="ThemeOverlay.AppCompat">
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 

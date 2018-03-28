@@ -17,7 +17,7 @@
 package com.android.deskclock.data;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;

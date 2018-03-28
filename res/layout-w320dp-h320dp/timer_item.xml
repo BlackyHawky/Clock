@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.percent.PercentFrameLayout
+    <androidx.percentlayout.widget.PercentFrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -83,7 +83,7 @@
 
         </com.android.deskclock.TimerCircleFrameLayout>
 
-    </android.support.percent.PercentFrameLayout>
+    </androidx.percentlayout.widget.PercentFrameLayout>
 
     <Space
         android:layout_width="match_parent"

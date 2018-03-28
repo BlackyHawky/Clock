@@ -50,7 +50,7 @@
     </LinearLayout>
 
     <!-- World Clock List: 33% of total width. Right gutter is applied in world_clock_item. -->
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

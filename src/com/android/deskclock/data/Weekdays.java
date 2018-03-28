@@ -17,7 +17,7 @@
 package com.android.deskclock.data;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import android.util.ArrayMap;
 
 import com.android.deskclock.R;

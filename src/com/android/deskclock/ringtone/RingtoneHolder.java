@@ -22,7 +22,7 @@ import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 
-import static android.support.v7.widget.RecyclerView.NO_ID;
+import static androidx.recyclerview.widget.RecyclerView.NO_ID;
 
 abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 

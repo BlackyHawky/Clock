@@ -103,12 +103,12 @@
     <style name="Widget.ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@null</item>
 
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
     <style name="Widget.ActionBar.NoTitle">
-        <!-- Attributes from android.support.v7.appcompat -->
+        <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="displayOptions">homeAsUp</item>
     </style>
 

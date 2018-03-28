@@ -19,8 +19,8 @@ package com.android.deskclock.uidata;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.ClockFragment;

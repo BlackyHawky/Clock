@@ -25,9 +25,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.DrawableRes;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.DrawableRes;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -41,8 +41,8 @@ import com.android.deskclock.timer.TimerService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.v4.app.NotificationCompat.Action;
-import static android.support.v4.app.NotificationCompat.Builder;
+import static androidx.core.app.NotificationCompat.Action;
+import static androidx.core.app.NotificationCompat.Builder;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 

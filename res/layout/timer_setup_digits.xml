@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<android.support.v7.widget.GridLayout
+<androidx.gridlayout.widget.GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -124,4 +124,4 @@
         app:layout_column="1"
         app:layout_columnWeight="1" />
 
-</android.support.v7.widget.GridLayout>
+</androidx.gridlayout.widget.GridLayout>

@@ -20,7 +20,7 @@ import android.net.Uri;
 
 import com.android.deskclock.ItemAdapter;
 
-import static android.support.v7.widget.RecyclerView.NO_ID;
+import static androidx.recyclerview.widget.RecyclerView.NO_ID;
 
 final class AddCustomRingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
 

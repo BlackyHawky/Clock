@@ -18,7 +18,7 @@ package com.android.deskclock.worldclock;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.ArraySet;

@@ -28,8 +28,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.Uri;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationManagerCompat;
 import android.util.ArraySet;
 
 import com.android.deskclock.AlarmAlertWakeLock;

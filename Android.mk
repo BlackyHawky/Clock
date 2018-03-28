@@ -12,18 +12,22 @@ LOCAL_OVERRIDES_PACKAGES := AlarmClock
 LOCAL_SRC_FILES := $(call all-java-files-under, src gen)
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
-        $(ANDROID_SUPPORT_DESIGN_TARGETS) \
-        android-support-percent \
-        android-support-transition \
-        android-support-compat \
-        android-support-core-ui \
-        android-support-media-compat \
-        android-support-v13 \
-        android-support-v14-preference \
-        android-support-v7-appcompat \
-        android-support-v7-gridlayout \
-        android-support-v7-preference \
-        android-support-v7-recyclerview
+        androidx.design_design \
+        androidx.annotation_annotation \
+        androidx.lifecycle_lifecycle-runtime \
+        androidx.lifecycle_lifecycle-common \
+        androidx.arch.core_core-common \
+        androidx.collection_collection \
+        androidx.percentlayout_percentlayout \
+        androidx.transition_transition \
+        androidx.core_core \
+        androidx.legacy_legacy-support-core-ui \
+        androidx.media_media \
+        androidx.legacy_legacy-support-v13 \
+        androidx.preference_preference \
+        androidx.appcompat_appcompat \
+        androidx.gridlayout_gridlayout \
+        androidx.recyclerview_recyclerview
 
 LOCAL_USE_AAPT2 := true
 

@@ -15,7 +15,7 @@
 -->
 
 <!-- Guttered content. The gutters are applied in world_clock_item and main_clock_frame. -->
-<android.support.v7.widget.RecyclerView
+<androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cities"
     android:layout_width="0dp"

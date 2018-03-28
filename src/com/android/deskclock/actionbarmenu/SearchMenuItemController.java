@@ -18,8 +18,8 @@ package com.android.deskclock.actionbarmenu;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SearchView.OnQueryTextListener;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.SearchView.OnQueryTextListener;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;

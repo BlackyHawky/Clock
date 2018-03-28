@@ -17,11 +17,11 @@
 package com.android.deskclock.ringtone;
 
 import android.net.Uri;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.android.deskclock.ItemAdapter;
 
-import static android.support.v7.widget.RecyclerView.NO_ID;
+import static androidx.recyclerview.widget.RecyclerView.NO_ID;
 
 final class HeaderHolder extends ItemAdapter.ItemHolder<Uri> {
 

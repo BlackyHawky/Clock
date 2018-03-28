@@ -1,6 +1,6 @@
 package com.android.deskclock;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 /**
  * Implemented by containers that house the fab and its associated buttons. Also implemented by

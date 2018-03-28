@@ -30,7 +30,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.SilentSetting;
