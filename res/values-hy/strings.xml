@@ -376,7 +376,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Սահեցրեք ձախ՝ հետաձգելու համար։ Աջ՝ անջատելու համար։"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ժամանակաչափեր"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռում"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռոց"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Ժամաչափը դադարեցված է"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ դադարեցված է"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Հպեք՝ ձեր ժամաչափերը տեսնելու համար"</string>
