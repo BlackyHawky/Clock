@@ -11,13 +11,15 @@ LOCAL_OVERRIDES_PACKAGES := AlarmClock
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src gen)
 
+LOCAL_STATIC_JAVA_LIBRARIES := \
+        androidx.annotation_annotation \
+        androidx.collection_collection \
+        androidx.arch.core_core-common \
+        androidx.lifecycle_lifecycle-common \
+
 LOCAL_STATIC_ANDROID_LIBRARIES := \
         androidx.design_design \
-        androidx.annotation_annotation \
         androidx.lifecycle_lifecycle-runtime \
-        androidx.lifecycle_lifecycle-common \
-        androidx.arch.core_core-common \
-        androidx.collection_collection \
         androidx.percentlayout_percentlayout \
         androidx.transition_transition \
         androidx.core_core \
