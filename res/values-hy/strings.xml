@@ -195,7 +195,7 @@
     <string name="menu_alarm" msgid="4772010125376647519">"Զարթուցիչ"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Ժամաչափ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ժամացույց"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկյանաչափ"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկենաչափ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ավելացնել զարթուցիչ"</string>
     <string name="button_cities" msgid="4555761857494501363">"Քաղաքներ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
