@@ -263,7 +263,7 @@
     <string name="open_date_settings" msgid="7712226973337806152">"Күнді және уақытты өзгерту"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналогтық"</item>
-    <item msgid="8483930821046925592">"Сандық"</item>
+    <item msgid="8483930821046925592">"Цифрлық"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Автоматты үй сағаты"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Басқа уақыт белдеуінде жүргенде, үй уақытын да көрсету"</string>

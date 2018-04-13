@@ -382,7 +382,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Допрете за да ги видите тајмерите"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмери"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следен тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Поставки на заштитникот на екран"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Заштитник на екранот"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Ноќен режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Многу затемнет екран (за темни соби)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Прошири аларм"</string>
