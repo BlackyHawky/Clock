@@ -262,7 +262,7 @@
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"顯示時間 (包括秒)"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"變更日期和時間"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"類比"</item>
+    <item msgid="917900462224167608">"指針"</item>
     <item msgid="8483930821046925592">"數碼"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自動新增居住地時鐘"</string>
