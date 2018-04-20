@@ -23,12 +23,12 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"اهتزاز"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"تكرار"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"صوت التنبيه الافتراضي"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"صوت التنبيه التلقائي"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"صوت المنبِّه"</string>
     <string name="timer_sound" msgid="896163086604894735">"صوت الموقّت"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"إضافة جديد"</string>
     <string name="remove_sound" msgid="2064643204455734239">"إزالة"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ستعمل المنبهات والمؤقتات التي تستخدم هذا الصوت بالصوت الافتراضي بدلاً منه."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ستعمل المنبهات والمؤقتات التي تستخدم هذا الصوت بالصوت التلقائي بدلاً منه."</string>
     <string name="your_sounds" msgid="1672779351352629681">"أصواتك"</string>
     <string name="device_sounds" msgid="1584894148222639823">"أصوات الجهاز"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"لا يمكن الوصول إلى محتوى الصوت."</string>
@@ -216,7 +216,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"غير معروف"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"تم كتم صوت المنبه."</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"إعادة الصوت"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"نغمة رنين التنبيه الافتراضية صامتة"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"نغمة رنين التنبيه التلقائية صامتة"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"تغيير"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"تم حظر إشعارات الساعة"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"تم تعيين الجهاز إلى الوضع الصامت كليًا."</string>
