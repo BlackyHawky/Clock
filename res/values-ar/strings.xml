@@ -28,7 +28,7 @@
     <string name="timer_sound" msgid="896163086604894735">"صوت الموقّت"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"إضافة جديد"</string>
     <string name="remove_sound" msgid="2064643204455734239">"إزالة"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ستعمل المنبهات والمؤقتات التي تستخدم هذا الصوت بالصوت الافتراضي بدلاً منه."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ستعمل المنبهات والمؤقتات التي تستخدم هذا الصوت بالصوت التلقائي بدلاً منه."</string>
     <string name="your_sounds" msgid="1672779351352629681">"أصواتك"</string>
     <string name="device_sounds" msgid="1584894148222639823">"أصوات الجهاز"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"لا يمكن الوصول إلى محتوى الصوت."</string>
@@ -47,7 +47,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الدقائق</item>
       <item quantity="one">دقيقة واحدة</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم تعطيل المنبه"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم إيقاف المنبه"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"غفوة"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="zero">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
