@@ -47,7 +47,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الدقائق</item>
       <item quantity="one">دقيقة واحدة</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم تعطيل المنبه"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم إيقاف المنبه"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"غفوة"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="zero">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
