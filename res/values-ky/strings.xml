@@ -188,7 +188,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Тындыруу"</item>
     <item msgid="3450979320164769576">"Өчүрүп коюу"</item>
-    <item msgid="7085774139907653538">"Үн деңгээлин көзөмөлдөө"</item>
+    <item msgid="7085774139907653538">"Үндү катуулатуу/акырындатуу"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Белги"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Шыңгыр"</string>
@@ -259,7 +259,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Шаарлар"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Саат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Убакытты секундасы менен көрсөтүү"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Секундаларды көрсөтүү"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Күн менен убакытты өзгөртүү"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналог"</item>

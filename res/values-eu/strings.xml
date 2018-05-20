@@ -208,7 +208,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Berrezarri"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Hasi"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pausatu"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Tartea"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Bitartea"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partekatu"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
