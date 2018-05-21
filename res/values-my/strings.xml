@@ -259,7 +259,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"မြို့များ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"နာရီ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ပုံစံ"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"အချိန်ကို စက္ကန့်နှင့် ပြပါ"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"အချိန်ကို စက္ကန့်ပါ ထည့်ပြရန်"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"ရက်စွဲနှင့် အချိန် ပြောင်းရန်"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"လက်တံနာရီ"</item>
@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"နောက် အချိန်တိုင်းစက် တစ်ခု: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"ဖန်သားပြင်ချွေတာမှုစနစ် ဆက်တင်များ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ညသုံး မုဒ်"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ခပ်မှိန်မှိန် ပြသမှု (မှောင်နေသည့် အခန်းများအတွက်)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"ခပ်မှိန်မှိန် ပြသမှု (အမှောင်ခန်းများအတွက်)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"နှိုးစက်ကို တိုးချဲ့ရန်"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"နှိုးစက်ကို ခေါက်သိမ်းပါ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"မလုပ်တော့ရန်"</string>
