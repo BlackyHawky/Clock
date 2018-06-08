@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> နိုးစက် ဖျက်လိုက်ပြီ"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"နိုးစက်ပေးထားသော အချိန်<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"အချိန်ကိုက်ကိရိယာ ဖန်တီးလိုက်ပါပြီ"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> သတိပေးချက်များကို ပယ်ဖျက်လိုက်ပါပြီ</item>
+      <item quantity="one"> သတိပေးချက်ကို ပယ်ဖျက်လိုက်ပါပြီ</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"အချိန်သတ်မှတ်ခြင်း ဖျက်လိုက်ပါပြီ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"မမှန်ကန်သည့် အချိန်ကိုက် အလျား"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"မမှန်ကန်သည့် သတိပေးချက်ကို ရွေးထားသည်"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"အချိန်ကျော်လွန်သွားပြီဖြစ်သော သတိပေးချက်များ မရှိပါ"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> နိုးစက်ကို ဖျက်၍မရသေးပါ၊ 24 နာရီကျော်ကျန်သေးသည်"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"နှိုးစက်အား ပိတ်ရန်"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ပိတ်ထားလိုသည့် နှိုးစက်အချိန်များကို ရွေးပါ"</string>

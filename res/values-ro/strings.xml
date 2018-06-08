@@ -418,8 +418,15 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost închisă"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma este setată pentru <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizator creat"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> temporizatoare închise</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> de temporizatoare închise</item>
+      <item quantity="one">Temporizator închis</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Temporizatorul a fost șters"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durată nevalidă pentru temporizator"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Ați selectat un temporizator nevalid"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Nu există temporizatoare expirate"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> nu poate fi închisă încă, deoarece este setată peste mai mult de 24 de ore"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Închideți alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Alegeți alarma pe care doriți să o închideți"</string>

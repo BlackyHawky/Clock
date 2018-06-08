@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"已关闭 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"已设置 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="timer_created" msgid="4381027137335885547">"已创建定时器"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">已关闭 <xliff:g id="NUMBER">%d</xliff:g> 个定时器</item>
+      <item quantity="one">已关闭 1 个定时器</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"已删除定时器"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"定时器时长无效"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"选择的定时器无效"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"没有已结束的定时器"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"距离 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟还有 24 小时以上，因此无法关闭此闹钟"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"关闭闹钟"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"请选择要关闭的闹钟"</string>

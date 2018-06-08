@@ -418,8 +418,15 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Signāls plkst. <xliff:g id="ALARM_TIME">%s</xliff:g> atcelts"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Signāls iestatīts uz plkst. <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Taimeris iestatīts"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="zero">Noraidīti <xliff:g id="NUMBER">%d</xliff:g> taimeri</item>
+      <item quantity="one">Noraidīts <xliff:g id="NUMBER">%d</xliff:g> taimeris</item>
+      <item quantity="other">Noraidīti <xliff:g id="NUMBER">%d</xliff:g> taimeri</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Taimeris ir izdzēsts."</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nederīgs taimera darbības ilgums"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Atlasīts nederīgs taimeris"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Nav taimeru, kam beidzies termiņš"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Signālu plkst. <xliff:g id="ALARM_TIME">%s</xliff:g> vēl nevar atcelt. Līdz tam ir vairāk nekā 24 stundas."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Noraidīt signālu"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Izvēlieties, kuru signālu atcelt."</string>

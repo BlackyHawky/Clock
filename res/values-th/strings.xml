@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="6674495003718166674">"Clock"</string>
+    <string name="app_label" msgid="6674495003718166674">"นาฬิกา"</string>
     <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
     <string name="default_label" msgid="5590025289805630372">"ปลุก"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"สั่น"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"ปิดการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> แล้ว"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"ตั้งการปลุกที่เวลา <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"สร้างการจับเวลาแล้ว"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">ปิดตัวจับเวลาถอยหลังแล้ว <xliff:g id="NUMBER">%d</xliff:g> รายการ</item>
+      <item quantity="one">ปิดตัวจับเวลาถอยหลังแล้ว</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"ลบตัวจับเวลาแล้ว"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ระยะเวลาในการจับเวลาไม่ถูกต้อง"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"มีการเลือกตัวจับเวลาถอยหลังที่ไม่ถูกต้อง"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"ไม่มีตัวจับเวลาถอยหลังที่หมดอายุ"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"ยังไม่สามารถปิดการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> ได้ ยังเหลือเวลาอีกกว่า 24 ชั่วโมง"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"ปิดการปลุก"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"เลือกการปลุกที่จะปิด"</string>
