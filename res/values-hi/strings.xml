@@ -209,7 +209,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"प्रारंभ करें"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"पॉज़ करें"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"लैप"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"साझा करें"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"शेयर करें"</string>
     <string name="hours_label" msgid="3393478155635368097">"घं."</string>
     <string name="minutes_label" msgid="3568098128251438588">"मि."</string>
     <string name="seconds_label" msgid="124655952824003246">"से."</string>
@@ -383,8 +383,8 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"अगला टाइमर: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रीन सेवर सेटिंग"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"रात्रि मोड"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"बहुत मद्धिम प्रदर्शन (अंधेरे कमरों के लिए)"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"नाइट मोड"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"बहुत कम रोशनी वाला डिसप्ले (अंधेरे कमरों के लिए)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तृत करें"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म संक्षिप्त करें"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"वापस लाएं"</string>

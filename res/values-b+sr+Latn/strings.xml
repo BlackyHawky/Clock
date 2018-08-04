@@ -115,7 +115,7 @@
     <string name="settings" msgid="5849739030579520686">"Podešavanja"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dužina odlaganja"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postepeno povećaj jačinu zvuka"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj nakon"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj posle"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuta</item>
@@ -129,7 +129,7 @@
     <item msgid="2855948657259647629">"15 minuta"</item>
     <item msgid="6330196381284475079">"20 minuta"</item>
     <item msgid="7809240121716151904">"25 minuta"</item>
-    <item msgid="4278641338024561333">"Nemoj utišavati"</item>
+    <item msgid="4278641338024561333">"Nikad"</item>
   </string-array>
   <string-array name="crescendo_entries">
     <item msgid="7435149932182641128">"Isključeno"</item>

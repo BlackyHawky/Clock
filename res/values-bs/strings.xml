@@ -391,11 +391,11 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Dodirnite da biste vidjeli tajmere"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Tajmeri: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći tajmer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Podešavanje čuvara ekrana"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Postavke čuvara ekrana"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način rada"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Veoma prigušen ekran (za mračne prostorije)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Skupi alarm"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Suzi alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Vrati"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>

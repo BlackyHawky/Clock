@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Rellotge"</string>
-    <string name="label" msgid="162189613902857319">"Nom de l\'alarma"</string>
+    <string name="label" msgid="162189613902857319">"Nom"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repeteix"</string>
