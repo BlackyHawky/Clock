@@ -382,7 +382,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Допрете за да ги видите тајмерите"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмери"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следен тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Поставки на заштитникот на екран"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Заштитник на екранот"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Ноќен режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Многу затемнет екран (за темни соби)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Прошири аларм"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Алармот во <xliff:g id="ALARM_TIME">%s</xliff:g> е отфрлен"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Алармот е поставен за <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Тајмерот е создаден"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> тајмер е откажан</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> тајмери се откажани</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Тајмерот е избришан"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Неважечка должина на тајмер"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Избран е неважечки тајмер"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Нема изминати тајмери"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Алармот во <xliff:g id="ALARM_TIME">%s</xliff:g> не може да се отфрли бидејќи до тогаш има повеќе од 24 часа"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Отфрли аларм"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Одберете кој аларм ќе го отфрлите"</string>

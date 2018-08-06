@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> అలారాన్ని తీసివేసారు"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>కి అలారాన్ని సెట్ చేసారు"</string>
     <string name="timer_created" msgid="4381027137335885547">"టైమర్‌ను సృష్టించారు"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు విస్మరించబడ్డాయి</item>
+      <item quantity="one">టైమర్ విస్మరించబడింది</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"టైమర్‌ను తొలగించారు"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"టైమర్ నిడివి చెల్లదు"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"చెల్లని టైమర్ ఎంచుకోబడింది"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"గడువు ముగిసిన టైమర్‌లు లేవు"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> అలారాన్ని ఇప్పటికీ తీసివేయలేరు, ఇంకా 24 గంటలు పైగా సమయం ఉంది"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"అలారంను తీసివేయండి"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"తీసివేయాల్సిన అలారాన్ని ఎంచుకోండి"</string>

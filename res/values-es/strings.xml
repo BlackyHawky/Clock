@@ -391,7 +391,7 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma eliminada"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> más"</string>
-    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> después"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> menos"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g> más"</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g> después"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Mañana, <xliff:g id="TIME">%1$s</xliff:g>"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> ignorada"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma establecida a las <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizador creado"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> temporizadores ignorados</item>
+      <item quantity="one">Temporizador ignorado</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Temporizador eliminado"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Duración de temporizador no válida"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"El temporizador seleccionado no es válido"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"No hay temporizadores agotados"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Aún no se puede ignorar la alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> porque quedan más de 24 horas"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Descartar alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Indica la alarma que quieras ignorar"</string>

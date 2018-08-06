@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> dagi signal bekor qilindi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Signal <xliff:g id="ALARM_TIME">%s</xliff:g> ga o‘rnatildi"</string>
     <string name="timer_created" msgid="4381027137335885547">"Taymer yaratildi"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ta taymer yopildi</item>
+      <item quantity="one">Taymer yopildi</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Taymer o‘chirib tashlandi"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Taymer vaqti noto‘g‘ri"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Yaroqsiz taymer belgilangan"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Hech qanday muddati o‘tgan taymer yo‘q"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> dagi signalni o‘chirib bo‘lmaydi, ungacha hali 24 soatdan ortiq vaqt bor"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Signalni o‘chirish"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Bekor qilinishi kerak bo‘lgan signalni tanlang"</string>

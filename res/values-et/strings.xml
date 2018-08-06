@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmist kellaajaks <xliff:g id="ALARM_TIME">%s</xliff:g> loobuti"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm on seatud – <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Taimer on loodud"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> taimerist loobuti</item>
+      <item quantity="one">Taimerist loobuti</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Taimer kustutati"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Taimeri kestus on sobimatu"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Valitud on sobimatu taimer"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Aegunud taimereid ei ole"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmist kell <xliff:g id="ALARM_TIME">%s</xliff:g> ei saa veel loobuda, kuna selleni on enam kui 24 tundi aega"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Loobu alarmist"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Valige alarm, millest soovite loobuda"</string>

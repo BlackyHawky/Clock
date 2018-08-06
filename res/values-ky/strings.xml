@@ -188,7 +188,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Тындыруу"</item>
     <item msgid="3450979320164769576">"Өчүрүп коюу"</item>
-    <item msgid="7085774139907653538">"Үн деңгээлин көзөмөлдөө"</item>
+    <item msgid="7085774139907653538">"Үндү катуулатуу/акырындатуу"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Белги"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Шыңгыр"</string>
@@ -259,7 +259,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Шаарлар"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Саат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
-    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Убакытты секундасы менен көрсөтүү"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Секундаларды көрсөтүү"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Күн менен убакытты өзгөртүү"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналог"</item>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Саат <xliff:g id="ALARM_TIME">%s</xliff:g> коюлган ойготкуч өчүрүлдү"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Ойготкуч саат <xliff:g id="ALARM_TIME">%s</xliff:g> коюлган"</string>
     <string name="timer_created" msgid="4381027137335885547">"Таймер түзүлдү"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> таймер четке кагылды</item>
+      <item quantity="one">Таймер четке кагылды</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Таймер жок кылынды"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Таймердин узактыгы жараксыз"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Жараксыз таймер тандалды"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Мөөнөтү өткөн таймерлер жок"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Саат <xliff:g id="ALARM_TIME">%s</xliff:g> коюлган ойготкучту азырынча өчүрүүгө болбойт. Ал 24 сааттан кийин чырылдайт."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ойготкучту этибарга албоо"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Көз жаздымда калтырылчу ойготкучту тандаңыз"</string>

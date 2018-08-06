@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람 제거됨"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"알람 설정 시간: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"타이머가 생성됨"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">타이머 <xliff:g id="NUMBER">%d</xliff:g>개 취소됨</item>
+      <item quantity="one">타이머 취소됨</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"타이머 삭제됨"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"타이머 기간이 잘못됨"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"타이머 선택이 잘못됨"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"만료된 타이머 없음"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"알람 시간이 아직 24시간 이상 남아 있으므로 <xliff:g id="ALARM_TIME">%s</xliff:g> 알람을 아직 취소할 수 없습니다."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"알람 해제"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"취소할 알람 선택"</string>

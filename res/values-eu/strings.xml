@@ -208,7 +208,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Berrezarri"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Hasi"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pausatu"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Tartea"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Bitartea"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partekatu"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Baztertu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma ordu honetarako ezarri da: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Sortu da tenporizadorea"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">Baztertu dira <xliff:g id="NUMBER">%d</xliff:g> tenporizadore</item>
+      <item quantity="one">Baztertu da tenporizadorea</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Ezabatu da tenporizadorea"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Tenporizadorearen iraupenak ez du balio"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Hautatutako tenporizadoreak ez du balio"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Ez dago iraungitako tenporizadorerik"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Ezin da baztertu <xliff:g id="ALARM_TIME">%s</xliff:g> alarma oraindik, hemendik 24 ordurako baino gehiagorako programatuta dagoelako"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Baztertu alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Hautatu baztertu nahi duzun alarma"</string>

@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> ໂມງ​ປຸກ​ຖືກ​ປິດ​ໄວ້​ແລ້ວ"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"ໂມງ​ປຸກ​ຖືກ​ຕັ້ງ​ໃນ​ເວ​ລາ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"ສ້າງ​ການ​ຕັ້ງ​ເວ​ລາ​ແລ້ວ"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">ປິດໂມງນັບຖອຍຫຼັງ <xliff:g id="NUMBER">%d</xliff:g> ອັນແລ້ວ</item>
+      <item quantity="one">ປິດໂມງນັບຖອຍຫຼັງແລ້ວ</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"ລຶບ​ເຄື່ອງ​ຈັບ​ເວ​ລາ​ແລ້ວ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ຄວາມ​ຍາວ​ການ​ຕັ້ງ​ເວ​ລາ​ບໍ່​ຖື​ກ​ຕ້ອງ"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"ເລືອກໂມງບໍ່ຖືກຕ້ອງ"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"ບໍ່ມີໂມງທີ່ໝົດເວລາເທື່ອ"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> ໂມງ​ປຸກ​ບໍ່​ສາ​ມາດ​ປ່ອຍ​ໄວ້​ໄດ້, ຍັງ​ຫຼາຍ​ກ່​ວາ 24 ຊົ່ວ​ໂມງ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"ບອກເລີກ​ການ​ເຕືອນ​"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ເລືອກວ່າ​ຈະ​ປິດ​ໂມງ​ປຸກ​ໃດ​ໄວ້"</string>

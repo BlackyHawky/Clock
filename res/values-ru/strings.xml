@@ -427,8 +427,16 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> отключен"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Будильник зазвонит в <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Таймер создан"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> таймер выключен</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> таймера выключено</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> таймеров выключено</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> таймера выключено</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Таймер удален"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Недопустимая длительность таймера"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Выбран недопустимый таймер"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Нет завершенных таймеров"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> нельзя отключить. Он зазвонит более чем через 24 часа."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Выключить будильник"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Выберите будильник, который нужно отключить"</string>

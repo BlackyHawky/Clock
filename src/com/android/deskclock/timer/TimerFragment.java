@@ -401,7 +401,6 @@ public final class TimerFragment extends DeskClockFragment {
             }
 
             left.announceForAccessibility(getActivity().getString(R.string.timer_deleted));
-
         } else if (mCurrentView == mCreateTimerView) {
             // Clicking the "cancel" button on the timer creation page returns to the timers list.
             mCreateTimerView.reset();

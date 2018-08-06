@@ -427,8 +427,16 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> byl zrušen"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Budík je nastaven na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Časovač byl vytvořen"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> časovače byly ukončeny</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> časovače bylo ukončeno</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> časovačů bylo ukončeno</item>
+      <item quantity="one">Časovač byl ukončen</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Časovač byl smazán"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Neplatná délka časovače"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Byl vybrán neplatný časovač"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Žádné uplynulé časovače"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> zatím nelze zrušit, protože do jeho aktivování zbývá více než 24 hodin"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Zrušit budík"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vyberte, který budík chcete zrušit."</string>

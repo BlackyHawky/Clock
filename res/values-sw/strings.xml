@@ -23,12 +23,12 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Mtetemo"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Rudia"</string>
     <string name="delete" msgid="5732434972457000541">"Futa"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sauti chaguo-msingi ya kengele"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sauti chaguomsingi ya kengele"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Mlio wa kengele"</string>
     <string name="timer_sound" msgid="896163086604894735">"Mlio wa kipima muda"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Ongeza mpya"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Ondoa"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Kengele na vipima muda vinavyotumia sauti hii vitacheza sauti chaguo msingi badala yake."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Kengele na vipima muda vinavyotumia sauti hii vitacheza sauti chaguomsingi badala yake."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Sauti zako"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sauti za kifaa"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Maudhui ya sauti hayawezi kufikiwa."</string>
@@ -180,7 +180,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Isiyojulikana"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Sauti ya kengele imezimwa"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Iwashe"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Mlio chaguo-msingi wa kengele ni kimya"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Mlio chaguomsingi wa kengele ni kimya"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Badilisha"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Arifa za saa zimezuiwa"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Kifaa kimewekwa katika hali ya kimya"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Kengele ya <xliff:g id="ALARM_TIME">%s</xliff:g> imeondolewa"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Kengele imewashwa na italia <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Kipimaji muda kimewekwa"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">Umeondoa vipima muda <xliff:g id="NUMBER">%d</xliff:g></item>
+      <item quantity="one">Umeondoa kipima muda</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Kipima muda kimefutwa"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Urefu usio sahihi wa kipimaji muda"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Umechagua kipima muda kisicho sahihi"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Hakuna vipima muda vilivyokwisha"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Kengele ya saa <xliff:g id="ALARM_TIME">%s</xliff:g> bado haiwezi kuondolewa, ina zaidi ya saa 24 kabla muda wake ufike"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ondoa kengele"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Chagua kengele utakayoondoa"</string>

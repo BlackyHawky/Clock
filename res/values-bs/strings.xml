@@ -218,7 +218,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Pokreni"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pauziraj"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Krug"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Podijeli"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Dijeli"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
@@ -281,7 +281,7 @@
     <string name="city_checked" msgid="616847871968019">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> potvrđen"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> nije potvrđen"</string>
   <string-array name="timezone_labels">
-    <item msgid="5495601234086197399">"Marshallovi otoci"</item>
+    <item msgid="5495601234086197399">"Maršalova ostrva"</item>
     <item msgid="4196408495909011020">"Otok Midway"</item>
     <item msgid="1414384194857730006">"Havaji"</item>
     <item msgid="2687091371581931926">"Aljaska"</item>
@@ -391,11 +391,11 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Dodirnite da biste vidjeli tajmere"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Tajmeri: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći tajmer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Podešavanje čuvara ekrana"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Postavke čuvara ekrana"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način rada"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Veoma prigušen ekran (za mračne prostorije)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Skupi alarm"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Suzi alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Vrati"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
@@ -418,8 +418,15 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm za <xliff:g id="ALARM_TIME">%s</xliff:g> odbačen"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm postavljen za <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Tajmer kreiran"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> tajmer je isključen</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> tajmera su isključena</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> tajmera je isključeno</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Tajmer izbrisan"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nevažeća dužina tajmera"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Odabran je nevažeći tajmer"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Nema isteklih tajmera"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm se još ne može odbaciti; do njega ima više od 24 sata"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Odbaci alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Odaberite koji će se alarm odbaciti"</string>

@@ -382,9 +382,9 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Presiona para ver tus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Configuración del protector de pantalla"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Config. del protector de pantalla"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes poco iluminados)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes oscuros)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"deshacer"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Se ignoró la alarma <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma establecida a la(s) <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Se creó el temporizador"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">Se descartaron <xliff:g id="NUMBER">%d</xliff:g> temporizadores</item>
+      <item quantity="one">Se descartó el temporizador</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Se borró el temporizador"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"La duración del temporizador no es válida"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"El temporizador seleccionado no es válido"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"No hay temporizadores finalizados"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Todavía no se puede ignorar la alarma <xliff:g id="ALARM_TIME">%s</xliff:g> porque aún faltan más de 24 horas para que se active."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorar alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Elige la alarma que quieres ignorar"</string>
