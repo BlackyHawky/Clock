@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Έγινε παράβλεψη του ξυπνητηριού <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Το ξυπνητήρι ορίστηκε στις <xliff:g id="ALARM_TIME">%s</xliff:g>."</string>
     <string name="timer_created" msgid="4381027137335885547">"Δημιουργήθηκε αντίστροφη μέτρηση"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> χρονόμετρα παραβλέφθηκαν</item>
+      <item quantity="one">Το χρονόμετρο παραβλέφθηκε</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Η αντίστροφη μέτρηση διαγράφηκε"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Μη έγκυρη διάρκεια αντίστροφης μέτρησης"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Επιλέχθηκε μη έγκυρο χρονόμετρο"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Δεν υπάρχουν χρονόμετρα που έληξαν"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Δεν είναι δυνατή η παράβλεψη του ξυπνητηριού <xliff:g id="ALARM_TIME">%s</xliff:g> ακόμη, καθώς απομένουν περισσότερες από 24 ώρες γι΄αυτό"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Παράβλεψη ξυπνητηριού"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Επιλέξτε τα ξυπνητήρια που θέλετε να παραβλέψετε"</string>

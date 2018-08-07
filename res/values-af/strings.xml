@@ -200,7 +200,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Stede"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Instellings"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Hulp"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"Skermskut"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Sluimerskerm"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Rangskik volgens tyd"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Rangskik volgens naam"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Geselekteerde stede"</string>
@@ -366,8 +366,8 @@
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Begin stophorlosie"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Laat wag"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Laat stophorlosie wag"</string>
-    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Skermskut"</string>
-    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Begin skermskut"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Sluimerskerm"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Begin sluimerskerm"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Wekkers"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Verwerk handelinge van tydhouerkennisgewings af."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerk handelinge van stophorlosiekennisgewings af."</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Wekker vir <xliff:g id="ALARM_TIME">%s</xliff:g> is toegemaak"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Wekker is gestel vir <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Afteller is geskep"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> aftellers is stilgemaak</item>
+      <item quantity="one">Afteller is stilgemaak</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Afteller is uitgevee"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ongeldige aftellerlengte"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Ongeldige afteller is gekies"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Geen verstreke aftellers nie"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Wekker vir <xliff:g id="ALARM_TIME">%s</xliff:g> kan nog nie toegemaak word nie; nog meer as 24 uur ver"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Maak alarm toe"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kies watter wekker om toe te maak"</string>

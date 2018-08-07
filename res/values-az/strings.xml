@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnal deaktiv edildi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm <xliff:g id="ALARM_TIME">%s</xliff:g> üçün qurulub"</string>
     <string name="timer_created" msgid="4381027137335885547">"Vaxtölçən yaradıldı"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> taymer silindi</item>
+      <item quantity="one">Taymer silindi</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Vaxtölçən silindi"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Yanlış vaxtölçən müddəti"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Yanlış taymer seçildi"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Vaxtı bitmiş taymer yoxdur"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnalı hələ deaktiv edilə bilməz, 24 saatdan artıq vaxt qalıb."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Zəngli saatı ləğv edin"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kənarlaşdırmaq üçün siqnal seçin"</string>

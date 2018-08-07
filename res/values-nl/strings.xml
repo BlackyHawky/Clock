@@ -19,7 +19,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
-    <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
+    <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Trillen"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Herhalen"</string>
     <string name="delete" msgid="5732434972457000541">"Verwijderen"</string>
@@ -28,7 +28,7 @@
     <string name="timer_sound" msgid="896163086604894735">"Timergeluid"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Nieuw toevoegen"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Verwijderen"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Voor alarmen en timers die dit geluid gebruiken, wordt in plaats daarvan het standaardgeluid afgespeeld."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Voor wekkers en timers die dit geluid gebruiken, wordt in plaats daarvan het standaardgeluid afgespeeld."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Jouw geluiden"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Apparaatgeluiden"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"De geluidscontent is niet toegankelijk."</string>
@@ -36,22 +36,22 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Morgen"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Vandaag"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Uitzetten"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm gemist"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Wekker gemist"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Gesnoozed"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
       <item quantity="one">1 min.</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm uit"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Wekker uit"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snoozen"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other">Snooze is ingesteld op <xliff:g id="MINUTES">%d</xliff:g> minuten.</item>
       <item quantity="one">Snooze is ingesteld op 1 minuut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozen tot <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Volgend alarm"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Je gemiste alarm is verwijderd"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Volgende wekker"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Je gemiste wekker is verwijderd"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Nog minder dan een minuut"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -73,7 +73,7 @@
     <item msgid="2532279224777213194">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="5936557894247187717">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="9115697840826129603">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Alarm gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Wekker gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagen</item>
@@ -180,7 +180,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Alarmvolume gedempt"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Dempen opheffen"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Standaardbeltoon voor alarm is stil"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Standaardbeltoon voor wekker is stil"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Wijzigen"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Meldingen van de app Klok worden geblokkeerd"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Apparaat is ingesteld op totale stilte"</string>
@@ -192,11 +192,11 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Beltoon"</string>
-    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Alarm toevoegen"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Wekker toevoegen"</string>
     <string name="button_cities" msgid="4555761857494501363">"Plaatsen"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Instellingen"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Help"</string>
@@ -358,8 +358,8 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nieuw alarm"</string>
-    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Nieuw alarm maken"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nieuwe wekker"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Nieuwe wekker maken"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Nieuwe timer"</string>
     <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Nieuwe timer maken"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Starten"</string>
@@ -368,7 +368,7 @@
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Stopwatch onderbreken"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Screensaver starten"</string>
-    <string name="alarm_settings" msgid="2947147071388290814">"Alarmen"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Wekkers"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Verwerkt acties van timermeldingen."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerkt acties van stopwatchmeldingen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Onderbroken"</string>
@@ -385,8 +385,8 @@
     <string name="screensaver_settings" msgid="1780742944194267226">"Instellingen voor screensaver"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nachtmodus"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Sterk gedimd scherm (voor donkere kamers)"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Alarm uitvouwen"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Alarm samenvouwen"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Wekker uitvouwen"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
@@ -398,22 +398,28 @@
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Gisteren, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_tomorrow" msgid="7633067935455580920">"Morgen"</string>
     <string name="world_yesterday" msgid="5430990920477833164">"Gisteren"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Volgend alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Geen alarmen"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Volgende wekker: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Geen wekkers"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Ongeldige tijd: <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Geen alarm om <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Geen geplande alarmen"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Geen wekker om <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Geen geplande wekkers"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Geen label opgegeven"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Er zijn geen alarmen die het label bevatten"</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Geen alarm gepland op deze tijd"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm gesloten"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm is ingesteld voor <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Er zijn geen wekkers die het label bevatten"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Geen wekker gepland op deze tijd"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> wekker gesloten"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Wekker is ingesteld voor <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer gemaakt"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timers gesloten</item>
+      <item quantity="one">Timer gesloten</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Timer verwijderd"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ongeldige timerduur"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm kan nog niet worden gesloten omdat het over meer dan 24 uur afgaat"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Alarm sluiten"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welk alarm je wilt sluiten"</string>
-    <string name="no_firing_alarms" msgid="4986161963178722289">"Geen actieve alarmen"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm tien minuten gesnoozed"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Ongeldige timer geselecteerd"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Geen verlopen timers"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> wekker kan nog niet worden gesloten omdat deze over meer dan 24 uur afgaat"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Wekker sluiten"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welke wekker je wilt sluiten"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Geen actieve wekkers"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> wekker tien minuten gesnoozed"</string>
 </resources>

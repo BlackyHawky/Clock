@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಗಂಟೆಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ"</string>
     <string name="timer_created" msgid="4381027137335885547">"ಟೈಮರ್ ರಚಿಸಲಾಗಿದೆ"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g>ಟೈಮರ್‌ಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>ಟೈಮರ್‌ಗಳನ್ನು ವಜಾಗೊಳಿಸಲಾಗಿದೆ</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"ಟೈಮರ್ ಅಳಿಸಲಾಗಿದೆ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ಅಮಾನ್ಯ ಟೈಮರ್ ಉದ್ದ"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"ಅಮಾನ್ಯವಾದ ಟೈಮರ್ ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"ಯಾವುದೇ ಅವಧಿ ಮುಗಿದ ಟೈಮರ್‌ಗಳಿಲ್ಲ"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ ಇನ್ನೂ ವಜಾಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ, ಇನ್ನೂ 24 ಗಂಟೆಗಳಿಗಿಂತ ಹೆಚ್ಚು ಸಮಯವಿದೆ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"ಅಲಾರಮ್ ವಜಾಗೊಳಿಸಿ"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ಯಾವ ಅಲಾರಮ್ ವಜಾಗೊಳಿಸಬೇಕೆಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ"</string>

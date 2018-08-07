@@ -175,7 +175,7 @@
     <item msgid="3993530639455360921">"Ням"</item>
     <item msgid="8594709368683324282">"Даваа"</item>
   </string-array>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Сэрүүлгийн дуу"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Сэрүүлгийн дууны түвшин"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Дуугүй"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Тодорхойгүй"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Сэрүүлгийн дууг хаасан"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> сэрүүлгийг унртаасан"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>-д сэрүүлэг тавьсан байна"</string>
     <string name="timer_created" msgid="4381027137335885547">"Цаг хэмжигч үүсгэсэн"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> цаг хэмжигчийг хаасан</item>
+      <item quantity="one">Цаг хэмжигчийг хаасан</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Цаг хэмжигчийг устгасан"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Цаг хэмжигчийн урт буруу байна"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Буруу цаг хэмжигч сонгосон байна"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Дууссан цаг хэмжигч алга"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> сэрүүлгийг одоогийн байдлаар унтраах боломжгүй байна. 24 цагийн хугацаа байна"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Дохиоллыг хэрэгсэхгүй болгох"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Цуцлах сэрүүлгийг сонгох"</string>

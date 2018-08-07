@@ -1007,9 +1007,15 @@
     -->
     <string name="timer_created">Timer created</string>
 
-    <!-- String that represents that the user has successfully reset a timer through a voice action
-    that was marked as deleteAfterUse and was thus deleted instead.
-    [CHAR LIMIT=NONE]
+    <!-- String that represents that the user has successfully dismissed timers.
+    [CHAR_LIMIT=NONE]
+    -->
+    <plurals name="expired_timers_dismissed">
+        <item quantity="one">Timer dismissed</item>
+        <item quantity="other"><xliff:g id="number" example="5">%d</xliff:g> timers dismissed</item>
+    </plurals>
+
+    <!-- String that represents that the user has successfully deleted a timer. [CHAR LIMIT=NONE]
     -->
     <string name="timer_deleted">Timer deleted</string>
 
@@ -1018,6 +1024,18 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="invalid_timer_length">Invalid timer length</string>
+
+    <!-- String that represents that the user attempted to dismiss a timer through a voice action
+    but specified an invalid timer Uri.
+    [CHAR_LIMIT=NONE]
+    -->
+    <string name="invalid_timer">Invalid timer selected</string>
+
+    <!-- String that represents that the user attempted to dismiss a timer through a voice action
+    but no expired timers were eligible for dismissal.
+    [CHAR_LIMIT=NONE]
+    -->
+    <string name="no_expired_timers">No expired timers</string>
 
     <!-- String that represents that the user attempted to dismiss an alarm that is more than
     24 hours away

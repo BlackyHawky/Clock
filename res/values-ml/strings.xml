@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം ഡിസ്മിസ് ചെയ്തു"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>-ന് അലാറം സജ്ജീകരിച്ചു"</string>
     <string name="timer_created" msgid="4381027137335885547">"ടൈമർ സൃഷ്ടിച്ചു"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ ഒഴിവാക്കി</item>
+      <item quantity="one">ടൈമർ ഒഴിവാക്കി</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"ടൈമർ ഇല്ലാതാക്കി"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ടൈമർ ദൈർഘ്യം അസാധുവാണ്"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"അസാധുവായ ടൈമർ തിരഞ്ഞെടുത്തു"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"കാലഹരണപ്പെട്ട ടൈമറുകൾ ഒന്നുമില്ല"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> മണിക്കുള്ള അലാറം ഡിസ്മിസ് ചെയ്യാൻ കഴിയില്ല, അതിന് ഇനിയും 24 മണിക്കൂറിൽ കൂടുതൽ സമയമുണ്ട്"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"അലാറം ഡിസ്മിസ് ചെയ്യുക"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ഡിസ്മിസ് ചെയ്യേണ്ട അലാറം തിരഞ്ഞെടുക്കുക"</string>

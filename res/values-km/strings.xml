@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"បានបដិសេធម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"ម៉ោងរោទ៍ត្រូវបានកំណត់នៅ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"បានបង្កើតកម្មវិធីកំណត់ម៉ោង"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">បាន​ច្រាន​ចោល​​កម្មវិធីកំណត់​ម៉ោង <xliff:g id="NUMBER">%d</xliff:g></item>
+      <item quantity="one">បាន​ច្រាន​ចោល​​កម្មវិធីកំណត់​ម៉ោង</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"បានលុបកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"រយៈពេលនៃកម្មវិធីកំណត់ម៉ោងមិនត្រឹមត្រូវ"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"បាន​ជ្រើសរើស​កម្មវិធី​កំណត់ម៉ោងមិន​ត្រឹមត្រូវ"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"គ្មានកម្មវិធី​កំណត់​ម៉ោងផុត​កំណត់ទេ"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"មិនអាចបដិសេធម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g> បាននៅឡើយទេ នៅសល់ជាង 24 ម៉ោងទៀត"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"បដិសេធម៉ោងរោទិ៍"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"រើសម៉ោងរោទិ៍ដែលត្រូវលុប"</string>

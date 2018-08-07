@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを解除しました"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"アラームは<xliff:g id="ALARM_TIME">%s</xliff:g>に設定されています"</string>
     <string name="timer_created" msgid="4381027137335885547">"タイマーを作成しました"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 件のタイマーを解除しました</item>
+      <item quantity="one">タイマーを解除しました</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"タイマーを削除しました"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"タイマーの長さが無効です"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"選択したタイマーは無効です"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"期限切れのタイマーはありません"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームは、まだ24時間以上先なので解除することはできません"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"アラームを解除"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"解除するアラームを選択してください"</string>

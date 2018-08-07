@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය ඉවතලන ලදී"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> ට සීනුව සකසන ලදි"</string>
     <string name="timer_created" msgid="4381027137335885547">"ටයිමරයක් සාදන ලදි"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one">කාල ගණක <xliff:g id="NUMBER">%d</xliff:g>ක් ඉවත දමන ලදී</item>
+      <item quantity="other">කාල ගණක <xliff:g id="NUMBER">%d</xliff:g>ක් ඉවත දමන ලදී</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"මුහුර්තකය මකන ලදී"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"වලංගු නොවන ටයිමර වේලාව"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"වලංගු නොවන කාල ගණකය තෝරා ඇත"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"කල් ඉකුත් වූ කාල ගණක නැත"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය තවම ඉවතලීමට නොහැකිය, තව පැය 24 කට වඩා ඈතිනි."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"එලාමය අස් කරන්න"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ඉවත ලෑමට අවශ්‍ය සීනුව තෝරන්න"</string>

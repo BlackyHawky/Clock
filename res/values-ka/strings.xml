@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g>-ზე მაღვიძარა გაუქმებულია"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"მაღვიძარა დაყენებულია <xliff:g id="ALARM_TIME">%s</xliff:g>-ზე"</string>
     <string name="timer_created" msgid="4381027137335885547">"ტაიმერი შექმნილია"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ტაიმერი უგულებელყოფილია</item>
+      <item quantity="one">ტაიმერი უგულებელყოფილია</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"ტაიმერი წაშლილია"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ტაიმერის არასწორი ხანგრძლივობა"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"არჩეულია არასწორი ტაიმერი"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"ვადაგასული ტაიმერები არ არის"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g>-ზე მაღვიძარა ჯერ ვერ გაუქმდება, იქამდე 24 საათზე მეტია"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"მაღვიძარის გაუქმება"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"აირჩიეთ გასაუქმებელი მაღვიძარა"</string>

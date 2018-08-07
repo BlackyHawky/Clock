@@ -115,7 +115,7 @@
     <string name="settings" msgid="5849739030579520686">"Подешавања"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено повећај јачину звука"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Утишај након"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минут</item>
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минута</item>
@@ -129,7 +129,7 @@
     <item msgid="2855948657259647629">"15 минута"</item>
     <item msgid="6330196381284475079">"20 минута"</item>
     <item msgid="7809240121716151904">"25 минута"</item>
-    <item msgid="4278641338024561333">"Немој утишавати"</item>
+    <item msgid="4278641338024561333">"Никад"</item>
   </string-array>
   <string-array name="crescendo_entries">
     <item msgid="7435149932182641128">"Искључено"</item>
@@ -418,8 +418,15 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Аларм за <xliff:g id="ALARM_TIME">%s</xliff:g> је одбачен"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Аларм је подешен за <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Тајмер је направљен"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> тајмер је искључен</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> тајмера су искључена</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> тајмера је искључено</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Тајмер је избрисан"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Неважећа дужина тајмера"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Изабран је неважећи тајмер"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Нема истеклих тајмера"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Аларм за <xliff:g id="ALARM_TIME">%s</xliff:g> још увек не може да се одбаци, и даље има више од 24 сата до времена аларма"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Одбаци аларм"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Изаберите аларм који желите да одбаците"</string>

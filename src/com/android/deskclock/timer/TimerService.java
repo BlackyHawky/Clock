@@ -120,7 +120,7 @@ public final class TimerService extends Service {
                     return START_NOT_STICKY;
                 }
                 case ACTION_RESET_EXPIRED_TIMERS: {
-                    DataModel.getDataModel().resetExpiredTimers(label);
+                    DataModel.getDataModel().resetOrDeleteExpiredTimers(label);
                     return START_NOT_STICKY;
                 }
                 case ACTION_RESET_UNEXPIRED_TIMERS: {

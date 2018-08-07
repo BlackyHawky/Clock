@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -64,8 +65,6 @@ public class HandleApiCalls extends Activity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("HandleApiCalls");
 
-    static final String ACTION_SHOW_TIMERS = "android.intent.action.SHOW_TIMERS";
-
     private Context mAppContext;
 
     @Override
@@ -83,16 +82,17 @@ public class HandleApiCalls extends Activity {
             LOGGER.i("onCreate: " + intent);
 
             switch (action) {
+
                 case AlarmClock.ACTION_SET_ALARM:
                     handleSetAlarm(intent);
                     break;
                 case AlarmClock.ACTION_SHOW_ALARMS:
-                    handleShowAlarms(intent);
+                    handleShowAlarms();
                     break;
                 case AlarmClock.ACTION_SET_TIMER:
                     handleSetTimer(intent);
                     break;
-                case ACTION_SHOW_TIMERS:
+                case AlarmClock.ACTION_SHOW_TIMERS:
                     handleShowTimers(intent);
                     break;
                 case AlarmClock.ACTION_DISMISS_ALARM:
@@ -100,6 +100,9 @@ public class HandleApiCalls extends Activity {
                     break;
                 case AlarmClock.ACTION_SNOOZE_ALARM:
                     handleSnoozeAlarm(intent);
+                    break;
+                case AlarmClock.ACTION_DISMISS_TIMER:
+                    handleDismissTimer(intent);
                     break;
             }
         } catch (Exception e) {
@@ -383,7 +386,49 @@ public class HandleApiCalls extends Activity {
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
     }
 
-    private void handleShowAlarms(Intent intent) {
+    private void handleDismissTimer(Intent intent) {
+        final Uri dataUri = intent.getData();
+        if (dataUri != null) {
+            final Timer selectedTimer = getSelectedTimer(dataUri);
+            if (selectedTimer != null) {
+                DataModel.getDataModel().resetOrDeleteTimer(selectedTimer, R.string.label_intent);
+                Controller.getController().notifyVoiceSuccess(this,
+                        getResources().getQuantityString(R.plurals.expired_timers_dismissed, 1));
+                LOGGER.i("Timer dismissed: " + selectedTimer);
+            } else {
+                Controller.getController().notifyVoiceFailure(this,
+                        getString(R.string.invalid_timer));
+                LOGGER.e("Could not dismiss timer: invalid URI");
+            }
+        } else {
+            final List<Timer> expiredTimers = DataModel.getDataModel().getExpiredTimers();
+            if (!expiredTimers.isEmpty()) {
+                for (Timer timer : expiredTimers) {
+                    DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_intent);
+                }
+                final int numberOfTimers = expiredTimers.size();
+                final String timersDismissedMessage = getResources().getQuantityString(
+                        R.plurals.expired_timers_dismissed, numberOfTimers, numberOfTimers);
+                Controller.getController().notifyVoiceSuccess(this, timersDismissedMessage);
+                LOGGER.i(timersDismissedMessage);
+            } else {
+                Controller.getController().notifyVoiceFailure(this,
+                        getString(R.string.no_expired_timers));
+                LOGGER.e("Could not dismiss timer: no expired timers");
+            }
+        }
+    }
+
+    private Timer getSelectedTimer(Uri dataUri) {
+        try {
+            final int timerId = (int) ContentUris.parseId(dataUri);
+            return DataModel.getDataModel().getTimer(timerId);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private void handleShowAlarms() {
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
 
         // Open DeskClock positioned on the alarms tab.

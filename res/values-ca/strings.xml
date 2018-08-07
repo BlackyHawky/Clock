@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Rellotge"</string>
-    <string name="label" msgid="162189613902857319">"Nom de l\'alarma"</string>
+    <string name="label" msgid="162189613902857319">"Nom"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repeteix"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha ignorat"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"L\'alarma està definida per a les <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"S\'ha creat el temporitzador"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">S\'han ignorat <xliff:g id="NUMBER">%d</xliff:g> temporitzadors</item>
+      <item quantity="one">S\'ha ignorat el temporitzador</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"El temporitzador s\'ha suprimit"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"La durada del temporitzador no és vàlida"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"El temporitzador que s\'ha seleccionat no és vàlid"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"No hi ha cap temporitzador finalitzat"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> encara no es pot ignorar, ja que hi falten més de 24 hores"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignora l\'alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Tria quina alarma vols ignorar"</string>

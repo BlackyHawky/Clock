@@ -369,12 +369,12 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"स्क्रिन सेभर"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"स्क्रिन सेभर सुरु गर्नु"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"सचेतकहरू"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रशोधन गर्छ।"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रशोधन गर्छ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"रोकिएको छ"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नाका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"स्‍नूजको लागि बायाँ स्वाइप गर्नुहोस्"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नाका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="timer_settings" msgid="7955522143086154795">"टाइमरहरू"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर भाइब्रेट"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोकियो"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>का लागि अलार्म सेट गरियो"</string>
     <string name="timer_created" msgid="4381027137335885547">"टाइमर सिर्जना गरियो"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमरहरूलाई खारेज गरियो</item>
+      <item quantity="one">टाइमरलाई खारेज गरियो</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"घडी मेटियो"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर लम्बाइ"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"अमान्य टाइमर चयन गरियो"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"समयावधि पूरा भएको कुनै पनि टाइमर छैन"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म अझै खारेज गर्न सक्दैन, अझै २४ घन्टाभन्दा बढी छ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म खारेज गर्नुहोस्"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कुन अलार्म खारेज गर्ने हो छान्नुहोस्"</string>

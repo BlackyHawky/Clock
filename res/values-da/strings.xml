@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Næste timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Indstillinger for pauseskærm"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nattilstand"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Meget mørk skærm (til mørke rum)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Meget dæmpet skærmlys (til mørke rum)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Udvid alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skjul alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"fortryd"</string>
@@ -409,8 +409,14 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmen kl. <xliff:g id="ALARM_TIME">%s</xliff:g> er afvist"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarmen er indstillet til <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timeren er oprettet"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> timer er afvist</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timere er afvist</item>
+    </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Timeren blev slettet"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ugyldig timerlængde"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Der er valgt en ugyldig timer"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Der er ingen udløbne timere"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmen for kl. <xliff:g id="ALARM_TIME">%s</xliff:g> kan endnu ikke afvises. Der er stadig mere end 24 timer til, at den aktiveres"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Slå alarm fra"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vælg, hvilken alarm der skal slås fra"</string>
