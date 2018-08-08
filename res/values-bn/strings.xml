@@ -178,7 +178,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"অ্যালার্মের ভলিউম"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"নীরব"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজানা"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"অ্যালার্মের ভলিউম নিঃশব্দ করা হয়েছে"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"অ্যালার্মের ভলিউম মিউট করা হয়েছে"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"সশব্দ করুন"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ডিফল্ট অ্যালার্মের রিংটোন হ\'ল নীরব"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"পরিবর্তন করুন"</string>
