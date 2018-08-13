@@ -25,7 +25,7 @@
     <string name="delete" msgid="5732434972457000541">"Ջնջել"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Զարթուցիչի կանխադրված ձայնը"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Զարթուցիչի ազդանշան"</string>
-    <string name="timer_sound" msgid="896163086604894735">"Ժամաչափի ձայնը"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Ժամաչափի զանգերանգ"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Ավելացնել նորը"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Հեռացնել"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Այս զանգերանգն օգտագործող զարթուցիչները և ժամաչափերը փոխարենը կնվագարկեն կանխադրված զանգերանգը:"</string>
@@ -106,7 +106,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Թվային ժամացույց"</string>
     <string name="settings" msgid="5849739030579520686">"Կարգավորումներ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Հետաձգման տևողությունը"</string>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Աստիճանաբար բարձրացնել ձայնը"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Աստիճանաբար մեծացնել տևողությունը"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Լռել"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> րոպե</item>
@@ -195,7 +195,7 @@
     <string name="menu_alarm" msgid="4772010125376647519">"Զարթուցիչ"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Ժամաչափ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ժամացույց"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկենաչափ"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկյանաչափ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ավելացնել զարթուցիչ"</string>
     <string name="button_cities" msgid="4555761857494501363">"Քաղաքներ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
@@ -375,14 +375,14 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Անջատելու համար սահեցրեք աջ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Սահեցրեք ձախ՝ հետաձգելու համար։ Աջ՝ անջատելու համար։"</string>
-    <string name="timer_settings" msgid="7955522143086154795">"Ժամաչափներ"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռոց"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Ժամանակաչափեր"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռում"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Ժամաչափը դադարեցված է"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ դադարեցված է"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Հպեք՝ ձեր ժամաչափերը տեսնելու համար"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Հաջորդ ժամաչափը՝ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Էկրանապահի կարգավորում"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Էկրանապահի կարգավորումներ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Գիշերային ռեժիմ"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Շատ մուգ էկրան (մութ սենյակների համար)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Ընդարձակել զարթուցիչը"</string>
