@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
 
     <!-- WRITE_SETTINGS is required to record the upcoming alarm prior to L -->
     <uses-permission
