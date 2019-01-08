@@ -1,0 +1,24 @@
+android_app {
+    name: "DeskClock",
+    resource_dirs: ["res"],
+    sdk_version: "current",
+    overrides: ["AlarmClock"],
+    srcs: [
+        "src/**/*.java",
+        "gen/**/*.java",
+    ],
+    static_libs: [
+        "android-support-design",
+        "android-support-percent",
+        "android-support-transition",
+        "android-support-compat",
+        "android-support-core-ui",
+        "android-support-media-compat",
+        "android-support-v13",
+        "android-support-v14-preference",
+        "android-support-v7-appcompat",
+        "android-support-v7-gridlayout",
+        "android-support-v7-preference",
+        "android-support-v7-recyclerview",
+    ],
+}
