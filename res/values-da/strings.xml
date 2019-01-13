@@ -182,7 +182,7 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Slå lyden til"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Standardringetonen for alarmer er lydløs"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Skift"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Underretninger fra urappen er blokeret"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Notifikationer fra urappen er blokeret"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Enheden er indstillet til total stilhed"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
   <string-array name="volume_button_setting_entries">
@@ -369,8 +369,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Pauseskærm"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Start pauseskærm"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmer"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"Behandler handlinger fra underretninger for timeren."</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Behandler handlinger fra underretninger for stopuret."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Behandler handlinger fra notifikationer for timeren."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Behandler handlinger fra notifikationer for stopuret."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Sat på pause"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Stryg til højre for at slå fra"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Stryg til venstre for at udsætte"</string>
