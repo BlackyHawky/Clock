@@ -7,6 +7,7 @@ android_app {
         "src/**/*.java",
         "gen/**/*.java",
     ],
+    product_specific: true,
     static_libs: [
         "androidx.annotation_annotation",
         "androidx.collection_collection",
