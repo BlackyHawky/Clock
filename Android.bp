@@ -13,7 +13,7 @@ android_app {
         "androidx.collection_collection",
         "androidx.arch.core_core-common",
         "androidx.lifecycle_lifecycle-common",
-        "androidx.design_design",
+        "com.google.android.material_material",
         "androidx.lifecycle_lifecycle-runtime",
         "androidx.percentlayout_percentlayout",
         "androidx.transition_transition",

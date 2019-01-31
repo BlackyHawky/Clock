@@ -19,7 +19,7 @@ package com.android.deskclock.alarms;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;

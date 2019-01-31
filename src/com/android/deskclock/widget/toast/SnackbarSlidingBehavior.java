@@ -19,7 +19,7 @@ package com.android.deskclock.widget.toast;
 import android.content.Context;
 import androidx.annotation.Keep;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 

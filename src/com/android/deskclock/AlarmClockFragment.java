@@ -25,7 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
