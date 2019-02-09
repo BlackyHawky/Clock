@@ -400,7 +400,7 @@
     <string name="world_yesterday" msgid="5430990920477833164">"Onte"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Seguinte alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Non hai alarmas"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Hora non-válida <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Hora non válida <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Non hai ningunha alarma ás <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Non hai ningunha alarma programada"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Non hai etiquetas especificadas"</string>
@@ -414,7 +414,7 @@
       <item quantity="one">Ignorouse o temporizador</item>
     </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"Eliminouse o temporizador"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Duración de temporizador non-válida"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Duración de temporizador non válida"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Seleccionouse un temporizador que non é válido"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Non hai temporizadores finalizados"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Aínda non se pode ignorar a alarma das <xliff:g id="ALARM_TIME">%s</xliff:g> porque quedan máis de 24 horas"</string>
