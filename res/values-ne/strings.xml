@@ -369,12 +369,12 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"स्क्रिन सेभर"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"स्क्रिन सेभर सुरु गर्नु"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"सचेतकहरू"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रशोधन गर्छ।"</string>
-    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रशोधन गर्छ।"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"रोकिएको छ"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नाका लागि दायाँ स्वाइप गर्नुहोस्"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"स्‍नूजको लागि बायाँ स्वाइप गर्नुहोस्"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नाका लागि दायाँ स्वाइप गर्नुहोस्"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="timer_settings" msgid="7955522143086154795">"टाइमरहरू"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर भाइब्रेट"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोकियो"</string>

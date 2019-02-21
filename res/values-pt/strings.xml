@@ -61,8 +61,8 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Um minuto adicionado ao temporizador, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Timer pausado: <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"Timer em execução: <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Temporizador pausado: <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Temporizador em execução: <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"restante"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"restantes"</string>
   <string-array name="alarm_set">
@@ -384,7 +384,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Configurações do protetor de tela"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo noturno"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Tela com iluminação mínima (para salas escuras)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Tela muito escura (para salas escuras)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Recolher alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desfazer"</string>

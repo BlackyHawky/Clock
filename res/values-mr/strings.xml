@@ -29,7 +29,7 @@
     <string name="add_new_sound" msgid="2546936797351540244">"नवीन जोडा"</string>
     <string name="remove_sound" msgid="2064643204455734239">"काढा"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"हा ध्वनी वापरणारे अलार्म आणि टायमर त्याऐवजी डीफॉल्ट ध्वनी प्ले करतील."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"तुमचे ध्वनी"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"आपले ध्वनी"</string>
     <string name="device_sounds" msgid="1584894148222639823">"डिव्हाइसचे ध्वनी"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ध्वनी सामग्रीत प्रवेश केला जाऊ शकत नाही."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"टायमर कालबाह्य झाला"</string>
@@ -51,7 +51,7 @@
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> पर्यंत स्नूझ करा"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आगामी अलार्म"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"तुमचा सुटलेला अलार्म हटवला गेला आहे"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"आपला सुटलेला अलार्म हटविला गेला आहे"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"एका मिनिटापेक्षा कमी वेळ शिल्लक"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -193,7 +193,7 @@
     <string name="label_description" msgid="8736179296142915727">"लेबल"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"रिंगटोन"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"अलार्म"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"टायमर"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"टाइमर"</string>
     <string name="menu_clock" msgid="5612760670606829805">"घड्याळ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"स्टॉपवॉच"</string>
     <string name="button_alarms" msgid="3907838219512538763">"अलार्म जोडा"</string>
@@ -209,7 +209,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"प्रारंभ करा"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"विराम द्या"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"लॅप"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"शेअर करा"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"सामायिक करा"</string>
     <string name="hours_label" msgid="3393478155635368097">"ता"</string>
     <string name="minutes_label" msgid="3568098128251438588">"मि"</string>
     <string name="seconds_label" msgid="124655952824003246">"से"</string>
@@ -219,7 +219,7 @@
     <string name="sw_share_main" msgid="7703563468204234405">"माझी वेळ <xliff:g id="TIME">%s</xliff:g> आहे"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"लॅप वेळा:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"लॅप <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"टायमर जोडा"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"टाइमर जोडा"</string>
     <string name="timer_start" msgid="6158486445614356442">"प्रारंभ करा"</string>
     <string name="timer_delete" msgid="8699122001991909302">"हटवा"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> हटवा"</string>
@@ -234,7 +234,7 @@
     <string name="timer_times_up" msgid="9190440395938519009">"वेळ संपली"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टायमर कालबाह्य झाले"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> टायमर चुकविले"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"टायमर"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
     <string name="missed_timer_notification_label" msgid="6661928727623284334">"चुकविलेला टायमर"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"चुकविलेला टायमर: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"विराम"</string>
@@ -244,7 +244,7 @@
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"तुम्ही खरोखर वेगाचे दानव आहात."</item>
+    <item msgid="842841032273927988">"आपण खरोखर वेगाचे दानव आहात."</item>
     <item msgid="6332879039890727169">"आपल्या कष्टाच्या फळांचा आनंद घ्या."</item>
     <item msgid="815382761274660130">"Androids वेगवान असण्यासाठी ज्ञात आहेत, परंतु आपल्या इतके वेगवान नाहीत!"</item>
     <item msgid="7916250650982813737">"फ्यू."</item>
@@ -369,7 +369,7 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"स्क्रीन सेव्हर"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"स्क्रीन सेव्हर सुरू करा"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"टायमर सूचनांमधील क्रियांवर प्रक्रिया करते."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनांमधील क्रियांवर प्रक्रिया करते."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टॉपवॉच सूचनांमधील क्रियांवर प्रक्रिया करते."</string>
     <string name="swn_paused" msgid="6364358842808263589">"विराम दिला"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"डिसमिस करण्यासाठी उजवीकडे स्वाइप करा"</string>
@@ -379,16 +379,16 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"टायमर कंपन"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टायमरला विराम दिला"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> टायमरला विराम दिला"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"तुमचे टायमर पाहण्यासाठी टॅप करा"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> टायमर"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"पुढील टायमर: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"आपले टायमर पाहण्यासाठी टॅप करा"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"पुढील टाइमर: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रीन सेव्हर सेटिंग्ज"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"रात्र मोड"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"खूप मंद डिस्प्ले (अंधार असलेल्या खोल्यांसाठी)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तृत करा"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म संकुचित करा"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"पूर्ववत करा"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म हटवला"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म हटविला"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> पुढे आहे"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> मागे आहे"</string>
@@ -410,13 +410,13 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> साठी अलार्म सेट केला"</string>
     <string name="timer_created" msgid="4381027137335885547">"टायमर तयार केले"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> टायमर डिसमिस केला</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टायमर डिसमिस केले</item>
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> टाइमर डिसमिस केला</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमर डिसमिस केले</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटवला"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटविला"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
-    <string name="invalid_timer" msgid="900957020728335675">"चुकीचा टायमर निवडला"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"कोणतेही मुदत संपलेले टायमर नाहीत"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"चुकीचा टाइमर निवडला"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"कोणतेही मुदत संपलेले टाइमर नाहीत"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"अद्याप <xliff:g id="ALARM_TIME">%s</xliff:g> चा अलार्म डिसमिस केला जाऊ शकत नाही, अद्याप 24 तासांपेक्षा अधिक कालावधी आहे"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म डिसमिस करा"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कोणता अलार्म डिसमिस करायचा ते निवडा"</string>

@@ -178,7 +178,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"অ্যালার্মের ভলিউম"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"নীরব"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজানা"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"অ্যালার্মের ভলিউম মিউট করা হয়েছে"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"অ্যালার্মের ভলিউম নিঃশব্দ করা হয়েছে"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"সশব্দ করুন"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ডিফল্ট অ্যালার্মের রিংটোন হ\'ল নীরব"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"পরিবর্তন করুন"</string>
@@ -200,7 +200,7 @@
     <string name="button_cities" msgid="4555761857494501363">"শহর"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"সেটিংস"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"সহায়তা"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"স্ক্রিন সেভার"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"স্ক্রীন সেভার"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"সময়ের ভিত্তিতে বাছাই করুন"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"নাম অনুসারে সাজান"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"নির্বাচন করা শহরগুলি"</string>
@@ -258,7 +258,7 @@
     <string name="home_label" msgid="4436139365695453870">"হোম"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"শহর"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ঘড়ি"</string>
-    <string name="clock_style" msgid="2265011060429742344">"স্টাইল"</string>
+    <string name="clock_style" msgid="2265011060429742344">"শৈলী"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"সেকেন্ড সহ সময় প্রদর্শন করুন"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"তারিখ এবং সময় পরিবর্তন করুন"</string>
   <string-array name="clock_style_entries">
@@ -366,8 +366,8 @@
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"স্টপওয়াচ চালু করুন"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"বিরাম দিন"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"স্টপওয়াচে বিরাম দিন"</string>
-    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"স্ক্রিন সেভার"</string>
-    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"স্ক্রিন সেভার শুরু করুন"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"স্ক্রীন সেভার"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"স্ক্রীন সেভার শুরু করুন"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"অ্যালার্মগুলি"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"টাইমার বিজ্ঞপ্তিগুলি থেকে কাজগুলি প্রক্রিয়া করে"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"স্টপওয়াচ বিজ্ঞপ্তিগুলি থেকে কাজগুলি প্রক্রিয়া করে"</string>
@@ -382,9 +382,9 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"আপনার টাইমারগুলি দেখতে আলতো চাপ দিন"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"পরবর্তী টাইমার: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"স্ক্রিন সেভার সেটিংস"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"স্ক্রীন-সেভারের সেটিংস"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"রাতের মোড"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"স্ক্রিনের আলো খুব কম হবে (অন্ধকার ঘরের জন্য)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"অত্যন্ত অস্পষ্ট প্রদর্শন (অন্ধকার ঘরের জন্য)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"অ্যালার্ম প্রসারিত করুন"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"অ্যালার্ম সঙ্কুচিত করুন"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"পূর্বাবস্থায় ফিরুন"</string>
@@ -402,7 +402,7 @@
     <string name="no_alarms" msgid="6429431324842022917">"কোনো অ্যালার্ম নাই"</string>
     <string name="invalid_time" msgid="2782334750243998633">"অবৈধ সময় <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> -এ কোনো অ্যালার্ম নেই"</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"কোনো সময়সূচি নেই"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"কোনো সময়সূচী নেই"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"কোনো লেবেল নির্দিষ্ট করা নেই"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"লেবেলটিতে কোনো অ্যালার্ম নির্দিষ্ট করা নেই"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"এই সময়ের জন্য কোনো অ্যালার্ম পূর্বনির্ধারিত করা নেই"</string>

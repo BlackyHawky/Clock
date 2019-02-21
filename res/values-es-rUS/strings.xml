@@ -382,9 +382,9 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Presiona para ver tus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Config. del protector de pantalla"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Configuración del protector de pantalla"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes oscuros)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes poco iluminados)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"deshacer"</string>
