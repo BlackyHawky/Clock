@@ -30,7 +30,7 @@
     <string name="remove_sound" msgid="2064643204455734239">"削除"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"この音を使用するアラームとタイマーでは、代わりにデフォルトの音が使用されます。"</string>
     <string name="your_sounds" msgid="1672779351352629681">"マイサウンド"</string>
-    <string name="device_sounds" msgid="1584894148222639823">"端末のサウンド"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"デバイスのサウンド"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"音声コンテンツにアクセスできません。"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
@@ -183,7 +183,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"アラーム音のデフォルト設定はマナーモードです"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"変更"</string>
     <string name="app_notifications_blocked" msgid="7249150789023936889">"時計の通知はブロックされています"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"端末は [サイレント] に設定されています"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"デバイスは [サイレント] に設定されています"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量ボタン"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"スヌーズ"</item>
