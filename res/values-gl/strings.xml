@@ -267,8 +267,8 @@
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloxo da túa cidade automático"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Mentres viaxas nunha zona cunha hora diferente, engade un reloxo coa hora da túa cidade"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Fuso horario local"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Fuso horario local"</string>
     <string name="city_checked" msgid="616847871968019">"Marcouse <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Desmarcouse <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">

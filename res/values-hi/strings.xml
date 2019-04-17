@@ -231,8 +231,8 @@
     <string name="timer_reset" msgid="7848424809190171640">"रीसेट करें"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"अभी नहीं"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"टाइमर रोक दिया गया"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"समय समाप्त"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टाइमर की समय-सीमा समाप्त"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"समय खत्म"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टाइमर की समय-सीमा खत्म"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर छूट गए"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
     <string name="missed_timer_notification_label" msgid="6661928727623284334">"छूटा हुआ टाइमर"</string>
@@ -260,7 +260,7 @@
     <string name="clock_settings" msgid="8317286807280600391">"घड़ी"</string>
     <string name="clock_style" msgid="2265011060429742344">"शैली"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"सेकंड के साथ समय प्रदर्शित करें"</string>
-    <string name="open_date_settings" msgid="7712226973337806152">"दिनांक और समय बदलें"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"तारीख और समय बदलें"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"ऐनालॉग"</item>
     <item msgid="8483930821046925592">"डिजिटल"</item>

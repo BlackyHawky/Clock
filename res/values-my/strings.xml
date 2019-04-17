@@ -193,7 +193,7 @@
     <string name="label_description" msgid="8736179296142915727">"အညွှန်း"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"သံစဉ်"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"နှိုးစက်"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"အချိန်တိုင်းစက်"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"တိုင်မာ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"နာရီ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"အချိန်ဖမ်းနာရီ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"နှိုးစက် ထည့်ရန်"</string>
@@ -219,7 +219,7 @@
     <string name="sw_share_main" msgid="7703563468204234405">"ကျွန်ုပ်၏ အချိန်မှာ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"တာ အချိန်များ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"တာ<xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"အချိန်တိုင်းစက် ထည့်ရန်"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"တိုင်မာ ထည့်ရန်"</string>
     <string name="timer_start" msgid="6158486445614356442">"စတင်ရန်"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ဖျက်ရန်"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ကို ဖျက်မယ်"</string>
@@ -230,15 +230,15 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"အချိန်တိုင်းကိရိယာများအားလုံး ရပ်ရန်"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ပြင်ဆင်သတ်မှတ်ရန်"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"မလုပ်တော့"</string>
-    <string name="timer_canceled" msgid="7327923392567128060">"အချိန်တိုင်းစက် ဖျက်သိမ်းလိုက်ပြီ"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"တိုင်မာ ဖျက်သိမ်းလိုက်ပြီ"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"အချိန်ပြည့်သွားပါပြီ"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> အချိန်တိုင်းကိရိယာ သက်တမ်းကုန်ပါပြီ"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"သတိပေးချက် <xliff:g id="NUMBER">%d</xliff:g> ခုလွတ်သွားသည်"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"အချိန်တိုင်းစက်"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"တိုင်မာ"</string>
     <string name="missed_timer_notification_label" msgid="6661928727623284334">"လွတ်သွားသည့် သတိပေးချက်"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"လွတ်သွားသည့် သတိပေးချက်− <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"ရပ်တန့်ရန်"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"အချိန်တိုင်းစက် အားလုံး ပြင်ဆင်သတ်မှတ်ရန်"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"တိုင်မာ အားလုံး ပြင်ဆင်သတ်မှတ်ရန်"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
@@ -376,12 +376,12 @@
     <string name="description_direction_left" msgid="7448141043674998679">"တစ်မှေးအိပ်ရန် ဘယ်ဘက်သို့ ပွတ်ဆွဲပါ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"ပြန်မှေးရန် ဘယ်ဘက်နှင့် ပိတ်ရန် ညာဘက်သို့ ပွတ်ဆွဲပါ။"</string>
     <string name="timer_settings" msgid="7955522143086154795">"အချိန်တိုင်းစက်များ"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"အချိန်တိုင်းစက် တုန်ခါမှု"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"အချိန်တိုင်းစက် ရပ်တန့်ထား"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"အချိန်တိုင်းစက် <xliff:g id="NUMBER">%d</xliff:g> ကြိမ် ရပ်တန့်ခဲ့"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"တိုင်မာ တုန်ခါမှု"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"တိုင်မာ ရပ်တန့်ထား"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"တိုင်မာ <xliff:g id="NUMBER">%d</xliff:g> ကြိမ် ရပ်တန့်ခဲ့"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"အချိန်မှတ်ကိရိယာကို မြင်နိုင်ရန် တို့ထိပါ"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"အချိန်တိုင်းစက် <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"နောက် အချိန်တိုင်းစက် တစ်ခု: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"တိုင်မာ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"နောက် တိုင်မာ တစ်ခု: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"ဖန်သားပြင်ချွေတာမှုစနစ် ဆက်တင်များ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ညသုံး မုဒ်"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"ခပ်မှိန်မှိန် ပြသမှု (အမှောင်ခန်းများအတွက်)"</string>
