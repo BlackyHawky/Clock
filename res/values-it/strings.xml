@@ -200,7 +200,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Città"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Impostazioni"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Guida"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"Screensaver"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Salvaschermo"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordina per ora"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordina per nome"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Città selezionate"</string>
@@ -366,7 +366,7 @@
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Avvia cronometro"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Pausa"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Metti in pausa cronometro"</string>
-    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Salvaschermo"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Avvia screensaver"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Sveglie"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Consente di elaborare le azioni derivanti dalle notifiche relative al timer."</string>

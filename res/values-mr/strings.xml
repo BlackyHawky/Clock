@@ -40,14 +40,14 @@
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"स्नूझ केले"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> मिनिट</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> मिनिटे</item>
+      <item quantity="one">1 मिनिट</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"अलार्म बंद"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"स्नूझ करा"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="one"><xliff:g id="MINUTES">%d</xliff:g> मिनिटासाठी स्नूझ करत आहे.</item>
       <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> मिनिटांसाठी स्नूझ करत आहे.</item>
+      <item quantity="one">1 मिनिटासाठी स्नूझ करत आहे.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> पर्यंत स्नूझ करा"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आगामी अलार्म"</string>
@@ -76,28 +76,28 @@
     <item msgid="2332583385137381060">"आतापासून <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, आणि <xliff:g id="MINUTES">%3$s</xliff:g> साठी अलार्म सेट केला."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> दिवस</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिवस</item>
+      <item quantity="one">1 दिवस</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> तास</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> तास</item>
+      <item quantity="one">1 तास</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> तास</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> तास</item>
+      <item quantity="one">1 तास</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनिट</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनिटे</item>
+      <item quantity="one">1 मिनिट</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनिट</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनिटे</item>
+      <item quantity="one">1 मिनिट</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> सेकंद</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> सेकंद</item>
+      <item quantity="one">1 सेकंद</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"दररोज"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -109,8 +109,8 @@
     <string name="crescendo_duration_title" msgid="8606408542726189528">"व्हॉल्यूम हळूहळू वाढवा"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"नंतर शांतता"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनिट</item>
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनिटे</item>
+      <item quantity="one">1 मिनिट</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"कधीही नाही"</string>
   <string-array name="auto_silence_entries">
@@ -410,8 +410,8 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> साठी अलार्म सेट केला"</string>
     <string name="timer_created" msgid="4381027137335885547">"टायमर तयार केले"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> टायमर डिसमिस केला</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टायमर डिसमिस केले</item>
+      <item quantity="one">टायमर डिसमिस केला</item>
     </plurals>
     <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटवला"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
