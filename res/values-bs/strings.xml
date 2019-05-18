@@ -123,7 +123,7 @@
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikad"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3024545954917711306">"1 minuta"</item>
+    <item msgid="3024545954917711306">"1 minutu"</item>
     <item msgid="5431906692406316549">"5 minuta"</item>
     <item msgid="7742728812068919959">"10 minuta"</item>
     <item msgid="2855948657259647629">"15 minuta"</item>

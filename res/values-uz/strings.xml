@@ -404,7 +404,7 @@
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> uchun hech qanday signal o‘rnatilmagan"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Hech qanday signal o‘rnatilmagan"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Hech qanday izoh qo‘shilmagan"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Hech qaysi signal tavsifi yo‘q"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Hech qanday signal tavsifi yo‘q"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu vaqt uchun hech qanday signal o‘rnatilmagan"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> dagi signal bekor qilindi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Signal <xliff:g id="ALARM_TIME">%s</xliff:g> ga o‘rnatildi"</string>
