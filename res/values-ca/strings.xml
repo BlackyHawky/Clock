@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Rellotge"</string>
-    <string name="label" msgid="162189613902857319">"Nom"</string>
+    <string name="label" msgid="162189613902857319">"Etiqueta"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repeteix"</string>
@@ -190,7 +190,7 @@
     <item msgid="3450979320164769576">"Ignora"</item>
     <item msgid="7085774139907653538">"Controla el volum"</item>
   </string-array>
-    <string name="label_description" msgid="8736179296142915727">"Nom"</string>
+    <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"So"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarma"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Temporitzador"</string>
@@ -208,7 +208,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Restableix"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Inicia"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Posa en pausa"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"+ 1 volta"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Volta"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Comparteix"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -217,7 +217,7 @@
     <string name="lap_number_single_digit" msgid="1051159504304610877">"Volta <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
     <string name="lap_number_double_digit" msgid="2138536756534362037">"Volta <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"La meva hora: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Durada de les voltes:"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Temps per volta:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Volta <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Afegeix temporitzador"</string>
     <string name="timer_start" msgid="6158486445614356442">"Inicia"</string>
