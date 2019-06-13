@@ -114,7 +114,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Digitalni sat"</string>
     <string name="settings" msgid="5849739030579520686">"Podešavanja"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dužina odlaganja"</string>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Postepeno povećaj jačinu zvuka"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Postepeno pojačavaj zvuk"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj posle"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
@@ -178,7 +178,7 @@
     <item msgid="6706610539793025916">"29 minuta"</item>
     <item msgid="2898212818965905529">"30 minuta"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Započni sedmicu u"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Nedelja počinje u"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"subotu"</item>
     <item msgid="3993530639455360921">"nedelju"</item>

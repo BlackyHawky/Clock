@@ -372,9 +372,9 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesa accións das notificacións do temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesa accións das notificacións do cronómetro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Pasa o dedo cara a dereita para apagar"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Pasa o dedo cara a esquerda para adiar"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Pasa o dedo cara a esquerda para adiar e cara a dereita para apagar"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Pasa o dedo cara á dereita para apagar"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Pasa o dedo cara á esquerda para adiar"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Pasa o dedo cara á esquerda para adiar e cara á dereita para apagar"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizadores"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibración do temporizador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Pausouse o temporizador"</string>

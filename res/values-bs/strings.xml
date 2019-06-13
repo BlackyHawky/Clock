@@ -68,7 +68,7 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"preostalo"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"preostalo"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm postavljen za manje od 1 minute od sada."</item>
+    <item msgid="6450913786084215050">"Alarm će se aktivirati za manje od 1 minute."</item>
     <item msgid="6002066367368421848">"Alarm postavljen za <xliff:g id="DAYS">%1$s</xliff:g> od sada."</item>
     <item msgid="8824719306247973774">"Alarm postavljen za <xliff:g id="HOURS">%2$s</xliff:g> od sada."</item>
     <item msgid="8182406852935468862">"Alarm postavljen za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g> od sada."</item>
@@ -123,7 +123,7 @@
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikad"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3024545954917711306">"1 minuta"</item>
+    <item msgid="3024545954917711306">"1 minutu"</item>
     <item msgid="5431906692406316549">"5 minuta"</item>
     <item msgid="7742728812068919959">"10 minuta"</item>
     <item msgid="2855948657259647629">"15 minuta"</item>
@@ -255,13 +255,13 @@
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ni ptica trkačica nije ovako brza."</item>
     <item msgid="6332879039890727169">"Uživaj, zasluženo je."</item>
-    <item msgid="815382761274660130">"Androidi su brzi, ali ne kao ti!"</item>
+    <item msgid="815382761274660130">"Androidi su brzi, ali ne kao vi!"</item>
     <item msgid="7916250650982813737">"Uh."</item>
     <item msgid="6836603904515182333">"Vrhunsko vrij3m3."</item>
     <item msgid="7508085100680861631">"Monstruozno brzo."</item>
     <item msgid="5961245252909589573">"Ovo je bilo brže od munje, hoćemo još jednom?"</item>
     <item msgid="5211891900854545940">"Idemo ludo, idemo jako."</item>
-    <item msgid="9071353477103826053">"Tebi se baš žuri."</item>
+    <item msgid="9071353477103826053">"Vama se baš žuri."</item>
     <item msgid="3785193933691117181">"Brže od svjetlosti."</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Lokalno vrijeme"</string>

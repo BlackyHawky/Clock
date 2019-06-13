@@ -107,7 +107,7 @@
     <string name="settings" msgid="5849739030579520686">"Жөндөөлөр"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Тындыруунун узактыгы"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Аз-аздан катуулатуу"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Төмөнкүдөн кийин үнүн басып коюу"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Канчадан кийин үнү басылсын"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> мүнөт</item>
       <item quantity="one">1 мүнөт</item>
