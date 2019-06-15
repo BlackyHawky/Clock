@@ -114,7 +114,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Дигитални сат"</string>
     <string name="settings" msgid="5849739030579520686">"Подешавања"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено повећај јачину звука"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено појачавај звук"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај после"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минут</item>
@@ -178,7 +178,7 @@
     <item msgid="6706610539793025916">"29 минута"</item>
     <item msgid="2898212818965905529">"30 минута"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Започни седмицу у"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Недеља почиње у"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"суботу"</item>
     <item msgid="3993530639455360921">"недељу"</item>

@@ -191,7 +191,7 @@
     <item msgid="7085774139907653538">"Volume regelen"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Beltoon"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>

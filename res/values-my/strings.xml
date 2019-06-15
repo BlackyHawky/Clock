@@ -25,14 +25,14 @@
     <string name="delete" msgid="5732434972457000541">"ဖျက်ရန်"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"မူရင်းနှိုးစက်သံ"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"နိုးစက်သံ"</string>
-    <string name="timer_sound" msgid="896163086604894735">"သံပတ်သံ"</string>
+    <string name="timer_sound" msgid="896163086604894735">"တိုင်မာသံ"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"အသစ်ထည့်ရန်"</string>
     <string name="remove_sound" msgid="2064643204455734239">"ဖယ်ရှားရန်"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"ဤအသံကို အသုံးပြုထားသည့် နှိုးစက်နှင့် သံပတ်များသည် မူရင်းအသံကိုသာ ဖွင့်ပါလိမ့်မည်။"</string>
     <string name="your_sounds" msgid="1672779351352629681">"သင့်အသံများ"</string>
     <string name="device_sounds" msgid="1584894148222639823">"စက်ပစ္စည်းအသံများ"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ဤအသံဖိုင်ကို ဖွင့်၍မရပါ။"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"အချိန်ကိုက်သတ်မှတ်ချက် ပြီးဆုံးပြီ"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"တိုင်မာ ပြီးဆုံးပြီ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"နက်ဖြန်"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ယနေ့"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ပိတ်ရန်"</string>

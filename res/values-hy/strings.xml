@@ -67,7 +67,7 @@
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"է մնացել"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Զարթուցիչը դրված է այս պահից 1 րոպեից պակաս:"</item>
-    <item msgid="6002066367368421848">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> օր անց:"</item>
+    <item msgid="6002066367368421848">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> անց:"</item>
     <item msgid="8824719306247973774">"Զարթուցիչը դրված է այս պահից <xliff:g id="HOURS">%2$s</xliff:g> անց:"</item>
     <item msgid="8182406852935468862">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> և <xliff:g id="HOURS">%2$s</xliff:g> անց:"</item>
     <item msgid="2532279224777213194">"Զարթուցիչը դրված է այս պահից <xliff:g id="MINUTES">%3$s</xliff:g> անց:"</item>
@@ -107,7 +107,7 @@
     <string name="settings" msgid="5849739030579520686">"Կարգավորումներ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Հետաձգման տևողությունը"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Աստիճանաբար բարձրացնել ձայնը"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Լռել"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Որքան ժամանակից անջատվի"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> րոպե</item>
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> րոպե</item>
