@@ -81,7 +81,7 @@
          unattended for a number of minutes.  It tells the user that
          the alarm has been silenced.-->
     <string name="alarm_missed_title">Missed alarm</string>
-    <string name="alarm_missed_text"><xliff:g id="alarm_time">%s</xliff:g> - <xliff:g id="alarm_label">%s</xliff:g></string>
+    <string name="alarm_missed_text"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
 
     <!-- The text shown after user snoozed an alerting alarm. The text will be shown
          together with the number of minutes in two separate lines. For example:
@@ -588,8 +588,8 @@
     <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
     <string name="timer_reset_all">Reset all timers</string>
 
-    <string name="hours_minutes_seconds"><xliff:g id="hours" example="2">%d</xliff:g>:<xliff:g id="minutes" example="3">%02d</xliff:g>:<xliff:g id="seconds" example="44">%02d</xliff:g></string>
-    <string name="minutes_seconds"><xliff:g id="minutes" example="3">%d</xliff:g>:<xliff:g id="seconds" example="44">%02d</xliff:g></string>
+    <string name="hours_minutes_seconds"><xliff:g id="hours" example="2">%1$d</xliff:g>:<xliff:g id="minutes" example="3">%2$02d</xliff:g>:<xliff:g id="seconds" example="44">%3$02d</xliff:g></string>
+    <string name="minutes_seconds"><xliff:g id="minutes" example="3">%1$d</xliff:g>:<xliff:g id="seconds" example="44">%2$02d</xliff:g></string>
     <string name="seconds"><xliff:g id="seconds" example="44">%d</xliff:g></string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
