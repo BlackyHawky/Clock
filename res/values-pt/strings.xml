@@ -60,7 +60,7 @@
     <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Um minuto adicionado ao temporizador, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Um minuto adicionado ao timer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Timer pausado: <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_accessibility_started" msgid="8503877052873671219">"Timer em execução: <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"restante"</string>
