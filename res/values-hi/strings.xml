@@ -31,7 +31,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"इस ध्वनि का उपयोग करने वाले अलार्म और टाइमर इसके बजाय डिफ़ॉल्ट ध्वनि बजाएंगे."</string>
     <string name="your_sounds" msgid="1672779351352629681">"आपकी ध्वनियां"</string>
     <string name="device_sounds" msgid="1584894148222639823">"डिवाइस की ध्वनियां"</string>
-    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ध्वनि संबंधी सामग्री एक्सेस नहीं की जा सकती."</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ध्वनि संबंधी सामग्री ऐक्सेस नहीं की जा सकती."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"टाइमर की समय सीमा समाप्‍त हो गई"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"कल"</string>
     <string name="alarm_today" msgid="7873594221106531654">"आज"</string>
