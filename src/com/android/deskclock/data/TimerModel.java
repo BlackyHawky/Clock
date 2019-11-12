@@ -19,6 +19,7 @@ package com.android.deskclock.data;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -752,8 +753,8 @@ final class TimerModel {
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
+        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(notificationId, notification);
-
     }
 
     /**

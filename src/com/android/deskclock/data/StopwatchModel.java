@@ -17,6 +17,7 @@
 package com.android.deskclock.data;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.android.deskclock.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -232,6 +235,7 @@ final class StopwatchModel {
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
+        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 
