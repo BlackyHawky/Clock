@@ -21,6 +21,7 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
         <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
@@ -29,6 +30,7 @@
         <item name="android:letterSpacing">0.15</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
         <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 

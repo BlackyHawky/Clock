@@ -35,5 +35,5 @@
     <color name="default_background">#1A237E</color>
 
     <!-- shadowColor for widget text -->
-    <color name="widget_shadow_color">#67000000</color>
+    <color name="widget_shadow_color">#000000</color>
 </resources>
