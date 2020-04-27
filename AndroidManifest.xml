@@ -22,7 +22,7 @@
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
 
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="25" />
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -109,9 +109,11 @@
         <!-- ============================================================== -->
 
         <activity
-            android:name=".HandleApiCalls"
+            android:name="com.android.deskclock.HandleApiCalls"
+            android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
+            android:showWhenLocked="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
@@ -127,9 +129,9 @@
         </activity>
 
         <activity-alias
-            android:name=".HandleSetAlarmApiCalls"
+            android:name="com.android.deskclock.HandleSetAlarmApiCalls"
             android:permission="com.android.alarm.permission.SET_ALARM"
-            android:targetActivity=".HandleApiCalls">
+            android:targetActivity="com.android.deskclock.HandleApiCalls">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
