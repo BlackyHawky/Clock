@@ -27,4 +27,15 @@ android_app {
         "androidx.recyclerview_recyclerview",
         "org.lineageos.platform.internal",
     ],
+    required: [
+        "com.android.deskclock_whitelist"
+    ],
+}
+
+prebuilt_etc {
+    name: "com.android.deskclock_whitelist",
+    product_specific: true,
+    sub_dir: "sysconfig",
+    src: "com.android.deskclock_whitelist.xml",
+    filename_from_src: true,
 }
