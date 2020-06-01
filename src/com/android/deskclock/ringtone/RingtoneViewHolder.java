@@ -79,8 +79,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
             }
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
             mImageView.setImageResource(R.drawable.ic_ringtone_silent);
-        } else if (itemHolder.isPlaying()) {
-            mImageView.setImageResource(R.drawable.ic_ringtone_active);
         } else {
             mImageView.setImageResource(R.drawable.ic_ringtone);
         }

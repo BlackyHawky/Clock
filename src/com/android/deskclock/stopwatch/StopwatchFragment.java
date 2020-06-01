@@ -239,33 +239,26 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-    private void updateFab(@NonNull ImageView fab, boolean animate) {
+    private void updateFab(@NonNull ImageView fab) {
         if (getStopwatch().isRunning()) {
-            if (animate) {
-                fab.setImageResource(R.drawable.ic_play_pause_animation);
-            } else {
-                fab.setImageResource(R.drawable.ic_play_pause);
-            }
+            fab.setImageResource(R.drawable.ic_pause_24dp);
             fab.setContentDescription(fab.getResources().getString(R.string.sw_pause_button));
         } else {
-            if (animate) {
-                fab.setImageResource(R.drawable.ic_pause_play_animation);
-            } else {
-                fab.setImageResource(R.drawable.ic_pause_play);
-            }
+            fab.setImageResource(R.drawable.ic_start_24dp);
             fab.setContentDescription(fab.getResources().getString(R.string.sw_start_button));
         }
         fab.setVisibility(VISIBLE);
     }
 
+    @Override
     public void onUpdateFab(@NonNull ImageView fab) {
-        updateFab(fab, false);
+        updateFab(fab);
     }
 
     @Override
     public void onMorphFab(@NonNull ImageView fab) {
         // Update the fab's drawable to match the current timer state.
-        updateFab(fab, Utils.isNOrLater());
+        updateFab(fab);
         // Animate the drawable.
         AnimatorUtils.startDrawableAnimation(fab);
     }
