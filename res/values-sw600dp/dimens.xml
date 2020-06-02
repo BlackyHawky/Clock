@@ -44,11 +44,6 @@
 
     <dimen name="label_margin_big">8dp</dimen>
 
-    <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
-    <dimen name="timer_setup_top_margin">24sp</dimen>
-    <dimen name="timer_setup_delete_margin">21sp</dimen>
-    <dimen name="timer_setup_digit_font_size">86sp</dimen>
-
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>

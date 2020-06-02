@@ -16,5 +16,4 @@
 
 <resources>
     <dimen name="big_font_size">60sp</dimen>
-    <dimen name="timer_setup_digit_font_size">32sp</dimen>
 </resources>

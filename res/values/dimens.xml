@@ -52,7 +52,8 @@
     <dimen name="day_button_font_size">16sp</dimen>
     <dimen name="alarm_info_font_size">36sp</dimen>
     <dimen name="no_alarm_font_size">16sp</dimen>
-    <dimen name="timer_setup_digit_font_size">32sp</dimen>
+    <dimen name="timer_setup_digit_font_size">42sp</dimen>
+    <dimen name="timer_setup_top_size">120dip</dimen>
 
     <dimen name="alarm_picker_dialog_horizontal_margin">30dp</dimen>
     <dimen name="alarm_picker_dialog_vertical_margin">20dp</dimen>
@@ -71,12 +72,6 @@
     <dimen name="style_label_space">4dip</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
-
-    <!--margin should be ~ half timer_setup_font_size -->
-    <dimen name="timer_setup_delete_margin">14sp</dimen>
-
-    <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
-    <dimen name="timer_setup_top_margin">18sp</dimen>
 
     <dimen name="cities_list_item_height">56dip</dimen>
 

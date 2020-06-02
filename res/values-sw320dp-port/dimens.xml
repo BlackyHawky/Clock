@@ -16,5 +16,4 @@
 
 <resources>
     <dimen name="no_alarms_size">120dp</dimen>
-    <dimen name="timer_setup_digit_font_size">40sp</dimen>
 </resources>
