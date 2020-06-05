@@ -55,9 +55,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeskClock">
 
-        <!-- We can deal with all kinds of aspect ratios -->
-        <meta-data android:name="android.max_aspect" android:value="0.0" />
-
         <!-- ============================================================== -->
         <!-- Main app components.                                           -->
         <!-- ============================================================== -->
