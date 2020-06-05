@@ -16,6 +16,9 @@
 
 package com.android.deskclock.data;
 
+import static com.android.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.android.deskclock.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
+
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -34,6 +37,7 @@ import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.AlarmUtils;
+import com.android.deskclock.NotificationUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
@@ -51,25 +55,10 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 /**
  * Builds notifications to reflect the latest state of the timers.
  */
-class TimerNotificationBuilder {
-
-    /**
-     * Notification channel containing all TimerModel notifications.
-     */
-    private static final String TIMER_MODEL_NOTIFICATION_CHANNEL_ID = "TimerModelNotification";
+public class TimerNotificationBuilder {
 
     private static final int REQUEST_CODE_UPCOMING = 0;
     private static final int REQUEST_CODE_MISSING = 1;
-
-    public void buildChannel(Context context, NotificationManagerCompat notificationManager) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    TIMER_MODEL_NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.default_label),
-                    NotificationManagerCompat.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
     public Notification build(Context context, NotificationModel nm, List<Timer> unexpired) {
         final Timer timer = unexpired.get(0);
@@ -172,7 +161,7 @@ class TimerNotificationBuilder {
                         .setShowWhen(false)
                         .setAutoCancel(false)
                         .setContentIntent(pendingShowApp)
-                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setPriority(Notification.PRIORITY_LOW)
                         .setCategory(NotificationCompat.CATEGORY_ALARM)
                         .setSmallIcon(R.drawable.stat_notify_timer)
                         .setSortKey(nm.getTimerNotificationSortKey())
@@ -225,6 +214,7 @@ class TimerNotificationBuilder {
             }
         }
 
+        NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
         return notification.build();
     }
 
@@ -280,13 +270,13 @@ class TimerNotificationBuilder {
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
 
         final Builder notification = new NotificationCompat.Builder(
-                context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
+                context, FIRING_NOTIFICATION_CHANNEL_ID)
                         .setOngoing(true)
                         .setLocalOnly(true)
                         .setShowWhen(false)
                         .setAutoCancel(false)
                         .setContentIntent(contentIntent)
-                        .setPriority(Notification.PRIORITY_MAX)
+                        .setPriority(Notification.PRIORITY_HIGH)
                         .setDefaults(Notification.DEFAULT_LIGHTS)
                         .setSmallIcon(R.drawable.stat_notify_timer)
                         .setFullScreenIntent(pendingFullScreen, true)
@@ -307,6 +297,7 @@ class TimerNotificationBuilder {
             notification.setContentTitle(stateText).setContentText(contentTextPreN);
         }
 
+        NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
         return notification.build();
     }
 
@@ -387,6 +378,7 @@ class TimerNotificationBuilder {
             notification.setContentText(contentText).setContentTitle(stateText);
         }
 
+        NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
         return notification.build();
     }
 

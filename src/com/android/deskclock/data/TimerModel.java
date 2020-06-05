@@ -753,7 +753,6 @@ final class TimerModel {
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
-        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(notificationId, notification);
     }
 

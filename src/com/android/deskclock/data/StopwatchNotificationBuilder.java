@@ -16,6 +16,8 @@
 
 package com.android.deskclock.data;
 
+import static com.android.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.PendingIntent;
@@ -32,6 +34,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.RemoteViews;
 
+import com.android.deskclock.NotificationUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
@@ -46,22 +49,7 @@ import static android.view.View.VISIBLE;
 /**
  * Builds notification to reflect the latest state of the stopwatch and recorded laps.
  */
-class StopwatchNotificationBuilder {
-
-    /**
-     * Notification channel containing all stopwatch notifications.
-     */
-    private static final String STOPWATCH_NOTIFICATION_CHANNEL_ID = "StopwatchNotification";
-
-    public void buildChannel(Context context, NotificationManagerCompat notificationManager) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    STOPWATCH_NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.default_label),
-                    NotificationManagerCompat.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+public class StopwatchNotificationBuilder {
 
     public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
@@ -151,7 +139,7 @@ class StopwatchNotificationBuilder {
                         .setCustomContentView(content)
                         .setContentIntent(pendingShowApp)
                         .setAutoCancel(stopwatch.isPaused())
-                        .setPriority(Notification.PRIORITY_MAX)
+                        .setPriority(Notification.PRIORITY_LOW)
                         .setSmallIcon(R.drawable.stat_notify_stopwatch)
                         .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                         .setColor(ContextCompat.getColor(context, R.color.default_background));
@@ -164,6 +152,7 @@ class StopwatchNotificationBuilder {
             notification.addAction(action);
         }
 
+        NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
         return notification.build();
     }
 }

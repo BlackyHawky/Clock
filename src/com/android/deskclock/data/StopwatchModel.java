@@ -235,7 +235,6 @@ final class StopwatchModel {
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
-        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 
