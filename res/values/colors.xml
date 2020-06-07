@@ -24,6 +24,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_08p">#14FFFFFF</color>
     <color name="white_63p">#A0FFFFFF</color>
+    <color name="white_50p">#80FFFFFF</color>
     <color name="no_alarms">#4CFFFFFF</color>
 
     <color name="transparent">#00000000</color>
@@ -38,4 +39,5 @@
     <color name="widget_shadow_color">#000000</color>
 
     <color name="accent_color">#FFEB40</color>
+    <color name="secondary_color">#2F378A</color>
 </resources>

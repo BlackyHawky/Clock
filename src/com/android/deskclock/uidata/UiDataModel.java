@@ -19,7 +19,7 @@ package com.android.deskclock.uidata;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import androidx.annotation.DrawableRes;
+import androidx.annotation.IntegerRes;
 import androidx.annotation.StringRes;
 
 import com.android.deskclock.AlarmClockFragment;
@@ -39,23 +39,23 @@ public final class UiDataModel {
 
     /** Identifies each of the primary tabs within the application. */
     public enum Tab {
-        ALARMS(AlarmClockFragment.class, R.drawable.ic_tab_alarm, R.string.menu_alarm),
-        CLOCKS(ClockFragment.class, R.drawable.ic_tab_clock, R.string.menu_clock),
-        TIMERS(TimerFragment.class, R.drawable.ic_tab_timer, R.string.menu_timer),
-        STOPWATCH(StopwatchFragment.class, R.drawable.ic_tab_stopwatch, R.string.menu_stopwatch);
+        ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
+        CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
+        TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
+        STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch);
 
         private final String mFragmentClassName;
-        private final @DrawableRes int mIconResId;
+        private final @IntegerRes int mPageResId;
         private final @StringRes int mLabelResId;
 
-        Tab(Class fragmentClass, @DrawableRes int iconResId, @StringRes int labelResId) {
+        Tab(Class fragmentClass, @IntegerRes int pageResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
-            mIconResId = iconResId;
+            mPageResId = pageResId;
             mLabelResId = labelResId;
         }
 
         public String getFragmentClassName() { return mFragmentClassName; }
-        public @DrawableRes int getIconResId() { return mIconResId; }
+        public @IntegerRes int getPageResId() { return mPageResId; }
         public @StringRes int getLabelResId() { return mLabelResId; }
     }
 

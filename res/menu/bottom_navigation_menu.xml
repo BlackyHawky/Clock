@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_alarm"
+        android:enabled="true"
+        android:icon="@drawable/ic_tab_alarm"
+        android:title="@string/menu_alarm"/>
+    <item
+        android:id="@+id/page_clock"
+        android:enabled="true"
+        android:icon="@drawable/ic_tab_clock"
+        android:title="@string/menu_clock"/>
+    <item
+        android:id="@+id/page_timer"
+        android:enabled="true"
+        android:icon="@drawable/ic_tab_timer"
+        android:title="@string/menu_timer"/>
+    <item
+        android:id="@+id/page_stopwatch"
+        android:enabled="true"
+        android:icon="@drawable/ic_tab_stopwatch"
+        android:title="@string/menu_stopwatch"/>
+</menu>

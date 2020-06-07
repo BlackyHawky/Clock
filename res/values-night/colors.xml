@@ -18,4 +18,5 @@
 <resources>
     <color name="default_background">#121212</color>
     <color name="accent_color">#FEF177</color>
+    <color name="secondary_color">#212121</color>
 </resources>
