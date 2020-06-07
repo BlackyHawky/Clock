@@ -36,8 +36,8 @@ import com.android.deskclock.widget.TextTime;
 public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<AlarmItemHolder>
         implements ItemAnimator.OnAnimateChangeListener {
 
-    private static final float CLOCK_ENABLED_ALPHA = 1f;
-    private static final float CLOCK_DISABLED_ALPHA = 0.69f;
+    public static final float CLOCK_ENABLED_ALPHA = 1f;
+    public static final float CLOCK_DISABLED_ALPHA = 0.69f;
 
     public static final float ANIM_STANDARD_DELAY_MULTIPLIER = 1f / 6f;
     public static final float ANIM_LONG_DURATION_MULTIPLIER = 2f / 3f;
