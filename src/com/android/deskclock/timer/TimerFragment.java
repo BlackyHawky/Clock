@@ -236,6 +236,26 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
+    @Override
+    public int getFabTargetVisibility() {
+        if (mCurrentView == mTimersView) {
+            final Timer timer = getTimer();
+            if (timer == null) {
+                return INVISIBLE;
+            } else {
+                return VISIBLE;
+            }
+        } else if (mCurrentView == mCreateTimerView) {
+            if (mCreateTimerView.hasValidInput()) {
+                return VISIBLE;
+            } else {
+                return INVISIBLE;
+            }
+        }
+
+        return INVISIBLE;
+    }
+
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
             final Timer timer = getTimer();

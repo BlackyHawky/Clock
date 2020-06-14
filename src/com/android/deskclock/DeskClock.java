@@ -20,7 +20,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -37,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
@@ -88,9 +88,6 @@ public class DeskClock extends BaseActivity
     /** Hides, updates, and shows only the {@link #mLeftButton} and {@link #mRightButton}. */
     private final AnimatorSet mUpdateButtonsOnlyAnimation = new AnimatorSet();
 
-    /** Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends. */
-    private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
-
     /** Updates the user interface to reflect the selected tab from the backing model. */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
 
@@ -119,14 +116,13 @@ public class DeskClock extends BaseActivity
     /** The ViewPager that pages through the fragments representing the content of the tabs. */
     private ViewPager mFragmentTabPager;
 
-    /** Generates the fragments that are displayed by the {@link #mFragmentTabPager}. */
-    private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
-
     /** The view that displays the current tab's title */
     private TextView mTitleView;
 
     /** The bottom navigation bar */
     private BottomNavigationView mBottomNavigation;
+
+    private FragmentUtils mFragmentUtils;
 
     /** {@code true} when a settings change necessitates recreating this activity. */
     private boolean mRecreateActivity;
@@ -248,18 +244,7 @@ public class DeskClock extends BaseActivity
                 .after(leftHideAnimation)
                 .after(rightHideAnimation);
 
-        // Customize the view pager.
-        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
-        mFragmentTabPager = (ViewPager) findViewById(R.id.desk_clock_pager);
-        // Keep all four tabs to minimize jank.
-        mFragmentTabPager.setOffscreenPageLimit(3);
-        // Set Accessibility Delegate to null so view pager doesn't intercept movements and
-        // prevent the fab from being selected.
-        mFragmentTabPager.setAccessibilityDelegate(null);
-        // Mirror changes made to the selected page of the view pager into UiDataModel.
-        mFragmentTabPager.addOnPageChangeListener(new PageChangeWatcher());
-        mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
-
+        mFragmentUtils = new FragmentUtils(this);
         // Mirror changes made to the selected tab into UiDataModel.
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnNavigationItemSelectedListener(mNavigationListener);
@@ -275,27 +260,40 @@ public class DeskClock extends BaseActivity
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            UiDataModel.Tab tab = null;
+            UiDataModel.Tab selectedTab = null;
             switch (item.getItemId()) {
                 case R.id.page_alarm:
-                    tab = UiDataModel.Tab.ALARMS;
+                    selectedTab = UiDataModel.Tab.ALARMS;
                     break;
 
                 case R.id.page_clock:
-                    tab = UiDataModel.Tab.CLOCKS;
+                    selectedTab = UiDataModel.Tab.CLOCKS;
                     break;
 
                 case R.id.page_timer:
-                    tab = UiDataModel.Tab.TIMERS;
+                    selectedTab = UiDataModel.Tab.TIMERS;
                     break;
 
                 case R.id.page_stopwatch:
-                    tab = UiDataModel.Tab.STOPWATCH;
+                    selectedTab = UiDataModel.Tab.STOPWATCH;
                     break;
             }
 
-            if (tab != null) {
-                UiDataModel.getUiDataModel().setSelectedTab(tab);
+            if (selectedTab != null) {
+                UiDataModel.Tab currentTab = UiDataModel.getUiDataModel().getSelectedTab();
+                DeskClockFragment currentFrag = mFragmentUtils.getDeskClockFragment(currentTab);
+                DeskClockFragment selectedFrag = mFragmentUtils.getDeskClockFragment(selectedTab);
+
+                int currentVisibility = currentFrag.getFabTargetVisibility();
+                int targetVisibility = selectedFrag.getFabTargetVisibility();
+                if (currentVisibility != targetVisibility) {
+                    if (targetVisibility == View.VISIBLE) {
+                        mShowAnimation.start();
+                    } else {
+                        mHideAnimation.start();
+                    }
+                }
+                UiDataModel.getUiDataModel().setSelectedTab(selectedTab);
                 return true;
             }
 
@@ -324,15 +322,6 @@ public class DeskClock extends BaseActivity
 
         if (mRecreateActivity) {
             mRecreateActivity = false;
-
-            // A runnable must be posted here or the new DeskClock activity will be recreated in a
-            // paused state, even though it is the foreground activity.
-            mFragmentTabPager.post(new Runnable() {
-                @Override
-                public void run() {
-                    recreate();
-                }
-            });
         }
     }
 
@@ -375,7 +364,7 @@ public class DeskClock extends BaseActivity
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
-        final Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
         }
@@ -468,16 +457,7 @@ public class DeskClock extends BaseActivity
         final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
         // Update the selected tab in the mBottomNavigation if it does not agree with UiDataModel.
         mBottomNavigation.setSelectedItemId(selectedTab.getPageResId());
-
-        // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
-            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
-                mFragmentTabPager.setCurrentItem(i);
-                break;
-            }
-        }
-
+        mFragmentUtils.showFragment(selectedTab);
         mTitleView.setText(selectedTab.getLabelResId());
     }
 
@@ -485,14 +465,7 @@ public class DeskClock extends BaseActivity
      * @return the DeskClockFragment that is currently selected according to UiDataModel
      */
     private DeskClockFragment getSelectedDeskClockFragment() {
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
-            if (fragment.isTabSelected()) {
-                return fragment;
-            }
-        }
-        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
-        throw new IllegalStateException("Unable to locate selected fragment (" + selectedTab + ")");
+        return mFragmentUtils.getCurrentFragment();
     }
 
     /**
@@ -500,93 +473,6 @@ public class DeskClock extends BaseActivity
      */
     private Snackbar createSnackbar(@StringRes int messageId) {
         return Snackbar.make(mSnackbarAnchor, messageId, 5000 /* duration */);
-    }
-
-    /**
-     * As the view pager changes the selected page, update the model to record the new selected tab.
-     */
-    private final class PageChangeWatcher implements OnPageChangeListener {
-
-        /** The last reported page scroll state; used to detect exotic state changes. */
-        private int mPriorState = SCROLL_STATE_IDLE;
-
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            // Only hide the fab when a non-zero drag distance is detected. This prevents
-            // over-scrolling from needlessly hiding the fab.
-            if (mFabState == FabState.HIDE_ARMED && positionOffsetPixels != 0) {
-                mFabState = FabState.HIDING;
-                mHideAnimation.start();
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            if (mPriorState == SCROLL_STATE_IDLE && state == SCROLL_STATE_SETTLING) {
-                // The user has tapped a tab button; play the hide and show animations linearly.
-                mHideAnimation.addListener(mAutoStartShowListener);
-                mHideAnimation.start();
-                mFabState = FabState.HIDING;
-            } else if (mPriorState == SCROLL_STATE_SETTLING && state == SCROLL_STATE_DRAGGING) {
-                // The user has interrupted settling on a tab and the fab button must be re-hidden.
-                if (mShowAnimation.isStarted()) {
-                    mShowAnimation.cancel();
-                }
-                if (mHideAnimation.isStarted()) {
-                    // Let the hide animation finish naturally; don't auto show when it ends.
-                    mHideAnimation.removeListener(mAutoStartShowListener);
-                } else {
-                    // Start and immediately end the hide animation to jump to the hidden state.
-                    mHideAnimation.start();
-                    mHideAnimation.end();
-                }
-                mFabState = FabState.HIDING;
-
-            } else if (state != SCROLL_STATE_DRAGGING && mFabState == FabState.HIDING) {
-                // The user has lifted their finger; show the buttons now or after hide ends.
-                if (mHideAnimation.isStarted()) {
-                    // Finish the hide animation and then start the show animation.
-                    mHideAnimation.addListener(mAutoStartShowListener);
-                } else {
-                    updateFab(FAB_AND_BUTTONS_IMMEDIATE);
-                    mShowAnimation.start();
-
-                    // The animation to show the fab has begun; update the state to showing.
-                    mFabState = FabState.SHOWING;
-                }
-            } else if (state == SCROLL_STATE_DRAGGING) {
-                // The user has started a drag so arm the hide animation.
-                mFabState = FabState.HIDE_ARMED;
-            }
-
-            // Update the last known state.
-            mPriorState = state;
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            mFragmentTabPagerAdapter.getDeskClockFragment(position).selectTab();
-        }
-    }
-
-    /**
-     * If this listener is attached to {@link #mHideAnimation} when it ends, the corresponding
-     * {@link #mShowAnimation} is automatically started.
-     */
-    private final class AutoStartShowListener extends AnimatorListenerAdapter {
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            // Prepare the hide animation for its next use; by default do not auto-show after hide.
-            mHideAnimation.removeListener(mAutoStartShowListener);
-
-            // Update the buttons now that they are no longer visible.
-            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
-
-            // Automatically start the grow animation now that shrinking is complete.
-            mShowAnimation.start();
-
-            // The animation to show the fab has begun; update the state to showing.
-            mFabState = FabState.SHOWING;
-        }
     }
 
     /**

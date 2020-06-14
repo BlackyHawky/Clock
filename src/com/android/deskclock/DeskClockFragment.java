@@ -16,12 +16,12 @@
 
 package com.android.deskclock;
 
-import android.app.Fragment;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.ImageView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
