@@ -52,12 +52,12 @@ public class NotificationUtils {
     /**
      * Notification channel containing all snooze notifications.
      */
-    public static final String ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID = "alarmSnoozeNotification";
+    public static final String ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID = "alarmSnoozingNotification";
 
     /**
      * Notification channel containing all firing alarm and timer notifications.
      */
-    public static final String FIRING_NOTIFICATION_CHANNEL_ID = "firingAlarmsTimersNotification";
+    public static final String FIRING_NOTIFICATION_CHANNEL_ID = "firingAlarmsAndTimersNotification";
 
     /**
      * Notification channel containing all TimerModel notifications.
@@ -68,6 +68,13 @@ public class NotificationUtils {
      * Notification channel containing all stopwatch notifications.
      */
     public static final String STOPWATCH_NOTIFICATION_CHANNEL_ID = "stopwatchNotification";
+
+    /**
+     * Values used to bitmask certain channel defaults
+     */
+    private static final int PLAY_SOUND = 0x01;
+    private static final int ENABLE_LIGHTS = 0x02;
+    private static final int ENABLE_VIBRATION = 0x04;
 
     private static Map<String, int[]> CHANNEL_PROPS = new HashMap<String, int[]>();
     static {
@@ -85,7 +92,8 @@ public class NotificationUtils {
         });
         CHANNEL_PROPS.put(FIRING_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.firing_alarms_timers_channel,
-                IMPORTANCE_HIGH
+                IMPORTANCE_HIGH,
+                ENABLE_LIGHTS
         });
         CHANNEL_PROPS.put(STOPWATCH_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.stopwatch_channel,
@@ -112,6 +120,14 @@ public class NotificationUtils {
         int importance = properties[1];
         NotificationChannel channel = new NotificationChannel(
                 id, context.getString(nameId), importance);
+        if (properties.length >= 3) {
+            int bits = properties[2];
+            channel.enableLights((bits & ENABLE_LIGHTS) != 0);
+            channel.enableVibration((bits & ENABLE_VIBRATION) != 0);
+            if ((bits & PLAY_SOUND) == 0) {
+                channel.setSound(null, null);
+            }
+        }
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.createNotificationChannel(channel);
     }
@@ -144,6 +160,8 @@ public class NotificationUtils {
         deleteChannel(nm, "StopwatchNotification");
         deleteChannel(nm, "alarmNotification");
         deleteChannel(nm, "TimerModelNotification");
+        deleteChannel(nm, "firingAlarmsTimersNotification");
+        deleteChannel(nm, "alarmSnoozeNotification");
 
         // We recreate all existing channels so any language change or our name changes propagate
         // to the actual channels
