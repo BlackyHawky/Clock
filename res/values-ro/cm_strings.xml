@@ -23,4 +23,10 @@
         <item>Renunţaţi</item>
         <item>Nimic</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Expirare alarme &amp; numărători inverse</string>
+    <string name="alarm_missed_channel">Alarme ratate</string>
+    <string name="alarm_snooze_channel">Alarme amânate</string>
+    <string name="alarm_upcoming_channel">Alarme viitoare</string>
+    <string name="stopwatch_channel">Cronometru</string>
+    <string name="timer_channel">Numărătoare inversă</string>
 </resources>

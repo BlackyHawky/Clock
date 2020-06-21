@@ -16,17 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="flip_action_title">Cihazı çevirme eylemi</string>
-    <string name="shake_action_title">Cihazı sallama eylemi</string>
+    <string name="flip_action_title">მოქმედება მოწყობილობის შეტრიალებისას</string>
     <string-array name="action_setting_entries">
-        <item>Ertele</item>
-        <item>Reddet</item>
-        <item>Hiçbiri</item>
+        <item>გადადება</item>
+        <item>გაუქმება</item>
+        <item>არაფერი</item>
     </string-array>
-    <string name="firing_alarms_timers_channel">Alarmı ve zamanlayıcıları tetikler</string>
-    <string name="alarm_missed_channel">Alarmlar kaçırıldı</string>
-    <string name="alarm_snooze_channel">Alarmları ertele</string>
-    <string name="alarm_upcoming_channel">Yaklaşan alarmlar</string>
-    <string name="stopwatch_channel">Kronometre</string>
-    <string name="timer_channel">Zamanlayıcı</string>
 </resources>
