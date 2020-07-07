@@ -137,7 +137,10 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
         if (mCurrentTransaction != null) {
             mCurrentTransaction.commitAllowingStateLoss();
             mCurrentTransaction = null;
-            mFragmentManager.executePendingTransactions();
+
+            if (!mFragmentManager.isDestroyed()) {
+                mFragmentManager.executePendingTransactions();
+            }
         }
     }
 
