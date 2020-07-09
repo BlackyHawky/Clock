@@ -35,7 +35,7 @@
         android:paddingEnd="12dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp">
-        <com.android.internal.widget.PreferenceImageView
+        <androidx.preference.internal.PreferenceImageView
             android:id="@android:id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"/>
@@ -70,7 +70,7 @@
             android:orientation="vertical">
 
             <SeekBar
-                android:id="@*android:id/seekbar"
+                android:id="@+id/seekbar"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="12dp"
                 android:layout_width="match_parent"
