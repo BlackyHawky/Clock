@@ -29,7 +29,6 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
-import lineageos.app.ProfileManager;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -69,8 +68,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             RINGTONE,
             ALARM_ID,
             ALARM_STATE,
-            INCREASING_VOLUME,
-            PROFILE
+            INCREASING_VOLUME
     };
 
     /**
@@ -89,9 +87,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int ALARM_ID_INDEX = 9;
     private static final int ALARM_STATE_INDEX = 10;
     private static final int INCREASING_VOLUME_INDEX = 11;
-    private static final int PROFILE_INDEX = 12;
 
-    private static final int COLUMN_COUNT = PROFILE_INDEX + 1;
+    private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
 
     public static ContentValues createContentValues(AlarmInstance instance) {
         ContentValues values = new ContentValues(COLUMN_COUNT);
@@ -116,7 +113,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(ALARM_ID, instance.mAlarmId);
         values.put(ALARM_STATE, instance.mAlarmState);
         values.put(INCREASING_VOLUME, instance.mIncreasingVolume ? 1 : 0);
-        values.put(PROFILE, instance.mProfile.toString());
 
         return values;
     }
@@ -305,7 +301,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public Long mAlarmId;
     public int mAlarmState;
     public boolean mIncreasingVolume;
-    public UUID mProfile;
 
     public AlarmInstance(Calendar calendar, Long alarmId) {
         this(calendar);
@@ -320,7 +315,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mRingtone = null;
         mAlarmState = SILENT_STATE;
         mIncreasingVolume = false;
-        mProfile = ProfileManager.NO_PROFILE;
     }
 
     public AlarmInstance(AlarmInstance instance) {
@@ -336,7 +330,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
          this.mAlarmId = instance.mAlarmId;
          this.mAlarmState = instance.mAlarmState;
          this.mIncreasingVolume = instance.mIncreasingVolume;
-         this.mProfile = instance.mProfile;
     }
 
     public AlarmInstance(Cursor c, boolean joinedTable) {
@@ -372,15 +365,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         }
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
         mIncreasingVolume = c.getInt(INCREASING_VOLUME_INDEX) == 1;
-        if (c.isNull(PROFILE_INDEX)) {
-            mProfile = ProfileManager.NO_PROFILE;
-        } else {
-            try {
-                mProfile = UUID.fromString(c.getString(PROFILE_INDEX));
-            } catch (IllegalArgumentException ex) {
-                mProfile = ProfileManager.NO_PROFILE;
-            }
-        }
     }
 
     /**
@@ -497,7 +481,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mAlarmId=" + mAlarmId +
                 ", mAlarmState=" + mAlarmState +
                 ", mIncreasingVolume=" + mIncreasingVolume +
-                ", mProfile=" + mProfile +
                 '}';
     }
 }

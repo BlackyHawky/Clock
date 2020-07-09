@@ -25,7 +25,6 @@ android_app {
         "androidx.appcompat_appcompat",
         "androidx.gridlayout_gridlayout",
         "androidx.recyclerview_recyclerview",
-        "org.lineageos.platform.internal",
     ],
     required: [
         "com.android.deskclock_whitelist"
