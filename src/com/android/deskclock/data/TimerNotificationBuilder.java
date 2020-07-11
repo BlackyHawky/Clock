@@ -55,7 +55,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 /**
  * Builds notifications to reflect the latest state of the timers.
  */
-public class TimerNotificationBuilder {
+class TimerNotificationBuilder {
 
     private static final int REQUEST_CODE_UPCOMING = 0;
     private static final int REQUEST_CODE_MISSING = 1;

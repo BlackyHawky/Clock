@@ -49,7 +49,7 @@ import static android.view.View.VISIBLE;
 /**
  * Builds notification to reflect the latest state of the stopwatch and recorded laps.
  */
-public class StopwatchNotificationBuilder {
+class StopwatchNotificationBuilder {
 
     public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;

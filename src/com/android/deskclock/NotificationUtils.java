@@ -27,9 +27,6 @@ import android.util.Log;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.android.deskclock.Utils;
-import com.android.deskclock.alarms.AlarmNotifications;
-import com.android.deskclock.data.StopwatchNotificationBuilder;
-import com.android.deskclock.data.TimerNotificationBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
