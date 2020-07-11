@@ -1,12 +1,12 @@
 android_app {
     name: "DeskClock",
     resource_dirs: ["res"],
+    sdk_version: "current",
     overrides: ["AlarmClock"],
     srcs: [
         "src/**/*.java",
         "gen/**/*.java",
     ],
-    platform_apis: true,
     product_specific: true,
     static_libs: [
         "androidx.annotation_annotation",
