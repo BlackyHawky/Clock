@@ -687,6 +687,11 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private Timer getTimer() {
+        if (mAdapter == null) {
+            TimerPagerAdapter adapter = new TimerPagerAdapter(getFragmentManager());
+            return adapter.getCount() == 0 ? null : adapter.getTimer(0);
+        }
+
         if (mViewPager == null) {
             return null;
         }
