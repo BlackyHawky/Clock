@@ -303,9 +303,9 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onStart() {
-        super.onStart();
         DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
         DataModel.getDataModel().setApplicationInForeground(true);
+        super.onStart();
     }
 
     @Override
