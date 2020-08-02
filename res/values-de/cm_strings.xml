@@ -23,4 +23,6 @@
         <item>Verwerfen</item>
         <item>Keine Aktion</item>
     </string-array>
+    <string name="stopwatch_channel">Stoppuhr</string>
+    <string name="timer_channel">Timer</string>
 </resources>

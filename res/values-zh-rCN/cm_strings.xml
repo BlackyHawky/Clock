@@ -23,4 +23,10 @@
         <item>忽略</item>
         <item>无</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">触发闹钟和计时器</string>
+    <string name="alarm_missed_channel">错过的闹钟</string>
+    <string name="alarm_snooze_channel">暂停的闹钟</string>
+    <string name="alarm_upcoming_channel">即将响铃的闹钟</string>
+    <string name="stopwatch_channel">计时器</string>
+    <string name="timer_channel">计时器</string>
 </resources>

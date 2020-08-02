@@ -23,4 +23,10 @@
         <item>Ignorar</item>
         <item>Não fazer nada</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Disparo de alarmes e temporizadores</string>
+    <string name="alarm_missed_channel">Alarmes perdidos</string>
+    <string name="alarm_snooze_channel">Alarmes adiados</string>
+    <string name="alarm_upcoming_channel">Próximos alarmes</string>
+    <string name="stopwatch_channel">Cronómetro</string>
+    <string name="timer_channel">Temporizador</string>
 </resources>

@@ -23,4 +23,8 @@
         <item>Diystyru</item>
         <item>Dim byd</item>
     </string-array>
+    <string name="alarm_missed_channel">Larymau wedi\'u methu</string>
+    <string name="alarm_upcoming_channel">Larymau yn dod i fyny</string>
+    <string name="stopwatch_channel">Stopwats</string>
+    <string name="timer_channel">Amserydd</string>
 </resources>

@@ -23,4 +23,10 @@
         <item>알람 해제</item>
         <item>사용 안 함</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">알람 및 타이머 시작</string>
+    <string name="alarm_missed_channel">부재 중 알람</string>
+    <string name="alarm_snooze_channel">일시 중지된 알람</string>
+    <string name="alarm_upcoming_channel">예정된 알람</string>
+    <string name="stopwatch_channel">스톱워치</string>
+    <string name="timer_channel">타이머</string>
 </resources>

@@ -23,4 +23,6 @@
         <item>ยกเลิก</item>
         <item>ไม่ทำอะไร</item>
     </string-array>
+    <string name="stopwatch_channel">จับเวลา</string>
+    <string name="timer_channel">จับเวลา</string>
 </resources>

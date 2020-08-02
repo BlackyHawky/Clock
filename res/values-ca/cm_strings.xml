@@ -23,4 +23,10 @@
         <item>Descarta</item>
         <item>Res</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Desencadena alarmes i temporitzadors</string>
+    <string name="alarm_missed_channel">Alarmes perdudes</string>
+    <string name="alarm_snooze_channel">Alarmes posposades</string>
+    <string name="alarm_upcoming_channel">Properes alarmes</string>
+    <string name="stopwatch_channel">Cronòmetre</string>
+    <string name="timer_channel">Temporitzador</string>
 </resources>

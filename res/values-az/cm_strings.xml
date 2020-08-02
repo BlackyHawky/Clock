@@ -23,4 +23,10 @@
         <item>Rədd et</item>
         <item>Heç biri</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Vacib zəngli saatlar və vaxtölçənlər</string>
+    <string name="alarm_missed_channel">Buraxılmış zəngli saatlar</string>
+    <string name="alarm_snooze_channel">Ertələnmiş zəngli saatlar</string>
+    <string name="alarm_upcoming_channel">Yaxınlaşan zəngli saatlar</string>
+    <string name="stopwatch_channel">Saniyəölçən</string>
+    <string name="timer_channel">Vaxtölçən</string>
 </resources>

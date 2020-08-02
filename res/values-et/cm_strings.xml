@@ -23,4 +23,10 @@
         <item>Tühista</item>
         <item>Mitte midagi</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Toimuvad äratused ja taimerid</string>
+    <string name="alarm_missed_channel">Märkamata jäänud äratused</string>
+    <string name="alarm_snooze_channel">Edasilükatud äratused</string>
+    <string name="alarm_upcoming_channel">Tulevased äratused</string>
+    <string name="stopwatch_channel">Stopper</string>
+    <string name="timer_channel">Taimer</string>
 </resources>

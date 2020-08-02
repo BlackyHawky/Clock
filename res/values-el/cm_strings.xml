@@ -24,6 +24,9 @@
         <item>Καμία</item>
     </string-array>
     <string name="firing_alarms_timers_channel">Ξυπνητήρια &amp; χρονοδιακόπτες</string>
+    <string name="alarm_missed_channel">Χαμένα ξυπνητήρια</string>
+    <string name="alarm_snooze_channel">Ξυπνητήρια σε αναβολή</string>
+    <string name="alarm_upcoming_channel">Επόμενα ξυπνητήρια</string>
     <string name="stopwatch_channel">Χρονόμετρο</string>
     <string name="timer_channel">Αντίστροφη μέτρηση</string>
 </resources>

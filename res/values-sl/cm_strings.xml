@@ -23,4 +23,10 @@
         <item>Opusti</item>
         <item>Brez</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Opuščanje budilk in odštevalnikov</string>
+    <string name="alarm_missed_channel">Zamujene budilke</string>
+    <string name="alarm_snooze_channel">Budilke v dremežu</string>
+    <string name="alarm_upcoming_channel">Prihajajoče budilke</string>
+    <string name="stopwatch_channel">Štoparica</string>
+    <string name="timer_channel">Odštevalnik</string>
 </resources>

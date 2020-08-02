@@ -23,4 +23,10 @@
         <item>Dismiss</item>
         <item>Nothing</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
+    <string name="alarm_missed_channel">Missed alarms</string>
+    <string name="alarm_snooze_channel">Snoozed alarms</string>
+    <string name="alarm_upcoming_channel">Upcoming alarms</string>
+    <string name="stopwatch_channel">Stopwatch</string>
+    <string name="timer_channel">Timer</string>
 </resources>

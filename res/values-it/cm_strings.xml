@@ -23,4 +23,10 @@
         <item>Spegni</item>
         <item>Niente</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Sveglie &amp; timer</string>
+    <string name="alarm_missed_channel">Sveglie perse</string>
+    <string name="alarm_snooze_channel">Sveglie silenziate</string>
+    <string name="alarm_upcoming_channel">Prossime sveglie</string>
+    <string name="stopwatch_channel">Cronometro</string>
+    <string name="timer_channel">Timer</string>
 </resources>

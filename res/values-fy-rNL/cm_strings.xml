@@ -23,4 +23,10 @@
         <item>Utskeakelje</item>
         <item>Neat</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Alarms &amp; timers oan it starten</string>
+    <string name="alarm_missed_channel">Miste alarms</string>
+    <string name="alarm_snooze_channel">Slommere alarms</string>
+    <string name="alarm_upcoming_channel">Oankommende alarms</string>
+    <string name="stopwatch_channel">Stopwatch</string>
+    <string name="timer_channel">Timer</string>
 </resources>
