@@ -23,4 +23,10 @@
         <item>Elvetés</item>
         <item>Semmi</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Elévülő értesítések és időzítők</string>
+    <string name="alarm_missed_channel">Elmulasztott ébresztők</string>
+    <string name="alarm_snooze_channel">Elhalasztott ébresztők</string>
+    <string name="alarm_upcoming_channel">Következő ébresztések</string>
+    <string name="stopwatch_channel">Stopperóra</string>
+    <string name="timer_channel">Időzítő</string>
 </resources>
