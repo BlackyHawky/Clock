@@ -22,4 +22,10 @@
         <item>გაუქმება</item>
         <item>არაფერი</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">საგანგებო სიგნალები და წამზომები</string>
+    <string name="alarm_missed_channel">გაცდენილი მაღვიძარა</string>
+    <string name="alarm_snooze_channel">გადადებული მაღვიძარა</string>
+    <string name="alarm_upcoming_channel">მომავალი მაღვიძარა</string>
+    <string name="stopwatch_channel">წამზომი</string>
+    <string name="timer_channel">უკუმთვლელი</string>
 </resources>
