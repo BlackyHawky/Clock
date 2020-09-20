@@ -18,8 +18,13 @@
     <string name="app_label">Cleoc</string>
     <string name="label">Leubail</string>
     <string name="default_label">Caismeachd</string>
+    <string name="default_timer_ringtone_title">Falbhaidh an ùine air an tìmear</string>
     <string name="alarm_today">An-diugh</string>
     <string name="alarm_alert_snooze_text">Dèan dùsal</string>
+    <string name="timer_notifications_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_remaining_single">air fhàgail</string>
+    <string name="timer_remaining_multiple">air fhàgail</string>
     <plurals name="hours">
         <item quantity="one"><xliff:g id="number" example="7">%s</xliff:g> uair a thìde</item>
         <item quantity="two"><xliff:g id="number" example="7">%s</xliff:g> uair a thìde</item>
@@ -27,7 +32,9 @@
         <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> uair a thìde</item>
     </plurals>
     <string name="every_day">Gach latha</string>
+    <string name="loading_widget">’Ga luchdadh\u2026</string>
     <string name="settings">Roghainnean</string>
+    <string name="crescendo_duration_title">Àrdaich an fuaim mean air mhean</string>
     <string-array name="auto_silence_entries">
         <item>Mionaid</item>
         <item>5 mionaidean</item>
@@ -90,6 +97,7 @@
         <item>DiLuain</item>
     </string-array>
     <string name="silent_ringtone_title">’Na thost</string>
+    <string name="unknown_ringtone_title">Chan eil fhios</string>
     <string name="volume_button_setting_title">Putain àirde na fuaime</string>
     <string-array name="volume_button_setting_entries">
         <item>Dèan dùsal</item>
@@ -105,10 +113,16 @@
     <string name="menu_item_help">Cobhair</string>
     <string name="menu_item_sort_by_name">Seòrsaich a-rèir ainm</string>
     <string name="sw_reset_button">Ath-shuidhich</string>
+    <string name="sw_pause_button">Cuir ’na stad</string>
     <string name="sw_share_button">Co-roinn</string>
     <string name="seconds_label">d</string>
+    <string name="timer_stop_all">Cuir stad air gach tìmear</string>
     <string name="timer_reset">Ath-shuidhich</string>
+    <string name="timer_canceled">Chaidh sgur dhen tìmear</string>
+    <string name="timer_multi_times_up">Dh’fhalbh an ùine air tìmearan (<xliff:g id="NUM_TIMERS" example="2">%d</xliff:g>)</string>
     <string name="timer_notification_label">Tìmear</string>
+    <string name="timer_pause">Cuir ’na stad</string>
+    <string name="timer_reset_all">Ath-shuidhich gach tìmear</string>
     <string-array name="sw_share_strings" translatable="true">
         <item>You\'re quite the speed demon.</item>
         <item>Enjoy the fruits of your labor.</item>
@@ -123,6 +137,8 @@
     </string-array>
     <string name="clock_settings">Cleoc</string>
     <string name="clock_style">Stoidhle</string>
+    <string name="city_checked">Chaidh <xliff:g id="city_name">%s</xliff:g> a thaghadh</string>
+    <string name="city_unchecked">Cha deach <xliff:g id="city_name">%s</xliff:g> a thaghadh</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
         <item>"Marshall Islands"</item>
         <item>"Midway Island"</item>
@@ -210,7 +226,14 @@
         <item>"Tonga"</item>
         <item>"Jakarta"</item>
     </string-array>
+    <string name="shortcut_pause_stopwatch_short">Cuir ’na stad</string>
     <string name="alarm_settings">Caismeachdan</string>
+    <string name="timer_service_desc">Dèilig ri gnìomhan o bhrathan tìmeir.</string>
+    <string name="stopwatch_service_desc">Dèilig ri gnìomhan o bhrathan stad-uaireadair.</string>
+    <string name="swn_paused">’Na stad</string>
+    <string name="timer_settings">Tìmearan</string>
+    <string name="timer_paused">Tha an tìmear ’na stad</string>
+    <string name="timers_stopped">Tha na tìmearan (<xliff:g id="number" example="7">%d</xliff:g>) ’nan stad</string>
     <plurals name="expired_timers_dismissed">
         <item quantity="one">Chaidh <xliff:g id="number" example="5">%d</xliff:g> tìmear a leigeil seachad</item>
         <item quantity="two">Chaidh <xliff:g id="number" example="5">%d</xliff:g> thìmear a leigeil seachad</item>
