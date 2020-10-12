@@ -57,4 +57,10 @@ public interface FabController {
      * @param right the button to the right of the fab component
      */
     void onRightButtonClick(@NonNull Button right);
+
+    /**
+     *
+     * @return the target visibility of the FAB component
+     */
+    int getFabTargetVisibility();
 }

@@ -90,12 +90,6 @@ public final class ClockContract {
          * <P>Type: BOOLEAN</P>
          */
         public static final String INCREASING_VOLUME = "incvol";
-
-        /**
-         * Profile to change to when alarm triggers
-         * <P>Type: STRING</P>
-         */
-        public static final String PROFILE = "profile";
     }
 
     /**

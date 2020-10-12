@@ -16,11 +16,11 @@
 
 package com.android.deskclock.alarms;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import androidx.fragment.app.Fragment;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.LabelDialogFragment;

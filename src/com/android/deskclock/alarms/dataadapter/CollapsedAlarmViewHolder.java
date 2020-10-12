@@ -52,6 +52,8 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView upcomingInstanceLabel;
     private final View hairLine;
 
+    private float annotationsAlpha = CLOCK_ENABLED_ALPHA;
+
     private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
 
@@ -105,6 +107,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
+        bindAnnotations(context, alarm);
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
@@ -145,6 +148,11 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
+    private void bindAnnotations(Context context, Alarm alarm) {
+        annotationsAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
+        setChangingViewsAlpha(annotationsAlpha);
+    }
+
     @Override
     public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
             int fromBottom, long duration) {
@@ -161,7 +169,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isCollapsing = this == newHolder;
-        setChangingViewsAlpha(isCollapsing ? 0f : 1f);
+        setChangingViewsAlpha(isCollapsing ? 0f : annotationsAlpha);
 
         final Animator changeAnimatorSet = isCollapsing
                 ? createCollapsingAnimator((AlarmItemViewHolder) oldHolder, duration)
@@ -173,7 +181,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                 onOff.setVisibility(View.VISIBLE);
                 arrow.setVisibility(View.VISIBLE);
                 arrow.setTranslationY(0f);
-                setChangingViewsAlpha(1f);
+                setChangingViewsAlpha(annotationsAlpha);
                 arrow.jumpDrawablesToCurrentState();
             }
         });
@@ -208,11 +216,11 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     private Animator createCollapsingAnimator(AlarmItemViewHolder oldHolder, long duration) {
         final AnimatorSet alphaAnimatorSet = new AnimatorSet();
         alphaAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 1f),
-                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, 1f),
-                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 1f),
-                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f),
-                ObjectAnimator.ofFloat(hairLine, View.ALPHA, 1f));
+                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, annotationsAlpha),
+                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, annotationsAlpha),
+                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, annotationsAlpha),
+                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, annotationsAlpha),
+                ObjectAnimator.ofFloat(hairLine, View.ALPHA, annotationsAlpha));
         final long standardDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
         alphaAnimatorSet.setDuration(standardDelay);
         alphaAnimatorSet.setStartDelay(duration - standardDelay);

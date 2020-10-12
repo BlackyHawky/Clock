@@ -27,6 +27,7 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.NotificationUtils;
 import com.android.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
@@ -90,6 +91,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
+            NotificationUtils.updateNotificationChannels(context);
         }
 
         // Notifications are canceled by the system on application upgrade. This broadcast signals

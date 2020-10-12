@@ -20,9 +20,6 @@
 <resources>
     <dimen name="time_margin_top">24dip</dimen>
 
-    <dimen name="timer_setup_delete_margin">12sp</dimen>
-    <dimen name="timer_setup_digit_font_size">26sp</dimen>
-
     <!-- Size of margin for circles. -->
     <dimen name="analog_clock_margin">70dp</dimen>
     <dimen name="analog_clock_size">168dp</dimen>

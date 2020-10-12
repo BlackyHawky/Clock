@@ -61,10 +61,11 @@ public class AlarmVolumePreference extends Preference {
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
-        mSeekbar = (SeekBar) holder.findViewById(R.id.alarm_volume_slider);
+        mSeekbar = (SeekBar) holder.findViewById(R.id.seekbar);
         mSeekbar.setMax(audioManager.getStreamMaxVolume(STREAM_ALARM));
         mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM));
-        mAlarmIcon = (ImageView) holder.findViewById(R.id.alarm_icon);
+        mAlarmIcon = (ImageView) holder.findViewById(android.R.id.icon);
+
         onSeekbarChanged();
 
         final ContentObserver volumeObserver = new ContentObserver(mSeekbar.getHandler()) {

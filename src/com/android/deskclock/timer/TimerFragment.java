@@ -236,7 +236,27 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    private void updateFab(@NonNull ImageView fab, boolean animate) {
+    @Override
+    public int getFabTargetVisibility() {
+        if (mCurrentView == mTimersView) {
+            final Timer timer = getTimer();
+            if (timer == null) {
+                return INVISIBLE;
+            } else {
+                return VISIBLE;
+            }
+        } else if (mCurrentView == mCreateTimerView) {
+            if (mCreateTimerView.hasValidInput()) {
+                return VISIBLE;
+            } else {
+                return INVISIBLE;
+            }
+        }
+
+        return INVISIBLE;
+    }
+
+    private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
             final Timer timer = getTimer();
             if (timer == null) {
@@ -247,38 +267,26 @@ public final class TimerFragment extends DeskClockFragment {
             fab.setVisibility(VISIBLE);
             switch (timer.getState()) {
                 case RUNNING:
-                    if (animate) {
-                        fab.setImageResource(R.drawable.ic_play_pause_animation);
-                    } else {
-                        fab.setImageResource(R.drawable.ic_play_pause);
-                    }
+                    fab.setImageResource(R.drawable.ic_pause_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
                 case RESET:
-                    if (animate) {
-                        fab.setImageResource(R.drawable.ic_stop_play_animation);
-                    } else {
-                        fab.setImageResource(R.drawable.ic_pause_play);
-                    }
+                    fab.setImageResource(R.drawable.ic_start_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                     break;
                 case PAUSED:
-                    if (animate) {
-                        fab.setImageResource(R.drawable.ic_pause_play_animation);
-                    } else {
-                        fab.setImageResource(R.drawable.ic_pause_play);
-                    }
+                    fab.setImageResource(R.drawable.ic_start_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                     break;
                 case MISSED:
                 case EXPIRED:
-                    fab.setImageResource(R.drawable.ic_stop_white_24dp);
+                    fab.setImageResource(R.drawable.ic_stop_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
             }
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
-                fab.setImageResource(R.drawable.ic_start_white_24dp);
+                fab.setImageResource(R.drawable.ic_start_24dp);
                 fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {
@@ -290,13 +298,13 @@ public final class TimerFragment extends DeskClockFragment {
 
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
-        updateFab(fab, false);
+        updateFab(fab);
     }
 
     @Override
     public void onMorphFab(@NonNull ImageView fab) {
         // Update the fab's drawable to match the current timer state.
-        updateFab(fab, Utils.isNOrLater());
+        updateFab(fab);
         // Animate the drawable.
         AnimatorUtils.startDrawableAnimation(fab);
     }
@@ -679,6 +687,11 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private Timer getTimer() {
+        if (mAdapter == null) {
+            TimerPagerAdapter adapter = new TimerPagerAdapter(getFragmentManager());
+            return adapter.getCount() == 0 ? null : adapter.getTimer(0);
+        }
+
         if (mViewPager == null) {
             return null;
         }
