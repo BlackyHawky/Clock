@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.4'
     }
 }
 
@@ -29,7 +29,7 @@ android {
         applicationId "com.android.deskclock"
         minSdkVersion 29
         targetSdkVersion 29
-        versionCode 2333
+        versionCode 29
         multiDexEnabled = true
         javaCompileOptions {
             annotationProcessorOptions {
