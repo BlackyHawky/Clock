@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,17 +17,15 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.DeskClock" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.DeskClock" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorBackgroundFloating" tools:targetApi="23">
             ?attr/colorBackgroundFloating
         </item>
         <item name="android:popupTheme" tools:targetApi="21">?attr/popupTheme</item>
         <item name="android:timePickerStyle" tools:targetApi="21">@style/Widget.TimePicker</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:dialogCornerRadius">8dp</item>
 
         <!-- Attributes from androidx.appcompat.appcompat -->
@@ -62,20 +61,12 @@
         <item name="windowNoTitle">false</item>
     </style>
 
-    <style name="Theme.DeskClock.Wallpaper">
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowBackground">?colorPrimaryDark</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowShowWallpaper">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="ThemeOverlay.Control.Accent" parent="ThemeOverlay.AppCompat.Light">
+    <style name="ThemeOverlay.Control.Accent" parent="ThemeOverlay.AppCompat">
         <!-- Attributes from androidx.appcompat.appcompat -->
         <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 
-    <style name="ThemeOverlay.Popup" parent="ThemeOverlay.AppCompat.Light">
+    <style name="ThemeOverlay.Popup" parent="ThemeOverlay.AppCompat">
         <item name="android:colorBackground">?attr/colorBackgroundFloating</item>
     </style>
 

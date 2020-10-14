@@ -11,3 +11,5 @@
 /system_libs/*.jar
 /keystore.properties
 *.jks
+/debug
+/release

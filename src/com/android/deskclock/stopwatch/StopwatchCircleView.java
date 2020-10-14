@@ -81,7 +81,7 @@ public final class StopwatchCircleView extends View {
         mMarkerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
 
-        mRemainderColor = Color.WHITE;
+        mRemainderColor = ThemeUtils.resolveColor(context, R.attr.colorControlNormal);
         mCompletedColor = ThemeUtils.resolveColor(context, R.attr.colorAccent);
 
         mPaint.setAntiAlias(true);

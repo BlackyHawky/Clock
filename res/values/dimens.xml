@@ -18,7 +18,8 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <dimen name="label_text_size">14sp</dimen>
+    <dimen name="label_text_size">16sp</dimen>
+    <dimen name="secondary_label_text_size">14sp</dimen>
     <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
@@ -44,7 +45,7 @@
     <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
 
     <dimen name="main_clock_font_size">64sp</dimen>
-    <dimen name="main_clock_digital_font_size">90sp</dimen>
+    <dimen name="main_clock_digital_font_size">70sp</dimen>
     <dimen name="main_clock_digital_padding">24dp</dimen>
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
@@ -81,7 +82,7 @@
     <dimen name="analog_clock_size">294dp</dimen>
 
     <!-- Size of time zone analog clocks in world clock. -->
-    <dimen name="world_clock_analog_size">100dp</dimen>
+    <dimen name="world_clock_analog_size">60dp</dimen>
 
     <dimen name="min_analog_widget_size">110dp</dimen>
 
@@ -129,4 +130,8 @@
 
     <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
     <dimen name="fab_height">96dp</dimen>
+
+    <dimen name="timer_label_size">48dp</dimen>
+    <dimen name="timer_reset_size">48dp</dimen>
+    <dimen name="world_analog_clock_size">220dp</dimen>
 </resources>

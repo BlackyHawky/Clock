@@ -42,7 +42,7 @@
 
         <TextClock
             android:id="@+id/digital_clock"
-            style="@style/big_thin"
+            style="@style/big_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -29,7 +29,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="@dimen/label_text_size"
-        android:textColor="@color/white" />
+        android:textColor="?colorAccent" />
     <CheckBox
         android:id="@+id/city_onoff"
         android:layout_height="wrap_content"

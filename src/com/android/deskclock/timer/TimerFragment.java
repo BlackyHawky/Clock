@@ -267,26 +267,23 @@ public final class TimerFragment extends DeskClockFragment {
             fab.setVisibility(VISIBLE);
             switch (timer.getState()) {
                 case RUNNING:
-                    fab.setImageResource(R.drawable.ic_pause_24dp);
+                    fab.setImageResource(R.drawable.ic_fab_pause);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
                 case RESET:
-                    fab.setImageResource(R.drawable.ic_start_24dp);
-                    fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
-                    break;
                 case PAUSED:
-                    fab.setImageResource(R.drawable.ic_start_24dp);
+                    fab.setImageResource(R.drawable.ic_fab_play);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                     break;
                 case MISSED:
                 case EXPIRED:
-                    fab.setImageResource(R.drawable.ic_stop_24dp);
+                    fab.setImageResource(R.drawable.ic_fab_stop);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
             }
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
-                fab.setImageResource(R.drawable.ic_start_24dp);
+                fab.setImageResource(R.drawable.ic_fab_play);
                 fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {

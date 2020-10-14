@@ -22,6 +22,8 @@ import android.os.SystemClock;
 import androidx.core.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,6 +72,7 @@ public class TimerItem extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mLabelView = (TextView) findViewById(R.id.timer_label);
+
         mResetAddButton = (Button) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (TextView) findViewById(R.id.timer_time_text);
@@ -81,6 +84,13 @@ public class TimerItem extends LinearLayout {
         mTimerText.setTextColor(new ColorStateList(
                 new int[][] { { -state_activated, -state_pressed }, {} },
                 new int[] { textColorPrimary, colorAccent }));
+
+        mLabelView.setBackground(ThemeUtils.resolveDrawable(c, android.R.attr.selectableItemBackgroundBorderless));
+        mLabelView.getLayoutParams().height=c.getResources().getDimensionPixelSize(R.dimen.timer_label_size);
+        mLabelView.getLayoutParams().width=c.getResources().getDimensionPixelSize(R.dimen.timer_label_size);
+        mResetAddButton.setBackground(ThemeUtils.resolveDrawable(c, android.R.attr.selectableItemBackgroundBorderless));
+        mResetAddButton.getLayoutParams().height=c.getResources().getDimensionPixelSize(R.dimen.timer_label_size);
+        mResetAddButton.getLayoutParams().width=c.getResources().getDimensionPixelSize(R.dimen.timer_label_size);
     }
 
     /**

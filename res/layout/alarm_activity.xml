@@ -32,7 +32,7 @@
 
         <TextClock
             android:id="@+id/digital_clock"
-            style="@style/display_time"
+            style="@style/alarm_display_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/body"
+            style="@style/alarm_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"

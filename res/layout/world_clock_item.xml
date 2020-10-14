@@ -18,18 +18,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:background="?attr/selectableItemBackground"
     android:orientation="horizontal">
 
-    <!-- Left gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
-
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="@integer/guttered_content_width_percent"
         android:gravity="center_vertical">
 
         <include
@@ -43,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="24dp"
-            android:layout_gravity="end"
+            android:layout_gravity="center_vertical"
             android:singleLine="true"
             android:textAppearance="@style/world_clock_time"/>
 
@@ -51,16 +47,9 @@
             android:id="@+id/analog_clock"
             android:layout_width="@dimen/world_clock_analog_size"
             android:layout_height="@dimen/world_clock_analog_size"
-            android:paddingStart="24dp"
-            android:layout_gravity="end"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
+            android:layout_marginStart="24dp"
+            android:layout_gravity="center_vertical" />
 
     </LinearLayout>
-
-    <!-- Right gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

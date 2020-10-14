@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2012 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,17 +13,12 @@
      limitations under the License.
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
-
-    <!-- Left gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+    android:gravity="center_horizontal"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -34,26 +28,22 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/analog_clock_margin"
-                android:layout_marginLeft="@dimen/analog_clock_margin"
-                android:layout_marginRight="@dimen/analog_clock_margin"
-                android:layout_marginStart="@dimen/analog_clock_margin"
-                android:layout_marginTop="@dimen/circle_margin_top" />
+                android:layout_width="@dimen/world_analog_clock_size"
+                android:layout_gravity="center"
+                android:layout_height="@dimen/world_analog_clock_size"/>
 
             <com.android.deskclock.widget.AutoSizingTextClock
                 android:id="@+id/digital_clock"
                 style="@style/display_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
+                android:gravity="center"
                 android:includeFontPadding="false"
                 android:paddingTop="@dimen/main_clock_digital_padding"
                 android:singleLine="true"
@@ -70,11 +60,5 @@
             android:layout_marginTop="24dp"
             android:background="@color/hairline" />
     </LinearLayout>
-
-    <!-- Right gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

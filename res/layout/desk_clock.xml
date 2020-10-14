@@ -27,7 +27,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:background="@null"
         app:elevation="0dp">
 
@@ -77,9 +77,12 @@
                 <Button
                     android:id="@+id/left_button"
                     style="?attr/borderlessButtonStyle"
+                    android:background="?android:selectableItemBackgroundBorderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:scaleType="centerInside" />
 
             </FrameLayout>
@@ -90,8 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/fab_margin"
-                app:borderWidth="0dp"
-                app:elevation="@dimen/fab_elevation" />
+                app:borderWidth="0dp"/>
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -104,7 +106,10 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?android:selectableItemBackgroundBorderless"
                     android:layout_gravity="center"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:scaleType="centerInside" />
 
             </FrameLayout>
@@ -117,8 +122,7 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/content"
-        android:background="@color/secondary_color"
+        android:background="@color/navigation_bar_color"
         app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@color/tab_tint_color"
         app:itemTextColor="@color/tab_tint_color"

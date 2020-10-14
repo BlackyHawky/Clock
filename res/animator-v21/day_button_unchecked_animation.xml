@@ -20,14 +20,14 @@
         android:duration="300"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:propertyName="scaleX"
-        android:valueFrom="0.875"
-        android:valueTo="1.5"
+        android:valueFrom="0.75"
+        android:valueTo="1"
         android:valueType="floatType" />
     <objectAnimator
         android:duration="300"
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:propertyName="scaleY"
-        android:valueFrom="0.875"
-        android:valueTo="1.5"
+        android:valueFrom="0.75"
+        android:valueTo="1"
         android:valueType="floatType" />
 </set>

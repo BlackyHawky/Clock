@@ -75,7 +75,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
                         R.attr.colorAccent);
                 mImageView.setColorFilter(colorAccent, PorterDuff.Mode.SRC_ATOP);
             } else {
-                mImageView.setImageResource(R.drawable.placeholder_album_artwork);
+                mImageView.setImageResource(R.drawable.ic_placeholder_album_artwork);
             }
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
             mImageView.setImageResource(R.drawable.ic_ringtone_silent);

@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:tools="https://schemas.android.com/tools" tools:ignore="TypographyDashes">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyDashes">
     <!-- Category names for events describe the type of object that was manipulated. -->
     <string name="category_alarm">Alarm</string>
     <string name="category_clock">Clock</string>

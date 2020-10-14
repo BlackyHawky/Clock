@@ -116,8 +116,8 @@ public class ScreensaverActivity extends BaseActivity {
         Utils.setClockIconTypeface(mMainClockView);
         Utils.setTimeFormat((TextClock) digitalClock, false);
         Utils.setClockStyle(digitalClock, analogClock);
+        Utils.setClockSecondsEnabled((TextClock) digitalClock, analogClock);
         Utils.dimClockView(true, mMainClockView);
-        analogClock.enableSeconds(false);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE

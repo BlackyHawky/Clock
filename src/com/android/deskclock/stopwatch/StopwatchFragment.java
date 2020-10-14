@@ -241,10 +241,10 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     private void updateFab(@NonNull ImageView fab) {
         if (getStopwatch().isRunning()) {
-            fab.setImageResource(R.drawable.ic_pause_24dp);
+            fab.setImageResource(R.drawable.ic_fab_pause);
             fab.setContentDescription(fab.getResources().getString(R.string.sw_pause_button));
         } else {
-            fab.setImageResource(R.drawable.ic_start_24dp);
+            fab.setImageResource(R.drawable.ic_fab_play);
             fab.setContentDescription(fab.getResources().getString(R.string.sw_start_button));
         }
         fab.setVisibility(VISIBLE);
@@ -424,7 +424,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (Utils.isPortrait(getActivity())) {
+        if (Utils.isPortrait(getContext())) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
             final Resources res = getResources();

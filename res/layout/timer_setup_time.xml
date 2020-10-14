@@ -19,7 +19,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
@@ -29,13 +29,15 @@
 
     <TextView
         android:id="@+id/timer_setup_time"
-        android:layout_width="wrap_content"
+        android:layout_weight="1.0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="none"
         android:fontFamily="sans-serif"
         android:fontFeatureSettings="tnum"
         android:includeFontPadding="false"
         android:singleLine="true"
+        android:gravity="center"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="@dimen/timer_setup_digit_font_size"
         tools:targetApi="21" />
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/timer_delete"
         android:padding="12dp"
+        android:tint="@color/backspace_tint_color"
         android:scaleType="center"
         app:srcCompat="@drawable/ic_backspace" />
 

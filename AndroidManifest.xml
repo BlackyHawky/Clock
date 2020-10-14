@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +14,13 @@
   limitations under the License.
   -->
 
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.deskclock">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
 
-    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="29" />
+
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -45,10 +43,10 @@
     <application
         android:name=".DeskClockApplication"
         android:allowBackup="false"
+        android:appCategory="productivity"
         android:backupAgent="DeskClockBackupAgent"
         android:fullBackupContent="@xml/backup_scheme"
         android:fullBackupOnly="true"
-        android:appCategory="productivity"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_label"
         android:requiredForAllUsers="true"
@@ -107,10 +105,10 @@
 
         <activity
             android:name="com.android.deskclock.HandleApiCalls"
-            android:permission="com.android.alarm.permission.SET_ALARM"
             android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
+            android:permission="com.android.alarm.permission.SET_ALARM"
             android:showWhenLocked="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
@@ -149,8 +147,9 @@
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:showOnLockScreen="true"
-	    android:showWhenLocked="true"
+            android:showWhenLocked="true"
             android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock.Wallpaper"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity

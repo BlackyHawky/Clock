@@ -19,7 +19,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/fab_height">
 
@@ -28,9 +27,6 @@
     <include layout="@layout/timer_setup_divider" />
 
     <include
-        layout="@layout/timer_setup_digits"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        layout="@layout/timer_setup_digits"/>
 
 </LinearLayout>

@@ -19,6 +19,7 @@
     android:name="caret_toclose"
     android:width="24dp"
     android:height="24dp"
+    android:tint="?colorControlNormal"
     android:viewportHeight="24.0"
     android:viewportWidth="24.0">
     <group

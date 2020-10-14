@@ -21,8 +21,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
+    android:paddingEnd="24dp"
+    android:paddingStart="24dp"
     app:columnCount="5"
     app:columnOrderPreserved="false"
     app:rowCount="4">

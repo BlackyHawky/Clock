@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import androidx.appcompat.widget.AppCompatImageView;
+
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -105,6 +107,13 @@ public class AnalogClock extends FrameLayout {
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
         addView(mSecondHand);
+
+        if (context.getClass().getSimpleName().equalsIgnoreCase(ScreensaverActivity.class.getSimpleName())){
+            dial.setColorFilter(Color.WHITE);
+            mHourHand.setColorFilter(Color.WHITE);
+            mMinuteHand.setColorFilter(Color.WHITE);
+        }
+
     }
 
     @Override

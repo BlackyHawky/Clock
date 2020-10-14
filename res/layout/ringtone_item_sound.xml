@@ -30,23 +30,20 @@
         android:animateLayoutChanges="true"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:paddingTop="8dp"
         tools:ignore="UselessParent">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/gutter_width_percent" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="@integer/guttered_content_width_percent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
 
@@ -59,11 +56,11 @@
 
                 <TextView
                     android:id="@+id/ringtone_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/digit_clock_color"
                     android:textSize="@dimen/alarm_text_font_size" />
 
             </LinearLayout>
@@ -72,20 +69,12 @@
                 android:id="@+id/sound_image_selected"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:importantForAccessibility="no"
                 android:scaleType="center"
-                android:tint="?attr/colorAccent"
-                android:visibility="gone"
+                app:tint="?attr/colorAccent"
                 app:srcCompat="@drawable/ic_checkmark" />
 
-        </RelativeLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="@integer/gutter_width_percent" />
+        </LinearLayout>
 
     </LinearLayout>
 

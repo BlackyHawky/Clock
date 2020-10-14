@@ -17,8 +17,8 @@
 
 <resources>
 
-    <style name="widget_big_thin" parent="big_thin">
-        <item name="android:fontFamily">sans-serif-thin</item>
+    <style name="widget_big_thin" parent="big_normal">
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
         <item name="android:shadowColor">@color/widget_shadow_color</item>
         <item name="android:shadowDx">@dimen/widget_shadow_dx</item>

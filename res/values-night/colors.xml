@@ -17,6 +17,17 @@
 
 <resources>
     <color name="default_background">#121212</color>
-    <color name="accent_color">#FEF177</color>
     <color name="secondary_color">#212121</color>
+
+    <color name="clock_gray">#B3FFFFFF</color>
+
+    <color name="hairline">#28FFFFFF</color>
+
+    <color name="color_control_normal">#ffdddddd</color>
+
+    <color name="digit_clock_color">#ffffffff</color>
+    <color name="navigation_bar_color">@color/background_material_dark</color>
+    <color name="navigation_icon_color">@color/background_material_light</color>
+
+    <color name="city_list_header_text_color">@color/white</color>
 </resources>

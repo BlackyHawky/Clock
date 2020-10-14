@@ -29,15 +29,27 @@
 
     <color name="transparent">#00000000</color>
 
-    <color name="hairline">#28FFFFFF</color>
+    <color name="color_control_normal">#ff222222</color>
+    <color name="backspace_button_disabled_color">#99000000</color>
 
-    <color name="clock_gray">#B3FFFFFF</color>
+    <color name="hairline">#28000000</color>
+
+    <color name="clock_gray">#B3000000</color>
 
     <color name="default_background">#1A237E</color>
 
     <!-- shadowColor for widget text -->
     <color name="widget_shadow_color">#000000</color>
 
-    <color name="accent_color">#FFEB40</color>
+    <color name="accent_color">#ffdb4437</color>
     <color name="secondary_color">#2F378A</color>
+
+    <color name="digit_clock_color">#ff111111</color>
+    <color name="navigation_bar_color">@color/background_material_light</color>
+    <color name="navigation_icon_color">@color/background_material_dark</color>
+
+    <color name="day_unchecked_color">@color/digit_clock_color</color>
+
+    <color name="city_list_header_text_color">@color/black</color>
+
 </resources>

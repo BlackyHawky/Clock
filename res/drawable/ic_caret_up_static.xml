@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,13 +13,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:name="caret_up"
     android:width="24dp"
     android:height="24dp"
-    android:viewportHeight="24.0"
-    android:viewportWidth="24.0">
+    android:tint="?colorControlNormal"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
     <group
         android:name="caret02"
         android:rotation="90"
@@ -38,7 +37,7 @@
                     <path
                         android:name="caret02_l_rect"
                         android:fillColor="#FFFFFFFF"
-                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z"/>
+                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z" />
                 </group>
             </group>
         </group>
@@ -54,7 +53,7 @@
                     <path
                         android:name="caret02_r_rect"
                         android:fillColor="#FFFFFFFF"
-                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z"/>
+                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z" />
                 </group>
             </group>
         </group>

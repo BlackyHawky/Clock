@@ -18,25 +18,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
     android:layout_height="match_parent">
-
-    <!-- Left gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
 
     <!-- Guttered content. -->
     <include
         layout="@layout/timer_setup_view"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/guttered_content_width_percent" />
-
-    <!-- Right gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

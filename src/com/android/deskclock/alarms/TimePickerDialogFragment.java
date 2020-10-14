@@ -64,7 +64,7 @@ public class TimePickerDialogFragment extends DialogFragment {
                 }
             }, hour, minute, DateFormat.is24HourFormat(context));
         } else {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             final Context context = builder.getContext();
 
             final TimePicker timePicker = new TimePicker(context);
