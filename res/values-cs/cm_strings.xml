@@ -23,4 +23,10 @@
         <item>Zamítnout</item>
         <item>Nic</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Výstražné budíky a\u00a0časovače</string>
+    <string name="alarm_missed_channel">Zmeškané budíky</string>
+    <string name="alarm_snooze_channel">Odložené budíky</string>
+    <string name="alarm_upcoming_channel">Nadcházející budíky</string>
+    <string name="stopwatch_channel">Stopky</string>
+    <string name="timer_channel">Časovač</string>
 </resources>
