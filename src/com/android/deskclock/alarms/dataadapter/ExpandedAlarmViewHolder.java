@@ -222,7 +222,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
                 dayButton.setTextColor(ThemeUtils.resolveColor(context,
-                        android.R.attr.windowBackground));
+                        android.R.attr.colorBackground));
             } else {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(context.getResources().getColor(R.color.day_unchecked_color));

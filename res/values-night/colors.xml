@@ -30,4 +30,6 @@
     <color name="navigation_icon_color">@color/background_material_light</color>
 
     <color name="city_list_header_text_color">@color/white</color>
+
+    <color name="color_background">@color/background_material_dark</color>
 </resources>

@@ -213,7 +213,7 @@ public class AlarmActivity extends BaseActivity
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
         Utils.setTimeFormat(digitalClock, false);
 
-        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.windowBackground);
+        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.colorBackground);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);

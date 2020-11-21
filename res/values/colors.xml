@@ -52,4 +52,6 @@
 
     <color name="city_list_header_text_color">@color/black</color>
 
+    <color name="color_background">@color/background_material_light</color>
+
 </resources>

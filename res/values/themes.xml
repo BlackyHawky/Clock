@@ -35,6 +35,9 @@
         <item name="imageButtonStyle">@style/Widget.ImageButton</item>
         <item name="popupTheme">@style/ThemeOverlay.Popup</item>
         <item name="colorControlNormal">@color/color_control_normal</item>
+
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="android:windowBackground">@drawable/window_background</item>
     </style>
 
     <style name="Theme.DeskClock.Settings">
