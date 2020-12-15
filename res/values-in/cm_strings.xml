@@ -23,6 +23,8 @@
         <item>Tutup</item>
         <item>Tidak ada</item>
     </string-array>
+    <string name="alarm_missed_channel">Alarm yang terlewat</string>
+    <string name="alarm_snooze_channel">Alarm yang ditunda</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
 </resources>

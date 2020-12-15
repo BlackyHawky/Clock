@@ -23,4 +23,10 @@
         <item>Hylkää</item>
         <item>Ei mitään</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Hälytysten &amp; ajastimien laukaisu</string>
+    <string name="alarm_missed_channel">Vastaamattomat hälytykset</string>
+    <string name="alarm_snooze_channel">Torkutetut hälytykset</string>
+    <string name="alarm_upcoming_channel">Tulevat hälytykset</string>
+    <string name="stopwatch_channel">Sekuntikello</string>
+    <string name="timer_channel">Ajastin</string>
 </resources>
