@@ -68,6 +68,7 @@
     <style name="Theme.DeskClock.Wallpaper">
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowBackground">?colorPrimaryDark</item>
+        <item name="android:colorBackground">?colorPrimaryDark</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="windowNoTitle">true</item>
