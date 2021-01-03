@@ -23,4 +23,10 @@
         <item>Отхвърли</item>
         <item>Нищо</item>
     </string-array>
+    <string name="firing_alarms_timers_channel">Стартиране на аларми &amp; таймери</string>
+    <string name="alarm_missed_channel">Пропуснати аларми</string>
+    <string name="alarm_snooze_channel">Отложени аларми</string>
+    <string name="alarm_upcoming_channel">Предстоящи аларми</string>
+    <string name="stopwatch_channel">Хронометър</string>
+    <string name="timer_channel">Таймер</string>
 </resources>
