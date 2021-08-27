@@ -41,7 +41,7 @@
     <!-- shadowColor for widget text -->
     <color name="widget_shadow_color">#000000</color>
 
-    <color name="accent_color">#ffdb4437</color>
+    <color name="accent_color">#2680EB</color>
     <color name="secondary_color">#2F378A</color>
 
     <color name="digit_clock_color">#ff111111</color>
