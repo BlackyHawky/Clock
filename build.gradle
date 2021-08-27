@@ -1,48 +1,49 @@
-repositories {
-    google()
-    jcenter()
-}
-
-buildscript {
+uildscript {
     repositories {
-        google()
+        mavenCentral()
         jcenter()
+        google()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.4'
+        classpath 'com.android.tools.build:gradle:4.0.1'
     }
 }
-
-
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion '30.0.2'
-
+    compileSdkVersion 29
+    buildToolsVersion '29.0.3'
     defaultConfig {
-        applicationId "com.android.deskclock"
         minSdkVersion 29
-        targetSdkVersion 30
-        versionCode 29
-        versionName "10"
-        multiDexEnabled = true
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath = true    //加上这行即可
-            }
-        }
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 
     lintOptions {
-        ignore 'ProtectedPermissions'
-        // These depend on translations
-        ignore 'ExtraTranslation', 'ImpliedQuantity', 'MissingQuantity', 'MissingTranslation'
+        abortOnError false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard.flags'
+        }
+    }
+
+    productFlavors {
+        aosp {
+            flavorDimensions 'default'
+            applicationId 'com.android.deskclock'
+        }
     }
 
     sourceSets {
@@ -53,45 +54,31 @@ android {
             manifest.srcFile 'AndroidManifest.xml'
         }
     }
+}
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    signingConfigs {
-        debug {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compileOnly fileTree(dir: 'system_libs', include: ['*.jar'])
-
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.collection:collection:1.1.0"
+    implementation "androidx.arch.core:core-common:2.1.0"
     implementation "androidx.lifecycle:lifecycle-common:2.2.0"
-    implementation "com.google.android.material:material:1.2.1"
     implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
-    implementation "androidx.percentlayout:percentlayout:1.0.0"
     implementation "androidx.transition:transition:1.3.1"
-    implementation "androidx.core:core:1.3.2"
+    implementation "androidx.core:core:1.3.1"
     implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
-    implementation "androidx.media:media:1.2.0"
+    implementation "androidx.media:media:1.1.0"
     implementation "androidx.legacy:legacy-support-v13:1.0.0"
     implementation "androidx.preference:preference:1.1.1"
     implementation "androidx.appcompat:appcompat:1.2.0"
     implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation "androidx.percentlayout:percentlayout:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+    implementation "com.google.android.material:material:1.3.0-alpha02"
+    implementation 'com.github.devabhixda:SmoothBottomBar:shadow'
 }
