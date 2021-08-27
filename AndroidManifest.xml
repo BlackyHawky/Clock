@@ -20,7 +20,7 @@
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
 
-
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="29" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -47,7 +47,7 @@
         android:backupAgent="DeskClockBackupAgent"
         android:fullBackupContent="@xml/backup_scheme"
         android:fullBackupOnly="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_alarmclock"
         android:label="@string/app_label"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
