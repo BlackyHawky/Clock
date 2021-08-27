@@ -27,6 +27,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="27">#DCDCDC</item>
         <item name="android:dialogCornerRadius">8dp</item>
 
         <!-- Attributes from androidx.appcompat.appcompat -->
