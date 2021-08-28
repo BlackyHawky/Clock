@@ -215,10 +215,6 @@ public final class ClockFragment extends DeskClockFragment {
         right.setVisibility(INVISIBLE);
     }
 
-    @Override
-    public final int getFabTargetVisibility() {
-        return View.VISIBLE;
-    }
 
     /**
      * Refresh the next alarm time.
