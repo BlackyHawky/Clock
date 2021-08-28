@@ -265,7 +265,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
-        final Resources resources = left.getContext().getResources();
+        final Resources resources = getResources();
         left.setClickable(true);
         left.setText(R.string.sw_reset_button);
         left.setContentDescription(resources.getString(R.string.sw_reset_button));
@@ -294,10 +294,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-    @Override
-    public final int getFabTargetVisibility() {
-        return View.VISIBLE;
-    }
+    
 
     /**
      * @param color the newly installed app window color
