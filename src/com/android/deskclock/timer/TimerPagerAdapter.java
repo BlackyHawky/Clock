@@ -183,7 +183,7 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
     }
 
     private static void setItemVisible(Fragment item, boolean visible) {
-        item.setMenuVisibility(visible);
-        item.setUserVisibleHint(visible);
+        FragmentCompat.setMenuVisibility(item, visible);
+        FragmentCompat.setUserVisibleHint(item, visible);
     }
 }
