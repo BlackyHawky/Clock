@@ -16,24 +16,25 @@
 
 package com.android.deskclock;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
-import androidx.loader.content.CursorLoader;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
@@ -48,7 +49,7 @@ import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.EmptyViewController;
 import com.android.deskclock.widget.toast.SnackbarManager;
 import com.android.deskclock.widget.toast.ToastManager;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private RecyclerView mRecyclerView;
 
     // Data
-    private CursorLoader mCursorLoader;
+    private Loader mCursorLoader;
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mExpandedAlarmId = Alarm.INVALID_ID;
     private long mCurrentUpdateToken;
@@ -103,7 +104,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        mCursorLoader = (CursorLoader) LoaderManager.getInstance(this).initLoader(0, null, this);
+        mCursorLoader = getLoaderManager().initLoader(0, null, this);
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
         }
@@ -402,10 +403,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         right.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public final int getFabTargetVisibility() {
-        return View.VISIBLE;
-    }
 
     private void startCreatingAlarm() {
         // Clear the currently selected alarm.
