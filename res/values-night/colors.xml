@@ -18,6 +18,7 @@
 <resources>
     <color name="default_background">#121212</color>
     <color name="secondary_color">#212121</color>
+    <color name="no_alarms">#4CFFFFFF</color>
 
     <color name="clock_gray">#B3FFFFFF</color>
 
