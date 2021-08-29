@@ -25,7 +25,7 @@
     <color name="white_08p">#14FFFFFF</color>
     <color name="white_63p">#A0FFFFFF</color>
     <color name="white_50p">#80FFFFFF</color>
-    <color name="no_alarms">#4CFFFFFF</color>
+    <color name="no_alarms">#DE000000</color>
 
     <color name="transparent">#00000000</color>
 
