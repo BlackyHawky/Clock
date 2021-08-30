@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:paddingStart="12dp"
                 android:singleLine="true"
-                android:textAppearance="@*android:style/TextAppearance.DeviceDefault.Subhead"
+                android:textAppearance="?android:attr/textAppearanceListItem"
                 android:textColor="?android:attr/textColorPrimary"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"/>
