@@ -121,7 +121,7 @@
         android:layout_height="@dimen/hairline_height"
         android:layout_marginEnd="@dimen/icon_margin"
         android:layout_marginStart="@dimen/icon_margin"
-        android:background="@color/hairline"
+        android:background="@color/transparent"
         app:layout_column="0"
         app:layout_columnSpan="5"
         app:layout_gravity="fill_horizontal"
