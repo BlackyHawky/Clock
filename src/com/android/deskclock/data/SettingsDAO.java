@@ -293,6 +293,21 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the behavior to execute when power buttons are pressed while firing an alarm
+     */
+    static AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
+        final String defaultValue = SettingsActivity.DEFAULT_POWER_BEHAVIOR;
+        final String value = prefs.getString(SettingsActivity.KEY_POWER_BUTTONS, defaultValue);
+        switch (value) {
+            case SettingsActivity.DEFAULT_POWER_BEHAVIOR: return NOTHING;
+            case SettingsActivity.POWER_BEHAVIOR_SNOOZE: return SNOOZE;
+            case SettingsActivity.POWER_BEHAVIOR_DISMISS: return DISMISS;
+            default:
+                throw new IllegalArgumentException("Unknown power button behavior: " + value);
+        }
+    }
+    
+    /**
      * @return the number of minutes an alarm may ring before it has timed out and becomes missed
      */
     static int getAlarmTimeout(SharedPreferences prefs) {
