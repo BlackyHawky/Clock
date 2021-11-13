@@ -50,7 +50,11 @@
                 android:id="@+id/title_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
+ 		            android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+ 		            android:textSize="38sp"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
         </androidx.appcompat.widget.Toolbar>
