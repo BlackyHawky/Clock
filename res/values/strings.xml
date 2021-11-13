@@ -458,6 +458,10 @@
         <item>2</item>
         <item>0</item>
     </string-array>
+  
+  <!-- Setting title for the Power button setting. -->
+    <string name="power_button_title" tools:ignore="MissingTranslation">Power button</string>
+
 
     <!-- Accessibility labels for Clock activity buttons -->
     <skip />
