@@ -70,6 +70,10 @@ final class AlarmModel {
         return mSettingsModel.getAlarmVolumeButtonBehavior();
     }
 
+    AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {
+        return mSettingsModel.getAlarmPowerButtonBehavior();
+    }
+    
     int getAlarmTimeout() {
         return mSettingsModel.getAlarmTimeout();
     }
