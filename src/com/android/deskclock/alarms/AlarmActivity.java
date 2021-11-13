@@ -128,6 +128,7 @@ public class AlarmActivity extends BaseActivity
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
     private AlarmVolumeButtonBehavior mVolumeBehavior;
+    private AlarmVolumeButtonBehavior mPowerBehavior;
     private int mCurrentHourColor;
     private boolean mReceiverRegistered;
     /** Whether the AlarmService is currently bound */
@@ -155,6 +156,12 @@ public class AlarmActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Register Power button (screen off) intent receiver
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(PowerBtnReceiver, filter);
+
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
         final long instanceId = AlarmInstance.getId(getIntent().getData());
@@ -174,6 +181,9 @@ public class AlarmActivity extends BaseActivity
 
         // Get the volume/camera button behavior setting
         mVolumeBehavior = DataModel.getDataModel().getAlarmVolumeButtonBehavior();
+        
+         // Get the power button behavior setting
+        mPowerBehavior = DataModel.getDataModel().getAlarmPowerButtonBehavior();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -280,6 +290,28 @@ public class AlarmActivity extends BaseActivity
             mReceiverRegistered = false;
         }
     }
+
+
+ private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null) {
+                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)
+                        || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                    // Power keys dismiss the alarm.
+                        if (!mAlarmHandled) {
+                            if (mPowerBehavior == AlarmVolumeButtonBehavior.SNOOZE) {
+                                snooze();
+                            }
+                            else if (mPowerBehavior == AlarmVolumeButtonBehavior.DISMISS){
+                                dismiss();
+                            }
+                        }
+                }
+        }
+        }
+    };
+
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent keyEvent) {
