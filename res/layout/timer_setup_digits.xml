@@ -123,5 +123,18 @@
         app:layout_rowWeight="1"
         app:layout_column="1"
         app:layout_columnWeight="1" />
+  
+  <ImageButton
+        android:id="@+id/timer_setup_delete"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/timer_delete"
+        android:padding="12dp"
+        android:scaleType="center"
+        app:layout_row="3"
+        app:layout_rowWeight="1"
+        app:layout_column="2"
+        app:layout_columnWeight="1"
+        app:srcCompat="@drawable/ic_backspace" />
 
 </androidx.gridlayout.widget.GridLayout>
