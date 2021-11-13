@@ -185,6 +185,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Notifiche dell\'orologio bloccate"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Il dispositivo è impostato su \"Silenzio totale\""</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Pulsanti volume"</string>
+    <string name="power_button_title" >"Pulsante Accensione"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Attiva ripetizione sveglia"</item>
     <item msgid="3450979320164769576">"Ignora"</item>
