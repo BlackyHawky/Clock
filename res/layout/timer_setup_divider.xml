@@ -23,4 +23,4 @@
     android:layout_marginBottom="8dp"
     android:importantForAccessibility="no"
     android:theme="@style/ThemeOverlay.Control.Accent"
-    android:background="?android:attr/dividerHorizontal" />
+    android:background="@color/transparent" />
