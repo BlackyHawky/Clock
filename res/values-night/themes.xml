@@ -22,7 +22,6 @@
             ?attr/colorBackgroundFloating
         </item>
         <item name="android:popupTheme" tools:targetApi="21">?attr/popupTheme</item>
-        <item name="android:timePickerStyle" tools:targetApi="21">@style/Widget.TimePicker</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
