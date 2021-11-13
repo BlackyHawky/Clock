@@ -145,11 +145,6 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
-    <style name="Widget.TimePicker" parent="android:Widget.Material.TimePicker"
-        tools:targetApi="21">
-        <item name="android:headerBackground">@android:color/transparent</item>
-        <item name="android:numbersBackgroundColor">@android:color/transparent</item>
-        <item name="android:numbersSelectorColor">?attr/colorAccent</item>
-    </style>
+    
 
 </resources>
