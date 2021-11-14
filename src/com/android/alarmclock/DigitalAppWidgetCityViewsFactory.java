@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.alarmclock;
+package com.best.alarmclock;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,11 +25,11 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.City;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.City;
+import com.best.deskclock.data.DataModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
