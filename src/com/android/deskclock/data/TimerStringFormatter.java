@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.Context;
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
