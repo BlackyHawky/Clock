@@ -69,6 +69,6 @@
             android:singleLine="true"
             android:textSize="@dimen/label_font_size"
             android:textColor="@color/black_54p" />
-    </com.android.deskclock.widget.EllipsizeLayout>
+    </com.best.deskclock.widget.EllipsizeLayout>
 
 </LinearLayout>
