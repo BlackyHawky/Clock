@@ -1,4 +1,4 @@
-package com.android.deskclock;
+package com.best.deskclock;
 
 import androidx.annotation.IntDef;
 
