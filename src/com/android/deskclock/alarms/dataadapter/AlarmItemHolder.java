@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms.dataadapter;
+package com.best.deskclock.alarms.dataadapter;
 
 import android.os.Bundle;
 
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.alarms.AlarmTimeClickHandler;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
 
