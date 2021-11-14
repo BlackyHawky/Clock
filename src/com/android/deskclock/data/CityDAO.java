@@ -24,7 +24,7 @@ import androidx.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
-import com.android.deskclock.R;
+import com.best.deskclock.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
