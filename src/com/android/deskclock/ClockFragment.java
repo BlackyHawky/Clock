@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -42,12 +42,12 @@ import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.android.deskclock.data.City;
-import com.android.deskclock.data.CityListener;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.worldclock.CitySelectionActivity;
+import com.best.deskclock.data.City;
+import com.best.deskclock.data.CityListener;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +57,7 @@ import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.uidata.UiDataModel.Tab.CLOCKS;
+import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
