@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -25,9 +25,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.widget.selector.AlarmSelection;
-import com.android.deskclock.widget.selector.AlarmSelectionAdapter;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.widget.selector.AlarmSelection;
+import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
