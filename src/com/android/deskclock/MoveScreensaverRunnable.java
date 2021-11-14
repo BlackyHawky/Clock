@@ -24,10 +24,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.android.best.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel;
 
-import static com.android.best.AnimatorUtils.getAlphaAnimator;
-import static com.android.best.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.AnimatorUtils.getAlphaAnimator;
+import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 
 /**
  * This runnable chooses a random initial position for {@link #mSaverView} within
