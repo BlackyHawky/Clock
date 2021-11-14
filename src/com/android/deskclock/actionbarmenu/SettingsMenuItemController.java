@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.actionbarmenu;
+package com.best.deskclock.actionbarmenu;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.deskclock.R;
-import com.android.deskclock.settings.SettingsActivity;
+import com.best.deskclock.R;
+import com.best.deskclock.settings.SettingsActivity;
 
 import static android.view.Menu.NONE;
 
