@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_DEFAULT;
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH;
@@ -26,7 +26,7 @@ import android.util.ArraySet;
 import android.util.Log;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.android.deskclock.Utils;
+import com.best.deskclock.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
