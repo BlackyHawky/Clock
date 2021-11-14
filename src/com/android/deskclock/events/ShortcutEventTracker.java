@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.events;
+package com.best.deskclock.events;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -23,8 +23,8 @@ import android.os.Build;
 import androidx.annotation.StringRes;
 import android.util.ArraySet;
 
-import com.android.deskclock.R;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.R;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.Set;
 
