@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Fragment;
 import androidx.annotation.ColorInt;
@@ -24,8 +24,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel.Tab;
 
 public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
