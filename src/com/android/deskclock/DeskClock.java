@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -40,19 +40,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
-import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.DataModel.SilentSetting;
-import com.android.deskclock.data.OnSilentSettingsListener;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.uidata.TabListener;
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.widget.toast.SnackbarManager;
+import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.best.deskclock.actionbarmenu.NightModeMenuItemController;
+import com.best.deskclock.actionbarmenu.OptionsMenuManager;
+import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.DataModel.SilentSetting;
+import com.best.deskclock.data.OnSilentSettingsListener;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.uidata.TabListener;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.toast.SnackbarManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -61,7 +61,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
