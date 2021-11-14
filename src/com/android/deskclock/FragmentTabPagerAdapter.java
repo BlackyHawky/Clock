@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -25,7 +25,7 @@ import android.util.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.Map;
 
