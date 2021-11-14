@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms;
+package com.best.deskclock.alarms;
 
 /**
  * API that handles scrolling when an alarm item is expanded/collapsed.
