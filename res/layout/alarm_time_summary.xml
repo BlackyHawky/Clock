@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.android.deskclock.widget.TextTime
+<com.best.deskclock.widget.TextTime
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/digital_clock"
     style="@style/display_time"
