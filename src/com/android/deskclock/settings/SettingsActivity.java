@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.settings;
+package com.best.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,17 +33,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.android.deskclock.BaseActivity;
-import com.android.deskclock.DropShadowController;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.TimeZones;
-import com.android.deskclock.data.Weekdays;
-import com.android.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.BaseActivity;
+import com.best.deskclock.DropShadowController;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.best.deskclock.actionbarmenu.OptionsMenuManager;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.TimeZones;
+import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.ringtone.RingtonePickerActivity;
 
 import java.util.List;
 
