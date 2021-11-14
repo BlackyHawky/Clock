@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.SharedPreferences;
 
-import com.android.deskclock.data.Timer.State;
+import com.best.deskclock.data.Timer.State;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.android.deskclock.data.Timer.State.RESET;
+import static com.best.deskclock.data.Timer.State.RESET;
 
 /**
  * This class encapsulates the transfer of data between {@link Timer} domain objects and their
