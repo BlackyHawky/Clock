@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
@@ -32,8 +32,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextClock;
 
-import com.android.deskclock.events.Events;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.uidata.UiDataModel;
 
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
