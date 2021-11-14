@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
-import com.android.deskclock.data.DataModel.CitySort;
-import com.android.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
+import com.best.deskclock.data.DataModel.CitySort;
+import com.best.deskclock.data.DataModel.ClockStyle;
 
 import java.util.TimeZone;
 
