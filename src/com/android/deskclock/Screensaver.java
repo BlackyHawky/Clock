@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
@@ -31,8 +31,8 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.TextClock;
 
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.uidata.UiDataModel;
 
 public final class Screensaver extends DreamService {
 
