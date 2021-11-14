@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.settings;
+package com.best.deskclock.settings;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -25,8 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 
 /**
  * Bend {@link DropDownPreference} to support
