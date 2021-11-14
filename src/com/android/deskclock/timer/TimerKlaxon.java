@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -23,10 +23,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 
-import com.android.deskclock.AsyncRingtonePlayer;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.AsyncRingtonePlayer;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 
 /**
  * Manages playing the timer ringtone and vibrating the device.
