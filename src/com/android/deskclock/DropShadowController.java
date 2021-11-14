@@ -27,7 +27,7 @@ import com.best.deskclock.uidata.TabScrollListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
 
-import static com.android.best.AnimatorUtils.getAlphaAnimator;
+import static com.best.deskclock.AnimatorUtils.getAlphaAnimator;
 
 /**
  * This controller encapsulates the logic that watches a model for changes to scroll state and
