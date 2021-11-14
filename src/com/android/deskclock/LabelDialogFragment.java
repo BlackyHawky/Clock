@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -39,9 +39,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Timer;
-import com.android.deskclock.provider.Alarm;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.provider.Alarm;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
