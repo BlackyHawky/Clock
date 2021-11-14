@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -41,30 +41,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.android.deskclock.BaseActivity;
-import com.android.deskclock.DropShadowController;
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.ItemAdapter.OnItemClickedListener;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.RingtonePreviewKlaxon;
-import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
-import com.android.deskclock.alarms.AlarmUpdateHandler;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.provider.Alarm;
+import com.best.deskclock.BaseActivity;
+import com.best.deskclock.DropShadowController;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.ItemAdapter.OnItemClickedListener;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.RingtonePreviewKlaxon;
+import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.best.deskclock.actionbarmenu.OptionsMenuManager;
+import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.provider.Alarm;
 
 import java.util.List;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
-import static com.android.deskclock.ItemAdapter.ItemViewHolder.Factory;
-import static com.android.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
-import static com.android.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
-import static com.android.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
-import static com.android.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
+import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
+import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
+import static com.best.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
+import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
+import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
 
 /**
  * This activity presents a set of ringtones from which the user may select one. The set includes:
