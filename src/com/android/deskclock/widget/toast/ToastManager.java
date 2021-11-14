@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.widget.toast;
+package com.best.deskclock.widget.toast;
 
 import android.widget.Toast;
 
