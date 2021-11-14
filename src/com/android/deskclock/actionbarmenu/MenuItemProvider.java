@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.actionbarmenu;
+package com.best.deskclock.actionbarmenu;
 
 import android.app.Activity;
 
