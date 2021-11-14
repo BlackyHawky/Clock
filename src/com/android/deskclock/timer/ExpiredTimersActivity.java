@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -30,12 +30,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.android.deskclock.BaseActivity;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Timer;
-import com.android.deskclock.data.TimerListener;
+import com.best.deskclock.BaseActivity;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.data.TimerListener;
 
 import java.util.List;
 
