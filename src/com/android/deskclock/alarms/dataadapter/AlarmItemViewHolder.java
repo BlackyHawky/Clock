@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms.dataadapter;
+package com.best.deskclock.alarms.dataadapter;
 
 import android.content.Context;
 import android.view.View;
@@ -22,13 +22,13 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.deskclock.AlarmUtils;
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.ItemAnimator;
-import com.android.deskclock.R;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.widget.TextTime;
+import com.best.deskclock.AlarmUtils;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.ItemAnimator;
+import com.best.deskclock.R;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.widget.TextTime;
 
 /**
  * Abstract ViewHolder for alarm time items.
