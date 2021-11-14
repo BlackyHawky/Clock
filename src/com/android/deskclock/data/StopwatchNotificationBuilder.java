@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import static com.android.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
 
@@ -34,11 +34,11 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.NotificationUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.NotificationUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.stopwatch.StopwatchService;
 
 import java.util.ArrayList;
 import java.util.List;
