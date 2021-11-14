@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.deskclock.alarms;
+package com.best.deskclock.alarms;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
@@ -32,18 +32,18 @@ import androidx.core.app.NotificationManagerCompat;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.android.deskclock.AlarmAlertWakeLock;
-import com.android.deskclock.AlarmClockFragment;
-import com.android.deskclock.AlarmUtils;
-import com.android.deskclock.AsyncHandler;
-import com.android.deskclock.DeskClock;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.AlarmAlertWakeLock;
+import com.best.deskclock.AlarmClockFragment;
+import com.best.deskclock.AlarmUtils;
+import com.best.deskclock.AsyncHandler;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
 import java.util.Collections;
