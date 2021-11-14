@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -23,10 +23,10 @@ import android.content.Intent;
 import android.os.Looper;
 import android.provider.AlarmClock;
 
-import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.controller.Controller;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.controller.Controller;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
