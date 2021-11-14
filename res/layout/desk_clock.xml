@@ -76,7 +76,7 @@
             android:layout_gravity="bottom"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            app:layout_behavior="com.android.deskclock.widget.toast.SnackbarSlidingBehavior">
+            app:layout_behavior="com.best.deskclock.widget.toast.SnackbarSlidingBehavior">
 
             <FrameLayout
                 android:layout_width="0dp"
