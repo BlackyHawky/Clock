@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -23,8 +23,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
 
-import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
-import com.android.deskclock.provider.Alarm;
+import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
+import com.best.deskclock.provider.Alarm;
 
 /**
  * All alarm data will eventually be accessed via this model.
