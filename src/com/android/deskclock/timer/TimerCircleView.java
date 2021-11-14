@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,10 +25,10 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.android.deskclock.R;
-import com.android.deskclock.ThemeUtils;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.Timer;
+import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.Timer;
 
 /**
  * Custom view that draws timer progress as a circle.
