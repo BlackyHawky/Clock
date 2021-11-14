@@ -31,13 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.android.deskclock.AnalogClock
+            <com.best.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
                 android:layout_width="@dimen/world_analog_clock_size"
                 android:layout_gravity="center"
                 android:layout_height="@dimen/world_analog_clock_size"/>
 
-            <com.android.deskclock.widget.AutoSizingTextClock
+            <com.best.deskclock.widget.AutoSizingTextClock
                 android:id="@+id/digital_clock"
                 style="@style/display_time"
                 android:layout_width="match_parent"
