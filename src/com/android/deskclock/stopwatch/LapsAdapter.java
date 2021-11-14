@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.stopwatch;
+package com.best.deskclock.stopwatch;
 
 import android.content.Context;
 import androidx.annotation.VisibleForTesting;
@@ -25,11 +25,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Lap;
-import com.android.deskclock.data.Stopwatch;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.Stopwatch;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
