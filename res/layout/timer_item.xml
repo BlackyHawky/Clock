@@ -15,7 +15,7 @@
 -->
 
 <!-- This TimerItem discards the circle because space is limited. -->
-<com.android.deskclock.timer.TimerItem
+<com.best.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -98,7 +98,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3">
 
-                    <com.android.deskclock.widget.AutoSizingTextView
+                    <com.best.deskclock.widget.AutoSizingTextView
                         android:id="@+id/timer_time_text"
                         style="@style/display_time"
                         android:layout_width="match_parent"
@@ -128,4 +128,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fab_height" />
 
-</com.android.deskclock.timer.TimerItem>
+</com.best.deskclock.timer.TimerItem>
