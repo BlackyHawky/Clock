@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.alarmclock;
+package com.best.alarmclock;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -24,10 +24,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.DeskClock;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 
 /**
  * Simple widget to show an analog clock.
