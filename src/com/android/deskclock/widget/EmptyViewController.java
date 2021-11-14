@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.widget;
+package com.best.deskclock.widget;
 
 import android.transition.Fade;
 import android.transition.Transition;
@@ -23,7 +23,7 @@ import android.transition.TransitionSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.deskclock.Utils;
+import com.best.deskclock.Utils;
 
 /**
  * Controller that displays empty view and handles animation appropriately.
