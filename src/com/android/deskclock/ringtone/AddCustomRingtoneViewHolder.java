@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +22,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.deskclock.ItemAdapter.ItemViewHolder;
-import com.android.deskclock.R;
+import com.best.deskclock.ItemAdapter.ItemViewHolder;
+import com.best.deskclock.R;
 
 import static android.view.View.GONE;
 
