@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.content.Context;
 import androidx.annotation.VisibleForTesting;
@@ -24,9 +24,9 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.widget.toast.SnackbarManager;
-import com.android.deskclock.widget.toast.ToastManager;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.widget.toast.SnackbarManager;
+import com.best.deskclock.widget.toast.ToastManager;
 
 import java.util.Calendar;
 import java.util.Locale;
