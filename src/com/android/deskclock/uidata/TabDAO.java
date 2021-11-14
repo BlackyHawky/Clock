@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.uidata;
+package com.best.deskclock.uidata;
 
 import android.content.SharedPreferences;
 
-import static com.android.deskclock.uidata.UiDataModel.Tab;
+import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 /**
  * This class encapsulates the storage of tab data in {@link SharedPreferences}.
