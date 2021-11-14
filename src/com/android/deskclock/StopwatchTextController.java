@@ -19,7 +19,7 @@ package com.best.deskclock;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
