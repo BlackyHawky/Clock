@@ -58,9 +58,9 @@ import android.view.View;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
