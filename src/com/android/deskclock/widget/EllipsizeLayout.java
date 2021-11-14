@@ -1,4 +1,4 @@
-package com.android.deskclock.widget;
+package com.best.deskclock.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
