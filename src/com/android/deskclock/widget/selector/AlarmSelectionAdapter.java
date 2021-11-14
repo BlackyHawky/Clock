@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.deskclock.widget.selector;
+package com.best.deskclock.widget.selector;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -24,11 +24,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Weekdays;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.widget.TextTime;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.widget.TextTime;
 
 import java.util.Calendar;
 import java.util.List;
