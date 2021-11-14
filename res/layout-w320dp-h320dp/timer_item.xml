@@ -15,7 +15,7 @@
 -->
 
 <!-- This TimerItem includes the circle because ample space exists. -->
-<com.android.deskclock.timer.TimerItem
+<com.best.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -27,22 +27,22 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.android.deskclock.TimerCircleFrameLayout
+        <com.best.deskclock.TimerCircleFrameLayout
             android:layout_gravity="center"
             app:layout_aspectRatio="100%"
             app:layout_heightPercent="@fraction/timer_circle_height_percent"
             app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
-            <com.android.deskclock.CircleButtonsLayout
+            <com.best.deskclock.CircleButtonsLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.android.deskclock.timer.TimerCircleView
+                <com.best.deskclock.timer.TimerCircleView
                     android:id="@+id/timer_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <com.android.deskclock.widget.AutoSizingTextView
+                <com.best.deskclock.widget.AutoSizingTextView
                     android:id="@+id/timer_time_text"
                     style="@style/display_time"
                     android:layout_width="match_parent"
@@ -79,9 +79,9 @@
                     android:gravity="center"
                     android:scaleType="centerInside" />
 
-            </com.android.deskclock.CircleButtonsLayout>
+            </com.best.deskclock.CircleButtonsLayout>
 
-        </com.android.deskclock.TimerCircleFrameLayout>
+        </com.best.deskclock.TimerCircleFrameLayout>
 
     </androidx.percentlayout.widget.PercentFrameLayout>
 
@@ -89,4 +89,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fab_height" />
 
-</com.android.deskclock.timer.TimerItem>
+</com.best.deskclock.timer.TimerItem>
