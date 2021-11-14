@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,7 +26,7 @@ import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
-import static com.android.deskclock.AnimatorUtils.ARGB_EVALUATOR;
+import static com.best.deskclock.AnimatorUtils.ARGB_EVALUATOR;
 
 /**
  * Base activity class that changes the app window's color based on the current hour.
