@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -28,10 +28,10 @@ import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import androidx.annotation.NonNull;
 
-import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class DeskClockBackupAgent extends BackupAgent {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DeskClockBackupAgent");
 
     public static final String ACTION_COMPLETE_RESTORE =
-            "com.android.deskclock.action.COMPLETE_RESTORE";
+            "com.best.deskclock.action.COMPLETE_RESTORE";
 
     @Override
     public void onBackup(ParcelFileDescriptor oldState, BackupDataOutput data,
