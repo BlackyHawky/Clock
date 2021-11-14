@@ -48,13 +48,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
-import static com.android.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
-import static com.android.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
-import static com.android.deskclock.provider.AlarmInstance.FIRED_STATE;
-import static com.android.deskclock.provider.AlarmInstance.SNOOZE_STATE;
-import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
-import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
+import static com.best.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
+import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
+import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
+import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
+import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
+import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
+import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
  * This activity is never visible. It processes all public intents defined by {@link AlarmClock}
