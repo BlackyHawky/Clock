@@ -23,7 +23,7 @@ import androidx.annotation.StringRes;
 import com.best.deskclock.Utils;
 import com.best.deskclock.events.EventTracker;
 
-import static com.android.deskclock.Utils.enforceMainLooper;
+import static com.best.deskclock.Utils.enforceMainLooper;
 
 /**
  * Interactions with Android framework components responsible for part of the user experience are
