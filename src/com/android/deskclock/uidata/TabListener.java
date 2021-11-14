@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.uidata;
+package com.best.deskclock.uidata;
 
-import com.android.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.uidata.UiDataModel.Tab;
 
 /**
  * The interface through which interested parties are notified of changes to the selected tab.
