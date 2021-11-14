@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.SharedPreferences;
 
-import com.android.deskclock.data.Stopwatch.State;
+import com.best.deskclock.data.Stopwatch.State;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.android.deskclock.data.Stopwatch.State.RESET;
+import static com.best.deskclock.data.Stopwatch.State.RESET;
 
 /**
  * This class encapsulates the transfer of data between {@link Stopwatch} and {@link Lap} domain
