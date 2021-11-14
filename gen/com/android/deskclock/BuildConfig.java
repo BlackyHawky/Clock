@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 public final class BuildConfig {
     public static final boolean DEBUG = false;
-    public static final String APPLICATION_ID = "com.android.deskclock";
+    public static final String APPLICATION_ID = "com.best.deskclock";
 }
