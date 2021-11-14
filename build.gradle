@@ -42,7 +42,7 @@ android {
     productFlavors {
         aosp {
             flavorDimensions 'default'
-            applicationId 'com.android.deskclock'
+            applicationId 'com.best.deskclock'
         }
     }
 
