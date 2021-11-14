@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.android.deskclock.widget.TextTime
+        <com.best.deskclock.widget.TextTime
             android:id="@+id/digital_clock"
             android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
 
     </LinearLayout>
 
-    <com.android.deskclock.widget.EllipsizeLayout
+    <com.best.deskclock.widget.EllipsizeLayout
         android:layout_marginTop="@dimen/label_margin_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
