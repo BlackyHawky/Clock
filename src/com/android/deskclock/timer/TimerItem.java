@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -28,11 +28,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.deskclock.R;
-import com.android.deskclock.ThemeUtils;
-import com.android.deskclock.TimerTextController;
-import com.android.deskclock.Utils.ClickAccessibilityDelegate;
-import com.android.deskclock.data.Timer;
+import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.TimerTextController;
+import com.best.deskclock.Utils.ClickAccessibilityDelegate;
+import com.best.deskclock.data.Timer;
 
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
