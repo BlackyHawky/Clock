@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.SharedPreferences;
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.R;
-import com.android.deskclock.events.Events;
+import com.best.deskclock.R;
+import com.best.deskclock.events.Events;
 
 /**
  * All widget data is accessed via this model.
