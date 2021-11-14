@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
@@ -23,11 +23,11 @@ import android.database.MatrixCursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.data.CustomRingtone;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.data.CustomRingtone;
+import com.best.deskclock.data.DataModel;
 
 import java.util.ArrayList;
 import java.util.List;
