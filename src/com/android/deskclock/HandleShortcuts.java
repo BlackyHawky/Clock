@@ -24,7 +24,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;
 
-import static com.android.best.uidata.UiDataModel.Tab.STOPWATCH;
+import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 public class HandleShortcuts extends Activity {
 
