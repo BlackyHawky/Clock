@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.LoaderManager;
 import android.content.Context;
@@ -37,21 +37,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.android.deskclock.alarms.AlarmTimeClickHandler;
-import com.android.deskclock.alarms.AlarmUpdateHandler;
-import com.android.deskclock.alarms.ScrollHandler;
-import com.android.deskclock.alarms.dataadapter.AlarmItemViewHolder;
-import com.android.deskclock.alarms.TimePickerDialogFragment;
-import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
-import com.android.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.widget.EmptyViewController;
-import com.android.deskclock.widget.toast.SnackbarManager;
-import com.android.deskclock.widget.toast.ToastManager;
+import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.alarms.ScrollHandler;
+import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
+import com.best.deskclock.alarms.TimePickerDialogFragment;
+import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
+import com.best.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.EmptyViewController;
+import com.best.deskclock.widget.toast.SnackbarManager;
+import com.best.deskclock.widget.toast.ToastManager;
 
 
 import java.util.ArrayList;
