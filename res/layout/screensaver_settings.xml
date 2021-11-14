@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.android.deskclock.settings.ScreensaverSettingsActivity$PrefsFragment"
+        android:name="com.best.deskclock.settings.ScreensaverSettingsActivity$PrefsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
