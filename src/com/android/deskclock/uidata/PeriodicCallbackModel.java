@@ -23,7 +23,7 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import androidx.annotation.VisibleForTesting;
 
-import com.android.deskclock.LogUtils;
+import com.best.deskclock.LogUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +34,7 @@ import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-import static com.android.deskclock.Utils.enforceMainLooper;
+import static com.best.deskclock.Utils.enforceMainLooper;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MILLISECOND;
