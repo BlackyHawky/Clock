@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.alarmclock;
+package com.best.alarmclock;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
