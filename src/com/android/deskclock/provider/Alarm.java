@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.provider;
+package com.best.deskclock.provider;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -30,9 +30,9 @@ import android.os.Parcelable;
 import android.os.ParcelUuid;
 
 
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Weekdays;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Weekdays;
 
 import java.util.Calendar;
 import java.util.LinkedList;
