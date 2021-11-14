@@ -1,4 +1,4 @@
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.content.Context;
 import android.content.res.Resources;
