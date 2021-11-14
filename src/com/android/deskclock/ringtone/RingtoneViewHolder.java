@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.graphics.PorterDuff;
 import androidx.core.content.ContextCompat;
@@ -26,11 +26,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.deskclock.AnimatorUtils;
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.R;
-import com.android.deskclock.ThemeUtils;
-import com.android.deskclock.Utils;
+import com.best.deskclock.AnimatorUtils;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.Utils;
 
 import static android.view.View.GONE;
 import static android.view.View.OnClickListener;
