@@ -35,7 +35,7 @@
             android:singleLine="true"
             android:includeFontPadding="false" />
 
-        <com.android.deskclock.AnalogClock
+        <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="@dimen/world_clock_analog_size"
             android:layout_height="@dimen/world_clock_analog_size"
