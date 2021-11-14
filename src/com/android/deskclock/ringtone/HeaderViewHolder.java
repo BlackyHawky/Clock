@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.R;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.R;
 
 final class HeaderViewHolder extends ItemAdapter.ItemViewHolder<HeaderHolder> {
 
