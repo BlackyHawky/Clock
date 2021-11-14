@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -24,10 +24,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.android.deskclock.uidata.UiDataModel;
+import com.android.best.uidata.UiDataModel;
 
-import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
-import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.android.best.AnimatorUtils.getAlphaAnimator;
+import static com.android.best.AnimatorUtils.getScaleAnimator;
 
 /**
  * This runnable chooses a random initial position for {@link #mSaverView} within
