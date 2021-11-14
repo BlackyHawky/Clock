@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.provider;
+package com.best.deskclock.provider;
 
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
@@ -32,15 +32,15 @@ import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.Utils;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.Utils;
 
 import java.util.Map;
 
-import static com.android.deskclock.provider.ClockContract.AlarmsColumns;
-import static com.android.deskclock.provider.ClockContract.InstancesColumns;
-import static com.android.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
-import static com.android.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
+import static com.best.deskclock.provider.ClockContract.AlarmsColumns;
+import static com.best.deskclock.provider.ClockContract.InstancesColumns;
+import static com.best.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
+import static com.best.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
 
 public class ClockProvider extends ContentProvider {
 
