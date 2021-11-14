@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.provider;
+package com.best.deskclock.provider;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -26,8 +26,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.data.Weekdays;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.data.Weekdays;
 
 import java.util.Calendar;
 import java.util.UUID;
