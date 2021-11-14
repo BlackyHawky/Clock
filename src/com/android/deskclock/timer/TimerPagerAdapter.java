@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -27,9 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Timer;
-import com.android.deskclock.data.TimerListener;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.data.TimerListener;
 
 import java.util.List;
 import java.util.Map;
