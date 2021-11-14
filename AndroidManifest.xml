@@ -15,10 +15,10 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.deskclock">
+    package="com.best.deskclock">
 
-    <original-package android:name="com.android.alarmclock" />
-    <original-package android:name="com.android.deskclock" />
+    <original-package android:name="com.best.alarmclock" />
+    <original-package android:name="com.best.deskclock" />
 
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="25" />
 
@@ -125,9 +125,9 @@
         </activity>
 
         <activity-alias
-            android:name="com.android.deskclock.HandleSetAlarmApiCalls"
-            android:permission="com.android.alarm.permission.SET_ALARM"
-            android:targetActivity="com.android.deskclock.HandleApiCalls">
+            android:name="com.best.deskclock.HandleSetAlarmApiCalls"
+            android:permission="com.best.alarm.permission.SET_ALARM"
+            android:targetActivity="com.best.deskclock.HandleApiCalls">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
@@ -159,7 +159,7 @@
 
         <provider
             android:name=".provider.ClockProvider"
-            android:authorities="com.android.deskclock"
+            android:authorities="com.best.deskclock"
             android:directBootAware="true"
             android:exported="false" />
 
@@ -201,7 +201,7 @@
 
         <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
         <receiver
-            android:name="com.android.deskclock.timer.TimerReceiver"
+            android:name="com.best.deskclock.timer.TimerReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="times_up" />
@@ -260,7 +260,7 @@
         <!-- ============================================================== -->
 
         <receiver
-            android:name="com.android.alarmclock.AnalogAppWidgetProvider"
+            android:name="com.best.alarmclock.AnalogAppWidgetProvider"
             android:label="@string/analog_gadget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -275,7 +275,7 @@
         </receiver>
 
         <receiver
-            android:name="com.android.alarmclock.DigitalAppWidgetProvider"
+            android:name="com.best.alarmclock.DigitalAppWidgetProvider"
             android:label="@string/digital_gadget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -285,9 +285,9 @@
                 <action android:name="android.intent.action.SCREEN_ON" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.android.deskclock.ALARM_CHANGED" />
-                <action android:name="com.android.deskclock.ON_DAY_CHANGE" />
-                <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />
+                <action android:name="com.best.deskclock.ALARM_CHANGED" />
+                <action android:name="com.best.deskclock.ON_DAY_CHANGE" />
+                <action android:name="com.best.deskclock.WORLD_CITIES_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -295,7 +295,7 @@
         </receiver>
 
         <service
-            android:name="com.android.alarmclock.DigitalAppWidgetCityService"
+            android:name="com.best.alarmclock.DigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>
