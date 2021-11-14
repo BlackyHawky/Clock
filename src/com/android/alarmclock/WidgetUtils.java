@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.alarmclock;
+package com.best.alarmclock;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 
 public final class WidgetUtils {
 
