@@ -1,4 +1,4 @@
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
