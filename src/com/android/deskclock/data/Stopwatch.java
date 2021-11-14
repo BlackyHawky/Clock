@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
-import static com.android.deskclock.Utils.now;
-import static com.android.deskclock.Utils.wallClock;
-import static com.android.deskclock.data.Stopwatch.State.PAUSED;
-import static com.android.deskclock.data.Stopwatch.State.RESET;
-import static com.android.deskclock.data.Stopwatch.State.RUNNING;
+import static com.best.deskclock.Utils.now;
+import static com.best.deskclock.Utils.wallClock;
+import static com.best.deskclock.data.Stopwatch.State.PAUSED;
+import static com.best.deskclock.data.Stopwatch.State.RESET;
+import static com.best.deskclock.data.Stopwatch.State.RUNNING;
 
 /**
  * A read-only domain object representing a stopwatch.
