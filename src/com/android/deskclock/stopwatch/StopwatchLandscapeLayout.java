@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.stopwatch;
+package com.best.deskclock.stopwatch;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.deskclock.R;
+import com.best.deskclock.R;
 
 import static android.view.View.MeasureSpec.AT_MOST;
 import static android.view.View.MeasureSpec.EXACTLY;
