@@ -57,7 +57,7 @@ import com.best.deskclock.widget.toast.ToastManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
+import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
