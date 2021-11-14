@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.text.TextUtils;
 
@@ -25,13 +25,13 @@ import java.util.List;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.Utils.now;
-import static com.android.deskclock.Utils.wallClock;
-import static com.android.deskclock.data.Timer.State.EXPIRED;
-import static com.android.deskclock.data.Timer.State.MISSED;
-import static com.android.deskclock.data.Timer.State.PAUSED;
-import static com.android.deskclock.data.Timer.State.RESET;
-import static com.android.deskclock.data.Timer.State.RUNNING;
+import static com.best.deskclock.Utils.now;
+import static com.best.deskclock.Utils.wallClock;
+import static com.best.deskclock.data.Timer.State.EXPIRED;
+import static com.best.deskclock.data.Timer.State.MISSED;
+import static com.best.deskclock.data.Timer.State.PAUSED;
+import static com.best.deskclock.data.Timer.State.RESET;
+import static com.best.deskclock.data.Timer.State.RUNNING;
 
 /**
  * A read-only domain object representing a countdown timer.
