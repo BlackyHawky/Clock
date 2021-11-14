@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 /**
  * The interface through which interested parties are notified of changes to one of the timers.
