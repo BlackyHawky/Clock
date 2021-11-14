@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.widget;
+package com.best.deskclock.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,7 +27,7 @@ import android.util.Property;
 import android.view.Gravity;
 import android.view.View;
 
-import com.android.deskclock.R;
+import com.best.deskclock.R;
 
 /**
  * A {@link View} that draws primitive circles.
