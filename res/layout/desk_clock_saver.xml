@@ -33,7 +33,7 @@
         android:layout_marginTop="@dimen/time_margin_top"
         android:orientation="vertical">
 
-        <com.android.deskclock.AnalogClock
+        <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
