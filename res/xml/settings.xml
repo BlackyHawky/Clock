@@ -17,7 +17,7 @@
     android:title="@string/settings">
     <PreferenceCategory
         android:title="@string/clock_settings">
-        <com.android.best.settings.SimpleMenuPreference
+        <com.best.deskclock.settings.SimpleMenuPreference
             android:defaultValue="@string/default_clock_style"
             android:dialogTitle="@string/clock_style"
             android:entries="@array/clock_style_entries"
