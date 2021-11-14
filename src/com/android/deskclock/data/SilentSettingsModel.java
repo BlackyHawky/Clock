@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
@@ -32,8 +32,8 @@ import android.os.Build;
 import android.os.Handler;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel.SilentSetting;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel.SilentSetting;
 
 import java.util.ArrayList;
 import java.util.List;
