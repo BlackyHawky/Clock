@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -37,17 +37,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.android.deskclock.AnimatorUtils;
-import com.android.deskclock.DeskClock;
-import com.android.deskclock.DeskClockFragment;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Timer;
-import com.android.deskclock.data.TimerListener;
-import com.android.deskclock.data.TimerStringFormatter;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.AnimatorUtils;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.DeskClockFragment;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.data.TimerListener;
+import com.best.deskclock.data.TimerStringFormatter;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
+import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
  * Displays a vertical list of timers in all states.
