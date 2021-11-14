@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -24,12 +24,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.android.deskclock.LabelDialogFragment;
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Timer;
-import com.android.deskclock.data.TimerStringFormatter;
-import com.android.deskclock.events.Events;
+import com.best.deskclock.LabelDialogFragment;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Timer;
+import com.best.deskclock.data.TimerStringFormatter;
+import com.best.deskclock.events.Events;
 
 public class TimerItemFragment extends Fragment {
 
