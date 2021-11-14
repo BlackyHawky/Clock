@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.events;
+package com.best.deskclock.events;
 
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.R;
-import com.android.deskclock.controller.Controller;
+import com.best.deskclock.R;
+import com.best.deskclock.controller.Controller;
 
 /**
  * This thin layer over {@link Controller#sendEvent} eases the API usage.
