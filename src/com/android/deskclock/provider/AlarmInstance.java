@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.provider;
+package com.best.deskclock.provider;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -25,10 +25,10 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.data.DataModel;
 
 import java.util.Calendar;
 import java.util.LinkedList;
