@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.deskclock.alarms;
+package com.best.deskclock.alarms;
 
-import static com.android.deskclock.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
-import static com.android.deskclock.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
-import static com.android.deskclock.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
-import static com.android.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -35,15 +35,15 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.deskclock.AlarmClockFragment;
-import com.android.deskclock.AlarmUtils;
-import com.android.deskclock.DeskClock;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.NotificationUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.AlarmClockFragment;
+import com.best.deskclock.AlarmUtils;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.NotificationUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
