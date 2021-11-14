@@ -25,7 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.android.deskclock.AnalogClock
+        <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_marginStart="@dimen/analog_clock_margin"
             android:layout_marginTop="@dimen/circle_margin_top" />
 
-        <com.android.deskclock.widget.AutoSizingTextClock
+        <com.best.deskclock.widget.AutoSizingTextClock
             android:id="@+id/digital_clock"
             style="@style/display_time"
             android:layout_width="wrap_content"
