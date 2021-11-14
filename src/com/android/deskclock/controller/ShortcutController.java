@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.controller;
+package com.best.deskclock.controller;
 
 import android.annotation.TargetApi;
 import android.content.ComponentName;
@@ -28,20 +28,20 @@ import android.os.UserManager;
 import android.provider.AlarmClock;
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.DeskClock;
-import com.android.deskclock.HandleApiCalls;
-import com.android.deskclock.HandleShortcuts;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.ScreensaverActivity;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Lap;
-import com.android.deskclock.data.Stopwatch;
-import com.android.deskclock.data.StopwatchListener;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.events.ShortcutEventTracker;
-import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.HandleApiCalls;
+import com.best.deskclock.HandleShortcuts;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.ScreensaverActivity;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.Stopwatch;
+import com.best.deskclock.data.StopwatchListener;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.events.ShortcutEventTracker;
+import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.Arrays;
 import java.util.Collections;
