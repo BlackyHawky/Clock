@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms.dataadapter;
+package com.best.deskclock.alarms.dataadapter;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,14 +28,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.deskclock.AnimatorUtils;
-import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Weekdays;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.AnimatorUtils;
+import com.best.deskclock.ItemAdapter;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
 import java.util.List;
