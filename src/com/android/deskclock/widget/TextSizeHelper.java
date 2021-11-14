@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.widget;
+package com.best.deskclock.widget;
 
 import android.text.Layout;
 import android.text.TextPaint;
