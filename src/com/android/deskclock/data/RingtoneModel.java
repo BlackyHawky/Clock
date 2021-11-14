@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -34,9 +34,9 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.provider.Alarm;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.provider.Alarm;
 
 import java.util.Collections;
 import java.util.List;
