@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.deskclock.events.Events;
-import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.uidata.UiDataModel;
 
-import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
+import static com.android.best.uidata.UiDataModel.Tab.STOPWATCH;
 
 public class HandleShortcuts extends Activity {
 
