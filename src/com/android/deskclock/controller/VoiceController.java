@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.controller;
+package com.best.deskclock.controller;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -24,7 +24,7 @@ import android.app.VoiceInteractor.CompleteVoiceRequest;
 import android.app.VoiceInteractor.Prompt;
 import android.os.Build;
 
-import com.android.deskclock.Utils;
+import com.best.deskclock.Utils;
 
 @TargetApi(Build.VERSION_CODES.M)
 class VoiceController {
