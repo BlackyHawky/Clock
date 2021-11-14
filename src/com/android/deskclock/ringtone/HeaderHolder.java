@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
 import android.net.Uri;
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.ItemAdapter;
+import com.best.deskclock.ItemAdapter;
 
 import static androidx.recyclerview.widget.RecyclerView.NO_ID;
 
