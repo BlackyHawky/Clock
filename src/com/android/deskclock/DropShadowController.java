@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.animation.ValueAnimator;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +22,12 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.uidata.TabScrollListener;
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.uidata.TabScrollListener;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel.Tab;
 
-import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
+import static com.android.best.AnimatorUtils.getAlphaAnimator;
 
 /**
  * This controller encapsulates the logic that watches a model for changes to scroll state and
