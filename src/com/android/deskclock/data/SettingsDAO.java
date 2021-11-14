@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,12 +24,12 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import android.text.format.DateUtils;
 
-import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
-import com.android.deskclock.data.DataModel.CitySort;
-import com.android.deskclock.data.DataModel.ClockStyle;
-import com.android.deskclock.settings.ScreensaverSettingsActivity;
-import com.android.deskclock.settings.SettingsActivity;
+import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
+import com.best.deskclock.data.DataModel.CitySort;
+import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.ScreensaverSettingsActivity;
+import com.best.deskclock.settings.SettingsActivity;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -38,12 +38,12 @@ import java.util.TimeZone;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
-import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
-import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
-import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
-import static com.android.deskclock.data.Weekdays.Order.MON_TO_SUN;
-import static com.android.deskclock.data.Weekdays.Order.SAT_TO_FRI;
-import static com.android.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
+import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
+import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
+import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
+import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
+import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
 import static java.util.Calendar.SUNDAY;
