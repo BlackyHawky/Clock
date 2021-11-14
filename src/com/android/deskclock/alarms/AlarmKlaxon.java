@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms;
+package com.best.deskclock.alarms;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -22,11 +22,11 @@ import android.media.AudioAttributes;
 import android.os.Build;
 import android.os.Vibrator;
 
-import com.android.deskclock.AsyncRingtonePlayer;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.provider.AlarmInstance;
+import com.best.deskclock.AsyncRingtonePlayer;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.provider.AlarmInstance;
 
 /**
  * Manages playing alarm ringtones and vibrating the device.
