@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 /**
  * A read-only domain object representing a stopwatch lap.
