@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.settings;
+package com.best.deskclock.settings;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
@@ -30,10 +30,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import com.android.deskclock.R;
-import com.android.deskclock.RingtonePreviewKlaxon;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.R;
+import com.best.deskclock.RingtonePreviewKlaxon;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
