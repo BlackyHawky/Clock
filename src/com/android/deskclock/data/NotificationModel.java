@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 /**
  * Data that must be coordinated across all notifications is accessed via this model.
