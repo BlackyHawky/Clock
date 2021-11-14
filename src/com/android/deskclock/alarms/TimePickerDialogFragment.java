@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.alarms;
+package com.best.deskclock.alarms;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -29,7 +29,7 @@ import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
 
-import com.android.deskclock.Utils;
+import com.best.deskclock.Utils;
 
 import java.util.Calendar;
 
