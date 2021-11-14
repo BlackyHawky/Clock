@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.best.deskclock;
 
 import android.annotation.TargetApi;
 import android.app.Application;
@@ -23,10 +23,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
-import com.android.deskclock.controller.Controller;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.events.LogEventTracker;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.controller.Controller;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.events.LogEventTracker;
+import com.best.deskclock.uidata.UiDataModel;
 
 public class DeskClockApplication extends Application {
 
