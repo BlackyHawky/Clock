@@ -16,7 +16,7 @@
 
 package com.best.deskclock.data;
 
-import static com.android.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
