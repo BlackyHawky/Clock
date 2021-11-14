@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.settings;
+package com.best.deskclock.settings;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -25,8 +25,8 @@ import android.preference.PreferenceFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 
 /**
  * Settings for Clock screen saver
