@@ -30,7 +30,7 @@ import com.best.deskclock.timer.TimerFragment;
 
 import java.util.Calendar;
 
-import static com.android.deskclock.Utils.enforceMainLooper;
+import static com.best.deskclock.Utils.enforceMainLooper;
 
 /**
  * All application-wide user interface data is accessible through this singleton.
