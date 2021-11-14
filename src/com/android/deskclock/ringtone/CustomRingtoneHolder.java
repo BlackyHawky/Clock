@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.ringtone;
+package com.best.deskclock.ringtone;
 
-import com.android.deskclock.data.CustomRingtone;
+import com.best.deskclock.data.CustomRingtone;
 
 class CustomRingtoneHolder extends RingtoneHolder {
 
