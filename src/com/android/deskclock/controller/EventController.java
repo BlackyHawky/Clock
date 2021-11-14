@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.controller;
+package com.best.deskclock.controller;
 
 import androidx.annotation.StringRes;
 
-import com.android.deskclock.events.EventTracker;
+import com.best.deskclock.events.EventTracker;
 
 import java.util.ArrayList;
 import java.util.Collection;
