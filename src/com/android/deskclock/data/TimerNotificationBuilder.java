@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
-import static com.android.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
-import static com.android.deskclock.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
@@ -36,13 +36,13 @@ import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.AlarmUtils;
-import com.android.deskclock.NotificationUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.timer.ExpiredTimersActivity;
-import com.android.deskclock.timer.TimerService;
+import com.best.deskclock.AlarmUtils;
+import com.best.deskclock.NotificationUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.timer.ExpiredTimersActivity;
+import com.best.deskclock.timer.TimerService;
 
 import java.util.ArrayList;
 import java.util.List;
