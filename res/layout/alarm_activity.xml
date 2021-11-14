@@ -58,7 +58,7 @@
             app:layout_columnSpan="3"
             app:layout_gravity="fill_horizontal" />
 
-        <com.android.deskclock.widget.CircleView
+        <com.best.deskclock.widget.CircleView
             android:id="@+id/pulse"
             android:layout_width="0dp"
             android:layout_height="0dp"
