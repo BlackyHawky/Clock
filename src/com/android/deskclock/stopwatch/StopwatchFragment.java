@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.stopwatch;
+package com.best.deskclock.stopwatch;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -42,21 +42,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.deskclock.AnimatorUtils;
-import com.android.deskclock.DeskClockFragment;
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.StopwatchTextController;
-import com.android.deskclock.ThemeUtils;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Lap;
-import com.android.deskclock.data.Stopwatch;
-import com.android.deskclock.data.StopwatchListener;
-import com.android.deskclock.events.Events;
-import com.android.deskclock.uidata.TabListener;
-import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.AnimatorUtils;
+import com.best.deskclock.DeskClockFragment;
+import com.best.deskclock.LogUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.StopwatchTextController;
+import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.Stopwatch;
+import com.best.deskclock.data.StopwatchListener;
+import com.best.deskclock.events.Events;
+import com.best.deskclock.uidata.TabListener;
+import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.uidata.UiDataModel.Tab;
 
 import static android.R.attr.state_activated;
 import static android.R.attr.state_pressed;
@@ -64,7 +64,7 @@ import static android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
+import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 /**
  * Fragment that shows the stopwatch and recorded laps.
