@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.timer;
+package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -33,17 +33,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.deskclock.FabContainer;
-import com.android.deskclock.FormattedTextUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.ThemeUtils;
-import com.android.deskclock.uidata.UiDataModel;
+import com.best.deskclock.FabContainer;
+import com.best.deskclock.FormattedTextUtils;
+import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
 import java.util.Arrays;
 
-import static com.android.deskclock.FabContainer.FAB_REQUEST_FOCUS;
-import static com.android.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
+import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
+import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 public class TimerSetupView extends LinearLayout implements View.OnClickListener,
         View.OnLongClickListener {
