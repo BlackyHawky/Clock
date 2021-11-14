@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.data;
+package com.best.deskclock.data;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,10 +23,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel.CitySort;
-import com.android.deskclock.settings.SettingsActivity;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel.CitySort;
+import com.best.deskclock.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
