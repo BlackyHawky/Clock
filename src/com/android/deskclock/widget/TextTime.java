@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.widget;
+package com.best.deskclock.widget;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -27,8 +27,8 @@ import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.android.deskclock.Utils;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 
 import java.util.Calendar;
 import java.util.TimeZone;
