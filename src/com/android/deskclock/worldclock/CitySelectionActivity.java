@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.worldclock;
+package com.best.deskclock.worldclock;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -35,18 +35,18 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.android.deskclock.BaseActivity;
-import com.android.deskclock.DropShadowController;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.actionbarmenu.MenuItemController;
-import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
-import com.android.deskclock.actionbarmenu.SearchMenuItemController;
-import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
-import com.android.deskclock.data.City;
-import com.android.deskclock.data.DataModel;
+import com.best.deskclock.BaseActivity;
+import com.best.deskclock.DropShadowController;
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.actionbarmenu.MenuItemController;
+import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.best.deskclock.actionbarmenu.OptionsMenuManager;
+import com.best.deskclock.actionbarmenu.SearchMenuItemController;
+import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
+import com.best.deskclock.data.City;
+import com.best.deskclock.data.DataModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
