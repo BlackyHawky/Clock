@@ -20,7 +20,7 @@
     <original-package android:name="com.best.alarmclock" />
     <original-package android:name="com.best.deskclock" />
 
-    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="25" />
+   
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
