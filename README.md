@@ -6,3 +6,4 @@ power off alarm (alarm will ring with phone off, snapdragon phones only, tested 
 flip and shake action for dismiss/pospone alarm
 possibility to turn off/pospone the alarm with the power button and volume button
 swipe to delete alarm
+Light and Dark mode
