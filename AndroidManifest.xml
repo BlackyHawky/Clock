@@ -31,15 +31,6 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
 
-    <!-- WRITE_SETTINGS is required to record the upcoming alarm prior to L -->
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        android:maxSdkVersion="19" />
-    <!-- READ_PHONE_STATE is required to determine when a phone call exists prior to M -->
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE"
-        android:maxSdkVersion="22" />
-
     <application
         android:name=".DeskClockApplication"
         android:allowBackup="false"
