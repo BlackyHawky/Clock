@@ -27,10 +27,10 @@
     <color name="color_control_normal">#ffdddddd</color>
 
     <color name="digit_clock_color">#ffffffff</color>
-    <color name="navigation_bar_color">@color/background_material_dark</color>
+    <color name="navigation_bar_color">#000000</color>
     <color name="navigation_icon_color">@color/background_material_light</color>
 
     <color name="city_list_header_text_color">@color/white</color>
 
-    <color name="color_background">@color/background_material_dark</color>
+    <color name="color_background">#000000</color>
 </resources>
