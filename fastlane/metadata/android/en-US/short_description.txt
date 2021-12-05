@@ -1,1 +1,1 @@
-simple clock app
+alarm, clock, timer and stopwatch
