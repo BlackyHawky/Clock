@@ -1,0 +1,1 @@
+app deskclock minimale che contiene: orologio,sveglia,timer,cronometro
