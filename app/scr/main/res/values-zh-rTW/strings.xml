@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"時鐘"</string>
+    <string name="label" msgid="162189613902857319">"標籤"</string>
+    <string name="default_label" msgid="5590025289805630372">"鬧鐘"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"震動"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"重複"</string>
+    <string name="delete" msgid="5732434972457000541">"刪除"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"預設鬧鐘音效"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"鬧鐘音效"</string>
+    <string name="timer_sound" msgid="896163086604894735">"計時器音效"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"新增"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"移除"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"系統會將使用這個音效的鬧鐘和計時器改為播放預設音效。"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"你的音效"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"裝置音效"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"無法存取音效內容。"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"計時完畢"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"今天"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"關閉"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"已錯過鬧鐘"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"已延後"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"關閉鬧鐘"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">延後 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。</item>
+      <item quantity="one">延後 1 分鐘。</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到<xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"預定的鬧鐘"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"您錯過的鬧鐘已刪除"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"還剩下不到 1 分鐘"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"還剩 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="SECONDS">%4$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"計時器已增加 1 分鐘，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"計時器已暫停，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"計時器計時中，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"還剩下"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"還剩下"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"已將鬧鐘設定在 1 分鐘內啟動。"</item>
+    <item msgid="6002066367368421848">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</item>
+    <item msgid="8824719306247973774">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</item>
+    <item msgid="8182406852935468862">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>又 <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</item>
+    <item msgid="2532279224777213194">"已將鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
+    <item msgid="5936557894247187717">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
+    <item msgid="9115697840826129603">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
+    <item msgid="2332583385137381060">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 天</item>
+      <item quantity="one">1 天</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 小時</item>
+      <item quantity="one">1 小時</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 小時</item>
+      <item quantity="one">1 小時</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 秒</item>
+      <item quantity="one">1 秒</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"每天"</string>
+    <string name="day_concat" msgid="971998564991636532">"、 "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"載入中…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"類比時鐘"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"數位時鐘"</string>
+    <string name="settings" msgid="5849739030579520686">"設定"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"漸漸提高音量"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"鬧鐘鈴響持續時間："</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 分鐘"</item>
+    <item msgid="5431906692406316549">"5 分鐘"</item>
+    <item msgid="7742728812068919959">"10 分鐘"</item>
+    <item msgid="2855948657259647629">"15 分鐘"</item>
+    <item msgid="6330196381284475079">"20 分鐘"</item>
+    <item msgid="7809240121716151904">"25 分鐘"</item>
+    <item msgid="4278641338024561333">"無限期"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"關閉"</item>
+    <item msgid="7195451681426992018">"5 秒"</item>
+    <item msgid="592917601923801901">"10 秒"</item>
+    <item msgid="5050318776687582653">"15 秒"</item>
+    <item msgid="6997726466563948756">"20 秒"</item>
+    <item msgid="1237360231425097772">"25 秒"</item>
+    <item msgid="248014374051498284">"30 秒"</item>
+    <item msgid="6110450211551791852">"35 秒"</item>
+    <item msgid="8010211657612404516">"40 秒"</item>
+    <item msgid="3730631498119797451">"45 秒"</item>
+    <item msgid="623829984393124488">"50 秒"</item>
+    <item msgid="6390209981529164605">"55 秒"</item>
+    <item msgid="5261571706794132923">"60 秒"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 分鐘"</item>
+    <item msgid="4482596794620161030">"2 分鐘"</item>
+    <item msgid="8478276201849960314">"3 分鐘"</item>
+    <item msgid="4038456474851212478">"4 分鐘"</item>
+    <item msgid="6298175579152122770">"5 分鐘"</item>
+    <item msgid="9021860177999278496">"6 分鐘"</item>
+    <item msgid="7224689200902680256">"7 分鐘"</item>
+    <item msgid="4610012663985162123">"8 分鐘"</item>
+    <item msgid="1717028898015659426">"9 分鐘"</item>
+    <item msgid="8058492636464337699">"10 分鐘"</item>
+    <item msgid="577767219993868603">"11 分鐘"</item>
+    <item msgid="3710047869487864775">"12 分鐘"</item>
+    <item msgid="3794200935630619331">"13 分鐘"</item>
+    <item msgid="5462266433522229437">"14 分鐘"</item>
+    <item msgid="2192100038569306041">"15 分鐘"</item>
+    <item msgid="6636326047858437620">"16 分鐘"</item>
+    <item msgid="2481054808772108352">"17 分鐘"</item>
+    <item msgid="4080984064428458050">"18 分鐘"</item>
+    <item msgid="5844319398703041730">"19 分鐘"</item>
+    <item msgid="2334964289857921073">"20 分鐘"</item>
+    <item msgid="4755209855817904977">"21 分鐘"</item>
+    <item msgid="8414394445389367355">"22 分鐘"</item>
+    <item msgid="2604612428763230265">"23 分鐘"</item>
+    <item msgid="6871696471373403806">"24 分鐘"</item>
+    <item msgid="1573685398431466364">"25 分鐘"</item>
+    <item msgid="6999090368236684971">"26 分鐘"</item>
+    <item msgid="7125056720603734703">"27 分鐘"</item>
+    <item msgid="1695830988496463030">"28 分鐘"</item>
+    <item msgid="6706610539793025916">"29 分鐘"</item>
+    <item msgid="2898212818965905529">"30 分鐘"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"一週的第一天"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"星期六"</item>
+    <item msgid="3993530639455360921">"星期日"</item>
+    <item msgid="8594709368683324282">"星期一"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"鬧鐘音量"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"靜音"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"不明"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"鬧鐘已設為靜音"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"取消靜音"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"預設鬧鐘鈴聲為靜音"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"變更"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"已封鎖時鐘通知"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"裝置已設為完全靜音"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按鈕"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"暫停"</item>
+    <item msgid="3450979320164769576">"關閉"</item>
+    <item msgid="7085774139907653538">"控制音量"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"標籤"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"鈴聲"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"鬧鐘"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"計時器"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"時鐘"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"碼表"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"新增鬧鐘"</string>
+    <string name="button_cities" msgid="4555761857494501363">"城市"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"說明"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"螢幕保護程式"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"依時間排序"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"依名稱排序"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"選取的城市"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"繼續"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"重設"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"開始"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"暫停"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"單圈計時"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"分享"</string>
+    <string name="hours_label" msgid="3393478155635368097">"時"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"分"</string>
+    <string name="seconds_label" msgid="124655952824003246">"秒"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>，<xliff:g id="MINUTES">%2$s</xliff:g>，<xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"我的時間：<xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"單圈時間："</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"第 <xliff:g id="NUMBER">%d</xliff:g> 圈"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"新增計時器"</string>
+    <string name="timer_start" msgid="6158486445614356442">"開始"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"刪除"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"刪除 <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"增加 1 分鐘"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"增加 1 分鐘"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"停止所有計時器"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"重設"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"已取消計時器"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"時間到"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> 個計時器到期"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"已錯過 <xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"計時器"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"錯過的計時器"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"錯過的計時器：<xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"暫停"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"重設所有計時器"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"您簡直就像閃電俠。"</item>
+    <item msgid="6332879039890727169">"盡情享受辛勞過後的果實。"</item>
+    <item msgid="815382761274660130">"Android 的速度這麼快，但還跟不上您！"</item>
+    <item msgid="7916250650982813737">"差強人意。"</item>
+    <item msgid="6836603904515182333">"果然是高手。"</item>
+    <item msgid="7508085100680861631">"迅雷不及掩耳。"</item>
+    <item msgid="5961245252909589573">"再玩一次時空跳躍。"</item>
+    <item msgid="5211891900854545940">"往左邊跳。"</item>
+    <item msgid="9071353477103826053">"您的身手真敏捷。"</item>
+    <item msgid="3785193933691117181">"電光飆速。"</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"居住地時間"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"城市"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"時鐘"</string>
+    <string name="clock_style" msgid="2265011060429742344">"樣式"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"顯示含秒數的時間"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"變更日期和時間"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"類比"</item>
+    <item msgid="8483930821046925592">"數位"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"自動增加居住地時鐘"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"在其他時區旅行時顯示居住地時鐘"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"居住地時區"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"居住地時區"</string>
+    <string name="city_checked" msgid="616847871968019">"已勾選<xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"已取消勾選<xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"馬歇爾群島"</item>
+    <item msgid="4196408495909011020">"中途島"</item>
+    <item msgid="1414384194857730006">"夏威夷"</item>
+    <item msgid="2687091371581931926">"阿拉斯加"</item>
+    <item msgid="1922100269679049660">"太平洋時間"</item>
+    <item msgid="7156402158716866161">"蒂華納"</item>
+    <item msgid="1144117502254612241">"亞利桑那"</item>
+    <item msgid="101284182011722637">"赤瓦瓦"</item>
+    <item msgid="689121094232986897">"美國山區標準時間"</item>
+    <item msgid="5445331923942302756">"中美洲"</item>
+    <item msgid="2749806434052452351">"美國中部標準時間"</item>
+    <item msgid="3997138870229703753">"墨西哥城"</item>
+    <item msgid="5425567073027744888">"薩克其萬"</item>
+    <item msgid="2877342865396629368">"波哥大"</item>
+    <item msgid="568682398893899670">"美國東部標準時間"</item>
+    <item msgid="668135984541863866">"委內瑞拉"</item>
+    <item msgid="3737474220861486223">"大西洋時間 (巴貝多)"</item>
+    <item msgid="6279116051273436870">"大西洋時間 (加拿大)"</item>
+    <item msgid="8513382867172014244">"瑪瑙斯"</item>
+    <item msgid="7776299003105932407">"聖地牙哥"</item>
+    <item msgid="8636989494746218677">"紐芬蘭"</item>
+    <item msgid="4402541016410147505">"巴西利亞"</item>
+    <item msgid="2251184440733164084">"布宜諾斯艾利斯"</item>
+    <item msgid="6202926618569004969">"格陵蘭島"</item>
+    <item msgid="2355275037115290628">"蒙特維多"</item>
+    <item msgid="1377549694711708945">"大西洋中部"</item>
+    <item msgid="3457671272126347981">"亞速爾群島"</item>
+    <item msgid="3659315141063710840">"維德角群島"</item>
+    <item msgid="1260941741802367635">"卡薩布蘭加"</item>
+    <item msgid="8275203689687954762">"倫敦、都柏林"</item>
+    <item msgid="5970179539479320905">"阿姆斯特丹、柏林"</item>
+    <item msgid="5396319478750517962">"貝爾格勒"</item>
+    <item msgid="8688787475056663004">"布魯塞爾"</item>
+    <item msgid="3415827874921681622">"塞拉耶佛"</item>
+    <item msgid="402008965928320066">"溫特和克"</item>
+    <item msgid="6436942724959275569">"非洲西部時間"</item>
+    <item msgid="954536568417204026">"安曼、約旦"</item>
+    <item msgid="8932745482008902551">"雅典、伊斯坦堡"</item>
+    <item msgid="320025725949024510">"貝魯特、黎巴嫩"</item>
+    <item msgid="7242083112551905970">"開羅"</item>
+    <item msgid="7241520146011450419">"赫爾辛基"</item>
+    <item msgid="2717065017510546526">"耶路撒冷"</item>
+    <item msgid="8698556287741466553">"明斯克"</item>
+    <item msgid="1797598357342084506">"哈拉雷"</item>
+    <item msgid="5169119919905066998">"巴格達"</item>
+    <item msgid="2615788116201065182">"莫斯科"</item>
+    <item msgid="9084354867885584646">"科威特"</item>
+    <item msgid="1351570519986178268">"奈洛比"</item>
+    <item msgid="7094569580635877460">"德黑蘭"</item>
+    <item msgid="3953138772617909704">"巴庫"</item>
+    <item msgid="2868893113598800752">"第比利斯"</item>
+    <item msgid="7088581865802476373">"埃里溫"</item>
+    <item msgid="1941122257623887992">"杜拜"</item>
+    <item msgid="9194797225058249720">"喀布爾"</item>
+    <item msgid="6486569254364577332">"伊斯蘭馬巴德、喀拉蚩"</item>
+    <item msgid="5487724896895412089">"烏拉爾"</item>
+    <item msgid="364906869710826982">"凱薩琳堡"</item>
+    <item msgid="2106505051751383358">"加爾各答"</item>
+    <item msgid="6851586621581501447">"斯里蘭卡"</item>
+    <item msgid="800438544128213134">"加德滿都"</item>
+    <item msgid="6173621471007643021">"阿斯塔納"</item>
+    <item msgid="8645125891971581128">"仰光"</item>
+    <item msgid="2886407505119737794">"克拉斯諾亞爾斯克"</item>
+    <item msgid="3408222398188107090">"曼谷"</item>
+    <item msgid="4441612937172851228">"北京"</item>
+    <item msgid="4936715789028996930">"香港"</item>
+    <item msgid="4261031143777385525">"伊爾庫次克"</item>
+    <item msgid="3538060959338191835">"吉隆坡"</item>
+    <item msgid="1438847562643099201">"伯斯"</item>
+    <item msgid="3063913827688244383">"台北"</item>
+    <item msgid="3502757135046564209">"首爾"</item>
+    <item msgid="6107588684519111669">"東京、大阪"</item>
+    <item msgid="4350769099755608471">"亞庫次克"</item>
+    <item msgid="2422707004533526462">"阿德萊德"</item>
+    <item msgid="1292192084554134339">"達爾文"</item>
+    <item msgid="1320883699470001716">"布里斯本"</item>
+    <item msgid="5137198806146386527">"荷巴特"</item>
+    <item msgid="5920063686933941174">"雪梨、坎培拉"</item>
+    <item msgid="615906039696009425">"海參威"</item>
+    <item msgid="7738680449356275374">"關島"</item>
+    <item msgid="2882915026380778227">"馬加丹"</item>
+    <item msgid="8255615641810148152">"奧克蘭"</item>
+    <item msgid="3027153773466391728">"斐濟"</item>
+    <item msgid="5911600083231840181">"東加"</item>
+    <item msgid="5176858645450908751">"雅加達"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新鬧鐘"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"建立新鬧鐘"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"新計時器"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"建立新計時器"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"啟動"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"啟動碼錶"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"暫停"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"暫停碼錶"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"螢幕保護程式"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"啟動螢幕保護程式"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"鬧鐘"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"處理計時器通知所指定的操作。"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"處理碼錶通知所指定的操作。"</string>
+    <string name="swn_paused" msgid="6364358842808263589">"已暫停"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"向右滑動可關閉鬧鐘"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"向左滑動可延後鈴響"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"向左滑動可延後鈴響，向右滑動可關閉鈴響"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"計時器"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"計時器已暫停"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已暫停"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"輕觸即可查看計時器"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"下一個計時器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"螢幕保護程式設定"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"夜間模式"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"非常暗淡的顯示畫面 (適用於昏暗的室內)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"已刪除鬧鐘"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"快 <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"慢 <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"快 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"慢 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"明天，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"昨天，<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"明天"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"昨天"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"下次鬧鐘時間：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"沒有設定鬧鐘"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_AMPM">%3$s</xliff:g> <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> 是無效的時間"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"目前沒有鬧鐘設在 <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"未設定鬧鐘"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"未指定任何標籤"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"沒有任何鬧鐘包含指定標籤"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"目前沒有鬧鐘設在這個時間"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"已關閉 <xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"已設定鬧鐘時間：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="timer_created" msgid="4381027137335885547">"已建立計時器"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 個計時器已關閉</item>
+      <item quantity="one">計時器已關閉</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"已刪除計時器"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"計時器時間長度無效"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"選取的計時器無效"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"沒有已結束的計時器"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"距離 <xliff:g id="ALARM_TIME">%s</xliff:g> 的時間超過 24 小時，因此無法關閉這個鬧鐘"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"關閉鬧鐘"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"選擇要關閉的鬧鐘"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"目前沒有鬧鐘正在響鈴"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘已延後 10 分鐘"</string>
+</resources>
