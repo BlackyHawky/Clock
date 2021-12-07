@@ -246,7 +246,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
-        final int flags = nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0;
+        final int flags = (nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0) | PendingIntent.FLAG_IMMUTABLE;
         final PendingIntent operation = PendingIntent.getBroadcast(context, 0 /* requestCode */,
                 AlarmStateManager.createIndicatorIntent(context), flags);
 
@@ -257,7 +257,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Create an intent that can be used to show or edit details of the next alarm.
             PendingIntent viewIntent = PendingIntent.getActivity(context, nextAlarm.hashCode(),
                     AlarmNotifications.createViewAlarmIntent(context, nextAlarm),
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmClockInfo info = new AlarmClockInfo(alarmTime, viewIntent);
             Utils.updateNextAlarm(alarmManager, info, operation);
@@ -1043,7 +1043,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Treat alarm state change as high priority, use foreground broadcasts
             stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
-                    stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             if (Utils.isMOrLater()) {
@@ -1061,7 +1061,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Create a PendingIntent that will match any one set for this instance
             PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
                     createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
-                    PendingIntent.FLAG_NO_CREATE);
+                    PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
 
             if (pendingIntent != null) {
                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);

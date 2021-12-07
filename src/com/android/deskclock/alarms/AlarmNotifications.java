@@ -122,7 +122,7 @@ public final class AlarmNotifications {
                     AlarmInstance.HIDE_NOTIFICATION_STATE);
 
             builder.setDeleteIntent(PendingIntent.getService(context, id,
-                    hideIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                    hideIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
         }
 
         // Setup up dismiss action
@@ -131,12 +131,12 @@ public final class AlarmNotifications {
         builder.addAction(R.drawable.ic_alarm_off_24dp,
                 context.getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getService(context, id,
-                        dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                        dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
         builder.setContentIntent(PendingIntent.getActivity(context, id,
-                viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         NotificationUtils.createChannel(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID);
@@ -297,12 +297,12 @@ public final class AlarmNotifications {
         builder.addAction(R.drawable.ic_alarm_off_24dp,
                 context.getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getService(context, id,
-                        dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                        dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
         builder.setContentIntent(PendingIntent.getActivity(context, id,
-                viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         NotificationUtils.createChannel(context, ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID);
@@ -341,7 +341,7 @@ public final class AlarmNotifications {
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         builder.setDeleteIntent(PendingIntent.getService(context, id,
-                dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         // Setup content intent
         Intent showAndDismiss = AlarmInstance.createIntent(context, AlarmStateManager.class,
@@ -349,7 +349,7 @@ public final class AlarmNotifications {
         showAndDismiss.putExtra(EXTRA_NOTIFICATION_ID, id);
         showAndDismiss.setAction(AlarmStateManager.SHOW_AND_DISMISS_ALARM_ACTION);
         builder.setContentIntent(PendingIntent.getBroadcast(context, id,
-                showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT));
+                showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         NotificationUtils.createChannel(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID);
@@ -382,7 +382,7 @@ public final class AlarmNotifications {
                 AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
         snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent snoozePendingIntent = PendingIntent.getService(service,
-                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         notification.addAction(R.drawable.ic_snooze_24dp,
                 resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
 
@@ -391,7 +391,7 @@ public final class AlarmNotifications {
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
-                ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         notification.addAction(R.drawable.ic_alarm_off_24dp,
                 resources.getString(R.string.alarm_alert_dismiss_text),
                 dismissPendingIntent);
@@ -400,7 +400,7 @@ public final class AlarmNotifications {
         Intent contentIntent = AlarmInstance.createIntent(service, AlarmActivity.class,
                 instance.mId);
         notification.setContentIntent(PendingIntent.getActivity(service,
-                ALARM_FIRING_NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                ALARM_FIRING_NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         // Setup fullscreen intent
         Intent fullScreenIntent = AlarmInstance.createIntent(service, AlarmActivity.class,
@@ -410,7 +410,7 @@ public final class AlarmNotifications {
         fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         notification.setFullScreenIntent(PendingIntent.getActivity(service,
-                ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT),
+                ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE),
                 true);
         notification.setPriority(NotificationCompat.PRIORITY_HIGH);
 
