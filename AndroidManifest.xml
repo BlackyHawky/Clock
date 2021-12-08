@@ -29,6 +29,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
 
     <application
         android:name=".DeskClockApplication"
@@ -51,7 +54,8 @@
             android:name=".DeskClock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -101,7 +105,8 @@
             android:permission="com.android.alarm.permission.SET_ALARM"
             android:showWhenLocked="true"
             android:taskAffinity=""
-            android:theme="@android:style/Theme.NoDisplay">
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DISMISS_ALARM" />
                 <action android:name="android.intent.action.DISMISS_TIMER" />
@@ -117,7 +122,8 @@
         <activity-alias
             android:name="com.best.deskclock.HandleSetAlarmApiCalls"
             android:permission="com.best.alarm.permission.SET_ALARM"
-            android:targetActivity="com.best.deskclock.HandleApiCalls">
+            android:targetActivity="com.best.deskclock.HandleApiCalls"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
@@ -155,7 +161,8 @@
 
         <receiver
             android:name=".AlarmInitReceiver"
-            android:directBootAware="true">
+            android:directBootAware="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -233,7 +240,8 @@
         <service
             android:name=".Screensaver"
             android:label="@string/app_label"
-            android:permission="android.permission.BIND_DREAM_SERVICE">
+            android:permission="android.permission.BIND_DREAM_SERVICE"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
@@ -251,7 +259,8 @@
 
         <receiver
             android:name="com.best.alarmclock.AnalogAppWidgetProvider"
-            android:label="@string/analog_gadget">
+            android:label="@string/analog_gadget"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -266,7 +275,8 @@
 
         <receiver
             android:name="com.best.alarmclock.DigitalAppWidgetProvider"
-            android:label="@string/digital_gadget">
+            android:label="@string/digital_gadget"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />

@@ -152,7 +152,7 @@ class TimerNotificationBuilder {
 
         final PendingIntent pendingShowApp =
                 PendingIntent.getService(context, REQUEST_CODE_UPCOMING, showApp,
-                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         final Builder notification = new NotificationCompat.Builder(
                 context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
@@ -198,7 +198,7 @@ class TimerNotificationBuilder {
                 // Schedule a callback to update the time-sensitive information of the running timer
                 final PendingIntent pi =
                         PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
-                                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
                 final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
@@ -206,7 +206,7 @@ class TimerNotificationBuilder {
             } else {
                 // Cancel the update notification callback.
                 final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
-                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE);
+                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
                 if (pi != null) {
                     am.cancel(pi);
                     pi.cancel();
@@ -352,7 +352,7 @@ class TimerNotificationBuilder {
 
         final PendingIntent pendingShowApp =
                 PendingIntent.getService(context, REQUEST_CODE_MISSING, showApp,
-                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+                        PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         final Builder notification = new NotificationCompat.Builder(
                 context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)

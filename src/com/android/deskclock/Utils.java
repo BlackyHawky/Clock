@@ -273,7 +273,7 @@ public class Utils {
      * @return a PendingIntent that will start a service
      */
     public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
-        return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT);
+        return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     /**
@@ -284,7 +284,7 @@ public class Utils {
      * @return a PendingIntent that will start an activity
      */
     public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
-        return PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT);
+        return PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     /**

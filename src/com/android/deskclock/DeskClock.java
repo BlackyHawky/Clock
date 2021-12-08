@@ -16,15 +16,19 @@
 
 package com.best.deskclock;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,10 +37,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
@@ -136,6 +144,7 @@ public class DeskClock extends BaseActivity
             "org.codeaurora.permission.POWER_OFF_ALARM";
 
     private static final int CODE_FOR_ALARM_PERMISSION = 1;
+    private static final int READ_PHONE_STATE_PERMISSION = 734;
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -308,6 +317,24 @@ public class DeskClock extends BaseActivity
     protected void onStart() {
         DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
         DataModel.getDataModel().setApplicationInForeground(true);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                == PackageManager.PERMISSION_DENIED) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.permission_read_phone_state_denied_title))
+                    .setMessage(getString(R.string.permission_read_phone_state_denied))
+                    .setPositiveButton(R.string.go_to_details, (DialogInterface.OnClickListener) (dialog, which) -> {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.fromParts("package", getPackageName(), null));
+                        dialog.dismiss();
+                        startActivity(intent);
+                    })
+                    .setNeutralButton(android.R.string.cancel, (dialog, which) -> finishAffinity())
+                    .show();
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_PERMISSION);
+        }
         super.onStart();
     }
 
@@ -457,6 +484,20 @@ public class DeskClock extends BaseActivity
                                            String permissions[], int[] grantResults) {
         if (requestCode == CODE_FOR_ALARM_PERMISSION){
             LogUtils.i("Power off alarm permission is granted.");
+        } else if (requestCode == READ_PHONE_STATE_PERMISSION) {
+            if (grantResults.length <= 0
+                    || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.permission_read_phone_state_denied_title))
+                        .setMessage(getString(R.string.permission_read_phone_state_denied))
+                        .setPositiveButton(R.string.go_to_details, (DialogInterface.OnClickListener) (dialog, which) -> {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.fromParts("package", getPackageName(), null));
+                            startActivity(intent);
+                        })
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> System.exit(0))
+                        .create();
+            }
         }
     }
 
