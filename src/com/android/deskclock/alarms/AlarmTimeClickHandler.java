@@ -54,12 +54,15 @@ public final class AlarmTimeClickHandler {
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
 
+    final Vibrator vibrator;
+
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
             AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
         mFragment = fragment;
         mContext = mFragment.getActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
         mScrollHandler = smoothScrollController;
+        vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         if (savedState != null) {
             mPreviousDaysOfWeekMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
@@ -82,6 +85,9 @@ public final class AlarmTimeClickHandler {
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable,
                     R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(10);
+            }
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
@@ -144,6 +150,10 @@ public final class AlarmTimeClickHandler {
         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
+
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(10);
+        }
     }
 
     public void onDeleteClicked(AlarmItemHolder itemHolder) {
