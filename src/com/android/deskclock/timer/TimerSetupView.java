@@ -22,6 +22,8 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import androidx.annotation.IdRes;
 import androidx.core.view.ViewCompat;
+
+import android.os.Vibrator;
 import android.text.BidiFormatter;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -55,7 +57,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
     private TextView mTimeView;
     private View mDeleteView;
+    private View mDigitViews00;
     private TextView[] mDigitViews;
+
+    final Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
     /** Updates to the fab are requested via this container. */
     private FabContainer mFabContainer;
@@ -90,6 +95,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
         mTimeView = (TextView) findViewById(R.id.timer_setup_time);
         mDeleteView = findViewById(R.id.timer_setup_delete);
+        mDigitViews00 = findViewById(R.id.timer_setup_digit_00);
         mDigitViews = new TextView[] {
                 (TextView) findViewById(R.id.timer_setup_digit_0),
                 (TextView) findViewById(R.id.timer_setup_digit_1),
@@ -112,6 +118,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         mDeleteView.setOnClickListener(this);
+        mDigitViews00.setOnClickListener(this);
         mDeleteView.setOnLongClickListener(this);
 
         updateTime();
@@ -146,8 +153,14 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     public void onClick(View view) {
         if (view == mDeleteView) {
             delete();
+        } else if (view == mDigitViews00){
+            append(0);
+            append(0);
         } else {
             append(getDigitForId(view.getId()));
+        }
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(10);
         }
     }
 

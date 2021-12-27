@@ -1075,5 +1075,6 @@
     <string name="permission_read_phone_state_denied">Read phone\'s state is denied, this is essential for the app to work as expected, please grant the permission manually</string>
     <string name="permission_read_phone_state_denied_title">Read phone\'s state denied</string>
     <string name="go_to_details">Go to app\'s info</string>
+    <string name="_00">00</string>
 
 </resources>
