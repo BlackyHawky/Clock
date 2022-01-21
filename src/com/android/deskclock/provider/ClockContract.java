@@ -124,7 +124,7 @@ public final class ClockContract {
          * Days of the week encoded as a bit set.
          * <p>Type: INTEGER</p>
          *
-         * {@link com.android.deskclock.data.Weekdays}
+         * {@link com.best.deskclock.data.Weekdays}
          */
         String DAYS_OF_WEEK = "daysofweek";
 
