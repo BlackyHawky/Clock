@@ -50,19 +50,19 @@ public class AlarmService extends Service {
      * so that other applications can snooze the alarm (after ALARM_ALERT_ACTION and before
      * ALARM_DONE_ACTION).
      */
-    public static final String ALARM_SNOOZE_ACTION = "com.android.deskclock.ALARM_SNOOZE";
+    public static final String ALARM_SNOOZE_ACTION = "com.best.deskclock.ALARM_SNOOZE";
 
     /**
      * AlarmActivity and AlarmService listen for this broadcast intent so that other
      * applications can dismiss the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
      */
-    public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
+    public static final String ALARM_DISMISS_ACTION = "com.best.deskclock.ALARM_DISMISS";
 
     /** A public action sent by AlarmService when the alarm has started. */
-    public static final String ALARM_ALERT_ACTION = "com.android.deskclock.ALARM_ALERT";
+    public static final String ALARM_ALERT_ACTION = "com.best.deskclock.ALARM_ALERT";
 
     /** A public action sent by AlarmService when the alarm has stopped for any reason. */
-    public static final String ALARM_DONE_ACTION = "com.android.deskclock.ALARM_DONE";
+    public static final String ALARM_DONE_ACTION = "com.best.deskclock.ALARM_DONE";
 
     /** Private action used to stop an alarm with this service. */
     public static final String STOP_ALARM_ACTION = "STOP_ALARM";
