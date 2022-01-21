@@ -41,8 +41,8 @@ public class AlarmSelectionActivity extends ListActivity {
     /** Action used to signify alarm should be dismissed on selection. */
     public static final int ACTION_DISMISS = 0;
 
-    public static final String EXTRA_ACTION = "com.android.deskclock.EXTRA_ACTION";
-    public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
+    public static final String EXTRA_ACTION = "com.best.deskclock.EXTRA_ACTION";
+    public static final String EXTRA_ALARMS = "com.best.deskclock.EXTRA_ALARMS";
 
     private final List<AlarmSelection> mSelections = new ArrayList<>();
 
