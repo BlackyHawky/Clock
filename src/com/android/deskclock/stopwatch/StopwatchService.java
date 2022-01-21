@@ -37,7 +37,7 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
  */
 public final class StopwatchService extends Service {
 
-    private static final String ACTION_PREFIX = "com.android.deskclock.action.";
+    private static final String ACTION_PREFIX = "com.best.deskclock.action.";
 
     // shows the tab with the stopwatch
     public static final String ACTION_SHOW_STOPWATCH = ACTION_PREFIX + "SHOW_STOPWATCH";
