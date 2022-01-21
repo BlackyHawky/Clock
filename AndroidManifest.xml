@@ -98,10 +98,10 @@
 
         <activity
             android:name="com.best.deskclock.HandleApiCalls"
+            android:permission="com.android.alarm.permission.SET_ALARM"
             android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:permission="com.android.alarm.permission.SET_ALARM"
             android:showWhenLocked="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay"
@@ -120,7 +120,7 @@
 
         <activity-alias
             android:name="com.best.deskclock.HandleSetAlarmApiCalls"
-            android:permission="com.best.alarm.permission.SET_ALARM"
+            android:permission="com.android.alarm.permission.SET_ALARM"
             android:targetActivity="com.best.deskclock.HandleApiCalls"
             android:exported="false">
             <intent-filter>
