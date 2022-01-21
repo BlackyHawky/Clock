@@ -155,7 +155,7 @@ public final class DataModel {
     }
 
     public static final String ACTION_WORLD_CITIES_CHANGED =
-            "com.android.deskclock.WORLD_CITIES_CHANGED";
+            "com.best.deskclock.WORLD_CITIES_CHANGED";
 
     /** The single instance of this data model that exists for the life of the application. */
     private static final DataModel sDataModel = new DataModel();
