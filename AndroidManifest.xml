@@ -98,39 +98,31 @@
 
         <activity
             android:name="com.best.deskclock.HandleApiCalls"
-            android:permission="com.android.alarm.permission.SET_ALARM"
-            android:directBootAware="true"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:showWhenLocked="true"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.NoDisplay"
-            android:exported="false">
+            android:permission="com.android.alarm.permission.SET_ALARM"
+            android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
-                <action android:name="android.intent.action.DISMISS_ALARM" />
-                <action android:name="android.intent.action.DISMISS_TIMER" />
-                <action android:name="android.intent.action.SHOW_ALARMS" />
-                <action android:name="android.intent.action.SHOW_TIMERS" />
-                <action android:name="android.intent.action.SNOOZE_ALARM" />
-
+                <action android:name="android.intent.action.SET_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SHOW_ALARMS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.omnirom.deskclock.ACTION_SHOW_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SET_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <activity-alias
-            android:name="com.best.deskclock.HandleSetAlarmApiCalls"
-            android:permission="com.android.alarm.permission.SET_ALARM"
-            android:targetActivity="com.best.deskclock.HandleApiCalls"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.SET_ALARM" />
-                <action android:name="android.intent.action.SET_TIMER" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-        </activity-alias>
+            android:name="HandleSetAlarm"
+            android:exported="true"
+            android:targetActivity="com.best.deskclock.HandleApiCalls"/>
 
         <!-- ============================================================== -->
         <!-- Alarm components.                                              -->
