@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+  -->
+
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="Typos">
+
+    <!-- This array enumerates the resource keys to all cities available to the app. -->
+    <array name="city_ids" translatable="false">
+        <item>@string/C1</item>
+        <item>@string/C2</item>
+        <item>@string/C3</item>
+        <item>@string/C4</item>
+        <item>@string/C5</item>
+        <item>@string/C6</item>
+        <item>@string/C7</item>
+        <item>@string/C8</item>
+        <item>@string/C9</item>
+        <item>@string/C10</item>
+        <item>@string/C11</item>
+        <item>@string/C12</item>
+        <item>@string/C13</item>
+        <item>@string/C14</item>
+        <item>@string/C15</item>
+        <item>@string/C16</item>
+        <item>@string/C17</item>
+        <item>@string/C18</item>
+        <item>@string/C19</item>
+        <item>@string/C20</item>
+        <item>@string/C21</item>
+        <item>@string/C22</item>
+        <item>@string/C23</item>
+        <item>@string/C24</item>
+        <item>@string/C25</item>
+        <item>@string/C26</item>
+        <item>@string/C27</item>
+        <item>@string/C28</item>
+        <item>@string/C29</item>
+        <item>@string/C31</item>
+        <item>@string/C32</item>
+        <item>@string/C33</item>
+        <item>@string/C34</item>
+        <item>@string/C35</item>
+        <item>@string/C36</item>
+        <item>@string/C37</item>
+        <item>@string/C38</item>
+        <item>@string/C39</item>
+        <item>@string/C40</item>
+        <item>@string/C42</item>
+        <item>@string/C43</item>
+        <item>@string/C44</item>
+        <item>@string/C45</item>
+        <item>@string/C46</item>
+        <item>@string/C47</item>
+        <item>@string/C48</item>
+        <item>@string/C49</item>
+        <item>@string/C50</item>
+        <item>@string/C51</item>
+        <item>@string/C52</item>
+        <item>@string/C53</item>
+        <item>@string/C54</item>
+        <item>@string/C55</item>
+        <item>@string/C56</item>
+        <item>@string/C57</item>
+        <item>@string/C58</item>
+        <item>@string/C59</item>
+        <item>@string/C60</item>
+        <item>@string/C61</item>
+        <item>@string/C62</item>
+        <item>@string/C63</item>
+        <item>@string/C64</item>
+        <item>@string/C65</item>
+        <item>@string/C66</item>
+        <item>@string/C67</item>
+        <item>@string/C68</item>
+        <item>@string/C69</item>
+        <item>@string/C70</item>
+        <item>@string/C71</item>
+        <item>@string/C72</item>
+        <item>@string/C73</item>
+        <item>@string/C74</item>
+        <item>@string/C75</item>
+        <item>@string/C76</item>
+        <item>@string/C77</item>
+        <item>@string/C78</item>
+        <item>@string/C79</item>
+        <item>@string/C80</item>
+        <item>@string/C81</item>
+        <item>@string/C82</item>
+        <item>@string/C83</item>
+        <item>@string/C84</item>
+        <item>@string/C85</item>
+        <item>@string/C86</item>
+        <item>@string/C87</item>
+        <item>@string/C88</item>
+        <item>@string/C89</item>
+        <item>@string/C90</item>
+        <item>@string/C91</item>
+        <item>@string/C92</item>
+        <item>@string/C93</item>
+        <item>@string/C94</item>
+        <item>@string/C95</item>
+        <item>@string/C96</item>
+        <item>@string/C97</item>
+        <item>@string/C98</item>
+        <item>@string/C99</item>
+        <item>@string/C100</item>
+        <item>@string/C101</item>
+        <item>@string/C102</item>
+        <item>@string/C103</item>
+        <item>@string/C104</item>
+        <item>@string/C105</item>
+        <item>@string/C106</item>
+        <item>@string/C107</item>
+        <item>@string/C108</item>
+        <item>@string/C109</item>
+        <item>@string/C110</item>
+        <item>@string/C111</item>
+        <item>@string/C112</item>
+        <item>@string/C113</item>
+        <item>@string/C114</item>
+        <item>@string/C115</item>
+        <item>@string/C117</item>
+        <item>@string/C118</item>
+        <item>@string/C119</item>
+        <item>@string/C120</item>
+        <item>@string/C121</item>
+        <item>@string/C122</item>
+        <item>@string/C123</item>
+        <item>@string/C124</item>
+        <item>@string/C125</item>
+        <item>@string/C126</item>
+        <item>@string/C127</item>
+        <item>@string/C128</item>
+        <item>@string/C130</item>
+        <item>@string/C131</item>
+        <item>@string/C133</item>
+        <item>@string/C134</item>
+        <item>@string/C135</item>
+        <item>@string/C136</item>
+        <item>@string/C137</item>
+        <item>@string/C138</item>
+        <item>@string/C139</item>
+        <item>@string/C140</item>
+        <item>@string/C141</item>
+        <item>@string/C142</item>
+        <item>@string/C143</item>
+        <item>@string/C144</item>
+        <item>@string/C145</item>
+        <item>@string/C146</item>
+        <item>@string/C147</item>
+        <item>@string/C148</item>
+        <item>@string/C149</item>
+        <item>@string/C150</item>
+        <item>@string/C151</item>
+        <item>@string/C152</item>
+        <item>@string/C153</item>
+        <item>@string/C154</item>
+        <item>@string/C155</item>
+        <item>@string/C156</item>
+        <item>@string/C157</item>
+        <item>@string/C158</item>
+        <item>@string/C159</item>
+        <item>@string/C160</item>
+        <item>@string/C161</item>
+        <item>@string/C162</item>
+        <item>@string/C163</item>
+        <item>@string/C164</item>
+        <item>@string/C165</item>
+        <item>@string/C166</item>
+        <item>@string/C167</item>
+        <item>@string/C168</item>
+        <item>@string/C169</item>
+        <item>@string/C170</item>
+        <item>@string/C171</item>
+        <item>@string/C172</item>
+        <item>@string/C173</item>
+        <item>@string/C174</item>
+        <item>@string/C175</item>
+        <item>@string/C176</item>
+        <item>@string/C177</item>
+        <item>@string/C178</item>
+        <item>@string/C179</item>
+        <item>@string/C180</item>
+        <item>@string/C181</item>
+        <item>@string/C182</item>
+        <item>@string/C183</item>
+        <item>@string/C184</item>
+        <item>@string/C185</item>
+        <item>@string/C186</item>
+        <item>@string/C187</item>
+        <item>@string/C188</item>
+        <item>@string/C189</item>
+        <item>@string/C190</item>
+        <item>@string/C191</item>
+        <item>@string/C192</item>
+        <item>@string/C193</item>
+        <item>@string/C194</item>
+        <item>@string/C195</item>
+        <item>@string/C196</item>
+        <item>@string/C197</item>
+        <item>@string/C198</item>
+        <item>@string/C199</item>
+        <item>@string/C200</item>
+        <item>@string/C201</item>
+        <item>@string/C202</item>
+        <item>@string/C203</item>
+        <item>@string/C204</item>
+        <item>@string/C205</item>
+        <item>@string/C206</item>
+        <item>@string/C207</item>
+        <item>@string/C208</item>
+        <item>@string/C209</item>
+        <item>@string/C210</item>
+        <item>@string/C211</item>
+        <item>@string/C214</item>
+        <item>@string/C215</item>
+        <item>@string/C216</item>
+        <item>@string/C217</item>
+        <item>@string/C218</item>
+        <item>@string/C219</item>
+        <item>@string/C220</item>
+        <item>@string/C221</item>
+        <item>@string/C222</item>
+        <item>@string/C223</item>
+        <item>@string/C224</item>
+        <item>@string/C225</item>
+        <item>@string/C226</item>
+        <item>@string/C227</item>
+        <item>@string/C228</item>
+        <item>@string/C229</item>
+        <item>@string/C230</item>
+        <item>@string/C231</item>
+        <item>@string/C232</item>
+        <item>@string/C233</item>
+        <item>@string/C234</item>
+        <item>@string/C235</item>
+        <item>@string/C236</item>
+        <item>@string/C237</item>
+        <item>@string/C238</item>
+        <item>@string/C239</item>
+        <item>@string/C240</item>
+        <item>@string/C241</item>
+        <item>@string/C242</item>
+        <item>@string/C243</item>
+        <item>@string/C244</item>
+        <item>@string/C245</item>
+        <item>@string/C246</item>
+        <item>@string/C247</item>
+        <item>@string/C248</item>
+        <item>@string/C249</item>
+        <item>@string/C250</item>
+        <item>@string/C251</item>
+        <item>@string/C252</item>
+        <item>@string/C253</item>
+        <item>@string/C254</item>
+        <item>@string/C255</item>
+        <item>@string/C256</item>
+        <item>@string/C257</item>
+        <item>@string/C258</item>
+        <item>@string/C259</item>
+        <item>@string/C260</item>
+        <item>@string/C261</item>
+        <item>@string/C262</item>
+        <item>@string/C263</item>
+        <item>@string/C264</item>
+        <item>@string/C265</item>
+        <item>@string/C266</item>
+        <item>@string/C267</item>
+        <item>@string/C268</item>
+        <item>@string/C269</item>
+        <item>@string/C270</item>
+        <item>@string/C271</item>
+        <item>@string/C272</item>
+        <item>@string/C273</item>
+        <item>@string/C274</item>
+        <item>@string/C275</item>
+        <item>@string/C276</item>
+        <item>@string/C277</item>
+        <item>@string/C278</item>
+        <item>@string/C279</item>
+        <item>@string/C280</item>
+        <item>@string/C281</item>
+        <item>@string/C282</item>
+        <item>@string/C283</item>
+        <item>@string/C284</item>
+        <item>@string/C285</item>
+        <item>@string/C286</item>
+        <item>@string/C287</item>
+        <item>@string/C288</item>
+        <item>@string/C290</item>
+        <item>@string/C291</item>
+        <item>@string/C292</item>
+        <item>@string/C293</item>
+        <item>@string/C294</item>
+        <item>@string/C295</item>
+        <item>@string/C296</item>
+        <item>@string/C297</item>
+        <item>@string/C298</item>
+        <item>@string/C299</item>
+        <item>@string/C300</item>
+        <item>@string/C301</item>
+        <item>@string/C302</item>
+        <item>@string/C303</item>
+        <item>@string/C304</item>
+        <item>@string/C305</item>
+        <item>@string/C306</item>
+        <item>@string/C307</item>
+        <item>@string/C308</item>
+        <item>@string/C309</item>
+        <item>@string/C310</item>
+        <item>@string/C311</item>
+        <item>@string/C312</item>
+        <item>@string/C313</item>
+        <item>@string/C314</item>
+        <item>@string/C315</item>
+        <item>@string/C316</item>
+        <item>@string/C317</item>
+        <item>@string/C318</item>
+        <item>@string/C319</item>
+        <item>@string/C320</item>
+        <item>@string/C321</item>
+        <item>@string/C322</item>
+        <item>@string/C323</item>
+        <item>@string/C324</item>
+        <item>@string/C325</item>
+        <item>@string/C326</item>
+        <item>@string/C327</item>
+        <item>@string/C328</item>
+        <item>@string/C329</item>
+        <item>@string/C330</item>
+        <item>@string/C331</item>
+        <item>@string/C332</item>
+        <item>@string/C333</item>
+        <item>@string/C334</item>
+        <item>@string/C335</item>
+        <item>@string/C336</item>
+        <item>@string/C337</item>
+        <item>@string/C338</item>
+        <item>@string/C339</item>
+        <item>@string/C340</item>
+        <item>@string/C341</item>
+        <item>@string/C342</item>
+        <item>@string/C343</item>
+        <item>@string/C344</item>
+        <item>@string/C345</item>
+        <item>@string/C346</item>
+        <item>@string/C347</item>
+        <item>@string/C348</item>
+    </array>
+
+    <!--
+    The city names are presented to the user in an alphabetically-sorted list with section headers.
+    The section header is the "index" of all the cities in the section. By default, the section
+    header is the first character of the city name.
+
+    Format of providing a city entry:
+    [index]<xliff:g>=</xliff:g>[city name]<xliff:g>:</xliff:g>[phonetic name]<xliff:g>|[timezone id]</xliff:g>
+
+    [index] can be blank if the first letter of [city name] is accurate; otherwise it must be given.
+    [city name] is required.
+    [phonetic name] can be absent or blank; specify one to control sorting the city in its group.
+    [timezone id] cannot be modified.
+
+    For example, the following specifies that Abidjan will be indexed using A and will be linked to
+    the Africa/Abidjan timezone:
+    A=Abidjan|Africa/Abidjan
+
+    Since Abidjan starts with A, it could also be left as:
+    =Abidjan|Africa/Abidjan
+
+    If a city sorts incorrectly within its index group, its sort order can be controlled by
+    specifying a phonetic name like so:
+    A=Abidjan:Abeedjan|Africa/Abidjan
+
+    The phonetic should use the alphabet that makes the most sense for the locale. For example,
+    Japanese cities may use Katakana to provide a phonetic name.
+    -->
+    <eat-comment />
+
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C1">A<xliff:g id="separator">=</xliff:g>Abidjan<xliff:g id="timezone">|Africa/Abidjan</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C2">A<xliff:g id="separator">=</xliff:g>Accra<xliff:g id="timezone">|Africa/Accra</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C3">A<xliff:g id="separator">=</xliff:g>Addis Ababa<xliff:g id="timezone">|Africa/Addis_Ababa</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C4">A<xliff:g id="separator">=</xliff:g>Algiers<xliff:g id="timezone">|Africa/Algiers</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C5">B<xliff:g id="separator">=</xliff:g>Blantyre<xliff:g id="timezone">|Africa/Blantyre</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C6">B<xliff:g id="separator">=</xliff:g>Brazzaville<xliff:g id="timezone">|Africa/Brazzaville</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C7">C<xliff:g id="separator">=</xliff:g>Cairo<xliff:g id="timezone">|Africa/Cairo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C8">C<xliff:g id="separator">=</xliff:g>Casablanca<xliff:g id="timezone">|Africa/Casablanca</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C9">C<xliff:g id="separator">=</xliff:g>Conakry<xliff:g id="timezone">|Africa/Conakry</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C10">D<xliff:g id="separator">=</xliff:g>Dakar<xliff:g id="timezone">|Africa/Dakar</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C11">D<xliff:g id="separator">=</xliff:g>Dar es Salaam<xliff:g id="timezone">|Africa/Dar_es_Salaam</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C12">D<xliff:g id="separator">=</xliff:g>Djibouti<xliff:g id="timezone">|Africa/Djibouti</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C13">F<xliff:g id="separator">=</xliff:g>Freetown<xliff:g id="timezone">|Africa/Freetown</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C14">G<xliff:g id="separator">=</xliff:g>Gaborone<xliff:g id="timezone">|Africa/Gaborone</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C15">H<xliff:g id="separator">=</xliff:g>Harare<xliff:g id="timezone">|Africa/Harare</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C16">J<xliff:g id="separator">=</xliff:g>Johannesburg<xliff:g id="timezone">|Africa/Johannesburg</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C17">K<xliff:g id="separator">=</xliff:g>Kampala<xliff:g id="timezone">|Africa/Kampala</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C18">K<xliff:g id="separator">=</xliff:g>Khartoum<xliff:g id="timezone">|Africa/Khartoum</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C19">K<xliff:g id="separator">=</xliff:g>Kigali<xliff:g id="timezone">|Africa/Kigali</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C20">K<xliff:g id="separator">=</xliff:g>Kinshasa<xliff:g id="timezone">|Africa/Kinshasa</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C21">L<xliff:g id="separator">=</xliff:g>Lagos<xliff:g id="timezone">|Africa/Lagos</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C22">M<xliff:g id="separator">=</xliff:g>Maseru<xliff:g id="timezone">|Africa/Maseru</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C23">M<xliff:g id="separator">=</xliff:g>Mogadishu<xliff:g id="timezone">|Africa/Mogadishu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C24">N<xliff:g id="separator">=</xliff:g>Nairobi<xliff:g id="timezone">|Africa/Nairobi</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C25">S<xliff:g id="separator">=</xliff:g>São Tomé<xliff:g id="timezone">|Africa/Sao_Tome</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C26">T<xliff:g id="separator">=</xliff:g>Timbuktu<xliff:g id="timezone">|Africa/Timbuktu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C27">T<xliff:g id="separator">=</xliff:g>Tripoli<xliff:g id="timezone">|Africa/Tripoli</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C28">T<xliff:g id="separator">=</xliff:g>Tunis<xliff:g id="timezone">|Africa/Tunis</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C29">A<xliff:g id="separator">=</xliff:g>Anchorage<xliff:g id="timezone">|America/Anchorage</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C31">A<xliff:g id="separator">=</xliff:g>Aruba<xliff:g id="timezone">|America/Aruba</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C32">A<xliff:g id="separator">=</xliff:g>Asunción<xliff:g id="timezone">|America/Asuncion</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C33">B<xliff:g id="separator">=</xliff:g>Barbados<xliff:g id="timezone">|America/Barbados</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C34">B<xliff:g id="separator">=</xliff:g>Belize<xliff:g id="timezone">|America/Belize</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C35">B<xliff:g id="separator">=</xliff:g>Bogotá<xliff:g id="timezone">|America/Bogota</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C36">B<xliff:g id="separator">=</xliff:g>Buenos Aires<xliff:g id="timezone">|America/Buenos_Aires</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C37">C<xliff:g id="separator">=</xliff:g>Cancun<xliff:g id="timezone">|America/Cancun</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C38">C<xliff:g id="separator">=</xliff:g>Caracas<xliff:g id="timezone">|America/Caracas</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C39">C<xliff:g id="separator">=</xliff:g>Cayman<xliff:g id="timezone">|America/Cayman</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C40">C<xliff:g id="separator">=</xliff:g>Chicago<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C42">C<xliff:g id="separator">=</xliff:g>Curaçao<xliff:g id="timezone">|America/Curacao</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C43">D<xliff:g id="separator">=</xliff:g>Dawson Creek<xliff:g id="timezone">|America/Dawson_Creek</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C44">D<xliff:g id="separator">=</xliff:g>Denver<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C45">D<xliff:g id="separator">=</xliff:g>Detroit<xliff:g id="timezone">|America/Detroit</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C46">D<xliff:g id="separator">=</xliff:g>Dominica<xliff:g id="timezone">|America/Dominica</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C47">E<xliff:g id="separator">=</xliff:g>Edmonton<xliff:g id="timezone">|America/Edmonton</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C48">E<xliff:g id="separator">=</xliff:g>El Salvador<xliff:g id="timezone">|America/El_Salvador</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C49">F<xliff:g id="separator">=</xliff:g>Fortaleza<xliff:g id="timezone">|America/Fortaleza</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C50">G<xliff:g id="separator">=</xliff:g>Grand Turk<xliff:g id="timezone">|America/Grand_Turk</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C51">G<xliff:g id="separator">=</xliff:g>Grenada<xliff:g id="timezone">|America/Grenada</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C52">G<xliff:g id="separator">=</xliff:g>Guatemala City<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C53">G<xliff:g id="separator">=</xliff:g>Guyana<xliff:g id="timezone">|America/Guyana</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C54">H<xliff:g id="separator">=</xliff:g>Halifax<xliff:g id="timezone">|America/Halifax</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C55">H<xliff:g id="separator">=</xliff:g>Havana<xliff:g id="timezone">|America/Havana</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C56">I<xliff:g id="separator">=</xliff:g>Indianapolis<xliff:g id="timezone">|America/Indiana/Indianapolis</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C57">K<xliff:g id="separator">=</xliff:g>Knox<xliff:g id="timezone">|America/Indiana/Knox</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C58">M<xliff:g id="separator">=</xliff:g>Marengo<xliff:g id="timezone">|America/Indiana/Marengo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C59">P<xliff:g id="separator">=</xliff:g>Petersburg<xliff:g id="timezone">|America/Indiana/Petersburg</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C60">T<xliff:g id="separator">=</xliff:g>Tell City<xliff:g id="timezone">|America/Indiana/Tell_City</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C61">V<xliff:g id="separator">=</xliff:g>Vevay<xliff:g id="timezone">|America/Indiana/Vevay</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C62">V<xliff:g id="separator">=</xliff:g>Vincennes<xliff:g id="timezone">|America/Indiana/Vincennes</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C63">W<xliff:g id="separator">=</xliff:g>Winamac<xliff:g id="timezone">|America/Indiana/Winamac</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C64">K<xliff:g id="separator">=</xliff:g>Kingston<xliff:g id="timezone">|America/Jamaica</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C65">N<xliff:g id="separator">=</xliff:g>Nuestra Señora de La Paz<xliff:g id="timezone">|America/La_Paz</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C66">L<xliff:g id="separator">=</xliff:g>Lima<xliff:g id="timezone">|America/Lima</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C67">L<xliff:g id="separator">=</xliff:g>Los Angeles<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C68">L<xliff:g id="separator">=</xliff:g>Louisville<xliff:g id="timezone">|America/Louisville</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C69">M<xliff:g id="separator">=</xliff:g>Managua<xliff:g id="timezone">|America/Managua</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C70">M<xliff:g id="separator">=</xliff:g>Martinique<xliff:g id="timezone">|America/Martinique</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C71">M<xliff:g id="separator">=</xliff:g>Mendoza<xliff:g id="timezone">|America/Mendoza</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C72">M<xliff:g id="separator">=</xliff:g>Metlakatla<xliff:g id="timezone">|America/Metlakatla</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C73">M<xliff:g id="separator">=</xliff:g>Mexico City<xliff:g id="timezone">|America/Mexico_City</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C74">M<xliff:g id="separator">=</xliff:g>Monterrey<xliff:g id="timezone">|America/Monterrey</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C75">M<xliff:g id="separator">=</xliff:g>Montevideo<xliff:g id="timezone">|America/Montevideo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C76">M<xliff:g id="separator">=</xliff:g>Montreal<xliff:g id="timezone">|America/Montreal</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C77">N<xliff:g id="separator">=</xliff:g>Nassau<xliff:g id="timezone">|America/Nassau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C78">N<xliff:g id="separator">=</xliff:g>New York<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C79">B<xliff:g id="separator">=</xliff:g>Beulah<xliff:g id="timezone">|America/North_Dakota/Beulah</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C80">C<xliff:g id="separator">=</xliff:g>Center<xliff:g id="timezone">|America/North_Dakota/Center</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C81">N<xliff:g id="separator">=</xliff:g>New Salem<xliff:g id="timezone">|America/North_Dakota/New_Salem</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C82">P<xliff:g id="separator">=</xliff:g>Panama<xliff:g id="timezone">|America/Panama</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C83">P<xliff:g id="separator">=</xliff:g>Phoenix<xliff:g id="timezone">|America/Phoenix</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C84">P<xliff:g id="separator">=</xliff:g>Port of Spain<xliff:g id="timezone">|America/Port_of_Spain</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C85">P<xliff:g id="separator">=</xliff:g>Port-au-Prince<xliff:g id="timezone">|America/Port-au-Prince</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C86">P<xliff:g id="separator">=</xliff:g>Puerto Rico<xliff:g id="timezone">|America/Puerto_Rico</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C87">S<xliff:g id="separator">=</xliff:g>Santo Domingo<xliff:g id="timezone">|America/Santo_Domingo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C88">S<xliff:g id="separator">=</xliff:g>São Paulo<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C89">S<xliff:g id="separator">=</xliff:g>St. Johns<xliff:g id="timezone">|America/St_Johns</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C90">S<xliff:g id="separator">=</xliff:g>St. Kitts<xliff:g id="timezone">|America/St_Kitts</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C91">S<xliff:g id="separator">=</xliff:g>St. Lucia<xliff:g id="timezone">|America/St_Lucia</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C92">S<xliff:g id="separator">=</xliff:g>St. Thomas<xliff:g id="timezone">|America/St_Thomas</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C93">T<xliff:g id="separator">=</xliff:g>Tijuana<xliff:g id="timezone">|America/Tijuana</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C94">T<xliff:g id="separator">=</xliff:g>Toronto<xliff:g id="timezone">|America/Toronto</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C95">V<xliff:g id="separator">=</xliff:g>Vancouver<xliff:g id="timezone">|America/Vancouver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C96">W<xliff:g id="separator">=</xliff:g>Winnipeg<xliff:g id="timezone">|America/Winnipeg</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C97">S<xliff:g id="separator">=</xliff:g>South Pole<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Antarctica/South_Pole</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C98">L<xliff:g id="separator">=</xliff:g>Longyearbyen<xliff:g id="timezone">|Arctic/Longyearbyen</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C99">A<xliff:g id="separator">=</xliff:g>Almaty<xliff:g id="timezone">|Asia/Almaty</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C100">A<xliff:g id="separator">=</xliff:g>Amman<xliff:g id="timezone">|Asia/Amman</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C101">A<xliff:g id="separator">=</xliff:g>Anadyr<xliff:g id="timezone">|Asia/Anadyr</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C102">A<xliff:g id="separator">=</xliff:g>Aqtau<xliff:g id="timezone">|Asia/Aqtau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C103">B<xliff:g id="separator">=</xliff:g>Baghdad<xliff:g id="timezone">|Asia/Baghdad</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C104">B<xliff:g id="separator">=</xliff:g>Bahrain<xliff:g id="timezone">|Asia/Bahrain</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C105">B<xliff:g id="separator">=</xliff:g>Baku<xliff:g id="timezone">|Asia/Baku</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C106">B<xliff:g id="separator">=</xliff:g>Bangkok<xliff:g id="timezone">|Asia/Bangkok</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C107">B<xliff:g id="separator">=</xliff:g>Beirut<xliff:g id="timezone">|Asia/Beirut</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C108">K<xliff:g id="separator">=</xliff:g>Kolkata<xliff:g id="timezone">|Asia/Calcutta</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C109">D<xliff:g id="separator">=</xliff:g>Damascus<xliff:g id="timezone">|Asia/Damascus</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C110">D<xliff:g id="separator">=</xliff:g>Dhaka<xliff:g id="timezone">|Asia/Dhaka</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C111">D<xliff:g id="separator">=</xliff:g>Dubai<xliff:g id="timezone">|Asia/Dubai</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C112">G<xliff:g id="separator">=</xliff:g>Gaza<xliff:g id="timezone">|Asia/Gaza</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C113">H<xliff:g id="separator">=</xliff:g>Hebron<xliff:g id="timezone">|Asia/Hebron</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C114">H<xliff:g id="separator">=</xliff:g>Ho Chi Minh<xliff:g id="timezone">|Asia/Ho_Chi_Minh</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C115">H<xliff:g id="separator">=</xliff:g>Hong Kong<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Hong_Kong</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C117">J<xliff:g id="separator">=</xliff:g>Jakarta<xliff:g id="timezone">|Asia/Jakarta</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C118">J<xliff:g id="separator">=</xliff:g>Jerusalem<xliff:g id="timezone">|Asia/Jerusalem</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C119">K<xliff:g id="separator">=</xliff:g>Kabul<xliff:g id="timezone">|Asia/Kabul</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C120">K<xliff:g id="separator">=</xliff:g>Karachi<xliff:g id="timezone">|Asia/Karachi</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C121">K<xliff:g id="separator">=</xliff:g>Kathmandu<xliff:g id="timezone">|Asia/Kathmandu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C122">K<xliff:g id="separator">=</xliff:g>Kuala Lumpur<xliff:g id="timezone">|Asia/Kuala_Lumpur</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C123">K<xliff:g id="separator">=</xliff:g>Kuwait<xliff:g id="timezone">|Asia/Kuwait</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C124">M<xliff:g id="separator">=</xliff:g>Macau<xliff:g id="timezone">|Asia/Macau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C125">M<xliff:g id="separator">=</xliff:g>Manila<xliff:g id="timezone">|Asia/Manila</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C126">M<xliff:g id="separator">=</xliff:g>Muscat<xliff:g id="timezone">|Asia/Muscat</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C127">P<xliff:g id="separator">=</xliff:g>Phnom Penh<xliff:g id="timezone">|Asia/Phnom_Penh</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C128">P<xliff:g id="separator">=</xliff:g>Pyongyang<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Pyongyang</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C130">R<xliff:g id="separator">=</xliff:g>Rangoon<xliff:g id="timezone">|Asia/Rangoon</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C131">R<xliff:g id="separator">=</xliff:g>Riyadh<xliff:g id="timezone">|Asia/Riyadh</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C133">S<xliff:g id="separator">=</xliff:g>Seoul<xliff:g id="timezone">|Asia/Seoul</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C134">S<xliff:g id="separator">=</xliff:g>Shanghai<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Shanghai</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C135">S<xliff:g id="separator">=</xliff:g>Singapore<xliff:g id="timezone">|Asia/Singapore</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C136">T<xliff:g id="separator">=</xliff:g>Taipei<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Taipei</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C137">T<xliff:g id="separator">=</xliff:g>Tehran<xliff:g id="timezone">|Asia/Tehran</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C138">T<xliff:g id="separator">=</xliff:g>Tel Aviv<xliff:g id="timezone">|Asia/Tel_Aviv</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C139">T<xliff:g id="separator">=</xliff:g>Tokyo<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Tokyo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C140">U<xliff:g id="separator">=</xliff:g>Ulaanbaatar<xliff:g id="timezone">|Asia/Ulaanbaatar</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C141">B<xliff:g id="separator">=</xliff:g>Bermuda<xliff:g id="timezone">|Atlantic/Bermuda</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C142">C<xliff:g id="separator">=</xliff:g>Canary<xliff:g id="timezone">|Atlantic/Canary</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C143">C<xliff:g id="separator">=</xliff:g>Cape Verde<xliff:g id="timezone">|Atlantic/Cape_Verde</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C144">R<xliff:g id="separator">=</xliff:g>Reykjavik<xliff:g id="timezone">|Atlantic/Reykjavik</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C145">S<xliff:g id="separator">=</xliff:g>Stanley<xliff:g id="timezone">|Atlantic/Stanley</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C146">A<xliff:g id="separator">=</xliff:g>Adelaide<xliff:g id="timezone">|Australia/Adelaide</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C147">B<xliff:g id="separator">=</xliff:g>Brisbane<xliff:g id="timezone">|Australia/Brisbane</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C148">C<xliff:g id="separator">=</xliff:g>Canberra<xliff:g id="timezone">|Australia/Canberra</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C149">D<xliff:g id="separator">=</xliff:g>Darwin<xliff:g id="timezone">|Australia/Darwin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C150">M<xliff:g id="separator">=</xliff:g>Melbourne<xliff:g id="timezone">|Australia/Melbourne</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C151">N<xliff:g id="separator">=</xliff:g>New South Wales<xliff:g id="timezone">|Australia/NSW</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C152">P<xliff:g id="separator">=</xliff:g>Perth<xliff:g id="timezone">|Australia/Perth</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C153">Q<xliff:g id="separator">=</xliff:g>Queensland<xliff:g id="timezone">|Australia/Queensland</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C154">S<xliff:g id="separator">=</xliff:g>Sydney<xliff:g id="timezone">|Australia/Sydney</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C155">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C156">N<xliff:g id="separator">=</xliff:g>Newfoundland<xliff:g id="timezone">|Canada/Newfoundland</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C157">S<xliff:g id="separator">=</xliff:g>Saskatchewan<xliff:g id="timezone">|Canada/Saskatchewan</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C158">E<xliff:g id="separator">=</xliff:g>Easter Island<xliff:g id="timezone">|Chile/EasterIsland</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C159">A<xliff:g id="separator">=</xliff:g>Amsterdam<xliff:g id="timezone">|Europe/Amsterdam</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C160">A<xliff:g id="separator">=</xliff:g>Andorra<xliff:g id="timezone">|Europe/Andorra</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C161">A<xliff:g id="separator">=</xliff:g>Athens<xliff:g id="timezone">|Europe/Athens</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C162">B<xliff:g id="separator">=</xliff:g>Belfast<xliff:g id="timezone">|Europe/Belfast</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C163">B<xliff:g id="separator">=</xliff:g>Belgrade<xliff:g id="timezone">|Europe/Belgrade</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C164">B<xliff:g id="separator">=</xliff:g>Berlin<xliff:g id="timezone">|Europe/Berlin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C165">B<xliff:g id="separator">=</xliff:g>Bratislava<xliff:g id="timezone">|Europe/Bratislava</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C166">B<xliff:g id="separator">=</xliff:g>Brussels<xliff:g id="timezone">|Europe/Brussels</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C167">B<xliff:g id="separator">=</xliff:g>Bucharest<xliff:g id="timezone">|Europe/Bucharest</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C168">B<xliff:g id="separator">=</xliff:g>Budapest<xliff:g id="timezone">|Europe/Budapest</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C169">C<xliff:g id="separator">=</xliff:g>Chisinau<xliff:g id="timezone">|Europe/Chisinau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C170">C<xliff:g id="separator">=</xliff:g>Copenhagen<xliff:g id="timezone">|Europe/Copenhagen</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C171">D<xliff:g id="separator">=</xliff:g>Dublin<xliff:g id="timezone">|Europe/Dublin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C172">G<xliff:g id="separator">=</xliff:g>Gibraltar<xliff:g id="timezone">|Europe/Gibraltar</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C173">H<xliff:g id="separator">=</xliff:g>Helsinki<xliff:g id="timezone">|Europe/Helsinki</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C174">I<xliff:g id="separator">=</xliff:g>Isle of Man<xliff:g id="timezone">|Europe/Isle_of_Man</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C175">I<xliff:g id="separator">=</xliff:g>Istanbul<xliff:g id="timezone">|Europe/Istanbul</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C176">K<xliff:g id="separator">=</xliff:g>Kiev<xliff:g id="timezone">|Europe/Kiev</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C177">L<xliff:g id="separator">=</xliff:g>Lisbon<xliff:g id="timezone">|Europe/Lisbon</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C178">L<xliff:g id="separator">=</xliff:g>London<xliff:g id="timezone">|Europe/London</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C179">L<xliff:g id="separator">=</xliff:g>Luxembourg<xliff:g id="timezone">|Europe/Luxembourg</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C180">M<xliff:g id="separator">=</xliff:g>Madrid<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C181">M<xliff:g id="separator">=</xliff:g>Malta<xliff:g id="timezone">|Europe/Malta</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C182">M<xliff:g id="separator">=</xliff:g>Minsk<xliff:g id="timezone">|Europe/Minsk</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C183">M<xliff:g id="separator">=</xliff:g>Monaco<xliff:g id="timezone">|Europe/Monaco</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C184">M<xliff:g id="separator">=</xliff:g>Moscow<xliff:g id="timezone">|Europe/Moscow</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C185">O<xliff:g id="separator">=</xliff:g>Oslo<xliff:g id="timezone">|Europe/Oslo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C186">P<xliff:g id="separator">=</xliff:g>Paris<xliff:g id="timezone">|Europe/Paris</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C187">P<xliff:g id="separator">=</xliff:g>Prague<xliff:g id="timezone">|Europe/Prague</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C188">R<xliff:g id="separator">=</xliff:g>Riga<xliff:g id="timezone">|Europe/Riga</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C189">R<xliff:g id="separator">=</xliff:g>Rome<xliff:g id="timezone">|Europe/Rome</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C190">S<xliff:g id="separator">=</xliff:g>San Marino<xliff:g id="timezone">|Europe/San_Marino</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C191">S<xliff:g id="separator">=</xliff:g>Sarajevo<xliff:g id="timezone">|Europe/Sarajevo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C192">S<xliff:g id="separator">=</xliff:g>Simferopol<xliff:g id="timezone">|Europe/Simferopol</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C193">S<xliff:g id="separator">=</xliff:g>Skopje<xliff:g id="timezone">|Europe/Skopje</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C194">S<xliff:g id="separator">=</xliff:g>Sofia<xliff:g id="timezone">|Europe/Sofia</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C195">S<xliff:g id="separator">=</xliff:g>Stockholm<xliff:g id="timezone">|Europe/Stockholm</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C196">T<xliff:g id="separator">=</xliff:g>Tallinn<xliff:g id="timezone">|Europe/Tallinn</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C197">V<xliff:g id="separator">=</xliff:g>Vatican<xliff:g id="timezone">|Europe/Vatican</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C198">V<xliff:g id="separator">=</xliff:g>Vienna<xliff:g id="timezone">|Europe/Vienna</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C199">V<xliff:g id="separator">=</xliff:g>Vilnius<xliff:g id="timezone">|Europe/Vilnius</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C200">W<xliff:g id="separator">=</xliff:g>Warsaw<xliff:g id="timezone">|Europe/Warsaw</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C201">Z<xliff:g id="separator">=</xliff:g>Zagreb<xliff:g id="timezone">|Europe/Zagreb</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C202">Z<xliff:g id="separator">=</xliff:g>Zurich<xliff:g id="timezone">|Europe/Zurich</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C203">A<xliff:g id="separator">=</xliff:g>Antananarivo<xliff:g id="timezone">|Indian/Antananarivo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C204">M<xliff:g id="separator">=</xliff:g>Maldives<xliff:g id="timezone">|Indian/Maldives</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C205">M<xliff:g id="separator">=</xliff:g>Mauritius<xliff:g id="timezone">|Indian/Mauritius</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C206">A<xliff:g id="separator">=</xliff:g>Auckland<xliff:g id="timezone">|Pacific/Auckland</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C207">F<xliff:g id="separator">=</xliff:g>Fiji<xliff:g id="timezone">|Pacific/Fiji</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C208">G<xliff:g id="separator">=</xliff:g>Guam<xliff:g id="timezone">|Pacific/Guam</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C209">H<xliff:g id="separator">=</xliff:g>Honolulu<xliff:g id="timezone">|Pacific/Honolulu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C210">K<xliff:g id="separator">=</xliff:g>Kiritimati<xliff:g id="timezone">|Pacific/Kiritimati</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C211">N<xliff:g id="separator">=</xliff:g>Noumea<xliff:g id="timezone">|Pacific/Noumea</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C214">A<xliff:g id="separator">=</xliff:g>Antigua<xliff:g id="timezone">|America/Antigua</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C215">A<xliff:g id="separator">=</xliff:g>Austin<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C216">B<xliff:g id="separator">=</xliff:g>Boston<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C217">C<xliff:g id="separator">=</xliff:g>Calgary<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C218">C<xliff:g id="separator">=</xliff:g>Columbus<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C219">D<xliff:g id="separator">=</xliff:g>Dallas<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C220">K<xliff:g id="separator">=</xliff:g>Knoxville<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C221">M<xliff:g id="separator">=</xliff:g>Memphis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C222">M<xliff:g id="separator">=</xliff:g>Miami<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C223">M<xliff:g id="separator">=</xliff:g>Minneapolis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C224">O<xliff:g id="separator">=</xliff:g>Ottawa<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C225">P<xliff:g id="separator">=</xliff:g>Philadelphia<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C226">P<xliff:g id="separator">=</xliff:g>Portland<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C227">S<xliff:g id="separator">=</xliff:g>San Diego<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C228">S<xliff:g id="separator">=</xliff:g>San Francisco<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C229">S<xliff:g id="separator">=</xliff:g>Salt Lake City<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C230">S<xliff:g id="separator">=</xliff:g>San Jose<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C231">S<xliff:g id="separator">=</xliff:g>San Salvador<xliff:g id="timezone">|America/Guatemala</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C232">S<xliff:g id="separator">=</xliff:g>Seattle<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C233">S<xliff:g id="separator">=</xliff:g>St. Louis<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C234">W<xliff:g id="separator">=</xliff:g>Washington D.C.<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C235">H<xliff:g id="separator">=</xliff:g>Houston<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C236">S<xliff:g id="separator">=</xliff:g>San Antonio<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C237">J<xliff:g id="separator">=</xliff:g>Jacksonville<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C238">B<xliff:g id="separator">=</xliff:g>Baltimore<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C239">N<xliff:g id="separator">=</xliff:g>Nashville<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C240">M<xliff:g id="separator">=</xliff:g>Milwaukee<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C241">O<xliff:g id="separator">=</xliff:g>Oklahoma City<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C242">L<xliff:g id="separator">=</xliff:g>Las Vegas<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C243">A<xliff:g id="separator">=</xliff:g>Albuquerque<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C244">T<xliff:g id="separator">=</xliff:g>Tucson<xliff:g id="timezone">|MST</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C245">S<xliff:g id="separator">=</xliff:g>Sacramento<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C246">A<xliff:g id="separator">=</xliff:g>Atlanta<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C247">C<xliff:g id="separator">=</xliff:g>Cleveland<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C248">N<xliff:g id="separator">=</xliff:g>New Orleans<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C249">T<xliff:g id="separator">=</xliff:g>Tampa<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C250">P<xliff:g id="separator">=</xliff:g>Pittsburgh<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C251">C<xliff:g id="separator">=</xliff:g>Cincinnati<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C252">M<xliff:g id="separator">=</xliff:g>Mountain View<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C253">R<xliff:g id="separator">=</xliff:g>Reno<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C254">B<xliff:g id="separator">=</xliff:g>Black Rock City<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C255">D<xliff:g id="separator">=</xliff:g>Doha<xliff:g id="timezone">|Asia/Riyadh</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C256">B<xliff:g id="separator">=</xliff:g>Beijing<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Shanghai</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C257">M<xliff:g id="separator">=</xliff:g>Mumbai<xliff:g id="timezone">|Asia/Kolkata</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C258">D<xliff:g id="separator">=</xliff:g>Delhi<xliff:g id="timezone">|Asia/Kolkata</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C259">O<xliff:g id="separator">=</xliff:g>Osaka<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Tokyo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C260">L<xliff:g id="separator">=</xliff:g>Lahore<xliff:g id="timezone">|Asia/Karachi</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C261">S<xliff:g id="separator">=</xliff:g>Sana\'a<xliff:g id="timezone">|Asia/Riyadh</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C262">B<xliff:g id="separator">=</xliff:g>Barcelona<xliff:g id="timezone">|Europe/Madrid</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C263">M<xliff:g id="separator">=</xliff:g>Munich<xliff:g id="timezone">|Europe/Berlin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C264">M<xliff:g id="separator">=</xliff:g>Milan<xliff:g id="timezone">|Europe/Rome</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C265">F<xliff:g id="separator">=</xliff:g>Frankfurt<xliff:g id="timezone">|Europe/Berlin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C266">H<xliff:g id="separator">=</xliff:g>Hanoi<xliff:g id="timezone">|Asia/Bangkok</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C267">A<xliff:g id="separator">=</xliff:g>Ankara<xliff:g id="timezone">|Europe/Istanbul</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C268">B<xliff:g id="separator">=</xliff:g>Bangalore<xliff:g id="timezone">|Asia/Kolkata</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C269">B<xliff:g id="separator">=</xliff:g>Brasília<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C270">C<xliff:g id="separator">=</xliff:g>Cape Town<xliff:g id="timezone">|Africa/Johannesburg</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C271">I<xliff:g id="separator">=</xliff:g>Islamabad<xliff:g id="timezone">|Asia/Karachi</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C272">R<xliff:g id="separator">=</xliff:g>Rio de Janeiro<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C273">A<xliff:g id="separator">=</xliff:g>Ann Arbor<xliff:g id="timezone">|America/Detroit</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C274">B<xliff:g id="separator">=</xliff:g>Boulder<xliff:g id="timezone">|America/Denver</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C275">C<xliff:g id="separator">=</xliff:g>Cambridge<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C276">K<xliff:g id="separator">=</xliff:g>Kirkland<xliff:g id="timezone">|America/Los_Angeles</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C277">M<xliff:g id="separator">=</xliff:g>Madison<xliff:g id="timezone">|America/Chicago</xliff:g></string>
+    <!-- Format: [index]=[city name]:[phonetic name]|[timezone id] -->
+    <string name="C278">G<xliff:g id="separator">=</xliff:g>Guangzhou<xliff:g id="phonetic">:</xliff:g><xliff:g id="timezone">|Asia/Shanghai</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C279">H<xliff:g id="separator">=</xliff:g>Hyderabad<xliff:g id="timezone">|Asia/Kolkata</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C280">R<xliff:g id="separator">=</xliff:g>Reston<xliff:g id="timezone">|America/New_York</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C281">B<xliff:g id="separator">=</xliff:g>Belo Horizonte<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C282">S<xliff:g id="separator">=</xliff:g>Santiago<xliff:g id="timezone">|America/Santiago</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C283">M<xliff:g id="separator">=</xliff:g>Monrovia<xliff:g id="timezone">|Africa/Monrovia</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C284">C<xliff:g id="separator">=</xliff:g>Colombo<xliff:g id="timezone">|Asia/Colombo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C285">C<xliff:g id="separator">=</xliff:g>Chihuahua<xliff:g id="timezone">|America/Chihuahua</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C286">S<xliff:g id="separator">=</xliff:g>Salvador<xliff:g id="timezone">|America/Sao_Paulo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C287">G<xliff:g id="separator">=</xliff:g>Gurgaon<xliff:g id="timezone">|Asia/Kolkata</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C288">M<xliff:g id="separator">=</xliff:g>Manchester<xliff:g id="timezone">|Europe/London</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C290">S<xliff:g id="separator">=</xliff:g>St. Petersburg<xliff:g id="timezone">|Europe/Moscow</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C291">K<xliff:g id="separator">=</xliff:g>Kraków<xliff:g id="timezone">|Europe/Warsaw</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C292">W<xliff:g id="separator">=</xliff:g>Wroclaw<xliff:g id="timezone">|Europe/Warsaw</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C293">H<xliff:g id="separator">=</xliff:g>Hamburg<xliff:g id="timezone">|Europe/Berlin</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C294">O<xliff:g id="separator">=</xliff:g>Oulu<xliff:g id="timezone">|Europe/Bucharest</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C295">H<xliff:g id="separator">=</xliff:g>Haifa<xliff:g id="timezone">|Asia/Jerusalem</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C296">S<xliff:g id="separator">=</xliff:g>San Juan<xliff:g id="timezone">|America/Puerto_Rico</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C297">T<xliff:g id="separator">=</xliff:g>Tegucigalpa<xliff:g id="timezone">|America/Tegucigalpa</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C298">P<xliff:g id="separator">=</xliff:g>Paramaribo<xliff:g id="timezone">|America/Paramaribo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C299">Q<xliff:g id="separator">=</xliff:g>Quito<xliff:g id="timezone">|America/Panama</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C300">L<xliff:g id="separator">=</xliff:g>Ljubljana<xliff:g id="timezone">|Europe/Ljubljana</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C301">A<xliff:g id="separator">=</xliff:g>Ashgabat<xliff:g id="timezone">|Asia/Ashgabat</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C302">A<xliff:g id="separator">=</xliff:g>Asmara<xliff:g id="timezone">|Africa/Asmara</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C303">B<xliff:g id="separator">=</xliff:g>Bandar Seri Begawan<xliff:g id="timezone">|Asia/Brunei</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C304">B<xliff:g id="separator">=</xliff:g>Bangui<xliff:g id="timezone">|Africa/Bangui</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C305">B<xliff:g id="separator">=</xliff:g>Banjul<xliff:g id="timezone">|Africa/Banjul</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C306">B<xliff:g id="separator">=</xliff:g>Bishkek<xliff:g id="timezone">|Asia/Bishkek</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C307">B<xliff:g id="separator">=</xliff:g>Bissau<xliff:g id="timezone">|Africa/Bissau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C308">B<xliff:g id="separator">=</xliff:g>Bujumbura<xliff:g id="timezone">|Africa/Bujumbura</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C309">D<xliff:g id="separator">=</xliff:g>Dili<xliff:g id="timezone">|Asia/Dili</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C310">D<xliff:g id="separator">=</xliff:g>Dushanbe<xliff:g id="timezone">|Asia/Dushanbe</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C311">F<xliff:g id="separator">=</xliff:g>Funafuti<xliff:g id="timezone">|Pacific/Funafuti</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C312">H<xliff:g id="separator">=</xliff:g>Honiara<xliff:g id="timezone">|Pacific/Guadalcanal</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C313">J<xliff:g id="separator">=</xliff:g>Juba<xliff:g id="timezone">|Africa/Juba</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C314">K<xliff:g id="separator">=</xliff:g>Kingstown<xliff:g id="timezone">|America/St_Vincent</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C315">L<xliff:g id="separator">=</xliff:g>Libreville<xliff:g id="timezone">|Africa/Libreville</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C316">L<xliff:g id="separator">=</xliff:g>Lomé<xliff:g id="timezone">|Africa/Lome</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C317">L<xliff:g id="separator">=</xliff:g>Luanda<xliff:g id="timezone">|Africa/Luanda</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C318">L<xliff:g id="separator">=</xliff:g>Lusaka<xliff:g id="timezone">|Africa/Lusaka</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C319">M<xliff:g id="separator">=</xliff:g>Majuro<xliff:g id="timezone">|Pacific/Majuro</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C320">M<xliff:g id="separator">=</xliff:g>Malabo<xliff:g id="timezone">|Africa/Malabo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C321">M<xliff:g id="separator">=</xliff:g>Maputo<xliff:g id="timezone">|Africa/Maputo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C322">M<xliff:g id="separator">=</xliff:g>Mbabane<xliff:g id="timezone">|Africa/Mbabane</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C323">M<xliff:g id="separator">=</xliff:g>Moroni<xliff:g id="timezone">|Indian/Comoro</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C324">N<xliff:g id="separator">=</xliff:g>N\'Djamena<xliff:g id="timezone">|Africa/Ndjamena</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C325">N<xliff:g id="separator">=</xliff:g>Ngerulmud<xliff:g id="timezone">|Pacific/Palau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C326">N<xliff:g id="separator">=</xliff:g>Niamey<xliff:g id="timezone">|Africa/Niamey</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C327">N<xliff:g id="separator">=</xliff:g>Nicosia<xliff:g id="timezone">|Europe/Nicosia</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C328">N<xliff:g id="separator">=</xliff:g>Nouakchott<xliff:g id="timezone">|Africa/Nouakchott</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C329">N<xliff:g id="separator">=</xliff:g>Nuku\'alofa<xliff:g id="timezone">|Pacific/Tongatapu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C330">O<xliff:g id="separator">=</xliff:g>Ouagadougou<xliff:g id="timezone">|Africa/Ouagadougou</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C331">P<xliff:g id="separator">=</xliff:g>Palikir<xliff:g id="timezone">|Pacific/Noumea</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C332">P<xliff:g id="separator">=</xliff:g>Philipsburg<xliff:g id="timezone">|America/Lower_Princes</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C333">P<xliff:g id="separator">=</xliff:g>Podgorica<xliff:g id="timezone">|Europe/Podgorica</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C334">P<xliff:g id="separator">=</xliff:g>Port Moresby<xliff:g id="timezone">|Pacific/Palau</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C335">P<xliff:g id="separator">=</xliff:g>Port Vila<xliff:g id="timezone">|Pacific/Efate</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C336">P<xliff:g id="separator">=</xliff:g>Porto-Novo<xliff:g id="timezone">|Africa/Porto-Novo</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C337">P<xliff:g id="separator">=</xliff:g>Priština<xliff:g id="timezone">|Europe/Belgrade</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C338">R<xliff:g id="separator">=</xliff:g>Roseau<xliff:g id="timezone">|America/Dominica</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C339">T<xliff:g id="separator">=</xliff:g>Tashkent<xliff:g id="timezone">|Asia/Tashkent</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C340">T<xliff:g id="separator">=</xliff:g>Tbilisi<xliff:g id="timezone">|Asia/Tbilisi</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C341">T<xliff:g id="separator">=</xliff:g>Thimphu<xliff:g id="timezone">|Asia/Thimphu</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C342">T<xliff:g id="separator">=</xliff:g>Tirana<xliff:g id="timezone">|Europe/Tirane</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C343">V<xliff:g id="separator">=</xliff:g>Vaduz<xliff:g id="timezone">|Europe/Vaduz</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C344">V<xliff:g id="separator">=</xliff:g>Vientiane<xliff:g id="timezone">|Asia/Vientiane</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C345">W<xliff:g id="separator">=</xliff:g>Windhoek<xliff:g id="timezone">|Africa/Windhoek</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C346">Y<xliff:g id="separator">=</xliff:g>Yaoundé<xliff:g id="timezone">|Africa/Douala</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C347">Y<xliff:g id="separator">=</xliff:g>Yaren District<xliff:g id="timezone">|Pacific/Nauru</xliff:g></string>
+    <!-- Format: [index]=[city name]|[timezone id] -->
+    <string name="C348">Y<xliff:g id="separator">=</xliff:g>Yerevan<xliff:g id="timezone">|Asia/Yerevan</xliff:g></string>
+
+</resources>

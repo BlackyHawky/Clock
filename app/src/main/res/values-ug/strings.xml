@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_label">سائەت</string>
+    <string name="label">بەلگە</string>
+    <string name="default_label">قوڭغۇراق</string>
+    <string name="alarm_vibrate">تىترەت</string>
+    <string name="alarm_repeat">قايتىلا</string>
+    <string name="delete">ئۆچۈر</string>
+    <string name="alarm_alert_dismiss_text">تاقا</string>
+    <string name="alarm_missed_title">ئۆتكۈزۈۋەتكەن قوڭغۇراق</string>
+    <string name="alarm_alert_snooze_text">قايتا جىرىڭلاتما</string>
+    <string name="alarm_alert_snooze_until"><xliff:g id="TIME">%s</xliff:g> غىچە كېچىكتۈر</string>
+    <string name="alarm_alert_predismiss_title">ئالدىن بېكىتىلگەن قوڭغۇراق</string>
+    <string name="missed_alarm_has_been_deleted">ئۆتكۈزۈۋەتكەن قوڭغۇراق ئۆچۈرۈلدى</string>
+    <string name="timer_notifications_less_min">بىر مىنۇتمۇ قالمىدى</string>
+    <string-array name="alarm_set">
+        <item>قوڭغۇراق ھازىردىن باشلاپ 1 مىنۇتقا يەتمىگەن ۋاقىتتا ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ<xliff:g id="DAYS">%1$s</xliff:g>  <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
+    </string-array>
+    <string name="every_day">ھەر كۈنى</string>
+    <string name="day_concat">"« ،»"</string>
+    <string name="analog_gadget">تەقلىد سائەت</string>
+    <string name="digital_gadget">رەقەملىك سائەت</string>
+    <string name="settings">تەڭشەكلەر</string>
+    <string name="snooze_duration_title">مۈگدەش ئۇزۇنلۇقى</string>
+    <string name="auto_silence_title">قوڭغۇراق ۋاقتى</string>
+    <string name="auto_silence_never">ھەرگىز</string>
+    <string-array name="auto_silence_entries">
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>ھەرگىز</item>
+    </string-array>
+    <string-array name="snooze_duration_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>4 minutes</item>
+        <item>5 minutes</item>
+        <item>6 minutes</item>
+        <item>7 minutes</item>
+        <item>8 minutes</item>
+        <item>9 minutes</item>
+        <item>10 minutes</item>
+        <item>11 minutes</item>
+        <item>12 minutes</item>
+        <item>13 minutes</item>
+        <item>14 minutes</item>
+        <item>15 minutes</item>
+        <item>16 minutes</item>
+        <item>17 minutes</item>
+        <item>18 minutes</item>
+        <item>19 minutes</item>
+        <item>20 minutes</item>
+        <item>21 minutes</item>
+        <item>22 minutes</item>
+        <item>23 minutes</item>
+        <item>24 minutes</item>
+        <item>25 minutes</item>
+        <item>26 minutes</item>
+        <item>27 minutes</item>
+        <item>28 minutes</item>
+        <item>29 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+    <string name="alarm_volume_title">قوڭغۇراق ئاۋازى</string>
+    <string name="silent_ringtone_title">ئۈنسىز</string>
+    <string name="volume_button_setting_title">ئاۋاز توپچىسى</string>
+    <string-array name="volume_button_setting_entries">
+        <item>قايتا جىرىڭلاتما</item>
+        <item>تاقا</item>
+        <item>Control volume</item>
+    </string-array>
+    <string name="label_description">بەلگە</string>
+    <string name="ringtone_description">زىل ئاۋازى</string>
+    <string name="menu_alarm">قوڭغۇراق</string>
+    <string name="menu_timer">ۋاقىت خاتىرىلىگۈچ</string>
+    <string name="menu_clock">سائەت</string>
+    <string name="menu_stopwatch">دەقىقە سائەت</string>
+    <string name="button_cities">شەھەرلەر</string>
+    <string name="menu_item_settings">تەڭشەكلەر</string>
+    <string name="menu_item_help">ياردەم</string>
+    <string name="menu_item_sort_by_gmt_offset">ۋاقىت بويىچە تەرتىپلە</string>
+    <string name="menu_item_sort_by_name">ئات بويىچە تەرتىپلە</string>
+    <string name="selected_cities_label">تاللانغان شەھەرلەر</string>
+    <string name="sw_resume_button">داۋاملاشتۇر</string>
+    <string name="sw_reset_button">ئەسلىگە قايتۇر</string>
+    <string name="sw_start_button">باشلا</string>
+    <string name="sw_lap_button">ئايلانما</string>
+    <string name="sw_share_button">ھەمبەھىر</string>
+    <string name="hours_label">h</string>
+    <string name="minutes_label">m</string>
+    <string name="seconds_label">s</string>
+    <string name="sw_share_main">ۋاقتىم <xliff:g id="TIME">%s</xliff:g></string>
+    <string name="sw_share_laps">ئايلانما ۋاقتى:</string>
+    <string name="sw_notification_lap_number"><xliff:g id="NUMBER">%d</xliff:g> ئايلانما</string>
+    <string name="timer_add_timer">ۋاقىت خاتىرىلىگۈچنى قوش</string>
+    <string name="timer_start">باشلا</string>
+    <string name="timer_delete">ئۆچۈر</string>
+    <string name="timer_plus_one">1 مىنۇت قوش</string>
+    <string name="timer_plus_1_min">1 مىنۇت قوش</string>
+    <string name="timer_stop">توختا</string>
+    <string name="timer_reset">ئەسلىگە قايتۇر</string>
+    <string name="timer_cancel">ۋاز كەچ</string>
+    <string name="timer_times_up">ۋاقىت توشتى</string>
+    <string name="timer_notification_label">ۋاقىت خاتىرىلىگۈچ</string>
+    <string-array name="sw_share_strings" translatable="true">
+        <item>چاقماق پەلۋاندەك تېزكەنسىز.</item>
+        <item>ئەمگەك مىۋىڭىزدىن ھوزۇرلىنىڭ.</item>
+        <item>Android سۈرئىتى تېزلىكى بىلەن داڭلىق، ئەمما سىزگە يەتمەيدۇ!</item>
+        <item>پاھ.</item>
+        <item>ھەقىقەتەن قالتىس.</item>
+        <item>ھەيران قالارلىق سۈرئەت.</item>
+        <item>يەنە بىر كېلىڭ.</item>
+        <item>ئاسانلا ئىش بۇ.</item>
+        <item>يەلتاپاندەكلا تېزكەنسىز.</item>
+        <item>نۇر تېزلىكى.</item>
+    </string-array>
+    <string name="home_label">باش بەت</string>
+    <string name="cities_activity_title">شەھەرلەر</string>
+    <string name="clock_style">ئۇسلۇب</string>
+    <string-array name="clock_style_entries">
+        <item>تەقلىد</item>
+        <item>رەقەملىك</item>
+    </string-array>
+    <string name="automatic_home_clock">ئۆيدىكى ۋاقىتنى ئاپتوماتىك كۆرسىتىدۇ</string>
+    <string name="automatic_home_clock_summary">باشقا ۋاقىت رايونىدا ساياھەت قىلغاندا ئۆيدىكى ۋاقىتنى كۆرسىتىدۇ</string>
+    <string name="home_time_zone">يەرلىك ۋاقىت رايونى</string>
+    <string name="home_time_zone_title">يەرلىك ۋاقىت رايونى</string>
+    <string-array name="timezone_labels" tools:ignore="Typos">
+        <item>"مارشال ئاراللىرى"</item>
+        <item>"مىدۋېي ئارىلى"</item>
+        <item>"ھاۋاي"</item>
+        <item>"ئالياسكا"</item>
+        <item>"تىنچ ئوكيان ۋاقتى"</item>
+        <item>"تىۋانا"</item>
+        <item>"ئارىزونا"</item>
+        <item>"چىۋاۋا"</item>
+        <item>"تاغ ۋاقتى"</item>
+        <item>"ئوتتۇرا ئامېرىكا"</item>
+        <item>"ئوتتۇرا رايون ۋاقتى"</item>
+        <item>"مېكسىكا شەھىرى"</item>
+        <item>"ساسكاچېۋان"</item>
+        <item>"بوگۇتا"</item>
+        <item>"شەرقىي رايون ۋاقتى"</item>
+        <item>"ۋېنېزۇئېلا"</item>
+        <item>"ئاتلانتىك ئوكيان ۋاقتى (باربادوس)"</item>
+        <item>"ئاتلانتىك ئوكيان ۋاقتى (كانادا)"</item>
+        <item>"مانائۇس"</item>
+        <item>"سانتىياگو"</item>
+        <item>"نېۋفۇندلاند"</item>
+        <item>"بىرازىلىيە"</item>
+        <item>"بۇئېنۇس-ئايرېس"</item>
+        <item>"گىرېنلاند"</item>
+        <item>"مونتېۋىدېئو"</item>
+        <item>"ئوتتۇرا ئاتلانتىك ئوكيان"</item>
+        <item>"ئازور"</item>
+        <item>"يېشىل تۇمشۇق ئاراللىرى"</item>
+        <item>"كازابلانكا"</item>
+        <item>"لوندون، دۇبلىن"</item>
+        <item>"ئامىستېردام، بېرلىن"</item>
+        <item>"بېلگراد"</item>
+        <item>"بىريۇسسېل"</item>
+        <item>"سارايېۋو"</item>
+        <item>"ۋىندخوك"</item>
+        <item>"غەربىي ئافرىقا ۋاقتى"</item>
+        <item>"ئاممان، ئىيوردانىيە"</item>
+        <item>"ئافېنا، ئىستانبۇل"</item>
+        <item>"بېيرۇت، لىۋان"</item>
+        <item>"قاھىرە"</item>
+        <item>"خېلسىنكى"</item>
+        <item>"قۇددۇس"</item>
+        <item>"مىنسك"</item>
+        <item>"خارارې"</item>
+        <item>"باغداد"</item>
+        <item>"موسكۋا"</item>
+        <item>"كۈۋەيت"</item>
+        <item>"نايروبى"</item>
+        <item>"تېھران"</item>
+        <item>"باكۇ"</item>
+        <item>"تىبىلىس"</item>
+        <item>"يېرېۋان"</item>
+        <item>"دۇبەي"</item>
+        <item>"كابۇل"</item>
+        <item>"ئىسلامئاباد، كاراچى"</item>
+        <item>"ئورال"</item>
+        <item>"يېكاتېرىنبۇرگ"</item>
+        <item>"كالكۇتتا"</item>
+        <item>"سىرىلانكا"</item>
+        <item>"كاتماندۇ"</item>
+        <item>"ئاستانا"</item>
+        <item>"رانگون"</item>
+        <item>"كىراسنويارسك"</item>
+        <item>"باڭكوك"</item>
+        <item>"بېيجىڭ"</item>
+        <item>"شياڭگاڭ"</item>
+        <item>"ئىركۇتسك"</item>
+        <item>"كۇئالالۇمپۇر"</item>
+        <item>"پېرت"</item>
+        <item>"تەيبېي"</item>
+        <item>"سېئۇل"</item>
+        <item>"توكيو، ئوساكا"</item>
+        <item>"ياكۇتسك"</item>
+        <item>"ئادېلايدې"</item>
+        <item>"دارۋىن"</item>
+        <item>"بىرىسبان"</item>
+        <item>"خوبارت"</item>
+        <item>"سىدنېي، كانبېررا"</item>
+        <item>"ۋىلادىۋوستوك"</item>
+        <item>"گۇئام"</item>
+        <item>"ماگادان"</item>
+        <item>"ئاۋكلاند"</item>
+        <item>"فىجى"</item>
+        <item>"تونگا"</item>
+        <item>"جاكارتا"</item>
+    </string-array>
+    <string name="shortcut_start_stopwatch_short">باشلا</string>
+    <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> ۋاقىت خاتىرىلىگۈچ</string>
+    <string name="next_timer_notif">كېيىنكى ۋاقىت خاتىرىلىگۈچ: <xliff:g id="TIME_REMAINING">%s</xliff:g></string>
+    <string name="night_mode_title">كېچە ھالىتى</string>
+    <string name="night_mode_summary">ئېكران يورۇقلۇقىنى بەك تۆۋەن تەڭشەيدۇ (قاراڭغۇ ئۆيگە ماس كېلىدۇ)</string>
+    <string name="expand_alarm">قوڭغۇراقنى ياي</string>
+    <string name="collapse_alarm">قوڭغۇراقنى يىغ</string>
+    <string name="alarm_undo">يېنىۋال</string>
+    <string name="world_day_of_week_label">/ <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="next_alarm_description">كېيىنكى قوڭغۇراق: <xliff:g id="ALARM_TIME">%s</xliff:g></string>
+    <string name="no_alarms">قوڭغۇراقلىق سائەت يوق</string>
+</resources>

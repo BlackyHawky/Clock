@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"時計"</string>
+    <string name="label" msgid="162189613902857319">"ラベル"</string>
+    <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"繰り返し"</string>
+    <string name="delete" msgid="5732434972457000541">"削除"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"デフォルトのアラーム音"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"アラームの音"</string>
+    <string name="timer_sound" msgid="896163086604894735">"タイマーの音"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"新しく追加"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"削除"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"この音を使用するアラームとタイマーでは、代わりにデフォルトの音が使用されます。"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"マイサウンド"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"デバイスのサウンド"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"音声コンテンツにアクセスできません。"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"解除"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"聞き逃したアラーム"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"スヌーズ"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>分</item>
+      <item quantity="one">1分</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"アラームOFF"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g>分後に再通知します。</item>
+      <item quantity="one">1分後に再通知します。</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"スヌーズ終了時刻: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"次のアラーム"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"聞き逃したアラームを削除しました"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"残り1分未満"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g><xliff:g id="HOURS">%1$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g><xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"残り <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="SECONDS">%4$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"タイマーに 1 分追加しました、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"タイマーを一時停止しました、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"タイマーは作動中です、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"残り"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"残り"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"アラームは今から1分以内に設定されています。"</item>
+    <item msgid="6002066367368421848">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>後に設定されています。"</item>
+    <item msgid="8824719306247973774">"アラームは<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</item>
+    <item msgid="8182406852935468862">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</item>
+    <item msgid="2532279224777213194">"アラームは<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
+    <item msgid="5936557894247187717">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
+    <item msgid="9115697840826129603">"アラームは<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
+    <item msgid="2332583385137381060">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています"</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>日</item>
+      <item quantity="one">1日</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
+      <item quantity="one">1時間</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
+      <item quantity="one">1時間</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
+      <item quantity="one">1分</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
+      <item quantity="one">1分</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>秒</item>
+      <item quantity="one">1秒</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"毎日"</string>
+    <string name="day_concat" msgid="971998564991636532">"、 "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"読み込んでいます…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"アナログ時計"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"デジタル時計"</string>
+    <string name="settings" msgid="5849739030579520686">"設定"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"スヌーズの長さ"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"徐々に音量を上げる"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g>分</item>
+      <item quantity="one">1分</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1分"</item>
+    <item msgid="5431906692406316549">"5分"</item>
+    <item msgid="7742728812068919959">"10分"</item>
+    <item msgid="2855948657259647629">"15分"</item>
+    <item msgid="6330196381284475079">"20分"</item>
+    <item msgid="7809240121716151904">"25分"</item>
+    <item msgid="4278641338024561333">"なし"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"OFF"</item>
+    <item msgid="7195451681426992018">"5秒"</item>
+    <item msgid="592917601923801901">"10秒"</item>
+    <item msgid="5050318776687582653">"15秒"</item>
+    <item msgid="6997726466563948756">"20秒"</item>
+    <item msgid="1237360231425097772">"25秒"</item>
+    <item msgid="248014374051498284">"30秒"</item>
+    <item msgid="6110450211551791852">"35秒"</item>
+    <item msgid="8010211657612404516">"40秒"</item>
+    <item msgid="3730631498119797451">"45秒"</item>
+    <item msgid="623829984393124488">"50秒"</item>
+    <item msgid="6390209981529164605">"55秒"</item>
+    <item msgid="5261571706794132923">"60秒"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1分"</item>
+    <item msgid="4482596794620161030">"2分"</item>
+    <item msgid="8478276201849960314">"3分"</item>
+    <item msgid="4038456474851212478">"4分"</item>
+    <item msgid="6298175579152122770">"5分"</item>
+    <item msgid="9021860177999278496">"6分"</item>
+    <item msgid="7224689200902680256">"7分"</item>
+    <item msgid="4610012663985162123">"8分"</item>
+    <item msgid="1717028898015659426">"9分"</item>
+    <item msgid="8058492636464337699">"10分"</item>
+    <item msgid="577767219993868603">"11分"</item>
+    <item msgid="3710047869487864775">"12分"</item>
+    <item msgid="3794200935630619331">"13分"</item>
+    <item msgid="5462266433522229437">"14分"</item>
+    <item msgid="2192100038569306041">"15分"</item>
+    <item msgid="6636326047858437620">"16分"</item>
+    <item msgid="2481054808772108352">"17分"</item>
+    <item msgid="4080984064428458050">"18分"</item>
+    <item msgid="5844319398703041730">"19分"</item>
+    <item msgid="2334964289857921073">"20分"</item>
+    <item msgid="4755209855817904977">"21分"</item>
+    <item msgid="8414394445389367355">"22分"</item>
+    <item msgid="2604612428763230265">"23分"</item>
+    <item msgid="6871696471373403806">"24分"</item>
+    <item msgid="1573685398431466364">"25分"</item>
+    <item msgid="6999090368236684971">"26分"</item>
+    <item msgid="7125056720603734703">"27分"</item>
+    <item msgid="1695830988496463030">"28分"</item>
+    <item msgid="6706610539793025916">"29分"</item>
+    <item msgid="2898212818965905529">"30分"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"土曜日"</item>
+    <item msgid="3993530639455360921">"日曜日"</item>
+    <item msgid="8594709368683324282">"月曜日"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"アラームの音量"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"マナーモード"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"不明"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"アラームの音量をミュートしました"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"ミュート解除"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"アラーム音のデフォルト設定はマナーモードです"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"変更"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"時計の通知はブロックされています"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"デバイスは [サイレント] に設定されています"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"音量ボタン"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"スヌーズ"</item>
+    <item msgid="3450979320164769576">"解除"</item>
+    <item msgid="7085774139907653538">"音量の調整"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"ラベル"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"着信音"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"アラーム"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"タイマー"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"時計"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"ストップウォッチ"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"アラームを追加"</string>
+    <string name="button_cities" msgid="4555761857494501363">"世界時計"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"ヘルプ"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"スクリーンセーバー"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"時間順"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"名前順"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"選択した都市"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"再開"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"リセット"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"開始"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"一時停止"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"ラップ"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"共有"</string>
+    <string name="hours_label" msgid="3393478155635368097">"h"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>、<xliff:g id="MINUTES">%2$s</xliff:g>、<xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"私の時間は<xliff:g id="TIME">%s</xliff:g>です"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"ラップ時間:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"ラップ<xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"タイマーを追加"</string>
+    <string name="timer_start" msgid="6158486445614356442">"開始"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"削除"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g>を削除"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"1分延長"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"1分追加"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"タイマーをすべて停止"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"リセット"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"キャンセル"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"タイマーをキャンセルしました"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"タイムアップ"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g>件のタイマーが完了"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> 件のタイマーが未応答でした"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"タイマー"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"未応答のタイマー"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"未応答のタイマー: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"一時停止"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"全タイマーをリセット"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"なかなかのスピード狂です。"</item>
+    <item msgid="6332879039890727169">"まさに努力の賜物です。"</item>
+    <item msgid="815382761274660130">"Androidも高速ですが、あなたのスピードには負けます！"</item>
+    <item msgid="7916250650982813737">"肩の力を抜いて。"</item>
+    <item msgid="6836603904515182333">"すご腕の持ち主です。"</item>
+    <item msgid="7508085100680861631">"まさに驚きの速さです。"</item>
+    <item msgid="5961245252909589573">"もう一度タイムワープしましょう。"</item>
+    <item msgid="5211891900854545940">"左に移動するだけです。"</item>
+    <item msgid="9071353477103826053">"急ぎのパレットがあります。"</item>
+    <item msgid="3785193933691117181">"光の速さです。"</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"自宅"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"時計"</string>
+    <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"時刻に秒を表示"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"日付と時刻の変更"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"アナログ"</item>
+    <item msgid="8483930821046925592">"デジタル"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"自宅の時計を自動表示"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"時差のある場所にいるときに自宅の時刻を追加する"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"自宅タイムゾーン"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"自宅タイムゾーン"</string>
+    <string name="city_checked" msgid="616847871968019">"「<xliff:g id="CITY_NAME">%s</xliff:g>」をオンにしました"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"「<xliff:g id="CITY_NAME">%s</xliff:g>」をオフにしました"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"マーシャル諸島"</item>
+    <item msgid="4196408495909011020">"ミッドウェー諸島"</item>
+    <item msgid="1414384194857730006">"ハワイ"</item>
+    <item msgid="2687091371581931926">"アラスカ"</item>
+    <item msgid="1922100269679049660">"太平洋時間"</item>
+    <item msgid="7156402158716866161">"ティフアナ"</item>
+    <item msgid="1144117502254612241">"アリゾナ"</item>
+    <item msgid="101284182011722637">"チワワ"</item>
+    <item msgid="689121094232986897">"山岳部時間"</item>
+    <item msgid="5445331923942302756">"中央アメリカ"</item>
+    <item msgid="2749806434052452351">"中部時間"</item>
+    <item msgid="3997138870229703753">"メキシコシティ"</item>
+    <item msgid="5425567073027744888">"サスカチュワン"</item>
+    <item msgid="2877342865396629368">"ボゴタ"</item>
+    <item msgid="568682398893899670">"東部時間"</item>
+    <item msgid="668135984541863866">"ベネズエラ"</item>
+    <item msgid="3737474220861486223">"大西洋時間（バルバドス）"</item>
+    <item msgid="6279116051273436870">"大西洋時間（カナダ）"</item>
+    <item msgid="8513382867172014244">"マナウス"</item>
+    <item msgid="7776299003105932407">"サンチアゴ"</item>
+    <item msgid="8636989494746218677">"ニューファンドランド"</item>
+    <item msgid="4402541016410147505">"ブラジリア"</item>
+    <item msgid="2251184440733164084">"ブエノスアイレス"</item>
+    <item msgid="6202926618569004969">"グリーンランド"</item>
+    <item msgid="2355275037115290628">"モンテビデオ"</item>
+    <item msgid="1377549694711708945">"中部大西洋"</item>
+    <item msgid="3457671272126347981">"アゾレス諸島"</item>
+    <item msgid="3659315141063710840">"カーボヴェルデ諸島"</item>
+    <item msgid="1260941741802367635">"カサブランカ"</item>
+    <item msgid="8275203689687954762">"ロンドン、ダブリン"</item>
+    <item msgid="5970179539479320905">"アムステルダム、ベルリン"</item>
+    <item msgid="5396319478750517962">"ベオグラード"</item>
+    <item msgid="8688787475056663004">"ブリュッセル"</item>
+    <item msgid="3415827874921681622">"サラエボ"</item>
+    <item msgid="402008965928320066">"ウィントフック"</item>
+    <item msgid="6436942724959275569">"西アフリカ標準時"</item>
+    <item msgid="954536568417204026">"アンマン、ヨルダン"</item>
+    <item msgid="8932745482008902551">"アテネ、イスタンブール"</item>
+    <item msgid="320025725949024510">"ベイルート、レバノン"</item>
+    <item msgid="7242083112551905970">"カイロ"</item>
+    <item msgid="7241520146011450419">"ヘルシンキ"</item>
+    <item msgid="2717065017510546526">"エルサレム"</item>
+    <item msgid="8698556287741466553">"ミンスク"</item>
+    <item msgid="1797598357342084506">"ハラーレ"</item>
+    <item msgid="5169119919905066998">"バグダッド"</item>
+    <item msgid="2615788116201065182">"モスクワ"</item>
+    <item msgid="9084354867885584646">"クウェート"</item>
+    <item msgid="1351570519986178268">"ナイロビ"</item>
+    <item msgid="7094569580635877460">"テヘラン"</item>
+    <item msgid="3953138772617909704">"バクー"</item>
+    <item msgid="2868893113598800752">"トビリシ"</item>
+    <item msgid="7088581865802476373">"エレバン"</item>
+    <item msgid="1941122257623887992">"ドバイ"</item>
+    <item msgid="9194797225058249720">"カブール"</item>
+    <item msgid="6486569254364577332">"イスラマーバード、カラチ"</item>
+    <item msgid="5487724896895412089">"ウラリスク"</item>
+    <item msgid="364906869710826982">"エカテリンブルグ"</item>
+    <item msgid="2106505051751383358">"コルカタ"</item>
+    <item msgid="6851586621581501447">"スリランカ"</item>
+    <item msgid="800438544128213134">"カトマンズ"</item>
+    <item msgid="6173621471007643021">"アスタナ"</item>
+    <item msgid="8645125891971581128">"ヤンゴン"</item>
+    <item msgid="2886407505119737794">"クラスノヤルスク"</item>
+    <item msgid="3408222398188107090">"バンコク"</item>
+    <item msgid="4441612937172851228">"北京"</item>
+    <item msgid="4936715789028996930">"香港"</item>
+    <item msgid="4261031143777385525">"イルクーツク"</item>
+    <item msgid="3538060959338191835">"クアラルンプール"</item>
+    <item msgid="1438847562643099201">"パース"</item>
+    <item msgid="3063913827688244383">"台北"</item>
+    <item msgid="3502757135046564209">"ソウル"</item>
+    <item msgid="6107588684519111669">"東京、大阪"</item>
+    <item msgid="4350769099755608471">"ヤクーツク"</item>
+    <item msgid="2422707004533526462">"アデレード"</item>
+    <item msgid="1292192084554134339">"ダーウィン"</item>
+    <item msgid="1320883699470001716">"ブリズベーン"</item>
+    <item msgid="5137198806146386527">"ホバート"</item>
+    <item msgid="5920063686933941174">"シドニー、キャンベラ"</item>
+    <item msgid="615906039696009425">"ウラジオストク"</item>
+    <item msgid="7738680449356275374">"グアム"</item>
+    <item msgid="2882915026380778227">"マガダン"</item>
+    <item msgid="8255615641810148152">"オークランド"</item>
+    <item msgid="3027153773466391728">"フィジー"</item>
+    <item msgid="5911600083231840181">"トンガ"</item>
+    <item msgid="5176858645450908751">"ジャカルタ"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新しいアラーム"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"新しいアラームを作成"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"新しいタイマー"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"新しいタイマーを作成"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"開始"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"ストップウォッチ"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"一時停止"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"ストップウォッチを一時停止"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"スクリーンセーバー"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"スクリーンセーバーを起動"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"アラーム"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"タイマーの通知からの操作を処理します。"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ストップウォッチの通知からの操作を処理します。"</string>
+    <string name="swn_paused" msgid="6364358842808263589">"一時停止しました"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"右にスワイプすると解除できます"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"左にスワイプでスヌーズを設定、右にスワイプで解除できます"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"タイマー"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"タイマーのバイブレーション"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"タイマーを一時停止しました"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g>個のタイマーを一時停止しました"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"タイマーを表示するにはタップします"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマー"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"次のタイマー: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"スクリーンセーバーの設定"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"夜間モード"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"薄暗い表示（暗い部屋用）"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"アラームを展開"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"アラームを折りたたむ"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"元に戻す"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"アラームを削除しました"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"+ <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"- <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"+ <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"- <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"明日、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"昨日、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"明日"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"昨日"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"次のアラーム: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"アラームはありません"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"無効な時間<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>が指定されました"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>に設定されたアラームはありません"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"設定されたアラームはありません"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ラベルは指定されていません"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"ラベルを含むアラームはありません"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"この時間に設定されたアラームはありません"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを解除しました"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"アラームは<xliff:g id="ALARM_TIME">%s</xliff:g>に設定されています"</string>
+    <string name="timer_created" msgid="4381027137335885547">"タイマーを作成しました"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 件のタイマーを解除しました</item>
+      <item quantity="one">タイマーを解除しました</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"タイマーを削除しました"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"タイマーの長さが無効です"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"選択したタイマーは無効です"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"期限切れのタイマーはありません"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームは、まだ24時間以上先なので解除することはできません"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"アラームを解除"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"解除するアラームを選択してください"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"作動中のアラームはありません"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
+</resources>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"Erlojua"</string>
+    <string name="label" msgid="162189613902857319">"Etiketa"</string>
+    <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Egin dar-dar"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Errepikatu"</string>
+    <string name="delete" msgid="5732434972457000541">"Ezabatu"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Alarmaren soinu lehenetsia"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Alarmaren soinua"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Tenporizadorearen soinua"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"Gehitu beste bat"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"Kendu"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Soinu hau darabilten alarma eta tenporizadoreek soinu lehenetsia erreproduzituko dute honen ordez."</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Zure soinuak"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Gailuaren soinuak"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Ezin da atzitu audio-edukia."</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Iraungi egin da tenporizadorea"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Bihar"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Gaur"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Baztertu"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmari ezikusi egin zaio"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Atzeratuta"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+      <item quantity="one">1 min</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma desaktibatuta"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Atzeratu"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> minutu atzeratuta.</item>
+      <item quantity="one">1 minutu atzeratuta.</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atzeratu ordu honetara arte: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Hurrengo alarma"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Ezikusi egindako alarma ezabatu da"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Minutu bat baino gutxiago geratzen da"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g> eta <xliff:g id="MINUTES"> %2$s</xliff:g> geratzen dira"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> eta <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> eta <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES"> %2$s</xliff:g> eta <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Minutu bat gehitu da tenporizadorean, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Pausatuta dago tenporizadorea, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Abian da tenporizadorea, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"geratzen da"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"geratzen dira"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Alarma 1 minutu baino gutxiago barru jotzeko ezarri da."</item>
+    <item msgid="6002066367368421848">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="8824719306247973774">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="8182406852935468862">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> eta <xliff:g id="HOURS">%2$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="2532279224777213194">"Alarma <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="5936557894247187717">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="9115697840826129603">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="2332583385137381060">"Alarma <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> egun</item>
+      <item quantity="one">1 egun</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ordu</item>
+      <item quantity="one">1 ordu</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+      <item quantity="one">1 h</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutu</item>
+      <item quantity="one">1 minutu</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+      <item quantity="one">1 min</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> segundo</item>
+      <item quantity="one">1 segundo</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"Egunero"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Kargatzen…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Erloju analogikoa"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Erloju digitala"</string>
+    <string name="settings" msgid="5849739030579520686">"Ezarpenak"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Atzerapenaren luzera"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Igo bolumena apurka-apurka"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Gelditu tarte hau igaro ondoren"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutu</item>
+      <item quantity="one">1 minutu</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Inoiz ez"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 minutu"</item>
+    <item msgid="5431906692406316549">"5 minutu"</item>
+    <item msgid="7742728812068919959">"10 minutu"</item>
+    <item msgid="2855948657259647629">"15 minutu"</item>
+    <item msgid="6330196381284475079">"20 minutu"</item>
+    <item msgid="7809240121716151904">"25 minutu"</item>
+    <item msgid="4278641338024561333">"Inoiz ez"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Desaktibatuta"</item>
+    <item msgid="7195451681426992018">"5 segundo"</item>
+    <item msgid="592917601923801901">"10 segundo"</item>
+    <item msgid="5050318776687582653">"15 segundo"</item>
+    <item msgid="6997726466563948756">"20 segundo"</item>
+    <item msgid="1237360231425097772">"25 segundo"</item>
+    <item msgid="248014374051498284">"30 segundo"</item>
+    <item msgid="6110450211551791852">"35 segundo"</item>
+    <item msgid="8010211657612404516">"40 segundo"</item>
+    <item msgid="3730631498119797451">"45 segundo"</item>
+    <item msgid="623829984393124488">"50 segundo"</item>
+    <item msgid="6390209981529164605">"55 segundo"</item>
+    <item msgid="5261571706794132923">"60 segundo"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 minutu"</item>
+    <item msgid="4482596794620161030">"2 minutu"</item>
+    <item msgid="8478276201849960314">"3 minutu"</item>
+    <item msgid="4038456474851212478">"4 minutu"</item>
+    <item msgid="6298175579152122770">"5 minutu"</item>
+    <item msgid="9021860177999278496">"6 minutu"</item>
+    <item msgid="7224689200902680256">"7 minutu"</item>
+    <item msgid="4610012663985162123">"8 minutu"</item>
+    <item msgid="1717028898015659426">"9 minutu"</item>
+    <item msgid="8058492636464337699">"10 minutu"</item>
+    <item msgid="577767219993868603">"11 minutu"</item>
+    <item msgid="3710047869487864775">"12 minutu"</item>
+    <item msgid="3794200935630619331">"13 minutu"</item>
+    <item msgid="5462266433522229437">"14 minutu"</item>
+    <item msgid="2192100038569306041">"15 minutu"</item>
+    <item msgid="6636326047858437620">"16 minutu"</item>
+    <item msgid="2481054808772108352">"17 minutu"</item>
+    <item msgid="4080984064428458050">"18 minutu"</item>
+    <item msgid="5844319398703041730">"19 minutu"</item>
+    <item msgid="2334964289857921073">"20 minutu"</item>
+    <item msgid="4755209855817904977">"21 minutu"</item>
+    <item msgid="8414394445389367355">"22 minutu"</item>
+    <item msgid="2604612428763230265">"23 minutu"</item>
+    <item msgid="6871696471373403806">"24 minutu"</item>
+    <item msgid="1573685398431466364">"25 minutu"</item>
+    <item msgid="6999090368236684971">"26 minutu"</item>
+    <item msgid="7125056720603734703">"27 minutu"</item>
+    <item msgid="1695830988496463030">"28 minutu"</item>
+    <item msgid="6706610539793025916">"29 minutu"</item>
+    <item msgid="2898212818965905529">"30 minutu"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"Asteko lehen eguna"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Larunbata"</item>
+    <item msgid="3993530639455360921">"Igandea"</item>
+    <item msgid="8594709368683324282">"Astelehena"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Alarmaren bolumena"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Isila"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"Ezezaguna"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Alarmaren audioa desaktibatu da"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Aktibatu audioa"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Alarmaren tonu lehenetsia modu isilean dago"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"Aldatu"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Blokeatuta daude erlojuaren jakinarazpenak"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Gailua isiltasun osoko moduan dago"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Bolumen-botoiak"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"Atzeratu"</item>
+    <item msgid="3450979320164769576">"Baztertu"</item>
+    <item msgid="7085774139907653538">"Bolumena kontrolatzeko aukera"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"Etiketa"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Tonua"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarma"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Tenporizadorea"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"Erlojua"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometroa"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Gehitu alarma"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Hiriak"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Ezarpenak"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Laguntza"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Pantaila-babeslea"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordenatu orduaren arabera"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordenatu izenaren arabera"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Hautatutako hiriak"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Berrekin"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Berrezarri"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Hasi"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Pausatu"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Bitartea"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Partekatu"</string>
+    <string name="hours_label" msgid="3393478155635368097">"h"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g> eta <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"<xliff:g id="LAPNUMBER">%d</xliff:g>.a"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"<xliff:g id="LAPNUMBER">%02d</xliff:g>.a"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"Nire denbora <xliff:g id="TIME">%s</xliff:g> da"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Itzulien denborak:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. itzulia"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Gehitu tenporizadorea"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Hasi"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Ezabatu"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Ezabatu <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Gehitu 1 minutu"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Gehitu 1 minutu"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Gelditu"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Gelditu tenporizadoreak"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Berrezarri"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Utzi"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Utzi egin da tenporizadorea"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Denbora agortu da"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> tenporizadore iraungi dira"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore galdu dira"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Tenporizadorea"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Galdutako tenporizadorea"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Galdutako tenporizadorea: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"Pausatu"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Berrezarri guztiak"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Suziria bezain bizkorra zara."</item>
+    <item msgid="6332879039890727169">"Gozatu zure lanaren fruituez."</item>
+    <item msgid="815382761274660130">"Ezaguna da Androideen abiadura, baina ez dira zu bezain bizkorrak!"</item>
+    <item msgid="7916250650982813737">"Uf!"</item>
+    <item msgid="6836603904515182333">"Elitearen denborak."</item>
+    <item msgid="7508085100680861631">"Abiadura miragarria."</item>
+    <item msgid="5961245252909589573">"Ireki dezagun berriro denbora-espazioaren tunela."</item>
+    <item msgid="5211891900854545940">"Saltotxo bat ezkerretara."</item>
+    <item msgid="9071353477103826053">"Hori da hori abiadura."</item>
+    <item msgid="3785193933691117181">"Argiaren abiadura."</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"Etxekoa"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Hiriak"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Erlojua"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Estiloa"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Erakutsi segundoak erlojuan"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Aldatu data eta ordua"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"Analogikoa"</item>
+    <item msgid="8483930821046925592">"Digitala"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Etxeko erloju automatikoa"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Beste ordu-zona batean dagoen lurralde batera bidaiatzen duzunean, gehitu etxeko ordua duen erloju bat"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Etxeko ordu-zona"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Etxeko ordu-zona"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> markatu da"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"Marka kendu zaio <xliff:g id="CITY_NAME">%s</xliff:g> koadroari"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Marshall uharteak"</item>
+    <item msgid="4196408495909011020">"Midway uhartea"</item>
+    <item msgid="1414384194857730006">"Hawaii"</item>
+    <item msgid="2687091371581931926">"Alaska"</item>
+    <item msgid="1922100269679049660">"Pazifikoko ordua"</item>
+    <item msgid="7156402158716866161">"Tijuana"</item>
+    <item msgid="1144117502254612241">"Arizona"</item>
+    <item msgid="101284182011722637">"Chihuahua"</item>
+    <item msgid="689121094232986897">"Mendiko ordua"</item>
+    <item msgid="5445331923942302756">"Erdialdeko Amerika"</item>
+    <item msgid="2749806434052452351">"Erdialdeko ordua"</item>
+    <item msgid="3997138870229703753">"Mexiko Hiria"</item>
+    <item msgid="5425567073027744888">"Saskatchewan"</item>
+    <item msgid="2877342865396629368">"Bogota"</item>
+    <item msgid="568682398893899670">"Ekialdeko ordua"</item>
+    <item msgid="668135984541863866">"Venezuela"</item>
+    <item msgid="3737474220861486223">"Atlantikoko ordua (Barbados)"</item>
+    <item msgid="6279116051273436870">"Atlantikoko ordua (Kanada)"</item>
+    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="7776299003105932407">"Santiago"</item>
+    <item msgid="8636989494746218677">"Ternua"</item>
+    <item msgid="4402541016410147505">"Brasilia"</item>
+    <item msgid="2251184440733164084">"Buenos Aires"</item>
+    <item msgid="6202926618569004969">"Groenlandia"</item>
+    <item msgid="2355275037115290628">"Montevideo"</item>
+    <item msgid="1377549694711708945">"Atlantiko erdialdea"</item>
+    <item msgid="3457671272126347981">"Azoreak"</item>
+    <item msgid="3659315141063710840">"Cabo Verde uharteak"</item>
+    <item msgid="1260941741802367635">"Casablanca"</item>
+    <item msgid="8275203689687954762">"Londres, Dublin"</item>
+    <item msgid="5970179539479320905">"Amsterdam, Berlin"</item>
+    <item msgid="5396319478750517962">"Belgrad"</item>
+    <item msgid="8688787475056663004">"Brusela"</item>
+    <item msgid="3415827874921681622">"Sarajevo"</item>
+    <item msgid="402008965928320066">"Windhoek"</item>
+    <item msgid="6436942724959275569">"Mendebaldeko Afrikako ordua"</item>
+    <item msgid="954536568417204026">"Amman, Jordania"</item>
+    <item msgid="8932745482008902551">"Atenas, Istanbul"</item>
+    <item msgid="320025725949024510">"Beirut, Libano"</item>
+    <item msgid="7242083112551905970">"Kairo"</item>
+    <item msgid="7241520146011450419">"Helsinki"</item>
+    <item msgid="2717065017510546526">"Jerusalem"</item>
+    <item msgid="8698556287741466553">"Minsk"</item>
+    <item msgid="1797598357342084506">"Harare"</item>
+    <item msgid="5169119919905066998">"Bagdad"</item>
+    <item msgid="2615788116201065182">"Mosku"</item>
+    <item msgid="9084354867885584646">"Kuwait"</item>
+    <item msgid="1351570519986178268">"Nairobi"</item>
+    <item msgid="7094569580635877460">"Teheran"</item>
+    <item msgid="3953138772617909704">"Baku"</item>
+    <item msgid="2868893113598800752">"Tbilisi"</item>
+    <item msgid="7088581865802476373">"Erevan"</item>
+    <item msgid="1941122257623887992">"Dubai"</item>
+    <item msgid="9194797225058249720">"Kabul"</item>
+    <item msgid="6486569254364577332">"Islamabad, Karatxi"</item>
+    <item msgid="5487724896895412089">"Uralsk"</item>
+    <item msgid="364906869710826982">"Jekaterinburg"</item>
+    <item msgid="2106505051751383358">"Kalkuta"</item>
+    <item msgid="6851586621581501447">"Sri Lanka"</item>
+    <item msgid="800438544128213134">"Katmandu"</item>
+    <item msgid="6173621471007643021">"Astana"</item>
+    <item msgid="8645125891971581128">"Yangon"</item>
+    <item msgid="2886407505119737794">"Krasnoiarsk"</item>
+    <item msgid="3408222398188107090">"Bangkok"</item>
+    <item msgid="4441612937172851228">"Pekin"</item>
+    <item msgid="4936715789028996930">"Hong Kong"</item>
+    <item msgid="4261031143777385525">"Irkutsk"</item>
+    <item msgid="3538060959338191835">"Kuala Lumpur"</item>
+    <item msgid="1438847562643099201">"Perth"</item>
+    <item msgid="3063913827688244383">"Taipei"</item>
+    <item msgid="3502757135046564209">"Seul"</item>
+    <item msgid="6107588684519111669">"Tokio, Osaka"</item>
+    <item msgid="4350769099755608471">"Jakutsk"</item>
+    <item msgid="2422707004533526462">"Adelaide"</item>
+    <item msgid="1292192084554134339">"Darwin"</item>
+    <item msgid="1320883699470001716">"Brisbane"</item>
+    <item msgid="5137198806146386527">"Hobart"</item>
+    <item msgid="5920063686933941174">"Sydney, Canberra"</item>
+    <item msgid="615906039696009425">"Vladivostok"</item>
+    <item msgid="7738680449356275374">"Guam"</item>
+    <item msgid="2882915026380778227">"Magadan"</item>
+    <item msgid="8255615641810148152">"Auckland"</item>
+    <item msgid="3027153773466391728">"Fiji"</item>
+    <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarma berria"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Sortu alarma"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Tenporizadorea"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Sortu tenporizadorea"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Abiarazi"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Abiarazi kronometroa"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Pausatu"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Pausatu kronometroa"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Pantaila-babeslea"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Abiarazi pantaila-babeslea"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarmak"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Ekintzak prozesatzen ditu tenporizadorearen jakinarazpenetatik abiatuta."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Ekintzak prozesatzen ditu kronometroaren jakinarazpenetatik abiatuta."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Pausatu da kronometroa"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Baztertzeko, pasatu hatza eskuinera"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Atzeratzeko, pasatu hatza ezkerrera"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Atzeratzeko, pasatu hatza ezkerrera. Baztertzeko, pasatu hatza eskuinera."</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Tenporizadoreak"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Tenporizadorearen dardara"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Pausatu da tenporizadorea"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore pausatuta"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Sakatu tenporizadoreak ikusteko"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Hurrengo tenporizadorea: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Pantaila-babeslearen ezarpenak"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Gau modua"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Oso argi ahula (toki ilunetarako)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Zabaldu alarma"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Tolestu alarma"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"desegin"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Ezabatu da alarma"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> aurrerago"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> atzerago"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> eta <xliff:g id="MINUTES">%2$s</xliff:g> aurrerago"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> eta <xliff:g id="MINUTES">%2$s</xliff:g> atzerago doaz"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Bihar (<xliff:g id="TIME">%1$s</xliff:g>)"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"Atzo (<xliff:g id="TIME">%1$s</xliff:g>)"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"Bihar"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"Atzo"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Hurrengo alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Alarmarik ez"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Ordu honek ez du balio: <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Ez dago alarmarik (<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>)"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Ez dago alarmarik programatuta"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Ez da zehaztu etiketarik"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Ez dago etiketa hori duen alarmarik"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ez dago alarmarik programatuta ordu horretarako"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Baztertu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarma ordu honetarako ezarri da: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Sortu da tenporizadorea"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">Baztertu dira <xliff:g id="NUMBER">%d</xliff:g> tenporizadore</item>
+      <item quantity="one">Baztertu da tenporizadorea</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"Ezabatu da tenporizadorea"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Tenporizadorearen iraupenak ez du balio"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Hautatutako tenporizadoreak ez du balio"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Ez dago iraungitako tenporizadorerik"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Ezin da baztertu <xliff:g id="ALARM_TIME">%s</xliff:g> alarma oraindik, hemendik 24 ordurako baino gehiagorako programatuta dagoelako"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Baztertu alarma"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Hautatu baztertu nahi duzun alarma"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Ez dago alarmarik abian"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"10 minutuz atzeratu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>
+</resources>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"นาฬิกา"</string>
+    <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
+    <string name="default_label" msgid="5590025289805630372">"ปลุก"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"สั่น"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"ตั้งซ้ำ"</string>
+    <string name="delete" msgid="5732434972457000541">"ลบ"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"เสียงปลุกเริ่มต้น"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"เสียงปลุก"</string>
+    <string name="timer_sound" msgid="896163086604894735">"เสียงตัวตั้งเวลา"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"เพิ่มใหม่"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"นำออก"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"นาฬิกาปลุกและตัวจับเวลาที่ใช้เสียงนี้จะเล่นเสียงเริ่มต้นแทน"</string>
+    <string name="your_sounds" msgid="1672779351352629681">"เสียงของคุณ"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"เสียงอุปกรณ์"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"ไม่สามารถเข้าถึงเนื้อหาเสียงได้"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"การจับเวลาสิ้นสุด"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"พรุ่งนี้"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"วันนี้"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ปิด"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"การปลุกที่ถูกเพิกเฉย"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ปิดเสียง"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> นาที</item>
+      <item quantity="one">1 นาที</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"ปิดการปลุก"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ปิดเสียงเตือนชั่วคราว"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">ปิดเสียงเตือนชั่วคราว <xliff:g id="MINUTES">%d</xliff:g> นาที</item>
+      <item quantity="one">ปิดเสียงเตือนชั่วคราว 1 นาที</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ตั้งปลุกครั้งต่อไป"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ลบการปลุกที่พลาดออกไปแล้ว"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"เหลืออีกไม่ถึง 1 นาที"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"เหลืออีก <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"ตัวจับเวลาผ่านไปอีก 1 นาที <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"หยุดจับเวลาชั่วคราว <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"กำลังจับเวลาอยู่ <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"เหลืออีก"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"เหลืออีก"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</item>
+    <item msgid="6002066367368421848">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="8824719306247973774">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="8182406852935468862">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="2532279224777213194">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="5936557894247187717">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="9115697840826129603">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="2332583385137381060">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> วัน</item>
+      <item quantity="one">1 วัน</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ชั่วโมง</item>
+      <item quantity="one">1 ชั่วโมง</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ชม.</item>
+      <item quantity="one">1 ชม.</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> นาที</item>
+      <item quantity="one">1 นาที</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> นาที</item>
+      <item quantity="one">1 นาที</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> วินาที</item>
+      <item quantity="one">1 วินาที</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"ทุกวัน"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"กำลังโหลด…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"นาฬิกาแอนะล็อก"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"นาฬิกาดิจิทัล"</string>
+    <string name="settings" msgid="5849739030579520686">"การตั้งค่า"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"ระยะเวลาปิดเสียงเตือนชั่วคราว"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"ค่อยๆ เพิ่มระดับเสียง"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"ปิดเสียงหลังจาก"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> นาที</item>
+      <item quantity="one">1 นาที</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"ไม่ใช้"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 นาที"</item>
+    <item msgid="5431906692406316549">"5 นาที"</item>
+    <item msgid="7742728812068919959">"10 นาที"</item>
+    <item msgid="2855948657259647629">"15 นาที"</item>
+    <item msgid="6330196381284475079">"20 นาที"</item>
+    <item msgid="7809240121716151904">"25 นาที"</item>
+    <item msgid="4278641338024561333">"ไม่ใช้"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"ปิด"</item>
+    <item msgid="7195451681426992018">"5 วินาที"</item>
+    <item msgid="592917601923801901">"10 วินาที"</item>
+    <item msgid="5050318776687582653">"15 วินาที"</item>
+    <item msgid="6997726466563948756">"20 วินาที"</item>
+    <item msgid="1237360231425097772">"25 วินาที"</item>
+    <item msgid="248014374051498284">"30 วินาที"</item>
+    <item msgid="6110450211551791852">"35 วินาที"</item>
+    <item msgid="8010211657612404516">"40 วินาที"</item>
+    <item msgid="3730631498119797451">"45 วินาที"</item>
+    <item msgid="623829984393124488">"50 วินาที"</item>
+    <item msgid="6390209981529164605">"55 วินาที"</item>
+    <item msgid="5261571706794132923">"60 วินาที"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 นาที"</item>
+    <item msgid="4482596794620161030">"2 นาที"</item>
+    <item msgid="8478276201849960314">"3 นาที"</item>
+    <item msgid="4038456474851212478">"4 นาที"</item>
+    <item msgid="6298175579152122770">"5 นาที"</item>
+    <item msgid="9021860177999278496">"6 นาที"</item>
+    <item msgid="7224689200902680256">"7 นาที"</item>
+    <item msgid="4610012663985162123">"8 นาที"</item>
+    <item msgid="1717028898015659426">"9 นาที"</item>
+    <item msgid="8058492636464337699">"10 นาที"</item>
+    <item msgid="577767219993868603">"11 นาที"</item>
+    <item msgid="3710047869487864775">"12 นาที"</item>
+    <item msgid="3794200935630619331">"13 นาที"</item>
+    <item msgid="5462266433522229437">"14 นาที"</item>
+    <item msgid="2192100038569306041">"15 นาที"</item>
+    <item msgid="6636326047858437620">"16 นาที"</item>
+    <item msgid="2481054808772108352">"17 นาที"</item>
+    <item msgid="4080984064428458050">"18 นาที"</item>
+    <item msgid="5844319398703041730">"19 นาที"</item>
+    <item msgid="2334964289857921073">"20 นาที"</item>
+    <item msgid="4755209855817904977">"21 นาที"</item>
+    <item msgid="8414394445389367355">"22 นาที"</item>
+    <item msgid="2604612428763230265">"23 นาที"</item>
+    <item msgid="6871696471373403806">"24 นาที"</item>
+    <item msgid="1573685398431466364">"25 นาที"</item>
+    <item msgid="6999090368236684971">"26 นาที"</item>
+    <item msgid="7125056720603734703">"27 นาที"</item>
+    <item msgid="1695830988496463030">"28 นาที"</item>
+    <item msgid="6706610539793025916">"29 นาที"</item>
+    <item msgid="2898212818965905529">"30 นาที"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"เริ่มต้นสัปดาห์ใน"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"วันเสาร์"</item>
+    <item msgid="3993530639455360921">"วันอาทิตย์"</item>
+    <item msgid="8594709368683324282">"วันจันทร์"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"ระดับเสียงปลุก"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"เงียบ"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"ไม่ทราบ"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"ปิดเสียงปลุกแล้ว"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"เปิดเสียง"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ค่าเริ่มต้นเสียงปลุกคือเงียบ"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"เปลี่ยน"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"การแจ้งเตือนของนาฬิกาถูกบล็อก"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"อุปกรณ์อยู่ในโหมดปิดเสียง"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"ปุ่มระดับเสียง"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"ปิดเสียงเตือนชั่วคราว"</item>
+    <item msgid="3450979320164769576">"ปิด"</item>
+    <item msgid="7085774139907653538">"ควบคุมระดับเสียง"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"ป้ายกำกับ"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"เสียงเรียกเข้า"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"ปลุก"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"ตัวจับเวลา"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"นาฬิกา"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"นาฬิกาจับเวลา"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"เพิ่มการปลุก"</string>
+    <string name="button_cities" msgid="4555761857494501363">"เมือง"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"การตั้งค่า"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"ความช่วยเหลือ"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"โปรแกรมรักษาหน้าจอ"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"จัดเรียงตามเวลา"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"จัดเรียงตามชื่อ"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"เมืองที่เลือก"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"ดำเนินการต่อ"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"รีเซ็ต"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"เริ่มต้น"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"หยุดชั่วคราว"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"รอบ"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"แชร์"</string>
+    <string name="hours_label" msgid="3393478155635368097">"ชม."</string>
+    <string name="minutes_label" msgid="3568098128251438588">"น."</string>
+    <string name="seconds_label" msgid="124655952824003246">"ว."</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"เวลาของฉันคือ <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"เวลาสิ้นสุดรอบ:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"สิ้นสุดรอบที่ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"เพิ่มตัวจับเวลา"</string>
+    <string name="timer_start" msgid="6158486445614356442">"เริ่ม"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"ลบ"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"ลบ <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"เพิ่ม 1 นาที"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"เพิ่ม 1 นาที"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"หยุด"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"หยุดใช้ตัวจับเวลาทั้งหมด"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"รีเซ็ต"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ยกเลิก"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"ยกเลิกการตั้งเวลาแล้ว"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"หมดเวลา"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"การจับเวลา <xliff:g id="NUM_TIMERS">%d</xliff:g> ครั้งครบแล้ว"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"ตัวตั้งเวลาที่พลาด <xliff:g id="NUMBER">%d</xliff:g> ครั้ง"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"ตัวจับเวลา"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"ตัวตั้งเวลาที่พลาดไป"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"ตัวตั้งเวลาที่พลาดไป: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"หยุดชั่วคราว"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"รีเซ็ตตัวจับเวลาทั้งหมด"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"คุณนี่เป็นพวกคลั่งไคล้ความเร็วเสียจริง"</item>
+    <item msgid="6332879039890727169">"เริงรื่นกับผลสำเร็จจากความทุ่มเทของคุณ"</item>
+    <item msgid="815382761274660130">" Android ขึ้นชื่อในเรื่องความเร็ว แต่ก็ยังไม่เร็วเท่าคุณ!"</item>
+    <item msgid="7916250650982813737">"เฮ้อ"</item>
+    <item msgid="6836603904515182333">"L33t ครั้ง"</item>
+    <item msgid="7508085100680861631">"เป็นความเร็วที่น่าอัศจรรย์"</item>
+    <item msgid="5961245252909589573">"มาข้ามเวลากันอีกเถอะ"</item>
+    <item msgid="5211891900854545940">"เพียงแค่กระโดดไปทางซ้าย"</item>
+    <item msgid="9071353477103826053">"คุณมีจานสีสำหรับกรณีเร่งรีบ"</item>
+    <item msgid="3785193933691117181">"ความเร็วโฟตอนิกส์"</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"บ้าน"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"เมือง"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"นาฬิกา"</string>
+    <string name="clock_style" msgid="2265011060429742344">"รูปแบบ"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"แสดงเวลาพร้อมวินาที"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"เปลี่ยนแปลงวันที่และเวลา"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"แอนะล็อก"</item>
+    <item msgid="8483930821046925592">"ดิจิทัล"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาแสดงเวลาที่บ้านอัตโนมัติ"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"เมื่อเดินทางไปในที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาแสดงเวลาที่บ้าน"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>
+    <string name="city_checked" msgid="616847871968019">"เลือก <xliff:g id="CITY_NAME">%s</xliff:g> แล้ว"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"ยกเลิกการเลือก <xliff:g id="CITY_NAME">%s</xliff:g> แล้ว"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"หมู่เกาะมาร์แชล"</item>
+    <item msgid="4196408495909011020">"เกาะมิดเวย์"</item>
+    <item msgid="1414384194857730006">"ฮาวาย"</item>
+    <item msgid="2687091371581931926">"อะแลสกา"</item>
+    <item msgid="1922100269679049660">"เวลาแปซิฟิก"</item>
+    <item msgid="7156402158716866161">"ตีฮัวนา"</item>
+    <item msgid="1144117502254612241">"แอริโซนา"</item>
+    <item msgid="101284182011722637">"ชิวาวา"</item>
+    <item msgid="689121094232986897">"เวลาแถบภูเขา"</item>
+    <item msgid="5445331923942302756">"อเมริกากลาง"</item>
+    <item msgid="2749806434052452351">"เวลาเขตกลาง"</item>
+    <item msgid="3997138870229703753">"เม็กซิโกซิตี"</item>
+    <item msgid="5425567073027744888">"ซัสแคตเชวัน"</item>
+    <item msgid="2877342865396629368">"โบโกตา"</item>
+    <item msgid="568682398893899670">"เวลาเขตตะวันออก"</item>
+    <item msgid="668135984541863866">"เวเนซุเอลา"</item>
+    <item msgid="3737474220861486223">"แอตแลนติก (บาร์เบโดส)"</item>
+    <item msgid="6279116051273436870">"แอตแลนติก (แคนาดา)"</item>
+    <item msgid="8513382867172014244">"มาเนาส์"</item>
+    <item msgid="7776299003105932407">"ซันติอาโก"</item>
+    <item msgid="8636989494746218677">"นิวฟาวด์แลนด์"</item>
+    <item msgid="4402541016410147505">"บราซิเลีย"</item>
+    <item msgid="2251184440733164084">"บัวโนสไอเรส"</item>
+    <item msgid="6202926618569004969">"กรีนแลนด์"</item>
+    <item msgid="2355275037115290628">"มอนเตวิเดโอ"</item>
+    <item msgid="1377549694711708945">"แอตแลนติกกลาง"</item>
+    <item msgid="3457671272126347981">"อะโซร์ส"</item>
+    <item msgid="3659315141063710840">"หมู่เกาะเคปเวิร์ด"</item>
+    <item msgid="1260941741802367635">"คาซาบลังกา"</item>
+    <item msgid="8275203689687954762">"ลอนดอน, ดับลิน"</item>
+    <item msgid="5970179539479320905">"อัมสเตอร์ดัม, เบอร์ลิน"</item>
+    <item msgid="5396319478750517962">"เบลเกรด"</item>
+    <item msgid="8688787475056663004">"บรัสเซลส์"</item>
+    <item msgid="3415827874921681622">"ซาราเยโว"</item>
+    <item msgid="402008965928320066">"วินด์ฮุก"</item>
+    <item msgid="6436942724959275569">"เวลาแอฟริกาตะวันตก"</item>
+    <item msgid="954536568417204026">"อัมมาน, จอร์แดน"</item>
+    <item msgid="8932745482008902551">"เอเธนส์, อิสตันบูล"</item>
+    <item msgid="320025725949024510">"เบรุต, เลบานอน"</item>
+    <item msgid="7242083112551905970">"ไคโร"</item>
+    <item msgid="7241520146011450419">"เฮลซิงกิ"</item>
+    <item msgid="2717065017510546526">"เยรูซาเลม"</item>
+    <item msgid="8698556287741466553">"มินสก์"</item>
+    <item msgid="1797598357342084506">"ฮาราเร"</item>
+    <item msgid="5169119919905066998">"แบกแดด"</item>
+    <item msgid="2615788116201065182">"มอสโก"</item>
+    <item msgid="9084354867885584646">"คูเวต"</item>
+    <item msgid="1351570519986178268">"ไนโรบี"</item>
+    <item msgid="7094569580635877460">"เตหะราน"</item>
+    <item msgid="3953138772617909704">"บากู"</item>
+    <item msgid="2868893113598800752">"ทบิลิซิ"</item>
+    <item msgid="7088581865802476373">"เยเรวาน"</item>
+    <item msgid="1941122257623887992">"ดูไบ"</item>
+    <item msgid="9194797225058249720">"คาบูล"</item>
+    <item msgid="6486569254364577332">"อิสลามาบัด, การาจี"</item>
+    <item msgid="5487724896895412089">"อูราล"</item>
+    <item msgid="364906869710826982">"เยคาเตรินบุร์ก"</item>
+    <item msgid="2106505051751383358">"กัลกัตตา"</item>
+    <item msgid="6851586621581501447">"ศรีลังกา"</item>
+    <item msgid="800438544128213134">"กาฐมาณฑุ"</item>
+    <item msgid="6173621471007643021">"อัสตานา"</item>
+    <item msgid="8645125891971581128">"ย่างกุ้ง"</item>
+    <item msgid="2886407505119737794">"ครัสโนยาสค์"</item>
+    <item msgid="3408222398188107090">"กรุงเทพ"</item>
+    <item msgid="4441612937172851228">"เป่ย์จิง"</item>
+    <item msgid="4936715789028996930">"ฮ่องกง"</item>
+    <item msgid="4261031143777385525">"อีร์คุตสค์"</item>
+    <item msgid="3538060959338191835">"กัวลาลัมเปอร์"</item>
+    <item msgid="1438847562643099201">"เพิร์ท"</item>
+    <item msgid="3063913827688244383">"ไทเป"</item>
+    <item msgid="3502757135046564209">"โซล"</item>
+    <item msgid="6107588684519111669">"โตเกียว, โอซะกะ"</item>
+    <item msgid="4350769099755608471">"ยาคุตสค์"</item>
+    <item msgid="2422707004533526462">"แอดิเลด"</item>
+    <item msgid="1292192084554134339">"ดาร์วิน"</item>
+    <item msgid="1320883699470001716">"บริสเบน"</item>
+    <item msgid="5137198806146386527">"โฮบาร์ต"</item>
+    <item msgid="5920063686933941174">"ซิดนีย์, แคนเบอร์รา"</item>
+    <item msgid="615906039696009425">"วลาดีวอสตอค"</item>
+    <item msgid="7738680449356275374">"กวม"</item>
+    <item msgid="2882915026380778227">"มากาดาน"</item>
+    <item msgid="8255615641810148152">"โอกแลนด์"</item>
+    <item msgid="3027153773466391728">"ฟิจิ"</item>
+    <item msgid="5911600083231840181">"ตองกา"</item>
+    <item msgid="5176858645450908751">"จาการ์ตา"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ตั้งปลุก"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"ตั้งปลุกรายการใหม่"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"ตั้งเวลา"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"ตั้งเวลารายการใหม่"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"เริ่ม"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"เริ่มต้นจับเวลา"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"หยุดชั่วคราว"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"หยุดนาฬิกาจับเวลาชั่วคราว"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"รักษาหน้าจอ"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"เริ่มโปรแกรมรักษาหน้าจอ"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"การปลุก"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกานับถอยหลัง"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกาจับเวลา"</string>
+    <string name="swn_paused" msgid="6364358842808263589">"หยุดชั่วคราวแล้ว"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"เลื่อนไปทางขวาเพื่อปิด"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราว"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราวหรือไปทางขวาเพื่อปิด"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"ตัวจับเวลา"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"ตัวจับเวลาสั่น"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"หยุดตัวจับเวลาชั่วคราวแล้ว"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"หยุด <xliff:g id="NUMBER">%d</xliff:g> ตัวจับเวลาชั่วคราว"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"แตะเพื่อดูตัวจับเวลา"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> เรือน"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"นาฬิกาจับเวลาถัดไป: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"การตั้งค่าโปรแกรมรักษาหน้าจอ"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"โหมดกลางคืน"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"หน้าจอมืดมาก (สำหรับห้องมืด)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"ขยายการแจ้งเตือน"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"ยุบการแจ้งเตือน"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"เลิกทำ"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"ลบการแจ้งเตือนแล้ว"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"เร็วกว่า <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"ช้ากว่า <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"เร็วกว่า <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"ช้ากว่า <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"พรุ่งนี้ <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"เมื่อวานนี้เวลา <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"พรุ่งนี้"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"เมื่อวานนี้"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"ปลุกครั้งถัดไป: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"ไม่มีการเตือน"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"เวลาไม่ถูกต้อง <xliff:g id="INVALID_HOUR">%1$d</xliff:g>.<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"ไม่มีการปลุกที่เวลา <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"ไม่มีการตั้งปลุก"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ไม่ได้ระบุป้ายกำกับ"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"ไม่มีการปลุกที่มีป้ายกำกับนี้"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ไม่ได้ตั้งปลุกสำหรับเวลานี้"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"ปิดการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> แล้ว"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"ตั้งการปลุกที่เวลา <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="timer_created" msgid="4381027137335885547">"สร้างการจับเวลาแล้ว"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other">ปิดตัวจับเวลาถอยหลังแล้ว <xliff:g id="NUMBER">%d</xliff:g> รายการ</item>
+      <item quantity="one">ปิดตัวจับเวลาถอยหลังแล้ว</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"ลบตัวจับเวลาแล้ว"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"ระยะเวลาในการจับเวลาไม่ถูกต้อง"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"มีการเลือกตัวจับเวลาถอยหลังที่ไม่ถูกต้อง"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"ไม่มีตัวจับเวลาถอยหลังที่หมดอายุ"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"ยังไม่สามารถปิดการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> ได้ ยังเหลือเวลาอีกกว่า 24 ชั่วโมง"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"ปิดการปลุก"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"เลือกการปลุกที่จะปิด"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ไม่มีการปลุก"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"เลื่อนการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> ไปอีก 10 นาทีแล้ว"</string>
+</resources>

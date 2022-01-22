@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"Saat"</string>
+    <string name="label" msgid="162189613902857319">"Etiket"</string>
+    <string name="default_label" msgid="5590025289805630372">"Siqnal"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrasiya"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Təkrarla"</string>
+    <string name="delete" msgid="5732434972457000541">"Sil"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Defolt siqnal səsi"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Siqnal səsi"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Taymer səsi"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"Yenisini əlavə edin"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"Silin"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Bu səsi istifadə edən zəngli saat və taymerlər əvəzinə defolt səsi istifadə edəcək."</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Sizin səslər"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Cihazın səsləri"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Səs kontentinə daxil olmaq olmur."</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Taymerin Vaxtı Bitdi"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Sabah"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Bu gün"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Burax"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Buraxılmış zənglər"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Mürgülü"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> dəq</item>
+      <item quantity="one">1 dəq</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm deaktiv"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Təxirə sal"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> dəqiqəlik ertələmə.</item>
+      <item quantity="one">1 dəqiqəlik ertələmə.</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> qədər təxirə salma"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Gələcək zənglər"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Buraxdığınız zəng silindi"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Bir dəqiqədən az qaldı."</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g> qalır"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Taymerə bir dəqiqə əlavə edildi, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Taymer durduruldu, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Taymer çalışır, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"qaldı"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"qaldı"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Siqnalı ən az 1 dəqiqə sonraya qur."</item>
+    <item msgid="6002066367368421848">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g> sonraya qur."</item>
+    <item msgid="8824719306247973774">"Siqnalı <xliff:g id="HOURS">%2$s</xliff:g> sonraya qur."</item>
+    <item msgid="8182406852935468862">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g> və <xliff:g id="HOURS">%2$s</xliff:g> sonraya qur."</item>
+    <item msgid="2532279224777213194">"Siqnalı <xliff:g id="MINUTES">%3$s</xliff:g> sonraya qur."</item>
+    <item msgid="5936557894247187717">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g> və <xliff:g id="MINUTES">%3$s</xliff:g> sonraya qur."</item>
+    <item msgid="9115697840826129603">"Siqnalı <xliff:g id="HOURS">%2$s</xliff:g> və <xliff:g id="MINUTES">%3$s</xliff:g> sonraya qur."</item>
+    <item msgid="2332583385137381060">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> və <xliff:g id="MINUTES">%3$s</xliff:g> sonraya qur."</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> gün</item>
+      <item quantity="one">1 gün</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saat</item>
+      <item quantity="one">1 saat</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saat</item>
+      <item quantity="one">1 saat</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dəqiqə</item>
+      <item quantity="one">1 dəqiqə</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dəq</item>
+      <item quantity="one">1 dəq</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saniyə</item>
+      <item quantity="one">1 saniyə</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"Hər gün"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Yüklənir…"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Analoq saat"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Rəqəmsal saat"</string>
+    <string name="settings" msgid="5849739030579520686">"Ayarlar"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Ertələmə intervalı"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Tədricən həcmi artırın"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Avtomatik susma"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> dəqiqə</item>
+      <item quantity="one">1 dəqiqə</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Heç vaxt"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 dəqiqə"</item>
+    <item msgid="5431906692406316549">"5 dəqiqə"</item>
+    <item msgid="7742728812068919959">"10 dəqiqə"</item>
+    <item msgid="2855948657259647629">"15 dəqiqə"</item>
+    <item msgid="6330196381284475079">"20 dəqiqə"</item>
+    <item msgid="7809240121716151904">"25 dəqiqə"</item>
+    <item msgid="4278641338024561333">"Heç vaxt"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Qapalı"</item>
+    <item msgid="7195451681426992018">"5 saniyə"</item>
+    <item msgid="592917601923801901">"10 saniyə"</item>
+    <item msgid="5050318776687582653">"15 saniyə"</item>
+    <item msgid="6997726466563948756">"20 saniyə"</item>
+    <item msgid="1237360231425097772">"25 saniyə"</item>
+    <item msgid="248014374051498284">"30 saniyə"</item>
+    <item msgid="6110450211551791852">"35 saniyə"</item>
+    <item msgid="8010211657612404516">"40 saniyə"</item>
+    <item msgid="3730631498119797451">"45 saniyə"</item>
+    <item msgid="623829984393124488">"50 saniyə"</item>
+    <item msgid="6390209981529164605">"55 saniyə"</item>
+    <item msgid="5261571706794132923">"60 saniyə"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 dəqiqə"</item>
+    <item msgid="4482596794620161030">"2 dəqiqə"</item>
+    <item msgid="8478276201849960314">"3 dəqiqə"</item>
+    <item msgid="4038456474851212478">"4 dəqiqə"</item>
+    <item msgid="6298175579152122770">"5 dəqiqə"</item>
+    <item msgid="9021860177999278496">"6 dəqiqə"</item>
+    <item msgid="7224689200902680256">"7 dəqiqə"</item>
+    <item msgid="4610012663985162123">"8 dəqiqə"</item>
+    <item msgid="1717028898015659426">"9 dəqiqə"</item>
+    <item msgid="8058492636464337699">"10 dəqiqə"</item>
+    <item msgid="577767219993868603">"11 dəqiqə"</item>
+    <item msgid="3710047869487864775">"12 dəqiqə"</item>
+    <item msgid="3794200935630619331">"13 dəqiqə"</item>
+    <item msgid="5462266433522229437">"14 dəqiqə"</item>
+    <item msgid="2192100038569306041">"15 dəqiqə"</item>
+    <item msgid="6636326047858437620">"16 dəqiqə"</item>
+    <item msgid="2481054808772108352">"17 dəqiqə"</item>
+    <item msgid="4080984064428458050">"18 dəqiqə"</item>
+    <item msgid="5844319398703041730">"19 dəqiqə"</item>
+    <item msgid="2334964289857921073">"20 dəqiqə"</item>
+    <item msgid="4755209855817904977">"21 dəqiqə"</item>
+    <item msgid="8414394445389367355">"22 dəqiqə"</item>
+    <item msgid="2604612428763230265">"23 dəqiqə"</item>
+    <item msgid="6871696471373403806">"24 dəqiqə"</item>
+    <item msgid="1573685398431466364">"25 dəqiqə"</item>
+    <item msgid="6999090368236684971">"26 dəqiqə"</item>
+    <item msgid="7125056720603734703">"27 dəqiqə"</item>
+    <item msgid="1695830988496463030">"28 dəqiqə"</item>
+    <item msgid="6706610539793025916">"29 dəqiqə"</item>
+    <item msgid="2898212818965905529">"30 dəqiqə"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"Həftə bu gündən başlasın:"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Şənbə"</item>
+    <item msgid="3993530639455360921">"Bazar"</item>
+    <item msgid="8594709368683324282">"Bazar Ertəsi"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Siqnal səsi"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Səssiz"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"Naməlum"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Siqnal susturulub"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Susdurmayın"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Defolt siqnal səssiz rejimdədir"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"Dəyişin"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Saat bildirişləri blok edilib"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Cihaz tam səssiz rejimə ayarlanıb"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Səs düymələri"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"Təxirə sal"</item>
+    <item msgid="3450979320164769576">"Kənarlaşdır"</item>
+    <item msgid="7085774139907653538">"Səsə nəzarət edin"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Zəng səsi"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Zəng"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Vaxtölçən"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"Saat"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Saniyəölçən"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Siqnal əlavə edin"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Şəhərlər"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Ayarlar"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Yardım"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Ekran qoruyucu"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Vaxta görə sırala"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ad üzrə sırala"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Seçilmiş şəhərlər"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Davam et"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Sıfırlayın"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Başlat"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Fasilə verin"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Dövrə"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Paylaş"</string>
+    <string name="hours_label" msgid="3393478155635368097">"st"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"dq"</string>
+    <string name="seconds_label" msgid="124655952824003246">"sn"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"Mənim vaxtım <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Dövrə sayısı:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Dövrə <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Vaxtölçən əlavə et"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Başlat"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Sil"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Sil <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"1 Dəqiqə Əlavə et"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"1 dəqiqə əlavə et"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Dayandır"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Bütün taymerləri durdurun"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Sıfırlayın"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Ləğv et"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Taymer ləğv edildi"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Vaxt bitdi"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> taymerlərin vaxtı keçib"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> taymer buraxıldı"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Vaxtölçən"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Buraxılmış taymer"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Buraxılmış taymer: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"Durdurun"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Bütün taymerləri sıfırlayın"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Dəhşət sürətlisiniz."</item>
+    <item msgid="6332879039890727169">"Əməyinizin bəhrəsinin dadını çıxardın."</item>
+    <item msgid="815382761274660130">"Androidlər sürətli olaraq bilinir, amma sizin qədər deyil."</item>
+    <item msgid="7916250650982813737">"Ohh."</item>
+    <item msgid="6836603904515182333">"L33t dəfə."</item>
+    <item msgid="7508085100680861631">"Son dərəcə gözəl bir sürət."</item>
+    <item msgid="5961245252909589573">"Zaman tunelini bir daha sınayaq."</item>
+    <item msgid="5211891900854545940">"Sadəcə sola hoppan."</item>
+    <item msgid="9071353477103826053">"Tələsmək üçün bir palitranız var."</item>
+    <item msgid="3785193933691117181">"Fotonik sürət."</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"Ana səhifə"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Şəhərlər"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Saat"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Üslub"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Vaxtı saniyələr ilə göstərin"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Tarix və vaxtı dəyişin"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"Analoq"</item>
+    <item msgid="8483930821046925592">"Rəqəmsal"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Avtomatik yerli vaxt"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat qurşağı fərqli olan sahədə səyahət edərkən, yerli vaxt əlavə edin"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Əsas saat qurşağı"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Əsas saat qurşağı"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> yoxlandı"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> yoxlanmadı"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Marşall Adaları"</item>
+    <item msgid="4196408495909011020">"Miduey adası"</item>
+    <item msgid="1414384194857730006">"Havay"</item>
+    <item msgid="2687091371581931926">"Alyaska"</item>
+    <item msgid="1922100269679049660">"Sakit Okean Saat qurşağı"</item>
+    <item msgid="7156402158716866161">"Tijuana"</item>
+    <item msgid="1144117502254612241">"Arizona"</item>
+    <item msgid="101284182011722637">"Çihuahua"</item>
+    <item msgid="689121094232986897">"Dağ Saat qurşağı"</item>
+    <item msgid="5445331923942302756">"Mərkəzi Amerika"</item>
+    <item msgid="2749806434052452351">"Mərkəzi Vaxt"</item>
+    <item msgid="3997138870229703753">"Meksiko"</item>
+    <item msgid="5425567073027744888">"Saskaçevan"</item>
+    <item msgid="2877342865396629368">"Boqota"</item>
+    <item msgid="568682398893899670">"Şərq Saat qurşağı"</item>
+    <item msgid="668135984541863866">"Venezuela"</item>
+    <item msgid="3737474220861486223">"Atlantik Saat qurşağı (Barbados)"</item>
+    <item msgid="6279116051273436870">"Atlantik Saat qurşağı (Kanada)"</item>
+    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="7776299003105932407">"Santiaqo"</item>
+    <item msgid="8636989494746218677">"Nyufaundlend"</item>
+    <item msgid="4402541016410147505">"Braziliya"</item>
+    <item msgid="2251184440733164084">"Buenos Ayres"</item>
+    <item msgid="6202926618569004969">"Qrenlandiya"</item>
+    <item msgid="2355275037115290628">"Montevideo"</item>
+    <item msgid="1377549694711708945">"Orta Atlantik"</item>
+    <item msgid="3457671272126347981">"Azor adaları"</item>
+    <item msgid="3659315141063710840">"Keyp Verde adaları"</item>
+    <item msgid="1260941741802367635">"Kasablanka"</item>
+    <item msgid="8275203689687954762">"London, Dublin"</item>
+    <item msgid="5970179539479320905">"Amsterdam, Berlin"</item>
+    <item msgid="5396319478750517962">"Belqrad"</item>
+    <item msgid="8688787475056663004">"Brüssel"</item>
+    <item msgid="3415827874921681622">"Sarayevo"</item>
+    <item msgid="402008965928320066">"Vindhuk"</item>
+    <item msgid="6436942724959275569">"Q. Afrika saat qurşağı"</item>
+    <item msgid="954536568417204026">"Amman, İordaniya"</item>
+    <item msgid="8932745482008902551">"Afina, İstanbul"</item>
+    <item msgid="320025725949024510">"Beyrut, Livan"</item>
+    <item msgid="7242083112551905970">"Qahirə"</item>
+    <item msgid="7241520146011450419">"Helsinki"</item>
+    <item msgid="2717065017510546526">"Yerusəlim"</item>
+    <item msgid="8698556287741466553">"Minsk"</item>
+    <item msgid="1797598357342084506">"Harare"</item>
+    <item msgid="5169119919905066998">"Bağdad"</item>
+    <item msgid="2615788116201065182">"Moskva"</item>
+    <item msgid="9084354867885584646">"Küveyt"</item>
+    <item msgid="1351570519986178268">"Nayrobi"</item>
+    <item msgid="7094569580635877460">"Tehran"</item>
+    <item msgid="3953138772617909704">"Bakı"</item>
+    <item msgid="2868893113598800752">"Tbilisi"</item>
+    <item msgid="7088581865802476373">"Yerevan"</item>
+    <item msgid="1941122257623887992">"Dubay"</item>
+    <item msgid="9194797225058249720">"Kabil"</item>
+    <item msgid="6486569254364577332">"İslamabad, Kəraçi"</item>
+    <item msgid="5487724896895412089">"Ural\'sk"</item>
+    <item msgid="364906869710826982">"Yekaterinburq"</item>
+    <item msgid="2106505051751383358">"Kəlkütə"</item>
+    <item msgid="6851586621581501447">"Şri-Lanka"</item>
+    <item msgid="800438544128213134">"Katmandu"</item>
+    <item msgid="6173621471007643021">"Astana"</item>
+    <item msgid="8645125891971581128">"Yanqon"</item>
+    <item msgid="2886407505119737794">"Krasnoyarsk"</item>
+    <item msgid="3408222398188107090">"Banqkok"</item>
+    <item msgid="4441612937172851228">"Pekin"</item>
+    <item msgid="4936715789028996930">"Honkonq"</item>
+    <item msgid="4261031143777385525">"İrkutsk"</item>
+    <item msgid="3538060959338191835">"Kuala Lumpur"</item>
+    <item msgid="1438847562643099201">"Pert"</item>
+    <item msgid="3063913827688244383">"Taybey"</item>
+    <item msgid="3502757135046564209">"Seul"</item>
+    <item msgid="6107588684519111669">"Tokio, Osaka"</item>
+    <item msgid="4350769099755608471">"Yakutsk"</item>
+    <item msgid="2422707004533526462">"Adelaida"</item>
+    <item msgid="1292192084554134339">"Darvin"</item>
+    <item msgid="1320883699470001716">"Brisban"</item>
+    <item msgid="5137198806146386527">"Hobart"</item>
+    <item msgid="5920063686933941174">"Sidney, Kanberra"</item>
+    <item msgid="615906039696009425">"Vladivostok"</item>
+    <item msgid="7738680449356275374">"Quam"</item>
+    <item msgid="2882915026380778227">"Maqadan"</item>
+    <item msgid="8255615641810148152">"Okland"</item>
+    <item msgid="3027153773466391728">"Fici"</item>
+    <item msgid="5911600083231840181">"Tonqa"</item>
+    <item msgid="5176858645450908751">"Cakarta"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Yeni siqnal"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Yeni siqnal yaradın"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Yeni taymer"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Yeni taymer yaradın"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Başladın"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Saniyəölçəni başladın"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Fasilə verin"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Saniyəölçəni durdurun"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Ekran qoruyucu"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Ekran qoruyucunu başladın"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Siqnallar"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Taymer bildirişlərindən fəaliyyətlər icra olunur."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Saniyəölçən bildirişlərindən fəaliyyətlər icra olunur."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Durduruldu"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Kənarlaşdırmaq üçün sağa sürüşdürün"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Mürgü üçün sola sürüşdürün"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Mürgü rejimi üçün sola, və ya ləğv etmək üçün sağa sürüşdürün"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Vaxtölçən"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Taymer vibrasiyası"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Taymer durdurulub"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> taymer durdurulub"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Vaxtölçənlərinizi görmək üçün tıklayın"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> vaxtölçən"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Sonrakı vaxtölçən: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Ekran qoruyucu ayarları"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Gecə rejimi"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Çox zəif ekran (qaranlıq otaqlar üçün)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Siqnalı genişlət"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Siqnalı sıradan çıxar"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"geri gətir"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Siqnal silindi."</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> irəlidə"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> geridə"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> irəlidə"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> geridə"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Sabah saat <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"Dünən, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"Sabah"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"Dünən"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Sonrakı Siqnal: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Zəng yoxdur"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Yanlış vaxt <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> vaxtına siqnal yoxdur"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Planlaşdırılmış siqnal yoxdur"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Heç bir etiket təyin edilməyib."</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Etiketə aid heç bir alarm yoxdur"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu vaxt üçün heç bir siqnal təyin olunmayıb"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnal deaktiv edildi"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm <xliff:g id="ALARM_TIME">%s</xliff:g> üçün qurulub"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Vaxtölçən yaradıldı"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> taymer silindi</item>
+      <item quantity="one">Taymer silindi</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"Vaxtölçən silindi"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Yanlış vaxtölçən müddəti"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Yanlış taymer seçildi"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Vaxtı bitmiş taymer yoxdur"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnalı hələ deaktiv edilə bilməz, 24 saatdan artıq vaxt qalıb."</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Zəngli saatı ləğv edin"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kənarlaşdırmaq üçün siqnal seçin"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Heç bir yanğın siqnalı yoxdur"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnal 10 dəqiqəlik ertələndi"</string>
+</resources>

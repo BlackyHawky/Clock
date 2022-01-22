@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"Ora"</string>
+    <string name="label" msgid="162189613902857319">"Emërtimi"</string>
+    <string name="default_label" msgid="5590025289805630372">"Alarmi"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Dridhja"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Përsërit"</string>
+    <string name="delete" msgid="5732434972457000541">"Fshi"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Tingulli i parazgjedhur i alarmit sinjalizues"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Tingulli i alarmit"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Tingulli i kohëmatësit"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"Shto një të ri"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"Hiq"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarmet dhe kohëmatësit që përdorin këtë tingull do të luajnë tingullin e parazgjedhur në vend të tij."</string>
+    <string name="your_sounds" msgid="1672779351352629681">"Tingujt e tu"</string>
+    <string name="device_sounds" msgid="1584894148222639823">"Tingujt e pajisjes"</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Përmbajtja e tingullit nuk mund të hapet:"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Kohëmatësi skadoi"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Nesër"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Injoro"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm i humbur"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Dremitur"</string>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuta</item>
+      <item quantity="one">1 minutë</item>
+    </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"U çaktivizua"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Dremit"</string>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">Do të dremitë për <xliff:g id="MINUTES">%d</xliff:g> minuta.</item>
+      <item quantity="one">Do të dremitë për 1 minutë.</item>
+    </plurals>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Dremit deri në <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarmi i ardhshëm"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Alarmi i humbur u fshi"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Ka mbetur më pak se një minutë"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Kanë mbetur edhe <xliff:g id="HOURS">%1$s</xliff:g> e <xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Një minutë u shtua te kohëmatësi, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Kohëmatësi në pauzë, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Kohëmatësi në ekzekutim, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"Ka mbetur edhe"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"Kanë mbetur edhe"</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Alarmi është vënë për më pak se 1 minutë nga momenti i tanishëm."</item>
+    <item msgid="6002066367368421848">"Alarmi është vënë për <xliff:g id="DAYS">%1$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="8824719306247973774">"Alarmi është vënë për <xliff:g id="HOURS">%2$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="8182406852935468862">"Alarmi është vënë për <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="HOURS">%2$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="2532279224777213194">"Alarmi është vënë për <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="5936557894247187717">"Alarmi është vënë për <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="9115697840826129603">"Alarmi është vënë për <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
+    <item msgid="2332583385137381060">"Alarmi është vënë për <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, e <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
+  </string-array>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ditë</item>
+      <item quantity="one">1 ditë</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> orë</item>
+      <item quantity="one">1 orë</item>
+    </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> orë</item>
+      <item quantity="one">1 orë</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuta</item>
+      <item quantity="one">1 minutë</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="one">1 min.</item>
+    </plurals>
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> sekonda</item>
+      <item quantity="one">1 sekondë</item>
+    </plurals>
+    <string name="every_day" msgid="4100909974923444602">"Çdo ditë"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Po ngarkohet..."</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Orë analoge"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Orë dixhitale"</string>
+    <string name="settings" msgid="5849739030579520686">"Cilësimet"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Kohëzgjatja e dremitjes"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Rrit gradualisht volumin"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Kalo në heshtje për"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuta</item>
+      <item quantity="one">1 minutë</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Asnjeherë"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 minutë"</item>
+    <item msgid="5431906692406316549">"5 minuta"</item>
+    <item msgid="7742728812068919959">"10 minuta"</item>
+    <item msgid="2855948657259647629">"15 minuta"</item>
+    <item msgid="6330196381284475079">"20 minuta"</item>
+    <item msgid="7809240121716151904">"25 minuta"</item>
+    <item msgid="4278641338024561333">"Asnjeherë"</item>
+  </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Çaktivizuar"</item>
+    <item msgid="7195451681426992018">"5 sekonda"</item>
+    <item msgid="592917601923801901">"10 sekonda"</item>
+    <item msgid="5050318776687582653">"15 sekonda"</item>
+    <item msgid="6997726466563948756">"20 sekonda"</item>
+    <item msgid="1237360231425097772">"25 sekonda"</item>
+    <item msgid="248014374051498284">"30 sekonda"</item>
+    <item msgid="6110450211551791852">"35 sekonda"</item>
+    <item msgid="8010211657612404516">"40 sekonda"</item>
+    <item msgid="3730631498119797451">"45 sekonda"</item>
+    <item msgid="623829984393124488">"50 sekonda"</item>
+    <item msgid="6390209981529164605">"55 sekonda"</item>
+    <item msgid="5261571706794132923">"60 sekonda"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 minutë"</item>
+    <item msgid="4482596794620161030">"2 minuta"</item>
+    <item msgid="8478276201849960314">"3 minuta"</item>
+    <item msgid="4038456474851212478">"4 minuta"</item>
+    <item msgid="6298175579152122770">"5 minuta"</item>
+    <item msgid="9021860177999278496">"6 minuta"</item>
+    <item msgid="7224689200902680256">"7 minuta"</item>
+    <item msgid="4610012663985162123">"8 minuta"</item>
+    <item msgid="1717028898015659426">"9 minuta"</item>
+    <item msgid="8058492636464337699">"10 minuta"</item>
+    <item msgid="577767219993868603">"11 minuta"</item>
+    <item msgid="3710047869487864775">"12 minuta"</item>
+    <item msgid="3794200935630619331">"13 minuta"</item>
+    <item msgid="5462266433522229437">"14 minuta"</item>
+    <item msgid="2192100038569306041">"15 minuta"</item>
+    <item msgid="6636326047858437620">"16 minuta"</item>
+    <item msgid="2481054808772108352">"17 minuta"</item>
+    <item msgid="4080984064428458050">"18 minuta"</item>
+    <item msgid="5844319398703041730">"19 minuta"</item>
+    <item msgid="2334964289857921073">"20 minuta"</item>
+    <item msgid="4755209855817904977">"21 minuta"</item>
+    <item msgid="8414394445389367355">"22 minuta"</item>
+    <item msgid="2604612428763230265">"23 minuta"</item>
+    <item msgid="6871696471373403806">"24 minuta"</item>
+    <item msgid="1573685398431466364">"25 minuta"</item>
+    <item msgid="6999090368236684971">"26 minuta"</item>
+    <item msgid="7125056720603734703">"27 minuta"</item>
+    <item msgid="1695830988496463030">"28 minuta"</item>
+    <item msgid="6706610539793025916">"29 minuta"</item>
+    <item msgid="2898212818965905529">"30 minuta"</item>
+  </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"Nise javën në ditën"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"E shtunë"</item>
+    <item msgid="3993530639455360921">"E diel"</item>
+    <item msgid="8594709368683324282">"E hënë"</item>
+  </string-array>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Volumi i alarmit"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Në heshtje"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"E panjohur"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Volumi i alarmit u çaktivizua"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Aktivizo audion"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Zilja e parazgjedhur e alarmit është në heshtje"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">"Ndrysho"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Njoftimet e orës janë bllokuar"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Pajisja është vendosur në heshtje totale"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Butonat e volumit"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"Shty alarmin"</item>
+    <item msgid="3450979320164769576">"Ndalo alarmin"</item>
+    <item msgid="7085774139907653538">"Kontrollo volumin"</item>
+  </string-array>
+    <string name="label_description" msgid="8736179296142915727">"Emërtimi"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Zilja"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarmi"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Kohëmatësi"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"Ora"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometri"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Shto alarm"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Qytetet"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Cilësimet"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Ndihma"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Mbrojtësi i ekranit"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Klasifiko sipas orës"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Klasifiko sipas emrit"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Qytetet e përzgjedhura"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Rifillo"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Rivendos"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Fillo"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Ndërprit"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Xhiro"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Shpërnda"</string>
+    <string name="hours_label" msgid="3393478155635368097">"o"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"Koha ime është <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Kohët e xhiros:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Xhiroja <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Shto kohëmatës"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Fillo"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Fshi"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Fshi <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Shto 1 minutë"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Shto 1 minutë"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Ndalo"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Ndalo të gjithë kohëmatësit"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Rivendos"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Anulo"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Kohëmatësi u anulua"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Koha mbaroi"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> kohëmatës kanë skaduar"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> kohëmatës të humbur"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Kohëmatësi"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Kohëmatës i humbur"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Kohëmatës i humbur: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"Pauzë"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Rivendos të gjithë kohëmatësit"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Je mjaft i shpejtë."</item>
+    <item msgid="6332879039890727169">"Shijo frytet e punës."</item>
+    <item msgid="815382761274660130">"Androidët njihen për të shpejtë, por jo kaq të shpejtë sa ti!"</item>
+    <item msgid="7916250650982813737">"Phu!"</item>
+    <item msgid="6836603904515182333">"L33t herë."</item>
+    <item msgid="7508085100680861631">"Një shpejtësi e jashtëzakonshme."</item>
+    <item msgid="5961245252909589573">"Ta kalojmë edhe një herë shpejtësinë e zërit!"</item>
+    <item msgid="5211891900854545940">"Edhe një kthesë në të majtë."</item>
+    <item msgid="9071353477103826053">"E ke në gjak shpejtësinë."</item>
+    <item msgid="3785193933691117181">"Shpejtësi fotonike."</item>
+  </string-array>
+    <string name="home_label" msgid="4436139365695453870">"Faqja bazë"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Qytetet"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Ora"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Stili"</string>
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Shfaq orën me sekonda"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Ndërro datën dhe orën"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"Analog"</item>
+    <item msgid="8483930821046925592">"Dixhital"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Ora automatike e ekranit bazë"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Në rast se udhëton në zona ku ora ndryshon, shto në ekran edhe një orë tjetër - atë të vendit tënd ku jeton."</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Brezi orar i zonës ku ndodhesh"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Brezi orar i zonës ku ndodhesh"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> u shënua"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"U hoq shënimi nga <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Ishujt Marshall"</item>
+    <item msgid="4196408495909011020">"Ishulli Miduej"</item>
+    <item msgid="1414384194857730006">"Havai"</item>
+    <item msgid="2687091371581931926">"Alaskë"</item>
+    <item msgid="1922100269679049660">"Ora e Paqësorit"</item>
+    <item msgid="7156402158716866161">"Tihuanë"</item>
+    <item msgid="1144117502254612241">"Arizonë"</item>
+    <item msgid="101284182011722637">"Çiuaua"</item>
+    <item msgid="689121094232986897">"Ora Malore"</item>
+    <item msgid="5445331923942302756">"Amerika Qendrore"</item>
+    <item msgid="2749806434052452351">"Ora Qendrore"</item>
+    <item msgid="3997138870229703753">"Meksiko-Siti"</item>
+    <item msgid="5425567073027744888">"Saskaçevan"</item>
+    <item msgid="2877342865396629368">"Bogota"</item>
+    <item msgid="568682398893899670">"Ora Lindore"</item>
+    <item msgid="668135984541863866">"Venezuelë"</item>
+    <item msgid="3737474220861486223">"Ora Atlantike (Barbados)"</item>
+    <item msgid="6279116051273436870">"Ora Atlantike (Kanada)"</item>
+    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="7776299003105932407">"Santiago"</item>
+    <item msgid="8636989494746218677">"Njufaundlend"</item>
+    <item msgid="4402541016410147505">"Brazilia"</item>
+    <item msgid="2251184440733164084">"Buenos-Ajres"</item>
+    <item msgid="6202926618569004969">"Grenlandë"</item>
+    <item msgid="2355275037115290628">"Montevideo"</item>
+    <item msgid="1377549694711708945">"Mid-Atlantik"</item>
+    <item msgid="3457671272126347981">"Azoret"</item>
+    <item msgid="3659315141063710840">"Ishujt e Kepit të Gjelbër"</item>
+    <item msgid="1260941741802367635">"Kazablanka"</item>
+    <item msgid="8275203689687954762">"Londër, Dublin"</item>
+    <item msgid="5970179539479320905">"Amsterdam, Berlin"</item>
+    <item msgid="5396319478750517962">"Beograd"</item>
+    <item msgid="8688787475056663004">"Bruksel"</item>
+    <item msgid="3415827874921681622">"Sarajevë"</item>
+    <item msgid="402008965928320066">"Uindhoek"</item>
+    <item msgid="6436942724959275569">"Ora e Afrikës Perëndimore"</item>
+    <item msgid="954536568417204026">"Aman, Jordani"</item>
+    <item msgid="8932745482008902551">"Athinë, Stamboll"</item>
+    <item msgid="320025725949024510">"Bejrut, Liban"</item>
+    <item msgid="7242083112551905970">"Kajro"</item>
+    <item msgid="7241520146011450419">"Helsinki"</item>
+    <item msgid="2717065017510546526">"Jerusalem"</item>
+    <item msgid="8698556287741466553">"Minsk"</item>
+    <item msgid="1797598357342084506">"Harare"</item>
+    <item msgid="5169119919905066998">"Bagdad"</item>
+    <item msgid="2615788116201065182">"Moskë"</item>
+    <item msgid="9084354867885584646">"Kuvajt"</item>
+    <item msgid="1351570519986178268">"Najrobi"</item>
+    <item msgid="7094569580635877460">"Teheran"</item>
+    <item msgid="3953138772617909704">"Baku"</item>
+    <item msgid="2868893113598800752">"Tbilisi"</item>
+    <item msgid="7088581865802476373">"Jerevan"</item>
+    <item msgid="1941122257623887992">"Dubai"</item>
+    <item msgid="9194797225058249720">"Kabul"</item>
+    <item msgid="6486569254364577332">"Islamabad, Karaçi"</item>
+    <item msgid="5487724896895412089">"Uralsk"</item>
+    <item msgid="364906869710826982">"Jekaterinburg"</item>
+    <item msgid="2106505051751383358">"Kalkuta"</item>
+    <item msgid="6851586621581501447">"Sri-Lankë"</item>
+    <item msgid="800438544128213134">"Katmandu"</item>
+    <item msgid="6173621471007643021">"Astana"</item>
+    <item msgid="8645125891971581128">"Jangon"</item>
+    <item msgid="2886407505119737794">"Krasnojarsk"</item>
+    <item msgid="3408222398188107090">"Bangkok"</item>
+    <item msgid="4441612937172851228">"Pekin"</item>
+    <item msgid="4936715789028996930">"Hong-Kong"</item>
+    <item msgid="4261031143777385525">"Irkutsk"</item>
+    <item msgid="3538060959338191835">"Kuala-Lumpur"</item>
+    <item msgid="1438847562643099201">"Përth"</item>
+    <item msgid="3063913827688244383">"Taipei"</item>
+    <item msgid="3502757135046564209">"Seul"</item>
+    <item msgid="6107588684519111669">"Tokio, Osaka"</item>
+    <item msgid="4350769099755608471">"Jakutsk"</item>
+    <item msgid="2422707004533526462">"Adelajde"</item>
+    <item msgid="1292192084554134339">"Darvin"</item>
+    <item msgid="1320883699470001716">"Brisbejn"</item>
+    <item msgid="5137198806146386527">"Hobart"</item>
+    <item msgid="5920063686933941174">"Sidnej, Kanbera"</item>
+    <item msgid="615906039696009425">"Vladivostok"</item>
+    <item msgid="7738680449356275374">"Guam"</item>
+    <item msgid="2882915026380778227">"Magadan"</item>
+    <item msgid="8255615641810148152">"Aukland"</item>
+    <item msgid="3027153773466391728">"Fixhi"</item>
+    <item msgid="5911600083231840181">"Tongë"</item>
+    <item msgid="5176858645450908751">"Xhakartë"</item>
+  </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarm i ri"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Krijo alarm të ri"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Kohëmatësi i ri"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Krijo kohëmatës të ri"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Nis"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Nis kronometrin"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Ndërprit"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Ndërprit kronometrin"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Mbrojtësi i ekranit"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Nis mbrojtësin e ekranit"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarmet"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Përpunon veprimet nga njoftimet e kohëmatësit."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Përpunon veprimet nga njoftimet e kronometrit."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"U ndërpre"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Rrëshqit djathtas për ta larguar"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Rrëshqit majtas për të dremitur"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Rrëshqit majtas për ta shtyrë, ose djathtas për ta hequr"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Kohëmatësit"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Dridhjet e kohëmatësit"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Kohëmatësi u vendos në pauzë"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> kohëmatës u vendosën në pauzë"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Trokit për të parë kohëmatësit"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> kohëmatës"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Kohëmatësi tjetër: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Cilësimet e mbrojtësit të ekranit"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Modaliteti i natës"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Ekran shumë i zbehtë (për dhoma të errëta)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Zgjero alarmin"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Shpalos alarmin"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"zhbëj"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarmi u fshi"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> përpara"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> prapa"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> përpara"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> prapa"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Nesër, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"Dje, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"Nesër"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"Dje"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Alarmi tjetër: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Nuk ka alarme"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> është orë e pavlefshme"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Nuk ka asnjë alarm në <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nuk ka asnjë alarm të planifikuar"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nuk u specifikua asnjë etiketë"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Asnjë alarm nuk e përfshin etiketën"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nuk ka asnjë alarm të planifikuar për këtë orë"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> u hoq"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarmi është caktuar në <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Kohëmatësi u krijua"</string>
+    <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> kohëmatës u hoqën</item>
+      <item quantity="one">Kohëmatësi u hoq</item>
+    </plurals>
+    <string name="timer_deleted" msgid="9110322362460029392">"Kohëmatësi u fshi"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Gjatësia e kohëmatësit e pavlefshme"</string>
+    <string name="invalid_timer" msgid="900957020728335675">"Është zgjedhur kohëmatës i pavlefshëm"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">"Nuk ka kohëmatës të skaduar"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> nuk mund të hiqet ende, pasi është akoma më shumë se 24 orë larg"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Hiqe alarmin"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Zgjidh se cilin alarm do të heqësh"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Nuk ka asnjë alarm të aktivizuar"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> u shty për 10 minuta"</string>
+</resources>
