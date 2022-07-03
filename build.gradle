@@ -1,83 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
-    }
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
 }
 
-apply plugin: 'com.android.application'
-
-android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 25
-        versionCode 3
-        versionName "1.2"
-        vectorDrawables.useSupportLibrary = true
-    }
-
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                    'proguard.flags'
-        }
-    }
-
-    productFlavors {
-        aosp {
-            flavorDimensions 'default'
-            applicationId 'com.best.deskclock'
-        }
-    }
-
-    sourceSets {
-        main {
-            res.srcDirs = ['res']
-            java.srcDirs = ['src']
-            assets.srcDirs = ['assets']
-            manifest.srcFile 'AndroidManifest.xml'
-        }
-    }
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-    google()
-    maven { url 'https://jitpack.io' }
-}
-
-dependencies {
-    implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.collection:collection:1.1.0"
-    implementation "androidx.arch.core:core-common:2.1.0"
-    implementation "androidx.lifecycle:lifecycle-common:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
-    implementation "androidx.transition:transition:1.3.1"
-    implementation "androidx.core:core:1.3.1"
-    implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
-    implementation "androidx.media:media:1.1.0"
-    implementation "androidx.legacy:legacy-support-v13:1.0.0"
-    implementation "androidx.preference:preference:1.1.1"
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation "androidx.gridlayout:gridlayout:1.0.0"
-    implementation "androidx.percentlayout:percentlayout:1.0.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "com.google.android.material:material:1.3.0-alpha02"
-    }

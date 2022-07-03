@@ -1,7 +1,0 @@
-<i>Nuovo orologio</i> è una versione aggiornata dell'orologio AOSP, che include sveglia, orologio, timer e cronometro. Le caratteristiche presenti sono:
-
-* "power off alarm" (l'allarme suonerà con il telefono spento, solo per telefoni snapdragon, testato su tutte le ROM personalizzate)
- * azione di capovolgimento e scuotimento per ignorare/posticipare l'allarme
- * possibilità di disattivare/posticipare l'allarme con il pulsante di accensione e il pulsante del volume
- * scorrere per eliminare l'allarme
- * Tema chiaro e scuro 

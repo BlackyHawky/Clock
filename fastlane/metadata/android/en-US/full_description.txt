@@ -1,7 +1,0 @@
-<i>New Clock</i> is an updated version of the AOSP desk clock, including alarms, clock, timer and stopwatch. Features include a.o.
-
-* power off alarm (alarm will ring with phone off, snapdragon phones only, tested on all custom rom)
-* flip and shake action for dismiss/postpone alarm
-* possibility to turn off/postpone the alarm with the power button and volume button
-* swipe to delete alarm
-* Light and Dark mode
