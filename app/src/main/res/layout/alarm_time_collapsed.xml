@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    app:columnCount="5"
+    app:columnOrderPreserved="false"
+    app:rowCount="4">
+
+    <include
+        layout="@layout/alarm_time_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        app:layout_column="0"
+        app:layout_gravity="center_vertical"
+        app:layout_row="0" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/onoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:minWidth="@dimen/touch_target_min_size"
+        android:minHeight="@dimen/touch_target_min_size"
+        app:layout_column="3"
+        app:layout_columnSpan="2"
+        app:layout_gravity="center_vertical"
+        app:layout_row="0" />
+
+    <com.best.deskclock.widget.EllipsizeLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:gravity="center_vertical"
+        app:layout_column="0"
+        app:layout_columnSpan="3"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingStart="@dimen/icon_margin"
+            android:paddingEnd="@dimen/icon_margin" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/days_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="@dimen/icon_margin"
+            android:paddingEnd="@dimen/icon_margin"
+            android:singleLine="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/upcoming_instance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="@dimen/icon_margin"
+            android:paddingEnd="@dimen/icon_margin"
+            android:singleLine="true" />
+
+    </com.best.deskclock.widget.EllipsizeLayout>
+
+    <include
+        layout="@layout/preemptive_dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch_target_min_size"
+        app:layout_column="0"
+        app:layout_columnSpan="2"
+        app:layout_row="2" />
+
+    <ImageButton
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/touch_target_min_size"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/expand_alarm"
+        android:padding="@dimen/checkbox_start_padding"
+        android:scaleType="center"
+        app:layout_column="4"
+        app:layout_gravity="bottom"
+        app:layout_row="1"
+        app:layout_rowSpan="2"
+        app:srcCompat="@drawable/ic_caret_down" />
+
+    <View
+        android:id="@+id/hairline"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/hairline_height"
+        android:layout_marginStart="@dimen/icon_margin"
+        android:layout_marginEnd="@dimen/icon_margin"
+        app:layout_column="0"
+        app:layout_columnSpan="5"
+        app:layout_gravity="fill_horizontal"
+        app:layout_row="3" />
+
+</androidx.gridlayout.widget.GridLayout>

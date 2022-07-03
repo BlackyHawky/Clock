@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="Theme.DeskClock.Dark" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent
+        </item>
+        <item name="android:navigationBarColor">
+            @color/md_theme_dark_bottomNav
+        </item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
+        <item name="checkboxStyle">@style/Widget.CheckBox</item>
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
+    </style>
+
+    <style name="Theme.DeskClock.Light" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@android:color/transparent
+        </item>
+        <item name="android:navigationBarColor">
+            @color/md_theme_light_bottomNav
+        </item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
+        <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
+        <item name="checkboxStyle">@style/Widget.CheckBox</item>
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
+    </style>
+
+    <style name="Theme.DeskClock" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@android:color/transparent
+        </item>
+        <item name="android:navigationBarColor">
+            @color/md_theme_light_bottomNav
+        </item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
+        <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+        <item name="switchStyle">@style/SwitchStyle</item>
+        <item name="checkboxStyle">@style/Widget.CheckBox</item>
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
+        <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
+    </style>
+
+    <style name="TimePickerTheme" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
+        <item name="materialTimePickerStyle">@style/TimePickerStyle</item>
+    </style>
+
+    <style name="TimePickerStyle" parent="@style/Widget.Material3.MaterialTimePicker">
+        <item name="shapeAppearance">@style/TimePickerShapeAppearance</item>
+    </style>
+
+    <style name="TimePickerShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28.0dip</item>
+    </style>
+
+    <style name="Widget.CheckBox" parent="@style/Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_checkbox_material</item>
+        <item name="android:minWidth">@dimen/touch_target_min_size</item>
+        <item name="android:minHeight">@dimen/touch_target_min_size</item>
+    </style>
+
+    <style name="SwitchStyle" parent="@style/Widget.Material3.CompoundButton.Switch">
+        <item name="android:thumb">@drawable/switch_thumb</item>
+        <item name="switchMinWidth">52.0dip</item>
+        <item name="thumbTint">@color/switch_thumb_color</item>
+        <item name="track">@drawable/switch_track</item>
+        <item name="trackTint">@color/switch_track_color</item>
+    </style>
+
+    <style name="Widget.Button.TimerSetupDigit" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+    </style>
+
+    <style name="Theme.DeskClock.Actionbar.Light" parent="Theme.DeskClock.Light">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+    </style>
+
+    <style name="Theme.DeskClock.Actionbar.Dark" parent="Theme.DeskClock.Dark">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+    </style>
+
+    <style name="SettingsDropDownSpinnerStyle" parent="@android:style/Widget.Material.Spinner">
+        <item name="android:popupBackground">@drawable/popup_background</item>
+    </style>
+
+    <style name="PopupMenuOverflowStyle" parent="@style/Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+        <item name="android:dropDownHorizontalOffset">-12.0dip</item>
+        <item name="android:overlapAnchor">false</item>
+    </style>
+
+    <style name="Theme.DeskClock.Wallpaper">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.DeskClock.Wallpaper.Light" parent="Theme.DeskClock.Light">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.DeskClock.Wallpaper.Dark" parent="Theme.DeskClock.Dark">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="android:windowBackground">@color/md_theme_dark_background</item>
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="no_alarms">
+        <item name="android:textSize">@dimen/no_alarm_font_size</item>
+    </style>
+
+    <style name="widget_medium_thin">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
+    </style>
+
+    <style name="label">
+        <item name="android:textSize">@dimen/label_font_size</item>
+    </style>
+
+    <style name="widget_label" parent="label">
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
+    </style>
+
+    <style name="world_clock_time">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="big_normal">
+        <item name="android:textSize">@dimen/big_font_size</item>
+    </style>
+
+    <style name="widget_big_thin" parent="big_normal">
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
+    </style>
+
+</resources>

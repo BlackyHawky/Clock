@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    signingConfigs {
+        Retail {
+            storeFile file('C:\\Users\\Fissy\\Desktop\\apktool\\tools\\keystore\\Retail.jks')
+            storePassword 'Qpalzm1784!'
+            keyAlias 'Retail'
+            keyPassword 'Qpalzm1784!'
+        }
+    }
+    compileSdk 32
+
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+        applicationId "com.best.deskclock"
+        minSdk 23
+        targetSdk 25
+        versionCode 1
+        versionName '1'
+        signingConfig signingConfigs.Retail
+    }
+    buildTypes {
+        Retail {
+            debuggable true
+            signingConfig signingConfigs.Retail
+            minifyEnabled true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildToolsVersion '32.1.0-rc1'
+}
+
+dependencies {
+
+    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation "androidx.collection:collection:1.2.0"
+    implementation "androidx.arch.core:core-common:2.1.0"
+    implementation 'androidx.lifecycle:lifecycle-common:2.5.0'
+    implementation "androidx.lifecycle:lifecycle-runtime:2.4.1"
+    implementation "androidx.transition:transition:1.4.1"
+    implementation "androidx.core:core:1.8.0"
+    implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
+    implementation "androidx.media:media:1.6.0"
+    implementation "androidx.legacy:legacy-support-v13:1.0.0"
+    implementation "androidx.preference:preference:1.2.0"
+    implementation "androidx.appcompat:appcompat:1.4.2"
+    implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation "androidx.percentlayout:percentlayout:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation 'com.google.android.material:material:1.7.0-alpha02'
+    implementation 'androidx.compose.material3:material3:1.0.0-alpha13'
+    implementation 'androidx.compose.material3:material3-window-size-class:1.0.0-alpha13'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+}
+
+/*gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+}*/
