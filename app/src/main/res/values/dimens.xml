@@ -32,7 +32,7 @@
     <dimen name="bottom_text_size">16sp</dimen>
 
     <dimen name="alarm_text_font_size">16sp</dimen>
-    <dimen name="circletimer_dot_size">30dp</dimen>
+    <dimen name="circletimer_dot_size">10dp</dimen>
     <dimen name="circletimer_circle_size">10dp</dimen>
     <dimen name="circletimer_marker_size">30dp</dimen>
     <dimen name="max_timer_circle_size">360dp</dimen>
@@ -50,7 +50,7 @@
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="day_button_font_size">16sp</dimen>
     <dimen name="no_alarm_font_size">16sp</dimen>
-    <dimen name="timer_setup_digit_font_size">55sp</dimen>
+    <dimen name="timer_setup_digit_font_size">70sp</dimen>
     <dimen name="timer_setup_top_size">120dip</dimen>
 
     <dimen name="alarm_picker_dialog_horizontal_margin">30dp</dimen>

@@ -52,7 +52,7 @@ public class TimerCircleFrameLayout extends FrameLayout {
         final int paddingRight = getPaddingRight();
 
         final int paddingTop = getPaddingTop();
-        final int paddingBottom = getPaddingBottom();
+        final int paddingBottom = getPaddingBottom() + 700;
 
         // Fetch the exact sizes imposed by the parent container.
         final int width = MeasureSpec.getSize(widthMeasureSpec) - paddingLeft - paddingRight;
