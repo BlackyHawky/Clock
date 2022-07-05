@@ -34,7 +34,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '30.0.3' // Delete Comment: I had to change it since it didn't work for me, you can change it back if needed
+    buildToolsVersion '32.1.0-rc1'
 }
 
 dependencies {
