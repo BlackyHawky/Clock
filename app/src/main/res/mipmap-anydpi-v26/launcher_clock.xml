@@ -1,47 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background>
-        <vector
-            android:width="108.0dip"
-            android:height="108.0dip"
-            android:viewportWidth="108.0"
-            android:viewportHeight="108.0">
-            <path
-                android:fillColor="@color/white"
-                android:pathData="M0,0h108v108h-108z" />
-            <path
-                android:fillColor="@color/md_theme_dark_inversePrimary"
-                android:pathData="M22.91,54a31.09,31.09 0 1,0 62.18,0a31.09,31.09 0 1,0 -62.18,0z" />
-        </vector>
-    </background>
-    <foreground>
-        <layer-list>
-            <item>
-                <rotate
-                    android:drawable="@mipmap/launcher_clock_hour"
-                    android:fromDegrees="300.0"
-                    android:pivotX="50.0%"
-                    android:pivotY="50.0%"
-                    android:toDegrees="5300.0" />
-            </item>
-            <item>
-                <rotate
-                    android:drawable="@mipmap/launcher_clock_minute"
-                    android:fromDegrees="60.0"
-                    android:pivotX="50.0%"
-                    android:pivotY="50.0%"
-                    android:toDegrees="60060.0" />
-            </item>
-            <item>
-                <rotate
-                    android:drawable="@mipmap/launcher_clock_second"
-                    android:fromDegrees="180.0"
-                    android:level="300"
-                    android:pivotX="50.0%"
-                    android:pivotY="50.0%"
-                    android:toDegrees="6180.0" />
-            </item>
-            <item android:drawable="@mipmap/launcher_clock_top" />
-        </layer-list>
-    </foreground>
-</adaptive-icon>
+    <background android:drawable="@drawable/ic_launcher_background"/>
+    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+</adaptive-icon> 
