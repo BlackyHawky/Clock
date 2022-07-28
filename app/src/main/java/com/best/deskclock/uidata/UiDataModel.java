@@ -28,8 +28,10 @@ import androidx.annotation.StringRes;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.ClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.stopwatch.StopwatchFragment;
 import com.best.deskclock.timer.TimerFragment;
+import com.best.deskclock.bedtime.BedtimeFragment;
 
 import java.util.Calendar;
 
@@ -362,7 +364,8 @@ public final class UiDataModel {
         ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
         CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
         TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
-        STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch);
+        STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch),
+        BEDTIME(BedtimeFragment.class, R.id.page_bedtime, R.string.menu_bedtime);
 
         private final String mFragmentClassName;
         private final @IntegerRes

@@ -213,6 +213,14 @@
             android:description="@string/stopwatch_service_desc"
             android:directBootAware="true" />
 
+        <!-- ============================================================== -->
+        <!-- Bedtime components. -->
+        <!-- ============================================================== -->
+        <service
+            android:name=".bedtime.BedtimeService"
+            android:description="@string/bedtime_service_desc"
+            android:directBootAware="true" />
+
 
         <!-- ============================================================== -->
         <!-- Screen saver components.                                       -->

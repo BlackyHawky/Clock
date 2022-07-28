@@ -20,4 +20,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_tab_stopwatch"
         android:title="@string/menu_stopwatch" />
+    <item
+        android:id="@+id/page_bedtime"
+        android:enabled="true"
+        android:icon="@drawable/ic_tab_bedtime"
+        android:title="@string/menu_bedtime"/>
 </menu>

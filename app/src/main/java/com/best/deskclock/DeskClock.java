@@ -126,6 +126,10 @@ public class DeskClock extends BaseActivity
             case R.id.page_stopwatch:
                 tab = UiDataModel.Tab.STOPWATCH;
                 break;
+
+            case R.id.page_bedtime:
+                tab = UiDataModel.Tab.BEDTIME;
+                break;
         }
 
         if (tab != null) {
@@ -671,6 +675,9 @@ public class DeskClock extends BaseActivity
                         break;
                     case STOPWATCH:
                         Events.sendStopwatchEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                    case BEDTIME:
+                        Events.sendBedtimeEvent(R.string.action_show, R.string.label_deskclock);
                         break;
                 }
             }

@@ -253,6 +253,9 @@
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
 
+    <!-- Notification preference title -->
+    <string name="notification_title">Reminder Notification</string>
+
     <!-- Auto silence summary string set based on the preference value. -->
     <plurals name="auto_silence_summary">
         <!-- Duration for one minute -->
@@ -482,6 +485,8 @@
     <string name="menu_clock">Clock</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
+    <!-- Describes the purpose of the tab button which which switches the activity to the Bedtime page -->
+    <string name="menu_bedtime">Bedtime</string>
 
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
@@ -878,6 +883,8 @@
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
     <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
+    <!-- Describes the service that processes actions originating from bedtime notifications. -->
+    <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
 
@@ -1075,6 +1082,9 @@
     -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
     <string name="_00">00</string>
+    <string name="bedtime">Bedtime</string>
+    <string name="wakeup">Wake Up</string>
+    <string name="reminder_notification">Reminder Notification</string>
 
 
     <string name="key_theme">key_theme</string>
@@ -1083,6 +1093,28 @@
         <item>System</item>
         <item>Dark</item>
         <item>Light</item>
+    </string-array>
+
+    <string name="key_reminder_notification">key_reminder_notification</string>
+    <string name="title_reminder_notification">Reminder Notification</string>
+
+    <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
+    <string-array name="array_reminder_notification">
+        <item>15 Minute Before Bedtime</item>
+        <item>30 Minutes Before Bedtime</item>
+        <item>45 Minutes Before Bedtime</item>
+        <item>1 Hour Before Bedtime</item>
+        <item>Off</item>
+    </string-array>
+
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the snooze_duration_entries above. -->
+    <string-array name="array_reminder_notification_values" translatable="false">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>-1</item> <!-- Off -->
     </string-array>
 
 </resources>

@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         editLabel = itemView.findViewById(R.id.edit_label);
-        repeatDays = itemView.findViewById(R.id.repeat_days);
+        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
         hairLine = itemView.findViewById(R.id.hairline);
 
         final Context context = itemView.getContext();
@@ -96,8 +97,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         for (int i = 0; i < 7; i++) {
             final View dayButtonFrame = inflater.inflate(R.layout.day_button, repeatDays,
                     false /* attachToRoot */);
-            final CompoundButton dayButton =
-                    dayButtonFrame.findViewById(R.id.day_button_box);
+            final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));

@@ -72,6 +72,17 @@ public final class Events {
     }
 
     /**
+     * Tracks a bedtime event.
+     *
+     * @param action resource id of event action
+     * @param label resource id of event label
+     */
+    public static void sendBedtimeEvent(@StringRes int action, @StringRes int label) {
+        sendEvent(R.string.category_bedtime, action, label);
+    }
+
+
+    /**
      * Tracks a screensaver event.
      *
      * @param action resource id of event action

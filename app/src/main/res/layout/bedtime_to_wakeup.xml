@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2016 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
+
+    <ImageView
+        app:srcCompat="@drawable/ic_moon"
+        app:tint="@color/white"
+        android:paddingStart="25dp"
+        android:paddingEnd="10dp"
+        />
+
+
+    <View
+        android:id="@+id/hairline"
+        android:layout_width="284dp"
+        android:layout_height="3dp"
+        app:layout_column="1"
+        app:layout_gravity="center"
+        android:background="@color/md_theme_dark_outline"
+        app:layout_row="0" />
+
+    <TextView
+        android:id="@+id/hours_of_sleep"
+        android:gravity="center"
+        android:background="@color/md_theme_dark_background"
+        android:paddingHorizontal="@dimen/hours_of_sleep_padding"
+        app:layout_column="1"
+        app:layout_gravity="center"
+        app:layout_row="0" />
+
+    <ImageView
+        app:srcCompat="@drawable/ic_tab_wakeup"
+        app:tint="@color/white"
+        android:paddingStart="10dp"
+        android:paddingEnd="25dp"
+        />
+
+</androidx.gridlayout.widget.GridLayout>

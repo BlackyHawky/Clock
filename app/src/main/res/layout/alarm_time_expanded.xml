@@ -60,7 +60,7 @@
 
     <!-- Day buttons are put here programmatically -->
     <LinearLayout
-        android:id="@+id/repeat_days"
+        android:id="@+id/repeat_days_alarm"
         android:layout_width="0dp"
         android:layout_height="@dimen/touch_target_min_size"
         android:orientation="horizontal"

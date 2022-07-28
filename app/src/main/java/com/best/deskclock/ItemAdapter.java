@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.best.deskclock.bedtime.BedtimeFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -296,7 +298,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
          * @param itemHolder the item holder that has changed
          * @param payload    the payload object
          */
-        void onItemChanged(ItemAdapter.ItemHolder<?> itemHolder, Object payload);
+        void onItemChanged(ItemHolder<?> itemHolder, Object payload);
     }
 
     /**
