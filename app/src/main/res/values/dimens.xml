@@ -50,7 +50,7 @@
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="day_button_font_size">16sp</dimen>
     <dimen name="no_alarm_font_size">16sp</dimen>
-    <dimen name="timer_setup_digit_font_size">70sp</dimen>
+    <dimen name="timer_setup_digit_font_size">56sp</dimen>
     <dimen name="timer_setup_top_size">120dip</dimen>
 
     <dimen name="alarm_picker_dialog_horizontal_margin">30dp</dimen>
