@@ -162,12 +162,19 @@
         <item name="trackTint">@color/switch_track_color</item>
     </style>
 
-    <style name="Widget.Button.TimerSetupDigit" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    <style name="Widget.Button.TimerSetupDigit" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:background">@drawable/digit_background</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:gravity">center</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">36sp</item>
+        <item name="android:layout_margin">2.0dip</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="roundPercent">1.0</item>
+        <item name="autoSizeMaxTextSize">36sp</item>
+        <item name="autoSizeTextType">uniform</item>
     </style>
 
     <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
@@ -264,6 +271,20 @@
         <item name="android:shadowColor">@color/widget_shadow_color</item>
         <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
+    </style>
+
+    <style name="TimerSetupTime">
+        <item name="layout_constraintBottom_toBottomOf">@id/timer_setup_time_bottom</item>
+        <item name="layout_constraintEnd_toEndOf">@id/timer_setup_digits</item>
+        <item name="layout_constraintStart_toStartOf">@id/timer_setup_digits</item>
+        <item name="layout_constraintTop_toTopOf">@id/timer_setup_time_top</item>
+    </style>
+
+    <style name="TimerSetupDigits">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@id/timer_setup_time</item>
     </style>
 
 </resources>

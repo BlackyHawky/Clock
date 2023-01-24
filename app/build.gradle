@@ -3,14 +3,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        Retail {
-            storeFile file('C:\\Users\\Fissy\\Desktop\\apktool\\tools\\keystore\\Retail.jks')
-            storePassword 'Qpalzm1784!'
-            keyAlias 'Retail'
-            keyPassword 'Qpalzm1784!'
-        }
-    }
     compileSdk 32
 
     defaultConfig {
@@ -20,14 +12,6 @@ android {
         targetSdk 25
         versionCode 1
         versionName '1'
-        signingConfig signingConfigs.Retail
-    }
-    buildTypes {
-        Retail {
-            debuggable true
-            signingConfig signingConfigs.Retail
-            minifyEnabled true
-        }
     }
 
     compileOptions {

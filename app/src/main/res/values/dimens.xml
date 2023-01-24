@@ -127,4 +127,5 @@
     <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
     <dimen name="fab_height">96dp</dimen>
     <dimen name="world_analog_clock_size">220dp</dimen>
+    <dimen name="fab_container_height">120dp</dimen>
 </resources>
