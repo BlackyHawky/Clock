@@ -86,7 +86,7 @@ public final class StopwatchCircleView extends View {
         super(context, attrs);
 
         final Resources resources = context.getResources();
-        final float dotDiameter = resources.getDimension(R.dimen.circletimer_dot_size);
+        final float dotDiameter = resources.getDimension(R.dimen.stopwatch_circle_size);
 
         mDotRadius = dotDiameter / 2f;
         mScreenDensity = resources.getDisplayMetrics().density;

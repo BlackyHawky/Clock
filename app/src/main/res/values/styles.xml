@@ -177,6 +177,28 @@
         <item name="autoSizeTextType">uniform</item>
     </style>
 
+    <style name="display_time">
+        <item name="android:textSize">56sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+    </style>
+
+    <style name="SecondaryLabelTextParentAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+    </style>
+
+    <style name="SecondaryLabelTextAppearance" parent="SecondaryLabelTextParentAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+
+    <style name="TimerLabelTextAppearance" parent="SecondaryLabelTextAppearance">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
     <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
