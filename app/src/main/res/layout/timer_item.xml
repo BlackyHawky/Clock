@@ -51,6 +51,7 @@
         android:minWidth="@dimen/touch_target_min_size"
         android:minHeight="@dimen/touch_target_min_size"
         android:src="@drawable/ic_close_circle"
+        android:background="?attr/actionBarItemBackground"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -94,10 +95,11 @@
             android:contentDescription="@string/timer_reset"
             android:gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_reset"
+            android:src="@drawable/ic_reset_24dp"
+            android:background="?attr/actionBarItemBackground"
             android:minWidth="@dimen/touch_target_min_size"
             android:minHeight="@dimen/touch_target_min_size"
-            app:tint="@color/md_theme_dark_onPrimaryContainer" />
+            app:tint="@color/md_theme_dark_inversePrimary"/>
 
     </com.best.deskclock.CircleButtonsLayout>
 
@@ -140,7 +142,7 @@
         android:maxLines="1"
         android:padding="24dp"
         android:background="@drawable/bg_material_button"
-        android:backgroundTint="@color/md_theme_dark_onPrimaryContainer"
+        android:backgroundTint="@color/md_theme_light_primary"
         android:src="@drawable/ic_fab_pause"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="@id/add_one_min"
