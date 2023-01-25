@@ -184,6 +184,13 @@
         <item name="android:fontFeatureSettings">tnum</item>
     </style>
 
+    <style name="MaterialCardViewStyle">
+        <item name="android:layout_marginTop">8.0dip</item>
+        <item name="android:layout_marginStart">16.0dip</item>
+        <item name="android:layout_marginEnd">16.0dip</item>
+        <item name="elevation">0.0dip</item>
+    </style>
+
     <style name="SecondaryLabelTextParentAppearance">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/label_text_size</item>
