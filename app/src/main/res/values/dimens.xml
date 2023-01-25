@@ -129,6 +129,7 @@
     <dimen name="fab_height">96dp</dimen>
     <dimen name="world_analog_clock_size">220dp</dimen>
     <dimen name="fab_container_height">120dp</dimen>
+    <dimen name="circletimer_dot_size">10dp</dimen>
 
     <dimen name="gutter_horizontal_padding">24.0dip</dimen>
     <dimen name="gutter_horizontal_padding_extreme_thin">4.0dip</dimen>
