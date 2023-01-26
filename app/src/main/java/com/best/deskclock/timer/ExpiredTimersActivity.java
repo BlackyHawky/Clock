@@ -96,8 +96,6 @@ public class ExpiredTimersActivity extends BaseActivity {
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
-        // Close dialogs and window shade, so this is fully visible
-        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
