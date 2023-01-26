@@ -43,6 +43,7 @@
         android:minWidth="@dimen/touch_target_min_size"
         android:minHeight="@dimen/touch_target_min_size"
         android:src="@drawable/ic_close_circle"
+        android:background="?attr/actionBarItemBackground"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,12 +86,13 @@
             android:minWidth="@dimen/touch_target_min_size"
             android:minHeight="@dimen/touch_target_min_size"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_reset"
+            android:background="?attr/actionBarItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_time_text"
-            app:tint="@color/md_theme_dark_onPrimaryContainer" />
+            android:src="@drawable/ic_reset_24dp"
+            app:tint="@color/md_theme_dark_inversePrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,7 +135,7 @@
         android:maxLines="1"
         android:padding="16dp"
         android:background="@drawable/bg_material_button"
-        android:backgroundTint="@color/md_theme_dark_onPrimaryContainer"
+        android:backgroundTint="@color/md_theme_light_primary"
         android:src="@drawable/ic_fab_pause"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="@id/add_one_min"
