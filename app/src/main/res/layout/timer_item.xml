@@ -59,14 +59,14 @@
 
     <com.best.deskclock.CircleButtonsLayout
         android:id="@+id/circle_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="242dp"
+        android:layout_height="199dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/add_one_min"
         app:layout_constraintHeight_max="@dimen/max_timer_circle_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/add_one_min"
-        app:layout_constraintTop_toBottomOf="@id/timer_label"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/timer_label">
 
         <com.best.deskclock.timer.TimerCircleView
             android:id="@+id/timer_time"
@@ -76,30 +76,30 @@
         <com.best.deskclock.widget.AutoSizingTextView
             android:id="@+id/timer_time_text"
             style="@style/display_time"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:importantForAccessibility="no"
             android:includeFontPadding="false"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:textSize="40sp"
-            android:importantForAccessibility="no"
-            tools:text="01:23"/>
+            tools:text="01:23" />
 
         <ImageButton
             android:id="@+id/reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
+            android:background="?attr/actionBarItemBackground"
             android:contentDescription="@string/timer_reset"
             android:gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_reset_24dp"
-            android:background="?attr/actionBarItemBackground"
             android:minWidth="@dimen/touch_target_min_size"
             android:minHeight="@dimen/touch_target_min_size"
-            app:tint="@color/md_theme_dark_inversePrimary"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_reset_24dp"
+            app:tint="@color/md_theme_dark_inversePrimary" />
 
     </com.best.deskclock.CircleButtonsLayout>
 
