@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -18,7 +19,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '32.1.0-rc1' 
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0-alpha08"
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+
+    buildToolsVersion '32.1.0-rc1'
 }
 
 dependencies {
@@ -39,8 +50,8 @@ dependencies {
     implementation "androidx.percentlayout:percentlayout:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'com.google.android.material:material:1.9.0-alpha01'
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha13'
-    implementation 'androidx.compose.material3:material3-window-size-class:1.0.0-alpha13'
+    implementation 'androidx.compose.material3:material3:1.1.0-alpha06'
+    implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha06'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.loader:loader:1.1.0'
@@ -48,8 +59,4 @@ dependencies {
     implementation 'androidx.test:rules:1.5.0'
 }
 
-/*gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
-}*/ 
+
