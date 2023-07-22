@@ -29,5 +29,5 @@ jobs:
     - name: Upload debug APK artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-         name: Openboard
+         name: Newclock
          path: ./app/build/outputs/apk/debug/*.apk
