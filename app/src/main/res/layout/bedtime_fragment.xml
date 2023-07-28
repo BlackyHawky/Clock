@@ -19,6 +19,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:aapt="http://schemas.android.com/aapt"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -75,7 +76,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.best.deskclock.widget.TextTime
-            android:id="@+id/wakeup_time"
+        android:id="@+id/wakeup_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
@@ -97,5 +98,13 @@
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/sleep_duration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

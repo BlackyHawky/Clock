@@ -1100,7 +1100,7 @@
 
     <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
     <string-array name="array_reminder_notification">
-        <item>15 Minute Before Bedtime</item>
+        <item>15 Minutes Before Bedtime</item>
         <item>30 Minutes Before Bedtime</item>
         <item>45 Minutes Before Bedtime</item>
         <item>1 Hour Before Bedtime</item>
@@ -1117,4 +1117,5 @@
         <item>-1</item> <!-- Off -->
     </string-array>
 
+    <string name="remind_notif">Reminder Notification</string>
 </resources>

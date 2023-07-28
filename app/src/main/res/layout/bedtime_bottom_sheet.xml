@@ -64,15 +64,16 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
 
     </LinearLayout>
 
-    <include
+    <com.best.deskclock.widget.TextTime
         android:id="@+id/bedtime_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="36sp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bedtime_label"
-        layout="@layout/alarm_time_summary"/>
+        app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/toggle_switch_bedtime"
@@ -112,14 +113,21 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repeat_days_bedtime"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reminder Notification"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
-        tools:ignore="HardcodedText" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/bedtime_preference_hairline" >
+        <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/remind_notif"
+                android:textSize="25sp" />
+        <Spinner
+            android:id="@+id/notif_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

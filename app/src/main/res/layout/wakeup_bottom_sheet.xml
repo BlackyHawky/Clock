@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:importantForAccessibility="no"
-            app:layout_constraintStart_toStartOf="@+id/bedtime_time"
+            app:layout_constraintStart_toStartOf="@+id/wake_time"
             app:layout_constraintTop_toBottomOf="@+id/drag_handle">
 
             <ImageView
@@ -64,15 +64,16 @@
 
         </LinearLayout>
 
-        <include
-            android:id="@+id/bedtime_time"
+        <com.best.deskclock.widget.TextTime
+            android:id="@+id/wake_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="36sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wakeup_label"
-            layout="@layout/alarm_time_summary"/>
+            app:layout_constraintTop_toBottomOf="@+id/wakeup_label" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toggle_switch_wakeup"
@@ -82,9 +83,9 @@
             android:focusable="true"
             android:minWidth="@dimen/touch_target_min_size"
             android:minHeight="@dimen/touch_target_min_size"
-            app:layout_constraintBottom_toBottomOf="@+id/bedtime_time"
+            app:layout_constraintBottom_toBottomOf="@+id/wake_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bedtime_time"
+            app:layout_constraintTop_toTopOf="@+id/wake_time"
             app:layout_constraintVertical_bias="1.0" />
 
         <LinearLayout
@@ -99,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
+            app:layout_constraintTop_toBottomOf="@+id/wake_time" />
 
         <View
             android:id="@+id/bedtime_preference_hairline"
@@ -135,16 +136,18 @@
             app:layout_row="3" />
 
 
-        <TextView
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/vibrate_onoff_wake"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Vibrate"
-            android:textAlignment="center"
-            android:textColor="@color/black"
+            android:layout_height="@dimen/touch_target_min_size"
+            android:paddingStart="@dimen/checkbox_start_padding"
+            android:paddingEnd="@dimen/checkbox_start_padding"
+            android:text="@string/alarm_vibrate"
             android:textSize="30sp"
+            app:layout_column="5"
+            app:layout_columnSpan="3"
             app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime"
-            tools:ignore="HardcodedText"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_gravity="center_vertical"
+            app:layout_row="3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

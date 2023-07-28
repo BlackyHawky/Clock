@@ -17,7 +17,6 @@
 
 <androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent">
@@ -39,7 +38,7 @@
         android:background="@color/md_theme_dark_outline"
         app:layout_row="0" />
 
-    <TextView
+    <com.best.deskclock.widget.TextTime
         android:id="@+id/hours_of_sleep"
         android:gravity="center"
         android:background="@color/md_theme_dark_background"

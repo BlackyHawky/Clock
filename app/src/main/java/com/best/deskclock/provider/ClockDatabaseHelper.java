@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.best.deskclock.LogUtils;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.Weekdays;
 
 import java.util.Calendar;
@@ -70,9 +71,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      * Removed change profile
      */
     private static final int VERSION_11 = 12;
+    // This creates a default bedtime alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
+    private static final String DEFAULT_ALARM_0 = "(8, 30, 31, 0, 1, " + BedtimeFragment.BEDLABEL2 + ", NULL, 0, 0);";
     // This creates a default alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
     private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 1, '', NULL, 0, 0);";
-    // This creates a default alarm at 9:30 for every Sat,Sun
+    // This creates a default alarm at 9:00 for every Sat,Sun
     private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 1, '', NULL, 0, 0);";
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
@@ -132,6 +135,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.RINGTONE + cs +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + cs +
                 ClockContract.AlarmsColumns.INCREASING_VOLUME + ") VALUES ";
+        db.execSQL(insertMe + DEFAULT_ALARM_0);
         db.execSQL(insertMe + DEFAULT_ALARM_1);
         db.execSQL(insertMe + DEFAULT_ALARM_2);
     }
