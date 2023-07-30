@@ -20,12 +20,15 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
         tools:ignore="ProtectedPermissions" />
@@ -43,6 +46,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeskClock"
         tools:targetApi="o">
+
+        <!-- We can deal with all kinds of aspect ratios -->
+        <meta-data android:name="android.max_aspect" android:value="0.0" />
 
         <!-- ============================================================== -->
         <!-- Main app components.                                           -->

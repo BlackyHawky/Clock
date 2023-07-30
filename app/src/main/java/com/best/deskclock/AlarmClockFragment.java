@@ -266,6 +266,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
         mAlarmUpdateHandler.hideUndoBar();
+
+        // Don't show the picker after resuming, so we don't need to remember what time we edited
+        // last (and the user maybe also doesn't remember then, editing the wrong alarm)
+        TimePickerDialogFragment.removeTimeEditDialog(getChildFragmentManager());
     }
 
     @Override

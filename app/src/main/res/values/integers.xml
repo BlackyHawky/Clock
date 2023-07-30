@@ -16,4 +16,5 @@
 <resources>
     <integer name="gutter_width_percent">4</integer>
     <integer name="guttered_content_width_percent">92</integer>
+    <integer name="timers_column_count">1</integer>
 </resources>
