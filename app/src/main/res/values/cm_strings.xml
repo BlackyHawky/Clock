@@ -36,4 +36,5 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
+    <string name="bedtime_channel">@string/bedtime</string>
 </resources>

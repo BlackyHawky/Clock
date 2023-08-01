@@ -72,7 +72,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_11 = 12;
     // This creates a default bedtime alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
-    private static final String DEFAULT_ALARM_0 = "(8, 30, 31, 0, 1, " + BedtimeFragment.BEDLABEL2 + ", NULL, 0, 0);";
+    private static final String DEFAULT_ALARM_0 = "(8, 30, 31, 0, 1, " + "'" + BedtimeFragment.BEDLABEL + "'" + ", NULL, 0, 0);";
     // This creates a default alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
     private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 1, '', NULL, 0, 0);";
     // This creates a default alarm at 9:00 for every Sat,Sun

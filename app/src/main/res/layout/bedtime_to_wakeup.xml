@@ -38,7 +38,7 @@
         android:background="@color/md_theme_dark_outline"
         app:layout_row="0" />
 
-    <com.best.deskclock.widget.TextTime
+    <TextView
         android:id="@+id/hours_of_sleep"
         android:gravity="center"
         android:background="@color/md_theme_dark_background"

@@ -1,6 +1,5 @@
 package com.best.deskclock.bedtime;
 
-
 import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.INVISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialog;
 
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.LogUtils;
@@ -46,22 +44,18 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.TextTime;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
 /**
  * Fragment that shows the bedtime.
  // */
+//TODO: request additional perms
 public final class BedtimeFragment extends DeskClockFragment implements
         TimePickerDialogFragment.OnTimeSetListener {
 
     //We need a unique label to identify our wake alarm
-    String BEDLABEL = "irmvwtiucrhdsgcjidsjfmrvdokksvjiuhmfdrijlanscifmreiucmehjniafcnfmoraimciufmhjiafuomiu";
-    public static String BEDLABEL2 = "'irmvwtiucrhdsgcjidsjfmrvdokksvjiuhmfdrijlanscifmreiucmehjniafcnfmoraimciufmhjiafuomiu'";
+    public static String BEDLABEL = "irmvwtiucrhdsgcjidsjfmrvdokksvjiuhmfdrijlanscifmreiucmehjniafcnfmoraimciufmhjiafuomiu";
     Context context;
     Vibrator vibrator;
 
@@ -77,6 +71,8 @@ public final class BedtimeFragment extends DeskClockFragment implements
     CheckBox vibrate;
     CompoundButton[] dayButtons = new CompoundButton[7];
     CompoundButton onOff;
+    CompoundButton wall;
+    CompoundButton dnd;
 
     AlarmUpdateHandler mAlarmUpdateHandler;
     ViewGroup mMainLayout;
@@ -130,15 +126,22 @@ public final class BedtimeFragment extends DeskClockFragment implements
     // Calculates the different between the time times
     private void hoursOfSleep(Alarm alarm) {
 
+        //TODO: what if someone goes to bed after 12 am
         int minDiff = alarm.minutes - saver.minutes;
         int hDiff = alarm.hour + 24 - saver.hour;
         if (minDiff < 0){
             hDiff = hDiff - 1;
-            minDiff = 60 - minDiff;
+            minDiff = 60 + minDiff;
+        }
+        String diff;
+        if (minDiff == 0) {
+            diff = hDiff + "h";
+        } else {
+            diff = hDiff + "h " + minDiff + "min";
         }
 
-        TextTime hours_of_sleep_text = (TextTime) view.findViewById(R.id.hours_of_sleep);
-        hours_of_sleep_text.setTime(hDiff, minDiff);
+        TextView hours_of_sleep_text = (TextView) view.findViewById(R.id.hours_of_sleep);
+        hours_of_sleep_text.setText(diff);
         hours_of_sleep_text.setAlpha(saver.enabled && alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
     }
 
@@ -236,7 +239,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bottomSheetDialog.show();
     }
 
-    private Alarm getBedAlarm() {
+    public Alarm getBedAlarm() {
         ContentResolver cr = context.getApplicationContext().getContentResolver();
         return Alarm.getAlarmByLabel(cr, BEDLABEL);
     }
@@ -276,7 +279,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
                     // if the change altered the next scheduled alarm time, tell the user
                     /*final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
                     final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);*/
-                    final boolean popupToast = false;////TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
+                    final boolean popupToast = false;//TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
                     mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
                     if (vibrator.hasVibrator()) {
@@ -339,6 +342,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void bindOnOffSwitch(Alarm alarm) {
         if (onOff.isChecked() != alarm.enabled) {
             onOff.setChecked(alarm.enabled);
+            bindClock(alarm);
         }
     }
 
@@ -346,6 +350,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         clock.setTime(alarm.hour, alarm.minutes);
         clock.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         bindFragWakeClock(alarm);
+        hoursOfSleep(alarm);
     }
 
     private void bindFragWakeClock(Alarm alarm) {
@@ -369,6 +374,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
             saver.enabled = true;
             saver.save();
             bindBedClock();
+            BedtimeService.scheduleBed(context, saver, BedtimeService.ACTION_LAUNCH_BEDTIME);
+            if (saver.notifShowTime != -1) {
+                BedtimeService.scheduleBed(context, saver, BedtimeService.ACTION_BED_REMIND_NOTIF);
+            }
         }
     }
 
@@ -383,6 +392,8 @@ public final class BedtimeFragment extends DeskClockFragment implements
         clock = bottomSheetDialog.findViewById(R.id.bedtime_time);
         onOff = bottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
         notifList = (Spinner) bottomSheetDialog.findViewById(R.id.notif_spinner);
+        dnd = bottomSheetDialog.findViewById(R.id.dnd_switch);
+        wall = bottomSheetDialog.findViewById(R.id.wall_switch);
         buildButton(bottomSheetDialog);
         bindBedStuff();
 
@@ -408,6 +419,16 @@ public final class BedtimeFragment extends DeskClockFragment implements
                         vibrator.vibrate(10);
                     }
                 }
+                if (!checked) {
+                    BedtimeService.cancelBed(context, BedtimeService.ACTION_LAUNCH_BEDTIME);
+                    BedtimeService.cancelBed(context, BedtimeService.ACTION_BED_REMIND_NOTIF);
+                    BedtimeService.cancelNotification(context);
+                } else {
+                    BedtimeService.scheduleBed(context, saver, BedtimeService.ACTION_LAUNCH_BEDTIME);
+                    if (saver.notifShowTime != -1) {
+                        BedtimeService.scheduleBed(context, saver, BedtimeService.ACTION_BED_REMIND_NOTIF);
+                    }
+                }
             }
         });
 
@@ -422,6 +443,30 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        dnd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean checked) {
+                if (checked != saver.doNotDisturb) {
+                    saver.doNotDisturb = checked;
+                    saver.save();
+                    Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable,
+                            R.string.bed_dnd_title);
+                }
+            }
+        });
+
+        wall.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean checked) {
+                if (checked != saver.dimWall) {
+                    saver.dimWall = checked;
+                    saver.save();
+                    Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable,
+                            R.string.bed_wall_title);
+                }
             }
         });
 
@@ -457,7 +502,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
                     final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
                     saver.daysOfWeek = saver.daysOfWeek.setBit(weekday, checked);
 
-                    //TODO: don't tell the user bedtime changed because the user can't see it behind the bottomSheet
+                    //TODO: normally we would tell the user bedtime changed but the user can't see the toast behind the bottomSheet
                     saver.save();
 
                     if (vibrator.hasVibrator()) {
@@ -479,6 +524,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bindBedSwitch();
         bindBedClock();
         bindSpinner();
+        bindSwitches();
     }
 
     private void bindDaysOfBedButtons(Context context) {
@@ -500,6 +546,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void bindBedSwitch() {
         if (onOff.isChecked() != saver.enabled) {
             onOff.setChecked(saver.enabled);
+            bindBedClock();
         }
     }
 
@@ -507,6 +554,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         clock.setTime(saver.hour, saver.minutes);
         clock.setAlpha(saver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         bindFragBedClock();
+        hoursOfSleep(getBedAlarm());
     }
 
     private void bindFragBedClock() {
@@ -517,6 +565,15 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void bindSpinner() {
         notifList.setAdapter(ArrayAdapter.createFromResource(context, R.array.array_reminder_notification, R.layout.spinner_item));
         notifList.setSelection(getSpinnerPos(saver.notifShowTime, context.getResources().getStringArray(R.array.array_reminder_notification_values)));
+    }
+
+    private void bindSwitches() {
+        if (dnd.isChecked() != saver.doNotDisturb) {
+            dnd.setChecked(saver.doNotDisturb);
+        }
+        if (wall.isChecked() != saver.dimWall) {
+            wall.setChecked(saver.dimWall);
+        }
     }
 
     //TODO: implement sleep-timers with common media support(songs, albums, artists and playlists) in here
