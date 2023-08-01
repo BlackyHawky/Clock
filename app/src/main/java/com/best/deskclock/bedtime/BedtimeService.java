@@ -54,6 +54,7 @@ import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.File;
@@ -395,20 +396,28 @@ public final class BedtimeService extends Service {
             } else {
                 LogUtils.d("device does not support do not disturb feature");
             }
-        } else {txt = "TEST(u broke the matrix)";}
-
-        Alarm alarm = Alarm.getAlarmByLabel(context.getApplicationContext().getContentResolver(), BedtimeFragment.BEDLABEL);
-        String ending = "";
-        if (!DataModel.getDataModel().is24HourFormat()) {
-            if (alarm.hour > 11) {
-                ending = " PM";
-            } else {
-                ending = " AM";
-            }
         }
-        String wake = alarm.hour > 12 ? Integer.toString(alarm.hour - 12) : alarm.hour + ":" + alarm.minutes + ending;
-        txt = context.getString(R.string.bed_notif_until, txt, wake);
-        showLaunchNotification(context, txt);
+        if (saver.doNotDisturb || saver.dimWall) {
+
+            Alarm alarm = Alarm.getAlarmByLabel(context.getApplicationContext().getContentResolver(), BedtimeFragment.BEDLABEL);
+            String ending = "";
+            if (!DataModel.getDataModel().is24HourFormat()) {
+                if (alarm.hour > 11) {
+                    ending = " PM";
+                } else {
+                    ending = " AM";
+                }
+            }
+            String wake = alarm.hour > 12 ? Integer.toString(alarm.hour - 12) : alarm.hour + ":" + alarm.minutes + ending;
+            txt = context.getString(R.string.bed_notif_until, txt, wake);
+            showLaunchNotification(context, txt);
+
+            AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+            Intent off = new Intent(context, BedtimeService.class);
+            off.setAction(ACTION_BEDTIME_CANCEL);
+            am.setExact(AlarmManager.RTC, AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(), alarm.id).getAlarmTime().getTimeInMillis(), PendingIntent.getService(context, 0,
+                    off, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        }
     }
 
     private void stopBed(Context context, DataSaver saver) {
