@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/start_guide" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_begin="@dimen/gutter_horizontal_padding" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/start_guide_thin" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_begin="@dimen/gutter_horizontal_padding_thin" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/start_guide_very_thin" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_begin="@dimen/gutter_horizontal_padding_very_thin" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/end_guide" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_end="@dimen/gutter_horizontal_padding" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/end_guide_thin" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_end="@dimen/gutter_horizontal_padding_thin" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/end_guide_very_thin" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_end="@dimen/gutter_horizontal_padding_very_thin" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/end_guide_extreme_thin" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_end="@dimen/gutter_horizontal_padding_extreme_thin" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/timer_circle_start_guide" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.1" />
+    <androidx.constraintlayout.widget.Guideline android:orientation="vertical" android:id="@+id/timer_circle_end_guide" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.9" />
+</merge>

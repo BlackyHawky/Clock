@@ -26,6 +26,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -57,15 +58,19 @@ public class TimerItem extends ConstraintLayout {
      */
     private TimerCircleView mCircleView;
 
-    /**
-     * A button that either resets the timer or adds time to it, depending on its state.
-     */
-    private Button mResetAddButton;
+    /** A button that resets the timer. */
+    private ImageButton mResetButton;
+
+    /** A button that adds a minute to the timer. */
+    private Button mAddButton;
 
     /**
      * Displays the label associated with the timer. Tapping it presents an edit dialog.
      */
     private TextView mLabelView;
+
+    /** A button to start / stop the timer */
+    private ImageButton mPlayPauseButton;
 
     /**
      * The last state of the timer that was rendered; used to avoid expensive operations.
@@ -84,9 +89,11 @@ public class TimerItem extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mLabelView = findViewById(R.id.timer_label);
-        mResetAddButton = findViewById(R.id.reset_add);
+        mResetButton = findViewById(R.id.reset);
+        mAddButton = findViewById(R.id.add_one_min);
         mCircleView = findViewById(R.id.timer_time);
         mTimerText = findViewById(R.id.timer_time_text);
+        mPlayPauseButton = findViewById(R.id.play_pause);
         mTimerTextController = new TimerTextController(mTimerText);
 
         final Context c = mTimerText.getContext();
@@ -121,50 +128,35 @@ public class TimerItem extends ConstraintLayout {
                 mCircleView.update(timer);
             }
         }
-        if (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) {
-            mTimerText.setAlpha(1f);
-        } else {
-            mTimerText.setAlpha(0f);
-        }
+
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
-            mResetAddButton.setVisibility(View.VISIBLE);
-            mLastState = timer.getState();
             final Context context = getContext();
+            final String resetDesc = context.getString(R.string.timer_reset);
+            mResetButton.setVisibility(View.VISIBLE);
+            mResetButton.setContentDescription(resetDesc);
+            mAddButton.setVisibility(View.VISIBLE);
+            mLastState = timer.getState();
             switch (mLastState) {
                 case RESET:
-                    mResetAddButton.setVisibility(View.GONE);
+                    mResetButton.setVisibility(View.GONE);
+                    mResetButton.setContentDescription(null);
+                    mAddButton.setVisibility(View.INVISIBLE);
+                    mPlayPauseButton.setImageResource(R.drawable.ic_pause_play);
                     break;
                 case PAUSED: {
-                    mResetAddButton.setText(R.string.timer_reset);
-                    mResetAddButton.setContentDescription(null);
-                    mTimerText.setClickable(true);
-                    mTimerText.setActivated(false);
-                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
-                    ViewCompat.setAccessibilityDelegate(mTimerText, new ClickAccessibilityDelegate(
-                            context.getString(R.string.timer_start), true));
+                    mPlayPauseButton.setImageResource(R.drawable.ic_pause_play);
                     break;
                 }
                 case RUNNING: {
-                    final String addTimeDesc = context.getString(R.string.timer_plus_one);
-                    mResetAddButton.setText(R.string.timer_add_minute);
-                    mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setClickable(true);
-                    mTimerText.setActivated(false);
-                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
-                    ViewCompat.setAccessibilityDelegate(mTimerText, new ClickAccessibilityDelegate(
-                            context.getString(R.string.timer_pause)));
+                    mPlayPauseButton.setImageResource(R.drawable.ic_play_pause);
                     break;
                 }
                 case EXPIRED:
                 case MISSED: {
-                    final String addTimeDesc = context.getString(R.string.timer_plus_one);
-                    mResetAddButton.setText(R.string.timer_add_minute);
-                    mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setClickable(false);
-                    mTimerText.setActivated(true);
-                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    mResetButton.setVisibility(View.GONE);
+                    mPlayPauseButton.setImageResource(R.drawable.ic_stop_play);
                     break;
                 }
             }

@@ -28,4 +28,23 @@
         <attr name="radius" format="dimension" />
     </declare-styleable>
 
+    <attr name="onStateTransition">
+        <enum name="actionDown" value="1" />
+        <enum name="actionDownUp" value="3" />
+        <enum name="actionUp" value="2" />
+        <enum name="sharedValueSet" value="4" />
+        <enum name="sharedValueUnset" value="5" />
+    </attr>
+
+    <attr name="viewTransitionMode">
+        <enum name="allStates" value="1" />
+        <enum name="currentState" value="0" />
+        <enum name="noState" value="2" />
+    </attr>
+
+    <declare-styleable name="MotionButton">
+        <attr format="dimension" name="round"/>
+        <attr format="float" name="roundPercent"/>
+    </declare-styleable>
+
 </resources>

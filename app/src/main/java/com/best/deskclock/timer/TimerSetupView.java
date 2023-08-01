@@ -52,7 +52,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     private int mInputPointer = -1;
     private TextView mTimeView;
     private View mDeleteView;
-    private View mDigitViews00;
+
     private TextView[] mDigitViews;
     /**
      * Updates to the fab are requested via this container.
@@ -80,7 +80,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 FormattedTextUtils.formatText(minutesLabel, new RelativeSizeSpan(0.5f)),
                 FormattedTextUtils.formatText(secondsLabel, new RelativeSizeSpan(0.5f)));
 
-        LayoutInflater.from(context).inflate(R.layout.timer_setup_container, this);
+        LayoutInflater.from(context).inflate(R.layout.timer_setup_view, this);
     }
 
     @Override
@@ -89,7 +89,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
         mTimeView = findViewById(R.id.timer_setup_time);
         mDeleteView = findViewById(R.id.timer_setup_delete);
-        mDigitViews00 = findViewById(R.id.timer_setup_digit_00);
         mDigitViews = new TextView[]{
                 findViewById(R.id.timer_setup_digit_0),
                 findViewById(R.id.timer_setup_digit_1),
@@ -110,9 +109,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             digitView.setText(uidm.getFormattedNumber(digit, 1));
             digitView.setOnClickListener(this);
         }
+        TextView doubleZero = findViewById(R.id.timer_setup_digit_00);
+        doubleZero.setText(uidm.getFormattedNumber(0, 2));
+        doubleZero.setOnClickListener(this);
 
         mDeleteView.setOnClickListener(this);
-        mDigitViews00.setOnClickListener(this);
         mDeleteView.setOnLongClickListener(this);
 
         updateTime();
@@ -147,7 +148,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     public void onClick(View view) {
         if (view == mDeleteView) {
             delete();
-        } else if (view == mDigitViews00) {
+        } else if (view.getId() == R.id.timer_setup_digit_00) {
             append(0);
             append(0);
         } else {

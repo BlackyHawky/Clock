@@ -36,14 +36,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.DeskClock;
@@ -68,10 +70,6 @@ public final class TimerFragment extends DeskClockFragment {
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
-    /**
-     * Notified when the user swipes vertically to change the visible timer.
-     */
-    private final TimerPageChangeListener mTimerPageChangeListener = new TimerPageChangeListener();
 
     /**
      * Scheduled to update the timers while at least one is running.
@@ -79,16 +77,17 @@ public final class TimerFragment extends DeskClockFragment {
     private final Runnable mTimeUpdateRunnable = new TimeUpdateRunnable();
 
     /**
-     * Updates the {@link #mPageIndicators} in response to timers being added or removed.
+     * Updates the FABs in response to timers being added or removed.
      */
     private final TimerListener mTimerWatcher = new TimerWatcher();
 
     private TimerSetupView mCreateTimerView;
-    private ViewPager mViewPager;
-    private TimerPagerAdapter mAdapter;
+    private TimerAdapter mAdapter;
+
     private View mTimersView;
     private View mCurrentView;
-    private ImageView[] mPageIndicators;
+    private RecyclerView mRecyclerView;
+    private TimerClickHandler mTimerClickHandler;
 
     private Serializable mTimerSetupState;
 
@@ -98,13 +97,6 @@ public final class TimerFragment extends DeskClockFragment {
     private boolean mCreatingTimer;
 
     /**
-     * The public no-arg constructor required by all fragments.
-     */
-    public TimerFragment() {
-        super(TIMERS);
-    }
-
-    /**
      * @return an Intent that selects the timers tab with the setup screen for a new timer in place.
      */
     public static Intent createTimerSetupIntent(Context context) {
@@ -112,80 +104,30 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     /**
-     * @param page               the selected page; value between 0 and {@code pageCount}
-     * @param pageIndicatorCount the number of indicators displaying the {@code page} location
-     * @param pageCount          the number of pages that exist
-     * @return an array of length {@code pageIndicatorCount} specifying which image to display for
-     * each page indicator or 0 if the page indicator should be hidden
+     * The public no-arg constructor required by all fragments.
      */
-    @VisibleForTesting
-    static int[] computePageIndicatorStates(int page, int pageIndicatorCount, int pageCount) {
-        // Compute the number of page indicators that will be visible.
-        final int rangeSize = Math.min(pageIndicatorCount, pageCount);
-
-        // Compute the inclusive range of pages to indicate centered around the selected page.
-        int rangeStart = page - (rangeSize / 2);
-        int rangeEnd = rangeStart + rangeSize - 1;
-
-        // Clamp the range of pages if they extend beyond the last page.
-        if (rangeEnd >= pageCount) {
-            rangeEnd = pageCount - 1;
-            rangeStart = rangeEnd - rangeSize + 1;
-        }
-
-        // Clamp the range of pages if they extend beyond the first page.
-        if (rangeStart < 0) {
-            rangeStart = 0;
-            rangeEnd = rangeSize - 1;
-        }
-
-        // Build the result with all page indicators initially hidden.
-        final int[] states = new int[pageIndicatorCount];
-        Arrays.fill(states, 0);
-
-        // If 0 or 1 total pages exist, all page indicators must remain hidden.
-        if (rangeSize < 2) {
-            return states;
-        }
-
-        // Initialize the visible page indicators to be dark.
-        Arrays.fill(states, 0, rangeSize, R.drawable.ic_swipe_circle_dark);
-
-        // If more pages exist before the first page indicator, make it a fade-in gradient.
-        if (rangeStart > 0) {
-            states[0] = R.drawable.ic_swipe_circle_top;
-        }
-
-        // If more pages exist after the last page indicator, make it a fade-out gradient.
-        if (rangeEnd < pageCount - 1) {
-            states[rangeSize - 1] = R.drawable.ic_swipe_circle_bottom;
-        }
-
-        // Set the indicator of the selected page to be light.
-        states[page - rangeStart] = R.drawable.ic_swipe_circle_light;
-
-        return states;
+    public TimerFragment() {
+        super(TIMERS);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
-        mAdapter = new TimerPagerAdapter(getFragmentManager());
-        mViewPager = view.findViewById(R.id.vertical_view_pager);
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.addOnPageChangeListener(mTimerPageChangeListener);
+        Context context = view.getContext();
+        mTimerClickHandler = new TimerClickHandler(this);
+        mAdapter = new TimerAdapter(mTimerClickHandler);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
+
 
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
         mCreateTimerView.setFabContainer(this);
-        mPageIndicators = new ImageView[]{
-                view.findViewById(R.id.page_indicator0),
-                view.findViewById(R.id.page_indicator1),
-                view.findViewById(R.id.page_indicator2),
-                view.findViewById(R.id.page_indicator3)
-        };
+
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -202,8 +144,7 @@ public final class TimerFragment extends DeskClockFragment {
     public void onStart() {
         super.onStart();
 
-        // Initialize the page indicators.
-        updatePageIndicators();
+
 
         boolean createTimer = false;
         int showTimerId = -1;
@@ -237,42 +178,6 @@ public final class TimerFragment extends DeskClockFragment {
             showTimersView(FAB_AND_BUTTONS_IMMEDIATE);
         }
 
-        // If the intent did not specify a timer to show, show the last timer that expired.
-        if (showTimerId == -1) {
-            final Timer timer = DataModel.getDataModel().getMostRecentExpiredTimer();
-            showTimerId = timer == null ? -1 : timer.getId();
-        }
-
-        // If a specific timer should be displayed, display the corresponding timer tab.
-        if (showTimerId != -1) {
-            final Timer timer = DataModel.getDataModel().getTimer(showTimerId);
-            if (timer != null) {
-                final int index = DataModel.getDataModel().getTimers().indexOf(timer);
-                mViewPager.setCurrentItem(index);
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // We may have received a new intent while paused.
-        final Intent intent = getActivity().getIntent();
-        if (intent != null && intent.hasExtra(TimerService.EXTRA_TIMER_ID)) {
-            // This extra is single-use; remove after honoring it.
-            final int showTimerId = intent.getIntExtra(TimerService.EXTRA_TIMER_ID, -1);
-            intent.removeExtra(TimerService.EXTRA_TIMER_ID);
-
-            final Timer timer = DataModel.getDataModel().getTimer(showTimerId);
-            if (timer != null) {
-                // A specific timer must be shown; show the list of timers.
-                final int index = DataModel.getDataModel().getTimers().indexOf(timer);
-                mViewPager.setCurrentItem(index);
-
-                animateToView(mTimersView, null, false);
-            }
-        }
     }
 
     @Override
@@ -304,29 +209,9 @@ public final class TimerFragment extends DeskClockFragment {
 
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
-            final Timer timer = getTimer();
-            if (timer == null) {
-                fab.setVisibility(INVISIBLE);
-                return;
-            }
-
+            fab.setImageResource(R.drawable.ic_add_24dp);
+            fab.setContentDescription(fab.getResources().getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
-            switch (timer.getState()) {
-                case RUNNING:
-                    fab.setImageResource(R.drawable.ic_fab_pause);
-                    fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
-                    break;
-                case RESET:
-                case PAUSED:
-                    fab.setImageResource(R.drawable.ic_fab_play);
-                    fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
-                    break;
-                case MISSED:
-                case EXPIRED:
-                    fab.setImageResource(R.drawable.ic_fab_stop);
-                    fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
-                    break;
-            }
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
@@ -355,15 +240,8 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         if (mCurrentView == mTimersView) {
-            left.setClickable(true);
-            left.setText(R.string.timer_delete);
-            left.setContentDescription(left.getResources().getString(R.string.timer_delete));
-            left.setVisibility(VISIBLE);
-
-            right.setClickable(true);
-            right.setText(R.string.timer_add_timer);
-            right.setContentDescription(right.getResources().getString(R.string.timer_add_timer));
-            right.setVisibility(VISIBLE);
+            left.setVisibility(INVISIBLE);
+            right.setVisibility(INVISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
             left.setClickable(true);
@@ -379,40 +257,7 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onFabClick(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
-            final Timer timer = getTimer();
-
-            // If no timer is currently showing a fab action is meaningless.
-            if (timer == null) {
-                return;
-            }
-
-            final Context context = fab.getContext();
-            final long currentTime = timer.getRemainingTime();
-
-            switch (timer.getState()) {
-                case RUNNING:
-                    DataModel.getDataModel().pauseTimer(timer);
-                    Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
-                    if (currentTime > 0) {
-                        mTimersView.announceForAccessibility(TimerStringFormatter.formatString(
-                                context, R.string.timer_accessibility_stopped, currentTime, true));
-                    }
-                    break;
-                case PAUSED:
-                case RESET:
-                    DataModel.getDataModel().startTimer(timer);
-                    Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-                    if (currentTime > 0) {
-                        mTimersView.announceForAccessibility(TimerStringFormatter.formatString(
-                                context, R.string.timer_accessibility_started, currentTime, true));
-                    }
-                    break;
-                case MISSED:
-                case EXPIRED:
-                    DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
-                    break;
-            }
-
+            animateToView(mCreateTimerView, null, true);
         } else if (mCurrentView == mCreateTimerView) {
             mCreatingTimer = true;
             try {
@@ -425,8 +270,7 @@ public final class TimerFragment extends DeskClockFragment {
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
 
-                // Display the freshly created timer view.
-                mViewPager.setCurrentItem(0);
+
             } finally {
                 mCreatingTimer = false;
             }
@@ -444,10 +288,11 @@ public final class TimerFragment extends DeskClockFragment {
             if (timer == null) {
                 return;
             }
+            DataModel.getDataModel().removeTimer(timer);
+            Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
 
-            if (mAdapter.getCount() > 1) {
-                animateTimerRemove(timer);
-            } else {
+            if (mAdapter.getItemCount() <= 1) {
+
                 animateToView(mCreateTimerView, timer, false);
             }
 
@@ -477,27 +322,7 @@ public final class TimerFragment extends DeskClockFragment {
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * Updates the state of the page indicators so they reflect the selected page in the context of
-     * all pages.
-     */
-    private void updatePageIndicators() {
-        final int page = mViewPager.getCurrentItem();
-        final int pageIndicatorCount = mPageIndicators.length;
-        final int pageCount = mAdapter.getCount();
 
-        final int[] states = computePageIndicatorStates(page, pageIndicatorCount, pageCount);
-        for (int i = 0; i < states.length; i++) {
-            final int state = states[i];
-            final ImageView pageIndicator = mPageIndicators[i];
-            if (state == 0) {
-                pageIndicator.setVisibility(GONE);
-            } else {
-                pageIndicator.setVisibility(VISIBLE);
-                pageIndicator.setImageResource(state);
-            }
-        }
-    }
 
     /**
      * Display the view that creates a new timer.
@@ -538,31 +363,7 @@ public final class TimerFragment extends DeskClockFragment {
         startUpdatingTime();
     }
 
-    /**
-     * @param timerToRemove the timer to be removed during the animation
-     */
-    private void animateTimerRemove(final Timer timerToRemove) {
-        final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
 
-        final Animator fadeOut = ObjectAnimator.ofFloat(mViewPager, ALPHA, 1, 0);
-        fadeOut.setDuration(duration);
-        fadeOut.setInterpolator(new DecelerateInterpolator());
-        fadeOut.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                DataModel.getDataModel().removeTimer(timerToRemove);
-                Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-            }
-        });
-
-        final Animator fadeIn = ObjectAnimator.ofFloat(mViewPager, ALPHA, 0, 1);
-        fadeIn.setDuration(duration);
-        fadeIn.setInterpolator(new AccelerateInterpolator());
-
-        final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(fadeOut).before(fadeIn);
-        animatorSet.start();
-    }
 
     /**
      * @param toView        one of {@link #mTimersView} or {@link #mCreateTimerView}
@@ -585,7 +386,7 @@ public final class TimerFragment extends DeskClockFragment {
         // Avoid double-taps by enabling/disabling the set of buttons active on the new view.
         updateFab(BUTTONS_DISABLE);
 
-        final long animationDuration = UiDataModel.getUiDataModel().getLongAnimationDuration();
+        final long animationDuration = UiDataModel.getUiDataModel().getMediumAnimationDuration();
 
         final ViewTreeObserver viewTreeObserver = toView.getViewTreeObserver();
         viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -670,30 +471,47 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private boolean hasTimers() {
-        return mAdapter.getCount() > 0;
+        return mAdapter.getItemCount() > 0;
     }
 
     private Timer getTimer() {
         if (mAdapter == null) {
-            TimerPagerAdapter adapter = new TimerPagerAdapter(getFragmentManager());
-            return adapter.getCount() == 0 ? null : adapter.getTimer(0);
+            TimerAdapter adapter = new TimerAdapter(mTimerClickHandler);
+            return adapter.getItemCount() == 0 ? null : adapter.getTimer(0);
         }
 
-        if (mViewPager == null) {
+        if (mRecyclerView == null) {
             return null;
         }
 
-        return mAdapter.getCount() == 0 ? null : mAdapter.getTimer(mViewPager.getCurrentItem());
+        return mAdapter.getItemCount() == 0 ? null : mAdapter.getTimer(0);
     }
 
     private void startUpdatingTime() {
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        mViewPager.post(mTimeUpdateRunnable);
+        mRecyclerView.post(mTimeUpdateRunnable);
     }
 
     private void stopUpdatingTime() {
-        mViewPager.removeCallbacks(mTimeUpdateRunnable);
+        mRecyclerView.removeCallbacks(mTimeUpdateRunnable);
+    }
+
+    private RecyclerView.LayoutManager getLayoutManager(Context context) {
+        Resources res = context.getResources();
+        boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
+        if (isTablet) {
+            int columnCount = res.getInteger(R.integer.timers_column_count);
+            return new GridLayoutManager(context, columnCount);
+        }
+
+        int orientation = res.getConfiguration().orientation;
+        boolean isLandscape = false;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            isLandscape = true;
+        }
+        return new LinearLayoutManager(context, isLandscape
+                ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
     }
 
     /**
@@ -715,36 +533,13 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    /**
-     * Update the page indicators and fab in response to a new timer becoming visible.
-     */
-    private class TimerPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
-        @Override
-        public void onPageSelected(int position) {
-            updatePageIndicators();
-            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
-            // Showing a new timer page may introduce a timer requiring continuous updates.
-            startUpdatingTime();
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            // Teasing a neighboring timer may introduce a timer requiring continuous updates.
-            if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                startUpdatingTime();
-            }
-        }
-    }
-
-    /**
-     * Update the page indicators in response to timers being added or removed.
-     * Update the fab in response to the visible timer changing.
+    /** Update the fab in response to the visible timer changing.
      */
     private class TimerWatcher implements TimerListener {
         @Override
         public void timerAdded(Timer timer) {
-            updatePageIndicators();
+
             // If the timer is being created via this fragment avoid adjusting the fab.
             // Timer setup view is about to be animated away in response to this timer creation.
             // Changes to the fab immediately preceding that animation are jarring.
@@ -760,28 +555,15 @@ public final class TimerFragment extends DeskClockFragment {
                 startUpdatingTime();
             }
 
-            // Fetch the index of the change.
-            final int index = DataModel.getDataModel().getTimers().indexOf(after);
 
-            // If the timer just expired but is not displayed, display it now.
-            if (!before.isExpired() && after.isExpired() && index != mViewPager.getCurrentItem()) {
-                mViewPager.setCurrentItem(index, true);
-
-            } else if (mCurrentView == mTimersView && index == mViewPager.getCurrentItem()) {
-                // Morph the fab from its old state to new state if necessary.
-                if (before.getState() != after.getState()
-                        && !(before.isPaused() && after.isReset())) {
-                    updateFab(FAB_MORPH);
-                }
-            }
         }
 
         @Override
         public void timerRemoved(Timer timer) {
-            updatePageIndicators();
+
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
-            if (mCurrentView == mTimersView && mAdapter.getCount() == 0) {
+            if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
                 animateToView(mCreateTimerView, null, false);
             }
         }

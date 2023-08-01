@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -18,7 +17,7 @@ public class CircleButtonsLayout extends FrameLayout {
 
     private final float mDiamOffset;
     private View mCircleView;
-    private Button mResetAddButton;
+    private View mResetAddButton;
     private TextView mLabel;
 
     @SuppressWarnings("unused")
@@ -48,7 +47,7 @@ public class CircleButtonsLayout extends FrameLayout {
         if (mLabel == null) {
             mCircleView = findViewById(R.id.timer_time);
             mLabel = findViewById(R.id.timer_label);
-            mResetAddButton = findViewById(R.id.reset_add);
+            mResetAddButton = findViewById(R.id.reset);
         }
 
         final int frameWidth = mCircleView.getMeasuredWidth();
@@ -59,7 +58,7 @@ public class CircleButtonsLayout extends FrameLayout {
         if (mResetAddButton != null) {
             final MarginLayoutParams resetAddParams = (MarginLayoutParams) mResetAddButton
                     .getLayoutParams();
-            resetAddParams.bottomMargin = circleDiam / 6;
+            resetAddParams.bottomMargin = circleDiam / 8;
             if (minBound == frameWidth) {
                 resetAddParams.bottomMargin += (frameHeight - frameWidth) / 2;
             }

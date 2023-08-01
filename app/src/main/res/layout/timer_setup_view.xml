@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (C) 2016 The Android Open Source Project
-
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
       http://www.apache.org/licenses/LICENSE-2.0
-
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,16 +12,67 @@
   limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/fab_height">
+    android:paddingBottom="@dimen/fab_container_height">
 
-    <include layout="@layout/timer_setup_time" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fold_vertical_start_edge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <include layout="@layout/timer_setup_divider" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fold_vertical_end_edge"
+        android:layout_width="0.0dip"
+        android:layout_height="0.0dip"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <include layout="@layout/timer_setup_digits" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/timer_setup_time_top"
+        android:layout_width="0.0dip"
+        android:layout_height="0.0dip"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@fraction/timer_setup_time_top_percent" />
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/timer_setup_time_bottom"
+        android:layout_width="0.0dip"
+        android:layout_height="0.0dip"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="@fraction/timer_setup_time_bottom_percent" />
+
+    <com.best.deskclock.widget.AutoSizingTextView
+        android:id="@+id/timer_setup_time"
+        style="@style/TimerSetupTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ellipsize="none"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="@dimen/timer_setup_digit_font_size"
+        tools:text="12h34m56s"
+        tools:ignore="MissingConstraints" />
+
+    <include
+        android:id="@+id/timer_setup_digits"
+        style="@style/TimerSetupDigits"
+        layout="@layout/timer_setup_digits"
+        android:layout_width="0.0dip"
+        android:layout_height="0.0dip"
+        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintHeight_max="420.0dip"
+        app:layout_constraintWidth_max="315.0dip"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

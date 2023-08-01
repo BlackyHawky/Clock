@@ -18,12 +18,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    style="@style/MaterialCardViewStyle"
+    android:background="@drawable/alarm_background"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     app:columnCount="5"
     app:columnOrderPreserved="false"
-    app:rowCount="4">
+    app:rowCount="4"
+    android:padding="16dp">
 
     <include
         layout="@layout/alarm_time_summary"
