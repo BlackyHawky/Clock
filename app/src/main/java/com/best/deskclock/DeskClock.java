@@ -23,12 +23,14 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -453,6 +455,11 @@ public class DeskClock extends BaseActivity
         if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_ALARM_PERMISSION);
+        }
+        NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+        if (!nm.isNotificationPolicyAccessGranted()) {
+            //FIXME: request properly
+            requestPermissions(new String[]{Manifest.permission.ACCESS_NOTIFICATION_POLICY}, 1);
         }
     }
 

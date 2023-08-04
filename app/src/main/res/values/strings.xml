@@ -1141,4 +1141,6 @@
 
     <string name="bed_wall_title">Dim the wallpaper</string>
     <string name="bed_wall_txt">Make your wallpaper darker. App icons, widgets, and notifications won\'t be affected.</string>
+
+    <string name="wake_alarm_label_visible">Wake-up alarm</string>
 </resources>

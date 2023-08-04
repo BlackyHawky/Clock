@@ -148,7 +148,6 @@ public final class BedtimeService extends Service {
         return b;
     }
 
-    // TODO: handle weekdays properly
     //TODO: what if someone goes to bed after 12 am
     private static long getNextBedtime(DataSaver saver, String action) {
         Calendar c = Calendar.getInstance();
@@ -166,6 +165,12 @@ public final class BedtimeService extends Service {
         // there currently are only two actions in which it makes sense to use this: remind notif and bed launch
         if (action.equals(ACTION_BED_REMIND_NOTIF)) {
             c.add(Calendar.MINUTE, -saver.notifShowTime);
+        }
+
+        // handle weekdays
+        for (int dayOfWeek = c.get(Calendar.DAY_OF_WEEK); !saver.daysOfWeek.isBitOn(dayOfWeek);) {
+            c.add(Calendar.DAY_OF_YEAR, 1);
+            dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         }
         return c.getTimeInMillis();
     }

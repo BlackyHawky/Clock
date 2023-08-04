@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
@@ -112,7 +113,11 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
         if (alarm.label != null && alarm.label.length() != 0) {
-            alarmLabel.setText(alarm.label);
+            if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+                alarmLabel.setText(R.string.wake_alarm_label_visible);
+            } else {
+                alarmLabel.setText(alarm.label);
+            }
             alarmLabel.setVisibility(View.VISIBLE);
             alarmLabel.setContentDescription(context.getString(R.string.label_description)
                     + " " + alarm.label);

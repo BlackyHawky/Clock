@@ -50,7 +50,6 @@ import java.util.List;
 /**
  * Fragment that shows the bedtime.
  // */
-//TODO: request additional perms
 public final class BedtimeFragment extends DeskClockFragment implements
         TimePickerDialogFragment.OnTimeSetListener {
 
@@ -181,7 +180,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "TEST", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "ERROR: The ringtone change will only show in alarm tab", Toast.LENGTH_LONG).show();
                 Events.sendBedtimeEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
                 final Intent intent =

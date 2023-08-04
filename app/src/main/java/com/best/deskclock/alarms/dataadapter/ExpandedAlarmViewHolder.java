@@ -47,6 +47,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -132,7 +133,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
+                if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+                    getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
+                }
             }
         });
         // Vibrator checkbox handler
@@ -195,6 +198,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
+        bindDelete(context, alarm);
+    }
+
+    private void bindDelete(Context context, Alarm alarm) {
+        delete.setVisibility(View.VISIBLE);
+        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            delete.setVisibility(View.GONE);
+        }
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -234,10 +245,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
-        editLabel.setText(alarm.label);
-        editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
-                ? context.getString(R.string.label_description) + " " + alarm.label
-                : context.getString(R.string.no_label_specified));
+        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            editLabel.setText(R.string.wake_alarm_label_visible);
+        } else {
+            editLabel.setText(alarm.label);
+            editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
+                    ? context.getString(R.string.label_description) + " " + alarm.label
+                    : context.getString(R.string.no_label_specified));
+        }
     }
 
     private void bindVibrator(Alarm alarm) {
