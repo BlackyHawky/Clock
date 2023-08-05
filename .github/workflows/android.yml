@@ -1,9 +1,9 @@
 name: Android CI
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "goodbye-phone-permission" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "goodbye-phone-permission" ]
     
 jobs:
   build:
