@@ -10,13 +10,14 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.AudioFocusRequest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.telephony.TelephonyManager;
+
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -64,6 +65,7 @@ public final class AsyncRingtonePlayer {
      * The context.
      */
     private final Context mContext;
+    private AudioFocusRequest mFocusRequest;
     /**
      * Handler running on the ringtone thread.
      */
@@ -80,10 +82,13 @@ public final class AsyncRingtonePlayer {
     /**
      * @return <code>true</code> iff the device is currently in a telephone call
      */
-    private static boolean isInTelephoneCall(Context context) {
-        final TelephonyManager tm = (TelephonyManager)
-                context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getCallState() != TelephonyManager.CALL_STATE_IDLE;
+    private static boolean isInTelephoneCall(AudioManager audioManager) {
+          final int audioMode = audioManager.getMode();
+              return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
+                      audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
+                      audioMode == AudioManager.MODE_CALL_REDIRECT ||
+                      audioMode == AudioManager.MODE_CALL_SCREENING ||
+                      audioMode == AudioManager.MODE_IN_CALL;
     }
 
     /**
@@ -303,7 +308,7 @@ public final class AsyncRingtonePlayer {
                 mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             }
 
-            final boolean inTelephoneCall = isInTelephoneCall(context);
+            final boolean inTelephoneCall = isInTelephoneCall(mAudioManager);
             Uri alarmNoise = inTelephoneCall ? getInCallRingtoneUri(context) : ringtoneUri;
             // Fall back to the system default alarm if the database does not have an alarm stored.
             if (alarmNoise == null) {
@@ -512,7 +517,7 @@ public final class AsyncRingtonePlayer {
                 mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             }
 
-            final boolean inTelephoneCall = isInTelephoneCall(context);
+            final boolean inTelephoneCall = isInTelephoneCall(mAudioManager);
             if (inTelephoneCall) {
                 ringtoneUri = getInCallRingtoneUri(context);
             }
