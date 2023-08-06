@@ -37,6 +37,7 @@ import com.best.deskclock.alarms.TimePickerDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
@@ -80,6 +81,8 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
     Spinner notifList;
 
+    Alarm alarm;
+
     /** The public no-arg constructor required by all fragments. */
     public BedtimeFragment() {
         super(BEDTIME);
@@ -98,14 +101,8 @@ public final class BedtimeFragment extends DeskClockFragment implements
         txtWakeup = view.findViewById(R.id.wakeup_time);
         TextView[] textViews = new TextView[]{ txtBedtime, txtWakeup };
 
-        Alarm alarm = getBedAlarm();
-        bindFragWakeClock(alarm);
-
-        saver = DataSaver.getInstance(context);
-        saver.restore();
-        bindFragBedClock();
-
-        hoursOfSleep(alarm);
+        mMainLayout = view.findViewById(R.id.main);
+        mAlarmUpdateHandler = new AlarmUpdateHandler(context, null, mMainLayout);
 
         // Sets the Click Listener for the bedtime and wakeup time
         for (TextView time: textViews ) {
@@ -116,10 +113,26 @@ public final class BedtimeFragment extends DeskClockFragment implements
                         saver.restore();
                         showBedtimeBottomSheetDialog();
                     } else if (txtWakeup.equals(time)) {
+                        alarm = getBedAlarm(true);
                         showWakeupBottomSheetDialog(alarm);
                     }}});}
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        alarm = getBedAlarm(false);
+
+        saver = DataSaver.getInstance(context);
+        saver.restore();
+        bindFragBedClock();
+
+        if (null != alarm) {
+            hoursOfSleep(alarm);
+            bindFragWakeClock(alarm);
+        }
     }
 
     // Calculates the different between the time times
@@ -167,8 +180,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bottomSheetDialog.setContentView(R.layout.wakeup_bottom_sheet);
         Fragment mFragment = this;
 
-        mMainLayout = view.findViewById(R.id.main);
-        mAlarmUpdateHandler = new AlarmUpdateHandler(context, null, mMainLayout);
         ringtone = bottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
         clock = bottomSheetDialog.findViewById(R.id.wake_time);
         vibrate = bottomSheetDialog.findViewById(R.id.vibrate_onoff_wake);
@@ -238,9 +249,26 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bottomSheetDialog.show();
     }
 
-    public Alarm getBedAlarm() {
+    public Alarm getBedAlarm(boolean create) {
         ContentResolver cr = context.getApplicationContext().getContentResolver();
-        return Alarm.getAlarmByLabel(cr, BEDLABEL);
+        List<Alarm> alarms = Alarm.getAlarms(cr, Alarm.LABEL + "=?", BEDLABEL);
+        if (!alarms.isEmpty()) {
+            return alarms.get(0);
+        } else {
+            if (create) {
+                final Alarm alarm = new Alarm();
+                alarm.hour = 8;
+                alarm.minutes = 30;
+                alarm.enabled = false;
+                alarm.daysOfWeek = Weekdays.fromBits(31);
+                alarm.label = BEDLABEL;
+                AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(context, null, null);
+                mAlarmUpdateHandler.asyncAddAlarm(alarm);
+                Toast.makeText(context, context.getString(R.string.new_bed_alarm), Toast.LENGTH_SHORT).show();
+            }
+            // Alarm with the given label not found
+            return null;
+        }
     }
 
     // Build button for each day.
@@ -360,7 +388,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     @Override
     public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
         if (clock == bottomSheetDialog.findViewById(R.id.wake_time)) {
-            Alarm mSelectedAlarm = getBedAlarm();
+            Alarm mSelectedAlarm = getBedAlarm(false);
 
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
@@ -507,8 +535,8 @@ public final class BedtimeFragment extends DeskClockFragment implements
                     if (vibrator.hasVibrator()) {
                         vibrator.vibrate(10);
                     }
-                //TODO: is it really right to bind all again just to change the letter color
-                bindDaysOfBedButtons(context);
+                    //TODO: is it really right to bind all again just to change the letter color
+                    bindDaysOfBedButtons(context);
                 }
             });
         }
@@ -553,7 +581,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         clock.setTime(saver.hour, saver.minutes);
         clock.setAlpha(saver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         bindFragBedClock();
-        hoursOfSleep(getBedAlarm());
+        hoursOfSleep(getBedAlarm(false));
     }
 
     private void bindFragBedClock() {

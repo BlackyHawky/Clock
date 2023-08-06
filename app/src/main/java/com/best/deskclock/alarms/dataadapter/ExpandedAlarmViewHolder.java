@@ -198,14 +198,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
-        bindDelete(context, alarm);
-    }
-
-    private void bindDelete(Context context, Alarm alarm) {
-        delete.setVisibility(View.VISIBLE);
-        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-            delete.setVisibility(View.GONE);
-        }
     }
 
     private void bindRingtone(Context context, Alarm alarm) {

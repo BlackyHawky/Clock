@@ -458,8 +458,8 @@ public class DeskClock extends BaseActivity
         }
         NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
         if (!nm.isNotificationPolicyAccessGranted()) {
-            //FIXME: request properly
-            requestPermissions(new String[]{Manifest.permission.ACCESS_NOTIFICATION_POLICY}, 1);
+            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            startActivityForResult(intent, 0);
         }
     }
 

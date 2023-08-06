@@ -16,6 +16,8 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.bedtime.BedtimeFragment.BEDLABEL;
+
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
@@ -54,7 +57,7 @@ public class AlarmUtils {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
-                : alarmTimeStr + " - " + instance.mLabel;
+                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDLABEL) ? context.getString(R.string.wake_alarm_label_visible) : instance.mLabel);
     }
 
     /**
