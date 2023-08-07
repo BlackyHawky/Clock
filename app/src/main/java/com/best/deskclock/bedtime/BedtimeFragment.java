@@ -138,23 +138,27 @@ public final class BedtimeFragment extends DeskClockFragment implements
     // Calculates the different between the time times
     private void hoursOfSleep(Alarm alarm) {
 
-        //TODO: what if someone goes to bed after 12 am
-        int minDiff = alarm.minutes - saver.minutes;
-        int hDiff = alarm.hour + 24 - saver.hour;
-        if (minDiff < 0){
-            hDiff = hDiff - 1;
-            minDiff = 60 + minDiff;
-        }
-        String diff;
-        if (minDiff == 0) {
-            diff = hDiff + "h";
-        } else {
-            diff = hDiff + "h " + minDiff + "min";
-        }
-
         TextView hours_of_sleep_text = (TextView) view.findViewById(R.id.hours_of_sleep);
-        hours_of_sleep_text.setText(diff);
-        hours_of_sleep_text.setAlpha(saver.enabled && alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+        if (null != alarm) {
+            //TODO: what if someone goes to bed after 12 am
+            int minDiff = alarm.minutes - saver.minutes;
+            int hDiff = alarm.hour + 24 - saver.hour;
+            if (minDiff < 0) {
+                hDiff = hDiff - 1;
+                minDiff = 60 + minDiff;
+            }
+            String diff;
+            if (minDiff == 0) {
+                diff = hDiff + "h";
+            } else {
+                diff = hDiff + "h " + minDiff + "min";
+            }
+
+            hours_of_sleep_text.setText(diff);
+            hours_of_sleep_text.setAlpha(saver.enabled && alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+        } else {
+            hours_of_sleep_text.setText(R.string.wake_alarm_non_existent);
+        }
     }
 
 

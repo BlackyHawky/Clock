@@ -1145,4 +1145,6 @@
     <string name="wake_alarm_label_visible">Wake-up alarm</string>
 
     <string name="new_bed_alarm">Wake-up alarm created</string>
+
+    <string name="wake_alarm_non_existent">ERROR: Wake-up alarm is deleted</string>
 </resources>
