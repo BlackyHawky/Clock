@@ -23,12 +23,14 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -125,6 +127,10 @@ public class DeskClock extends BaseActivity
 
             case R.id.page_stopwatch:
                 tab = UiDataModel.Tab.STOPWATCH;
+                break;
+
+            case R.id.page_bedtime:
+                tab = UiDataModel.Tab.BEDTIME;
                 break;
         }
 
@@ -450,6 +456,11 @@ public class DeskClock extends BaseActivity
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_ALARM_PERMISSION);
         }
+        NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+        if (!nm.isNotificationPolicyAccessGranted()) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            startActivityForResult(intent, 0);
+        }
     }
 
     @Override
@@ -671,6 +682,9 @@ public class DeskClock extends BaseActivity
                         break;
                     case STOPWATCH:
                         Events.sendStopwatchEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                    case BEDTIME:
+                        Events.sendBedtimeEvent(R.string.action_show, R.string.label_deskclock);
                         break;
                 }
             }

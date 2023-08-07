@@ -73,6 +73,10 @@
 
     <dimen name="cities_list_item_height">56dip</dimen>
 
+    <dimen name="bedtime_text_size">18sp</dimen>
+
+    <dimen name="hours_of_sleep_padding">10dp</dimen>
+
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="analog_clock_margin">60dp</dimen>

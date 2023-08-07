@@ -253,6 +253,9 @@
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
 
+    <!-- Notification preference title -->
+    <string name="notification_title">Reminder Notification</string>
+
     <!-- Auto silence summary string set based on the preference value. -->
     <plurals name="auto_silence_summary">
         <!-- Duration for one minute -->
@@ -482,6 +485,8 @@
     <string name="menu_clock">Clock</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
+    <!-- Describes the purpose of the tab button which which switches the activity to the Bedtime page -->
+    <string name="menu_bedtime">Bedtime</string>
 
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
@@ -878,6 +883,8 @@
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
     <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
+    <!-- Describes the service that processes actions originating from bedtime notifications. -->
+    <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
 
@@ -1075,6 +1082,9 @@
     -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
     <string name="_00">00</string>
+    <string name="bedtime">Bedtime</string>
+    <string name="wakeup">Wake Up</string>
+    <string name="reminder_notification">Reminder Notification</string>
 
 
     <string name="key_theme">key_theme</string>
@@ -1085,4 +1095,56 @@
         <item>Light</item>
     </string-array>
 
+    <string name="key_reminder_notification">key_reminder_notification</string>
+    <string name="title_reminder_notification">Reminder Notification</string>
+
+    <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
+    <string-array name="array_reminder_notification">
+        <item>15 Minutes Before Bedtime</item>
+        <item>30 Minutes Before Bedtime</item>
+        <item>45 Minutes Before Bedtime</item>
+        <item>1 Hour Before Bedtime</item>
+        <item>Off</item>
+    </string-array>
+
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the snooze_duration_entries above. -->
+    <string-array name="array_reminder_notification_values" translatable="false">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>-1</item> <!-- Off -->
+    </string-array>
+
+    <string name="remind_notif">Reminder Notification</string>
+
+    <string name="remind_notif_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="remind_notif_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
+
+    <string name="bed_notif_title">Bedtime mode is on</string>
+    <string name="bed_and"><xliff:g id="value_one">%1$s</xliff:g> and <xliff:g id="value_two">%2$s</xliff:g></string>
+
+    <string name="bed_notif_action_pause">Pause for 30 min</string>
+    <string name="bed_notif_action_turn_off">Turn off for now</string>
+    <string name="bed_notif_until"><xliff:g id="text_one">%1$s</xliff:g> until <xliff:g id="wake_time">%2$s</xliff:g></string>
+    <!-- maybe this will be the text within the and string which is within the until string -->
+    <string name="bed_notif_dnd_desc">only important calls can reach you</string>
+
+    <string name="bed_paused_notif_title">Bedtime mode is paused</string>
+    <string name="bed_notif_resume">Resumes at <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bed_notif_resume_action">Resume now</string>
+    <string name="bed_screen_opt_desc">Screen stays dark</string>
+
+    <string name="bed_dnd_title">Do not disturb for bedtime mode</string>
+    <string name="bed_dnd_txt">Only calls from starred contacts, repeat callers, and alarms can reach you</string>
+
+    <string name="bed_wall_title">Dim the wallpaper</string>
+    <string name="bed_wall_txt">Make your wallpaper darker. App icons, widgets, and notifications won\'t be affected.</string>
+
+    <string name="wake_alarm_label_visible">Wake-up alarm</string>
+
+    <string name="new_bed_alarm">Wake-up alarm created</string>
+
+    <string name="wake_alarm_non_existent">ERROR: Wake-up alarm is deleted</string>
 </resources>

@@ -86,4 +86,5 @@
     <color name="md_theme_dark_inverseSurface">#E3E2E6</color>
     <color name="md_theme_dark_inversePrimary">#005AC1</color>
     <color name="md_theme_dark_bottomNav">#14ADC6FF</color>
+    <color name="md_theme_dark_bottomSheet">#353535</color>
 </resources>

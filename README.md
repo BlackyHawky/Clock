@@ -1,4 +1,4 @@
-# The best open source clock app out there. App includes alarm,clock, timer,stopwatch. Updated version of the aosp deskclock.
+# The best open source clock app out there. App includes alarm,clock,timer,stopwatch,bedtime mode. Updated version of the aosp deskclock.
 
 
 # Feature : 

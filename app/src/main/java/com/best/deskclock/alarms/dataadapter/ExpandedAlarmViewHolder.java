@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -81,7 +83,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         editLabel = itemView.findViewById(R.id.edit_label);
-        repeatDays = itemView.findViewById(R.id.repeat_days);
+        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
         hairLine = itemView.findViewById(R.id.hairline);
 
         final Context context = itemView.getContext();
@@ -93,8 +95,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         for (int i = 0; i < 7; i++) {
             final View dayButtonFrame = inflater.inflate(R.layout.day_button, repeatDays,
                     false /* attachToRoot */);
-            final CompoundButton dayButton =
-                    dayButtonFrame.findViewById(R.id.day_button_box);
+            final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
@@ -132,7 +133,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
+                if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+                    getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
+                }
             }
         });
         // Vibrator checkbox handler
@@ -234,10 +237,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
-        editLabel.setText(alarm.label);
-        editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
-                ? context.getString(R.string.label_description) + " " + alarm.label
-                : context.getString(R.string.no_label_specified));
+        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            editLabel.setText(R.string.wake_alarm_label_visible);
+        } else {
+            editLabel.setText(alarm.label);
+            editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
+                    ? context.getString(R.string.label_description) + " " + alarm.label
+                    : context.getString(R.string.no_label_specified));
+        }
     }
 
     private void bindVibrator(Alarm alarm) {

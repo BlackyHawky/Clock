@@ -27,6 +27,8 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
@@ -217,6 +219,14 @@
         <service
             android:name=".stopwatch.StopwatchService"
             android:description="@string/stopwatch_service_desc"
+            android:directBootAware="true" />
+
+        <!-- ============================================================== -->
+        <!-- Bedtime components. -->
+        <!-- ============================================================== -->
+        <service
+            android:name=".bedtime.BedtimeService"
+            android:description="@string/bedtime_service_desc"
             android:directBootAware="true" />
 
 
