@@ -53,7 +53,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
@@ -107,8 +106,7 @@ public final class ClockFragment extends DeskClockFragment {
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        mCityAdapter = new SelectedCitiesAdapter(getActivity(), mDateFormat,
-                mDateFormatForAccessibility);
+        mCityAdapter = new SelectedCitiesAdapter(getActivity(), mDateFormat, mDateFormatForAccessibility);
 
         mCityList = fragmentView.findViewById(R.id.cities);
         mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -121,7 +119,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         final Context context = container.getContext();
         mCityList.setOnTouchListener(new CityListOnLongClickListener(context));
-
 
         // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
         // on as a header to the main listview.
@@ -246,8 +243,7 @@ public final class ClockFragment extends DeskClockFragment {
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
 
-        private SelectedCitiesAdapter(Context context, String dateFormat,
-                                      String dateFormatForAccessibility) {
+        private SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility) {
             mContext = context;
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
@@ -268,39 +264,32 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             final View view = mInflater.inflate(viewType, parent, false);
-            switch (viewType) {
-                case WORLD_CLOCK:
-                    return new CityViewHolder(view);
-                case MAIN_CLOCK:
-                    return new MainClockViewHolder(view);
-                default:
-                    throw new IllegalArgumentException("View type not recognized");
+            if (viewType == WORLD_CLOCK) {
+                return new CityViewHolder(view);
+            } else if (viewType == MAIN_CLOCK) {
+                return new MainClockViewHolder(view);
             }
+            throw new IllegalArgumentException("View type not recognized");
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             final int viewType = getItemViewType(position);
-            switch (viewType) {
-                case WORLD_CLOCK:
-                    // Retrieve the city to bind.
-                    final City city;
-                    // If showing home clock, put it at the top
-                    if (mShowHomeClock && position == (mIsPortrait ? 1 : 0)) {
-                        city = getHomeCity();
-                    } else {
-                        final int positionAdjuster = (mIsPortrait ? 1 : 0)
-                                + (mShowHomeClock ? 1 : 0);
-                        city = getCities().get(position - positionAdjuster);
-                    }
-                    ((CityViewHolder) holder).bind(mContext, city, position, mIsPortrait);
-                    break;
-                case MAIN_CLOCK:
-                    ((MainClockViewHolder) holder).bind(mContext, mDateFormat,
-                            mDateFormatForAccessibility, getItemCount() > 1);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected view type: " + viewType);
+            if (viewType == WORLD_CLOCK) {// Retrieve the city to bind.
+                final City city;
+                // If showing home clock, put it at the top
+                if (mShowHomeClock && position == (mIsPortrait ? 1 : 0)) {
+                    city = getHomeCity();
+                } else {
+                    final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
+                    city = getCities().get(position - positionAdjuster);
+                }
+                ((CityViewHolder) holder).bind(mContext, city, position, mIsPortrait);
+            } else if (viewType == MAIN_CLOCK) {
+                ((MainClockViewHolder) holder).bind(mContext, mDateFormat,
+                        mDateFormatForAccessibility, getItemCount() > 1);
+            } else {
+                throw new IllegalArgumentException("Unexpected view type: " + viewType);
             }
         }
 
@@ -360,8 +349,7 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(cityTimeZoneId);
-                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */,
-                            false));
+                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f, false));
                     mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
                 }
 
@@ -380,8 +368,7 @@ public final class ClockFragment extends DeskClockFragment {
                 // Compute if the city week day matches the weekday of the current timezone.
                 final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
                 final Calendar cityCal = Calendar.getInstance(city.getTimeZone());
-                final boolean displayDayOfWeek =
-                        localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
+                final boolean displayDayOfWeek = localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
 
                 // Compare offset from UTC time on today's date (daylight savings time, etc.)
                 final TimeZone currentTimeZone = TimeZone.getDefault();
@@ -394,26 +381,24 @@ public final class ClockFragment extends DeskClockFragment {
                 final int hoursDifferent = (int) (offsetDelta / DateUtils.HOUR_IN_MILLIS);
                 final int minutesDifferent = (int) (offsetDelta / DateUtils.MINUTE_IN_MILLIS) % 60;
                 final boolean displayMinutes = offsetDelta % DateUtils.HOUR_IN_MILLIS != 0;
-                final boolean isAhead = hoursDifferent > 0 || (hoursDifferent == 0
-                        && minutesDifferent > 0);
+                final boolean isAhead = hoursDifferent > 0 || (hoursDifferent == 0 && minutesDifferent > 0);
                 if (!Utils.isLandscape(context)) {
                     // Bind the number of hours ahead or behind, or hide if the time is the same.
                     final boolean displayDifference = hoursDifferent != 0 || displayMinutes;
                     mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
                     final String timeString = Utils.createHoursDifferentString(
                             context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
-                    mHoursAhead.setText(displayDayOfWeek ?
-                            (context.getString(isAhead ? R.string.world_hours_tomorrow
-                                    : R.string.world_hours_yesterday, timeString))
+                    mHoursAhead.setText(displayDayOfWeek
+                            ? (context.getString(isAhead
+                                ? R.string.world_hours_tomorrow
+                                : R.string.world_hours_yesterday, timeString))
                             : timeString);
                 } else {
                     // Only tomorrow/yesterday should be shown in landscape view.
                     mHoursAhead.setVisibility(displayDayOfWeek ? View.VISIBLE : View.GONE);
                     if (displayDayOfWeek) {
-                        mHoursAhead.setText(context.getString(isAhead ? R.string.world_tomorrow
-                                : R.string.world_yesterday));
+                        mHoursAhead.setText(context.getString(isAhead ? R.string.world_tomorrow : R.string.world_yesterday));
                     }
-
                 }
             }
         }
@@ -433,8 +418,7 @@ public final class ClockFragment extends DeskClockFragment {
                 Utils.setClockIconTypeface(itemView);
             }
 
-            private void bind(Context context, String dateFormat,
-                              String dateFormatForAccessibility, boolean showHairline) {
+            private void bind(Context context, String dateFormat, String dateFormatForAccessibility, boolean showHairline) {
                 Utils.refreshAlarm(context, itemView);
 
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
@@ -445,8 +429,6 @@ public final class ClockFragment extends DeskClockFragment {
             }
         }
     }
-
-
 
     /**
      * Long pressing over the city list starts the screen saver.
