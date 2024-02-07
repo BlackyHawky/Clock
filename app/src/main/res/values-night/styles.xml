@@ -4,15 +4,16 @@
 
     <style name="Theme.DeskClock" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent
-        </item>
-        <item name="android:navigationBarColor">
-            @color/md_theme_dark_bottomNav
-        </item>
-        <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/md_theme_dark_bottomNav</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+
+        <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
+
         <item name="switchStyle">@style/SwitchStyle</item>
+
         <item name="checkboxStyle">@style/Widget.CheckBox</item>
+
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
@@ -39,9 +40,18 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+
         <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
+
         <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
+
         <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
+
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="Theme.DeskClock.Wallpaper">
