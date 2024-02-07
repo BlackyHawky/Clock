@@ -27,7 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.preference.DropDownPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -83,7 +82,6 @@ public final class SettingsActivity extends BaseActivity {
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
-    private ThemeButtonBehavior mThemeBehavior;
 
     /**
      * The controller that shows the drop shadow when content is not scrolled to the top.
@@ -91,11 +89,11 @@ public final class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
+        ThemeButtonBehavior themeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
+        if (themeBehavior == DataModel.ThemeButtonBehavior.DARK) {
             getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
         }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
+        if (themeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
             getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
         }
         super.onCreate(savedInstanceState);
@@ -141,13 +139,11 @@ public final class SettingsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item)
-                || super.onOptionsItemSelected(item);
+        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements
-            Preference.OnPreferenceChangeListener,
-            Preference.OnPreferenceClickListener {
+            Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -177,44 +173,28 @@ public final class SettingsActivity extends BaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_THEME:
-                case KEY_ALARM_CRESCENDO:
-                case KEY_HOME_TZ:
-                case KEY_ALARM_SNOOZE:
-                case KEY_TIMER_CRESCENDO:
+                case KEY_CLOCK_STYLE, KEY_THEME, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
+                        KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
+                        KEY_SHAKE_ACTION, KEY_WEEK_START -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
-                    break;
-                case KEY_CLOCK_STYLE:
-                case KEY_WEEK_START:
-                case KEY_VOLUME_BUTTONS:
-                case KEY_FLIP_ACTION:
-                case KEY_POWER_BUTTONS:
-                case KEY_SHAKE_ACTION:
-                    final DropDownPreference simpleMenuPreference = (DropDownPreference) pref;
-                    final int i = simpleMenuPreference.findIndexOfValue((String) newValue);
-                    pref.setSummary(simpleMenuPreference.getEntries()[i]);
-                    break;
-                case KEY_CLOCK_DISPLAY_SECONDS:
-                    DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
-                    break;
-                case KEY_AUTO_SILENCE:
+                }
+                case KEY_CLOCK_DISPLAY_SECONDS -> DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
+                case KEY_AUTO_SILENCE -> {
                     final String delay = (String) newValue;
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
-                    break;
-                case KEY_AUTO_HOME_CLOCK:
+                }
+                case KEY_AUTO_HOME_CLOCK -> {
                     final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     Objects.requireNonNull(homeTimeZonePref).setEnabled(!autoHomeClockEnabled);
-                    break;
-                case KEY_TIMER_VIBRATE:
+                }
+                case KEY_TIMER_VIBRATE -> {
                     final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
-                    break;
-                case KEY_TIMER_RINGTONE:
-                    pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-                    break;
+                }
+                case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             }
             // Set result so DeskClock knows to refresh itself
             requireActivity().setResult(RESULT_OK);
@@ -230,14 +210,16 @@ public final class SettingsActivity extends BaseActivity {
             }
 
             switch (pref.getKey()) {
-                case KEY_DATE_TIME:
+                case KEY_DATE_TIME -> {
                     final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogIntent);
                     return true;
-                case KEY_TIMER_RINGTONE:
+                }
+                case KEY_TIMER_RINGTONE -> {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
+                }
             }
 
             return false;
@@ -281,25 +263,24 @@ public final class SettingsActivity extends BaseActivity {
         }
 
         private void refresh() {
-            final ListPreference autoSilencePref =
-                    findPreference(KEY_AUTO_SILENCE);
+            final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);
             autoSilencePref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
+            final ListPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
             Objects.requireNonNull(clockStylePref).setSummary(clockStylePref.getEntry());
             clockStylePref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
+            final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
             Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference themeButtonsPref = findPreference(KEY_THEME);
+            final ListPreference themeButtonsPref = findPreference(KEY_THEME);
             Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
             themeButtonsPref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
+            final ListPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
             Objects.requireNonNull(powerButtonsPref).setSummary(powerButtonsPref.getEntry());
             powerButtonsPref.setOnPreferenceChangeListener(this);
 
@@ -322,7 +303,7 @@ public final class SettingsActivity extends BaseActivity {
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             Objects.requireNonNull(dateAndTimeSetting).setOnPreferenceClickListener(this);
 
-            final DropDownPreference weekStartPref = findPreference(KEY_WEEK_START);
+            final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
             // Set the default value programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
             final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
@@ -336,11 +317,9 @@ public final class SettingsActivity extends BaseActivity {
             Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            SensorManager sensorManager = (SensorManager)
-                    requireActivity().getSystemService(Context.SENSOR_SERVICE);
+            SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
 
-            final DropDownPreference flipActionPref =
-                    findPreference(KEY_FLIP_ACTION);
+            final ListPreference flipActionPref = findPreference(KEY_FLIP_ACTION);
             if (flipActionPref != null) {
                 List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
                 if (sensorList.size() < 1) { // This will be true if no orientation sensor
@@ -351,8 +330,7 @@ public final class SettingsActivity extends BaseActivity {
                 }
             }
 
-            final DropDownPreference shakeActionPref =
-                    findPreference(KEY_SHAKE_ACTION);
+            final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
             if (shakeActionPref != null) {
                 List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
                 if (sensorList.size() < 1) { // This will be true if no accelerometer sensor
