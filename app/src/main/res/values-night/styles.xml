@@ -10,8 +10,6 @@
 
         <item name="android:dialogCornerRadius" tools:targetApi="p">8dp</item>
 
-        <item name="switchStyle">@style/SwitchStyle</item>
-
         <item name="checkboxStyle">@style/Widget.CheckBox</item>
 
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
@@ -48,6 +46,16 @@
         <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
 
         <item name="actionBarStyle">@style/ActionBarStyle</item>
+
+        <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
+    </style>
+
+    <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
+    </style>
+
+    <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
+        <item name="widgetLayout">@layout/settings_switch_material</item>
     </style>
 
     <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">

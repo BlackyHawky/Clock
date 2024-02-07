@@ -2,7 +2,6 @@
 <androidx.core.widget.NestedScrollView
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:background="@drawable/bottom_sheet"
@@ -75,7 +74,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/toggle_switch_bedtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -155,7 +154,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                 android:layout_height="wrap_content"
                 android:text="@string/bed_dnd_txt" />
         </LinearLayout>
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/dnd_switch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -189,7 +188,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                 android:layout_height="wrap_content"
                 android:text="@string/bed_wall_txt" />
         </LinearLayout>
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/wall_switch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
