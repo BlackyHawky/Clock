@@ -9,7 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:paddingBottom="8dp"
+        android:paddingBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -78,7 +78,7 @@
             android:id="@+id/toggle_switch_wakeup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="10dp"
             android:focusable="true"
             android:minWidth="@dimen/touch_target_min_size"
             android:minHeight="@dimen/touch_target_min_size"
@@ -116,6 +116,7 @@
             android:id="@+id/choose_ringtone_bedtime"
             android:layout_width="match_parent"
             android:layout_height="@dimen/touch_target_min_size"
+            android:layout_marginStart="6dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:drawablePadding="@dimen/alarm_horizontal_padding"
@@ -139,10 +140,11 @@
             android:id="@+id/vibrate_onoff_wake"
             android:layout_width="match_parent"
             android:layout_height="@dimen/touch_target_min_size"
+            android:layout_marginStart="10dp"
             android:paddingStart="@dimen/checkbox_start_padding"
             android:paddingEnd="@dimen/checkbox_start_padding"
             android:text="@string/alarm_vibrate"
-            android:textSize="30sp"
+            android:textSize="20sp"
             app:layout_column="5"
             app:layout_columnSpan="3"
             app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime"
