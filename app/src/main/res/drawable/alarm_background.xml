@@ -16,6 +16,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/md_theme_light_bottomNav" />
+    <solid android:color="@color/md_theme_bottomNav" />
     <corners android:radius="28dp" />
 </shape>

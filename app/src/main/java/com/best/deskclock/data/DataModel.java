@@ -629,15 +629,6 @@ public final class DataModel {
         return mAlarmModel.getAlarmVolumeButtonBehavior();
     }
 
-    public ThemeButtonBehavior getThemeButtonBehavior() {
-        enforceMainLooper();
-        return mThemeModel.getThemeButtonBehavior();
-    }
-
-    //
-    // Alarms
-    //
-
     /**
      * @return the behavior to execute when power buttons are pressed while firing an alarm
      */

@@ -99,7 +99,7 @@
             android:minHeight="@dimen/touch_target_min_size"
             android:scaleType="centerInside"
             android:src="@drawable/ic_reset_24dp"
-            app:tint="@color/md_theme_dark_inversePrimary" />
+            app:tint="@color/md_theme_inversePrimary" />
 
     </com.best.deskclock.CircleButtonsLayout>
 
@@ -142,7 +142,7 @@
         android:maxLines="1"
         android:padding="24dp"
         android:background="@drawable/bg_material_button"
-        android:backgroundTint="@color/md_theme_light_primary"
+        android:backgroundTint="@color/md_theme_primary"
         android:src="@drawable/ic_fab_pause"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="@id/add_one_min"

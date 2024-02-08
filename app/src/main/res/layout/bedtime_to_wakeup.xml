@@ -23,7 +23,7 @@
 
     <ImageView
         app:srcCompat="@drawable/ic_moon"
-        app:tint="@color/md_theme_dark_outline"
+        app:tint="@color/md_theme_outline"
         android:paddingStart="25dp"
         android:paddingEnd="10dp"
         android:contentDescription="@null" />
@@ -34,7 +34,7 @@
         android:layout_height="3dp"
         app:layout_column="1"
         app:layout_gravity="center"
-        android:background="@color/md_theme_dark_outline"
+        android:background="@color/md_theme_outline"
         app:layout_row="0" />
 
     <TextView
@@ -48,7 +48,7 @@
 
     <ImageView
         app:srcCompat="@drawable/ic_tab_wakeup"
-        app:tint="@color/md_theme_dark_outline"
+        app:tint="@color/md_theme_outline"
         android:paddingStart="10dp"
         android:paddingEnd="25dp"
         android:contentDescription="@null" />

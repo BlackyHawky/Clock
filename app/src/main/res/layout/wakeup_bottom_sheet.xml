@@ -26,7 +26,7 @@
             android:layout_height="4dp"
             android:layout_marginTop="12dp"
             android:importantForAccessibility="no"
-            android:foreground="@color/md_theme_dark_outline"
+            android:foreground="@color/md_theme_outline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -103,7 +103,7 @@
 
         <View
             android:id="@+id/bedtime_preference_hairline"
-            android:background="@color/md_theme_dark_outline"
+            android:background="@color/md_theme_outline"
             android:layout_width="0dp"
             android:layout_height="@dimen/hairline_height"
             android:layout_marginTop="16dp"

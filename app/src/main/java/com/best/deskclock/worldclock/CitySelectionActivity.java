@@ -50,7 +50,6 @@ import com.best.deskclock.actionbarmenu.SearchMenuItemController;
 import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -94,7 +93,6 @@ public final class CitySelectionActivity extends BaseActivity {
      * Menu item controller for search view.
      */
     private SearchMenuItemController mSearchMenuItemController;
-    private ThemeButtonBehavior mThemeBehavior;
 
     /**
      * The controller that shows the drop shadow when content is not scrolled to the top.
@@ -102,13 +100,6 @@ public final class CitySelectionActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
-        }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
-        }
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.cities_activity);
@@ -126,14 +117,15 @@ public final class CitySelectionActivity extends BaseActivity {
                                 updateFastScrolling();
                                 return true;
                             }
-                        }, savedInstanceState);
+                        },
+                        savedInstanceState);
+
         mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
                 .addMenuItemController(mSearchMenuItemController)
                 .addMenuItemController(new SortOrderMenuItemController())
                 .addMenuItemController(new SettingsMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this));
+                .addMenuItemController(MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
         mCitiesList = findViewById(R.id.cities_list);
         mCitiesList.setAdapter(mCitiesAdapter);
 
@@ -152,7 +144,6 @@ public final class CitySelectionActivity extends BaseActivity {
 
         // Recompute the contents of the adapter before displaying on screen.
         mCitiesAdapter.refresh();
-
     }
 
     @Override
@@ -177,8 +168,7 @@ public final class CitySelectionActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item)
-                || super.onOptionsItemSelected(item);
+        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /**
@@ -217,6 +207,7 @@ public final class CitySelectionActivity extends BaseActivity {
      *   ...
      * </pre>
      */
+
     private static final class CityAdapter extends BaseAdapter implements View.OnClickListener,
             CompoundButton.OnCheckedChangeListener, SectionIndexer {
 
@@ -328,13 +319,13 @@ public final class CitySelectionActivity extends BaseActivity {
         public View getView(int position, View view, ViewGroup parent) {
             final int itemViewType = getItemViewType(position);
             switch (itemViewType) {
-                case VIEW_TYPE_SELECTED_CITIES_HEADER:
+                case VIEW_TYPE_SELECTED_CITIES_HEADER -> {
                     if (view == null) {
                         view = mInflater.inflate(R.layout.city_list_header, parent, false);
                     }
                     return view;
-
-                case VIEW_TYPE_CITY:
+                }
+                case VIEW_TYPE_CITY -> {
                     final City city = getItem(position);
                     if (city == null) {
                         throw new IllegalStateException("The desired city does not exist");
@@ -359,20 +350,18 @@ public final class CitySelectionActivity extends BaseActivity {
                     holder.selected.setOnCheckedChangeListener(this);
                     holder.name.setText(city.getName(), TextView.BufferType.SPANNABLE);
                     holder.time.setText(getTimeCharSequence(timeZone));
-
                     final boolean showIndex = getShowIndex(position);
                     holder.index.setVisibility(showIndex ? View.VISIBLE : View.INVISIBLE);
                     if (showIndex) {
                         switch (getCitySort()) {
-                            case NAME:
+                            case NAME -> {
                                 holder.index.setText(city.getIndexString());
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-                                break;
-
-                            case UTC_OFFSET:
+                            }
+                            case UTC_OFFSET -> {
                                 holder.index.setText(Utils.getGMTHourOffset(timeZone, false));
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                                break;
+                            }
                         }
                     }
 
@@ -380,6 +369,7 @@ public final class CitySelectionActivity extends BaseActivity {
                     view.jumpDrawablesToCurrentState();
                     view.setOnClickListener(this);
                     return view;
+                }
             }
 
             throw new IllegalStateException("unexpected item view type: " + itemViewType);
@@ -400,12 +390,10 @@ public final class CitySelectionActivity extends BaseActivity {
             final City city = (City) b.getTag();
             if (checked) {
                 mUserSelectedCities.add(city);
-                b.announceForAccessibility(mContext.getString(R.string.city_checked,
-                        city.getName()));
+                b.announceForAccessibility(mContext.getString(R.string.city_checked, city.getName()));
             } else {
                 mUserSelectedCities.remove(city);
-                b.announceForAccessibility(mContext.getString(R.string.city_unchecked,
-                        city.getName()));
+                b.announceForAccessibility(mContext.getString(R.string.city_unchecked, city.getName()));
             }
         }
 
@@ -437,13 +425,11 @@ public final class CitySelectionActivity extends BaseActivity {
                             throw new IllegalStateException("The desired city does not exist");
                         }
                         switch (getCitySort()) {
-                            case NAME:
-                                sections.add(city.getIndexString());
-                                break;
-                            case UTC_OFFSET:
+                            case NAME -> sections.add(city.getIndexString());
+                            case UTC_OFFSET -> {
                                 final TimeZone timezone = city.getTimeZone();
                                 sections.add(Utils.getGMTHourOffset(timezone, Utils.isPreL()));
-                                break;
+                            }
                         }
                         positions.add(position);
                     }
@@ -619,14 +605,14 @@ public final class CitySelectionActivity extends BaseActivity {
 
         @Override
         public void onCreateOptionsItem(Menu menu) {
-            menu.add(NONE, R.id.menu_item_sort, NONE, R.string.menu_item_sort_by_gmt_offset)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            menu.add(NONE, R.id.menu_item_sort, NONE, R.string.menu_item_sort_by_gmt_offset).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         }
 
         @Override
         public void onPrepareOptionsItem(MenuItem item) {
             item.setTitle(DataModel.getDataModel().getCitySort() == DataModel.CitySort.NAME
-                    ? R.string.menu_item_sort_by_gmt_offset : R.string.menu_item_sort_by_name);
+                    ? R.string.menu_item_sort_by_gmt_offset
+                    : R.string.menu_item_sort_by_name);
         }
 
         @Override

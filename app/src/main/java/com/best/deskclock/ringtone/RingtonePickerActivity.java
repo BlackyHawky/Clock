@@ -53,7 +53,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.BaseActivity;
-import com.best.deskclock.DropShadowController;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.LogUtils;
@@ -110,11 +109,6 @@ public class RingtonePickerActivity extends BaseActivity
     private static final String STATE_KEY_PLAYING = "extra_is_playing";
 
     /**
-     * The controller that shows the drop shadow when content is not scrolled to the top.
-     */
-    private DropShadowController mDropShadowController;
-
-    /**
      * Generates the items in the activity context menu.
      */
     private OptionsMenuManager mOptionsMenuManager;
@@ -153,7 +147,6 @@ public class RingtonePickerActivity extends BaseActivity
      * The location of the custom ringtone to be removed.
      */
     private int mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
-    private RecyclerView mRecyclerView;
 
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
@@ -182,21 +175,15 @@ public class RingtonePickerActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DataModel.ThemeButtonBehavior mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
-        }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
-        }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.ringtone_picker);
+
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         mOptionsMenuManager = new OptionsMenuManager();
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this));
+                .addMenuItemController(MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         final Context context = getApplicationContext();
         final Intent intent = getIntent();
@@ -226,15 +213,13 @@ public class RingtonePickerActivity extends BaseActivity
                 .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_SYSTEM_SOUND)
                 .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_CUSTOM_SOUND);
 
-        /**
-         * Displays a set of selectable ringtones.
-         */
-        mRecyclerView = (RecyclerView) findViewById(R.id.ringtone_content);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setAdapter(mRingtoneAdapter);
-        mRecyclerView.setItemAnimator(null);
+        // Displays a set of selectable ringtones.
+        RecyclerView ringtone_content = findViewById(R.id.ringtone_content);
+        ringtone_content.setLayoutManager(new LinearLayoutManager(context));
+        ringtone_content.setAdapter(mRingtoneAdapter);
+        ringtone_content.setItemAnimator(null);
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        ringtone_content.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 if (mIndexOfRingtoneToRemove != RecyclerView.NO_POSITION) {
@@ -246,9 +231,9 @@ public class RingtonePickerActivity extends BaseActivity
         final int titleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(titleResourceId));
 
-        getLoaderManager().initLoader(0 /* id */, null /* args */, this /* callback */);
+        getLoaderManager().initLoader(0, null, this);
 
-        registerForContextMenu(mRecyclerView);
+        registerForContextMenu(ringtone_content);
     }
 
     @Override
@@ -329,13 +314,13 @@ public class RingtonePickerActivity extends BaseActivity
 
     @Override
     public Loader<List<ItemAdapter.ItemHolder<Uri>>> onCreateLoader(int id, Bundle args) {
-        return new RingtoneLoader(getApplicationContext(), mDefaultRingtoneUri,
-                mDefaultRingtoneTitle);
+        return new RingtoneLoader(getApplicationContext(), mDefaultRingtoneUri, mDefaultRingtoneTitle);
     }
 
     @Override
     public void onLoadFinished(Loader<List<ItemAdapter.ItemHolder<Uri>>> loader,
                                List<ItemAdapter.ItemHolder<Uri>> itemHolders) {
+
         // Update the adapter with fresh data.
         mRingtoneAdapter.setItems(itemHolders);
 
@@ -400,8 +385,7 @@ public class RingtonePickerActivity extends BaseActivity
 
     private RingtoneHolder getRingtoneHolder(Uri uri) {
         for (ItemAdapter.ItemHolder<Uri> itemHolder : mRingtoneAdapter.getItems()) {
-            if (itemHolder instanceof RingtoneHolder) {
-                final RingtoneHolder ringtoneHolder = (RingtoneHolder) itemHolder;
+            if (itemHolder instanceof final RingtoneHolder ringtoneHolder) {
                 if (ringtoneHolder.getUri().equals(uri)) {
                     return ringtoneHolder;
                 }
@@ -494,18 +478,13 @@ public class RingtonePickerActivity extends BaseActivity
             final Bundle arguments = getArguments();
             final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
-            final DialogInterface.OnClickListener okListener =
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ((RingtonePickerActivity) getActivity()).removeCustomRingtone(toRemove);
-                        }
-                    };
+            final DialogInterface.OnClickListener okListener = (dialog, which) ->
+                    ((RingtonePickerActivity) getActivity()).removeCustomRingtone(toRemove);
 
             if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
                 return new AlertDialog.Builder(getActivity())
                         .setPositiveButton(R.string.remove_sound, okListener)
-                        .setNegativeButton(android.R.string.cancel, null /* listener */)
+                        .setNegativeButton(android.R.string.cancel, null)
                         .setMessage(R.string.confirm_remove_custom_ringtone)
                         .create();
             } else {
@@ -525,15 +504,14 @@ public class RingtonePickerActivity extends BaseActivity
         @Override
         public void onItemClicked(ItemAdapter.ItemViewHolder<?> viewHolder, int id) {
             switch (id) {
-                case AddCustomRingtoneViewHolder.CLICK_ADD_NEW:
+                case AddCustomRingtoneViewHolder.CLICK_ADD_NEW -> {
                     stopPlayingRingtone(getSelectedRingtoneHolder(), false);
                     startActivityForResult(new Intent(Intent.ACTION_OPEN_DOCUMENT)
                             .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
                             .addCategory(Intent.CATEGORY_OPENABLE)
                             .setType("audio/*"), 0);
-                    break;
-
-                case RingtoneViewHolder.CLICK_NORMAL:
+                }
+                case RingtoneViewHolder.CLICK_NORMAL -> {
                     final RingtoneHolder oldSelection = getSelectedRingtoneHolder();
                     final RingtoneHolder newSelection = (RingtoneHolder) viewHolder.getItemHolder();
 
@@ -549,16 +527,11 @@ public class RingtonePickerActivity extends BaseActivity
                         stopPlayingRingtone(oldSelection, true);
                         startPlayingRingtone(newSelection);
                     }
-                    break;
-
-                case RingtoneViewHolder.CLICK_LONG_PRESS:
-                    mIndexOfRingtoneToRemove = viewHolder.getAdapterPosition();
-                    break;
-
-                case RingtoneViewHolder.CLICK_NO_PERMISSIONS:
-                    ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
-                            ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
-                    break;
+                }
+                case RingtoneViewHolder.CLICK_LONG_PRESS -> mIndexOfRingtoneToRemove = viewHolder.getAdapterPosition();
+                case RingtoneViewHolder.CLICK_NO_PERMISSIONS ->
+                        ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
+                                ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
             }
         }
     }

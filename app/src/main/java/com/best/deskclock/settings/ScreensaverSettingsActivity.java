@@ -16,8 +16,6 @@
 
 package com.best.deskclock.settings;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -28,8 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 
 /**
  * Settings for Clock screen saver
@@ -37,18 +33,11 @@ import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 public final class ScreensaverSettingsActivity extends AppCompatActivity {
     public static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
     public static final String KEY_NIGHT_MODE = "screensaver_night_mode";
-    private ThemeButtonBehavior mThemeBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
-        }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
-        }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.screensaver_settings);
     }
 
@@ -66,7 +55,6 @@ public final class ScreensaverSettingsActivity extends AppCompatActivity {
             implements Preference.OnPreferenceChangeListener {
 
         @Override
-        @TargetApi(Build.VERSION_CODES.N)
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 

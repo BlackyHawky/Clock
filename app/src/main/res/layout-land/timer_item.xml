@@ -92,7 +92,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_time_text"
             android:src="@drawable/ic_reset_24dp"
-            app:tint="@color/md_theme_dark_inversePrimary" />
+            app:tint="@color/md_theme_inversePrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,7 +135,7 @@
         android:maxLines="1"
         android:padding="16dp"
         android:background="@drawable/bg_material_button"
-        android:backgroundTint="@color/md_theme_light_primary"
+        android:backgroundTint="@color/md_theme_primary"
         android:src="@drawable/ic_fab_pause"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="@id/add_one_min"

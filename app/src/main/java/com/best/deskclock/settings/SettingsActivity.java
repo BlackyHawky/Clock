@@ -41,7 +41,6 @@ import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
@@ -89,13 +88,6 @@ public final class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeButtonBehavior themeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (themeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
-        }
-        if (themeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
-        }
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.settings);
