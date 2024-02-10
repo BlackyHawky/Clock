@@ -133,7 +133,7 @@ class TimerNotificationBuilder {
                         .setAction(TimerService.ACTION_RESET_TIMER)
                         .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
-                @DrawableRes final int icon2 = R.drawable.ic_reset_24dp;
+                @DrawableRes final int icon2 = R.drawable.ic_reset;
                 final CharSequence title2 = res.getText(R.string.sw_reset_button);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
@@ -149,7 +149,7 @@ class TimerNotificationBuilder {
 
             final Intent reset = TimerService.createResetUnexpiredTimersIntent(context);
 
-            @DrawableRes final int icon1 = R.drawable.ic_reset_24dp;
+            @DrawableRes final int icon1 = R.drawable.ic_reset;
             final CharSequence title1 = res.getText(R.string.timer_reset_all);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -161,8 +161,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
-        final PendingIntent pendingShowApp =
-                PendingIntent.getService(context, REQUEST_CODE_UPCOMING, showApp,
+        final PendingIntent pendingShowApp = PendingIntent.getService(context, REQUEST_CODE_UPCOMING, showApp,
                         PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         final Builder notification = new NotificationCompat.Builder(
@@ -207,8 +206,7 @@ class TimerNotificationBuilder {
             final long remainingTime = timer.getRemainingTime();
             if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {
                 // Schedule a callback to update the time-sensitive information of the running timer
-                final PendingIntent pi =
-                        PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
+                final PendingIntent pi = PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
                                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
@@ -339,7 +337,7 @@ class TimerNotificationBuilder {
                     .setAction(TimerService.ACTION_RESET_TIMER)
                     .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
-            @DrawableRes final int icon1 = R.drawable.ic_reset_24dp;
+            @DrawableRes final int icon1 = R.drawable.ic_reset;
             final CharSequence title1 = res.getText(R.string.timer_reset);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
             action = new Action.Builder(icon1, title1, intent1).build();
@@ -349,7 +347,7 @@ class TimerNotificationBuilder {
 
             final Intent reset = TimerService.createResetMissedTimersIntent(context);
 
-            @DrawableRes final int icon1 = R.drawable.ic_reset_24dp;
+            @DrawableRes final int icon1 = R.drawable.ic_reset;
             final CharSequence title1 = res.getText(R.string.timer_reset_all);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
             action = new Action.Builder(icon1, title1, intent1).build();
@@ -361,8 +359,7 @@ class TimerNotificationBuilder {
                 .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
-        final PendingIntent pendingShowApp =
-                PendingIntent.getService(context, REQUEST_CODE_MISSING, showApp,
+        final PendingIntent pendingShowApp = PendingIntent.getService(context, REQUEST_CODE_MISSING, showApp,
                         PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         final Builder notification = new NotificationCompat.Builder(
@@ -394,8 +391,7 @@ class TimerNotificationBuilder {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    private RemoteViews buildChronometer(String pname, long base, boolean running,
-                                         CharSequence stateText) {
+    private RemoteViews buildChronometer(String pname, long base, boolean running, CharSequence stateText) {
         final RemoteViews content = new RemoteViews(pname, R.layout.chronometer_notif_content);
         content.setChronometerCountDown(R.id.chronometer, true);
         content.setChronometer(R.id.chronometer, base, null, running);

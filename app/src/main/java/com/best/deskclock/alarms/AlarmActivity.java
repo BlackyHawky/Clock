@@ -25,7 +25,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -58,7 +57,6 @@ import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
@@ -228,7 +226,7 @@ public class AlarmActivity extends BaseActivity
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
         Utils.setTimeFormat(digitalClock, false);
 
-        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.colorBackground);
+        mCurrentHourColor = getColor(R.color.md_theme_background);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
@@ -507,7 +505,6 @@ public class AlarmActivity extends BaseActivity
         mAlarmHandled = true;
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
-        final int colorAccent = ThemeUtils.resolveColor(this, androidx.appcompat.R.attr.colorPrimaryDark);
         setAnimatedFractions(1.0f, 0.0f);
 
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
@@ -516,7 +513,7 @@ public class AlarmActivity extends BaseActivity
         final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
-        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, colorAccent, colorAccent).start();
+        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, Color.TRANSPARENT, mCurrentHourColor).start();
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
 

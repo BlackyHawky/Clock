@@ -20,7 +20,6 @@ import static com.best.deskclock.NotificationUtils.BEDTIME_NOTIFICATION_CHANNEL_
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -58,7 +57,6 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -96,25 +94,18 @@ public final class BedtimeService extends Service {
         DataSaver saver = DataSaver.getInstance(context);
         String action = intent.getAction();
         switch (action) {
-            case ACTION_BED_REMIND_NOTIF:
-                showRemindNotification(context);
-                break;
-            case ACTION_LAUNCH_BEDTIME:
-                startBed(context, saver);
-                break;
-            case ACTION_BEDTIME_CANCEL:
-                stopBed(context, saver);
-                break;
-            case ACTION_SHOW_BEDTIME:
+            case ACTION_BED_REMIND_NOTIF -> showRemindNotification(context);
+            case ACTION_LAUNCH_BEDTIME -> startBed(context, saver);
+            case ACTION_BEDTIME_CANCEL -> stopBed(context, saver);
+            case ACTION_SHOW_BEDTIME -> {
                 Events.sendBedtimeEvent(R.string.action_show, R.string.label_notification);
 
                 // Open DeskClock positioned on the bedtime tab.
                 UiDataModel.getUiDataModel().setSelectedTab(BEDTIME);
-                final Intent showBedtime = new Intent(this, DeskClock.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                final Intent showBedtime = new Intent(this, DeskClock.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(showBedtime);
-                break;
-            case ACTION_BEDTIME_PAUSE:
+            }
+            case ACTION_BEDTIME_PAUSE -> {
                 stopBed(context, saver);
                 AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
                 Calendar c = Calendar.getInstance();
@@ -124,7 +115,7 @@ public final class BedtimeService extends Service {
                 String txt = AlarmUtils.getFormattedTime(context, c.getTimeInMillis());
                 txt = context.getString(R.string.bed_notif_resume, txt);
                 showPausedNotification(context, txt);
-                break;
+            }
         }
         return START_NOT_STICKY;
     }
@@ -143,36 +134,35 @@ public final class BedtimeService extends Service {
     private static PendingIntent getPendingIntent(Context context, String action) {
         Intent i = new Intent(context, BedtimeService.class);
         i.setAction(action);
-        PendingIntent b = PendingIntent.getService(context, 0, i,
+        return PendingIntent.getService(context, 0, i,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        return b;
     }
 
     //TODO: what if someone goes to bed after 12 am
     private static long getNextBedtime(DataSaver saver, String action) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        c.set(Calendar.HOUR_OF_DAY, saver.hour);
-        c.set(Calendar.MINUTE, saver.minutes);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, saver.hour);
+        calendar.set(Calendar.MINUTE, saver.minutes);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         // Check if the calculated time is in the past
-        if (c.getTimeInMillis() <= System.currentTimeMillis()) {
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             // If it's in the past, add one day to the calendar to get the next occurrence
-            c.add(Calendar.DAY_OF_YEAR, 1);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
         // there currently are only two actions in which it makes sense to use this: remind notif and bed launch
         if (action.equals(ACTION_BED_REMIND_NOTIF)) {
-            c.add(Calendar.MINUTE, -saver.notifShowTime);
+            calendar.add(Calendar.MINUTE, -saver.notifShowTime);
         }
 
         // handle weekdays
-        for (int dayOfWeek = c.get(Calendar.DAY_OF_WEEK); !saver.daysOfWeek.isBitOn(dayOfWeek);) {
-            c.add(Calendar.DAY_OF_YEAR, 1);
-            dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        for (int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); !saver.daysOfWeek.isBitOn(dayOfWeek);) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         }
-        return c.getTimeInMillis();
+        return calendar.getTimeInMillis();
     }
 
     private static void showRemindNotification(Context context) {
@@ -271,7 +261,7 @@ public final class BedtimeService extends Service {
         Intent off = new Intent(context, BedtimeService.class);
         off.setAction(ACTION_BEDTIME_CANCEL);
         //TODO: we need a proper icon
-        builder.addAction(R.drawable.ic_reset_24dp, context.getString(R.string.bed_notif_action_turn_off), PendingIntent.getService(context, 0,
+        builder.addAction(R.drawable.ic_reset, context.getString(R.string.bed_notif_action_turn_off), PendingIntent.getService(context, 0,
                 off, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);

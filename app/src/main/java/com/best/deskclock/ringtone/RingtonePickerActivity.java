@@ -234,6 +234,8 @@ public class RingtonePickerActivity extends BaseActivity
         getLoaderManager().initLoader(0, null, this);
 
         registerForContextMenu(ringtone_content);
+
+        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

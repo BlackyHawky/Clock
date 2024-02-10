@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-     SPDX-FileCopyrightText: 2023 The Android Open Source Project
-     SPDX-License-Identifier: Apache-2.0
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    SPDX-License-Identifier: Apache-2.0
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path
-        android:fillColor="#FF000000"
-        android:pathData="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z" />
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:fillColor="@android:color/white"
+      android:pathData="M393,828Q290,799 225,714.5Q160,630 160,520Q160,463 179,411.5Q198,360 233,317Q244,305 260,304.5Q276,304 289,317Q300,328 300.5,344Q301,360 290,374Q266,405 253,442Q240,479 240,520Q240,601 287.5,664.5Q335,728 410,751Q423,755 431.5,766Q440,777 440,790Q440,810 426,821.5Q412,833 393,828ZM567,828Q548,833 534,821Q520,809 520,789Q520,777 528.5,766Q537,755 550,751Q625,727 672.5,664Q720,601 720,520Q720,420 650,350Q580,280 480,280L477,280L493,296Q504,307 504,324Q504,341 493,352Q482,363 465,363Q448,363 437,352L353,268Q347,262 344.5,255Q342,248 342,240Q342,232 344.5,225Q347,218 353,212L437,128Q448,117 465,117Q482,117 493,128Q504,139 504,156Q504,173 493,184L477,200L480,200Q614,200 707,293Q800,386 800,520Q800,629 735,714Q670,799 567,828Z"/>
 </vector>

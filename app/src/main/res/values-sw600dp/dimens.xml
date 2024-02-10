@@ -58,7 +58,7 @@
     <dimen name="digital_widget_city_24_medium_font_size">65sp</dimen>
 
     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
-    <dimen name="city_widget_name_font_size">20dp</dimen>
+    <dimen name="city_widget_name_font_size">20sp</dimen>
     <!-- The maximum size of the font for the time in widgets. -->
     <dimen name="widget_max_clock_font_size">125dp</dimen>
 </resources>

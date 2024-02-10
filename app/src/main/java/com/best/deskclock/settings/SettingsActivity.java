@@ -103,6 +103,8 @@ public final class SettingsActivity extends BaseActivity {
                     .disallowAddToBackStack()
                     .commit();
         }
+
+        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

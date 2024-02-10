@@ -57,7 +57,6 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/desk_clock_pager"
             android:layout_width="match_parent"
@@ -69,53 +68,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_gravity="bottom"
             android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_behavior="com.best.deskclock.widget.toast.SnackbarSlidingBehavior">
 
-            <FrameLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/left_button"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="start|center_vertical"
-                android:layout_weight="1">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/left_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:scaleType="centerInside" />
-
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_gravity="center" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
+                style="@style/FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/fab_margin"
-                app:borderWidth="0dp"
-                tools:ignore="ContentDescription" />
+                android:contentDescription="@null" />
 
-            <FrameLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/right_button"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end|center_vertical"
-                android:layout_weight="1">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/right_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:scaleType="centerInside" />
-
-            </FrameLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_gravity="center"
+                android:scaleType="centerInside" />
 
         </LinearLayout>
 
@@ -125,7 +106,7 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemBackground="@color/md_theme_surface"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
-
 </LinearLayout>

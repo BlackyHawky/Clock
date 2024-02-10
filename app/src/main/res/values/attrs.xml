@@ -42,9 +42,4 @@
         <enum name="noState" value="2" />
     </attr>
 
-    <declare-styleable name="MotionButton">
-        <attr format="dimension" name="round"/>
-        <attr format="float" name="roundPercent"/>
-    </declare-styleable>
-
 </resources>

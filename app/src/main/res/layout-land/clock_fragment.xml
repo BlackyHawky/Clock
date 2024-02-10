@@ -18,7 +18,7 @@
     android:layout_height="match_parent">
 
     <!-- Left gutter. -->
-    <Space
+    <View
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="@integer/gutter_width_percent" />
@@ -39,7 +39,7 @@
             android:layout_weight="29" />
 
         <!-- Right gutter. -->
-        <Space
+        <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2" />

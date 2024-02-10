@@ -130,6 +130,8 @@ public final class CitySelectionActivity extends BaseActivity {
         mCitiesList.setAdapter(mCitiesAdapter);
 
         updateFastScrolling();
+
+        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

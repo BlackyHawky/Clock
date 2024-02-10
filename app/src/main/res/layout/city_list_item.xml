@@ -17,12 +17,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:minHeight="@dimen/cities_list_item_height"
+    android:minHeight="@dimen/touch_target_min_size"
     android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/index"
-        android:layout_width="74dip"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="@dimen/label_text_size"
@@ -40,13 +40,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:paddingStart="16dip"
-        android:paddingEnd="10dip"
+        android:paddingStart="16dp"
+        android:paddingEnd="10dp"
         android:singleLine="true" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/city_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dip" />
+        android:layout_marginEnd="20dp" />
 </LinearLayout>

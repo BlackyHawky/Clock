@@ -16,37 +16,27 @@
 
 package com.best.deskclock.timer;
 
-import static android.R.attr.state_activated;
-import static android.R.attr.state_pressed;
-
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.TimerTextController;
-import com.best.deskclock.Utils.ClickAccessibilityDelegate;
 import com.best.deskclock.data.Timer;
+
+import com.google.android.material.button.MaterialButton;
 
 /**
  * This view is a visual representation of a {@link Timer}.
  */
 public class TimerItem extends ConstraintLayout {
-
-    /**
-     * Displays the remaining time or time since expiration.
-     */
-    private TextView mTimerText;
 
     /**
      * Formats and displays the text in the timer.
@@ -62,7 +52,7 @@ public class TimerItem extends ConstraintLayout {
     private ImageButton mResetButton;
 
     /** A button that adds a minute to the timer. */
-    private Button mAddButton;
+    private MaterialButton mAddButton;
 
     /**
      * Displays the label associated with the timer. Tapping it presents an edit dialog.
@@ -70,7 +60,7 @@ public class TimerItem extends ConstraintLayout {
     private TextView mLabelView;
 
     /** A button to start / stop the timer */
-    private ImageButton mPlayPauseButton;
+    private MaterialButton mPlayPauseButton;
 
     /**
      * The last state of the timer that was rendered; used to avoid expensive operations.
@@ -92,16 +82,10 @@ public class TimerItem extends ConstraintLayout {
         mResetButton = findViewById(R.id.reset);
         mAddButton = findViewById(R.id.add_one_min);
         mCircleView = findViewById(R.id.timer_time);
-        mTimerText = findViewById(R.id.timer_time_text);
+        // Displays the remaining time or time since expiration.
+        TextView timerText = findViewById(R.id.timer_time_text);
         mPlayPauseButton = findViewById(R.id.play_pause);
-        mTimerTextController = new TimerTextController(mTimerText);
-
-        final Context c = mTimerText.getContext();
-        final int colorAccent = ThemeUtils.resolveColor(c, androidx.appcompat.R.attr.colorAccent);
-        final int textColorPrimary = ThemeUtils.resolveColor(c, android.R.attr.textColorPrimary);
-        mTimerText.setTextColor(new ColorStateList(
-                new int[][]{{-state_activated, -state_pressed}, {}},
-                new int[]{textColorPrimary, colorAccent}));
+        mTimerTextController = new TimerTextController(timerText);
     }
 
     /**
@@ -139,25 +123,17 @@ public class TimerItem extends ConstraintLayout {
             mAddButton.setVisibility(View.VISIBLE);
             mLastState = timer.getState();
             switch (mLastState) {
-                case RESET:
+                case RESET -> {
                     mResetButton.setVisibility(View.GONE);
                     mResetButton.setContentDescription(null);
                     mAddButton.setVisibility(View.INVISIBLE);
-                    mPlayPauseButton.setImageResource(R.drawable.ic_pause_play);
-                    break;
-                case PAUSED: {
-                    mPlayPauseButton.setImageResource(R.drawable.ic_pause_play);
-                    break;
+                    mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_pause_play, null));
                 }
-                case RUNNING: {
-                    mPlayPauseButton.setImageResource(R.drawable.ic_play_pause);
-                    break;
-                }
-                case EXPIRED:
-                case MISSED: {
+                case PAUSED -> mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_pause_play, null));
+                case RUNNING -> mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_play_pause, null));
+                case EXPIRED, MISSED -> {
                     mResetButton.setVisibility(View.GONE);
-                    mPlayPauseButton.setImageResource(R.drawable.ic_stop_play);
-                    break;
+                    mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_stop_play, null));
                 }
             }
         }

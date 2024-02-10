@@ -26,5 +26,6 @@
         android:background="@drawable/toggle_circle"
         android:button="@null"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:textSize="@dimen/day_button_font_size" />
 </FrameLayout>

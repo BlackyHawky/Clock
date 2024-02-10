@@ -28,7 +28,7 @@
         android:format24Hour="@string/lock_screen_24_hour_format"
         android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@color/white" />
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
@@ -58,7 +58,7 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:text="@string/clock_emoji"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/nextAlarm"
@@ -70,7 +70,7 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

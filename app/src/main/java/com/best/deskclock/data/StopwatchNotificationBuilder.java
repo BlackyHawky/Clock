@@ -119,7 +119,7 @@ class StopwatchNotificationBuilder {
                     .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            @DrawableRes final int icon2 = R.drawable.ic_reset_24dp;
+            @DrawableRes final int icon2 = R.drawable.ic_reset;
             final CharSequence title2 = res.getText(R.string.sw_reset_button);
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Action.Builder(icon2, title2, intent2).build());

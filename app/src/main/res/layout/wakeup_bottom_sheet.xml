@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet"
+    android:background="@drawable/bedtime_bottom_sheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:paddingBottom="12dp"
@@ -60,7 +59,6 @@
                 android:importantForAccessibility="no"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginStart="8dp"/>
-
         </LinearLayout>
 
         <com.best.deskclock.widget.TextTime
@@ -135,7 +133,6 @@
             app:layout_gravity="fill_horizontal"
             app:layout_row="3" />
 
-
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/vibrate_onoff_wake"
             android:layout_width="match_parent"
@@ -151,4 +148,5 @@
             app:layout_gravity="center_vertical"
             app:layout_row="3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

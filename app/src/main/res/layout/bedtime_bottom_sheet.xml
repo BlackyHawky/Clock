@@ -4,7 +4,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:background="@drawable/bottom_sheet"
+android:background="@drawable/bedtime_bottom_sheet"
 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -45,12 +45,12 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="18dp"
             android:importantForAccessibility="no"
             app:srcCompat="@drawable/ic_tab_bedtime_static"
-            app:tint="?android:attr/textColorSecondary"
+            app:tint="@color/md_theme_onSurfaceVariant"
             app:tintMode="src_in"/>
 
         <TextView
             android:textSize="11sp"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="@color/md_theme_onSurfaceVariant"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +69,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:textSize="36sp"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,13 +121,14 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
         android:paddingVertical="8dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/bedtime_preference_hairline" >
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/remind_notif"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_onSurfaceVariant" />
         <Spinner
             android:id="@+id/notif_spinner"
             android:layout_width="match_parent"
@@ -147,18 +149,20 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:orientation="vertical">
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/bed_dnd_title"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-            <com.google.android.material.textview.MaterialTextView
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_onSurfaceVariant" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/bed_dnd_txt" />
+                android:text="@string/bed_dnd_txt"
+                android:textColor="@color/md_theme_onSurfaceVariant" />
         </LinearLayout>
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/dnd_switch"
@@ -183,18 +187,20 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:orientation="vertical">
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@string/bed_wall_title"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-            <com.google.android.material.textview.MaterialTextView
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_onSurfaceVariant" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@string/bed_wall_txt" />
+                android:text="@string/bed_wall_txt"
+                android:textColor="@color/md_theme_onSurfaceVariant" />
         </LinearLayout>
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/wall_switch"

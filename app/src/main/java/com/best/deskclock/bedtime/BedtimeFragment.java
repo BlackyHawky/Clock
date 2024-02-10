@@ -282,13 +282,11 @@ public final class BedtimeFragment extends DeskClockFragment implements
         final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
         // Build button for each day.
         for (int i = 0; i < 7; i++) {
-            final View dayButtonFrame = inflaters.inflate(R.layout.day_button, repeatDays,
-                    false /* attachToRoot */);
+            final View dayButtonFrame = inflaters.inflate(R.layout.day_button, repeatDays, false);
             final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setChecked(true);
-            dayButton.setTextColor(ThemeUtils.resolveColor(getContext(),
-                    android.R.attr.textColorPrimaryInverse));
+            dayButton.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
             repeatDays.addView(dayButtonFrame);
