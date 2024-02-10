@@ -106,7 +106,6 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/md_theme_surface"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>

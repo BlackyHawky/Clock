@@ -286,6 +286,7 @@ public class DeskClock extends BaseActivity
         // Mirror changes made to the selected tab into UiDataModel.
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
+        mBottomNavigation.setBackgroundColor(getColor(R.color.md_theme_surface));
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
