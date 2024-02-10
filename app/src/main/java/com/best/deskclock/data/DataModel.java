@@ -78,7 +78,6 @@ public final class DataModel {
      */
     private AlarmModel mAlarmModel;
 
-    private ThemeModel mThemeModel;
     /**
      * The model from which widget data are fetched.
      */
@@ -125,7 +124,6 @@ public final class DataModel {
             mSettingsModel = new SettingsModel(mContext, prefs, mTimeModel);
             mCityModel = new CityModel(mContext, prefs, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
-            mThemeModel = new ThemeModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
             mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel,

@@ -72,9 +72,6 @@ public final class SettingsActivity extends BaseActivity {
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-    public static final String SYSTEM_THEME_BEHAVIOR = "0";
-    public static final String THEME_BEHAVIOR_DARK = "1";
-    public static final String THEME_BEHAVIOR_LIGHT = "2";
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
@@ -167,7 +164,7 @@ public final class SettingsActivity extends BaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_CLOCK_STYLE, KEY_THEME, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
+                case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
                         KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
                         KEY_SHAKE_ACTION, KEY_WEEK_START -> {
                     final ListPreference preference = (ListPreference) pref;
@@ -269,10 +266,6 @@ public final class SettingsActivity extends BaseActivity {
             final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
             Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
-
-            final ListPreference themeButtonsPref = findPreference(KEY_THEME);
-            Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
-            themeButtonsPref.setOnPreferenceChangeListener(this);
 
             final ListPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
             Objects.requireNonNull(powerButtonsPref).setSummary(powerButtonsPref.getEntry());

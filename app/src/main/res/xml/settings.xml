@@ -13,15 +13,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings">
-    <PreferenceCategory android:title="Theme">
-        <ListPreference
-            android:defaultValue="0"
-            android:dialogTitle="@string/title_theme"
-            android:entries="@array/array_theme"
-            android:entryValues="@array/theme_setting_entries"
-            android:key="@string/key_theme"
-            android:title="@string/title_theme" />
-    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/clock_settings">
         <ListPreference
             android:defaultValue="@string/default_clock_style"

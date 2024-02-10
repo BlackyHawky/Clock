@@ -25,7 +25,6 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 
 import java.util.TimeZone;
 
@@ -128,10 +127,6 @@ final class SettingsModel {
 
     AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
-    }
-
-    ThemeButtonBehavior getThemeButtonBehavior() {
-        return SettingsDAO.getThemeButtonBehavior(mPrefs);
     }
 
     AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {
