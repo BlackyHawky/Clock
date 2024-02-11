@@ -16,19 +16,19 @@
 
 package com.best.deskclock.timer;
 
+import static android.util.TypedValue.COMPLEX_UNIT_DIP;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.graphics.drawable.GradientDrawable;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
@@ -38,11 +38,19 @@ import com.best.deskclock.events.Events;
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
     private int mTimerId;
-    private TimerItem mTimerItem;
-    private TimerClickHandler mTimerClickHandler;
+    private final TimerItem mTimerItem;
+    private final TimerClickHandler mTimerClickHandler;
 
     public TimerViewHolder(View view, TimerClickHandler timerClickHandler) {
         super(view);
+
+        final int color = view.getContext().getColor(R.color.md_theme_primary);
+        final int radius = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 12, view.getResources().getDisplayMetrics());
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(radius);
+        gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
+        view.setBackground(gradientDrawable);
+
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;
 
@@ -51,13 +59,34 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.reset).setOnClickListener(v ->
                 DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock)
         );
+        // Must use getTimer() because old timer is no longer accurate.
+        View.OnClickListener mAddListener = v -> {
+            final Timer timer = getTimer();
+            DataModel.getDataModel().addTimerMinute(timer);
+            Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
+
+            final Context context = v.getContext();
+            // Must use getTimer() because old timer is no longer accurate.
+            final long currentTime = getTimer().getRemainingTime();
+            if (currentTime > 0) {
+                v.announceForAccessibility(TimerStringFormatter.formatString(context,
+                        R.string.timer_accessibility_one_minute_added, currentTime, true));
+            }
+        };
         view.findViewById(R.id.add_one_min).setOnClickListener(mAddListener);
-        view.findViewById(R.id.timer_label).setOnClickListener(v ->
-                mTimerClickHandler.onEditLabelClicked(getTimer()));
+        view.findViewById(R.id.timer_label).setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
+        View.OnClickListener mPlayPauseListener = v -> {
+            final Timer clickedTimer = getTimer();
+            if (clickedTimer.isPaused() || clickedTimer.isReset()) {
+                DataModel.getDataModel().startTimer(clickedTimer);
+            } else if (clickedTimer.isRunning()) {
+                DataModel.getDataModel().pauseTimer(clickedTimer);
+            } else if (clickedTimer.isExpired() || clickedTimer.isMissed()) {
+                DataModel.getDataModel().resetOrDeleteTimer(clickedTimer, R.string.label_deskclock);
+            }
+        };
         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
-        view.findViewById(R.id.close).setOnClickListener(v -> {
-            DataModel.getDataModel().removeTimer(getTimer());
-        });
+        view.findViewById(R.id.close).setOnClickListener(v -> DataModel.getDataModel().removeTimer(getTimer()));
     }
 
     public void onBind(int timerId) {
@@ -99,36 +128,4 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         return DataModel.getDataModel().getTimer(getTimerId());
     }
 
-    private final class ResetListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
-        }
-    }
-
-    private final View.OnClickListener mAddListener = v -> {
-        final Timer timer = getTimer();
-        DataModel.getDataModel().addTimerMinute(timer);
-        Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
-
-        final Context context = v.getContext();
-        // Must use getTimer() because old timer is no longer accurate.
-        final long currentTime = getTimer().getRemainingTime();
-        if (currentTime > 0) {
-            v.announceForAccessibility(TimerStringFormatter.formatString(
-                    context, R.string.timer_accessibility_one_minute_added, currentTime,
-                    true));
-        }
-    };
-
-    private final View.OnClickListener mPlayPauseListener = v -> {
-        final Timer clickedTimer = getTimer();
-        if (clickedTimer.isPaused() || clickedTimer.isReset()) {
-            DataModel.getDataModel().startTimer(clickedTimer);
-        } else if (clickedTimer.isRunning()) {
-            DataModel.getDataModel().pauseTimer(clickedTimer);
-        } else if (clickedTimer.isExpired() || clickedTimer.isMissed()) {
-            DataModel.getDataModel().resetOrDeleteTimer(clickedTimer, R.string.label_deskclock);
-        }
-    };
 }
