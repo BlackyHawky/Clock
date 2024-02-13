@@ -55,6 +55,7 @@
             android:paddingStart="@dimen/alarm_horizontal_padding"
             android:paddingEnd="@dimen/alarm_horizontal_padding"
             android:text="@string/alarm_repeat"
+            android:textColor="@color/md_theme_onSurfaceVariant"
             app:layout_column="0"
             app:layout_columnSpan="2"
             app:layout_row="1" />
@@ -96,6 +97,7 @@
             android:layout_height="@dimen/touch_target_min_size"
             android:paddingStart="@dimen/alarm_horizontal_padding"
             android:text="@string/alarm_vibrate"
+            android:textColor="@color/md_theme_onSurfaceVariant"
             app:layout_column="5"
             app:layout_columnSpan="3"
             app:layout_row="3"
@@ -103,7 +105,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/edit_label"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/touch_target_min_size"
             android:background="?attr/selectableItemBackground"
             android:drawablePadding="@dimen/alarm_horizontal_padding"
@@ -114,7 +116,6 @@
             android:textAlignment="viewStart"
             app:layout_column="0"
             app:layout_columnSpan="8"
-            app:layout_gravity="fill_horizontal"
             app:layout_row="4" />
 
         <include
@@ -127,13 +128,12 @@
 
         <View
             android:id="@+id/hairline"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/hairline_height"
             android:layout_marginLeft="@dimen/hairline_side_padding"
             android:layout_marginRight="@dimen/hairline_side_padding"
             app:layout_column="0"
             app:layout_columnSpan="8"
-            app:layout_gravity="fill_horizontal"
             app:layout_row="6" />
 
         <com.google.android.material.button.MaterialButton

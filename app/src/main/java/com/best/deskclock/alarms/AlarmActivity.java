@@ -39,6 +39,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,6 +58,7 @@ import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.BaseActivity;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
@@ -216,8 +218,21 @@ public class AlarmActivity extends BaseActivity
         mSnoozeButton = mContentView.findViewById(R.id.snooze);
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
-        mDismissButton.setColorFilter(com.google.android.material.R.attr.colorOnBackground);
-        mSnoozeButton.setColorFilter(com.google.android.material.R.attr.colorOnBackground);
+
+        mAlarmButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+                mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
+        );
+        mAlarmButton.setColorFilter(getColor(R.color.md_theme_outline));
+
+        mDismissButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+                mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
+        );
+        mDismissButton.setColorFilter(getColor(R.color.md_theme_outline));
+
+        mSnoozeButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+                mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
+        );
+        mSnoozeButton.setColorFilter(getColor(R.color.md_theme_outline));
 
         final TextView titleView = mContentView.findViewById(R.id.title);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
@@ -234,8 +249,8 @@ public class AlarmActivity extends BaseActivity
         mDismissButton.setOnClickListener(this);
 
         mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
-        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, com.google.android.material.R.attr.colorOnBackground);
-        mDismissAnimator = getButtonAnimator(mDismissButton, com.google.android.material.R.attr.colorOnBackground);
+        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, R.color.md_theme_onSurfaceVariant);
+        mDismissAnimator = getButtonAnimator(mDismissButton, R.color.md_theme_onSurfaceVariant);
         mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
                 PropertyValuesHolder.ofFloat(CircleView.RADIUS, 0.0f, pulseView.getRadius()),
                 PropertyValuesHolder.ofObject(CircleView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR,
@@ -513,7 +528,7 @@ public class AlarmActivity extends BaseActivity
         final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
-        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, Color.TRANSPARENT, mCurrentHourColor).start();
+        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, mCurrentHourColor).start();
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
 
@@ -532,7 +547,7 @@ public class AlarmActivity extends BaseActivity
 
         setAnimatedFractions(0.0f, 1.0f);
 
-        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text), Color.TRANSPARENT, mCurrentHourColor).start();
+        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text), mCurrentHourColor).start();
 
         AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
@@ -594,16 +609,17 @@ public class AlarmActivity extends BaseActivity
                 mHintView.setText(hintResId);
                 if (mHintView.getVisibility() != View.VISIBLE) {
                     mHintView.setVisibility(View.VISIBLE);
+
                     ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
                 }
             }
         });
+
         return bounceAnimator;
     }
 
-    private Animator getAlertAnimator(final View source, final int titleResId,
-                                      final String infoText, final String accessibilityText, final int revealColor,
-                                      final int backgroundColor) {
+    private Animator getAlertAnimator(final View source, final int titleResId, final String infoText,
+                                      final String accessibilityText, final int backgroundColor) {
 
         final ViewGroup containerView = findViewById(android.R.id.content);
 
@@ -622,7 +638,7 @@ public class AlarmActivity extends BaseActivity
         final CircleView revealView = new CircleView(this)
                 .setCenterX(centerX)
                 .setCenterY(centerY)
-                .setFillColor(revealColor);
+                .setFillColor(Color.TRANSPARENT);
         containerView.addView(revealView);
 
         // TODO: Fade out source icon over the reveal (like LOLLIPOP version).
@@ -635,9 +651,11 @@ public class AlarmActivity extends BaseActivity
             public void onAnimationEnd(Animator animator) {
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
+                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 
                 if (infoText != null) {
                     mAlertInfoView.setText(infoText);
+                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
                     mAlertInfoView.setVisibility(View.VISIBLE);
                 }
                 mContentView.setVisibility(View.GONE);
@@ -648,6 +666,7 @@ public class AlarmActivity extends BaseActivity
 
         final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
         fadeAnimator.setDuration(ALERT_FADE_DURATION_MILLIS);
+
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -657,6 +676,7 @@ public class AlarmActivity extends BaseActivity
 
         final AnimatorSet alertAnimator = new AnimatorSet();
         alertAnimator.play(revealAnimator).before(fadeAnimator);
+
         alertAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {

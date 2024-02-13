@@ -23,7 +23,7 @@
         android:id="@+id/day_button_box"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/toggle_circle"
+        android:background="@drawable/toggle_circle_for_anim"
         android:button="@null"
         android:gravity="center"
         android:layout_gravity="center_horizontal"

@@ -18,11 +18,14 @@ package com.best.deskclock.ringtone;
 
 import static android.view.View.GONE;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.ItemAdapter.ItemViewHolder;
 import com.best.deskclock.R;
@@ -42,11 +45,15 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
 
         final TextView nameView = itemView.findViewById(R.id.ringtone_name);
         nameView.setText(itemView.getContext().getString(R.string.add_new_sound));
-        nameView.setAlpha(0.63f);
+        nameView.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
-        imageView.setImageResource(R.drawable.ic_add_24dp);
-        imageView.setAlpha(0.63f);
+        final Drawable iconAdd = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.ic_add);
+        if (iconAdd == null) {
+            return;
+        }
+        iconAdd.setTint(imageView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+        imageView.setImageDrawable(iconAdd);
     }
 
     @Override

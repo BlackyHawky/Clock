@@ -212,7 +212,7 @@ public final class BedtimeService extends Service {
                 .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.remind_notif_title, bedtime))
                 .setContentText(context.getString(R.string.remind_notif_text, wake, diff))
-                .setColor(android.R.attr.colorAccent)
+                .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_moon)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
@@ -240,7 +240,7 @@ public final class BedtimeService extends Service {
                 .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.bed_notif_title))
                 .setContentText(text)
-                .setColor(android.R.attr.colorAccent)
+                .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_bedtime)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
@@ -255,7 +255,7 @@ public final class BedtimeService extends Service {
 
         Intent pause = new Intent(context, BedtimeService.class);
         pause.setAction(ACTION_BEDTIME_PAUSE);
-        builder.addAction(R.drawable.ic_pause_24dp, context.getString(R.string.bed_notif_action_pause), PendingIntent.getService(context, 0,
+        builder.addAction(R.drawable.ic_fab_pause, context.getString(R.string.bed_notif_action_pause), PendingIntent.getService(context, 0,
                 pause, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         Intent off = new Intent(context, BedtimeService.class);
@@ -279,7 +279,7 @@ public final class BedtimeService extends Service {
                 .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.bed_paused_notif_title))
                 .setContentText(text)
-                .setColor(android.R.attr.colorAccent)
+                .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_moon)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
@@ -294,7 +294,7 @@ public final class BedtimeService extends Service {
 
         Intent it = new Intent(context, BedtimeService.class);
         it.setAction(ACTION_LAUNCH_BEDTIME);
-        builder.addAction(R.drawable.ic_start_24dp, context.getString(R.string.bed_notif_resume_action), PendingIntent.getService(context, notifId,
+        builder.addAction(R.drawable.ic_fab_play, context.getString(R.string.bed_notif_resume_action), PendingIntent.getService(context, notifId,
                 it, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);

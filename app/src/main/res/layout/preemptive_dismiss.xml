@@ -17,7 +17,7 @@
     style="?attr/borderlessButtonStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawableStart="@drawable/ic_alarm_off_white_24dp"
+    android:drawableStart="@drawable/ic_alarm_off"
     android:drawablePadding="@dimen/alarm_horizontal_padding"
     android:gravity="center_vertical"
     android:minHeight="@dimen/touch_target_min_size"

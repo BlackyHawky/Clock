@@ -33,7 +33,7 @@
         android:fromId="@id/off"
         android:toId="@id/on">
 
-        <animated-vector android:drawable="@drawable/ic_alarm">
+        <animated-vector android:drawable="@drawable/ic_alarm_for_anim">
             <target
                 android:name="button"
                 android:animation="@animator/ic_alarm_animation_button" />

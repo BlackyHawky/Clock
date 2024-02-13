@@ -63,7 +63,7 @@
             android:title="@string/snooze_duration_title" />
 
         <com.best.deskclock.settings.AlarmVolumePreference
-            android:icon="@drawable/ic_alarm_small"
+            android:icon="@drawable/ic_tab_alarm_static"
             android:key="volume_setting"
             android:layout="@xml/alarm_volume_preference"
             android:title="@string/alarm_volume_title" />

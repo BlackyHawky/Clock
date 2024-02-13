@@ -21,7 +21,7 @@ import static android.view.View.OnClickListener;
 import static android.view.View.OnCreateContextMenuListener;
 import static android.view.View.VISIBLE;
 
-import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,12 +30,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 
 final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder>
@@ -63,25 +63,36 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
         mNameView.setText(itemHolder.getName());
+        mNameView.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+
         final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
         mNameView.setAlpha(opaque ? 1f : .63f);
         mImageView.setAlpha(opaque ? 1f : .63f);
         mImageView.clearColorFilter();
 
+        final Drawable noRingtone = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_ringtone_not_found));
+        final Drawable albumArtwork = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_placeholder_album_artwork));
+        final Drawable ringtoneSilent = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_ringtone_silent));
+        final Drawable ringtone = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_ringtone));
+        if (noRingtone == null || albumArtwork == null || ringtoneSilent == null || ringtone == null) {
+            return;
+        }
+        noRingtone.setTint(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+        albumArtwork.setTint(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+        ringtoneSilent.setTint(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+        ringtone.setTint(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+
         final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             if (!itemHolder.hasPermissions()) {
-                mImageView.setImageResource(R.drawable.ic_ringtone_not_found);
-                final int colorAccent = ThemeUtils.resolveColor(itemView.getContext(),
-                        androidx.appcompat.R.attr.colorAccent);
-                mImageView.setColorFilter(colorAccent, PorterDuff.Mode.SRC_ATOP);
+                mImageView.setImageDrawable(noRingtone);
             } else {
-                mImageView.setImageResource(R.drawable.ic_placeholder_album_artwork);
+                mImageView.setImageDrawable(albumArtwork);
             }
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
-            mImageView.setImageResource(R.drawable.ic_ringtone_silent);
+            mImageView.setImageDrawable(ringtoneSilent);
         } else {
-            mImageView.setImageResource(R.drawable.ic_ringtone);
+            mImageView.setImageDrawable(ringtone);
         }
         AnimatorUtils.startDrawableAnimation(mImageView);
 
@@ -105,8 +116,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu contextMenu, View view,
-                                    ContextMenu.ContextMenuInfo contextMenuInfo) {
+    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
         notifyItemClicked(RingtoneViewHolder.CLICK_LONG_PRESS);
         contextMenu.add(Menu.NONE, 0, Menu.NONE, R.string.remove_sound);
     }

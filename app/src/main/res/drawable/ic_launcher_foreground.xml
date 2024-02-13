@@ -11,7 +11,6 @@
         <path
             android:pathData="M54,79L54,54"
             android:strokeWidth="2"
-            android:fillColor="#00000000"
             android:strokeColor="@color/md_theme_error"
             android:strokeLineCap="round"/>
         <path

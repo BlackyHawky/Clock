@@ -1,24 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
+    android:viewportWidth="960"
+    android:viewportHeight="960">
     <path
-        android:fillColor="#FFFFFFFF"
-        android:pathData="M15,1L9,1v2h6L15,1zM11,14h2L13,8h-2v6zM19.03,7.39l1.42,-1.42c-0.43,-0.51 -0.9,-0.99 -1.41,-1.41l-1.42,1.42C16.07,4.74 14.12,4 12,4c-4.97,0 -9,4.03 -9,9s4.02,9 9,9 9,-4.03 9,-9c0,-2.12 -0.74,-4.07 -1.97,-5.61zM12,20c-3.87,0 -7,-3.13 -7,-7s3.13,-7 7,-7 7,3.13 7,7 -3.13,7 -7,7z" />
+        android:fillColor="@android:color/white"
+        android:pathData="m400 120q-17 0-28-11q-12-12-12-29q0-17 12-28q11-12 28-12l160 0q17 0 29 12q11 11 11 28q0 17-11 29q-12 11-29 11l-160 0m80 440q17 0 29-11q11-12 11-29l0-160q0-17-11-28q-12-12-29-12q-17 0-28 12q-12 11-12 28l0 160q0 17 12 29q11 11 28 11m0 320q-74 0-139-28q-66-29-115-78q-49-49-77-114q-29-66-29-140q0-74 29-139q28-66 77-115q49-49 115-77q65-29 139-29q62 0 119 20q57 20 107 58l28-28q11-11 28-11q17 0 28 11q11 11 11 28q0 17-11 28l-28 28q38 50 58 107q20 57 20 119q0 74-28 140q-29 65-78 114q-49 49-114 78q-66 28-140 28m0-80q116 0 198-82q82-82 82-198q0-116-82-198q-82-82-198-82q-116 0-198 82q-82 82-82 198q0 116 82 198q82 82 198 82m0-280" />
 </vector>

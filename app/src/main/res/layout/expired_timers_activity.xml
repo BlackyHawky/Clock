@@ -43,7 +43,7 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/timer_stop"
-        android:src="@drawable/ic_stop_white_24dp"
+        android:src="@drawable/ic_fab_stop"
         app:borderWidth="0dp" />
 
 </FrameLayout>

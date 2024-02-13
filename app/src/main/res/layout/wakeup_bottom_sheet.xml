@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bedtime_bottom_sheet"
+    android:background="@drawable/bg_bedtime_bottom_sheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,12 +44,11 @@
                 android:layout_height="18dp"
                 android:importantForAccessibility="no"
                 app:srcCompat="@drawable/ic_tab_wakeup"
-                app:tint="?android:attr/textColorSecondary"
-                app:tintMode="src_in"/>
+                app:tint="@color/md_theme_onSurfaceVariant" />
 
             <TextView
                 android:textSize="11sp"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/md_theme_onSurfaceVariant"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,7 +140,7 @@
             android:paddingStart="@dimen/checkbox_start_padding"
             android:paddingEnd="@dimen/checkbox_start_padding"
             android:text="@string/alarm_vibrate"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_column="5"
             app:layout_columnSpan="3"
             app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime"

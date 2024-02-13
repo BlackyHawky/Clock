@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.TimePickerDialogFragment;
@@ -139,6 +140,9 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void hoursOfSleep(Alarm alarm) {
 
         TextView hours_of_sleep_text = (TextView) view.findViewById(R.id.hours_of_sleep);
+        hours_of_sleep_text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        hours_of_sleep_text.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
+
         if (null != alarm) {
             //TODO: what if someone goes to bed after 12 am
             int minDiff = alarm.minutes - saver.minutes;
@@ -192,59 +196,47 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bindWakeStuff(alarm);
 
         // Ringtone editor handler
-        ringtone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "ERROR: The ringtone change will only show in alarm tab", Toast.LENGTH_LONG).show();
-                Events.sendBedtimeEvent(R.string.action_set_ringtone, R.string.label_deskclock);
+        ringtone.setOnClickListener(v -> {
+            Toast.makeText(context, "ERROR: The ringtone change will only show in alarm tab", Toast.LENGTH_LONG).show();
+            Events.sendBedtimeEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-                final Intent intent =
-                        RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
-                context.startActivity(intent);
-                bindRingtone(context, alarm);
-            }
+            final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
+            context.startActivity(intent);
+            bindRingtone(context, alarm);
         });
 
-        clock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Events.sendBedtimeEvent(R.string.action_set_time, R.string.label_deskclock);
-                TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
-                bindClock(alarm);
-            }
+        clock.setOnClickListener(v -> {
+            Events.sendBedtimeEvent(R.string.action_set_time, R.string.label_deskclock);
+            TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
+            bindClock(alarm);
         });
 
-        onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked != alarm.enabled) {
-                    alarm.enabled = checked;
-                    Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable,
-                            R.string.label_deskclock);
-                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
-                    if (vibrator.hasVibrator()) {
-                        vibrator.vibrate(10);
-                    }
-                    //LOGGER.d("Updating alarm enabled state to " + checked);
+        onOff.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (checked != alarm.enabled) {
+                alarm.enabled = checked;
+                Events.sendBedtimeEvent(checked
+                        ? R.string.action_enable
+                        : R.string.action_disable, R.string.label_deskclock);
+                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(10);
                 }
+                //LOGGER.d("Updating alarm enabled state to " + checked);
             }
         });
 
-        vibrate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean newState = ((CheckBox) v).isChecked();
-                if (newState != alarm.vibrate) {
-                    alarm.vibrate = newState;
-                    Events.sendBedtimeEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
-                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-                    //LOGGER.d("Updating vibrate state to " + newState);
+        vibrate.setOnClickListener(v -> {
+            boolean newState = ((CheckBox) v).isChecked();
+            if (newState != alarm.vibrate) {
+                alarm.vibrate = newState;
+                Events.sendBedtimeEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
+                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+                //LOGGER.d("Updating vibrate state to " + newState);
 
-                    if (newState) {
-                        // Buzz the vibrator to preview the alarm firing behavior.
-                        if (vibrator.hasVibrator()) {
-                            vibrator.vibrate(300);
-                        }
+                if (newState) {
+                    // Buzz the vibrator to preview the alarm firing behavior.
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(300);
                     }
                 }
             }
@@ -295,28 +287,25 @@ public final class BedtimeFragment extends DeskClockFragment implements
         // Day buttons handler
         for (int i = 0; i < dayButtons.length; i++) {
             final int index = i;
-            dayButtons[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final boolean checked = ((CompoundButton) view).isChecked();
-                    //final Calendar now = Calendar.getInstance();
-                    //final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
+            dayButtons[i].setOnClickListener(view -> {
+                final boolean checked = ((CompoundButton) view).isChecked();
+                //final Calendar now = Calendar.getInstance();
+                //final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
 
-                    final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
-                    alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
+                final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
+                alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
-                    // if the change altered the next scheduled alarm time, tell the user
-                    /*final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
-                    final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);*/
-                    final boolean popupToast = false;//TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
-                    mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
+                // if the change altered the next scheduled alarm time, tell the user
+                /*final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
+                final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);*/
+                final boolean popupToast = false;//TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
+                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
-                    if (vibrator.hasVibrator()) {
-                        vibrator.vibrate(10);
-                    }
-                    //TODO:Is it really right to bind them again just to change the letter color
-                    bindDaysOfWeekButtons(alarm, context);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(10);
                 }
+                //TODO:Is it really right to bind them again just to change the letter color
+                bindDaysOfWeekButtons(alarm, context);
             });
         }
 
@@ -333,13 +322,19 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void bindRingtone(Context context, Alarm alarm) {
         final String title = DataModel.getDataModel().getRingtoneTitle(alarm.alert);
         ringtone.setText(title);
+        ringtone.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
 
         final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
 
         final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
-        final Drawable icon = Utils.getVectorDrawable(context,
-                silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone);
+        final Drawable icon = silent
+                ? AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent)
+                : AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
+        if (icon == null) {
+            return;
+        }
+        icon.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
     }
 
@@ -349,12 +344,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
             final CompoundButton dayButton = dayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(ThemeUtils.resolveColor(context,
-                        android.R.attr.textColorPrimaryInverse));
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(ThemeUtils.resolveColor(context,
-                        android.R.attr.textColorPrimary));
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
             }
         }
     }
@@ -508,13 +501,11 @@ public final class BedtimeFragment extends DeskClockFragment implements
         final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
         // Build button for each day.
         for (int i = 0; i < 7; i++) {
-            final View dayButtonFrame = inflaters.inflate(R.layout.day_button, repeatDays,
-                    false /* attachToRoot */);
+            final View dayButtonFrame = inflaters.inflate(R.layout.day_button, repeatDays, false);
             final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setChecked(true);
-            dayButton.setTextColor(ThemeUtils.resolveColor(getContext(),
-                    android.R.attr.textColorPrimaryInverse));
+            dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
             repeatDays.addView(dayButtonFrame);
@@ -562,12 +553,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
             final CompoundButton dayButton = dayButtons[i];
             if (saver.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(ThemeUtils.resolveColor(context,
-                        android.R.attr.textColorPrimaryInverse));
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(ThemeUtils.resolveColor(context,
-                        android.R.attr.textColorPrimary));
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
             }
         }
     }

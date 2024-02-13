@@ -24,8 +24,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.TimerTextController;
@@ -127,13 +127,13 @@ public class TimerItem extends ConstraintLayout {
                     mResetButton.setVisibility(View.GONE);
                     mResetButton.setContentDescription(null);
                     mAddButton.setVisibility(View.INVISIBLE);
-                    mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_pause_play, null));
+                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_play));
                 }
-                case PAUSED -> mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_pause_play, null));
-                case RUNNING -> mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_play_pause, null));
+                case PAUSED -> mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_play));
+                case RUNNING -> mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_pause));
                 case EXPIRED, MISSED -> {
                     mResetButton.setVisibility(View.GONE);
-                    mPlayPauseButton.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_stop_play, null));
+                    mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_stop));
                 }
             }
         }

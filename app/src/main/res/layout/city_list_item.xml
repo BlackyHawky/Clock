@@ -26,6 +26,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="@dimen/label_text_size"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         android:textStyle="bold" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -42,11 +43,13 @@
         android:ellipsize="end"
         android:paddingStart="16dp"
         android:paddingEnd="10dp"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         android:singleLine="true" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/city_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/md_theme_onSurfaceVariant"/>
 </LinearLayout>

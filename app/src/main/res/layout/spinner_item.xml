@@ -23,5 +23,6 @@
     android:singleLine="true"
     android:ellipsize="marquee"
     android:gravity="center_vertical"
-    android:textSize="16sp">
+    android:textSize="16sp"
+    android:textColor="@color/md_theme_onSurfaceVariant">
 </TextView>

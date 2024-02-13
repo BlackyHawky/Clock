@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -134,7 +135,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mMainLayout = v.findViewById(R.id.main);
         mAlarmUpdateHandler = new AlarmUpdateHandler(context, this, mMainLayout);
         final TextView emptyView = v.findViewById(R.id.alarms_empty_view);
-        final Drawable noAlarms = Utils.getVectorDrawable(context, R.drawable.ic_noalarms);
+        final Drawable noAlarms = AppCompatResources.getDrawable(context, R.drawable.ic_alarm_off);
+        if (noAlarms != null) {
+            noAlarms.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
+        }
         emptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarms, null, null);
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyView);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
@@ -306,9 +310,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
             final AlarmInstance alarmInstance = alarm.canPreemptivelyDismiss()
-                    ? new AlarmInstance(data, true /* joinedTable */) : null;
-            final AlarmItemHolder itemHolder =
-                    new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
+                    ? new AlarmInstance(data, true)
+                    : null;
+            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
         setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
@@ -330,21 +334,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         if (Objects.requireNonNull(mRecyclerView.getItemAnimator()).isRunning()) {
             // RecyclerView is currently animating -> defer update.
-            mRecyclerView.getItemAnimator().isRunning(
-                    new RecyclerView.ItemAnimator.ItemAnimatorFinishedListener() {
-                        @Override
-                        public void onAnimationsFinished() {
-                            setAdapterItems(items, updateToken);
-                        }
-                    });
+            mRecyclerView.getItemAnimator().isRunning(() -> setAdapterItems(items, updateToken));
         } else if (mRecyclerView.isComputingLayout()) {
             // RecyclerView is currently computing a layout -> defer update.
-            mRecyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    setAdapterItems(items, updateToken);
-                }
-            });
+            mRecyclerView.post(() -> setAdapterItems(items, updateToken));
         } else {
             mCurrentUpdateToken = updateToken;
             mItemAdapter.setItems(items);
@@ -420,7 +413,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_fab_add);
+        fab.setImageResource(R.drawable.ic_add);
         fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
     }
 

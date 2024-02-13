@@ -101,7 +101,7 @@
     </style>
 
     <style name="Widget.CheckBox" parent="@style/Widget.Material3.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/selector_checkbox_material</item>
+        <item name="android:button">@drawable/ic_selector_checkbox</item>
         <item name="android:minWidth">@dimen/touch_target_min_size</item>
         <item name="android:minHeight">@dimen/touch_target_min_size</item>
     </style>

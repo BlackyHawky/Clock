@@ -33,7 +33,7 @@
         android:fromId="@id/off"
         android:toId="@id/on">
 
-        <animated-vector android:drawable="@drawable/ic_clock">
+        <animated-vector android:drawable="@drawable/ic_clock_for_anim">
             <target
                 android:name="hour_hand"
                 android:animation="@animator/ic_clock_hour_hand_animation" />

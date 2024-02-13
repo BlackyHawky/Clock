@@ -16,10 +16,9 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="@dimen/analog_clock_size"
     android:height="@dimen/analog_clock_size"
-    android:tint="?attr/colorAccent"
-    android:viewportWidth="1176.0"
-    android:viewportHeight="1176.0">
+    android:viewportWidth="1176"
+    android:viewportHeight="1176">
     <path
-        android:fillColor="#FF000000"
+        android:fillColor="@android:color/white"
         android:pathData="M588,739.3L588,739.3c-2.2,0 -4,-1.8 -4,-4v-544c0,-2.2 1.8,-4 4,-4l0,0c2.2,0 4,1.8 4,4v544C592,737.5 590.2,739.3 588,739.3z" />
 </vector>

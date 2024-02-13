@@ -24,6 +24,7 @@ import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.database.ContentObserver;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -33,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -111,12 +113,9 @@ public class AlarmVolumePreference extends Preference {
                     RingtonePreviewKlaxon.start(
                             context, DataModel.getDataModel().getDefaultAlarmRingtoneUri());
                     mPreviewPlaying = true;
-                    seekBar.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            RingtonePreviewKlaxon.stop(context);
-                            mPreviewPlaying = false;
-                        }
+                    seekBar.postDelayed(() -> {
+                        RingtonePreviewKlaxon.stop(context);
+                        mPreviewPlaying = false;
                     }, ALARM_PREVIEW_DURATION_MS);
                 }
             }
@@ -125,8 +124,12 @@ public class AlarmVolumePreference extends Preference {
 
     private void onSeekbarChanged() {
         mSeekbar.setEnabled(doesDoNotDisturbAllowAlarmPlayback());
-        mAlarmIcon.setImageResource(mSeekbar.getProgress() == 0 ?
-                R.drawable.ic_alarm_off_24dp : R.drawable.ic_alarm_small);
+        final Drawable alarmOff = AppCompatResources.getDrawable(getContext(), R.drawable.ic_alarm_off);
+        final Drawable alarmOn = AppCompatResources.getDrawable(getContext(), R.drawable.ic_tab_alarm_static);
+        if (alarmOff == null || alarmOn ==null) return;
+        alarmOff.setTint(getContext().getResources().getColor(R.color.md_theme_onSurfaceVariant, null));
+        alarmOn.setTint(getContext().getResources().getColor(R.color.md_theme_onSurfaceVariant, null));
+        mAlarmIcon.setImageDrawable(mSeekbar.getProgress() == 0 ? alarmOff : alarmOn);
     }
 
     private boolean doesDoNotDisturbAllowAlarmPlayback() {

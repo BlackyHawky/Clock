@@ -34,6 +34,7 @@ import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextClock;
+import android.widget.TextView;
 
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
@@ -60,22 +61,16 @@ public class ScreensaverActivity extends BaseActivity {
             LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
             switch (intent.getAction()) {
-                case Intent.ACTION_POWER_CONNECTED:
-                    updateWakeLock(true);
-                    break;
-                case Intent.ACTION_POWER_DISCONNECTED:
-                    updateWakeLock(false);
-                    break;
-                case Intent.ACTION_USER_PRESENT:
-                    finish();
-                    break;
-                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED:
-                    Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-                    break;
+                case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
+                case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
+                case Intent.ACTION_USER_PRESENT -> finish();
+                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED ->
+                        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
             }
         }
     };
-    /* Register ContentObserver to see alarm changes for pre-L */
+
+    // Register ContentObserver to see alarm changes for pre-L
     private final ContentObserver mSettingsContentObserver = Utils.isPreL()
             ? new ContentObserver(new Handler()) {
         @Override
@@ -84,6 +79,7 @@ public class ScreensaverActivity extends BaseActivity {
         }
     }
             : null;
+
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
@@ -91,6 +87,7 @@ public class ScreensaverActivity extends BaseActivity {
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
+
     private View mMainClockView;
 
     private MoveScreensaverRunnable mPositionUpdater;
@@ -105,10 +102,17 @@ public class ScreensaverActivity extends BaseActivity {
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
+        final TextClock textClock = findViewById(R.id.digital_clock);
+        final TextView date = findViewById(R.id.date);
+        final TextView nextAlarmIcon = findViewById(R.id.nextAlarmIcon);
+        final TextView nextAlarm = findViewById(R.id.nextAlarm);
+        textClock.setTextColor(getColor(android.R.color.white));
+        date.setTextColor(getColor(android.R.color.white));
+        nextAlarmIcon.setTextColor(getColor(android.R.color.white));
+        nextAlarm.setTextColor(getColor(android.R.color.white));
 
         final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
-        final AnalogClock analogClock =
-                mMainClockView.findViewById(R.id.analog_clock);
+        final AnalogClock analogClock = mMainClockView.findViewById(R.id.analog_clock);
 
         Utils.setClockIconTypeface(mMainClockView);
         Utils.setTimeFormat((TextClock) digitalClock, false);

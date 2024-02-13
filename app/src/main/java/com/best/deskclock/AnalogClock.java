@@ -88,21 +88,25 @@ public class AnalogClock extends FrameLayout {
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
         dial.getDrawable().mutate();
+        dial.setColorFilter(context.getColor(R.color.md_theme_outline));
         addView(dial);
 
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
         mHourHand.getDrawable().mutate();
+        mHourHand.setColorFilter(context.getColor(R.color.md_theme_outline));
         addView(mHourHand);
 
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
         mMinuteHand.getDrawable().mutate();
+        mMinuteHand.setColorFilter(context.getColor(R.color.md_theme_outline));
         addView(mMinuteHand);
 
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
+        mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
         addView(mSecondHand);
 
         if (context.getClass().getSimpleName().equalsIgnoreCase(ScreensaverActivity.class.getSimpleName())) {
