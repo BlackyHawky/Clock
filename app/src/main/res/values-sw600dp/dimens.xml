@@ -45,8 +45,10 @@
     <dimen name="circle_margin_top">48dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>
 
+    <!-- Size of time zone analog clocks in default clock. -->
+    <dimen name="default_clock_analog_size">300dp</dimen>
     <!-- Size of analog clock in world clock. -->
-    <dimen name="world_clock_analog_size">200dp</dimen>
+    <dimen name="world_clock_analog_size">150dp</dimen>
 
     <dimen name="min_analog_widget_size">170dp</dimen>
 

@@ -29,24 +29,28 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,10 +81,14 @@ public final class ClockFragment extends DeskClockFragment {
     private TextClock mDigitalClock;
     private AnalogClock mAnalogClock;
     private View mClockFrame;
+    private View mClockSpace;
     private SelectedCitiesAdapter mCityAdapter;
     private RecyclerView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
+
+    public static boolean mIsPortrait;
+    public static boolean mShowHomeClock;
 
     /**
      * The public no-arg constructor required by all fragments.
@@ -102,27 +110,31 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreateView(inflater, container, icicle);
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
+        final Context context = container.getContext();
+        final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
+
+        mIsPortrait = Utils.isPortrait(context);
+
+        mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        mCityAdapter = new SelectedCitiesAdapter(getActivity(), mDateFormat, mDateFormatForAccessibility);
+        mClockSpace = fragmentView.findViewById(R.id.clock_space);
 
-        mCityList = fragmentView.findViewById(R.id.cities);
-        mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCityList.setAdapter(mCityAdapter);
-        mCityList.setItemAnimator(null);
+        mCityAdapter = new SelectedCitiesAdapter(context, mDateFormat, mDateFormatForAccessibility);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
-        final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
+        mCityList = fragmentView.findViewById(R.id.cities);
+        mCityList.setLayoutManager(new LinearLayoutManager(context));
+        mCityList.setAdapter(mCityAdapter);
+        mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
-
-        final Context context = container.getContext();
         mCityList.setOnTouchListener(new CityListOnLongClickListener(context));
 
-        // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
-        // on as a header to the main listview.
-        mClockFrame = fragmentView.findViewById(R.id.main_clock_left_pane);
+        // On tablet landscape, the clock frame will be a distinct view.
+        // Otherwise, it'll be added on as a header to the main listview.
+        mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
         if (mClockFrame != null) {
             mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
@@ -160,9 +172,16 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         final View view = getView();
-        if (view != null && view.findViewById(R.id.main_clock_left_pane) != null) {
+        if (view != null && view.findViewById(R.id.main_clock_left_panel) != null) {
             // Center the main clock frame by hiding the world clocks when none are selected.
             mCityList.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
+            mClockSpace.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
+
+            // Provide bottom padding dynamically for the clock frame for tablets in landscape mode.
+            final int bottomPadding = DataModel.getDataModel().getSelectedCities().size() > 0 || mShowHomeClock
+                    ? ThemeUtils.toPixel(20, activity) // The clock frame is on the left of the screen
+                    : ThemeUtils.toPixel(90, activity); // The clock frame is just above the button
+            mClockFrame.setPadding(0, 0, 0, bottomPadding);
         }
 
         refreshAlarm();
@@ -238,8 +257,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final LayoutInflater mInflater;
         private final Context mContext;
-        private final boolean mIsPortrait;
-        private final boolean mShowHomeClock;
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
 
@@ -248,8 +265,6 @@ public final class ClockFragment extends DeskClockFragment {
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
-            mIsPortrait = Utils.isPortrait(context);
-            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
         }
 
         @Override
@@ -275,7 +290,8 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             final int viewType = getItemViewType(position);
-            if (viewType == WORLD_CLOCK) {// Retrieve the city to bind.
+            // Retrieve the city to bind.
+            if (viewType == WORLD_CLOCK) {
                 final City city;
                 // If showing home clock, put it at the top
                 if (mShowHomeClock && position == (mIsPortrait ? 1 : 0)) {
@@ -284,10 +300,10 @@ public final class ClockFragment extends DeskClockFragment {
                     final int positionAdjuster = (mIsPortrait ? 1 : 0) + (mShowHomeClock ? 1 : 0);
                     city = getCities().get(position - positionAdjuster);
                 }
-                ((CityViewHolder) holder).bind(mContext, city, position, mIsPortrait);
+                ((CityViewHolder) holder).bind(mContext, city);
             } else if (viewType == MAIN_CLOCK) {
                 ((MainClockViewHolder) holder).bind(mContext, mDateFormat,
-                        mDateFormatForAccessibility, getItemCount() > 1);
+                        mDateFormatForAccessibility);
             } else {
                 throw new IllegalArgumentException("Unexpected view type: " + viewType);
             }
@@ -336,7 +352,7 @@ public final class ClockFragment extends DeskClockFragment {
                 mHoursAhead = itemView.findViewById(R.id.hours_ahead);
             }
 
-            private void bind(Context context, City city, int position, boolean isPortrait) {
+            private void bind(Context context, City city) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
 
                 // Configure the digital clock or analog clock depending on the user preference.
@@ -353,17 +369,36 @@ public final class ClockFragment extends DeskClockFragment {
                     mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
                 }
 
-                // Supply top and bottom padding dynamically.
-                final Resources res = context.getResources();
-                final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
-                final int top = position == 0 && !isPortrait ? 0 : padding;
-                final int left = itemView.getPaddingLeft();
-                final int right = itemView.getPaddingRight();
-                final int bottom = itemView.getPaddingBottom();
-                itemView.setPadding(left, top, right, bottom);
+                // Supply card background dynamically.
+                final int color = context.getColor(R.color.md_theme_primary);
+                final int radius = (int) ThemeUtils.toPixel(12, context);
+                final GradientDrawable gradientDrawable = new GradientDrawable();
+                gradientDrawable.setCornerRadius(radius);
+                gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
+                itemView.setBackground(gradientDrawable);
+
+                // Supply margins dynamically.
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                final int marginLeft = ThemeUtils.toPixel(10, context);
+                final int marginRight = ThemeUtils.toPixel(10, context);
+                final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
+                        ? ThemeUtils.toPixel(10, context)
+                        : ThemeUtils.toPixel(0, context);
+                params.setMargins(marginLeft, 0, marginRight, marginBottom);
+                itemView.setLayoutParams(params);
+
+                // Supply vertical and horizontal padding dynamically.
+                final int paddingLeft = ThemeUtils.toPixel(24, context);
+                final int paddingTop = ThemeUtils.toPixel(12, context);
+                final int paddingRight = ThemeUtils.toPixel(24, context);
+                final int paddingBottom = ThemeUtils.toPixel(12, context);
+                itemView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
 
                 // Bind the city name.
                 mName.setText(city.getName());
+                mName.setTypeface(Typeface.DEFAULT_BOLD);
 
                 // Compute if the city week day matches the weekday of the current timezone.
                 final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
@@ -382,48 +417,46 @@ public final class ClockFragment extends DeskClockFragment {
                 final int minutesDifferent = (int) (offsetDelta / DateUtils.MINUTE_IN_MILLIS) % 60;
                 final boolean displayMinutes = offsetDelta % DateUtils.HOUR_IN_MILLIS != 0;
                 final boolean isAhead = hoursDifferent > 0 || (hoursDifferent == 0 && minutesDifferent > 0);
-                if (!Utils.isLandscape(context)) {
-                    // Bind the number of hours ahead or behind, or hide if the time is the same.
-                    final boolean displayDifference = hoursDifferent != 0 || displayMinutes;
-                    mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
-                    final String timeString = Utils.createHoursDifferentString(
-                            context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
-                    mHoursAhead.setText(displayDayOfWeek
-                            ? (context.getString(isAhead
-                                ? R.string.world_hours_tomorrow
-                                : R.string.world_hours_yesterday, timeString))
-                            : timeString);
-                } else {
-                    // Only tomorrow/yesterday should be shown in landscape view.
-                    mHoursAhead.setVisibility(displayDayOfWeek ? View.VISIBLE : View.GONE);
-                    if (displayDayOfWeek) {
-                        mHoursAhead.setText(context.getString(isAhead ? R.string.world_tomorrow : R.string.world_yesterday));
-                    }
+                final boolean displayDifference = hoursDifferent != 0 || displayMinutes;
+
+                mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
+                final String timeString = Utils.createHoursDifferentString(
+                        context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
+                mHoursAhead.setText(displayDayOfWeek
+                        ? (context.getString(isAhead
+                            ? R.string.world_hours_tomorrow
+                            : R.string.world_hours_yesterday, timeString))
+                        : timeString);
+
+                if (!mIsPortrait) {
+                    LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    mName.setLayoutParams(textViewLayoutParams);
+                    mName.setGravity(Gravity.CENTER_HORIZONTAL);
+                    mHoursAhead.setLayoutParams(textViewLayoutParams);
+                    mHoursAhead.setGravity(Gravity.CENTER_HORIZONTAL);
                 }
             }
         }
 
         private static final class MainClockViewHolder extends RecyclerView.ViewHolder {
 
-            private final View mHairline;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
 
             private MainClockViewHolder(View itemView) {
                 super(itemView);
 
-                mHairline = itemView.findViewById(R.id.hairline);
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
                 Utils.setClockIconTypeface(itemView);
             }
 
-            private void bind(Context context, String dateFormat, String dateFormatForAccessibility, boolean showHairline) {
+            private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
                 Utils.refreshAlarm(context, itemView);
 
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
-                mHairline.setVisibility(showHairline ? VISIBLE : GONE);
 
                 Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
             }

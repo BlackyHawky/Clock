@@ -26,6 +26,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="@dimen/label_text_size"
+        android:textAlignment="gravity"
         android:textColor="@color/md_theme_onSurfaceVariant"
         android:textStyle="bold" />
 
@@ -37,12 +38,10 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/city_name"
-        android:layout_width="0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:paddingStart="16dp"
-        android:paddingEnd="10dp"
         android:textColor="@color/md_theme_onSurfaceVariant"
         android:singleLine="true" />
 

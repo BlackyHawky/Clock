@@ -82,8 +82,10 @@
     <dimen name="analog_clock_margin">60dp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
 
+    <!-- Default analog clock size. -->
+    <dimen name="default_clock_analog_size">220dp</dimen>
     <!-- Size of time zone analog clocks in world clock. -->
-    <dimen name="world_clock_analog_size">60dp</dimen>
+    <dimen name="world_clock_analog_size">80dp</dimen>
 
     <dimen name="min_analog_widget_size">110dp</dimen>
 
@@ -131,7 +133,6 @@
 
     <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
     <dimen name="fab_height">96dp</dimen>
-    <dimen name="world_analog_clock_size">220dp</dimen>
     <dimen name="fab_container_height">120dp</dimen>
     <dimen name="circletimer_dot_size">10dp</dimen>
 
