@@ -54,6 +54,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -68,7 +69,6 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
-import com.best.deskclock.uidata.UiDataModel;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -334,7 +334,7 @@ public class Utils {
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
     public static void refreshAlarm(Context context, View clock) {
-        final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
+        final ImageView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
         if (nextAlarmView == null) {
             return;
@@ -344,6 +344,7 @@ public class Utils {
         if (!TextUtils.isEmpty(alarm)) {
             final String description = context.getString(R.string.next_alarm_description, alarm);
             nextAlarmView.setText(alarm);
+            nextAlarmView.setTypeface(Typeface.DEFAULT_BOLD);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
@@ -352,11 +353,6 @@ public class Utils {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         }
-    }
-
-    public static void setClockIconTypeface(View clock) {
-        final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
-        nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
     }
 
     /**
@@ -374,6 +370,7 @@ public class Utils {
 
         final Date now = new Date();
         dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
+        dateDisplay.setTypeface(Typeface.DEFAULT_BOLD);
         dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
     }

@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -104,17 +105,16 @@ public class ScreensaverActivity extends BaseActivity {
         mMainClockView = mContentView.findViewById(R.id.main_clock);
         final TextClock textClock = findViewById(R.id.digital_clock);
         final TextView date = findViewById(R.id.date);
-        final TextView nextAlarmIcon = findViewById(R.id.nextAlarmIcon);
+        final ImageView nextAlarmIcon = findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = findViewById(R.id.nextAlarm);
         textClock.setTextColor(getColor(android.R.color.white));
         date.setTextColor(getColor(android.R.color.white));
-        nextAlarmIcon.setTextColor(getColor(android.R.color.white));
+        nextAlarmIcon.setColorFilter(getColor(android.R.color.white));
         nextAlarm.setTextColor(getColor(android.R.color.white));
 
         final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
         final AnalogClock analogClock = mMainClockView.findViewById(R.id.analog_clock);
 
-        Utils.setClockIconTypeface(mMainClockView);
         Utils.setTimeFormat((TextClock) digitalClock, false);
         Utils.setClockStyle(digitalClock, analogClock);
         Utils.setClockSecondsEnabled((TextClock) digitalClock, analogClock);

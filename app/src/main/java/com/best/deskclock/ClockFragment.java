@@ -138,7 +138,6 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame != null) {
             mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-            Utils.setClockIconTypeface(mClockFrame);
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
             Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
@@ -371,7 +370,7 @@ public final class ClockFragment extends DeskClockFragment {
 
                 // Supply card background dynamically.
                 final int color = context.getColor(R.color.md_theme_primary);
-                final int radius = (int) ThemeUtils.toPixel(12, context);
+                final int radius = ThemeUtils.toPixel(12, context);
                 final GradientDrawable gradientDrawable = new GradientDrawable();
                 gradientDrawable.setCornerRadius(radius);
                 gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
@@ -449,7 +448,6 @@ public final class ClockFragment extends DeskClockFragment {
 
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
-                Utils.setClockIconTypeface(itemView);
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {

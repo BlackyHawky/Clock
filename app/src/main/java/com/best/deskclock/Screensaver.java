@@ -97,7 +97,6 @@ public final class Screensaver extends DreamService {
         mAnalogClock = mMainClockView.findViewById(R.id.analog_clock);
 
         setClockStyle();
-        Utils.setClockIconTypeface(mContentView);
         Utils.setTimeFormat(mDigitalClock, false);
         mAnalogClock.enableSeconds(false);
 
