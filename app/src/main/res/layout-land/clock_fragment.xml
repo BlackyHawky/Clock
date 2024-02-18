@@ -29,7 +29,7 @@
         android:id="@+id/clock_space"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="30">
+        android:layout_weight="20">
     </View>
 
     <androidx.recyclerview.widget.RecyclerView

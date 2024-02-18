@@ -24,6 +24,7 @@
         style="@style/world_clock_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:ellipsize="end"
         android:includeFontPadding="false"
         android:singleLine="true" />
