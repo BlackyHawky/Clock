@@ -15,7 +15,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -23,56 +22,30 @@
     android:paddingBottom="@dimen/fab_container_height">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fold_vertical_start_edge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fold_vertical_end_edge"
-        android:layout_width="0.0dip"
-        android:layout_height="0.0dip"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/timer_setup_time_top"
-        android:layout_width="0.0dip"
-        android:layout_height="0.0dip"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="@fraction/timer_setup_time_top_percent" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/timer_setup_time_bottom"
-        android:layout_width="0.0dip"
-        android:layout_height="0.0dip"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="@fraction/timer_setup_time_bottom_percent" />
 
-    <com.best.deskclock.widget.AutoSizingTextView
-        android:id="@+id/timer_setup_time"
-        style="@style/TimerSetupTime"
-        android:layout_width="0dp"
+    <include layout="@layout/timer_setup_time"
         android:layout_height="0dp"
-        android:ellipsize="none"
-        android:gravity="center"
-        android:fontFamily="sans-serif"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="@dimen/timer_setup_digit_font_size"
-        tools:text="12h34m56s"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timer_setup_time_bottom" />
 
     <include
         android:id="@+id/timer_setup_digits"
-        style="@style/TimerSetupDigits"
         layout="@layout/timer_setup_digits"
-        android:layout_width="0.0dip"
-        android:layout_height="0.0dip"
-        app:layout_constraintDimensionRatio="3:4"
-        app:layout_constraintHeight_max="420.0dip"
-        app:layout_constraintWidth_max="315.0dip"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_max="420dp"
+        app:layout_constraintWidth_max="315dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_setup_time_bottom"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

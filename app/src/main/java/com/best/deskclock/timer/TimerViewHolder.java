@@ -59,6 +59,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.reset).setOnClickListener(v ->
                 DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock)
         );
+
         // Must use getTimer() because old timer is no longer accurate.
         View.OnClickListener mAddListener = v -> {
             final Timer timer = getTimer();

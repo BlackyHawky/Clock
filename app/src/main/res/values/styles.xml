@@ -107,17 +107,18 @@
     </style>
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
         <item name="backgroundTint">@color/md_theme_surface</item>
-        <item name="android:textColor">@color/md_theme_onSurface</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
-        <item name="layout_constraintDimensionRatio">1:1</item>
-    </style>
-
-    <style name="display_time">
-        <item name="android:textSize">56sp</item>
         <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:fontFeatureSettings">tnum</item>
+        <item name="android:padding">5dp</item>
+        <item name="layout_constraintHeight_min">30dp</item>
+        <item name="layout_constraintWidth_min">30dp</item>
+        <item name="layout_constraintHeight_max">100dp</item>
+        <item name="layout_constraintWidth_max">100dp</item>
+        <item name="layout_constraintDimensionRatio">1:1</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMaxTextSize">36sp</item>
+        <item name="autoSizeStepGranularity">1sp</item>
     </style>
 
     <style name="SecondaryLabelTextParentAppearance">
@@ -194,20 +195,6 @@
         <item name="android:shadowColor">@android:color/black</item>
         <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
-    </style>
-
-    <style name="TimerSetupTime">
-        <item name="layout_constraintBottom_toBottomOf">@id/timer_setup_time_bottom</item>
-        <item name="layout_constraintEnd_toEndOf">@id/timer_setup_digits</item>
-        <item name="layout_constraintStart_toStartOf">@id/timer_setup_digits</item>
-        <item name="layout_constraintTop_toTopOf">@id/timer_setup_time_top</item>
-    </style>
-
-    <style name="TimerSetupDigits">
-        <item name="layout_constraintBottom_toBottomOf">parent</item>
-        <item name="layout_constraintEnd_toEndOf">parent</item>
-        <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintTop_toBottomOf">@id/timer_setup_time</item>
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">

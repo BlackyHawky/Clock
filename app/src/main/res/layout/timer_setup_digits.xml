@@ -18,13 +18,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@+id/row_0_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.25" />
         <androidx.constraintlayout.widget.Guideline android:orientation="horizontal" android:id="@+id/row_1_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.5" />
@@ -37,9 +37,8 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
+            android:layout_marginHorizontal="10dp"
             tools:text="1"
-            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/column_0_right"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,41 +49,32 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="2"
-            android:textSize="36sp"
             app:layout_constraintStart_toEndOf="@id/column_0_right"
             app:layout_constraintEnd_toStartOf="@id/column_1_right"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/row_0_bottom" />
+            app:layout_constraintTop_toTopOf="@id/timer_setup_digit_1"
+            app:layout_constraintBottom_toBottomOf="@id/timer_setup_digit_1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/timer_setup_digit_3"
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="3"
-            android:textSize="36sp"
             app:layout_constraintStart_toEndOf="@id/column_1_right"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/row_0_bottom" />
+            app:layout_constraintTop_toTopOf="@id/timer_setup_digit_1"
+            app:layout_constraintBottom_toBottomOf="@id/timer_setup_digit_1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/timer_setup_digit_4"
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="4"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
-            app:layout_constraintTop_toTopOf="@id/row_0_bottom"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_1"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_1"
+            app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
             app:layout_constraintBottom_toTopOf="@id/row_1_bottom" />
 
         <com.google.android.material.button.MaterialButton
@@ -92,12 +82,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="5"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_2"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_2"
             app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
             app:layout_constraintBottom_toTopOf="@id/row_1_bottom"/>
 
@@ -106,12 +93,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="6"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_3"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_3"
             app:layout_constraintTop_toBottomOf="@id/row_0_bottom"
             app:layout_constraintBottom_toTopOf="@id/row_1_bottom" />
 
@@ -120,12 +104,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="7"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_1"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_1"
             app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
             app:layout_constraintBottom_toTopOf="@id/row_2_bottom" />
 
@@ -134,12 +115,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="8"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_2"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_2"
             app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
             app:layout_constraintBottom_toTopOf="@id/row_2_bottom" />
 
@@ -148,12 +126,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_surface"
             tools:text="9"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_3"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_3"
             app:layout_constraintTop_toBottomOf="@id/row_1_bottom"
             app:layout_constraintBottom_toTopOf="@+id/row_2_bottom" />
 
@@ -162,12 +137,10 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            android:backgroundTint="@color/md_theme_primaryContainer"
+            app:backgroundTint="@color/md_theme_primaryContainer"
             tools:text="00"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/column_0_right"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_1"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_1"
             app:layout_constraintTop_toBottomOf="@id/row_2_bottom"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -176,12 +149,9 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
-            app:backgroundTint="@color/md_theme_surface"
             tools:text="0"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_0_right"
-            app:layout_constraintEnd_toStartOf="@id/column_1_right"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_2"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_2"
             app:layout_constraintTop_toBottomOf="@+id/row_2_bottom"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -190,15 +160,14 @@
             style="@style/TimerSetupDigit"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="6dp"
+            android:text="&#9003;"
             app:backgroundTint="@color/md_theme_primaryContainer"
-            android:text="⌫"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@id/column_1_right"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/timer_setup_digit_3"
+            app:layout_constraintEnd_toEndOf="@id/timer_setup_digit_3"
             app:layout_constraintTop_toBottomOf="@id/row_2_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="HardcodedText" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
