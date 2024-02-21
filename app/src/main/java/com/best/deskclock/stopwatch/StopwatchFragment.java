@@ -57,7 +57,6 @@ import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.StopwatchTextController;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
@@ -189,9 +188,9 @@ public final class StopwatchFragment extends DeskClockFragment {
             mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
         }
 
-        final Context c = mMainTimeText.getContext();
-        final int colorAccent = ThemeUtils.resolveColor(c, androidx.appcompat.R.attr.colorAccent);
-        final int textColorPrimary = ThemeUtils.resolveColor(c, android.R.attr.textColorPrimary);
+        final Context context = mMainTimeText.getContext();
+        final int colorAccent = context.getColor(R.color.md_theme_primary);
+        final int textColorPrimary = context.getColor(R.color.md_theme_onSurfaceVariant);
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
                 new int[]{textColorPrimary, colorAccent});
@@ -617,7 +616,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         GradientItemDecoration(Context context) {
             mGradient.setOrientation(TOP_BOTTOM);
-            updateGradientColors(ThemeUtils.resolveColor(context, android.R.attr.colorBackground));
+            updateGradientColors(context.getColor(R.color.md_theme_background));
 
             final Resources resources = context.getResources();
             final float fabHeight = resources.getDimensionPixelSize(R.dimen.fab_height);

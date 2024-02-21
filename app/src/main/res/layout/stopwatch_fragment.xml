@@ -23,7 +23,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <androidx.percentlayout.widget.PercentFrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -35,7 +35,8 @@
             android:layout_gravity="center"
             app:layout_aspectRatio="100%"
             app:layout_heightPercent="@fraction/timer_circle_height_percent"
-            app:layout_widthPercent="@fraction/timer_circle_width_percent">
+            app:layout_widthPercent="@fraction/timer_circle_width_percent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <include layout="@layout/stopwatch_time" />
 
@@ -43,11 +44,12 @@
             <com.best.deskclock.stopwatch.StopwatchCircleView
                 android:id="@+id/stopwatch_circle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
 
         </com.best.deskclock.TimerCircleFrameLayout>
 
-    </androidx.percentlayout.widget.PercentFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/laps_list"
