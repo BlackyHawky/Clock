@@ -64,8 +64,6 @@
 
         <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
 
-        <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>

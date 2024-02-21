@@ -17,7 +17,6 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <dimen name="label_text_size">16sp</dimen>
     <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
@@ -47,10 +46,8 @@
     <dimen name="main_clock_digital_font_size">70sp</dimen>
     <dimen name="main_clock_digital_padding">24dp</dimen>
     <dimen name="big_font_size">32sp</dimen>
-    <dimen name="label_font_size">16sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="day_button_font_size">16sp</dimen>
-    <dimen name="no_alarm_font_size">16sp</dimen>
     <dimen name="timer_setup_digit_font_size">56sp</dimen>
     <dimen name="timer_setup_top_size">120dip</dimen>
 
@@ -101,11 +98,6 @@
     <!-- The maximum size of the font for the time in widgets. -->
     <dimen name="widget_max_clock_font_size">88dp</dimen>
     <dimen name="widget_min_world_city_list_size">80dp</dimen>
-
-    <!-- shadow styles for widget text with drop shadows -->
-    <item name="widget_shadow_radius" format="float" type="dimen">2.75</item>
-    <item name="widget_shadow_dx" format="float" type="dimen">2.0</item>
-    <item name="widget_shadow_dy" format="float" type="dimen">2.0</item>
 
     <!-- Divider height -->
     <dimen name="hairline_height">1dp</dimen>

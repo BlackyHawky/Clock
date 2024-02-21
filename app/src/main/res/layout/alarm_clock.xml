@@ -32,7 +32,6 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/alarms_empty_view"
-        style="@style/no_alarms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,6 +39,7 @@
         android:gravity="center_horizontal"
         android:paddingBottom="@dimen/fab_height"
         android:text="@string/no_alarms"
+        android:textSize="20sp"
         android:visibility="gone" />
 
 </FrameLayout>

@@ -66,8 +66,6 @@
 
         <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
 
-        <item name="materialTimePickerTheme">@style/TimePickerTheme</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
@@ -85,19 +83,6 @@
 
     <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="TimePickerTheme" parent="@style/ThemeOverlay.Material3.MaterialTimePicker">
-        <item name="materialTimePickerStyle">@style/TimePickerStyle</item>
-    </style>
-
-    <style name="TimePickerStyle" parent="@style/Widget.Material3.MaterialTimePicker">
-        <item name="shapeAppearance">@style/TimePickerShapeAppearance</item>
-    </style>
-
-    <style name="TimePickerShapeAppearance">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">28.0dp</item>
     </style>
 
     <style name="Widget.CheckBox" parent="@style/Widget.Material3.CompoundButton.CheckBox">
@@ -119,19 +104,6 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="autoSizeMaxTextSize">36sp</item>
         <item name="autoSizeStepGranularity">1sp</item>
-    </style>
-
-    <style name="SecondaryLabelTextParentAppearance">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">@dimen/label_text_size</item>
-    </style>
-
-    <style name="SecondaryLabelTextAppearance" parent="SecondaryLabelTextParentAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="TimerLabelTextAppearance" parent="SecondaryLabelTextAppearance">
-        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
@@ -157,44 +129,6 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="no_alarms">
-        <item name="android:textSize">@dimen/no_alarm_font_size</item>
-    </style>
-
-    <style name="widget_medium_thin">
-        <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
-        <item name="android:shadowColor">@android:color/black</item>
-        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
-        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
-    </style>
-
-    <style name="label">
-        <item name="android:textSize">@dimen/label_font_size</item>
-    </style>
-
-    <style name="widget_label" parent="label">
-        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
-        <item name="android:shadowColor">@android:color/black</item>
-        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
-        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
-    </style>
-
-    <style name="world_clock_time">
-        <item name="android:textSize">36sp</item>
-    </style>
-
-    <style name="big_normal">
-        <item name="android:textSize">@dimen/big_font_size</item>
-    </style>
-
-    <style name="widget_big_thin" parent="big_normal">
-        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
-        <item name="android:shadowColor">@android:color/black</item>
-        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
-        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">

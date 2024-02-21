@@ -22,7 +22,6 @@
 
     <TextClock
         android:id="@+id/clock"
-        style="@style/widget_big_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
@@ -31,7 +30,12 @@
         android:format24Hour="@string/lock_screen_24_hour_format"
         android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/big_font_size"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,7 +44,6 @@
 
         <TextClock
             android:id="@+id/date"
-            style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -48,7 +51,12 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
 
         <ImageView
             android:id="@+id/nextAlarmIcon"
@@ -60,7 +68,6 @@
 
         <TextView
             android:id="@+id/nextAlarm"
-            style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -68,7 +75,12 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
 
     </LinearLayout>
 

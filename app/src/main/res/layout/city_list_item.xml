@@ -25,7 +25,6 @@
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="@dimen/label_text_size"
         android:textAlignment="gravity"
         android:textColor="@color/md_theme_onSurfaceVariant"
         android:textStyle="bold" />
