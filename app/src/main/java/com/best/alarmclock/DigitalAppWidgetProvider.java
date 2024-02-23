@@ -23,6 +23,7 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH;
+import static android.content.Intent.ACTION_CONFIGURATION_CHANGED;
 import static android.content.Intent.ACTION_DATE_CHANGED;
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_ON;
@@ -42,9 +43,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -100,6 +103,7 @@ import java.util.TimeZone;
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
+    private static boolean sReceiversRegistered;
 
     /**
      * Intent action used for refreshing a world city display when any of them changes days or when
@@ -137,7 +141,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         // Tapping on the widget opens the app (if not on the lock screen).
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
-            final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
+            final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
             rv.setOnClickPendingIntent(R.id.digital_widget, pi);
         }
 
@@ -201,7 +205,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             // Tapping on the widget opens the city selection activity (if not on the lock screen).
             if (Utils.isWidgetClickable(wm, widgetId)) {
                 final Intent selectCity = new Intent(context, CitySelectionActivity.class);
-                final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, 0);
+                final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, PendingIntent.FLAG_IMMUTABLE);
                 rv.setPendingIntentTemplate(R.id.world_city_list, pi);
             }
         }
@@ -398,9 +402,21 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager wm, int[] widgetIds) {
         super.onUpdate(context, wm, widgetIds);
 
+        registerReceivers(context, this);
+
         for (int widgetId : widgetIds) {
             relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
         }
+    }
+
+    private static void registerReceivers(Context context, BroadcastReceiver receiver) {
+        if (sReceiversRegistered) return;
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        context.getApplicationContext().registerReceiver(receiver, intentFilter);
+        sReceiversRegistered = true;
     }
 
     /**
@@ -441,7 +457,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Schedule the next day-change callback; at least one city is displayed.
         final PendingIntent pi =
-                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_UPDATE_CURRENT);
+                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         getAlarmManager(context).setExact(AlarmManager.RTC, Objects.requireNonNull(nextDay).getTime(), pi);
     }
 
@@ -450,7 +466,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private void removeDayChangeCallback(Context context) {
         final PendingIntent pi =
-                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_NO_CREATE);
+                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
         if (pi != null) {
             getAlarmManager(context).cancel(pi);
             pi.cancel();

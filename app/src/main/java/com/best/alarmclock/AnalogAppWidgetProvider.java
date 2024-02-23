@@ -65,7 +65,7 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
             // Tapping on the widget opens the app (if not on the lock screen).
             if (Utils.isWidgetClickable(wm, widgetId)) {
                 final Intent openApp = new Intent(context, DeskClock.class);
-                final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
+                final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
                 widget.setOnClickPendingIntent(R.id.analog_appwidget, pi);
             }
 
