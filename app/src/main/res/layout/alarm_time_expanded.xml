@@ -17,11 +17,12 @@
 <androidx.gridlayout.widget.GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp"
-    android:padding="24dp"
+    android:padding="12dp"
     app:columnCount="8"
     app:columnOrderPreserved="false"
     app:rowCount="8">
@@ -48,13 +49,13 @@
         android:id="@+id/repeat_onoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="10dp"
         android:text="@string/alarm_repeat"
         android:textColor="@color/md_theme_onSurfaceVariant"
         app:layout_column="0"
         app:layout_columnSpan="2"
-        app:layout_row="1" />
+        app:layout_row="1"
+        tools:ignore="RtlSymmetry" />
 
     <!-- Day buttons are put here programmatically -->
     <LinearLayout
@@ -74,7 +75,7 @@
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:drawablePadding="16dp"
+        android:drawablePadding="10dp"
         android:ellipsize="marquee"
         android:focusable="true"
         android:gravity="start|center_vertical"
@@ -91,20 +92,21 @@
         android:id="@+id/vibrate_onoff"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:paddingStart="16dp"
+        android:paddingStart="10dp"
         android:text="@string/alarm_vibrate"
         android:textColor="@color/md_theme_onSurfaceVariant"
         app:layout_column="5"
         app:layout_columnSpan="3"
         app:layout_row="3"
-        app:layout_gravity="center_vertical"/>
+        app:layout_gravity="center_vertical"
+        tools:ignore="RtlSymmetry" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/edit_label"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackground"
-        android:drawablePadding="16dp"
+        android:drawablePadding="10dp"
         android:ellipsize="end"
         android:gravity="start|center_vertical"
         android:hint="@string/label"

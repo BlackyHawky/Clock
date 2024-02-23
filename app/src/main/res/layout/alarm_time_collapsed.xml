@@ -22,10 +22,10 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp"
-    android:padding="24dp"
+    android:padding="12dp"
     app:columnCount="5"
     app:columnOrderPreserved="false"
-    app:rowCount="4">
+    app:rowCount="3">
 
     <include
         layout="@layout/alarm_time_summary"
@@ -44,9 +44,10 @@
         app:layout_gravity="center_vertical"
         app:layout_row="0" />
 
-    <com.best.deskclock.widget.EllipsizeLayout
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         app:layout_column="0"
         app:layout_columnSpan="3"
         app:layout_gravity="fill_horizontal|center_vertical"
@@ -79,7 +80,7 @@
             android:singleLine="true"
             tools:ignore="RtlSymmetry" />
 
-    </com.best.deskclock.widget.EllipsizeLayout>
+    </LinearLayout>
 
     <include
         layout="@layout/preemptive_dismiss"
@@ -93,6 +94,7 @@
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/expand_alarm"
         android:paddingHorizontal="12dp"
@@ -101,14 +103,5 @@
         app:layout_row="1"
         app:layout_rowSpan="2"
         app:srcCompat="@drawable/ic_caret_down" />
-
-    <View
-        android:id="@+id/hairline"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_column="0"
-        app:layout_columnSpan="5"
-        app:layout_gravity="fill_horizontal"
-        app:layout_row="3" />
 
 </androidx.gridlayout.widget.GridLayout>
