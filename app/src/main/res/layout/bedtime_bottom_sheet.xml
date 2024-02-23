@@ -9,59 +9,45 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:paddingBottom="12dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="12dp">
 
         <androidx.constraintlayout.widget.Guideline
-            android:orientation="vertical"
             android:id="@+id/center_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"/>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
         <ImageView
             android:id="@+id/drag_handle"
             android:layout_width="60dp"
             android:layout_height="4dp"
             android:layout_marginTop="12dp"
-            android:importantForAccessibility="no"
             android:foreground="@color/md_theme_outline"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@null" />
 
-        <LinearLayout
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bedtime_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintStart_toStartOf="@+id/bedtime_time"
-            app:layout_constraintTop_toBottomOf="@+id/drag_handle">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:importantForAccessibility="no"
-                app:srcCompat="@drawable/ic_tab_bedtime_static"
-                app:tint="@color/md_theme_onSurfaceVariant"
-                app:tintMode="src_in"/>
-
-            <TextView
-                android:textSize="11sp"
-                android:textColor="@color/md_theme_onSurfaceVariant"
-                android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="18dp"
-                android:text="@string/menu_bedtime"
-                android:textAllCaps="true"
-                android:importantForAccessibility="no"
-                android:fontFamily="sans-serif-medium"
-                android:layout_marginStart="8dp"/>
-
-        </LinearLayout>
+            android:gravity="center_vertical"
+            android:text="@string/menu_bedtime"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            android:textAllCaps="true"
+            android:drawableStart="@drawable/ic_tab_bedtime_static"
+            android:drawablePadding="8dp"
+            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
         <com.best.deskclock.widget.TextTime
             android:id="@+id/bedtime_time"
@@ -70,8 +56,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
             android:textColor="@color/md_theme_onSurfaceVariant"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
 
@@ -80,13 +65,11 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:focusable="true"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/bedtime_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bedtime_time"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toBottomOf="@+id/bedtime_time" />
 
         <LinearLayout
             android:id="@+id/repeat_days_bedtime"
@@ -95,32 +78,30 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:focusable="false"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:focusable="false"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
 
         <View
             android:id="@+id/bedtime_preference_hairline"
-            android:background="@color/md_theme_outline"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/md_theme_outline"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeat_days_bedtime"/>
 
         <LinearLayout
             android:id="@+id/it"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:paddingVertical="8dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/bedtime_preference_hairline" >
+            app:layout_constraintTop_toBottomOf="@id/bedtime_preference_hairline">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,8 +126,8 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/it"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/it">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -179,7 +160,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end" />
         </LinearLayout>
 
         <LinearLayout
@@ -188,8 +169,8 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/dnd_section"
-            app:layout_constraintStart_toStartOf="parent" >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dnd_section">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -222,7 +203,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="end"/>
+                android:layout_gravity="end" />
 
         </LinearLayout>
 

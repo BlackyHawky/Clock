@@ -33,79 +33,64 @@
 
     <TextView
         android:id="@+id/bedtime_label"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:importantForAccessibility="no"
         android:text="@string/menu_bedtime"
+        android:textSize="14sp"
         android:textAllCaps="true"
+        android:textStyle="bold"
         android:textColor="@color/md_theme_onSurfaceVariant"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="@+id/bedtime_time"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/bedtime_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/center_guide"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.best.deskclock.widget.TextTime
         android:id="@+id/bedtime_time"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:focusable="true"
         android:gravity="center"
-        android:maxLines="3"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/sleep_duration"
-        app:layout_constraintEnd_toStartOf="@+id/center_guide"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/center_guide"
         app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
 
     <TextView
-        android:textSize="11sp"
-        android:textColor="@color/md_theme_onSurfaceVariant"
-        android:gravity="center"
         android:id="@+id/wake_label"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/wakeup"
+        android:textSize="14sp"
         android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         android:importantForAccessibility="no"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintEnd_toEndOf="@+id/wakeup_time"
-        app:layout_constraintStart_toStartOf="@+id/wakeup_time"
+        app:layout_constraintStart_toStartOf="@+id/center_guide"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.best.deskclock.widget.TextTime
         android:id="@+id/wakeup_time"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:focusable="true"
         android:gravity="center"
-        android:maxLines="3"
         android:textSize="48sp"
-        app:layout_constraintBottom_toTopOf="@+id/sleep_duration"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/md_theme_onSurfaceVariant"
         app:layout_constraintStart_toEndOf="@+id/center_guide"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wake_label" />
 
     <include
         layout="@layout/bedtime_to_wakeup"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/sleep_duration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
