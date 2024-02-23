@@ -38,10 +38,12 @@ import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 
-public class ScreensaverActivity extends BaseActivity {
+public class ScreensaverActivity extends AppCompatActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 

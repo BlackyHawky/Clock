@@ -49,10 +49,10 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.LogUtils;
@@ -76,7 +76,7 @@ import java.util.List;
  *     <li>user-selected audio files available as ringtones</li>
  * </ul>
  */
-public class RingtonePickerActivity extends BaseActivity
+public class RingtonePickerActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<ItemAdapter.ItemHolder<Uri>>> {
     /**
      * Key to an extra that defines resource id to the title of this activity.

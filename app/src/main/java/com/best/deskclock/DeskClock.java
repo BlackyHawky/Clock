@@ -44,6 +44,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -68,7 +69,7 @@ import com.google.android.material.snackbar.Snackbar;
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and a stopwatch.
  */
-public class DeskClock extends BaseActivity
+public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
     private static final int CODE_FOR_ALARM_PERMISSION = 1;

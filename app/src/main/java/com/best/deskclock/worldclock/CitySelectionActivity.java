@@ -37,9 +37,9 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.actionbarmenu.MenuItemController;
@@ -75,7 +75,7 @@ import java.util.TimeZone;
  * As a result, {@link #onResume()} conservatively refreshes itself from the backing
  * {@link DataModel} which may have changed since this activity was last displayed.
  */
-public final class CitySelectionActivity extends BaseActivity {
+public final class CitySelectionActivity extends AppCompatActivity {
 
     /**
      * Manages all action bar menu display and click handling.

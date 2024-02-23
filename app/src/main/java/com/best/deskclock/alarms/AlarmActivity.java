@@ -51,11 +51,11 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.best.deskclock.AnimatorUtils;
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.ThemeUtils;
@@ -68,7 +68,7 @@ import com.best.deskclock.widget.CircleView;
 
 import java.util.List;
 
-public class AlarmActivity extends BaseActivity
+public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
     private static final TimeInterpolator PULSE_INTERPOLATOR =

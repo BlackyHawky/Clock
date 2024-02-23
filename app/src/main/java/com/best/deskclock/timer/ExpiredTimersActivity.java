@@ -30,8 +30,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -45,7 +45,7 @@ import java.util.List;
  * timers and a single button to reset them all. Each expired timer can also be reset to one minute
  * with a button in the user interface. All other timer operations are disabled in this activity.
  */
-public class ExpiredTimersActivity extends BaseActivity {
+public class ExpiredTimersActivity extends AppCompatActivity {
 
     /**
      * Scheduled to update the timers while at least one is expired.

@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -34,7 +35,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.TwoStatePreference;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
@@ -51,8 +51,8 @@ import java.util.Objects;
 /**
  * Settings for the Alarm Clock.
  */
-public final class SettingsActivity extends BaseActivity {
-    public static final String KEY_THEME = "key_theme";
+public final class SettingsActivity extends AppCompatActivity {
+
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
