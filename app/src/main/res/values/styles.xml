@@ -95,11 +95,12 @@
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
         <item name="backgroundTint">@color/md_theme_surface</item>
         <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:padding">5dp</item>
-        <item name="layout_constraintHeight_min">30dp</item>
-        <item name="layout_constraintWidth_min">30dp</item>
-        <item name="layout_constraintHeight_max">100dp</item>
-        <item name="layout_constraintWidth_max">100dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
         <item name="layout_constraintDimensionRatio">1:1</item>
         <item name="autoSizeTextType">uniform</item>
         <item name="autoSizeMaxTextSize">36sp</item>

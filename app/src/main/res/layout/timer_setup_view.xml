@@ -37,7 +37,6 @@
         app:layout_constraintBottom_toTopOf="@id/timer_setup_time_bottom" />
 
     <include
-        android:id="@+id/timer_setup_digits"
         layout="@layout/timer_setup_digits"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -20,6 +20,7 @@ import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Vibrator;
 import android.text.BidiFormatter;
@@ -33,12 +34,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.IdRes;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.FabContainer;
 import com.best.deskclock.FormattedTextUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.uidata.UiDataModel;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -50,16 +53,16 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     private final CharSequence mTimeTemplate;
     private int mInputPointer = -1;
     private TextView mTimeView;
-    private View mDeleteView;
+    private MaterialButton mDeleteButton;
+    private MaterialButton[] mDigitButton;
 
-    private TextView[] mDigitViews;
     /**
      * Updates to the fab are requested via this container.
      */
     private FabContainer mFabContainer;
 
     public TimerSetupView(Context context) {
-        this(context, null /* attrs */);
+        this(context, null);
     }
 
     public TimerSetupView(Context context, AttributeSet attrs) {
@@ -86,9 +89,17 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        final Resources res = getContext().getResources();
+        final boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
+        final int orientation = res.getConfiguration().orientation;
+        final int marginButtonLeft = ThemeUtils.toPixel( 10, getContext());
+        final int marginButtonRight = ThemeUtils.toPixel(10, getContext());
+        final int marginButtonTop = ThemeUtils.toPixel(10, getContext());
+        final int marginButtonBottom = ThemeUtils.toPixel(10, getContext());
+
         mTimeView = findViewById(R.id.timer_setup_time);
-        mDeleteView = findViewById(R.id.timer_setup_delete);
-        mDigitViews = new TextView[]{
+        mDeleteButton = findViewById(R.id.timer_setup_delete);
+        mDigitButton = new MaterialButton[] {
                 findViewById(R.id.timer_setup_digit_0),
                 findViewById(R.id.timer_setup_digit_1),
                 findViewById(R.id.timer_setup_digit_2),
@@ -101,19 +112,35 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 findViewById(R.id.timer_setup_digit_9),
         };
 
-        // Initialize the digit buttons.
-        final UiDataModel uidm = UiDataModel.getUiDataModel();
-        for (final TextView digitView : mDigitViews) {
-            final int digit = getDigitForId(digitView.getId());
-            digitView.setText(uidm.getFormattedNumber(digit, 1));
-            digitView.setOnClickListener(this);
+        for (final MaterialButton digitButton : mDigitButton) {
+            if (isTablet) {
+                final ConstraintLayout.LayoutParams digitButtonParams = (ConstraintLayout.LayoutParams) digitButton.getLayoutParams();
+                digitButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
+                digitButton.setLayoutParams(digitButtonParams);
+            }
+            digitButton.setOnClickListener(this);
         }
-        TextView doubleZero = findViewById(R.id.timer_setup_digit_00);
-        doubleZero.setText(uidm.getFormattedNumber(0, 2));
-        doubleZero.setOnClickListener(this);
 
-        mDeleteView.setOnClickListener(this);
-        mDeleteView.setOnLongClickListener(this);
+        MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
+        doubleZeroButton.setOnClickListener(this);
+
+        mDeleteButton.setOnClickListener(this);
+        mDeleteButton.setOnLongClickListener(this);
+
+        if (isTablet) {
+            final ConstraintLayout.LayoutParams doubleZeroButtonParams = (ConstraintLayout.LayoutParams) doubleZeroButton.getLayoutParams();
+            doubleZeroButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
+            doubleZeroButton.setLayoutParams(doubleZeroButtonParams);
+
+            final ConstraintLayout.LayoutParams deleteButtonParams = (ConstraintLayout.LayoutParams) mDeleteButton.getLayoutParams();
+            deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
+            mDeleteButton.setLayoutParams(deleteButtonParams);
+            // In landscape mode, we don't want buttons to take up the full height of the screen.
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                final View tabletDigits = findViewById(R.id.timer_setup_digits);
+                tabletDigits.getLayoutParams().height = ThemeUtils.toPixel(450, getContext());
+            }
+        }
 
         updateTime();
         updateDeleteAndDivider();
@@ -127,9 +154,9 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         View view = null;
         if (keyCode == KeyEvent.KEYCODE_DEL) {
-            view = mDeleteView;
+            view = mDeleteButton;
         } else if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
-            view = mDigitViews[keyCode - KeyEvent.KEYCODE_0];
+            view = mDigitButton[keyCode - KeyEvent.KEYCODE_0];
         }
 
         if (view != null) {
@@ -145,7 +172,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if (view == mDeleteView) {
+        if (view == mDeleteButton) {
             delete();
         } else if (view.getId() == R.id.timer_setup_digit_00) {
             append(0);
@@ -160,14 +187,15 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
     @Override
     public boolean onLongClick(View view) {
-        if (view == mDeleteView) {
+        if (view == mDeleteButton) {
             reset();
             updateFab();
             return true;
         }
         return false;
     }
-    private int getDigitForId(@IdRes int id) {
+
+    private int getDigitForId(int id) {
         if (id == R.id.timer_setup_digit_0) {
             return 0;
         } else if (id == R.id.timer_setup_digit_1) {
@@ -191,6 +219,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
         throw new IllegalArgumentException("Invalid id: " + id);
     }
+
     private void updateTime() {
         final int seconds = mInput[1] * 10 + mInput[0];
         final int minutes = mInput[3] * 10 + mInput[2];
@@ -208,13 +237,16 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 r.getQuantityString(R.plurals.minutes, minutes, minutes),
                 r.getQuantityString(R.plurals.seconds, seconds, seconds)));
     }
+
     private void updateDeleteAndDivider() {
         final boolean enabled = hasValidInput();
-        mDeleteView.setEnabled(enabled);
+        mDeleteButton.setEnabled(enabled);
     }
+
     private void updateFab() {
         mFabContainer.updateFab(FAB_SHRINK_AND_EXPAND);
     }
+
     private void append(int digit) {
         if (digit < 0 || digit > 9) {
             throw new IllegalArgumentException("Invalid digit: " + digit);
@@ -237,7 +269,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         updateTime();
 
         // Update TalkBack to read the number being deleted.
-        mDeleteView.setContentDescription(getContext().getString(
+        mDeleteButton.setContentDescription(getContext().getString(
                 R.string.timer_descriptive_delete,
                 UiDataModel.getUiDataModel().getFormattedNumber(digit)));
 
@@ -261,11 +293,11 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
 
         // Update TalkBack to read the number being deleted or its original description.
         if (mInputPointer >= 0) {
-            mDeleteView.setContentDescription(getContext().getString(
+            mDeleteButton.setContentDescription(getContext().getString(
                     R.string.timer_descriptive_delete,
                     UiDataModel.getUiDataModel().getFormattedNumber(mInput[0])));
         } else {
-            mDeleteView.setContentDescription(getContext().getString(R.string.timer_delete));
+            mDeleteButton.setContentDescription(getContext().getString(R.string.timer_delete));
         }
 
         // Update the fab, delete, and divider when we no longer have valid input.
