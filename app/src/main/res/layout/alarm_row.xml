@@ -47,7 +47,7 @@
 
     </LinearLayout>
 
-    <com.best.deskclock.widget.EllipsizeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -64,6 +64,6 @@
             android:singleLine="true"
             android:textSize="18sp"
             tools:text="Pick up kids" />
-    </com.best.deskclock.widget.EllipsizeLayout>
+    </LinearLayout>
 
 </LinearLayout>
