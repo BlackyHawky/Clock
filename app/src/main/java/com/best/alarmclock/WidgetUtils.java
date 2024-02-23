@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 
 public final class WidgetUtils {
@@ -47,7 +48,9 @@ public final class WidgetUtils {
             }
             final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            float ratio = (density * minWidth) / res.getDimension(R.dimen.min_digital_widget_width);
+            boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
+            final int minDigitalWidgetWidth = ThemeUtils.toPixel(isTablet ? 300 : 206, context);
+            float ratio = (density * minWidth) / minDigitalWidgetWidth;
             ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
             ratio *= .83f;
 
@@ -84,7 +87,9 @@ public final class WidgetUtils {
             }
             final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            float ratio = density * minHeight / res.getDimension(R.dimen.min_digital_widget_height);
+            boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
+            final int minDigitalWidgetHeight = ThemeUtils.toPixel(isTablet ? 170 : 129, context);
+            float ratio = density * minHeight / minDigitalWidgetHeight;
             if (Utils.isPortrait(context)) {
                 return ratio * 1.75f;
             }

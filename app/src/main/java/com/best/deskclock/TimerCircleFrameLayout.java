@@ -23,8 +23,7 @@ import android.widget.FrameLayout;
 
 /**
  * A container that frames a timer circle of some sort. The circle is allowed to grow naturally
- * according to its layout constraints up to the {@link R.dimen#max_timer_circle_size largest}
- * allowable size.
+ * according to its layout constraints up to the allowable size.
  */
 public class TimerCircleFrameLayout extends FrameLayout {
 
@@ -61,7 +60,7 @@ public class TimerCircleFrameLayout extends FrameLayout {
         final int smallestDimension = Math.min(width, height);
 
         // Fetch the absolute maximum circle size allowed.
-        final int maxSize = getResources().getDimensionPixelSize(R.dimen.max_timer_circle_size);
+        final int maxSize = ThemeUtils.toPixel(240, getContext());
         final int size = Math.min(smallestDimension, maxSize);
 
         // Set the size of this container.

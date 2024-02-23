@@ -25,25 +25,19 @@
         android:id="@+id/main_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/screensaver_margin"
-        android:layout_marginTop="@dimen/time_margin_top"
-        android:layout_marginEnd="@dimen/screensaver_margin"
-        android:layout_marginBottom="@dimen/screensaver_margin"
         android:orientation="vertical">
 
         <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog" />
+            android:layout_gravity="center_horizontal" />
 
         <TextClock
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"

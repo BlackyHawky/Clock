@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textSize="@dimen/alarm_text_font_size"/>
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 

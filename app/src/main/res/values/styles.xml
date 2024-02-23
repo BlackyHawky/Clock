@@ -87,8 +87,8 @@
 
     <style name="Widget.CheckBox" parent="@style/Widget.Material3.CompoundButton.CheckBox">
         <item name="android:button">@drawable/ic_selector_checkbox</item>
-        <item name="android:minWidth">@dimen/touch_target_min_size</item>
-        <item name="android:minHeight">@dimen/touch_target_min_size</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
     </style>
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">

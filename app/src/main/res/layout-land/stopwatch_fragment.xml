@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="@dimen/fab_height">
+            android:paddingBottom="80dp">
 
             <include layout="@layout/stopwatch_time" />
 
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingBottom="@dimen/fab_height" />
+            android:paddingBottom="80dp" />
 
     </com.best.deskclock.stopwatch.StopwatchLandscapeLayout>
 

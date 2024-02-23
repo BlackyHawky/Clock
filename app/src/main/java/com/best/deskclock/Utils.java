@@ -220,15 +220,20 @@ public class Utils {
      */
     public static View setClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        final boolean isTablet = analogClock.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
         switch (clockStyle) {
-            case ANALOG:
-                digitalClock.setVisibility(View.GONE);
+            case ANALOG -> {
+                analogClock.getLayoutParams().height = ThemeUtils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                analogClock.getLayoutParams().width = ThemeUtils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
                 analogClock.setVisibility(View.VISIBLE);
+                digitalClock.setVisibility(View.GONE);
                 return analogClock;
-            case DIGITAL:
+            }
+            case DIGITAL -> {
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.GONE);
                 return digitalClock;
+            }
         }
 
         throw new IllegalStateException("unexpected clock style: " + clockStyle);
@@ -241,14 +246,16 @@ public class Utils {
     public static View setScreensaverClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
         switch (clockStyle) {
-            case ANALOG:
+            case ANALOG -> {
                 digitalClock.setVisibility(View.GONE);
                 analogClock.setVisibility(View.VISIBLE);
                 return analogClock;
-            case DIGITAL:
+            }
+            case DIGITAL -> {
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.GONE);
                 return digitalClock;
+            }
         }
 
         throw new IllegalStateException("unexpected clock style: " + clockStyle);

@@ -28,8 +28,8 @@
 
         <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
-            android:layout_width="@dimen/default_clock_analog_size"
-            android:layout_height="@dimen/default_clock_analog_size"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:layout_gravity="center" />
 
         <com.best.deskclock.widget.AutoSizingTextClock
@@ -41,7 +41,7 @@
             android:includeFontPadding="false"
             android:paddingTop="25dp"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_digital_font_size" />
+            android:textSize="70sp" />
 
     </FrameLayout>
 

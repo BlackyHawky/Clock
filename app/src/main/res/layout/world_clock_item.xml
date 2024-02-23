@@ -36,7 +36,7 @@
 
         <com.best.deskclock.AnalogClock
             android:id="@+id/analog_clock"
-            android:layout_width="@dimen/world_clock_analog_size"
-            android:layout_height="@dimen/world_clock_analog_size" />
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
 
 </LinearLayout>

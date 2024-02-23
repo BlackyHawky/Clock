@@ -25,7 +25,7 @@
         android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
         android:fadingEdgeLength="0dp"
-        android:paddingBottom="@dimen/fab_height"
+        android:paddingBottom="80dp"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         android:splitMotionEvents="false" />
@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/no_alarms"
         android:gravity="center_horizontal"
-        android:paddingBottom="@dimen/fab_height"
+        android:paddingBottom="80dp"
         android:text="@string/no_alarms"
         android:textSize="20sp"
         android:visibility="gone" />

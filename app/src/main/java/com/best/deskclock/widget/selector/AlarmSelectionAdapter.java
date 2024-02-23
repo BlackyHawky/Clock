@@ -20,12 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
@@ -49,6 +51,14 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
         if (row == null) {
             final LayoutInflater inflater = LayoutInflater.from(context);
             row = inflater.inflate(R.layout.alarm_row, parent, false);
+
+            final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
+            final int alarmRowMarginBottom = ThemeUtils.toPixel(isTablet ? 64 : 8, context);
+            final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(0, 0, 0, alarmRowMarginBottom);
+            row.setLayoutParams(params);
         }
 
         final AlarmSelection selection = getItem(position);

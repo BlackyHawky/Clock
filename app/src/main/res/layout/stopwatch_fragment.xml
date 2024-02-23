@@ -58,6 +58,6 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/fab_height" />
+        android:paddingBottom="80dp" />
 
 </LinearLayout>

@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
@@ -78,11 +79,11 @@ public final class StopwatchCircleView extends View {
         super(context, attrs);
 
         final Resources resources = context.getResources();
-        final float dotDiameter = resources.getDimension(R.dimen.stopwatch_circle_size);
+        final float dotDiameter = ThemeUtils.toPixel(12, context);
 
         mScreenDensity = resources.getDisplayMetrics().density;
-        mStrokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
-        mMarkerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
+        mStrokeSize = ThemeUtils.toPixel(6, context);
+        mMarkerStrokeSize = ThemeUtils.toPixel(0, context);
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
 
         mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);

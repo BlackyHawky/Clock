@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:minHeight="@dimen/touch_target_min_size"
+    android:minHeight="48dp"
     android:orientation="horizontal">
 
     <com.google.android.material.textview.MaterialTextView

@@ -63,6 +63,7 @@ import androidx.annotation.NonNull;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -116,8 +117,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      * Compute optimal font and icon sizes offscreen for both portrait and landscape orientations
      * using the last known widget size and apply them to the widget.
      */
-    private static void relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
-                                       Bundle options) {
+    private static void relayoutWidget(Context context, AppWidgetManager wm, int widgetId, Bundle options) {
         final RemoteViews portrait = relayoutWidget(context, wm, widgetId, options, true);
         final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
         final RemoteViews widget = new RemoteViews(landscape, portrait);
@@ -169,8 +169,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final int largestClockFontSizePx =
-                resources.getDimensionPixelSize(R.dimen.widget_max_clock_font_size);
+        final int largestClockFontSizePx = resources.getDimensionPixelSize(R.dimen.widget_max_clock_font_size);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -187,8 +186,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
-        final int smallestWorldCityListSizePx =
-                resources.getDimensionPixelSize(R.dimen.widget_min_world_city_list_size);
+        final int smallestWorldCityListSizePx = ThemeUtils.toPixel(80, context);
         if (sizes.getListHeight() <= smallestWorldCityListSizePx) {
             // Insufficient space; hide the world city list.
             rv.setViewVisibility(R.id.world_city_list, GONE);
@@ -218,7 +216,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams") final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null /* root */);
+        @SuppressLint("InflateParams") final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -409,8 +407,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      * Called when the app widget changes sizes.
      */
     @Override
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager wm, int widgetId,
-                                          Bundle options) {
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager wm, int widgetId, Bundle options) {
         super.onAppWidgetOptionsChanged(context, wm, widgetId, options);
 
         // scale the fonts of the clock to fit inside the new size
@@ -541,10 +538,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             final StringBuilder builder = new StringBuilder(1000);
             builder.append("\n");
             append(builder, "Target dimensions: %dpx x %dpx\n", mTargetWidthPx, mTargetHeightPx);
-            append(builder, "Last valid widget container measurement: %dpx x %dpx\n",
-                    mMeasuredWidthPx, mMeasuredHeightPx);
-            append(builder, "Last text clock measurement: %dpx x %dpx\n",
-                    mMeasuredTextClockWidthPx, mMeasuredTextClockHeightPx);
+            append(builder, "Last valid widget container measurement: %dpx x %dpx\n", mMeasuredWidthPx, mMeasuredHeightPx);
+            append(builder, "Last text clock measurement: %dpx x %dpx\n", mMeasuredTextClockWidthPx, mMeasuredTextClockHeightPx);
             if (mMeasuredWidthPx > mTargetWidthPx) {
                 append(builder, "Measured width %dpx exceeded widget width %dpx\n",
                         mMeasuredWidthPx, mTargetWidthPx);

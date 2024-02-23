@@ -15,9 +15,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/alarm_row_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/alarm_label_padding"
     android:gravity="top"
     android:orientation="vertical">
 
@@ -30,7 +30,7 @@
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+            android:layout_marginTop="12dp"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -38,8 +38,8 @@
             android:id="@+id/daysOfWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/alarm_clock_vertical_margin"
-            android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:textSize="18sp"
@@ -51,8 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:layout_marginTop="@dimen/label_margin_big"
-        android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp"
         android:gravity="bottom"
         android:orientation="vertical">
 

@@ -27,5 +27,5 @@
         android:button="@null"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/day_button_font_size" />
+        android:textSize="18sp" />
 </FrameLayout>

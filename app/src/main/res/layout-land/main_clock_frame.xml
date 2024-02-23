@@ -37,7 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:ellipsize="none"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_digital_font_size" />
+            android:textSize="70sp" />
 
     </FrameLayout>
 

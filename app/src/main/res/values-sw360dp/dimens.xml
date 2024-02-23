@@ -16,5 +16,4 @@
 <resources>
     <dimen name="big_font_size">70sp</dimen>
     <dimen name="main_clock_font_size">80sp</dimen>
-    <dimen name="no_alarms_size">120dp</dimen>
 </resources>

@@ -30,7 +30,7 @@
         android:textColor="@color/md_theme_onSurfaceVariant"
         app:autoSizeTextType="uniform"
         app:autoSizeMinTextSize="32sp"
-        app:autoSizeMaxTextSize="@dimen/timer_setup_digit_font_size"
+        app:autoSizeMaxTextSize="56sp"
         app:autoSizeStepGranularity="2sp"
         tools:text="12h34m56s"/>
 

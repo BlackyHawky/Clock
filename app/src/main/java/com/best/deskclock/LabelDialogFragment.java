@@ -156,8 +156,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = context.getResources()
-                .getDimensionPixelSize(R.dimen.label_edittext_padding);
+        final int padding = ThemeUtils.toPixel(21, context);
         dialog.setView(mLabelBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();

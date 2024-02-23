@@ -40,7 +40,7 @@
     <TextView
         android:id="@+id/hours_of_sleep"
         android:gravity="center"
-        android:paddingHorizontal="@dimen/hours_of_sleep_padding"
+        android:paddingHorizontal="10dp"
         android:layout_marginTop="40dp"
         app:layout_column="1"
         app:layout_gravity="center"

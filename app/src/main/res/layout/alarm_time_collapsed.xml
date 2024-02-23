@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="none"
             android:focusable="true"
-            android:paddingStart="@dimen/icon_margin"
+            android:paddingStart="4dp"
             android:singleLine="true"
             tools:ignore="RtlSymmetry" />
 
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="none"
             android:focusable="true"
-            android:paddingStart="@dimen/icon_margin"
+            android:paddingStart="4dp"
             android:singleLine="true"
             tools:ignore="RtlSymmetry" />
 
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/expand_alarm"
-        android:paddingHorizontal="@dimen/checkbox_start_padding"
+        android:paddingHorizontal="12dp"
         app:layout_column="4"
         app:layout_gravity="center_vertical"
         app:layout_row="1"
@@ -105,7 +105,7 @@
     <View
         android:id="@+id/hairline"
         android:layout_width="0dp"
-        android:layout_height="@dimen/hairline_height"
+        android:layout_height="1dp"
         app:layout_column="0"
         app:layout_columnSpan="5"
         app:layout_gravity="fill_horizontal"

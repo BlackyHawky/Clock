@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
@@ -102,7 +103,19 @@ public class ScreensaverActivity extends BaseActivity {
 
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
-        mMainClockView = mContentView.findViewById(R.id.main_clock);
+
+        mMainClockView = findViewById(R.id.main_clock);
+        final boolean isTablet = mMainClockView.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
+        final int mainClockMarginLeft = ThemeUtils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
+        final int mainClockMarginRight = ThemeUtils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
+        final int mainClockMarginTop = ThemeUtils.toPixel(isTablet
+                        ? Utils.isLandscape(mMainClockView.getContext()) ? 32 : 48
+                        : Utils.isLandscape(mMainClockView.getContext()) ? 16 : 24, mMainClockView.getContext());
+        final int mainClockMarginBottom = ThemeUtils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
+        final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
+        mMainClockView.setLayoutParams(paramsForMainClock);
+
         final TextClock textClock = findViewById(R.id.digital_clock);
         final TextView date = findViewById(R.id.date);
         final ImageView nextAlarmIcon = findViewById(R.id.nextAlarmIcon);
@@ -113,7 +126,18 @@ public class ScreensaverActivity extends BaseActivity {
         nextAlarm.setTextColor(getColor(android.R.color.white));
 
         final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
+        final int digitalClockMarginBottom = ThemeUtils.toPixel(isTablet ? -18 : -8, mMainClockView.getContext());
+        final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
+        mMainClockView.setLayoutParams(paramsForDigitalClock);
+
         final AnalogClock analogClock = mMainClockView.findViewById(R.id.analog_clock);
+        final int analogClockMarginBottom = ThemeUtils.toPixel(Utils.isLandscape(mMainClockView.getContext())
+                ? 5
+                : isTablet ? 18 : 14, mMainClockView.getContext());
+        final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
+        mMainClockView.setLayoutParams(paramsForAnalogClock);
 
         Utils.setTimeFormat((TextClock) digitalClock, false);
         Utils.setClockStyle(digitalClock, analogClock);
