@@ -21,6 +21,7 @@
     android:layout_marginBottom="8dp"
     android:minHeight="32dp"
     android:paddingHorizontal="25dp"
+    android:paddingTop="25dp"
     android:text="@string/selected_cities_label"
     android:textColor="@color/md_theme_onSurfaceVariant"
     android:textSize="20sp" />

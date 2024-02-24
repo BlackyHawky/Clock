@@ -16,7 +16,6 @@
 
 package com.best.deskclock;
 
-
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
@@ -39,13 +38,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
@@ -71,36 +68,45 @@ import com.google.android.material.snackbar.Snackbar;
  */
 public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
+
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
     private static final int CODE_FOR_ALARM_PERMISSION = 1;
+
     /**
      * Coordinates handling of context menu items.
      */
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
+
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
      */
     private final AnimatorSet mHideAnimation = new AnimatorSet();
+
     /**
      * Grows the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to natural sizes.
      */
     private final AnimatorSet mShowAnimation = new AnimatorSet();
+
     /**
      * Hides, updates, and shows only the {@link #mFab}; the buttons are untouched.
      */
     private final AnimatorSet mUpdateFabOnlyAnimation = new AnimatorSet();
+
     /**
      * Hides, updates, and shows only the {@link #mLeftButton} and {@link #mRightButton}.
      */
     private final AnimatorSet mUpdateButtonsOnlyAnimation = new AnimatorSet();
+
     /**
      * Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends.
      */
     private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
+
     /**
      * Updates the user interface to reflect the selected tab from the backing model.
      */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
+
     /**
      * Shows/hides a snackbar explaining which setting is suppressing alarms from firing.
      */
@@ -133,42 +139,47 @@ public class DeskClock extends AppCompatActivity
      * Displays a snackbar explaining why alarms may not fire or may fire silently.
      */
     private Runnable mShowSilentSettingSnackbarRunnable;
+
     /**
      * The view to which snackbar items are anchored.
      */
     private View mSnackbarAnchor;
+
     /**
      * The current display state of the {@link #mFab}.
      */
     private FabState mFabState = FabState.SHOWING;
+
     /**
      * The single floating-action button shared across all tabs in the user interface.
      */
     private ImageView mFab;
+
     /**
      * The button left of the {@link #mFab} shared across all tabs in the user interface.
      */
     private Button mLeftButton;
+
     /**
      * The button right of the {@link #mFab} shared across all tabs in the user interface.
      */
     private Button mRightButton;
+
     /**
      * The ViewPager that pages through the fragments representing the content of the tabs.
      */
     private ViewPager mFragmentTabPager;
+
     /**
      * Generates the fragments that are displayed by the {@link #mFragmentTabPager}.
      */
     private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
-    /**
-     * The view that displays the current tab's title
-     */
-    private TextView mTitleView;
+
     /**
      * The bottom navigation bar
      */
     private BottomNavigationView mBottomNavigation;
+
     /**
      * {@code true} when a settings change necessitates recreating this activity.
      */
@@ -186,30 +197,23 @@ public class DeskClock extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);
 
         checkPermissions();
 
-        // Configure the toolbar.
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
         // Configure the menu item controllers add behavior to the toolbar.
         mOptionsMenuManager.addMenuItemController(
                 new NightModeMenuItemController(this), new SettingsMenuItemController(this));
         mOptionsMenuManager.addMenuItemController(
                 MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
-
-        // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
-        // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
-        onCreateOptionsMenu(toolbar.getMenu());
 
         // Configure the buttons shared by the tabs.
         mFab = findViewById(R.id.fab);
@@ -291,8 +295,6 @@ public class DeskClock extends AppCompatActivity
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
-
-        mTitleView = findViewById(R.id.title_view);
     }
 
     @Override
@@ -355,6 +357,10 @@ public class DeskClock extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getOnBackPressedDispatcher().onBackPressed();
+            return true;
+        }
         return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
@@ -452,7 +458,10 @@ public class DeskClock extends AppCompatActivity
             }
         }
 
-        mTitleView.setText(selectedTab.getLabelResId());
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(selectedTab.getLabelResId());
+        }
     }
 
     /**

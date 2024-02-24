@@ -46,7 +46,7 @@
         android:label="@string/app_label"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DeskClock"
+        android:theme="@style/Theme.DeskClock.Actionbar"
         tools:targetApi="o">
 
         <!-- We can deal with all kinds of aspect ratios -->
@@ -74,7 +74,7 @@
             android:excludeFromRecents="true"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".worldclock.CitySelectionActivity"
@@ -82,7 +82,7 @@
             android:label="@string/cities_activity_title"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".settings.SettingsActivity"
@@ -90,7 +90,7 @@
             android:label="@string/settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".HandleShortcuts"
@@ -239,6 +239,7 @@
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock"
             tools:ignore="NonResizeableActivity" />
 
         <activity
@@ -247,7 +248,7 @@
             android:label="@string/screensaver_settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <service
             android:name=".Screensaver"

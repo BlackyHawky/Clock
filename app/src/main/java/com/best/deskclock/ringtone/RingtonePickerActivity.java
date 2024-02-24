@@ -49,7 +49,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,6 +63,7 @@ import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ import java.util.List;
  *     <li>user-selected audio files available as ringtones</li>
  * </ul>
  */
-public class RingtonePickerActivity extends AppCompatActivity
+public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         implements LoaderManager.LoaderCallbacks<List<ItemAdapter.ItemHolder<Uri>>> {
     /**
      * Key to an extra that defines resource id to the title of this activity.

@@ -37,7 +37,6 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
 import com.best.deskclock.R;
@@ -50,6 +49,7 @@ import com.best.deskclock.actionbarmenu.SearchMenuItemController;
 import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -75,7 +75,7 @@ import java.util.TimeZone;
  * As a result, {@link #onResume()} conservatively refreshes itself from the backing
  * {@link DataModel} which may have changed since this activity was last displayed.
  */
-public final class CitySelectionActivity extends AppCompatActivity {
+public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
 
     /**
      * Manages all action bar menu display and click handling.
@@ -437,8 +437,8 @@ public final class CitySelectionActivity extends AppCompatActivity {
                     }
                 }
 
-                mSectionHeaders = sections.toArray(new String[sections.size()]);
-                mSectionHeaderPositions = positions.toArray(new Integer[positions.size()]);
+                mSectionHeaders = sections.toArray(new String[0]);
+                mSectionHeaderPositions = positions.toArray(new Integer[0]);
             }
             return mSectionHeaders;
         }

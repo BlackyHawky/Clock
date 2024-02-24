@@ -27,7 +27,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -44,6 +43,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -51,7 +51,7 @@ import java.util.Objects;
 /**
  * Settings for the Alarm Clock.
  */
-public final class SettingsActivity extends AppCompatActivity {
+public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -87,8 +87,6 @@ public final class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.settings);
-
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this));
@@ -96,7 +94,7 @@ public final class SettingsActivity extends AppCompatActivity {
         // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG)
+                    .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
         }
