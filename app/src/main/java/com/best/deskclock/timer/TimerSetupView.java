@@ -39,7 +39,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.best.deskclock.FabContainer;
 import com.best.deskclock.FormattedTextUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.Utils;
 import com.best.deskclock.uidata.UiDataModel;
 import com.google.android.material.button.MaterialButton;
 
@@ -92,10 +92,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final Resources res = getContext().getResources();
         final boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
         final int orientation = res.getConfiguration().orientation;
-        final int marginButtonLeft = ThemeUtils.toPixel( 10, getContext());
-        final int marginButtonRight = ThemeUtils.toPixel(10, getContext());
-        final int marginButtonTop = ThemeUtils.toPixel(10, getContext());
-        final int marginButtonBottom = ThemeUtils.toPixel(10, getContext());
+        final int marginButtonLeft = Utils.toPixel( 10, getContext());
+        final int marginButtonRight = Utils.toPixel(10, getContext());
+        final int marginButtonTop = Utils.toPixel(10, getContext());
+        final int marginButtonBottom = Utils.toPixel(10, getContext());
 
         mTimeView = findViewById(R.id.timer_setup_time);
         mDeleteButton = findViewById(R.id.timer_setup_delete);
@@ -138,7 +138,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             // In landscape mode, we don't want buttons to take up the full height of the screen.
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 final View tabletDigits = findViewById(R.id.timer_setup_digits);
-                tabletDigits.getLayoutParams().height = ThemeUtils.toPixel(450, getContext());
+                tabletDigits.getLayoutParams().height = Utils.toPixel(450, getContext());
             }
         }
 

@@ -66,7 +66,6 @@ import androidx.annotation.NonNull;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
@@ -190,7 +189,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
-        final int smallestWorldCityListSizePx = ThemeUtils.toPixel(80, context);
+        final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
         if (sizes.getListHeight() <= smallestWorldCityListSizePx) {
             // Insufficient space; hide the world city list.
             rv.setViewVisibility(R.id.world_city_list, GONE);

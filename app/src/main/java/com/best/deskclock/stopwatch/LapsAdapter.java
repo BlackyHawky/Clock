@@ -31,7 +31,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
@@ -377,8 +377,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
             final boolean isTablet = itemView.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
             final int padding = isTablet
-                    ? ThemeUtils.toPixel(8, itemView.getContext())
-                    : ThemeUtils.toPixel(4, itemView.getContext());
+                    ? Utils.toPixel(8, itemView.getContext())
+                    : Utils.toPixel(4, itemView.getContext());
             itemView.setPadding(0, padding, 0, padding);
 
             lapNumber = itemView.findViewById(R.id.lap_number);

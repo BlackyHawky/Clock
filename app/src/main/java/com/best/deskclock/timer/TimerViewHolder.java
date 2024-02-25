@@ -16,20 +16,16 @@
 
 package com.best.deskclock.timer;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
@@ -44,12 +40,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     public TimerViewHolder(View view, TimerClickHandler timerClickHandler) {
         super(view);
 
-        final int color = view.getContext().getColor(R.color.md_theme_primary);
-        final int radius = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 12, view.getResources().getDisplayMetrics());
-        final GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setCornerRadius(radius);
-        gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
-        view.setBackground(gradientDrawable);
+        view.setBackground(Utils.cardBackground(view.getContext()));
 
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;

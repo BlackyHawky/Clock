@@ -60,7 +60,7 @@ public class TimerCircleFrameLayout extends FrameLayout {
         final int smallestDimension = Math.min(width, height);
 
         // Fetch the absolute maximum circle size allowed.
-        final int maxSize = ThemeUtils.toPixel(240, getContext());
+        final int maxSize = Utils.toPixel(240, getContext());
         final int size = Math.min(smallestDimension, maxSize);
 
         // Set the size of this container.

@@ -50,7 +50,6 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -178,8 +177,8 @@ public final class ClockFragment extends DeskClockFragment {
 
             // Provide bottom padding dynamically for the clock frame for tablets in landscape mode.
             final int bottomPadding = DataModel.getDataModel().getSelectedCities().size() > 0 || mShowHomeClock
-                    ? ThemeUtils.toPixel(20, activity) // The clock frame is on the left of the screen
-                    : ThemeUtils.toPixel(90, activity); // The clock frame is just above the button
+                    ? Utils.toPixel(20, activity) // The clock frame is on the left of the screen
+                    : Utils.toPixel(90, activity); // The clock frame is just above the button
             mClockFrame.setPadding(0, 0, 0, bottomPadding);
         }
 
@@ -356,8 +355,8 @@ public final class ClockFragment extends DeskClockFragment {
                 final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    mAnalogClock.getLayoutParams().height = ThemeUtils.toPixel(isTablet ? 150 : 80, context);
-                    mAnalogClock.getLayoutParams().width = ThemeUtils.toPixel(isTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
@@ -370,31 +369,25 @@ public final class ClockFragment extends DeskClockFragment {
                     mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
                 }
 
-                // Supply card background dynamically.
-                final int color = context.getColor(R.color.md_theme_primary);
-                final int radius = ThemeUtils.toPixel(12, context);
-                final GradientDrawable gradientDrawable = new GradientDrawable();
-                gradientDrawable.setCornerRadius(radius);
-                gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
-                itemView.setBackground(gradientDrawable);
+                itemView.setBackground(Utils.cardBackground(context));
 
                 // Supply margins dynamically.
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
                 );
-                final int marginLeft = ThemeUtils.toPixel(10, context);
-                final int marginRight = ThemeUtils.toPixel(10, context);
+                final int marginLeft = Utils.toPixel(10, context);
+                final int marginRight = Utils.toPixel(10, context);
                 final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
-                        ? ThemeUtils.toPixel(10, context)
-                        : ThemeUtils.toPixel(0, context);
+                        ? Utils.toPixel(10, context)
+                        : Utils.toPixel(0, context);
                 params.setMargins(marginLeft, 0, marginRight, marginBottom);
                 itemView.setLayoutParams(params);
 
                 // Supply vertical and horizontal padding dynamically.
-                final int paddingLeft = ThemeUtils.toPixel(24, context);
-                final int paddingTop = ThemeUtils.toPixel(12, context);
-                final int paddingRight = ThemeUtils.toPixel(24, context);
-                final int paddingBottom = ThemeUtils.toPixel(12, context);
+                final int paddingLeft = Utils.toPixel(24, context);
+                final int paddingTop = Utils.toPixel(12, context);
+                final int paddingRight = Utils.toPixel(24, context);
+                final int paddingBottom = Utils.toPixel(12, context);
                 itemView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
 
                 // Bind the city name.

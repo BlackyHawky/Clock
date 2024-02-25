@@ -138,15 +138,7 @@ public class LabelDialogFragment extends DialogFragment {
                 .create();
         final Context context = dialog.getContext();
 
-        final int colorControlActivated =
-                ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorControlActivated);
-        final int colorControlNormal =
-                ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorControlNormal);
-
         mLabelBox = new AppCompatEditText(context);
-        mLabelBox.setSupportBackgroundTintList(new ColorStateList(
-                new int[][]{{android.R.attr.state_activated}, {}},
-                new int[]{colorControlActivated, colorControlNormal}));
         mLabelBox.setOnEditorActionListener(new ImeDoneListener());
         mLabelBox.addTextChangedListener(new TextChangeListener());
         mLabelBox.setSingleLine();
@@ -156,7 +148,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = ThemeUtils.toPixel(21, context);
+        final int padding = Utils.toPixel(21, context);
         dialog.setView(mLabelBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();

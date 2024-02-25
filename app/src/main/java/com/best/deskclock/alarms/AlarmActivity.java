@@ -58,7 +58,6 @@ import androidx.core.view.animation.PathInterpolatorCompat;
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
@@ -219,17 +218,17 @@ public class AlarmActivity extends AppCompatActivity
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
 
-        mAlarmButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+        mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
         );
         mAlarmButton.setColorFilter(getColor(R.color.md_theme_outline));
 
-        mDismissButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+        mDismissButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
         );
         mDismissButton.setColorFilter(getColor(R.color.md_theme_outline));
 
-        mSnoozeButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
+        mSnoozeButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
         mSnoozeButton.setColorFilter(getColor(R.color.md_theme_outline));

@@ -16,22 +16,17 @@
 
 package com.best.deskclock.alarms.dataadapter;
 
-import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.graphics.ColorUtils;
-
 import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.TextTime;
@@ -63,12 +58,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
 
-        final int color = itemView.getContext().getColor(R.color.md_theme_primary);
-        final int radius = (int) TypedValue.applyDimension(COMPLEX_UNIT_DIP, 12, itemView.getResources().getDisplayMetrics());
-        final GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setCornerRadius(radius);
-        gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
-        itemView.setBackground(gradientDrawable);
+        itemView.setBackground(Utils.cardBackground(itemView.getContext()));
 
         clock = itemView.findViewById(R.id.digital_clock);
         onOff = itemView.findViewById(R.id.onoff);

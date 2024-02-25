@@ -57,7 +57,6 @@ import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.StopwatchTextController;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
@@ -462,7 +461,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (Utils.isPortrait(getContext())) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = lapsVisible ? 0 : ThemeUtils.toPixel(80, getContext());
+            final int bottom = lapsVisible ? 0 : Utils.toPixel(80, getContext());
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();
@@ -614,7 +613,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mGradient.setOrientation(TOP_BOTTOM);
             updateGradientColors(context.getColor(R.color.md_theme_background));
 
-            final float fabHeight = ThemeUtils.toPixel(80, context);
+            final float fabHeight = Utils.toPixel(80, context);
             mGradientHeight = Math.round(fabHeight * 1.2f);
         }
 

@@ -39,6 +39,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,19 +56,17 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.AnyRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.core.view.AccessibilityDelegateCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableKt;
+import androidx.core.graphics.ColorUtils;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
@@ -188,8 +189,7 @@ public class Utils {
      * Calculate the amount by which the radius of a CircleTimerView should be offset by any
      * of the extra painted objects.
      */
-    public static float calculateRadiusOffset(
-            float strokeSize, float dotStrokeSize, float markerStrokeSize) {
+    public static float calculateRadiusOffset(float strokeSize, float dotStrokeSize, float markerStrokeSize) {
         return Math.max(strokeSize, Math.max(dotStrokeSize, markerStrokeSize));
     }
 
@@ -201,14 +201,16 @@ public class Utils {
         final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
         switch (clockStyle) {
-            case ANALOG:
+            case ANALOG -> {
                 setTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(displaySeconds);
                 return;
-            case DIGITAL:
+            }
+            case DIGITAL -> {
                 analogClock.enableSeconds(false);
                 setTimeFormat(digitalClock, displaySeconds);
                 return;
+            }
         }
 
         throw new IllegalStateException("unexpected clock style: " + clockStyle);
@@ -218,21 +220,21 @@ public class Utils {
      * Set whether the digital or analog clock should be displayed in the application.
      * Returns the view to be displayed.
      */
-    public static View setClockStyle(View digitalClock, View analogClock) {
+    public static void setClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
         final boolean isTablet = analogClock.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
         switch (clockStyle) {
             case ANALOG -> {
-                analogClock.getLayoutParams().height = ThemeUtils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
-                analogClock.getLayoutParams().width = ThemeUtils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                analogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                analogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
                 analogClock.setVisibility(View.VISIBLE);
                 digitalClock.setVisibility(View.GONE);
-                return analogClock;
+                return;
             }
             case DIGITAL -> {
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.GONE);
-                return digitalClock;
+                return;
             }
         }
 
@@ -243,18 +245,18 @@ public class Utils {
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
      */
-    public static View setScreensaverClockStyle(View digitalClock, View analogClock) {
+    public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
         switch (clockStyle) {
             case ANALOG -> {
                 digitalClock.setVisibility(View.GONE);
                 analogClock.setVisibility(View.VISIBLE);
-                return analogClock;
+                return;
             }
             case DIGITAL -> {
                 digitalClock.setVisibility(View.VISIBLE);
                 analogClock.setVisibility(View.GONE);
-                return digitalClock;
+                return;
             }
         }
 
@@ -392,7 +394,7 @@ public class Utils {
     public static void setTimeFormat(TextClock clock, boolean includeSeconds) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */, includeSeconds));
+            clock.setFormat12Hour(get12ModeFormat(0.4f, includeSeconds));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(includeSeconds));
         }
@@ -420,19 +422,15 @@ public class Utils {
         }
 
         final Spannable sp = new SpannableString(pattern);
-        sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return sp;
     }
 
     public static CharSequence get24ModeFormat(boolean includeSeconds) {
-        return DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                includeSeconds ? "Hms" : "Hm");
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
     }
 
     /**
@@ -444,8 +442,7 @@ public class Utils {
     public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm) {
         final int gmtOffset = timezone.getRawOffset();
         final long hour = gmtOffset / DateUtils.HOUR_IN_MILLIS;
-        final long min = (Math.abs(gmtOffset) % DateUtils.HOUR_IN_MILLIS) /
-                DateUtils.MINUTE_IN_MILLIS;
+        final long min = (Math.abs(gmtOffset) % DateUtils.HOUR_IN_MILLIS) / DateUtils.MINUTE_IN_MILLIS;
 
         if (useShortForm) {
             return String.format(Locale.ENGLISH, "%+d", hour);
@@ -496,15 +493,7 @@ public class Utils {
      */
     public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
         final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
-        return wo != null
-                && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
-    }
-
-    /**
-     * @return a vector-drawable inflated from the given {@code resId}
-     */
-    public static VectorDrawableCompat getVectorDrawable(Context context, @DrawableRes int resId) {
-        return VectorDrawableCompat.create(context.getResources(), resId, context.getTheme());
+        return wo != null && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
     }
 
     /**
@@ -517,6 +506,38 @@ public class Utils {
         final Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * Convenience method for creating card background.
+     */
+    public static Drawable cardBackground (Context context) {
+        final int color = context.getColor(R.color.md_theme_primary);
+        final int radius = Utils.toPixel(12, context);
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(radius);
+        // Setting transparency is necessary to avoid flickering when expanding or collapsing alarms.
+        // Todo: find a way to get rid of this transparency and use the real color R.color.md_theme_surface
+        gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
+        return gradientDrawable;
+    }
+
+    /**
+     * Convenience method for scaling Drawable.
+     */
+    public static BitmapDrawable toScaledBitmapDrawable(Context context, int drawableResId, float scale) {
+        final Drawable drawable = AppCompatResources.getDrawable(context, drawableResId);
+        if (drawable == null) return null;
+        return new BitmapDrawable(context.getResources(), DrawableKt.toBitmap(drawable,
+                (int) (scale * drawable.getIntrinsicHeight()), (int) (scale * drawable.getIntrinsicWidth()), null));
+    }
+
+    /**
+     * Convenience method for converting dp to pixel.
+     */
+    public static int toPixel(int dp, Context context) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -563,30 +584,20 @@ public class Utils {
      */
     public static String createHoursDifferentString(Context context, boolean displayMinutes,
                                                     boolean isAhead, int hoursDifferent, int minutesDifferent) {
+
         String timeString;
         if (displayMinutes && hoursDifferent != 0) {
             // Both minutes and hours
-            final String hoursShortQuantityString =
-                    Utils.getNumberFormattedQuantityString(context,
-                            R.plurals.hours_short, Math.abs(hoursDifferent));
-            final String minsShortQuantityString =
-                    Utils.getNumberFormattedQuantityString(context,
-                            R.plurals.minutes_short, Math.abs(minutesDifferent));
-            final @StringRes int stringType = isAhead
-                    ? R.string.world_hours_minutes_ahead
-                    : R.string.world_hours_minutes_behind;
-            timeString = context.getString(stringType, hoursShortQuantityString,
-                    minsShortQuantityString);
+            final String hoursShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours_short, Math.abs(hoursDifferent));
+            final String minsShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
+            timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
         } else {
             // Minutes alone or hours alone
-            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(
-                    context, R.plurals.hours, Math.abs(hoursDifferent));
-            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(
-                    context, R.plurals.minutes, Math.abs(minutesDifferent));
-            final @StringRes int stringType = isAhead ? R.string.world_time_ahead
-                    : R.string.world_time_behind;
-            timeString = context.getString(stringType, displayMinutes
-                    ? minutesQuantityString : hoursQuantityString);
+            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, Math.abs(hoursDifferent));
+            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
+            timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
         }
         return timeString;
     }
@@ -608,35 +619,4 @@ public class Utils {
         return context.getString(R.string.seconds, seconds);
     }
 
-    public static final class ClickAccessibilityDelegate extends AccessibilityDelegateCompat {
-
-        /**
-         * The label for talkback to apply to the view
-         */
-        private final String mLabel;
-
-        /**
-         * Whether or not to always make the view visible to talkback
-         */
-        private final boolean mIsAlwaysAccessibilityVisible;
-
-        public ClickAccessibilityDelegate(String label) {
-            this(label, false);
-        }
-
-        public ClickAccessibilityDelegate(String label, boolean isAlwaysAccessibilityVisible) {
-            mLabel = label;
-            mIsAlwaysAccessibilityVisible = isAlwaysAccessibilityVisible;
-        }
-
-        @Override
-        public void onInitializeAccessibilityNodeInfo(@NonNull View host, @NonNull AccessibilityNodeInfoCompat info) {
-            super.onInitializeAccessibilityNodeInfo(host, info);
-            if (mIsAlwaysAccessibilityVisible) {
-                info.setVisibleToUser(true);
-            }
-            info.addAction(new AccessibilityActionCompat(
-                    AccessibilityActionCompat.ACTION_CLICK.getId(), mLabel));
-        }
-    }
 }
