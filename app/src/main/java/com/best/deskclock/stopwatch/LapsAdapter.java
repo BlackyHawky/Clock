@@ -384,15 +384,12 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             lapNumber = itemView.findViewById(R.id.lap_number);
             lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             lapNumber.setTypeface(Typeface.DEFAULT_BOLD);
-            lapNumber.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
 
             lapTime = itemView.findViewById(R.id.lap_time);
             lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            lapTime.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
             accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            accumulatedTime.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
         }
     }
 }

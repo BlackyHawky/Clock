@@ -63,7 +63,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
         mNameView.setText(itemHolder.getName());
-        mNameView.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
 
         final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
         mNameView.setAlpha(opaque ? 1f : .63f);

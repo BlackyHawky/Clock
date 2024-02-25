@@ -41,7 +41,6 @@
             android:text="@string/wakeup"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="@color/md_theme_onSurfaceVariant"
             android:textAllCaps="true"
             android:drawableStart="@drawable/ic_tab_wakeup"
             android:drawablePadding="8dp"

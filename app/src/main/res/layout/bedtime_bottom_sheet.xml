@@ -41,7 +41,6 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:text="@string/menu_bedtime"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="@color/md_theme_onSurfaceVariant"
             android:textAllCaps="true"
             android:drawableStart="@drawable/ic_tab_bedtime_static"
             android:drawablePadding="8dp"
@@ -55,7 +54,6 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
-            android:textColor="@color/md_theme_onSurfaceVariant"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
@@ -109,8 +107,7 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                 android:layout_marginStart="10dp"
                 android:text="@string/remind_notif"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/md_theme_onSurfaceVariant" />
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/notif_spinner"
@@ -141,15 +138,13 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                     android:layout_marginStart="10dp"
                     android:text="@string/bed_dnd_title"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/md_theme_onSurfaceVariant" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/bed_dnd_txt"
-                    android:textColor="@color/md_theme_onSurfaceVariant" />
+                    android:text="@string/bed_dnd_txt" />
 
             </LinearLayout>
 
@@ -184,15 +179,13 @@ app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior
                     android:layout_marginStart="10dp"
                     android:text="@string/bed_wall_title"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/md_theme_onSurfaceVariant" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/bed_wall_txt"
-                    android:textColor="@color/md_theme_onSurfaceVariant" />
+                    android:text="@string/bed_wall_txt" />
 
             </LinearLayout>
 

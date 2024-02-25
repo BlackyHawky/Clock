@@ -27,7 +27,6 @@
         android:gravity="center"
         android:ellipsize="none"
         android:singleLine="true"
-        android:textColor="@color/md_theme_onSurfaceVariant"
         app:autoSizeTextType="uniform"
         app:autoSizeMinTextSize="32sp"
         app:autoSizeMaxTextSize="56sp"

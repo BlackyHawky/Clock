@@ -37,7 +37,6 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textSize="@dimen/big_font_size"
-            android:textColor="@color/md_theme_onSurfaceVariant"
             app:layout_column="0"
             app:layout_columnSpan="3"
             app:layout_row="0" />

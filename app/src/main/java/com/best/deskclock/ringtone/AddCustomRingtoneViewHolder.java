@@ -45,7 +45,6 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
 
         final TextView nameView = itemView.findViewById(R.id.ringtone_name);
         nameView.setText(itemView.getContext().getString(R.string.add_new_sound));
-        nameView.setTextColor(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         final Drawable iconAdd = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.ic_add);

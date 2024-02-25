@@ -191,7 +191,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         final Context context = mMainTimeText.getContext();
         final int colorAccent = context.getColor(R.color.md_theme_primary);
-        final int textColorPrimary = context.getColor(R.color.md_theme_onSurfaceVariant);
+        final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
                 new int[]{textColorPrimary, colorAccent});
@@ -264,12 +264,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public void onRightButtonClick(@NonNull Button right) {
         switch (getStopwatch().getState()) {
-            case RUNNING:
-                doAddLap();
-                break;
-            case PAUSED:
-                doShare();
-                break;
+            case RUNNING -> doAddLap();
+            case PAUSED -> doShare();
         }
     }
 
@@ -305,26 +301,26 @@ public final class StopwatchFragment extends DeskClockFragment {
         left.setContentDescription(resources.getString(R.string.sw_reset_button));
 
         switch (getStopwatch().getState()) {
-            case RESET:
+            case RESET -> {
                 left.setVisibility(INVISIBLE);
                 right.setClickable(true);
                 right.setVisibility(INVISIBLE);
-                break;
-            case RUNNING:
+            }
+            case RUNNING -> {
                 left.setVisibility(VISIBLE);
                 final boolean canRecordLaps = canRecordMoreLaps();
                 right.setText(R.string.sw_lap_button);
                 right.setContentDescription(resources.getString(R.string.sw_lap_button));
                 right.setClickable(canRecordLaps);
                 right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
-                break;
-            case PAUSED:
+            }
+            case PAUSED -> {
                 left.setVisibility(VISIBLE);
                 right.setClickable(true);
                 right.setVisibility(VISIBLE);
                 right.setText(R.string.sw_share_button);
                 right.setContentDescription(resources.getString(R.string.sw_share_button));
-                break;
+            }
         }
     }
 

@@ -180,7 +180,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
-        ringtone.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
 
         final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
         final Drawable iconRingtone = silent
@@ -223,7 +222,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                     ? context.getString(R.string.label_description) + " " + alarm.label
                     : context.getString(R.string.no_label_specified));
         }
-        editLabel.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
     }
 
     private void bindVibrator(Alarm alarm) {

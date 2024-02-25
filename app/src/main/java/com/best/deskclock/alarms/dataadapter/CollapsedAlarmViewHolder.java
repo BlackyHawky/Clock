@@ -109,7 +109,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
             } else {
                 alarmLabel.setText(alarm.label);
             }
-            alarmLabel.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
             alarmLabel.setTypeface(Typeface.DEFAULT_BOLD);
             alarmLabel.setVisibility(View.VISIBLE);
             alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
@@ -126,7 +125,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
             final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
             daysOfWeek.setContentDescription(string);
-            daysOfWeek.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
             daysOfWeek.setVisibility(View.VISIBLE);
         } else {
             daysOfWeek.setVisibility(View.GONE);
@@ -142,7 +140,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                     ? context.getString(R.string.alarm_tomorrow)
                     : context.getString(R.string.alarm_today);
             upcomingInstanceLabel.setText(labelText);
-            upcomingInstanceLabel.setTextColor(context.getColor(R.color.md_theme_onSurfaceVariant));
         }
     }
 

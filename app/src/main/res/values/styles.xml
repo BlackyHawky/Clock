@@ -94,7 +94,7 @@
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
         <item name="backgroundTint">@color/md_theme_surface</item>
-        <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:padding">5dp</item>
         <item name="android:insetLeft">0dp</item>
@@ -114,7 +114,6 @@
 
     <style name="CollapsingToolbarTitle.Collapsed" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
     </style>
 
     <style name="CollapsingToolbarTitle.Expanded" parent="CollapsingToolbarTitle.Collapsed">

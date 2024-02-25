@@ -29,7 +29,6 @@
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
         android:textSize="18sp"
-        android:textColor="@color/md_theme_onSurfaceVariant"
         android:textStyle="bold"
         android:ellipsize="end"
         android:gravity="center_vertical"
@@ -74,7 +73,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="40sp"
-            android:textColor="@color/md_theme_onSurfaceVariant"
             tools:text="01:23" />
 
     </com.best.deskclock.CircleButtonsLayout>
