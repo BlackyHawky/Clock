@@ -55,6 +55,8 @@ import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.toast.SnackbarManager;
@@ -308,6 +310,24 @@ public class DeskClock extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (action != null) {
+                int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
+                switch (action) {
+                    case TimerService.ACTION_SHOW_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
+                    }
+                    case StopwatchService.ACTION_SHOW_STOPWATCH -> {
+                        Events.sendStopwatchEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
+                    }
+                }
+            }
+        }
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
         updateCurrentTab();

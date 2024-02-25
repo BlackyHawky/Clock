@@ -16,6 +16,7 @@
 
 package com.best.deskclock;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
@@ -283,7 +284,7 @@ public class Utils {
      * @return a PendingIntent that will start a service
      */
     public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
-        return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
     /**
@@ -294,7 +295,9 @@ public class Utils {
      * @return a PendingIntent that will start an activity
      */
     public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
-        return PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        // explicitly set the flag here, as getActivity() documentation states we must do so
+        return PendingIntent.getActivity(context, 0, intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
     }
 
     /**
