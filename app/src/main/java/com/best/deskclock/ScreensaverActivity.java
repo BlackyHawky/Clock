@@ -24,11 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnPreDrawListener;
@@ -73,16 +69,6 @@ public class ScreensaverActivity extends AppCompatActivity {
             }
         }
     };
-
-    // Register ContentObserver to see alarm changes for pre-L
-    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
-            ? new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-        }
-    }
-            : null;
 
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
@@ -170,15 +156,9 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        if (Utils.isLOrLater()) {
-            filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
-        }
-        registerReceiver(mIntentReceiver, filter);
+        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
 
-        if (mSettingsContentObserver != null) {
-            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
-            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
-        }
+        registerReceiver(mIntentReceiver, filter);
     }
 
     @Override
@@ -205,9 +185,6 @@ public class ScreensaverActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        if (mSettingsContentObserver != null) {
-            getContentResolver().unregisterContentObserver(mSettingsContentObserver);
-        }
         unregisterReceiver(mIntentReceiver);
         super.onStop();
     }

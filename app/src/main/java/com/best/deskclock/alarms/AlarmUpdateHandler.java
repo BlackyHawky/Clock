@@ -18,7 +18,8 @@ package com.best.deskclock.alarms;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * API for asynchronously mutating a single alarm.
@@ -46,8 +49,7 @@ public final class AlarmUpdateHandler {
     // For undo
     private Alarm mDeletedAlarm;
 
-    public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler,
-                              ViewGroup snackbarAnchor) {
+    public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
         mScrollHandler = scrollHandler;
         mSnackbarAnchor = snackbarAnchor;
@@ -59,37 +61,33 @@ public final class AlarmUpdateHandler {
      * @param alarm The alarm to be added.
      */
     public void asyncAddAlarm(final Alarm alarm) {
-        final AsyncTask<Void, Void, AlarmInstance> updateTask =
-                new AsyncTask<Void, Void, AlarmInstance>() {
-                    @Override
-                    protected AlarmInstance doInBackground(Void... parameters) {
-                        if (alarm != null) {
-                            Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
-                            ContentResolver cr = mAppContext.getContentResolver();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            AlarmInstance instance = null;
+            if (alarm != null) {
+                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
+                ContentResolver cr = mAppContext.getContentResolver();
 
-                            // Add alarm to db
-                            Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+                // Add alarm to db
+                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
 
-                            // Be ready to scroll to this alarm on UI later.
-                            mScrollHandler.setSmoothScrollStableId(newAlarm.id);
+                // Be ready to scroll to this alarm on UI later.
+                mScrollHandler.setSmoothScrollStableId(newAlarm.id);
 
-                            // Create and add instance to db
-                            if (newAlarm.enabled) {
-                                return setupAlarmInstance(newAlarm);
-                            }
-                        }
-                        return null;
-                    }
+                // Create and add instance to db
+                if (newAlarm.enabled) {
+                    instance = setupAlarmInstance(newAlarm);
+                }
+            }
 
-                    @Override
-                    protected void onPostExecute(AlarmInstance instance) {
-                        if (instance != null) {
-                            AlarmUtils.popAlarmSetSnackbar(
-                                    mSnackbarAnchor, instance.getAlarmTime().getTimeInMillis());
-                        }
-                    }
-                };
-        updateTask.execute();
+            final AlarmInstance finalInstance = instance;
+            handler.post(() -> {
+                if (finalInstance != null) {
+                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                }
+            });
+        });
     }
 
     /**
@@ -101,51 +99,46 @@ public final class AlarmUpdateHandler {
      */
     public void asyncUpdateAlarm(final Alarm alarm, final boolean popToast,
                                  final boolean minorUpdate) {
-        final AsyncTask<Void, Void, AlarmInstance> updateTask =
-                new AsyncTask<Void, Void, AlarmInstance>() {
-                    @Override
-                    protected AlarmInstance doInBackground(Void... parameters) {
-                        ContentResolver cr = mAppContext.getContentResolver();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            ContentResolver cr = mAppContext.getContentResolver();
 
-                        // Update alarm
-                        Alarm.updateAlarm(cr, alarm);
+            // Update alarm
+            Alarm.updateAlarm(cr, alarm);
 
-                        if (minorUpdate) {
-                            // just update the instance in the database and update notifications.
-                            final List<AlarmInstance> instanceList =
-                                    AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
-                            for (AlarmInstance instance : instanceList) {
-                                // Make a copy of the existing instance
-                                final AlarmInstance newInstance = new AlarmInstance(instance);
-                                // Copy over minor change data to the instance; we don't know
-                                // exactly which minor field changed, so just copy them all.
-                                newInstance.mVibrate = alarm.vibrate;
-                                newInstance.mRingtone = alarm.alert;
-                                newInstance.mLabel = alarm.label;
-                                // Since we copied the mId of the old instance and the mId is used
-                                // as the primary key in the AlarmInstance table, this will replace
-                                // the existing instance.
-                                AlarmInstance.updateInstance(cr, newInstance);
-                                // Update the notification for this instance.
-                                AlarmNotifications.updateNotification(mAppContext, newInstance);
-                            }
-                            return null;
-                        }
-                        // Otherwise, this is a major update and we're going to re-create the alarm
-                        AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
+            if (minorUpdate) {
+                // just update the instance in the database and update notifications.
+                final List<AlarmInstance> instanceList =
+                        AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+                for (AlarmInstance instance : instanceList) {
+                    // Make a copy of the existing instance
+                    final AlarmInstance newInstance = new AlarmInstance(instance);
+                    // Copy over minor change data to the instance; we don't know
+                    // exactly which minor field changed, so just copy them all.
+                    newInstance.mVibrate = alarm.vibrate;
+                    newInstance.mRingtone = alarm.alert;
+                    newInstance.mLabel = alarm.label;
+                    // Since we copied the mId of the old instance and the mId is used
+                    // as the primary key in the AlarmInstance table, this will replace
+                    // the existing instance.
+                    AlarmInstance.updateInstance(cr, newInstance);
+                    // Update the notification for this instance.
+                    AlarmNotifications.updateNotification(mAppContext, newInstance);
+                }
+                return;
+            }
+            // Otherwise, this is a major update and we're going to re-create the alarm
+            AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
 
-                        return alarm.enabled ? setupAlarmInstance(alarm) : null;
-                    }
+            final AlarmInstance finalInstance = alarm.enabled ? setupAlarmInstance(alarm) : null;
 
-                    @Override
-                    protected void onPostExecute(AlarmInstance instance) {
-                        if (popToast && instance != null) {
-                            AlarmUtils.popAlarmSetSnackbar(
-                                    mSnackbarAnchor, instance.getAlarmTime().getTimeInMillis());
-                        }
-                    }
-                };
-        updateTask.execute();
+            handler.post(() -> {
+                if (popToast && finalInstance != null) {
+                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                }
+            });
+        });
     }
 
     /**
@@ -154,27 +147,24 @@ public final class AlarmUpdateHandler {
      * @param alarm The alarm to be deleted.
      */
     public void asyncDeleteAlarm(final Alarm alarm) {
-        final AsyncTask<Void, Void, Boolean> deleteTask = new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... parameters) {
-                // Activity may be closed at this point , make sure data is still valid
-                if (alarm == null) {
-                    // Nothing to do here, just return.
-                    return false;
-                }
-                AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
-                return Alarm.deleteAlarm(mAppContext.getContentResolver(), alarm.id);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            // Activity may be closed at this point , make sure data is still valid
+            if (alarm == null) {
+                // Nothing to do here, just return.
+                return;
             }
+            AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
+            final boolean deleted = Alarm.deleteAlarm(mAppContext.getContentResolver(), alarm.id);
 
-            @Override
-            protected void onPostExecute(Boolean deleted) {
+            handler.post(() -> {
                 if (deleted) {
                     mDeletedAlarm = alarm;
                     showUndoBar();
                 }
-            }
-        };
-        deleteTask.execute();
+            });
+        });
     }
 
     /**

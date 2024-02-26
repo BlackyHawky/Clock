@@ -24,8 +24,6 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -47,7 +45,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -97,73 +94,6 @@ public class Utils {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             throw new IllegalAccessError("May not call from main thread.");
         }
-    }
-
-    public static int indexOf(Object[] array, Object item) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i].equals(item)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * @return {@code true} if the device is prior to {@link Build.VERSION_CODES#LOLLIPOP}
-     */
-    public static boolean isPreL() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or
-     * {@link Build.VERSION_CODES#LOLLIPOP_MR1}
-     */
-    public static boolean isLOrLMR1() {
-        final int sdkInt = Build.VERSION.SDK_INT;
-        return sdkInt == Build.VERSION_CODES.LOLLIPOP || sdkInt == Build.VERSION_CODES.LOLLIPOP_MR1;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or later
-     */
-    public static boolean isLOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP_MR1} or later
-     */
-    public static boolean isLMR1OrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#M} or later
-     */
-    public static boolean isMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
-     */
-    public static boolean isNOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#N_MR1} or later
-     */
-    public static boolean isNMR1OrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
-    }
-
-    /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#O} or later
-     */
-    public static boolean isOOrLater() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.O;
     }
 
     /**
@@ -304,16 +234,6 @@ public class Utils {
      * @return The next alarm from {@link AlarmManager}
      */
     public static String getNextAlarm(Context context) {
-        return isPreL() ? getNextAlarmPreL(context) : getNextAlarmLOrLater(context);
-    }
-
-    private static String getNextAlarmPreL(Context context) {
-        final ContentResolver cr = context.getContentResolver();
-        return Settings.System.getString(cr, Settings.System.NEXT_ALARM_FORMATTED);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private static String getNextAlarmLOrLater(Context context) {
         final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final AlarmClockInfo info = getNextAlarmClock(am);
         if (info != null) {
@@ -326,12 +246,10 @@ public class Utils {
         return null;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static AlarmClockInfo getNextAlarmClock(AlarmManager am) {
         return am.getNextAlarmClock();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void updateNextAlarm(AlarmManager am, AlarmClockInfo info, PendingIntent op) {
         am.setAlarmClock(info, op);
     }
@@ -546,7 +464,6 @@ public class Utils {
     /**
      * {@link ArraySet} is @hide prior to {@link Build.VERSION_CODES#M}.
      */
-    @SuppressLint("NewApi")
     public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
         final ArraySet<E> arraySet = new ArraySet<>(collection.size());
         arraySet.addAll(collection);

@@ -182,7 +182,7 @@ class TimerNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (Utils.isNOrLater()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             notification.setCustomContentView(buildChronometer(pname, base, running, stateText))
                     .setGroup(nm.getTimerNotificationGroupKey());
         } else {
@@ -295,7 +295,7 @@ class TimerNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (Utils.isNOrLater()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             notification.setCustomContentView(buildChronometer(pname, base, true, stateText));
         } else {
             final CharSequence contentTextPreN = count == 1
@@ -374,7 +374,7 @@ class TimerNotificationBuilder {
                 .addAction(action)
                 .setColor(context.getColor(R.color.md_theme_primary));
 
-        if (Utils.isNOrLater()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             notification.setCustomContentView(buildChronometer(pname, base, true, stateText))
                     .setGroup(nm.getTimerNotificationGroupKey());
         } else {

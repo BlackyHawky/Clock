@@ -41,7 +41,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
@@ -175,12 +174,8 @@ final class TimerModel {
     }
 
     static void schedulePendingIntent(AlarmManager am, long triggerTime, PendingIntent pi) {
-        if (Utils.isMOrLater()) {
-            // Ensure the timer fires even if the device is dozing.
-            am.setExactAndAllowWhileIdle(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
-        } else {
-            am.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
-        }
+        // Ensure the timer fires even if the device is dozing.
+        am.setExactAndAllowWhileIdle(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
     }
 
     /**
@@ -230,15 +225,6 @@ final class TimerModel {
         }
 
         return null;
-    }
-
-    /**
-     * @return the timer that last expired and is still expired now; {@code null} if no timers are
-     * expired
-     */
-    Timer getMostRecentExpiredTimer() {
-        final List<Timer> timers = getMutableExpiredTimers();
-        return timers.isEmpty() ? null : timers.get(timers.size() - 1);
     }
 
     /**
@@ -328,11 +314,8 @@ final class TimerModel {
      * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
      *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    Timer resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
-        final Timer result = doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
-
+    public void resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
         // Update the notification after updating the timer data.
         if (timer.isMissed()) {
             updateMissedNotification();
@@ -342,7 +325,7 @@ final class TimerModel {
             updateNotification();
         }
 
-        return result;
+        doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
     }
 
     /**
@@ -385,7 +368,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isExpired()) {
-                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
+                doResetOrDeleteTimer(timer, true, eventLabelId);
             }
         }
 
@@ -402,7 +385,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isMissed()) {
-                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
+                doResetOrDeleteTimer(timer, true, eventLabelId);
             }
         }
 
@@ -419,7 +402,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isRunning() || timer.isPaused()) {
-                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
+                doResetOrDeleteTimer(timer, true, eventLabelId);
             }
         }
 
@@ -647,28 +630,21 @@ final class TimerModel {
      * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
      *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    private Timer doResetOrDeleteTimer(Timer timer, boolean allowDelete,
-                                       @StringRes int eventLabelId) {
-        if (allowDelete
-                && (timer.isExpired() || timer.isMissed())
-                && timer.getDeleteAfterUse()) {
+    private void doResetOrDeleteTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
+        if (allowDelete && (timer.isExpired()
+                || timer.isMissed()) && timer.getDeleteAfterUse()) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
             }
-            return null;
         } else if (!timer.isReset()) {
             final Timer reset = timer.reset();
             doUpdateTimer(reset);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_reset, eventLabelId);
             }
-            return reset;
         }
-
-        return timer;
     }
 
     /**

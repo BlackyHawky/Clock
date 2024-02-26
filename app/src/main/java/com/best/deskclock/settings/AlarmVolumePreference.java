@@ -38,7 +38,6 @@ import androidx.preference.PreferenceViewHolder;
 
 import com.best.deskclock.R;
 import com.best.deskclock.RingtonePreviewKlaxon;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 
 public class AlarmVolumePreference extends Preference {
@@ -126,7 +125,7 @@ public class AlarmVolumePreference extends Preference {
     }
 
     private boolean doesDoNotDisturbAllowAlarmPlayback() {
-        return !Utils.isNOrLater() || doesDoNotDisturbAllowAlarmPlaybackNPlus();
+        return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) || doesDoNotDisturbAllowAlarmPlaybackNPlus();
     }
 
     @TargetApi(Build.VERSION_CODES.N)

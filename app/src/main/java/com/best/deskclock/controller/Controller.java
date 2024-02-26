@@ -23,7 +23,6 @@ import android.content.Context;
 
 import androidx.annotation.StringRes;
 
-import com.best.deskclock.Utils;
 import com.best.deskclock.events.EventTracker;
 
 /**
@@ -63,9 +62,7 @@ public final class Controller {
             mContext = context.getApplicationContext();
             mEventController = new EventController();
             mVoiceController = new VoiceController();
-            if (Utils.isNMR1OrLater()) {
-                mShortcutController = new ShortcutController(mContext);
-            }
+            mShortcutController = new ShortcutController(mContext);
         }
     }
 
@@ -79,14 +76,6 @@ public final class Controller {
     public void addEventTracker(EventTracker eventTracker) {
         enforceMainLooper();
         mEventController.addEventTracker(eventTracker);
-    }
-
-    /**
-     * @param eventTracker to be unregistered from tracking application events
-     */
-    public void removeEventTracker(EventTracker eventTracker) {
-        enforceMainLooper();
-        mEventController.removeEventTracker(eventTracker);
     }
 
     /**

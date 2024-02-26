@@ -16,6 +16,7 @@
 
 package com.best.deskclock.settings;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -25,7 +26,6 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 
 /**
  * Settings for Clock screen saver
@@ -58,7 +58,7 @@ public final class ScreensaverSettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            if (Utils.isNOrLater()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 getPreferenceManager().setStorageDeviceProtected();
             }
             addPreferencesFromResource(R.xml.screensaver_settings);

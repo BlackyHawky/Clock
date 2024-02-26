@@ -22,14 +22,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.TimePicker;
-
-import androidx.appcompat.app.AlertDialog;
-
-import com.best.deskclock.Utils;
 
 import java.util.Calendar;
 
@@ -87,7 +81,6 @@ public class TimePickerDialogFragment extends DialogFragment {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final OnTimeSetListener listener = ((OnTimeSetListener) getParentFragment());
 
@@ -96,33 +89,10 @@ public class TimePickerDialogFragment extends DialogFragment {
         final int hour = args.getInt(ARG_HOUR, now.get(Calendar.HOUR_OF_DAY));
         final int minute = args.getInt(ARG_MINUTE, now.get(Calendar.MINUTE));
 
-        if (Utils.isLOrLater()) {
-            final Context context = getActivity();
-            return new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    listener.onTimeSet(TimePickerDialogFragment.this, hourOfDay, minute);
-                }
-            }, hour, minute, DateFormat.is24HourFormat(context));
-        } else {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            final Context context = builder.getContext();
-
-            final TimePicker timePicker = new TimePicker(context);
-            timePicker.setCurrentHour(hour);
-            timePicker.setCurrentMinute(minute);
-            timePicker.setIs24HourView(DateFormat.is24HourFormat(context));
-
-            return builder.setView(timePicker)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            listener.onTimeSet(TimePickerDialogFragment.this,
-                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-                        }
-                    }).setNegativeButton(android.R.string.cancel, null /* listener */)
-                    .create();
-        }
+        final Context context = getActivity();
+        return new TimePickerDialog(context, (view, hourOfDay, minute1) ->
+                listener.onTimeSet(TimePickerDialogFragment.this, hourOfDay, minute1),
+                hour, minute, DateFormat.is24HourFormat(context));
     }
 
     /**

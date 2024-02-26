@@ -25,6 +25,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.SystemClock;
 import android.widget.RemoteViews;
 
@@ -129,7 +130,7 @@ class StopwatchNotificationBuilder {
             content.setViewVisibility(R.id.state, VISIBLE);
         }
 
-        final Builder notification = new NotificationCompat.Builder(
+        final Builder notification = new Builder(
                 context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
                 .setLocalOnly(true)
                 .setOngoing(running)
@@ -139,17 +140,16 @@ class StopwatchNotificationBuilder {
                 .setPriority(Notification.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(context.getColor(R.color.md_theme_primary));
-
-        if (Utils.isNOrLater()) {
-            notification.setGroup(nm.getStopwatchNotificationGroupKey());
-        }
+                .setColor(context.getColor(R.color.md_theme_primary))
+                .setGroup(nm.getStopwatchNotificationGroupKey());
 
         for (Action action : actions) {
             notification.addAction(action);
         }
 
-        NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
+        }
         return notification.build();
     }
 }

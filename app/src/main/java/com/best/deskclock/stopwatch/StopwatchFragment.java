@@ -24,7 +24,6 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -100,11 +99,6 @@ public final class StopwatchFragment extends DeskClockFragment {
     private final StopwatchListener mStopwatchWatcher = new StopwatchWatcher();
 
     /**
-     * Draws a gradient over the bottom of the {@link #mLapsList} to reduce clash with the fab.
-     */
-    private GradientItemDecoration mGradientItemDecoration;
-
-    /**
      * The data source for {@link #mLapsList}.
      */
     private LapsAdapter mLapsAdapter;
@@ -155,14 +149,15 @@ public final class StopwatchFragment extends DeskClockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mLapsAdapter = new LapsAdapter(getActivity());
         mLapsLayoutManager = new LinearLayoutManager(getActivity());
-        mGradientItemDecoration = new GradientItemDecoration(getActivity());
+        // Draws a gradient over the bottom of the {@link #mLapsList} to reduce clash with the fab.
+        GradientItemDecoration gradientItemDecoration = new GradientItemDecoration(getActivity());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
         mLapsList = v.findViewById(R.id.laps_list);
         ((SimpleItemAnimator) Objects.requireNonNull(mLapsList.getItemAnimator())).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
-        mLapsList.addItemDecoration(mGradientItemDecoration);
+        mLapsList.addItemDecoration(gradientItemDecoration);
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
@@ -323,19 +318,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-
-    /**
-     * @param color the newly installed app window color
-     */
-    protected void onAppColorChanged(@ColorInt int color) {
-        if (mGradientItemDecoration != null) {
-            mGradientItemDecoration.updateGradientColors(color);
-        }
-        if (mLapsList != null) {
-            mLapsList.invalidateItemDecorations();
-        }
-    }
-
     /**
      * Start the stopwatch.
      */
@@ -388,9 +370,8 @@ public final class StopwatchFragment extends DeskClockFragment {
         final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
 
-        @SuppressLint("InlinedApi") final Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                .addFlags(Utils.isLOrLater() ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT
-                        : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        final Intent shareIntent = new Intent(Intent.ACTION_SEND)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .putExtra(Intent.EXTRA_SUBJECT, subject)
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .setType("text/plain");
@@ -733,7 +714,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     /**
      * Checks if the user is pressing inside of the stopwatch circle.
      */
-    private final class CircleTouchListener implements View.OnTouchListener {
+    private static final class CircleTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             final int actionMasked = event.getActionMasked();

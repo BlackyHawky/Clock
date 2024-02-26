@@ -343,12 +343,6 @@ public class AlarmActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        // Don't allow back to dismiss.
-        super.onBackPressed();
-    }
-
-    @Override
     public void onClick(View view) {
         if (mAlarmHandled) {
             LOGGER.v("onClick ignored: %s", view);
@@ -579,9 +573,9 @@ public class AlarmActivity extends AppCompatActivity
 
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
         final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
-        AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
-        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
-        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
+        mAlarmAnimator.setCurrentFraction(alarmFraction);
+        mSnoozeAnimator.setCurrentFraction(snoozeFraction);
+        mDismissAnimator.setCurrentFraction(dismissFraction);
     }
 
     private float getFraction(float x0, float x1, float x) {

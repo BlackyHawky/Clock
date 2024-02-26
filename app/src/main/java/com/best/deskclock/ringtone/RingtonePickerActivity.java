@@ -25,7 +25,6 @@ import static com.best.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER
 import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
 import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
@@ -41,6 +40,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,6 +67,8 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This activity presents a set of ringtones from which the user may select one. The set includes:
@@ -243,36 +246,30 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         super.onResume();
     }
 
-    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onPause() {
-
         if (mSelectedRingtoneUri != null) {
             if (mAlarmId != -1) {
                 final Context context = getApplicationContext();
                 final ContentResolver cr = getContentResolver();
 
                 // Start a background task to fetch the alarm whose ringtone must be updated.
-                new AsyncTask<Void, Void, Alarm>() {
-                    @Override
-                    protected Alarm doInBackground(Void... parameters) {
-                        final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
-                        if (alarm != null) {
-                            alarm.alert = mSelectedRingtoneUri;
-                        }
-                        return alarm;
-                    }
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                Handler handler = new Handler(Looper.getMainLooper());
+                executor.execute(() -> {
+                    final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
+                    if (alarm != null) {
+                        alarm.alert = mSelectedRingtoneUri;
 
-                    @Override
-                    protected void onPostExecute(Alarm alarm) {
-                        // Update the default ringtone for future new alarms.
-                        DataModel.getDataModel().setDefaultAlarmRingtoneUri(alarm.alert);
+                        handler.post(() -> {
+                            DataModel.getDataModel().setDefaultAlarmRingtoneUri(alarm.alert);
 
-                        // Start a second background task to persist the updated alarm.
-                        new AlarmUpdateHandler(context, null, null)
-                                .asyncUpdateAlarm(alarm, false, true);
+                            // Start a second background task to persist the updated alarm.
+                            new AlarmUpdateHandler(context, null, null)
+                                    .asyncUpdateAlarm(alarm, false, true);
+                        });
                     }
-                }.execute();
+                });
             } else {
                 DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
             }
@@ -597,8 +594,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             mIsPlaying = true;
 
             // Reload the data to reflect the change in the UI.
-            getLoaderManager().restartLoader(0 /* id */, null /* args */,
-                    RingtonePickerActivity.this /* callback */);
+            getLoaderManager().restartLoader(0, null, RingtonePickerActivity.this);
         }
     }
 

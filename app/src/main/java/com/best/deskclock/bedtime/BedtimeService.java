@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -61,6 +62,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 
 public final class BedtimeService extends Service {
@@ -182,6 +184,9 @@ public final class BedtimeService extends Service {
         String bedtime = h + ":" + saver.minutes + ending;
 
         Alarm alarm = Alarm.getAlarmByLabel(context.getApplicationContext().getContentResolver(), BedtimeFragment.BEDLABEL);
+        if (alarm == null) {
+            return;
+        }
         int minDiff = alarm.minutes - saver.minutes;
         int hDiff = alarm.hour + 24 - saver.hour;
         if (minDiff < 0) {
@@ -320,7 +325,7 @@ public final class BedtimeService extends Service {
         scheduleBed(context, saver, ACTION_LAUNCH_BEDTIME);
 
         String txt = "";
-        if (saver.dimWall && Utils.isNOrLater()) {
+        if (saver.dimWall && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             boolean success = false;
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -372,30 +377,29 @@ public final class BedtimeService extends Service {
             }
         }
         if (saver.doNotDisturb) {
-            if (Utils.isMOrLater()) {
-                NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-                if (nm.isNotificationPolicyAccessGranted()) {
-                    LogUtils.d("has permissions");
-                } else {
-                    LogUtils.d("does not have permissions");
-                    Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                    startActivity(intent);
-                }
-                nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
-                if (txt.isEmpty()) {
-                    String INPUT = context.getString(R.string.bed_notif_dnd_desc);
-                    txt = INPUT.substring(0, 1).toUpperCase() + INPUT.substring(1);
-                } else {
-                    txt = context.getString(R.string.bed_and, txt, context.getString(R.string.bed_notif_dnd_desc));
-                }
+            NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            if (nm.isNotificationPolicyAccessGranted()) {
+                LogUtils.d("has permissions");
             } else {
-                LogUtils.d("device does not support do not disturb feature");
+                LogUtils.d("does not have permissions");
+                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                startActivity(intent);
+            }
+            nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
+            if (txt.isEmpty()) {
+                String INPUT = context.getString(R.string.bed_notif_dnd_desc);
+                txt = INPUT.substring(0, 1).toUpperCase() + INPUT.substring(1);
+            } else {
+                txt = context.getString(R.string.bed_and, txt, context.getString(R.string.bed_notif_dnd_desc));
             }
         }
         if (saver.doNotDisturb || saver.dimWall) {
 
             Alarm alarm = Alarm.getAlarmByLabel(context.getApplicationContext().getContentResolver(), BedtimeFragment.BEDLABEL);
             String ending = "";
+            if (alarm == null) {
+                return;
+            }
             if (!DataModel.getDataModel().is24HourFormat()) {
                 if (alarm.hour > 11) {
                     ending = " PM";
@@ -410,13 +414,20 @@ public final class BedtimeService extends Service {
             AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
             Intent off = new Intent(context, BedtimeService.class);
             off.setAction(ACTION_BEDTIME_CANCEL);
-            am.setExact(AlarmManager.RTC, AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(), alarm.id).getAlarmTime().getTimeInMillis(), PendingIntent.getService(context, 0,
-                    off, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+
+            am.setExact(AlarmManager.RTC,
+                    Objects.requireNonNull(AlarmInstance.getNextUpcomingInstanceByAlarmId(context.getContentResolver(),
+                    alarm.id)).getAlarmTime().getTimeInMillis(),
+                    PendingIntent.getService(context, 0, off,
+                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
         }
     }
 
     private void stopBed(Context context, DataSaver saver) {
-        if (saver.dimWall && Utils.isNOrLater() && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        if (saver.dimWall && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+
             // Get the WallpaperManager
             WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
             try {
@@ -426,19 +437,15 @@ public final class BedtimeService extends Service {
             }
         }
         if (saver.doNotDisturb) {
-            if (Utils.isMOrLater()) {
-                NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-                if (nm.isNotificationPolicyAccessGranted()) {
-                    LogUtils.d("has permissions");
-                } else {
-                    LogUtils.d("does not have permissions");
-                    Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                    startActivity(intent);
-                }
-                nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+            NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            if (nm.isNotificationPolicyAccessGranted()) {
+                LogUtils.d("has permissions");
             } else {
-                LogUtils.d("device does not support do not disturb feature");
+                LogUtils.d("does not have permissions");
+                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                startActivity(intent);
             }
+            nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
         }
         cancelNotification(context);
     }

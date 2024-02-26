@@ -39,7 +39,6 @@ import android.util.ArrayMap;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.LogUtils;
-import com.best.deskclock.Utils;
 
 import java.util.Map;
 
@@ -129,7 +128,7 @@ public class ClockProvider extends ContentProvider {
     public boolean onCreate() {
         final Context context = getContext();
         final Context storageContext;
-        if (Utils.isNOrLater()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // All N devices have split storage areas, but we may need to
             // migrate existing database into the new device encrypted
             // storage area, which is where our data lives from now on.
@@ -154,29 +153,24 @@ public class ClockProvider extends ContentProvider {
         // Generate the body of the query
         int match = sURIMatcher.match(uri);
         switch (match) {
-            case ALARMS:
-                qb.setTables(ALARMS_TABLE_NAME);
-                break;
-            case ALARMS_ID:
+            case ALARMS -> qb.setTables(ALARMS_TABLE_NAME);
+            case ALARMS_ID -> {
                 qb.setTables(ALARMS_TABLE_NAME);
                 qb.appendWhere(AlarmsColumns._ID + "=");
                 qb.appendWhere(uri.getLastPathSegment());
-                break;
-            case INSTANCES:
-                qb.setTables(INSTANCES_TABLE_NAME);
-                break;
-            case INSTANCES_ID:
+            }
+            case INSTANCES -> qb.setTables(INSTANCES_TABLE_NAME);
+            case INSTANCES_ID -> {
                 qb.setTables(INSTANCES_TABLE_NAME);
                 qb.appendWhere(InstancesColumns._ID + "=");
                 qb.appendWhere(uri.getLastPathSegment());
-                break;
-            case ALARMS_WITH_INSTANCES:
+            }
+            case ALARMS_WITH_INSTANCES -> {
                 qb.setTables(ALARM_JOIN_INSTANCE_TABLE_STATEMENT);
                 qb.appendWhere(ALARM_JOIN_INSTANCE_WHERE_STATEMENT);
                 qb.setProjectionMap(sAlarmsWithInstancesProjection);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+            }
+            default -> throw new IllegalArgumentException("Unknown URI " + uri);
         }
 
         Cursor ret = qb.query(db, projectionIn, selection, selectionArgs, null, null, sort);
@@ -193,18 +187,13 @@ public class ClockProvider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
         int match = sURIMatcher.match(uri);
-        switch (match) {
-            case ALARMS:
-                return "vnd.android.cursor.dir/alarms";
-            case ALARMS_ID:
-                return "vnd.android.cursor.item/alarms";
-            case INSTANCES:
-                return "vnd.android.cursor.dir/instances";
-            case INSTANCES_ID:
-                return "vnd.android.cursor.item/instances";
-            default:
-                throw new IllegalArgumentException("Unknown URI");
-        }
+        return switch (match) {
+            case ALARMS -> "vnd.android.cursor.dir/alarms";
+            case ALARMS_ID -> "vnd.android.cursor.item/alarms";
+            case INSTANCES -> "vnd.android.cursor.dir/instances";
+            case INSTANCES_ID -> "vnd.android.cursor.item/instances";
+            default -> throw new IllegalArgumentException("Unknown URI");
+        };
     }
 
     @Override
@@ -213,22 +202,21 @@ public class ClockProvider extends ContentProvider {
         String alarmId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (sURIMatcher.match(uri)) {
-            case ALARMS_ID:
+            case ALARMS_ID -> {
                 alarmId = uri.getLastPathSegment();
                 count = db.update(ALARMS_TABLE_NAME, values,
                         AlarmsColumns._ID + "=" + alarmId,
                         null);
-                break;
-            case INSTANCES_ID:
+            }
+            case INSTANCES_ID -> {
                 alarmId = uri.getLastPathSegment();
                 count = db.update(INSTANCES_TABLE_NAME, values,
                         InstancesColumns._ID + "=" + alarmId,
                         null);
-                break;
-            default: {
-                throw new UnsupportedOperationException("Cannot update URI: " + uri);
             }
+            default -> throw new UnsupportedOperationException("Cannot update URI: " + uri);
         }
+
         LogUtils.v("*** notifyChange() id: " + alarmId + " url " + uri);
         notifyChange(getContext().getContentResolver(), uri);
         return count;
@@ -238,16 +226,11 @@ public class ClockProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, ContentValues initialValues) {
         long rowId;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        switch (sURIMatcher.match(uri)) {
-            case ALARMS:
-                rowId = mOpenHelper.fixAlarmInsert(initialValues);
-                break;
-            case INSTANCES:
-                rowId = db.insert(INSTANCES_TABLE_NAME, null, initialValues);
-                break;
-            default:
-                throw new IllegalArgumentException("Cannot insert from URI: " + uri);
-        }
+        rowId = switch (sURIMatcher.match(uri)) {
+            case ALARMS -> mOpenHelper.fixAlarmInsert(initialValues);
+            case INSTANCES -> db.insert(INSTANCES_TABLE_NAME, null, initialValues);
+            default -> throw new IllegalArgumentException("Cannot insert from URI: " + uri);
+        };
 
         Uri uriResult = ContentUris.withAppendedId(uri, rowId);
         notifyChange(getContext().getContentResolver(), uriResult);
@@ -260,10 +243,8 @@ public class ClockProvider extends ContentProvider {
         String primaryKey;
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         switch (sURIMatcher.match(uri)) {
-            case ALARMS:
-                count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
-                break;
-            case ALARMS_ID:
+            case ALARMS -> count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
+            case ALARMS_ID -> {
                 primaryKey = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(where)) {
                     where = AlarmsColumns._ID + "=" + primaryKey;
@@ -271,11 +252,9 @@ public class ClockProvider extends ContentProvider {
                     where = AlarmsColumns._ID + "=" + primaryKey + " AND (" + where + ")";
                 }
                 count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
-                break;
-            case INSTANCES:
-                count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
-                break;
-            case INSTANCES_ID:
+            }
+            case INSTANCES -> count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
+            case INSTANCES_ID -> {
                 primaryKey = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(where)) {
                     where = InstancesColumns._ID + "=" + primaryKey;
@@ -283,9 +262,8 @@ public class ClockProvider extends ContentProvider {
                     where = InstancesColumns._ID + "=" + primaryKey + " AND (" + where + ")";
                 }
                 count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
-                break;
-            default:
-                throw new IllegalArgumentException("Cannot delete from URI: " + uri);
+            }
+            default -> throw new IllegalArgumentException("Cannot delete from URI: " + uri);
         }
 
         notifyChange(getContext().getContentResolver(), uri);

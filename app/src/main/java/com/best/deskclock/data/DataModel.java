@@ -40,7 +40,6 @@ import androidx.annotation.StringRes;
 
 import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.timer.TimerService;
 
 import java.util.Calendar;
@@ -360,15 +359,6 @@ public final class DataModel {
     }
 
     /**
-     * @return the timer that last expired and is still expired now; {@code null} if no timers are
-     * expired
-     */
-    public Timer getMostRecentExpiredTimer() {
-        enforceMainLooper();
-        return mTimerModel.getMostRecentExpiredTimer();
-    }
-
-    /**
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
@@ -429,26 +419,16 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to be reset
-     * @return the reset {@code timer}
-     */
-    public Timer resetTimer(Timer timer) {
-        enforceMainLooper();
-        return mTimerModel.resetTimer(timer, false /* allowDelete */, 0 /* eventLabelId */);
-    }
-
-    /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        return mTimerModel.resetTimer(timer, true /* allowDelete */, eventLabelId);
+        mTimerModel.resetTimer(timer, true, eventLabelId);
     }
 
     /**
@@ -496,29 +476,6 @@ public final class DataModel {
     public void setTimerLabel(Timer timer, String label) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.setLabel(label));
-    }
-
-    /**
-     * @param timer  the timer whose {@code length} to change
-     * @param length the new length of the timer in milliseconds
-     */
-    public void setTimerLength(Timer timer, long length) {
-        enforceMainLooper();
-        mTimerModel.updateTimer(timer.setLength(length));
-    }
-
-    /**
-     * @param timer         the timer whose {@code remainingTime} to change
-     * @param remainingTime the new remaining time of the timer in milliseconds
-     */
-    public void setRemainingTime(Timer timer, long remainingTime) {
-        enforceMainLooper();
-
-        final Timer updated = timer.setRemainingTime(remainingTime);
-        mTimerModel.updateTimer(updated);
-        if (timer.isRunning() && timer.getRemainingTime() <= 0) {
-            mContext.startService(TimerService.createTimerExpiredIntent(mContext, updated));
-        }
     }
 
     /**
@@ -984,8 +941,6 @@ public final class DataModel {
      */
     public enum AlarmVolumeButtonBehavior {NOTHING, SNOOZE, DISMISS}
 
-    public enum ThemeButtonBehavior {SYSTEM, DARK, LIGHT}
-
     /**
      * Indicates the reason alarms may not fire or may fire silently.
      */
@@ -1070,18 +1025,16 @@ public final class DataModel {
             @Override
             public void onClick(View v) {
                 final Context context = v.getContext();
-                if (Utils.isLOrLater()) {
-                    try {
-                        // Attempt to open the notification settings for this app.
-                        context.startActivity(
-                                new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
-                                        .putExtra(EXTRA_APP_PACKAGE, context.getPackageName())
-                                        .putExtra("app_uid", context.getApplicationInfo().uid)
-                                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
-                        return;
-                    } catch (Exception ignored) {
+                try {
+                    // Attempt to open the notification settings for this app.
+                    context.startActivity(
+                            new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
+                                    .putExtra(EXTRA_APP_PACKAGE, context.getPackageName())
+                                    .putExtra("app_uid", context.getApplicationInfo().uid)
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
+                    return;
+                } catch (Exception ignored) {
                         // best attempt only; recovery code below
-                    }
                 }
 
                 // Fall back to opening the app settings page.

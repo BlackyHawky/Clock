@@ -34,23 +34,13 @@ import android.widget.ImageView;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 public class AnimatorUtils {
 
-    public static final Interpolator DECELERATE_ACCELERATE_INTERPOLATOR = new Interpolator() {
-        @Override
-        public float getInterpolation(float x) {
-            return 0.5f + 4.0f * (x - 0.5f) * (x - 0.5f) * (x - 0.5f);
-        }
-    };
+    public static final Interpolator DECELERATE_ACCELERATE_INTERPOLATOR = x -> 0.5f + 4.0f * (x - 0.5f) * (x - 0.5f) * (x - 0.5f);
 
-    public static final Interpolator INTERPOLATOR_FAST_OUT_SLOW_IN =
-            new FastOutSlowInInterpolator();
+    public static final Interpolator INTERPOLATOR_FAST_OUT_SLOW_IN = new FastOutSlowInInterpolator();
 
-    public static final Property<View, Integer> BACKGROUND_ALPHA =
-            new Property<View, Integer>(Integer.class, "background.alpha") {
+    public static final Property<View, Integer> BACKGROUND_ALPHA = new Property<>(Integer.class, "background.alpha") {
                 @Override
                 public Integer get(View view) {
                     Drawable background = view.getBackground();
@@ -66,8 +56,8 @@ public class AnimatorUtils {
                     setBackgroundAlpha(view, value);
                 }
             };
-    public static final Property<ImageView, Integer> DRAWABLE_ALPHA =
-            new Property<ImageView, Integer>(Integer.class, "drawable.alpha") {
+
+    public static final Property<ImageView, Integer> DRAWABLE_ALPHA = new Property<>(Integer.class, "drawable.alpha") {
                 @Override
                 public Integer get(ImageView view) {
                     return view.getDrawable().getAlpha();
@@ -78,8 +68,8 @@ public class AnimatorUtils {
                     view.getDrawable().setAlpha(value);
                 }
             };
-    public static final Property<ImageView, Integer> DRAWABLE_TINT =
-            new Property<ImageView, Integer>(Integer.class, "drawable.tint") {
+
+    public static final Property<ImageView, Integer> DRAWABLE_TINT = new Property<>(Integer.class, "drawable.tint") {
                 @Override
                 public Integer get(ImageView view) {
                     return null;
@@ -97,10 +87,10 @@ public class AnimatorUtils {
                     DrawableCompat.setTint(wrappedDrawable, value);
                 }
             };
+
     @SuppressWarnings("unchecked")
     public static final TypeEvaluator<Integer> ARGB_EVALUATOR = new ArgbEvaluator();
-    public static final Property<View, Integer> VIEW_LEFT =
-            new Property<View, Integer>(Integer.class, "left") {
+    public static final Property<View, Integer> VIEW_LEFT = new Property<>(Integer.class, "left") {
                 @Override
                 public Integer get(View view) {
                     return view.getLeft();
@@ -111,8 +101,8 @@ public class AnimatorUtils {
                     view.setLeft(left);
                 }
             };
-    public static final Property<View, Integer> VIEW_TOP =
-            new Property<View, Integer>(Integer.class, "top") {
+
+    public static final Property<View, Integer> VIEW_TOP = new Property<>(Integer.class, "top") {
                 @Override
                 public Integer get(View view) {
                     return view.getTop();
@@ -123,32 +113,30 @@ public class AnimatorUtils {
                     view.setTop(top);
                 }
             };
-    public static final Property<View, Integer> VIEW_BOTTOM =
-            new Property<View, Integer>(Integer.class, "bottom") {
-                @Override
-                public Integer get(View view) {
-                    return view.getBottom();
-                }
 
-                @Override
-                public void set(View view, Integer bottom) {
-                    view.setBottom(bottom);
-                }
-            };
-    public static final Property<View, Integer> VIEW_RIGHT =
-            new Property<View, Integer>(Integer.class, "right") {
-                @Override
-                public Integer get(View view) {
-                    return view.getRight();
-                }
+    public static final Property<View, Integer> VIEW_BOTTOM = new Property<>(Integer.class, "bottom") {
+        @Override
+        public Integer get(View view) {
+            return view.getBottom();
+        }
 
-                @Override
-                public void set(View view, Integer right) {
-                    view.setRight(right);
-                }
-            };
-    private static Method sAnimateValue;
-    private static boolean sTryAnimateValue = true;
+        @Override
+        public void set(View view, Integer bottom) {
+            view.setBottom(bottom);
+        }
+    };
+
+    public static final Property<View, Integer> VIEW_RIGHT = new Property<>(Integer.class, "right") {
+        @Override
+        public Integer get(View view) {
+            return view.getRight();
+        }
+
+        @Override
+        public void set(View view, Integer right) {
+            view.setRight(right);
+        }
+    };
 
     /**
      * Sets the alpha of the top layer's drawable (of the background) only, if the background is a
@@ -160,41 +148,10 @@ public class AnimatorUtils {
      */
     public static void setBackgroundAlpha(View view, Integer value) {
         Drawable background = view.getBackground();
-        if (background instanceof LayerDrawable
-                && ((LayerDrawable) background).getNumberOfLayers() > 0) {
+        if (background instanceof LayerDrawable && ((LayerDrawable) background).getNumberOfLayers() > 0) {
             background = ((LayerDrawable) background).getDrawable(0);
         }
         background.setAlpha(value);
-    }
-
-    public static void setAnimatedFraction(ValueAnimator animator, float fraction) {
-        if (Utils.isLMR1OrLater()) {
-            animator.setCurrentFraction(fraction);
-            return;
-        }
-
-        if (sTryAnimateValue) {
-            // try to set the animated fraction directly so that it isn't affected by the
-            // internal animator scale or time (b/17938711)
-            try {
-                if (sAnimateValue == null) {
-                    sAnimateValue = ValueAnimator.class
-                            .getDeclaredMethod("animateValue", float.class);
-                    sAnimateValue.setAccessible(true);
-                }
-
-                sAnimateValue.invoke(animator, fraction);
-                return;
-            } catch (NoSuchMethodException | InvocationTargetException
-                    | IllegalAccessException e) {
-                // something went wrong, don't try that again
-                LogUtils.e("Unable to use animateValue directly", e);
-                sTryAnimateValue = false;
-            }
-        }
-
-        // if that doesn't work then just fall back to setting the current play time
-        animator.setCurrentPlayTime(Math.round(fraction * animator.getDuration()));
     }
 
     public static void reverse(ValueAnimator... animators) {
@@ -202,14 +159,8 @@ public class AnimatorUtils {
             final float fraction = animator.getAnimatedFraction();
             if (fraction > 0.0f) {
                 animator.reverse();
-                setAnimatedFraction(animator, 1.0f - fraction);
+                animator.setCurrentFraction(1.0f - fraction);
             }
-        }
-    }
-
-    public static void cancel(ValueAnimator... animators) {
-        for (ValueAnimator animator : animators) {
-            animator.cancel();
         }
     }
 
@@ -262,6 +213,7 @@ public class AnimatorUtils {
      */
     public static Animator getBoundsAnimator(View view, int fromLeft, int fromTop, int fromRight,
                                              int fromBottom, int toLeft, int toTop, int toRight, int toBottom) {
+
         view.setLeft(fromLeft);
         view.setTop(fromTop);
         view.setRight(fromRight);
