@@ -419,4 +419,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Pick which alarm to dismiss"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"No firing alarms"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm snoozed for 10 minutes"</string>
+    <string name="flip_action_title">Device flip action</string>
+    <string name="shake_action_title">Device shake action</string>
+    <string-array name="action_setting_entries">
+        <item>Snooze</item>
+        <item>Dismiss</item>
+        <item>Nothing</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
+    <string name="alarm_missed_channel">Missed alarms</string>
+    <string name="alarm_snooze_channel">Snoozed alarms</string>
+    <string name="alarm_upcoming_channel">Upcoming alarms</string>
+    <string name="stopwatch_channel">Stopwatch</string>
+    <string name="timer_channel">Timer</string>
 </resources>

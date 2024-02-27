@@ -419,4 +419,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Zgjidh se cilin alarm do të heqësh"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nuk ka asnjë alarm të aktivizuar"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> u shty për 10 minuta"</string>
+    <string name="flip_action_title">Veprimi i kthimit së paisjes</string>
+    <string name="shake_action_title">Veprimi i tundjes së paisjes</string>
+    <string-array name="action_setting_entries">
+        <item>Shty</item>
+        <item>Injoro</item>
+        <item>Mos bë gjë</item>
+    </string-array>
 </resources>

@@ -419,4 +419,13 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"เลือกการปลุกที่จะปิด"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"ไม่มีการปลุก"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"เลื่อนการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> ไปอีก 10 นาทีแล้ว"</string>
+    <string name="flip_action_title">การพลิกอุปกรณ์</string>
+    <string name="shake_action_title">การเขย่าอุปกรณ์</string>
+    <string-array name="action_setting_entries">
+        <item>งีบหลับ</item>
+        <item>ยกเลิก</item>
+        <item>ไม่ทำอะไร</item>
+    </string-array>
+    <string name="stopwatch_channel">จับเวลา</string>
+    <string name="timer_channel">จับเวลา</string>
 </resources>

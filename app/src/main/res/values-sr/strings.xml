@@ -429,4 +429,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Изаберите аларм који желите да одбаците"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Не активира се ниједан аларм"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Аларм за <xliff:g id="ALARM_TIME">%s</xliff:g> је одложен за 10 минута"</string>
+    <string name="flip_action_title">Акција обртања уређаја</string>
+    <string name="shake_action_title">Акција кад се уређај протресе</string>
+    <string-array name="action_setting_entries">
+        <item>Одложи</item>
+        <item>Одбаци</item>
+        <item>Ништа</item>
+    </string-array>
 </resources>

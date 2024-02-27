@@ -419,4 +419,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Indica la alarma que quieras ignorar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"No hay ninguna alarma activada"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> pospuesta 10 minutos"</string>
+    <string name="flip_action_title">Voltear dispositivo</string>
+    <string name="shake_action_title">Agitar dispositivo</string>
+    <string-array name="action_setting_entries">
+        <item>Posponer</item>
+        <item>Descartar</item>
+        <item>Nada</item>
+    </string-array>
 </resources>

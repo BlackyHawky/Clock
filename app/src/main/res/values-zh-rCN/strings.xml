@@ -419,4 +419,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"请选择要关闭的闹钟"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"目前没有正在响铃的闹钟"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟已延后 10 分钟"</string>
+    <string name="flip_action_title">设备翻转行为</string>
+    <string name="shake_action_title">设备摇晃行为</string>
+    <string-array name="action_setting_entries">
+        <item>贪睡</item>
+        <item>忽略</item>
+        <item>无</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">触发闹钟和计时器</string>
+    <string name="alarm_missed_channel">错过的闹钟</string>
+    <string name="alarm_snooze_channel">暂停的闹钟</string>
+    <string name="alarm_upcoming_channel">即将响铃的闹钟</string>
+    <string name="stopwatch_channel">计时器</string>
+    <string name="timer_channel">计时器</string>
 </resources>

@@ -439,4 +439,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vyberte, který budík chcete zrušit."</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Žádné zvonící budíky"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> byl odložen o 10 minut"</string>
+    <string name="flip_action_title">Akce při otočení zařízení</string>
+    <string name="shake_action_title">Akce při zatřesení zařízením</string>
+    <string-array name="action_setting_entries">
+        <item>Odložit</item>
+        <item>Zamítnout</item>
+        <item>Nic</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">Výstražné budíky a\u00a0časovače</string>
+    <string name="alarm_missed_channel">Zmeškané budíky</string>
+    <string name="alarm_snooze_channel">Odložené budíky</string>
+    <string name="alarm_upcoming_channel">Nadcházející budíky</string>
+    <string name="stopwatch_channel">Stopky</string>
+    <string name="timer_channel">Časovač</string>
 </resources>
