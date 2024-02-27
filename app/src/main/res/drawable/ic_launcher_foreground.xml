@@ -11,11 +11,11 @@
         <path
             android:pathData="M54,79L54,54"
             android:strokeWidth="2"
-            android:strokeColor="@color/md_theme_error"
+            android:strokeColor="#B3261E"
             android:strokeLineCap="round"/>
         <path
             android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
-            android:fillColor="@color/md_theme_outline"/>
+            android:fillColor="#777777"/>
         <path
             android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
             android:fillAlpha="0.6">
