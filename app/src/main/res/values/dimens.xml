@@ -21,5 +21,5 @@
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
     <dimen name="min_analog_widget_size">110dp</dimen>
-    <dimen name="widget_max_clock_font_size">88dp</dimen>
+    <dimen name="widget_max_clock_font_size">80dp</dimen>
 </resources>

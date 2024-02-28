@@ -20,5 +20,5 @@
     <dimen name="big_font_size">115sp</dimen>
     <dimen name="min_analog_widget_size">170dp</dimen>
     <!-- The maximum size of the font for the time in widgets. -->
-    <dimen name="widget_max_clock_font_size">125dp</dimen>
+    <dimen name="widget_max_clock_font_size">112dp</dimen>
 </resources>
