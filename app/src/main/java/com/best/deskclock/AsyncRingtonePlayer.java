@@ -285,6 +285,9 @@ public final class AsyncRingtonePlayer {
          */
         private Method mSetLoopingMethod;
 
+        /** The ringtone playback attempts counter. */
+        private int mRingtonePlayRetries = 0;
+
         /**
          * The duration over which to increase the volume.
          */
@@ -451,11 +454,33 @@ public final class AsyncRingtonePlayer {
         public boolean adjustVolume() {
             checkAsyncRingtonePlayerThread();
 
-            // If ringtone is absent or not playing, ignore volume adjustment.
-            if (mRingtone == null || !mRingtone.isPlaying()) {
+            // If ringtone is absent, ignore volume adjustment.
+            if (mRingtone == null) {
                 mCrescendoDuration = 0;
                 mCrescendoStopTime = 0;
                 return false;
+            }
+
+            // If ringtone is not playing, to avoid being muted forever recheck
+            // to ensure reliability.
+            if (!mRingtone.isPlaying()) {
+                if (mRingtonePlayRetries < 10) {
+                    mRingtonePlayRetries++;
+                    // Reuse the crescendo messaging looper to return here
+                    // again.
+                    return true;
+                }
+
+                mRingtonePlayRetries = 0;
+                mCrescendoDuration = 0;
+                mCrescendoStopTime = 0;
+                return false;
+            }
+
+            if (mRingtonePlayRetries > 0) {
+                mRingtonePlayRetries = 0;
+                // Compute again the time at which the crescendo will stop.
+                mCrescendoStopTime = Utils.now() + mCrescendoDuration;
             }
 
             // If the crescendo is complete set the volume to the maximum; we're done.
