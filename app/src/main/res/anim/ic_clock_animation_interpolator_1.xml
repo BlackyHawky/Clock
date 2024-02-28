@@ -15,4 +15,4 @@
 -->
 
 <pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:pathData="M 0.0,0.0 c 0.45921046959,0.0 1.0,1.0 1.0,1.0" />
+    android:pathData="M 0,0 c 0.46,0 1,1 1,1" />

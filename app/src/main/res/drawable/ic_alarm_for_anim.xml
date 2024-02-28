@@ -28,24 +28,20 @@
             android:translateX="-12"
             android:translateY="-12">
             <group
-                android:name="right_button"
-                android:translateX="19.0722"
-                android:translateY="4.5758">
+                android:name="right_button">
                 <path
                     android:name="path_1"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M 2.94 1.16 c 0 0 -4.6 -3.86 -4.6 -3.86 c 0 0 -1.29 1.53 -1.29 1.53 c 0 0 4.6 3.86 4.6 3.86 c 0 0 1.29 -1.53 1.29 -1.53 Z" />
+                    android:pathData="M21.18 5.01L18.1 2.45c-0.42-0.35-1.05-0.3-1.41 0.13-0.35 0.42-0.29 1.05 0.13 1.41l3.07 2.56c0.42 0.35 1.05 0.3 1.41-0.13 0.36-0.42 0.3-1.05-0.12-1.41" />
             </group>
             <group
-                android:name="left_button"
-                android:translateX="4.9262"
-                android:translateY="4.5729">
+                android:name="left_button">
                 <path
                     android:name="left_button_path"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M 2.94 -1.16 c 0 0 -1.29 -1.53 -1.29 -1.53 c 0 0 -4.6 3.86 -4.6 3.86 c 0 0 1.29 1.53 1.29 1.53 c 0 0 4.6 -3.86 4.6 -3.86 Z" />
+                    android:pathData="M4.1 6.55l3.07-2.56c0.43-0.36 0.49-0.99 0.13-1.41-0.35-0.43-0.98-0.48-1.4-0.13L2.82 5.01c-0.42 0.36-0.48 0.99-0.12 1.41 0.35 0.43 0.98 0.48 1.4 0.13" />
             </group>
         </group>
     </group>
@@ -58,24 +54,20 @@
             android:translateX="-12"
             android:translateY="-12">
             <group
-                android:name="alarm_hands"
-                android:translateX="13.75"
-                android:translateY="12.4473">
+                android:name="alarm_hands">
                 <path
                     android:name="alarm_hands_path"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M -1.25 -4.43 c 0 0 -1.5 0 -1.5 0 c 0 0 0 6 0 6 c 0 0 4.75 2.85 4.75 2.85 c 0 0 0.75 -1.23 0.75 -1.23 c 0 0 -4 -2.37 -4 -2.37 c 0 0 0 -5.25 0 -5.25 Z" />
+                    android:pathData="m13 12.6l0-3.6q0-0.425-0.3-0.725q-0.3-0.3-0.725-0.3q-0.425 0-0.725 0.3q-0.3 0.3-0.3 0.725l0 3.975q0 0.2 0.075 0.4q0.075 0.2 0.225 0.35l2.8 2.8q0.275 0.275 0.7 0.275q0.425 0 0.7-0.275q0.275-0.275 0.275-0.7q0-0.425-0.275-0.7l-2.5-2.5z" />
             </group>
             <group
-                android:name="alarm_body"
-                android:translateX="12"
-                android:translateY="13.0203">
+                android:name="alarm_body">
                 <path
                     android:name="alarm_outline_path"
                     android:fillAlpha="1"
                     android:fillColor="@android:color/white"
-                    android:pathData="M -0.01 -9 c -4.97 0 -8.99 4.03 -8.99 9 c 0 4.97 4.02 9 8.99 9 c 4.97 0 9.01 -4.03 9.01 -9 c 0 -4.97 -4.03 -9 -9.01 -9 Z M 0 7 c -3.87 0 -7 -3.13 -7 -7 c 0 -3.87 3.13 -7 7 -7 c 3.87 0 7 3.13 7 7 c 0 3.87 -3.13 7 -7 7 Z" />
+                    android:pathData="M12 4c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zM12 20c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7" />
             </group>
         </group>
     </group>
