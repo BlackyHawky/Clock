@@ -527,7 +527,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         private void setClockFontSizePx(int clockFontSizePx) {
             mClockFontSizePx = clockFontSizePx;
-            mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
+            mFontSizePx = max(1, round(clockFontSizePx / 6f));
             mIconFontSizePx = (int) (mFontSizePx * 1.4f);
             mIconPaddingPx = mFontSizePx / 3;
         }
