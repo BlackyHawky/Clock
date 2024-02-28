@@ -184,8 +184,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
         final ItemAnimator itemAnimator = new ItemAnimator();
-        itemAnimator.setChangeDuration(300L);
-        itemAnimator.setMoveDuration(300L);
+        itemAnimator.setChangeDuration(150L);
+        itemAnimator.setMoveDuration(150L);
         mRecyclerView.setItemAnimator(itemAnimator);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
