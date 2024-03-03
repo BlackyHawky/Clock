@@ -22,7 +22,7 @@
     <com.best.deskclock.stopwatch.StopwatchLandscapeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="@integer/guttered_content_width_percent">
+        android:layout_weight="0.92">
 
         <FrameLayout
             android:id="@+id/stopwatch_time_wrapper"

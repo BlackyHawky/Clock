@@ -489,13 +489,13 @@ public final class TimerFragment extends DeskClockFragment {
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
         Resources res = context.getResources();
         boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
+        int orientation = res.getConfiguration().orientation;
+        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
         if (isTablet) {
-            int columnCount = res.getInteger(R.integer.timers_column_count);
+            int columnCount = isLandscape ? 3 : 2;
             return new GridLayoutManager(context, columnCount);
         }
 
-        int orientation = res.getConfiguration().orientation;
-        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
         return new LinearLayoutManager(context, isLandscape
                 ? LinearLayoutManager.HORIZONTAL
                 : LinearLayoutManager.VERTICAL, false);
