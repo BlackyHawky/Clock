@@ -24,7 +24,6 @@ import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -34,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -48,7 +46,6 @@ public class AlarmVolumePreference extends Preference {
     private static final long ALARM_PREVIEW_DURATION_MS = 2000;
 
     private SeekBar mSeekbar;
-    private ImageView mAlarmIcon;
     private boolean mPreviewPlaying;
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
@@ -65,10 +62,12 @@ public class AlarmVolumePreference extends Preference {
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
+        // Minimum volume for alarm is not 0, calculate it.
+        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - getMinVolume(audioManager);
         mSeekbar = (SeekBar) holder.findViewById(R.id.seekbar);
-        mSeekbar.setMax(audioManager.getStreamMaxVolume(STREAM_ALARM));
-        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM));
-        mAlarmIcon = (ImageView) holder.findViewById(android.R.id.icon);
+        mSeekbar.setMax(maxVolume);
+        mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
+        ((ImageView) holder.findViewById(android.R.id.icon)).setColorFilter(context.getColor(R.color.md_theme_onSurfaceVariant));
 
         onSeekbarChanged();
 
@@ -76,7 +75,7 @@ public class AlarmVolumePreference extends Preference {
             @Override
             public void onChange(boolean selfChange) {
                 // Volume was changed elsewhere, update our slider.
-                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM));
+                mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
             }
         };
 
@@ -97,7 +96,8 @@ public class AlarmVolumePreference extends Preference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    audioManager.setStreamVolume(STREAM_ALARM, progress, 0);
+                    int newVolume = progress + getMinVolume(audioManager);
+                    audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
                 }
                 onSeekbarChanged();
             }
@@ -108,10 +108,9 @@ public class AlarmVolumePreference extends Preference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (!mPreviewPlaying && seekBar.getProgress() != 0) {
-                    // If we are not currently playing and progress is set to non-zero, start.
-                    RingtonePreviewKlaxon.start(
-                            context, DataModel.getDataModel().getDefaultAlarmRingtoneUri());
+                if (!mPreviewPlaying) {
+                    // If we are not currently playing, start.
+                    RingtonePreviewKlaxon.start(context, DataModel.getDataModel().getDefaultAlarmRingtoneUri());
                     mPreviewPlaying = true;
                     seekBar.postDelayed(() -> {
                         RingtonePreviewKlaxon.stop(context);
@@ -124,12 +123,6 @@ public class AlarmVolumePreference extends Preference {
 
     private void onSeekbarChanged() {
         mSeekbar.setEnabled(doesDoNotDisturbAllowAlarmPlayback());
-        final Drawable alarmOff = AppCompatResources.getDrawable(getContext(), R.drawable.ic_alarm_off);
-        final Drawable alarmOn = AppCompatResources.getDrawable(getContext(), R.drawable.ic_tab_alarm_static);
-        if (alarmOff == null || alarmOn ==null) return;
-        alarmOff.setTint(getContext().getResources().getColor(R.color.md_theme_onSurfaceVariant, null));
-        alarmOn.setTint(getContext().getResources().getColor(R.color.md_theme_onSurfaceVariant, null));
-        mAlarmIcon.setImageDrawable(mSeekbar.getProgress() == 0 ? alarmOff : alarmOn);
     }
 
     private boolean doesDoNotDisturbAllowAlarmPlayback() {
@@ -142,5 +135,9 @@ public class AlarmVolumePreference extends Preference {
                 getContext().getSystemService(NOTIFICATION_SERVICE);
         return notificationManager.getCurrentInterruptionFilter() !=
                 NotificationManager.INTERRUPTION_FILTER_NONE;
+    }
+
+    private int getMinVolume(AudioManager audioManager) {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
     }
 }
