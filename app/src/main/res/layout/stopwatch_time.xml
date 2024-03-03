@@ -32,7 +32,7 @@
         android:paddingEnd="3dp"
         android:textSize="70sp" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <com.best.deskclock.widget.AutoSizingTextView
         android:id="@+id/stopwatch_hundredths_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
