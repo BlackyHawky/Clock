@@ -13,9 +13,8 @@
      limitations under the License.
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
@@ -26,24 +25,29 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:includeFontPadding="false"
+        tools:text="Sa., 01.01." />
 
-    <ImageView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/nextAlarmIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingHorizontal="4dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_tab_alarm_static"
-        app:tint="@color/md_theme_onSurfaceVariant"/>
+        android:paddingHorizontal="6dp"
+        android:text="@string/clock_emoji"
+        android:textSize="22sp"
+        android:includeFontPadding="false" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/nextAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="true" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:includeFontPadding="false"
+        tools:text="Mo., 07:00" />
 
 </LinearLayout>

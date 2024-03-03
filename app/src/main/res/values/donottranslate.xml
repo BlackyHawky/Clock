@@ -28,4 +28,6 @@
     <string name="default_clock_style">digital</string>
     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
     <string name="clock_emoji">A</string>
+    <!-- Default screensaver clock color. -->
+    <string name="default_screensaver_clock_color">FFFFFF</string>
 </resources>

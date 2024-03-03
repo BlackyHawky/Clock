@@ -56,7 +56,7 @@ import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -68,6 +68,7 @@ import androidx.core.graphics.ColorUtils;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.uidata.UiDataModel;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -173,40 +174,6 @@ public class Utils {
     }
 
     /**
-     * For screensavers to set whether the digital or analog clock should be displayed.
-     * Returns the view to be displayed.
-     */
-    public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
-        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
-        switch (clockStyle) {
-            case ANALOG -> {
-                digitalClock.setVisibility(View.GONE);
-                analogClock.setVisibility(View.VISIBLE);
-                return;
-            }
-            case DIGITAL -> {
-                digitalClock.setVisibility(View.VISIBLE);
-                analogClock.setVisibility(View.GONE);
-                return;
-            }
-        }
-
-        throw new IllegalStateException("unexpected clock style: " + clockStyle);
-    }
-
-    /**
-     * For screensavers to dim the lights if necessary.
-     */
-    public static void dimClockView(boolean dim, View clockView) {
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setColorFilter(new PorterDuffColorFilter(
-                (dim ? 0x40FFFFFF : 0xC0FFFFFF),
-                PorterDuff.Mode.MULTIPLY));
-        clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-    }
-
-    /**
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the service
@@ -264,7 +231,7 @@ public class Utils {
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
     public static void refreshAlarm(Context context, View clock) {
-        final ImageView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
+        final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
         if (nextAlarmView == null) {
             return;
@@ -274,7 +241,6 @@ public class Utils {
         if (!TextUtils.isEmpty(alarm)) {
             final String description = context.getString(R.string.next_alarm_description, alarm);
             nextAlarmView.setText(alarm);
-            nextAlarmView.setTypeface(Typeface.DEFAULT_BOLD);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
@@ -283,6 +249,11 @@ public class Utils {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         }
+    }
+
+    public static void setClockIconTypeface(View clock) {
+        final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
+        nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
     }
 
     /**
@@ -300,7 +271,6 @@ public class Utils {
 
         final Date now = new Date();
         dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
-        dateDisplay.setTypeface(Typeface.DEFAULT_BOLD);
         dateDisplay.setVisibility(View.VISIBLE);
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
     }
@@ -319,6 +289,218 @@ public class Utils {
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat(includeSeconds));
         }
+    }
+
+    /**
+     * For screensavers to set whether the digital or analog clock should be displayed.
+     * Returns the view to be displayed.
+     */
+    public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        final boolean isTablet = analogClock.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
+        switch (clockStyle) {
+            case ANALOG -> {
+                analogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                analogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                digitalClock.setVisibility(View.GONE);
+                analogClock.setVisibility(View.VISIBLE);
+                return;
+            }
+            case DIGITAL -> {
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.GONE);
+                return;
+            }
+        }
+
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
+    }
+
+    /**
+     * For screensavers, dim the clock color.
+     */
+    public static void dimClockView(View clockView) {
+        String colorFilter = getClockColorFilter();
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    /**
+     * For screensavers, dim the date color.
+     */
+    public static void dimDateView(TextView dateView) {
+        String colorFilter = getDateColorFilter();
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        dateView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    /**
+     * For screensavers, dim the next alarm color.
+     */
+    public static void dimNextAlarmView(TextView nextAlarmIcon, TextView nextAlarm) {
+        String colorFilter = getNextAlarmColorFilter();
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        if (nextAlarmIcon == null || nextAlarm == null) {
+            return;
+        }
+        nextAlarmIcon.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        nextAlarm.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    /**
+     * For screensavers, calculate the color filter to use to dim/color the clock.
+     */
+    public static String getClockColorFilter() {
+        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+        String colorFilter = DataModel.getDataModel().getScreensaverClockColor();
+        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+
+        colorFilter = "#" + alpha + colorFilter;
+
+        return colorFilter;
+    }
+
+    /**
+     * For screensavers, calculate the color filter to use to dim/color the date.
+     */
+    public static String getDateColorFilter() {
+        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+        String colorFilter = DataModel.getDataModel().getScreensaverDateColor();
+        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+
+        colorFilter = "#" + alpha + colorFilter;
+
+        return colorFilter;
+    }
+
+    /**
+     * For screensavers, calculate the color filter to use to dim/color the date.
+     */
+    public static String getNextAlarmColorFilter() {
+        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+        String colorFilter = DataModel.getDataModel().getScreensaverNextAlarmColor();
+        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+
+        colorFilter = "#" + alpha + colorFilter;
+
+        return colorFilter;
+    }
+
+    /**
+     * For screensavers, configure the clock that is visible to display seconds. The clock that is not visible never
+     * displays seconds to avoid it scheduling unnecessary ticking runnable.
+     */
+    public static void setScreensaverClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
+        final boolean displaySeconds = DataModel.getDataModel().getDisplayScreensaverClockSeconds();
+        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        switch (screensaverClockStyle) {
+            case ANALOG -> {
+                setTimeFormat(digitalClock, false);
+                analogClock.enableSeconds(displaySeconds);
+                return;
+            }
+            case DIGITAL -> {
+                analogClock.enableSeconds(false);
+                setTimeFormat(digitalClock, displaySeconds);
+                return;
+            }
+        }
+
+        throw new IllegalStateException("unexpected clock style: " + screensaverClockStyle);
+    }
+
+    /**
+     * For screensavers, format the digital clock to be bold or not.
+     *
+     * @param digitalClock TextClock to format
+     */
+    public static void setScreensaverTimeFormat(TextClock digitalClock) {
+        final boolean boldText = DataModel.getDataModel().getScreensaverBoldDigitalClock();
+        if (digitalClock == null) {
+            return;
+        }
+        digitalClock.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+    }
+
+    /**
+     * For screensavers, format the date and the next alarm to be bold or not.
+     *
+     * @param date Date to format
+     */
+    public static void setScreensaverDateFormat(TextView date) {
+        final boolean boldText = DataModel.getDataModel().getScreensaverBoldDate();
+        date.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+    }
+
+    /**
+     * For screensavers, format the date and the next alarm to be bold or not.
+     *
+     * @param nextAlarm Next alarm to format
+     */
+    public static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
+        final boolean boldText = DataModel.getDataModel().getScreensaverBoldNextAlarm();
+        if (nextAlarm == null) {
+            return;
+        }
+        nextAlarm.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+    }
+
+    /**
+     * For screensavers, set the margins and the style of the clock.
+     */
+    public static void setScreenSaverMarginsAndClockStyle(final Context context, final View clock) {
+        final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
+        final View mainClockView = clock.findViewById(R.id.main_clock);
+
+        // Margins
+        final int mainClockMarginLeft = toPixel(isTablet ? 20 : 16, context);
+        final int mainClockMarginRight = toPixel(isTablet ? 20 : 16, context);
+        final int mainClockMarginTop = toPixel(isTablet
+                ? isLandscape(context) ? 32 : 48
+                : isLandscape(context) ? 16 : 24, context);
+        final int mainClockMarginBottom = toPixel(isTablet ? 20 : 16, context);
+        final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
+        mainClockView.setLayoutParams(paramsForMainClock);
+
+        final int digitalClockMarginBottom = toPixel(isTablet ? -18 : -8, context);
+        final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
+        mainClockView.setLayoutParams(paramsForDigitalClock);
+
+        final int analogClockMarginBottom = toPixel(isLandscape(context)
+                ? 5
+                : isTablet ? 18 : 14, context);
+        final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
+        mainClockView.setLayoutParams(paramsForAnalogClock);
+
+        // Style
+        final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        final TextClock textClock = mainClockView.findViewById(R.id.digital_clock);
+        final TextView date = mainClockView.findViewById(R.id.date);
+        final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
+        final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
+
+        setScreensaverClockStyle(textClock, analogClock);
+        dimClockView(clockStyle == DataModel.ClockStyle.ANALOG ? analogClock : textClock);
+        dimDateView(date);
+        dimNextAlarmView(nextAlarmIcon, nextAlarm);
+        setScreensaverClockSecondsEnabled(textClock, analogClock);
+        setClockIconTypeface(nextAlarmIcon);
+        setScreensaverTimeFormat(textClock);
+        setScreensaverDateFormat(date);
+        setScreensaverNextAlarmFormat(nextAlarm);
     }
 
     /**
@@ -434,7 +616,7 @@ public class Utils {
      */
     public static Drawable cardBackground (Context context) {
         final int color = context.getColor(R.color.md_theme_primary);
-        final int radius = Utils.toPixel(12, context);
+        final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(radius);
         // Setting transparency is necessary to avoid flickering when expanding or collapsing alarms.

@@ -639,31 +639,27 @@ public final class DataModel {
     }
 
     /**
-     * @return the stopwatch after being started
+     *
      */
-    public Stopwatch startStopwatch() {
+    public void startStopwatch() {
         enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().start());
-    }
-
-    //
-    // Stopwatch
-    //
-
-    /**
-     * @return the stopwatch after being paused
-     */
-    public Stopwatch pauseStopwatch() {
-        enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().pause());
+        mStopwatchModel.setStopwatch(getStopwatch().start());
     }
 
     /**
-     * @return the stopwatch after being reset
+     *
      */
-    public Stopwatch resetStopwatch() {
+    public void pauseStopwatch() {
         enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().reset());
+        mStopwatchModel.setStopwatch(getStopwatch().pause());
+    }
+
+    /**
+     *
+     */
+    public void resetStopwatch() {
+        enforceMainLooper();
+        mStopwatchModel.setStopwatch(getStopwatch().reset());
     }
 
     /**
@@ -770,11 +766,10 @@ public final class DataModel {
     /**
      * @param uri   the uri of an audio file to use as a ringtone
      * @param title the title of the audio content at the given {@code uri}
-     * @return the ringtone instance created for the audio file
      */
-    public CustomRingtone addCustomRingtone(Uri uri, String title) {
+    public void addCustomRingtone(Uri uri, String title) {
         enforceMainLooper();
-        return mRingtoneModel.addCustomRingtone(uri, title);
+        mRingtoneModel.addCustomRingtone(uri, title);
     }
 
     //
@@ -855,6 +850,78 @@ public final class DataModel {
     }
 
     /**
+     * @return the style of clock to display in the clock screensaver
+     */
+    public ClockStyle getScreensaverClockStyle() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverClockStyle();
+    }
+
+    /**
+     * @return the color of clock to display in the screensaver
+     */
+    public String getScreensaverClockColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverClockColor();
+    }
+
+    /**
+     * @return the color of the date to display in the screensaver
+     */
+    public String getScreensaverDateColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverDateColor();
+    }
+
+    /**
+     * @return the color of the next alarm to display in the screensaver
+     */
+    public String getScreensaverNextAlarmColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverNextAlarmColor();
+    }
+
+    /**
+     * @return the night mode brightness of clock to display in the clock application
+     */
+    public int getScreensaverBrightness() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBrightness();
+    }
+
+    /**
+     * @return the style of clock to display in the clock application
+     */
+    public boolean getDisplayScreensaverClockSeconds() {
+        enforceMainLooper();
+        return mSettingsModel.getDisplayScreensaverClockSeconds();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the time in bold
+     */
+    public boolean getScreensaverBoldDigitalClock() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldDigitalClock();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the date and the next alarm in bold
+     */
+    public boolean getScreensaverBoldDate() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldDate();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the next alarm in bold
+     */
+    public boolean getScreensaverBoldNextAlarm() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldNextAlarm();
+    }
+
+    /**
      * @return the style of clock to display in the clock application
      */
     public boolean getDisplayClockSeconds() {
@@ -868,22 +935,6 @@ public final class DataModel {
     public void setDisplayClockSeconds(boolean displaySeconds) {
         enforceMainLooper();
         mSettingsModel.setDisplayClockSeconds(displaySeconds);
-    }
-
-    /**
-     * @return the style of clock to display in the clock screensaver
-     */
-    public ClockStyle getScreensaverClockStyle() {
-        enforceMainLooper();
-        return mSettingsModel.getScreensaverClockStyle();
-    }
-
-    /**
-     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
-     */
-    public boolean getScreensaverNightModeOn() {
-        enforceMainLooper();
-        return mSettingsModel.getScreensaverNightModeOn();
     }
 
     /**

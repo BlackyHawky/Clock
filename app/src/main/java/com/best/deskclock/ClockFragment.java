@@ -128,6 +128,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame != null) {
             mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
+            Utils.setClockIconTypeface(mClockFrame);
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
             Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
@@ -429,14 +430,13 @@ public final class ClockFragment extends DeskClockFragment {
 
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
+                Utils.setClockIconTypeface(itemView);
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
                 Utils.refreshAlarm(context, itemView);
-
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
-
                 Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
             }
         }

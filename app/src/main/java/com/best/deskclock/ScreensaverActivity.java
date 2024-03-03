@@ -27,13 +27,9 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextClock;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -92,53 +88,16 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
-
-        mMainClockView = findViewById(R.id.main_clock);
-        final boolean isTablet = mMainClockView.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
-        final int mainClockMarginLeft = Utils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
-        final int mainClockMarginRight = Utils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
-        final int mainClockMarginTop = Utils.toPixel(isTablet
-                        ? Utils.isLandscape(mMainClockView.getContext()) ? 32 : 48
-                        : Utils.isLandscape(mMainClockView.getContext()) ? 16 : 24, mMainClockView.getContext());
-        final int mainClockMarginBottom = Utils.toPixel(isTablet ? 20 : 16, mMainClockView.getContext());
-        final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
-        mMainClockView.setLayoutParams(paramsForMainClock);
-
-        final TextClock textClock = findViewById(R.id.digital_clock);
-        final TextView date = findViewById(R.id.date);
-        final ImageView nextAlarmIcon = findViewById(R.id.nextAlarmIcon);
-        final TextView nextAlarm = findViewById(R.id.nextAlarm);
-        textClock.setTextColor(getColor(android.R.color.white));
-        date.setTextColor(getColor(android.R.color.white));
-        nextAlarmIcon.setColorFilter(getColor(android.R.color.white));
-        nextAlarm.setTextColor(getColor(android.R.color.white));
-
-        final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
-        final int digitalClockMarginBottom = Utils.toPixel(isTablet ? -18 : -8, mMainClockView.getContext());
-        final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
-        mMainClockView.setLayoutParams(paramsForDigitalClock);
-
-        final AnalogClock analogClock = mMainClockView.findViewById(R.id.analog_clock);
-        final int analogClockMarginBottom = Utils.toPixel(Utils.isLandscape(mMainClockView.getContext())
-                ? 5
-                : isTablet ? 18 : 14, mMainClockView.getContext());
-        final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mMainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
-        mMainClockView.setLayoutParams(paramsForAnalogClock);
-
-        Utils.setTimeFormat((TextClock) digitalClock, false);
-        Utils.setClockStyle(digitalClock, analogClock);
-        Utils.setClockSecondsEnabled((TextClock) digitalClock, analogClock);
-        Utils.dimClockView(true, mMainClockView);
-
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
+
+        mMainClockView = findViewById(R.id.main_clock);
+
+        Utils.setScreenSaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 

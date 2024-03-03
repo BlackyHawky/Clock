@@ -146,7 +146,7 @@ final class SettingsDAO {
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
-    static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
+    public static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
         return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
     }
 
@@ -183,11 +183,68 @@ final class SettingsDAO {
         return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
     }
 
+    private static String getClockColor(Context context, SharedPreferences prefs, String key) {
+        final String defaultColor = context.getString(R.string.default_screensaver_clock_color);
+        final String clockColor = prefs.getString(key, defaultColor);
+        // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
+        // accent to character, which breaks the enum conversion.
+        return clockColor.toUpperCase(Locale.US);
+    }
+
     /**
-     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
+     * @return a value indicating the color of the screen saver
      */
-    static boolean getScreensaverNightModeOn(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
+    public static String getScreensaverClockColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the date of the screensaver
+     */
+    public static String getScreensaverDateColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm of the screensaver
+     */
+    public static String getScreensaverNextAlarmColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR);
+    }
+
+    /**
+     * @return {@code int} the screen saver brightness level at night
+     */
+    static int getScreensaverBrightness(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_SS_BRIGHTNESS, 40);
+    }
+
+    /**
+     * @return a value indicating whether analog or digital clocks are displayed in the app
+     */
+    static boolean getDisplayScreensaverClockSeconds(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_SS_CLOCK_DISPLAY_SECONDS, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldDigitalClock(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DIGITAL_ALARM, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldDate(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DATE, true);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldNextAlarm(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_NEXT_ALARM, true);
     }
 
     /**

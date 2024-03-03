@@ -490,8 +490,8 @@
     <!-- Menu item on most screens to get to more settings -->
     <string name="menu_item_settings">Settings</string>
     <!-- Menu item on most screens to get to the help information -->
-    <!-- Menu item on clock screen to enter screen saver. -->
-    <string name="menu_item_night_mode">Screen saver</string>
+    <!-- Menu item on clock screen to enter screensaver. -->
+    <string name="menu_item_night_mode">Screensaver</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->
@@ -866,10 +866,10 @@
     <string name="shortcut_pause_stopwatch_long">Pause stopwatch</string>
     <!-- Short label for a shortcut to start the screensaver. The maximum length is ~10 characters
          (longer translations may be truncated). -->
-    <string name="shortcut_start_screensaver_short">Screen saver</string>
+    <string name="shortcut_start_screensaver_short">Screensaver</string>
     <!-- Long label for a shortcut to start the screensaver. The maximum length is ~25 characters
          (longer translations may be truncated). -->
-    <string name="shortcut_start_screensaver_long">Start screen saver</string>
+    <string name="shortcut_start_screensaver_long">Start screensaver</string>
 
     <!-- Header in the preferences settings for the section pertaining to alarms -->
     <string name="alarm_settings">Alarms</string>
@@ -911,13 +911,65 @@
     <!-- Notification text when at least one timer, of those in use, is counting down. -->
     <string name="next_timer_notif">Next timer: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
 
-    <!-- screensaver settings strings -->
-    <!-- Title for the screen saver settings activity. -->
-    <string name="screensaver_settings">Screen saver settings</string>
+    <!-- Header in the preferences settings for the section pertaining to screensaver -->
+    <string name="screensaver_settings_title">Screensaver</string>
+    <!-- Summary for the screensaver settings in settings -->
+    <string name="screensaver_settings_summary">Opens screensaver settings</string>
+    <!-- Label for the screensaver settings in settings -->
+    <string name="screensaver_daydream_settings">Select/enable screensaver</string>
+    <!-- Summary for the screensaver settings in settings -->
+    <string name="screensaver_daydream_settings_summary">Opens the main Android screensaver settings</string>
+
+    <!-- Screensaver settings strings -->
+    <!-- Title for the screensaver settings activity. -->
+    <string name="screensaver_settings">Screensaver settings</string>
     <!-- Title for check box to pick intensity of display diminuation during screen saver -->
     <string name="night_mode_title">Night mode</string>
     <!-- Describes intensity of display diminuation during screen saver -->
     <string name="night_mode_summary">Very dim display (for dark rooms)</string>
+    <!-- Title of screensaver clock color. -->
+    <string name="screensaver_clock_color_title">Clock color</string>
+    <!-- Title of screensaver date color. -->
+    <string name="screensaver_date_color_title">Date color</string>
+    <!-- Title of screensaver next alarm color. -->
+    <string name="screensaver_next_alarm_color_title">Next alarm color</string>
+    <!-- Title of slider for selecting clock brightness -->
+    <string name="screensaver_brightness_title">Brightness</string>
+    <!-- Title for switch to pick if the clock text is displayed in bold -->
+    <string name="screensaver_bold_digital_clock_title">Bold digital clock</string>
+    <!-- Title for switch to pick if the date is displayed in bold -->
+    <string name="screensaver_bold_date_title">Bold date</string>
+    <!-- Title for switch to pick if the next alarm is displayed in bold -->
+    <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
+    <!-- Label for the  preview in settings -->
+    <string name="screensaver_preview_title">Preview</string>
+    <!-- Summary for the screensaver preview in settings -->
+    <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
+    <!-- Message in screensaver settings if the digital clock is not selected -->
+    <string name="screensaver_digital_clock_not_selected">Select the digital clock to access this setting</string>
+    <!-- Message in screensaver settings if no alarm is set -->
+    <string name="screensaver_no_alarm_set">Set an alarm to access this setting</string>
+
+    <!-- Color choices for screensaver -->
+    <string-array name="screensaver_clock_color_entries" translatable="true">
+        <item>White</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Orange</item>
+        <item>Indigo</item>
+        <item>Blue Gray</item>
+    </string-array>
+
+    <string-array name="screensaver_clock_color_values" translatable="false">
+        <item>FFFFFF</item>
+        <item>F44336</item>
+        <item>4CAF50</item>
+        <item>2196F3</item>
+        <item>FF9800</item>
+        <item>3F51B5</item>
+        <item>607D8B</item>
+    </string-array>
 
     <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
     <string name="expand_alarm">Expand alarm</string>

@@ -26,9 +26,7 @@ import android.os.Build;
 import android.service.dreams.DreamService;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
-import android.widget.TextClock;
 
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 
 public final class Screensaver extends DreamService {
@@ -62,8 +60,6 @@ public final class Screensaver extends DreamService {
     };
 
     private View mMainClockView;
-    private TextClock mDigitalClock;
-    private AnalogClock mAnalogClock;
 
     @Override
     public void onCreate() {
@@ -85,12 +81,8 @@ public final class Screensaver extends DreamService {
 
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
-        mDigitalClock = mMainClockView.findViewById(R.id.digital_clock);
-        mAnalogClock = mMainClockView.findViewById(R.id.analog_clock);
 
-        setClockStyle();
-        Utils.setTimeFormat(mDigitalClock, false);
-        mAnalogClock.enableSeconds(false);
+        Utils.setScreenSaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -137,13 +129,6 @@ public final class Screensaver extends DreamService {
         super.onConfigurationChanged(newConfig);
 
         startPositionUpdater();
-    }
-
-    private void setClockStyle() {
-        Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
-        final boolean dimNightMode = DataModel.getDataModel().getScreensaverNightModeOn();
-        Utils.dimClockView(dimNightMode, mMainClockView);
-        setScreenBright(!dimNightMode);
     }
 
     /**

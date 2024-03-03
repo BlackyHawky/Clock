@@ -12,20 +12,73 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/app_label">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
+        android:key="screensaver_clock_style"
+        android:title="@string/clock_style"
         android:defaultValue="@string/default_clock_style"
-        android:dialogTitle="@string/clock_style"
         android:entries="@array/clock_style_entries"
         android:entryValues="@array/clock_style_values"
-        android:key="screensaver_clock_style"
-        android:title="@string/clock_style" />
+        app:iconSpaceReserved="false" />
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="screensaver_night_mode"
-        android:summary="@string/night_mode_summary"
-        android:title="@string/night_mode_title" />
+    <ListPreference
+        android:key="screensaver_clock_color"
+        android:title="@string/screensaver_clock_color_title"
+        android:defaultValue="@string/default_screensaver_clock_color"
+        android:entries="@array/screensaver_clock_color_entries"
+        android:entryValues="@array/screensaver_clock_color_values"
+        app:iconSpaceReserved="false" />
+
+    <ListPreference
+        android:key="screensaver_date_color"
+        android:title="@string/screensaver_date_color_title"
+        android:defaultValue="@string/default_screensaver_clock_color"
+        android:entries="@array/screensaver_clock_color_entries"
+        android:entryValues="@array/screensaver_clock_color_values"
+        app:iconSpaceReserved="false" />
+
+    <ListPreference
+        android:key="screensaver_next_alarm_color"
+        android:title="@string/screensaver_next_alarm_color_title"
+        android:defaultValue="@string/default_screensaver_clock_color"
+        android:entries="@array/screensaver_clock_color_entries"
+        android:entryValues="@array/screensaver_clock_color_values"
+        app:iconSpaceReserved="false" />
+
+    <SeekBarPreference
+        android:key="screensaver_brightness"
+        android:title="@string/screensaver_brightness_title"
+        android:defaultValue="40"
+        android:max="100"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="display_screensaver_clock_seconds"
+        android:title="@string/display_clock_seconds_pref"
+        android:defaultValue="false"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screensaver_bold_digital_clock"
+        android:title="@string/screensaver_bold_digital_clock_title"
+        android:defaultValue="false"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screensaver_bold_date"
+        android:title="@string/screensaver_bold_date_title"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screensaver_bold_next_alarm"
+        android:title="@string/screensaver_bold_next_alarm_title"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:key="screensaver_preview"
+        android:title="@string/screensaver_preview_title"
+        android:summary="@string/screensaver_preview_summary"
+        app:iconSpaceReserved="false" />
 
 </PreferenceScreen>

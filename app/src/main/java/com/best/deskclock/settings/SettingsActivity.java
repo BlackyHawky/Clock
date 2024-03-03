@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -45,7 +46,6 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -64,6 +64,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_HOME_TZ = "home_time_zone";
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_DATE_TIME = "date_time";
+    public static final String KEY_SS_SETTINGS = "screensaver_settings";
+    public static final String KEY_SS_DAYDREAM_SETTINGS = "screensaver_daydream_settings";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_POWER_BUTTONS = "power_button";
     public static final String KEY_WEEK_START = "week_start";
@@ -110,11 +112,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenuManager.onCreateOptionsMenu(menu);
         return true;
@@ -136,7 +133,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            getPreferenceManager().setStorageDeviceProtected();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                getPreferenceManager().setStorageDeviceProtected();
+            }
             addPreferencesFromResource(R.xml.settings);
             final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
             final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
@@ -199,6 +198,20 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
 
             switch (pref.getKey()) {
+                case KEY_SS_DAYDREAM_SETTINGS -> {
+                    final Intent dialogSSMainSettingsIntent = new Intent(
+                            Settings.ACTION_DREAM_SETTINGS);
+                    dialogSSMainSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogSSMainSettingsIntent);
+                    return true;
+                }
+                case KEY_SS_SETTINGS -> {
+                    final Intent dialogSSSettingsIntent = new Intent(context,
+                            ScreensaverSettingsActivity.class);
+                    dialogSSSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogSSSettingsIntent);
+                    return true;
+                }
                 case KEY_DATE_TIME -> {
                     final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -228,7 +241,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void showDialog(PreferenceDialogFragmentCompat fragment) {
             // Don't show dialog if one is already shown.
-            if (requireFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
+            if (getParentFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
                 return;
             }
             // Always set the target fragment, this is required by PreferenceDialogFragment
@@ -236,7 +249,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             fragment.setTargetFragment(this, 0);
             // Don't use getChildFragmentManager(), it causes issues on older platforms when the
             // target fragment is being restored after an orientation change.
-            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
+            fragment.show(getParentFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         /**
@@ -288,6 +301,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             Objects.requireNonNull(dateAndTimeSetting).setOnPreferenceClickListener(this);
 
+            final Preference screensaverSettings = findPreference(KEY_SS_SETTINGS);
+            Objects.requireNonNull(screensaverSettings).setOnPreferenceClickListener(this);
+
+            final Preference screensaverMainSettings = findPreference(KEY_SS_DAYDREAM_SETTINGS);
+            Objects.requireNonNull(screensaverMainSettings).setOnPreferenceClickListener(this);
+
             final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
             // Set the default value programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
@@ -302,27 +321,22 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
-
             final ListPreference flipActionPref = findPreference(KEY_FLIP_ACTION);
-            if (flipActionPref != null) {
-                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
-                if (sensorList.size() < 1) { // This will be true if no orientation sensor
-                    flipActionPref.setValue("0"); // Turn it off
-                } else {
-                    flipActionPref.setSummary(flipActionPref.getEntry());
-                    flipActionPref.setOnPreferenceChangeListener(this);
-                }
-            }
+            setupFlipOrShakeAction(flipActionPref);
 
             final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
-            if (shakeActionPref != null) {
-                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-                if (sensorList.size() < 1) { // This will be true if no accelerometer sensor
-                    shakeActionPref.setValue("0"); // Turn it off
+            setupFlipOrShakeAction(shakeActionPref);
+        }
+
+        private void setupFlipOrShakeAction(ListPreference preference) {
+            if (preference != null) {
+                SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+                if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+                    preference.setValue("0");  // Turn it off
+                    preference.setVisible(false);
                 } else {
-                    shakeActionPref.setSummary(shakeActionPref.getEntry());
-                    shakeActionPref.setOnPreferenceChangeListener(this);
+                    preference.setSummary(preference.getEntry());
+                    preference.setOnPreferenceChangeListener(this);
                 }
             }
         }
