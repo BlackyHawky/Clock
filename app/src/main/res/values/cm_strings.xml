@@ -37,4 +37,48 @@
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
     <string name="bedtime_channel">@string/bedtime</string>
+
+    <!-- Dialog title for the first application launch -->
+    <string name="dialog_title_for_the_first_launch"><b>WELCOME TO THE CLOCK APP</b></string>
+    <!-- Dialog message for the first application launch -->
+    <string name="dialog_message_for_the_first_launch">
+        \n&#9658; <b>Main Features</b>
+        \n\n&#8226; Based on AOSP Clock;
+        \n&#8226; Flip and shake action to dismiss/postpone alarm;
+        \n&#8226; Turn off/postpone the alarm with the power button and the volume button;
+        \n&#8226; Swipe to delete an alarm;
+        \n&#8226; Follows the light/dark mode of the device ;
+        \n&#8226; Material design and dynamic colors;
+        \n&#8226; &#8230; and much more!
+        \n\n&#9658; <b>Important Information</b>
+        \n\nTo ensure that the application works properly, <b>2 essential permissions must be granted</b>:
+        \n\n&#8226; <b>DO NOT DISTURB</b>: allows the alarm to sound if notification sounds are muted;
+        \n\n&#8226; <b>BATTERY OPTIMIZATION</b>: allows the alarm to sound if the screen is turned off;
+        \n\nYou can grant these authorizations in the next dialogs.
+        \n
+    </string>
+    <!-- Dialog button to stop displaying the dialog box for the first application launch -->
+    <string name="dialog_button_understood">Understood</string>
+
+    <!-- Permissions dialog title for Do Not Disturb -->
+    <string name="dialog_permissions_title_for_do_not_disturb"><b>DO NOT DISTURB PERMISSION</b></string>
+    <!-- Permission dialog: message to explain why Do Not Disturb permission is necessary -->
+    <string name="dialog_message_for_do_not_disturb">
+        \n<b>Reminder:</b>
+        \n\nWithout this permission, the alarm will not sound if all sounds are muted.
+        \n
+    </string>
+    <!-- Permission dialog: Go to Do Not Disturb settings -->
+    <string name="dialog_button_for_do_not_disturb">Do Not Disturb Access</string>
+
+    <!-- Permissions dialog title for Battery Optimization -->
+    <string name="dialog_permissions_title_for_battery_optimization"><b>BATTERY OPTIMIZATION PERMISSION</b></string>
+    <!-- Permission dialog: message to explain why Battery optimization permission is necessary -->
+    <string name="dialog_permissions_ignore_battery_optimization">
+        \n<b>Reminder:</b>
+        \n\nWithout this permission, the alarm will not sound when the screen is off.
+        \n
+    </string>
+    <!-- Permission dialog: Go to Battery optimization settings -->
+    <string name="dialog_button_for_battery_optimization">Battery Optimization Access</string>
 </resources>

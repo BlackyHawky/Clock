@@ -16,6 +16,11 @@
 
 package com.best.deskclock;
 
+import static android.Manifest.permission.ACCESS_NOTIFICATION_POLICY;
+import static android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
+import static android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
@@ -32,6 +37,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +48,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -72,7 +79,8 @@ public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
 
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
-    private static final int CODE_FOR_ALARM_PERMISSION = 1;
+    private static final int CODE_FOR_DO_NOT_DISTURB = 1;
+    private static final int CODE_FOR_IGNORE_BATTERY_OPTIMIZATION = 2;
 
     /**
      * Coordinates handling of context menu items.
@@ -210,6 +218,8 @@ public class DeskClock extends AppCompatActivity
         mSnackbarAnchor = findViewById(R.id.content);
 
         checkPermissions();
+
+        firstRunDialog();
 
         // Configure the menu item controllers add behavior to the toolbar.
         mOptionsMenuManager.addMenuItemController(
@@ -439,22 +449,67 @@ public class DeskClock extends AppCompatActivity
         }
     }
 
-    private void checkPermissions() {
-        if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_ALARM_PERMISSION);
+    public void firstRunDialog() {
+        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("FIRST_RUN_KEY", true);
+        if (isFirstRun) {
+            new AlertDialog.Builder(this)
+                    .setIcon(R.mipmap.launcher_clock)
+                    .setTitle(R.string.dialog_title_for_the_first_launch)
+                    .setMessage(R.string.dialog_message_for_the_first_launch)
+                    .setPositiveButton(R.string.dialog_button_understood, (d, i) ->
+                            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                                    .edit()
+                                    .putBoolean("FIRST_RUN_KEY", false)
+                                    .apply()
+                    )
+                    .setCancelable(false)
+                    .show();
         }
-        NotificationManager nm = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+    }
+
+    private void checkPermissions() {
+
+        if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED
+                || checkSelfPermission(ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_DO_NOT_DISTURB);
+            requestPermissions(new String[]{ACCESS_NOTIFICATION_POLICY}, CODE_FOR_DO_NOT_DISTURB);
+        }
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (!nm.isNotificationPolicyAccessGranted()) {
-            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-            startActivityForResult(intent, 0);
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_permissions_title_for_do_not_disturb)
+                    .setMessage(R.string.dialog_message_for_do_not_disturb)
+                    .setPositiveButton(R.string.dialog_button_for_do_not_disturb, (dialog, position) ->
+                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
+                    .setCancelable(false)
+                    .show();
+        }
+
+        if (checkSelfPermission(REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, CODE_FOR_IGNORE_BATTERY_OPTIMIZATION);
+        }
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_permissions_title_for_battery_optimization)
+                    .setMessage(R.string.dialog_permissions_ignore_battery_optimization)
+                    .setPositiveButton(R.string.dialog_button_for_battery_optimization, (dialog, position) ->
+                            startActivity(new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
+                    .setCancelable(false)
+                    .show();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CODE_FOR_ALARM_PERMISSION) {
-            LogUtils.i("Power off alarm permission is granted.");
+        if (requestCode == CODE_FOR_DO_NOT_DISTURB) {
+            LogUtils.i("Do Not Disturb permission is granted.");
+        }
+        if (requestCode == CODE_FOR_IGNORE_BATTERY_OPTIMIZATION) {
+            LogUtils.i("Battery Optimization permission is granted.");
         }
     }
 
@@ -502,7 +557,7 @@ public class DeskClock extends AppCompatActivity
      * @return a Snackbar that displays the message with the given id for 5 seconds
      */
     private Snackbar createSnackbar(@StringRes int messageId) {
-        return Snackbar.make(mSnackbarAnchor, messageId, 5000 /* duration */);
+        return Snackbar.make(mSnackbarAnchor, messageId, 5000);
     }
 
     /**
