@@ -26,6 +26,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 
 
@@ -77,9 +78,6 @@ public class AlarmService extends Service {
     private static final int ALARM_SNOOZE = 1;
     private static final int ALARM_DISMISS = 2;
 
-    // default action for flip and shake
-    private static final String DEFAULT_ACTION = Integer.toString(ALARM_NO_ACTION);
-
     /**
      * Binder given to AlarmActivity.
      */
@@ -110,21 +108,22 @@ public class AlarmService extends Service {
             }
 
             switch (action) {
-                case ALARM_SNOOZE_ACTION:
+                case ALARM_SNOOZE_ACTION -> {
                     // Set the alarm state to snoozed.
                     // If this broadcast receiver is handling the snooze intent then AlarmActivity
                     // must not be showing, so always show snooze toast.
                     AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true /* showToast */);
                     Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
-                    break;
-                case ALARM_DISMISS_ACTION:
+                }
+                case ALARM_DISMISS_ACTION -> {
                     // Set the alarm state to dismissed.
                     AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm);
                     Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
-                    break;
+                }
             }
         }
     };
+
     private SensorManager mSensorManager;
     private int mFlipAction;
     private final ResettableSensorEventListener mFlipListener =
@@ -303,7 +302,11 @@ public class AlarmService extends Service {
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
-        registerReceiver(mActionsReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mActionsReceiver, filter);
+        }
         mIsRegistered = true;
 
         // set up for flip and shake actions
@@ -321,7 +324,7 @@ public class AlarmService extends Service {
 
         final long instanceId = AlarmInstance.getId(intent.getData());
         switch (intent.getAction()) {
-            case AlarmStateManager.CHANGE_STATE_ACTION:
+            case AlarmStateManager.CHANGE_STATE_ACTION -> {
                 AlarmStateManager.handleIntent(this, intent);
 
                 // If state is changed to firing, actually fire the alarm!
@@ -344,8 +347,8 @@ public class AlarmService extends Service {
                     }
                     startAlarm(instance);
                 }
-                break;
-            case STOP_ALARM_ACTION:
+            }
+            case STOP_ALARM_ACTION -> {
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
                     LogUtils.e("Can't stop alarm for instance: %d because current alarm is: %d",
                             instanceId, mCurrentAlarm.mId);
@@ -353,6 +356,7 @@ public class AlarmService extends Service {
                 }
                 stopCurrentAlarm();
                 stopSelf();
+            }
         }
 
         return Service.START_NOT_STICKY;
@@ -399,22 +403,14 @@ public class AlarmService extends Service {
     }
 
     private void handleAction(int action) {
-        switch (action) {
-            case ALARM_SNOOZE:
-                // Setup Snooze Action
-                startService(AlarmStateManager.createStateChangeIntent(this,
-                        AlarmStateManager.ALARM_SNOOZE_TAG, mCurrentAlarm,
-                        AlarmInstance.SNOOZE_STATE));
-                break;
-            case ALARM_DISMISS:
-                // Setup Dismiss Action
-                startService(AlarmStateManager.createStateChangeIntent(this,
-                        AlarmStateManager.ALARM_DISMISS_TAG, mCurrentAlarm,
-                        AlarmInstance.DISMISSED_STATE));
-                break;
-            case ALARM_NO_ACTION:
-            default:
-                break;
+        if (action == ALARM_SNOOZE) {// Setup Snooze Action
+            startService(AlarmStateManager.createStateChangeIntent(this,
+                    AlarmStateManager.ALARM_SNOOZE_TAG, mCurrentAlarm,
+                    AlarmInstance.SNOOZE_STATE));
+        } else if (action == ALARM_DISMISS) {// Setup Dismiss Action
+            startService(AlarmStateManager.createStateChangeIntent(this,
+                    AlarmStateManager.ALARM_DISMISS_TAG, mCurrentAlarm,
+                    AlarmInstance.DISMISSED_STATE));
         }
     }
 

@@ -31,7 +31,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.stopwatch.StopwatchFragment;
 import com.best.deskclock.timer.TimerFragment;
-import com.best.deskclock.bedtime.BedtimeFragment;
 
 import java.util.Calendar;
 
@@ -122,25 +121,6 @@ public final class UiDataModel {
     }
 
     /**
-     * This method is intended to be used when formatting numbers occurs in a hotspot such as the
-     * update loop of a timer or stopwatch. It returns cached results when possible in order to
-     * provide speed and limit garbage to be collected by the virtual machine.
-     *
-     * @param negative force a minus sign (-) onto the display, even if {@code value} is {@code 0}
-     * @param value    a positive integer to format as a String
-     * @param length   the length of the String; zeroes are padded to match this length. If
-     *                 {@code negative} is {@code true} the return value will contain a minus sign and a total
-     *                 length of {@code length + 1}.
-     * @return the {@code value} formatted as a String in the current locale and padded to the
-     * requested {@code length}
-     * @throws IllegalArgumentException if {@code value} is negative
-     */
-    public String getFormattedNumber(boolean negative, int value, int length) {
-        enforceMainLooper();
-        return mFormattedStringModel.getFormattedNumber(negative, value, length);
-    }
-
-    /**
      * @param calendarDay any of the following values
      *                    <ul>
      *                    <li>{@link Calendar#SUNDAY}</li>
@@ -192,18 +172,6 @@ public final class UiDataModel {
         return mContext.getResources().getInteger(android.R.integer.config_mediumAnimTime);
     }
 
-    //
-    // Animations
-    //
-
-    /**
-     * @return the duration in milliseconds of long animations
-     */
-    public long getLongAnimationDuration() {
-        enforceMainLooper();
-        return mContext.getResources().getInteger(android.R.integer.config_longAnimTime);
-    }
-
     /**
      * @param tabListener to be notified when the selected tab changes
      */
@@ -230,15 +198,6 @@ public final class UiDataModel {
     public int getTabCount() {
         enforceMainLooper();
         return mTabModel.getTabCount();
-    }
-
-    /**
-     * @param ordinal the ordinal of the tab
-     * @return the tab at the given {@code ordinal}
-     */
-    public Tab getTab(int ordinal) {
-        enforceMainLooper();
-        return mTabModel.getTab(ordinal);
     }
 
     /**
@@ -337,15 +296,6 @@ public final class UiDataModel {
     public void addQuarterHourCallback(Runnable runnable, long offset) {
         enforceMainLooper();
         mPeriodicCallbackModel.addQuarterHourCallback(runnable, offset);
-    }
-
-    /**
-     * @param runnable to be called every hour
-     * @param offset   an offset applied to the hour to control when the callback occurs
-     */
-    public void addHourCallback(Runnable runnable, long offset) {
-        enforceMainLooper();
-        mPeriodicCallbackModel.addHourCallback(runnable, offset);
     }
 
     /**

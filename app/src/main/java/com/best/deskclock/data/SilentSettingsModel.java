@@ -35,6 +35,7 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -105,7 +106,11 @@ final class SilentSettingsModel {
         cr.registerContentObserver(VOLUME_URI, false, contentChangeWatcher);
         cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, contentChangeWatcher);
         final IntentFilter filter = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
-        context.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(new DoNotDisturbChangeReceiver(), filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
+        }
     }
 
     void addSilentSettingsListener(OnSilentSettingsListener listener) {

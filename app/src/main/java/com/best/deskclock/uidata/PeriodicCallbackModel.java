@@ -32,6 +32,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Handler;
 
 import androidx.annotation.VisibleForTesting;
@@ -51,12 +52,7 @@ final class PeriodicCallbackModel {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Periodic");
     private static final long QUARTER_HOUR_IN_MILLIS = 15 * MINUTE_IN_MILLIS;
     private static Handler sHandler;
-    /**
-     * Reschedules callbacks when the device time changes.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final BroadcastReceiver mTimeChangedReceiver = new TimeChangedReceiver();
-    private final List<PeriodicRunnable> mPeriodicRunnables = new CopyOnWriteArrayList<>();
+    private final List<PeriodicRunnable> mPeriodicRunnable = new CopyOnWriteArrayList<>();
 
     PeriodicCallbackModel(Context context) {
         // Reschedules callbacks when the device time changes.
@@ -64,7 +60,14 @@ final class PeriodicCallbackModel {
         timeChangedBroadcastFilter.addAction(ACTION_TIME_CHANGED);
         timeChangedBroadcastFilter.addAction(ACTION_DATE_CHANGED);
         timeChangedBroadcastFilter.addAction(ACTION_TIMEZONE_CHANGED);
-        context.registerReceiver(mTimeChangedReceiver, timeChangedBroadcastFilter);
+
+        // Reschedules callbacks when the device time changes.
+        BroadcastReceiver mTimeChangedReceiver = new TimeChangedReceiver();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(mTimeChangedReceiver, timeChangedBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(mTimeChangedReceiver, timeChangedBroadcastFilter);
+        }
     }
 
     /**
@@ -81,22 +84,22 @@ final class PeriodicCallbackModel {
         final long periodStart = now - offset;
 
         switch (period) {
-            case MINUTE:
+            case MINUTE -> {
                 final long lastMinute = periodStart - (periodStart % MINUTE_IN_MILLIS);
                 final long nextMinute = lastMinute + MINUTE_IN_MILLIS;
                 return nextMinute - now + offset;
-
-            case QUARTER_HOUR:
+            }
+            case QUARTER_HOUR -> {
                 final long lastQuarterHour = periodStart - (periodStart % QUARTER_HOUR_IN_MILLIS);
                 final long nextQuarterHour = lastQuarterHour + QUARTER_HOUR_IN_MILLIS;
                 return nextQuarterHour - now + offset;
-
-            case HOUR:
+            }
+            case HOUR -> {
                 final long lastHour = periodStart - (periodStart % HOUR_IN_MILLIS);
                 final long nextHour = lastHour + HOUR_IN_MILLIS;
                 return nextHour - now + offset;
-
-            case MIDNIGHT:
+            }
+            case MIDNIGHT -> {
                 final Calendar nextMidnight = Calendar.getInstance();
                 nextMidnight.setTimeInMillis(periodStart);
                 nextMidnight.add(DATE, 1);
@@ -105,9 +108,8 @@ final class PeriodicCallbackModel {
                 nextMidnight.set(SECOND, 0);
                 nextMidnight.set(MILLISECOND, 0);
                 return nextMidnight.getTimeInMillis() - now + offset;
-
-            default:
-                throw new IllegalArgumentException("unexpected period: " + period);
+            }
+            default -> throw new IllegalArgumentException("unexpected period: " + period);
         }
     }
 
@@ -136,14 +138,6 @@ final class PeriodicCallbackModel {
     }
 
     /**
-     * @param runnable to be called every hour
-     * @param offset   an offset applied to the hour to control when the callback occurs
-     */
-    void addHourCallback(Runnable runnable, long offset) {
-        addPeriodicCallback(runnable, Period.HOUR, offset);
-    }
-
-    /**
      * @param runnable to be called every midnight
      * @param offset   an offset applied to the midnight to control when the callback occurs
      */
@@ -156,7 +150,7 @@ final class PeriodicCallbackModel {
      */
     private void addPeriodicCallback(Runnable runnable, Period period, long offset) {
         final PeriodicRunnable periodicRunnable = new PeriodicRunnable(runnable, period, offset);
-        mPeriodicRunnables.add(periodicRunnable);
+        mPeriodicRunnable.add(periodicRunnable);
         periodicRunnable.schedule();
     }
 
@@ -164,10 +158,10 @@ final class PeriodicCallbackModel {
      * @param runnable to no longer be called periodically
      */
     void removePeriodicCallback(Runnable runnable) {
-        for (PeriodicRunnable periodicRunnable : mPeriodicRunnables) {
+        for (PeriodicRunnable periodicRunnable : mPeriodicRunnable) {
             if (periodicRunnable.mDelegate == runnable) {
                 periodicRunnable.unSchedule();
-                mPeriodicRunnables.remove(periodicRunnable);
+                mPeriodicRunnable.remove(periodicRunnable);
                 return;
             }
         }
@@ -221,7 +215,7 @@ final class PeriodicCallbackModel {
     private final class TimeChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            for (PeriodicRunnable periodicRunnable : mPeriodicRunnables) {
+            for (PeriodicRunnable periodicRunnable : mPeriodicRunnable) {
                 periodicRunnable.runAndReschedule();
             }
         }

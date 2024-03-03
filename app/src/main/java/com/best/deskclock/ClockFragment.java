@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.GestureDetector;
@@ -150,7 +151,11 @@ public final class ClockFragment extends DeskClockFragment {
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CLOCK_CHANGED);
-            activity.registerReceiver(mAlarmChangeReceiver, filter);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                activity.registerReceiver(mAlarmChangeReceiver, filter);
+            }
         }
 
         // Resume can be invoked after changing the clock style or seconds display.

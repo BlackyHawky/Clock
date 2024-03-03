@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -158,7 +159,11 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
 
-        registerReceiver(mIntentReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mIntentReceiver, filter);
+        }
     }
 
     @Override
@@ -171,7 +176,9 @@ public class ScreensaverActivity extends AppCompatActivity {
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
-        final Intent intent = registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+        final Intent intent = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
+                : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
     }
