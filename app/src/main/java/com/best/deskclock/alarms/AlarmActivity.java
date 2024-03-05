@@ -53,6 +53,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
@@ -163,11 +164,17 @@ public class AlarmActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Register Power button (screen off) intent receiver
 
+        // Apply dark colors only for this activity.
+        // We don't want to be woken up with bright colors if the device is set to light mode.
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Hide navigation bar to minimize accidental tap on Home key
+        hideNavigationBar();
+
+        // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
@@ -201,9 +208,6 @@ public class AlarmActivity extends AppCompatActivity
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
-
-        // Hide navigation bar to minimize accidental tap on Home key
-        hideNavigationBar();
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
@@ -244,7 +248,9 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        titleView.setTextColor(getColor(R.color.md_theme_outline));
         Utils.setTimeFormat(digitalClock, false);
+        digitalClock.setTextColor(getColor(R.color.md_theme_outline));
 
         mCurrentHourColor = getColor(R.color.md_theme_background);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
@@ -655,10 +661,12 @@ public class AlarmActivity extends AppCompatActivity
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
                 mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                mAlertTitleView.setTextColor(getColor(R.color.md_theme_outline));
 
                 if (infoText != null) {
                     mAlertInfoView.setText(infoText);
                     mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                    mAlertInfoView.setTextColor(getColor(R.color.md_theme_outline));
                     mAlertInfoView.setVisibility(View.VISIBLE);
                 }
                 mContentView.setVisibility(View.GONE);
