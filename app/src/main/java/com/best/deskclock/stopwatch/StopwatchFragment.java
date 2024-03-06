@@ -29,7 +29,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -40,12 +39,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -147,10 +146,10 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
-        mLapsAdapter = new LapsAdapter(getActivity());
-        mLapsLayoutManager = new LinearLayoutManager(getActivity());
+        mLapsAdapter = new LapsAdapter(getContext());
+        mLapsLayoutManager = new LinearLayoutManager(getContext());
         // Draws a gradient over the bottom of the {@link #mLapsList} to reduce clash with the fab.
-        GradientItemDecoration gradientItemDecoration = new GradientItemDecoration(getActivity());
+        GradientItemDecoration gradientItemDecoration = new GradientItemDecoration(getContext());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -161,7 +160,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (Utils.isLandscape(getActivity())) {
+        if (Utils.isLandscape(getContext())) {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
@@ -183,8 +182,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
         }
 
-        final Context context = mMainTimeText.getContext();
-        final int colorAccent = context.getColor(R.color.md_theme_primary);
+        final int colorAccent = getContext().getColor(R.color.md_theme_primary);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
@@ -251,12 +249,12 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull Button left) {
+    public void onLeftButtonClick(@NonNull ImageView left) {
         doReset();
     }
 
     @Override
-    public void onRightButtonClick(@NonNull Button right) {
+    public void onRightButtonClick(@NonNull ImageView right) {
         switch (getStopwatch().getState()) {
             case RUNNING -> doAddLap();
             case PAUSED -> doShare();
@@ -288,11 +286,10 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
-        final Resources resources = getResources();
+    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         left.setClickable(true);
-        left.setText(R.string.sw_reset_button);
-        left.setContentDescription(resources.getString(R.string.sw_reset_button));
+        left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_reset));
+        left.setContentDescription(getContext().getString(R.string.sw_reset_button));
 
         switch (getStopwatch().getState()) {
             case RESET -> {
@@ -303,8 +300,8 @@ public final class StopwatchFragment extends DeskClockFragment {
             case RUNNING -> {
                 left.setVisibility(VISIBLE);
                 final boolean canRecordLaps = canRecordMoreLaps();
-                right.setText(R.string.sw_lap_button);
-                right.setContentDescription(resources.getString(R.string.sw_lap_button));
+                right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_tab_stopwatch_static));
+                right.setContentDescription(getContext().getString(R.string.sw_lap_button));
                 right.setClickable(canRecordLaps);
                 right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
             }
@@ -312,8 +309,8 @@ public final class StopwatchFragment extends DeskClockFragment {
                 left.setVisibility(VISIBLE);
                 right.setClickable(true);
                 right.setVisibility(VISIBLE);
-                right.setText(R.string.sw_share_button);
-                right.setContentDescription(resources.getString(R.string.sw_share_button));
+                right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_share));
+                right.setContentDescription(getContext().getString(R.string.sw_share_button));
             }
         }
     }
@@ -322,7 +319,7 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Start the stopwatch.
      */
     private void doStart() {
-        final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
@@ -335,7 +332,7 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Pause the stopwatch.
      */
     private void doPause() {
-        final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
@@ -366,7 +363,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Disable the fab buttons to avoid double-taps on the share button.
         updateFab(BUTTONS_DISABLE);
 
-        final String[] subjects = getResources().getStringArray(R.array.sw_share_strings);
+        final String[] subjects = getContext().getResources().getStringArray(R.array.sw_share_strings);
         final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
 
@@ -376,11 +373,10 @@ public final class StopwatchFragment extends DeskClockFragment {
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .setType("text/plain");
 
-        final Context context = getActivity();
-        final String title = context.getString(R.string.sw_share_button);
+        final String title = getContext().getString(R.string.sw_share_button);
         final Intent shareChooserIntent = Intent.createChooser(shareIntent, title);
         try {
-            context.startActivity(shareChooserIntent);
+            getContext().startActivity(shareChooserIntent);
         } catch (ActivityNotFoundException anfe) {
             LogUtils.e("Cannot share lap data because no suitable receiving Activity exists");
             updateFab(BUTTONS_IMMEDIATE);

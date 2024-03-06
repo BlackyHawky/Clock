@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="80dp">
+    android:paddingBottom="100dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/timer_setup_time_bottom"

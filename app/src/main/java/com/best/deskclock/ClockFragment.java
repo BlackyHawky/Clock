@@ -38,7 +38,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextClock;
@@ -100,27 +99,26 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreateView(inflater, container, icicle);
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
-        final Context context = container.getContext();
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
 
-        mIsPortrait = Utils.isPortrait(context);
+        mIsPortrait = Utils.isPortrait(getContext());
 
         mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
+        mDateFormat = getContext().getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getContext().getString(R.string.full_wday_month_day_no_year);
 
         mClockSpace = fragmentView.findViewById(R.id.clock_space);
 
-        mCityAdapter = new SelectedCitiesAdapter(context, mDateFormat, mDateFormatForAccessibility);
+        mCityAdapter = new SelectedCitiesAdapter(getContext(), mDateFormat, mDateFormatForAccessibility);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
         mCityList = fragmentView.findViewById(R.id.cities);
-        mCityList.setLayoutManager(new LinearLayoutManager(context));
+        mCityList.setLayoutManager(new LinearLayoutManager(getContext()));
         mCityList.setAdapter(mCityAdapter);
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
-        mCityList.setOnTouchListener(new CityListOnLongClickListener(context));
+        mCityList.setOnTouchListener(new CityListOnLongClickListener(getContext()));
 
         // On tablet landscape, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
@@ -146,8 +144,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         final Activity activity = getActivity();
 
-        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
+        mDateFormat = getContext().getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getContext().getString(R.string.full_wday_month_day_no_year);
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
@@ -185,9 +183,8 @@ public final class ClockFragment extends DeskClockFragment {
     public void onPause() {
         super.onPause();
 
-        final Activity activity = getActivity();
         if (mAlarmChangeReceiver != null) {
-            activity.unregisterReceiver(mAlarmChangeReceiver);
+            getContext().unregisterReceiver(mAlarmChangeReceiver);
         }
     }
 
@@ -200,18 +197,18 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onFabClick(@NonNull ImageView fab) {
-        startActivity(new Intent(getActivity(), CitySelectionActivity.class));
+        startActivity(new Intent(getContext(), CitySelectionActivity.class));
     }
 
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);
-        fab.setContentDescription(fab.getResources().getString(R.string.button_cities));
+        fab.setContentDescription(getContext().getResources().getString(R.string.button_cities));
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
+    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         left.setVisibility(INVISIBLE);
         right.setVisibility(INVISIBLE);
     }
@@ -222,7 +219,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private void refreshAlarm() {
         if (mClockFrame != null) {
-            Utils.refreshAlarm(getActivity(), mClockFrame);
+            Utils.refreshAlarm(getContext(), mClockFrame);
         } else {
             mCityAdapter.refreshAlarm();
         }

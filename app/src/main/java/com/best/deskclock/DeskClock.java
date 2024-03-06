@@ -34,6 +34,7 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -42,7 +43,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -168,12 +168,12 @@ public class DeskClock extends AppCompatActivity
     /**
      * The button left of the {@link #mFab} shared across all tabs in the user interface.
      */
-    private Button mLeftButton;
+    private ImageView mLeftButton;
 
     /**
      * The button right of the {@link #mFab} shared across all tabs in the user interface.
      */
-    private Button mRightButton;
+    private ImageView mRightButton;
 
     /**
      * The ViewPager that pages through the fragments representing the content of the tabs.
@@ -228,12 +228,27 @@ public class DeskClock extends AppCompatActivity
                 MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         // Configure the buttons shared by the tabs.
-        mFab = findViewById(R.id.fab);
-        mLeftButton = findViewById(R.id.left_button);
-        mRightButton = findViewById(R.id.right_button);
+        final Context context = getApplicationContext();
+        final boolean isTablet = getResources().getBoolean(R.bool.rotateAlarmAlert);
+        final int fabSize = isTablet ? 90 : Utils.isPortrait(context) ? 75 : 60;
+        final int leftOrRightButtonSize = isTablet ? 70 : Utils.isPortrait(context) ? 60 : 50;
 
+        mFab = findViewById(R.id.fab);
+        mFab.getLayoutParams().height = Utils.toPixel(fabSize, context);
+        mFab.getLayoutParams().width = Utils.toPixel(fabSize, context);
+        mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
+
+        mLeftButton = findViewById(R.id.left_button);
+        mLeftButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
+        mLeftButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
+        mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
         mLeftButton.setOnClickListener(view -> getSelectedDeskClockFragment().onLeftButtonClick(mLeftButton));
+
+        mRightButton = findViewById(R.id.right_button);
+        mRightButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
+        mRightButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
+        mRightButton.setScaleType(ImageView.ScaleType.CENTER);
         mRightButton.setOnClickListener(view -> getSelectedDeskClockFragment().onRightButtonClick(mRightButton));
 
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
@@ -516,6 +531,10 @@ public class DeskClock extends AppCompatActivity
     /**
      * Configure the {@link #mFragmentTabPager} and {@link #mBottomNavigation} to display
      * UiDataModel's selected tab.
+     */
+
+    /**
+     * Configure the {@link #mBottomNavigation} to display UiDataModel's selected tab.
      */
     @SuppressLint("ResourceType")
     private void updateCurrentTab() {

@@ -36,12 +36,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -201,12 +201,12 @@ public final class TimerFragment extends DeskClockFragment {
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
             fab.setImageResource(R.drawable.ic_add);
-            fab.setContentDescription(fab.getResources().getString(R.string.timer_add_timer));
+            fab.setContentDescription(getContext().getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
+                fab.setContentDescription(getContext().getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {
                 fab.setContentDescription(null);
@@ -229,15 +229,15 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
+    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         if (mCurrentView == mTimersView) {
             left.setVisibility(INVISIBLE);
             right.setVisibility(INVISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
             left.setClickable(true);
-            left.setText(R.string.timer_cancel);
-            left.setContentDescription(left.getResources().getString(R.string.timer_cancel));
+            left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_cancel));
+            left.setContentDescription(getContext().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
 
@@ -272,7 +272,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull Button left) {
+    public void onLeftButtonClick(@NonNull ImageView left) {
         if (mCurrentView == mTimersView) {
             // Clicking the "delete" button.
             final Timer timer = getTimer();
@@ -287,19 +287,19 @@ public final class TimerFragment extends DeskClockFragment {
                 animateToView(mCreateTimerView, timer, false);
             }
 
-            left.announceForAccessibility(getActivity().getString(R.string.timer_deleted));
+            left.announceForAccessibility(getContext().getString(R.string.timer_deleted));
         } else if (mCurrentView == mCreateTimerView) {
             // Clicking the "cancel" button on the timer creation page returns to the timers list.
             mCreateTimerView.reset();
 
             animateToView(mTimersView, null, false);
 
-            left.announceForAccessibility(getActivity().getString(R.string.timer_canceled));
+            left.announceForAccessibility(getContext().getString(R.string.timer_canceled));
         }
     }
 
     @Override
-    public void onRightButtonClick(@NonNull Button right) {
+    public void onRightButtonClick(@NonNull ImageView right) {
         if (mCurrentView != mCreateTimerView) {
             animateToView(mCreateTimerView, null, true);
         }
@@ -452,6 +452,7 @@ public final class TimerFragment extends DeskClockFragment {
                         mCreateTimerView.setAlpha(1f);
                     }
                 });
+
                 animatorSet.start();
 
                 return true;
