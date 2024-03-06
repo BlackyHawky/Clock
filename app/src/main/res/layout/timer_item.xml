@@ -89,13 +89,15 @@
 
     <ImageButton
         android:id="@+id/reset"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_reset"
         android:scaleType="centerInside"
         android:background="@android:color/transparent"
         android:contentDescription="@string/timer_reset"
         app:tint="@color/md_theme_primary"
+        app:layout_constraintStart_toEndOf="@id/add_one_min"
+        app:layout_constraintEnd_toStartOf="@id/play_pause"
         app:layout_constraintTop_toTopOf="@+id/play_pause"
         app:layout_constraintBottom_toBottomOf="@+id/play_pause"/>
 
