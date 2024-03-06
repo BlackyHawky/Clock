@@ -154,11 +154,8 @@ public class Utils {
      */
     public static void setClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
-        final boolean isTablet = analogClock.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
         switch (clockStyle) {
             case ANALOG -> {
-                analogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
-                analogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
                 analogClock.setVisibility(View.VISIBLE);
                 digitalClock.setVisibility(View.GONE);
                 return;
