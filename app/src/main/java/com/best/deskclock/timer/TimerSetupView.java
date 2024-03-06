@@ -20,7 +20,6 @@ import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Vibrator;
 import android.text.BidiFormatter;
@@ -91,9 +90,6 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        final Resources res = getContext().getResources();
-        final boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
-        final int orientation = res.getConfiguration().orientation;
         final int marginButtonLeft = Utils.toPixel( 10, getContext());
         final int marginButtonRight = Utils.toPixel(10, getContext());
         final int marginButtonTop = Utils.toPixel(10, getContext());
@@ -115,7 +111,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         };
 
         for (final MaterialButton digitButton : mDigitButton) {
-            if (isTablet) {
+            if (Utils.isTablet(getContext())) {
                 final ConstraintLayout.LayoutParams digitButtonParams = (ConstraintLayout.LayoutParams) digitButton.getLayoutParams();
                 digitButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
                 digitButton.setLayoutParams(digitButtonParams);
@@ -129,7 +125,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 
-        if (isTablet) {
+        if (Utils.isTablet(getContext())) {
             final ConstraintLayout.LayoutParams doubleZeroButtonParams = (ConstraintLayout.LayoutParams) doubleZeroButton.getLayoutParams();
             doubleZeroButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             doubleZeroButton.setLayoutParams(doubleZeroButtonParams);
@@ -138,7 +134,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             mDeleteButton.setLayoutParams(deleteButtonParams);
             // In landscape mode, we don't want buttons to take up the full height of the screen.
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (Utils.isLandscape(getContext())) {
                 final View tabletDigits = findViewById(R.id.timer_setup_digits);
                 tabletDigits.getLayoutParams().height = Utils.toPixel(450, getContext());
             }

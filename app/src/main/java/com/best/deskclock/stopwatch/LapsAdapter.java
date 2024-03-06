@@ -375,8 +375,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         LapItemHolder(View itemView) {
             super(itemView);
 
-            final boolean isTablet = itemView.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
-            final int padding = isTablet
+            final int padding = Utils.isTablet(itemView.getContext())
                     ? Utils.toPixel(8, itemView.getContext())
                     : Utils.toPixel(4, itemView.getContext());
             itemView.setPadding(0, padding, 0, padding);

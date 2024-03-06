@@ -37,8 +37,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -50,6 +48,7 @@ import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
@@ -488,16 +487,12 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        Resources res = context.getResources();
-        boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
-        int orientation = res.getConfiguration().orientation;
-        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (isTablet) {
-            int columnCount = isLandscape ? 3 : 2;
+        if (Utils.isTablet(context)) {
+            int columnCount = Utils.isLandscape(context) ? 3 : 2;
             return new GridLayoutManager(context, columnCount);
         }
 
-        return new LinearLayoutManager(context, isLandscape
+        return new LinearLayoutManager(context, Utils.isLandscape(context)
                 ? LinearLayoutManager.HORIZONTAL
                 : LinearLayoutManager.VERTICAL, false);
     }

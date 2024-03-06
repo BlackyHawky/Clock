@@ -34,6 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
@@ -96,7 +97,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
+        if (!Utils.isLandscape(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 

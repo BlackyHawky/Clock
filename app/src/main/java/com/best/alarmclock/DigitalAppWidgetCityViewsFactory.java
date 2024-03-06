@@ -66,13 +66,12 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
 
-        final boolean isTablet = mContext.getResources().getBoolean(R.bool.rotateAlarmAlert);
         m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                isTablet ? 52 : 32, context.getResources().getDisplayMetrics());
+                Utils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
         m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                isTablet ? 65 : 40, context.getResources().getDisplayMetrics());
+                Utils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
         mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                isTablet ? 20 : 12, context.getResources().getDisplayMetrics());
+                Utils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override

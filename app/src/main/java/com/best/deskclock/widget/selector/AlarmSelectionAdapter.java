@@ -52,8 +52,7 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
             final LayoutInflater inflater = LayoutInflater.from(context);
             row = inflater.inflate(R.layout.alarm_row, parent, false);
 
-            final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
-            final int alarmRowMarginBottom = Utils.toPixel(isTablet ? 64 : 8, context);
+            final int alarmRowMarginBottom = Utils.toPixel(Utils.isTablet(context) ? 64 : 8, context);
             final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             );

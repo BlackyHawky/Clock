@@ -1,8 +1,6 @@
 package com.best.deskclock;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -37,11 +35,8 @@ public class CircleButtonsLayout extends FrameLayout {
     protected void remeasureViews() {
         View circleView = findViewById(R.id.timer_time);
 
-        final Resources res = circleView.getContext().getResources();
-        boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
-        int orientation = res.getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            circleView.setVisibility(isTablet ? VISIBLE : GONE);
+        if (Utils.isLandscape(getContext())) {
+            circleView.setVisibility(Utils.isTablet(getContext()) ? VISIBLE : GONE);
         }
 
         // Todo : this part of code seems unnecessary. Is it?

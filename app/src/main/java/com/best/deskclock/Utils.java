@@ -294,11 +294,11 @@ public class Utils {
      */
     public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
-        final boolean isTablet = analogClock.getContext().getResources().getBoolean(R.bool.rotateAlarmAlert);
         switch (clockStyle) {
             case ANALOG -> {
-                analogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
-                analogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 300 : 220, analogClock.getContext());
+                final Context context = analogClock.getContext();
+                analogClock.getLayoutParams().height = toPixel(isTablet(context) ? 300 : 220, context);
+                analogClock.getLayoutParams().width = toPixel(isTablet(context) ? 300 : 220, context);
                 digitalClock.setVisibility(View.GONE);
                 analogClock.setVisibility(View.VISIBLE);
                 return;
@@ -455,28 +455,27 @@ public class Utils {
      * For screensavers, set the margins and the style of the clock.
      */
     public static void setScreenSaverMarginsAndClockStyle(final Context context, final View clock) {
-        final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
         final View mainClockView = clock.findViewById(R.id.main_clock);
 
         // Margins
-        final int mainClockMarginLeft = toPixel(isTablet ? 20 : 16, context);
-        final int mainClockMarginRight = toPixel(isTablet ? 20 : 16, context);
-        final int mainClockMarginTop = toPixel(isTablet
+        final int mainClockMarginLeft = toPixel(isTablet(context) ? 20 : 16, context);
+        final int mainClockMarginRight = toPixel(isTablet(context) ? 20 : 16, context);
+        final int mainClockMarginTop = toPixel(isTablet(context)
                 ? isLandscape(context) ? 32 : 48
                 : isLandscape(context) ? 16 : 24, context);
-        final int mainClockMarginBottom = toPixel(isTablet ? 20 : 16, context);
+        final int mainClockMarginBottom = toPixel(isTablet(context) ? 20 : 16, context);
         final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
         mainClockView.setLayoutParams(paramsForMainClock);
 
-        final int digitalClockMarginBottom = toPixel(isTablet ? -18 : -8, context);
+        final int digitalClockMarginBottom = toPixel(isTablet(context) ? -18 : -8, context);
         final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
         mainClockView.setLayoutParams(paramsForDigitalClock);
 
         final int analogClockMarginBottom = toPixel(isLandscape(context)
                 ? 5
-                : isTablet ? 18 : 14, context);
+                : isTablet(context) ? 18 : 14, context);
         final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
         mainClockView.setLayoutParams(paramsForAnalogClock);
@@ -663,6 +662,14 @@ public class Utils {
      */
     public static boolean isLandscape(Context context) {
         return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * @param context from which to query the current device
+     * @return {@code true} if the device is a tablet
+     */
+    public static boolean isTablet(Context context) {
+        return context.getResources().getBoolean(R.bool.rotateAlarmAlert);
     }
 
     public static long now() {

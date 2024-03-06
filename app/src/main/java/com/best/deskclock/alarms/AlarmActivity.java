@@ -210,7 +210,7 @@ public class AlarmActivity extends AppCompatActivity
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
+        if (!Utils.isLandscape(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 

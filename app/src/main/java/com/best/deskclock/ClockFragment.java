@@ -336,11 +336,10 @@ public final class ClockFragment extends DeskClockFragment {
 
             private void bind(Context context, City city) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
-                final boolean isTablet = context.getResources().getBoolean(R.bool.rotateAlarmAlert);
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    mAnalogClock.getLayoutParams().height = Utils.toPixel(isTablet ? 150 : 80, context);
-                    mAnalogClock.getLayoutParams().width = Utils.toPixel(isTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().height = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().width = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);

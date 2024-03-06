@@ -17,8 +17,6 @@
 package com.best.deskclock.timer;
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -87,10 +85,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setLayoutParams(View view) {
-        Resources res = view.getContext().getResources();
-        boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
-        int orientation = res.getConfiguration().orientation;
-        if (isTablet && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (Utils.isTablet(view.getContext()) && Utils.isLandscape(view.getContext())) {
             ViewGroup.LayoutParams lp = view.getLayoutParams();
             lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
             lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
