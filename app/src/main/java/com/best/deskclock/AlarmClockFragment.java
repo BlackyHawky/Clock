@@ -33,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,6 +82,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     // Views
     private ViewGroup mMainLayout;
     private RecyclerView mRecyclerView;
+    private TextView mAlarmsEmptyView;
 
     // Data
     private Loader mCursorLoader;
@@ -117,29 +117,25 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
-        final Context context = getActivity();
+        final Context context = getContext();
 
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         mLayoutManager = new LinearLayoutManager(context) {
             @Override
-            protected int getExtraLayoutSpace(RecyclerView.State state) {
-                final int extraSpace = super.getExtraLayoutSpace(state);
-                if (state.willRunPredictiveAnimations()) {
-                    return Math.max(getHeight(), extraSpace);
-                }
-                return extraSpace;
+            protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
+                                                     @NonNull int[] extraLayoutSpace) {
+                // We need enough space so after expand/collapse, other items are still
+                // shown properly. The multiplier was chosen after tests
+                extraLayoutSpace[0] = 2 * getHeight();
+                extraLayoutSpace[1] = extraLayoutSpace[0];
+
             }
         };
         mRecyclerView.setLayoutManager(mLayoutManager);
         mMainLayout = v.findViewById(R.id.main);
         mAlarmUpdateHandler = new AlarmUpdateHandler(context, this, mMainLayout);
-        final TextView emptyView = v.findViewById(R.id.alarms_empty_view);
-        final Drawable noAlarms = AppCompatResources.getDrawable(context, R.drawable.ic_alarm_off);
-        if (noAlarms != null) {
-            noAlarms.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
-        }
-        emptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarms, null, null);
-        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyView);
+        mAlarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
+        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, mAlarmsEmptyView);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
                 this);
 
@@ -347,6 +343,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             if (noAlarms) {
                 // Ensure the drop shadow is hidden when no alarms exist.
                 setTabScrolledToTop(true);
+                final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(getContext(), R.drawable.ic_alarm_off, 2.5f);
+                if (noAlarmsIcon != null) {
+                    noAlarmsIcon.setTint(getContext().getColor(R.color.md_theme_onSurfaceVariant));
+                }
+                mAlarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
+                mAlarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, getContext()));
             }
 
             // Expand the correct alarm.
