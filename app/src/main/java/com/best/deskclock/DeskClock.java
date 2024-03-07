@@ -16,11 +16,13 @@
 
 package com.best.deskclock;
 
-import static android.Manifest.permission.ACCESS_NOTIFICATION_POLICY;
-import static android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
 import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
+import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
 import static android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS;
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
@@ -37,6 +39,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.KeyEvent;
@@ -50,6 +54,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
@@ -79,8 +84,7 @@ public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
 
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
-    private static final int CODE_FOR_DO_NOT_DISTURB = 1;
-    private static final int CODE_FOR_IGNORE_BATTERY_OPTIMIZATION = 2;
+    private static final int CODE_FOR_POWER_OFF_ALARM = 1;
 
     /**
      * Coordinates handling of context menu items.
@@ -217,8 +221,11 @@ public class DeskClock extends AppCompatActivity
 
         mSnackbarAnchor = findViewById(R.id.content);
 
+        // Check the essential permissions to be granted by the user.
         checkPermissions();
 
+        // Show dialog to present the main features of the application
+        // and the necessary permissions to be granted by the user.
         firstRunDialog();
 
         // Configure the menu item controllers add behavior to the toolbar.
@@ -482,55 +489,82 @@ public class DeskClock extends AppCompatActivity
     }
 
     private void checkPermissions() {
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
 
-        if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_DO_NOT_DISTURB);
-            requestPermissions(new String[]{ACCESS_NOTIFICATION_POLICY}, CODE_FOR_DO_NOT_DISTURB);
+        // Check permission for Power Off Alarm (only works if available in the device)
+        if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_POWER_OFF_ALARM);
         }
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (!nm.isNotificationPolicyAccessGranted()) {
+
+
+        // Check if Do Not Disturb is disabled in the device
+        if (!notificationManager.isNotificationPolicyAccessGranted()) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_permissions_title_for_do_not_disturb)
-                    .setMessage(R.string.dialog_message_for_do_not_disturb)
-                    .setPositiveButton(R.string.dialog_button_for_do_not_disturb, (dialog, position) ->
+                    .setTitle(R.string.dialog_title_do_not_disturb)
+                    .setMessage(R.string.dialog_message_do_not_disturb)
+                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
                             startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
                                     .addFlags(FLAG_ACTIVITY_NEW_TASK)))
                     .setCancelable(false)
                     .show();
         }
 
-        if (checkSelfPermission(REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, CODE_FOR_IGNORE_BATTERY_OPTIMIZATION);
-        }
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        // Check if Ignore Battery Optimizations is disabled in the device
         if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_permissions_title_for_battery_optimization)
-                    .setMessage(R.string.dialog_permissions_ignore_battery_optimization)
-                    .setPositiveButton(R.string.dialog_button_for_battery_optimization, (dialog, position) ->
+                    .setTitle(R.string.dialog_title_ignore_battery_optimization)
+                    .setMessage(R.string.dialog_message_ignore_battery_optimization)
+                    .setPositiveButton(R.string.dialog_button_ignore_battery_optimization, (dialog, position) ->
                             startActivity(new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
                                     .addFlags(FLAG_ACTIVITY_NEW_TASK)))
                     .setCancelable(false)
                     .show();
+        }
+
+        // Check if Notifications are disabled in the device
+        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_title_notifications)
+                    .setMessage(R.string.dialog_message_notifications)
+                    .setPositiveButton(R.string.dialog_button_notifications, (dialog, position) -> {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            startActivity(new Intent(ACTION_APP_NOTIFICATION_SETTINGS)
+                                    .putExtra(EXTRA_APP_PACKAGE, getPackageName())
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
+                        } else {
+                            startActivity(new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
+                                    .setData(Uri.fromParts("package", getPackageName(), null))
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
+
+        // Check if Full Screen Notification is disabled in the device (for Android 14+ only)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (!notificationManager.canUseFullScreenIntent()) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.dialog_title_full_screen_intent)
+                        .setMessage(R.string.dialog_message_full_screen_intent)
+                        .setPositiveButton(R.string.dialog_button_full_screen_intent, (dialog, position) ->
+                                startActivity(new Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
+                                        .setData(Uri.fromParts("package", getPackageName(), null))
+                                        .addFlags(FLAG_ACTIVITY_NEW_TASK)))
+                        .setCancelable(false)
+                        .show();
+            }
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CODE_FOR_DO_NOT_DISTURB) {
-            LogUtils.i("Do Not Disturb permission is granted.");
-        }
-        if (requestCode == CODE_FOR_IGNORE_BATTERY_OPTIMIZATION) {
-            LogUtils.i("Battery Optimization permission is granted.");
+        if (requestCode == CODE_FOR_POWER_OFF_ALARM) {
+            LogUtils.i("Power off alarm permission is granted.");
         }
     }
-
-    /**
-     * Configure the {@link #mFragmentTabPager} and {@link #mBottomNavigation} to display
-     * UiDataModel's selected tab.
-     */
 
     /**
      * Configure the {@link #mBottomNavigation} to display UiDataModel's selected tab.

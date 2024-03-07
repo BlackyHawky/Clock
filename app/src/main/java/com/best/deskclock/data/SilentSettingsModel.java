@@ -39,8 +39,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.core.app.NotificationManagerCompat;
-
 import com.best.deskclock.data.DataModel.SilentSetting;
 
 import java.util.ArrayList;
@@ -174,8 +172,6 @@ final class SilentSettingsModel {
                     silentSetting = SilentSetting.MUTED_VOLUME;
                 } else if (isSystemAlarmRingtoneSilent()) {
                     silentSetting = SilentSetting.SILENT_RINGTONE;
-                } else if (isAppNotificationBlocked()) {
-                    silentSetting = SilentSetting.BLOCKED_NOTIFICATIONS;
                 } else {
                     silentSetting = null;
                 }
@@ -215,15 +211,6 @@ final class SilentSettingsModel {
         private boolean isSystemAlarmRingtoneSilent() {
             try {
                 return RingtoneManager.getActualDefaultRingtoneUri(mContext, TYPE_ALARM) == null;
-            } catch (Exception e) {
-                // Since this is purely informational, avoid crashing the app.
-                return false;
-            }
-        }
-
-        private boolean isAppNotificationBlocked() {
-            try {
-                return !NotificationManagerCompat.from(mContext).areNotificationsEnabled();
             } catch (Exception e) {
                 // Since this is purely informational, avoid crashing the app.
                 return false;

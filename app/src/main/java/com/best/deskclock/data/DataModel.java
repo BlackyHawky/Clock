@@ -20,9 +20,7 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
-import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static com.best.deskclock.Utils.enforceMainLooper;
 import static com.best.deskclock.Utils.enforceNotMainLooper;
 
@@ -1004,11 +1002,7 @@ public final class DataModel {
         SILENT_RINGTONE(R.string.silent_default_alarm_ringtone,
                 R.string.change_setting_action,
                 new ChangeSoundActionPredicate(),
-                new ChangeSoundSettingsListener()),
-        BLOCKED_NOTIFICATIONS(R.string.app_notifications_blocked,
-                R.string.change_setting_action,
-                Predicate.TRUE,
-                new ChangeAppNotificationSettingsListener());
+                new ChangeSoundSettingsListener());
 
         private final @StringRes
         int mLabelResId;
@@ -1069,29 +1063,6 @@ public final class DataModel {
             public boolean apply(Context context) {
                 final Intent intent = new Intent(ACTION_SOUND_SETTINGS);
                 return intent.resolveActivity(context.getPackageManager()) != null;
-            }
-        }
-
-        private static class ChangeAppNotificationSettingsListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                final Context context = v.getContext();
-                try {
-                    // Attempt to open the notification settings for this app.
-                    context.startActivity(
-                            new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
-                                    .putExtra(EXTRA_APP_PACKAGE, context.getPackageName())
-                                    .putExtra("app_uid", context.getApplicationInfo().uid)
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
-                    return;
-                } catch (Exception ignored) {
-                        // best attempt only; recovery code below
-                }
-
-                // Fall back to opening the app settings page.
-                context.startActivity(new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                        .setData(Uri.fromParts("package", context.getPackageName(), null))
-                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
         }
     }

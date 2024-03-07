@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -182,7 +183,8 @@
 
         <service
             android:name=".alarms.AlarmService"
-            android:directBootAware="true" />
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted" />
 
         <!-- ============================================================== -->
         <!-- Timer components.                                              -->
@@ -211,7 +213,8 @@
         <service
             android:name=".timer.TimerService"
             android:description="@string/timer_service_desc"
-            android:directBootAware="true" />
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted" />
 
         <!-- ============================================================== -->
         <!-- Stopwatch components.                                          -->

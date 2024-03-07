@@ -1216,37 +1216,63 @@
         \n&#8226; Turn off/postpone the alarm with the power button and the volume button;
         \n&#8226; Swipe to delete an alarm;
         \n&#8226; Automatic light and dark mode;
+        \n&#8226; Customizable screensaver;
         \n&#8226; Material design and dynamic colors;
         \n&#8226; &#8230; and much more!
         \n\n&#9658; <b>Important information</b>
-        \n\nTo ensure that the application works properly, <b>2 essential permissions must be granted</b>:
-        \n\n&#8226; <b>DO NOT DISTURB</b>: allows the alarm to sound if notification sounds are muted;
-        \n\n&#8226; <b>BATTERY OPTIMIZATION</b>: allows the alarm to sound if the screen is turned off;
-        \n\nYou can grant these authorizations in the next dialogs.
+        \n\nTo ensure that the application works properly, <b>some of your device settings must be changed:</b>
+        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
+        \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
+        \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
+        \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
+        \n\nYou can change these settings in the following dialogs.
+        \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i>
         \n
     </string>
     <!-- Dialog button to stop displaying the dialog box for the first application launch -->
     <string name="dialog_button_understood">Understood</string>
 
-    <!-- Permissions dialog title for Do Not Disturb -->
-    <string name="dialog_permissions_title_for_do_not_disturb"><b>DO NOT DISTURB PERMISSION</b></string>
-    <!-- Permission dialog: message to explain why Do Not Disturb permission is necessary -->
-    <string name="dialog_message_for_do_not_disturb">
+    <!-- Setting dialog title for Do Not Disturb -->
+    <string name="dialog_title_do_not_disturb"><b>DO NOT DISTURB PERMISSION</b></string>
+    <!-- Setting dialog message to explain why Do Not Disturb permission is necessary -->
+    <string name="dialog_message_do_not_disturb">
         \n<b>Reminder:</b>
-        \n\nWithout this permission, the alarm will not sound if all sounds are muted.
+        \n\nEnable this setting, otherwise the alarm may not trigger if all sounds are muted.
         \n
     </string>
-    <!-- Permission dialog: Go to Do Not Disturb settings -->
-    <string name="dialog_button_for_do_not_disturb">Do Not Disturb Access</string>
+    <!-- Setting dialog button to access to Do Not Disturb settings -->
+    <string name="dialog_button_do_not_disturb">Do Not Disturb Access</string>
 
-    <!-- Permissions dialog title for Battery Optimization -->
-    <string name="dialog_permissions_title_for_battery_optimization"><b>BATTERY OPTIMIZATION PERMISSION</b></string>
-    <!-- Permission dialog: message to explain why Battery optimization permission is necessary -->
-    <string name="dialog_permissions_ignore_battery_optimization">
+    <!-- Setting dialog title for Ignore Battery Optimization -->
+    <string name="dialog_title_ignore_battery_optimization"><b>BATTERY OPTIMIZATION PERMISSION</b></string>
+    <!-- Setting dialog message to explain why Ignore Battery Optimization permission is necessary -->
+    <string name="dialog_message_ignore_battery_optimization">
         \n<b>Reminder:</b>
-        \n\nWithout this permission, the alarm will not sound when the screen is off.
+        \n\nDisable this setting, otherwise the alarm may not trigger if the screen is off.
         \n
     </string>
-    <!-- Permission dialog: Go to Battery optimization settings -->
-    <string name="dialog_button_for_battery_optimization">Battery Optimization Access</string>
+    <!-- Setting dialog button to access to Ignore Battery Optimization settings -->
+    <string name="dialog_button_ignore_battery_optimization">Battery Optimization Access</string>
+
+    <!-- Setting dialog title for Notifications -->
+    <string name="dialog_title_notifications"><b>NOTIFICATIONS</b></string>
+    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
+    <string name="dialog_message_notifications">
+        \n<b>Reminder:</b>
+        \n\nEnable this setting, otherwise alarm, timer and stopwatch notifications will not be displayed. Moreover, the alarm may not trigger.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Full Screen Notifications settings -->
+    <string name="dialog_button_notifications">Notifications Access</string>
+
+    <!-- Setting dialog title for Full Screen Notifications -->
+    <string name="dialog_title_full_screen_intent"><b>FULL SCREEN NOTIFICATIONS</b></string>
+    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
+    <string name="dialog_message_full_screen_intent">
+        \n<b>Reminder:</b>
+        \n\nEnable this setting, otherwise the alarm will not trigger when the screen is off.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Full Screen Notifications settings -->
+    <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
 </resources>
