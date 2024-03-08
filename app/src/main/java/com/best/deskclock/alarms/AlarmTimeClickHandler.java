@@ -54,6 +54,7 @@ public final class AlarmTimeClickHandler {
 
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
                                  AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
+
         mFragment = fragment;
         mContext = mFragment.getActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
@@ -180,15 +181,13 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-        final Intent intent =
-                RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
+        final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
         context.startActivity(intent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
-        final LabelDialogFragment fragment =
-                LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
+        final LabelDialogFragment fragment = LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
         LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);
     }
 
@@ -199,7 +198,7 @@ public final class AlarmTimeClickHandler {
             a.hour = hourOfDay;
             a.minutes = minute;
             a.enabled = true;
-            mAlarmUpdateHandler.asyncAddAlarm(a);
+            mAlarmUpdateHandler.asyncAddAlarm(a, mFragment);
         } else {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;

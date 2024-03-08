@@ -18,75 +18,99 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:orientation="vertical"
-        android:id="@+id/center_guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.5"/>
+    <!-- Todo: add an image as in the Google Clock application -->
 
-    <TextView
-        android:id="@+id/bedtime_label"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bedtime_start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:importantForAccessibility="no"
-        android:text="@string/menu_bedtime"
-        android:textSize="14sp"
-        android:textAllCaps="true"
-        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:text="@string/bedtime_text_button"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/center_guide"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.best.deskclock.widget.TextTime
-        android:id="@+id/bedtime_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:focusable="true"
-        android:gravity="center"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/center_guide"
-        app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
-
-    <TextView
-        android:id="@+id/wake_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/wakeup"
-        android:textSize="14sp"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:importantForAccessibility="no"
-        app:layout_constraintStart_toStartOf="@+id/center_guide"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+    </com.google.android.material.button.MaterialButton>
 
-    <com.best.deskclock.widget.TextTime
-        android:id="@+id/wakeup_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:focusable="true"
-        android:gravity="center"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/center_guide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wake_label" />
-
-    <include
-        layout="@layout/bedtime_to_wakeup"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:id="@+id/center_guide_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+            android:id="@+id/bedtime_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:text="@string/menu_bedtime"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/center_guide_vertical"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.best.deskclock.widget.TextTime
+            android:id="@+id/bedtime_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:focusable="true"
+            android:gravity="center"
+            android:textSize="48sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/center_guide_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
+
+        <TextView
+            android:id="@+id/wake_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wakeup"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:importantForAccessibility="no"
+            app:layout_constraintStart_toStartOf="@+id/center_guide_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.best.deskclock.widget.TextTime
+            android:id="@+id/wakeup_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:focusable="true"
+            android:gravity="center"
+            android:textSize="48sp"
+            app:layout_constraintStart_toEndOf="@+id/center_guide_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wake_label" />
+
+        <include
+            layout="@layout/bedtime_to_wakeup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

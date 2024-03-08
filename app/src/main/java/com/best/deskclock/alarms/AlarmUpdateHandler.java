@@ -16,6 +16,7 @@
 
 package com.best.deskclock.alarms;
 
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
@@ -34,6 +36,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -60,7 +63,7 @@ public final class AlarmUpdateHandler {
      *
      * @param alarm The alarm to be added.
      */
-    public void asyncAddAlarm(final Alarm alarm) {
+    public void asyncAddAlarm(final Alarm alarm, final Fragment fragment) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
@@ -73,7 +76,9 @@ public final class AlarmUpdateHandler {
                 Alarm newAlarm = Alarm.addAlarm(cr, alarm);
 
                 // Be ready to scroll to this alarm on UI later.
-                mScrollHandler.setSmoothScrollStableId(newAlarm.id);
+                if (Objects.equals(fragment, new AlarmClockFragment())) {
+                    mScrollHandler.setSmoothScrollStableId(newAlarm.id);
+                }
 
                 // Create and add instance to db
                 if (newAlarm.enabled) {
@@ -191,12 +196,9 @@ public final class AlarmUpdateHandler {
         final Alarm deletedAlarm = mDeletedAlarm;
         final Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
                         mAppContext.getString(R.string.alarm_deleted), Snackbar.LENGTH_LONG)
-                .setAction(R.string.alarm_undo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mDeletedAlarm = null;
-                        asyncAddAlarm(deletedAlarm);
-                    }
+                .setAction(R.string.alarm_undo, v -> {
+                    mDeletedAlarm = null;
+                    asyncAddAlarm(deletedAlarm, new AlarmClockFragment());
                 });
         SnackbarManager.show(snackbar);
     }

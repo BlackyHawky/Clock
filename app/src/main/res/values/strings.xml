@@ -1126,6 +1126,8 @@
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
+    <!-- Bedtime button to create an alarm -->
+    <string name="bedtime_text_button">Create a bedtime alarm</string>
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
     <string name="_00">00</string>
     <string name="bedtime">Bedtime</string>
