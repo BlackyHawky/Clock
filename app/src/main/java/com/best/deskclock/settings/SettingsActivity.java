@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -52,7 +53,10 @@ import java.util.Objects;
  * Settings for the Alarm Clock.
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
-
+    public static final String KEY_THEME = "key_theme";
+    public static final String SYSTEM_THEME = "0";
+    public static final String LIGHT_THEME = "1";
+    public static final String DARK_THEME = "2";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
@@ -161,6 +165,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
+                case KEY_THEME -> {
+                    final ListPreference preference = (ListPreference) pref;
+                    final int index = preference.findIndexOfValue((String) newValue);
+                    preference.setSummary(preference.getEntries()[index]);
+                    switch (index) {
+                        case 0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+                }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
                         KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
                         KEY_SHAKE_ACTION, KEY_WEEK_START -> {
@@ -265,6 +279,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void refresh() {
+            final ListPreference themeButtonsPref = findPreference(KEY_THEME);
+            Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
+            themeButtonsPref.setOnPreferenceChangeListener(this);
+
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);

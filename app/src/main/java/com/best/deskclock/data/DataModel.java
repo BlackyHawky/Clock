@@ -23,6 +23,9 @@ import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
 import static com.best.deskclock.Utils.enforceMainLooper;
 import static com.best.deskclock.Utils.enforceNotMainLooper;
+import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import android.app.Service;
 import android.content.Context;
@@ -35,9 +38,11 @@ import android.os.Looper;
 import android.view.View;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
+import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.timer.TimerService;
 
 import java.util.Calendar;
@@ -114,6 +119,16 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
+            final String themeValue = prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+            switch (themeValue) {
+                case SYSTEM_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                case LIGHT_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                case DARK_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+
             mTimeModel = new TimeModel(mContext);
             mWidgetModel = new WidgetModel(prefs);
             mNotificationModel = new NotificationModel();
@@ -123,8 +138,7 @@ public final class DataModel {
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel,
-                    mNotificationModel);
+            mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel, mNotificationModel);
         }
     }
 
