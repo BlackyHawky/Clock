@@ -43,6 +43,7 @@ import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -196,6 +197,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     private void showWakeupBottomSheetDialog(Alarm alarm) {
         mBottomSheetDialog = new BottomSheetDialog(getContext());
         mBottomSheetDialog.setContentView(R.layout.bedtime_wakeup_bottom_sheet);
+        mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         Fragment mFragment = this;
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
@@ -421,10 +423,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
     }
 
     //Bedtime bottom sheet
-    //moved here for better structure
     public void showBedtimeBottomSheetDialog() {
         mBottomSheetDialog = new BottomSheetDialog(getContext());
         mBottomSheetDialog.setContentView(R.layout.bedtime_bottom_sheet);
+        mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         Fragment mFragment = this;
         mClock = mBottomSheetDialog.findViewById(R.id.bedtime_time);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
