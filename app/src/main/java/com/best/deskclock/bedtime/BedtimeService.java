@@ -115,7 +115,7 @@ public final class BedtimeService extends Service {
                 c.add(Calendar.MINUTE, 30);
                 am.setExact(AlarmManager.RTC, c.getTimeInMillis(), getPendingIntent(context, ACTION_LAUNCH_BEDTIME));
                 String txt = AlarmUtils.getFormattedTime(context, c.getTimeInMillis());
-                txt = context.getString(R.string.bed_notif_resume, txt);
+                txt = context.getString(R.string.bedtime_notification_resume, txt);
                 showPausedNotification(context, txt);
             }
         }
@@ -197,7 +197,7 @@ public final class BedtimeService extends Service {
         if (minDiff == 0) {
             diff = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hDiff);
         } else {
-            diff = context.getString(R.string.bed_and, Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hDiff), Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minDiff));
+            diff = context.getString(R.string.bedtime_and, Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hDiff), Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minDiff));
         }
 
         String wake;
@@ -215,8 +215,8 @@ public final class BedtimeService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, BEDTIME_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(R.string.remind_notif_title, bedtime))
-                .setContentText(context.getString(R.string.remind_notif_text, wake, diff))
+                .setContentTitle(context.getString(R.string.bedtime_reminder_notification_title, bedtime))
+                .setContentText(context.getString(R.string.bedtime_reminder_notification_text, wake, diff))
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_moon)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -243,7 +243,7 @@ public final class BedtimeService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, BEDTIME_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(R.string.bed_notif_title))
+                .setContentTitle(context.getString(R.string.bedtime_notification_title))
                 .setContentText(text)
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_bedtime)
@@ -260,13 +260,13 @@ public final class BedtimeService extends Service {
 
         Intent pause = new Intent(context, BedtimeService.class);
         pause.setAction(ACTION_BEDTIME_PAUSE);
-        builder.addAction(R.drawable.ic_fab_pause, context.getString(R.string.bed_notif_action_pause), PendingIntent.getService(context, 0,
-                pause, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        builder.addAction(R.drawable.ic_fab_pause, context.getString(R.string.bedtime_notification_action_pause),
+                PendingIntent.getService(context, 0, pause, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         Intent off = new Intent(context, BedtimeService.class);
         off.setAction(ACTION_BEDTIME_CANCEL);
         //TODO: we need a proper icon
-        builder.addAction(R.drawable.ic_reset, context.getString(R.string.bed_notif_action_turn_off), PendingIntent.getService(context, 0,
+        builder.addAction(R.drawable.ic_reset, context.getString(R.string.bedtime_notification_action_turn_off), PendingIntent.getService(context, 0,
                 off, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
@@ -282,7 +282,7 @@ public final class BedtimeService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, BEDTIME_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(R.string.bed_paused_notif_title))
+                .setContentTitle(context.getString(R.string.bedtime_paused_notification_title))
                 .setContentText(text)
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_moon)
@@ -299,7 +299,7 @@ public final class BedtimeService extends Service {
 
         Intent it = new Intent(context, BedtimeService.class);
         it.setAction(ACTION_LAUNCH_BEDTIME);
-        builder.addAction(R.drawable.ic_fab_play, context.getString(R.string.bed_notif_resume_action), PendingIntent.getService(context, notifId,
+        builder.addAction(R.drawable.ic_fab_play, context.getString(R.string.bedtime_notification_resume_action), PendingIntent.getService(context, notifId,
                 it, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
@@ -373,7 +373,7 @@ public final class BedtimeService extends Service {
                 }
             }
             if (success) {
-                txt = context.getString(R.string.bed_screen_opt_desc);
+                txt = context.getString(R.string.bedtime_screen_option_description);
             }
         }
         if (saver.doNotDisturb) {
@@ -387,10 +387,10 @@ public final class BedtimeService extends Service {
             }
             nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
             if (txt.isEmpty()) {
-                String INPUT = context.getString(R.string.bed_notif_dnd_desc);
+                String INPUT = context.getString(R.string.bedtime_notification_dnd_description);
                 txt = INPUT.substring(0, 1).toUpperCase() + INPUT.substring(1);
             } else {
-                txt = context.getString(R.string.bed_and, txt, context.getString(R.string.bed_notif_dnd_desc));
+                txt = context.getString(R.string.bedtime_and, txt, context.getString(R.string.bedtime_notification_dnd_description));
             }
         }
         if (saver.doNotDisturb || saver.dimWall) {
@@ -408,7 +408,7 @@ public final class BedtimeService extends Service {
                 }
             }
             String wake = alarm.hour > 12 ? Integer.toString(alarm.hour - 12) : alarm.hour + ":" + alarm.minutes + ending;
-            txt = context.getString(R.string.bed_notif_until, txt, wake);
+            txt = context.getString(R.string.bedtime_notification_until, txt, wake);
             showLaunchNotification(context, txt);
 
             AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);

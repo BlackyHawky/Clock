@@ -215,7 +215,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindEditLabel(Context context, Alarm alarm) {
         if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-            editLabel.setText(R.string.wake_alarm_label_visible);
+            editLabel.setText(R.string.wakeup_alarm_label_visible);
         } else {
             editLabel.setText(alarm.label);
             editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0

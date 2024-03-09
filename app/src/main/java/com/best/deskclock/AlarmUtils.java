@@ -57,7 +57,7 @@ public class AlarmUtils {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
-                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDLABEL) ? context.getString(R.string.wake_alarm_label_visible) : instance.mLabel);
+                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDLABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
     }
 
     /**

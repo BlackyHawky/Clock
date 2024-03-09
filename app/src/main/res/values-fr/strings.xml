@@ -14,7 +14,7 @@
   limitations under the License.
    -->
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingQuantity">
     <string name="app_label" msgid="6674495003718166674">"Horloge"</string>
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
@@ -103,6 +103,12 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Horloge analogique"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
+    <string name="title_theme">Thème</string>
+    <string-array name="array_theme">
+        <item>Système</item>
+        <item>Clair</item>
+        <item>Sombre</item>
+    </string-array>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
@@ -194,6 +200,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horloge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronomètre"</string>
+    <string name="menu_bedtime">Coucher</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ajouter une alarme"</string>
     <string name="button_cities" msgid="4555761857494501363">"Villes"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Paramètres"</string>
@@ -368,6 +375,7 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
+    <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Faire glisser le doigt vers la droite pour ignorer"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Faire glisser le doigt vers la gauche pour répéter"</string>
@@ -379,7 +387,61 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="bedtime">Coucher</string>
+    <string name="wakeup">Réveil</string>
+    <string name="bedtime_text_button">Créer une alarme pour le coucher</string>
+    <string name="bedtime_reminder_notification">Notification de rappel</string>
+    <string-array name="array_reminder_notification">
+        <item>15 minutes avant le coucher</item>
+        <item>30 minutes avant le coucher</item>
+        <item>45 minutes avant le coucher</item>
+        <item>1 heure avant le coucher</item>
+        <item>Aucune</item>
+    </string-array>
+    <string name="bedtime_reminder_notification_title">L\'heure du coucher commence à <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification_text">L\'heure du coucher s\'arrête à <xliff:g id="wake_time">%1$s</xliff:g> après <xliff:g id="sleep_time">%2$s</xliff:g> de sommeil.</string>
+    <string name="bedtime_notification_title">Le mode "heure du coucher" est activé</string>
+    <string name="bedtime_and"><xliff:g id="value_one">%1$s</xliff:g> et <xliff:g id="value_two">%2$s</xliff:g></string>
+    <string name="bedtime_notification_action_pause">Pause de 30 minutes</string>
+    <string name="bedtime_notification_action_turn_off">Désactiver pour le moment</string>
+    <string name="bedtime_notification_until"><xliff:g id="text_one">%1$s</xliff:g> jusqu\'à <xliff:g id="wake_time">%2$s</xliff:g></string>
+    <string name="bedtime_notification_dnd_description">Seuls les appels importants vous parviennent</string>
+    <string name="bedtime_paused_notification_title">Le mode "heure du coucher" est en pause</string>
+    <string name="bedtime_notification_resume">Reprend à <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Reprend maintenant</string>
+    <string name="bedtime_screen_option_description">L\'écran reste sombre</string>
+    <string name="bedtime_dnd_title">Mode "Ne Pas Déranger" pour l\'heure du coucher</string>
+    <string name="bedtime_dnd_txt">Seuls les appels des contacts favoris, des appels répétés et des alarmes peuvent vous parvenir</string>
+    <string name="bedtime_wallpaper_title">Atténuer le fond d\'écran</string>
+    <string name="bedtime_wallpaper_text">Rend votre fond d\'écran plus sombre. Les icônes des applications, les widgets et les notifications ne seront pas affectés.</string>
+    <string name="wakeup_alarm_label_visible">Alarme de réveil</string>
+    <string name="new_bedtime_alarm">Alarme de réveil créée</string>
+    <string name="wakeup_alarm_non_existent">ERREUR: L\'alarme de réveil est supprimée</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
+    <string name="screensaver_settings_title">Économiseur d\'écran</string>
+    <string name="screensaver_settings_summary">Ouvre les paramètres de l\'économiseur d\'écran</string>
+    <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
+    <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
+    <string name="screensaver_clock_color_title">Couleur de l\'horloge</string>
+    <string name="screensaver_date_color_title">Couleur de la date</string>
+    <string name="screensaver_next_alarm_color_title">Couleur de la prochaine alarme</string>
+    <string name="screensaver_brightness_title">Luminosité</string>
+    <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
+    <string name="screensaver_bold_date_title">Date en gras</string>
+    <string name="screensaver_bold_next_alarm_title">Prochaine alarme en gras</string>
+    <string name="screensaver_preview_title">Prévisualisation</string>
+    <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
+    <string name="screensaver_digital_clock_not_selected">Sélectionnez l\'horloge numérique pour accéder à ce réglage</string>
+    <string name="screensaver_no_alarm_set">Définissez une alarme pour accéder à ce réglage</string>
+    <string-array name="screensaver_clock_color_entries" translatable="true">
+        <item>Blanc</item>
+        <item>Rouge</item>
+        <item>Vert</item>
+        <item>Bleu</item>
+        <item>Orange</item>
+        <item>Indigo</item>
+        <item>Bleu Gris</item>
+    </string-array>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode Nuit"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Affichage peu lumineux (pour les pièces sombres)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
@@ -432,4 +494,53 @@
     <string name="alarm_upcoming_channel">Alarmes imminentes</string>
     <string name="stopwatch_channel">Chronomètre</string>
     <string name="timer_channel">Minuteur</string>
+    <string name="dialog_title_for_the_first_launch"><b>BIENVENUE DANS L\'APPLICATION HORLOGE</b></string>
+    <string name="dialog_message_for_the_first_launch">
+        \n&#9658; <b>Principales Fonctionnalités</b>
+        \n\n&#8226; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ;
+        \n&#8226; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
+        \n&#8226; Glisser pour supprimer une alarme ;
+        \n&#8226; Thème clair, sombre ou système ;
+        \n&#8226; Économiseur d\'écran personnalisable ;
+        \n&#8226; Design Material et couleurs dynamiques ;
+        \n&#8226; &#8230; et bien plus encore !
+        \n\n&#9658; <b>Information importante</b>
+        \n\nPour s\'assurer que l\'application fonctionne correctement, <b>certains paramètres de votre appareil doivent être modifiés :</b>
+        \n\n&#8226; <b>NE PAS DERANGER :</b> permet à l\'alarme de se déclencher si les sons des notifications sont désactivés ;
+        \n\n&#8226; <b>OPTIMISATION DE LA BATTERIE :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;
+        \n\n&#8226; <b>NOTIFICATIONS :</b> permet à l\'alarme, à la minuterie et au chronomètre d\'envoyer une notification lorsque l\'application est réduite. Elle permet également à l\'alarme de se déclencher.
+        \n\n&#8226; <b>NOTIFICATIONS EN PLEIN ECRAN :</b> pour Android 14 seulement, permet à l\'alarme de se déclencher si l\'écran est éteint ;
+        \n\nVous pouvez modifier ces paramètres dans les boîtes de dialogue suivantes.
+        \n\n<i>Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).</i>
+        \n
+    </string>
+    <string name="dialog_button_understood">Compris</string>
+    <string name="dialog_title_do_not_disturb"><b>NE PAS DERANGER</b></string>
+    <string name="dialog_message_do_not_disturb">
+        \n<b>Rappel :</b>
+        \n\nActivez ce paramètre, sinon l\'alarme risque de ne pas se déclencher si tous les sons sont désactivés.
+        \n
+    </string>
+    <string name="dialog_button_do_not_disturb">Accès à "Ne Pas Déranger"</string>
+    <string name="dialog_title_ignore_battery_optimization"><b>OPTIMISATION DE LA BATTERIE</b></string>
+    <string name="dialog_message_ignore_battery_optimization">
+        \n<b>Rappel :</b>
+        \n\nDésactivez ce paramètre, sinon l\'alarme risque de ne pas se déclencher si l\'écran est éteint.
+        \n
+    </string>
+    <string name="dialog_button_ignore_battery_optimization">Accès à "Optimisation de la Batterie"</string>
+    <string name="dialog_title_notifications"><b>NOTIFICATIONS</b></string>
+    <string name="dialog_message_notifications">
+        \n<b>Rappel :</b>
+        \n\nActivez ce paramètre, sinon les notifications de l\'alarme, de la minuterie et du chronomètre ne s\'afficheront pas. De plus, l\'alarme peut ne pas se déclencher.
+        \n
+    </string>
+    <string name="dialog_button_notifications">Accès à "Notifications"</string>
+    <string name="dialog_title_full_screen_intent"><b>NOTIFICATIONS EN PLEIN ECRAN</b></string>
+    <string name="dialog_message_full_screen_intent">
+        \n<b>Rappel:</b>
+        \n\nActivez ce paramètre, sinon l\'alarme ne se déclenchera pas lorsque l\'écran est éteint.
+        \n
+    </string>
+    <string name="dialog_button_full_screen_intent">Accès à "Notifications en Plein Écran"</string>
 </resources>

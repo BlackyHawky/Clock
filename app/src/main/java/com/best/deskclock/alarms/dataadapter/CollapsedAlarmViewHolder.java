@@ -105,7 +105,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
         if (alarm.label != null && alarm.label.length() != 0) {
             if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-                alarmLabel.setText(R.string.wake_alarm_label_visible);
+                alarmLabel.setText(R.string.wakeup_alarm_label_visible);
             } else {
                 alarmLabel.setText(alarm.label);
             }

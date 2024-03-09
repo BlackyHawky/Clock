@@ -172,7 +172,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
             hours_of_sleep_text.setText(diff);
             hours_of_sleep_text.setAlpha(mSaver.enabled && alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         } else {
-            hours_of_sleep_text.setText(R.string.wake_alarm_non_existent);
+            hours_of_sleep_text.setText(R.string.wakeup_alarm_non_existent);
         }
     }
 
@@ -195,7 +195,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     //moved here for better structure
     private void showWakeupBottomSheetDialog(Alarm alarm) {
         mBottomSheetDialog = new BottomSheetDialog(getContext());
-        mBottomSheetDialog.setContentView(R.layout.wakeup_bottom_sheet);
+        mBottomSheetDialog.setContentView(R.layout.bedtime_wakeup_bottom_sheet);
         Fragment mFragment = this;
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
@@ -278,7 +278,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mTxtWakeup.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
         mAlarmUpdateHandler.asyncAddAlarm(alarm, this);
-        SnackbarManager.show(Snackbar.make(mMainLayout, R.string.new_bed_alarm, Snackbar.LENGTH_LONG));
+        SnackbarManager.show(Snackbar.make(mMainLayout, R.string.new_bedtime_alarm, Snackbar.LENGTH_LONG));
     }
 
     // Build button for each day.
@@ -484,7 +484,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
             if (checked != mSaver.doNotDisturb) {
                 mSaver.doNotDisturb = checked;
                 mSaver.save();
-                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bed_dnd_title);
+                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bedtime_dnd_title);
             }
         });
 
@@ -492,7 +492,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
             if (checked != mSaver.dimWall) {
                 mSaver.dimWall = checked;
                 mSaver.save();
-                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bed_wall_title);
+                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bedtime_wallpaper_title);
             }
         });
 
