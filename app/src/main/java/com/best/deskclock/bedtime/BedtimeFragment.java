@@ -41,11 +41,11 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -59,7 +59,9 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
     //We need a unique label to identify our wake alarm
     public final static String BEDLABEL = "Wake-up alarm";
-    MaterialButton mBedtimeButton;
+    ViewGroup mBedtimeView;
+    private EmptyViewController mEmptyViewController;
+    TextView mEmptyView;
     Context mContext;
     Vibrator mVibrator;
     DataSaver mSaver;
@@ -87,26 +89,22 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.bedtime_fragment, container, false);
 
         mContext = getContext();
+        mBedtimeView = view.findViewById(R.id.bedtime_view);
         mMainLayout = view.findViewById(R.id.main);
 
-        mBedtimeButton = view.findViewById(R.id.bedtime_start_button);
-        if (mAlarm == null) {
-            mBedtimeButton.setVisibility(View.VISIBLE);
-            mMainLayout.setVisibility(View.GONE);
-        } else {
-            mBedtimeButton.setVisibility(View.GONE);
-            mMainLayout.setVisibility(View.VISIBLE);
+        mEmptyView = view.findViewById(R.id.bedtime_empty_view);
+        final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(getContext(), R.drawable.ic_alarm_off, 2.5f);
+        if (noAlarmsIcon != null) {
+            noAlarmsIcon.setTint(getContext().getColor(R.color.md_theme_onSurfaceVariant));
         }
+        mEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
+        mEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, getContext()));
 
-        mBedtimeButton.setOnClickListener(v -> {
-            createAlarm();
-            mMainLayout.setVisibility(View.VISIBLE);
-            mBedtimeButton.setVisibility(View.GONE);
-        });
+        mEmptyViewController = new EmptyViewController(mBedtimeView, mMainLayout, mEmptyView);
+        mEmptyViewController.setEmpty(mAlarm == null);
 
         mTxtBedtime = view.findViewById(R.id.bedtime_time);
         mTxtWakeup = view.findViewById(R.id.wakeup_time);
@@ -139,13 +137,11 @@ public final class BedtimeFragment extends DeskClockFragment implements
         bindFragBedClock();
 
         if (mAlarm != null) {
-            mBedtimeButton.setVisibility(View.GONE);
-            mMainLayout.setVisibility(View.VISIBLE);
+            mEmptyViewController.setEmpty(false);
             hoursOfSleep(mAlarm);
             bindFragWakeClock(mAlarm);
         } else {
-            mBedtimeButton.setVisibility(View.VISIBLE);
-            mMainLayout.setVisibility(View.GONE);
+            mEmptyViewController.setEmpty(true);
         }
     }
 
@@ -178,7 +174,21 @@ public final class BedtimeFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onUpdateFab(@NonNull ImageView fab) { fab.setVisibility(INVISIBLE); }
+    public void onFabClick(@NonNull ImageView fab) {
+        createAlarm();
+        mEmptyViewController.setEmpty(false);
+        fab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onUpdateFab(@NonNull ImageView fab) {
+        if (mAlarm != null) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
+            fab.setImageResource(R.drawable.ic_add);
+        }
+    }
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
@@ -188,9 +198,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         right.setVisibility(INVISIBLE);
         right.setClickable(false);
     }
-
-    @Override
-    public void onFabClick(@NonNull ImageView fab) {}
 
     //Wake stuff is almost done, only ringtone picking makes problems makes problems
     //moved here for better structure
