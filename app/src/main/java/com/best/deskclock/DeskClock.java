@@ -237,7 +237,7 @@ public class DeskClock extends AppCompatActivity
         // Configure the buttons shared by the tabs.
         final Context context = getApplicationContext();
         final int fabSize = Utils.isTablet(context) ? 90 : Utils.isPortrait(context) ? 75 : 60;
-        final int leftOrRightButtonSize = Utils.isTablet(context) ? 70 : Utils.isPortrait(context) ? 60 : 50;
+        final int leftOrRightButtonSize = Utils.isTablet(context) ? 70 : Utils.isPortrait(context) ? 55 : 50;
 
         mFab = findViewById(R.id.fab);
         mFab.getLayoutParams().height = Utils.toPixel(fabSize, context);
