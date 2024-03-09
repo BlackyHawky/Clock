@@ -1,10 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    // Todo : Android Gradle Plugin Version 8.0.1 is set to be used with AndroidStudio 2022.2.1 Patch 1
-    //  Update to 8.1.4 not 8.2 because 8.2 requires newer Android Studio which is even worse than 2022.x in performance
-    id 'com.android.application' version '8.0.1' apply false
-    id 'com.android.library' version '8.0.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
+
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.1'
+        // 8.2 requires newer Android Studio that is even worse than 2022.x in performance
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
 }
 
 task clean(type: Delete) {

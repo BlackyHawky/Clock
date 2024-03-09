@@ -1,7 +1,4 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
 
 android {
     compileSdk 34
@@ -28,17 +25,20 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+    ext {
+        APP_NAME = "@string/app_label"
+        APP_NAME_DEBUG = "@string/app_label_debug"
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            debuggable false
+            manifestPlaceholders = [appName: APP_NAME]
+        }
+        debug  {
+            manifestPlaceholders = [appName: APP_NAME_DEBUG]
+            versionNameSuffix "-debug"
+            applicationIdSuffix ".debug"
         }
         archivesBaseName = "NewClock_" + defaultConfig.versionName
     }
@@ -47,33 +47,21 @@ android {
         buildConfig = true
     }
 
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
     ndkVersion '26.1.10909125'
 
     namespace 'com.best.deskclock'
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.7.1'
-    implementation "androidx.collection:collection:1.4.0"
-    implementation "androidx.arch.core:core-common:2.2.0"
-    implementation 'androidx.lifecycle:lifecycle-common:2.7.0'
-    implementation "androidx.lifecycle:lifecycle-runtime:2.7.0"
-    implementation "androidx.transition:transition:1.4.1"
-    implementation "androidx.core:core:1.12.0"
-    implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
-    implementation "androidx.media:media:1.7.0"
-    implementation "androidx.legacy:legacy-support-v13:1.0.0"
-    implementation "androidx.preference:preference:1.2.1"
-    implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation "androidx.legacy:legacy-support-v13:1.0.0"
     implementation "androidx.percentlayout:percentlayout:1.0.0"
+    implementation "androidx.preference:preference:1.2.1"
     implementation "androidx.recyclerview:recyclerview:1.3.2"
     implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.compose.material3:material3:1.2.0'
-    implementation 'androidx.compose.material3:material3-window-size-class:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.loader:loader:1.1.0'
-    implementation 'androidx.test:core:1.5.0'
-    implementation 'androidx.test:rules:1.5.0'
 }

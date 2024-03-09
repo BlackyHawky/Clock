@@ -45,7 +45,7 @@
         android:fullBackupContent="@xml/backup_scheme"
         android:fullBackupOnly="true"
         android:icon="@mipmap/launcher_clock"
-        android:label="@string/app_label"
+        android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.DeskClock.Actionbar"
@@ -158,7 +158,7 @@
 
         <provider
             android:name=".provider.ClockProvider"
-            android:authorities="com.best.deskclock"
+            android:authorities="${applicationId}"
             android:directBootAware="true"
             android:exported="false" />
 
