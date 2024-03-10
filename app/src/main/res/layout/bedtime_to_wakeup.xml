@@ -41,9 +41,10 @@
     <TextView
         android:id="@+id/hours_of_sleep"
         android:gravity="center"
-        android:paddingHorizontal="10dp"
-        android:layout_marginTop="40dp"
-        app:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="20sp"
+        app:layout_gravity="fill_horizontal|fill_vertical"
         app:layout_column="1"
         app:layout_row="0" />
 
