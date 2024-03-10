@@ -14,50 +14,72 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:gravity="center"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
 
-        <com.best.deskclock.TimerCircleFrameLayout
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".9" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stopwatch_time_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/laps_list"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHeight_max="320dp">
+
+        <!-- Sufficient space exists to include the bounding stopwatch circle. -->
+        <include
+            layout="@layout/stopwatch_time"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/stopwatch_time_wrapper"
-            android:layout_gravity="center"
-            app:layout_aspectRatio="100%"
-            app:layout_heightPercent="@fraction/timer_circle_height_percent"
-            app:layout_widthPercent="@fraction/timer_circle_width_percent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <include layout="@layout/stopwatch_time" />
-
-            <!-- Sufficient space exists to include the bounding stopwatch circle. -->
-            <com.best.deskclock.stopwatch.StopwatchCircleView
-                android:id="@+id/stopwatch_circle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center" />
-
-        </com.best.deskclock.TimerCircleFrameLayout>
+        <com.best.deskclock.stopwatch.StopwatchCircleView
+            android:id="@+id/stopwatch_circle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/laps_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
         android:clipToPadding="false"
-        android:paddingBottom="80dp" />
+        android:paddingBottom="80dp"
+        app:layout_constraintTop_toBottomOf="@id/stopwatch_time_wrapper"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

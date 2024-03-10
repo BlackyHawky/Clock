@@ -45,6 +45,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.timer.TimerService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
@@ -679,7 +680,7 @@ public final class DataModel {
      */
     public List<Lap> getLaps() {
         enforceMainLooper();
-        return mStopwatchModel.getLaps();
+        return (mStopwatchModel != null) ? mStopwatchModel.getLaps() : new ArrayList<>();
     }
 
     /**
