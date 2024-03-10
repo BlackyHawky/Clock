@@ -40,8 +40,9 @@
             android:text="@string/menu_bedtime"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
             android:textAllCaps="true"
-            android:drawableStart="@drawable/ic_tab_bedtime_static"
+            android:drawableStart="@drawable/ic_moon"
             android:drawablePadding="8dp"
             app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,8 @@
                 android:layout_marginStart="10dp"
                 android:text="@string/bedtime_reminder_notification"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary" />
 
             <Spinner
                 android:id="@+id/notif_spinner"
@@ -137,13 +139,15 @@
                     android:layout_marginStart="10dp"
                     android:text="@string/bedtime_dnd_title"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/bedtime_dnd_txt" />
+                    android:text="@string/bedtime_dnd_txt"
+                    android:textColor="?android:attr/textColorPrimary" />
 
             </LinearLayout>
 
@@ -176,13 +180,15 @@
                     android:layout_marginStart="10dp"
                     android:text="@string/bedtime_wallpaper_title"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/bedtime_wallpaper_text" />
+                    android:text="@string/bedtime_wallpaper_text"
+                    android:textColor="?android:attr/textColorPrimary" />
 
             </LinearLayout>
 

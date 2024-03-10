@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +61,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     ViewGroup mBedtimeView;
     private EmptyViewController mEmptyViewController;
     TextView mEmptyView;
+    TextView mHoursOfSleep;
     Context mContext;
     Vibrator mVibrator;
     DataSaver mSaver;
@@ -147,9 +147,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
     // Calculates the different between the time times
     private void hoursOfSleep(Alarm alarm) {
-
-        TextView hours_of_sleep_text = view.findViewById(R.id.hours_of_sleep);
-        hours_of_sleep_text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        mHoursOfSleep = view.findViewById(R.id.hours_of_sleep);
 
         if (null != alarm) {
             //TODO: what if someone goes to bed after 12 am
@@ -166,11 +164,18 @@ public final class BedtimeFragment extends DeskClockFragment implements
                 diff = hDiff + "h " + minDiff + "min";
             }
 
-            hours_of_sleep_text.setText(diff);
-            hours_of_sleep_text.setAlpha(mSaver.enabled && alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+            mHoursOfSleep.setText(diff);
+            setAlphaColorHoursOfSleep();
         } else {
-            hours_of_sleep_text.setText(R.string.wakeup_alarm_non_existent);
+            mHoursOfSleep.setText(R.string.wakeup_alarm_non_existent);
         }
+    }
+
+    private void setAlphaColorHoursOfSleep() {
+        mHoursOfSleep.setAlpha(mSaver.enabled && mAlarm.enabled
+                ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
+                : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+        );
     }
 
     @Override
@@ -234,6 +239,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
                 alarm.enabled = checked;
                 mClock.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
                 mTxtWakeup.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+                setAlphaColorHoursOfSleep();
                 Events.sendBedtimeEvent(checked
                         ? R.string.action_enable
                         : R.string.action_disable, R.string.label_deskclock);
@@ -456,6 +462,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
                 mSaver.save();
                 mClock.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
                 mTxtBedtime.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+                setAlphaColorHoursOfSleep();
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
                 if (mVibrator.hasVibrator()) {
