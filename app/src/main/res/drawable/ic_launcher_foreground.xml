@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2022 The LineageOS Project
+     modified
+     SPDX-License-Identifier: Apache-2.0
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
@@ -11,11 +16,12 @@
         <path
             android:pathData="M54,79L54,54"
             android:strokeWidth="2"
-            android:strokeColor="#B3261E"
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#F44336"
             android:strokeLineCap="round"/>
         <path
             android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
-            android:fillColor="#777777"/>
+            android:fillColor="#9E9E9E"/>
         <path
             android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
             android:fillAlpha="0.6">

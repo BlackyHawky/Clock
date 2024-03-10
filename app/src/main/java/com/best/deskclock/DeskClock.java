@@ -474,7 +474,7 @@ public class DeskClock extends AppCompatActivity
         boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("FIRST_RUN_KEY", true);
         if (isFirstRun) {
             new AlertDialog.Builder(this)
-                    .setIcon(R.mipmap.launcher_clock)
+                    .setIcon(R.mipmap.ic_launcher)
                     .setTitle(R.string.dialog_title_for_the_first_launch)
                     .setMessage(R.string.dialog_message_for_the_first_launch)
                     .setPositiveButton(R.string.dialog_button_understood, (d, i) ->
