@@ -286,7 +286,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mTxtWakeup.setTime(8, 30);
         mTxtWakeup.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
-        mAlarmUpdateHandler.asyncAddAlarm(alarm, this);
+        mAlarmUpdateHandler.asyncAddAlarmForBedtime(alarm);
         SnackbarManager.show(Snackbar.make(mMainLayout, R.string.new_bedtime_alarm, Snackbar.LENGTH_LONG));
     }
 

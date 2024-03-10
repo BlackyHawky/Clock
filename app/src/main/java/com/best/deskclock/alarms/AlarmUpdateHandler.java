@@ -16,7 +16,6 @@
 
 package com.best.deskclock.alarms;
 
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
@@ -25,7 +24,6 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
@@ -36,7 +34,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -63,7 +60,7 @@ public final class AlarmUpdateHandler {
      *
      * @param alarm The alarm to be added.
      */
-    public void asyncAddAlarm(final Alarm alarm, final Fragment fragment) {
+    public void asyncAddAlarm(final Alarm alarm) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(() -> {
@@ -76,9 +73,39 @@ public final class AlarmUpdateHandler {
                 Alarm newAlarm = Alarm.addAlarm(cr, alarm);
 
                 // Be ready to scroll to this alarm on UI later.
-                if (Objects.equals(fragment, new AlarmClockFragment())) {
-                    mScrollHandler.setSmoothScrollStableId(newAlarm.id);
+                mScrollHandler.setSmoothScrollStableId(newAlarm.id);
+
+                // Create and add instance to db
+                if (newAlarm.enabled) {
+                    instance = setupAlarmInstance(newAlarm);
                 }
+            }
+
+            final AlarmInstance finalInstance = instance;
+            handler.post(() -> {
+                if (finalInstance != null) {
+                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
+                }
+            });
+        });
+    }
+
+    /**
+     * Adds a new alarm on the background for the bedtime.
+     *
+     * @param alarm The bedtime alarm to be added.
+     */
+    public void asyncAddAlarmForBedtime(final Alarm alarm) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(() -> {
+            AlarmInstance instance = null;
+            if (alarm != null) {
+                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
+                ContentResolver cr = mAppContext.getContentResolver();
+
+                // Add alarm to db
+                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
 
                 // Create and add instance to db
                 if (newAlarm.enabled) {
@@ -198,7 +225,7 @@ public final class AlarmUpdateHandler {
                         mAppContext.getString(R.string.alarm_deleted), Snackbar.LENGTH_LONG)
                 .setAction(R.string.alarm_undo, v -> {
                     mDeletedAlarm = null;
-                    asyncAddAlarm(deletedAlarm, new AlarmClockFragment());
+                    asyncAddAlarm(deletedAlarm);
                 });
         SnackbarManager.show(snackbar);
     }

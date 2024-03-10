@@ -194,11 +194,11 @@ public final class AlarmTimeClickHandler {
     public void onTimeSet(int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
-            final Alarm a = new Alarm();
-            a.hour = hourOfDay;
-            a.minutes = minute;
-            a.enabled = true;
-            mAlarmUpdateHandler.asyncAddAlarm(a, mFragment);
+            final Alarm alarm = new Alarm();
+            alarm.hour = hourOfDay;
+            alarm.minutes = minute;
+            alarm.enabled = true;
+            mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
