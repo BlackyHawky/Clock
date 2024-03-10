@@ -25,7 +25,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -34,6 +33,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +65,7 @@ public class LabelDialogFragment extends DialogFragment {
     private Alarm mAlarm;
     private int mTimerId;
     private String mTag;
+    private InputMethodManager mInput;
 
     public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
         final Bundle args = new Bundle();
@@ -131,14 +132,16 @@ public class LabelDialogFragment extends DialogFragment {
             label = savedInstanceState.getString(ARG_LABEL, label);
         }
 
-        final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+        final AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setPositiveButton(android.R.string.ok, new OkListener())
-                .setNegativeButton(android.R.string.cancel, null /* listener */)
+                .setNegativeButton(android.R.string.cancel, null)
                 .setMessage(R.string.label)
                 .create();
-        final Context context = dialog.getContext();
 
-        mLabelBox = new AppCompatEditText(context);
+        mLabelBox = new AppCompatEditText(getContext());
+        mLabelBox.requestFocus();
+        mInput = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput.showSoftInput(mLabelBox, InputMethodManager.SHOW_IMPLICIT);
         mLabelBox.setOnEditorActionListener(new ImeDoneListener());
         mLabelBox.addTextChangedListener(new TextChangeListener());
         mLabelBox.setSingleLine();
@@ -148,13 +151,14 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = Utils.toPixel(21, context);
+        final int padding = Utils.toPixel(21, getContext());
         dialog.setView(mLabelBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {
             alertDialogWindow.setSoftInputMode(SOFT_INPUT_STATE_VISIBLE);
         }
+
         return dialog;
     }
 
@@ -229,6 +233,7 @@ public class LabelDialogFragment extends DialogFragment {
     private class OkListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
+            mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
             setLabel();
             dismiss();
         }
