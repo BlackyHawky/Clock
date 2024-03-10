@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.NotificationManagerCompat;
@@ -84,7 +85,11 @@ final class StopwatchModel {
 
         // Update stopwatch notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        }
     }
 
     /**

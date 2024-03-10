@@ -14,45 +14,30 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextClock
+        android:id="@+id/digital_clock"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="29"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:textSize="36sp"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:singleLine="true" />
 
-        <TextClock
-            android:id="@+id/digital_clock"
-            style="@style/world_clock_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="center_horizontal"
-            android:includeFontPadding="false"
-            android:singleLine="true" />
+    <com.best.deskclock.AnalogClock
+        android:id="@+id/analog_clock"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal" />
 
-        <com.best.deskclock.AnalogClock
-            android:id="@+id/analog_clock"
-            android:layout_width="@dimen/world_clock_analog_size"
-            android:layout_height="@dimen/world_clock_analog_size"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
-
-        <include
-            layout="@layout/world_clock_city_container"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <!-- Right gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+    <include
+        layout="@layout/world_clock_city_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

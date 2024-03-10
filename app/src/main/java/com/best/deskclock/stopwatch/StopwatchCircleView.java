@@ -25,7 +25,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
@@ -37,11 +36,6 @@ import java.util.List;
  * Custom view that draws a reference lap as a circle when one exists.
  */
 public final class StopwatchCircleView extends View {
-
-    /**
-     * The size of the dot indicating the user's position within the reference lap.
-     */
-    private final float mDotRadius;
 
     /**
      * An amount to subtract from the true radius to account for drawing thicknesses.
@@ -74,10 +68,8 @@ public final class StopwatchCircleView extends View {
     private final float mMarkerStrokeSize;
 
     private final Paint mPaint = new Paint();
-    private final Paint mFill = new Paint();
     private final RectF mArcRect = new RectF();
 
-    @SuppressWarnings("unused")
     public StopwatchCircleView(Context context) {
         this(context, null);
     }
@@ -86,23 +78,23 @@ public final class StopwatchCircleView extends View {
         super(context, attrs);
 
         final Resources resources = context.getResources();
-        final float dotDiameter = resources.getDimension(R.dimen.stopwatch_circle_size);
+        final float dotDiameter = Utils.toPixel(12, context);
 
-        mDotRadius = dotDiameter / 2f;
         mScreenDensity = resources.getDisplayMetrics().density;
-        mStrokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
-        mMarkerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
+        mStrokeSize = Utils.toPixel(6, context);
+        mMarkerStrokeSize = Utils.toPixel(0, context);
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
 
-        mRemainderColor = ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorControlNormal);
-        mCompletedColor = ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorAccent);
+        mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);
+        mCompletedColor = context.getColor(R.color.md_theme_inversePrimary);
 
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
 
-        mFill.setAntiAlias(true);
-        mFill.setColor(mCompletedColor);
-        mFill.setStyle(Paint.Style.FILL);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(mCompletedColor);
+        paint.setStyle(Paint.Style.FILL);
     }
 
     /**

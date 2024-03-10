@@ -17,7 +17,7 @@
     android:name="caret_up"
     android:width="24dp"
     android:height="24dp"
-    android:tint="?colorControlNormal"
+    android:tint="@color/md_theme_onSurfaceVariant"
     android:viewportWidth="24.0"
     android:viewportHeight="24.0">
     <group
@@ -36,8 +36,8 @@
                     android:translateY="-1">
                     <path
                         android:name="caret02_l_rect"
-                        android:fillColor="#FFFFFFFF"
-                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z" />
+                        android:fillColor="@color/md_theme_onSurfaceVariant"
+                        android:pathData="M-1-4l2 0l0 8l-2 0l0-8Z" />
                 </group>
             </group>
         </group>
@@ -52,8 +52,8 @@
                     android:translateY="1">
                     <path
                         android:name="caret02_r_rect"
-                        android:fillColor="#FFFFFFFF"
-                        android:pathData="M -1.0,-4.0 l 2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l -2.0,0.0 c 0.0,0.0 0.0,0.0 0.0,0.0 l 0.0,-8.0 c 0.0,0.0 0.0,0.0 0.0,0.0 Z" />
+                        android:fillColor="@color/md_theme_onSurfaceVariant"
+                        android:pathData="M-1-4l2 0l0 8l-2 0l0-8Z" />
                 </group>
             </group>
         </group>

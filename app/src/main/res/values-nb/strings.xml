@@ -419,4 +419,9 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Velg hvilken alarm du vil fjerne"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ingen alarmer ringer nå"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> slumrer i ti minutter"</string>
+    <string-array name="action_setting_entries">
+        <item>Utsett</item>
+        <item>Avvis</item>
+        <item>Ingenting</item>
+    </string-array>
 </resources>

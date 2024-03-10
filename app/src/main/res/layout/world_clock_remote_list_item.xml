@@ -34,13 +34,16 @@
 
             <TextClock
                 android:id="@+id/left_clock"
-                style="@style/widget_medium_thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@color/white" />
+                android:textColor="@android:color/white"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -55,7 +58,6 @@
 
                     <TextView
                         android:id="@+id/city_name_left"
-                        style="@style/widget_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
@@ -63,25 +65,30 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/city_widget_name_font_size" />
+                        android:textColor="@android:color/white"
+                        android:shadowRadius="2.75"
+                        android:shadowColor="@android:color/black"
+                        android:shadowDx="2"
+                        android:shadowDy="2" />
 
                 </FrameLayout>
 
                 <TextView
                     android:id="@+id/city_day_left"
-                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/style_label_space"
+                    android:layout_marginStart="4dp"
                     android:ellipsize="none"
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/city_widget_name_font_size" />
+                    android:textColor="@android:color/white"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2" />
 
             </LinearLayout>
 
@@ -96,13 +103,16 @@
 
             <TextClock
                 android:id="@+id/right_clock"
-                style="@style/widget_medium_thin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@color/white" />
+                android:textColor="@android:color/white"
+                android:shadowRadius="2.75"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="2"
+                android:shadowDy="2" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -117,7 +127,6 @@
 
                     <TextView
                         android:id="@+id/city_name_right"
-                        style="@style/widget_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
@@ -125,25 +134,30 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/city_widget_name_font_size" />
+                        android:textColor="@android:color/white"
+                        android:shadowRadius="2.75"
+                        android:shadowColor="@android:color/black"
+                        android:shadowDx="2"
+                        android:shadowDy="2" />
 
                 </FrameLayout>
 
                 <TextView
                     android:id="@+id/city_day_right"
-                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/style_label_space"
+                    android:layout_marginStart="4dp"
                     android:ellipsize="none"
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/city_widget_name_font_size" />
+                    android:textColor="@android:color/white"
+                    android:shadowRadius="2.75"
+                    android:shadowColor="@android:color/black"
+                    android:shadowDx="2"
+                    android:shadowDy="2" />
 
             </LinearLayout>
 
@@ -155,6 +169,6 @@
     <FrameLayout
         android:id="@+id/city_spacer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/digital_widget_city_margin_bottom" />
+        android:layout_height="12dp" />
 
 </LinearLayout>

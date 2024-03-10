@@ -39,7 +39,7 @@ public class CircleView extends View {
      * {@link #setFillColor(int)} and {@link #getFillColor()} methods.
      */
     public final static Property<CircleView, Integer> FILL_COLOR =
-            new Property<CircleView, Integer>(Integer.class, "fillColor") {
+            new Property<>(Integer.class, "fillColor") {
                 @Override
                 public Integer get(CircleView view) {
                     return view.getFillColor();
@@ -56,7 +56,7 @@ public class CircleView extends View {
      * {@link #setRadius(float)} and {@link #getRadius()} methods.
      */
     public final static Property<CircleView, Float> RADIUS =
-            new Property<CircleView, Float>(Float.class, "radius") {
+            new Property<>(Float.class, "radius") {
                 @Override
                 public Float get(CircleView view) {
                     return view.getRadius();
@@ -79,18 +79,18 @@ public class CircleView extends View {
     private float mRadius;
 
     public CircleView(Context context) {
-        this(context, null /* attrs */);
+        this(context, null);
     }
 
     public CircleView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0 /* defStyleAttr */);
+        this(context, attrs, 0);
     }
 
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         final TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.CircleView, defStyleAttr, 0 /* defStyleRes */);
+                attrs, R.styleable.CircleView, defStyleAttr, 0);
 
         mGravity = a.getInt(R.styleable.CircleView_android_gravity, Gravity.NO_GRAVITY);
         mCenterX = a.getDimension(R.styleable.CircleView_centerX, 0.0f);
@@ -182,7 +182,7 @@ public class CircleView extends View {
             mCirclePaint.setColor(color);
 
             // invalidate the current area
-            invalidate(mCenterX, mCenterY, mRadius);
+            invalidate();
         }
         return this;
     }
@@ -200,8 +200,7 @@ public class CircleView extends View {
             mCenterX = centerX;
 
             // invalidate the old/new areas
-            invalidate(oldCenterX, mCenterY, mRadius);
-            invalidate(centerX, mCenterY, mRadius);
+            invalidate();
         }
 
         // clear the horizontal gravity flags
@@ -223,8 +222,7 @@ public class CircleView extends View {
             mCenterY = centerY;
 
             // invalidate the old/new areas
-            invalidate(mCenterX, oldCenterY, mRadius);
-            invalidate(mCenterX, centerY, mRadius);
+            invalidate();
         }
 
         // clear the vertical gravity flags
@@ -253,10 +251,7 @@ public class CircleView extends View {
             mRadius = radius;
 
             // invalidate the old/new areas
-            invalidate(mCenterX, mCenterY, oldRadius);
-            if (radius > oldRadius) {
-                invalidate(mCenterX, mCenterY, radius);
-            }
+            invalidate();
         }
 
         // clear the fill gravity flags
@@ -268,15 +263,6 @@ public class CircleView extends View {
         }
 
         return this;
-    }
-
-    /**
-     * Invalidates the rectangular area that circumscribes the circle defined by {@code centerX},
-     * {@code centerY}, and {@code radius}.
-     */
-    private void invalidate(float centerX, float centerY, float radius) {
-        invalidate((int) (centerX - radius - 0.5f), (int) (centerY - radius - 0.5f),
-                (int) (centerX + radius + 0.5f), (int) (centerY + radius + 0.5f));
     }
 
     /**
@@ -296,46 +282,25 @@ public class CircleView extends View {
         final float oldCenterY = mCenterY;
 
         switch (absoluteGravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
-            case Gravity.LEFT:
-                mCenterX = 0.0f;
-                break;
-            case Gravity.CENTER_HORIZONTAL:
-            case Gravity.FILL_HORIZONTAL:
-                mCenterX = getWidth() / 2.0f;
-                break;
-            case Gravity.RIGHT:
-                mCenterX = getWidth();
-                break;
+            case Gravity.LEFT -> mCenterX = 0.0f;
+            case Gravity.CENTER_HORIZONTAL, Gravity.FILL_HORIZONTAL -> mCenterX = getWidth() / 2.0f;
+            case Gravity.RIGHT -> mCenterX = getWidth();
         }
 
         switch (absoluteGravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            case Gravity.TOP:
-                mCenterY = 0.0f;
-                break;
-            case Gravity.CENTER_VERTICAL:
-            case Gravity.FILL_VERTICAL:
-                mCenterY = getHeight() / 2.0f;
-                break;
-            case Gravity.BOTTOM:
-                mCenterY = getHeight();
-                break;
+            case Gravity.TOP -> mCenterY = 0.0f;
+            case Gravity.CENTER_VERTICAL, Gravity.FILL_VERTICAL -> mCenterY = getHeight() / 2.0f;
+            case Gravity.BOTTOM -> mCenterY = getHeight();
         }
 
         switch (absoluteGravity & Gravity.FILL) {
-            case Gravity.FILL:
-                mRadius = Math.min(getWidth(), getHeight()) / 2.0f;
-                break;
-            case Gravity.FILL_HORIZONTAL:
-                mRadius = getWidth() / 2.0f;
-                break;
-            case Gravity.FILL_VERTICAL:
-                mRadius = getHeight() / 2.0f;
-                break;
+            case Gravity.FILL -> mRadius = Math.min(getWidth(), getHeight()) / 2.0f;
+            case Gravity.FILL_HORIZONTAL -> mRadius = getWidth() / 2.0f;
+            case Gravity.FILL_VERTICAL -> mRadius = getHeight() / 2.0f;
         }
 
         if (oldCenterX != mCenterX || oldCenterY != mCenterY || oldRadius != mRadius) {
-            invalidate(oldCenterX, oldCenterY, oldRadius);
-            invalidate(mCenterX, mCenterY, mRadius);
+            invalidate();
         }
     }
 }

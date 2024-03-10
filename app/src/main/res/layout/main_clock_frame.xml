@@ -16,47 +16,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="10dp"
+    android:paddingBottom="25dp"
     android:gravity="center_horizontal"
-    android:paddingStart="24dp"
-    android:paddingEnd="24dp">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="@integer/guttered_content_width_percent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <FrameLayout
+        <com.best.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center" />
+
+        <com.best.deskclock.widget.AutoSizingTextClock
+            android:id="@+id/digital_clock"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingTop="25dp"
+            android:singleLine="true"
+            android:textSize="70sp" />
 
-            <com.best.deskclock.AnalogClock
-                android:id="@+id/analog_clock"
-                android:layout_width="@dimen/world_analog_clock_size"
-                android:layout_height="@dimen/world_analog_clock_size"
-                android:layout_gravity="center" />
+    </FrameLayout>
 
-            <com.best.deskclock.widget.AutoSizingTextClock
-                android:id="@+id/digital_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:paddingTop="@dimen/main_clock_digital_padding"
-                android:singleLine="true"
-                android:textSize="@dimen/main_clock_digital_font_size" />
-
-        </FrameLayout>
-
-        <include layout="@layout/date_and_next_alarm_time" />
-
-        <View
-            android:id="@+id/hairline"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/hairline_height"
-            android:layout_marginTop="24dp" />
-    </LinearLayout>
+    <include layout="@layout/date_and_next_alarm_time" />
 
 </LinearLayout>

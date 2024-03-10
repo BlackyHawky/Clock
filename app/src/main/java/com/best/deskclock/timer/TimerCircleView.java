@@ -17,7 +17,6 @@
 package com.best.deskclock.timer;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -25,7 +24,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
 
@@ -33,11 +31,6 @@ import com.best.deskclock.data.Timer;
  * Custom view that draws timer progress as a circle.
  */
 public final class TimerCircleView extends View {
-
-    /**
-     * The size of the dot indicating the progress through the timer.
-     */
-    private final float mDotRadius;
 
     /**
      * An amount to subtract from the true radius to account for drawing thicknesses.
@@ -60,12 +53,10 @@ public final class TimerCircleView extends View {
     private final float mStrokeSize;
 
     private final Paint mPaint = new Paint();
-    private final Paint mFill = new Paint();
     private final RectF mArcRect = new RectF();
 
     private Timer mTimer;
 
-    @SuppressWarnings("unused")
     public TimerCircleView(Context context) {
         this(context, null);
     }
@@ -73,22 +64,21 @@ public final class TimerCircleView extends View {
     public TimerCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final Resources resources = context.getResources();
-        final float dotDiameter = resources.getDimension(R.dimen.circletimer_dot_size);
+        final float dotDiameter = Utils.toPixel(10, context);
 
-        mDotRadius = dotDiameter / 2f;
-        mStrokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
+        mStrokeSize = Utils.toPixel(6, context);
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
-        mRemainderColor = ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorControlNormal);
-        mCompletedColor = ThemeUtils.resolveColor(context, androidx.appcompat.R.attr.colorAccent);
+        mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);
+        mCompletedColor = context.getColor(R.color.md_theme_inversePrimary);
 
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
 
-        mFill.setAntiAlias(true);
-        mFill.setColor(mCompletedColor);
-        mFill.setStyle(Paint.Style.FILL);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(mCompletedColor);
+        paint.setStyle(Paint.Style.FILL);
     }
 
     void update(Timer timer) {

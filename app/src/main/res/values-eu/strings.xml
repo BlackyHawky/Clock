@@ -419,4 +419,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Hautatu baztertu nahi duzun alarma"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ez dago alarmarik abian"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"10 minutuz atzeratu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>
+    <string name="flip_action_title">Gailua buruz behera jartzearen ekintza</string>
+    <string name="shake_action_title">Gailua astientzen denerako ekintza</string>
+    <string-array name="action_setting_entries">
+        <item>Atzeratu</item>
+        <item>Baztertu</item>
+        <item>Ezer ez</item>
+    </string-array>
 </resources>

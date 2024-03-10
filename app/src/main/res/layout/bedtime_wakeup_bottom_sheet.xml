@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bedtime_bottom_sheet">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/center_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/drag_handle"
+            android:layout_width="60dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="12dp"
+            android:foreground="@color/md_theme_outline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@null" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wakeup_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/wakeup"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:drawableStart="@drawable/ic_tab_wakeup"
+            android:drawablePadding="8dp"
+            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
+
+        <com.best.deskclock.widget.TextTime
+            android:id="@+id/wake_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wakeup_label" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/toggle_switch_wakeup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/wake_time"
+            app:layout_constraintBottom_toBottomOf="@+id/wake_time" />
+
+        <LinearLayout
+            android:id="@+id/repeat_days_bedtime"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:focusable="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wake_time" />
+
+        <View
+            android:id="@+id/bedtime_preference_hairline"
+            android:background="@color/md_theme_outline"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeat_days_bedtime" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/choose_ringtone_bedtime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:drawablePadding="16dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:gravity="start|center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            app:layout_gravity="fill_horizontal"
+            app:layout_column="0"
+            app:layout_columnSpan="5"
+            app:layout_row="3"
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/vibrate_onoff_wake"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/alarm_vibrate"
+            android:textSize="16sp"
+            app:layout_gravity="center_vertical"
+            app:layout_column="5"
+            app:layout_columnSpan="3"
+            app:layout_row="3"
+            app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

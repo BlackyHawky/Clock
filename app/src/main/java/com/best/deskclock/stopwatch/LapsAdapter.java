@@ -17,8 +17,10 @@
 package com.best.deskclock.stopwatch;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Vibrator;
 import android.text.format.DateUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
@@ -251,6 +254,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /**
      * @return a formatted textual description of lap times and total time
      */
+
     String getShareText() {
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         final Stopwatch stopwatch = getStopwatch();
@@ -335,6 +339,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      *                        set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
+
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
@@ -370,9 +375,20 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         LapItemHolder(View itemView) {
             super(itemView);
 
-            lapTime = itemView.findViewById(R.id.lap_time);
+            final int padding = Utils.isTablet(itemView.getContext())
+                    ? Utils.toPixel(8, itemView.getContext())
+                    : Utils.toPixel(4, itemView.getContext());
+            itemView.setPadding(0, padding, 0, padding);
+
             lapNumber = itemView.findViewById(R.id.lap_number);
+            lapNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            lapNumber.setTypeface(Typeface.DEFAULT_BOLD);
+
+            lapTime = itemView.findViewById(R.id.lap_time);
+            lapTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
             accumulatedTime = itemView.findViewById(R.id.lap_total);
+            accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         }
     }
 }

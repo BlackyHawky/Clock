@@ -459,4 +459,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"اختر المنبّه المراد تجاهله"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"ليس هناك أي منبه نشط الآن"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبّه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة ۱۰ دقائق"</string>
+    <string name="flip_action_title">تأثير قلب الجهاز</string>
+    <string name="shake_action_title">تأثير هز الجهاز</string>
+    <string-array name="action_setting_entries">
+        <item>غفوة</item>
+        <item>تجاهل</item>
+        <item>لا شيء</item>
+    </string-array>
 </resources>

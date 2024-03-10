@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.Build;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
@@ -101,7 +102,11 @@ final class CityModel {
 
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        }
 
         // Clear caches affected by preferences when preferences change.
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
@@ -208,11 +213,10 @@ final class CityModel {
      */
     Comparator<City> getCityIndexComparator() {
         final CitySort citySort = mSettingsModel.getCitySort();
-        switch (citySort) {
-            case NAME:
-                return new City.NameIndexComparator();
-            case UTC_OFFSET:
-                return new City.UtcOffsetIndexComparator();
+        if (citySort == CitySort.NAME) {
+            return new City.NameIndexComparator();
+        } else if (citySort == CitySort.UTC_OFFSET) {
+            return new City.UtcOffsetIndexComparator();
         }
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }
@@ -245,11 +249,10 @@ final class CityModel {
 
     private Comparator<City> getCitySortComparator() {
         final CitySort citySort = mSettingsModel.getCitySort();
-        switch (citySort) {
-            case NAME:
-                return new City.NameComparator();
-            case UTC_OFFSET:
-                return new City.UtcOffsetComparator();
+        if (citySort == CitySort.NAME) {
+            return new City.NameComparator();
+        } else if (citySort == CitySort.UTC_OFFSET) {
+            return new City.UtcOffsetComparator();
         }
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }

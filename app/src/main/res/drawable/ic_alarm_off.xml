@@ -1,0 +1,13 @@
+<!--
+    icon available in Android Studio
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M10 6.3C10.7 6.1 11.3 6 12 6c3.9 0 7 3.1 7 7c0 0.7-0.1 1.3-0.3 2l1.6 1.6c0.5-1.1 0.7-2.3 0.7-3.5c0-5-4-9-9-9c-1.3 0-2.4 0.3-3.5 0.7l1.6 1.6zM3.7 2.8c-0.4-0.4-1-0.4-1.4 0l-0 0c-0.4 0.4-0.4 1 0 1.4l0.7 0.7l-0.2 0.1c-0.4 0.3-0.5 1-0.1 1.4l0 0c0.3 0.4 1 0.5 1.4 0.1l0.3-0.3l0.8 0.8C3.8 8.7 3 10.8 3 13c0 5 4 9 9 9c2.3 0 4.3-0.8 5.9-2.2l1.4 1.4c0.4 0.4 1 0.4 1.4 0l0-0c0.4-0.4 0.4-1 0-1.4l-17-17zM12 20c-3.9 0-7-3.1-7-7c0-1.7 0.6-3.3 1.6-4.5l9.8 9.8C15.3 19.4 13.7 20 12 20zM19.9 6.6c0.4 0.3 1 0.3 1.4-0.1l0-0c0.3-0.4 0.3-1-0.1-1.4l-3.1-2.6c-0.4-0.3-1-0.3-1.4 0.1l-0 0c-0.3 0.4-0.3 1 0.1 1.4l3.1 2.6zM7.4 3.7c0.2-0.3 0.1-0.8-0.1-1.1l-0-0c-0.3-0.4-0.8-0.4-1.2-0.2l1.3 1.3z"/>
+</vector>

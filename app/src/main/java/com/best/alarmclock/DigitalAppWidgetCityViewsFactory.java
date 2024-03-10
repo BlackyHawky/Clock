@@ -22,7 +22,6 @@ import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -55,6 +54,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     private final Context mContext;
     private final float m12HourFontSize;
     private final float m24HourFontSize;
+    private final float mCityAndDayFontSize;
     private final int mWidgetId;
     private float mFontScale = 1;
 
@@ -66,9 +66,12 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
 
-        final Resources res = context.getResources();
-        m12HourFontSize = res.getDimension(R.dimen.digital_widget_city_12_medium_font_size);
-        m24HourFontSize = res.getDimension(R.dimen.digital_widget_city_24_medium_font_size);
+        m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                Utils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
+        m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                Utils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
+        mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+                Utils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override
@@ -183,8 +186,11 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);
         final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
+
         rv.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
         rv.setString(clockId, "setTimeZone", city.getTimeZone().getID());
+
+        rv.setTextViewTextSize(labelId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
         rv.setTextViewText(labelId, city.getName());
 
         // Compute if the city week day matches the weekday of the current timezone.
@@ -197,6 +203,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
             final Locale locale = Locale.getDefault();
             final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
             final String slashDay = mContext.getString(R.string.world_day_of_week_label, weekday);
+            rv.setTextViewTextSize(dayId, TypedValue.COMPLEX_UNIT_PX, mCityAndDayFontSize * mFontScale);
             rv.setTextViewText(dayId, slashDay);
         }
 

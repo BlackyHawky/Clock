@@ -439,4 +439,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Izberite, kateri alarm želite opustiti"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ni sproženih alarmov"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm ob <xliff:g id="ALARM_TIME">%s</xliff:g> je preložen za 10 minut"</string>
+    <string name="flip_action_title">Dejanje obračanja naprave</string>
+    <string name="shake_action_title">Dejanje tresenja naprave</string>
+    <string-array name="action_setting_entries">
+        <item>Dremež</item>
+        <item>Opusti</item>
+        <item>Brez</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">Opuščanje budilk in odštevalnikov</string>
+    <string name="alarm_missed_channel">Zamujene budilke</string>
+    <string name="alarm_snooze_channel">Budilke v dremežu</string>
+    <string name="alarm_upcoming_channel">Prihajajoče budilke</string>
+    <string name="stopwatch_channel">Štoparica</string>
+    <string name="timer_channel">Odštevalnik</string>
 </resources>

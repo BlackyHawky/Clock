@@ -15,18 +15,20 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.best.deskclock">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
@@ -43,10 +45,10 @@
         android:fullBackupContent="@xml/backup_scheme"
         android:fullBackupOnly="true"
         android:icon="@mipmap/launcher_clock"
-        android:label="@string/app_label"
+        android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DeskClock"
+        android:theme="@style/Theme.DeskClock.Actionbar"
         tools:targetApi="o">
 
         <!-- We can deal with all kinds of aspect ratios -->
@@ -74,7 +76,7 @@
             android:excludeFromRecents="true"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".worldclock.CitySelectionActivity"
@@ -82,7 +84,7 @@
             android:label="@string/cities_activity_title"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".settings.SettingsActivity"
@@ -90,7 +92,7 @@
             android:label="@string/settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name=".HandleShortcuts"
@@ -156,7 +158,7 @@
 
         <provider
             android:name=".provider.ClockProvider"
-            android:authorities="com.best.deskclock"
+            android:authorities="${applicationId}"
             android:directBootAware="true"
             android:exported="false" />
 
@@ -181,7 +183,8 @@
 
         <service
             android:name=".alarms.AlarmService"
-            android:directBootAware="true" />
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted" />
 
         <!-- ============================================================== -->
         <!-- Timer components.                                              -->
@@ -210,7 +213,8 @@
         <service
             android:name=".timer.TimerService"
             android:description="@string/timer_service_desc"
-            android:directBootAware="true" />
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted" />
 
         <!-- ============================================================== -->
         <!-- Stopwatch components.                                          -->
@@ -239,6 +243,7 @@
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock"
             tools:ignore="NonResizeableActivity" />
 
         <activity
@@ -247,7 +252,7 @@
             android:label="@string/screensaver_settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock.Actionbar" />
+            android:theme="@style/Theme.DeskClock" />
 
         <service
             android:name=".Screensaver"

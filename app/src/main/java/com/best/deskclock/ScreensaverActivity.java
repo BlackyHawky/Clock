@@ -24,21 +24,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.ContentObserver;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextClock;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 
-public class ScreensaverActivity extends BaseActivity {
+public class ScreensaverActivity extends AppCompatActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
@@ -60,30 +58,15 @@ public class ScreensaverActivity extends BaseActivity {
             LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
             switch (intent.getAction()) {
-                case Intent.ACTION_POWER_CONNECTED:
-                    updateWakeLock(true);
-                    break;
-                case Intent.ACTION_POWER_DISCONNECTED:
-                    updateWakeLock(false);
-                    break;
-                case Intent.ACTION_USER_PRESENT:
-                    finish();
-                    break;
-                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED:
-                    Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-                    break;
+                case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
+                case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
+                case Intent.ACTION_USER_PRESENT -> finish();
+                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED ->
+                        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
             }
         }
     };
-    /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
-            ? new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-        }
-    }
-            : null;
+
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
@@ -91,6 +74,7 @@ public class ScreensaverActivity extends BaseActivity {
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
+
     private View mMainClockView;
 
     private MoveScreensaverRunnable mPositionUpdater;
@@ -104,24 +88,16 @@ public class ScreensaverActivity extends BaseActivity {
 
         setContentView(R.layout.desk_clock_saver);
         mContentView = findViewById(R.id.saver_container);
-        mMainClockView = mContentView.findViewById(R.id.main_clock);
-
-        final View digitalClock = mMainClockView.findViewById(R.id.digital_clock);
-        final AnalogClock analogClock =
-                mMainClockView.findViewById(R.id.analog_clock);
-
-        Utils.setClockIconTypeface(mMainClockView);
-        Utils.setTimeFormat((TextClock) digitalClock, false);
-        Utils.setClockStyle(digitalClock, analogClock);
-        Utils.setClockSecondsEnabled((TextClock) digitalClock, analogClock);
-        Utils.dimClockView(true, mMainClockView);
-
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
+
+        mMainClockView = findViewById(R.id.main_clock);
+
+        Utils.setScreenSaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 
@@ -140,14 +116,12 @@ public class ScreensaverActivity extends BaseActivity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        if (Utils.isLOrLater()) {
-            filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
-        }
-        registerReceiver(mIntentReceiver, filter);
+        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
 
-        if (mSettingsContentObserver != null) {
-            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
-            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mIntentReceiver, filter);
         }
     }
 
@@ -161,7 +135,9 @@ public class ScreensaverActivity extends BaseActivity {
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
-        final Intent intent = registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+        final Intent intent = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
+                : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
         updateWakeLock(pluggedIn);
     }
@@ -175,9 +151,6 @@ public class ScreensaverActivity extends BaseActivity {
 
     @Override
     public void onStop() {
-        if (mSettingsContentObserver != null) {
-            getContentResolver().unregisterContentObserver(mSettingsContentObserver);
-        }
         unregisterReceiver(mIntentReceiver);
         super.onStop();
     }

@@ -33,7 +33,7 @@
         android:fromId="@id/off"
         android:toId="@id/on">
 
-        <animated-vector android:drawable="@drawable/ic_stopwatch">
+        <animated-vector android:drawable="@drawable/ic_stopwatch_for_anim">
             <target
                 android:name="hand"
                 android:animation="@animator/ic_stopwatch_animation_hand" />

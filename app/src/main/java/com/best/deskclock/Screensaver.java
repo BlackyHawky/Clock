@@ -22,16 +22,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.database.ContentObserver;
-import android.net.Uri;
-import android.os.Handler;
-import android.provider.Settings;
+import android.os.Build;
 import android.service.dreams.DreamService;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
-import android.widget.TextClock;
 
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 
 public final class Screensaver extends DreamService {
@@ -45,14 +40,7 @@ public final class Screensaver extends DreamService {
     private String mDateFormatForAccessibility;
 
     private View mContentView;
-    /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver =
-            Utils.isLOrLater() ? null : new ContentObserver(new Handler()) {
-                @Override
-                public void onChange(boolean selfChange) {
-                    Utils.refreshAlarm(Screensaver.this, mContentView);
-                }
-            };
+
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
@@ -60,6 +48,7 @@ public final class Screensaver extends DreamService {
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
+
     /**
      * Receiver to alarm clock changes.
      */
@@ -69,9 +58,8 @@ public final class Screensaver extends DreamService {
             Utils.refreshAlarm(Screensaver.this, mContentView);
         }
     };
+
     private View mMainClockView;
-    private TextClock mDigitalClock;
-    private AnalogClock mAnalogClock;
 
     @Override
     public void onCreate() {
@@ -93,13 +81,8 @@ public final class Screensaver extends DreamService {
 
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
-        mDigitalClock = mMainClockView.findViewById(R.id.digital_clock);
-        mAnalogClock = mMainClockView.findViewById(R.id.analog_clock);
 
-        setClockStyle();
-        Utils.setClockIconTypeface(mContentView);
-        Utils.setTimeFormat(mDigitalClock, false);
-        mAnalogClock.enableSeconds(false);
+        Utils.setScreenSaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -114,14 +97,11 @@ public final class Screensaver extends DreamService {
         setFullscreen(true);
 
         // Setup handlers for time reference changes and date updates.
-        if (Utils.isLOrLater()) {
-            registerReceiver(mAlarmChangedReceiver,
-                    new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED));
-        }
-
-        if (mSettingsContentObserver != null) {
-            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
-            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mAlarmChangedReceiver, new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED),
+                    Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mAlarmChangedReceiver, new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED));
         }
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
@@ -136,17 +116,11 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver detached from window");
         super.onDetachedFromWindow();
 
-        if (mSettingsContentObserver != null) {
-            getContentResolver().unregisterContentObserver(mSettingsContentObserver);
-        }
-
         UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
         stopPositionUpdater();
 
         // Tear down handlers for time reference changes and date updates.
-        if (Utils.isLOrLater()) {
-            unregisterReceiver(mAlarmChangedReceiver);
-        }
+        unregisterReceiver(mAlarmChangedReceiver);
     }
 
     @Override
@@ -155,13 +129,6 @@ public final class Screensaver extends DreamService {
         super.onConfigurationChanged(newConfig);
 
         startPositionUpdater();
-    }
-
-    private void setClockStyle() {
-        Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
-        final boolean dimNightMode = DataModel.getDataModel().getScreensaverNightModeOn();
-        Utils.dimClockView(dimNightMode, mMainClockView);
-        setScreenBright(!dimNightMode);
     }
 
     /**

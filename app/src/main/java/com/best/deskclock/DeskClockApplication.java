@@ -16,39 +16,22 @@
 
 package com.best.deskclock;
 
-import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
-import android.preference.PreferenceManager;
+
+import androidx.preference.PreferenceManager;
 
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.uidata.UiDataModel;
 
-public class DeskClockApplication extends Application {
+import java.io.File;
 
-    /**
-     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
-     */
-    @TargetApi(Build.VERSION_CODES.N)
-    private static SharedPreferences getDefaultSharedPreferences(Context context) {
-        final Context storageContext;
-        if (Utils.isNOrLater()) {
-            // All N devices have split storage areas. Migrate the existing preferences into the new
-            // device encrypted storage area if that has not yet occurred.
-            final String name = PreferenceManager.getDefaultSharedPreferencesName(context);
-            storageContext = context.createDeviceProtectedStorageContext();
-            if (!storageContext.moveSharedPreferencesFrom(context, name)) {
-                LogUtils.wtf("Failed to migrate shared preferences");
-            }
-        } else {
-            storageContext = context;
-        }
-        return PreferenceManager.getDefaultSharedPreferences(storageContext);
-    }
+public class DeskClockApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -62,4 +45,30 @@ public class DeskClockApplication extends Application {
         Controller.getController().setContext(applicationContext);
         Controller.getController().addEventTracker(new LogEventTracker(applicationContext));
     }
+
+    /**
+     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
+     */
+    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+        final Context storageContext;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // All N devices have split storage areas. Migrate the existing preferences into the new
+            // device encrypted storage area if that has not yet occurred.
+            storageContext = context.createDeviceProtectedStorageContext();
+            final String name = context.getPackageName() + "_preferences";
+            final String prefsFilename = storageContext.getDataDir() + "/shared_prefs/" + name + ".xml";
+            final File prefs = new File(Uri.parse(prefsFilename).getPath());
+
+            if (!prefs.exists()) {
+                if (!storageContext.moveSharedPreferencesFrom(context, name)) {
+                    LogUtils.wtf("Failed to migrate shared preferences");
+                }
+            }
+        } else {
+            storageContext = context;
+        }
+        return PreferenceManager.getDefaultSharedPreferences(storageContext);
+    }
+
 }

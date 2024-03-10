@@ -19,39 +19,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:paddingTop="10dp">
 
     <ImageView
+        app:layout_gravity="end"
         app:srcCompat="@drawable/ic_moon"
-        app:tint="@color/white"
-        android:paddingStart="25dp"
-        android:paddingEnd="10dp"
-        />
-
+        app:tint="@color/md_theme_outline"
+        app:layout_columnWeight="0.3"
+        android:contentDescription="@null" />
 
     <View
         android:id="@+id/hairline"
-        android:layout_width="284dp"
+        android:layout_width="0dp"
         android:layout_height="3dp"
+        android:background="@color/md_theme_outline"
+        app:layout_gravity="fill_horizontal|center_vertical"
         app:layout_column="1"
-        app:layout_gravity="center"
-        android:background="@color/md_theme_dark_outline"
+        app:layout_columnWeight="0.3"
         app:layout_row="0" />
 
     <TextView
         android:id="@+id/hours_of_sleep"
         android:gravity="center"
-        android:background="@color/md_theme_dark_background"
-        android:paddingHorizontal="@dimen/hours_of_sleep_padding"
-        app:layout_column="1"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="40dp"
         app:layout_gravity="center"
+        app:layout_column="1"
         app:layout_row="0" />
 
     <ImageView
+        app:layout_gravity="start"
         app:srcCompat="@drawable/ic_tab_wakeup"
-        app:tint="@color/white"
-        android:paddingStart="10dp"
-        android:paddingEnd="25dp"
-        />
+        app:tint="@color/md_theme_outline"
+        app:layout_columnWeight="0.3"
+        android:contentDescription="@null" />
 
 </androidx.gridlayout.widget.GridLayout>

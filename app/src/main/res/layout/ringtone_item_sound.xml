@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textSize="@dimen/alarm_text_font_size"/>
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
@@ -69,7 +69,8 @@
                 android:layout_height="40dp"
                 android:importantForAccessibility="no"
                 android:scaleType="center"
-                app:srcCompat="@drawable/selector_checkbox_selected" app:tint="?colorAccent" app:tintMode="src_in" />
+                app:srcCompat="@drawable/ic_radio_button_checked"
+                app:tint="@color/md_theme_primary" />
 
         </LinearLayout>
 

@@ -36,13 +36,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,15 +48,14 @@ import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
-import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -112,22 +108,18 @@ public final class TimerFragment extends DeskClockFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
-        Context context = view.getContext();
         mTimerClickHandler = new TimerClickHandler(this);
         mAdapter = new TimerAdapter(mTimerClickHandler);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
 
-
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
         mCreateTimerView.setFabContainer(this);
-
 
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
@@ -143,8 +135,6 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
 
         boolean createTimer = false;
         int showTimerId = -1;
@@ -209,13 +199,13 @@ public final class TimerFragment extends DeskClockFragment {
 
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
-            fab.setImageResource(R.drawable.ic_add_24dp);
-            fab.setContentDescription(fab.getResources().getString(R.string.timer_add_timer));
+            fab.setImageResource(R.drawable.ic_add);
+            fab.setContentDescription(getContext().getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
+                fab.setContentDescription(getContext().getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {
                 fab.setContentDescription(null);
@@ -238,15 +228,15 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
+    public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         if (mCurrentView == mTimersView) {
             left.setVisibility(INVISIBLE);
             right.setVisibility(INVISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
             left.setClickable(true);
-            left.setText(R.string.timer_cancel);
-            left.setContentDescription(left.getResources().getString(R.string.timer_cancel));
+            left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_cancel));
+            left.setContentDescription(getContext().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
 
@@ -281,7 +271,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull Button left) {
+    public void onLeftButtonClick(@NonNull ImageView left) {
         if (mCurrentView == mTimersView) {
             // Clicking the "delete" button.
             final Timer timer = getTimer();
@@ -296,19 +286,19 @@ public final class TimerFragment extends DeskClockFragment {
                 animateToView(mCreateTimerView, timer, false);
             }
 
-            left.announceForAccessibility(getActivity().getString(R.string.timer_deleted));
+            left.announceForAccessibility(getContext().getString(R.string.timer_deleted));
         } else if (mCurrentView == mCreateTimerView) {
             // Clicking the "cancel" button on the timer creation page returns to the timers list.
             mCreateTimerView.reset();
 
             animateToView(mTimersView, null, false);
 
-            left.announceForAccessibility(getActivity().getString(R.string.timer_canceled));
+            left.announceForAccessibility(getContext().getString(R.string.timer_canceled));
         }
     }
 
     @Override
-    public void onRightButtonClick(@NonNull Button right) {
+    public void onRightButtonClick(@NonNull ImageView right) {
         if (mCurrentView != mCreateTimerView) {
             animateToView(mCreateTimerView, null, true);
         }
@@ -371,8 +361,7 @@ public final class TimerFragment extends DeskClockFragment {
      *                      should be removed
      * @param animateDown   {@code true} if the views should animate upwards, otherwise downwards
      */
-    private void animateToView(final View toView, final Timer timerToRemove,
-                               final boolean animateDown) {
+    private void animateToView(final View toView, final Timer timerToRemove, final boolean animateDown) {
         if (mCurrentView == toView) {
             return;
         }
@@ -405,8 +394,7 @@ public final class TimerFragment extends DeskClockFragment {
                 toView.setAlpha(0f);
                 mCurrentView.setAlpha(1f);
 
-                final Animator translateCurrent = ObjectAnimator.ofFloat(mCurrentView,
-                        TRANSLATION_Y, translationDistance);
+                final Animator translateCurrent = ObjectAnimator.ofFloat(mCurrentView, TRANSLATION_Y, translationDistance);
                 final Animator translateNew = ObjectAnimator.ofFloat(toView, TRANSLATION_Y, 0f);
                 final AnimatorSet translationAnimatorSet = new AnimatorSet();
                 translationAnimatorSet.playTogether(translateCurrent, translateNew);
@@ -463,6 +451,7 @@ public final class TimerFragment extends DeskClockFragment {
                         mCreateTimerView.setAlpha(1f);
                     }
                 });
+
                 animatorSet.start();
 
                 return true;
@@ -498,20 +487,14 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        Resources res = context.getResources();
-        boolean isTablet = res.getBoolean(R.bool.rotateAlarmAlert);
-        if (isTablet) {
-            int columnCount = res.getInteger(R.integer.timers_column_count);
+        if (Utils.isTablet(context)) {
+            int columnCount = Utils.isLandscape(context) ? 3 : 2;
             return new GridLayoutManager(context, columnCount);
         }
 
-        int orientation = res.getConfiguration().orientation;
-        boolean isLandscape = false;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            isLandscape = true;
-        }
-        return new LinearLayoutManager(context, isLandscape
-                ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+        return new LinearLayoutManager(context, Utils.isLandscape(context)
+                ? LinearLayoutManager.HORIZONTAL
+                : LinearLayoutManager.VERTICAL, false);
     }
 
     /**

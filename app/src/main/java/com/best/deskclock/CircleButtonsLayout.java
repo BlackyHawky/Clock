@@ -1,11 +1,9 @@
 package com.best.deskclock;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 /**
  * This class adjusts the locations of child buttons and text of this view group by adjusting the
@@ -15,11 +13,6 @@ import android.widget.TextView;
  */
 public class CircleButtonsLayout extends FrameLayout {
 
-    private final float mDiamOffset;
-    private View mCircleView;
-    private View mResetAddButton;
-    private TextView mLabel;
-
     @SuppressWarnings("unused")
     public CircleButtonsLayout(Context context) {
         this(context, null);
@@ -27,10 +20,6 @@ public class CircleButtonsLayout extends FrameLayout {
 
     public CircleButtonsLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        final Resources res = getContext().getResources();
-        final float strokeSize = res.getDimension(R.dimen.circletimer_circle_size);
-        mDiamOffset = strokeSize * 2;
     }
 
     @Override
@@ -44,13 +33,14 @@ public class CircleButtonsLayout extends FrameLayout {
     }
 
     protected void remeasureViews() {
-        if (mLabel == null) {
-            mCircleView = findViewById(R.id.timer_time);
-            mLabel = findViewById(R.id.timer_label);
-            mResetAddButton = findViewById(R.id.reset);
+        View circleView = findViewById(R.id.timer_time);
+
+        if (Utils.isLandscape(getContext())) {
+            circleView.setVisibility(Utils.isTablet(getContext()) ? VISIBLE : GONE);
         }
 
-        final int frameWidth = mCircleView.getMeasuredWidth();
+        // Todo : this part of code seems unnecessary. Is it?
+/*        final int frameWidth = mCircleView.getMeasuredWidth();
         final int frameHeight = mCircleView.getMeasuredHeight();
         final int minBound = Math.min(frameWidth, frameHeight);
         final int circleDiam = (int) (minBound - mDiamOffset);
@@ -120,7 +110,7 @@ public class CircleButtonsLayout extends FrameLayout {
              *        w = 2 * r * sqrt(1 - (y / r)^2)
              *     => w = 2 * r * sqrt((r + y)*(r - y)) / r
              *     => w = 2 * sqrt((r + y)*(r - y))
-             */
+             *
             // Radius of the circle.
             int r = circleDiam / 2;
             // Y value of the top of the label, calculated from the center of the circle.
@@ -129,6 +119,6 @@ public class CircleButtonsLayout extends FrameLayout {
             double w = 2 * Math.sqrt((r + y) * (r - y));
 
             mLabel.setMaxWidth((int) w);
-        }
+        }*/
     }
 }

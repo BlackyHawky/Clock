@@ -70,7 +70,7 @@ public class NotificationUtils {
     private static final int ENABLE_LIGHTS = 0x02;
     private static final int ENABLE_VIBRATION = 0x04;
 
-    private static final Map<String, int[]> CHANNEL_PROPS = new HashMap<String, int[]>();
+    private static final Map<String, int[]> CHANNEL_PROPS = new HashMap<>();
 
     static {
         CHANNEL_PROPS.put(ALARM_MISSED_NOTIFICATION_CHANNEL_ID, new int[]{
@@ -105,10 +105,6 @@ public class NotificationUtils {
     }
 
     public static void createChannel(Context context, String id) {
-        if (Utils.isOOrLater()) {
-            return;
-        }
-
         if (!CHANNEL_PROPS.containsKey(id)) {
             Log.e(TAG, "Invalid channel requested: " + id);
             return;
@@ -147,10 +143,6 @@ public class NotificationUtils {
     }
 
     public static void updateNotificationChannels(Context context) {
-        if (Utils.isOOrLater()) {
-            return;
-        }
-
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         // These channels got a new behavior so we need to recreate them with new ids

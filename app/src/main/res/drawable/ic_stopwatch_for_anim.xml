@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:name="timer"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="timer_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <group android:name="timer_body">
+                <path
+                    android:name="timer_interior_path"
+                    android:fillAlpha="1"
+                    android:fillColor="@android:color/white"
+                    android:pathData="M12 22Q10.15 22 8.525 21.3Q6.875 20.575 5.65 19.35Q4.425 18.125 3.725 16.5Q3 14.85 3 13Q3 11.15 3.725 9.525Q4.425 7.875 5.65 6.65Q6.875 5.425 8.525 4.725Q10.15 4 12 4Q13.55 4 14.975 4.5Q16.4 5 17.65 5.95L18.35 5.25Q18.625 4.975 19.05 4.975Q19.475 4.975 19.75 5.25Q20.025 5.525 20.025 5.95Q20.025 6.375 19.75 6.65L19.05 7.35Q20 8.6 20.5 10.025Q21 11.45 21 13Q21 14.85 20.3 16.5Q19.575 18.125 18.35 19.35Q17.125 20.575 15.5 21.3Q13.85 22 12 22M12 20Q14.9 20 16.95 17.95Q19 15.9 19 13Q19 10.1 16.95 8.05Q14.9 6 12 6Q9.1 6 7.05 8.05Q5 10.1 5 13Q5 15.9 7.05 17.95Q9.1 20 12 20 M 12 13" />
+            </group>
+        </group>
+    </group>
+    <group
+        android:name="hand"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="hand_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <path
+                android:name="hand_path"
+                android:fillAlpha="1"
+                android:fillColor="@android:color/white"
+                android:pathData="M 12 14 Q 12.425 14 12.725 13.725 Q 13 13.425 13 13 L 13 9 Q 13 8.575 12.725 8.3 Q 12.425 8 12 8 Q 11.575 8 11.3 8.3 Q 11 8.575 11 9 L 11 13 Q 11 13.425 11.3 13.725 Q 11.575 14 12 14" />
+        </group>
+    </group>
+    <group
+        android:name="button"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="button_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <path
+                android:name="button_path"
+                android:fillAlpha="1"
+                android:fillColor="@android:color/white"
+                android:pathData="M 10 3 Q 9.575 3 9.3 2.725 Q 9 2.425 9 2 Q 9 1.575 9.3 1.3 Q 9.575 1 10 1 L 14 1 Q 14.425 1 14.725 1.3 Q 15 1.575 15 2 Q 15 2.425 14.725 2.725 Q 14.425 3 14 3 L 10 3" />
+        </group>
+    </group>
+</vector>

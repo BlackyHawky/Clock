@@ -419,4 +419,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Selecionar o alarme a ignorar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nenhum alarme acionado"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarme das <xliff:g id="ALARM_TIME">%s</xliff:g> suspenso durante 10 minutos"</string>
+    <string name="flip_action_title">Ação ao virar o dispositivo</string>
+    <string name="shake_action_title">Ação ao agitar o dispositivo</string>
+    <string-array name="action_setting_entries">
+        <item>Suspender</item>
+        <item>Ignorar</item>
+        <item>Não fazer nada</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">Disparo de alarmes e temporizadores</string>
+    <string name="alarm_missed_channel">Alarmes perdidos</string>
+    <string name="alarm_snooze_channel">Alarmes adiados</string>
+    <string name="alarm_upcoming_channel">Próximos alarmes</string>
+    <string name="stopwatch_channel">Cronómetro</string>
+    <string name="timer_channel">Temporizador</string>
 </resources>

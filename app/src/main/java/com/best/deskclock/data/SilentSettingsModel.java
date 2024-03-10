@@ -35,16 +35,16 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 
-import androidx.core.app.NotificationManagerCompat;
-
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.SilentSetting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This model fetches and stores reasons that alarms may be suppressed or silenced by system
@@ -103,8 +103,10 @@ final class SilentSettingsModel {
         final ContentObserver contentChangeWatcher = new ContentChangeWatcher();
         cr.registerContentObserver(VOLUME_URI, false, contentChangeWatcher);
         cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, contentChangeWatcher);
-        if (Utils.isMOrLater()) {
-            final IntentFilter filter = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
+        final IntentFilter filter = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(new DoNotDisturbChangeReceiver(), filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
             context.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
         }
     }
@@ -125,7 +127,7 @@ final class SilentSettingsModel {
     void updateSilentState() {
         // Cancel any task in flight, the result is no longer relevant.
         if (mCheckSilenceSettingsTask != null) {
-            mCheckSilenceSettingsTask.cancel(true);
+            mCheckSilenceSettingsTask.cancel();
             mCheckSilenceSettingsTask = null;
         }
 
@@ -157,42 +159,37 @@ final class SilentSettingsModel {
      * associated ringtone from playing. If any of them would prevent an alarm from firing or
      * making noise, a description of the setting is reported to this model on the main thread.
      */
-    private final class CheckSilenceSettingsTask extends AsyncTask<Void, Void, SilentSetting> {
-        @Override
-        protected SilentSetting doInBackground(Void... parameters) {
-            if (!isCancelled() && isDoNotDisturbBlockingAlarms()) {
-                return SilentSetting.DO_NOT_DISTURB;
-            } else if (!isCancelled() && isAlarmStreamMuted()) {
-                return SilentSetting.MUTED_VOLUME;
-            } else if (!isCancelled() && isSystemAlarmRingtoneSilent()) {
-                return SilentSetting.SILENT_RINGTONE;
-            } else if (!isCancelled() && isAppNotificationBlocked()) {
-                return SilentSetting.BLOCKED_NOTIFICATIONS;
-            }
-            return null;
+    private final class CheckSilenceSettingsTask {
+        final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
+        final Handler mHandler = new Handler(Looper.getMainLooper());
+
+        private void execute() {
+            mExecutor.execute(() -> {
+                final SilentSetting silentSetting;
+                if (isDoNotDisturbBlockingAlarms()) {
+                    silentSetting = SilentSetting.DO_NOT_DISTURB;
+                } else if (isAlarmStreamMuted()) {
+                    silentSetting = SilentSetting.MUTED_VOLUME;
+                } else if (isSystemAlarmRingtoneSilent()) {
+                    silentSetting = SilentSetting.SILENT_RINGTONE;
+                } else {
+                    silentSetting = null;
+                }
+
+                mHandler.post(() -> {
+                    if (mCheckSilenceSettingsTask == this) {
+                        mCheckSilenceSettingsTask = null;
+                        setSilentState(silentSetting);
+                    }
+                });
+            });
         }
 
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            if (mCheckSilenceSettingsTask == this) {
-                mCheckSilenceSettingsTask = null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(SilentSetting silentSetting) {
-            if (mCheckSilenceSettingsTask == this) {
-                mCheckSilenceSettingsTask = null;
-                setSilentState(silentSetting);
-            }
+        private void cancel() {
+            mExecutor.shutdownNow();
         }
 
         private boolean isDoNotDisturbBlockingAlarms() {
-            if (!Utils.isMOrLater()) {
-                return false;
-            }
-
             try {
                 final int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
                 return interruptionFilter == INTERRUPTION_FILTER_NONE;
@@ -214,15 +211,6 @@ final class SilentSettingsModel {
         private boolean isSystemAlarmRingtoneSilent() {
             try {
                 return RingtoneManager.getActualDefaultRingtoneUri(mContext, TYPE_ALARM) == null;
-            } catch (Exception e) {
-                // Since this is purely informational, avoid crashing the app.
-                return false;
-            }
-        }
-
-        private boolean isAppNotificationBlocked() {
-            try {
-                return !NotificationManagerCompat.from(mContext).areNotificationsEnabled();
             } catch (Exception e) {
                 // Since this is purely informational, avoid crashing the app.
                 return false;

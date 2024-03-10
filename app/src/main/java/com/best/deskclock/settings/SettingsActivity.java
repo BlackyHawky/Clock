@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -27,7 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.preference.DropDownPreference;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -35,26 +36,27 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.TwoStatePreference;
 
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
  * Settings for the Alarm Clock.
  */
-public final class SettingsActivity extends BaseActivity {
+public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_THEME = "key_theme";
+    public static final String SYSTEM_THEME = "0";
+    public static final String LIGHT_THEME = "1";
+    public static final String DARK_THEME = "2";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
@@ -66,6 +68,8 @@ public final class SettingsActivity extends BaseActivity {
     public static final String KEY_HOME_TZ = "home_time_zone";
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_DATE_TIME = "date_time";
+    public static final String KEY_SS_SETTINGS = "screensaver_settings";
+    public static final String KEY_SS_DAYDREAM_SETTINGS = "screensaver_daydream_settings";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_POWER_BUTTONS = "power_button";
     public static final String KEY_WEEK_START = "week_start";
@@ -74,16 +78,12 @@ public final class SettingsActivity extends BaseActivity {
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-    public static final String SYSTEM_THEME_BEHAVIOR = "0";
-    public static final String THEME_BEHAVIOR_DARK = "1";
-    public static final String THEME_BEHAVIOR_LIGHT = "2";
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
-    private ThemeButtonBehavior mThemeBehavior;
 
     /**
      * The controller that shows the drop shadow when content is not scrolled to the top.
@@ -91,16 +91,7 @@ public final class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Dark, true);
-        }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Actionbar_Light, true);
-        }
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.settings);
 
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
@@ -109,10 +100,12 @@ public final class SettingsActivity extends BaseActivity {
         // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG)
+                    .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
         }
+
+        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override
@@ -120,11 +113,6 @@ public final class SettingsActivity extends BaseActivity {
         super.onResume();
 
         getSupportFragmentManager().findFragmentById(R.id.main);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -141,17 +129,17 @@ public final class SettingsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item)
-                || super.onOptionsItemSelected(item);
+        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements
-            Preference.OnPreferenceChangeListener,
-            Preference.OnPreferenceClickListener {
+            Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            getPreferenceManager().setStorageDeviceProtected();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                getPreferenceManager().setStorageDeviceProtected();
+            }
             addPreferencesFromResource(R.xml.settings);
             final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
             final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
@@ -177,44 +165,38 @@ public final class SettingsActivity extends BaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_THEME:
-                case KEY_ALARM_CRESCENDO:
-                case KEY_HOME_TZ:
-                case KEY_ALARM_SNOOZE:
-                case KEY_TIMER_CRESCENDO:
+                case KEY_THEME -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
-                    break;
-                case KEY_CLOCK_STYLE:
-                case KEY_WEEK_START:
-                case KEY_VOLUME_BUTTONS:
-                case KEY_FLIP_ACTION:
-                case KEY_POWER_BUTTONS:
-                case KEY_SHAKE_ACTION:
-                    final DropDownPreference simpleMenuPreference = (DropDownPreference) pref;
-                    final int i = simpleMenuPreference.findIndexOfValue((String) newValue);
-                    pref.setSummary(simpleMenuPreference.getEntries()[i]);
-                    break;
-                case KEY_CLOCK_DISPLAY_SECONDS:
-                    DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
-                    break;
-                case KEY_AUTO_SILENCE:
+                    switch (index) {
+                        case 0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+                }
+                case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
+                        KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
+                        KEY_SHAKE_ACTION, KEY_WEEK_START -> {
+                    final ListPreference preference = (ListPreference) pref;
+                    final int index = preference.findIndexOfValue((String) newValue);
+                    preference.setSummary(preference.getEntries()[index]);
+                }
+                case KEY_CLOCK_DISPLAY_SECONDS -> DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
+                case KEY_AUTO_SILENCE -> {
                     final String delay = (String) newValue;
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
-                    break;
-                case KEY_AUTO_HOME_CLOCK:
+                }
+                case KEY_AUTO_HOME_CLOCK -> {
                     final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     Objects.requireNonNull(homeTimeZonePref).setEnabled(!autoHomeClockEnabled);
-                    break;
-                case KEY_TIMER_VIBRATE:
+                }
+                case KEY_TIMER_VIBRATE -> {
                     final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
-                    break;
-                case KEY_TIMER_RINGTONE:
-                    pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-                    break;
+                }
+                case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             }
             // Set result so DeskClock knows to refresh itself
             requireActivity().setResult(RESULT_OK);
@@ -230,14 +212,30 @@ public final class SettingsActivity extends BaseActivity {
             }
 
             switch (pref.getKey()) {
-                case KEY_DATE_TIME:
+                case KEY_SS_DAYDREAM_SETTINGS -> {
+                    final Intent dialogSSMainSettingsIntent = new Intent(
+                            Settings.ACTION_DREAM_SETTINGS);
+                    dialogSSMainSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogSSMainSettingsIntent);
+                    return true;
+                }
+                case KEY_SS_SETTINGS -> {
+                    final Intent dialogSSSettingsIntent = new Intent(context,
+                            ScreensaverSettingsActivity.class);
+                    dialogSSSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogSSSettingsIntent);
+                    return true;
+                }
+                case KEY_DATE_TIME -> {
                     final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogIntent);
                     return true;
-                case KEY_TIMER_RINGTONE:
+                }
+                case KEY_TIMER_RINGTONE -> {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
+                }
             }
 
             return false;
@@ -257,7 +255,7 @@ public final class SettingsActivity extends BaseActivity {
 
         private void showDialog(PreferenceDialogFragmentCompat fragment) {
             // Don't show dialog if one is already shown.
-            if (requireFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
+            if (getParentFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
                 return;
             }
             // Always set the target fragment, this is required by PreferenceDialogFragment
@@ -265,7 +263,7 @@ public final class SettingsActivity extends BaseActivity {
             fragment.setTargetFragment(this, 0);
             // Don't use getChildFragmentManager(), it causes issues on older platforms when the
             // target fragment is being restored after an orientation change.
-            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
+            fragment.show(getParentFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         /**
@@ -281,25 +279,24 @@ public final class SettingsActivity extends BaseActivity {
         }
 
         private void refresh() {
-            final ListPreference autoSilencePref =
-                    findPreference(KEY_AUTO_SILENCE);
+            final ListPreference themeButtonsPref = findPreference(KEY_THEME);
+            Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
+            themeButtonsPref.setOnPreferenceChangeListener(this);
+
+            final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);
             autoSilencePref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
+            final ListPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
             Objects.requireNonNull(clockStylePref).setSummary(clockStylePref.getEntry());
             clockStylePref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
+            final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
             Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
 
-            final DropDownPreference themeButtonsPref = findPreference(KEY_THEME);
-            Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
-            themeButtonsPref.setOnPreferenceChangeListener(this);
-
-            final DropDownPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
+            final ListPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
             Objects.requireNonNull(powerButtonsPref).setSummary(powerButtonsPref.getEntry());
             powerButtonsPref.setOnPreferenceChangeListener(this);
 
@@ -322,7 +319,13 @@ public final class SettingsActivity extends BaseActivity {
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             Objects.requireNonNull(dateAndTimeSetting).setOnPreferenceClickListener(this);
 
-            final DropDownPreference weekStartPref = findPreference(KEY_WEEK_START);
+            final Preference screensaverSettings = findPreference(KEY_SS_SETTINGS);
+            Objects.requireNonNull(screensaverSettings).setOnPreferenceClickListener(this);
+
+            final Preference screensaverMainSettings = findPreference(KEY_SS_DAYDREAM_SETTINGS);
+            Objects.requireNonNull(screensaverMainSettings).setOnPreferenceClickListener(this);
+
+            final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
             // Set the default value programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
             final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
@@ -336,30 +339,22 @@ public final class SettingsActivity extends BaseActivity {
             Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            SensorManager sensorManager = (SensorManager)
-                    requireActivity().getSystemService(Context.SENSOR_SERVICE);
+            final ListPreference flipActionPref = findPreference(KEY_FLIP_ACTION);
+            setupFlipOrShakeAction(flipActionPref);
 
-            final DropDownPreference flipActionPref =
-                    findPreference(KEY_FLIP_ACTION);
-            if (flipActionPref != null) {
-                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
-                if (sensorList.size() < 1) { // This will be true if no orientation sensor
-                    flipActionPref.setValue("0"); // Turn it off
-                } else {
-                    flipActionPref.setSummary(flipActionPref.getEntry());
-                    flipActionPref.setOnPreferenceChangeListener(this);
-                }
-            }
+            final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
+            setupFlipOrShakeAction(shakeActionPref);
+        }
 
-            final DropDownPreference shakeActionPref =
-                    findPreference(KEY_SHAKE_ACTION);
-            if (shakeActionPref != null) {
-                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-                if (sensorList.size() < 1) { // This will be true if no accelerometer sensor
-                    shakeActionPref.setValue("0"); // Turn it off
+        private void setupFlipOrShakeAction(ListPreference preference) {
+            if (preference != null) {
+                SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+                if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+                    preference.setValue("0");  // Turn it off
+                    preference.setVisible(false);
                 } else {
-                    shakeActionPref.setSummary(shakeActionPref.getEntry());
-                    shakeActionPref.setOnPreferenceChangeListener(this);
+                    preference.setSummary(preference.getEntry());
+                    preference.setOnPreferenceChangeListener(this);
                 }
             }
         }

@@ -25,7 +25,6 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 
 import java.util.TimeZone;
 
@@ -93,8 +92,36 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
     }
 
-    boolean getScreensaverNightModeOn() {
-        return SettingsDAO.getScreensaverNightModeOn(mPrefs);
+    public String getScreensaverClockColor() {
+        return SettingsDAO.getScreensaverClockColor(mContext, mPrefs);
+    }
+
+    public String getScreensaverDateColor() {
+        return SettingsDAO.getScreensaverDateColor(mContext, mPrefs);
+    }
+
+    public String getScreensaverNextAlarmColor() {
+        return SettingsDAO.getScreensaverNextAlarmColor(mContext, mPrefs);
+    }
+
+    public int getScreensaverBrightness() {
+        return SettingsDAO.getScreensaverBrightness(mPrefs);
+    }
+
+    boolean getDisplayScreensaverClockSeconds() {
+        return SettingsDAO.getDisplayScreensaverClockSeconds(mPrefs);
+    }
+
+    boolean getScreensaverBoldDigitalClock() {
+        return SettingsDAO.getScreensaverBoldDigitalClock(mPrefs);
+    }
+
+    boolean getScreensaverBoldDate() {
+        return SettingsDAO.getScreensaverBoldDate(mPrefs);
+    }
+
+    boolean getScreensaverBoldNextAlarm() {
+        return SettingsDAO.getScreensaverBoldNextAlarm(mPrefs);
     }
 
     boolean getShowHomeClock() {
@@ -128,10 +155,6 @@ final class SettingsModel {
 
     AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
-    }
-
-    ThemeButtonBehavior getThemeButtonBehavior() {
-        return SettingsDAO.getThemeButtonBehavior(mPrefs);
     }
 
     AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {

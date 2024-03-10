@@ -419,4 +419,11 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"解除するアラームを選択してください"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"作動中のアラームはありません"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
+    <string name="flip_action_title">端末反転アクション</string>
+    <string name="shake_action_title">端末を振った時の動作</string>
+    <string-array name="action_setting_entries">
+        <item>スヌーズ</item>
+        <item>閉じる</item>
+        <item>なし</item>
+    </string-array>
 </resources>

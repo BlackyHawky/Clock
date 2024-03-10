@@ -16,17 +16,13 @@
 
 package com.best.deskclock.stopwatch;
 
-import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.UiDataModel;
 
 /**
  * This service exists solely to allow the stopwatch notification to alter the state of the
@@ -60,35 +56,21 @@ public final class StopwatchService extends Service {
         final String action = intent.getAction();
         final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
         switch (action) {
-            case ACTION_SHOW_STOPWATCH: {
-                Events.sendStopwatchEvent(R.string.action_show, label);
-
-                // Open DeskClock positioned on the stopwatch tab.
-                UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                final Intent showStopwatch = new Intent(this, DeskClock.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(showStopwatch);
-                break;
-            }
-            case ACTION_START_STOPWATCH: {
+            case ACTION_START_STOPWATCH -> {
                 Events.sendStopwatchEvent(R.string.action_start, label);
                 DataModel.getDataModel().startStopwatch();
-                break;
             }
-            case ACTION_PAUSE_STOPWATCH: {
+            case ACTION_PAUSE_STOPWATCH -> {
                 Events.sendStopwatchEvent(R.string.action_pause, label);
                 DataModel.getDataModel().pauseStopwatch();
-                break;
             }
-            case ACTION_RESET_STOPWATCH: {
+            case ACTION_RESET_STOPWATCH -> {
                 Events.sendStopwatchEvent(R.string.action_reset, label);
                 DataModel.getDataModel().resetStopwatch();
-                break;
             }
-            case ACTION_LAP_STOPWATCH: {
+            case ACTION_LAP_STOPWATCH -> {
                 Events.sendStopwatchEvent(R.string.action_lap, label);
                 DataModel.getDataModel().addLap();
-                break;
             }
         }
 

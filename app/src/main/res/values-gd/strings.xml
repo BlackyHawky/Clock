@@ -362,4 +362,11 @@
     <string name="pick_alarm_to_dismiss">Tagh dè a’ chaismeachd a leigeas tu seachad</string>
     <string name="no_firing_alarms">Chan eil caismeachd ghnìomhach ann</string>
     <string name="alarm_is_snoozed">Chaidh a’ chaismeachd aig <xliff:g example="14:20" id="alarm_time">%s</xliff:g> a chur ’na dùsal fad 10 mionaidean</string>
+    <string name="flip_action_title">Gnìomh flipeadh an uidheim</string>
+    <string name="shake_action_title">Gnìomh crathadh an uidheim</string>
+    <string-array name="action_setting_entries">
+        <item>Dèan dùsal</item>
+        <item>Leig seachad</item>
+        <item>Na dèan dad</item>
+    </string-array>
 </resources>

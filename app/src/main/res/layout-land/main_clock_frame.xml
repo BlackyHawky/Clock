@@ -28,29 +28,19 @@
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/analog_clock_margin"
-            android:layout_marginLeft="@dimen/analog_clock_margin"
-            android:layout_marginTop="@dimen/circle_margin_top"
-            android:layout_marginEnd="@dimen/analog_clock_margin"
-            android:layout_marginRight="@dimen/analog_clock_margin" />
+            android:layout_gravity="center_horizontal"/>
 
         <com.best.deskclock.widget.AutoSizingTextClock
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:ellipsize="none"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_digital_font_size" />
+            android:textSize="70sp" />
 
     </FrameLayout>
 
     <include layout="@layout/date_and_next_alarm_time" />
-
-    <View
-        android:id="@+id/hairline"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hairline_height"
-        android:layout_marginTop="24dp"
-        android:visibility="gone" />
 
 </LinearLayout>

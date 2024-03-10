@@ -16,12 +16,12 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="48.0"
-    android:viewportHeight="48.0">
+    android:viewportWidth="48"
+    android:viewportHeight="48">
     <path
-        android:fillColor="@color/md_theme_dark_inversePrimary"
+        android:fillColor="@color/md_theme_primary"
         android:pathData="M24,24m-22,0a22,22 0,1 1,44 0a22,22 0,1 1,-44 0" />
     <path
-        android:fillColor="@color/white"
-        android:pathData="M22.1,20c0,-1.8 0.6,-3.5 1.5,-5c-4.8,0.2 -8.7,4.2 -8.7,9c0,5 4.1,9 9,9c3.1,0 5.8,-1.6 7.5,-4C26.2,29 22.1,25 22.1,20z" />
+        android:fillColor="@android:color/white"
+        android:pathData="M23.01 15.05C18.51 15.54 15 19.36 15 24c0 4.97 4.03 9 9 9c4.63 0 8.45-3.5 8.95-8c0.09-0.79-0.78-1.42-1.54-0.95c-0.84 0.54-1.84 0.85-2.91 0.85c-2.98 0-5.4-2.42-5.4-5.4c0-1.06 0.31-2.06 0.84-2.89C24.39 15.94 23.9 14.98 23.01 15.05z" />
 </vector>

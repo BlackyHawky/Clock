@@ -244,6 +244,22 @@
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
 
+    <string name="key_theme">key_theme</string>
+    <!-- Settings theme title -->
+    <string name="title_theme">Theme</string>
+    <!-- Entries listed in the ListPreference when selecting the theme. -->
+    <string-array name="array_theme">
+        <item>System</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <string-array name="theme_setting_entries" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
 
@@ -263,7 +279,6 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> minutes</item>
     </plurals>
-
 
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
@@ -452,12 +467,6 @@
         <item>Control volume</item>
     </string-array>
 
-    <string-array name="theme_setting_entries">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
     <!-- Values for the side-button setting. -->
     <string-array name="volume_button_setting_values" translatable="false">
         <item>1</item>
@@ -496,8 +505,8 @@
     <!-- Menu item on most screens to get to more settings -->
     <string name="menu_item_settings">Settings</string>
     <!-- Menu item on most screens to get to the help information -->
-    <!-- Menu item on clock screen to enter screen saver. -->
-    <string name="menu_item_night_mode">Screen saver</string>
+    <!-- Menu item on clock screen to enter screensaver. -->
+    <string name="menu_item_night_mode">Screensaver</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->
@@ -872,10 +881,10 @@
     <string name="shortcut_pause_stopwatch_long">Pause stopwatch</string>
     <!-- Short label for a shortcut to start the screensaver. The maximum length is ~10 characters
          (longer translations may be truncated). -->
-    <string name="shortcut_start_screensaver_short">Screen saver</string>
+    <string name="shortcut_start_screensaver_short">Screensaver</string>
     <!-- Long label for a shortcut to start the screensaver. The maximum length is ~25 characters
          (longer translations may be truncated). -->
-    <string name="shortcut_start_screensaver_long">Start screen saver</string>
+    <string name="shortcut_start_screensaver_long">Start screensaver</string>
 
     <!-- Header in the preferences settings for the section pertaining to alarms -->
     <string name="alarm_settings">Alarms</string>
@@ -917,13 +926,65 @@
     <!-- Notification text when at least one timer, of those in use, is counting down. -->
     <string name="next_timer_notif">Next timer: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
 
-    <!-- screensaver settings strings -->
-    <!-- Title for the screen saver settings activity. -->
-    <string name="screensaver_settings">Screen saver settings</string>
-    <!-- Title for check box to pick intensity of display diminuation during screen saver -->
+    <!-- Header in the preferences settings for the section pertaining to screensaver -->
+    <string name="screensaver_settings_title">Screensaver</string>
+    <!-- Summary for the screensaver settings in settings -->
+    <string name="screensaver_settings_summary">Opens screensaver settings</string>
+    <!-- Label for the screensaver settings in settings -->
+    <string name="screensaver_daydream_settings">Select/enable screensaver</string>
+    <!-- Summary for the screensaver settings in settings -->
+    <string name="screensaver_daydream_settings_summary">Opens the main Android screensaver settings</string>
+
+    <!-- Screensaver settings strings -->
+    <!-- Title for the screensaver settings activity. -->
+    <string name="screensaver_settings">Screensaver settings</string>
+    <!-- Title for check box to pick intensity of display diminution during screen saver -->
     <string name="night_mode_title">Night mode</string>
-    <!-- Describes intensity of display diminuation during screen saver -->
+    <!-- Describes intensity of display diminution during screen saver -->
     <string name="night_mode_summary">Very dim display (for dark rooms)</string>
+    <!-- Title of screensaver clock color. -->
+    <string name="screensaver_clock_color_title">Clock color</string>
+    <!-- Title of screensaver date color. -->
+    <string name="screensaver_date_color_title">Date color</string>
+    <!-- Title of screensaver next alarm color. -->
+    <string name="screensaver_next_alarm_color_title">Next alarm color</string>
+    <!-- Title of slider for selecting clock brightness -->
+    <string name="screensaver_brightness_title">Brightness</string>
+    <!-- Title for switch to pick if the clock text is displayed in bold -->
+    <string name="screensaver_bold_digital_clock_title">Bold digital clock</string>
+    <!-- Title for switch to pick if the date is displayed in bold -->
+    <string name="screensaver_bold_date_title">Bold date</string>
+    <!-- Title for switch to pick if the next alarm is displayed in bold -->
+    <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
+    <!-- Label for the  preview in settings -->
+    <string name="screensaver_preview_title">Preview</string>
+    <!-- Summary for the screensaver preview in settings -->
+    <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
+    <!-- Message in screensaver settings if the digital clock is not selected -->
+    <string name="screensaver_digital_clock_not_selected">Select the digital clock to access this setting</string>
+    <!-- Message in screensaver settings if no alarm is set -->
+    <string name="screensaver_no_alarm_set">Set an alarm to access this setting</string>
+
+    <!-- Color choices for screensaver -->
+    <string-array name="screensaver_clock_color_entries" translatable="true">
+        <item>White</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Orange</item>
+        <item>Indigo</item>
+        <item>Blue Gray</item>
+    </string-array>
+
+    <string-array name="screensaver_clock_color_values" translatable="false">
+        <item>FFFFFF</item>
+        <item>F44336</item>
+        <item>4CAF50</item>
+        <item>2196F3</item>
+        <item>FF9800</item>
+        <item>3F51B5</item>
+        <item>607D8B</item>
+    </string-array>
 
     <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
     <string name="expand_alarm">Expand alarm</string>
@@ -1080,30 +1141,18 @@
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
+    <!-- Bedtime button to create an alarm -->
+    <string name="bedtime_text_button">Create a bedtime alarm</string>
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
-    <string name="_00">00</string>
     <string name="bedtime">Bedtime</string>
     <string name="wakeup">Wake Up</string>
-    <string name="reminder_notification">Reminder Notification</string>
-
-
-    <string name="key_theme">key_theme</string>
-    <string name="title_theme">Theme</string>
-    <string-array name="array_theme">
-        <item>System</item>
-        <item>Dark</item>
-        <item>Light</item>
-    </string-array>
-
-    <string name="key_reminder_notification">key_reminder_notification</string>
-    <string name="title_reminder_notification">Reminder Notification</string>
-
+    <string name="bedtime_reminder_notification">Reminder Notification</string>
     <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
     <string-array name="array_reminder_notification">
-        <item>15 Minutes Before Bedtime</item>
-        <item>30 Minutes Before Bedtime</item>
-        <item>45 Minutes Before Bedtime</item>
-        <item>1 Hour Before Bedtime</item>
+        <item>15 minutes before bedtime</item>
+        <item>30 minutes before bedtime</item>
+        <item>45 minutes before bedtime</item>
+        <item>1 hour before bedtime</item>
         <item>Off</item>
     </string-array>
 
@@ -1117,34 +1166,123 @@
         <item>-1</item> <!-- Off -->
     </string-array>
 
-    <string name="remind_notif">Reminder Notification</string>
+    <string name="bedtime_reminder_notification_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
 
-    <string name="remind_notif_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="remind_notif_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
+    <string name="bedtime_notification_title">Bedtime mode is on</string>
+    <string name="bedtime_and"><xliff:g id="value_one">%1$s</xliff:g> and <xliff:g id="value_two">%2$s</xliff:g></string>
 
-    <string name="bed_notif_title">Bedtime mode is on</string>
-    <string name="bed_and"><xliff:g id="value_one">%1$s</xliff:g> and <xliff:g id="value_two">%2$s</xliff:g></string>
-
-    <string name="bed_notif_action_pause">Pause for 30 min</string>
-    <string name="bed_notif_action_turn_off">Turn off for now</string>
-    <string name="bed_notif_until"><xliff:g id="text_one">%1$s</xliff:g> until <xliff:g id="wake_time">%2$s</xliff:g></string>
+    <string name="bedtime_notification_action_pause">Pause for 30 min</string>
+    <string name="bedtime_notification_action_turn_off">Turn off for now</string>
+    <string name="bedtime_notification_until"><xliff:g id="text_one">%1$s</xliff:g> until <xliff:g id="wake_time">%2$s</xliff:g></string>
     <!-- maybe this will be the text within the and string which is within the until string -->
-    <string name="bed_notif_dnd_desc">only important calls can reach you</string>
+    <string name="bedtime_notification_dnd_description">only important calls can reach you</string>
 
-    <string name="bed_paused_notif_title">Bedtime mode is paused</string>
-    <string name="bed_notif_resume">Resumes at <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bed_notif_resume_action">Resume now</string>
-    <string name="bed_screen_opt_desc">Screen stays dark</string>
+    <string name="bedtime_paused_notification_title">Bedtime mode is paused</string>
+    <string name="bedtime_notification_resume">Resumes at <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Resume now</string>
+    <string name="bedtime_screen_option_description">Screen stays dark</string>
 
-    <string name="bed_dnd_title">Do not disturb for bedtime mode</string>
-    <string name="bed_dnd_txt">Only calls from starred contacts, repeat callers, and alarms can reach you</string>
+    <string name="bedtime_dnd_title">Do not disturb for bedtime mode</string>
+    <string name="bedtime_dnd_txt">Only calls from starred contacts, repeat callers, and alarms can reach you</string>
 
-    <string name="bed_wall_title">Dim the wallpaper</string>
-    <string name="bed_wall_txt">Make your wallpaper darker. App icons, widgets, and notifications won\'t be affected.</string>
+    <string name="bedtime_wallpaper_title">Dim the wallpaper</string>
+    <string name="bedtime_wallpaper_text">Make your wallpaper darker. App icons, widgets, and notifications won\'t be affected</string>
 
-    <string name="wake_alarm_label_visible">Wake-up alarm</string>
+    <string name="wakeup_alarm_label_visible">Wake-up alarm</string>
 
-    <string name="new_bed_alarm">Wake-up alarm created</string>
+    <string name="new_bedtime_alarm">Wake-up alarm created</string>
 
-    <string name="wake_alarm_non_existent">ERROR: Wake-up alarm is deleted</string>
+    <string name="wakeup_alarm_non_existent">ERROR: Wake-up alarm is deleted</string>
+
+    <!-- Setting title for the flip action setting. -->
+    <string name="flip_action_title">Device flip action</string>
+
+    <!-- Setting title for the shake action setting. -->
+    <string name="shake_action_title">Device shake action</string>
+
+    <!-- Entries listed in the setting flip and shake. -->
+    <string-array name="action_setting_entries">
+        <item>Snooze</item>
+        <item>Dismiss</item>
+        <item>Nothing</item>
+    </string-array>
+
+    <!-- Strings for notification channel. -->
+    <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
+    <string name="alarm_missed_channel">Missed alarms</string>
+    <string name="alarm_snooze_channel">Snoozed alarms</string>
+    <string name="alarm_upcoming_channel">Upcoming alarms</string>
+    <string name="stopwatch_channel">Stopwatch</string>
+    <string name="timer_channel">Timer</string>
+    <string name="bedtime_channel">@string/bedtime</string>
+
+    <!-- Dialog title for the first application launch -->
+    <string name="dialog_title_for_the_first_launch"><b>WELCOME TO THE CLOCK APP</b></string>
+    <!-- Dialog message for the first application launch -->
+    <string name="dialog_message_for_the_first_launch">
+        \n&#9658; <b>Main Features</b>
+        \n\n&#8226; Flip and shake action to dismiss/postpone alarm;
+        \n&#8226; Turn off/postpone the alarm with the power button or volume buttons;
+        \n&#8226; Swipe to delete an alarm;
+        \n&#8226; Light, dark or system theme;
+        \n&#8226; Customizable screensaver;
+        \n&#8226; Material design and dynamic colors;
+        \n&#8226; &#8230; and much more!
+        \n\n&#9658; <b>Important information</b>
+        \n\nTo ensure that the application works properly, <b>some of your device settings must be changed:</b>
+        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
+        \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
+        \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
+        \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
+        \n\nYou can change these settings in the following dialogs.
+        \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i>
+        \n
+    </string>
+    <!-- Dialog button to stop displaying the dialog box for the first application launch -->
+    <string name="dialog_button_understood">Understood</string>
+
+    <!-- Setting dialog title for Do Not Disturb -->
+    <string name="dialog_title_do_not_disturb"><b>DO NOT DISTURB</b></string>
+    <!-- Setting dialog message to explain why Do Not Disturb permission is necessary -->
+    <string name="dialog_message_do_not_disturb">
+        \n<b>Reminder:</b>
+        \n\nEnable this setting, otherwise the alarm may not trigger if all sounds are muted.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Do Not Disturb settings -->
+    <string name="dialog_button_do_not_disturb">Do Not Disturb Access</string>
+
+    <!-- Setting dialog title for Ignore Battery Optimization -->
+    <string name="dialog_title_ignore_battery_optimization"><b>BATTERY OPTIMIZATION</b></string>
+    <!-- Setting dialog message to explain why Ignore Battery Optimization permission is necessary -->
+    <string name="dialog_message_ignore_battery_optimization">
+        \n<b>Reminder:</b>
+        \n\nDisable this setting, otherwise the alarm may not trigger if the screen is off.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Ignore Battery Optimization settings -->
+    <string name="dialog_button_ignore_battery_optimization">Battery Optimization Access</string>
+
+    <!-- Setting dialog title for Notifications -->
+    <string name="dialog_title_notifications"><b>NOTIFICATIONS</b></string>
+    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
+    <string name="dialog_message_notifications">
+        \n<b>Reminder:</b>
+        \n\nEnable this setting, otherwise alarm, timer and stopwatch notifications will not be displayed. Moreover, the alarm may not trigger.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Full Screen Notifications settings -->
+    <string name="dialog_button_notifications">Notifications Access</string>
+
+    <!-- Setting dialog title for Full Screen Notifications -->
+    <string name="dialog_title_full_screen_intent"><b>FULL SCREEN NOTIFICATIONS</b></string>
+    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
+    <string name="dialog_message_full_screen_intent">
+        \n<b>Reminder:</b>
+        \n\nEnable this setting, otherwise the alarm will not trigger when the screen is off.
+        \n
+    </string>
+    <!-- Setting dialog button to access to Full Screen Notifications settings -->
+    <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
 </resources>

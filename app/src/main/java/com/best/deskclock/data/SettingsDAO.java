@@ -18,15 +18,14 @@ package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
+
 import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
 import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
 import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
-import static com.best.deskclock.data.DataModel.ThemeButtonBehavior.DARK;
-import static com.best.deskclock.data.DataModel.ThemeButtonBehavior.LIGHT;
-import static com.best.deskclock.data.DataModel.ThemeButtonBehavior.SYSTEM;
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
 import static java.util.Calendar.SUNDAY;
@@ -44,7 +43,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
 import com.best.deskclock.settings.SettingsActivity;
 
@@ -148,7 +146,7 @@ final class SettingsDAO {
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
-    static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
+    public static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
         return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
     }
 
@@ -185,11 +183,68 @@ final class SettingsDAO {
         return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
     }
 
+    private static String getClockColor(Context context, SharedPreferences prefs, String key) {
+        final String defaultColor = context.getString(R.string.default_screensaver_clock_color);
+        final String clockColor = prefs.getString(key, defaultColor);
+        // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
+        // accent to character, which breaks the enum conversion.
+        return clockColor.toUpperCase(Locale.US);
+    }
+
     /**
-     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
+     * @return a value indicating the color of the screen saver
      */
-    static boolean getScreensaverNightModeOn(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
+    public static String getScreensaverClockColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the date of the screensaver
+     */
+    public static String getScreensaverDateColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm of the screensaver
+     */
+    public static String getScreensaverNextAlarmColor(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR);
+    }
+
+    /**
+     * @return {@code int} the screen saver brightness level at night
+     */
+    static int getScreensaverBrightness(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_SS_BRIGHTNESS, 40);
+    }
+
+    /**
+     * @return a value indicating whether analog or digital clocks are displayed in the app
+     */
+    static boolean getDisplayScreensaverClockSeconds(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_SS_CLOCK_DISPLAY_SECONDS, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldDigitalClock(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DIGITAL_ALARM, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldDate(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DATE, true);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the clock in bold
+     */
+    static boolean getScreensaverBoldNextAlarm(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_NEXT_ALARM, true);
     }
 
     /**
@@ -264,16 +319,12 @@ final class SettingsDAO {
         final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
         final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
         final int firstCalendarDay = Integer.parseInt(value);
-        switch (firstCalendarDay) {
-            case SATURDAY:
-                return SAT_TO_FRI;
-            case SUNDAY:
-                return SUN_TO_SAT;
-            case MONDAY:
-                return MON_TO_SUN;
-            default:
-                throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
-        }
+        return switch (firstCalendarDay) {
+            case SATURDAY -> SAT_TO_FRI;
+            case SUNDAY -> SUN_TO_SAT;
+            case MONDAY -> MON_TO_SUN;
+            default -> throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
+        };
     }
 
     /**
@@ -300,31 +351,12 @@ final class SettingsDAO {
     static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
         final String defaultValue = SettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
         final String value = prefs.getString(SettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
-        switch (value) {
-            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR:
-                return NOTHING;
-            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
-                return SNOOZE;
-            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS:
-                return DISMISS;
-            default:
-                throw new IllegalArgumentException("Unknown volume button behavior: " + value);
-        }
-    }
-
-    static ThemeButtonBehavior getThemeButtonBehavior(SharedPreferences prefs) {
-        final String defaultValue = SettingsActivity.SYSTEM_THEME_BEHAVIOR;
-        final String value = prefs.getString(SettingsActivity.KEY_THEME, defaultValue);
-        switch (value) {
-            case SettingsActivity.SYSTEM_THEME_BEHAVIOR:
-                return SYSTEM;
-            case SettingsActivity.THEME_BEHAVIOR_DARK:
-                return DARK;
-            case SettingsActivity.THEME_BEHAVIOR_LIGHT:
-                return LIGHT;
-            default:
-                throw new IllegalArgumentException("Unknown theme button behavior: " + value);
-        }
+        return switch (value) {
+            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
+            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
+            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
+            default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
+        };
     }
 
     /**
@@ -333,16 +365,12 @@ final class SettingsDAO {
     static AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
         final String defaultValue = SettingsActivity.DEFAULT_POWER_BEHAVIOR;
         final String value = prefs.getString(SettingsActivity.KEY_POWER_BUTTONS, defaultValue);
-        switch (value) {
-            case SettingsActivity.DEFAULT_POWER_BEHAVIOR:
-                return NOTHING;
-            case SettingsActivity.POWER_BEHAVIOR_SNOOZE:
-                return SNOOZE;
-            case SettingsActivity.POWER_BEHAVIOR_DISMISS:
-                return DISMISS;
-            default:
-                throw new IllegalArgumentException("Unknown power button behavior: " + value);
-        }
+        return switch (value) {
+            case SettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
+            case SettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
+            case SettingsActivity.POWER_BEHAVIOR_DISMISS -> DISMISS;
+            default -> throw new IllegalArgumentException("Unknown power button behavior: " + value);
+        };
     }
 
     /**

@@ -33,7 +33,7 @@
         android:fromId="@id/off"
         android:toId="@id/on">
 
-        <animated-vector android:drawable="@drawable/ic_timer">
+        <animated-vector android:drawable="@drawable/ic_timer_for_anim">
             <target
                 android:name="hourglass_frame"
                 android:animation="@animator/ic_timer_animation_hourglass_frame" />

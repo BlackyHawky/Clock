@@ -419,4 +419,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Zu schließenden Alarm auswählen"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Keine aktiven Weckrufe"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Für den Weckruf um <xliff:g id="ALARM_TIME">%s</xliff:g> wurde die Schlummerfunktion aktiviert. Der Wecker klingelt in 10 Minuten erneut."</string>
+    <string name="flip_action_title">Aktion beim Umdrehen</string>
+    <string name="shake_action_title">Aktion beim Schütteln</string>
+    <string-array name="action_setting_entries">
+        <item>Schlummern</item>
+        <item>Verwerfen</item>
+        <item>Keine Aktion</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">Starten von Alarmen &amp; Timern</string>
+    <string name="alarm_missed_channel">Entgangene Weckrufe</string>
+    <string name="alarm_snooze_channel">Schlummernde Weckrufe</string>
+    <string name="alarm_upcoming_channel">Anstehende Weckrufe</string>
+    <string name="stopwatch_channel">Stoppuhr</string>
+    <string name="timer_channel">Timer</string>
 </resources>

@@ -16,11 +16,11 @@
 
 package com.best.deskclock;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.PowerManager.WakeLock;
 
 import com.best.deskclock.alarms.AlarmNotifications;
@@ -48,8 +48,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * When running on N devices, we're interested in the boot completed event that is sent while
      * the user is still locked, so that we can schedule alarms.
      */
-    @SuppressLint("InlinedApi")
-    private static final String ACTION_BOOT_COMPLETED = Utils.isNOrLater()
+    private static final String ACTION_BOOT_COMPLETED = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
             ? Intent.ACTION_LOCKED_BOOT_COMPLETED : Intent.ACTION_BOOT_COMPLETED;
 
     /**
@@ -71,7 +70,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
-        wl.acquire();
+        wl.acquire(10*60*1000L /*10 minutes*/);
 
         // We need to increment the global id out of the async task to prevent race conditions
         DataModel.getDataModel().updateGlobalIntentId();
@@ -137,20 +136,17 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             }
         }
 
-        AsyncHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Process restored data if any exists
-                    if (!DeskClockBackupAgent.processRestoredData(context)) {
-                        // Update all the alarm instances on time change event
-                        AlarmStateManager.fixAlarmInstances(context);
-                    }
-                } finally {
-                    result.finish();
-                    wl.release();
-                    LogUtils.v("AlarmInitReceiver finished");
+        AsyncHandler.post(() -> {
+            try {
+                // Process restored data if any exists
+                if (!DeskClockBackupAgent.processRestoredData(context)) {
+                    // Update all the alarm instances on time change event
+                    AlarmStateManager.fixAlarmInstances(context);
                 }
+            } finally {
+                result.finish();
+                wl.release();
+                LogUtils.v("AlarmInitReceiver finished");
             }
         });
     }

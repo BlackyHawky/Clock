@@ -26,9 +26,9 @@ public class DataSaver {
     private final Context context;
 
     public boolean enabled = false;
-    public int hour = 23;
-    public int minutes = 0;
-    public int notifShowTime = 15;
+    public int hour;
+    public int minutes;
+    public int notifShowTime;
     public Weekdays daysOfWeek;
 
     // what bedtime mode actually is for
@@ -76,7 +76,7 @@ public class DataSaver {
         hour = preferences.getInt(KEY_HOUR, 23);
         minutes = preferences.getInt(KEY_MINUTES, 0);
         notifShowTime = preferences.getInt(KEY_NOTIF_SHOW_TIME, 15);
-        daysOfWeek = Weekdays.fromBits(preferences.getInt(KEY_DAYS_OF_WEEK, 96));
+        daysOfWeek = Weekdays.fromBits(preferences.getInt(KEY_DAYS_OF_WEEK, 31));
         doNotDisturb = preferences.getBoolean(KEY_DO_NOT_DISTURB, false);
         turnoffAlarm = preferences.getBoolean(KEY_TURN_OFF_ALARM, false);
         /*nightLight = preferences.getBoolean(KEY_NIGHT_LIGHT, false);

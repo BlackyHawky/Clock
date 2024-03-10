@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:name="hourglass_frame"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="hourglass_frame_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <group
+                android:name="hourglass_bottom"
+                android:translateX="12"
+                android:translateY="6.5">
+                <path
+                    android:name="bottom_inner_path"
+                    android:fillAlpha="1"
+                    android:fillColor="@android:color/white"
+                    android:pathData="M6.5-3.9c0 0-6.5 6.9-6.5 6.9c0 0-6.5-6.9-6.5-6.9c0 0 13 0 13 0 Z M 10-6.5c0 0-20 0-20 0c-0.9 0-1.3 1.1-0.7 1.7c0 0 10.7 11.3 10.7 11.3c0 0 10.7-11.3 10.7-11.3c0.6-0.6 0.2-1.7-0.7-1.7Z" />
+            </group>
+            <group
+                android:name="hourglass_top"
+                android:translateX="12"
+                android:translateY="17.5">
+                <path
+                    android:name="top_inner_path"
+                    android:fillAlpha="1"
+                    android:fillColor="@android:color/white"
+                    android:pathData="M0-3c0 0 6.5 6.9 6.5 6.9c0 0-13 0-13 0c0 0 6.5-6.9 6.5-6.9 Z M 0-6.5c0 0-10.7 11.3-10.7 11.3c-0.6 0.6-0.2 1.7 0.7 1.7c0 0 20 0 20 0c0.9 0 1.3-1.1 0.7-1.7c0 0-10.7-11.3-10.7-11.3Z" />
+            </group>
+        </group>
+    </group>
+    <group
+        android:name="hourglass_fill"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="hourglass_fill_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <clip-path
+                android:name="mask_1"
+                android:pathData="M24 13.4c0 0-24 0-24 0c0 0 0 10.6 0 10.6c0 0 24 0 24 0c0 0 0-10.6 0-10.6Z" />
+            <path
+                android:name="fill_path"
+                android:fillAlpha="1"
+                android:fillColor="@android:color/white"
+                android:pathData="M22.7 22.3c0.6 0.6 0.2 1.7-0.7 1.7c0 0-20 0-20 0c-0.9 0-1.3-1.1-0.7-1.7c0 0 9.8-10.3 9.8-10.3c0 0-9.8-10.3-9.8-10.3c-0.6-0.6-0.2-1.7 0.7-1.7c0 0 20 0 20 0c0.9 0 1.3 1.1 0.7 1.7c0 0-9.8 10.3-9.8 10.3c0 0 9.8 10.3 9.8 10.3Z" />
+        </group>
+    </group>
+</vector>

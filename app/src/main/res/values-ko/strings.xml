@@ -419,4 +419,17 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"취소할 알람 선택"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"실행 중인 알람 없음"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람이 10분 동안 일시 중지됨"</string>
+    <string name="flip_action_title">기기 뒤집을 때 동작</string>
+    <string name="shake_action_title">기기 흔들 때 동작</string>
+    <string-array name="action_setting_entries">
+        <item>알람 일시 정지</item>
+        <item>알람 해제</item>
+        <item>사용 안 함</item>
+    </string-array>
+    <string name="firing_alarms_timers_channel">알람 및 타이머 시작</string>
+    <string name="alarm_missed_channel">부재 중 알람</string>
+    <string name="alarm_snooze_channel">일시 중지된 알람</string>
+    <string name="alarm_upcoming_channel">예정된 알람</string>
+    <string name="stopwatch_channel">스톱워치</string>
+    <string name="timer_channel">타이머</string>
 </resources>

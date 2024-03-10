@@ -28,3 +28,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Compiled application files
+app/build
+app/release

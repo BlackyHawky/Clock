@@ -25,6 +25,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.SystemClock;
 import android.widget.RemoteViews;
 
@@ -34,6 +35,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationCompat.Action;
 import androidx.core.app.NotificationCompat.Builder;
 
+import com.best.deskclock.DeskClock;
 import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
@@ -52,12 +54,11 @@ class StopwatchNotificationBuilder {
         @StringRes final int eventLabel = R.string.label_notification;
 
         // Intent to load the app when the notification is tapped.
-        final Intent showApp = new Intent(context, StopwatchService.class)
+        final Intent showApp = new Intent(context, DeskClock.class)
                 .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
                 .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-        final PendingIntent pendingShowApp = PendingIntent.getService(context, 0, showApp,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
         // Compute some values required below.
         final boolean running = stopwatch.isRunning();
@@ -76,7 +77,7 @@ class StopwatchNotificationBuilder {
                     .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            @DrawableRes final int icon1 = R.drawable.ic_pause_24dp;
+            @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
             final CharSequence title1 = res.getText(R.string.sw_pause_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -87,7 +88,7 @@ class StopwatchNotificationBuilder {
                         .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
                         .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-                @DrawableRes final int icon2 = R.drawable.ic_sw_lap_24dp;
+                @DrawableRes final int icon2 = R.drawable.ic_sw_lap;
                 final CharSequence title2 = res.getText(R.string.sw_lap_button);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, lap);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
@@ -109,7 +110,7 @@ class StopwatchNotificationBuilder {
                     .setAction(StopwatchService.ACTION_START_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            @DrawableRes final int icon1 = R.drawable.ic_start_24dp;
+            @DrawableRes final int icon1 = R.drawable.ic_fab_play;
             final CharSequence title1 = res.getText(R.string.sw_start_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
@@ -119,7 +120,7 @@ class StopwatchNotificationBuilder {
                     .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-            @DrawableRes final int icon2 = R.drawable.ic_reset_24dp;
+            @DrawableRes final int icon2 = R.drawable.ic_reset;
             final CharSequence title2 = res.getText(R.string.sw_reset_button);
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
@@ -129,7 +130,7 @@ class StopwatchNotificationBuilder {
             content.setViewVisibility(R.id.state, VISIBLE);
         }
 
-        final Builder notification = new NotificationCompat.Builder(
+        final Builder notification = new Builder(
                 context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
                 .setLocalOnly(true)
                 .setOngoing(running)
@@ -137,19 +138,18 @@ class StopwatchNotificationBuilder {
                 .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(Notification.PRIORITY_LOW)
-                .setSmallIcon(R.drawable.stat_notify_stopwatch)
+                .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setColor(android.R.attr.colorAccent);
-
-        if (Utils.isNOrLater()) {
-            notification.setGroup(nm.getStopwatchNotificationGroupKey());
-        }
+                .setColor(context.getColor(R.color.md_theme_primary))
+                .setGroup(nm.getStopwatchNotificationGroupKey());
 
         for (Action action : actions) {
             notification.addAction(action);
         }
 
-        NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
+        }
         return notification.build();
     }
 }

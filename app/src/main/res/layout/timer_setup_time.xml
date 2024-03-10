@@ -12,28 +12,25 @@
   limitations under the License.
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:minHeight="@dimen/timer_setup_top_size"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:orientation="horizontal">
 
-    <com.best.deskclock.widget.AutoSizingTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/timer_setup_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:ellipsize="none"
-        android:fontFamily="sans-serif"
-        android:fontFeatureSettings="tnum"
-        android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="@dimen/timer_setup_digit_font_size"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="32sp"
+        app:autoSizeMaxTextSize="56sp"
+        app:autoSizeStepGranularity="2sp"
         tools:text="12h34m56s"/>
 
 </LinearLayout>

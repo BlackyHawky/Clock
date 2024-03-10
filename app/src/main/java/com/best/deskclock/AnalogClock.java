@@ -23,12 +23,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -70,11 +73,11 @@ public class AnalogClock extends FrameLayout {
     };
 
     public AnalogClock(Context context) {
-        this(context, null /* attrs */);
+        this(context, null);
     }
 
     public AnalogClock(Context context, AttributeSet attrs) {
-        this(context, attrs, 0 /* defStyleAttr */);
+        this(context, attrs, 0);
     }
 
     public AnalogClock(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -83,26 +86,33 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
+        // Get color from MaterialTextView()
+        final int color = new MaterialTextView(context).getCurrentTextColor();
+
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
         dial.getDrawable().mutate();
+        dial.setColorFilter(color);
         addView(dial);
 
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
         mHourHand.getDrawable().mutate();
+        mHourHand.setColorFilter(color);
         addView(mHourHand);
 
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
         mMinuteHand.getDrawable().mutate();
+        mMinuteHand.setColorFilter(color);
         addView(mMinuteHand);
 
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
+        mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
         addView(mSecondHand);
 
         if (context.getClass().getSimpleName().equalsIgnoreCase(ScreensaverActivity.class.getSimpleName())) {
@@ -110,7 +120,6 @@ public class AnalogClock extends FrameLayout {
             mHourHand.setColorFilter(Color.WHITE);
             mMinuteHand.setColorFilter(Color.WHITE);
         }
-
     }
 
     @Override
@@ -121,7 +130,11 @@ public class AnalogClock extends FrameLayout {
         filter.addAction(Intent.ACTION_TIME_TICK);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        getContext().registerReceiver(mIntentReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getContext().registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            getContext().registerReceiver(mIntentReceiver, filter);
+        }
 
         // Refresh the calendar instance since the time zone may have changed while the receiver
         // wasn't registered.

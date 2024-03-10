@@ -22,6 +22,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.util.ArrayMap;
 import android.util.SparseArray;
 
@@ -62,7 +63,11 @@ final class FormattedStringModel {
     FormattedStringModel(Context context) {
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        }
     }
 
     /**

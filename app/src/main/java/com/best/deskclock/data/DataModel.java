@@ -20,11 +20,12 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
-import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static com.best.deskclock.Utils.enforceMainLooper;
 import static com.best.deskclock.Utils.enforceNotMainLooper;
+import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import android.app.Service;
 import android.content.Context;
@@ -37,10 +38,11 @@ import android.os.Looper;
 import android.view.View;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
+import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.timer.TimerService;
 
 import java.util.Calendar;
@@ -78,7 +80,6 @@ public final class DataModel {
      */
     private AlarmModel mAlarmModel;
 
-    private ThemeModel mThemeModel;
     /**
      * The model from which widget data are fetched.
      */
@@ -118,6 +119,16 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
+            final String themeValue = prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+            switch (themeValue) {
+                case SYSTEM_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                case LIGHT_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                case DARK_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+
             mTimeModel = new TimeModel(mContext);
             mWidgetModel = new WidgetModel(prefs);
             mNotificationModel = new NotificationModel();
@@ -125,11 +136,9 @@ public final class DataModel {
             mSettingsModel = new SettingsModel(mContext, prefs, mTimeModel);
             mCityModel = new CityModel(mContext, prefs, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
-            mThemeModel = new ThemeModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel,
-                    mNotificationModel);
+            mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel, mNotificationModel);
         }
     }
 
@@ -362,15 +371,6 @@ public final class DataModel {
     }
 
     /**
-     * @return the timer that last expired and is still expired now; {@code null} if no timers are
-     * expired
-     */
-    public Timer getMostRecentExpiredTimer() {
-        enforceMainLooper();
-        return mTimerModel.getMostRecentExpiredTimer();
-    }
-
-    /**
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
@@ -431,26 +431,16 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to be reset
-     * @return the reset {@code timer}
-     */
-    public Timer resetTimer(Timer timer) {
-        enforceMainLooper();
-        return mTimerModel.resetTimer(timer, false /* allowDelete */, 0 /* eventLabelId */);
-    }
-
-    /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        return mTimerModel.resetTimer(timer, true /* allowDelete */, eventLabelId);
+        mTimerModel.resetTimer(timer, true, eventLabelId);
     }
 
     /**
@@ -498,29 +488,6 @@ public final class DataModel {
     public void setTimerLabel(Timer timer, String label) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.setLabel(label));
-    }
-
-    /**
-     * @param timer  the timer whose {@code length} to change
-     * @param length the new length of the timer in milliseconds
-     */
-    public void setTimerLength(Timer timer, long length) {
-        enforceMainLooper();
-        mTimerModel.updateTimer(timer.setLength(length));
-    }
-
-    /**
-     * @param timer         the timer whose {@code remainingTime} to change
-     * @param remainingTime the new remaining time of the timer in milliseconds
-     */
-    public void setRemainingTime(Timer timer, long remainingTime) {
-        enforceMainLooper();
-
-        final Timer updated = timer.setRemainingTime(remainingTime);
-        mTimerModel.updateTimer(updated);
-        if (timer.isRunning() && timer.getRemainingTime() <= 0) {
-            mContext.startService(TimerService.createTimerExpiredIntent(mContext, updated));
-        }
     }
 
     /**
@@ -629,15 +596,6 @@ public final class DataModel {
         return mAlarmModel.getAlarmVolumeButtonBehavior();
     }
 
-    public ThemeButtonBehavior getThemeButtonBehavior() {
-        enforceMainLooper();
-        return mThemeModel.getThemeButtonBehavior();
-    }
-
-    //
-    // Alarms
-    //
-
     /**
      * @return the behavior to execute when power buttons are pressed while firing an alarm
      */
@@ -693,31 +651,27 @@ public final class DataModel {
     }
 
     /**
-     * @return the stopwatch after being started
+     *
      */
-    public Stopwatch startStopwatch() {
+    public void startStopwatch() {
         enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().start());
-    }
-
-    //
-    // Stopwatch
-    //
-
-    /**
-     * @return the stopwatch after being paused
-     */
-    public Stopwatch pauseStopwatch() {
-        enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().pause());
+        mStopwatchModel.setStopwatch(getStopwatch().start());
     }
 
     /**
-     * @return the stopwatch after being reset
+     *
      */
-    public Stopwatch resetStopwatch() {
+    public void pauseStopwatch() {
         enforceMainLooper();
-        return mStopwatchModel.setStopwatch(getStopwatch().reset());
+        mStopwatchModel.setStopwatch(getStopwatch().pause());
+    }
+
+    /**
+     *
+     */
+    public void resetStopwatch() {
+        enforceMainLooper();
+        mStopwatchModel.setStopwatch(getStopwatch().reset());
     }
 
     /**
@@ -824,11 +778,10 @@ public final class DataModel {
     /**
      * @param uri   the uri of an audio file to use as a ringtone
      * @param title the title of the audio content at the given {@code uri}
-     * @return the ringtone instance created for the audio file
      */
-    public CustomRingtone addCustomRingtone(Uri uri, String title) {
+    public void addCustomRingtone(Uri uri, String title) {
         enforceMainLooper();
-        return mRingtoneModel.addCustomRingtone(uri, title);
+        mRingtoneModel.addCustomRingtone(uri, title);
     }
 
     //
@@ -909,6 +862,78 @@ public final class DataModel {
     }
 
     /**
+     * @return the style of clock to display in the clock screensaver
+     */
+    public ClockStyle getScreensaverClockStyle() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverClockStyle();
+    }
+
+    /**
+     * @return the color of clock to display in the screensaver
+     */
+    public String getScreensaverClockColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverClockColor();
+    }
+
+    /**
+     * @return the color of the date to display in the screensaver
+     */
+    public String getScreensaverDateColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverDateColor();
+    }
+
+    /**
+     * @return the color of the next alarm to display in the screensaver
+     */
+    public String getScreensaverNextAlarmColor() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverNextAlarmColor();
+    }
+
+    /**
+     * @return the night mode brightness of clock to display in the clock application
+     */
+    public int getScreensaverBrightness() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBrightness();
+    }
+
+    /**
+     * @return the style of clock to display in the clock application
+     */
+    public boolean getDisplayScreensaverClockSeconds() {
+        enforceMainLooper();
+        return mSettingsModel.getDisplayScreensaverClockSeconds();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the time in bold
+     */
+    public boolean getScreensaverBoldDigitalClock() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldDigitalClock();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the date and the next alarm in bold
+     */
+    public boolean getScreensaverBoldDate() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldDate();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the next alarm in bold
+     */
+    public boolean getScreensaverBoldNextAlarm() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverBoldNextAlarm();
+    }
+
+    /**
      * @return the style of clock to display in the clock application
      */
     public boolean getDisplayClockSeconds() {
@@ -922,22 +947,6 @@ public final class DataModel {
     public void setDisplayClockSeconds(boolean displaySeconds) {
         enforceMainLooper();
         mSettingsModel.setDisplayClockSeconds(displaySeconds);
-    }
-
-    /**
-     * @return the style of clock to display in the clock screensaver
-     */
-    public ClockStyle getScreensaverClockStyle() {
-        enforceMainLooper();
-        return mSettingsModel.getScreensaverClockStyle();
-    }
-
-    /**
-     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
-     */
-    public boolean getScreensaverNightModeOn() {
-        enforceMainLooper();
-        return mSettingsModel.getScreensaverNightModeOn();
     }
 
     /**
@@ -995,8 +1004,6 @@ public final class DataModel {
      */
     public enum AlarmVolumeButtonBehavior {NOTHING, SNOOZE, DISMISS}
 
-    public enum ThemeButtonBehavior {SYSTEM, DARK, LIGHT}
-
     /**
      * Indicates the reason alarms may not fire or may fire silently.
      */
@@ -1009,11 +1016,7 @@ public final class DataModel {
         SILENT_RINGTONE(R.string.silent_default_alarm_ringtone,
                 R.string.change_setting_action,
                 new ChangeSoundActionPredicate(),
-                new ChangeSoundSettingsListener()),
-        BLOCKED_NOTIFICATIONS(R.string.app_notifications_blocked,
-                R.string.change_setting_action,
-                Predicate.TRUE,
-                new ChangeAppNotificationSettingsListener());
+                new ChangeSoundSettingsListener());
 
         private final @StringRes
         int mLabelResId;
@@ -1074,31 +1077,6 @@ public final class DataModel {
             public boolean apply(Context context) {
                 final Intent intent = new Intent(ACTION_SOUND_SETTINGS);
                 return intent.resolveActivity(context.getPackageManager()) != null;
-            }
-        }
-
-        private static class ChangeAppNotificationSettingsListener implements View.OnClickListener {
-            @Override
-            public void onClick(View v) {
-                final Context context = v.getContext();
-                if (Utils.isLOrLater()) {
-                    try {
-                        // Attempt to open the notification settings for this app.
-                        context.startActivity(
-                                new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
-                                        .putExtra(EXTRA_APP_PACKAGE, context.getPackageName())
-                                        .putExtra("app_uid", context.getApplicationInfo().uid)
-                                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
-                        return;
-                    } catch (Exception ignored) {
-                        // best attempt only; recovery code below
-                    }
-                }
-
-                // Fall back to opening the app settings page.
-                context.startActivity(new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                        .setData(Uri.fromParts("package", context.getPackageName(), null))
-                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
         }
     }

@@ -32,6 +32,7 @@ import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.ArrayMap;
@@ -83,7 +84,11 @@ final class RingtoneModel {
 
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+        }
     }
 
     CustomRingtone addCustomRingtone(Uri uri, String title) {

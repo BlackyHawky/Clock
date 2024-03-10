@@ -36,9 +36,11 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,25 +52,24 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.best.deskclock.AnimatorUtils;
-import com.best.deskclock.BaseActivity;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.ThemeUtils;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
-import com.best.deskclock.data.DataModel.ThemeButtonBehavior;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.CircleView;
 
 import java.util.List;
 
-public class AlarmActivity extends BaseActivity
+public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
     private static final TimeInterpolator PULSE_INTERPOLATOR =
@@ -83,6 +84,7 @@ public class AlarmActivity extends BaseActivity
     private static final float BUTTON_SCALE_DEFAULT = 0.7f;
     private static final int BUTTON_DRAWABLE_ALPHA_DEFAULT = 165;
     private final Handler mHandler = new Handler();
+
     private final ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -94,7 +96,7 @@ public class AlarmActivity extends BaseActivity
             LOGGER.i("Disconnected from AlarmService");
         }
     };
-    private ThemeButtonBehavior mThemeBehavior;
+
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
     private AlarmVolumeButtonBehavior mVolumeBehavior;
@@ -117,6 +119,7 @@ public class AlarmActivity extends BaseActivity
     private ValueAnimator mAlarmAnimator;
     private ValueAnimator mSnoozeAnimator;
     private ValueAnimator mDismissAnimator;
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -125,24 +128,17 @@ public class AlarmActivity extends BaseActivity
 
             if (!mAlarmHandled) {
                 switch (action) {
-                    case AlarmService.ALARM_SNOOZE_ACTION:
-                        snooze();
-                        break;
-                    case AlarmService.ALARM_DISMISS_ACTION:
-                        dismiss();
-                        break;
-                    case AlarmService.ALARM_DONE_ACTION:
-                        finish();
-                        break;
-                    default:
-                        LOGGER.i("Unknown broadcast: %s", action);
-                        break;
+                    case AlarmService.ALARM_SNOOZE_ACTION -> snooze();
+                    case AlarmService.ALARM_DISMISS_ACTION -> dismiss();
+                    case AlarmService.ALARM_DONE_ACTION -> finish();
+                    default -> LOGGER.i("Unknown broadcast: %s", action);
                 }
             } else {
                 LOGGER.v("Ignored broadcast: %s", action);
             }
         }
     };
+
     private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -161,25 +157,29 @@ public class AlarmActivity extends BaseActivity
             }
         }
     };
+
     private ValueAnimator mPulseAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeBehavior = DataModel.getDataModel().getThemeButtonBehavior();
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.DARK) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Wallpaper_Dark, true);
-        }
-        if (mThemeBehavior == DataModel.ThemeButtonBehavior.LIGHT) {
-            getTheme().applyStyle(R.style.Theme_DeskClock_Wallpaper_Light, true);
-        }
         super.onCreate(savedInstanceState);
-        // Register Power button (screen off) intent receiver
 
+        // Apply dark colors only for this activity.
+        // We don't want to be woken up with bright colors if the device is set to light mode.
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Hide navigation bar to minimize accidental tap on Home key
+        hideNavigationBar();
+
+        // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(PowerBtnReceiver, filter);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(PowerBtnReceiver, filter);
+        }
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
         final long instanceId = AlarmInstance.getId(getIntent().getData());
@@ -209,12 +209,8 @@ public class AlarmActivity extends BaseActivity
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
-        // Hide navigation bar to minimize accidental tap on Home key
-        hideNavigationBar();
-
-
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!getResources().getBoolean(R.bool.rotateAlarmAlert)) {
+        if (!Utils.isLandscape(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -231,17 +227,32 @@ public class AlarmActivity extends BaseActivity
         mSnoozeButton = mContentView.findViewById(R.id.snooze);
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
-        mDismissButton.setColorFilter(com.google.android.material.R.attr.colorOnBackground);
-        mSnoozeButton.setColorFilter(com.google.android.material.R.attr.colorOnBackground);
+
+        mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+                mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
+        );
+        mAlarmButton.setColorFilter(getColor(R.color.md_theme_outline));
+
+        mDismissButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+                mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
+        );
+        mDismissButton.setColorFilter(getColor(R.color.md_theme_outline));
+
+        mSnoozeButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+                mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
+        );
+        mSnoozeButton.setColorFilter(getColor(R.color.md_theme_outline));
 
         final TextView titleView = mContentView.findViewById(R.id.title);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        titleView.setTextColor(getColor(R.color.md_theme_outline));
         Utils.setTimeFormat(digitalClock, false);
+        digitalClock.setTextColor(getColor(R.color.md_theme_outline));
 
-        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.colorBackground);
+        mCurrentHourColor = getColor(R.color.md_theme_background);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
@@ -249,8 +260,8 @@ public class AlarmActivity extends BaseActivity
         mDismissButton.setOnClickListener(this);
 
         mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
-        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, com.google.android.material.R.attr.colorOnBackground);
-        mDismissAnimator = getButtonAnimator(mDismissButton, com.google.android.material.R.attr.colorOnBackground);
+        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, R.color.md_theme_onSurfaceVariant);
+        mDismissAnimator = getButtonAnimator(mDismissButton, R.color.md_theme_onSurfaceVariant);
         mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
                 PropertyValuesHolder.ofFloat(CircleView.RADIUS, 0.0f, pulseView.getRadius()),
                 PropertyValuesHolder.ofObject(CircleView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR,
@@ -287,7 +298,11 @@ public class AlarmActivity extends BaseActivity
             final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
-            registerReceiver(mReceiver, filter);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            } else {
+                registerReceiver(mReceiver, filter);
+            }
             mReceiverRegistered = true;
         }
 
@@ -325,25 +340,22 @@ public class AlarmActivity extends BaseActivity
             case KeyEvent.KEYCODE_FOCUS:
                 if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
-                        case SNOOZE:
+                        case SNOOZE -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 snooze();
                             }
                             return true;
-                        case DISMISS:
+                        }
+                        case DISMISS -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 dismiss();
                             }
                             return true;
+                        }
                     }
                 }
         }
         return super.dispatchKeyEvent(keyEvent);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Don't allow back to dismiss.
     }
 
     @Override
@@ -481,8 +493,9 @@ public class AlarmActivity extends BaseActivity
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
         final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
                 + Math.min(mSnoozeButton.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
-                R.string.description_direction_left : R.string.description_direction_right).start();
+        getAlarmBounceAnimator(translationX, translationX < 0.0f
+                ? R.string.description_direction_left
+                : R.string.description_direction_right).start();
     }
 
     private void hintDismiss() {
@@ -490,8 +503,10 @@ public class AlarmActivity extends BaseActivity
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
         final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
                 + Math.min(mDismissButton.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
-                R.string.description_direction_left : R.string.description_direction_right).start();
+
+        getAlarmBounceAnimator(translationX, translationX < 0.0f
+                ? R.string.description_direction_left
+                : R.string.description_direction_right).start();
     }
 
     /**
@@ -499,7 +514,7 @@ public class AlarmActivity extends BaseActivity
      */
     private void resetAnimations() {
         // Set the animators to their initial values.
-        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+        setAnimatedFractions(0.0f, 0.0f);
         // Restart the pulse.
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         if (!mPulseAnimator.isStarted()) {
@@ -514,8 +529,7 @@ public class AlarmActivity extends BaseActivity
         mAlarmHandled = true;
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
-        final int colorAccent = ThemeUtils.resolveColor(this, androidx.appcompat.R.attr.colorPrimaryDark);
-        setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+        setAnimatedFractions(1.0f, 0.0f);
 
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         final String infoText = getResources().getQuantityString(
@@ -523,10 +537,9 @@ public class AlarmActivity extends BaseActivity
         final String accessibilityText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
-        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText,
-                accessibilityText, colorAccent, colorAccent).start();
+        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, mCurrentHourColor).start();
 
-        AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
+        AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
 
         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
 
@@ -541,11 +554,9 @@ public class AlarmActivity extends BaseActivity
         mAlarmHandled = true;
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
-        setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
+        setAnimatedFractions(0.0f, 1.0f);
 
-        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null /* infoText */,
-                getString(R.string.alarm_alert_off_text) /* accessibilityText */,
-                Color.TRANSPARENT, mCurrentHourColor).start();
+        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text), mCurrentHourColor).start();
 
         AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
@@ -578,9 +589,9 @@ public class AlarmActivity extends BaseActivity
 
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
         final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
-        AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
-        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
-        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
+        mAlarmAnimator.setCurrentFraction(alarmFraction);
+        mSnoozeAnimator.setCurrentFraction(snoozeFraction);
+        mDismissAnimator.setCurrentFraction(dismissFraction);
     }
 
     private float getFraction(float x0, float x1, float x) {
@@ -592,10 +603,8 @@ public class AlarmActivity extends BaseActivity
                 PropertyValuesHolder.ofFloat(View.SCALE_X, BUTTON_SCALE_DEFAULT, 1.0f),
                 PropertyValuesHolder.ofFloat(View.SCALE_Y, BUTTON_SCALE_DEFAULT, 1.0f),
                 PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255),
-                PropertyValuesHolder.ofInt(AnimatorUtils.DRAWABLE_ALPHA,
-                        BUTTON_DRAWABLE_ALPHA_DEFAULT, 255),
-                PropertyValuesHolder.ofObject(AnimatorUtils.DRAWABLE_TINT,
-                        AnimatorUtils.ARGB_EVALUATOR, Color.WHITE, tintColor));
+                PropertyValuesHolder.ofInt(AnimatorUtils.DRAWABLE_ALPHA, BUTTON_DRAWABLE_ALPHA_DEFAULT, 255),
+                PropertyValuesHolder.ofObject(AnimatorUtils.DRAWABLE_TINT, AnimatorUtils.ARGB_EVALUATOR, Color.WHITE, tintColor));
     }
 
     private ValueAnimator getAlarmBounceAnimator(float translationX, final int hintResId) {
@@ -609,16 +618,18 @@ public class AlarmActivity extends BaseActivity
                 mHintView.setText(hintResId);
                 if (mHintView.getVisibility() != View.VISIBLE) {
                     mHintView.setVisibility(View.VISIBLE);
+
                     ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
                 }
             }
         });
+
         return bounceAnimator;
     }
 
-    private Animator getAlertAnimator(final View source, final int titleResId,
-                                      final String infoText, final String accessibilityText, final int revealColor,
-                                      final int backgroundColor) {
+    private Animator getAlertAnimator(final View source, final int titleResId, final String infoText,
+                                      final String accessibilityText, final int backgroundColor) {
+
         final ViewGroup containerView = findViewById(android.R.id.content);
 
         final Rect sourceBounds = new Rect(0, 0, source.getHeight(), source.getWidth());
@@ -636,13 +647,12 @@ public class AlarmActivity extends BaseActivity
         final CircleView revealView = new CircleView(this)
                 .setCenterX(centerX)
                 .setCenterY(centerY)
-                .setFillColor(revealColor);
+                .setFillColor(Color.TRANSPARENT);
         containerView.addView(revealView);
 
         // TODO: Fade out source icon over the reveal (like LOLLIPOP version).
 
-        final Animator revealAnimator = ObjectAnimator.ofFloat(
-                revealView, CircleView.RADIUS, startRadius, endRadius);
+        final Animator revealAnimator = ObjectAnimator.ofFloat(revealView, CircleView.RADIUS, startRadius, endRadius);
         revealAnimator.setDuration(ALERT_REVEAL_DURATION_MILLIS);
         revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
         revealAnimator.addListener(new AnimatorListenerAdapter() {
@@ -650,9 +660,13 @@ public class AlarmActivity extends BaseActivity
             public void onAnimationEnd(Animator animator) {
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
+                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                mAlertTitleView.setTextColor(getColor(R.color.md_theme_outline));
 
                 if (infoText != null) {
                     mAlertInfoView.setText(infoText);
+                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+                    mAlertInfoView.setTextColor(getColor(R.color.md_theme_outline));
                     mAlertInfoView.setVisibility(View.VISIBLE);
                 }
                 mContentView.setVisibility(View.GONE);
@@ -663,6 +677,7 @@ public class AlarmActivity extends BaseActivity
 
         final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
         fadeAnimator.setDuration(ALERT_FADE_DURATION_MILLIS);
+
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -672,16 +687,12 @@ public class AlarmActivity extends BaseActivity
 
         final AnimatorSet alertAnimator = new AnimatorSet();
         alertAnimator.play(revealAnimator).before(fadeAnimator);
+
         alertAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
                 mAlertView.announceForAccessibility(accessibilityText);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                }, ALERT_DISMISS_DELAY_MILLIS);
+                mHandler.postDelayed(() -> finish(), ALERT_DISMISS_DELAY_MILLIS);
             }
         });
 
