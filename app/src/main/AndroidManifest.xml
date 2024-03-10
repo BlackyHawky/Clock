@@ -44,7 +44,7 @@
         android:backupAgent="DeskClockBackupAgent"
         android:fullBackupContent="@xml/backup_scheme"
         android:fullBackupOnly="true"
-        android:icon="@mipmap/launcher_clock"
+        android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
