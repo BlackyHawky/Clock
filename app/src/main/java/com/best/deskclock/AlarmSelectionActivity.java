@@ -15,10 +15,8 @@
  */
 package com.best.deskclock;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -32,6 +30,8 @@ import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AlarmSelectionActivity extends ListActivity {
 
@@ -95,33 +95,19 @@ public class AlarmSelectionActivity extends ListActivity {
         final AlarmSelection selection = mSelections.get((int) id);
         final Alarm alarm = selection.getAlarm();
         if (alarm != null) {
-            new ProcessAlarmActionAsync(alarm, this, mAction).execute();
+            processAlarmActionAsync(alarm);
         }
         finish();
     }
 
-    private static class ProcessAlarmActionAsync extends AsyncTask<Void, Void, Void> {
-
-        private final Alarm mAlarm;
-        private final Activity mActivity;
-        private final int mAction;
-
-        public ProcessAlarmActionAsync(Alarm alarm, Activity activity, int action) {
-            mAlarm = alarm;
-            mActivity = activity;
-            mAction = action;
-        }
-
-        @Override
-        protected Void doInBackground(Void... parameters) {
+    void processAlarmActionAsync(Alarm alarm) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
             switch (mAction) {
-                case ACTION_DISMISS:
-                    HandleApiCalls.dismissAlarm(mAlarm, mActivity);
-                    break;
-                case ACTION_INVALID:
-                    LogUtils.i("Invalid action");
+                case ACTION_DISMISS -> HandleApiCalls.dismissAlarm(alarm, this);
+                case ACTION_INVALID -> LogUtils.i("Invalid action");
             }
-            return null;
-        }
+        });
     }
+
 }
