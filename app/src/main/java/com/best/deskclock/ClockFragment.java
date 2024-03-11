@@ -166,6 +166,9 @@ public final class ClockFragment extends DeskClockFragment {
             mCityList.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
         }
 
+        // force refresh so clock style changes apply immediately
+        mCityAdapter.citiesChanged();
+
         refreshAlarm();
     }
 
@@ -304,7 +307,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         @Override
-        public void citiesChanged(List<City> oldCities, List<City> newCities) {
+        public void citiesChanged() {
             notifyDataSetChanged();
         }
 
