@@ -19,12 +19,13 @@ package com.best.deskclock.ringtone;
 import static android.media.AudioManager.STREAM_ALARM;
 import static com.best.deskclock.Utils.RINGTONE_SILENT;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.LogUtils;
