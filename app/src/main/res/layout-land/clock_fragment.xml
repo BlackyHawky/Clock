@@ -13,33 +13,54 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fold_vertical_start_edge"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fold_vertical_end_edge"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
 
     <include
         layout="@layout/main_clock_frame"
         android:id="@+id/main_clock_left_panel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="40"
-        android:layout_gravity="center" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fold_vertical_start_edge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <View
         android:id="@+id/clock_space"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="20">
+        app:layout_constraintEnd_toStartOf="@id/fold_vertical_end_edge"
+        app:layout_constraintStart_toStartOf="@id/fold_vertical_start_edge">
     </View>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="30"
-        android:layout_gravity="center"
         android:clickable="false"
         android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        app:layout_constraintStart_toEndOf="@id/fold_vertical_end_edge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

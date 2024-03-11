@@ -57,6 +57,7 @@ import android.util.ArraySet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -156,6 +157,17 @@ public class Utils {
         final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
         switch (clockStyle) {
             case ANALOG -> {
+                final Context context = analogClock.getContext();
+                // Optimally adjusts the height and the width of the analog clock when displayed
+                // on a tablet or phone in portrait or landscape mode
+                if (isTablet(context) || isLandscape(context)) {
+                    analogClock.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    analogClock.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                } else {
+                    analogClock.getLayoutParams().height = toPixel(240, context);
+                    analogClock.getLayoutParams().width = toPixel(240, context);
+                }
+
                 analogClock.setVisibility(View.VISIBLE);
                 digitalClock.setVisibility(View.GONE);
                 return;

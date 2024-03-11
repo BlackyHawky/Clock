@@ -71,7 +71,6 @@ public final class ClockFragment extends DeskClockFragment {
     private TextClock mDigitalClock;
     private AnalogClock mAnalogClock;
     private View mClockFrame;
-    private View mClockSpace;
     private SelectedCitiesAdapter mCityAdapter;
     private RecyclerView mCityList;
     private String mDateFormat;
@@ -107,8 +106,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         mDateFormat = getContext().getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getContext().getString(R.string.full_wday_month_day_no_year);
-
-        mClockSpace = fragmentView.findViewById(R.id.clock_space);
 
         mCityAdapter = new SelectedCitiesAdapter(getContext(), mDateFormat, mDateFormatForAccessibility);
         DataModel.getDataModel().addCityListener(mCityAdapter);
@@ -167,13 +164,6 @@ public final class ClockFragment extends DeskClockFragment {
         if (view != null && view.findViewById(R.id.main_clock_left_panel) != null) {
             // Center the main clock frame by hiding the world clocks when none are selected.
             mCityList.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
-            mClockSpace.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
-
-            // Provide bottom padding dynamically for the clock frame for tablets in landscape mode.
-            final int bottomPadding = DataModel.getDataModel().getSelectedCities().size() > 0 || mShowHomeClock
-                    ? Utils.toPixel(20, activity) // The clock frame is on the left of the screen
-                    : Utils.toPixel(90, activity); // The clock frame is just above the button
-            mClockFrame.setPadding(0, 0, 0, bottomPadding);
         }
 
         refreshAlarm();
