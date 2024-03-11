@@ -44,8 +44,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -58,9 +56,6 @@ import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.RingtonePreviewKlaxon;
-import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
-import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
@@ -112,11 +107,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private static final String STATE_KEY_PLAYING = "extra_is_playing";
 
     /**
-     * Generates the items in the activity context menu.
-     */
-    private OptionsMenuManager mOptionsMenuManager;
-
-    /**
      * Stores the set of ItemHolders that wrap the selectable ringtones.
      */
     private ItemAdapter<ItemAdapter.ItemHolder<Uri>> mRingtoneAdapter;
@@ -145,11 +135,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * Identifies the alarm to receive the selected ringtone; -1 indicates there is no alarm.
      */
     private long mAlarmId;
-
-    /**
-     * The location of the custom ringtone to be removed.
-     */
-    private int mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
 
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
@@ -183,10 +168,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         setContentView(R.layout.ringtone_picker);
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
-
-        mOptionsMenuManager = new OptionsMenuManager();
-        mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         final Context context = getApplicationContext();
         final Intent intent = getIntent();
@@ -222,21 +203,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         ringtone_content.setAdapter(mRingtoneAdapter);
         ringtone_content.setItemAnimator(null);
 
-        ringtone_content.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                if (mIndexOfRingtoneToRemove != RecyclerView.NO_POSITION) {
-                    closeContextMenu();
-                }
-            }
-        });
-
         final int titleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(titleResourceId));
 
         getLoaderManager().initLoader(0, null, this);
-
-        registerForContextMenu(ringtone_content);
 
         getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
@@ -292,23 +262,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         outState.putBoolean(STATE_KEY_PLAYING, mIsPlaying);
         outState.putParcelable(EXTRA_RINGTONE_URI, mSelectedRingtoneUri);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onPrepareOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -368,18 +321,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         new AddCustomRingtoneTask(uri).execute();
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    private void onItemRemovedClicked(int indexOfRingtoneToRemove) {
         // Find the ringtone to be removed.
         final List<ItemAdapter.ItemHolder<Uri>> items = mRingtoneAdapter.getItems();
-        final RingtoneHolder toRemove = (RingtoneHolder) items.get(mIndexOfRingtoneToRemove);
-        mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
+        final RingtoneHolder toRemove = (RingtoneHolder) items.get(indexOfRingtoneToRemove);
 
         // Launch the confirmation dialog.
         final FragmentManager manager = getFragmentManager();
         final boolean hasPermissions = toRemove.hasPermissions();
         ConfirmRemoveCustomRingtoneDialogFragment.show(manager, toRemove.getUri(), hasPermissions);
-        return true;
     }
 
     private RingtoneHolder getRingtoneHolder(Uri uri) {
@@ -527,7 +477,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                         startPlayingRingtone(newSelection);
                     }
                 }
-                case RingtoneViewHolder.CLICK_LONG_PRESS -> mIndexOfRingtoneToRemove = viewHolder.getAdapterPosition();
+                case RingtoneViewHolder.CLICK_REMOVE -> onItemRemovedClicked(viewHolder.getBindingAdapterPosition());
                 case RingtoneViewHolder.CLICK_NO_PERMISSIONS ->
                         ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
                                 ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
