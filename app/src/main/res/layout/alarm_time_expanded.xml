@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:text="@string/alarm_repeat"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_column="0"
         app:layout_columnSpan="2"
         app:layout_row="1"
@@ -82,10 +84,14 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:textAlignment="viewStart"
+        android:textColor="?android:attr/textColorPrimary"
+        app:drawableStartCompat="@drawable/ic_ringtone"
+        app:drawableTint="@color/md_theme_onSurfaceVariant"
         app:layout_column="0"
         app:layout_columnSpan="5"
         app:layout_gravity="fill_horizontal|center_vertical"
-        app:layout_row="3" />
+        app:layout_row="3"
+        tools:text="Standard (Hassium)" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/vibrate_onoff"
@@ -93,6 +99,7 @@
         android:layout_height="48dp"
         android:paddingStart="10dp"
         android:text="@string/alarm_vibrate"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_column="5"
         app:layout_columnSpan="3"
         app:layout_row="3"
@@ -110,17 +117,30 @@
         android:hint="@string/label"
         android:singleLine="true"
         android:textAlignment="viewStart"
+        android:textColor="?android:attr/textColorPrimary"
+        app:drawableStartCompat="@drawable/ic_label"
+        app:drawableTint="@color/md_theme_onSurfaceVariant"
         app:layout_column="0"
         app:layout_columnSpan="8"
         app:layout_row="4" />
 
-    <include
-        layout="@layout/preemptive_dismiss"
+    <Button
+        android:id="@+id/preemptive_dismiss_button"
+        style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_alarm_off"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        android:paddingStart="4dp"
+        android:paddingEnd="@null"
+        android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_column="0"
         app:layout_columnSpan="3"
-        app:layout_row="5" />
+        app:layout_row="5"
+        tools:visibility="visible"
+        tools:text="Dismiss" />
 
     <View
         android:id="@+id/hairline"
@@ -150,7 +170,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/collapse_alarm"
         android:paddingHorizontal="12dp"
-        android:scaleType="center"
+        android:scaleType="centerInside"
         app:layout_column="7"
         app:layout_gravity="center_vertical"
         app:layout_row="7"

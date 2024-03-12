@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,7 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -32,7 +35,8 @@
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
-        android:shadowDy="2" />
+        android:shadowDy="2"
+        tools:text="01:23" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -53,7 +57,8 @@
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            tools:text="Sa, Apr 14" />
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
@@ -70,7 +75,11 @@
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            tools:text=""
+            tools:drawableStart="@drawable/ic_tab_alarm_static"
+            tools:paddingStart="8dp"
+            tools:paddingEnd="8dp" />
 
         <TextView
             android:id="@+id/nextAlarm"
@@ -86,7 +95,8 @@
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            tools:text="Mo, 07:30 AM" />
 
     </LinearLayout>
 

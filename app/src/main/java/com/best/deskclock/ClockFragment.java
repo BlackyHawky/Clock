@@ -28,7 +28,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -359,16 +358,8 @@ public final class ClockFragment extends DeskClockFragment {
                 params.setMargins(marginLeft, 0, marginRight, marginBottom);
                 itemView.setLayoutParams(params);
 
-                // Supply vertical and horizontal padding dynamically.
-                final int paddingLeft = Utils.toPixel(24, context);
-                final int paddingTop = Utils.toPixel(12, context);
-                final int paddingRight = Utils.toPixel(24, context);
-                final int paddingBottom = Utils.toPixel(12, context);
-                itemView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
-
                 // Bind the city name.
                 mName.setText(city.getName());
-                mName.setTypeface(Typeface.DEFAULT_BOLD);
 
                 // Compute if the city week day matches the weekday of the current timezone.
                 final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());

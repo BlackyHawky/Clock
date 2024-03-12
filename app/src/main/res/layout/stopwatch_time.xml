@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,7 +14,9 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -30,7 +33,8 @@
         android:duplicateParentState="true"
         android:paddingStart="30dp"
         android:paddingEnd="3dp"
-        android:textSize="70sp" />
+        android:textSize="70sp"
+        tools:text="1" />
 
     <com.best.deskclock.widget.AutoSizingTextView
         android:id="@+id/stopwatch_hundredths_text"
@@ -39,6 +43,7 @@
         android:duplicateParentState="true"
         android:paddingStart="3dp"
         android:paddingEnd="30dp"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        tools:text="23" />
 
 </LinearLayout>

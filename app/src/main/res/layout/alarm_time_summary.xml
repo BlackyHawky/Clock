@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2015 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,9 +14,12 @@
      limitations under the License.
 -->
 
-<com.best.deskclock.widget.TextTime xmlns:android="http://schemas.android.com/apk/res/android"
+<com.best.deskclock.widget.TextTime
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/digital_clock"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:textSize="36sp" />
+    android:textSize="36sp"
+    tools:text="08:30" />
