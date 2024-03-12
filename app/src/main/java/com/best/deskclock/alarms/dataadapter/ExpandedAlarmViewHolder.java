@@ -99,14 +99,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             dayButtons[i] = dayButton;
         }
 
-        // Cannot set in xml since we need compat functionality for API < 21
-        final Drawable labelIcon = AppCompatResources.getDrawable(context, R.drawable.ic_label);
-        if (labelIcon == null) {
-            return;
-        }
-        labelIcon.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
-        editLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(labelIcon, null, null, null);
-
         // Collapse handler
         itemView.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_collapse_implied, R.string.label_deskclock);
@@ -185,10 +177,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
-        if (iconRingtone == null) {
-            return;
-        }
-        iconRingtone.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
     }
 

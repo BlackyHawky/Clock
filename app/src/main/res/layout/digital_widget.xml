@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,7 +14,9 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -35,7 +38,8 @@
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
-        android:shadowDy="2" />
+        android:shadowDy="2"
+        tools:text="0123" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -56,7 +60,8 @@
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            tools:text="01. Jan, 2023" />
 
         <ImageView
             android:id="@+id/nextAlarmIcon"
@@ -64,7 +69,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:scaleType="center" />
+            android:scaleType="fitCenter"
+            tools:src="@drawable/ic_tab_alarm_static"
+            tools:paddingStart="8dp"
+            tools:paddingEnd="8dp"/>
 
         <TextView
             android:id="@+id/nextAlarm"
@@ -80,7 +88,8 @@
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            tools:text="08:30" />
 
     </LinearLayout>
 
@@ -89,7 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="20dp"
-        android:divider="@null" />
+        android:layout_marginTop="10dp"
+        android:divider="@null"
+        android:visibility="gone" />
 
 </LinearLayout>

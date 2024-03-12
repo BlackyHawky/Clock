@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bedtime_bottom_sheet">
@@ -55,7 +55,8 @@
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wakeup_label" />
+            app:layout_constraintTop_toBottomOf="@+id/wakeup_label"
+            tools:text="08:30" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/toggle_switch_wakeup"
@@ -107,11 +108,14 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAlignment="viewStart"
+            app:drawableStartCompat="@drawable/ic_ringtone"
+            app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_gravity="fill_horizontal"
             app:layout_column="0"
             app:layout_columnSpan="5"
             app:layout_row="3"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline" />
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
+            tools:text="Standard (Hassium)" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/vibrate_onoff_wake"

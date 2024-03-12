@@ -358,10 +358,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         final Drawable icon = silent
                 ? AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
-        if (icon == null) {
-            return;
-        }
-        icon.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
         mRingtone.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
     }
 
