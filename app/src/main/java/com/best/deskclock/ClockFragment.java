@@ -49,6 +49,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
@@ -115,6 +116,7 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
         mCityList.setOnTouchListener(new CityListOnLongClickListener(getContext()));
+        fragmentView.setOnLongClickListener(new StartScreenSaverListener());
 
         // On tablet landscape, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
@@ -214,6 +216,51 @@ public final class ClockFragment extends DeskClockFragment {
             Utils.refreshAlarm(getContext(), mClockFrame);
         } else {
             mCityAdapter.refreshAlarm();
+        }
+    }
+
+    /**
+     * Long pressing over the main clock starts the screen saver.
+     */
+    private final class StartScreenSaverListener implements View.OnLongClickListener {
+
+        @Override
+        public boolean onLongClick(View view) {
+            startActivity(new Intent(getActivity(), ScreensaverActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
+            return true;
+        }
+    }
+
+    /**
+     * Long pressing over the city list starts the screen saver.
+     */
+    private final class CityListOnLongClickListener extends GestureDetector.SimpleOnGestureListener
+            implements View.OnTouchListener {
+
+        private final GestureDetector mGestureDetector;
+
+        private CityListOnLongClickListener(Context context) {
+            mGestureDetector = new GestureDetector(context, this);
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            final View view = getView();
+            if (view != null) {
+                view.performLongClick();
+            }
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return mGestureDetector.onTouchEvent(event);
         }
     }
 
@@ -419,37 +466,6 @@ public final class ClockFragment extends DeskClockFragment {
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
                 Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
             }
-        }
-    }
-
-    /**
-     * Long pressing over the city list starts the screen saver.
-     */
-    private final class CityListOnLongClickListener extends GestureDetector.SimpleOnGestureListener
-            implements View.OnTouchListener {
-
-        private final GestureDetector mGestureDetector;
-
-        private CityListOnLongClickListener(Context context) {
-            mGestureDetector = new GestureDetector(context, this);
-        }
-
-        @Override
-        public void onLongPress(MotionEvent e) {
-            final View view = getView();
-            if (view != null) {
-                view.performLongClick();
-            }
-        }
-
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return mGestureDetector.onTouchEvent(event);
         }
     }
 
