@@ -48,7 +48,6 @@ import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.List;
@@ -66,7 +65,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final TextView delete;
     private final TextView editLabel;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
-    private final View hairLine;
 
     private final boolean mHasVibrator;
 
@@ -81,7 +79,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         editLabel = itemView.findViewById(R.id.edit_label);
         repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
-        hairLine = itemView.findViewById(R.id.hairline);
 
         final Context context = itemView.getContext();
 
@@ -157,13 +154,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         super.onBindItemView(itemHolder);
 
         final Alarm alarm = itemHolder.item;
-        final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
-        bindPreemptiveDismissButton(context, alarm, alarmInstance);
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -248,8 +243,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 ObjectAnimator.ofFloat(ringtone, TRANSLATION_Y, 0f),
                 ObjectAnimator.ofFloat(vibrate, TRANSLATION_Y, 0f),
                 ObjectAnimator.ofFloat(editLabel, TRANSLATION_Y, 0f),
-                ObjectAnimator.ofFloat(preemptiveDismissButton, TRANSLATION_Y, 0f),
-                ObjectAnimator.ofFloat(hairLine, TRANSLATION_Y, 0f),
                 ObjectAnimator.ofFloat(delete, TRANSLATION_Y, 0f),
                 ObjectAnimator.ofFloat(arrow, TRANSLATION_Y, 0f));
 
@@ -274,8 +267,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setTranslationY(translationY);
         vibrate.setTranslationY(translationY);
         editLabel.setTranslationY(translationY);
-        preemptiveDismissButton.setTranslationY(translationY);
-        hairLine.setTranslationY(translationY);
         delete.setTranslationY(translationY);
         arrow.setTranslationY(translationY);
     }
@@ -339,11 +330,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 .setDuration(shortDuration);
         final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 0f)
                 .setDuration(shortDuration);
-        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
-                View.ALPHA, 0f).setDuration(shortDuration);
         final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 0f)
-                .setDuration(shortDuration);
-        final Animator hairLineAnimation = ObjectAnimator.ofFloat(hairLine, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
         // Set the staggered delays; use the first portion (duration * (1 - 1/4 - 1/6)) of the time,
@@ -352,11 +339,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         long startDelay = 0L;
         final long delayIncrement = (long) (duration * ANIM_LONG_DELAY_INCREMENT_MULTIPLIER) / (numberOfItems - 1);
         deleteAnimation.setStartDelay(startDelay);
-        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
-            startDelay += delayIncrement;
-            dismissAnimation.setStartDelay(startDelay);
-        }
-        hairLineAnimation.setStartDelay(startDelay);
+
         startDelay += delayIncrement;
         editLabelAnimation.setStartDelay(startDelay);
         startDelay += delayIncrement;
@@ -371,8 +354,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         final AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatAnimation,
-                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation,
-                deleteAnimation, hairLineAnimation, dismissAnimation);
+                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation, deleteAnimation);
 
         return animatorSet;
     }
@@ -407,13 +389,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 .setDuration(longDuration);
         final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
                 .setDuration(longDuration);
-        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
-                View.ALPHA, 1f).setDuration(longDuration);
         final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 1f)
                 .setDuration(longDuration);
         final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 1f)
-                .setDuration(longDuration);
-        final Animator hairLineAnimation = ObjectAnimator.ofFloat(hairLine, View.ALPHA, 1f)
                 .setDuration(longDuration);
         final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 1f)
                 .setDuration(longDuration);
@@ -438,17 +416,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         startDelay += delayIncrement;
         editLabelAnimation.setStartDelay(startDelay);
         startDelay += delayIncrement;
-        hairLineAnimation.setStartDelay(startDelay);
-        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
-            dismissAnimation.setStartDelay(startDelay);
-            startDelay += delayIncrement;
-        }
         deleteAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(backgroundAnimator, repeatAnimation, boundsAnimator,
                 repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation,
-                deleteAnimation, hairLineAnimation, dismissAnimation, arrowAnimation);
+                deleteAnimation, arrowAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -463,9 +436,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private int countNumberOfItems() {
         // Always between 4 and 6 items.
         int numberOfItems = 4;
-        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
-            numberOfItems++;
-        }
         if (repeatDays.getVisibility() == View.VISIBLE) {
             numberOfItems++;
         }
@@ -478,9 +448,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         repeatDays.setAlpha(alpha);
         vibrate.setAlpha(alpha);
         ringtone.setAlpha(alpha);
-        hairLine.setAlpha(alpha);
         delete.setAlpha(alpha);
-        preemptiveDismissButton.setAlpha(alpha);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
