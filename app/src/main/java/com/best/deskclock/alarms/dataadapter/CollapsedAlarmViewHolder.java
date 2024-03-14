@@ -22,7 +22,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
 import java.util.List;
@@ -93,12 +91,10 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     protected void onBindItemView(AlarmItemHolder itemHolder) {
         super.onBindItemView(itemHolder);
         final Alarm alarm = itemHolder.item;
-        final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
-        bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAnnotations(alarm);
     }
 
@@ -109,7 +105,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
             } else {
                 alarmLabel.setText(alarm.label);
             }
-            alarmLabel.setTypeface(Typeface.DEFAULT_BOLD);
             alarmLabel.setVisibility(View.VISIBLE);
             alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
         } else {
@@ -192,8 +187,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         alphaAnimatorSet.playTogether(
                 ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 0f),
                 ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, 0f),
-                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 0f),
-                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 0f));
+                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 0f));
 
         alphaAnimatorSet.setDuration((long) (duration * ANIM_SHORT_DURATION_MULTIPLIER));
 
@@ -211,8 +205,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         alphaAnimatorSet.playTogether(
                 ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, annotationsAlpha),
                 ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, annotationsAlpha),
-                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, annotationsAlpha),
-                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, annotationsAlpha));
+                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, annotationsAlpha));
         final long standardDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
         alphaAnimatorSet.setDuration(standardDelay);
         alphaAnimatorSet.setStartDelay(duration - standardDelay);
@@ -253,7 +246,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         alarmLabel.setAlpha(alpha);
         daysOfWeek.setAlpha(alpha);
         upcomingInstanceLabel.setAlpha(alpha);
-        preemptiveDismissButton.setAlpha(alpha);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {

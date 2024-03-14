@@ -277,17 +277,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     /**
-     * Get alarm for the {@code contentUri}.
-     *
-     * @param cr         provides access to the content model
-     * @param contentUri the {@link #getContentUri deeplink} for the desired alarm
-     * @return instance if found, null otherwise
-     */
-    public static Alarm getAlarm(ContentResolver cr, Uri contentUri) {
-        return getAlarm(cr, ContentUris.parseId(contentUri));
-    }
-
-    /**
      * Get all alarms given conditions.
      *
      * @param cr            provides access to the content model
@@ -343,26 +332,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return deletedRows == 1;
     }
 
-    /**
-     * @return the deeplink that identifies this alarm
-     */
-    public Uri getContentUri() {
-        return getContentUri(id);
-    }
-
     public String getLabelOrDefault(Context context) {
         return label.isEmpty() ? context.getString(R.string.default_label) : label;
-    }
-
-    /**
-     * Whether the alarm is in a state to show preemptive dismiss. Valid states are SNOOZE_STATE
-     * HIGH_NOTIFICATION, LOW_NOTIFICATION, and HIDE_NOTIFICATION.
-     */
-    public boolean canPreemptivelyDismiss() {
-        return instanceState == AlarmInstance.SNOOZE_STATE
-                || instanceState == AlarmInstance.HIGH_NOTIFICATION_STATE
-                || instanceState == AlarmInstance.LOW_NOTIFICATION_STATE
-                || instanceState == AlarmInstance.HIDE_NOTIFICATION_STATE;
     }
 
     public void writeToParcel(Parcel p, int flags) {
