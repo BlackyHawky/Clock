@@ -93,7 +93,6 @@ public class ScreensaverActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
 
         mMainClockView = findViewById(R.id.main_clock);
 
@@ -214,14 +213,4 @@ public class ScreensaverActivity extends AppCompatActivity {
         }
     }
 
-    private final class InteractionListener implements View.OnSystemUiVisibilityChangeListener {
-        @Override
-        public void onSystemUiVisibilityChange(int visibility) {
-            // When the user interacts with the screen, the navigation bar reappears
-            if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-                // We want the screen saver to exit upon user interaction.
-                finish();
-            }
-        }
-    }
 }
