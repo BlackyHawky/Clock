@@ -229,7 +229,7 @@
     <string name="button_alarms">Ychwanegu larwm</string>
     <string name="button_cities">Dinasoedd</string>
     <string name="menu_item_settings">Gosodiadau</string>
-    <string name="menu_item_night_mode">Arbedwr sgrin</string>
+    <string name="screensaver_settings_title">Arbedwr sgrin</string>
     <string name="menu_item_sort_by_gmt_offset">Trefnu\'n ôl amser</string>
     <string name="menu_item_sort_by_name">Trefnu\'n ôl enw</string>
     <string name="selected_cities_label">Dinasoedd a Ddewiswyd</string>

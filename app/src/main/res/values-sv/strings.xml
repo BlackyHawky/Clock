@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"Lägg till alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Orter"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Inställningar"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"Skärmsläckare"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"Skärmsläckare"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortera efter tid"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortera efter namn"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Valda städer"</string>

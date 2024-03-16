@@ -501,9 +501,6 @@
     <string name="button_cities">Cities</string>
     <!-- Menu item on most screens to get to more settings -->
     <string name="menu_item_settings">Settings</string>
-    <!-- Menu item on most screens to get to the help information -->
-    <!-- Menu item on clock screen to enter screensaver. -->
-    <string name="menu_item_night_mode">Screensaver</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->

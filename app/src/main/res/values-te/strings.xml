@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"అలారంను జోడించు"</string>
     <string name="button_cities" msgid="4555761857494501363">"నగరాలు"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"సెట్టింగ్‌లు"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"స్క్రీన్ సేవర్"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"స్క్రీన్ సేవర్"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"సమయం ద్వారా క్రమబద్ధీకరించు"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"పేరు ద్వారా క్రమబద్ధీకరించు"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ఎంచుకున్న నగరాలు"</string>

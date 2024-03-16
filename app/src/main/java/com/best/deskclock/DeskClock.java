@@ -59,7 +59,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
 import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.best.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.best.deskclock.data.DataModel;
@@ -229,8 +228,7 @@ public class DeskClock extends AppCompatActivity
         firstRunDialog();
 
         // Configure the menu item controllers add behavior to the toolbar.
-        mOptionsMenuManager.addMenuItemController(
-                new NightModeMenuItemController(this), new SettingsMenuItemController(this));
+        mOptionsMenuManager.addMenuItemController(new SettingsMenuItemController(this));
         mOptionsMenuManager.addMenuItemController(
                 MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 

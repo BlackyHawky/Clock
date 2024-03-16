@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"បន្ថែម​សំឡេង​រោទ៍"</string>
     <string name="button_cities" msgid="4555761857494501363">"ទីក្រុង"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ការ​កំណត់"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"ធាតុរក្សាអេក្រង់"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"ធាតុរក្សាអេក្រង់"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"តម្រៀប​តាម​ពេល"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"តម្រៀប​តាម​ឈ្មោះ"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ទីក្រុង​ដែលបាន​ជ្រើសរើស"</string>

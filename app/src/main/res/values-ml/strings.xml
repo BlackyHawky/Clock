@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"സ്ക്രീൻ സേവർ"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"സ്ക്രീൻ സേവർ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"പേര് പ്രകാരം അടുക്കുക"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"തിരഞ്ഞെടുത്ത നഗരങ്ങൾ"</string>
