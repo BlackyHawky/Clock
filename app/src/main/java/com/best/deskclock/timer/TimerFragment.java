@@ -83,7 +83,6 @@ public final class TimerFragment extends DeskClockFragment {
     private View mTimersView;
     private View mCurrentView;
     private RecyclerView mRecyclerView;
-    private TimerClickHandler mTimerClickHandler;
 
     private Serializable mTimerSetupState;
 
@@ -111,8 +110,8 @@ public final class TimerFragment extends DeskClockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
-        mTimerClickHandler = new TimerClickHandler(this);
-        mAdapter = new TimerAdapter(mTimerClickHandler);
+        TimerClickHandler timerClickHandler = new TimerClickHandler(this);
+        mAdapter = new TimerAdapter(timerClickHandler);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
@@ -234,20 +233,25 @@ public final class TimerFragment extends DeskClockFragment {
             right.setVisibility(INVISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
+            right.setVisibility(INVISIBLE);
+
             left.setClickable(true);
             left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_cancel));
             left.setContentDescription(getContext().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
-
-            right.setVisibility(INVISIBLE);
+            left.setOnClickListener(v -> {
+                mCreateTimerView.reset();
+                animateToView(mTimersView, false);
+                left.announceForAccessibility(getContext().getString(R.string.timer_canceled));
+            });
         }
     }
 
     @Override
     public void onFabClick(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
-            animateToView(mCreateTimerView, null, true);
+            animateToView(mCreateTimerView, true);
         } else if (mCurrentView == mCreateTimerView) {
             mCreatingTimer = true;
             try {
@@ -266,41 +270,7 @@ public final class TimerFragment extends DeskClockFragment {
             }
 
             // Return to the list of timers.
-            animateToView(mTimersView, null, true);
-        }
-    }
-
-    @Override
-    public void onLeftButtonClick(@NonNull ImageView left) {
-        if (mCurrentView == mTimersView) {
-            // Clicking the "delete" button.
-            final Timer timer = getTimer();
-            if (timer == null) {
-                return;
-            }
-            DataModel.getDataModel().removeTimer(timer);
-            Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-
-            if (mAdapter.getItemCount() <= 1) {
-
-                animateToView(mCreateTimerView, timer, false);
-            }
-
-            left.announceForAccessibility(getContext().getString(R.string.timer_deleted));
-        } else if (mCurrentView == mCreateTimerView) {
-            // Clicking the "cancel" button on the timer creation page returns to the timers list.
-            mCreateTimerView.reset();
-
-            animateToView(mTimersView, null, false);
-
-            left.announceForAccessibility(getContext().getString(R.string.timer_canceled));
-        }
-    }
-
-    @Override
-    public void onRightButtonClick(@NonNull ImageView right) {
-        if (mCurrentView != mCreateTimerView) {
-            animateToView(mCreateTimerView, null, true);
+            animateToView(mTimersView, true);
         }
     }
 
@@ -356,12 +326,10 @@ public final class TimerFragment extends DeskClockFragment {
 
 
     /**
-     * @param toView        one of {@link #mTimersView} or {@link #mCreateTimerView}
-     * @param timerToRemove the timer to be removed during the animation; {@code null} if no timer
-     *                      should be removed
-     * @param animateDown   {@code true} if the views should animate upwards, otherwise downwards
+     * @param toView      one of {@link #mTimersView} or {@link #mCreateTimerView}
+     * @param animateDown {@code true} if the views should animate upwards, otherwise downwards
      */
-    private void animateToView(final View toView, final Timer timerToRemove, final boolean animateDown) {
+    private void animateToView(final View toView, final boolean animateDown) {
         if (mCurrentView == toView) {
             return;
         }
@@ -424,11 +392,6 @@ public final class TimerFragment extends DeskClockFragment {
                             showCreateTimerView(FAB_AND_BUTTONS_EXPAND);
                         }
 
-                        if (timerToRemove != null) {
-                            DataModel.getDataModel().removeTimer(timerToRemove);
-                            Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-                        }
-
                         // Update the fab and button states now that the correct view is visible and
                         // before the animation to expand the fab and buttons starts.
                         updateFab(FAB_AND_BUTTONS_IMMEDIATE);
@@ -461,19 +424,6 @@ public final class TimerFragment extends DeskClockFragment {
 
     private boolean hasTimers() {
         return mAdapter.getItemCount() > 0;
-    }
-
-    private Timer getTimer() {
-        if (mAdapter == null) {
-            TimerAdapter adapter = new TimerAdapter(mTimerClickHandler);
-            return adapter.getItemCount() == 0 ? null : adapter.getTimer(0);
-        }
-
-        if (mRecyclerView == null) {
-            return null;
-        }
-
-        return mAdapter.getItemCount() == 0 ? null : mAdapter.getTimer(0);
     }
 
     private void startUpdatingTime() {
@@ -547,7 +497,7 @@ public final class TimerFragment extends DeskClockFragment {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
-                animateToView(mCreateTimerView, null, false);
+                animateToView(mCreateTimerView, false);
             }
         }
     }

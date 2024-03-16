@@ -249,13 +249,11 @@ public class DeskClock extends AppCompatActivity
         mLeftButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
         mLeftButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
-        mLeftButton.setOnClickListener(view -> getSelectedDeskClockFragment().onLeftButtonClick(mLeftButton));
 
         mRightButton = findViewById(R.id.right_button);
         mRightButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
         mRightButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
-        mRightButton.setOnClickListener(view -> getSelectedDeskClockFragment().onRightButtonClick(mRightButton));
 
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
 
@@ -706,13 +704,12 @@ public class DeskClock extends AppCompatActivity
         }
     }
 
-
     /**
      * Shows/hides a snackbar as silencing settings are enabled/disabled.
      */
     private final class SilentSettingChangeWatcher implements OnSilentSettingsListener {
         @Override
-        public void onSilentSettingsChange(SilentSetting before, SilentSetting after) {
+        public void onSilentSettingsChange(SilentSetting after) {
             if (mShowSilentSettingSnackbarRunnable != null) {
                 mSnackbarAnchor.removeCallbacks(mShowSilentSettingSnackbarRunnable);
                 mShowSilentSettingSnackbarRunnable = null;
@@ -758,7 +755,7 @@ public class DeskClock extends AppCompatActivity
      */
     private final class TabChangeWatcher implements TabListener {
         @Override
-        public void selectedTabChanged(UiDataModel.Tab oldSelectedTab, UiDataModel.Tab newSelectedTab) {
+        public void selectedTabChanged(UiDataModel.Tab newSelectedTab) {
             // Update the view pager and tab layout to agree with the model.
             updateCurrentTab();
 

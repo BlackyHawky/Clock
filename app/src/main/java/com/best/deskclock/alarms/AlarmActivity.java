@@ -25,6 +25,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -161,6 +162,7 @@ public class AlarmActivity extends AppCompatActivity
     private ValueAnimator mPulseAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -383,6 +385,7 @@ public class AlarmActivity extends AppCompatActivity
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         if (mAlarmHandled) {

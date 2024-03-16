@@ -165,17 +165,13 @@ public final class BedtimeFragment extends DeskClockFragment implements
             }
 
             mHoursOfSleep.setText(diff);
-            setAlphaColorHoursOfSleep();
+            mHoursOfSleep.setAlpha(mSaver.enabled && alarm.enabled
+                    ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
+                    : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+            );
         } else {
             mHoursOfSleep.setText(R.string.wakeup_alarm_non_existent);
         }
-    }
-
-    private void setAlphaColorHoursOfSleep() {
-        mHoursOfSleep.setAlpha(mSaver.enabled && mAlarm.enabled
-                ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
-                : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
-        );
     }
 
     @Override
@@ -198,10 +194,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         left.setVisibility(INVISIBLE);
-        left.setClickable(false);
-
         right.setVisibility(INVISIBLE);
-        right.setClickable(false);
     }
 
     //Wake stuff is almost done, only ringtone picking makes problems makes problems
@@ -239,7 +232,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
                 alarm.enabled = checked;
                 mClock.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
                 mTxtWakeup.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                setAlphaColorHoursOfSleep();
+                mHoursOfSleep.setAlpha(mSaver.enabled && alarm.enabled
+                        ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
+                        : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+                );
                 Events.sendBedtimeEvent(checked
                         ? R.string.action_enable
                         : R.string.action_disable, R.string.label_deskclock);
@@ -404,7 +400,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
+    public void onTimeSet(int hourOfDay, int minute) {
         if (mClock == mBottomSheetDialog.findViewById(R.id.wake_time)) {
             Alarm mSelectedAlarm = getBedAlarm();
 
@@ -458,7 +454,10 @@ public final class BedtimeFragment extends DeskClockFragment implements
                 mSaver.save();
                 mClock.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
                 mTxtBedtime.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                setAlphaColorHoursOfSleep();
+                mHoursOfSleep.setAlpha(mSaver.enabled && mAlarm != null && mAlarm.enabled
+                        ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
+                        : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+                );
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
                 if (mVibrator.hasVibrator()) {

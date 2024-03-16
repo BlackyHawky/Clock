@@ -84,6 +84,7 @@ final class NotificationModel {
     /**
      * @return the group key for the stopwatch notification
      */
+    @SuppressWarnings("SameReturnValue")
     String getStopwatchNotificationGroupKey() {
         return "3";
     }
@@ -91,6 +92,7 @@ final class NotificationModel {
     /**
      * @return the group key for the timer notification
      */
+    @SuppressWarnings("SameReturnValue")
     String getTimerNotificationGroupKey() {
         return "2";
     }
@@ -102,6 +104,7 @@ final class NotificationModel {
     /**
      * @return the sort key for the timer notification
      */
+    @SuppressWarnings("SameReturnValue")
     String getTimerNotificationSortKey() {
         return "0";
     }
@@ -109,6 +112,7 @@ final class NotificationModel {
     /**
      * @return the sort key for the missed timer notification
      */
+    @SuppressWarnings("SameReturnValue")
     String getTimerNotificationMissedSortKey() {
         return "1";
     }

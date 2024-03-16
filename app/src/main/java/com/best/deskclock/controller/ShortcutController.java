@@ -36,7 +36,6 @@ import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.ScreensaverActivity;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
@@ -163,7 +162,7 @@ class ShortcutController {
     private class StopwatchWatcher implements StopwatchListener {
 
         @Override
-        public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
+        public void stopwatchUpdated(Stopwatch after) {
             if (!mUserManager.isUserUnlocked()) {
                 LogUtils.i("Skipping stopwatch shortcut update because user is locked.");
                 return;
@@ -176,8 +175,5 @@ class ShortcutController {
             }
         }
 
-        @Override
-        public void lapAdded(Lap lap) {
-        }
     }
 }

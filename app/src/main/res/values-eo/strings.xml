@@ -77,6 +77,4 @@
     <string name="seconds_label">s</string>
     <string name="timer_delete">Forigi</string>
     <string name="timer_cancel">Nuligi</string>
-    <string name="night_mode_title">Nokta reĝimo</string>
-    <string name="world_tomorrow">Morgaŭ</string>
 </resources>

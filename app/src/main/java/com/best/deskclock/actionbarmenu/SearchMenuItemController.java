@@ -96,7 +96,7 @@ public final class SearchMenuItemController implements MenuItemController {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected() {
         // The search view is handled by {@link #mSearchListener}. Skip handling here.
         return false;
     }

@@ -26,8 +26,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.bedtime.BedtimeFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,39 +33,41 @@ import java.util.List;
  * Base adapter class for displaying a collection of items. Provides functionality for handling
  * changing items, persistent item state, item click events, and re-usable item views.
  */
-public class ItemAdapter<T extends ItemAdapter.ItemHolder>
-        extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter<T extends ItemAdapter.ItemHolder<?>>
+        extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder<?>> {
 
     /**
      * Factories for creating new {@link ItemViewHolder} entities.
      */
     private final SparseArray<ItemViewHolder.Factory> mFactoriesByViewType = new SparseArray<>();
+
     /**
      * Listeners to invoke in {@link #mOnItemClickedListener}.
      */
     private final SparseArray<OnItemClickedListener> mListenersByViewType = new SparseArray<>();
+
     /**
      * Invokes the {@link OnItemClickedListener} in {@link #mListenersByViewType} corresponding
      * to {@link ItemViewHolder#getItemViewType()}
      */
-    private final OnItemClickedListener mOnItemClickedListener = new OnItemClickedListener() {
-        @Override
-        public void onItemClicked(ItemViewHolder<?> viewHolder, int id) {
-            final OnItemClickedListener listener =
-                    mListenersByViewType.get(viewHolder.getItemViewType());
-            if (listener != null) {
-                listener.onItemClicked(viewHolder, id);
-            }
+    private final OnItemClickedListener mOnItemClickedListener = (viewHolder, id) -> {
+        final OnItemClickedListener listener =
+                mListenersByViewType.get(viewHolder.getItemViewType());
+        if (listener != null) {
+            listener.onItemClicked(viewHolder, id);
         }
     };
+
     /**
      * Invoked when any item changes.
      */
     private OnItemChangedListener mOnItemChangedListener;
+
     /**
      * List of current item holders represented by this adapter.
      */
     private List<T> mItemHolders;
+
     /**
      * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)} or
      * {@link #notifyItemChanged(int, Object)} if payloads are present (in order to do in-place
@@ -99,12 +99,9 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
 
     /**
      * Convenience for calling {@link #setHasStableIds(boolean)} with {@code true}.
-     *
-     * @return this object, allowing calls to methods in this class to be chained
      */
-    public ItemAdapter setHasStableIds() {
+    public void setHasStableIds() {
         setHasStableIds(true);
-        return this;
     }
 
     /**
@@ -117,7 +114,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
      * @param viewTypes the unique identifier for the view types to be created
      * @return this object, allowing calls to methods in this class to be chained
      */
-    public ItemAdapter withViewTypes(ItemViewHolder.Factory factory,
+    public ItemAdapter<T> withViewTypes(ItemViewHolder.Factory factory,
                                      OnItemClickedListener listener, int... viewTypes) {
         for (int viewType : viewTypes) {
             mFactoriesByViewType.put(viewType, factory);
@@ -141,9 +138,8 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
      * between new and old holders that have matching {@link ItemHolder#itemId} values.
      *
      * @param itemHolders the new list of item holders
-     * @return this object, allowing calls to methods in this class to be chained
      */
-    public ItemAdapter setItems(List<T> itemHolders) {
+    public void setItems(List<T> itemHolders) {
         final List<T> oldItemHolders = mItemHolders;
         if (oldItemHolders != itemHolders) {
             if (oldItemHolders != null) {
@@ -158,8 +154,8 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
                 // we use a simple O(N^2) implementation since we assume the number of items is
                 // relatively small and generating a temporary map would be more expensive
                 final Bundle bundle = new Bundle();
-                for (ItemHolder newItemHolder : itemHolders) {
-                    for (ItemHolder oldItemHolder : oldItemHolders) {
+                for (T newItemHolder : itemHolders) {
+                    for (T oldItemHolder : oldItemHolders) {
                         if (newItemHolder.itemId == oldItemHolder.itemId
                                 && newItemHolder != oldItemHolder) {
                             // clear any existing state from the bundle
@@ -177,7 +173,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
 
             if (itemHolders != null) {
                 // add the item change listener to the new item holders
-                for (ItemHolder newItemHolder : itemHolders) {
+                for (T newItemHolder : itemHolders) {
                     newItemHolder.addOnItemChangedListener(mItemChangedNotifier);
                 }
             }
@@ -186,24 +182,6 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
             mItemHolders = itemHolders;
             notifyDataSetChanged();
         }
-
-        return this;
-    }
-
-    /**
-     * Inserts the specified item holder at the specified position. Invokes
-     * {@link #notifyItemInserted} to update the UI.
-     *
-     * @param position   the index to which to add the item holder
-     * @param itemHolder the item holder to add
-     * @return this object, allowing calls to methods in this class to be chained
-     */
-    public ItemAdapter addItem(int position, @NonNull T itemHolder) {
-        itemHolder.addOnItemChangedListener(mItemChangedNotifier);
-        position = Math.min(position, mItemHolders.size());
-        mItemHolders.add(position, itemHolder);
-        notifyItemInserted(position);
-        return this;
     }
 
     /**
@@ -212,16 +190,14 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
      * {@link #notifyItemRemoved} to update the UI.
      *
      * @param itemHolder the item holder to remove
-     * @return this object, allowing calls to methods in this class to be chained
      */
-    public ItemAdapter removeItem(@NonNull T itemHolder) {
+    public void removeItem(@NonNull T itemHolder) {
         final int index = mItemHolders.indexOf(itemHolder);
         if (index >= 0) {
             itemHolder = mItemHolders.remove(index);
             itemHolder.removeOnItemChangedListener(mItemChangedNotifier);
             notifyItemRemoved(index);
         }
-        return this;
     }
 
     /**
@@ -257,7 +233,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewHolder<?> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final ItemViewHolder.Factory factory = mFactoriesByViewType.get(viewType);
         if (factory != null) {
             return factory.createViewHolder(parent, viewType);
@@ -436,7 +412,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
      * {@link ItemViewHolder}. Provides an interface for binding to an {@link ItemHolder} and later
      * being recycled.
      */
-    public static class ItemViewHolder<T extends ItemHolder> extends RecyclerView.ViewHolder {
+    public static class ItemViewHolder<T extends ItemHolder<?>> extends RecyclerView.ViewHolder {
 
         /**
          * The current {@link ItemHolder} bound to this holder.
@@ -498,6 +474,7 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
          * Called when the current item view is recycled. Subclassers should override to release
          * any bound item state and prepare their {@link #itemView} for reuse.
          */
+        @SuppressWarnings("EmptyMethod")
         protected void onRecycleItemView() {
             // for subclassers
         }

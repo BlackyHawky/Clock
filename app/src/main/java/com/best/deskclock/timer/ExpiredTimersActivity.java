@@ -14,7 +14,6 @@
 
 package com.best.deskclock.timer;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -85,9 +84,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
-
-        final View view = findViewById(R.id.expired_timers_activity);
-        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        mExpiredTimersScrollView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -132,14 +129,11 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_UP) {
             switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_VOLUME_UP:
-                case KeyEvent.KEYCODE_VOLUME_DOWN:
-                case KeyEvent.KEYCODE_VOLUME_MUTE:
-                case KeyEvent.KEYCODE_CAMERA:
-                case KeyEvent.KEYCODE_FOCUS:
-                    DataModel.getDataModel().resetOrDeleteExpiredTimers(
-                            R.string.label_hardware_button);
+                case KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE,
+                        KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS -> {
+                    DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     return true;
+                }
             }
         }
         return super.dispatchKeyEvent(event);
@@ -172,6 +166,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                 getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
         // Store the timer id as a tag on the view so it can be located on delete.
         timerItem.setId(timerId);
+        timerItem.setBackground(Utils.cardBackground(timerItem.getContext()));
         mExpiredTimersView.addView(timerItem);
 
         // Hide the label hint for expired timers.
@@ -196,10 +191,9 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         final View stopButton = timerItem.findViewById(R.id.play_pause);
         stopButton.setOnClickListener(v -> {
             final Timer timer1 = DataModel.getDataModel().getTimer(timerId);
-            DataModel.getDataModel().resetOrDeleteTimer(timer1, R.string.label_deskclock);
+            DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             removeTimer(timer1);
         });
-
 
         // If the first timer was just added, center it.
         final List<Timer> expiredTimers = getExpiredTimers();

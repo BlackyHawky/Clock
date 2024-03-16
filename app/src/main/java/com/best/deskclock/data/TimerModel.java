@@ -21,6 +21,7 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -32,11 +33,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.AlarmAlertWakeLock;
@@ -768,6 +771,13 @@ final class TimerModel {
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
+
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         mNotificationManager.notify(notificationId, notification);
     }
 
@@ -792,6 +802,13 @@ final class TimerModel {
         final Notification notification = mNotificationBuilder.buildMissed(mContext,
                 mNotificationModel, missed);
         final int notificationId = mNotificationModel.getMissedTimerNotificationId();
+
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         mNotificationManager.notify(notificationId, notification);
     }
 

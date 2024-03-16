@@ -40,13 +40,14 @@
         android:appCategory="productivity"
         android:backupAgent="DeskClockBackupAgent"
         android:fullBackupContent="@xml/backup_scheme"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.DeskClock.Actionbar"
-        tools:targetApi="o">
+        tools:targetApi="s">
 
         <!-- We can deal with all kinds of aspect ratios -->
         <meta-data android:name="android.max_aspect" android:value="0.0" />

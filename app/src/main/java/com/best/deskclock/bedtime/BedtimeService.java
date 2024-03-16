@@ -231,9 +231,18 @@ public final class BedtimeService extends Service {
                 i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        }
         final Notification notification = builder.build();
         nm.cancel(notifId);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         nm.notify(notifId, notification);
     }
 
@@ -270,9 +279,18 @@ public final class BedtimeService extends Service {
                 off, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        }
         final Notification notification = builder.build();
         nm.cancel(notifId);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         nm.notify(notifId, notification);
     }
 
@@ -303,9 +321,18 @@ public final class BedtimeService extends Service {
                 it, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, BEDTIME_NOTIFICATION_CHANNEL_ID);
+        }
         final Notification notification = builder.build();
         nm.cancel(notifId);
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         nm.notify(notifId, notification);
     }
 

@@ -57,7 +57,7 @@ public final class SettingsMenuItemController implements MenuItemController {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected() {
         final Intent settingIntent = new Intent(mActivity, SettingsActivity.class);
         mActivity.startActivityForResult(settingIntent, REQUEST_CHANGE_SETTINGS);
         return true;

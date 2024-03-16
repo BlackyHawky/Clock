@@ -91,17 +91,16 @@ final class RingtoneModel {
         }
     }
 
-    CustomRingtone addCustomRingtone(Uri uri, String title) {
+    void addCustomRingtone(Uri uri, String title) {
         // If the uri is already present in an existing ringtone, do nothing.
         final CustomRingtone existing = getCustomRingtone(uri);
         if (existing != null) {
-            return existing;
+            return;
         }
 
         final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
-        return ringtone;
     }
 
     void removeCustomRingtone(Uri uri) {

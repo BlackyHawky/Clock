@@ -55,7 +55,7 @@ public final class NightModeMenuItemController implements MenuItemController {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected() {
         mContext.startActivity(new Intent(mContext, ScreensaverActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));

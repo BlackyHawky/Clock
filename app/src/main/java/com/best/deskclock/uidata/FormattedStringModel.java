@@ -81,7 +81,7 @@ final class FormattedStringModel {
      */
     String getFormattedNumber(int value) {
         final int length = value == 0 ? 1 : ((int) Math.log10(value) + 1);
-        return getFormattedNumber(false, value, length);
+        return getFormattedNumber(value, length);
     }
 
     /**
@@ -90,46 +90,29 @@ final class FormattedStringModel {
      * provide speed and limit garbage to be collected by the virtual machine.
      *
      * @param value  a positive integer to format as a String
-     * @param length the length of the String; zeroes are padded to match this length
+     * @param length the length of the String; zeroes are padded to match this length. If
+     *               {@code negative} is {@code true} the return value will contain a minus sign and a total
+     *               length of {@code length + 1}.
      * @return the {@code value} formatted as a String in the current locale and padded to the
      * requested {@code length}
      * @throws IllegalArgumentException if {@code value} is negative
      */
     String getFormattedNumber(int value, int length) {
-        return getFormattedNumber(false, value, length);
-    }
-
-    /**
-     * This method is intended to be used when formatting numbers occurs in a hotspot such as the
-     * update loop of a timer or stopwatch. It returns cached results when possible in order to
-     * provide speed and limit garbage to be collected by the virtual machine.
-     *
-     * @param negative force a minus sign (-) onto the display, even if {@code value} is {@code 0}
-     * @param value    a positive integer to format as a String
-     * @param length   the length of the String; zeroes are padded to match this length. If
-     *                 {@code negative} is {@code true} the return value will contain a minus sign and a total
-     *                 length of {@code length + 1}.
-     * @return the {@code value} formatted as a String in the current locale and padded to the
-     * requested {@code length}
-     * @throws IllegalArgumentException if {@code value} is negative
-     */
-    String getFormattedNumber(boolean negative, int value, int length) {
         if (value < 0) {
             throw new IllegalArgumentException("value may not be negative: " + value);
         }
 
         // Look up the value cache using the length; -ve and +ve values are cached separately.
-        final int lengthCacheKey = negative ? -length : length;
-        SparseArray<String> valueCache = mNumberFormatCache.get(lengthCacheKey);
+        SparseArray<String> valueCache = mNumberFormatCache.get(length);
         if (valueCache == null) {
             valueCache = new SparseArray<>((int) Math.pow(10, length));
-            mNumberFormatCache.put(lengthCacheKey, valueCache);
+            mNumberFormatCache.put(length, valueCache);
         }
 
         // Look up the cached formatted value using the value.
         String formatted = valueCache.get(value);
         if (formatted == null) {
-            final String sign = negative ? "−" : "";
+            final String sign = "";
             formatted = String.format(Locale.getDefault(), sign + "%0" + length + "d", value);
             valueCache.put(value, formatted);
         }

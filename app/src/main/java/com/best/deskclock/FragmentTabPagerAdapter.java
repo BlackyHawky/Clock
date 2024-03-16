@@ -155,10 +155,9 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
                 FragmentCompat.setMenuVisibility(mCurrentPrimaryItem, false);
                 FragmentCompat.setUserVisibleHint(mCurrentPrimaryItem, false);
             }
-            if (fragment != null) {
-                FragmentCompat.setMenuVisibility(fragment, true);
-                FragmentCompat.setUserVisibleHint(fragment, true);
-            }
+
+            FragmentCompat.setMenuVisibility(fragment, true);
+            FragmentCompat.setUserVisibleHint(fragment, true);
             mCurrentPrimaryItem = fragment;
         }
     }

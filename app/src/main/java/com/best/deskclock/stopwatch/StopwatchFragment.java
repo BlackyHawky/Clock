@@ -24,6 +24,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -248,19 +249,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         toggleStopwatchState();
     }
 
-    @Override
-    public void onLeftButtonClick(@NonNull ImageView left) {
-        doReset();
-    }
-
-    @Override
-    public void onRightButtonClick(@NonNull ImageView right) {
-        switch (getStopwatch().getState()) {
-            case RUNNING -> doAddLap();
-            case PAUSED -> doShare();
-        }
-    }
-
     private void updateFab(@NonNull ImageView fab) {
         if (getStopwatch().isRunning()) {
             fab.setImageResource(R.drawable.ic_fab_pause);
@@ -290,6 +278,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         left.setClickable(true);
         left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_reset));
         left.setContentDescription(getContext().getString(R.string.sw_reset_button));
+        left.setOnClickListener(v -> doReset());
 
         switch (getStopwatch().getState()) {
             case RESET -> {
@@ -304,6 +293,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 right.setContentDescription(getContext().getString(R.string.sw_lap_button));
                 right.setClickable(canRecordLaps);
                 right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
+                right.setOnClickListener(v -> doAddLap());
             }
             case PAUSED -> {
                 left.setVisibility(VISIBLE);
@@ -311,6 +301,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 right.setVisibility(VISIBLE);
                 right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_share));
                 right.setContentDescription(getContext().getString(R.string.sw_share_button));
+                right.setOnClickListener(v -> doShare());
             }
         }
     }
@@ -664,7 +655,7 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private final class TabWatcher implements TabListener {
         @Override
-        public void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab) {
+        public void selectedTabChanged(Tab newSelectedTab) {
             adjustWakeLock();
         }
     }
@@ -674,7 +665,7 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private class StopwatchWatcher implements StopwatchListener {
         @Override
-        public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
+        public void stopwatchUpdated(Stopwatch after) {
             if (after.isReset()) {
                 // Ensure the drop shadow is hidden when the stopwatch is reset.
                 setTabScrolledToTop(true);
@@ -688,9 +679,6 @@ public final class StopwatchFragment extends DeskClockFragment {
             }
         }
 
-        @Override
-        public void lapAdded(Lap lap) {
-        }
     }
 
     /**
@@ -711,6 +699,7 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Checks if the user is pressing inside of the stopwatch circle.
      */
     private static final class CircleTouchListener implements View.OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             final int actionMasked = event.getActionMasked();

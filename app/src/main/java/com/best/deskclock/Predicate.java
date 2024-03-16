@@ -16,6 +16,8 @@
 
 package com.best.deskclock;
 
+import android.content.Context;
+
 /**
  * A Predicate can determine a true or false value for any input of its
  * parameterized type. For example, a {@code RegexPredicate} might implement
@@ -31,11 +33,11 @@ public interface Predicate<T> {
     /**
      * An implementation of the predicate interface that always returns true.
      */
-    Predicate TRUE = o -> true;
+    Predicate<Context> TRUE = o -> true;
     /**
      * An implementation of the predicate interface that always returns false.
      */
-    Predicate FALSE = o -> false;
+    Predicate<Context> FALSE = o -> false;
 
     boolean apply(T t);
 }

@@ -13,7 +13,6 @@
         android:paddingBottom="12dp">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/center_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -160,7 +159,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/wall_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"

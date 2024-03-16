@@ -32,7 +32,7 @@ import com.google.android.material.snackbar.Snackbar;
 @Keep
 public final class SnackbarSlidingBehavior extends CoordinatorLayout.Behavior<View> {
 
-    public SnackbarSlidingBehavior(Context context, AttributeSet attrs) {
+    public SnackbarSlidingBehavior(Context ignoredContext, AttributeSet ignoredAttrs) {
     }
 
     @Override

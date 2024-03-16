@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"타이머에 1분 추가됨, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"타이머 일시중지됨, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"타이머 작동 중, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"남음"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"남음"</string>
     <string-array name="alarm_set">
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"음소거 해제"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"기본 알람 벨소리: 무음"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"변경"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"시계 알림이 차단되었습니다."</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"기기가 모두 차단으로 설정됨"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string-array name="volume_button_setting_entries">
@@ -244,7 +241,7 @@
         <item msgid="842841032273927988">"속도광이시군요."</item>
         <item msgid="6332879039890727169">"결과를 확인하세요."</item>
         <item msgid="815382761274660130">"Android의 속도도 아주 빠르지만 당신이 더 빠르군요."</item>
-        <item msgid="7916250650982813737">"휴..."</item>
+        <item msgid="7916250650982813737">"휴…"</item>
         <item msgid="6836603904515182333">"엄청나게 많군요."</item>
         <item msgid="7508085100680861631">"엄청난 속도군요."</item>
         <item msgid="5961245252909589573">"다시 타임 와프를 하세요."</item>
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시간대 시계"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시간대 시계 추가"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"기본 시간대"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"기본 시간대"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> 선택됨"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> 선택 해제됨"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"화면 보호기 설정"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"디스플레이 아주 어둡게 하기(어두운 장소용)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"알람 접기"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"실행취소"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> 늦음"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"내일 <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"어제 <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"내일"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"어제"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"다음 알람: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"알람 없음"</string>
     <string name="invalid_time" msgid="2782334750243998633">"잘못된 시간입니다. <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="other">타이머 <xliff:g id="NUMBER">%d</xliff:g>개 취소됨</item>
         <item quantity="one">타이머 취소됨</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"타이머 삭제됨"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"타이머 기간이 잘못됨"</string>
     <string name="invalid_timer" msgid="900957020728335675">"타이머 선택이 잘못됨"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"만료된 타이머 없음"</string>

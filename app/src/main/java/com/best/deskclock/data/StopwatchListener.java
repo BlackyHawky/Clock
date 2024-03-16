@@ -22,13 +22,8 @@ package com.best.deskclock.data;
 public interface StopwatchListener {
 
     /**
-     * @param before the stopwatch state before the update
      * @param after  the stopwatch state after the update
      */
-    void stopwatchUpdated(Stopwatch before, Stopwatch after);
+    void stopwatchUpdated(Stopwatch after);
 
-    /**
-     * @param lap the lap that was added
-     */
-    void lapAdded(Lap lap);
 }

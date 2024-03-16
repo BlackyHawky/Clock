@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"定时器已增加一分钟，<xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"定时器已暂停，<xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"定时器运行中，<xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"还剩"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"还剩"</string>
     <string-array name="alarm_set">
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"取消静音"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"闹钟铃声默认为静音"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"更改"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"时钟通知已屏蔽"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"设备已设为“完全阻止”"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按钮"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"自动显示家中时间"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"在其他时区旅行时显示家中时间"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"家中时区"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"家中时区"</string>
     <string name="city_checked" msgid="616847871968019">"已选中<xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"已取消选中<xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>个定时器"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"下一个定时器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"屏保设置"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"夜间模式"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"将屏幕亮度调至非常低（适合光线昏暗的环境）"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收起闹钟"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"撤消"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"晚 <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"明天，<xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"昨天，<xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"明天"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"昨天"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"下次闹钟时间：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"没有闹钟"</string>
     <string name="invalid_time" msgid="2782334750243998633">"时间无效：<xliff:g id="INVALID_AMPM">%3$s</xliff:g> <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="other">已关闭 <xliff:g id="NUMBER">%d</xliff:g> 个定时器</item>
         <item quantity="one">已关闭 1 个定时器</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"已删除定时器"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"定时器时长无效"</string>
     <string name="invalid_timer" msgid="900957020728335675">"选择的定时器无效"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"没有已结束的定时器"</string>

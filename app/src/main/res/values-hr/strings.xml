@@ -61,8 +61,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Mjeraču vremena dodana je jedna minuta, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Mjerač vremena pauziran, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"Mjerač vremena pokrenut, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"preostalo"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"preostalo"</string>
     <string-array name="alarm_set">
@@ -189,7 +187,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Uključi zvuk"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Zadana melodija zvona za alarm utišana"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Promijeni"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Obavijesti sata blokirane su"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Uređaj je postavljen na potpunu tišinu"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnoću"</string>
     <string-array name="volume_button_setting_entries">
@@ -274,7 +271,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatski kućni sat"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Dodajte sat za vremensku zonu kod kuće kad ste u nekoj drugoj vremenskoj zoni"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domaća vremenska zona"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Domaća vremenska zona"</string>
     <string name="city_checked" msgid="616847871968019">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> potvrđen"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> nije potvrđen"</string>
     <string-array name="timezone_labels">
@@ -389,8 +385,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tajmera"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Postavke čuvara zaslona"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za tamne komore)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sažmi alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"poništi"</string>
@@ -402,8 +396,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ranije"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Sutra, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Jučer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"Sutra"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"Jučer"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Sljedeći alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Bez alarma"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Vrijeme <xliff:g id="INVALID_HOUR">%1$d</xliff:g>.<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> nije važeće"</string>
@@ -420,7 +412,6 @@
         <item quantity="few">Isključena su <xliff:g id="NUMBER">%d</xliff:g> tajmera</item>
         <item quantity="other">Isključeno je <xliff:g id="NUMBER">%d</xliff:g> tajmera</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"Tajmer je izbrisan"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nevažeća duljina tajmera"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Odabran je nevažeći tajmer"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Nema isteklih tajmera"</string>

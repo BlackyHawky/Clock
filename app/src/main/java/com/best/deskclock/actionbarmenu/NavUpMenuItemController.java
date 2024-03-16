@@ -47,7 +47,7 @@ public final class NavUpMenuItemController implements MenuItemController {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected() {
         mActivity.finish();
         return true;
     }

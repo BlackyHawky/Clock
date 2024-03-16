@@ -14,11 +14,5 @@
 -->
 
 <resources>
-    <!-- In landscape, -100% width implies only height is used to size the timer container. -->
-    <fraction name="timer_circle_width_percent">-100%</fraction>
-
-    <!-- In landscape, timer circles are 90% of the container height; width matches height. -->
-    <fraction name="timer_circle_height_percent">100%</fraction>
-    <item type="fraction" name="timer_setup_time_top_percent">0.25</item>
     <item type="fraction" name="timer_setup_time_bottom_percent">0.75</item>
 </resources>

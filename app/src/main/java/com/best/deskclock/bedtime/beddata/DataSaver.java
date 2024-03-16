@@ -19,7 +19,7 @@ public class DataSaver {
     /*private static final String KEY_NIGHT_LIGHT = PREF_BASE + "nightLight";FIXME: disabled features only work with root(and even then aren't implemented)
     private static final String KEY_ALWAYS_ON_DISPLAY = "alwaysOnDisplay";*/
     private static final String KEY_DIM_WALL = PREF_BASE + "dimWall";
-    private static final String KEY_ORIG_WALL = PREF_BASE + "origWall";
+    //private static final String KEY_ORIG_WALL = PREF_BASE + "origWall";
     //private static final String KEY_DARK_THEME = PREF_BASE + "darkTheme"; FIXME: if any of these feature should work properly we need to sync everything with google's wellbeing which at least i can't do
 
     private static DataSaver instance;

@@ -31,7 +31,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 
 import java.util.Calendar;
@@ -167,14 +166,6 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
         TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
-    }
-
-    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
-        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
-                mContext, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance,
-                AlarmInstance.PREDISMISSED_STATE);
-        mContext.startService(dismissIntent);
-        mAlarmUpdateHandler.showPredismissToast(alarmInstance);
     }
 
     public void onRingtoneClicked(Context context, Alarm alarm) {

@@ -18,6 +18,7 @@ package com.best.deskclock.uidata;
 
 import static com.best.deskclock.Utils.enforceMainLooper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -226,22 +227,6 @@ public final class UiDataModel {
     }
 
     /**
-     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
-     */
-    public void addTabScrollListener(TabScrollListener tabScrollListener) {
-        enforceMainLooper();
-        mTabModel.addTabScrollListener(tabScrollListener);
-    }
-
-    /**
-     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
-     */
-    public void removeTabScrollListener(TabScrollListener tabScrollListener) {
-        enforceMainLooper();
-        mTabModel.removeTabScrollListener(tabScrollListener);
-    }
-
-    /**
      * Updates the scrolling state in the {@link UiDataModel} for this tab.
      *
      * @param tab           an enumerated value indicating the tab reporting its vertical scroll position
@@ -250,14 +235,6 @@ public final class UiDataModel {
     public void setTabScrolledToTop(Tab tab, boolean scrolledToTop) {
         enforceMainLooper();
         mTabModel.setTabScrolledToTop(tab, scrolledToTop);
-    }
-
-    /**
-     * @return {@code true} iff the content in the selected tab is currently scrolled to the top
-     */
-    public boolean isSelectedTabScrolledToTop() {
-        enforceMainLooper();
-        return mTabModel.isTabScrolledToTop(getSelectedTab());
     }
 
     /**
@@ -319,11 +296,11 @@ public final class UiDataModel {
      * Identifies each of the primary tabs within the application.
      */
     public enum Tab {
-        ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
-        CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
-        TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
-        STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch),
-        BEDTIME(BedtimeFragment.class, R.id.page_bedtime, R.string.menu_bedtime);
+        @SuppressLint("ResourceType") ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
+        @SuppressLint("ResourceType") CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
+        @SuppressLint("ResourceType") TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
+        @SuppressLint("ResourceType") STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch),
+        @SuppressLint("ResourceType") BEDTIME(BedtimeFragment.class, R.id.page_bedtime, R.string.menu_bedtime);
 
         private final String mFragmentClassName;
         private final @IntegerRes
@@ -331,7 +308,7 @@ public final class UiDataModel {
         private final @StringRes
         int mLabelResId;
 
-        Tab(Class fragmentClass, @IntegerRes int pageResId, @StringRes int labelResId) {
+        Tab(Class<?> fragmentClass, @IntegerRes int pageResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
             mPageResId = pageResId;
             mLabelResId = labelResId;

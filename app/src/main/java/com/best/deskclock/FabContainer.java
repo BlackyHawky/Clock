@@ -9,7 +9,7 @@ import androidx.annotation.IntDef;
  */
 public interface FabContainer {
 
-    /** Bit field for updates */
+    // Bit field for updates
 
     /**
      * Bit 0-1

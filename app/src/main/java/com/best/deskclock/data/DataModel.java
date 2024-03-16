@@ -28,6 +28,7 @@ import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -810,7 +812,7 @@ public final class DataModel {
      * @param count           the number of widgets of the given type
      * @param eventCategoryId identifies the category of event to send
      */
-    public void updateWidgetCount(Class widgetClass, int count, @StringRes int eventCategoryId) {
+    public void updateWidgetCount(Class<?> widgetClass, int count, @StringRes int eventCategoryId) {
         enforceMainLooper();
         mWidgetModel.updateWidgetCount(widgetClass, count, eventCategoryId);
     }
@@ -1077,7 +1079,12 @@ public final class DataModel {
             @Override
             public boolean apply(Context context) {
                 final Intent intent = new Intent(ACTION_SOUND_SETTINGS);
-                return intent.resolveActivity(context.getPackageManager()) != null;
+                try {
+                    context.startActivity(intent);
+                } catch (ActivityNotFoundException ex) {
+                    Toast.makeText(context, "application_not_found", Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
         }
     }

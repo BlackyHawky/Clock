@@ -48,8 +48,6 @@
     <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_accessibility_one_minute_added">Amestáu un minutu al cronu, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_stopped">Cronu posáu, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_started">Cronu funcionando, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
     <string name="timer_remaining_single">restante</string>
     <string name="timer_remaining_multiple">restantes</string>
     <string-array name="alarm_set">
@@ -157,7 +155,6 @@
     <string name="unmute_alarm_volume">Activar soníu</string>
     <string name="silent_default_alarm_ringtone">El tonu por defeutu de l\'alarma ta matáu</string>
     <string name="change_setting_action">Camudar</string>
-    <string name="app_notifications_blocked">Les notificaciones del reló tán torgaes</string>
     <string name="alarms_blocked_by_dnd">El preséu ta configuráu pa silenciu ensembre</string>
     <string name="volume_button_setting_title">Botones de volume</string>
     <string-array name="volume_button_setting_entries">
@@ -233,7 +230,6 @@
     <string name="automatic_home_clock">Reló de la to ciudá automáticu</string>
     <string name="automatic_home_clock_summary">Cuando viaxes a una zona con una hora diferente, amiesta un reló pa la hora de la to ciudá</string>
     <string name="home_time_zone">Estaya horaria llocal</string>
-    <string name="home_time_zone_title">Estaya horaria llocal</string>
     <string name="city_checked"><xliff:g id="city_name">%s</xliff:g> xequeáu</string>
     <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> ensin xequiar</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
@@ -348,8 +344,6 @@
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> temporizadores</string>
     <string name="next_timer_notif">Próximu temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g></string>
     <string name="screensaver_settings">Axustes de guardáu de la pantalla</string>
-    <string name="night_mode_title">Mou nocherniegu</string>
-    <string name="night_mode_summary">Pantalla amatagada (pa espacios escuros)</string>
     <string name="expand_alarm">Espander alarma</string>
     <string name="collapse_alarm">Contrayer alarma</string>
     <string name="alarm_undo">desfacer</string>
@@ -361,8 +355,6 @@
     <string name="world_hours_minutes_behind"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> atrás</string>
     <string name="world_hours_tomorrow">Mañana, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday">Ayeri, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
-    <string name="world_tomorrow">Mañana</string>
-    <string name="world_yesterday">Ayeri</string>
     <string name="next_alarm_description">Próxima alarma: <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="no_alarms">Nun hai alarmes</string>
     <string name="invalid_time">Tiempu inválidu <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
@@ -378,7 +370,6 @@
         <item quantity="one">Temporidador de despidu</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> temporizadores de despidu</item>
     </plurals>
-    <string name="timer_deleted">Desanicióse\'l temporizador</string>
     <string name="invalid_timer_length">La duración del temporizador nun ye válida</string>
     <string name="invalid_timer">Temporizador escoyíu inválidu</string>
     <string name="no_expired_timers">Temporizadores non cadudaos</string>

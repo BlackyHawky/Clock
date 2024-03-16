@@ -29,7 +29,6 @@ import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -63,12 +62,7 @@ public class AlarmSelectionActivity extends ListActivity {
         setContentView(R.layout.selection_layout);
 
         final Button cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        cancelButton.setOnClickListener(v -> finish());
 
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = intent.getParcelableArrayExtra(EXTRA_ALARMS);
@@ -81,8 +75,7 @@ public class AlarmSelectionActivity extends ListActivity {
             final Alarm alarm = (Alarm) parcelable;
 
             // filling mSelections that go into the UI picker list
-            final String label = String.format(Locale.US, "%d %02d", alarm.hour, alarm.minutes);
-            mSelections.add(new AlarmSelection(label, alarm));
+            mSelections.add(new AlarmSelection(alarm));
         }
 
         setListAdapter(new AlarmSelectionAdapter(this, R.layout.alarm_row, mSelections));

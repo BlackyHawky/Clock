@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Nagdagdag ng isang minuto sa timer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Naka-pause ang timer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"Tumatakbo ang timer, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"natitira"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ang natitira"</string>
     <string-array name="alarm_set">
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"I-unmute"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Silent ang default na ring tone ng alarm"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Palitan"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Naka-block ang mga notification ng Clock"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Nakatakda ang device na hindi talaga tumunog"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Button ng volume"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Awtomatikong orasan sa tahanan"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Habang nasa isang lugar kung saan iba ang oras, magdagdag ng orasan para sa tahanan"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Time zone sa tahanan"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Time zone sa tahanan"</string>
     <string name="city_checked" msgid="616847871968019">"Naka-check ang <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Walang check ang <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> (na) timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Susunod na timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Mga setting ng screen saver"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"Night mode"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Napakadilim na display (para sa madidilim na kuwarto)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm sa pagpalawak"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarma sa pagtiklop"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"i-undo"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"Nahuhuli nang <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Bukas, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Kahapon, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"Bukas"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"Kahapon"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Susunod na alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Walang Mga Alarm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Di-wastong oras <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> timer ang na-dismiss</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> na timer ang na-dismiss</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"Na-delete ang timer"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Hindi wastong tagal ng timer"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Invalid ang timer na napili"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Walang nag-expire nang timer"</string>

@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;

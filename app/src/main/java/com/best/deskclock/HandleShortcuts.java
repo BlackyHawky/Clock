@@ -39,7 +39,7 @@ public class HandleShortcuts extends Activity {
         try {
             final String action = intent.getAction();
             switch (action) {
-                case StopwatchService.ACTION_PAUSE_STOPWATCH:
+                case StopwatchService.ACTION_PAUSE_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_pause, R.string.label_shortcut);
 
                     // Open DeskClock positioned on the stopwatch tab.
@@ -47,8 +47,8 @@ public class HandleShortcuts extends Activity {
                     startActivity(new Intent(this, DeskClock.class)
                             .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH));
                     setResult(RESULT_OK);
-                    break;
-                case StopwatchService.ACTION_START_STOPWATCH:
+                }
+                case StopwatchService.ACTION_START_STOPWATCH -> {
                     Events.sendStopwatchEvent(R.string.action_start, R.string.label_shortcut);
 
                     // Open DeskClock positioned on the stopwatch tab.
@@ -56,9 +56,8 @@ public class HandleShortcuts extends Activity {
                     startActivity(new Intent(this, DeskClock.class)
                             .setAction(StopwatchService.ACTION_START_STOPWATCH));
                     setResult(RESULT_OK);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unsupported action: " + action);
+                }
+                default -> throw new IllegalArgumentException("Unsupported action: " + action);
             }
         } catch (Exception e) {
             LOGGER.e("Error handling intent: " + intent, e);

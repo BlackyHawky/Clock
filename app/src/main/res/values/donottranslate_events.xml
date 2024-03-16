@@ -30,7 +30,6 @@
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
     <string name="action_start">Start</string>
-    <string name="action_stop">Stop</string>
     <string name="action_pause">Pause</string>
     <string name="action_fire">Fire</string>
     <string name="action_reset">Reset</string>

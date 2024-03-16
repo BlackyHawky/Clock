@@ -22,9 +22,11 @@ import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW;
 
 import android.app.NotificationChannel;
 import android.content.Context;
+import android.os.Build;
 import android.util.ArraySet;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.util.HashMap;
@@ -104,6 +106,7 @@ public class NotificationUtils {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void createChannel(Context context, String id) {
         if (!CHANNEL_PROPS.containsKey(id)) {
             Log.e(TAG, "Invalid channel requested: " + id);
@@ -134,6 +137,7 @@ public class NotificationUtils {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private static Set<String> getAllExistingChannelIds(NotificationManagerCompat nm) {
         Set<String> result = new ArraySet<>();
         for (NotificationChannel channel : nm.getNotificationChannels()) {
@@ -142,6 +146,7 @@ public class NotificationUtils {
         return result;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void updateNotificationChannels(Context context) {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 

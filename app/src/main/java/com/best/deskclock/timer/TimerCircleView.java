@@ -108,17 +108,11 @@ public final class TimerCircleView extends View {
         if (mTimer.isReset()) {
             // Draw a complete white circle; no red arc required.
             canvas.drawCircle(xCenter, yCenter, radius, mPaint);
-
-            // Red percent is 0 since no timer progress has been made.
-            redPercent = 0;
         } else if (mTimer.isExpired()) {
             mPaint.setColor(mCompletedColor);
 
             // Draw a complete white circle; no red arc required.
             canvas.drawCircle(xCenter, yCenter, radius, mPaint);
-
-            // Red percent is 1 since the timer has expired.
-            redPercent = 1;
         } else {
             // Draw a combination of red and white arcs to create a circle.
             mArcRect.top = yCenter - radius;
