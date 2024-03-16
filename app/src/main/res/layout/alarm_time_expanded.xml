@@ -15,7 +15,7 @@
   limitations under the License.
   -->
 
-<androidx.gridlayout.widget.GridLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,24 +23,19 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp"
-    android:padding="12dp"
-    app:columnOrderPreserved="false"
-    app:columnCount="1"
-    app:rowCount="6">
+    android:padding="12dp">
 
     <include
         layout="@layout/alarm_time_summary"
-        app:layout_gravity="center_vertical"
-        app:layout_column="0"
-        app:layout_row="0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/onoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_gravity="end|center_vertical"
-        app:layout_column="0"
-        app:layout_row="0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/repeat_onoff"
@@ -49,8 +44,8 @@
         android:paddingStart="10dp"
         android:text="@string/alarm_repeat"
         android:textColor="?android:attr/textColorPrimary"
-        app:layout_column="0"
-        app:layout_row="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/digital_clock"
         tools:ignore="RtlSymmetry" />
 
     <!-- Day buttons are put here programmatically -->
@@ -60,16 +55,14 @@
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_gravity="center_vertical"
-        app:layout_column="0"
-        app:layout_row="2"
+        app:layout_constraintTop_toBottomOf="@id/repeat_onoff"
         tools:visibility="visible" />
 
     <LinearLayout
+        android:id="@+id/ringtone_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_column="0"
-        app:layout_row="3">
+        app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/choose_ringtone"
@@ -98,9 +91,6 @@
             android:paddingStart="10dp"
             android:text="@string/alarm_vibrate"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_gravity="end"
-            app:layout_column="0"
-            app:layout_row="3"
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 
@@ -113,15 +103,14 @@
         android:background="?attr/selectableItemBackground"
         android:drawablePadding="10dp"
         android:ellipsize="end"
-        android:gravity="start|center_vertical"
+        android:gravity="center_vertical"
         android:hint="@string/label"
         android:singleLine="true"
-        android:textAlignment="viewStart"
         android:textColor="?android:attr/textColorPrimary"
         app:drawableStartCompat="@drawable/ic_label"
         app:drawableTint="@color/md_theme_onSurfaceVariant"
-        app:layout_column="0"
-        app:layout_row="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ringtone_linear_layout"
         tools:text="Test" />
 
     <com.google.android.material.button.MaterialButton
@@ -133,8 +122,8 @@
         android:paddingStart="10dp"
         android:paddingEnd="14dp"
         app:icon="@drawable/ic_delete"
-        app:layout_column="0"
-        app:layout_row="5" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_label" />
 
     <ImageButton
         android:id="@+id/arrow"
@@ -144,8 +133,7 @@
         android:contentDescription="@string/collapse_alarm"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_caret_up"
-        app:layout_gravity="end|center_vertical"
-        app:layout_column="0"
-        app:layout_row="5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/delete" />
 
-</androidx.gridlayout.widget.GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -102,10 +105,6 @@
             android:textAlignment="viewStart"
             app:drawableStartCompat="@drawable/ic_ringtone"
             app:drawableTint="@color/md_theme_onSurfaceVariant"
-            app:layout_gravity="fill_horizontal"
-            app:layout_column="0"
-            app:layout_columnSpan="5"
-            app:layout_row="3"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
             tools:text="Standard (Hassium)" />
 
@@ -119,10 +118,6 @@
             android:text="@string/alarm_vibrate"
             android:textSize="16sp"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_gravity="center_vertical"
-            app:layout_column="5"
-            app:layout_columnSpan="3"
-            app:layout_row="3"
             app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
