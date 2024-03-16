@@ -15,45 +15,72 @@
   limitations under the License.
   -->
 
-<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/vertical_start_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="vertical"
+        android:id="@+id/vertical_end_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:orientation="horizontal"
+        android:id="@+id/horizontal_bar_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.45" />
+
     <ImageView
-        app:layout_gravity="end"
+        android:id="@+id/bedtime_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_moon"
         app:tint="@color/md_theme_outline"
-        app:layout_columnWeight="0.3"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_start_guide"
+        app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@null" />
 
     <View
+        android:id="@+id/bedtime_hour_bar"
         android:layout_width="0dp"
         android:layout_height="3dp"
         android:background="@color/md_theme_outline"
-        app:layout_gravity="fill_horizontal|center_vertical"
-        app:layout_column="1"
-        app:layout_columnWeight="0.3"
-        app:layout_row="0" />
+        app:layout_constraintStart_toEndOf="@+id/vertical_start_guide"
+        app:layout_constraintEnd_toStartOf="@id/vertical_end_guide"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_bar_guide" />
 
     <TextView
         android:id="@+id/hours_of_sleep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
-        app:layout_gravity="fill_horizontal|fill_vertical"
-        app:layout_column="1"
-        app:layout_row="0"
+        app:layout_constraintTop_toBottomOf="@+id/bedtime_hour_bar"
         tools:text="9h30" />
 
     <ImageView
-        app:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_tab_wakeup"
         app:tint="@color/md_theme_outline"
-        app:layout_columnWeight="0.3"
+        app:layout_constraintStart_toEndOf="@+id/vertical_end_guide"
+        app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@null" />
 
-</androidx.gridlayout.widget.GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
