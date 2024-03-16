@@ -150,13 +150,22 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mHoursOfSleep = view.findViewById(R.id.hours_of_sleep);
 
         if (null != alarm) {
-            //TODO: what if someone goes to bed after 12 am
             int minDiff = alarm.minutes - mSaver.minutes;
-            int hDiff = alarm.hour + 24 - mSaver.hour;
+            int hDiff;
+
+            if (mSaver.hour > alarm.hour || mSaver.hour == alarm.hour && mSaver.minutes > alarm.minutes) {
+                hDiff = alarm.hour + 24 - mSaver.hour;
+            } else if (mSaver.hour == alarm.hour && mSaver.minutes == alarm.minutes) {
+                hDiff = 24;
+            } else {
+                hDiff = alarm.hour - mSaver.hour;
+            }
+
             if (minDiff < 0) {
                 hDiff = hDiff - 1;
                 minDiff = 60 + minDiff;
             }
+
             String diff;
             if (minDiff == 0) {
                 diff = hDiff + "h";
