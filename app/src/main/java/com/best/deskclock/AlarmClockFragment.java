@@ -279,7 +279,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mAlarmTimeClickHandler.saveInstance(outState);
         outState.putLong(KEY_EXPANDED_ID, mExpandedAlarmId);
     }
 
