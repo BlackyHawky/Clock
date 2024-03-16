@@ -71,10 +71,6 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = selectedAlarm;
     }
 
-    public void saveInstance(Bundle outState) {
-        outState.putBundle(KEY_PREVIOUS_DAY_MAP, mPreviousDaysOfWeekMap);
-    }
-
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
