@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"এলাৰ্ম যোগ কৰক"</string>
     <string name="button_cities" msgid="4555761857494501363">"চহৰবোৰ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ছেটিংসমূহ"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"স্ক্ৰীণ ছেভাৰ"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"স্ক্ৰীণ ছেভাৰ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"সময় অনুসৰি সজাওক"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"নাম অনুসৰি সজাওক"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"বাছনি কৰা চহৰবোৰ"</string>

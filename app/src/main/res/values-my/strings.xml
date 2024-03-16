@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"နှိုးစက် ထည့်ရန်"</string>
     <string name="button_cities" msgid="4555761857494501363">"မြို့များ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ဆက်တင်များ"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"ဖန်သားပြင်သုံးစွဲခြင်း ချွေတာမှုစနစ်"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"ဖန်သားပြင်သုံးစွဲခြင်း ချွေတာမှုစနစ်"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"အချိန်အလိုက် စီရန်"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"အမည်အလိုက် စီရန်"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ရွေးထားသည့် မြို့များ"</string>

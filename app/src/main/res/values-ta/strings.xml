@@ -194,7 +194,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"அலாரத்தைச் சேர்"</string>
     <string name="button_cities" msgid="4555761857494501363">"நகரங்கள்"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"அமைப்பு"</string>
-    <string name="menu_item_night_mode" msgid="2930695838866189483">"ஸ்கிரீன் சேவர்"</string>
+    <string name="screensaver_settings_title" msgid="2930695838866189483">"ஸ்கிரீன் சேவர்"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"நேர வரிசையில்"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"அகர வரிசையில்"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"தேர்ந்தெடுத்த நகரங்கள்"</string>
