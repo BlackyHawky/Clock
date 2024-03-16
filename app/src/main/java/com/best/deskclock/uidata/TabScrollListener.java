@@ -16,8 +16,6 @@
 
 package com.best.deskclock.uidata;
 
-import com.best.deskclock.uidata.UiDataModel.Tab;
-
 /**
  * The interface through which interested parties are notified of changes to the vertical scroll
  * position of the selected tab. Callbacks to listener occur when any of these events occur:
@@ -31,8 +29,7 @@ import com.best.deskclock.uidata.UiDataModel.Tab;
 public interface TabScrollListener {
 
     /**
-     * @param selectedTab   an enumerated value indicating the current selected tab
      * @param scrolledToTop indicates whether the current selected tab is scrolled to its top
      */
-    void selectedTabScrollToTopChanged(Tab selectedTab, boolean scrolledToTop);
+    void selectedTabScrollToTopChanged(boolean scrolledToTop);
 }

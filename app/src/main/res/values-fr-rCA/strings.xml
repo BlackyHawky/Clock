@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Une minute a été ajoutée à la minuterie, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"La minuterie est en pause, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"La minuterie est en cours d\'exécution, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Il reste"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Il reste"</string>
     <string-array name="alarm_set">
@@ -99,7 +97,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Tous les jours"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"Chargement en cours..."</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Chargement en cours…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Horloge analogique"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Réactiver le son"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"La sonnerie d\'alarme par défaut est silencieuse"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Modifier"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Les notifications d\'horloge sont bloquées"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"L\'appareil est réglé en mode Silence total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Horloge automatique du domicile"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Lors de vos déplacements dans des régions où le fuseau horaire est différent, ajoutez une horloge pour connaître l\'heure de votre domicile."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Mon fuseau horaire"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Mon fuseau horaire"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> coché"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> décoché"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteries"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'écran de veille"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"Mode Nuit"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Affichage peu lumineux (pour les pièces sombres)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"annuler"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> et <xliff:g id="MINUTES">%2$s</xliff:g> en retard"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Demain, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Hier à <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"Demain"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"Hier"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Prochaine alarme : <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Heure non valide : <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minuterie ignorée</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuteries ignorées</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"Minuterie supprimée"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Longueur de minuterie non valide"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Minuterie non valide sélectionnée"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Aucune minuterie expirée"</string>

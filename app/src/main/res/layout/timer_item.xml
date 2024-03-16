@@ -25,7 +25,7 @@
     <TextView
         android:id="@+id/timer_label"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
         android:textSize="18sp"
@@ -36,8 +36,7 @@
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/close"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/close"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/close"
@@ -66,13 +65,17 @@
             android:layout_height="match_parent"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.best.deskclock.widget.AutoSizingTextView
             android:id="@+id/timer_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="01:23" />
 
     </com.best.deskclock.CircleButtonsLayout>

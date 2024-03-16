@@ -89,7 +89,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
-            NotificationUtils.updateNotificationChannels(context);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationUtils.updateNotificationChannels(context);
+            }
         }
 
         // Notifications are canceled by the system on application upgrade. This broadcast signals

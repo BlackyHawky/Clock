@@ -580,19 +580,8 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         /**
          * Cache the child views of each city item view.
          */
-        private static final class CityItemHolder {
+        private record CityItemHolder(TextView index, TextView name, TextView time, CheckBox selected) {
 
-            private final TextView index;
-            private final TextView name;
-            private final TextView time;
-            private final CheckBox selected;
-
-            public CityItemHolder(TextView index, TextView name, TextView time, CheckBox selected) {
-                this.index = index;
-                this.name = name;
-                this.time = time;
-                this.selected = selected;
-            }
         }
     }
 
@@ -618,7 +607,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected() {
             // Save the new sort order.
             DataModel.getDataModel().toggleCitySort();
 

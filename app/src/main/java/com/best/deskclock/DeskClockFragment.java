@@ -56,19 +56,11 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         return false;
     }
 
-    @Override
-    public void onLeftButtonClick(@NonNull ImageView left) {
-        // Do nothing here, only in derived classes
-    }
-
-    @Override
-    public void onRightButtonClick(@NonNull ImageView right) {
-        // Do nothing here, only in derived classes
-    }
-
-    @Override
+    /**
+     * Called before onUpdateFab when the fab should be animated.
+     * @param fab the fab component to be configured based on current state
+     */
     public void onMorphFab(@NonNull ImageView fab) {
-        // Do nothing here, only in derived classes
     }
 
     /**

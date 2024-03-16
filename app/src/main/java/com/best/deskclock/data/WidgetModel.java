@@ -39,7 +39,7 @@ final class WidgetModel {
      * @param count           the number of widgets of the given type
      * @param eventCategoryId identifies the category of event to send
      */
-    void updateWidgetCount(Class widgetClass, int count, @StringRes int eventCategoryId) {
+    void updateWidgetCount(Class<?> widgetClass, int count, @StringRes int eventCategoryId) {
         int delta = WidgetDAO.updateWidgetCount(mPrefs, widgetClass, count);
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);

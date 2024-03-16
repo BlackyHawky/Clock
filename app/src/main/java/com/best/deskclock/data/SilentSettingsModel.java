@@ -81,12 +81,6 @@ final class SilentSettingsModel {
     private final List<OnSilentSettingsListener> mListeners = new ArrayList<>(1);
 
     /**
-     * The last setting known to be blocking alarms; {@code null} indicates no settings are
-     * blocking the app or the app is not in the foreground.
-     */
-    private SilentSetting mSilentSetting;
-
-    /**
      * The background task that checks the device system settings that influence alarm firing.
      */
     private CheckSilenceSettingsTask mCheckSilenceSettingsTask;
@@ -144,13 +138,8 @@ final class SilentSettingsModel {
      *                      if no settings are suppressing alarms
      */
     private void setSilentState(SilentSetting silentSetting) {
-        if (mSilentSetting != silentSetting) {
-            final SilentSetting oldReason = mSilentSetting;
-            mSilentSetting = silentSetting;
-
-            for (OnSilentSettingsListener listener : mListeners) {
-                listener.onSilentSettingsChange(oldReason, silentSetting);
-            }
+        for (OnSilentSettingsListener listener : mListeners) {
+            listener.onSilentSettingsChange(silentSetting);
         }
     }
 

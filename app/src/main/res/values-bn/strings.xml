@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"টাইমারে এক মিনিট যোগ করা হয়েছে, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"টাইমারে বিরাম দেওয়া হয়েছে, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"টাইমার চলছে, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"বাকি আছে"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"বাকি আছে"</string>
     <string-array name="alarm_set">
@@ -99,7 +97,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"প্রতিদিন"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"লোড হচ্ছে..."</string>
+    <string name="loading_widget" msgid="5306242862476796500">"লোড হচ্ছে…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"অ্যানালগ ঘড়ি"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ডিজিটাল ঘড়ি"</string>
     <string name="settings" msgid="5849739030579520686">"সেটিংস"</string>
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"সশব্দ করুন"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ডিফল্ট অ্যালার্মের রিংটোন হ\'ল নীরব"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"পরিবর্তন করুন"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"ঘড়ির বিজ্ঞপ্তিগুলি অবরুদ্ধ করা হয়েছে"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ডিভাইসকে সম্পূর্ণ নীরব অবস্থায় সেট করা রয়েছে"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউম বোতাম"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"স্বয়ংক্রিয়ভাবে দেশের সময় দেখান"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময়ের কোনো স্থানে ভ্রমনের সময় নিজের দেশের সময় দেখার জন্য একটি ঘড়ি জুড়ুন"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"হোম সময় অঞ্চল"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"হোম সময় অঞ্চল"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> এ টিক চিহ্ন দেওয়া হয়েছে"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> থেকে টিক চিহ্ন সরানো হয়েছে"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"পরবর্তী টাইমার: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"স্ক্রিন সেভার সেটিংস"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"রাতের মোড"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"স্ক্রিনের আলো খুব কম হবে (অন্ধকার ঘরের জন্য)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"অ্যালার্ম প্রসারিত করুন"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"অ্যালার্ম সঙ্কুচিত করুন"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"পূর্বাবস্থায় ফিরুন"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> পিছিয়ে"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"আগামীকাল, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"গতকাল, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"আগামীকাল"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"গতকাল"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"পরবর্তী অ্যালার্ম: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"কোনো অ্যালার্ম নাই"</string>
     <string name="invalid_time" msgid="2782334750243998633">"অবৈধ সময় <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g>টি টাইমার বন্ধ করা হয়েছে</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>টি টাইমার বন্ধ করা হয়েছে</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"টাইমার মুছে ফেলা হয়েছে"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"অবৈধ টাইমার দৈর্ঘ্য"</string>
     <string name="invalid_timer" msgid="900957020728335675">"ভুল টাইমার বেছে নিয়েছেন"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"কোনও টাইমারের সময় শেষ হয়নি"</string>

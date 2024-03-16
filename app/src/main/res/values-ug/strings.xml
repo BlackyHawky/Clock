@@ -148,7 +148,6 @@
     <string name="automatic_home_clock">ئۆيدىكى ۋاقىتنى ئاپتوماتىك كۆرسىتىدۇ</string>
     <string name="automatic_home_clock_summary">باشقا ۋاقىت رايونىدا ساياھەت قىلغاندا ئۆيدىكى ۋاقىتنى كۆرسىتىدۇ</string>
     <string name="home_time_zone">يەرلىك ۋاقىت رايونى</string>
-    <string name="home_time_zone_title">يەرلىك ۋاقىت رايونى</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
         <item>"مارشال ئاراللىرى"</item>
         <item>"مىدۋېي ئارىلى"</item>
@@ -239,8 +238,6 @@
     <string name="shortcut_start_stopwatch_short">باشلا</string>
     <string name="timers_in_use"><xliff:g id="NUMBER">%d</xliff:g> ۋاقىت خاتىرىلىگۈچ</string>
     <string name="next_timer_notif">كېيىنكى ۋاقىت خاتىرىلىگۈچ: <xliff:g id="TIME_REMAINING">%s</xliff:g></string>
-    <string name="night_mode_title">كېچە ھالىتى</string>
-    <string name="night_mode_summary">ئېكران يورۇقلۇقىنى بەك تۆۋەن تەڭشەيدۇ (قاراڭغۇ ئۆيگە ماس كېلىدۇ)</string>
     <string name="expand_alarm">قوڭغۇراقنى ياي</string>
     <string name="collapse_alarm">قوڭغۇراقنى يىغ</string>
     <string name="alarm_undo">يېنىۋال</string>

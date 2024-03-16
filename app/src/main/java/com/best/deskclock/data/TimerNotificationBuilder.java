@@ -163,7 +163,7 @@ class TimerNotificationBuilder {
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
-        final Builder notification = new NotificationCompat.Builder(
+        final Builder notification = new Builder(
                 context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
                 .setOngoing(true)
                 .setLocalOnly(true)
@@ -222,7 +222,9 @@ class TimerNotificationBuilder {
             }
         }
 
-        NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
+        }
         return notification.build();
     }
 
@@ -277,7 +279,7 @@ class TimerNotificationBuilder {
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
 
-        final Builder notification = new NotificationCompat.Builder(
+        final Builder notification = new Builder(
                 context, FIRING_NOTIFICATION_CHANNEL_ID)
                 .setOngoing(true)
                 .setLocalOnly(true)
@@ -305,7 +307,9 @@ class TimerNotificationBuilder {
             notification.setContentTitle(stateText).setContentText(contentTextPreN);
         }
 
-        NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
+        }
         return notification.build();
     }
 
@@ -359,7 +363,7 @@ class TimerNotificationBuilder {
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
-        final Builder notification = new NotificationCompat.Builder(
+        final Builder notification = new Builder(
                 context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID)
                 .setLocalOnly(true)
                 .setShowWhen(false)
@@ -382,7 +386,9 @@ class TimerNotificationBuilder {
             notification.setContentText(contentText).setContentTitle(stateText);
         }
 
-        NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
+        }
         return notification.build();
     }
 

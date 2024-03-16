@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 /**
  * Implementers of this interface are able to {@link #onUpdateFab configure the fab} and associated
  * {@link #onUpdateFabButtons left/right buttons} including setting them {@link View#INVISIBLE} if
- * they are unnecessary. Implementers also attach click handler logic to the
- * {@link #onFabClick fab}, {@link #onLeftButtonClick left button} and
- * {@link #onRightButtonClick right button}.
+ * they are unnecessary. Implementers also attach click handler logic to the {@link #onFabClick fab}.
  */
 public interface FabController {
 
@@ -20,13 +18,6 @@ public interface FabController {
      * @param fab the fab component to be configured based on current state
      */
     void onUpdateFab(@NonNull ImageView fab);
-
-    /**
-     * Called before onUpdateFab when the fab should be animated.
-     *
-     * @param fab the fab component to be configured based on current state
-     */
-    void onMorphFab(@NonNull ImageView fab);
 
     /**
      * Configures the display of the buttons to the left and right of the fab to match the current
@@ -44,17 +35,4 @@ public interface FabController {
      */
     void onFabClick(@NonNull ImageView fab);
 
-    /**
-     * Handles a click on the button to the left of the fab component.
-     *
-     * @param left the button to the left of the fab component
-     */
-    void onLeftButtonClick(@NonNull ImageView left);
-
-    /**
-     * Handles a click on the button to the right of the fab component.
-     *
-     * @param right the button to the right of the fab component
-     */
-    void onRightButtonClick(@NonNull ImageView right);
 }

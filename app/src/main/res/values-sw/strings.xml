@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Dakika moja imeongezwa kwenye kipima wakati, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Kipima wakati kimesitishwa, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"Saa inaendelea kupima wakati, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"imesalia"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"zimesalia"</string>
     <string-array name="alarm_set">
@@ -99,7 +97,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Kila siku"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"Inapakia..."</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Inapakia…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Saa ya analojia"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Saa dijitali"</string>
     <string name="settings" msgid="5849739030579520686">"Mipangilio"</string>
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Iwashe"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Mlio chaguomsingi wa kengele ni kimya"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Badilisha"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Arifa za saa zimezuiwa"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Kifaa kimewekwa katika hali ya kimya"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"Saa otomatiki ya nyumbani"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Unaposafiri katika eneo ambalo majira ya saa ni tofauti, ongeza saa ya nyumbani"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Majira ya nyumbani"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Majira ya nyumbani"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> imeteuliwa"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> imeondolewa uteuzi"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kinachofuata: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Mipangilio ya taswira ya skrini"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"Modi ya usiku"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Katika vyumba vyenye giza, skrini iwe na mwangaza hafifu."</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Kunja kengele"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"tendua"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"Nyuma kwa <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"Kesho, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"Jana, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"Kesho"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"Jana"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Kengele inayofuata: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Hakuna Kengele Zilizowekwa"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Wakati usio sahihi <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="other">Umeondoa vipima muda <xliff:g id="NUMBER">%d</xliff:g></item>
         <item quantity="one">Umeondoa kipima muda</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"Kipima muda kimefutwa"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Urefu usio sahihi wa kipimaji muda"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Umechagua kipima muda kisicho sahihi"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Hakuna vipima muda vilivyokwisha"</string>

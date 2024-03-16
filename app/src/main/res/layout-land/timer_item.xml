@@ -16,7 +16,6 @@
     android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/time_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -27,7 +26,7 @@
         <TextView
             android:id="@+id/timer_label"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
             android:textSize="18sp"
@@ -39,7 +38,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/close"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/close"
             tools:text="@string/label"/>
 
         <ImageButton
@@ -72,15 +70,17 @@
 
         </com.best.deskclock.CircleButtonsLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.best.deskclock.widget.AutoSizingTextView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@id/play_pause"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/close"
+            app:layout_constraintBottom_toTopOf="@id/play_pause"
             tools:text="01:23" />
 
         <com.google.android.material.button.MaterialButton

@@ -127,14 +127,14 @@ final class TabModel {
 
             // Notify of the tab change.
             for (TabListener tl : mTabListeners) {
-                tl.selectedTabChanged(oldSelectedTab, tab);
+                tl.selectedTabChanged(tab);
             }
 
             // Notify of the vertical scroll position change if there is one.
             final boolean tabScrolledToTop = isTabScrolledToTop(tab);
             if (isTabScrolledToTop(oldSelectedTab) != tabScrolledToTop) {
                 for (TabScrollListener tsl : mTabScrollListeners) {
-                    tsl.selectedTabScrollToTopChanged(tab, tabScrolledToTop);
+                    tsl.selectedTabScrollToTopChanged(tabScrolledToTop);
                 }
             }
         }
@@ -143,20 +143,6 @@ final class TabModel {
     //
     // Tab scrolling
     //
-
-    /**
-     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
-     */
-    void addTabScrollListener(TabScrollListener tabScrollListener) {
-        mTabScrollListeners.add(tabScrollListener);
-    }
-
-    /**
-     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
-     */
-    void removeTabScrollListener(TabScrollListener tabScrollListener) {
-        mTabScrollListeners.remove(tabScrollListener);
-    }
 
     /**
      * Updates the scrolling state in the {@link UiDataModel} for this tab.
@@ -169,7 +155,7 @@ final class TabModel {
             mTabScrolledToTop[tab.ordinal()] = scrolledToTop;
             if (tab == getSelectedTab()) {
                 for (TabScrollListener tsl : mTabScrollListeners) {
-                    tsl.selectedTabScrollToTopChanged(tab, scrolledToTop);
+                    tsl.selectedTabScrollToTopChanged(scrolledToTop);
                 }
             }
         }

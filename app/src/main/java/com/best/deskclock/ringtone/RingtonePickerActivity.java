@@ -211,11 +211,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     protected void onPause() {
         if (mSelectedRingtoneUri != null) {
             if (mAlarmId != -1) {

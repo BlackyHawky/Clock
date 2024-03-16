@@ -23,6 +23,7 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -93,6 +94,7 @@ public final class ClockFragment extends DeskClockFragment {
         mAlarmChangeReceiver = new AlarmChangedBroadcastReceiver();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
         super.onCreateView(inflater, container, icicle);
@@ -258,6 +260,7 @@ public final class ClockFragment extends DeskClockFragment {
             return true;
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             return mGestureDetector.onTouchEvent(event);
@@ -270,7 +273,7 @@ public final class ClockFragment extends DeskClockFragment {
      * current time at home does not match the current time in the timezone of the current location.
      * If the phone is in portrait mode it will also include the main clock at the top.
      */
-    private static final class SelectedCitiesAdapter extends RecyclerView.Adapter
+    private static final class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             implements CityListener {
 
         private final static int MAIN_CLOCK = R.layout.main_clock_frame;

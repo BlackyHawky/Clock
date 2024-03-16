@@ -44,8 +44,7 @@ public interface MenuItemController {
     /**
      * Attempts to handle the click action.
      *
-     * @param item the {@link MenuItem} that was selected
      * @return {@code true} if the action is handled by this controller
      */
-    boolean onOptionsItemSelected(MenuItem item);
+    boolean onOptionsItemSelected();
 }

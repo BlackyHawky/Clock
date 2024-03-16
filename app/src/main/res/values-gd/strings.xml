@@ -226,7 +226,6 @@
     <string name="automatic_home_clock">Cleoc dachaigh fèin-obrachail</string>
     <string name="automatic_home_clock_summary">Nuair a bhios mi a’ siubhal am badeigin far a bheil an t-àm eadar-dhealaichte, cuir ris cleoc mo dhachaigh</string>
     <string name="home_time_zone">Roinn-tìde na dachaigh</string>
-    <string name="home_time_zone_title">Roinn-tìde na dachaigh</string>
     <string name="city_checked">Chaidh <xliff:g id="city_name">%s</xliff:g> a thaghadh</string>
     <string name="city_unchecked">Cha deach <xliff:g id="city_name">%s</xliff:g> a thaghadh</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
@@ -330,14 +329,11 @@
     <string name="timers_stopped">Tha na tìmearan (<xliff:g example="7" id="number">%d</xliff:g>) ’nan stad</string>
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> tìmear(an)</string>
     <string name="next_timer_notif">An t-ath-thìmear: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
-    <string name="night_mode_title">Am modh oidhche</string>
-    <string name="night_mode_summary">Sgrìn ghlè fhann (do sheòmraichean dorcha)</string>
     <string name="expand_alarm">Leudaich a’ chaismeachd</string>
     <string name="collapse_alarm">Co-theannaich a’ chaismeachd</string>
     <string name="alarm_undo">neo-dhèan</string>
     <string name="alarm_deleted">Chaidh a’ chaismeachd a sguabadh às</string>
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_tomorrow">A-màireach</string>
     <string name="next_alarm_description">An ath-chaismeachd: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms">Chan eil caismeachd ann</string>
     <string name="no_scheduled_alarms">Chan eil caismeachd air an sgeideal</string>
@@ -353,7 +349,6 @@
         <item quantity="few">Chaidh <xliff:g example="5" id="number">%d</xliff:g> tìmearan a leigeil seachad</item>
         <item quantity="other">Chaidh <xliff:g example="5" id="number">%d</xliff:g> tìmear a leigeil seachad</item>
     </plurals>
-    <string name="timer_deleted">Chaidh an tìmear a sguabadh às</string>
     <string name="invalid_timer_length">Seo faide mhì-dhligheach do thìmear</string>
     <string name="invalid_timer">Chaidh tìmear mì-dhligheach a thaghadh.</string>
     <string name="no_expired_timers">Cha do dh’fhalbh an ùine air tìmear sam bith</string>

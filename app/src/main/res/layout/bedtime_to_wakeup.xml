@@ -30,7 +30,6 @@
         android:contentDescription="@null" />
 
     <View
-        android:id="@+id/hairline"
         android:layout_width="0dp"
         android:layout_height="3dp"
         android:background="@color/md_theme_outline"

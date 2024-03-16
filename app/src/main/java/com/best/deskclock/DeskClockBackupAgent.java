@@ -132,7 +132,7 @@ public class DeskClockBackupAgent extends BackupAgent {
         // Create an Intent to send into DeskClock indicating restore is complete.
         final PendingIntent restoreIntent = PendingIntent.getBroadcast(this, 0,
                 new Intent(ACTION_COMPLETE_RESTORE).setClass(this, AlarmInitReceiver.class),
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Deliver the Intent 10 seconds from now.
         final long triggerAtMillis = SystemClock.elapsedRealtime() + 10000;

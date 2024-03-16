@@ -24,8 +24,7 @@ import com.best.deskclock.uidata.UiDataModel.Tab;
 public interface TabListener {
 
     /**
-     * @param oldSelectedTab an enumerated value indicating the prior selected tab
      * @param newSelectedTab an enumerated value indicating the newly selected tab
      */
-    void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab);
+    void selectedTabChanged(Tab newSelectedTab);
 }

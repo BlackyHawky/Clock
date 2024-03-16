@@ -14,11 +14,5 @@
 -->
 
 <resources>
-    <!-- In portrait, -100% height implies only width is used to size the timer container. -->
-    <fraction name="timer_circle_height_percent">-100%</fraction>
-
-    <!-- In portrait, timer circles are 60% of the container width; height matches width. -->
-    <fraction name="timer_circle_width_percent">80%</fraction>
-    <item type="fraction" name="timer_setup_time_top_percent">0</item>
     <item type="fraction" name="timer_setup_time_bottom_percent">0.25</item>
 </resources>

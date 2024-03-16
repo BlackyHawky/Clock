@@ -76,7 +76,7 @@ public final class OptionsMenuManager {
         final int itemId = item.getItemId();
         for (MenuItemController controller : mControllers) {
             if (controller.getId() == itemId
-                    && controller.onOptionsItemSelected(item)) {
+                    && controller.onOptionsItemSelected()) {
                 return true;
             }
         }

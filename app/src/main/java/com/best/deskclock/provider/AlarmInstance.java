@@ -218,23 +218,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public static AlarmInstance getInstance(ContentResolver cr, long instanceId) {
         try (Cursor cursor = cr.query(getContentUri(instanceId), QUERY_COLUMNS, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
-                return new AlarmInstance(cursor, false /* joinedTable */);
+                return new AlarmInstance(cursor, false);
             }
         }
 
         return null;
-    }
-
-    /**
-     * Get alarm instance for the {@code contentUri}.
-     *
-     * @param cr         provides access to the content model
-     * @param contentUri the {@link #getContentUri deeplink} for the desired instance
-     * @return instance if found, null otherwise
-     */
-    public static AlarmInstance getInstance(ContentResolver cr, Uri contentUri) {
-        final long instanceId = ContentUris.parseId(contentUri);
-        return getInstance(cr, instanceId);
     }
 
     /**
@@ -305,40 +293,36 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return result;
     }
 
-    public static AlarmInstance addInstance(ContentResolver contentResolver,
-                                            AlarmInstance instance) {
+    public static void addInstance(ContentResolver contentResolver,
+                                   AlarmInstance instance) {
         // Make sure we are not adding a duplicate instances. This is not a
         // fix and should never happen. This is only a safe guard against bad code, and you
         // should fix the root issue if you see the error message.
         String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
             if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
-                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to "
-                        + instance);
+                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to " + instance);
                 // Copy over the new instance values and update the db
                 instance.mId = otherInstances.mId;
                 updateInstance(contentResolver, instance);
-                return instance;
+                return;
             }
         }
 
         ContentValues values = createContentValues(instance);
         Uri uri = contentResolver.insert(CONTENT_URI, values);
         instance.mId = getId(uri);
-        return instance;
     }
 
-    public static boolean updateInstance(ContentResolver contentResolver, AlarmInstance instance) {
-        if (instance.mId == INVALID_ID) return false;
+    public static void updateInstance(ContentResolver contentResolver, AlarmInstance instance) {
+        if (instance.mId == INVALID_ID) return;
         ContentValues values = createContentValues(instance);
-        long rowsUpdated = contentResolver.update(getContentUri(instance.mId), values, null, null);
-        return rowsUpdated == 1;
+        contentResolver.update(getContentUri(instance.mId), values, null, null);
     }
 
-    public static boolean deleteInstance(ContentResolver contentResolver, long instanceId) {
-        if (instanceId == INVALID_ID) return false;
-        int deletedRows = contentResolver.delete(getContentUri(instanceId), "", null);
-        return deletedRows == 1;
+    public static void deleteInstance(ContentResolver contentResolver, long instanceId) {
+        if (instanceId == INVALID_ID) return;
+        contentResolver.delete(getContentUri(instanceId), "", null);
     }
 
     public static void deleteOtherInstances(Context context, ContentResolver contentResolver,
@@ -434,8 +418,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof AlarmInstance)) return false;
-        final AlarmInstance other = (AlarmInstance) o;
+        if (!(o instanceof final AlarmInstance other)) return false;
         return mId == other.mId;
     }
 

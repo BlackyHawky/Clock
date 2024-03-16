@@ -177,7 +177,6 @@
     <string name="automatic_home_clock">Automatesch Heemechtsauer</string>
     <string name="automatic_home_clock_summary">Beim Reesen an engem Gebitt wou d\'Zäit anescht ass, eng Auer fir d\'Zäit doheem dobäisetzen</string>
     <string name="home_time_zone">Heemechtszäitzon</string>
-    <string name="home_time_zone_title">Heemechtszäitzon</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
         <item>"Marshallinselen"</item>
         <item>"Midwayinselen"</item>
@@ -271,13 +270,10 @@
     <string name="description_direction_left">No lénks wësche fir ze näipen</string>
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> Sandaueren</string>
     <string name="next_timer_notif">Nächst Sandauer: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
-    <string name="night_mode_title">Nuetsmodus</string>
-    <string name="night_mode_summary">Ganz ofgedonkelte Schierm (fir däischter Raim)</string>
     <string name="expand_alarm">Wecker opklappen</string>
     <string name="collapse_alarm">Wecker zesummeklappen</string>
     <string name="alarm_undo">réckgängeg maachen</string>
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_tomorrow">Muer</string>
     <string name="next_alarm_description">Nächste Wecker: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms">Keng Weckeren</string>
 </resources>

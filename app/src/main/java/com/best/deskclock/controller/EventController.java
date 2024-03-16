@@ -31,10 +31,6 @@ class EventController {
         mEventTrackers.add(eventTracker);
     }
 
-    void removeEventTracker(EventTracker eventTracker) {
-        mEventTrackers.remove(eventTracker);
-    }
-
     void sendEvent(@StringRes int category, @StringRes int action, @StringRes int label) {
         for (EventTracker eventTracker : mEventTrackers) {
             eventTracker.sendEvent(category, action, label);

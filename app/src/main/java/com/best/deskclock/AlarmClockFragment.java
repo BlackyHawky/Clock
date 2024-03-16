@@ -84,7 +84,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private TextView mAlarmsEmptyView;
 
     // Data
-    private Loader mCursorLoader;
+    private Loader<?> mCursorLoader;
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mExpandedAlarmId = Alarm.INVALID_ID;
     private long mCurrentUpdateToken;
@@ -269,7 +269,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         TimePickerDialogFragment.removeTimeEditDialog(getChildFragmentManager());
     }
 
-    @Override
+    /**
+     * Perform smooth scroll to position.
+     */
     public void smoothScrollTo(int position) {
         mLayoutManager.scrollToPositionWithOffset(position, 0);
     }
@@ -302,7 +304,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
-            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, null, mAlarmTimeClickHandler);
+            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
         setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
@@ -428,7 +430,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
 
     @Override
-    public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
+    public void onTimeSet(int hourOfDay, int minute) {
         mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute);
     }
 

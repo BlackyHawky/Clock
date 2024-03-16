@@ -26,8 +26,4 @@ public interface ScrollHandler {
      */
     void setSmoothScrollStableId(long stableId);
 
-    /**
-     * Perform smooth scroll to position.
-     */
-    void smoothScrollTo(int position);
 }

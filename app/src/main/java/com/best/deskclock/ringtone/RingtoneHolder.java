@@ -41,10 +41,6 @@ abstract class RingtoneHolder extends ItemAdapter.ItemHolder<Uri> {
         mHasPermissions = hasPermissions;
     }
 
-    long getId() {
-        return itemId;
-    }
-
     boolean hasPermissions() {
         return mHasPermissions;
     }

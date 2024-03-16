@@ -154,8 +154,6 @@
 
     <!-- Timer accessibility announcements -->
     <string name="timer_accessibility_one_minute_added">One minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_stopped">Timer paused, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_started">Timer running, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
 
     <!--
         Verb inflection to use for single time units remaining
@@ -273,9 +271,6 @@
 
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
-
-    <!-- Notification preference title -->
-    <string name="notification_title">Reminder Notification</string>
 
     <!-- Auto silence summary string set based on the preference value. -->
     <plurals name="auto_silence_summary">
@@ -454,9 +449,6 @@
 
     <!-- Text for action that shows the UI that changes the default alarm ringtone. [CHAR LIMIT=20] -->
     <string name="change_setting_action">Change</string>
-
-    <!-- Text to display when app notifications are blocked. [CHAR LIMIT=50] -->
-    <string name="app_notifications_blocked">Clock notifications are blocked</string>
 
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
@@ -668,7 +660,6 @@
     <!-- Title in the preferences change the time zone for the user's home -->
     <string name="home_time_zone">Home time zone</string>
     <!-- Title in a list dialog box to pick a time zone for the user's home -->
-    <string name="home_time_zone_title">Home time zone</string>
 
     <!--
         Accessibility string read when a city checkbox is checked.
@@ -944,9 +935,7 @@
     <!-- Title for the screensaver settings activity. -->
     <string name="screensaver_settings">Screensaver settings</string>
     <!-- Title for check box to pick intensity of display diminution during screen saver -->
-    <string name="night_mode_title">Night mode</string>
     <!-- Describes intensity of display diminution during screen saver -->
-    <string name="night_mode_summary">Very dim display (for dark rooms)</string>
     <!-- Title of screensaver clock color. -->
     <string name="screensaver_clock_color_title">Clock color</string>
     <!-- Title of screensaver date color. -->
@@ -1017,9 +1006,7 @@
     <!-- Number of hours the world city is behind the current city [CHAR LIMIT=NONE] -->
     <string name="world_hours_yesterday">Yesterday, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
     <!-- The time in a world city is the day after the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
-    <string name="world_tomorrow">Tomorrow</string>
     <!-- The time in a world city is the day before the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
-    <string name="world_yesterday">Yesterday</string>
 
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
@@ -1096,7 +1083,6 @@
 
     <!-- String that represents that the user has successfully deleted a timer. [CHAR LIMIT=NONE]
     -->
-    <string name="timer_deleted">Timer deleted</string>
 
     <!-- String that represents that the user attempted to start a timer through a voice action
     but specified invalid length.
@@ -1147,7 +1133,6 @@
     [CHAR LIMIT=NONE]
     -->
     <!-- Bedtime button to create an alarm -->
-    <string name="bedtime_text_button">Create a bedtime alarm</string>
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
     <string name="bedtime">Bedtime</string>
     <string name="wakeup">Wake Up</string>

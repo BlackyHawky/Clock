@@ -16,15 +16,18 @@
 
 package com.best.deskclock.data;
 
+import android.Manifest;
 import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.util.ArrayList;
@@ -120,7 +123,7 @@ final class StopwatchModel {
     /**
      * @param stopwatch the new state of the stopwatch
      */
-    Stopwatch setStopwatch(Stopwatch stopwatch) {
+    void setStopwatch(Stopwatch stopwatch) {
         final Stopwatch before = getStopwatch();
         if (before != stopwatch) {
             StopwatchDAO.setStopwatch(mPrefs, stopwatch);
@@ -138,11 +141,9 @@ final class StopwatchModel {
 
             // Notify listeners of the stopwatch change.
             for (StopwatchListener stopwatchListener : mStopwatchListeners) {
-                stopwatchListener.stopwatchUpdated(before, stopwatch);
+                stopwatchListener.stopwatchUpdated(stopwatch);
             }
         }
-
-        return stopwatch;
     }
 
     /**
@@ -175,11 +176,6 @@ final class StopwatchModel {
         // Refresh the stopwatch notification to reflect the latest stopwatch state.
         if (!mNotificationModel.isApplicationInForeground()) {
             updateNotification();
-        }
-
-        // Notify listeners of the new lap.
-        for (StopwatchListener stopwatchListener : mStopwatchListeners) {
-            stopwatchListener.lapAdded(lap);
         }
 
         return lap;
@@ -250,8 +246,14 @@ final class StopwatchModel {
         }
 
         // Otherwise build and post a notification reflecting the latest stopwatch state.
-        final Notification notification =
-                mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
+        final Notification notification = mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
+
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Always false, because notification activation is always checked when the application is started.
+            return;
+        }
+
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 

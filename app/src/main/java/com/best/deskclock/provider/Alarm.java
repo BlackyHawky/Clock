@@ -16,6 +16,7 @@
 
 package com.best.deskclock.provider;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -51,7 +52,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public static final int INSTANCE_MINUTE_INDEX = 15;
     public static final int INSTANCE_LABEL_INDEX = 16;
     public static final int INSTANCE_VIBRATE_INDEX = 17;
-    public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
+    public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
         public Alarm createFromParcel(Parcel p) {
             return new Alarm(p);
         }
@@ -175,6 +176,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
+    @SuppressLint("ParcelClassLoader")
     Alarm(Parcel p) {
         id = p.readLong();
         enabled = p.readInt() == 1;
@@ -319,11 +321,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return alarm;
     }
 
-    public static boolean updateAlarm(ContentResolver contentResolver, Alarm alarm) {
-        if (alarm.id == Alarm.INVALID_ID) return false;
+    public static void updateAlarm(ContentResolver contentResolver, Alarm alarm) {
+        if (alarm.id == Alarm.INVALID_ID) return;
         ContentValues values = createContentValues(alarm);
-        long rowsUpdated = contentResolver.update(getContentUri(alarm.id), values, null, null);
-        return rowsUpdated == 1;
+        contentResolver.update(getContentUri(alarm.id), values, null, null);
     }
 
     public static boolean deleteAlarm(ContentResolver contentResolver, long alarmId) {
@@ -417,8 +418,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Alarm)) return false;
-        final Alarm other = (Alarm) o;
+        if (!(o instanceof final Alarm other)) return false;
         return id == other.id;
     }
 

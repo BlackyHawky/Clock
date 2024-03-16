@@ -66,8 +66,6 @@
     <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_accessibility_one_minute_added">Ychwanegwyd un munud i\'r amserydd, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_stopped">Amserydd wedi\'i seibio, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-    <string name="timer_accessibility_started">Amserydd yn rhedeg, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
     <string name="timer_remaining_single">yn weddill</string>
     <string name="timer_remaining_multiple">yn weddill</string>
     <string-array name="alarm_set">
@@ -215,7 +213,6 @@
     <string name="unmute_alarm_volume">Dad-distewi</string>
     <string name="silent_default_alarm_ringtone">Mae\'r tôn larwm arferol yn ddistaw</string>
     <string name="change_setting_action">Newid</string>
-    <string name="app_notifications_blocked">Mae hysbysiadau cloc wedi\'u rhwystro</string>
     <string name="alarms_blocked_by_dnd">Mae\'r ddyfais wedi\'i gosod i ddistawrwydd llwyr</string>
     <string name="volume_button_setting_title">Botymau uchder sain</string>
     <string-array name="volume_button_setting_entries">
@@ -299,7 +296,6 @@
     <string name="automatic_home_clock">Cloc adref awtomatig</string>
     <string name="automatic_home_clock_summary">Wrth deithio rhywle ble mae\'r amser yn wahanol, ychwanega cloc ar gyfer adref.</string>
     <string name="home_time_zone">Cylchfa amser adref</string>
-    <string name="home_time_zone_title">Cylchfa amser adref</string>
     <string name="city_checked"><xliff:g id="city_name">%s</xliff:g> wedi ei ddewis</string>
     <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> heb ei ddewis</string>
     <string-array name="timezone_labels" tools:ignore="Typos">
@@ -414,8 +410,6 @@
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> amserydd</string>
     <string name="next_timer_notif">Amserydd nesaf: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="screensaver_settings">Gosodiadau arbedwr sgrin</string>
-    <string name="night_mode_title">Modd nos</string>
-    <string name="night_mode_summary">Dangos â golau isel iawn (ar gyfer ystafelloedd tywyll)</string>
     <string name="expand_alarm">Ehangu\'r larwm</string>
     <string name="collapse_alarm">Lleihau\'r larwm</string>
     <string name="alarm_undo">dad-wneud</string>
@@ -427,8 +421,6 @@
     <string name="world_hours_minutes_behind"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> tu ôl</string>
     <string name="world_hours_tomorrow">Yfory, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday">Ddoe, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
-    <string name="world_tomorrow">Yfory</string>
-    <string name="world_yesterday">Ddoe</string>
     <string name="next_alarm_description">Larwm nesaf: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
     <string name="no_alarms">Dim Larymau</string>
     <string name="invalid_time">Amser annilys <xliff:g example="25" id="invalid_hour">%1$d</xliff:g><xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
@@ -448,7 +440,6 @@
         <item quantity="many">Diystyrwyd <xliff:g example="5" id="number">%d</xliff:g> amserydd</item>
         <item quantity="other">Diystyrwyd <xliff:g example="5" id="number">%d</xliff:g> amserydd</item>
     </plurals>
-    <string name="timer_deleted">Amserydd wedi\'i ddileu</string>
     <string name="invalid_timer_length">Hyd amserydd annilys</string>
     <string name="invalid_timer">Dewiswyd amserydd annilys</string>
     <string name="no_expired_timers">Dim amseryddion wedi dod i ben</string>

@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"කාල ගණකයට මිනිත්තුවක් එක් කරන ලදී, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"කාල ගණකය විරාම කරන ලදී, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"කාල ගණකය ධාවනය වෙමින්, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"ඉතිරිව ඇත"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ඉතිරිව ඇත"</string>
     <string-array name="alarm_set">
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"නිහඬ කිරීම ඉවත් කරන්න"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"පෙරනිමි එලාම රිංටෝනය නිහඬයි"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"වෙනස් කරන්න"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"ඔරලෝසු දැනුම්දීම් අවහිර කර ඇත"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"උපාංගය පූර්ණ නිහඬ බවට සකසා ඇත"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ශබ්ද බොත්තම්"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"ස්වයංක්‍රීය නිවාස ඔරලෝසුව"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"වෙලාව වෙනස් ප්‍රදේශයක සංචාරය කරන අතරතුර, නිවසෙහි වෙලාව සඳහා ඔරලෝසුවක් එක් කරන්න"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"නිවසේ කාල කලාපය"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"නිවසේ කාල කලාපය"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> ලකුණු කරන ලදී"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> ලකුණු නොකරන ලදී"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"කාල ගැනීම් <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"මීළඟ කාල ගණනය කිරීම: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"තිර සුරැකුම් සැකසීම්"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"රාත්‍රී ආකාරය"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ඉතා අඳුරු දර්ශන තීරය (අඳුරු කාමර සඳහා)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ඇඟවීම දිග හරින්න"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ඇඟවීම අකුලන්න"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"අස් කරන්න"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> පසුපසිනි"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"හෙට, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"ඊයේ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"හෙට"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"ඊයේ"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"මීළඟ ඇඟවීම: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"සීනු නැත"</string>
     <string name="invalid_time" msgid="2782334750243998633">"වලංගු නොවන වේලාව <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="one">කාල ගණක <xliff:g id="NUMBER">%d</xliff:g>ක් ඉවත දමන ලදී</item>
         <item quantity="other">කාල ගණක <xliff:g id="NUMBER">%d</xliff:g>ක් ඉවත දමන ලදී</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"මුහුර්තකය මකන ලදී"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"වලංගු නොවන ටයිමර වේලාව"</string>
     <string name="invalid_timer" msgid="900957020728335675">"වලංගු නොවන කාල ගණකය තෝරා ඇත"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"කල් ඉකුත් වූ කාල ගණක නැත"</string>

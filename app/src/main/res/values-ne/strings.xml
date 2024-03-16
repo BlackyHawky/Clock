@@ -59,8 +59,6 @@
     <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"टाइमरमा एक मिनेट थपियो, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"टाइमर रोकियो, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="timer_accessibility_started" msgid="8503877052873671219">"टाइमर चलिरहेको छ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"बाँकी"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"बाँकी"</string>
     <string-array name="alarm_set">
@@ -180,7 +178,6 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"अनम्यूट गर्नुहोस्"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"पूर्वनिर्धारित अलार्मको रिङटोन मौन छ"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"परिवर्तन गर्नुहोस्"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"घडी सम्बन्धी सूचनाहरूमाथि रोक लगाइएको छ"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"यन्त्रलाई पूर्ण शान्तमा सेट गरिएको छ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"भोल्युम बटनहरू"</string>
     <string-array name="volume_button_setting_entries">
@@ -265,7 +262,6 @@
     <string name="automatic_home_clock" msgid="6274174710735449252">"स्वचालित गृह घडी"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"समय फरक भएको क्षेत्रमा यात्रा गर्दा गृहका लागि घडी थप्नुहोस्"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"गृह समय क्षेत्र"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"गृह समय क्षेत्र"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> जाँच गरियो"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> जाँच हटाइयो"</string>
     <string-array name="timezone_labels">
@@ -380,8 +376,6 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"अर्को घडी: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रिन सेभरसम्बन्धी सेटिङहरू"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"रात्रि मोड"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ज्यादै मधुरो प्रदर्शन (अध्याँरा कोठाहरूका लागि)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"अन्डू गर्नुहोस्"</string>
@@ -393,8 +387,6 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> पछि"</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">"भोलि, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">"हिजो, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_tomorrow" msgid="7633067935455580920">"भोलि"</string>
-    <string name="world_yesterday" msgid="5430990920477833164">"हिजो"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"अर्को अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"आलार्महरू छैनन्"</string>
     <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%1$d</xliff:g> : <xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
@@ -410,7 +402,6 @@
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> टाइमरहरूलाई खारेज गरियो</item>
         <item quantity="one">टाइमरलाई खारेज गरियो</item>
     </plurals>
-    <string name="timer_deleted" msgid="9110322362460029392">"घडी मेटियो"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर लम्बाइ"</string>
     <string name="invalid_timer" msgid="900957020728335675">"अमान्य टाइमर चयन गरियो"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"समयावधि पूरा भएको कुनै पनि टाइमर छैन"</string>
