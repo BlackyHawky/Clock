@@ -72,6 +72,8 @@
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
         <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+
+        <item name="android:timePickerStyle">@style/TimePickerTheme</item>
     </style>
 
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
@@ -145,6 +147,10 @@
         <item name="backgroundTint">@color/md_theme_primary</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
+    </style>
+
+    <style name="TimePickerTheme" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:numbersBackgroundColor">@color/md_theme_surfaceVariant</item>
     </style>
 
 </resources>
