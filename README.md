@@ -31,7 +31,6 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 
 ## Common Issues
 * Problem encountered when using the "Dim background" option in bedtime mode;
-* Screensaver doesn't work with Android 14;
 * Maybe other things, but nothing about the alarm's functionality.
 
 _As I'm not an expert developer, some problems may unfortunately not be solved._
@@ -52,7 +51,7 @@ Before opening a new issue, be sure to check the following:
 
 ### Getting Started
 
-Clock project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/BlackyHawky/Clock.git) (or git SSH [URL](git@github.com:BlackyHawky/Clock.git)).
+Clock project is based on Gradle and Android Gradle Plugin. To get started, you can install [Android Studio](https://developer.android.com/studio), and import project 'from Version Control / Git / Github' by providing this git repository [URL](https://github.com/BlackyHawky/Clock.git) (or git SSH URL).
 Of course you can also use any other compatible IDE, or work with text editor and command line.
 
 Once everything is up correctly, you're ready to go!
