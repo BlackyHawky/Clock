@@ -104,7 +104,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, getContext()));
 
         mEmptyViewController = new EmptyViewController(mBedtimeView, mMainLayout, mEmptyView);
-        mEmptyViewController.setEmpty(mAlarm == null);
 
         mTxtBedtime = view.findViewById(R.id.bedtime_time);
         mTxtWakeup = view.findViewById(R.id.wakeup_time);
