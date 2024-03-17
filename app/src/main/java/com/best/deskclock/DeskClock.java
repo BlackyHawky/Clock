@@ -61,6 +61,7 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
+import com.best.deskclock.bedtime.BedtimeService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
@@ -227,6 +228,9 @@ public class DeskClock extends AppCompatActivity
         // and the necessary permissions to be granted by the user.
         firstRunDialog();
 
+        // Displays the right tab if the application has been closed and then reopened from the notification.
+        showTabFromNotifications();
+
         // Configure the menu item controllers add behavior to the toolbar.
         mOptionsMenuManager.addMenuItemController(new SettingsMenuItemController(this));
         mOptionsMenuManager.addMenuItemController(
@@ -337,24 +341,8 @@ public class DeskClock extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
-        final Intent intent = getIntent();
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (action != null) {
-                int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
-                switch (action) {
-                    case TimerService.ACTION_SHOW_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_show, label);
-                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
-                    }
-                    case StopwatchService.ACTION_SHOW_STOPWATCH -> {
-                        Events.sendStopwatchEvent(R.string.action_show, label);
-                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
-                    }
-                }
-            }
-        }
+        // Displays the right tab if the application has been minimized and then reopened from the notification.
+        showTabFromNotifications();
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
         updateCurrentTab();
@@ -559,6 +547,30 @@ public class DeskClock extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CODE_FOR_POWER_OFF_ALARM) {
             LogUtils.i("Power off alarm permission is granted.");
+        }
+    }
+
+    private void showTabFromNotifications() {
+        final Intent intent = getIntent();
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (action != null) {
+                int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
+                switch (action) {
+                    case TimerService.ACTION_SHOW_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.TIMERS);
+                    }
+                    case StopwatchService.ACTION_SHOW_STOPWATCH -> {
+                        Events.sendStopwatchEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
+                    }
+                    case BedtimeService.ACTION_SHOW_BEDTIME -> {
+                        Events.sendBedtimeEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.BEDTIME);
+                    }
+                }
+            }
         }
     }
 
