@@ -84,10 +84,10 @@ final class PeriodicCallbackModel {
         final long periodStart = now - offset;
 
         switch (period) {
-            case MINUTE -> {
-                final long lastMinute = periodStart - (periodStart % MINUTE_IN_MILLIS);
-                final long nextMinute = lastMinute + MINUTE_IN_MILLIS;
-                return nextMinute - now + offset;
+            case HALF_MINUTE -> {
+                final long lastHalfMinute = periodStart - (periodStart % 30000L);
+                final long nextHalfMinute = lastHalfMinute + 30000L;
+                return nextHalfMinute - now + offset;
             }
             case QUARTER_HOUR -> {
                 final long lastQuarterHour = periodStart - (periodStart % QUARTER_HOUR_IN_MILLIS);
@@ -122,11 +122,11 @@ final class PeriodicCallbackModel {
     }
 
     /**
-     * @param runnable to be called every minute
+     * @param runnable to be called every 30 seconds
      * @param offset   an offset applied to the minute to control when the callback occurs
      */
-    void addMinuteCallback(Runnable runnable, long offset) {
-        addPeriodicCallback(runnable, Period.MINUTE, offset);
+    void addHalfMinuteCallback(Runnable runnable, long offset) {
+        addPeriodicCallback(runnable, Period.HALF_MINUTE, offset);
     }
 
     /**
@@ -168,7 +168,7 @@ final class PeriodicCallbackModel {
     }
 
     @VisibleForTesting
-    enum Period {MINUTE, QUARTER_HOUR, HOUR, MIDNIGHT}
+    enum Period {HALF_MINUTE, QUARTER_HOUR, HOUR, MIDNIGHT}
 
     /**
      * Schedules the execution of the given delegate Runnable at the next callback time.

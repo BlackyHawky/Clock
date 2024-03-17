@@ -257,9 +257,9 @@ public final class UiDataModel {
      * @param runnable to be called every minute
      * @param offset   an offset applied to the minute to control when the callback occurs
      */
-    public void addMinuteCallback(Runnable runnable, long offset) {
+    public void addHalfMinuteCallback(Runnable runnable, long offset) {
         enforceMainLooper();
-        mPeriodicCallbackModel.addMinuteCallback(runnable, offset);
+        mPeriodicCallbackModel.addHalfMinuteCallback(runnable, offset);
     }
 
     //
