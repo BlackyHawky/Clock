@@ -97,7 +97,7 @@ public final class MoveScreensaverRunnable implements Runnable {
         run();
 
         // Schedule callbacks every minute to adjust the position of mSaverView.
-        UiDataModel.getUiDataModel().addMinuteCallback(this, -FADE_TIME);
+        UiDataModel.getUiDataModel().addHalfMinuteCallback(this, -FADE_TIME);
     }
 
     /**
