@@ -124,13 +124,9 @@
         <item msgid="592917601923801901">"Sekunde 10"</item>
         <item msgid="5050318776687582653">"Sekunde 15"</item>
         <item msgid="6997726466563948756">"Sekunde 20"</item>
-        <item msgid="1237360231425097772">"Sekunde 25"</item>
         <item msgid="248014374051498284">"Sekunde 30"</item>
-        <item msgid="6110450211551791852">"Sekunde 35"</item>
         <item msgid="8010211657612404516">"Sekunde 40"</item>
-        <item msgid="3730631498119797451">"Sekunde 45"</item>
         <item msgid="623829984393124488">"Sekunde 50"</item>
-        <item msgid="6390209981529164605">"Sekunde 55"</item>
         <item msgid="5261571706794132923">"Sekunde 60"</item>
     </string-array>
     <string-array name="snooze_duration_entries">

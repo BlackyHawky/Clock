@@ -159,13 +159,9 @@
         <item>10 eiliad</item>
         <item>15 eiliad</item>
         <item>20 eiliad</item>
-        <item>25 eiliad</item>
         <item>30 eiliad</item>
-        <item>35 eiliad</item>
         <item>40 eiliad</item>
-        <item>45 eiliad</item>
         <item>50 eiliad</item>
-        <item>55 eiliad</item>
         <item>60 eiliad</item>
     </string-array>
     <string-array name="snooze_duration_entries">

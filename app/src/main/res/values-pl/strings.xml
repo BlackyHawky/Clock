@@ -142,13 +142,9 @@
         <item msgid="592917601923801901">"10 sekund"</item>
         <item msgid="5050318776687582653">"15 sekund"</item>
         <item msgid="6997726466563948756">"20 sekund"</item>
-        <item msgid="1237360231425097772">"25 sekund"</item>
         <item msgid="248014374051498284">"30 sekund"</item>
-        <item msgid="6110450211551791852">"35 sekund"</item>
         <item msgid="8010211657612404516">"40 sekund"</item>
-        <item msgid="3730631498119797451">"45 sekund"</item>
         <item msgid="623829984393124488">"50 sekund"</item>
-        <item msgid="6390209981529164605">"55 sekund"</item>
         <item msgid="5261571706794132923">"60 sekund"</item>
     </string-array>
     <string-array name="snooze_duration_entries">
