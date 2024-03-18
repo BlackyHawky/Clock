@@ -78,7 +78,7 @@ public final class AlarmTimeClickHandler {
                     R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
             if (vibrator.hasVibrator()) {
-                vibrator.vibrate(10);
+                vibrator.vibrate(50);
             }
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
