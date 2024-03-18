@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +42,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.ScrollHandler;
-import com.best.deskclock.alarms.TimePickerDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
@@ -52,8 +53,11 @@ import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,9 +65,9 @@ import java.util.Objects;
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>,
-        ScrollHandler,
-        TimePickerDialogFragment.OnTimeSetListener {
+        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
+
+    private static final String TAG = "AlarmClockFragment";
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -74,6 +78,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
     private static final String KEY_EXPANDED_ID = "expandedId";
+    private static final String ARG_HOUR = TAG + "_hour";
+    private static final String ARG_MINUTE = TAG + "_minute";
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -95,6 +101,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
+    private int hour;
+    private int minute;
 
     /**
      * The public no-arg constructor required by all fragments.
@@ -110,6 +118,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
         }
+
+        final Calendar now = Calendar.getInstance();
+        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
+        hour = args.getInt(ARG_HOUR, now.get(Calendar.HOUR_OF_DAY));
+        minute = args.getInt(ARG_MINUTE, now.get(Calendar.MINUTE));
     }
 
     @Override
@@ -204,15 +217,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        if (!isTabSelected()) {
-            TimePickerDialogFragment.removeTimeEditDialog(getFragmentManager());
-        }
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
 
@@ -263,10 +267,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
         mAlarmUpdateHandler.hideUndoBar();
-
-        // Don't show the picker after resuming, so we don't need to remember what time we edited
-        // last (and the user maybe also doesn't remember then, editing the wrong alarm)
-        TimePickerDialogFragment.removeTimeEditDialog(getChildFragmentManager());
     }
 
     /**
@@ -424,13 +424,29 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
-        TimePickerDialogFragment.show(this);
+        ShowMaterialTimePicker();
     }
 
+    private void ShowMaterialTimePicker() {
 
-    @Override
-    public void onTimeSet(int hourOfDay, int minute) {
-        mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute);
+        @TimeFormat int clockFormat;
+        boolean isSystem24Hour = DateFormat.is24HourFormat(getContext());
+        clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(clockFormat)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setHour(hour)
+                .setMinute(minute)
+                .build();
+
+        Context context = getContext();
+        materialTimePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
+        materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
+            int newHour = materialTimePicker.getHour();
+            int newMinute = materialTimePicker.getMinute();
+            mAlarmTimeClickHandler.onTimeSet(newHour, newMinute);
+        });
     }
 
     public void removeItem(AlarmItemHolder itemHolder) {
