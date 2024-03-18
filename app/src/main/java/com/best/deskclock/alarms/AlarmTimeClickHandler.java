@@ -185,6 +185,7 @@ public final class AlarmTimeClickHandler {
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
+            alarm.vibrate = false;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;
