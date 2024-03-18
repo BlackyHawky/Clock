@@ -4,13 +4,13 @@ import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.INVISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.DeskClockFragment;
@@ -31,7 +32,6 @@ import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
-import com.best.deskclock.alarms.TimePickerDialogFragment;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
@@ -46,6 +46,8 @@ import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.List;
 
@@ -53,8 +55,9 @@ import java.util.List;
 /**
  * Fragment that shows the bedtime.
  // */
-public final class BedtimeFragment extends DeskClockFragment implements
-        TimePickerDialogFragment.OnTimeSetListener {
+public final class BedtimeFragment extends DeskClockFragment {
+
+    private static final String TAG = "BedtimeFragment";
 
     //We need a unique label to identify our wake alarm
     public final static String BEDLABEL = "Wake-up alarm";
@@ -211,7 +214,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mBottomSheetDialog = new BottomSheetDialog(getContext());
         mBottomSheetDialog.setContentView(R.layout.bedtime_wakeup_bottom_sheet);
         mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        Fragment mFragment = this;
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
         mClock = mBottomSheetDialog.findViewById(R.id.wake_time);
@@ -231,7 +233,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
         mClock.setOnClickListener(v -> {
             Events.sendBedtimeEvent(R.string.action_set_time, R.string.label_deskclock);
-            TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
+            ShowMaterialTimePicker(alarm.hour, alarm.minutes);
             bindClock(alarm);
         });
 
@@ -407,20 +409,19 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mTxtWakeup.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
     }
 
-    @Override
-    public void onTimeSet(int hourOfDay, int minute) {
+    private void onTimeSet(int hourOfDay, int minute) {
         if (mClock == mBottomSheetDialog.findViewById(R.id.wake_time)) {
-            Alarm mSelectedAlarm = getBedAlarm();
+            Alarm selectedAlarm = getBedAlarm();
 
-            if (mSelectedAlarm == null) {
+            if (selectedAlarm == null) {
                 return;
             }
-            mSelectedAlarm.hour = hourOfDay;
-            mSelectedAlarm.minutes = minute;
-            mSelectedAlarm.enabled = true;
+            selectedAlarm.hour = hourOfDay;
+            selectedAlarm.minutes = minute;
+            selectedAlarm.enabled = true;
             mOnOff.setChecked(true);
-            mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
-            bindClock(mSelectedAlarm);
+            mAlarmUpdateHandler.asyncUpdateAlarm(selectedAlarm, true, false);
+            bindClock(selectedAlarm);
         } else if (mClock == mBottomSheetDialog.findViewById(R.id.bedtime_time)) {
             mSaver.hour = hourOfDay;
             mSaver.minutes = minute;
@@ -440,7 +441,6 @@ public final class BedtimeFragment extends DeskClockFragment implements
         mBottomSheetDialog = new BottomSheetDialog(getContext());
         mBottomSheetDialog.setContentView(R.layout.bedtime_bottom_sheet);
         mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-        Fragment mFragment = this;
         mClock = mBottomSheetDialog.findViewById(R.id.bedtime_time);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
         mNotifList = mBottomSheetDialog.findViewById(R.id.notif_spinner);
@@ -451,7 +451,7 @@ public final class BedtimeFragment extends DeskClockFragment implements
 
         mClock.setOnClickListener(v -> {
             Events.sendBedtimeEvent(R.string.action_set_time, R.string.label_deskclock);
-            TimePickerDialogFragment.show(mFragment, mSaver.hour, mSaver.minutes);
+            ShowMaterialTimePicker(mSaver.hour, mSaver.minutes);
             mSaver.save();
             bindBedClock();
         });
@@ -613,9 +613,29 @@ public final class BedtimeFragment extends DeskClockFragment implements
         }
     }
 
+    private void ShowMaterialTimePicker(int hour, int minute) {
+
+        @TimeFormat int clockFormat;
+        boolean isSystem24Hour = DateFormat.is24HourFormat(getContext());
+        clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(clockFormat)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setHour(hour)
+                .setMinute(minute)
+                .build();
+        Context context = getContext();
+        materialTimePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
+
+        materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
+            int newHour = materialTimePicker.getHour();
+            int newMinute = materialTimePicker.getMinute();
+            onTimeSet(newHour, newMinute);
+        });
+    }
+
     //TODO: implement sleep-timers with common media support(songs, albums, artists and playlists) in here
-
-
 
     //general stuff
     private int getSpinnerPos(int savedValue, String[] valueArray) {
