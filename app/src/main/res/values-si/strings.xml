@@ -124,13 +124,9 @@
         <item msgid="592917601923801901">"තත්පර 10"</item>
         <item msgid="5050318776687582653">"තත්පර 15"</item>
         <item msgid="6997726466563948756">"තත්පර 20"</item>
-        <item msgid="1237360231425097772">"තත්පර 25"</item>
         <item msgid="248014374051498284">"තත්පර 30"</item>
-        <item msgid="6110450211551791852">"තත්පර 35"</item>
         <item msgid="8010211657612404516">"තත්පර 40"</item>
-        <item msgid="3730631498119797451">"තත්පර 45"</item>
         <item msgid="623829984393124488">"තත්පර 50"</item>
-        <item msgid="6390209981529164605">"තත්පර 55"</item>
         <item msgid="5261571706794132923">"තත්පර 60"</item>
     </string-array>
     <string-array name="snooze_duration_entries">

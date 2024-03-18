@@ -101,13 +101,9 @@
         <item>10 seconds</item>
         <item>15 seconds</item>
         <item>20 seconds</item>
-        <item>25 seconds</item>
         <item>30 seconds</item>
-        <item>35 seconds</item>
         <item>40 seconds</item>
-        <item>45 seconds</item>
         <item>50 seconds</item>
-        <item>55 seconds</item>
         <item>60 seconds</item>
     </string-array>
     <string-array name="snooze_duration_entries">
