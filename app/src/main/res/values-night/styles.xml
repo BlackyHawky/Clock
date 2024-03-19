@@ -70,6 +70,8 @@
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
         <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
     <style name="Theme.DeskClock.Wallpaper">
