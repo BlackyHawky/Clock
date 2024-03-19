@@ -72,6 +72,8 @@
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
         <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
@@ -145,6 +147,15 @@
         <item name="backgroundTint">@color/md_theme_primary</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker" parent="@style/ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">24dp</item>
     </style>
 
 </resources>
