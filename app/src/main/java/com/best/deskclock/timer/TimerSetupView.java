@@ -21,7 +21,6 @@ import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Vibrator;
 import android.text.BidiFormatter;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -49,7 +48,6 @@ import java.util.Arrays;
 
 public class TimerSetupView extends LinearLayout implements View.OnClickListener, View.OnLongClickListener {
 
-    final Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
     private final int[] mInput = {0, 0, 0, 0, 0, 0};
     private final CharSequence mTimeTemplate;
     private int mInputPointer = -1;
@@ -178,9 +176,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         } else {
             append(getDigitForId(view.getId()));
         }
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(10);
-        }
+        Utils.vibrationTime(getContext(), 10);
     }
 
     @Override

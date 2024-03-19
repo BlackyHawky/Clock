@@ -45,6 +45,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Vibrator;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -737,4 +738,16 @@ public class Utils {
         return context.getString(R.string.seconds, seconds);
     }
 
+    /**
+     * Set the vibration duration if the device is equipped with a vibrator.
+     *
+     * @param context to define whether the device is equipped with a vibrator.
+     * @param milliseconds Hours to display (if any)
+     */
+    public static void vibrationTime(Context context, long milliseconds) {
+        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator.hasVibrator()) {
+            vibrator.vibrate(milliseconds);
+        }
+    }
 }
