@@ -18,7 +18,6 @@ package com.best.deskclock.stopwatch;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Vibrator;
 import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -220,11 +219,8 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     Lap addLap() {
         final Lap lap = DataModel.getDataModel().addLap();
-        final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(10);
-        }
+        Utils.vibrationTime(mContext, 10);
 
         if (getItemCount() == 10) {
             // 10 total laps indicates all items switch from 1 to 2 digit lap numbers.
@@ -256,7 +252,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
 
     String getShareText() {
-        final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
         final String stopwatchTime = formatTime(totalTime, totalTime, ":");
@@ -292,9 +287,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             builder.append(formatTime(lapTime, lapTime, " "));
             builder.append("\n");
         }
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(10);
-        }
+
+        Utils.vibrationTime(mContext, 10);
+
         return builder.toString();
     }
 

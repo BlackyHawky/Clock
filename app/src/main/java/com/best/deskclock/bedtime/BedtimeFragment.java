@@ -66,7 +66,6 @@ public final class BedtimeFragment extends DeskClockFragment {
     TextView mEmptyView;
     TextView mHoursOfSleep;
     Context mContext;
-    Vibrator mVibrator;
     DataSaver mSaver;
     View view;
     TextView mRingtone;
@@ -121,8 +120,6 @@ public final class BedtimeFragment extends DeskClockFragment {
                     mAlarm = getBedAlarm();
                     showWakeupBottomSheetDialog(mAlarm);
                 }});}
-
-        mVibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, mMainLayout);
 
@@ -251,9 +248,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                         : R.string.action_disable, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
 
-                if (mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(10);
-                }
+                Utils.vibrationTime(mContext, 50);
             }
         });
 
@@ -266,9 +261,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 if (newState) {
                     // Buzz the vibrator to preview the alarm firing behavior.
-                    if (mVibrator.hasVibrator()) {
-                        mVibrator.vibrate(300);
-                    }
+                    Utils.vibrationTime(mContext, 300);
                 }
             }
         });
@@ -294,7 +287,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         alarm.daysOfWeek = Weekdays.fromBits(31);
         alarm.label = BEDLABEL;
         alarm.alert = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
-        alarm.vibrate = true;
+        alarm.vibrate = false;
         mTxtWakeup.setTime(8, 30);
         mTxtWakeup.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
@@ -335,9 +328,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 final boolean popupToast = false; //TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
-                if (mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(10);
-                }
+                Utils.vibrationTime(mContext, 10);
                 //TODO:Is it really right to bind them again just to change the letter color
                 bindDaysOfWeekButtons(alarm, mContext);
             });
@@ -468,9 +459,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 );
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
-                if (mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(10);
-                }
+                Utils.vibrationTime(mContext, 50);
             }
 
             if (!checked) {
@@ -546,9 +535,8 @@ public final class BedtimeFragment extends DeskClockFragment {
                 //TODO: normally we would tell the user bedtime changed but the user can't see the toast behind the bottomSheet
                 mSaver.save();
 
-                if (mVibrator.hasVibrator()) {
-                    mVibrator.vibrate(10);
-                }
+                Utils.vibrationTime(mContext, 10);
+
                 //TODO: is it really right to bind all again just to change the letter color
                 bindDaysOfBedButtons(mContext);
             });

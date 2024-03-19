@@ -20,7 +20,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.text.format.DateFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +28,7 @@ import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
@@ -48,7 +48,6 @@ public final class AlarmTimeClickHandler {
     private static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
-    final Vibrator vibrator;
     private final Fragment mFragment;
     private final Context mContext;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
@@ -63,7 +62,6 @@ public final class AlarmTimeClickHandler {
         mContext = mFragment.getActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
         mScrollHandler = smoothScrollController;
-        vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         if (savedState != null) {
             mPreviousDaysOfWeekMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
@@ -79,12 +77,9 @@ public final class AlarmTimeClickHandler {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
-            Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable,
-                    R.string.label_deskclock);
+            Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
-            if (vibrator.hasVibrator()) {
-                vibrator.vibrate(50);
-            }
+            Utils.vibrationTime(mContext, 50);
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
@@ -98,10 +93,7 @@ public final class AlarmTimeClickHandler {
 
             if (newState) {
                 // Buzz the vibrator to preview the alarm firing behavior.
-                final Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-                if (v.hasVibrator()) {
-                    v.vibrate(300);
-                }
+                Utils.vibrationTime(mContext, 300);
             }
         }
     }
@@ -148,9 +140,7 @@ public final class AlarmTimeClickHandler {
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(10);
-        }
+        Utils.vibrationTime(mContext, 10);
     }
 
     public void onDeleteClicked(AlarmItemHolder itemHolder) {
