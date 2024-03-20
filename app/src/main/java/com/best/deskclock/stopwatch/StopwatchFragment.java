@@ -683,6 +683,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
+            Utils.vibrationTime(getContext(), 50);
         }
     }
 
