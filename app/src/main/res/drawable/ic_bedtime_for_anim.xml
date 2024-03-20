@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:name="bed"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="bed_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <group android:name="bed_body">
+                <path
+                    android:name="bed_path"
+                    android:fillAlpha="1"
+                    android:fillColor="@android:color/white"
+                    android:pathData="M19 7h-8v8L3 15L3 5L1 5v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z" />
+            </group>
+        </group>
+    </group>
+
+    <group
+        android:name="head"
+        android:translateX="12"
+        android:translateY="12">
+        <group
+            android:name="head_pivot"
+            android:translateX="-12"
+            android:translateY="-12">
+            <path
+                android:name="head_path"
+                android:fillAlpha="1"
+                android:fillColor="@android:color/white"
+                android:pathData="M7 14c1.66 0 3-1.34 3-3S8.66 8 7 8s-3 1.34-3 3 1.34 3 3 3z" />
+        </group>
+    </group>
+</vector>
