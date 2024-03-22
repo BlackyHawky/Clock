@@ -38,6 +38,7 @@ import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
+import com.best.deskclock.actionbarmenu.AboutMenuItemController;
 import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.best.deskclock.actionbarmenu.OptionsMenuManager;
@@ -94,6 +95,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         super.onCreate(savedInstanceState);
 
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+                .addMenuItemController(new AboutMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this));
 
