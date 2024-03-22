@@ -93,6 +93,14 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name=".settings.AboutActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/about_title"
+            android:parentActivityName=".DeskClock"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name=".HandleShortcuts"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"

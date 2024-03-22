@@ -17,4 +17,5 @@
     <item name="menu_item_search" type="id" />
     <item name="menu_item_sort" type="id" />
     <item name="menu_item_settings" type="id" />
+    <item name="menu_item_about" type="id" />
 </resources>
