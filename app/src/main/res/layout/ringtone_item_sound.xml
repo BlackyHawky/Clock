@@ -64,9 +64,29 @@
         android:textColor="?android:textColorPrimary"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/sound_image_selected"
+        app:layout_constraintEnd_toStartOf="@id/delete_ringtone"
         app:layout_constraintStart_toEndOf="@id/ringtone_image"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/delete_ringtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/more_options"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_delete"
+        android:scaleType="centerInside"
+        android:visibility="gone"
+        app:tint="@color/md_theme_onSurfaceVariant"
+        app:tintMode="src_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sound_image_selected"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/sound_image_selected"
@@ -79,30 +99,10 @@
         android:scaleType="centerInside"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/music_actions"
+        app:layout_constraintEnd_toStartOf="@id/end_guide_very_thin"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/md_theme_primary"
         app:tintMode="src_in"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/music_actions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/more_options"
-        android:foreground="?selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_more"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:tint="@color/md_theme_onSurfaceVariant"
-        app:tintMode="src_in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/end_guide_very_thin"
-        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

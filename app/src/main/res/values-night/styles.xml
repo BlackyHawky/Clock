@@ -61,10 +61,6 @@
 
         <item name="checkboxStyle">@style/Widget.CheckBox</item>
 
-        <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
-
-        <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>

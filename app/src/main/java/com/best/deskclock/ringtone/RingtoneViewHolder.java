@@ -23,14 +23,12 @@ import static android.view.View.VISIBLE;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.AnimatorUtils;
@@ -39,7 +37,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 
 final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder>
-        implements OnClickListener, PopupMenu.OnMenuItemClickListener {
+        implements OnClickListener {
 
     static final int VIEW_TYPE_SYSTEM_SOUND = R.layout.ringtone_item_sound;
     static final int VIEW_TYPE_CUSTOM_SOUND = -R.layout.ringtone_item_sound;
@@ -50,7 +48,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     private final View mSelectedView;
     private final TextView mNameView;
     private final ImageView mImageView;
-    private final ImageView mMenuView;
+    private final ImageView mDeleteRingtone;
 
     private RingtoneViewHolder(View itemView) {
         super(itemView);
@@ -59,7 +57,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         mSelectedView = itemView.findViewById(R.id.sound_image_selected);
         mNameView = itemView.findViewById(R.id.ringtone_name);
         mImageView = itemView.findViewById(R.id.ringtone_image);
-        mMenuView = itemView.findViewById(R.id.music_actions);
+        mDeleteRingtone = itemView.findViewById(R.id.delete_ringtone);
     }
 
     @Override
@@ -101,14 +99,9 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), bgColorId));
 
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
-            mMenuView.setVisibility(VISIBLE);
-            mMenuView.getDrawable().setTint(mMenuView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
-            mMenuView.setOnClickListener(v -> {
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                popupMenu.getMenuInflater().inflate(R.menu.ringtone_item_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(this);
-                popupMenu.show();
-            });
+            mDeleteRingtone.setVisibility(VISIBLE);
+            mDeleteRingtone.getDrawable().setTint(mDeleteRingtone.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+            mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
         }
     }
 
@@ -119,14 +112,6 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         } else {
             notifyItemClicked(RingtoneViewHolder.CLICK_NO_PERMISSIONS);
         }
-    }
-
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.remove) {
-            notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE);
-            return true;
-        }
-        return false;
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
