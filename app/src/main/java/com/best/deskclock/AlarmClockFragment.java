@@ -23,7 +23,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
@@ -35,6 +39,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -199,6 +204,46 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                    @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                    int actionState, boolean isCurrentlyActive) {
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                final Drawable deleteDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.ic_delete);
+                if (deleteDrawable == null) {
+                    return;
+                }
+                deleteDrawable.setColorFilter(getContext().getColor(R.color.md_theme_onSurface), PorterDuff.Mode.SRC_IN);
+
+                final GradientDrawable background = new GradientDrawable();
+                background.setCornerRadius(Utils.toPixel(12, getContext()));
+                background.setColor(Color.parseColor("#F44336"));
+
+                View itemView = viewHolder.itemView;
+                int itemHeight = itemView.getHeight();
+                int intrinsicWidth = deleteDrawable.getIntrinsicWidth();
+                int intrinsicHeight = deleteDrawable.getIntrinsicHeight();
+                // Calculate the position of the delete icon
+                int deleteIconTop = itemView.getTop() + (itemHeight - intrinsicHeight) / 2;
+                int deleteIconMargin = Utils.toPixel(40, getContext());
+                int deleteIconLeft = itemView.getLeft() + deleteIconMargin - intrinsicWidth;
+                int deleteIconRight = itemView.getLeft() + deleteIconMargin;
+                int deleteIconBottom = deleteIconTop + intrinsicHeight;
+
+                background.setBounds(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + ((int) dX), itemView.getBottom());
+                deleteDrawable.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
+
+                if (dX > 0) {
+                    background.draw(c);
+                }
+
+                if (dX > deleteIconMargin) {
+                    deleteDrawable.draw(c);
+                }
             }
 
             @Override
