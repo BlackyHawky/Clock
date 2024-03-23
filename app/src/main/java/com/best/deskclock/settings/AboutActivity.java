@@ -2,7 +2,6 @@
 package com.best.deskclock.settings;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
@@ -12,7 +11,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
-import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 /**
@@ -21,8 +19,6 @@ import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 public final class AboutActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "about_fragment";
-
-    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -39,20 +35,12 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onPrepareOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            getOnBackPressedDispatcher().onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat {

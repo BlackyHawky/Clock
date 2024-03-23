@@ -38,10 +38,6 @@ import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
-import com.best.deskclock.actionbarmenu.AboutMenuItemController;
-import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.best.deskclock.actionbarmenu.NavUpMenuItemController;
-import com.best.deskclock.actionbarmenu.OptionsMenuManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
@@ -84,7 +80,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
-    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
     /**
      * The controller that shows the drop shadow when content is not scrolled to the top.
@@ -93,11 +88,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
-                .addMenuItemController(new AboutMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this));
 
         // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
@@ -119,19 +109,23 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onPrepareOptionsMenu(menu);
+        menu.add(0, Menu.NONE, 0, R.string.about_title)
+                .setIcon(R.drawable.ic_about).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            getOnBackPressedDispatcher().onBackPressed();
+            return true;
+        }
+        if (item.getItemId() == 0) {
+            final Intent settingIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(settingIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements
