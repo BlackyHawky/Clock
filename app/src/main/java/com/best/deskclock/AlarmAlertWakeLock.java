@@ -41,7 +41,7 @@ public class AlarmAlertWakeLock {
         }
 
         sCpuWakeLock = createPartialWakeLock(context);
-        sCpuWakeLock.acquire(10*60*1000L /*10 minutes*/);
+        sCpuWakeLock.acquire(10000L /*10 seconds*/);
     }
 
     @SuppressLint("InvalidWakeLockTag")
@@ -52,7 +52,7 @@ public class AlarmAlertWakeLock {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         sCpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK
                 | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, TAG);
-        sCpuWakeLock.acquire(10*60*1000L /*10 minutes*/);
+        sCpuWakeLock.acquire(10000L /*10 seconds*/);
     }
 
     public static void releaseCpuLock() {

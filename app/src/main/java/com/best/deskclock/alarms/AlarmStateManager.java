@@ -881,7 +881,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
-        wl.acquire(10*60*1000L /*10 minutes*/);
+        wl.acquire(10000L /*10 seconds*/);
         AsyncHandler.post(() -> {
             handleIntent(context, intent);
             result.finish();
