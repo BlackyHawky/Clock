@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package com.best.deskclock.settings;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -50,6 +52,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
             addPreferencesFromResource(R.xml.settings_about);
             setupTitle();
             setupVersion();
+            setupWhatsNew();
             setupMainFeatures();
         }
 
@@ -71,6 +74,24 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
                 return;
             }
             version.setSummary(BuildConfig.VERSION_NAME);
+        }
+
+        private void setupWhatsNew() {
+            Preference whatsNewPreference = findPreference("about_whats_new");
+            if (whatsNewPreference == null) {
+                return;
+            }
+            whatsNewPreference.setOnPreferenceClickListener(preference -> {
+                String version = BuildConfig.VERSION_NAME;
+                if (BuildConfig.DEBUG) {
+                    version = version.replace("-debug", "");
+                }
+
+                final Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://github.com/BlackyHawky/Clock/releases/tag/v" + version));
+                startActivity(browserIntent);
+                return true;
+            });
         }
 
         private void setupMainFeatures() {

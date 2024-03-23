@@ -21,12 +21,9 @@
         tools:summary="1.0" />
 
     <Preference
-        android:key="whats_new_features"
+        android:key="about_whats_new"
         android:title="@string/whats_new_title"
         android:icon="@drawable/ic_about_update">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com/BlackyHawky/Clock/releases" />
     </Preference>
 
     <Preference
