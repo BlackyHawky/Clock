@@ -40,7 +40,7 @@ android {
             versionNameSuffix "-debug"
             applicationIdSuffix ".debug"
         }
-        archivesBaseName = "NewClock_" + defaultConfig.versionName
+        archivesBaseName = "Clock_" + defaultConfig.versionName
     }
 
     buildFeatures {
