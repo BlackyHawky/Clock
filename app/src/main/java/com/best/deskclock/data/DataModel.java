@@ -857,7 +857,7 @@ public final class DataModel {
     //
 
     /**
-     * @return the style of clock to display in the clock application
+     * @return the style of the clock to display in the clock application
      */
     public ClockStyle getClockStyle() {
         enforceMainLooper();
@@ -865,7 +865,7 @@ public final class DataModel {
     }
 
     /**
-     * @return the style of clock to display in the clock screensaver
+     * @return the style of the clock to display in the clock screensaver
      */
     public ClockStyle getScreensaverClockStyle() {
         enforceMainLooper();
@@ -873,27 +873,35 @@ public final class DataModel {
     }
 
     /**
-     * @return the color of clock to display in the screensaver
+     * @return the dynamic colors of the clock to display in the screensaver
      */
-    public String getScreensaverClockColor() {
+    public boolean getScreensaverClockDynamicColors() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverClockColor();
+        return mSettingsModel.getScreensaverClockDynamicColors();
+    }
+
+    /**
+     * @return the color of the clock to display in the screensaver
+     */
+    public String getScreensaverClockPresetColors() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverClockPresetColors();
     }
 
     /**
      * @return the color of the date to display in the screensaver
      */
-    public String getScreensaverDateColor() {
+    public String getScreensaverDatePresetColors() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverDateColor();
+        return mSettingsModel.getScreensaverDatePresetColors();
     }
 
     /**
      * @return the color of the next alarm to display in the screensaver
      */
-    public String getScreensaverNextAlarmColor() {
+    public String getScreensaverNextAlarmPresetColors() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverNextAlarmColor();
+        return mSettingsModel.getScreensaverNextAlarmPresetColors();
     }
 
     /**

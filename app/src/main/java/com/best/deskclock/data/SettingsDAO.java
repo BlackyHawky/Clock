@@ -192,24 +192,31 @@ final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating the color of the screen saver
+     * @return a value indicating whether analog or digital clock dynamic colors are displayed
      */
-    public static String getScreensaverClockColor(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_COLOR);
+    static boolean getScreensaverClockDynamicColors(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_CLOCK_DYNAMIC_COLORS, false);
+    }
+
+    /**
+     * @return a value indicating the color of the clock of the screensaver
+     */
+    public static String getScreensaverClockPresetColors(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_PRESET_COLORS);
     }
 
     /**
      * @return a value indicating the color of the date of the screensaver
      */
-    public static String getScreensaverDateColor(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_COLOR);
+    public static String getScreensaverDatePresetColors(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_PRESET_COLORS);
     }
 
     /**
      * @return a value indicating the color of the next alarm of the screensaver
      */
-    public static String getScreensaverNextAlarmColor(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR);
+    public static String getScreensaverNextAlarmPresetColors(Context context, SharedPreferences prefs) {
+        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_PRESET_COLORS);
     }
 
     /**
