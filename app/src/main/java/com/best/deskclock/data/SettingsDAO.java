@@ -220,7 +220,7 @@ final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating whether analog or digital clocks are displayed in the app
+     * @return a value indicating whether analog or digital clock seconds are displayed
      */
     static boolean getDisplayScreensaverClockSeconds(SharedPreferences prefs) {
         return prefs.getBoolean(ScreensaverSettingsActivity.KEY_SS_CLOCK_DISPLAY_SECONDS, false);
@@ -230,21 +230,42 @@ final class SettingsDAO {
      * @return {@code true} if the screen saver should show the clock in bold
      */
     static boolean getScreensaverBoldDigitalClock(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DIGITAL_ALARM, false);
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DIGITAL_CLOCK, false);
     }
 
     /**
-     * @return {@code true} if the screen saver should show the clock in bold
+     * @return {@code true} if the screen saver should show the clock in italic
+     */
+    static boolean getScreensaverItalicDigitalClock(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_DIGITAL_CLOCK, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the date in bold
      */
     static boolean getScreensaverBoldDate(SharedPreferences prefs) {
         return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DATE, true);
     }
 
     /**
-     * @return {@code true} if the screen saver should show the clock in bold
+     * @return {@code true} if the screen saver should show the date in italic
+     */
+    static boolean getScreensaverItalicDate(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_DATE, false);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the next alarm in bold
      */
     static boolean getScreensaverBoldNextAlarm(SharedPreferences prefs) {
         return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_NEXT_ALARM, true);
+    }
+
+    /**
+     * @return {@code true} if the screen saver should show the next alarm in italic
+     */
+    static boolean getScreensaverItalicNextAlarm(SharedPreferences prefs) {
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_NEXT_ALARM, false);
     }
 
     /**
