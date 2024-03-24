@@ -92,16 +92,20 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
     }
 
-    public String getScreensaverClockColor() {
-        return SettingsDAO.getScreensaverClockColor(mContext, mPrefs);
+    public boolean getScreensaverClockDynamicColors() {
+        return SettingsDAO.getScreensaverClockDynamicColors(mPrefs);
     }
 
-    public String getScreensaverDateColor() {
-        return SettingsDAO.getScreensaverDateColor(mContext, mPrefs);
+    public String getScreensaverClockPresetColors() {
+        return SettingsDAO.getScreensaverClockPresetColors(mContext, mPrefs);
     }
 
-    public String getScreensaverNextAlarmColor() {
-        return SettingsDAO.getScreensaverNextAlarmColor(mContext, mPrefs);
+    public String getScreensaverDatePresetColors() {
+        return SettingsDAO.getScreensaverDatePresetColors(mContext, mPrefs);
+    }
+
+    public String getScreensaverNextAlarmPresetColors() {
+        return SettingsDAO.getScreensaverNextAlarmPresetColors(mContext, mPrefs);
     }
 
     public int getScreensaverBrightness() {

@@ -967,12 +967,22 @@
     <!-- Screensaver settings strings -->
     <!-- Title for the screensaver settings activity. -->
     <string name="screensaver_settings">Screensaver settings</string>
+    <!-- Title for the screensaver style group. -->
+    <string name="screensaver_style_group">Style</string>
+    <!-- Title for the screensaver color group. -->
+    <string name="screensaver_color_group">Colors</string>
+    <!-- Title for the screensaver font group. -->
+    <string name="screensaver_font_group">Font</string>
+    <!-- Title for the screensaver preview & Android screensaver group. -->
+    <string name="screensaver_preview_group">Preview &#38; Android screensaver</string>
+    <!-- Title of dynamic screensaver clock color. -->
+    <string name="screensaver_clock_dynamic_colors_title">Dynamic clock colors</string>
     <!-- Title of screensaver clock color. -->
-    <string name="screensaver_clock_color_title">Clock color</string>
+    <string name="screensaver_clock_preset_colors_title">Preset clock colors</string>
     <!-- Title of screensaver date color. -->
-    <string name="screensaver_date_color_title">Date color</string>
+    <string name="screensaver_date_preset_colors_title">Preset date colors</string>
     <!-- Title of screensaver next alarm color. -->
-    <string name="screensaver_next_alarm_color_title">Next alarm color</string>
+    <string name="screensaver_next_alarm_preset_colors_title">Preset next alarm colors</string>
     <!-- Title of slider for selecting clock brightness -->
     <string name="screensaver_brightness_title">Brightness</string>
     <!-- Title for switch to pick if the clock text is displayed in bold -->
@@ -987,17 +997,15 @@
     <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
     <!-- Title for switch to pick if the next alarm is displayed in italic -->
     <string name="screensaver_italic_next_alarm_title">Italic next alarm</string>
-    <!-- Label for the  preview in settings -->
+    <!-- Label for the preview in settings -->
     <string name="screensaver_preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->
     <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
-    <!-- Message in screensaver settings if the digital clock is not selected -->
-    <string name="screensaver_digital_clock_not_selected">Select the digital clock to access this setting</string>
     <!-- Message in screensaver settings if no alarm is set -->
     <string name="screensaver_no_alarm_set">Set an alarm to access this setting</string>
 
     <!-- Color choices for screensaver -->
-    <string-array name="screensaver_clock_color_entries" translatable="true">
+    <string-array name="screensaver_clock_preset_color_entries" translatable="true">
         <item>White</item>
         <item>Red</item>
         <item>Green</item>
@@ -1007,7 +1015,7 @@
         <item>Blue Gray</item>
     </string-array>
 
-    <string-array name="screensaver_clock_color_values" translatable="false">
+    <string-array name="screensaver_clock_preset_color_values" translatable="false">
         <item>FFFFFF</item>
         <item>F44336</item>
         <item>4CAF50</item>

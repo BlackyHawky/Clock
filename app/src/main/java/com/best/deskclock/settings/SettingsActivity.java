@@ -66,7 +66,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_DATE_TIME = "date_time";
     public static final String KEY_SS_SETTINGS = "screensaver_settings";
-    public static final String KEY_SS_DAYDREAM_SETTINGS = "screensaver_daydream_settings";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_POWER_BUTTONS = "power_button";
     public static final String KEY_WEEK_START = "week_start";
@@ -208,16 +207,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
 
             switch (pref.getKey()) {
-                case KEY_SS_DAYDREAM_SETTINGS -> {
-                    final Intent dialogSSMainSettingsIntent = new Intent(
-                            Settings.ACTION_DREAM_SETTINGS);
-                    dialogSSMainSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(dialogSSMainSettingsIntent);
-                    return true;
-                }
                 case KEY_SS_SETTINGS -> {
-                    final Intent dialogSSSettingsIntent = new Intent(context,
-                            ScreensaverSettingsActivity.class);
+                    final Intent dialogSSSettingsIntent = new Intent(context, ScreensaverSettingsActivity.class);
                     dialogSSSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogSSSettingsIntent);
                     return true;
@@ -317,9 +308,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final Preference screensaverSettings = findPreference(KEY_SS_SETTINGS);
             Objects.requireNonNull(screensaverSettings).setOnPreferenceClickListener(this);
-
-            final Preference screensaverMainSettings = findPreference(KEY_SS_DAYDREAM_SETTINGS);
-            Objects.requireNonNull(screensaverMainSettings).setOnPreferenceClickListener(this);
 
             final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
             // Set the default value programmatically

@@ -329,38 +329,80 @@ public class Utils {
     /**
      * For screensavers, dim the clock color.
      */
-    public static void dimClockView(View clockView) {
+    public static void dimClockView(View clockView, Context context) {
         String colorFilter = getClockColorFilter();
         Paint paint = new Paint();
+
         paint.setColor(Color.WHITE);
-        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+
+        if (dynamicColors()) {
+            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
+            paint.setColorFilter(new PorterDuffColorFilter(
+                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
+                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
+
+        } else {
+            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        }
+
         clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
     /**
      * For screensavers, dim the date color.
      */
-    public static void dimDateView(TextView dateView) {
+    public static void dimDateView(TextView dateView, Context context) {
         String colorFilter = getDateColorFilter();
         Paint paint = new Paint();
+
         paint.setColor(Color.WHITE);
-        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+
+        if (dynamicColors()) {
+            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
+            paint.setColorFilter(new PorterDuffColorFilter(
+                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
+                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
+        } else {
+            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        }
+
         dateView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
     /**
      * For screensavers, dim the next alarm color.
      */
-    public static void dimNextAlarmView(TextView nextAlarmIcon, TextView nextAlarm) {
+    public static void dimNextAlarmView(TextView nextAlarmIcon, TextView nextAlarm, Context context) {
         String colorFilter = getNextAlarmColorFilter();
         Paint paint = new Paint();
+
         paint.setColor(Color.WHITE);
-        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+
+        if (dynamicColors()) {
+            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
+            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
+            paint.setColorFilter(new PorterDuffColorFilter(
+                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
+                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
+        } else {
+            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
+        }
+
         if (nextAlarmIcon == null || nextAlarm == null) {
             return;
         }
+
         nextAlarmIcon.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
         nextAlarm.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    public static boolean dynamicColors() {
+        return DataModel.getDataModel().getScreensaverClockDynamicColors();
     }
 
     /**
@@ -368,9 +410,9 @@ public class Utils {
      */
     public static String getClockColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverClockColor();
+        String colorFilter = DataModel.getDataModel().getScreensaverClockPresetColors();
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
         colorFilter = "#" + alpha + colorFilter;
 
@@ -382,9 +424,9 @@ public class Utils {
      */
     public static String getDateColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverDateColor();
+        String colorFilter = DataModel.getDataModel().getScreensaverDatePresetColors();
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
         colorFilter = "#" + alpha + colorFilter;
 
@@ -396,9 +438,9 @@ public class Utils {
      */
     public static String getNextAlarmColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverNextAlarmColor();
+        String colorFilter = DataModel.getDataModel().getScreensaverNextAlarmPresetColors();
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (176 * brightnessPercentage / 100));
+        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
         colorFilter = "#" + alpha + colorFilter;
 
@@ -532,9 +574,9 @@ public class Utils {
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
 
         setScreensaverClockStyle(textClock, analogClock);
-        dimClockView(clockStyle == DataModel.ClockStyle.ANALOG ? analogClock : textClock);
-        dimDateView(date);
-        dimNextAlarmView(nextAlarmIcon, nextAlarm);
+        dimClockView(clockStyle == DataModel.ClockStyle.ANALOG ? analogClock : textClock, context);
+        dimDateView(date, context);
+        dimNextAlarmView(nextAlarmIcon, nextAlarm, context);
         setScreensaverClockSecondsEnabled(textClock, analogClock);
         setClockIconTypeface(nextAlarmIcon);
         setScreensaverTimeFormat(textClock);

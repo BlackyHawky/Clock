@@ -20,6 +20,7 @@ import android.os.Build;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 import androidx.preference.ListPreference;
@@ -40,9 +41,10 @@ import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
  */
 public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
-    public static final String KEY_CLOCK_COLOR = "screensaver_clock_color";
-    public static final String KEY_DATE_COLOR = "screensaver_date_color";
-    public static final String KEY_NEXT_ALARM_COLOR = "screensaver_next_alarm_color";
+    public static final String KEY_CLOCK_DYNAMIC_COLORS = "screensaver_clock_dynamic_colors";
+    public static final String KEY_CLOCK_PRESET_COLORS = "screensaver_clock_preset_colors";
+    public static final String KEY_DATE_PRESET_COLORS = "screensaver_date_preset_colors";
+    public static final String KEY_NEXT_ALARM_PRESET_COLORS = "screensaver_next_alarm_preset_colors";
     public static final String KEY_SS_BRIGHTNESS = "screensaver_brightness";
     public static final String KEY_SS_CLOCK_DISPLAY_SECONDS = "display_screensaver_clock_seconds";
     public static final String KEY_BOLD_DIGITAL_CLOCK = "screensaver_bold_digital_clock";
@@ -52,6 +54,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
     public static final String KEY_BOLD_NEXT_ALARM = "screensaver_bold_next_alarm";
     public static final String KEY_ITALIC_NEXT_ALARM = "screensaver_italic_next_alarm";
     public static final String KEY_SS_PREVIEW = "screensaver_preview";
+    public static final String KEY_SS_DAYDREAM_SETTINGS = "screensaver_daydream_settings";
     private static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
 
     @Override
@@ -88,9 +91,14 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
     public static class PrefsFragment extends PreferenceFragmentCompat
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+        ListPreference mClockPresetColorsPref;
+        ListPreference mClockStyle;
+        ListPreference mDatePresetColorsPref;
+        ListPreference mNextAlarmPresetColorsPref;
         String[] mClockStyleValues;
         String mDigitalClock;
         SwitchPreferenceCompat mBoldDigitalClockPref;
+        SwitchPreferenceCompat mClockDynamicColorPref;
         SwitchPreferenceCompat mItalicDigitalClockPref;
 
         @Override
@@ -108,6 +116,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.screensaver_settings);
+
+            hidePreferences();
         }
 
         @Override
@@ -120,11 +130,20 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         public boolean onPreferenceClick(Preference pref) {
             final Context context = requireActivity();
 
-            if (pref.getKey().equals(KEY_SS_PREVIEW)) {
-                context.startActivity(new Intent(context, ScreensaverActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
-                return true;
+            switch (pref.getKey()) {
+                case KEY_SS_PREVIEW -> {
+                    context.startActivity(new Intent(context, ScreensaverActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
+                    return true;
+                }
+
+                case KEY_SS_DAYDREAM_SETTINGS -> {
+                    final Intent dialogSSMainSettingsIntent = new Intent(Settings.ACTION_DREAM_SETTINGS);
+                    dialogSSMainSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogSSMainSettingsIntent);
+                    return true;
+                }
             }
 
             return false;
@@ -135,25 +154,23 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             switch (pref.getKey()) {
 
                 case KEY_CLOCK_STYLE -> {
-                    final ListPreference clockPref = (ListPreference) pref;
-                    final int clockIndex = clockPref.findIndexOfValue((String) newValue);
+                    final int clockIndex = mClockStyle.findIndexOfValue((String) newValue);
+                    mClockStyle.setSummary(mClockStyle.getEntries()[clockIndex]);
+                    mBoldDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
+                    mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
+                }
 
-                    clockPref.setSummary(clockPref.getEntries()[clockIndex]);
-
-                    if (!newValue.equals(mDigitalClock)) {
-                        mBoldDigitalClockPref.setEnabled(false);
-                        mItalicDigitalClockPref.setEnabled(false);
-                        mBoldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
-                        mItalicDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
-                    } else {
-                        mBoldDigitalClockPref.setEnabled(true);
-                        mItalicDigitalClockPref.setEnabled(true);
-                        mBoldDigitalClockPref.setSummary(null);
-                        mItalicDigitalClockPref.setSummary(null);
+                case KEY_CLOCK_DYNAMIC_COLORS -> {
+                    if (mClockDynamicColorPref.getSharedPreferences() != null) {
+                        final boolean isNotDynamicColors = mClockDynamicColorPref.getSharedPreferences()
+                                .getBoolean(KEY_CLOCK_DYNAMIC_COLORS, false);
+                        mClockPresetColorsPref.setVisible(isNotDynamicColors);
+                        mDatePresetColorsPref.setVisible(isNotDynamicColors);
+                        mNextAlarmPresetColorsPref.setVisible(isNotDynamicColors);
                     }
                 }
 
-                case KEY_CLOCK_COLOR, KEY_DATE_COLOR, KEY_NEXT_ALARM_COLOR -> {
+                case KEY_CLOCK_PRESET_COLORS, KEY_DATE_PRESET_COLORS, KEY_NEXT_ALARM_PRESET_COLORS -> {
                     final ListPreference clockPref = (ListPreference) pref;
                     final int clockIndex = clockPref.findIndexOfValue((String) newValue);
                     clockPref.setSummary(clockPref.getEntries()[clockIndex]);
@@ -169,55 +186,70 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             return true;
         }
 
-        private void refresh() {
-            final ListPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
-            final ListPreference clockColorPref = findPreference(KEY_CLOCK_COLOR);
-            final ListPreference dateColorPref = findPreference(KEY_DATE_COLOR);
-            final ListPreference nextAlarmColorPref = findPreference(KEY_NEXT_ALARM_COLOR);
-            final SeekBarPreference screensaverBrightness = findPreference(KEY_SS_BRIGHTNESS);
-            final SwitchPreferenceCompat displaySecondsPref = findPreference(KEY_SS_CLOCK_DISPLAY_SECONDS);
+        private void hidePreferences() {
+            mClockStyle = findPreference(KEY_CLOCK_STYLE);
+            mClockDynamicColorPref = findPreference(KEY_CLOCK_DYNAMIC_COLORS);
+            mClockPresetColorsPref = findPreference(KEY_CLOCK_PRESET_COLORS);
+            mDatePresetColorsPref = findPreference(KEY_DATE_PRESET_COLORS);
+            mNextAlarmPresetColorsPref = findPreference(KEY_NEXT_ALARM_PRESET_COLORS);
             mBoldDigitalClockPref = findPreference(KEY_BOLD_DIGITAL_CLOCK);
             mItalicDigitalClockPref = findPreference(KEY_ITALIC_DIGITAL_CLOCK);
+
+            final String digitalClockStyle = DataModel.getDataModel().getScreensaverClockStyle().toString().toLowerCase();
+            mBoldDigitalClockPref.setVisible(mClockStyle.getValue().equals(digitalClockStyle));
+            mItalicDigitalClockPref.setVisible(mClockStyle.getValue().equals(digitalClockStyle));
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                getPreferenceScreen().removePreference(mClockDynamicColorPref);
+            }
+            mClockDynamicColorPref.setChecked(DataModel.getDataModel().getScreensaverClockDynamicColors());
+            mClockPresetColorsPref.setVisible(!mClockDynamicColorPref.isChecked());
+            mDatePresetColorsPref.setVisible(!mClockDynamicColorPref.isChecked());
+            mNextAlarmPresetColorsPref.setVisible(!mClockDynamicColorPref.isChecked());
+        }
+
+        private void refresh() {
+            final SeekBarPreference screensaverBrightness = findPreference(KEY_SS_BRIGHTNESS);
+            final SwitchPreferenceCompat displaySecondsPref = findPreference(KEY_SS_CLOCK_DISPLAY_SECONDS);
             final SwitchPreferenceCompat boldDatePref = findPreference(KEY_BOLD_DATE);
             final SwitchPreferenceCompat italicDatePref = findPreference(KEY_ITALIC_DATE);
             final SwitchPreferenceCompat boldNextAlarmPref = findPreference(KEY_BOLD_NEXT_ALARM);
             final SwitchPreferenceCompat italicNextAlarmPref = findPreference(KEY_ITALIC_NEXT_ALARM);
             final Preference screensaverPreview = findPreference(KEY_SS_PREVIEW);
+            final Preference screensaverMainSettings = findPreference(KEY_SS_DAYDREAM_SETTINGS);
 
-            if (clockStylePref != null) {
-                final int index = clockStylePref.findIndexOfValue(DataModel.getDataModel()
-                        .getScreensaverClockStyle().toString().toLowerCase());
-                clockStylePref.setValueIndex(index);
-                clockStylePref.setSummary(clockStylePref.getEntries()[index]);
-                clockStylePref.setOnPreferenceChangeListener(this);
+            final int index = mClockStyle.findIndexOfValue(DataModel.getDataModel()
+                    .getScreensaverClockStyle().toString().toLowerCase());
+            mClockStyle.setValueIndex(index);
+            mClockStyle.setSummary(mClockStyle.getEntries()[index]);
+            mClockStyle.setOnPreferenceChangeListener(this);
+
+            mClockDynamicColorPref.setChecked(DataModel.getDataModel().getScreensaverClockDynamicColors());
+            mClockDynamicColorPref.setOnPreferenceChangeListener(this);
+
+            final int indexPresetColors = mClockPresetColorsPref.findIndexOfValue(DataModel.getDataModel()
+                    .getScreensaverClockPresetColors());
+            mClockPresetColorsPref.setValueIndex(indexPresetColors);
+            mClockPresetColorsPref.setSummary(mClockPresetColorsPref.getEntries()[indexPresetColors]);
+            mClockPresetColorsPref.setOnPreferenceChangeListener(this);
+
+            final int indexDateColor = mDatePresetColorsPref.findIndexOfValue(DataModel.getDataModel()
+                    .getScreensaverDatePresetColors());
+            mDatePresetColorsPref.setValueIndex(indexDateColor);
+            mDatePresetColorsPref.setSummary(mClockPresetColorsPref.getEntries()[indexDateColor]);
+            mDatePresetColorsPref.setOnPreferenceChangeListener(this);
+
+            final int indexAlarmColor = mNextAlarmPresetColorsPref.findIndexOfValue(DataModel.getDataModel()
+                    .getScreensaverNextAlarmPresetColors());
+            if (Utils.getNextAlarm(requireActivity()) == null) {
+                mNextAlarmPresetColorsPref.setEnabled(false);
+                mNextAlarmPresetColorsPref.setSummary(R.string.screensaver_no_alarm_set);
+            } else {
+                mNextAlarmPresetColorsPref.setSummary(mClockPresetColorsPref.getEntries()[indexAlarmColor]);
             }
 
-            if (clockColorPref != null) {
-                final int indexColor = clockColorPref.findIndexOfValue(DataModel.getDataModel().getScreensaverClockColor());
-                clockColorPref.setValueIndex(indexColor);
-                clockColorPref.setSummary(clockColorPref.getEntries()[indexColor]);
-                clockColorPref.setOnPreferenceChangeListener(this);
-            }
-
-            if (dateColorPref != null && clockColorPref != null) {
-                final int indexColor = dateColorPref.findIndexOfValue(DataModel.getDataModel().getScreensaverDateColor());
-                dateColorPref.setValueIndex(indexColor);
-                dateColorPref.setSummary(clockColorPref.getEntries()[indexColor]);
-                dateColorPref.setOnPreferenceChangeListener(this);
-            }
-
-            if (nextAlarmColorPref != null && clockColorPref != null) {
-                final int indexColor = nextAlarmColorPref.findIndexOfValue(DataModel.getDataModel().getScreensaverNextAlarmColor());
-                if (Utils.getNextAlarm(requireActivity()) == null) {
-                    nextAlarmColorPref.setEnabled(false);
-                    nextAlarmColorPref.setSummary(R.string.screensaver_no_alarm_set);
-                } else {
-                    nextAlarmColorPref.setSummary(clockColorPref.getEntries()[indexColor]);
-                }
-
-                nextAlarmColorPref.setValueIndex(indexColor);
-                nextAlarmColorPref.setOnPreferenceChangeListener(this);
-            }
+            mNextAlarmPresetColorsPref.setValueIndex(indexAlarmColor);
+            mNextAlarmPresetColorsPref.setOnPreferenceChangeListener(this);
 
             if (screensaverBrightness != null) {
                 final int percentage = DataModel.getDataModel().getScreensaverBrightness();
@@ -231,17 +263,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 displaySecondsPref.setChecked(DataModel.getDataModel().getDisplayScreensaverClockSeconds());
             }
 
-            if (clockStylePref != null) {
-                if (!clockStylePref.getValue().equals(mDigitalClock)) {
-                    mBoldDigitalClockPref.setEnabled(false);
-                    mItalicDigitalClockPref.setEnabled(false);
-                    mBoldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
-                    mItalicDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
-                }
+            mBoldDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverBoldDigitalClock());
 
-                mBoldDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverBoldDigitalClock());
-                mItalicDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverItalicDigitalClock());
-            }
+            mItalicDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverItalicDigitalClock());
 
             if (boldDatePref != null) {
                 boldDatePref.setChecked(DataModel.getDataModel().getScreensaverBoldDate());
@@ -271,6 +295,10 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             if (screensaverPreview != null) {
                 screensaverPreview.setOnPreferenceClickListener(this);
+            }
+
+            if (screensaverMainSettings != null) {
+                screensaverMainSettings.setOnPreferenceClickListener(this);
             }
         }
     }

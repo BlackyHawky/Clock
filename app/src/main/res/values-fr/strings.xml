@@ -443,13 +443,18 @@
     <string name="new_bedtime_alarm">Alarme de réveil créée</string>
     <string name="wakeup_alarm_non_existent">ERREUR: L\'alarme de réveil est supprimée</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
+    <string name="screensaver_style_group">Style</string>
+    <string name="screensaver_color_group">Couleurs</string>
+    <string name="screensaver_font_group">Police de caractères</string>
+    <string name="screensaver_preview_group">Prévisualisation &#38; Économiseur d\'écran Android</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Ouvre les paramètres de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
-    <string name="screensaver_clock_color_title">Couleur de l\'horloge</string>
-    <string name="screensaver_date_color_title">Couleur de la date</string>
-    <string name="screensaver_next_alarm_color_title">Couleur de la prochaine alarme</string>
+    <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
+    <string name="screensaver_clock_preset_colors_title">Couleurs prédéfinies de l\'horloge</string>
+    <string name="screensaver_date_preset_colors_title">Couleurs prédéfinies de la date</string>
+    <string name="screensaver_next_alarm_preset_colors_title">Couleurs prédéfinies de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
     <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
     <string name="screensaver_italic_digital_clock_title">Horloge numérique en italique</string>
@@ -459,9 +464,8 @@
     <string name="screensaver_italic_next_alarm_title">Prochaine alarme en italique</string>
     <string name="screensaver_preview_title">Prévisualisation</string>
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
-    <string name="screensaver_digital_clock_not_selected">Sélectionnez l\'horloge numérique pour accéder à ce réglage</string>
     <string name="screensaver_no_alarm_set">Définissez une alarme pour accéder à ce réglage</string>
-    <string-array name="screensaver_clock_color_entries" translatable="true">
+    <string-array name="screensaver_clock_preset_color_entries">
         <item>Blanc</item>
         <item>Rouge</item>
         <item>Vert</item>
