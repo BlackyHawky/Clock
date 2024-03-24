@@ -38,7 +38,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.ringtone.ui.RingtonePickerActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.TextTime;

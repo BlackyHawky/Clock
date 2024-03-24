@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,21 @@
 
 package com.best.deskclock.ringtone;
 
+import android.content.Context;
 import android.net.Uri;
 
-final class SystemRingtoneHolder extends RingtoneHolder {
+import com.best.deskclock.LogUtils;
 
-    SystemRingtoneHolder(Uri uri, String name) {
-        super(uri, name);
+public final class RingtonePreviewKlaxon {
+
+    public static void stop(Context context) {
+        LogUtils.i("RingtonePreviewKlaxon.stop()");
+        BaseKlaxon.stop(context);
     }
 
-    @Override
-    public int getItemViewType() {
-        return RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
+    public static void start(Context context, Uri uri, int stream) {
+        stop(context);
+        LogUtils.i("RingtonePreviewKlaxon.start()");
+        BaseKlaxon.start(context, uri, 0, stream, -1, true);
     }
 }

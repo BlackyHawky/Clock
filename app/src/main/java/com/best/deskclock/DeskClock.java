@@ -29,6 +29,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -85,6 +86,7 @@ public class DeskClock extends AppCompatActivity
 
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
     private static final int CODE_FOR_POWER_OFF_ALARM = 1;
+    private static final int CODE_STORAGE = 2;
 
     /**
      * Coordinates handling of context menu items.
@@ -139,6 +141,7 @@ public class DeskClock extends AppCompatActivity
             tab = UiDataModel.Tab.STOPWATCH;
         } else if (itemId == R.id.page_bedtime) {
             tab = UiDataModel.Tab.BEDTIME;
+            checkDNDPermission();
         }
 
         if (tab != null) {
@@ -482,16 +485,13 @@ public class DeskClock extends AppCompatActivity
         }
 
 
-        // Check if Do Not Disturb is disabled in the device
-        if (!notificationManager.isNotificationPolicyAccessGranted()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_do_not_disturb)
-                    .setMessage(R.string.dialog_message_do_not_disturb)
-                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
-                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
-                    .setCancelable(false)
-                    .show();
+        int storage = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? checkSelfPermission(Manifest.permission.READ_MEDIA_AUDIO) : checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (storage != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissions(new String[] {Manifest.permission.READ_MEDIA_AUDIO}, CODE_STORAGE);
+            } else {
+                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, CODE_STORAGE);
+            }
         }
 
         // Check if Ignore Battery Optimizations is disabled in the device
@@ -539,6 +539,21 @@ public class DeskClock extends AppCompatActivity
                         .setCancelable(false)
                         .show();
             }
+        }
+    }
+
+    private void checkDNDPermission() {
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Check if Do Not Disturb is disabled in the device
+        if (!notificationManager.isNotificationPolicyAccessGranted()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_title_do_not_disturb)
+                    .setMessage(R.string.dialog_message_do_not_disturb)
+                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
+                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
+                    .setCancelable(false)
+                    .show();
         }
     }
 

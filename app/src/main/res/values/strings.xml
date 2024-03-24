@@ -1210,7 +1210,7 @@
         \n&#8226; &#8230; and much more!
         \n\n&#9658; <b>Important information</b>
         \n\nTo ensure that the application works properly, <b>some of your device settings must be changed:</b>
-        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
+        \n\n&#8226; <b>DO NOT DISTURB:</b> allows do not disturb for bedtime mode to work;
         \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
         \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
         \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
@@ -1226,7 +1226,7 @@
     <!-- Setting dialog message to explain why Do Not Disturb permission is necessary -->
     <string name="dialog_message_do_not_disturb">
         \n<b>Reminder:</b>
-        \n\nEnable this setting, otherwise the alarm may not trigger if all sounds are muted.
+        \n\nEnable this setting, otherwise do not disturb for bedtime mode may not trigger.
         \n
     </string>
     <!-- Setting dialog button to access to Do Not Disturb settings -->
@@ -1264,4 +1264,10 @@
     </string>
     <!-- Setting dialog button to access to Full Screen Notifications settings -->
     <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
+
+
+    <string name="tab_songs">Songs</string>
+    <string name="tab_albums">Albums</string>
+    <string name="tab_artists">Artists</string>
+    <string name="tab_playlists">Playlists</string>
 </resources>
