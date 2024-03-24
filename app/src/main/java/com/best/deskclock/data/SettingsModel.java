@@ -116,12 +116,24 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverBoldDigitalClock(mPrefs);
     }
 
+    boolean getScreensaverItalicDigitalClock() {
+        return SettingsDAO.getScreensaverItalicDigitalClock(mPrefs);
+    }
+
     boolean getScreensaverBoldDate() {
         return SettingsDAO.getScreensaverBoldDate(mPrefs);
     }
 
+    boolean getScreensaverItalicDate() {
+        return SettingsDAO.getScreensaverItalicDate(mPrefs);
+    }
+
     boolean getScreensaverBoldNextAlarm() {
         return SettingsDAO.getScreensaverBoldNextAlarm(mPrefs);
+    }
+
+    boolean getScreensaverItalicNextAlarm() {
+        return SettingsDAO.getScreensaverItalicNextAlarm(mPrefs);
     }
 
     boolean getShowHomeClock() {

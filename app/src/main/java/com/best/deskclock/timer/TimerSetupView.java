@@ -182,6 +182,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     @Override
     public boolean onLongClick(View view) {
         if (view == mDeleteButton) {
+            Utils.vibrationTime(getContext(), 10);
             reset();
             updateFab();
             return true;

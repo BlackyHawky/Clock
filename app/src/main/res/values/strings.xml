@@ -840,6 +840,50 @@
         <item>Asia/Jakarta</item>
     </string-array>
 
+    <!-- Menu item About -->
+    <string name="about_title">About</string>
+    <!-- App slogan -->
+    <string name="app_slogan">100% FOSS Clock, based on AOSP</string>
+    <!-- Version for about screen -->
+    <string name="version">Version</string>
+    <!-- Version text [CHAR LIMIT=30] -->
+    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <!-- What's new features title -->
+    <string name="whats_new_title">What\'s new</string>
+    <!-- Features title -->
+    <string name="features_title">Main features</string>
+    <!-- Github repo link for about screen -->
+    <string name="about_github_link">View on GitHub</string>
+    <!-- License for about screen -->
+    <string name="license">Open-source license</string>
+    <!-- License link for about screen -->
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <!-- Contributors title -->
+    <string name="contributors">Contributors</string>
+    <!-- Credits title -->
+    <string name="credits">Credits</string>
+    <!-- About features text -->
+    <string name="about_dialog_message">
+        &#8226; Flip and shake action to dismiss/postpone alarm;
+        \n\n&#8226; Turn off/postpone the alarm with the power button or volume buttons;
+        \n\n&#8226; For Snapdragon phones only, the alarm is triggered when the phone is switched off;
+        \n\n&#8226; Swipe to delete an alarm;
+        \n\n&#8226; Customize alarm title;
+        \n\n&#8226; Customizable ringtone;
+        \n\n&#8226; Light, dark or system theme;
+        \n\n&#8226; Digital or analog clock style;
+        \n\n&#8226; Display home time when traveling;
+        \n\n&#8226; Display the time in many cities around the world;
+        \n\n&#8226; Timer, stopwatch and bedtime included;
+        \n\n&#8226; Possibility of sharing your stopwatch with your contacts;
+        \n\n&#8226; Customizable screensaver;
+        \n\n&#8226; Material design;
+        \n\n&#8226; Dynamic colors for Android 12+;
+    </string>
+
+    <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
+    <string name="dialog_close">Close</string>
+
     <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters
          (longer translations may be truncated). -->
     <string name="shortcut_new_alarm_short">New alarm</string>
@@ -923,8 +967,6 @@
     <!-- Screensaver settings strings -->
     <!-- Title for the screensaver settings activity. -->
     <string name="screensaver_settings">Screensaver settings</string>
-    <!-- Title for check box to pick intensity of display diminution during screen saver -->
-    <!-- Describes intensity of display diminution during screen saver -->
     <!-- Title of screensaver clock color. -->
     <string name="screensaver_clock_color_title">Clock color</string>
     <!-- Title of screensaver date color. -->
@@ -935,10 +977,16 @@
     <string name="screensaver_brightness_title">Brightness</string>
     <!-- Title for switch to pick if the clock text is displayed in bold -->
     <string name="screensaver_bold_digital_clock_title">Bold digital clock</string>
+    <!-- Title for switch to pick if the clock text is displayed in italic -->
+    <string name="screensaver_italic_digital_clock_title">Italic digital clock</string>
     <!-- Title for switch to pick if the date is displayed in bold -->
     <string name="screensaver_bold_date_title">Bold date</string>
+    <!-- Title for switch to pick if the date text is displayed in italic -->
+    <string name="screensaver_italic_date_title">Italic date</string>
     <!-- Title for switch to pick if the next alarm is displayed in bold -->
     <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
+    <!-- Title for switch to pick if the next alarm is displayed in italic -->
+    <string name="screensaver_italic_next_alarm_title">Italic next alarm</string>
     <!-- Label for the  preview in settings -->
     <string name="screensaver_preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->

@@ -59,15 +59,13 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
-import com.best.deskclock.actionbarmenu.MenuItemControllerFactory;
-import com.best.deskclock.actionbarmenu.OptionsMenuManager;
-import com.best.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.best.deskclock.bedtime.BedtimeService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.TabListener;
@@ -88,10 +86,7 @@ public class DeskClock extends AppCompatActivity
     private static final int CODE_FOR_POWER_OFF_ALARM = 1;
     private static final int CODE_STORAGE = 2;
 
-    /**
-     * Coordinates handling of context menu items.
-     */
-    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
+    public static final int REQUEST_CHANGE_SETTINGS = 10;
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -233,11 +228,6 @@ public class DeskClock extends AppCompatActivity
 
         // Displays the right tab if the application has been closed and then reopened from the notification.
         showTabFromNotifications();
-
-        // Configure the menu item controllers add behavior to the toolbar.
-        mOptionsMenuManager.addMenuItemController(new SettingsMenuItemController(this));
-        mOptionsMenuManager.addMenuItemController(
-                MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         // Configure the buttons shared by the tabs.
         final Context context = getApplicationContext();
@@ -382,14 +372,8 @@ public class DeskClock extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mOptionsMenuManager.onCreateOptionsMenu(menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        mOptionsMenuManager.onPrepareOptionsMenu(menu);
+        menu.add(0, Menu.NONE, 0, R.string.settings)
+                .setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 
@@ -399,7 +383,12 @@ public class DeskClock extends AppCompatActivity
             getOnBackPressedDispatcher().onBackPressed();
             return true;
         }
-        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        if (item.getItemId() == 0) {
+            final Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivityForResult(settingIntent, REQUEST_CHANGE_SETTINGS);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -452,7 +441,7 @@ public class DeskClock extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Recreate the activity if any settings have been changed
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SettingsMenuItemController.REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
             mRecreateActivity = true;
         }
     }

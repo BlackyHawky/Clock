@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,7 +21,7 @@
     <item name="ic_tab_clock" type="drawable">@drawable/ic_tab_clock_animated</item>
     <item name="ic_tab_timer" type="drawable">@drawable/ic_tab_timer_animated</item>
     <item name="ic_tab_stopwatch" type="drawable">@drawable/ic_tab_stopwatch_animated</item>
-    <item name="ic_tab_bedtime" type="drawable">@drawable/ic_tab_bedtime_static</item>
+    <item name="ic_tab_bedtime" type="drawable">@drawable/ic_tab_bedtime_animated</item>
 
     <item name="ic_caret_up" type="drawable">@drawable/ic_caret_up_animation</item>
     <item name="ic_caret_down" type="drawable">@drawable/ic_caret_down_animation</item>

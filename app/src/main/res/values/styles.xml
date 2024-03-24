@@ -63,15 +63,11 @@
 
         <item name="checkboxStyle">@style/Widget.CheckBox</item>
 
-        <item name="actionOverflowMenuStyle">@style/PopupMenuOverflowStyle</item>
-
-        <item name="popupMenuStyle">@style/PopupMenuOverflowStyle</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
-        <item name="android:dropDownSpinnerStyle">@style/SettingsDropDownSpinnerStyle</item>
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
@@ -121,16 +117,6 @@
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="SettingsDropDownSpinnerStyle" parent="@android:style/Widget.Material.Spinner">
-        <item name="android:popupBackground">@drawable/popup_menu_background</item>
-    </style>
-
-    <style name="PopupMenuOverflowStyle" parent="@style/Widget.Material3.PopupMenu.Overflow">
-        <item name="android:popupBackground">@drawable/popup_menu_background</item>
-        <item name="android:dropDownHorizontalOffset">-12.0dp</item>
-        <item name="android:overlapAnchor">false</item>
-    </style>
-
     <style name="Theme.DeskClock.Wallpaper">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorOnBackground">@color/md_theme_onBackground</item>
@@ -145,6 +131,28 @@
         <item name="backgroundTint">@color/md_theme_primary</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <!-- For dialog -->
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <!-- For hour and minute fields -->
+        <item name="chipStyle">@style/MaterialTimePickerChipStyle</item>
+        <!-- For AM/PM button -->
+        <item name="materialButtonOutlinedStyle">@style/MaterialTimePickerButtonOutlinedStyle</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="MaterialTimePickerChipStyle" parent="Widget.MaterialComponents.TimePicker.Display">
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <style name="MaterialTimePickerButtonOutlinedStyle" parent="Widget.MaterialComponents.TimePicker.Button">
+        <item name="cornerRadius">8dp</item>
     </style>
 
 </resources>

@@ -14,6 +14,8 @@
 -->
 
 <resources>
+    <!-- String of debug application title in "about" parameters. -->
+    <string name="about_debug_app_title">Clock debug</string>
     <!-- String matching the lock screen format for displaying 12-hour times. -->
     <string name="lock_screen_12_hour_format">h&#58;mm</string>
     <!-- String matching the lock screen format for displaying 24-hour times. -->

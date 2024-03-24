@@ -56,13 +56,16 @@
     <SwitchPreferenceCompat
         android:key="display_screensaver_clock_seconds"
         android:title="@string/display_clock_seconds_pref"
-        android:defaultValue="false"
         app:iconSpaceReserved="false" />
 
     <SwitchPreferenceCompat
         android:key="screensaver_bold_digital_clock"
         android:title="@string/screensaver_bold_digital_clock_title"
-        android:defaultValue="false"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screensaver_italic_digital_clock"
+        android:title="@string/screensaver_italic_digital_clock_title"
         app:iconSpaceReserved="false" />
 
     <SwitchPreferenceCompat
@@ -71,8 +74,18 @@
         app:iconSpaceReserved="false" />
 
     <SwitchPreferenceCompat
+        android:key="screensaver_italic_date"
+        android:title="@string/screensaver_italic_date_title"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
         android:key="screensaver_bold_next_alarm"
         android:title="@string/screensaver_bold_next_alarm_title"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreferenceCompat
+        android:key="screensaver_italic_next_alarm"
+        android:title="@string/screensaver_italic_next_alarm_title"
         app:iconSpaceReserved="false" />
 
     <Preference
