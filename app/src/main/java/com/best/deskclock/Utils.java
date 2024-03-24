@@ -429,39 +429,69 @@ public class Utils {
     }
 
     /**
-     * For screensavers, format the digital clock to be bold or not.
+     * For screensavers, format the digital clock to be bold and/or italic or not.
      *
      * @param digitalClock TextClock to format
      */
     public static void setScreensaverTimeFormat(TextClock digitalClock) {
         final boolean boldText = DataModel.getDataModel().getScreensaverBoldDigitalClock();
+        final boolean italicText = DataModel.getDataModel().getScreensaverItalicDigitalClock();
+
         if (digitalClock == null) {
             return;
         }
-        digitalClock.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+        if (boldText && italicText) {
+            digitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        } else if (boldText) {
+            digitalClock.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (italicText) {
+            digitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        } else {
+            digitalClock.setTypeface(Typeface.DEFAULT);
+        }
     }
 
     /**
-     * For screensavers, format the date and the next alarm to be bold or not.
+     * For screensavers, format the date and the next alarm to be bold and/or italic or not.
      *
      * @param date Date to format
      */
     public static void setScreensaverDateFormat(TextView date) {
         final boolean boldText = DataModel.getDataModel().getScreensaverBoldDate();
-        date.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        final boolean italicText = DataModel.getDataModel().getScreensaverItalicDate();
+
+        if (boldText && italicText) {
+            date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        } else if (boldText) {
+            date.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (italicText) {
+            date.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        } else {
+            date.setTypeface(Typeface.DEFAULT);
+        }
     }
 
     /**
-     * For screensavers, format the date and the next alarm to be bold or not.
+     * For screensavers, format the date and the next alarm to be bold and/or italic or not.
      *
      * @param nextAlarm Next alarm to format
      */
     public static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
         final boolean boldText = DataModel.getDataModel().getScreensaverBoldNextAlarm();
+        final boolean italicText = DataModel.getDataModel().getScreensaverItalicNextAlarm();
         if (nextAlarm == null) {
             return;
         }
-        nextAlarm.setTypeface(boldText ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        if (boldText && italicText) {
+            nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        } else if (boldText) {
+            nextAlarm.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (italicText) {
+            nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        } else {
+            nextAlarm.setTypeface(Typeface.DEFAULT);
+        }
     }
 
     /**
