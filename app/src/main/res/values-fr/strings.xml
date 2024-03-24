@@ -452,8 +452,11 @@
     <string name="screensaver_next_alarm_color_title">Couleur de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
     <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
+    <string name="screensaver_italic_digital_clock_title">Horloge numérique en italique</string>
     <string name="screensaver_bold_date_title">Date en gras</string>
+    <string name="screensaver_italic_date_title">Date en italique</string>
     <string name="screensaver_bold_next_alarm_title">Prochaine alarme en gras</string>
+    <string name="screensaver_italic_next_alarm_title">Prochaine alarme en italique</string>
     <string name="screensaver_preview_title">Prévisualisation</string>
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
     <string name="screensaver_digital_clock_not_selected">Sélectionnez l\'horloge numérique pour accéder à ce réglage</string>

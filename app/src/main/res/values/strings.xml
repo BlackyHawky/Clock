@@ -967,8 +967,6 @@
     <!-- Screensaver settings strings -->
     <!-- Title for the screensaver settings activity. -->
     <string name="screensaver_settings">Screensaver settings</string>
-    <!-- Title for check box to pick intensity of display diminution during screen saver -->
-    <!-- Describes intensity of display diminution during screen saver -->
     <!-- Title of screensaver clock color. -->
     <string name="screensaver_clock_color_title">Clock color</string>
     <!-- Title of screensaver date color. -->
@@ -979,10 +977,16 @@
     <string name="screensaver_brightness_title">Brightness</string>
     <!-- Title for switch to pick if the clock text is displayed in bold -->
     <string name="screensaver_bold_digital_clock_title">Bold digital clock</string>
+    <!-- Title for switch to pick if the clock text is displayed in italic -->
+    <string name="screensaver_italic_digital_clock_title">Italic digital clock</string>
     <!-- Title for switch to pick if the date is displayed in bold -->
     <string name="screensaver_bold_date_title">Bold date</string>
+    <!-- Title for switch to pick if the date text is displayed in italic -->
+    <string name="screensaver_italic_date_title">Italic date</string>
     <!-- Title for switch to pick if the next alarm is displayed in bold -->
     <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
+    <!-- Title for switch to pick if the next alarm is displayed in italic -->
+    <string name="screensaver_italic_next_alarm_title">Italic next alarm</string>
     <!-- Label for the  preview in settings -->
     <string name="screensaver_preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->

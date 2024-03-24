@@ -921,11 +921,27 @@ public final class DataModel {
     }
 
     /**
-     * @return {@code true} if the screensaver should show the date and the next alarm in bold
+     * @return {@code true} if the screensaver should show the time in italic
+     */
+    public boolean getScreensaverItalicDigitalClock() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverItalicDigitalClock();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the date in bold
      */
     public boolean getScreensaverBoldDate() {
         enforceMainLooper();
         return mSettingsModel.getScreensaverBoldDate();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the date in italic
+     */
+    public boolean getScreensaverItalicDate() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverItalicDate();
     }
 
     /**
@@ -934,6 +950,14 @@ public final class DataModel {
     public boolean getScreensaverBoldNextAlarm() {
         enforceMainLooper();
         return mSettingsModel.getScreensaverBoldNextAlarm();
+    }
+
+    /**
+     * @return {@code true} if the screensaver should show the next alarm in italic
+     */
+    public boolean getScreensaverItalicNextAlarm() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverItalicNextAlarm();
     }
 
     /**

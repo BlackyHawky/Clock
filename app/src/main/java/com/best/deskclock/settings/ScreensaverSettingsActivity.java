@@ -45,9 +45,12 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
     public static final String KEY_NEXT_ALARM_COLOR = "screensaver_next_alarm_color";
     public static final String KEY_SS_BRIGHTNESS = "screensaver_brightness";
     public static final String KEY_SS_CLOCK_DISPLAY_SECONDS = "display_screensaver_clock_seconds";
-    public static final String KEY_BOLD_DIGITAL_ALARM = "screensaver_bold_digital_clock";
+    public static final String KEY_BOLD_DIGITAL_CLOCK = "screensaver_bold_digital_clock";
+    public static final String KEY_ITALIC_DIGITAL_CLOCK = "screensaver_italic_digital_clock";
     public static final String KEY_BOLD_DATE = "screensaver_bold_date";
+    public static final String KEY_ITALIC_DATE = "screensaver_italic_date";
     public static final String KEY_BOLD_NEXT_ALARM = "screensaver_bold_next_alarm";
+    public static final String KEY_ITALIC_NEXT_ALARM = "screensaver_italic_next_alarm";
     public static final String KEY_SS_PREVIEW = "screensaver_preview";
     private static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
 
@@ -87,6 +90,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         String[] mClockStyleValues;
         String mDigitalClock;
+        SwitchPreferenceCompat mBoldDigitalClockPref;
+        SwitchPreferenceCompat mItalicDigitalClockPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -131,19 +136,20 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
                 case KEY_CLOCK_STYLE -> {
                     final ListPreference clockPref = (ListPreference) pref;
-                    final SwitchPreferenceCompat boldDigitalClockPref = findPreference(KEY_BOLD_DIGITAL_ALARM);
                     final int clockIndex = clockPref.findIndexOfValue((String) newValue);
 
                     clockPref.setSummary(clockPref.getEntries()[clockIndex]);
 
-                    if (boldDigitalClockPref != null) {
-                        if (!newValue.equals(mDigitalClock)) {
-                            boldDigitalClockPref.setEnabled(false);
-                            boldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
-                        } else {
-                            boldDigitalClockPref.setEnabled(true);
-                            boldDigitalClockPref.setSummary(null);
-                        }
+                    if (!newValue.equals(mDigitalClock)) {
+                        mBoldDigitalClockPref.setEnabled(false);
+                        mItalicDigitalClockPref.setEnabled(false);
+                        mBoldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
+                        mItalicDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
+                    } else {
+                        mBoldDigitalClockPref.setEnabled(true);
+                        mItalicDigitalClockPref.setEnabled(true);
+                        mBoldDigitalClockPref.setSummary(null);
+                        mItalicDigitalClockPref.setSummary(null);
                     }
                 }
 
@@ -170,9 +176,12 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             final ListPreference nextAlarmColorPref = findPreference(KEY_NEXT_ALARM_COLOR);
             final SeekBarPreference screensaverBrightness = findPreference(KEY_SS_BRIGHTNESS);
             final SwitchPreferenceCompat displaySecondsPref = findPreference(KEY_SS_CLOCK_DISPLAY_SECONDS);
-            final SwitchPreferenceCompat boldDigitalClockPref = findPreference(KEY_BOLD_DIGITAL_ALARM);
+            mBoldDigitalClockPref = findPreference(KEY_BOLD_DIGITAL_CLOCK);
+            mItalicDigitalClockPref = findPreference(KEY_ITALIC_DIGITAL_CLOCK);
             final SwitchPreferenceCompat boldDatePref = findPreference(KEY_BOLD_DATE);
+            final SwitchPreferenceCompat italicDatePref = findPreference(KEY_ITALIC_DATE);
             final SwitchPreferenceCompat boldNextAlarmPref = findPreference(KEY_BOLD_NEXT_ALARM);
+            final SwitchPreferenceCompat italicNextAlarmPref = findPreference(KEY_ITALIC_NEXT_ALARM);
             final Preference screensaverPreview = findPreference(KEY_SS_PREVIEW);
 
             if (clockStylePref != null) {
@@ -222,17 +231,24 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 displaySecondsPref.setChecked(DataModel.getDataModel().getDisplayScreensaverClockSeconds());
             }
 
-            if (boldDigitalClockPref != null && clockStylePref != null) {
+            if (clockStylePref != null) {
                 if (!clockStylePref.getValue().equals(mDigitalClock)) {
-                    boldDigitalClockPref.setEnabled(false);
-                    boldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
+                    mBoldDigitalClockPref.setEnabled(false);
+                    mItalicDigitalClockPref.setEnabled(false);
+                    mBoldDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
+                    mItalicDigitalClockPref.setSummary(R.string.screensaver_digital_clock_not_selected);
                 }
 
-                boldDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverBoldDigitalClock());
+                mBoldDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverBoldDigitalClock());
+                mItalicDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverItalicDigitalClock());
             }
 
             if (boldDatePref != null) {
                 boldDatePref.setChecked(DataModel.getDataModel().getScreensaverBoldDate());
+            }
+
+            if (italicDatePref != null) {
+                italicDatePref.setChecked(DataModel.getDataModel().getScreensaverItalicDate());
             }
 
             if (boldNextAlarmPref != null) {
@@ -242,6 +258,15 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 }
 
                 boldNextAlarmPref.setChecked(DataModel.getDataModel().getScreensaverBoldNextAlarm());
+            }
+
+            if (italicNextAlarmPref != null) {
+                if (Utils.getNextAlarm(requireActivity()) == null) {
+                    italicNextAlarmPref.setEnabled(false);
+                    italicNextAlarmPref.setSummary(R.string.screensaver_no_alarm_set);
+                }
+
+                italicNextAlarmPref.setChecked(DataModel.getDataModel().getScreensaverItalicNextAlarm());
             }
 
             if (screensaverPreview != null) {
