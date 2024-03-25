@@ -43,6 +43,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -56,6 +57,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
@@ -74,6 +76,8 @@ import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -474,12 +478,36 @@ public class DeskClock extends AppCompatActivity
         }
 
 
-        int storage = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? checkSelfPermission(Manifest.permission.READ_MEDIA_AUDIO) : checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (storage != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                requestPermissions(new String[] {Manifest.permission.READ_MEDIA_AUDIO}, CODE_STORAGE);
-            } else {
-                requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, CODE_STORAGE);
+        // storage Permission
+        boolean needRequest = false;
+        String[] permissions = {
+                Manifest.permission.READ_MEDIA_AUDIO
+        };
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            permissions[0] = Manifest.permission.READ_EXTERNAL_STORAGE;
+        }
+        final ArrayList<String> permissionList = new ArrayList<String>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionList.add(permission);
+                needRequest = true;
+            }
+        }
+
+        if (needRequest) {
+            int count = permissionList.size();
+            if (count > 0) {
+                final String[] permissionArray = new String[count];
+                for (int i = 0; i < count; i++) {
+                    permissionArray[i] = permissionList.get(i);
+                }
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        requestPermissions(permissionArray, CODE_STORAGE);
+                    }
+                }, 1000);
             }
         }
 
@@ -551,6 +579,8 @@ public class DeskClock extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CODE_FOR_POWER_OFF_ALARM) {
             LogUtils.i("Power off alarm permission is granted.");
+        } else if (requestCode == CODE_STORAGE) {
+            LogUtils.i("Storage permission is granted");
         }
     }
 
