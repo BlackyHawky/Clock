@@ -14,7 +14,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings">
 
-    <PreferenceCategory android:title="Theme">
+    <PreferenceCategory android:title="@string/title_theme">
         <ListPreference
             android:key="@string/key_theme"
             android:title="@string/title_theme"
@@ -137,13 +137,8 @@
         android:title="@string/screensaver_settings_title">
         <Preference
             android:key="screensaver_settings"
-            android:title="@string/settings"
+            android:title="@string/screensaver_settings"
             android:summary="@string/screensaver_settings_summary" />
-
-        <Preference
-            android:key="screensaver_daydream_settings"
-            android:title="@string/screensaver_daydream_settings"
-            android:summary="@string/screensaver_daydream_settings_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>
