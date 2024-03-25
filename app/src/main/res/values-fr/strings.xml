@@ -533,7 +533,7 @@
         \n&#8226; &#8230; et bien plus encore !
         \n\n&#9658; <b>Information importante</b>
         \n\nPour s\'assurer que l\'application fonctionne correctement, <b>certains paramètres de votre appareil doivent être modifiés :</b>
-        \n\n&#8226; <b>NE PAS DERANGER :</b> permet ne pas deranger avec bedtime mode pour fonctionner ;
+        \n\n&#8226; <b>NE PAS DERANGER :</b> permet à l\'alarme de se déclencher si les sons des notifications sont désactivés ;
         \n\n&#8226; <b>OPTIMISATION DE LA BATTERIE :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;
         \n\n&#8226; <b>NOTIFICATIONS :</b> permet à l\'alarme, à la minuterie et au chronomètre d\'envoyer une notification lorsque l\'application est réduite. Elle permet également à l\'alarme de se déclencher.
         \n\n&#8226; <b>NOTIFICATIONS EN PLEIN ECRAN :</b> pour Android 14 seulement, permet à l\'alarme de se déclencher si l\'écran est éteint ;
@@ -543,11 +543,11 @@
     </string>
     <string name="dialog_button_understood">Compris</string>
     <string name="dialog_title_do_not_disturb"><b>NE PAS DERANGER</b></string>
-    <!--string name="dialog_message_do_not_disturb">
+    <string name="dialog_message_do_not_disturb">
         \n<b>Rappel :</b>
         \n\nActivez ce paramètre, sinon l\'alarme risque de ne pas se déclencher si tous les sons sont désactivés.
-        \n TODO: fix this string(anyone wich speaks better french than me)
-    </string-->
+        \n
+    </string>
     <string name="dialog_button_do_not_disturb">Accès à "Ne Pas Déranger"</string>
     <string name="dialog_title_ignore_battery_optimization"><b>OPTIMISATION DE LA BATTERIE</b></string>
     <string name="dialog_message_ignore_battery_optimization">
