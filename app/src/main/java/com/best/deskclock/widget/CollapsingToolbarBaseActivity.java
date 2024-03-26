@@ -61,6 +61,8 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
         }
+
+        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

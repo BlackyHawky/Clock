@@ -120,8 +120,6 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         mCitiesList.setAdapter(mCitiesAdapter);
 
         updateFastScrolling();
-
-        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

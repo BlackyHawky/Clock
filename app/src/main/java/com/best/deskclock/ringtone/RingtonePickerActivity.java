@@ -207,8 +207,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         setTitle(context.getString(titleResourceId));
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
-
-        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override
