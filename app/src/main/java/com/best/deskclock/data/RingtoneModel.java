@@ -41,6 +41,7 @@ import android.util.ArraySet;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.ringtone.MediaUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -189,12 +190,16 @@ final class RingtoneModel {
             // This is slow because a media player is created during Ringtone object creation.
             final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
             if (ringtone == null) {
-                LogUtils.e("No ringtone for uri: %s", uri);
-                return mContext.getString(R.string.unknown_ringtone_title);
+                if (MediaUtils.isLocalPlaylistType(uri.toString())) {
+                    title = MediaUtils.getMediaTitle(mContext, uri);
+                } else {
+                    LogUtils.e("No ringtone for uri: %s", uri);
+                    return mContext.getString(R.string.unknown_ringtone_title);
+                }
+            } else {
+                // Cache the title for later use.
+                title = ringtone.getTitle(mContext);
             }
-
-            // Cache the title for later use.
-            title = ringtone.getTitle(mContext);
             mRingtoneTitles.put(uri, title);
         }
         return title;

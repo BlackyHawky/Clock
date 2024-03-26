@@ -449,24 +449,12 @@ public class MediaUtils {
 
 
     public static String getMediaTitle(Context context, Uri uri) {
-        if (uri == null) {
-            return null;
+        if (isLocalAlbumUri(uri.toString())) {
+            return resolveAlbum(context, uri);
+        } else if (isLocalArtistUri(uri.toString())) {
+            return resolveArtist(context, uri);
         }
-        Cursor cursor = null;
-        try {
-            cursor = context.getContentResolver()
-                    .query(uri, null, null, null, null);
-            int nameIndex = cursor
-                    .getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME);
-            cursor.moveToFirst();
-            return cursor.getString(nameIndex);
-        } catch (Exception e) {
-            return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
+        return context.getString(R.string.unknown_ringtone_title);
     }
 
     public static boolean isValidAudioFile(String baseName) {

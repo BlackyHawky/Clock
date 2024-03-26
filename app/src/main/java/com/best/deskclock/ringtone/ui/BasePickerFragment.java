@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017 The OmniROM Project
+ *  Copyright (C) 2017 The OmniROM Project, 2024 Linus Stubbe
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ import java.util.ArrayList;
  * It is responsible for everything ui related in the ringtonePicker.
  * Fragments extending this one are only for data-fetching
  */
-public class BasePickerFragment extends Fragment {
+public abstract class BasePickerFragment extends Fragment {
     ArrayList<RingtoneItem> mList;
 
     ArrayAdapter<RingtoneItem> mAdapter;
@@ -119,7 +119,5 @@ public class BasePickerFragment extends Fragment {
         };
     }
 
-    ArrayList<RingtoneItem> getList(Context context) {
-        return new ArrayList<>();
-    }
+    abstract ArrayList<RingtoneItem> getList(Context context);
 }

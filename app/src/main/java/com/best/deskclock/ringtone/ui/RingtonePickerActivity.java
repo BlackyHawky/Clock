@@ -94,7 +94,7 @@ public class RingtonePickerActivity extends AppCompatActivity {
 
     public int mSelectedTab = 0;
     private long mAlarmId;
-    boolean sIsSleep = false;
+    boolean sIsSleep;
 
     private TabLayout mTabLayout;
     public TabsAdapter mAdapter;
@@ -107,16 +107,18 @@ public class RingtonePickerActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+
         // Enable title and home button by default
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(intent.getIntExtra(EXTRA_TITLE, R.string.app_label));
         }
 
-        Intent intent = getIntent();
-        sIsSleep = intent.hasExtra(EXTRA_IS_SLEEP);
+        sIsSleep = intent.getBooleanExtra(EXTRA_IS_SLEEP, false);
         mAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1);
         mCurrentItem = new RingtoneItem();
 
