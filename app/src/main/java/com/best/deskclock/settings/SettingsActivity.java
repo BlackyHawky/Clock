@@ -95,8 +95,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     .disallowAddToBackStack()
                     .commit();
         }
-
-        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override

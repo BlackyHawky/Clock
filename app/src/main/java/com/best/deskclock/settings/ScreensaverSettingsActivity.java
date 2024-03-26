@@ -67,8 +67,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     .disallowAddToBackStack()
                     .commit();
         }
-
-        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
     }
 
     @Override
