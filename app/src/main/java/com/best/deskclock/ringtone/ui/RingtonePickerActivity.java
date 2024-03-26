@@ -28,7 +28,10 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -50,7 +53,7 @@ import java.util.HashSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RingtonePickerActivity extends CollapsingToolbarBaseActivity {
+public class RingtonePickerActivity extends AppCompatActivity {
     /** Key to an extra that defines resource id to the title of this activity. */
     private static final String EXTRA_TITLE = "extra_title";
 
@@ -100,8 +103,17 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ringtone_picker_activity);
-        mTabLayout = findViewById(R.id.tab_layout);
-        ViewPager viewPager = findViewById(R.id.fragment_viewpager);
+
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Enable title and home button by default
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+        }
 
         Intent intent = getIntent();
         sIsSleep = intent.hasExtra(EXTRA_IS_SLEEP);
@@ -111,15 +123,20 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity {
         mCurrentItem.uri = ((Uri) intent.getParcelableExtra(EXTRA_RINGTONE_URI)).toString();
 
         Context context = getApplicationContext();
+        // setup tabs
+        ViewPager viewPager = findViewById(R.id.fragment_viewpager);
         viewPager.setOffscreenPageLimit(9999);
         mAdapter = new TabsAdapter(this, viewPager);
+        // add tabs
         mAdapter.addTab(AlarmsFragment.class, context.getString(R.string.device_sounds));
         mAdapter.addTab(SongsFragment.class, context.getString(R.string.tab_songs));
         mAdapter.addTab(AlbumsFragment.class, context.getString(R.string.tab_albums));
         mAdapter.addTab(ArtistsFragment.class, context.getString(R.string.tab_artists));
         mAdapter.addTab(PlaylistsFragment.class, context.getString(R.string.tab_playlists));
+        // indicator color
         int c = getColor(R.color.md_theme_primary);
         c = Color.argb(88, Color.red(c), Color.green(c), Color.blue(c));
+        mTabLayout = findViewById(R.id.tab_layout);
         mTabLayout.setSelectedTabIndicatorColor(c);
         viewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(viewPager);
@@ -140,6 +157,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity {
 
             }
         });
+
+        getWindow().setNavigationBarColor(ColorUtils.compositeColors(c, getColor(R.color.md_theme_surface)));
     }
 
     @Override

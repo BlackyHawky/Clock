@@ -19,6 +19,9 @@ package com.best.deskclock.ringtone.ui;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.ringtone.RingtoneItem;
@@ -58,6 +62,9 @@ public class BasePickerFragment extends Fragment {
         mList = getList(getContext());
         mAdapter = adapter(mList);
         list.setAdapter(mAdapter);
+        int c = getActivity().getColor(R.color.md_theme_primary);
+        c = Color.argb(88, Color.red(c), Color.green(c), Color.blue(c));
+        list.setBackgroundColor(ColorUtils.compositeColors(c, getActivity().getColor(R.color.md_theme_surface)));
         return v;
     }
 
@@ -82,16 +89,18 @@ public class BasePickerFragment extends Fragment {
                 }
                 view.findViewById(R.id.sound_image_selected).setVisibility(activity.mCurrentItem.equals(item) ? View.VISIBLE : View.GONE);
 
+                Drawable d = activity.getDrawable(item.iconId);
+                d.setTint(activity.getColor(R.color.md_theme_surface));
                 ImageView image = view.findViewById(R.id.ringtone_image);
                 if (item.imageUri != null && Uri.parse(item.imageUri) != null) {
                     Picasso cropper = Picasso.get();
                     cropper.load(Uri.parse(item.imageUri))
-                            .placeholder(item.iconId)
+                            .placeholder(d)
                             .resizeDimen(R.dimen.ringtone_image_size, R.dimen.ringtone_image_size)
                             .centerCrop()
                             .into(image);
                 } else {
-                    image.setImageResource(item.iconId);
+                    image.setImageDrawable(d);
                 }
                 view.setOnClickListener(view1 -> {
                     RingtonePreviewKlaxon.stop(getActivity());

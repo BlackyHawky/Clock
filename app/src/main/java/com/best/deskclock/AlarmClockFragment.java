@@ -25,12 +25,14 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextPaint;
 import android.text.format.DateFormat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -213,36 +215,68 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
-                final Drawable deleteDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.ic_delete);
-                if (deleteDrawable == null) {
-                    return;
-                }
-                deleteDrawable.setColorFilter(getContext().getColor(R.color.md_theme_onSurface), PorterDuff.Mode.SRC_IN);
-
-                final GradientDrawable background = new GradientDrawable();
-                background.setCornerRadius(Utils.toPixel(12, getContext()));
-                background.setColor(Color.parseColor("#F44336"));
-
-                View itemView = viewHolder.itemView;
-                int itemHeight = itemView.getHeight();
-                int intrinsicWidth = deleteDrawable.getIntrinsicWidth();
-                int intrinsicHeight = deleteDrawable.getIntrinsicHeight();
-                // Calculate the position of the delete icon
-                int deleteIconTop = itemView.getTop() + (itemHeight - intrinsicHeight) / 2;
-                int deleteIconMargin = Utils.toPixel(40, getContext());
-                int deleteIconLeft = itemView.getLeft() + deleteIconMargin - intrinsicWidth;
-                int deleteIconRight = itemView.getLeft() + deleteIconMargin;
-                int deleteIconBottom = deleteIconTop + intrinsicHeight;
-
-                background.setBounds(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + ((int) dX), itemView.getBottom());
-                deleteDrawable.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
-
+                // Swiping Right
                 if (dX > 0) {
-                    background.draw(c);
-                }
+                    // Background
+                    c.clipRect(
+                            viewHolder.itemView.getLeft(),
+                            viewHolder.itemView.getTop(),
+                            viewHolder.itemView.getLeft() + (int) dX,
+                            viewHolder.itemView.getBottom()
+                    );
 
-                if (dX > deleteIconMargin) {
-                    deleteDrawable.draw(c);
+                    final GradientDrawable background = new GradientDrawable();
+                    background.setColor(Color.parseColor("#EF5350"));
+                    background.setBounds(
+                            viewHolder.itemView.getLeft(),
+                            viewHolder.itemView.getTop(),
+                            viewHolder.itemView.getLeft() + (int) dX,
+                            viewHolder.itemView.getBottom()
+                    );
+                    background.setCornerRadius(Utils.toPixel(12, getContext()));
+                    background.draw(c);
+
+                    // Delete icon
+                    int deleteIconSize = 0;
+                    int deleteIconHorizontalMargin = Utils.toPixel(16, getContext());
+
+                    if (dX > deleteIconHorizontalMargin) {
+                        Drawable deleteIcon = AppCompatResources.getDrawable(getContext(), R.drawable.ic_delete);
+                        if (deleteIcon != null) {
+                            deleteIconSize = deleteIcon.getIntrinsicHeight();
+                            int halfIcon = deleteIconSize / 2;
+                            int top = viewHolder.itemView.getTop()
+                                    + ((viewHolder.itemView.getBottom() - viewHolder.itemView.getTop()) / 2 - halfIcon);
+
+                            deleteIcon.setBounds(
+                                    viewHolder.itemView.getLeft() + deleteIconHorizontalMargin,
+                                    top,
+                                    viewHolder.itemView.getLeft() + deleteIconHorizontalMargin + deleteIcon.getIntrinsicWidth(),
+                                    top + deleteIcon.getIntrinsicHeight()
+                            );
+
+                            deleteIcon.draw(c);
+                        }
+                    }
+
+                    // Delete text
+                    final String deleteText = getContext().getString(R.string.delete);
+                    if (dX > deleteIconHorizontalMargin + deleteIconSize) {
+                        TextPaint textPaint = new TextPaint();
+                        textPaint.setAntiAlias(true);
+                        textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
+                                getContext().getResources().getDisplayMetrics()));
+                        textPaint.setColor(Color.WHITE);
+                        textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+                        int textMarginLeft = (int) (viewHolder.itemView.getLeft() + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
+
+                        int textMarginTop = (int) (viewHolder.itemView.getTop() + ((viewHolder.itemView.getBottom()
+                                - viewHolder.itemView.getTop()) / 2.0)
+                                + (textPaint.getTextSize() - textPaint.getFontMetrics().descent) / 2);
+
+                        c.drawText(deleteText, textMarginLeft, textMarginTop, textPaint);
+                    }
                 }
             }
 
