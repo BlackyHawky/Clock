@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -503,6 +504,11 @@ public final class BedtimeFragment extends DeskClockFragment {
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bedtime_wallpaper_title);
             }
         });
+
+        mBottomSheetDialog.findViewById(R.id.wall_space).setVisibility(
+                (Build.VERSION.SDK_INT < Build.VERSION_CODES.N ||
+                        Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) ?
+                View.GONE : View.VISIBLE);
 
         mBottomSheetDialog.show();
     }

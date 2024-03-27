@@ -112,12 +112,23 @@ public final class BedtimeService extends Service {
         return START_NOT_STICKY;
     }
 
+    /**
+     * used for scheduling or remind notification Bedtime mode
+     * @param context
+     * @param saver the DataSaver object used to store data related to Bedtime mode
+     * @param action one of the two actions {@link ACTION_BED_REMIND_NOTIF} or {@link ACTION_LAUNCH_BEDTIME}
+     */
     public static void scheduleBed(Context context, DataSaver saver, String action) {
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         cancelBed(context, action);
         am.setExact(AlarmManager.RTC, getNextBedtime(saver, action), getPendingIntent(context, action));
     }
 
+    /**
+     * used for cancelling scheduled remind notifications or Bedtime mode
+     * @param context
+     * @param action one of the two actions {@link ACTION_BED_REMIND_NOTIF} or {@link ACTION_LAUNCH_BEDTIME}
+     */
     public static void cancelBed(Context context, String action) {
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.cancel(getPendingIntent(context, action));
@@ -350,7 +361,9 @@ public final class BedtimeService extends Service {
         scheduleBed(context, saver, ACTION_LAUNCH_BEDTIME);
 
         String txt = "";
-        if (saver.dimWall && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        // since android 11 (I think) you need manage external storage permission or
+        // read wallpaper internal(system permission) to get the system wallpaper
+        if (saver.dimWall && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
             boolean success = false;
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
