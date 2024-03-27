@@ -42,6 +42,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -134,6 +135,7 @@ public class DeskClock extends AppCompatActivity
             tab = UiDataModel.Tab.STOPWATCH;
         } else if (itemId == R.id.page_bedtime) {
             tab = UiDataModel.Tab.BEDTIME;
+            checkDNDPermission();
         }
 
         if (tab != null) {
@@ -470,19 +472,6 @@ public class DeskClock extends AppCompatActivity
             requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_POWER_OFF_ALARM);
         }
 
-
-        // Check if Do Not Disturb is disabled in the device
-        if (!notificationManager.isNotificationPolicyAccessGranted()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_do_not_disturb)
-                    .setMessage(R.string.dialog_message_do_not_disturb)
-                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
-                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
-                    .setCancelable(false)
-                    .show();
-        }
-
         // Check if Ignore Battery Optimizations is disabled in the device
         if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
             new AlertDialog.Builder(this)
@@ -528,6 +517,21 @@ public class DeskClock extends AppCompatActivity
                         .setCancelable(false)
                         .show();
             }
+        }
+    }
+
+    private void checkDNDPermission() {
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Check if Do Not Disturb is disabled in the device
+        if (!notificationManager.isNotificationPolicyAccessGranted()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_title_do_not_disturb)
+                    .setMessage(R.string.dialog_message_do_not_disturb)
+                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
+                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
+                    .setCancelable(false)
+                    .show();
         }
     }
 
