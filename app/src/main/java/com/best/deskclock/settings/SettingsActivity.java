@@ -41,7 +41,7 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
-import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.ringtone.ui.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;

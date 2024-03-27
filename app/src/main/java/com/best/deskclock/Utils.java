@@ -580,6 +580,7 @@ public class Utils {
         setScreensaverClockSecondsEnabled(textClock, analogClock);
         setClockIconTypeface(nextAlarmIcon);
         setScreensaverTimeFormat(textClock);
+        //setScreensaverItalicTime(textClock);
         setScreensaverDateFormat(date);
         setScreensaverNextAlarmFormat(nextAlarm);
     }

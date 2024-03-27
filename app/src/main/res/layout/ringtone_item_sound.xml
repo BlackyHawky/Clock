@@ -14,79 +14,90 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_guide"
-        android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ringtone_item"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_margin="8dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guide_very_thin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.98" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
 
-    <ImageView
-        android:id="@+id/ringtone_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:importantForAccessibility="no"
-        android:scaleType="centerInside"
-        app:tint="@color/md_theme_onSurfaceVariant"
-        app:tintMode="src_in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/start_guide"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_ringtone" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guide_very_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.98" />
 
-    <TextView
-        android:id="@+id/ringtone_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:singleLine="true"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/delete_ringtone"
-        app:layout_constraintStart_toEndOf="@id/ringtone_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/image_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/md_theme_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/start_guide"
+            app:layout_constraintTop_toTopOf="parent" >
+            <ImageView
+                android:id="@+id/ringtone_image"
+                android:layout_width="@dimen/ringtone_image_size"
+                android:layout_height="@dimen/ringtone_image_size"
+                android:importantForAccessibility="no"
+                android:scaleType="centerInside"
+                tools:src="@drawable/ic_media_song" />
+        </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:id="@+id/delete_ringtone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/more_options"
-        android:foreground="?selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_delete"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:tint="@color/md_theme_onSurfaceVariant"
-        app:tintMode="src_in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/sound_image_selected"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sound_image_selected"
+            app:layout_constraintStart_toEndOf="@id/image_card"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:id="@+id/ringtone_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:singleLine="true"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/ringtone_desc"
+                tools:text="Song"/>
+            <TextView
+                android:id="@+id/ringtone_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:singleLine="true"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ringtone_name"
+                tools:text="Album - Artist" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/sound_image_selected"
@@ -99,10 +110,10 @@
         android:scaleType="centerInside"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/end_guide_very_thin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/md_theme_primary"
         app:tintMode="src_in"
         tools:visibility="visible" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

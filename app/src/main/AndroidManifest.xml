@@ -70,7 +70,7 @@
         </activity>
 
         <activity
-            android:name=".ringtone.RingtonePickerActivity"
+            android:name=".ringtone.ui.RingtonePickerActivity"
             android:excludeFromRecents="true"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""

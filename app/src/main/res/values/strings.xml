@@ -1320,4 +1320,10 @@
     </string>
     <!-- Setting dialog button to access to Full Screen Notifications settings -->
     <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
+
+
+    <string name="tab_songs">Songs</string>
+    <string name="tab_albums">Albums</string>
+    <string name="tab_artists">Artists</string>
+    <string name="tab_playlists">Playlists</string>
 </resources>

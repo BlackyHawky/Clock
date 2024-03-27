@@ -18,12 +18,13 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Vibrator;
 
-import com.best.deskclock.AsyncRingtonePlayer;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.ringtone.BaseKlaxon;
 
 /**
  * Manages playing the timer ringtone and vibrating the device.
@@ -32,19 +33,8 @@ public abstract class TimerKlaxon {
 
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
-    private static boolean sStarted = false;
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
-
-    private TimerKlaxon() {
-    }
-
     public static void stop(Context context) {
-        if (sStarted) {
-            LogUtils.i("TimerKlaxon.stop()");
-            sStarted = false;
-            getAsyncRingtonePlayer(context).stop();
-            ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).cancel();
-        }
+        BaseKlaxon.stop(context);
     }
 
     public static void start(Context context) {
@@ -59,7 +49,7 @@ public abstract class TimerKlaxon {
         } else {
             final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
             final long crescendoDuration = DataModel.getDataModel().getTimerCrescendoDuration();
-            getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
+            BaseKlaxon.start(context, uri, crescendoDuration, AudioManager.STREAM_ALARM, -1, true);
         }
 
         if (DataModel.getDataModel().getTimerVibrate()) {
@@ -69,14 +59,5 @@ public abstract class TimerKlaxon {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build());
         }
-        sStarted = true;
-    }
-
-    private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
-        }
-
-        return sAsyncRingtonePlayer;
     }
 }
