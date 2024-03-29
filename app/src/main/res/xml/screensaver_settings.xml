@@ -11,8 +11,10 @@
      limitations under the License.
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/screensaver_style_group"
@@ -40,7 +42,9 @@
         <SwitchPreferenceCompat
             android:key="screensaver_clock_dynamic_colors"
             android:title="@string/screensaver_clock_dynamic_colors_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            tools:isPreferenceVisible="true" />
 
         <ListPreference
             android:key="screensaver_clock_preset_colors"
