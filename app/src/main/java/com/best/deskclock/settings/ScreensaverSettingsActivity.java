@@ -131,7 +131,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             switch (pref.getKey()) {
                 case KEY_SS_PREVIEW -> {
                     context.startActivity(new Intent(context, ScreensaverActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
                     return true;
                 }

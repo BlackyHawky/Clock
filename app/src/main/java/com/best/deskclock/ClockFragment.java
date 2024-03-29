@@ -229,7 +229,6 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public boolean onLongClick(View view) {
             startActivity(new Intent(getActivity(), ScreensaverActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
             return true;
         }

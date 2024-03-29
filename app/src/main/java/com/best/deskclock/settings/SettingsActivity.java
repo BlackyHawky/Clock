@@ -216,9 +216,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             switch (pref.getKey()) {
                 case KEY_SS_SETTINGS -> {
-                    final Intent dialogSSSettingsIntent = new Intent(context, ScreensaverSettingsActivity.class);
-                    dialogSSSettingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(dialogSSSettingsIntent);
+                    final Intent screensaverSettingsIntent = new Intent(context, ScreensaverSettingsActivity.class);
+                    startActivity(screensaverSettingsIntent);
                     return true;
                 }
                 case KEY_DATE_TIME -> {
