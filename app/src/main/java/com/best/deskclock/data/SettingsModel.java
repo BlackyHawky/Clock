@@ -80,6 +80,14 @@ final class SettingsModel {
         return SettingsDAO.getClockStyle(mContext, mPrefs);
     }
 
+    String getTheme() {
+        return SettingsDAO.getTheme(mPrefs);
+    }
+
+    String getDarkMode() {
+        return SettingsDAO.getDarkMode(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }

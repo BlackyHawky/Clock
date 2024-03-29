@@ -2,11 +2,14 @@ package com.best.deskclock.bedtime;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.INVISIBLE;
+import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -435,6 +438,11 @@ public final class BedtimeFragment extends DeskClockFragment {
         mClock = mBottomSheetDialog.findViewById(R.id.bedtime_time);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
         mNotifList = mBottomSheetDialog.findViewById(R.id.notif_spinner);
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            // Change color of the drop down arrow of Spinner
+            mNotifList.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        }
         mDnd = mBottomSheetDialog.findViewById(R.id.dnd_switch);
         mWall = mBottomSheetDialog.findViewById(R.id.wall_switch);
         buildButton(mBottomSheetDialog);

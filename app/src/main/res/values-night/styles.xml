@@ -78,4 +78,40 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- AMOLED THEME -->
+    <style name="AmoledTheme">
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="colorBackgroundFloating">@color/md_theme_surfaceContainerLowest</item>
+        <item name="materialTimePickerTheme">@style/TimePickerAmoledTheme</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetAmoledTheme</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TimePickerAmoledTheme" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorSurface">@color/md_theme_surfaceContainerLowest</item>
+        <!-- For dialog -->
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <!-- For hour and minute fields -->
+        <item name="chipStyle">@style/MaterialTimePickerChipStyle</item>
+        <!-- For AM/PM button -->
+        <item name="materialButtonOutlinedStyle">@style/MaterialTimePickerButtonOutlinedStyle</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">28dp</item>
+    </style>
+
+    <style name="MaterialTimePickerChipStyle" parent="Widget.MaterialComponents.TimePicker.Display">
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <style name="MaterialTimePickerButtonOutlinedStyle" parent="Widget.MaterialComponents.TimePicker.Button">
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="BottomSheetAmoledTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:backgroundTint">@android:color/black</item>
+    </style>
+
 </resources>

@@ -25,6 +25,8 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -148,6 +150,20 @@ final class SettingsDAO {
      */
     public static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
         return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
+    }
+
+    /**
+     * @return the theme applied.
+     */
+    static String getTheme(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+    }
+
+    /**
+     * @return the dark mode of the applied theme.
+     */
+    static String getDarkMode(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
     }
 
     /**

@@ -54,6 +54,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String SYSTEM_THEME = "0";
     public static final String LIGHT_THEME = "1";
     public static final String DARK_THEME = "2";
+    public static final String KEY_DARK_MODE = "dark_mode";
+    public static final String KEY_DEFAULT_DARK_MODE = "default";
+    public static final String KEY_AMOLED_DARK_MODE = "amoled";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
@@ -79,10 +82,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
-
-    /**
-     * The controller that shows the drop shadow when content is not scrolled to the top.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,13 +158,24 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
                 case KEY_THEME -> {
-                    final ListPreference preference = (ListPreference) pref;
-                    final int index = preference.findIndexOfValue((String) newValue);
-                    preference.setSummary(preference.getEntries()[index]);
+                    final ListPreference themePref = (ListPreference) pref;
+                    final int index = themePref.findIndexOfValue((String) newValue);
+                    themePref.setSummary(themePref.getEntries()[index]);
                     switch (index) {
                         case 0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                         case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+                }
+                case KEY_DARK_MODE -> {
+                    final ListPreference amoledPref = (ListPreference) pref;
+                    final int darkModeIndex = amoledPref.findIndexOfValue((String) newValue);
+                    amoledPref.setSummary(amoledPref.getEntries()[darkModeIndex]);
+                    if (Utils.isNight(requireActivity().getResources())) {
+                        switch (darkModeIndex) {
+                            case 0 -> DarkModeController.applyDarkMode(DarkModeController.DarkMode.DEFAULT_DARK_MODE);
+                            case 1 -> DarkModeController.applyDarkMode(DarkModeController.DarkMode.AMOLED);
+                        }
                     }
                 }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
@@ -264,9 +274,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void refresh() {
-            final ListPreference themeButtonsPref = findPreference(KEY_THEME);
-            Objects.requireNonNull(themeButtonsPref).setSummary(themeButtonsPref.getEntry());
-            themeButtonsPref.setOnPreferenceChangeListener(this);
+            final ListPreference themePref = findPreference(KEY_THEME);
+            Objects.requireNonNull(themePref).setSummary(themePref.getEntry());
+            themePref.setOnPreferenceChangeListener(this);
+
+            final ListPreference amoledModePref = findPreference(KEY_DARK_MODE);
+            Objects.requireNonNull(amoledModePref).setSummary(amoledModePref.getEntry());
+            amoledModePref.setOnPreferenceChangeListener(this);
 
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();

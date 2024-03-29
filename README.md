@@ -20,6 +20,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Customize alarm title;
 * Customizable ringtone;
 * Light, dark or system theme;
+* AMOLED mode for dark theme;
 * Digital or analog clock style;
 * Display home time when traveling;
 * Display the time in many cities around the world;

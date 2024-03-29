@@ -16,11 +16,19 @@
 
     <PreferenceCategory android:title="@string/title_theme">
         <ListPreference
-            android:key="@string/key_theme"
+            android:key="key_theme"
             android:title="@string/title_theme"
             android:defaultValue="0"
             android:entries="@array/array_theme"
             android:entryValues="@array/theme_setting_entries" />
+
+        <ListPreference
+            android:key="dark_mode"
+            android:title="@string/title_dark_theme_mode"
+            android:defaultValue="@string/default_dark_theme_mode"
+            android:entries="@array/dark_theme_mode_array_theme"
+            android:entryValues="@array/dark_theme_mode_setting_values" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/clock_settings">

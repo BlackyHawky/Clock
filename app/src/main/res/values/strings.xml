@@ -263,6 +263,19 @@
         <item>2</item>
     </string-array>
 
+    <!-- Settings amoled title -->
+    <string name="title_dark_theme_mode">Dark theme mode</string>
+    <!-- Entries listed in the ListPreference when selecting the theme. -->
+    <string-array name="dark_theme_mode_array_theme">
+        <item>Default</item>
+        <item>AMOLED</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <string-array name="dark_theme_mode_setting_values" translatable="false">
+        <item>default</item>
+        <item>amoled</item>
+    </string-array>
+
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
 

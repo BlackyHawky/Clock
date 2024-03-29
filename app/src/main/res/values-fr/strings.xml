@@ -109,6 +109,11 @@
         <item>Clair</item>
         <item>Sombre</item>
     </string-array>
+    <string name="title_dark_theme_mode">Mode du thème sombre</string>
+    <string-array name="dark_theme_mode_array_theme">
+        <item>Par défaut</item>
+        <item>AMOLED</item>
+    </string-array>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>

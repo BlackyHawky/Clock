@@ -27,6 +27,7 @@ import androidx.preference.PreferenceManager;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
+import com.best.deskclock.settings.DarkModeController;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.File;
@@ -40,6 +41,7 @@ public class DeskClockApplication extends Application {
         final Context applicationContext = getApplicationContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(applicationContext);
 
+        DarkModeController.initialize(this);
         DataModel.getDataModel().init(applicationContext, prefs);
         UiDataModel.getUiDataModel().init(applicationContext, prefs);
         Controller.getController().setContext(applicationContext);

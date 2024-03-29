@@ -58,8 +58,8 @@ import java.util.List;
  */
 public final class DataModel {
 
-    public static final String ACTION_WORLD_CITIES_CHANGED =
-            "com.best.deskclock.WORLD_CITIES_CHANGED";
+    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
+
     /**
      * The single instance of this data model that exists for the life of the application.
      */
@@ -855,6 +855,22 @@ public final class DataModel {
     //
     // Settings
     //
+
+    /**
+     * @return the theme applied.
+     */
+    public String getTheme() {
+        enforceMainLooper();
+        return mSettingsModel.getTheme();
+    }
+
+    /**
+     * @return the dark mode of the applied theme.
+     */
+    public String getDarkMode() {
+        enforceMainLooper();
+        return mSettingsModel.getDarkMode();
+    }
 
     /**
      * @return the style of the clock to display in the clock application

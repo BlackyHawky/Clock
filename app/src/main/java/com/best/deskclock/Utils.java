@@ -24,6 +24,12 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
+import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
+
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -31,6 +37,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -64,6 +72,8 @@ import android.widget.TextView;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 import androidx.core.graphics.ColorUtils;
@@ -696,13 +706,19 @@ public class Utils {
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {
-        final int color = context.getColor(R.color.md_theme_primary);
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final int color;
+        // Setting transparency is necessary to avoid flickering when expanding or collapsing alarms.
+        // Todo: find a way to get rid of this transparency and use the real color R.color.md_theme_surface
+        if (isNight(context.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            color = ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary), 90);
+        } else {
+            color = ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_primary), 20);
+        }
         final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(radius);
-        // Setting transparency is necessary to avoid flickering when expanding or collapsing alarms.
-        // Todo: find a way to get rid of this transparency and use the real color R.color.md_theme_surface
-        gradientDrawable.setColor(ColorUtils.setAlphaComponent(color, 20));
+        gradientDrawable.setColor(color);
         return gradientDrawable;
     }
 
@@ -822,4 +838,35 @@ public class Utils {
             vibrator.vibrate(milliseconds);
         }
     }
+
+    /**
+     * @return {@code true} if the device is in dark mode.
+     * @param res Access application resources.
+     */
+    public static boolean isNight(final Resources res) {
+        return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    /**
+     * Apply the theme to the activities.
+     */
+    public static void applyTheme(final AppCompatActivity activity) {
+        final String getTheme = DataModel.getDataModel().getTheme();
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+
+        if (getDarkMode.equals(KEY_DEFAULT_DARK_MODE)) {
+            switch (getTheme) {
+                case SYSTEM_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                case LIGHT_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                case DARK_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        } else if (getDarkMode.equals(KEY_AMOLED_DARK_MODE)
+                && !getTheme.equals(SYSTEM_THEME) || !getTheme.equals(LIGHT_THEME)) {
+                activity.setTheme(R.style.AmoledTheme);
+        }
+    }
+
 }
