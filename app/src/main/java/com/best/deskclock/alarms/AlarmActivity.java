@@ -17,6 +17,9 @@ package com.best.deskclock.alarms;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
+import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -219,6 +222,13 @@ public class AlarmActivity extends AppCompatActivity
         mAccessibilityManager = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
 
         setContentView(R.layout.alarm_activity);
+
+        View alarmActivityLayout = findViewById(R.id.alarmActivityLayout);
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String getTheme = DataModel.getDataModel().getTheme();
+        if (getDarkMode.equals(KEY_AMOLED_DARK_MODE) && !getTheme.equals(LIGHT_THEME)) {
+            alarmActivityLayout.setBackgroundColor(Color.BLACK);
+        }
 
         mAlertView = findViewById(R.id.alert);
         mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
