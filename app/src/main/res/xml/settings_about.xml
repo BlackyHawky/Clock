@@ -10,6 +10,7 @@
     <Preference
         android:key="about_title"
         android:layout="@layout/settings_about_title"
+        android:selectable="false"
         tools:title="@string/app_label" />
 
     <Preference
