@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
@@ -41,7 +42,15 @@ public class AlarmUtils {
 
     public static String getFormattedTime(Context context, Calendar time) {
         final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
-        final String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            // Add a "Thin Space" (\u2009) at the end of the next alarm to prevent its display from being cut off on some devices.
+            // (The display of the next alarm is only cut off at the end if it is defined in italics in the screensaver settings).
+            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicNextAlarm();
+            if (isItalic) {
+                pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
+            }
+        }
         return (String) DateFormat.format(pattern, time);
     }
 

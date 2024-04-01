@@ -389,8 +389,8 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(cityTimeZoneId);
-                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f, false));
-                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
+                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
+                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(mDigitalClock.getContext(), false));
                 }
 
                 itemView.setBackground(Utils.cardBackground(context));

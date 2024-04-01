@@ -181,8 +181,8 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     }
 
     private void update(RemoteViews rv, City city, int clockId, int labelId, int dayId) {
-        rv.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(0.4f, false));
-        rv.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat(false));
+        rv.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(mContext, 0.4f, false));
+        rv.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat(mContext, false));
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);
         final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;

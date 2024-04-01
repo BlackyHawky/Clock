@@ -286,9 +286,17 @@ public class Utils {
         }
 
         final Locale l = Locale.getDefault();
-        final String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
-        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
+        String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
+        if (dateDisplay.getContext() instanceof ScreensaverActivity || dateDisplay.getContext() instanceof Screensaver) {
+            // Add a "Thin Space" (\u2009) at the end of the date to prevent its display from being cut off on some devices.
+            // (The display of the date is only cut off at the end if it is defined in italics in the screensaver settings).
+            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDate();
+            if (isItalic) {
+                datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
+            }
+        }
 
+        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
         final Date now = new Date();
         dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
         dateDisplay.setVisibility(View.VISIBLE);
@@ -305,9 +313,9 @@ public class Utils {
     public static void setTimeFormat(TextClock clock, boolean includeSeconds) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(0.4f, includeSeconds));
+            clock.setFormat12Hour(get12ModeFormat(clock.getContext(), 0.4f, includeSeconds));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormat(includeSeconds));
+            clock.setFormat24Hour(get24ModeFormat(clock.getContext(), includeSeconds));
         }
     }
 
@@ -466,13 +474,13 @@ public class Utils {
         final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
         switch (screensaverClockStyle) {
             case ANALOG -> {
-                setTimeFormat(digitalClock, false);
+                setScreensaverTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(displaySeconds);
                 return;
             }
             case DIGITAL -> {
                 analogClock.enableSeconds(false);
-                setTimeFormat(digitalClock, displaySeconds);
+                setScreensaverTimeFormat(digitalClock, displaySeconds);
                 return;
             }
         }
@@ -485,13 +493,16 @@ public class Utils {
      *
      * @param digitalClock TextClock to format
      */
-    public static void setScreensaverTimeFormat(TextClock digitalClock) {
+    public static void setScreensaverTimeFormat(TextClock digitalClock, boolean includeSeconds) {
         final boolean boldText = DataModel.getDataModel().getScreensaverBoldDigitalClock();
         final boolean italicText = DataModel.getDataModel().getScreensaverItalicDigitalClock();
 
         if (digitalClock == null) {
             return;
         }
+
+        digitalClock.setFormat12Hour(get12ModeFormat(digitalClock.getContext(), 0.4f, includeSeconds));
+        digitalClock.setFormat24Hour(get24ModeFormat(digitalClock.getContext(), includeSeconds));
 
         if (boldText && italicText) {
             digitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -588,9 +599,8 @@ public class Utils {
         dimDateView(date, context);
         dimNextAlarmView(nextAlarmIcon, nextAlarm, context);
         setScreensaverClockSecondsEnabled(textClock, analogClock);
-        setClockIconTypeface(nextAlarmIcon);
-        setScreensaverTimeFormat(textClock);
         setScreensaverDateFormat(date);
+        setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(nextAlarm);
     }
 
@@ -600,15 +610,26 @@ public class Utils {
      * @param includeSeconds whether or not to include seconds in the time string
      * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(float amPmRatio, boolean includeSeconds) {
+    public static CharSequence get12ModeFormat(Context context, float amPmRatio, boolean includeSeconds) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
                 includeSeconds ? "hmsa" : "hma");
-        if (amPmRatio <= 0) {
-            pattern = pattern.replaceAll("a", "").trim();
-        }
 
         // Replace spaces with "Hair Space"
-        pattern = pattern.replaceAll(" ", "\u200A");
+        pattern = pattern.replaceAll("\\s", "\u200A");
+
+        if (amPmRatio <= 0) {
+            pattern = pattern.replaceAll("a", "").trim();
+        } else {
+            if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+                final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDigitalClock();
+                if (isItalic) {
+                    // For screensaver, add a "Hair Space" (\u200A) at the end of the AM/PM to prevent
+                    // its display from being cut off on some devices when in italic.
+                    pattern = pattern.replaceAll("a", "a" + "\u200A");
+                }
+            }
+        }
+
         // Build a spannable so that the am/pm will be formatted
         int amPmPos = pattern.indexOf('a');
         if (amPmPos == -1) {
@@ -623,8 +644,19 @@ public class Utils {
         return sp;
     }
 
-    public static CharSequence get24ModeFormat(boolean includeSeconds) {
-        return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
+    public static CharSequence get24ModeFormat(Context context, boolean includeSeconds) {
+        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDigitalClock();
+            if (isItalic) {
+                // For screensaver, add a "Hair Space" (\u200A) at the end of the time to prevent
+                // its display from being cut off on some devices when in italic.
+                return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm") + "\u2009";
+            } else {
+                return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
+            }
+        } else {
+            return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm");
+        }
     }
 
     /**
