@@ -20,17 +20,14 @@
     android:id="@+id/digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|center_horizontal"
     android:orientation="vertical">
 
     <TextClock
         android:id="@+id/clock"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
+        android:gravity="center"
         android:ellipsize="none"
-        android:format12Hour="@string/lock_screen_12_hour_format"
-        android:format24Hour="@string/lock_screen_24_hour_format"
         android:includeFontPadding="false"
         android:singleLine="true"
         android:textColor="@android:color/white"
@@ -39,18 +36,18 @@
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
         android:shadowDy="2"
-        tools:text="0123" />
+        tools:text="0123 AM" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top">
+        android:layout_gravity="center_horizontal">
 
         <TextClock
             android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:singleLine="true"
@@ -66,19 +63,17 @@
         <ImageView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
             tools:src="@drawable/ic_tab_alarm_static"
-            tools:paddingStart="8dp"
-            tools:paddingEnd="8dp"/>
+            tools:paddingHorizontal="8dp" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:singleLine="true"

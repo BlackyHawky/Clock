@@ -136,6 +136,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final String packageName = context.getPackageName();
         final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget);
 
+        rv.setCharSequence(R.id.clock, "setFormat12Hour", Utils.get12ModeFormat(context, 0.4f, false));
+        rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat(context, false));
+
         // Tapping on the widget opens the app (if not on the lock screen).
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
@@ -324,8 +327,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static CharSequence getLongestTimeString(TextClock clock) {
         final CharSequence format = clock.is24HourModeEnabled()
-                ? clock.getFormat24Hour()
-                : clock.getFormat12Hour();
+                ? Utils.get24ModeFormat(clock.getContext(), false)
+                : Utils.get12ModeFormat(clock.getContext(), 0.4f, false);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
