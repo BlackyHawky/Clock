@@ -46,8 +46,13 @@ public class AlarmUtils {
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
             // Add a "Thin Space" (\u2009) at the end of the next alarm to prevent its display from being cut off on some devices.
             // (The display of the next alarm is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicNextAlarm();
-            if (isItalic) {
+            final boolean isItalicDate = DataModel.getDataModel().getScreensaverItalicDate();
+            final boolean isItalicNextAlarm = DataModel.getDataModel().getScreensaverItalicNextAlarm();
+            if (isItalicDate) {
+                // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
+                // alarm icon and next alarm only when the date is in italics.
+                pattern = "\u2009" + DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
+            } else if (isItalicNextAlarm) {
                 pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
             }
         }

@@ -290,9 +290,12 @@ public class Utils {
         if (dateDisplay.getContext() instanceof ScreensaverActivity || dateDisplay.getContext() instanceof Screensaver) {
             // Add a "Thin Space" (\u2009) at the end of the date to prevent its display from being cut off on some devices.
             // (The display of the date is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDate();
-            if (isItalic) {
-                datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
+            final boolean isItalicDate = DataModel.getDataModel().getScreensaverItalicDate();
+            final boolean isItalicNextAlarm = DataModel.getDataModel().getScreensaverItalicNextAlarm();
+            if (isItalicDate) {
+                datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
+            } else if (isItalicNextAlarm) {
+                datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton);
             }
         }
 
