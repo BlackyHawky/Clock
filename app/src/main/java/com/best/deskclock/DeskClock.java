@@ -320,19 +320,23 @@ public class DeskClock extends AppCompatActivity
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
+        mBottomNavigation.setItemActiveIndicatorEnabled(false);
+        mBottomNavigation.setItemIconTintList(new ColorStateList(
+                new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+        );
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
-            mBottomNavigation.setItemActiveIndicatorEnabled(false);
             mBottomNavigation.setItemTextColor(new ColorStateList(
-                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), Color.WHITE})
-            );
-            mBottomNavigation.setItemIconTintList(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                     new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), Color.WHITE})
             );
         } else {
             mBottomNavigation.setBackgroundColor(getColor(R.color.md_theme_surface));
+            mBottomNavigation.setItemTextColor(new ColorStateList(
+                    new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
+                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+            );
         }
 
         // Honor changes to the selected tab from outside entities.

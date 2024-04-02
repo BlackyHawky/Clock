@@ -61,7 +61,9 @@
                 app:layout_constraintHorizontal_bias="0.6"
                 tools:layout_width="55dp"
                 tools:layout_height="55dp"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:src="@drawable/ic_reset"
+                tools:fabCustomSize="55dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -76,7 +78,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_width="75dp"
-                tools:layout_height="75dp" />
+                tools:layout_height="75dp"
+                tools:src="@drawable/ic_fab_play"
+                tools:fabCustomSize="75dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/right_button"
@@ -93,7 +97,9 @@
                 app:layout_constraintHorizontal_bias="0.4"
                 tools:layout_width="55dp"
                 tools:layout_height="55dp"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                tools:src="@drawable/ic_share"
+                tools:fabCustomSize="55dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,8 +108,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelVisibilityMode="labeled"
+        android:layout_height="80dp"
+        android:paddingVertical="4dp"
         app:menu="@menu/bottom_navigation_menu"
-        tools:background="@color/md_theme_surface"/>
+        app:labelVisibilityMode="labeled"
+        tools:background="@color/md_theme_surface" />
+
 </LinearLayout>
