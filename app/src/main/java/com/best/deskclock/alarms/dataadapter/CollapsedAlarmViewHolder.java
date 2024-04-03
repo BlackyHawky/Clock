@@ -140,7 +140,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     private void bindAnnotations(Alarm alarm) {
         annotationsAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
-        setChangingViewsAlpha(annotationsAlpha);
     }
 
     @Override
@@ -157,7 +156,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isCollapsing = this == newHolder;
-        setChangingViewsAlpha(isCollapsing ? 0f : annotationsAlpha);
 
         final Animator changeAnimatorSet = isCollapsing
                 ? createCollapsingAnimator((AlarmItemViewHolder) oldHolder, duration)
@@ -166,11 +164,8 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                clock.setVisibility(View.VISIBLE);
-                onOff.setVisibility(View.VISIBLE);
                 arrow.setVisibility(View.VISIBLE);
                 arrow.setTranslationY(0f);
-                setChangingViewsAlpha(annotationsAlpha);
                 arrow.jumpDrawablesToCurrentState();
             }
         });
@@ -179,8 +174,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createExpandingAnimator(AlarmItemViewHolder newHolder, long duration) {
-        clock.setVisibility(View.INVISIBLE);
-        onOff.setVisibility(View.INVISIBLE);
         arrow.setVisibility(View.INVISIBLE);
 
         final AnimatorSet alphaAnimatorSet = new AnimatorSet();
@@ -223,8 +216,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
         arrow.setTranslationY(arrowTranslationY);
         arrow.setVisibility(View.VISIBLE);
-        clock.setVisibility(View.VISIBLE);
-        onOff.setVisibility(View.VISIBLE);
 
         final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f).setDuration(duration);
         arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
@@ -240,12 +231,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         });
 
         return animatorSet;
-    }
-
-    private void setChangingViewsAlpha(float alpha) {
-        alarmLabel.setAlpha(alpha);
-        daysOfWeek.setAlpha(alpha);
-        upcomingInstanceLabel.setAlpha(alpha);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {

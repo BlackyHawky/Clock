@@ -23,7 +23,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -278,8 +277,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isExpanding = this == newHolder;
-        AnimatorUtils.setBackgroundAlpha(itemView, isExpanding ? 0 : 255);
-        setChangingViewsAlpha(isExpanding ? 0f : 1f);
 
         final Animator changeAnimatorSet = isExpanding
                 ? createExpandingAnimator((AlarmItemViewHolder) oldHolder, duration)
@@ -288,12 +285,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                AnimatorUtils.setBackgroundAlpha(itemView, 255);
-                clock.setVisibility(View.VISIBLE);
-                onOff.setVisibility(View.VISIBLE);
                 arrow.setVisibility(View.VISIBLE);
                 arrow.setTranslationY(0f);
-                setChangingViewsAlpha(1f);
                 arrow.jumpDrawablesToCurrentState();
             }
         });
@@ -303,17 +296,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder newHolder, long duration) {
         arrow.setVisibility(View.INVISIBLE);
-        clock.setVisibility(View.INVISIBLE);
-        onOff.setVisibility(View.INVISIBLE);
 
         final boolean daysVisible = repeatDays.getVisibility() == View.VISIBLE;
         final int numberOfItems = countNumberOfItems();
 
         final View oldView = itemView;
-
-        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(oldView,
-                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 255, 0));
-        backgroundAnimator.setDuration(duration);
 
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newHolder.itemView);
         boundsAnimator.setDuration(duration);
@@ -353,8 +340,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         repeatAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatAnimation,
-                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation, deleteAnimation);
+        animatorSet.playTogether(boundsAnimator, repeatAnimation, repeatDaysAnimation, vibrateAnimation,
+                ringtoneAnimation, editLabelAnimation, deleteAnimation);
 
         return animatorSet;
     }
@@ -366,10 +353,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
-        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(newView,
-                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255));
-        backgroundAnimator.setDuration(duration);
-
         final View oldArrow = oldHolder.arrow;
         final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
         final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
@@ -379,8 +362,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         arrow.setTranslationY(arrowTranslationY);
         arrow.setVisibility(View.VISIBLE);
-        clock.setVisibility(View.VISIBLE);
-        onOff.setVisibility(View.VISIBLE);
 
         final long longDuration = (long) (duration * ANIM_LONG_DURATION_MULTIPLIER);
         final Animator repeatAnimation = ObjectAnimator.ofFloat(repeat, View.ALPHA, 1f)
@@ -419,9 +400,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         deleteAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, repeatAnimation, boundsAnimator,
-                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation,
-                deleteAnimation, arrowAnimation);
+        animatorSet.playTogether(repeatAnimation, boundsAnimator, repeatDaysAnimation, vibrateAnimation,
+                ringtoneAnimation, editLabelAnimation, deleteAnimation, arrowAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -440,15 +420,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             numberOfItems++;
         }
         return numberOfItems;
-    }
-
-    private void setChangingViewsAlpha(float alpha) {
-        repeat.setAlpha(alpha);
-        editLabel.setAlpha(alpha);
-        repeatDays.setAlpha(alpha);
-        vibrate.setAlpha(alpha);
-        ringtone.setAlpha(alpha);
-        delete.setAlpha(alpha);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {

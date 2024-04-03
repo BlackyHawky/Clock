@@ -741,19 +741,10 @@ public class Utils {
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final int color;
-        // Setting transparency is necessary to avoid flickering when expanding or collapsing alarms.
-        // Todo: find a way to get rid of this transparency and use the real color R.color.md_theme_surface
-        if (isNight(context.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            color = ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary), 90);
-        } else {
-            color = ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_primary), 20);
-        }
         final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(radius);
-        gradientDrawable.setColor(color);
+        gradientDrawable.setColor(context.getColor(R.color.md_theme_surface));
         return gradientDrawable;
     }
 
