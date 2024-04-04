@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +17,11 @@
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/checked"
-        android:drawable="@drawable/bg_button_for_anim"
+        android:drawable="@drawable/bg_button_checked_for_anim"
         android:state_checked="true" />
     <item
         android:id="@+id/unchecked"
-        android:drawable="@drawable/bg_button_transparent_for_anim" />
+        android:drawable="@drawable/bg_button_unchecked_for_anim" />
     <transition
         android:drawable="@drawable/bg_button_unchecked_to_checked_anim"
         android:fromId="@+id/unchecked"

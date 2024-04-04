@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="day_button_circle_vector"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:name="day_button_circle_animate"
+        android:alpha="1"
+        android:pivotX="0"
+        android:pivotY="0"
+        android:translateX="12"
+        android:translateY="12">
+        <path
+            android:name="path"
+            android:fillColor="@color/md_theme_outline"
+            android:pathData="m0.0043 8.7q-1.8042 0-3.3933-0.6848q-1.589-0.6848-2.7643-1.8588q-1.1755-1.174-1.861-2.7607q-0.6858-1.587-0.6858-3.3915q0-1.8042 0.6847-3.3933q0.6848-1.589 1.8588-2.7643q1.174-1.1755 2.7607-1.861q1.587-0.6858 3.3915-0.6858q1.8042 0 3.3932 0.6847q1.589 0.6848 2.7643 1.8588q1.1755 1.174 1.861 2.7607q0.6857 1.587 0.6857 3.3915q0 1.8042-0.6848 3.3932q-0.6848 1.589-1.8588 2.7643q-1.174 1.1755-2.7607 1.861q-1.587 0.6857-3.3915 0.6857zm-0.0043-0.7q3.35 0 5.675-2.325q2.325-2.325 2.325-5.675q0-3.35-2.325-5.675q-2.325-2.325-5.675-2.325q-3.35 0-5.675 2.325q-2.325 2.325-2.325 5.675q0 3.35 2.325 5.675q2.325 2.325 5.675 2.325zm0-8z" />
+    </group>
+</vector>

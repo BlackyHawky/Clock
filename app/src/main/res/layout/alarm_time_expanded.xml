@@ -37,16 +37,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/repeat_onoff"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/days_of_week_layout"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:paddingStart="10dp"
-        android:text="@string/alarm_repeat"
-        android:textColor="?android:attr/textColorPrimary"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/digital_clock"
-        tools:ignore="RtlSymmetry" />
+        app:layout_constraintTop_toBottomOf="@+id/onoff">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/days_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="4dp"
+            android:singleLine="true"
+            tools:ignore="RtlSymmetry"
+            tools:text="Mo.,Tue.,Wed." />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/upcoming_instance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="4dp"
+            android:singleLine="true"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
 
     <!-- Day buttons are put here programmatically -->
     <LinearLayout
@@ -54,9 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/repeat_onoff"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@id/days_of_week_layout" />
 
     <LinearLayout
         android:id="@+id/ringtone_linear_layout"

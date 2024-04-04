@@ -37,16 +37,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public static final float CLOCK_ENABLED_ALPHA = 1f;
     public static final float CLOCK_DISABLED_ALPHA = 0.63f;
 
-    public static final float ANIM_STANDARD_DELAY_MULTIPLIER = 1f / 6f;
-    public static final float ANIM_LONG_DURATION_MULTIPLIER = 2f / 3f;
-    public static final float ANIM_SHORT_DURATION_MULTIPLIER = 1f / 4f;
-    public static final float ANIM_SHORT_DELAY_INCREMENT_MULTIPLIER =
-            1f - ANIM_LONG_DURATION_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
-    public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
-            1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
-
-    public static final String ANIMATE_REPEAT_DAYS = "ANIMATE_REPEAT_DAYS";
-
     public final TextTime clock;
     public final CompoundButton onOff;
     public final ImageView arrow;

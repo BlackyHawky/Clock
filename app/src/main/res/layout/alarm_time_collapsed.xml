@@ -22,7 +22,9 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="10dp"
-    android:padding="12dp">
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="12dp" >
 
     <include
         layout="@layout/alarm_time_summary"
@@ -36,52 +38,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:orientation="horizontal"
-        android:id="@+id/horizontal_collapsed_guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textStyle="bold"
+    <LinearLayout
+        android:id="@+id/days_of_week_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/arrow"
-        app:layout_constraintBottom_toBottomOf="@id/arrow"
-        tools:text="Test" />
+        app:layout_constraintTop_toBottomOf="@+id/onoff">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/days_of_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:focusable="true"
-        android:paddingStart="4dp"
-        android:singleLine="true"
-        tools:ignore="RtlSymmetry"
-        tools:text="Mo.,Tue.,Wed."
-        app:layout_constraintStart_toEndOf="@id/label"
-        app:layout_constraintTop_toTopOf="@+id/arrow"
-        app:layout_constraintBottom_toBottomOf="@id/arrow" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/arrow"
+            app:layout_constraintBottom_toBottomOf="@id/arrow"
+            tools:text="Test" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/upcoming_instance_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:focusable="true"
-        android:paddingStart="4dp"
-        android:singleLine="true"
-        app:layout_constraintStart_toEndOf="@id/label"
-        app:layout_constraintTop_toTopOf="@+id/arrow"
-        app:layout_constraintBottom_toBottomOf="@id/arrow"
-        tools:ignore="RtlSymmetry" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/days_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="4dp"
+            android:singleLine="true"
+            tools:ignore="RtlSymmetry"
+            tools:text="Mo.,Tue.,Wed." />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/upcoming_instance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:paddingStart="4dp"
+            android:singleLine="true"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/arrow"
@@ -91,7 +91,8 @@
         android:contentDescription="@string/expand_alarm"
         android:scaleType="center"
         app:srcCompat="@drawable/ic_caret_down"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_collapsed_guide" />
+        app:layout_constraintEnd_toEndOf="@+id/days_of_week_layout"
+        app:layout_constraintTop_toTopOf="@+id/days_of_week_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/days_of_week_layout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

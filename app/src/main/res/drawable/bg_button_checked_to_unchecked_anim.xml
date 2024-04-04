@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +15,7 @@
   limitations under the License.
   -->
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/bg_button_animatable">
+    android:drawable="@drawable/bg_button_unchecked_animatable">
     <target
         android:name="day_button_circle_animate"
         android:animation="@animator/day_button_unchecked_animation" />

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   Copyright (C) 2016 The Android Open Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,13 +21,12 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
     <group
-        android:name="day_button_circle_transparent"
-        android:alpha="0"
+        android:name="day_button_circle_white"
         android:translateX="12"
         android:translateY="12">
         <path
             android:name="path"
-            android:fillColor="@android:color/transparent"
+            android:fillColor="@color/md_theme_primary"
             android:pathData="M 0.0,8.0 c -4.42,0.0 -8.0,-3.582 -8.0,-8.0 c 0.0,-4.418 3.58,-8.0 8.0,-8.0 c 4.42,0.0 8.0,3.582 8.0,8.0 c 0.0,4.418 -3.58,8.0 -8.0,8.0 Z" />
     </group>
 </vector>

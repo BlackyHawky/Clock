@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-FileCopyrightText: Material Design Authors / Google LLC
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="day_button_circle_vector"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group
+        android:name="day_button_circle_transparent"
+        android:translateX="12"
+        android:translateY="12">
+        <path
+            android:name="path"
+            android:fillColor="@color/md_theme_outline"
+            android:pathData="m0.01 8.57q-1.78 0-3.35-0.68q-1.57-0.68-2.73-1.83q-1.16-1.16-1.83-2.72q-0.67-1.56-0.67-3.34q0-1.78 0.68-3.35q0.68-1.57 1.83-2.73q1.16-1.16 2.72-1.83q1.56-0.67 3.34-0.67q1.78 0 3.35 0.68q1.57 0.68 2.73 1.83q1.16 1.16 1.83 2.72q0.67 1.56 0.67 3.34q0 1.78-0.68 3.35q-0.68 1.57-1.83 2.73q-1.16 1.16-2.72 1.83q-1.56 0.67-3.34 0.67qm-0.01-0.64q3.31 0 5.63-2.31q2.31-2.31 2.31-5.63q0-3.31-2.31-5.63q-2.31-2.31-5.63-2.31q-3.31 0-5.63 2.31q-2.31 2.31-2.31 5.63q0 3.31 2.31 5.63q2.31 2.31 5.63 2.31q" />
+    </group>
+</vector>

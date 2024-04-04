@@ -52,8 +52,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView alarmLabel;
     private final TextView upcomingInstanceLabel;
 
-    private float annotationsAlpha = CLOCK_ENABLED_ALPHA;
-
     private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
 
@@ -95,7 +93,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
-        bindAnnotations(alarm);
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
@@ -138,10 +135,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
-    private void bindAnnotations(Alarm alarm) {
-        annotationsAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
-    }
-
     @Override
     public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
                                     int fromBottom, long duration) {
@@ -176,33 +169,16 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     private Animator createExpandingAnimator(AlarmItemViewHolder newHolder, long duration) {
         arrow.setVisibility(View.INVISIBLE);
 
-        final AnimatorSet alphaAnimatorSet = new AnimatorSet();
-        alphaAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 0f),
-                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, 0f),
-                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 0f));
-
-        alphaAnimatorSet.setDuration((long) (duration * ANIM_SHORT_DURATION_MULTIPLIER));
-
         final View oldView = itemView;
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newHolder.itemView).setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator);
+        animatorSet.playTogether(boundsAnimator);
         return animatorSet;
     }
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder oldHolder, long duration) {
-        final AnimatorSet alphaAnimatorSet = new AnimatorSet();
-        alphaAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, annotationsAlpha),
-                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, annotationsAlpha),
-                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, annotationsAlpha));
-        final long standardDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
-        alphaAnimatorSet.setDuration(standardDelay);
-        alphaAnimatorSet.setStartDelay(duration - standardDelay);
-
         final View oldView = oldHolder.itemView;
         final View newView = itemView;
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView).setDuration(duration);
@@ -221,7 +197,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator, arrowAnimation);
+        animatorSet.playTogether(boundsAnimator, arrowAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
