@@ -33,12 +33,9 @@ import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.bedtime.BedtimeFragment;
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -48,24 +45,15 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     public static final int VIEW_TYPE = R.layout.alarm_time_collapsed;
 
-    public final TextView daysOfWeek;
     private final TextView alarmLabel;
-    private final TextView upcomingInstanceLabel;
 
     private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
 
         alarmLabel = itemView.findViewById(R.id.label);
-        daysOfWeek = itemView.findViewById(R.id.days_of_week);
-        upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
 
         // Expand handler
         itemView.setOnClickListener(v -> {
-            Events.sendAlarmEvent(R.string.action_expand_implied, R.string.label_deskclock);
-            getItemHolder().expand();
-        });
-
-        alarmLabel.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_expand_implied, R.string.label_deskclock);
             getItemHolder().expand();
         });
@@ -90,48 +78,21 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         super.onBindItemView(itemHolder);
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
-        bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
-        bindUpcomingInstance(context, alarm);
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
         if (alarm.label != null && alarm.label.length() != 0) {
+            alarmLabel.setVisibility(View.VISIBLE);
             if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
                 alarmLabel.setText(R.string.wakeup_alarm_label_visible);
             } else {
                 alarmLabel.setText(alarm.label);
             }
-            alarmLabel.setVisibility(View.VISIBLE);
+            alarmLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
             alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
         } else {
             alarmLabel.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindRepeatText(Context context, Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
-            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
-            daysOfWeek.setText(daysOfWeekText);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
-            daysOfWeek.setVisibility(View.VISIBLE);
-        } else {
-            daysOfWeek.setVisibility(View.GONE);
-        }
-    }
-
-    private void bindUpcomingInstance(Context context, Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            upcomingInstanceLabel.setVisibility(View.GONE);
-        } else {
-            upcomingInstanceLabel.setVisibility(View.VISIBLE);
-            final String labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                    ? context.getString(R.string.alarm_tomorrow)
-                    : context.getString(R.string.alarm_today);
-            upcomingInstanceLabel.setText(labelText);
         }
     }
 

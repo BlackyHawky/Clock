@@ -44,12 +44,10 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -58,8 +56,6 @@ import java.util.List;
 public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
-    public final TextView daysOfWeek;
-    private final TextView upcomingInstanceLabel;
     public final LinearLayout repeatDays;
     public final CheckBox vibrate;
     public final TextView ringtone;
@@ -74,8 +70,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         mHasVibrator = hasVibrator;
 
-        daysOfWeek = itemView.findViewById(R.id.days_of_week);
-        upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
         delete = itemView.findViewById(R.id.delete);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
@@ -150,38 +144,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
-        bindRepeatText(context, alarm);
-        bindUpcomingInstance(context, alarm);
         bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
-    }
-
-    private void bindUpcomingInstance(Context context, Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            upcomingInstanceLabel.setVisibility(View.GONE);
-        } else {
-            upcomingInstanceLabel.setVisibility(View.VISIBLE);
-            final String labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                    ? context.getString(R.string.alarm_tomorrow)
-                    : context.getString(R.string.alarm_today);
-            upcomingInstanceLabel.setText(labelText);
-        }
-    }
-
-    private void bindRepeatText(Context context, Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
-            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
-            daysOfWeek.setText(daysOfWeekText);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
-            daysOfWeek.setVisibility(View.VISIBLE);
-        } else {
-            daysOfWeek.setVisibility(View.GONE);
-        }
     }
 
     private void bindRingtone(Context context, Alarm alarm) {

@@ -70,6 +70,9 @@
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
 
+    <!-- Label shown when alarm is inactive -->
+    <string name="alarm_inactive">Inactive</string>
+
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow [CHAR LIMIT=15] -->
     <string name="alarm_tomorrow">Tomorrow</string>
 
