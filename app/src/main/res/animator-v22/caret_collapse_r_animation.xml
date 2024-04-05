@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="300"
+    android:duration="500"
     android:interpolator="@anim/caret_toclose_animation_interpolator_0"
     android:propertyName="rotation"
     android:valueFrom="-45.0"

@@ -19,22 +19,16 @@ package com.best.deskclock.alarms.dataadapter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
-import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.provider.Alarm;
 
 import java.util.List;
 
@@ -45,12 +39,10 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     public static final int VIEW_TYPE = R.layout.alarm_time_collapsed;
 
-    private final TextView alarmLabel;
+
 
     private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
-
-        alarmLabel = itemView.findViewById(R.id.label);
 
         // Expand handler
         itemView.setOnClickListener(v -> {
@@ -76,24 +68,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     @Override
     protected void onBindItemView(AlarmItemHolder itemHolder) {
         super.onBindItemView(itemHolder);
-        final Alarm alarm = itemHolder.item;
-        final Context context = itemView.getContext();
-        bindReadOnlyLabel(context, alarm);
-    }
-
-    private void bindReadOnlyLabel(Context context, Alarm alarm) {
-        if (alarm.label != null && alarm.label.length() != 0) {
-            alarmLabel.setVisibility(View.VISIBLE);
-            if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-                alarmLabel.setText(R.string.wakeup_alarm_label_visible);
-            } else {
-                alarmLabel.setText(alarm.label);
-            }
-            alarmLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-            alarmLabel.setContentDescription(context.getString(R.string.label_description) + " " + alarm.label);
-        } else {
-            alarmLabel.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -118,8 +92,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                arrow.setVisibility(View.VISIBLE);
-                arrow.setTranslationY(0f);
                 arrow.jumpDrawablesToCurrentState();
             }
         });
@@ -128,8 +100,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createExpandingAnimator(AlarmItemViewHolder newHolder, long duration) {
-        arrow.setVisibility(View.INVISIBLE);
-
         final View oldView = itemView;
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newHolder.itemView).setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
@@ -140,25 +110,12 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder oldHolder, long duration) {
-        final View oldView = oldHolder.itemView;
         final View newView = itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView).setDuration(duration);
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldHolder.itemView, newView).setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
-        final View oldArrow = oldHolder.arrow;
-        final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
-        final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
-        ((ViewGroup) newView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
-        ((ViewGroup) oldView).offsetDescendantRectToMyCoords(oldArrow, oldArrowRect);
-        final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
-        arrow.setTranslationY(arrowTranslationY);
-        arrow.setVisibility(View.VISIBLE);
-
-        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f).setDuration(duration);
-        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
-
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(boundsAnimator, arrowAnimation);
+        animatorSet.playTogether(boundsAnimator);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override

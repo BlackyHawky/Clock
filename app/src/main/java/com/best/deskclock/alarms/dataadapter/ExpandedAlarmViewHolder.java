@@ -21,9 +21,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
@@ -42,7 +40,6 @@ import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
-import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -60,7 +57,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final TextView delete;
-    private final TextView editLabel;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
 
     private final boolean mHasVibrator;
@@ -73,7 +69,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete = itemView.findViewById(R.id.delete);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
-        editLabel = itemView.findViewById(R.id.edit_label);
         repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
 
         final Context context = itemView.getContext();
@@ -106,13 +101,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // Edit time handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
 
-        // Edit label handler
-        editLabel.setOnClickListener(view -> {
-            if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-                getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
-            }
-        });
-
         // Vibrator checkbox handler
         vibrate.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setAlarmVibrationEnabled(getItemHolder().item, ((CheckBox) v).isChecked()));
@@ -144,7 +132,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
-        bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
@@ -175,17 +162,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
             }
-        }
-    }
-
-    private void bindEditLabel(Context context, Alarm alarm) {
-        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))) {
-            editLabel.setText(R.string.wakeup_alarm_label_visible);
-        } else {
-            editLabel.setText(alarm.label);
-            editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
-                    ? context.getString(R.string.label_description) + " " + alarm.label
-                    : context.getString(R.string.no_label_specified));
         }
     }
 
@@ -224,8 +200,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                arrow.setVisibility(View.VISIBLE);
-                arrow.setTranslationY(0f);
                 arrow.jumpDrawablesToCurrentState();
             }
         });
@@ -234,8 +208,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder newHolder, long duration) {
-        arrow.setVisibility(View.INVISIBLE);
-
         final View oldView = itemView;
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newHolder.itemView).setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
@@ -246,25 +218,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createExpandingAnimator(AlarmItemViewHolder oldHolder, long duration) {
-        final View oldView = oldHolder.itemView;
         final View newView = itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView).setDuration(duration);
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldHolder.itemView, newView).setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
-        final View oldArrow = oldHolder.arrow;
-        final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
-        final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
-        ((ViewGroup) newView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
-        ((ViewGroup) oldView).offsetDescendantRectToMyCoords(oldArrow, oldArrowRect);
-        final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
-        arrow.setTranslationY(arrowTranslationY);
-        arrow.setVisibility(View.VISIBLE);
-
-        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f).setDuration(duration);
-        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
-
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(boundsAnimator, arrowAnimation);
+        animatorSet.playTogether(boundsAnimator);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override

@@ -488,6 +488,8 @@
     <string name="label_description">Label</string>
     <string name="ringtone_description">Ringtone</string>
 
+    <string name="add_label">Add label</string>
+
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
