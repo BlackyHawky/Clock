@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_bedtime_bottom_sheet">
@@ -51,11 +51,13 @@
             android:id="@+id/bedtime_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
-            android:layout_marginStart="10dp"
+            android:text="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_label" />
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_label"
+            tools:text="23:00" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/toggle_switch_bedtime"

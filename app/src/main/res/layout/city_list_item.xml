@@ -32,6 +32,7 @@
         android:id="@+id/city_onoff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:button="@drawable/ic_selector_checkbox"
         android:clickable="false" />
 
     <com.google.android.material.textview.MaterialTextView

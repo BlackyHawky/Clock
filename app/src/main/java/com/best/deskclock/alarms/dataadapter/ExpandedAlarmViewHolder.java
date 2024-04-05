@@ -175,11 +175,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindVibrator(Alarm alarm) {
-        if (!mHasVibrator) {
-            vibrate.setVisibility(View.INVISIBLE);
-        } else {
+        if (mHasVibrator) {
             vibrate.setVisibility(View.VISIBLE);
             vibrate.setChecked(alarm.vibrate);
+        } else {
+            vibrate.setVisibility(View.GONE);
         }
     }
 

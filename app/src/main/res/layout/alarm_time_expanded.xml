@@ -32,7 +32,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/edit_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:background="?attr/selectableItemBackground"
@@ -45,7 +45,6 @@
             app:drawableStartCompat="@drawable/ic_label"
             app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/arrow"
             app:layout_constraintTop_toTopOf="parent"
             tools:textStyle="bold" />
 
@@ -120,20 +119,14 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/onoff" />
 
-        <LinearLayout
-            android:id="@+id/ringtone_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm">
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/choose_ringtone"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
+                android:drawableStart="@drawable/ic_ringtone"
+                android:drawableTint="@color/md_theme_onSurfaceVariant"
                 android:drawablePadding="10dp"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -142,22 +135,23 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="?android:attr/textColorPrimary"
-                app:drawableStartCompat="@drawable/ic_ringtone"
-                app:drawableTint="@color/md_theme_onSurfaceVariant"
+                app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm"
                 tools:text="Standard (Hassium)" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/vibrate_onoff"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingStart="8dp"
-                android:paddingEnd="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?selectableItemBackground"
+                android:button="@null"
+                android:drawableStart="@drawable/ic_vibrate"
+                android:drawableEnd="@drawable/ic_selector_checkbox"
+                android:drawablePadding="10dp"
                 android:text="@string/alarm_vibrate"
                 android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
                 tools:ignore="RtlSymmetry"
                 tools:checked="true" />
-
-        </LinearLayout>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/delete"
@@ -171,7 +165,7 @@
             app:chipBackgroundColor="#EF5350"
             app:chipStrokeWidth="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ringtone_linear_layout" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/duplicate"
@@ -185,7 +179,7 @@
             app:chipBackgroundColor="@color/md_theme_primary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ringtone_linear_layout" />
+            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

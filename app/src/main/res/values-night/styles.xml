@@ -59,8 +59,6 @@
         <item name="android:dialogCornerRadius" tools:targetApi="p">28dp</item>
         <item name="colorBackgroundFloating">@color/md_theme_surface</item>
 
-        <item name="checkboxStyle">@style/Widget.CheckBox</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>

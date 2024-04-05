@@ -61,8 +61,6 @@
         <item name="android:dialogCornerRadius" tools:targetApi="p">28dp</item>
         <item name="colorBackgroundFloating">@color/md_theme_surface</item>
 
-        <item name="checkboxStyle">@style/Widget.CheckBox</item>
-
         <item name="actionBarStyle">@style/ActionBarStyle</item>
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
@@ -80,12 +78,6 @@
 
     <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="Widget.CheckBox" parent="@style/Widget.Material3.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/ic_selector_checkbox</item>
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">48dp</item>
     </style>
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
