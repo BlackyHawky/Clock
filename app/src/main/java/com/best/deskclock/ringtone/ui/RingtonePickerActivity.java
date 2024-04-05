@@ -40,6 +40,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtoneItem;
@@ -88,6 +89,19 @@ public class RingtonePickerActivity extends AppCompatActivity {
         return new Intent(context, RingtonePickerActivity.class)
                 .putExtra(EXTRA_TITLE, R.string.timer_sound)
                 .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri());
+    }
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of the sleep sound
+     */
+    public static Intent createSleepSoundPickerIntent(Context context) {
+        final DataSaver dataSaver = DataSaver.getInstance(context);
+        dataSaver.restore();
+
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.sleep_sound)
+                .putExtra(EXTRA_RINGTONE_URI, dataSaver.sleepUri)
+                .putExtra(EXTRA_IS_SLEEP, true);
     }
 
     public RingtoneItem mCurrentItem;

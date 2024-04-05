@@ -234,10 +234,18 @@
         <!-- ============================================================== -->
         <!-- Bedtime components. -->
         <!-- ============================================================== -->
+
         <service
             android:name=".bedtime.BedtimeService"
             android:description="@string/bedtime_service_desc"
             android:directBootAware="true" />
+
+        <activity
+            android:name=".bedtime.SleepActivity"
+            android:excludeFromRecents="true"
+            android:parentActivityName=".DeskClock"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
 
 
         <!-- ============================================================== -->

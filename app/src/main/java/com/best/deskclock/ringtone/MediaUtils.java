@@ -191,6 +191,18 @@ public class MediaUtils {
                 Long.valueOf(album.getLastPathSegment()));
     }
 
+    public static String getArtworkUri(Context context, Uri uri) {
+        if (isLocalAlbumUri(uri.toString())) {
+            return getAlbumArtwork(uri).toString();
+        } else if (isLocalArtistUri(uri.toString())) {
+            return getArtistArtwork(context, uri).toString();
+        } else if (isLocalTrackUri(uri.toString())) {
+            return getSongArtwork(context, uri).toString();
+        } else {
+            return null;
+        }
+    }
+
     public static boolean checkArtistExists(Context context, Uri artist) {
         String artistId = artist.getLastPathSegment();
         String selection = MediaStore.Audio.Media.ARTIST_ID + " = " + Long.valueOf(artistId).longValue();

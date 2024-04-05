@@ -2,7 +2,9 @@ package com.best.deskclock.bedtime.beddata;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 
 public class DataSaver {
@@ -21,10 +23,14 @@ public class DataSaver {
     private static final String KEY_DIM_WALL = PREF_BASE + "dimWall";
     //private static final String KEY_ORIG_WALL = PREF_BASE + "origWall";
     //private static final String KEY_DARK_THEME = PREF_BASE + "darkTheme"; FIXME: if any of these feature should work properly we need to sync everything with google's wellbeing which at least i can't do
+    private static final String SLEEP_BASE = PREF_BASE + "SLEEP.";
+    private static final String KEY_SLEEP_URI = SLEEP_BASE + "sleepUri";
+    private static final String KEY_SLEEP_LENGTH = SLEEP_BASE + "sleepLength";
 
     private static DataSaver instance;
     private final Context context;
 
+    // bedtime mode timing
     public boolean enabled = false;
     public int hour;
     public int minutes;
@@ -32,6 +38,7 @@ public class DataSaver {
     public Weekdays daysOfWeek;
 
     // what bedtime mode actually is for
+
     public boolean doNotDisturb = false;
     public boolean turnoffAlarm = false;
     // screen options at bedtime
@@ -39,6 +46,11 @@ public class DataSaver {
     public boolean alwaysOnDisplay = false;*/
     public boolean dimWall = false;
     //public boolean darkTheme = false;
+
+    // for sleep sound
+
+    public Uri sleepUri;
+    public int sleepLength = 15;
 
     private DataSaver(Context context) {
         this.context = context;
@@ -66,6 +78,8 @@ public class DataSaver {
         editor.putBoolean(KEY_ALWAYS_ON_DISPLAY, alwaysOnDisplay);*/
         editor.putBoolean(KEY_DIM_WALL, dimWall);
         //editor.putBoolean(KEY_DARK_THEME, darkTheme);
+        editor.putString(KEY_SLEEP_URI, sleepUri.toString());
+        editor.putInt(KEY_SLEEP_LENGTH, sleepLength);
         editor.apply();
     }
 
@@ -83,6 +97,8 @@ public class DataSaver {
         alwaysOnDisplay = preferences.getBoolean(KEY_ALWAYS_ON_DISPLAY, false);*/
         dimWall = preferences.getBoolean(KEY_DIM_WALL, false);
         //darkTheme = preferences.getBoolean(KEY_DARK_THEME, false);
+        sleepUri = Uri.parse(preferences.getString(KEY_SLEEP_URI, DataModel.getDataModel().getDefaultAlarmRingtoneUri().toString()));// TODO: the default alarm sound isn't a nice Uri to begin sleeping
+        sleepLength = preferences.getInt(KEY_SLEEP_LENGTH, sleepLength);
     }
 }
 

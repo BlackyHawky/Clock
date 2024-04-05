@@ -52,7 +52,7 @@ public class BaseKlaxon {
     private static final int INCREASING_VOLUME_START = 1;
     private static final int INCREASING_VOLUME_DELTA = 1;
 
-    private static boolean sStarted = false;
+    public static boolean sStarted = false;
     private static AudioManager sAudioManager = null;
     private static MediaPlayer sMediaPlayer = null;
     private static List<Uri> mSongs = new ArrayList<Uri>();

@@ -39,13 +39,15 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+        android:id="@+id/bedtime_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible">
+        android:visibility="visible"
+        style="@style/Widget.Material3.CardView.Filled">
 
         <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
@@ -116,6 +118,91 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sleep_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bedtime_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        style="@style/Widget.Material3.CardView.Filled">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ringtone_sound"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sleep_play">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/md_theme_primary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+                <ImageView
+                    android:id="@+id/ringtone_image"
+                    android:layout_width="@dimen/ringtone_image_size"
+                    android:layout_height="@dimen/ringtone_image_size"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_media_song" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/ringtone_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:singleLine="true"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_card"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/tab_songs" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sleep_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ringtone_sound"
+            app:layout_constraintBottom_toBottomOf="@id/ringtone_sound" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:id="@+id/sleep_choose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sleep_choose"
+            app:layout_constraintTop_toBottomOf="@id/ringtone_sound"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sleep_spinner"/>
+        <Spinner
+            android:id="@+id/sleep_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sleep_choose"
+            app:layout_constraintTop_toTopOf="@id/sleep_choose"
+            app:layout_constraintBottom_toBottomOf="@id/sleep_choose" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
