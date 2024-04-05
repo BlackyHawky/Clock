@@ -86,6 +86,8 @@ public final class TimerFragment extends DeskClockFragment {
 
     private Serializable mTimerSetupState;
 
+    private Context mContext;
+
     /**
      * {@code true} while this fragment is creating a new timer; {@code false} otherwise.
      */
@@ -109,6 +111,8 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+
+        mContext = requireContext();
 
         TimerClickHandler timerClickHandler = new TimerClickHandler(this);
         mAdapter = new TimerAdapter(timerClickHandler);
@@ -139,7 +143,7 @@ public final class TimerFragment extends DeskClockFragment {
         int showTimerId = -1;
 
         // Examine the intent of the parent activity to determine which view to display.
-        final Intent intent = getActivity().getIntent();
+        final Intent intent = requireActivity().getIntent();
         if (intent != null) {
             // These extras are single-use; remove them after honoring them.
             createTimer = intent.getBooleanExtra(EXTRA_TIMER_SETUP, false);
@@ -186,7 +190,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // If the timer creation view is visible, store the input for later restoration.
@@ -199,12 +203,12 @@ public final class TimerFragment extends DeskClockFragment {
     private void updateFab(@NonNull ImageView fab) {
         if (mCurrentView == mTimersView) {
             fab.setImageResource(R.drawable.ic_add);
-            fab.setContentDescription(getContext().getString(R.string.timer_add_timer));
+            fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(getContext().getString(R.string.timer_start));
+                fab.setContentDescription(mContext.getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {
                 fab.setContentDescription(null);
@@ -237,13 +241,13 @@ public final class TimerFragment extends DeskClockFragment {
 
             left.setClickable(true);
             left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_cancel));
-            left.setContentDescription(getContext().getString(R.string.timer_cancel));
+            left.setContentDescription(mContext.getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {
                 mCreateTimerView.reset();
                 animateToView(mTimersView, false);
-                left.announceForAccessibility(getContext().getString(R.string.timer_canceled));
+                left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
             });
         }
     }

@@ -76,6 +76,7 @@ public final class ClockFragment extends DeskClockFragment {
     private RecyclerView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
+    private Context mContext;
 
     public static boolean mIsPortrait;
     public static boolean mShowHomeClock;
@@ -96,28 +97,30 @@ public final class ClockFragment extends DeskClockFragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle icicle) {
         super.onCreateView(inflater, container, icicle);
 
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
 
-        mIsPortrait = Utils.isPortrait(getContext());
+        mContext = requireContext();
+
+        mIsPortrait = Utils.isPortrait(mContext);
 
         mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
 
-        mDateFormat = getContext().getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getContext().getString(R.string.full_wday_month_day_no_year);
+        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
-        mCityAdapter = new SelectedCitiesAdapter(getContext(), mDateFormat, mDateFormatForAccessibility);
+        mCityAdapter = new SelectedCitiesAdapter(mContext, mDateFormat, mDateFormatForAccessibility);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
         mCityList = fragmentView.findViewById(R.id.cities);
-        mCityList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mCityList.setLayoutManager(new LinearLayoutManager(mContext));
         mCityList.setAdapter(mCityAdapter);
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
-        mCityList.setOnTouchListener(new CityListOnLongClickListener(getContext()));
+        mCityList.setOnTouchListener(new CityListOnLongClickListener(mContext));
         fragmentView.setOnLongClickListener(new StartScreenSaverListener());
 
         // On tablet landscape, the clock frame will be a distinct view.
@@ -142,10 +145,10 @@ public final class ClockFragment extends DeskClockFragment {
     public void onResume() {
         super.onResume();
 
-        final Activity activity = getActivity();
+        final Activity activity = requireActivity();
 
-        mDateFormat = getContext().getString(R.string.abbrev_wday_month_day_no_year);
-        mDateFormatForAccessibility = getContext().getString(R.string.full_wday_month_day_no_year);
+        mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
@@ -180,7 +183,7 @@ public final class ClockFragment extends DeskClockFragment {
         super.onPause();
 
         if (mAlarmChangeReceiver != null) {
-            getContext().unregisterReceiver(mAlarmChangeReceiver);
+            mContext.unregisterReceiver(mAlarmChangeReceiver);
         }
     }
 
@@ -193,14 +196,14 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void onFabClick(@NonNull ImageView fab) {
-        startActivity(new Intent(getContext(), CitySelectionActivity.class));
+        startActivity(new Intent(mContext, CitySelectionActivity.class));
     }
 
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_public);
-        fab.setContentDescription(getContext().getResources().getString(R.string.button_cities));
+        fab.setContentDescription(mContext.getResources().getString(R.string.button_cities));
     }
 
     @Override

@@ -26,6 +26,7 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -138,10 +139,15 @@ public final class StopwatchFragment extends DeskClockFragment {
         super(STOPWATCH);
     }
 
+    private Activity mActivity;
+    private Context mContext;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mLapsAdapter = new LapsAdapter(getContext());
         mLapsLayoutManager = new LinearLayoutManager(getContext());
+
+        mContext = requireContext();
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -151,7 +157,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (Utils.isLandscape(getContext())) {
+        if (Utils.isLandscape(mContext)) {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
@@ -173,7 +179,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
         }
 
-        final int colorAccent = getContext().getColor(R.color.md_theme_primary);
+        final int colorAccent = mContext.getColor(R.color.md_theme_primary);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
@@ -188,18 +194,18 @@ public final class StopwatchFragment extends DeskClockFragment {
     public void onStart() {
         super.onStart();
 
-        final Activity activity = getActivity();
-        final Intent intent = activity.getIntent();
+        mActivity = requireActivity();
+        final Intent intent = mActivity.getIntent();
         if (intent != null) {
             final String action = intent.getAction();
             if (StopwatchService.ACTION_START_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().startStopwatch();
                 // Consume the intent
-                activity.setIntent(null);
+                mActivity.setIntent(null);
             } else if (StopwatchService.ACTION_PAUSE_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().pauseStopwatch();
                 // Consume the intent
-                activity.setIntent(null);
+                mActivity.setIntent(null);
             }
         }
 
@@ -267,7 +273,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
         left.setClickable(true);
         left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_reset));
-        left.setContentDescription(getContext().getString(R.string.sw_reset_button));
+        left.setContentDescription(mContext.getString(R.string.sw_reset_button));
         left.setOnClickListener(v -> doReset());
 
         switch (getStopwatch().getState()) {
@@ -280,7 +286,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 left.setVisibility(VISIBLE);
                 final boolean canRecordLaps = canRecordMoreLaps();
                 right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_tab_stopwatch_static));
-                right.setContentDescription(getContext().getString(R.string.sw_lap_button));
+                right.setContentDescription(mContext.getString(R.string.sw_lap_button));
                 right.setClickable(canRecordLaps);
                 right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
                 right.setOnClickListener(v -> doAddLap());
@@ -290,7 +296,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 right.setClickable(true);
                 right.setVisibility(VISIBLE);
                 right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_share));
-                right.setContentDescription(getContext().getString(R.string.sw_share_button));
+                right.setContentDescription(mContext.getString(R.string.sw_share_button));
                 right.setOnClickListener(v -> doShare());
             }
         }
@@ -302,7 +308,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doStart() {
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.vibrationTime(getContext(), 50);
+        Utils.vibrationTime(mContext, 50);
     }
 
     /**
@@ -311,7 +317,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doPause() {
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.vibrationTime(getContext(), 50);
+        Utils.vibrationTime(mContext, 50);
     }
 
     /**
@@ -326,7 +332,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-        Utils.vibrationTime(getContext(), 10);
+        Utils.vibrationTime(mContext, 10);
     }
 
     /**
@@ -336,7 +342,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Disable the fab buttons to avoid double-taps on the share button.
         updateFab(BUTTONS_DISABLE);
 
-        final String[] subjects = getContext().getResources().getStringArray(R.array.sw_share_strings);
+        final String[] subjects = mContext.getResources().getStringArray(R.array.sw_share_strings);
         final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
 
@@ -346,10 +352,10 @@ public final class StopwatchFragment extends DeskClockFragment {
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .setType("text/plain");
 
-        final String title = getContext().getString(R.string.sw_share_button);
+        final String title = mContext.getString(R.string.sw_share_button);
         final Intent shareChooserIntent = Intent.createChooser(shareIntent, title);
         try {
-            getContext().startActivity(shareChooserIntent);
+            mContext.startActivity(shareChooserIntent);
         } catch (ActivityNotFoundException anfe) {
             LogUtils.e("Cannot share lap data because no suitable receiving Activity exists");
             updateFab(BUTTONS_IMMEDIATE);
@@ -408,10 +414,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (Utils.isPortrait(getContext())) {
+        if (Utils.isPortrait(mContext)) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = lapsVisible ? 0 : Utils.toPixel(80, getContext());
+            final int bottom = lapsVisible ? 0 : Utils.toPixel(80, mContext);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();
@@ -422,14 +428,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void adjustWakeLock() {
         final boolean appInForeground = DataModel.getDataModel().isApplicationInForeground();
         if (getStopwatch().isRunning() && isTabSelected() && appInForeground) {
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             releaseWakeLock();
         }
     }
 
     private void releaseWakeLock() {
-        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**
@@ -589,7 +595,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-            Utils.vibrationTime(getContext(), 50);
+            Utils.vibrationTime(mContext, 50);
         }
     }
 

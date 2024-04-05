@@ -57,10 +57,6 @@ public final class Weekdays {
     private static final int ALL_DAYS = 0x7F;
 
     /**
-     * An instance with all weekdays in the weekly repeat cycle.
-     */
-    public static final Weekdays ALL = Weekdays.fromBits(ALL_DAYS);
-    /**
      * Maps calendar weekdays to the bit masks that represent them in this class.
      */
     private static final Map<Integer, Integer> sCalendarDayToBit;
