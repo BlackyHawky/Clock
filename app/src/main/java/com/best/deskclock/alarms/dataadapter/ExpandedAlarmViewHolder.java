@@ -44,6 +44,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
@@ -56,7 +57,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final LinearLayout repeatDays;
     public final CheckBox vibrate;
     public final TextView ringtone;
-    public final TextView delete;
+    public final Chip delete;
+    public final Chip duplicate;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
 
     private final boolean mHasVibrator;
@@ -67,6 +69,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         mHasVibrator = hasVibrator;
 
         delete = itemView.findViewById(R.id.delete);
+        duplicate = itemView.findViewById(R.id.duplicate);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
@@ -112,6 +115,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete.setOnClickListener(v -> {
             getAlarmTimeClickHandler().onDeleteClicked(getItemHolder());
             v.announceForAccessibility(context.getString(R.string.alarm_deleted));
+        });
+
+        // Duplicate alarm handler
+        duplicate.setOnClickListener(v -> {
+            getAlarmTimeClickHandler().onDuplicateClicked(getItemHolder());
+            v.announceForAccessibility(context.getString(R.string.alarm_created));
         });
 
         // Day buttons handler

@@ -20,6 +20,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
     <string name="delete" msgid="5732434972457000541">"Supprimer"</string>
+    <string name="duplicate">Dupliquer</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Son de l\'alarme par défaut"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Son de l\'alarme"</string>
     <string name="timer_sound" msgid="896163086604894735">"Son du minuteur"</string>
@@ -483,6 +484,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme supprimée"</string>
+    <string name="alarm_created">Alarme créée</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> de plus"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> de moins"</string>

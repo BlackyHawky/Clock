@@ -151,6 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="8dp"
+                android:paddingEnd="4dp"
                 android:text="@string/alarm_vibrate"
                 android:textColor="?android:attr/textColorPrimary"
                 tools:ignore="RtlSymmetry"
@@ -158,16 +159,32 @@
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.chip.Chip
             android:id="@+id/delete"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:text="@string/delete"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
             android:textAllCaps="false"
-            android:paddingStart="10dp"
-            android:paddingEnd="14dp"
-            app:icon="@drawable/ic_delete"
+            app:chipIcon="@drawable/ic_delete"
+            app:chipBackgroundColor="#EF5350"
+            app:chipStrokeWidth="0dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ringtone_linear_layout" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/duplicate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duplicate"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textAllCaps="false"
+            app:chipIcon="@drawable/ic_duplicate"
+            app:chipIconTint="?android:attr/textColorPrimaryInverse"
+            app:chipBackgroundColor="@color/md_theme_primary"
+            app:chipStrokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ringtone_linear_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

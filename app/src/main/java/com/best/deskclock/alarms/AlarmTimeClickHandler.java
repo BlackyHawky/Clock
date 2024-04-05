@@ -122,6 +122,13 @@ public final class AlarmTimeClickHandler {
         LOGGER.d("Deleting alarm.");
     }
 
+    public void onDuplicateClicked(AlarmItemHolder itemHolder) {
+        final Alarm alarm = itemHolder.item;
+        Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
+        mAlarmUpdateHandler.asyncAddAlarm(alarm);
+        LOGGER.d("Adding alarm.");
+    }
+
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);

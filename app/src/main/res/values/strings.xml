@@ -34,6 +34,9 @@
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
 
+    <!-- Setting labels on Set alarm screen: Duplicate -->
+    <string name="duplicate">Duplicate</string>
+
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
 
@@ -1049,6 +1052,8 @@
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
+    <!-- Toast content when an alarm was created  -->
+    <string name="alarm_created">Alarm created</string>
 
     <!-- slash between date and next alarm in the clock: used for the DigitalAppWidget -->
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
