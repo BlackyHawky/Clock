@@ -16,11 +16,10 @@
 
 package com.best.deskclock.timer;
 
-
-import android.app.Fragment;
-
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
+
+import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.events.Events;
@@ -39,7 +38,7 @@ public final class TimerClickHandler {
     public void onEditLabelClicked(Timer timer) {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
         final LabelDialogFragment fragment = LabelDialogFragment.newInstance(timer);
-        LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);
+        LabelDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
     
 }

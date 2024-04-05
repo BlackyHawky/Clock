@@ -16,13 +16,13 @@
 
 package com.best.deskclock.alarms;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.LabelDialogFragment;
@@ -58,7 +58,7 @@ public final class AlarmTimeClickHandler {
                                  AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
 
         mFragment = fragment;
-        mContext = mFragment.getActivity().getApplicationContext();
+        mContext = mFragment.requireActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
         mScrollHandler = smoothScrollController;
         if (savedState != null) {
@@ -140,7 +140,7 @@ public final class AlarmTimeClickHandler {
                 .setHour(hour)
                 .setMinute(minute)
                 .build();
-        Context context = mFragment.getContext();
+        Context context = mFragment.requireContext();
         materialTimePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
 
         materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
@@ -161,7 +161,7 @@ public final class AlarmTimeClickHandler {
     public void onEditLabelClicked(Alarm alarm) {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
         final LabelDialogFragment fragment = LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
-        LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);
+        LabelDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
     public void onTimeSet(int hourOfDay, int minute) {

@@ -19,10 +19,6 @@ package com.best.deskclock;
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -39,6 +35,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
@@ -120,6 +120,7 @@ public class LabelDialogFragment extends DialogFragment {
         }
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
@@ -132,15 +133,15 @@ public class LabelDialogFragment extends DialogFragment {
             label = savedInstanceState.getString(ARG_LABEL, label);
         }
 
-        final AlertDialog dialog = new AlertDialog.Builder(getContext())
+        final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
                 .setMessage(R.string.label)
                 .create();
 
-        mLabelBox = new AppCompatEditText(getContext());
+        mLabelBox = new AppCompatEditText(requireContext());
         mLabelBox.requestFocus();
-        mInput = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInput.showSoftInput(mLabelBox, InputMethodManager.SHOW_IMPLICIT);
         mLabelBox.setOnEditorActionListener(new ImeDoneListener());
         mLabelBox.addTextChangedListener(new TextChangeListener());
@@ -151,7 +152,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = Utils.toPixel(21, getContext());
+        final int padding = Utils.toPixel(21, requireContext());
         dialog.setView(mLabelBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();
@@ -181,7 +182,7 @@ public class LabelDialogFragment extends DialogFragment {
         }
 
         if (mAlarm != null) {
-            ((AlarmLabelDialogHandler) getActivity()).onDialogLabelSet(mAlarm, label, mTag);
+            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label, mTag);
         } else if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {

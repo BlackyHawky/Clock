@@ -26,8 +26,6 @@ import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SO
 import static com.best.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,6 +44,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -330,7 +330,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         final RingtoneHolder toRemove = (RingtoneHolder) items.get(indexOfRingtoneToRemove);
 
         // Launch the confirmation dialog.
-        final FragmentManager manager = getFragmentManager();
+        final FragmentManager manager = getSupportFragmentManager();
         final boolean hasPermissions = toRemove.hasPermissions();
         ConfirmRemoveCustomRingtoneDialogFragment.show(manager, toRemove.getUri(), hasPermissions);
     }
@@ -416,22 +416,23 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             fragment.show(manager, "confirm_ringtone_remove");
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Bundle arguments = getArguments();
+            final Bundle arguments = requireArguments();
             final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
-                    ((RingtonePickerActivity) getActivity()).removeCustomRingtoneAsync(toRemove);
+                    ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
             if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
-                return new AlertDialog.Builder(getActivity())
+                return new AlertDialog.Builder(requireActivity())
                         .setPositiveButton(R.string.remove_sound, okListener)
                         .setNegativeButton(android.R.string.cancel, null)
                         .setMessage(R.string.confirm_remove_custom_ringtone)
                         .create();
             } else {
-                return new AlertDialog.Builder(getActivity())
+                return new AlertDialog.Builder(requireActivity())
                         .setPositiveButton(R.string.remove_sound, okListener)
                         .setMessage(R.string.custom_ringtone_lost_permissions)
                         .create();
@@ -473,7 +474,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 }
                 case RingtoneViewHolder.CLICK_REMOVE -> onItemRemovedClicked(viewHolder.getBindingAdapterPosition());
                 case RingtoneViewHolder.CLICK_NO_PERMISSIONS ->
-                        ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
+                        ConfirmRemoveCustomRingtoneDialogFragment.show(getSupportFragmentManager(),
                                 ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
             }
         }

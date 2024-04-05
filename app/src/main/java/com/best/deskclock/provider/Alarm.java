@@ -21,7 +21,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
@@ -30,6 +29,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.loader.content.CursorLoader;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -235,21 +235,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public static CursorLoader getAlarmsCursorLoader(Context context) {
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
                 QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
-            @Override
-            public void onContentChanged() {
-                // There is a bug in Loader which can result in stale data if a loader is stopped
-                // immediately after a call to onContentChanged. As a workaround we stop the
-                // loader before delivering onContentChanged to ensure mContentChanged is set to
-                // true before forceLoad is called.
-                if (isStarted() && !isAbandoned()) {
-                    stopLoading();
-                    super.onContentChanged();
-                    startLoading();
-                } else {
-                    super.onContentChanged();
-                }
-            }
-
             @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to

@@ -16,11 +16,11 @@
 
 package com.best.deskclock;
 
-import android.app.Fragment;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;

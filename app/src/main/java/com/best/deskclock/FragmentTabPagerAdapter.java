@@ -16,15 +16,15 @@
 
 package com.best.deskclock;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.util.ArrayMap;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.legacy.app.FragmentCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.best.deskclock.uidata.UiDataModel;
@@ -65,7 +65,7 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
     FragmentTabPagerAdapter(DeskClock deskClock) {
         mDeskClock = deskClock;
         mFragmentCache = new ArrayMap<>(getCount());
-        mFragmentManager = deskClock.getFragmentManager();
+        mFragmentManager = deskClock.getSupportFragmentManager();
     }
 
     @Override
@@ -99,7 +99,8 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
 
         // Otherwise, build the fragment from scratch.
         final String fragmentClassName = tab.getFragmentClassName();
-        fragment = (DeskClockFragment) Fragment.instantiate(mDeskClock, fragmentClassName);
+        FragmentFactory fragmentFactory = mFragmentManager.getFragmentFactory();
+        fragment = (DeskClockFragment) fragmentFactory.instantiate(mDeskClock.getClassLoader(), fragmentClassName);
         fragment.setFabContainer(mDeskClock);
         mFragmentCache.put(tab, fragment);
         return fragment;
@@ -130,8 +131,8 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
         }
 
         if (fragment != mCurrentPrimaryItem) {
-            FragmentCompat.setMenuVisibility(fragment, false);
-            FragmentCompat.setUserVisibleHint(fragment, false);
+            fragment.setMenuVisibility(false);
+            fragment.setUserVisibleHint(false);
         }
 
         return fragment;
@@ -152,12 +153,12 @@ final class FragmentTabPagerAdapter extends PagerAdapter {
         final Fragment fragment = (Fragment) object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
-                FragmentCompat.setMenuVisibility(mCurrentPrimaryItem, false);
-                FragmentCompat.setUserVisibleHint(mCurrentPrimaryItem, false);
+                mCurrentPrimaryItem.setMenuVisibility(false);
+                mCurrentPrimaryItem.setUserVisibleHint(false);
             }
 
-            FragmentCompat.setMenuVisibility(fragment, true);
-            FragmentCompat.setUserVisibleHint(fragment, true);
+            fragment.setMenuVisibility(true);
+            fragment.setUserVisibleHint(true);
             mCurrentPrimaryItem = fragment;
         }
     }
