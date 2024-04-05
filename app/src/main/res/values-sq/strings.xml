@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"Emërtimi"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarmi"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Dridhja"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"Përsërit"</string>
     <string name="delete" msgid="5732434972457000541">"Fshi"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Tingulli i parazgjedhur i alarmit sinjalizues"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Tingulli i alarmit"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometri"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Shto alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Qytetet"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"Cilësimet"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Mbrojtësi i ekranit"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Klasifiko sipas orës"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Klasifiko sipas emrit"</string>

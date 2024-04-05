@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"লেবেল"</string>
     <string name="default_label" msgid="5590025289805630372">"অ্যালার্ম"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"কম্পন"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"পুনরাবৃত্তি করুন"</string>
     <string name="delete" msgid="5732434972457000541">"মুছুন"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ডিফল্ট অ্যালার্মের শব্দ"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"অ্যালার্মের শব্দ"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"স্টপওয়াচ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"অ্যালার্ম যোগ করুন"</string>
     <string name="button_cities" msgid="4555761857494501363">"শহর"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"সেটিংস"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"স্ক্রিন সেভার"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"সময়ের ভিত্তিতে বাছাই করুন"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"নাম অনুসারে সাজান"</string>

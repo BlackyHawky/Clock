@@ -72,7 +72,6 @@
         <item>30 minutes</item>
     </string-array>
     <string name="label_description">Etikedo</string>
-    <string name="menu_item_settings">Agordoj</string>
     <string name="sw_share_button">Konigi</string>
     <string name="seconds_label">s</string>
     <string name="timer_delete">Forigi</string>

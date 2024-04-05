@@ -7,5 +7,4 @@
     <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
     <string name="app_label_debug" translatable="false">Clock debug</string>
     <string name="settings" translatable="false">Settings debug version</string>
-    <string name="menu_item_settings" translatable="false">Settings debug version</string>
 </resources>

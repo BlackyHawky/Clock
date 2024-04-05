@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"ലേബൽ"</string>
     <string name="default_label" msgid="5590025289805630372">"അലാറം"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"വൈബ്രേറ്റുചെയ്യുക"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"ആവർത്തിക്കുക"</string>
     <string name="delete" msgid="5732434972457000541">"ഇല്ലാതാക്കുക"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ഡിഫോൾട്ട് അലാറം ശബ്ദം"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"അലാറം ശബ്ദം"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"സ്ക്രീൻ സേവർ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"പേര് പ്രകാരം അടുക്കുക"</string>

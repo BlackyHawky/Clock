@@ -45,7 +45,6 @@
         app:layout_constraintGuide_percent="0.45" />
 
     <ImageView
-        android:id="@+id/bedtime_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_moon"

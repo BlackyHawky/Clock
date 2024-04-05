@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"အညွှန်း"</string>
     <string name="default_label" msgid="5590025289805630372">"နှိုးစက်"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"တုန်ခါရန်"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"ထပ်လုပ်ရန်"</string>
     <string name="delete" msgid="5732434972457000541">"ဖျက်ရန်"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"မူရင်းနှိုးစက်သံ"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"နိုးစက်သံ"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"အချိန်ဖမ်းနာရီ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"နှိုးစက် ထည့်ရန်"</string>
     <string name="button_cities" msgid="4555761857494501363">"မြို့များ"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"ဆက်တင်များ"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"ဖန်သားပြင်သုံးစွဲခြင်း ချွေတာမှုစနစ်"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"အချိန်အလိုက် စီရန်"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"အမည်အလိုက် စီရန်"</string>

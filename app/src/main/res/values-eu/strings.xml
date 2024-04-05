@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"Etiketa"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Egin dar-dar"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"Errepikatu"</string>
     <string name="delete" msgid="5732434972457000541">"Ezabatu"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Alarmaren soinu lehenetsia"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Alarmaren soinua"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometroa"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Gehitu alarma"</string>
     <string name="button_cities" msgid="4555761857494501363">"Hiriak"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"Ezarpenak"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Pantaila-babeslea"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordenatu orduaren arabera"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordenatu izenaren arabera"</string>

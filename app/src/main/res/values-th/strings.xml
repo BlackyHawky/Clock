@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
     <string name="default_label" msgid="5590025289805630372">"ปลุก"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"สั่น"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"ตั้งซ้ำ"</string>
     <string name="delete" msgid="5732434972457000541">"ลบ"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"เสียงปลุกเริ่มต้น"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"เสียงปลุก"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"นาฬิกาจับเวลา"</string>
     <string name="button_alarms" msgid="3907838219512538763">"เพิ่มการปลุก"</string>
     <string name="button_cities" msgid="4555761857494501363">"เมือง"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"การตั้งค่า"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"โปรแกรมรักษาหน้าจอ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"จัดเรียงตามเวลา"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"จัดเรียงตามชื่อ"</string>

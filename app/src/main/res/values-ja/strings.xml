@@ -19,7 +19,6 @@
     <string name="label" msgid="162189613902857319">"ラベル"</string>
     <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"繰り返し"</string>
     <string name="delete" msgid="5732434972457000541">"削除"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"デフォルトのアラーム音"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"アラームの音"</string>
@@ -189,7 +188,6 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"ストップウォッチ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"アラームを追加"</string>
     <string name="button_cities" msgid="4555761857494501363">"世界時計"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"スクリーンセーバー"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"時間順"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"名前順"</string>

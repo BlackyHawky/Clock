@@ -30,7 +30,6 @@
     <string name="alarm_vibrate">Vibrate</string>
 
     <!-- Setting labels on Set alarm screen: Repeat -->
-    <string name="alarm_repeat">Repeat</string>
 
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
@@ -250,7 +249,6 @@
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
 
-    <string name="key_theme">key_theme</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Entries listed in the ListPreference when selecting the theme. -->
@@ -508,7 +506,6 @@
     <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->
     <string name="button_cities">Cities</string>
     <!-- Menu item on most screens to get to more settings -->
-    <string name="menu_item_settings">Settings</string>
     <!-- Menu item on Cities screen to sort by GMT offset -->
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->

@@ -18,7 +18,6 @@
     <string name="label">Beschreiwung</string>
     <string name="default_label">Wecker</string>
     <string name="alarm_vibrate">Vibréieren</string>
-    <string name="alarm_repeat">Widderhuelen</string>
     <string name="delete">Läschen</string>
     <string name="alarm_tomorrow">Muer</string>
     <string name="alarm_today">Haut</string>
@@ -125,7 +124,6 @@
     <string name="menu_stopwatch">Stoppauer</string>
     <string name="button_alarms">Wecker dobäisetzen</string>
     <string name="button_cities">Stied</string>
-    <string name="menu_item_settings">Astellungen</string>
     <string name="menu_item_sort_by_gmt_offset">No Zäit zortéieren</string>
     <string name="menu_item_sort_by_name">No Numm zortéieren</string>
     <string name="selected_cities_label">Ausgewielt Stied</string>
