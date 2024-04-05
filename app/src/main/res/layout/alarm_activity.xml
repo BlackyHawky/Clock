@@ -45,25 +45,44 @@
             android:layout_height="wrap_content"
             app:layout_constraintGuide_percent="0.75" />
 
-        <TextClock
-            android:id="@+id/digital_clock"
+        <FrameLayout
+            android:id="@+id/clock_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:textSize="@dimen/big_font_size"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="12:34" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.best.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+
+            <TextClock
+                android:id="@+id/digital_clock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:textSize="@dimen/big_font_size"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="12:34" />
+
+        </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:paddingVertical="20dp"
             android:singleLine="true"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             tools:text="Test alarm" />
 
         <com.best.deskclock.widget.CircleView
@@ -75,7 +94,7 @@
             app:fillColor="@color/md_theme_onSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:radius="128dp" />
 
@@ -88,7 +107,7 @@
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_snooze_text"
             app:layout_constraintEnd_toStartOf="@+id/vertical_start_guide"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
@@ -100,7 +119,7 @@
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_dismiss_text"
             app:layout_constraintStart_toEndOf="@+id/vertical_end_guide"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
@@ -110,7 +129,7 @@
             android:contentDescription="@string/description_direction_both"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
+            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -129,9 +148,9 @@
 
     <LinearLayout
         android:id="@+id/alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">

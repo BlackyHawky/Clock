@@ -32,6 +32,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.best.deskclock.alarms.AlarmActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -88,7 +90,9 @@ public class AnalogClock extends FrameLayout {
         // Get color from textColorPrimary attribute
         final TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
-        final int color = context.getColor(typedValue.resourceId);
+        final int color = context instanceof AlarmActivity
+                ? context.getColor(R.color.md_theme_outline)
+                : context.getColor(typedValue.resourceId);
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.

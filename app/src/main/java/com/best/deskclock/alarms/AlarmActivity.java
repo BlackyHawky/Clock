@@ -38,6 +38,7 @@ import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.os.Build;
@@ -61,6 +62,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
+import com.best.deskclock.AnalogClock;
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
@@ -106,6 +108,7 @@ public class AlarmActivity extends AppCompatActivity
     private AlarmVolumeButtonBehavior mVolumeBehavior;
     private AlarmVolumeButtonBehavior mPowerBehavior;
     private int mCurrentHourColor;
+    private int mTextColor;
     private boolean mReceiverRegistered;
     /**
      * Whether the AlarmService is currently bound
@@ -230,6 +233,8 @@ public class AlarmActivity extends AppCompatActivity
             alarmActivityLayout.setBackgroundColor(Color.BLACK);
         }
 
+        mTextColor = getColor(R.color.md_theme_outline);
+
         mAlertView = findViewById(R.id.alert);
         mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
         mAlertInfoView = mAlertView.findViewById(R.id.alert_info);
@@ -243,26 +248,30 @@ public class AlarmActivity extends AppCompatActivity
         mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
         );
-        mAlarmButton.setColorFilter(getColor(R.color.md_theme_outline));
+        mAlarmButton.setColorFilter(mTextColor);
 
         mDismissButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
         );
-        mDismissButton.setColorFilter(getColor(R.color.md_theme_outline));
+        mDismissButton.setColorFilter(mTextColor);
 
         mSnoozeButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
-        mSnoozeButton.setColorFilter(getColor(R.color.md_theme_outline));
+        mSnoozeButton.setColorFilter(mTextColor);
 
         final TextView titleView = mContentView.findViewById(R.id.title);
+        final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);
 
+        Utils.setClockStyle(digitalClock, analogClock);
+        Utils.setClockSecondsEnabled(digitalClock, analogClock);
+
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        titleView.setTextColor(getColor(R.color.md_theme_outline));
+        titleView.setTextColor(mTextColor);
         Utils.setTimeFormat(digitalClock, false);
-        digitalClock.setTextColor(getColor(R.color.md_theme_outline));
+        digitalClock.setTextColor(mTextColor);
 
         mCurrentHourColor = getColor(R.color.md_theme_background);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
@@ -674,13 +683,15 @@ public class AlarmActivity extends AppCompatActivity
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
                 mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                mAlertTitleView.setTextColor(getColor(R.color.md_theme_outline));
+                mAlertTitleView.setTextColor(mTextColor);
+                mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
                 if (infoText != null) {
-                    mAlertInfoView.setText(infoText);
-                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-                    mAlertInfoView.setTextColor(getColor(R.color.md_theme_outline));
                     mAlertInfoView.setVisibility(View.VISIBLE);
+                    mAlertInfoView.setText(infoText);
+                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                    mAlertInfoView.setTextColor(mTextColor);
+                    mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
                 }
                 mContentView.setVisibility(View.GONE);
 
