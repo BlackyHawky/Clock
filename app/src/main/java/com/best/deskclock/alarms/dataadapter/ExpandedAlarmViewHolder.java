@@ -40,6 +40,7 @@ import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -144,6 +145,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDaysOfWeekButtons(alarm, context);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
+        bindDuplicateButton();
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -180,6 +182,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             vibrate.setChecked(alarm.vibrate);
         } else {
             vibrate.setVisibility(View.GONE);
+        }
+    }
+
+    private void bindDuplicateButton() {
+        if (!getItemHolder().item.equals(
+                Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            duplicate.setVisibility(View.VISIBLE);
         }
     }
 

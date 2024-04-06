@@ -119,39 +119,39 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/onoff" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/choose_ringtone"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_ringtone"
-                android:drawableTint="@color/md_theme_onSurfaceVariant"
-                android:drawablePadding="10dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:gravity="center_vertical"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="?android:attr/textColorPrimary"
-                app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm"
-                tools:text="Standard (Hassium)" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/choose_ringtone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:drawableStart="@drawable/ic_ringtone"
+            android:drawableTint="@color/md_theme_onSurfaceVariant"
+            android:drawablePadding="10dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm"
+            tools:text="Standard (Hassium)" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/vibrate_onoff"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="?selectableItemBackground"
-                android:button="@null"
-                android:drawableStart="@drawable/ic_vibrate"
-                android:drawableEnd="@drawable/ic_selector_checkbox"
-                android:drawablePadding="10dp"
-                android:text="@string/alarm_vibrate"
-                android:textColor="?android:attr/textColorPrimary"
-                app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
-                tools:ignore="RtlSymmetry"
-                tools:checked="true" />
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/vibrate_onoff"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_vibrate"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/alarm_vibrate"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/delete"
@@ -174,12 +174,14 @@
             android:text="@string/duplicate"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textAllCaps="false"
+            android:visibility="invisible"
             app:chipIcon="@drawable/ic_duplicate"
             app:chipIconTint="?android:attr/textColorPrimaryInverse"
             app:chipBackgroundColor="@color/md_theme_primary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />
+            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

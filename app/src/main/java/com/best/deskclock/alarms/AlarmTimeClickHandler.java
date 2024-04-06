@@ -124,7 +124,6 @@ public final class AlarmTimeClickHandler {
 
     public void onDuplicateClicked(AlarmItemHolder itemHolder) {
         final Alarm alarm = itemHolder.item;
-        Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
         mAlarmUpdateHandler.asyncAddAlarm(alarm);
         LOGGER.d("Adding alarm.");
     }
