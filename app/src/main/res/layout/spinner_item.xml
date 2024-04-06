@@ -16,8 +16,8 @@
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:minHeight="40dp"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="@null"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:singleLine="true"

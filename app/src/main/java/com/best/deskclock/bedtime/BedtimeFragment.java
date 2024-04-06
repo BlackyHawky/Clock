@@ -8,8 +8,8 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -180,6 +180,10 @@ public final class BedtimeFragment extends DeskClockFragment {
                     ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
                     : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
             );
+            mHoursOfSleep.setTypeface(mSaver.enabled && alarm.enabled
+                    ? Typeface.DEFAULT_BOLD
+                    : Typeface.DEFAULT
+            );
         } else {
             mHoursOfSleep.setText(R.string.wakeup_alarm_non_existent);
         }
@@ -215,6 +219,11 @@ public final class BedtimeFragment extends DeskClockFragment {
         mBottomSheetDialog.setContentView(R.layout.bedtime_wakeup_bottom_sheet);
         mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
 
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
+        }
+
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
         mClock = mBottomSheetDialog.findViewById(R.id.wake_time);
         mVibrate = mBottomSheetDialog.findViewById(R.id.vibrate_onoff_wake);
@@ -245,6 +254,10 @@ public final class BedtimeFragment extends DeskClockFragment {
                 mHoursOfSleep.setAlpha(mSaver.enabled && alarm.enabled
                         ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
                         : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+                );
+                mHoursOfSleep.setTypeface(mSaver.enabled && alarm.enabled
+                        ? Typeface.DEFAULT_BOLD
+                        : Typeface.DEFAULT
                 );
                 Events.sendBedtimeEvent(checked
                         ? R.string.action_enable
@@ -438,11 +451,13 @@ public final class BedtimeFragment extends DeskClockFragment {
         mClock = mBottomSheetDialog.findViewById(R.id.bedtime_time);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
         mNotifList = mBottomSheetDialog.findViewById(R.id.notif_spinner);
+
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            // Change color of the drop down arrow of Spinner
-            mNotifList.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            mNotifList.getPopupBackground().setColorFilter(mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
+            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
         }
+
         mDnd = mBottomSheetDialog.findViewById(R.id.dnd_switch);
         mWall = mBottomSheetDialog.findViewById(R.id.wall_switch);
         buildButton(mBottomSheetDialog);
@@ -464,6 +479,10 @@ public final class BedtimeFragment extends DeskClockFragment {
                 mHoursOfSleep.setAlpha(mSaver.enabled && mAlarm != null && mAlarm.enabled
                         ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
                         : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
+                );
+                mHoursOfSleep.setTypeface(mSaver.enabled && mAlarm != null && mAlarm.enabled
+                        ? Typeface.DEFAULT_BOLD
+                        : Typeface.DEFAULT
                 );
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 

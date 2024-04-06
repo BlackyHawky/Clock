@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="12dp">
 
         <ImageView
             android:id="@+id/drag_handle"
@@ -28,7 +29,7 @@
             android:id="@+id/wakeup_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:text="@string/wakeup"
@@ -46,7 +47,7 @@
             android:id="@+id/wake_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="12dp"
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
             android:textColor="?android:attr/textColorPrimary"
@@ -58,7 +59,7 @@
             android:id="@+id/toggle_switch_wakeup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="12dp"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/wake_time"
@@ -68,9 +69,9 @@
             android:id="@+id/repeat_days_bedtime"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="22dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="22dp"
             android:orientation="horizontal"
             android:focusable="false"
             app:layout_constraintStart_toStartOf="parent"
