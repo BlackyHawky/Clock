@@ -39,14 +39,14 @@
             android:drawablePadding="8dp"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:hint="@string/add_label"
             android:singleLine="true"
             android:textColor="?android:attr/textColorPrimary"
             app:drawableStartCompat="@drawable/ic_label"
             app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:textStyle="bold" />
+            tools:textStyle="bold"
+            tools:hint="@string/add_label" />
 
         <ImageButton
             android:id="@+id/arrow"

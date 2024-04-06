@@ -18,7 +18,6 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -97,8 +96,12 @@ public class TimerItem extends ConstraintLayout {
 
         // Update the label if it changed.
         final String label = timer.getLabel();
-        if (!TextUtils.equals(label, mLabelView.getText())) {
+        if (label.isEmpty()) {
+            mLabelView.setText(getContext().getString(R.string.add_label));
+            mLabelView.setAlpha(0.63f);
+        } else {
             mLabelView.setText(label);
+            mLabelView.setAlpha(1f);
         }
 
         // Update visibility of things that may blink.

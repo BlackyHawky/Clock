@@ -22,21 +22,24 @@
     android:layout_marginHorizontal="10dp"
     android:padding="8dp">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
-        android:textSize="18sp"
+        android:drawablePadding="8dp"
         android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:hint="@string/label"
         android:maxLines="1"
+        app:drawableStartCompat="@drawable/ic_label"
+        app:drawableTint="@color/md_theme_onSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/close"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:hint="@string/add_label" />
 
     <ImageButton
         android:id="@+id/close"
