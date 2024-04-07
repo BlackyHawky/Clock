@@ -4,7 +4,6 @@ android {
     compileSdk 34
 
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true
         applicationId "com.best.deskclock"
         minSdk 23
         targetSdk 34
