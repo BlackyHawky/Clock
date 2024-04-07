@@ -221,14 +221,11 @@ public class DeskClock extends AppCompatActivity
 
         mSnackbarAnchor = findViewById(R.id.content);
 
-        // Check the essential permissions to be granted by the user.
+        // Seems necessary if the application is launched from a widget
+        isFirstLaunch();
+
         checkPermissions();
 
-        // Show dialog to present the main features of the application
-        // and the necessary permissions to be granted by the user.
-        firstRunDialog();
-
-        // Displays the right tab if the application has been closed and then reopened from the notification.
         showTabFromNotifications();
 
         // Configure the buttons shared by the tabs.
@@ -354,7 +351,7 @@ public class DeskClock extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        // Displays the right tab if the application has been minimized and then reopened from the notification.
+
         showTabFromNotifications();
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
@@ -466,24 +463,20 @@ public class DeskClock extends AppCompatActivity
         }
     }
 
-    public void firstRunDialog() {
-        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("FIRST_RUN_KEY", true);
+    /**
+     * Check if this is the first time the application has been launched.
+     */
+    private void isFirstLaunch() {
+        final boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            new AlertDialog.Builder(this)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .setTitle(R.string.dialog_title_for_the_first_launch)
-                    .setMessage(R.string.dialog_message_for_the_first_launch)
-                    .setPositiveButton(R.string.dialog_button_understood, (d, i) ->
-                            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-                                    .edit()
-                                    .putBoolean("FIRST_RUN_KEY", false)
-                                    .apply()
-                    )
-                    .setCancelable(false)
-                    .show();
+            startActivity(new Intent(this, FirstLaunch.class));
+            finish();
         }
     }
 
+    /**
+     * Check the essential permissions to be granted by the user.
+     */
     private void checkPermissions() {
         final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
@@ -562,6 +555,9 @@ public class DeskClock extends AppCompatActivity
         }
     }
 
+    /**
+     * Displays the right tab if the application has been closed and then reopened from the notification.
+     */
     private void showTabFromNotifications() {
         final Intent intent = getIntent();
         if (intent != null) {

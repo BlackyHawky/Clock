@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:contentDescription="@null">
+        </ImageView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/first_launch_app_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            tools:text="@string/app_label">
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_slogan"
+            android:textSize="16sp">
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/first_launch_app_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/first_launch_version"
+            android:textSize="16sp"
+            tools:text="Version 1.0">
+        </com.google.android.material.textview.MaterialTextView>
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/md_theme_outline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="22dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="22dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:gravity="center"
+                android:text="@string/first_launch_main_feature_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/first_launch_main_features_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                tools:text="@string/first_launch_main_feature_message"/>
+
+            <View
+                android:background="@color/md_theme_outline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:gravity="center"
+                android:text="@string/first_launch_important_info_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/first_launch_important_info_message"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/understood_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:insetLeft="15dp"
+        android:insetRight="15dp"
+        android:insetTop="15dp"
+        android:insetBottom="15dp"
+        android:text="@string/first_launch_button_understood"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_arrow_right"
+        app:iconGravity="end">
+    </com.google.android.material.button.MaterialButton>
+
+</LinearLayout>

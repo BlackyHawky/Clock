@@ -1272,31 +1272,6 @@
     <string name="timer_channel">Timer</string>
     <string name="bedtime_channel">@string/bedtime</string>
 
-    <!-- Dialog title for the first application launch -->
-    <string name="dialog_title_for_the_first_launch"><b>WELCOME TO THE CLOCK APP</b></string>
-    <!-- Dialog message for the first application launch -->
-    <string name="dialog_message_for_the_first_launch">
-        \n&#9658; <b>Main Features</b>
-        \n\n&#8226; Flip and shake action to dismiss/postpone alarm;
-        \n&#8226; Turn off/postpone the alarm with the power button or volume buttons;
-        \n&#8226; Swipe to delete an alarm;
-        \n&#8226; Light, dark or system theme;
-        \n&#8226; Customizable screensaver;
-        \n&#8226; Material design and dynamic colors;
-        \n&#8226; &#8230; and much more!
-        \n\n&#9658; <b>Important information</b>
-        \n\nTo ensure that the application works properly, <b>some of your device settings must be changed:</b>
-        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
-        \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
-        \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
-        \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
-        \n\nYou can change these settings in the following dialogs.
-        \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i>
-        \n
-    </string>
-    <!-- Dialog button to stop displaying the dialog box for the first application launch -->
-    <string name="dialog_button_understood">Understood</string>
-
     <!-- Setting dialog title for Do Not Disturb -->
     <string name="dialog_title_do_not_disturb"><b>DO NOT DISTURB</b></string>
     <!-- Setting dialog message to explain why Do Not Disturb permission is necessary -->
@@ -1340,4 +1315,42 @@
     </string>
     <!-- Setting dialog button to access to Full Screen Notifications settings -->
     <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
+
+    <!--
+    First launch
+    -->
+    <string name="first_launch_version">Version %s</string>
+
+    <string name="first_launch_main_feature_title">MAIN FEATURES</string>
+
+    <string name="first_launch_button_understood">Understood</string>
+
+    <!-- Title of the link to the web page inserted into messages -->
+    <string name="main_feature_link">&#8230; and much more!</string>
+
+    <string name="first_launch_main_feature_message">
+        &#9658; Light, dark or system theme; &lt;br&gt; &lt;br&gt;
+        &#9658; Customizable screensaver; &lt;br&gt; &lt;br&gt;
+        &#9658; Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
+        &#9658; Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
+        &#9658; Duplicate an alarm; &lt;br&gt; &lt;br&gt;
+        &#9658; Flip and shake action to dismiss/postpone alarm; &lt;br&gt; &lt;br&gt;
+        &#9658; Turn off/postpone the alarm with the power button or volume buttons; &lt;br&gt; &lt;br&gt;
+        &#9658; %s</string>
+
+    <string name="first_launch_important_info_title">IMPORTANT INFORMATION</string>
+
+    <string name="first_launch_important_info_message">To ensure that the application works properly, <b>some of your device settings must be changed:</b>
+        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
+        \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
+        \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
+        \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
+        \n\nYou can change these settings in the following dialogs.
+        \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i></string>
+
+    <string name="first_launch_dialog_title">Quit?</string>
+
+    <string name="first_launch_dialog_message">Are you sure you want to leave the application?
+        \n\nClick on the \"Understood\" button to continue using the application.</string>
+
 </resources>

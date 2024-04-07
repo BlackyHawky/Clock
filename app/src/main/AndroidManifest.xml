@@ -57,16 +57,23 @@
         <!-- ============================================================== -->
 
         <activity
-            android:name=".DeskClock"
+            android:name=".FirstLaunch"
             android:exported="true"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan">
+            android:theme="@style/Theme.DeskClock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".DeskClock"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity
@@ -96,7 +103,7 @@
             android:name=".settings.AboutActivity"
             android:excludeFromRecents="true"
             android:label="@string/about_title"
-            android:parentActivityName=".DeskClock"
+            android:parentActivityName=".settings.SettingsActivity"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
@@ -256,7 +263,7 @@
             android:name=".settings.ScreensaverSettingsActivity"
             android:excludeFromRecents="true"
             android:label="@string/screensaver_settings"
-            android:parentActivityName=".DeskClock"
+            android:parentActivityName=".settings.SettingsActivity"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
