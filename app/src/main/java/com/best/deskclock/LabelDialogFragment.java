@@ -136,7 +136,7 @@ public class LabelDialogFragment extends DialogFragment {
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
-                .setMessage(R.string.label)
+                .setTitle(R.string.label)
                 .create();
 
         mLabelBox = new AppCompatEditText(requireContext());
