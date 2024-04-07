@@ -9,6 +9,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
   * [Reporting Issues](#reporting-issues)
   * [Code Contribution](#code-contribution)
 - [License](#license)
+- [Screenshots](#screenshots)
 - [Credits](#credits)
 - [Download](#download)
 
@@ -17,6 +18,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Turn off/postpone the alarm with the power button or volume buttons;
 * For Snapdragon phones only, the alarm is triggered when the phone is switched off;
 * Swipe to delete an alarm;
+* Duplicate alarms;
 * Customize alarm title;
 * Customizable ringtone;
 * Light, dark or system theme;
@@ -80,10 +82,20 @@ See repo's [LICENSE](/LICENSE-GPL-3) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided too.
 
+# Screenshots
+
+<p float="left">
+ <img src="/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="160" />
+ <img src="/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="160" />
+ <img src="/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="160" />
+ <img src="/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="160" />
+ <img src="/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="160" />
+</p>
+
 # Credits
 - [qw123wh](https://github.com/qw123wh/new-clock)
 - [crDroid Android](https://github.com/crdroidandroid/android_packages_apps_DeskClock)
 - [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock)
 
 # Download
-[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/New-Clock/releases)
+[<img src="/images/badge_github.png" alt="Get it on GitHub" height="60">](https://github.com/BlackyHawky/New-Clock/releases)
