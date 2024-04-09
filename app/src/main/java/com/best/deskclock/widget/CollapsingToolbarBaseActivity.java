@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -74,14 +73,6 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
-
-        // Enable title and home button by default
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-        }
     }
 
     @Override

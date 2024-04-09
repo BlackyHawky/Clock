@@ -97,13 +97,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        getSupportFragmentManager().findFragmentById(R.id.main);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, Menu.NONE, 0, R.string.about_title)
                 .setIcon(R.drawable.ic_about).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -112,10 +105,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getOnBackPressedDispatcher().onBackPressed();
-            return true;
-        }
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(settingIntent);

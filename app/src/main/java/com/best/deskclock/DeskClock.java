@@ -211,12 +211,6 @@ public class DeskClock extends AppCompatActivity
 
         Utils.applyTheme(this);
 
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
-
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);
@@ -396,10 +390,6 @@ public class DeskClock extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getOnBackPressedDispatcher().onBackPressed();
-            return true;
-        }
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivityForResult(settingIntent, REQUEST_CHANGE_SETTINGS);

@@ -39,7 +39,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -247,15 +246,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             stopPlayingRingtone(getSelectedRingtoneHolder(), false);
         }
         super.onStop();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getOnBackPressedDispatcher().onBackPressed();
-            return true;
-        }
-        return false;
     }
 
     @Override

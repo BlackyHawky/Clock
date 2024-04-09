@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.MenuItem;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -68,23 +67,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     .commit();
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getSupportFragmentManager().findFragmentById(R.id.main);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public static class PrefsFragment extends PreferenceFragmentCompat
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {

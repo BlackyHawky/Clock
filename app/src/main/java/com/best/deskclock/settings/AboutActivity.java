@@ -4,7 +4,6 @@ package com.best.deskclock.settings;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -32,15 +31,6 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
                     .disallowAddToBackStack()
                     .commit();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getOnBackPressedDispatcher().onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat {
