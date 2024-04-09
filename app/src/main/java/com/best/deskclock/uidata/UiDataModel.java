@@ -18,12 +18,10 @@ package com.best.deskclock.uidata;
 
 import static com.best.deskclock.Utils.enforceMainLooper;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 
-import androidx.annotation.IntegerRes;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.AlarmClockFragment;
@@ -296,19 +294,17 @@ public final class UiDataModel {
      * Identifies each of the primary tabs within the application.
      */
     public enum Tab {
-        @SuppressLint("ResourceType") ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
-        @SuppressLint("ResourceType") CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
-        @SuppressLint("ResourceType") TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
-        @SuppressLint("ResourceType") STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch),
-        @SuppressLint("ResourceType") BEDTIME(BedtimeFragment.class, R.id.page_bedtime, R.string.menu_bedtime);
+        ALARMS(AlarmClockFragment.class, R.id.page_alarm, R.string.menu_alarm),
+        CLOCKS(ClockFragment.class, R.id.page_clock, R.string.menu_clock),
+        TIMERS(TimerFragment.class, R.id.page_timer, R.string.menu_timer),
+        STOPWATCH(StopwatchFragment.class, R.id.page_stopwatch, R.string.menu_stopwatch),
+        BEDTIME(BedtimeFragment.class, R.id.page_bedtime, R.string.menu_bedtime);
 
         private final String mFragmentClassName;
-        private final @IntegerRes
-        int mPageResId;
-        private final @StringRes
-        int mLabelResId;
+        private final int mPageResId;
+        private final int mLabelResId;
 
-        Tab(Class<?> fragmentClass, @IntegerRes int pageResId, @StringRes int labelResId) {
+        Tab(Class<?> fragmentClass, int pageResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
             mPageResId = pageResId;
             mLabelResId = labelResId;
@@ -318,13 +314,11 @@ public final class UiDataModel {
             return mFragmentClassName;
         }
 
-        public @IntegerRes
-        int getPageResId() {
+        public int getPageResId() {
             return mPageResId;
         }
 
-        public @StringRes
-        int getLabelResId() {
+        public int getLabelResId() {
             return mLabelResId;
         }
     }
