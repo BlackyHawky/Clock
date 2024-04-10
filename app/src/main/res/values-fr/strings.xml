@@ -195,6 +195,7 @@
         <item msgid="3450979320164769576">"Ignorer"</item>
         <item msgid="7085774139907653538">"Contrôler le volume"</item>
     </string-array>
+    <string name="power_button_title">Bouton d\'alimentation</string>
     <string name="label_description" msgid="8736179296142915727">"Titre"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Sonnerie"</string>
     <string name="add_label">Ajouter un libellé</string>
@@ -559,7 +560,6 @@
     <string name="first_launch_version">Version %s</string>
     <string name="first_launch_main_feature_title">PRINCIPALES FONCTIONNALITÉS</string>
     <string name="first_launch_button_understood">Compris</string>
-    <string name="main_feature_link">&#8230; et bien plus encore !</string>
     <string name="first_launch_main_feature_message">
         &#9658; Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
         &#9658; Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
@@ -569,14 +569,16 @@
         &#9658; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt;
         &#9658; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt;
         &#9658; %s</string>
+    <string name="first_launch_main_feature_link">&#8230; et bien plus encore !</string>
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
     <string name="first_launch_important_info_message">Pour s\'assurer que l\'application fonctionne correctement, <b>certains paramètres de votre appareil doivent être modifiés :</b>
         \n\n&#8226; <b>NE PAS DERANGER :</b> permet à l\'alarme de se déclencher si les sons des notifications sont désactivés ;
         \n\n&#8226; <b>OPTIMISATION DE LA BATTERIE :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;
         \n\n&#8226; <b>NOTIFICATIONS :</b> permet à l\'alarme, à la minuterie et au chronomètre d\'envoyer une notification lorsque l\'application est réduite. Elle permet également à l\'alarme de se déclencher.
-        \n\n&#8226; <b>NOTIFICATIONS EN PLEIN ECRAN :</b> pour Android 14 seulement, permet à l\'alarme de se déclencher si l\'écran est éteint ;
+        %s
         \n\nVous pouvez modifier ces paramètres dans les boîtes de dialogue suivantes.
         \n\n<i>Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).</i></string>
+    <string name="first_launch_important_info_message_for_SDK34">\n\n&#8226; <b>NOTIFICATIONS EN PLEIN ECRAN :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;</string>
     <string name="first_launch_dialog_title">Quitter ?</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?
         \n\nCliquer sur le boutton \"Compris\" pour continuer à utiliser l\'application.</string>

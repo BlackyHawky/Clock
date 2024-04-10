@@ -2,6 +2,7 @@
 package com.best.deskclock;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -18,6 +19,7 @@ public class FirstLaunch extends AppCompatActivity {
     TextView mAppTitle;
     TextView mAppVersion;
     TextView mMainFeaturesText;
+    TextView mImportantInfoText;
     Button mUnderstoodButton;
 
     @Override
@@ -32,6 +34,7 @@ public class FirstLaunch extends AppCompatActivity {
         mAppTitle = findViewById(R.id.first_launch_app_title);
         mAppVersion = findViewById(R.id.first_launch_app_version);
         mMainFeaturesText = findViewById(R.id.first_launch_main_features_text);
+        mImportantInfoText = findViewById(R.id.first_launch_important_info_text);
         mUnderstoodButton = findViewById(R.id.understood_button);
 
         isFirstLaunch();
@@ -41,6 +44,8 @@ public class FirstLaunch extends AppCompatActivity {
         setupVersion();
 
         setupMainFeaturesText();
+
+        setupImportantInfoMessage();
 
         mUnderstoodButton.setOnClickListener(v -> {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
@@ -98,12 +103,24 @@ public class FirstLaunch extends AppCompatActivity {
      */
     private void setupMainFeaturesText() {
         String link = ("<a href=\"https://github.com/BlackyHawky/Clock#features-\">"
-                + getString(R.string.main_feature_link) + "</a>");
+                + getString(R.string.first_launch_main_feature_link) + "</a>");
 
         Spanned mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link));
 
         mMainFeaturesText.setText(mainFeaturesMessage);
         mMainFeaturesText.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    /**
+     * Define an important message for the first launch.
+     */
+    private void setupImportantInfoMessage() {
+        String android14message = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            android14message = getString(R.string.first_launch_important_info_message_for_SDK34);
+        }
+        String importantInfoMessage = getString(R.string.first_launch_important_info_message, android14message);
+        mImportantInfoText.setText(importantInfoMessage);
     }
 
     /**

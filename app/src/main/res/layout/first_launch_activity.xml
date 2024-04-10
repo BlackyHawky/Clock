@@ -106,11 +106,12 @@
                 android:textSize="20sp" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/first_launch_important_info_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/first_launch_important_info_message"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="@string/first_launch_important_info_message" />
 
         </LinearLayout>
 

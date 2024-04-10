@@ -481,8 +481,7 @@
     </string-array>
 
     <!-- Setting title for the Power button setting. -->
-    <string name="power_button_title" tools:ignore="MissingTranslation">Power button</string>
-
+    <string name="power_button_title">Power button</string>
 
     <!-- Accessibility labels for Clock activity buttons -->
     <skip />
@@ -1325,9 +1324,6 @@
 
     <string name="first_launch_button_understood">Understood</string>
 
-    <!-- Title of the link to the web page inserted into messages -->
-    <string name="main_feature_link">&#8230; and much more!</string>
-
     <string name="first_launch_main_feature_message">
         &#9658; Light, dark or system theme; &lt;br&gt; &lt;br&gt;
         &#9658; Customizable screensaver; &lt;br&gt; &lt;br&gt;
@@ -1338,15 +1334,20 @@
         &#9658; Turn off/postpone the alarm with the power button or volume buttons; &lt;br&gt; &lt;br&gt;
         &#9658; %s</string>
 
+    <!-- Title of the link to the web page inserted in the main features message -->
+    <string name="first_launch_main_feature_link">&#8230; and much more!</string>
+
     <string name="first_launch_important_info_title">IMPORTANT INFORMATION</string>
 
     <string name="first_launch_important_info_message">To ensure that the application works properly, <b>some of your device settings must be changed:</b>
         \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
         \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
         \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
-        \n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> for Android 14 only, allows the alarm to trigger if the screen is turned off;
+        %s
         \n\nYou can change these settings in the following dialogs.
         \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i></string>
+
+    <string name="first_launch_important_info_message_for_SDK34">\n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> allows the alarm to trigger if the screen is turned off;</string>
 
     <string name="first_launch_dialog_title">Quit?</string>
 
