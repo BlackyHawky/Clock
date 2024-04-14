@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/IBO_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/IBO_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/ignore_battery_optimizations_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/IBO_details_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/IBO_details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_about"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/IBO_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/IBO_requirement_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_requirement_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/IBO_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_highly_recommended"
+                    android:textSize="16sp"
+                    android:textColor="#EF5350"
+                    app:layout_constraintStart_toEndOf="@+id/IBO_requirement_type_title"
+                    app:layout_constraintEnd_toStartOf="@+id/IBO_image"
+                    app:layout_constraintTop_toBottomOf="@+id/IBO_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/IBO_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_status_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/IBO_requirement_type_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/IBO_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/IBO_status_title"
+                    app:layout_constraintEnd_toStartOf="@+id/IBO_image"
+                    app:layout_constraintTop_toBottomOf="@+id/IBO_requirement_type_title"
+                    tools:text="@string/permission_granted"
+                    tools:textColor="#66BB6A" />
+
+                <ImageView
+                    android:id="@+id/IBO_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/IBO_requirement_type_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/IBO_status_text"
+                    android:contentDescription="@null" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/DND_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DND_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/DND_permission_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/DND_details_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/DND_details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_about"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/DND_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DND_requirement_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_requirement_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/DND_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_highly_recommended"
+                    android:textSize="16sp"
+                    android:textColor="#EF5350"
+                    app:layout_constraintStart_toEndOf="@+id/DND_requirement_type_title"
+                    app:layout_constraintEnd_toStartOf="@+id/DND_image"
+                    app:layout_constraintTop_toBottomOf="@+id/DND_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DND_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_status_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/DND_requirement_type_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/DND_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/DND_status_title"
+                    app:layout_constraintEnd_toStartOf="@+id/DND_image"
+                    app:layout_constraintTop_toBottomOf="@+id/DND_requirement_type_title"
+                    tools:text="@string/permission_granted"
+                    tools:textColor="#66BB6A" />
+
+                <ImageView
+                    android:id="@+id/DND_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/DND_requirement_type_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/DND_status_text"
+                    android:contentDescription="@null" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/notification_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/notification_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/notifications_permission_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/notification_details_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/notification_details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_about"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/notification_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/notification_requirement_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_requirement_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notification_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_highly_recommended"
+                    android:textSize="16sp"
+                    android:textColor="#EF5350"
+                    app:layout_constraintStart_toEndOf="@+id/notification_requirement_type_title"
+                    app:layout_constraintEnd_toStartOf="@+id/notification_image"
+                    app:layout_constraintTop_toBottomOf="@+id/notification_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/notification_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_status_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notification_requirement_type_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/notification_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/notification_status_title"
+                    app:layout_constraintEnd_toStartOf="@+id/notification_image"
+                    app:layout_constraintTop_toBottomOf="@+id/notification_requirement_type_title"
+                    tools:text="@string/permission_granted"
+                    tools:textColor="#66BB6A" />
+
+                <ImageView
+                    android:id="@+id/notification_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/notification_requirement_type_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/notification_status_title"
+                    android:contentDescription="@null" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/FSN_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:strokeWidth="0dp"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/FSN_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/FSN_permission_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/FSN_details_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/FSN_details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_about"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/FSN_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/FSN_requirement_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_requirement_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FSN_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_highly_recommended"
+                    android:textSize="16sp"
+                    android:textColor="#EF5350"
+                    app:layout_constraintStart_toEndOf="@+id/FSN_requirement_type_title"
+                    app:layout_constraintEnd_toStartOf="@+id/FSN_image"
+                    app:layout_constraintTop_toBottomOf="@+id/FSN_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/FSN_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_status_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FSN_requirement_type_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/FSN_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/FSN_status_title"
+                    app:layout_constraintEnd_toStartOf="@+id/FSN_image"
+                    app:layout_constraintTop_toBottomOf="@+id/FSN_requirement_type_title"
+                    tools:text="@string/permission_granted"
+                    tools:textColor="#66BB6A" />
+
+                <ImageView
+                    android:id="@+id/FSN_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/FSN_requirement_type_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/FSN_status_title"
+                    android:contentDescription="@null" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/storage_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/storage_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/storage_permission_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/storage_details_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/storage_details_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_about"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/storage_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/storage_requirement_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_requirement_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/storage_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_optional"
+                    android:textSize="16sp"
+                    android:textColor="#66BB6A"
+                    app:layout_constraintStart_toEndOf="@+id/storage_requirement_type_title"
+                    app:layout_constraintEnd_toStartOf="@+id/storage_image"
+                    app:layout_constraintTop_toBottomOf="@+id/storage_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/storage_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/permission_status_title"
+                    android:textSize="16sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/storage_requirement_type_title" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/storage_status_text"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/storage_status_title"
+                    app:layout_constraintEnd_toStartOf="@+id/storage_image"
+                    app:layout_constraintTop_toBottomOf="@+id/storage_requirement_type_title"
+                    tools:text="@string/permission_granted"
+                    tools:textColor="#66BB6A" />
+
+                <ImageView
+                    android:id="@+id/storage_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/storage_requirement_type_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/storage_status_title"
+                    android:contentDescription="@null" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -149,4 +149,12 @@
             android:summary="@string/screensaver_settings_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/permission_category_title">
+        <Preference
+            android:key="permissions_management"
+            android:title="@string/permission_management_title"
+            android:summary="@string/permission_management_summary" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

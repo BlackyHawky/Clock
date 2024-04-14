@@ -1271,50 +1271,6 @@
     <string name="timer_channel">Timer</string>
     <string name="bedtime_channel">@string/bedtime</string>
 
-    <!-- Setting dialog title for Do Not Disturb -->
-    <string name="dialog_title_do_not_disturb"><b>DO NOT DISTURB</b></string>
-    <!-- Setting dialog message to explain why Do Not Disturb permission is necessary -->
-    <string name="dialog_message_do_not_disturb">
-        \n<b>Reminder:</b>
-        \n\nEnable this setting, otherwise the alarm may not trigger if all sounds are muted.
-        \n
-    </string>
-    <!-- Setting dialog button to access to Do Not Disturb settings -->
-    <string name="dialog_button_do_not_disturb">Do Not Disturb Access</string>
-
-    <!-- Setting dialog title for Ignore Battery Optimization -->
-    <string name="dialog_title_ignore_battery_optimization"><b>BATTERY OPTIMIZATION</b></string>
-    <!-- Setting dialog message to explain why Ignore Battery Optimization permission is necessary -->
-    <string name="dialog_message_ignore_battery_optimization">
-        \n<b>Reminder:</b>
-        \n\nDisable this setting, otherwise the alarm may not trigger if the screen is off.
-        \n
-    </string>
-    <!-- Setting dialog button to access to Ignore Battery Optimization settings -->
-    <string name="dialog_button_ignore_battery_optimization">Battery Optimization Access</string>
-
-    <!-- Setting dialog title for Notifications -->
-    <string name="dialog_title_notifications"><b>NOTIFICATIONS</b></string>
-    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
-    <string name="dialog_message_notifications">
-        \n<b>Reminder:</b>
-        \n\nEnable this setting, otherwise alarm, timer and stopwatch notifications will not be displayed. Moreover, the alarm may not trigger.
-        \n
-    </string>
-    <!-- Setting dialog button to access to Full Screen Notifications settings -->
-    <string name="dialog_button_notifications">Notifications Access</string>
-
-    <!-- Setting dialog title for Full Screen Notifications -->
-    <string name="dialog_title_full_screen_intent"><b>FULL SCREEN NOTIFICATIONS</b></string>
-    <!-- Setting dialog message to explain why Full Screen Notifications permission is necessary -->
-    <string name="dialog_message_full_screen_intent">
-        \n<b>Reminder:</b>
-        \n\nEnable this setting, otherwise the alarm will not trigger when the screen is off.
-        \n
-    </string>
-    <!-- Setting dialog button to access to Full Screen Notifications settings -->
-    <string name="dialog_button_full_screen_intent">Full Screen Notifications Access</string>
-
     <!--
     First launch
     -->
@@ -1322,7 +1278,9 @@
 
     <string name="first_launch_main_feature_title">MAIN FEATURES</string>
 
-    <string name="first_launch_button_understood">Understood</string>
+    <string name="first_launch_button_now">Now</string>
+
+    <string name="first_launch_button_later">Later</string>
 
     <string name="first_launch_main_feature_message">
         &#9658; Light, dark or system theme; &lt;br&gt; &lt;br&gt;
@@ -1339,19 +1297,72 @@
 
     <string name="first_launch_important_info_title">IMPORTANT INFORMATION</string>
 
-    <string name="first_launch_important_info_message">To ensure that the application works properly, <b>some of your device settings must be changed:</b>
-        \n\n&#8226; <b>DO NOT DISTURB:</b> allows the alarm to trigger if notification sounds are muted;
-        \n\n&#8226; <b>BATTERY OPTIMIZATION:</b> allows the alarm to trigger if the screen is turned off;
-        \n\n&#8226; <b>NOTIFICATIONS:</b> allows the alarm, timer and stopwatch to send a notification when the application is minimized. It also enables the alarm to trigger.
+    <string name="first_launch_important_info_message">
+        To ensure that the application works properly, &lt;b&gt;some of your device settings must be changed:&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;DO NOT DISTURB;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        \n\nYou can change these settings in the following dialogs.
-        \n\n<i>Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).</i></string>
+        &#8226; &lt;b&gt;STORAGE &lt;i&gt;(optional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &lt;i&gt;Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+        You can change them now or later in the permission management settings:</string>
+    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; &#8226; &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
 
-    <string name="first_launch_important_info_message_for_SDK34">\n\n&#8226; <b>FULL SCREEN NOTIFICATIONS:</b> allows the alarm to trigger if the screen is turned off;</string>
+    <string name="first_launch_dialog_title">Quit</string>
 
-    <string name="first_launch_dialog_title">Quit?</string>
+    <string name="first_launch_dialog_message">Are you sure you want to leave the application?</string>
 
-    <string name="first_launch_dialog_message">Are you sure you want to leave the application?
-        \n\nClick on the \"Understood\" button to continue using the application.</string>
+    <!--
+    Permissions
+    -->
+    <string name="permission_category_title">Permissions</string>
+    <string name="permission_management_title">Permissions management</string>
+    <string name="permission_management_summary">Shows the permissions necessary for the application to work properly</string>
+    <string name="permission_requirement_title">Requirement: </string>
+    <string name="permission_highly_recommended">Highly recommended</string>
+    <string name="permission_optional">Optional</string>
+    <string name="permission_status_title">Status: </string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_denied">Denied</string>
+    <string name="permission_dialog_revoke_title">Revoke access</string>
+    <string name="permission_dialog_close_button">Close</string>
+    <string name="revoke_permission_dialog_message">Are you sure you want to revoke this permission?</string>
+    <string name="snackbar_permission_message">One or more essential permissions are denied. Display the Permissions management page to activate them.</string>
+    <string name="snackbar_permission_action">Display</string>
+
+    <!-- Ignore Battery Optimization Permission -->
+    <string name="ignore_battery_optimizations_title">IGNORE BATTERY OPTIMIZATIONS</string>
+    <string name="ignore_battery_optimizations_dialog_title">Battery Optimizations</string>
+    <string name="ignore_battery_optimizations_dialog_text">By default, the Android system configures all user-installed apps to be optimized to save battery life.
+        \n\nWhile this is acceptable for many apps, this app is an alarm app and often causes issues if configured to optimize battery. Once enabled, the Android system can kill the app at any time and/or cancel alarms it has scheduled, which would adversely affect the app\'s operation.
+        \n\nWe recommend whitelisting this app from battery optimizations.</string>
+
+    <!-- Do Not Disturb Permission -->
+    <string name="DND_permission_title">CHANGE DO NOT DISTURB SETTINGS</string>
+    <string name="DND_dialog_title">Do Not Disturb</string>
+    <string name="DND_dialog_text">The app allows you to set the ringing volume for alarms. Before the alarm is triggered, the app attempts to change the volume of the system alarm to the volume you\'ve set.
+        \n\nTo change the volume, the permission to modify the Do Not Disturb settings is required for Android Nougat and above. If it is not granted, the app will simply not set the volume before triggering the alarm.</string>
+
+    <!-- Notifications Permission -->
+    <string name="notifications_permission_title">ENABLE NOTIFICATIONS</string>
+    <string name="notifications_dialog_title">Notifications</string>
+    <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer, stopwatch, and bedtime mode.
+        \n\nIn order for notifications to appear correctly for all modules and especially for the alarm to be triggered, we recommend activating notifications for this application.</string>
+
+    <!-- Full screen notifications permission -->
+    <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
+    <string name="FSN_dialog_title">Full Screen Notifications</string>
+    <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
+
+    <!-- Storage Permission -->
+    <string name="storage_permission_title">READ EXTERNAL STORAGE</string>
+    <string name="storage_dialog_title">External Storage</string>
+    <string name="storage_dialog_text">This permission is required if you want to choose an alarm tone different from the default alarm tone of your device. This therefore allows the application to play audio and music files on your device.
+        \n\nSince Android 13, we request a specific permission that allow us to read only the music and audio files and nothing else.
+        \nHowever, in earlier Android versions, this is not supported, so we have to ask permission to read external storage.</string>
+    <string name="storage_permission_dialog_title">Information</string>
+    <string name="storage_permission_dialog_message">It appears that you have denied this permission in the Android system dialog.
+        \nAndroid will not allow this application to create this permission request dialog again.
+        \n\nWould you like to go to Settings and allow this permission?</string>
 
 </resources>

@@ -16,13 +16,6 @@
 
 package com.best.deskclock;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
-import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
-import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
-import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
-import static android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS;
-import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
@@ -35,28 +28,22 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -67,6 +54,7 @@ import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
@@ -83,9 +71,6 @@ import com.google.android.material.snackbar.Snackbar;
  */
 public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
-
-    private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
-    private static final int CODE_FOR_POWER_OFF_ALARM = 1;
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
 
@@ -468,80 +453,20 @@ public class DeskClock extends AppCompatActivity
      * Check the essential permissions to be granted by the user.
      */
     private void checkPermissions() {
-        final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        final PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (!PermissionsManagementActivity.isIgnoringBatteryOptimizations(this)
+                || !PermissionsManagementActivity.isDNDPermissionGranted(this)
+                || !PermissionsManagementActivity.areNotificationsEnabled(this)
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+                    && !PermissionsManagementActivity.areFullScreenNotificationsEnabled(this)) {
 
-        // Check permission for Power Off Alarm (only works if available in the device)
-        if (checkSelfPermission(PERMISSION_POWER_OFF_ALARM) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{PERMISSION_POWER_OFF_ALARM}, CODE_FOR_POWER_OFF_ALARM);
-        }
-
-
-        // Check if Do Not Disturb is disabled in the device
-        if (!notificationManager.isNotificationPolicyAccessGranted()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_do_not_disturb)
-                    .setMessage(R.string.dialog_message_do_not_disturb)
-                    .setPositiveButton(R.string.dialog_button_do_not_disturb, (dialog, position) ->
-                            startActivity(new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
-                    .setCancelable(false)
-                    .show();
-        }
-
-        // Check if Ignore Battery Optimizations is disabled in the device
-        if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_ignore_battery_optimization)
-                    .setMessage(R.string.dialog_message_ignore_battery_optimization)
-                    .setPositiveButton(R.string.dialog_button_ignore_battery_optimization, (dialog, position) ->
-                            startActivity(new Intent(ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK)))
-                    .setCancelable(false)
-                    .show();
-        }
-
-        // Check if Notifications are disabled in the device
-        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_notifications)
-                    .setMessage(R.string.dialog_message_notifications)
-                    .setPositiveButton(R.string.dialog_button_notifications, (dialog, position) -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            startActivity(new Intent(ACTION_APP_NOTIFICATION_SETTINGS)
-                                    .putExtra(EXTRA_APP_PACKAGE, getPackageName())
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
-                        } else {
-                            startActivity(new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    .setData(Uri.fromParts("package", getPackageName(), null))
-                                    .addFlags(FLAG_ACTIVITY_NEW_TASK));
-                        }
-                    })
-                    .setCancelable(false)
-                    .show();
-        }
-
-        // Check if Full Screen Notification is disabled in the device (for Android 14+ only)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            if (!notificationManager.canUseFullScreenIntent()) {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.dialog_title_full_screen_intent)
-                        .setMessage(R.string.dialog_message_full_screen_intent)
-                        .setPositiveButton(R.string.dialog_button_full_screen_intent, (dialog, position) ->
-                                startActivity(new Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
-                                        .setData(Uri.fromParts("package", getPackageName(), null))
-                                        .addFlags(FLAG_ACTIVITY_NEW_TASK)))
-                        .setCancelable(false)
-                        .show();
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CODE_FOR_POWER_OFF_ALARM) {
-            LogUtils.i("Power off alarm permission is granted.");
+            Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
+                            R.string.snackbar_permission_message, 7000).setAction(R.string.snackbar_permission_action, v ->
+                            startActivity(new Intent(this, PermissionsManagementActivity.class)));
+            View snackView = snackbar.getView();
+            TextView snackTextView = (TextView) snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+            // Necessary because on some devices the text is truncated.
+            snackTextView.setMaxLines(5);
+            snackbar.show();
         }
     }
 

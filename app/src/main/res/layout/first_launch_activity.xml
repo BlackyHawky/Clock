@@ -113,23 +113,33 @@
                 android:textSize="16sp"
                 tools:text="@string/first_launch_important_info_message" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/later_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/first_launch_button_later"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/now_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/first_launch_button_now"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/understood_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:insetLeft="15dp"
-        android:insetRight="15dp"
-        android:insetTop="15dp"
-        android:insetBottom="15dp"
-        android:text="@string/first_launch_button_understood"
-        android:textStyle="bold"
-        app:icon="@drawable/ic_arrow_right"
-        app:iconGravity="end">
-    </com.google.android.material.button.MaterialButton>
 
 </LinearLayout>

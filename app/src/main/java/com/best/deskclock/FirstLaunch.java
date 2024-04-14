@@ -14,19 +14,21 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.best.deskclock.settings.PermissionsManagementActivity;
+
 public class FirstLaunch extends AppCompatActivity {
 
     TextView mAppTitle;
     TextView mAppVersion;
     TextView mMainFeaturesText;
     TextView mImportantInfoText;
-    Button mUnderstoodButton;
+    Button mNowButton;
+    Button mLaterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getColor(R.color.md_theme_background));
         getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
 
         setContentView(R.layout.first_launch_activity);
@@ -35,7 +37,8 @@ public class FirstLaunch extends AppCompatActivity {
         mAppVersion = findViewById(R.id.first_launch_app_version);
         mMainFeaturesText = findViewById(R.id.first_launch_main_features_text);
         mImportantInfoText = findViewById(R.id.first_launch_important_info_text);
-        mUnderstoodButton = findViewById(R.id.understood_button);
+        mNowButton = findViewById(R.id.now_button);
+        mLaterButton = findViewById(R.id.later_button);
 
         isFirstLaunch();
 
@@ -47,10 +50,17 @@ public class FirstLaunch extends AppCompatActivity {
 
         setupImportantInfoMessage();
 
-        mUnderstoodButton.setOnClickListener(v -> {
+        mNowButton.setOnClickListener(v -> {
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
-            startActivity(new Intent(this, DeskClock.class));
             finish();
+            startActivity(new Intent(this, DeskClock.class));
+            startActivity(new Intent(this, PermissionsManagementActivity.class));
+        });
+
+        mLaterButton.setOnClickListener(v -> {
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+            finish();
+            startActivity(new Intent(this, DeskClock.class));
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -115,11 +125,11 @@ public class FirstLaunch extends AppCompatActivity {
      * Define an important message for the first launch.
      */
     private void setupImportantInfoMessage() {
-        String android14message = null;
+        String android14message = "";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             android14message = getString(R.string.first_launch_important_info_message_for_SDK34);
         }
-        String importantInfoMessage = getString(R.string.first_launch_important_info_message, android14message);
+        Spanned importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
         mImportantInfoText.setText(importantInfoMessage);
     }
 

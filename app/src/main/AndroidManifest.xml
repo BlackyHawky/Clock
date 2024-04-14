@@ -33,6 +33,7 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:name=".DeskClockApplication"
@@ -104,6 +105,14 @@
             android:name=".settings.AboutActivity"
             android:excludeFromRecents="true"
             android:label="@string/about_title"
+            android:parentActivityName=".settings.SettingsActivity"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name=".settings.PermissionsManagementActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/permission_management_title"
             android:parentActivityName=".settings.SettingsActivity"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />

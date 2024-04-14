@@ -80,6 +80,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
+    public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
@@ -219,6 +220,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
                 }
+                case KEY_PERMISSIONS_MANAGEMENT -> {
+                    final Intent permissionsManagementIntent = new Intent(context, PermissionsManagementActivity.class);
+                    startActivity(permissionsManagementIntent);
+                    requireActivity().setResult(RESULT_OK);
+                    return true;
+                }
             }
 
             return false;
@@ -328,6 +335,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
             setupFlipOrShakeAction(shakeActionPref);
+
+            final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
+            Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);
         }
 
         private void setupFlipOrShakeAction(ListPreference preference) {

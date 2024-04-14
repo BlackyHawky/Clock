@@ -529,37 +529,10 @@
     <string name="alarm_upcoming_channel">Alarmes imminentes</string>
     <string name="stopwatch_channel">Chronomètre</string>
     <string name="timer_channel">Minuteur</string>
-    <string name="dialog_title_do_not_disturb"><b>NE PAS DERANGER</b></string>
-    <string name="dialog_message_do_not_disturb">
-        \n<b>Rappel :</b>
-        \n\nActivez ce paramètre, sinon l\'alarme risque de ne pas se déclencher si tous les sons sont désactivés.
-        \n
-    </string>
-    <string name="dialog_button_do_not_disturb">Accès à "Ne Pas Déranger"</string>
-    <string name="dialog_title_ignore_battery_optimization"><b>OPTIMISATION DE LA BATTERIE</b></string>
-    <string name="dialog_message_ignore_battery_optimization">
-        \n<b>Rappel :</b>
-        \n\nDésactivez ce paramètre, sinon l\'alarme risque de ne pas se déclencher si l\'écran est éteint.
-        \n
-    </string>
-    <string name="dialog_button_ignore_battery_optimization">Accès à "Optimisation de la Batterie"</string>
-    <string name="dialog_title_notifications"><b>NOTIFICATIONS</b></string>
-    <string name="dialog_message_notifications">
-        \n<b>Rappel :</b>
-        \n\nActivez ce paramètre, sinon les notifications de l\'alarme, de la minuterie et du chronomètre ne s\'afficheront pas. De plus, l\'alarme peut ne pas se déclencher.
-        \n
-    </string>
-    <string name="dialog_button_notifications">Accès à "Notifications"</string>
-    <string name="dialog_title_full_screen_intent"><b>NOTIFICATIONS EN PLEIN ECRAN</b></string>
-    <string name="dialog_message_full_screen_intent">
-        \n<b>Rappel:</b>
-        \n\nActivez ce paramètre, sinon l\'alarme ne se déclenchera pas lorsque l\'écran est éteint.
-        \n
-    </string>
-    <string name="dialog_button_full_screen_intent">Accès à "Notifications en Plein Écran"</string>
     <string name="first_launch_version">Version %s</string>
     <string name="first_launch_main_feature_title">PRINCIPALES FONCTIONNALITÉS</string>
-    <string name="first_launch_button_understood">Compris</string>
+    <string name="first_launch_button_now">Maintenant</string>
+    <string name="first_launch_button_later">Plus tard</string>
     <string name="first_launch_main_feature_message">
         &#9658; Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
         &#9658; Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
@@ -571,16 +544,56 @@
         &#9658; %s</string>
     <string name="first_launch_main_feature_link">&#8230; et bien plus encore !</string>
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
-    <string name="first_launch_important_info_message">Pour s\'assurer que l\'application fonctionne correctement, <b>certains paramètres de votre appareil doivent être modifiés :</b>
-        \n\n&#8226; <b>NE PAS DERANGER :</b> permet à l\'alarme de se déclencher si les sons des notifications sont désactivés ;
-        \n\n&#8226; <b>OPTIMISATION DE LA BATTERIE :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;
-        \n\n&#8226; <b>NOTIFICATIONS :</b> permet à l\'alarme, à la minuterie et au chronomètre d\'envoyer une notification lorsque l\'application est réduite. Elle permet également à l\'alarme de se déclencher.
+    <string name="first_launch_important_info_message">
+        Pour s\'assurer que l\'application fonctionne correctement, &lt;b&gt;certains paramètres de votre appareil doivent être modifiés :&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;NE PAS DERANGER ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &#8226; &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        \n\nVous pouvez modifier ces paramètres dans les boîtes de dialogue suivantes.
-        \n\n<i>Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).</i></string>
-    <string name="first_launch_important_info_message_for_SDK34">\n\n&#8226; <b>NOTIFICATIONS EN PLEIN ECRAN :</b> permet à l\'alarme de se déclencher si l\'écran est éteint ;</string>
-    <string name="first_launch_dialog_title">Quitter ?</string>
-    <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?
-        \n\nCliquer sur le boutton \"Compris\" pour continuer à utiliser l\'application.</string>
+        &#8226; &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        &lt;i&gt;Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
+        Vous pouvez les modifier maintenant ou plus tard dans les paramètres de gestion des autorisations :</string>
+    <string name="first_launch_important_info_message_for_SDK34">&#8226; &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_title">Quitter</string>
+    <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
+    <string name="permission_category_title">Autorisations</string>
+    <string name="permission_management_title">Gestion des autorisations</string>
+    <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
+    <string name="permission_requirement_title">Exigence : </string>
+    <string name="permission_highly_recommended">Hautement recommandée</string>
+    <string name="permission_optional">Optionnelle</string>
+    <string name="permission_status_title">État : </string>
+    <string name="permission_granted">Accordé</string>
+    <string name="permission_denied">Refusé</string>
+    <string name="permission_dialog_revoke_title">Révoquer l\'accès</string>
+    <string name="permission_dialog_close_button">Fermer</string>
+    <string name="revoke_permission_dialog_message">Êtes-vous sûr de vouloir révoquer cette autorisation ?</string>
+    <string name="snackbar_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Afficher la page de gestion des autorisations pour les activer.</string>
+    <string name="snackbar_permission_action">Afficher</string>
+    <string name="ignore_battery_optimizations_title">IGNORER LES OPTIMISATIONS DE LA BATTERIE</string>
+    <string name="ignore_battery_optimizations_dialog_title">Optimisations de la batterie</string>
+    <string name="ignore_battery_optimizations_dialog_text">Par défaut, le système Android configure toutes les applications installées par l\'utilisateur pour qu\'elles soient optimisées afin d\'économiser la batterie.
+        \n\nBien que cela soit acceptable pour de nombreuses applications, cette application est une application d\'alarme et pose souvent des problèmes si elle est configurée pour optimiser la batterie. Une fois activée, le système Android peut tuer l\'application à tout moment et/ou annuler les alarmes qu\'elle a programmées, ce qui aurait des conséquences négatives sur le fonctionnement de l\'appareil.
+        \n\nNous recommandons d\'exclure cette application des optimisations de la batterie.</string>
+    <string name="DND_permission_title">MODIFIER LES PARAMÈTRES NE PAS DÉRANGER</string>
+    <string name="DND_dialog_title">Ne Pas Déranger</string>
+    <string name="DND_dialog_text">L\'application vous permet de régler le volume de la sonnerie des alarmes. Avant le déclenchement de l\'alarme, l\'application tente de modifier le volume de l\'alarme système en fonction du volume que vous avez défini.
+        \n\nPour modifier le volume, l\'autorisation de modifier les paramètres Ne Pas Déranger est requise pour Android Nougat et supérieur. Si elle n\'est pas accordée, l\'appli ne réglera tout simplement pas le volume avant de déclencher l\'alarme.</string>
+    <string name="notifications_permission_title">ACTIVER LES NOTIFICATIONS</string>
+    <string name="notifications_dialog_title">Notifications</string>
+    <string name="notifications_dialog_text">En plus de définir des alarmes, cette application propose également une minuterie, un chronomètre et un mode \"coucher\".
+        \n\nPour que les notifications apparaissent correctement pour tous les modules et surtout pour que l\'alarme soit déclenchée, il est recommandé d\'activer les notifications pour cette application.</string>
+    <string name="FSN_permission_title">ACTIVER LES NOTIFICATIONS EN PLEIN ÉCRAN</string>
+    <string name="FSN_dialog_title">Notifications en Plein Écran</string>
+    <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation Notifications Plein Écran soit activée.</string>
+    <string name="storage_permission_title">LIRE LE STOCKAGE EXTERNE</string>
+    <string name="storage_dialog_title">Stockage externe</string>
+    <string name="storage_dialog_text">Cette autorisation est requise si vous souhaitez choisir une tonalité d\'alarme différente de la tonalité d\'alarme par défaut de votre appareil. Cette autorisation permet donc à l\'application de lire des fichiers audio et musicaux sur votre appareil.
+        \n\nDepuis Android 13, nous demandons une permission spécifique qui nous permet de lire uniquement les fichiers musicaux et audio et rien d\'autre.
+        \nCependant, dans les versions antérieures d\'Android, cette fonction n\'est pas prise en charge, et nous devons donc demander l\'autorisation de lire le stockage externe.</string>
+    <string name="storage_permission_dialog_title">Information</string>
+    <string name="storage_permission_dialog_message">Il semble que vous ayez refusé cette autorisation dans la boîte de dialogue du système Android.
+        \nAndroid n\'autorisera pas cette application à créer à nouveau cette boîte de dialogue de demande d\'autorisation.
+        \n\nSouhaitez-vous aller dans les Paramètres et autoriser cette autorisation ?</string>
 
 </resources>
