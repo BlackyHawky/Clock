@@ -174,14 +174,12 @@
             android:text="@string/duplicate"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textAllCaps="false"
-            android:visibility="invisible"
             app:chipIcon="@drawable/ic_duplicate"
             app:chipIconTint="?android:attr/textColorPrimaryInverse"
             app:chipBackgroundColor="@color/md_theme_primary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

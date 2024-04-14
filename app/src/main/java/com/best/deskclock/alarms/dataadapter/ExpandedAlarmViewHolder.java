@@ -186,8 +186,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindDuplicateButton() {
-        if (!getItemHolder().item.equals(
+        if (getItemHolder().item.equals(
                 Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            duplicate.setVisibility(View.INVISIBLE);
+        } else {
             duplicate.setVisibility(View.VISIBLE);
         }
     }
