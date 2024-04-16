@@ -19,6 +19,7 @@ package com.best.deskclock.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Settings;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
@@ -46,6 +47,11 @@ final class SettingsModel {
      * The uri of the default ringtone to use for timers until the user explicitly chooses one.
      */
     private Uri mDefaultTimerRingtoneUri;
+
+    /**
+     * The uri of the default ringtone to use for alarms until the user explicitly chooses one.
+     */
+    private Uri mDefaultAlarmSettingsRingtoneUri;
 
     SettingsModel(Context context, SharedPreferences prefs, TimeModel timeModel) {
         mContext = context;
@@ -201,12 +207,23 @@ final class SettingsModel {
         return SettingsDAO.getShakeAction(mPrefs);
     }
 
-    Uri getDefaultAlarmRingtoneUri() {
-        return SettingsDAO.getDefaultAlarmRingtoneUri(mPrefs);
+    Uri getDefaultAlarmRingtoneUriFromSettings() {
+        if (mDefaultAlarmSettingsRingtoneUri == null) {
+            mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+        }
+        return mDefaultAlarmSettingsRingtoneUri;
     }
 
-    void setDefaultAlarmRingtoneUri(Uri uri) {
-        SettingsDAO.setDefaultAlarmRingtoneUri(mPrefs, uri);
+    Uri getAlarmRingtoneUriFromSettings() {
+        return SettingsDAO.getAlarmRingtoneUriFromSettings(mPrefs, getDefaultAlarmRingtoneUriFromSettings());
+    }
+
+    void setAlarmRingtoneUriFromSettings(Uri uri) {
+        SettingsDAO.setAlarmRingtoneUriFromSettings(mPrefs, uri);
+    }
+
+    void setSelectedAlarmRingtoneUri(Uri uri) {
+        SettingsDAO.setSelectedAlarmRingtoneUri(mPrefs, uri);
     }
 
     long getAlarmCrescendoDuration() {

@@ -146,7 +146,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.vibrate = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
-        this.alert = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
+        this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         this.deleteAfterUse = false;
         this.increasingVolume = false;
     }

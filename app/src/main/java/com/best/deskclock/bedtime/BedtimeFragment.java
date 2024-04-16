@@ -302,7 +302,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         alarm.enabled = false;
         alarm.daysOfWeek = Weekdays.fromBits(31);
         alarm.label = BEDLABEL;
-        alarm.alert = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
+        alarm.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         alarm.vibrate = false;
         mTxtWakeup.setTime(8, 30);
         mTxtWakeup.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);

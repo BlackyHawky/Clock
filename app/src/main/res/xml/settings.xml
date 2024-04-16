@@ -61,6 +61,10 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/alarm_settings">
+        <Preference
+            android:key="default_alarm_ringtone"
+            android:title="@string/default_alarm_ringtone_title" />
+
         <ListPreference
             android:key="auto_silence"
             android:title="@string/auto_silence_title"

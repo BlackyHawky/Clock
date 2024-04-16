@@ -64,20 +64,26 @@ public final class DataModel {
      * The single instance of this data model that exists for the life of the application.
      */
     private static final DataModel sDataModel = new DataModel();
+
     private Handler mHandler;
+
     private Context mContext;
+
     /**
      * The model from which settings are fetched.
      */
     private SettingsModel mSettingsModel;
+
     /**
      * The model from which city data are fetched.
      */
     private CityModel mCityModel;
+
     /**
      * The model from which timer data are fetched.
      */
     private TimerModel mTimerModel;
+
     /**
      * The model from which alarm data are fetched.
      */
@@ -87,22 +93,27 @@ public final class DataModel {
      * The model from which widget data are fetched.
      */
     private WidgetModel mWidgetModel;
+
     /**
      * The model from which data about settings that silence alarms are fetched.
      */
     private SilentSettingsModel mSilentSettingsModel;
+
     /**
      * The model from which stopwatch data are fetched.
      */
     private StopwatchModel mStopwatchModel;
+
     /**
      * The model from which notification data are fetched.
      */
     private NotificationModel mNotificationModel;
+
     /**
      * The model from which time data are fetched.
      */
     private TimeModel mTimeModel;
+
     /**
      * The model from which ringtone data are fetched.
      */
@@ -138,7 +149,7 @@ public final class DataModel {
             mRingtoneModel = new RingtoneModel(mContext, prefs);
             mSettingsModel = new SettingsModel(mContext, prefs, mTimeModel);
             mCityModel = new CityModel(mContext, prefs, mSettingsModel);
-            mAlarmModel = new AlarmModel(mContext, mSettingsModel);
+            mAlarmModel = new AlarmModel(prefs, mSettingsModel, mRingtoneModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
             mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel, mNotificationModel);
@@ -150,7 +161,7 @@ public final class DataModel {
      */
     public void run(Runnable runnable) {
         try {
-            run(runnable, 0 /* waitMillis */);
+            run(runnable, 0);
         } catch (InterruptedException ignored) {
         }
     }
@@ -248,10 +259,6 @@ public final class DataModel {
         return mCityModel.getAllCities();
     }
 
-    //
-    // Application
-    //
-
     /**
      * @return a city representing the user's home timezone
      */
@@ -275,10 +282,6 @@ public final class DataModel {
         enforceMainLooper();
         return mCityModel.getSelectedCities();
     }
-
-    //
-    // Cities
-    //
 
     /**
      * @param cities the new collection of cities selected for display by the user
@@ -359,10 +362,6 @@ public final class DataModel {
         enforceMainLooper();
         return mTimerModel.getExpiredTimers();
     }
-
-    //
-    // Timers
-    //
 
     /**
      * @param timerId identifies the timer to return
@@ -567,19 +566,43 @@ public final class DataModel {
     }
 
     /**
-     * @return the uri of the ringtone to which all new alarms default
+     * @return the uri of the default ringtone from the settings to play for all alarms when no user selection exists
      */
-    public Uri getDefaultAlarmRingtoneUri() {
+    public Uri getDefaultAlarmRingtoneUriFromSettings() {
         enforceMainLooper();
-        return mAlarmModel.getDefaultAlarmRingtoneUri();
+        return mAlarmModel.getDefaultAlarmRingtoneUriFromSettings();
     }
 
     /**
-     * @param uri the uri of the ringtone to which future new alarms will default
+     * @return the uri of the ringtone from the settings to play for all alarms
      */
-    public void setDefaultAlarmRingtoneUri(Uri uri) {
+    public Uri getAlarmRingtoneUriFromSettings() {
         enforceMainLooper();
-        mAlarmModel.setDefaultAlarmRingtoneUri(uri);
+        return mAlarmModel.getAlarmRingtoneUriFromSettings();
+    }
+
+    /**
+     * @return the title of the ringtone that is played for all alarms
+     */
+    public String getAlarmRingtoneTitle() {
+        enforceMainLooper();
+        return mAlarmModel.getAlarmRingtoneTitle();
+    }
+
+    /**
+     * @param uri the uri of the ringtone from the settings to play for all alarms
+     */
+    public void setAlarmRingtoneUriFromSettings(Uri uri) {
+        enforceMainLooper();
+        mAlarmModel.setAlarmRingtoneUriFromSettings(uri);
+    }
+
+    /**
+     * @param uri the uri of the ringtone of an existing alarm
+     */
+    public void setSelectedAlarmRingtoneUri(Uri uri) {
+        enforceMainLooper();
+        mAlarmModel.setSelectedAlarmRingtoneUri(uri);
     }
 
     /**
@@ -746,11 +769,6 @@ public final class DataModel {
         return mTimeModel.getCalendar();
     }
 
-    //
-    // Time
-    // (Time settings/values are accessible from any Thread so no Thread-enforcement exists.)
-    //
-
     /**
      * Ringtone titles are cached because loading them is expensive. This method
      * <strong>must</strong> be called on a background thread and is responsible for priming the
@@ -786,10 +804,6 @@ public final class DataModel {
         enforceMainLooper();
         mRingtoneModel.addCustomRingtone(uri, title);
     }
-
-    //
-    // Ringtones
-    //
 
     /**
      * @param uri identifies the ringtone to remove
@@ -851,10 +865,6 @@ public final class DataModel {
         enforceMainLooper();
         mSettingsModel.updateGlobalIntentId();
     }
-
-    //
-    // Settings
-    //
 
     /**
      * @return the theme applied.

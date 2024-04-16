@@ -604,7 +604,7 @@ public class HandleApiCalls extends Activity {
             selection.append(" AND ").append(Alarm.RINGTONE).append("=?");
 
             // If the intent explicitly specified a NULL ringtone, treat it as the default ringtone.
-            final Uri defaultRingtone = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
+            final Uri defaultRingtone = DataModel.getDataModel().getDefaultAlarmRingtoneUriFromSettings();
             final Uri ringtone = getAlertFromIntent(intent, defaultRingtone);
             args.add(ringtone.toString());
         }

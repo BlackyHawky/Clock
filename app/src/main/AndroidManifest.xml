@@ -86,6 +86,13 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name=".ringtone.RingtonePickerActivityForSettings"
+            android:excludeFromRecents="true"
+            android:parentActivityName=".DeskClock"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name=".worldclock.CitySelectionActivity"
             android:excludeFromRecents="true"
             android:label="@string/cities_activity_title"

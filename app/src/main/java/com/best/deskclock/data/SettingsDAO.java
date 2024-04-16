@@ -25,6 +25,7 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
@@ -36,7 +37,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.provider.Settings;
 import android.text.format.DateUtils;
 
 import androidx.annotation.NonNull;
@@ -64,9 +64,9 @@ final class SettingsDAO {
     private static final String KEY_SORT_PREFERENCE = "sort_preference";
 
     /**
-     * Key to a preference that stores the default ringtone for new alarms.
+     * Key to a preference that stores the ringtone of an existing alarm.
      */
-    private static final String KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
+    private static final String KEY_SELECTED_ALARM_RINGTONE_URI = "selected_alarm_ringtone_uri";
 
     /**
      * Key to a preference that stores the global broadcast id.
@@ -322,19 +322,25 @@ final class SettingsDAO {
     }
 
     /**
-     * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
-     * has yet been made
+     * @return the uri of the ringtone from the settings to play for all alarms
      */
-    static Uri getDefaultAlarmRingtoneUri(SharedPreferences prefs) {
-        final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
-        return uriString == null ? Settings.System.DEFAULT_ALARM_ALERT_URI : Uri.parse(uriString);
+    static Uri getAlarmRingtoneUriFromSettings(SharedPreferences prefs, Uri defaultUri) {
+        final String uriString = prefs.getString(SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE, null);
+        return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
     /**
-     * @param uri identifies the default ringtone to play for new alarms
+     * @param uri the uri of the ringtone from the settings to play for all alarms
      */
-    static void setDefaultAlarmRingtoneUri(SharedPreferences prefs, Uri uri) {
-        prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
+    static void setAlarmRingtoneUriFromSettings(SharedPreferences prefs, Uri uri) {
+        prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE, uri.toString()).apply();
+    }
+
+    /**
+     * @param uri identifies the ringtone to play of an existing alarm
+     */
+    static void setSelectedAlarmRingtoneUri(SharedPreferences prefs, Uri uri) {
+        prefs.edit().putString(KEY_SELECTED_ALARM_RINGTONE_URI, uri.toString()).apply();
     }
 
     /**

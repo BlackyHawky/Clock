@@ -42,6 +42,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.ringtone.RingtonePickerActivityForSettings;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;
@@ -57,6 +58,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_DARK_MODE = "dark_mode";
     public static final String KEY_DEFAULT_DARK_MODE = "default";
     public static final String KEY_AMOLED_DARK_MODE = "amoled";
+    public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
@@ -189,6 +191,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                 }
+                case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             }
             // Set result so DeskClock knows to refresh itself
@@ -214,6 +217,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogIntent);
+                    return true;
+                }
+                case KEY_DEFAULT_ALARM_RINGTONE -> {
+                    startActivity(RingtonePickerActivityForSettings.createAlarmRingtonePickerIntentForSettings(context));
                     return true;
                 }
                 case KEY_TIMER_RINGTONE -> {
@@ -325,6 +332,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             weekStartPref.setValueIndex(idx);
             weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             weekStartPref.setOnPreferenceChangeListener(this);
+
+            final Preference alarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
+            Objects.requireNonNull(alarmRingtonePref).setOnPreferenceClickListener(this);
+            alarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
 
             final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
             Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);

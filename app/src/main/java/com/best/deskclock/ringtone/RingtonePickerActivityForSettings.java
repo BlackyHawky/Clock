@@ -1,23 +1,7 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// SPDX-License-Identifier: GPL-3.0-only
 package com.best.deskclock.ringtone;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
-import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static com.best.deskclock.ItemAdapter.ItemViewHolder.Factory;
 import static com.best.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
@@ -64,6 +48,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/*
+Todo: find a way to get rid of this file and merge it with RingtonePickerActivity.java
+ See: https://github.com/BlackyHawky/Clock/issues/8
+*/
+
+
 /**
  * This activity presents a set of ringtones from which the user may select one. The set includes:
  * <ul>
@@ -73,18 +63,13 @@ import java.util.concurrent.Executors;
  *     <li>user-selected audio files available as ringtones</li>
  * </ul>
  */
-public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
+public class RingtonePickerActivityForSettings extends CollapsingToolbarBaseActivity
         implements LoaderManager.LoaderCallbacks<List<ItemAdapter.ItemHolder<Uri>>> {
 
     /**
      * Key to an extra that defines resource id to the title of this activity.
      */
     private static final String EXTRA_TITLE = "extra_title";
-
-    /**
-     * Key to an extra that identifies the alarm to which the selected ringtone is attached.
-     */
-    private static final String EXTRA_ALARM_ID = "extra_alarm_id";
 
     /**
      * Key to an extra that identifies the selected ringtone.
@@ -132,33 +117,15 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private boolean mIsPlaying;
 
     /**
-     * Identifies the alarm to receive the selected ringtone; -1 indicates there is no alarm.
+     * @return an intent that launches the ringtone picker to edit the ringtone of all alarms in the settings
      */
-    private long mAlarmId;
-
-    /**
-     * @return an intent that launches the ringtone picker to edit the ringtone of the given
-     * {@code alarm}
-     */
-    public static Intent createAlarmRingtonePickerIntent(Context context, Alarm alarm) {
-        return new Intent(context, RingtonePickerActivity.class)
-                .putExtra(EXTRA_TITLE, R.string.alarm_sound)
-                .putExtra(EXTRA_ALARM_ID, alarm.id)
-                .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
-                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, RingtoneManager.getDefaultUri(TYPE_ALARM))
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
-    }
-
-    /**
-     * @return an intent that launches the ringtone picker to edit the ringtone of all timers
-     */
-    public static Intent createTimerRingtonePickerIntent(Context context) {
+    public static Intent createAlarmRingtonePickerIntentForSettings(Context context) {
         final DataModel dataModel = DataModel.getDataModel();
-        return new Intent(context, RingtonePickerActivity.class)
-                .putExtra(EXTRA_TITLE, R.string.timer_sound)
-                .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
-                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title);
+        return new Intent(context, RingtonePickerActivityForSettings.class)
+                .putExtra(EXTRA_TITLE, R.string.default_alarm_ringtone_title)
+                .putExtra(EXTRA_RINGTONE_URI, dataModel.getAlarmRingtoneUriFromSettings())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultAlarmRingtoneUriFromSettings())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
     }
 
     @Override
@@ -181,7 +148,6 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             mSelectedRingtoneUri = intent.getParcelableExtra(EXTRA_RINGTONE_URI);
         }
 
-        mAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1);
         mDefaultRingtoneUri = intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
         mDefaultRingtoneTitle = context.getString(defaultRingtoneTitleId);
@@ -212,30 +178,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     @Override
     protected void onPause() {
         if (mSelectedRingtoneUri != null) {
-            if (mAlarmId != -1) {
-                final Context context = getApplicationContext();
-                final ContentResolver cr = getContentResolver();
-
-                // Start a background task to fetch the alarm whose ringtone must be updated.
-                ExecutorService executor = Executors.newSingleThreadExecutor();
-                Handler handler = new Handler(Looper.getMainLooper());
-                executor.execute(() -> {
-                    final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
-                    if (alarm != null) {
-                        alarm.alert = mSelectedRingtoneUri;
-
-                        handler.post(() -> {
-                            DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
-
-                            // Start a second background task to persist the updated alarm.
-                            new AlarmUpdateHandler(context, null, null)
-                                    .asyncUpdateAlarm(alarm, false, true);
-                        });
-                    }
-                });
-            } else {
-                DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
-            }
+            DataModel.getDataModel().setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
         }
 
         super.onPause();
@@ -414,7 +357,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
-                    ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
+                    ((RingtonePickerActivityForSettings) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
             if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
                 return new AlertDialog.Builder(requireActivity())
@@ -526,7 +469,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 mIsPlaying = true;
 
                 // Reload the data to reflect the change in the UI.
-                LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivity.this);
+                LoaderManager.getInstance(this).restartLoader(0, null, RingtonePickerActivityForSettings.this);
             });
         });
     }
@@ -551,7 +494,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 if (removeUri.equals(alarm.alert)) {
                     alarm.alert = systemDefaultRingtoneUri;
                     // Start a second background task to persist the updated alarm.
-                    new AlarmUpdateHandler(RingtonePickerActivity.this, null, null)
+                    new AlarmUpdateHandler(RingtonePickerActivityForSettings.this, null, null)
                             .asyncUpdateAlarm(alarm, false, true);
                 }
             }
@@ -566,10 +509,10 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             }
 
             handler.post(() -> {
-                // Reset the timer ringtone if it was just removed.
-                if (removeUri.equals(DataModel.getDataModel().getTimerRingtoneUri())) {
-                    final Uri timerRingtoneUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
-                    DataModel.getDataModel().setTimerRingtoneUri(timerRingtoneUri);
+                // Reset the alarm ringtone in settings if it was just removed.
+                if (removeUri.equals(DataModel.getDataModel().getAlarmRingtoneUriFromSettings())) {
+                    final Uri alarmRingtoneUriFromSettings = DataModel.getDataModel().getDefaultAlarmRingtoneUriFromSettings();
+                    DataModel.getDataModel().setAlarmRingtoneUriFromSettings(alarmRingtoneUriFromSettings);
                 }
 
                 // Remove the corresponding custom ringtone.

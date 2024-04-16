@@ -16,15 +16,12 @@
 
 package com.best.deskclock.data;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.database.ContentObserver;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Handler;
-import android.provider.Settings;
 
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.settings.SettingsActivity;
 
 /**
  * All alarm data will eventually be accessed via this model.
@@ -37,32 +34,77 @@ final class AlarmModel {
     private final SettingsModel mSettingsModel;
 
     /**
-     * The uri of the default ringtone to play for new alarms; mirrors last selection.
+     * The model from which ringtone data are fetched.
      */
-    private Uri mDefaultAlarmRingtoneUri;
+    private final RingtoneModel mRingtoneModel;
 
-    AlarmModel(Context context, SettingsModel settingsModel) {
+    /**
+     * Retain a hard reference to the shared preference observer to prevent it from being garbage
+     * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final SharedPreferences.OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
+
+    /**
+     * The uri of the ringtone from settings to play for all alarms.
+     */
+    private Uri mAlarmRingtoneUriFromSettings;
+
+    /**
+     * The title of the ringtone to play for all alarms.
+     */
+    private String mAlarmRingtoneTitle;
+
+    AlarmModel(SharedPreferences prefs, SettingsModel settingsModel, RingtoneModel ringtoneModel) {
         mSettingsModel = settingsModel;
+        mRingtoneModel = ringtoneModel;
 
         // Clear caches affected by system settings when system settings change.
-        final ContentResolver cr = context.getContentResolver();
-        final ContentObserver observer = new SystemAlarmAlertChangeObserver();
-        cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, observer);
+        prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 
-    Uri getDefaultAlarmRingtoneUri() {
-        if (mDefaultAlarmRingtoneUri == null) {
-            mDefaultAlarmRingtoneUri = mSettingsModel.getDefaultAlarmRingtoneUri();
+    /**
+     * @return the uri of the default ringtone to play for all alarms when no user selection exists
+     */
+    Uri getDefaultAlarmRingtoneUriFromSettings() {
+        return mSettingsModel.getDefaultAlarmRingtoneUriFromSettings();
+    }
+
+    /**
+     * @return the uri of the ringtone to play for all alarms
+     */
+    Uri getAlarmRingtoneUriFromSettings() {
+        if (mAlarmRingtoneUriFromSettings == null) {
+            mAlarmRingtoneUriFromSettings = mSettingsModel.getAlarmRingtoneUriFromSettings();
         }
 
-        return mDefaultAlarmRingtoneUri;
+        return mAlarmRingtoneUriFromSettings;
     }
 
-    void setDefaultAlarmRingtoneUri(Uri uri) {
+    /**
+     * @return the title of the ringtone that is played for all alarms
+     */
+    String getAlarmRingtoneTitle() {
+        final Uri uri = getAlarmRingtoneUriFromSettings();
+        mAlarmRingtoneTitle = mRingtoneModel.getRingtoneTitle(uri);
+
+        return mAlarmRingtoneTitle;
+    }
+
+    /**
+     * @param uri the uri of the ringtone from the settings to play for all alarms
+     */
+    void setAlarmRingtoneUriFromSettings(Uri uri) {
+        mSettingsModel.setAlarmRingtoneUriFromSettings(uri);
+    }
+
+    /**
+     * @param uri the uri of the ringtone of an existing alarm
+     */
+    void setSelectedAlarmRingtoneUri(Uri uri) {
         // Never set the silent ringtone as default; new alarms should always make sound by default.
         if (!Alarm.NO_RINGTONE_URI.equals(uri)) {
-            mSettingsModel.setDefaultAlarmRingtoneUri(uri);
-            mDefaultAlarmRingtoneUri = uri;
+            mSettingsModel.setSelectedAlarmRingtoneUri(uri);
         }
     }
 
@@ -95,19 +137,16 @@ final class AlarmModel {
     }
 
     /**
-     * This receiver is notified when system settings change. Cached information built on
-     * those system settings must be cleared.
+     * This receiver is notified when shared preferences change. Cached information built on
+     * preferences must be cleared.
      */
-    private final class SystemAlarmAlertChangeObserver extends ContentObserver {
-
-        private SystemAlarmAlertChangeObserver() {
-            super(new Handler());
-        }
-
+    private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            mDefaultAlarmRingtoneUri = null;
+        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
+                mAlarmRingtoneUriFromSettings = null;
+                mAlarmRingtoneTitle = null;
+            }
         }
     }
 }
