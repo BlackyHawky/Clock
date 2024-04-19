@@ -137,6 +137,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     private long mAlarmId;
 
     /**
+     * Identifies the title of the ringtone picker activity that appears in the action bar.
+     */
+    private int mTitleResourceId;
+
+    /**
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
      * {@code alarm}
      */
@@ -159,6 +164,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri())
                 .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
                 .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title);
+    }
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of all alarms in the settings
+     */
+    public static Intent createAlarmRingtonePickerIntentForSettings(Context context) {
+        final DataModel dataModel = DataModel.getDataModel();
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.default_alarm_ringtone_title)
+                .putExtra(EXTRA_RINGTONE_URI, dataModel.getAlarmRingtoneUriFromSettings())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultAlarmRingtoneUriFromSettings())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
     }
 
     @Override
@@ -203,8 +220,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         ringtone_content.setAdapter(mRingtoneAdapter);
         ringtone_content.setItemAnimator(null);
 
-        final int titleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
-        setTitle(context.getString(titleResourceId));
+        mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
+        setTitle(context.getString(mTitleResourceId));
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
     }
@@ -212,29 +229,33 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     @Override
     protected void onPause() {
         if (mSelectedRingtoneUri != null) {
-            if (mAlarmId != -1) {
-                final Context context = getApplicationContext();
-                final ContentResolver cr = getContentResolver();
-
-                // Start a background task to fetch the alarm whose ringtone must be updated.
-                ExecutorService executor = Executors.newSingleThreadExecutor();
-                Handler handler = new Handler(Looper.getMainLooper());
-                executor.execute(() -> {
-                    final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
-                    if (alarm != null) {
-                        alarm.alert = mSelectedRingtoneUri;
-
-                        handler.post(() -> {
-                            DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
-
-                            // Start a second background task to persist the updated alarm.
-                            new AlarmUpdateHandler(context, null, null)
-                                    .asyncUpdateAlarm(alarm, false, true);
-                        });
-                    }
-                });
+            if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
+                DataModel.getDataModel().setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
             } else {
-                DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
+                if (mAlarmId != -1) {
+                    final Context context = getApplicationContext();
+                    final ContentResolver cr = getContentResolver();
+
+                    // Start a background task to fetch the alarm whose ringtone must be updated.
+                    ExecutorService executor = Executors.newSingleThreadExecutor();
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    executor.execute(() -> {
+                        final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
+                        if (alarm != null) {
+                            alarm.alert = mSelectedRingtoneUri;
+
+                            handler.post(() -> {
+                                DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
+
+                                // Start a second background task to persist the updated alarm.
+                                new AlarmUpdateHandler(context, null, null)
+                                        .asyncUpdateAlarm(alarm, false, true);
+                            });
+                        }
+                    });
+                } else {
+                    DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
+                }
             }
         }
 

@@ -42,7 +42,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
-import com.best.deskclock.ringtone.RingtonePickerActivityForSettings;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;
@@ -220,7 +219,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
                 case KEY_DEFAULT_ALARM_RINGTONE -> {
-                    startActivity(RingtonePickerActivityForSettings.createAlarmRingtonePickerIntentForSettings(context));
+                    startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
                     return true;
                 }
                 case KEY_TIMER_RINGTONE -> {
