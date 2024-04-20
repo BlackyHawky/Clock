@@ -61,4 +61,9 @@
     <color name="md_theme_surfaceContainerLowest">#FFFFFF</color>
     <color name="md_theme_surfaceContainerHighest">#DCE3E9</color>
 
+    <!-- Widget colors -->
+    <color name="analog_widget_background">#E0F3FF</color>
+    <color name="analog_widget_hour_hand_color">#374955</color>
+    <color name="analog_widget_minute_hand_color">#007FAC</color>
+    <color name="analog_widget_second_hand_color">#787296</color>
 </resources>

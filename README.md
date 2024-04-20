@@ -84,13 +84,16 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 
 # Screenshots
 
-<p float="left">
- <img src="/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="160" />
- <img src="/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="160" />
- <img src="/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="160" />
- <img src="/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="160" />
- <img src="/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="160" />
-</p>
+<details>
+<summary><b>Click here to see screenshots</b></summary>
+<br>
+ <img src="/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="200" />
+ <img src="/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="200" />
+ <img src="/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="200" />
+ <img src="/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="200" />
+ <img src="/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="200" />
+ <img src="/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
+</details>
 
 # Credits
 - [qw123wh](https://github.com/qw123wh/new-clock)

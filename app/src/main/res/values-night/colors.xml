@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
     <!-- Material colors -->
     <color name="md_theme_primary">#76D1FF</color>
@@ -46,5 +48,11 @@
     <color name="md_theme_inverseOnSurface">#2E3133</color>
     <color name="md_theme_surfaceContainerLowest">#161C20</color>
     <color name="md_theme_surfaceContainerHighest">#211F26</color>
+
+    <!-- Widget colors -->
+    <color name="analog_widget_background">#20333D</color>
+    <color name="analog_widget_hour_hand_color">#8094A0</color>
+    <color name="analog_widget_minute_hand_color">#C1E8FF</color>
+    <color name="analog_widget_second_hand_color">#E6DEFF</color>
 
 </resources>

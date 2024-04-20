@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/analog_appwidget_material_you"
+    android:minWidth="72dp"
+    android:minHeight="72dp"
+    android:minResizeWidth="24dp"
+    android:minResizeHeight="24dp"
+    android:previewImage="@drawable/appwidget_material_you_analog_clock_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0" />

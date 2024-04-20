@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
     <!-- Material colors -->
     <color name="md_theme_primary">@android:color/system_accent1_600</color>
@@ -43,4 +45,9 @@
     <color name="md_theme_surfaceContainerLowest">@android:color/system_neutral2_0</color>
     <color name="md_theme_surfaceContainerHighest">@android:color/system_neutral2_100</color>
 
+    <!-- Widget colors -->
+    <color name="analog_widget_background">@android:color/system_accent2_50</color>
+    <color name="analog_widget_hour_hand_color">@android:color/system_accent2_700</color>
+    <color name="analog_widget_minute_hand_color">@android:color/system_accent1_500</color>
+    <color name="analog_widget_second_hand_color">@android:color/system_accent3_500</color>
 </resources>

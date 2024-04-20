@@ -314,6 +314,22 @@
         </receiver>
 
         <receiver
+            android:name="com.best.alarmclock.AnalogAppWidgetMaterialYouProvider"
+            android:exported="false"
+            android:label="@string/analog_gadget_material_you">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.oldName"
+                android:value="com.best.deskclock.AnalogAppWidgetMaterialYouProvider" />
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/analog_appwidget_material_you" />
+        </receiver>
+
+        <receiver
             android:name="com.best.alarmclock.DigitalAppWidgetProvider"
             android:exported="false"
             android:label="@string/digital_gadget">

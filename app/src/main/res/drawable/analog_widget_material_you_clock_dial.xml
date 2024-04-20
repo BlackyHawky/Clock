@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    drawable from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="vector"
+    android:width="380dp"
+    android:height="380dp"
+    android:viewportWidth="380"
+    android:viewportHeight="380">
+    <path
+        android:name="path"
+        android:pathData="m177 3c8-4 18-4 26 0l28 13c3 2 7 3 10 3l32 3c8 0 16 5 22 12l18 26c2 3 4 5 7 7l26 18c7 6 12 14 12 22l3 32c0 3 1 7 3 10l13 28c4 8 4 18 0 26l-13 28c-2 3-3 7-3 10l-3 32c0 8-5 16-12 22l-26 18c-3 2-5 4-7 7l-18 26c-6 7-14 12-22 12l-32 3c-3 0-7 1-10 3l-28 13c-8 4-18 4-26 0l-28-13c-3-2-7-3-10-3l-32-3c-8 0-16-5-22-12l-18-26c-2-3-4-5-7-7l-26-18c-7-6-12-14-12-22l-3-32c0-3-1-7-3-10l-13-28c-4-8-4-18 0-26l13-28c2-3 3-7 3-10l3-32c0-8 5-16 12-22l26-18c3-2 5-4 7-7l18-26c6-7 14-12 22-12l32-3c3 0 7-1 10-3l28-13z"
+        android:fillColor="@color/analog_widget_background"/>
+</vector>

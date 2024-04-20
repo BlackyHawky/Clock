@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="380dp"
+    android:width="380dp"
+    android:viewportWidth="380"
+    android:viewportHeight="380">
+    <path
+        android:fillColor="@color/analog_widget_second_hand_color"
+        android:pathData="M 190 21 C 199.941 21 208 29.059 208 39 C 208 48.941 199.941 57 190 57 C 180.059 57 172 48.941 172 39 C 172 29.059 180.059 21 190 21 Z" />
+</vector>
