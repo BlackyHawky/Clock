@@ -20,6 +20,7 @@ import static com.best.deskclock.Utils.enforceMainLooper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.StringRes;
 
@@ -62,7 +63,9 @@ public final class Controller {
             mContext = context.getApplicationContext();
             mEventController = new EventController();
             mVoiceController = new VoiceController();
-            mShortcutController = new ShortcutController(mContext);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                mShortcutController = new ShortcutController(mContext);
+            }
         }
     }
 
