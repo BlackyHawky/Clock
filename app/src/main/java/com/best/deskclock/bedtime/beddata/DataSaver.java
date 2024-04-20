@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock.bedtime.beddata;
 
 import android.content.Context;

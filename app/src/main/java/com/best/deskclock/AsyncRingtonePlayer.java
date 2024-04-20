@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock;
 
 import static android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock.bedtime;
 
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -53,7 +55,6 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.List;
-
 
 /**
  * Fragment that shows the bedtime.

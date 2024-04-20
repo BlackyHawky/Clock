@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
+
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
