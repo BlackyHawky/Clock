@@ -42,7 +42,7 @@ import com.best.deskclock.data.DataModel;
 
 public class AlarmVolumePreference extends Preference {
 
-    private static final long ALARM_PREVIEW_DURATION_MS = 2000;
+    private static final long ALARM_PREVIEW_DURATION_MS = 5000;
 
     private SeekBar mSeekbar;
     private boolean mPreviewPlaying;
