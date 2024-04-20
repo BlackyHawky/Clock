@@ -49,4 +49,6 @@
     <color name="analog_widget_hour_hand_color">@android:color/system_accent2_400</color>
     <color name="analog_widget_minute_hand_color">@android:color/system_accent1_100</color>
     <color name="analog_widget_second_hand_color">@android:color/system_accent3_100</color>
+    <color name="digital_widget_background_color">@android:color/system_accent2_800</color>
+    <color name="digital_widget_time_color">@android:color/system_accent2_100</color>
 </resources>

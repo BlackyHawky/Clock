@@ -20,6 +20,4 @@
     <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
-    <dimen name="min_digital_widget_width">202dp</dimen>
-    <dimen name="widget_max_clock_font_size">80dp</dimen>
 </resources>

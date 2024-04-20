@@ -104,6 +104,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Horloge analogique"</string>
     <string name="analog_gadget_material_you">Horloge analogique Material You</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
+    <string name="digital_gadget_material_you">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">

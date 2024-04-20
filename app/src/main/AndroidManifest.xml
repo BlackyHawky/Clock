@@ -339,13 +339,30 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.deskclock.ALARM_CHANGED" />
                 <action android:name="com.best.deskclock.ON_DAY_CHANGE" />
                 <action android:name="com.best.deskclock.WORLD_CITIES_CHANGED" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/digital_appwidget" />
+        </receiver>
+
+        <receiver
+            android:name="com.best.alarmclock.DigitalAppWidgetMaterialYouProvider"
+            android:exported="false"
+            android:label="@string/digital_gadget_material_you">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/digital_appwidget_material_you" />
         </receiver>
 
         <service

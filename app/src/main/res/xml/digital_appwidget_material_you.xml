@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    xml from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/loading_widget"
+    android:minWidth="150dp"
+    android:minHeight="70dp"
+    android:minResizeWidth="50dp"
+    android:minResizeHeight="30dp"
+    android:previewImage="@drawable/appwidget_material_you_digital_clock_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="keyguard|home_screen" />

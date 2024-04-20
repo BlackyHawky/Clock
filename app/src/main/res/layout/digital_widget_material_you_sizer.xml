@@ -18,48 +18,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical">
+
+    <TextClock
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/digital_widget_text_color"
+        tools:text="Sat. 20 Jan."
+        tools:textSize="18sp" />
 
     <TextClock
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:ellipsize="none"
         android:format12Hour="@string/lock_screen_12_hour_format"
         android:format24Hour="@string/lock_screen_24_hour_format"
-        android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@android:color/white"
-        android:shadowRadius="2.75"
-        android:shadowColor="@android:color/black"
-        android:shadowDx="2"
-        android:shadowDy="2"
+        android:textColor="@color/md_theme_primary"
         tools:text="01:23"
-        tools:textSize="70sp" />
+        tools:textSize="70sp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top">
-
-        <TextClock
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="3dp"
-            android:layout_gravity="center"
-            android:ellipsize="none"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:shadowRadius="2.75"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            tools:text="Sa, Apr 14"
-            tools:textSize="18sp" />
+        android:gravity="center">
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
@@ -68,34 +60,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="none"
-            android:includeFontPadding="false"
             android:singleLine="true"
             android:text="@string/clock_emoji"
-            android:textColor="@android:color/white"
-            android:shadowRadius="2.75"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
+            android:textColor="@color/digital_widget_text_color"
             tools:text=""
             tools:drawableStart="@drawable/ic_tab_alarm_static"
-            tools:paddingStart="8dp"
-            tools:paddingEnd="8dp" />
+            tools:paddingHorizontal="3dp"
+            tools:drawableTint="@color/digital_widget_text_color" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="3dp"
             android:layout_gravity="center"
-            android:ellipsize="none"
+            android:gravity="center"
+            android:paddingHorizontal="3dp"
             android:includeFontPadding="false"
+            android:ellipsize="none"
             android:singleLine="true"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:shadowRadius="2.75"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
+            android:textColor="@color/digital_widget_text_color"
             tools:text="Mo, 07:30 AM"
             tools:textSize="18sp" />
 

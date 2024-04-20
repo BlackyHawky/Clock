@@ -66,4 +66,7 @@
     <color name="analog_widget_hour_hand_color">#374955</color>
     <color name="analog_widget_minute_hand_color">#007FAC</color>
     <color name="analog_widget_second_hand_color">#787296</color>
+    <color name="digital_widget_background_color">#E0F3FF</color>
+    <color name="digital_widget_time_color">#00668B</color>
+    <color name="digital_widget_text_color">#1D1B20</color>
 </resources>

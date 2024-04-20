@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    layout from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
+    modified
+    SPDX-License-Identifier: Apache-2.0
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/digital_widget_material_you"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/digital_widget_background"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextClock
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/digital_widget_text_color"
+        tools:text="Sat. 20 Jan."
+        tools:textSize="18sp" />
+
+    <TextClock
+        android:id="@+id/clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/digital_widget_time_color"
+        tools:text="0123 AM"
+        tools:textSize="70sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <!-- Do not use the App tint attribute, otherwise the icon will not
+        change color when the device mode (light or dark) changes. -->
+        <ImageView
+            android:id="@+id/nextAlarmIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            android:tint="@color/digital_widget_text_color"
+            tools:src="@drawable/ic_tab_alarm_static"
+            tools:paddingHorizontal="3dp"
+            tools:ignore="UseAppTint" />
+
+        <TextView
+            android:id="@+id/nextAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:includeFontPadding="false"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:textColor="@color/digital_widget_text_color"
+            tools:text="08:30"
+            tools:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

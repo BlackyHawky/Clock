@@ -31,34 +31,36 @@
         android:includeFontPadding="false"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/big_font_size"
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
         android:shadowDy="2"
-        tools:text="0123 AM" />
+        tools:text="0123 AM"
+        tools:textSize="70sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
 
         <TextClock
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingHorizontal="3dp"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            tools:text="01. Jan, 2023" />
+            tools:text="01. Jan, 2023"
+            tools:textSize="18sp" />
 
         <ImageView
             android:id="@+id/nextAlarmIcon"
@@ -73,18 +75,19 @@
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingHorizontal="3dp"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            tools:text="08:30" />
+            tools:text="08:30"
+            tools:textSize="18sp" />
 
     </LinearLayout>
 
