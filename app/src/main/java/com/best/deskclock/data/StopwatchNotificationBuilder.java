@@ -24,7 +24,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.SystemClock;
 import android.widget.RemoteViews;
@@ -62,11 +61,10 @@ class StopwatchNotificationBuilder {
 
         // Compute some values required below.
         final boolean running = stopwatch.isRunning();
-        final String pname = context.getPackageName();
-        final Resources res = context.getResources();
         final long base = SystemClock.elapsedRealtime() - stopwatch.getTotalTime();
 
-        final RemoteViews content = new RemoteViews(pname, R.layout.chronometer_notif_content);
+        final RemoteViews content = new RemoteViews(context.getPackageName(), R.layout.chronometer_notif_content);
+        content.setTextViewText(R.id.title, context.getString(R.string.stopwatch_channel));
         content.setChronometer(R.id.chronometer, base, null, running);
 
         final List<Action> actions = new ArrayList<>(2);
@@ -78,7 +76,7 @@ class StopwatchNotificationBuilder {
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_pause;
-            final CharSequence title1 = res.getText(R.string.sw_pause_button);
+            final CharSequence title1 = context.getText(R.string.sw_pause_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -89,7 +87,7 @@ class StopwatchNotificationBuilder {
                         .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
                 @DrawableRes final int icon2 = R.drawable.ic_sw_lap;
-                final CharSequence title2 = res.getText(R.string.sw_lap_button);
+                final CharSequence title2 = context.getText(R.string.sw_lap_button);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, lap);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
             }
@@ -98,7 +96,7 @@ class StopwatchNotificationBuilder {
             final int lapCount = DataModel.getDataModel().getLaps().size();
             if (lapCount > 0) {
                 final int lapNumber = lapCount + 1;
-                final String lap = res.getString(R.string.sw_notification_lap_number, lapNumber);
+                final String lap = context.getString(R.string.sw_notification_lap_number, lapNumber);
                 content.setTextViewText(R.id.state, lap);
                 content.setViewVisibility(R.id.state, VISIBLE);
             } else {
@@ -111,7 +109,7 @@ class StopwatchNotificationBuilder {
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon1 = R.drawable.ic_fab_play;
-            final CharSequence title1 = res.getText(R.string.sw_start_button);
+            final CharSequence title1 = context.getText(R.string.sw_start_button);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
@@ -121,17 +119,16 @@ class StopwatchNotificationBuilder {
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             @DrawableRes final int icon2 = R.drawable.ic_reset;
-            final CharSequence title2 = res.getText(R.string.sw_reset_button);
+            final CharSequence title2 = context.getText(R.string.sw_reset_button);
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
 
             // Indicate the stopwatch is paused.
-            content.setTextViewText(R.id.state, res.getString(R.string.swn_paused));
+            content.setTextViewText(R.id.state, context.getString(R.string.swn_paused));
             content.setViewVisibility(R.id.state, VISIBLE);
         }
 
-        final Builder notification = new Builder(
-                context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
+        final Builder notification = new Builder(context, STOPWATCH_NOTIFICATION_CHANNEL_ID)
                 .setLocalOnly(true)
                 .setOngoing(running)
                 .setCustomContentView(content)
