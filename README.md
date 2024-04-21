@@ -29,6 +29,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Timer, stopwatch and bedtime included;
 * Possibility of sharing your stopwatch with your contacts;
 * Customizable screensaver;
+* Modern widgets;
 * Material design;
 * Dynamic colors for Android 12+;
 

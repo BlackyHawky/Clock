@@ -364,7 +364,7 @@
     <string name="features_title">Principales fonctionnalités</string>
     <string name="about_github_link">Consulter sur GitHub</string>
     <string name="license">Licence Open-source</string>
-    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="gnu_gpl">Licence publique générale GNU v3.0</string>
     <string name="contributors">Contributeurs</string>
     <string name="credits">Crédits</string>
     <string name="about_dialog_message">
@@ -372,17 +372,20 @@
         \n\n&#8226; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
         \n\n&#8226; Pour les téléphones Snapdragon uniquement, l\'alarme se déclenche lorsque le téléphone est éteint ;
         \n\n&#8226; Glisser pour supprimer une alarme ;
+        \n\n&#8226; Possibilité de dupliquer les alarmes ;
         \n\n&#8226; Personnaliser le titre de l\'alarme ;
         \n\n&#8226; Sonnerie personnalisable ;
         \n\n&#8226; Thème clair, sombre ou système ;
+        \n\n&#8226; Mode AMOLED pour le thème sombre ;
         \n\n&#8226; Horloge numérique ou analogique ;
-        \n\n&#8226; Affichage de l\'heure de départ en voyage ;
-        \n\n&#8226; Affiche l\'heure dans de nombreuses villes du monde ;
+        \n\n&#8226; Affichage de l\'heure du domicile en cas de déplacement ;
+        \n\n&#8226; Affichage de l\'heure dans de nombreuses villes du monde ;
         \n\n&#8226; Minuteur, chronomètre et heure du coucher inclus ;
         \n\n&#8226; Possibilité de partager votre chronomètre avec vos contacts ;
         \n\n&#8226; Écran de veille personnalisable ;
-        \n\n&#8226; Material design;
-        \n\n&#8226; Couleurs dynamiques pour Android 12+;
+        \n\n&#8226; Widgets modernes ;
+        \n\n&#8226; Material design ;
+        \n\n&#8226; Couleurs dynamiques pour Android 12+ ;
     </string>
 
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
