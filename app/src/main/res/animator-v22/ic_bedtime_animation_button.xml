@@ -2,6 +2,7 @@
 <!--
     SPDX-License-Identifier: GPL-3.0-only
 -->
+
 <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="300"
     android:interpolator="@anim/ic_bedtime_button_translatex_interpolator"

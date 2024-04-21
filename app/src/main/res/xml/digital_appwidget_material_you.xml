@@ -2,8 +2,9 @@
 <!--
     xml from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
     modified
-    SPDX-License-Identifier: Apache-2.0
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
+
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/loading_widget"
     android:minWidth="150dp"

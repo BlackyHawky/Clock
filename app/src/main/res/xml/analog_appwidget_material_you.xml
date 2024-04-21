@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    SPDX-License-Identifier: Apache-2.0
+    SPDX-License-Identifier: GPL-3.0-only
 -->
+
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/analog_appwidget_material_you"
     android:minWidth="72dp"

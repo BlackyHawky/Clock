@@ -2,6 +2,7 @@
 <!--
     SPDX-License-Identifier: Apache-2.0
 -->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:name="day_button_circle_vector"
     android:width="24dp"

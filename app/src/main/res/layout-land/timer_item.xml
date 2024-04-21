@@ -2,6 +2,7 @@
 <!--
      SPDX-FileCopyrightText: 2023 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
+     modified
 -->
 
 <!-- This TimerItem excludes the circle because not enough space exists. -->
