@@ -93,6 +93,7 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
  <img src="/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="200" />
  <img src="/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="200" />
  <img src="/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
+ <img src="/images/phoneScreenshots/7.jpg" alt="Screenshot 7" width="200" />
 </details>
 
 # Credits
