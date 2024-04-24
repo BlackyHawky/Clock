@@ -19,8 +19,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -51,12 +51,15 @@ public class AlarmVolumePreference extends Preference {
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
 
+        // Hide the value of the seekbar located to the right of it to have a seekbar that fills the screen
+        final TextView seekBarValue = (TextView) holder.findViewById(R.id.seekbar_value);
+        seekBarValue.setVisibility(View.GONE);
+
         // Minimum volume for alarm is not 0, calculate it.
         int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - getMinVolume(audioManager);
         mSeekbar = (SeekBar) holder.findViewById(R.id.seekbar);
         mSeekbar.setMax(maxVolume);
         mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
-        ((ImageView) holder.findViewById(android.R.id.icon)).setColorFilter(context.getColor(R.color.md_theme_onSurfaceVariant));
 
         onSeekbarChanged();
 

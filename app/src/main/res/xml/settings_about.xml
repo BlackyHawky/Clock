@@ -16,6 +16,7 @@
 
     <Preference
         android:key="about_version"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/version"
         android:summary="@string/version_text"
         android:icon="@drawable/ic_about"
@@ -24,17 +25,20 @@
 
     <Preference
         android:key="about_whats_new"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/whats_new_title"
         android:icon="@drawable/ic_about_update">
     </Preference>
 
     <Preference
         android:key="about_features"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/features_title"
         android:icon="@drawable/ic_about_features" />
 
     <Preference
         android:title="@string/about_github_link"
+        android:layout="@layout/settings_preference_layout"
         android:icon="@drawable/ic_about_github">
         <intent
             android:action="android.intent.action.VIEW"
@@ -42,6 +46,7 @@
     </Preference>
 
     <Preference
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/license"
         android:summary="@string/gnu_gpl"
         android:icon="@drawable/ic_about_license">
@@ -51,9 +56,12 @@
 
     <PreferenceCategory
         android:title="@string/contributors"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
         <Preference
+            android:layout="@layout/settings_preference_layout"
             android:title="qw123wh"
             app:iconSpaceReserved="false">
             <intent android:action="android.intent.action.VIEW"
@@ -61,6 +69,7 @@
         </Preference>
 
         <Preference
+            android:layout="@layout/settings_preference_layout"
             android:title="odmfl"
             app:iconSpaceReserved="false">
             <intent android:action="android.intent.action.VIEW"
@@ -68,6 +77,7 @@
         </Preference>
 
         <Preference
+            android:layout="@layout/settings_preference_layout"
             android:title="Nilsu11"
             app:iconSpaceReserved="false">
             <intent android:action="android.intent.action.VIEW"
@@ -78,9 +88,12 @@
 
     <PreferenceCategory
         android:title="@string/credits"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
         <Preference
+            android:layout="@layout/settings_preference_layout"
             android:title="LineageOS"
             app:iconSpaceReserved="false">
             <intent android:action="android.intent.action.VIEW"
@@ -88,6 +101,7 @@
         </Preference>
 
         <Preference
+            android:layout="@layout/settings_preference_layout"
             android:title="crDroid Android"
             app:iconSpaceReserved="false">
             <intent android:action="android.intent.action.VIEW"
