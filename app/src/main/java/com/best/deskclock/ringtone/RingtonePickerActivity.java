@@ -46,6 +46,7 @@ import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.RingtonePreviewKlaxon;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -166,6 +167,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 .putExtra(EXTRA_RINGTONE_URI, dataModel.getAlarmRingtoneUriFromSettings())
                 .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultAlarmRingtoneUriFromSettings())
                 .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
+    }
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of all alarms in the settings
+     */
+    public static Intent createSleepSoundPickerIntent(Context context) {
+        DataSaver saver = DataSaver.getInstance(context);
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.sleep_sound)
+                .putExtra(EXTRA_RINGTONE_URI, saver.sleepUri)
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, saver.sleepUri)
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.sleep_sound);
     }
 
     @Override
