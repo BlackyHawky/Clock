@@ -26,7 +26,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Digital or analog clock style;
 * Display home time when traveling;
 * Display the time in many cities around the world;
-* Timer, stopwatch and bedtime included;
+* Timer, stopwatch and bedtime _(experimental)_ included;
 * Possibility of sharing your stopwatch with your contacts;
 * Customizable screensaver;
 * Modern widgets;
@@ -34,10 +34,10 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Dynamic colors for Android 12+;
 
 ## Common Issues
-* Problem encountered when using the "Dim background" option in bedtime mode;
+* Problem encountered when displaying times in bedtime mode notifications;
 * Maybe other things, but nothing about the alarm's functionality.
 
-_As I'm not an expert developer, some problems may unfortunately not be solved._
+_<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_
 
 # Contributing ❤
 

@@ -453,7 +453,7 @@ public class DeskClock extends AppCompatActivity
                             R.string.snackbar_permission_message, 7000).setAction(R.string.snackbar_permission_action, v ->
                             startActivity(new Intent(this, PermissionsManagementActivity.class)));
             View snackView = snackbar.getView();
-            TextView snackTextView = (TextView) snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+            TextView snackTextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
             // Necessary because on some devices the text is truncated.
             snackTextView.setMaxLines(5);
             snackbar.show();

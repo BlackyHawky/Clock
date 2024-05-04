@@ -24,7 +24,7 @@
     <string name="device_sounds" msgid="1584894148222639823">"Sons de l\'appareil"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Impossible d\'accéder au contenu sonore."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Minuteur arrivé à expiration"</string>
-    <string name="alarm_inactive">Inactive</string>
+    <string name="alarm_inactive">Désactivée</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
@@ -233,7 +233,6 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteurs ont expiré."</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> rappels manqués"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Rappel manqué"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Rappel manqué : <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interrompre"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Réinit. minuteurs"</string>
@@ -420,7 +419,9 @@
     <string name="wakeup">Réveil</string>
     <string name="bedtime_reminder_notification">Notification de rappel</string>
     <string-array name="array_reminder_notification">
+        <item>10 minutes avant le coucher</item>
         <item>15 minutes avant le coucher</item>
+        <item>20 minutes avant le coucher</item>
         <item>30 minutes avant le coucher</item>
         <item>45 minutes avant le coucher</item>
         <item>1 heure avant le coucher</item>
@@ -428,23 +429,18 @@
     </string-array>
     <string name="bedtime_reminder_notification_title">L\'heure du coucher commence à <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="bedtime_reminder_notification_text">L\'heure du coucher s\'arrête à <xliff:g id="wake_time">%1$s</xliff:g> après <xliff:g id="sleep_time">%2$s</xliff:g> de sommeil.</string>
-    <string name="bedtime_notification_title">Le mode "heure du coucher" est activé</string>
-    <string name="bedtime_and"><xliff:g id="value_one">%1$s</xliff:g> et <xliff:g id="value_two">%2$s</xliff:g></string>
+    <string name="bedtime_notification_title">Le mode \"Heure du coucher\" est activé</string>
     <string name="bedtime_notification_action_pause">Pause de 30 minutes</string>
-    <string name="bedtime_notification_action_turn_off">Désactiver pour le moment</string>
-    <string name="bedtime_notification_until"><xliff:g id="text_one">%1$s</xliff:g> jusqu\'à <xliff:g id="wake_time">%2$s</xliff:g></string>
-    <string name="bedtime_notification_dnd_description">Seuls les appels importants vous parviennent</string>
-    <string name="bedtime_paused_notification_title">Le mode "heure du coucher" est en pause</string>
-    <string name="bedtime_notification_resume">Reprend à <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_resume_action">Reprend maintenant</string>
-    <string name="bedtime_screen_option_description">L\'écran reste sombre</string>
-    <string name="bedtime_dnd_title">Mode "Ne Pas Déranger" pour l\'heure du coucher</string>
-    <string name="bedtime_dnd_txt">Seuls les appels des contacts favoris, des appels répétés et des alarmes peuvent vous parvenir</string>
-    <string name="bedtime_wallpaper_title">Atténuer le fond d\'écran</string>
-    <string name="bedtime_wallpaper_text">Rend votre fond d\'écran plus sombre. Les icônes des applications, les widgets et les notifications ne seront pas affectés.</string>
+    <string name="bedtime_notification_action_turn_off">Désactiver</string>
+    <string name="bedtime_notification_until">jusqu\'à <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="bedtime_paused_notification_title">Le mode \"Heure du coucher\" est en pause</string>
+    <string name="bedtime_notification_resume">Reprise le <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Reprendre maintenant</string>
     <string name="wakeup_alarm_label_visible">Alarme de réveil</string>
     <string name="new_bedtime_alarm">Alarme de réveil créée</string>
-    <string name="wakeup_alarm_non_existent">ERREUR: L\'alarme de réveil est supprimée</string>
+    <string name="sleeping_time">Temps de sommeil : %1$s</string>
+    <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
+    <string name="no_wakeup_alarm">Aucun réveil défini</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
     <string name="screensaver_style_group">Style</string>
     <string name="screensaver_color_group">Couleurs</string>

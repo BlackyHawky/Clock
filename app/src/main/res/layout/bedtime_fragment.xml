@@ -10,9 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bedtime_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginVertical="5dp"
-    android:layout_marginHorizontal="10dp">
+    android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bedtime_empty_view"
@@ -28,84 +26,103 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        app:strokeWidth="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:orientation="vertical"
-            android:id="@+id/center_guide_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"/>
-
-        <TextView
-            android:id="@+id/bedtime_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:importantForAccessibility="no"
-            android:text="@string/menu_bedtime"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/center_guide_vertical"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.best.deskclock.widget.TextTime
-            android:id="@+id/bedtime_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:focusable="true"
-            android:gravity="center"
-            android:textSize="48sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/center_guide_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_label"
-            tools:text="23:00" />
-
-        <TextView
-            android:id="@+id/wake_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wakeup"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
-            android:importantForAccessibility="no"
-            app:layout_constraintStart_toStartOf="@+id/center_guide_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.best.deskclock.widget.TextTime
-            android:id="@+id/wakeup_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:focusable="true"
-            android:gravity="center"
-            android:textSize="48sp"
-            app:layout_constraintStart_toEndOf="@+id/center_guide_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wake_label"
-            tools:text="08:30" />
-
-        <include
-            layout="@layout/bedtime_to_wakeup"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/bedtime_time" />
+            android:paddingVertical="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/center_guide_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bedtime_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:importantForAccessibility="no"
+                android:text="@string/menu_bedtime"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/center_guide_vertical"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.best.deskclock.widget.TextTime
+                android:id="@+id/bedtime_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:focusable="true"
+                android:gravity="center"
+                android:textSize="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/center_guide_vertical"
+                app:layout_constraintTop_toBottomOf="@+id/bedtime_label"
+                tools:text="23:00" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/wake_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:text="@string/wakeup"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="?android:attr/textColorPrimary"
+                android:importantForAccessibility="no"
+                app:layout_constraintStart_toStartOf="@+id/center_guide_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.best.deskclock.widget.TextTime
+                android:id="@+id/wakeup_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:focusable="true"
+                android:gravity="center"
+                android:textSize="48sp"
+                app:layout_constraintStart_toEndOf="@+id/center_guide_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wake_label"
+                tools:text="08:30" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/hours_of_sleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/bedtime_time"
+                tools:text="Sleeping time: 9h30" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

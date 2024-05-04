@@ -214,7 +214,6 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ടൈമറുകൾ കാലഹരണപ്പെട്ടു"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> വിട്ടുപോയ ടൈമറുകൾ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ടൈമർ"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"വിട്ടുപോയ ടൈമർ"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"വിട്ടുപോയ ടൈമർ: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"തൽക്കാലം നിർത്തൂ"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"എല്ലാ ടൈമറുകളും പുനഃസജ്ജമാക്കുക"</string>
