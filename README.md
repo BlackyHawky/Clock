@@ -1,6 +1,9 @@
 # Clock
 Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 
+[<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)
+[<img src="/images/badge-f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
+
 ## Table of Contents
 
 - [Features](#features-)
@@ -11,7 +14,6 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 - [License](#license)
 - [Screenshots](#screenshots)
 - [Credits](#credits)
-- [Download](#download)
 
 # Features : 
 * Flip and shake action to dismiss/postpone alarm;
@@ -19,7 +21,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * For Snapdragon phones only, the alarm is triggered when the phone is switched off;
 * Swipe to delete an alarm;
 * Duplicate alarms;
-* Customize alarm title;
+* Customizable alarm title;
 * Customizable ringtone;
 * Light, dark or system theme;
 * AMOLED mode for dark theme;
@@ -88,20 +90,17 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 <details>
 <summary><b>Click here to see screenshots</b></summary>
 <br>
- <img src="/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="200" />
- <img src="/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="200" />
- <img src="/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="200" />
- <img src="/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="200" />
- <img src="/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="200" />
- <img src="/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
- <img src="/images/phoneScreenshots/7.jpg" alt="Screenshot 7" width="200" />
- <img src="/images/phoneScreenshots/8.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpg" alt="Screenshot 7" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpg" alt="Screenshot 8" width="200" />
 </details>
 
 # Credits
-- [qw123wh](https://github.com/qw123wh/new-clock)
+- [qw123wh](https://github.com/qw123wh)
 - [crDroid Android](https://github.com/crdroidandroid/android_packages_apps_DeskClock)
 - [LineageOS](https://github.com/LineageOS/android_packages_apps_DeskClock)
-
-# Download
-[<img src="/images/badge_github.png" alt="Get it on GitHub" height="60">](https://github.com/BlackyHawky/New-Clock/releases)
