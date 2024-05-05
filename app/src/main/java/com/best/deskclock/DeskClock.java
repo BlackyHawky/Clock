@@ -444,7 +444,6 @@ public class DeskClock extends AppCompatActivity
      */
     private void checkPermissions() {
         if (!PermissionsManagementActivity.isIgnoringBatteryOptimizations(this)
-                || !PermissionsManagementActivity.isDNDPermissionGranted(this)
                 || !PermissionsManagementActivity.areNotificationsEnabled(this)
                 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
                     && !PermissionsManagementActivity.areFullScreenNotificationsEnabled(this)) {

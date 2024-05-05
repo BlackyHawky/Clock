@@ -567,10 +567,6 @@
     <string name="ignore_battery_optimizations_dialog_text">Par défaut, le système Android configure toutes les applications installées par l\'utilisateur pour qu\'elles soient optimisées afin d\'économiser la batterie.
         \n\nBien que cela soit acceptable pour de nombreuses applications, cette application est une application d\'alarme et pose souvent des problèmes si elle est configurée pour optimiser la batterie. Une fois activée, le système Android peut tuer l\'application à tout moment et/ou annuler les alarmes qu\'elle a programmées, ce qui aurait des conséquences négatives sur le fonctionnement de l\'appareil.
         \n\nNous recommandons d\'exclure cette application des optimisations de la batterie.</string>
-    <string name="DND_permission_title">MODIFIER LES PARAMÈTRES NE PAS DÉRANGER</string>
-    <string name="DND_dialog_title">Ne Pas Déranger</string>
-    <string name="DND_dialog_text">L\'application vous permet de régler le volume de la sonnerie des alarmes. Avant le déclenchement de l\'alarme, l\'application tente de modifier le volume de l\'alarme système en fonction du volume que vous avez défini.
-        \n\nPour modifier le volume, l\'autorisation de modifier les paramètres Ne Pas Déranger est requise pour Android Nougat et supérieur. Si elle n\'est pas accordée, l\'appli ne réglera tout simplement pas le volume avant de déclencher l\'alarme.</string>
     <string name="notifications_permission_title">ACTIVER LES NOTIFICATIONS</string>
     <string name="notifications_dialog_title">Notifications</string>
     <string name="notifications_dialog_text">En plus de définir des alarmes, cette application propose également une minuterie, un chronomètre et un mode \"coucher\".

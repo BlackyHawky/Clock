@@ -10,7 +10,6 @@ import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
 import static android.provider.Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS;
 import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT;
-import static android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS;
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
@@ -38,18 +37,15 @@ import com.google.android.material.card.MaterialCardView;
 public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity {
 
     MaterialCardView mIgnoreBatteryOptimizationsView;
-    MaterialCardView mDoNotDisturbView;
     MaterialCardView mNotificationView;
     MaterialCardView mFullScreenNotificationsView;
     MaterialCardView mStorageView;
 
     ImageView mIgnoreBatteryOptimizationsDetails;
-    ImageView mDoNotDisturbDetails;
     ImageView mNotificationDetails;
     ImageView mFullScreenNotificationsDetails;
     ImageView mStorageDetails;
 
-    TextView mDoNotDisturbStatus;
     TextView mIgnoreBatteryOptimizationsStatus;
     TextView mNotificationStatus;
     TextView mFullScreenNotificationsStatus;
@@ -76,18 +72,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 .show()
         );
         mIgnoreBatteryOptimizationsStatus = findViewById(R.id.IBO_status_text);
-
-        mDoNotDisturbView = findViewById(R.id.DND_view);
-        mDoNotDisturbView.setOnClickListener(v -> grantOrRevokeDNDPermission());
-        mDoNotDisturbDetails = findViewById(R.id.DND_details_button);
-        mDoNotDisturbDetails.setOnClickListener(v ->
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.DND_dialog_title)
-                        .setMessage(R.string.DND_dialog_text)
-                        .setPositiveButton(R.string.permission_dialog_close_button, null)
-                        .show()
-        );
-        mDoNotDisturbStatus = findViewById(R.id.DND_status_text);
 
         mNotificationView = findViewById(R.id.notification_view);
         mNotificationView.setOnClickListener(v -> grantOrRevokeNotificationsPermission());
@@ -175,23 +159,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     .setTitle(R.string.permission_dialog_revoke_title)
                     .setMessage(R.string.revoke_permission_dialog_message)
                     .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intentRevoke))
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
-        }
-    }
-
-    /**
-     * Grant or revoke Do Not Disturb permission
-     */
-    private void grantOrRevokeDNDPermission() {
-        final Intent intent = new Intent(ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK);
-        if (!isDNDPermissionGranted(this)) {
-            startActivity(intent);
-        } else {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.permission_dialog_revoke_title)
-                    .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
@@ -292,13 +259,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 ? Color.parseColor("#66BB6A")
                 : Color.parseColor("#EF5350"));
 
-        mDoNotDisturbStatus.setText(isDNDPermissionGranted(this)
-                ? R.string.permission_granted
-                : R.string.permission_denied);
-        mDoNotDisturbStatus.setTextColor(isDNDPermissionGranted(this)
-                ? Color.parseColor("#66BB6A")
-                : Color.parseColor("#EF5350"));
-
         mNotificationStatus.setText(areNotificationsEnabled(this)
                 ? R.string.permission_granted
                 : R.string.permission_denied);
@@ -329,14 +289,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     public static boolean isIgnoringBatteryOptimizations(Context context) {
         final PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
-    }
-
-    /**
-     * @return {@code true} when Do Not Disturb permission is granted; {@code false} otherwise
-     */
-    public static boolean isDNDPermissionGranted(Context context) {
-        final NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        return notificationManager.isNotificationPolicyAccessGranted();
     }
 
     /**
