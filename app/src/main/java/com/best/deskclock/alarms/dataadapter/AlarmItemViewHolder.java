@@ -52,7 +52,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         arrow = itemView.findViewById(R.id.arrow);
 
         editLabel.setOnClickListener(view -> {
-            if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDLABEL))) {
+            if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
                 getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
             }
         });
@@ -79,7 +79,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             editLabel.setTypeface(Typeface.DEFAULT);
             editLabel.setAlpha(CLOCK_DISABLED_ALPHA);
         } else {
-            editLabel.setText(alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDLABEL))
+            editLabel.setText(alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))
                     ? context.getString(R.string.wakeup_alarm_label_visible)
                     : alarm.label);
             editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0

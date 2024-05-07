@@ -6,7 +6,7 @@
 
 package com.best.deskclock;
 
-import static com.best.deskclock.bedtime.BedtimeFragment.BEDLABEL;
+import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
 
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -60,7 +60,7 @@ public class AlarmUtils {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
-                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDLABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
+                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
     }
 
     /**

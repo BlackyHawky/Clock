@@ -6,14 +6,13 @@
 -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minHeight="40dp"
-    android:paddingStart="12dp"
-    android:paddingEnd="@null"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="40dp"
+    android:paddingHorizontal="8dp"
     android:singleLine="true"
     android:ellipsize="marquee"
-    android:gravity="center_vertical"
+    android:gravity="end|center_vertical"
     android:textSize="16sp"
     android:textColor="?android:attr/textColorPrimary">
 </TextView>

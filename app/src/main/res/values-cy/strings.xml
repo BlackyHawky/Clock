@@ -250,7 +250,6 @@
     <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> amserydd wedi dod i ben</string>
     <string name="timer_multi_missed"><xliff:g example="2" id="number">%d</xliff:g> amserydd wedi eu methu</string>
     <string name="timer_notification_label">Amserydd</string>
-    <string name="missed_timer_notification_label">Amserydd wedi\'i methu</string>
     <string name="missed_named_timer_notification_label">Amserydd wedi\'i methu: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause">Saib</string>
     <string name="timer_reset_all">Ailosod pob amserydd</string>

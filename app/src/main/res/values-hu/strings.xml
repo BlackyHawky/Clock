@@ -214,7 +214,6 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> időzítő lejárt"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> időzítő elmulasztva"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Időzítő"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Elmulasztott időzítő"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Elmulasztott időzítő: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Szüneteltetés"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Visszaállítás"</string>

@@ -3,7 +3,6 @@
 package com.best.deskclock.bedtime;
 
 import static android.content.Context.VIBRATOR_SERVICE;
-import static android.view.View.INVISIBLE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 
@@ -63,34 +62,35 @@ import java.util.List;
 
 /**
  * Fragment that shows the bedtime.
- // */
+ */
 public final class BedtimeFragment extends DeskClockFragment {
 
     private static final String TAG = "BedtimeFragment";
+    public final static String BEDTIME_LABEL = "Wake-up alarm"; // We need a unique label to identify our wake alarm
+    public final static int BEDTIME_ID = 0;
 
-    //We need a unique label to identify our wake alarm
-    public final static String BEDLABEL = "Wake-up alarm";
-    ViewGroup mBedtimeView;
-    private EmptyViewController mEmptyViewController;
-    TextView mEmptyView;
-    TextView mHoursOfSleep;
     Context mContext;
     DataSaver mSaver;
     View view;
+    ViewGroup mBedtimeView;
+    ViewGroup mMainLayout;
+    EmptyViewController mEmptyViewController;
+    TextView mEmptyView;
+    TextView mHoursOfSleep;
+    TextView mReminderNotificationTitle;
+    TextView mNoBedtimeAlarmText;
+    TextView mNoWakeupAlarmText;
     TextView mRingtone;
     TextTime mClock;
-    TextTime mTxtWakeup;
-    TextTime mTxtBedtime;
+    TextTime mWakeupText;
+    TextTime mBedtimeText;
     LinearLayout mRepeatDays;
     CheckBox mVibrate;
     final CompoundButton[] mDayButtons = new CompoundButton[7];
     CompoundButton mOnOff;
-    CompoundButton mWall;
-    CompoundButton mDnd;
     AlarmUpdateHandler mAlarmUpdateHandler;
-    ViewGroup mMainLayout;
     BottomSheetDialog mBottomSheetDialog;
-    Spinner mNotifList;
+    Spinner mNotificationList;
     Alarm mAlarm;
 
     ImageView mSoundImageView;
@@ -99,7 +99,9 @@ public final class BedtimeFragment extends DeskClockFragment {
     Spinner mSleepLength;
     Button mSleepChoose;
 
-    /** The public no-arg constructor required by all fragments. */
+    /**
+     * The public no-arg constructor required by all fragments.
+     */
     public BedtimeFragment() {
         super(BEDTIME);
     }
@@ -122,19 +124,20 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         mEmptyViewController = new EmptyViewController(mBedtimeView, mMainLayout, mEmptyView);
 
-        mTxtBedtime = view.findViewById(R.id.bedtime_time);
-        mTxtWakeup = view.findViewById(R.id.wakeup_time);
-        TextView[] textViews = new TextView[]{mTxtBedtime, mTxtWakeup};
-        // Sets the Click Listener for the bedtime and wakeup time
+        mBedtimeText = view.findViewById(R.id.bedtime_time);
+        mWakeupText = view.findViewById(R.id.wakeup_time);
+        TextView[] textViews = new TextView[]{mBedtimeText, mWakeupText};
         for (TextView time: textViews ) {
             time.setOnClickListener(v -> {
-                if (mTxtBedtime.equals(time)) {
+                if (mBedtimeText.equals(time)) {
                     mSaver.restore();
                     showBedtimeBottomSheetDialog();
-                } else if (mTxtWakeup.equals(time)) {
-                    mAlarm = getBedAlarm();
+                } else if (mWakeupText.equals(time)) {
+                    mAlarm = getWakeupAlarm();
                     showWakeupBottomSheetDialog(mAlarm);
-                }});}
+                }}
+            );
+        }
 
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, mMainLayout);
 
@@ -162,8 +165,7 @@ public final class BedtimeFragment extends DeskClockFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mAlarm = getBedAlarm();
-
+        mAlarm = getWakeupAlarm();
         mSaver = DataSaver.getInstance(mContext);
         mSaver.restore();
         bindFragBedClock();
@@ -172,55 +174,17 @@ public final class BedtimeFragment extends DeskClockFragment {
             mEmptyViewController.setEmpty(false);
             hoursOfSleep(mAlarm);
             bindFragWakeClock(mAlarm);
-            if (mBottomSheetDialog != null && mBottomSheetDialog.findViewById(R.id.wake_time) == mClock && mBottomSheetDialog.isShowing()) {
+            if (mRingtone != null) {
                 bindRingtone(mContext, mAlarm);
             }
         } else {
             mEmptyViewController.setEmpty(true);
         }
         bindSleep();
-    }
 
-    // Calculates the different between the time times
-    private void hoursOfSleep(Alarm alarm) {
-        mHoursOfSleep = view.findViewById(R.id.hours_of_sleep);
-
-        if (null != alarm) {
-            int minDiff = alarm.minutes - mSaver.minutes;
-            int hDiff;
-
-            if (mSaver.hour > alarm.hour || mSaver.hour == alarm.hour && mSaver.minutes > alarm.minutes) {
-                hDiff = alarm.hour + 24 - mSaver.hour;
-            } else if (mSaver.hour == alarm.hour && mSaver.minutes == alarm.minutes) {
-                hDiff = 24;
-            } else {
-                hDiff = alarm.hour - mSaver.hour;
-            }
-
-            if (minDiff < 0) {
-                hDiff = hDiff - 1;
-                minDiff = 60 + minDiff;
-            }
-
-            String diff;
-            if (minDiff == 0) {
-                diff = hDiff + "h";
-            } else {
-                diff = hDiff + "h " + minDiff + "min";
-            }
-
-            mHoursOfSleep.setText(diff);
-            mHoursOfSleep.setAlpha(mSaver.enabled && alarm.enabled
-                    ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
-                    : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
-            );
-            mHoursOfSleep.setTypeface(mSaver.enabled && alarm.enabled
-                    ? Typeface.DEFAULT_BOLD
-                    : Typeface.DEFAULT
-            );
-        } else {
-            mHoursOfSleep.setText(R.string.wakeup_alarm_non_existent);
-        }
+        // Necessary if from the bedtime view we go to the settings, change one of these settings
+        // and return to the bedtime view
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
     }
 
     @Override
@@ -242,12 +206,14 @@ public final class BedtimeFragment extends DeskClockFragment {
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        left.setVisibility(INVISIBLE);
-        right.setVisibility(INVISIBLE);
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.INVISIBLE);
     }
 
-    //Wake stuff is almost done, only ringtone picking makes problems makes problems
-    //moved here for better structure
+    // ****************************
+    // *   Wake-up bottom sheet   *
+    // ****************************
+
     private void showWakeupBottomSheetDialog(Alarm alarm) {
         mBottomSheetDialog = new BottomSheetDialog(mContext);
         mBottomSheetDialog.setContentView(R.layout.bedtime_wakeup_bottom_sheet);
@@ -259,19 +225,19 @@ public final class BedtimeFragment extends DeskClockFragment {
         }
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
-        mClock = mBottomSheetDialog.findViewById(R.id.wake_time);
-        mVibrate = mBottomSheetDialog.findViewById(R.id.vibrate_onoff_wake);
+        mClock = mBottomSheetDialog.findViewById(R.id.wakeup_time);
+        mVibrate = mBottomSheetDialog.findViewById(R.id.vibrate_onoff_wakeup);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_wakeup);
+        mNoWakeupAlarmText = mBottomSheetDialog.findViewById(R.id.no_wakeup_alarm_text);
         buildWakeButton(mBottomSheetDialog, alarm);
         bindWakeStuff(alarm);
 
-        // Ringtone editor handler
         mRingtone.setOnClickListener(v -> {
             Events.sendBedtimeEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-            final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(mContext, alarm);
+            final Intent intent = RingtonePickerActivity.createAlarmRingtonePickerIntent(mContext, mAlarm);
             mContext.startActivity(intent);
-            bindRingtone(mContext, alarm);
+            bindRingtone(mContext, mAlarm);
         });
 
         mClock.setOnClickListener(v -> {
@@ -283,22 +249,23 @@ public final class BedtimeFragment extends DeskClockFragment {
         mOnOff.setOnCheckedChangeListener((compoundButton, checked) -> {
             if (checked != alarm.enabled) {
                 alarm.enabled = checked;
+
+                mClock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
                 mClock.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                mTxtWakeup.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                mHoursOfSleep.setAlpha(mSaver.enabled && alarm.enabled
-                        ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
-                        : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
-                );
-                mHoursOfSleep.setTypeface(mSaver.enabled && alarm.enabled
-                        ? Typeface.DEFAULT_BOLD
-                        : Typeface.DEFAULT
-                );
+
+                mWakeupText.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+                mWakeupText.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+
                 Events.sendBedtimeEvent(checked
                         ? R.string.action_enable
                         : R.string.action_disable, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
 
                 Utils.vibrationTime(mContext, 50);
+
+                hoursOfSleep(alarm);
+
+                bindNoWakeupAlarmText();
             }
         });
 
@@ -308,9 +275,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 alarm.vibrate = newState;
                 Events.sendBedtimeEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-
                 if (newState) {
-                    // Buzz the vibrator to preview the alarm firing behavior.
                     Utils.vibrationTime(mContext, 300);
                 }
             }
@@ -319,33 +284,6 @@ public final class BedtimeFragment extends DeskClockFragment {
         mBottomSheetDialog.show();
     }
 
-    public Alarm getBedAlarm() {
-        ContentResolver cr = mContext.getContentResolver();
-        List<Alarm> alarms = Alarm.getAlarms(cr, Alarm.LABEL + "=?", BEDLABEL);
-        if (!alarms.isEmpty()) {
-            return alarms.get(0);
-        }
-
-        return null;
-    }
-
-    private void createAlarm() {
-        final Alarm alarm = new Alarm();
-        alarm.hour = 8;
-        alarm.minutes = 30;
-        alarm.enabled = false;
-        alarm.daysOfWeek = Weekdays.fromBits(31);
-        alarm.label = BEDLABEL;
-        alarm.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-        alarm.vibrate = false;
-        mTxtWakeup.setTime(8, 30);
-        mTxtWakeup.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-        AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
-        mAlarmUpdateHandler.asyncAddAlarmForBedtime(alarm);
-        SnackbarManager.show(Snackbar.make(mMainLayout, R.string.new_bedtime_alarm, Snackbar.LENGTH_LONG));
-    }
-
-    // Build button for each day.
     private void buildWakeButton(BottomSheetDialog bottomSheetDialog, Alarm alarm){
         mRepeatDays = bottomSheetDialog.findViewById(R.id.repeat_days_bedtime);
         final LayoutInflater inflaters = LayoutInflater.from(mContext);
@@ -366,20 +304,13 @@ public final class BedtimeFragment extends DeskClockFragment {
             final int index = i;
             mDayButtons[i].setOnClickListener(view -> {
                 final boolean checked = ((CompoundButton) view).isChecked();
-                //final Calendar now = Calendar.getInstance();
-                //final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
-
                 final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
                 alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
-                // if the change altered the next scheduled alarm time, tell the user
-                /*final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
-                final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);*/
-                final boolean popupToast = false; //TODO:normally we would tell the user but you can't see the toast behind the bottomSheet
-                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
+                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
 
                 Utils.vibrationTime(mContext, 10);
-                //TODO:Is it really right to bind them again just to change the letter color
+
                 bindDaysOfWeekButtons(alarm, mContext);
             });
         }
@@ -389,9 +320,10 @@ public final class BedtimeFragment extends DeskClockFragment {
     private void bindWakeStuff(Alarm alarm) {
         bindDaysOfWeekButtons(alarm, mContext);
         bindVibrator(alarm);
-        bindRingtone(mContext, alarm);
+        bindRingtone(mContext, mAlarm);
         bindOnOffSwitch(alarm);
         bindClock(alarm);
+        bindNoWakeupAlarmText();
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -423,11 +355,11 @@ public final class BedtimeFragment extends DeskClockFragment {
     }
 
     private void bindVibrator(Alarm alarm) {
-        if (!((Vibrator) mContext.getSystemService(VIBRATOR_SERVICE)).hasVibrator()) {
-            mVibrate.setVisibility(View.GONE);
-        } else {
+        if (hasVibrator()) {
             mVibrate.setVisibility(View.VISIBLE);
             mVibrate.setChecked(alarm.vibrate);
+        } else {
+            mVibrate.setVisibility(View.GONE);
         }
     }
 
@@ -440,61 +372,53 @@ public final class BedtimeFragment extends DeskClockFragment {
 
     private void bindClock(Alarm alarm) {
         mClock.setTime(alarm.hour, alarm.minutes);
+        mClock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         mClock.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         bindFragWakeClock(alarm);
         hoursOfSleep(alarm);
     }
 
     private void bindFragWakeClock(Alarm alarm) {
-        mTxtWakeup.setTime(alarm.hour, alarm.minutes);
-        mTxtWakeup.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+        mWakeupText.setTime(alarm.hour, alarm.minutes);
+        mWakeupText.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        mWakeupText.setAlpha(alarm.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
     }
 
-    private void onTimeSet(int hourOfDay, int minute) {
-        if (mClock == mBottomSheetDialog.findViewById(R.id.wake_time)) {
-            Alarm selectedAlarm = getBedAlarm();
-
-            if (selectedAlarm == null) {
-                return;
-            }
-            selectedAlarm.hour = hourOfDay;
-            selectedAlarm.minutes = minute;
-            selectedAlarm.enabled = true;
-            mOnOff.setChecked(true);
-            mAlarmUpdateHandler.asyncUpdateAlarm(selectedAlarm, true, false);
-            bindClock(selectedAlarm);
-        } else if (mClock == mBottomSheetDialog.findViewById(R.id.bedtime_time)) {
-            mSaver.hour = hourOfDay;
-            mSaver.minutes = minute;
-            mSaver.enabled = true;
-            mSaver.save();
-            mOnOff.setChecked(true);
-            bindBedClock();
-            BedtimeService.scheduleBed(mContext, mSaver, BedtimeService.ACTION_LAUNCH_BEDTIME);
-            if (mSaver.notifShowTime != -1) {
-                BedtimeService.scheduleBed(mContext, mSaver, BedtimeService.ACTION_BED_REMIND_NOTIF);
-            }
+    private void bindNoWakeupAlarmText() {
+        if (mOnOff.isChecked()) {
+            mNoWakeupAlarmText.setVisibility(View.GONE);
+            mVibrate.setVisibility(hasVibrator() ? View.VISIBLE : View.INVISIBLE);
+            mRingtone.setVisibility(View.VISIBLE);
+        } else {
+            mNoWakeupAlarmText.setVisibility(View.VISIBLE);
+            mVibrate.setVisibility(View.INVISIBLE);
+            mRingtone.setVisibility(View.INVISIBLE);
         }
     }
 
-    //Bedtime bottom sheet
+    // ****************************
+    // *   Bedtime bottom sheet   *
+    // ****************************
+
     public void showBedtimeBottomSheetDialog() {
         mBottomSheetDialog = new BottomSheetDialog(mContext);
         mBottomSheetDialog.setContentView(R.layout.bedtime_bottom_sheet);
         mBottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
         mClock = mBottomSheetDialog.findViewById(R.id.bedtime_time);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_bedtime);
-        mNotifList = mBottomSheetDialog.findViewById(R.id.notif_spinner);
+        mReminderNotificationTitle = mBottomSheetDialog.findViewById(R.id.reminder_notification_title);
+        mNotificationList = mBottomSheetDialog.findViewById(R.id.notif_spinner);
+        mNoBedtimeAlarmText = mBottomSheetDialog.findViewById(R.id.no_bedtime_alarm_text);
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            mNotifList.getPopupBackground().setColorFilter(mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
+            mNotificationList.getPopupBackground().setColorFilter(
+                    mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
             mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
         }
 
-        mDnd = mBottomSheetDialog.findViewById(R.id.dnd_switch);
-        mWall = mBottomSheetDialog.findViewById(R.id.wall_switch);
         buildButton(mBottomSheetDialog);
+
         bindBedStuff();
 
         mClock.setOnClickListener(v -> {
@@ -508,60 +432,45 @@ public final class BedtimeFragment extends DeskClockFragment {
             if (checked != mSaver.enabled) {
                 mSaver.enabled = checked;
                 mSaver.save();
+
+                mClock.setTypeface(mSaver.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
                 mClock.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                mTxtBedtime.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
-                mHoursOfSleep.setAlpha(mSaver.enabled && mAlarm != null && mAlarm.enabled
-                        ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA
-                        : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA
-                );
-                mHoursOfSleep.setTypeface(mSaver.enabled && mAlarm != null && mAlarm.enabled
-                        ? Typeface.DEFAULT_BOLD
-                        : Typeface.DEFAULT
-                );
+
+                mBedtimeText.setTypeface(mSaver.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+                mBedtimeText.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
                 Utils.vibrationTime(mContext, 50);
+
+                hoursOfSleep(mAlarm);
             }
 
             if (!checked) {
-                BedtimeService.cancelBed(mContext, BedtimeService.ACTION_LAUNCH_BEDTIME);
-                BedtimeService.cancelBed(mContext, BedtimeService.ACTION_BED_REMIND_NOTIF);
+                BedtimeService.cancelBedtimeMode(mContext, BedtimeService.ACTION_LAUNCH_BEDTIME);
+                BedtimeService.cancelBedtimeMode(mContext, BedtimeService.ACTION_BED_REMIND_NOTIF);
                 BedtimeService.cancelNotification(mContext);
             } else {
-                BedtimeService.scheduleBed(mContext, mSaver, BedtimeService.ACTION_LAUNCH_BEDTIME);
-                if (mSaver.notifShowTime != -1) {
-                    BedtimeService.scheduleBed(mContext, mSaver, BedtimeService.ACTION_BED_REMIND_NOTIF);
+                BedtimeService.scheduleBedtimeMode(mContext, mSaver, BedtimeService.ACTION_LAUNCH_BEDTIME);
+                if (mSaver.notificationShowTime != -1) {
+                    BedtimeService.scheduleBedtimeMode(mContext, mSaver, BedtimeService.ACTION_BED_REMIND_NOTIF);
                 }
             }
+
+            bindNoBedtimeAlarmText();
         });
 
-        mNotifList.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+        mNotificationList.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] values = mContext.getResources().getStringArray(R.array.array_reminder_notification_values);
-                mSaver.notifShowTime = Integer.parseInt(values[position]);
+                mSaver.notificationShowTime = Integer.parseInt(values[position]);
                 mSaver.save();
-                LogUtils.wtf("value saved for notif time:", mSaver.notifShowTime);
+                LogUtils.wtf("value saved for notif time:", mSaver.notificationShowTime);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-
-        mDnd.setOnCheckedChangeListener((buttonView, checked) -> {
-            if (checked != mSaver.doNotDisturb) {
-                mSaver.doNotDisturb = checked;
-                mSaver.save();
-                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bedtime_dnd_title);
-            }
-        });
-
-        mWall.setOnCheckedChangeListener((buttonView, checked) -> {
-            if (checked != mSaver.dimWall) {
-                mSaver.dimWall = checked;
-                mSaver.save();
-                Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.bedtime_wallpaper_title);
             }
         });
 
@@ -592,26 +501,21 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
                 mSaver.daysOfWeek = mSaver.daysOfWeek.setBit(weekday, checked);
-
-                //TODO: normally we would tell the user bedtime changed but the user can't see the toast behind the bottomSheet
                 mSaver.save();
 
                 Utils.vibrationTime(mContext, 10);
 
-                //TODO: is it really right to bind all again just to change the letter color
                 bindDaysOfBedButtons(mContext);
             });
         }
     }
 
-    //private void showNotifPref()
-    //binding
     private void bindBedStuff() {
         bindDaysOfBedButtons(mContext);
         bindBedSwitch();
         bindBedClock();
         bindSpinner();
-        bindSwitches();
+        bindNoBedtimeAlarmText();
     }
 
     private void bindDaysOfBedButtons(Context context) {
@@ -637,30 +541,39 @@ public final class BedtimeFragment extends DeskClockFragment {
 
     private void bindBedClock() {
         mClock.setTime(mSaver.hour, mSaver.minutes);
+        mClock.setTypeface(mSaver.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
         mClock.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         bindFragBedClock();
-        hoursOfSleep(getBedAlarm());
+        hoursOfSleep(getWakeupAlarm());
     }
 
     private void bindFragBedClock() {
-        mTxtBedtime.setTime(mSaver.hour, mSaver.minutes);
-        mTxtBedtime.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+        mBedtimeText.setTime(mSaver.hour, mSaver.minutes);
+        mBedtimeText.setTypeface(mSaver.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+        mBedtimeText.setAlpha(mSaver.enabled ? AlarmItemViewHolder.CLOCK_ENABLED_ALPHA : AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
     }
 
     private void bindSpinner() {
-        mNotifList.setAdapter(ArrayAdapter.createFromResource(mContext, R.array.array_reminder_notification, R.layout.spinner_item));
-        mNotifList.setSelection(getSpinnerPos(mSaver.notifShowTime,
+        mNotificationList.setAdapter(ArrayAdapter.createFromResource(mContext, R.array.array_reminder_notification, R.layout.spinner_item));
+        mNotificationList.setSelection(getSpinnerPosition(mSaver.notificationShowTime,
                 mContext.getResources().getStringArray(R.array.array_reminder_notification_values)));
     }
 
-    private void bindSwitches() {
-        if (mDnd.isChecked() != mSaver.doNotDisturb) {
-            mDnd.setChecked(mSaver.doNotDisturb);
-        }
-        if (mWall.isChecked() != mSaver.dimWall) {
-            mWall.setChecked(mSaver.dimWall);
+    private void bindNoBedtimeAlarmText() {
+        if (mOnOff.isChecked()) {
+            mNoBedtimeAlarmText.setVisibility(View.GONE);
+            mNotificationList.setVisibility(View.VISIBLE);
+            mReminderNotificationTitle.setVisibility(View.VISIBLE);
+        } else {
+            mNoBedtimeAlarmText.setVisibility(View.VISIBLE);
+            mNotificationList.setVisibility(View.INVISIBLE);
+            mReminderNotificationTitle.setVisibility(View.INVISIBLE);
         }
     }
+
+    // ******************************
+    // *   Bedtime mode functions   *
+    // ******************************
 
     private void ShowMaterialTimePicker(int hour, int minute) {
 
@@ -690,7 +603,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         bindSleepTone();
         mSleepLength.setAdapter(ArrayAdapter.createFromResource(mContext,
                 R.array.array_sleep_length, R.layout.spinner_item));
-        mSleepLength.setSelection(getSpinnerPos(mSaver.sleepLength,
+        mSleepLength.setSelection(getSpinnerPosition(mSaver.sleepLength,
                 mContext.getResources().getStringArray(R.array.array_sleep_length_values)));
     }
     private void bindSleepTone(){
@@ -711,9 +624,101 @@ public final class BedtimeFragment extends DeskClockFragment {
 //        }
     }
     //TODO: implement sleep-timers with common media support(songs, albums, artists and playlists) in here
+    private void onTimeSet(int hourOfDay, int minute) {
+        if (mClock == mBottomSheetDialog.findViewById(R.id.wakeup_time)) {
+            Alarm selectedAlarm = getWakeupAlarm();
 
-    //general stuff
-    private int getSpinnerPos(int savedValue, String[] valueArray) {
+            if (selectedAlarm == null) {
+                return;
+            }
+            selectedAlarm.hour = hourOfDay;
+            selectedAlarm.minutes = minute;
+            selectedAlarm.enabled = true;
+            mOnOff.setChecked(true);
+            mAlarmUpdateHandler.asyncUpdateAlarm(selectedAlarm, true, false);
+            bindClock(selectedAlarm);
+        } else if (mClock == mBottomSheetDialog.findViewById(R.id.bedtime_time)) {
+            mSaver.hour = hourOfDay;
+            mSaver.minutes = minute;
+            mSaver.enabled = true;
+            mSaver.save();
+            mOnOff.setChecked(true);
+            bindBedClock();
+            BedtimeService.scheduleBedtimeMode(mContext, mSaver, BedtimeService.ACTION_LAUNCH_BEDTIME);
+            if (mSaver.notificationShowTime != -1) {
+                BedtimeService.scheduleBedtimeMode(mContext, mSaver, BedtimeService.ACTION_BED_REMIND_NOTIF);
+            }
+        }
+    }
+
+    /**
+     * Calculate the difference between wake-up time and bedtime
+     */
+    private void hoursOfSleep(Alarm alarm) {
+        mHoursOfSleep = view.findViewById(R.id.hours_of_sleep);
+
+        if (alarm != null) {
+            int minDiff = alarm.minutes - mSaver.minutes;
+            int hDiff;
+
+            if (mSaver.hour > alarm.hour || mSaver.hour == alarm.hour && mSaver.minutes > alarm.minutes) {
+                hDiff = alarm.hour + 24 - mSaver.hour;
+            } else if (mSaver.hour == alarm.hour && mSaver.minutes == alarm.minutes) {
+                hDiff = 24;
+            } else {
+                hDiff = alarm.hour - mSaver.hour;
+            }
+
+            if (minDiff < 0) {
+                hDiff = hDiff - 1;
+                minDiff = 60 + minDiff;
+            }
+
+            String diff;
+            if (minDiff == 0) {
+                diff = hDiff + "h";
+            } else if (hDiff == 0) {
+                diff = minDiff + "min";
+            } else {
+                diff = hDiff + "h " + minDiff + "min";
+            }
+
+            mHoursOfSleep.setText(alarm.enabled || mSaver.enabled
+                    ? mContext.getString(R.string.sleeping_time, diff)
+                    : mContext.getString(R.string.alarm_inactive)
+            );
+        }
+    }
+
+    public Alarm getWakeupAlarm() {
+        ContentResolver cr = mContext.getContentResolver();
+        List<Alarm> alarms = Alarm.getAlarms(cr, Alarm.LABEL + "=?", BEDTIME_LABEL);
+        if (!alarms.isEmpty()) {
+            return alarms.get(0);
+        }
+
+        return null;
+    }
+
+    private void createAlarm() {
+        final Alarm alarm = new Alarm();
+        alarm.id = BEDTIME_ID;
+        alarm.hour = 8;
+        alarm.minutes = 30;
+        alarm.enabled = false;
+        alarm.daysOfWeek = Weekdays.fromBits(31);
+        alarm.label = BEDTIME_LABEL;
+        alarm.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+        alarm.vibrate = false;
+        mWakeupText.setTime(8, 30);
+        mWakeupText.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
+        hoursOfSleep(alarm);
+        AlarmUpdateHandler mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, null);
+        mAlarmUpdateHandler.asyncAddAlarmForBedtime(alarm);
+        SnackbarManager.show(Snackbar.make(mMainLayout, R.string.new_bedtime_alarm, Snackbar.LENGTH_LONG));
+    }
+
+    private int getSpinnerPosition(int savedValue, String[] valueArray) {
         for (int i = 0; i < valueArray.length; i++){
             String value = valueArray[i];
             if (Integer.parseInt(value) == savedValue) {
@@ -721,5 +726,9 @@ public final class BedtimeFragment extends DeskClockFragment {
             }
         }
         return 0;
+    }
+
+    private boolean hasVibrator() {
+        return ((Vibrator) mContext.getSystemService(VIBRATOR_SERVICE)).hasVibrator();
     }
 }

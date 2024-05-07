@@ -214,7 +214,6 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"កម្មវិធីកំណត់ពេល <xliff:g id="NUM_TIMERS">%d</xliff:g> បានផុតកំណត់"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"កម្មវិធីកំណត់ពេល <xliff:g id="NUMBER">%d</xliff:g> ដែលខកខាន"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ម៉ោង"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"កម្មវិធីកំណត់ពេលដែលខកខាន"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"កម្មវិធីកំណត់ពេលដែលខកខាន៖ <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"ផ្អាក"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"កំណត់ការកំណត់ពេលទាំងអស់ឡើងវិញ"</string>

@@ -214,7 +214,6 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ટાઇમર્સનો સમય સમાપ્ત થયો"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર ચૂકી ગયાં"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ટાઇમર"</string>
-    <string name="missed_timer_notification_label" msgid="6661928727623284334">"ચૂકી ગયેલ ટાઇમર"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"ચૂકી ગયેલ ટાઇમર: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"થોભાવો"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"બધા ટાઇમર્સ ફરીથી સેટ કરો"</string>

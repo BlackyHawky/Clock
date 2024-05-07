@@ -99,8 +99,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent action to show the alarm and dismiss the instance
     public static final String SHOW_AND_DISMISS_ALARM_ACTION = "show_and_dismiss_alarm";
 
-    // System intent action to notify AppWidget that we changed the alarm text.
-    public static final String ACTION_ALARM_CHANGED = "com.best.deskclock.ALARM_CHANGED";
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
 
