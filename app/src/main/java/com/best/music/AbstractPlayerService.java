@@ -1,3 +1,20 @@
+/*
+ *  Copyright (C) 2024 The OmniROM Project
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.best.music;
 
 import android.app.Notification;
@@ -69,8 +86,11 @@ public abstract class AbstractPlayerService extends Service {
         // Create a notification builder
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NotificationUtils.BEDTIME_NOTIFICATION_CHANNEL_ID);
         notificationBuilder.setSmallIcon(R.drawable.ic_media_song);
-        notificationBuilder.setContentTitle("Music Player");
-        notificationBuilder.setContentText("Playing music");
+        notificationBuilder.setContentTitle(getString(notificationTitleString()));
+
+        if (notificationTextString() != -1) {
+            notificationBuilder.setContentText(getString(notificationTextString()));
+        }
 
         Intent stopIntent = new Intent(this, getClass());
         stopIntent.setAction(ACTION_STOP);
@@ -83,4 +103,12 @@ public abstract class AbstractPlayerService extends Service {
     protected abstract Uri getMusic();
     @StringRes
     protected abstract int stopString();
+    @StringRes
+    protected abstract int notificationTitleString();
+
+    /**
+     * return -1 if no text should be shown
+     * @return string res
+     */
+    protected abstract int notificationTextString();
 }

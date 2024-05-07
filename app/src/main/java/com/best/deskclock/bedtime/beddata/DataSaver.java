@@ -36,7 +36,7 @@ public class DataSaver {
 
     // for lullaby
     public Uri sleepUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-    public int sleepLength = 15;
+    public int sleepLength = 10;
 
     private DataSaver(Context context) {
         this.context = context;
