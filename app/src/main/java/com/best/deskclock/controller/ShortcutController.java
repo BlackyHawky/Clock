@@ -19,7 +19,7 @@ import android.provider.AlarmClock;
 
 import androidx.annotation.StringRes;
 
-import com.best.deskclock.DeskClock;
+import com.best.deskclock.FirstLaunch;
 import com.best.deskclock.HandleApiCalls;
 import com.best.deskclock.HandleShortcuts;
 import com.best.deskclock.LogUtils;
@@ -46,7 +46,7 @@ class ShortcutController {
 
     ShortcutController(Context context) {
         mContext = context;
-        mComponentName = new ComponentName(mContext, DeskClock.class);
+        mComponentName = new ComponentName(mContext, FirstLaunch.class);
         mShortcutManager = mContext.getSystemService(ShortcutManager.class);
         mUserManager = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
         Controller.getController().addEventTracker(new ShortcutEventTracker(mContext));
