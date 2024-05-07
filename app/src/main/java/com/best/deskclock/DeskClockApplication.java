@@ -36,6 +36,7 @@ public class DeskClockApplication extends Application {
         UiDataModel.getUiDataModel().init(applicationContext, prefs);
         Controller.getController().setContext(applicationContext);
         Controller.getController().addEventTracker(new LogEventTracker(applicationContext));
+        Controller.getController().updateShortcuts();
     }
 
     /**

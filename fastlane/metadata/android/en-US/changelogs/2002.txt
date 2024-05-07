@@ -1,3 +1,7 @@
-**Improvements:**
+**Fix:**
+* Fix display of shortcuts when long-pressing the app icon;
+
+**Improvement:**
 * Remove unnecessary permissions;
-* Main changes can be found here: https://github.com/BlackyHawky/Clock/releases/tag/2.0
+
+Main changes can be found here: https://github.com/BlackyHawky/Clock/releases/tag/2.0
