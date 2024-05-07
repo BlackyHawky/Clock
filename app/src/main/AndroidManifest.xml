@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SYSTEM_EXEMPTED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -247,6 +248,11 @@
             android:description="@string/bedtime_service_desc"
             android:directBootAware="true" />
 
+        <service
+            android:name=".bedtime.lullaby.LullabyService"
+            android:description="@string/bedtime_service_desc"
+            android:directBootAware="true"
+            android:foregroundServiceType="mediaPlayback" />
 
         <!-- ============================================================== -->
         <!-- Screen saver components.                                       -->

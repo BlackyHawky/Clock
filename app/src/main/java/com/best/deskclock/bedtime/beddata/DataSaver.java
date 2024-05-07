@@ -51,7 +51,7 @@ public class DataSaver {
 
     // for sleep sound
 
-    public Uri sleepUri;
+    public Uri sleepUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
     public int sleepLength = 15;
 
     private DataSaver(Context context) {
@@ -99,7 +99,7 @@ public class DataSaver {
         alwaysOnDisplay = preferences.getBoolean(KEY_ALWAYS_ON_DISPLAY, false);*/
         dimWall = preferences.getBoolean(KEY_DIM_WALL, false);
         //darkTheme = preferences.getBoolean(KEY_DARK_THEME, false);
-        sleepUri = Uri.parse(preferences.getString(KEY_SLEEP_URI, DataModel.getDataModel().getDefaultAlarmRingtoneUri().toString()));// TODO: the default alarm sound isn't a nice Uri to begin sleeping
+        sleepUri = Uri.parse(preferences.getString(KEY_SLEEP_URI, DataModel.getDataModel().getAlarmRingtoneUriFromSettings().toString()));// TODO: the default alarm sound isn't a nice Uri to begin sleeping
         sleepLength = preferences.getInt(KEY_SLEEP_LENGTH, sleepLength);
     }
 }

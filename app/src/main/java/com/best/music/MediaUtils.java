@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.best.deskclock.ringtone;
+package com.best.music;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -453,7 +453,7 @@ public class MediaUtils {
         } else if (isLocalArtistUri(uri.toString())) {
             return resolveArtist(context, uri);
         }
-        return context.getString(R.string.unknown_ringtone_title);
+        return null;
     }
 
     public static boolean isValidAudioFile(String baseName) {

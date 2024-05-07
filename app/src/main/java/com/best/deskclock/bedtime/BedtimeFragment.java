@@ -13,8 +13,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -43,16 +41,18 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.bedtime.beddata.DataSaver;
+import com.best.deskclock.bedtime.lullaby.LullabyService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.ringtone.MediaUtils;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
+import com.best.music.AbstractPlayerService;
+import com.best.music.MediaUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -141,6 +141,9 @@ public final class BedtimeFragment extends DeskClockFragment {
         mSoundImageView = view.findViewById(R.id.ringtone_image);
         mSoundTitle = view.findViewById(R.id.ringtone_name);
         mSleepLength = view.findViewById(R.id.sleep_spinner);
+        //TODO: replace this spinner with a time
+        mSaver = DataSaver.getInstance(mContext);
+        mSaver.restore();
         bindSleep();
         mSleepChoose = view.findViewById(R.id.sleep_choose);
         mSleepChoose.setOnClickListener(v -> {
@@ -148,8 +151,9 @@ public final class BedtimeFragment extends DeskClockFragment {
         });
         mSleepPlay = view.findViewById(R.id.sleep_play);
         mSleepPlay.setOnClickListener(v -> {
-            Intent i = new Intent(mContext, SleepActivity.class);
-            startActivity(i);
+            Intent i = new Intent(mContext, LullabyService.class);
+            i.setAction(AbstractPlayerService.ACTION_PLAY);
+            mContext.startService(i);
         });
 
         return view;
@@ -168,7 +172,7 @@ public final class BedtimeFragment extends DeskClockFragment {
             mEmptyViewController.setEmpty(false);
             hoursOfSleep(mAlarm);
             bindFragWakeClock(mAlarm);
-            if (mBottomSheetDialog.findViewById(R.id.wake_time) == mClock && mBottomSheetDialog.isShowing()) {
+            if (mBottomSheetDialog != null && mBottomSheetDialog.findViewById(R.id.wake_time) == mClock && mBottomSheetDialog.isShowing()) {
                 bindRingtone(mContext, mAlarm);
             }
         } else {

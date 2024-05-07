@@ -1365,19 +1365,24 @@
     <string name="sleep_choose">Choose another sound</string>
     <string name="sleep_sound">Sleep sound</string>
     <string name="bedtime_schedule">Schedule</string>
+    <string name="play_lullaby">Play sleep sound</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="lullaby_playing">Sleep sound is playing</string>
+    <string name="stop_lullaby">Stop sleep sound</string>
 
-    <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
+    <!-- Entries listed in the ListPreference when invoking the lullaby duration preference -->
     <string-array name="array_sleep_length">
-        <item>@{@plurals/minutes(10)}</item>
-        <item>@{@plurals/minutes(20)}</item>
-        <item>@{@plurals/minutes(30)}</item>
-        <item>@{@plurals/minutes(40)}</item>
-        <item>@{@plurals/minutes(50)}</item>
-        <item>@{@plurals/hours(1)}</item>
+        <item>10 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>50 minutes</item>
+        <item>1 hour</item>
     </string-array>
 
     <!-- Values that are retrieved from the ListPreference. These must match
-         the snooze_duration_entries above. -->
+         the array_sleep_length above. -->
     <string-array name="array_sleep_length_values" translatable="false">
         <item>10</item>
         <item>20</item>
