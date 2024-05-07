@@ -1,0 +1,24 @@
+Clock est une horloge open source respectueuse de la vie privée basée sur AOSP.
+Elle n'utilise pas d'autorisation Internet et est donc 100% hors ligne.
+
+Caractéristiques :
+<ul>
+  <li>L'action de basculer et de secouer l'appareil permet d'annuler ou de reporter l'alarme ;</li>
+  <li>Désactiver ou reporter l'alarme à l'aide du bouton d'alimentation ou des boutons du volume ;</li>
+  <li>Pour les téléphones Snapdragon uniquement, l'alarme se déclenche lorsque le téléphone est éteint ;</li>
+  <li>Glisser pour supprimer une alarme ;</li>
+  <li>Dupliquer les alarmes;</li>
+  <li>Titre de l'alarme personnalisable ;</li>
+  <li>Sonnerie personnalisable ;</li>
+  <li>Thème clair, sombre ou système ;</li>
+  <li>Mode AMOLED pour le thèmes sombre ;</li>
+  <li>Style d'horloge numérique ou analogique ;</li>
+  <li>Affichage de l'heure locale lors des voyages ;</li>
+  <li>Afficher l'heure dans de nombreuses villes du monde ;</li>
+  <li>Minuteur, chronomètre et mode coucher <i>(expérimental)</i> inclus;</li>
+  <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
+  <li>Écran de veille personnalisable ;</li>
+  <li>Widgets modernes ;</li>
+  <li>Design material ;</li>
+  <li>Couleurs dynamiques pour Android 12+ ;</li>
+</ul>

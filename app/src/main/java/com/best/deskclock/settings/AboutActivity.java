@@ -77,7 +77,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
                 }
 
                 final Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://github.com/BlackyHawky/Clock/releases/tag/v" + version));
+                        Uri.parse("https://github.com/BlackyHawky/Clock/releases/tag/" + version));
                 startActivity(browserIntent);
                 return true;
             });

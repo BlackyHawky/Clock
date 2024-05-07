@@ -885,7 +885,7 @@
         \n\n&#8226; Digital or analog clock style;
         \n\n&#8226; Display home time when traveling;
         \n\n&#8226; Display the time in many cities around the world;
-        \n\n&#8226; Timer, stopwatch and bedtime included;
+        \n\n&#8226; Timer, stopwatch and bedtime <i>(experimental)</i> included;
         \n\n&#8226; Possibility of sharing your stopwatch with your contacts;
         \n\n&#8226; Customizable screensaver;
         \n\n&#8226; Modern widgets;
@@ -1327,12 +1327,6 @@
     <string name="ignore_battery_optimizations_dialog_text">By default, the Android system configures all user-installed apps to be optimized to save battery life.
         \n\nWhile this is acceptable for many apps, this app is an alarm app and often causes issues if configured to optimize battery. Once enabled, the Android system can kill the app at any time and/or cancel alarms it has scheduled, which would adversely affect the app\'s operation.
         \n\nWe recommend whitelisting this app from battery optimizations.</string>
-
-    <!-- Do Not Disturb Permission -->
-    <string name="DND_permission_title">CHANGE DO NOT DISTURB SETTINGS</string>
-    <string name="DND_dialog_title">Do Not Disturb</string>
-    <string name="DND_dialog_text">The app allows you to set the ringing volume for alarms. Before the alarm is triggered, the app attempts to change the volume of the system alarm to the volume you\'ve set.
-        \n\nTo change the volume, the permission to modify the Do Not Disturb settings is required for Android Nougat and above. If it is not granted, the app will simply not set the volume before triggering the alarm.</string>
 
     <!-- Notifications Permission -->
     <string name="notifications_permission_title">ENABLE NOTIFICATIONS</string>

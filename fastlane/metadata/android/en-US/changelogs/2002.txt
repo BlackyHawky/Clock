@@ -1,0 +1,3 @@
+**Improvements:**
+* Remove unnecessary permissions;
+* Main changes can be found here: https://github.com/BlackyHawky/Clock/releases/tag/2.0

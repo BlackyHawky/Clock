@@ -1,0 +1,24 @@
+Clock is a privacy-conscious open-source clock, based on AOSP.
+Does not use internet permission, and thus is 100% offline.
+
+Features:
+<ul>
+  <li>Flip and shake action to dismiss/postpone alarm;</li>
+  <li>Turn off/postpone the alarm with the power button or volume buttons;</li>
+  <li>For Snapdragon phones only, the alarm is triggered when the phone is switched off;</li>
+  <li>Swipe to delete an alarm;</li>
+  <li>Duplicate alarms;</li>
+  <li>Customizable alarm title;</li>
+  <li>Customizable ringtone;</li>
+  <li>Light, dark or system theme;</li>
+  <li>AMOLED mode for dark theme;</li>
+  <li>Digital or analog clock style;</li>
+  <li>Display home time when traveling;</li>
+  <li>Display the time in many cities around the world;</li>
+  <li>Timer, stopwatch and bedtime <i>(experimental)</i> included;</li>
+  <li>Possibility of sharing your stopwatch with your contacts;</li>
+  <li>Customizable screensaver;</li>
+  <li>Modern widgets;</li>
+  <li>Material design;</li>
+  <li>Dynamic colors for Android 12+;</li>
+</ul>
