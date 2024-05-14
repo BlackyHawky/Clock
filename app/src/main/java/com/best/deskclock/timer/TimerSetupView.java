@@ -10,7 +10,7 @@ import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.graphics.Color;
 import android.text.BidiFormatter;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -32,6 +32,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.uidata.UiDataModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.MaterialColors;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -108,8 +109,14 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         }
 
         MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
+        doubleZeroButton.setBackgroundColor(
+                MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)
+        );
         doubleZeroButton.setOnClickListener(this);
 
+        mDeleteButton.setBackgroundColor(
+                MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)
+        );
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 
@@ -216,20 +223,19 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 uidm.getFormattedNumber(minutes, 2),
                 uidm.getFormattedNumber(seconds, 2)));
 
-        final Resources r = getResources();
         int endIdx = text.length();
         int startIdx = seconds > 0 ? 8 : endIdx;
         startIdx = minutes > 0 ? 4 : startIdx;
         startIdx = hours > 0 ? 0 : startIdx;
         if (startIdx != endIdx) {
-            final int highlightColor = r.getColor(R.color.md_theme_primary, getContext().getTheme());
+            int highlightColor = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
             text.setSpan(new ForegroundColorSpan(highlightColor), startIdx, endIdx, 0);
         }
         mTimeView.setText(text);
-        mTimeView.setContentDescription(r.getString(R.string.timer_setup_description,
-                r.getQuantityString(R.plurals.hours, hours, hours),
-                r.getQuantityString(R.plurals.minutes, minutes, minutes),
-                r.getQuantityString(R.plurals.seconds, seconds, seconds)));
+        mTimeView.setContentDescription(getResources().getString(R.string.timer_setup_description,
+                getResources().getQuantityString(R.plurals.hours, hours, hours),
+                getResources().getQuantityString(R.plurals.minutes, minutes, minutes),
+                getResources().getQuantityString(R.plurals.seconds, seconds, seconds)));
     }
 
     private void updateDeleteAndDivider() {

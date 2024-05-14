@@ -13,7 +13,7 @@
         <item name="android:navigationBarColor">@color/md_theme_surface</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
-        <item name="android:colorAccent">@color/md_theme_primary</item>
+        <item name="colorAccent">@color/md_theme_primary</item>
         <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
 
         <item name="colorPrimary">@color/md_theme_primary</item>
@@ -85,7 +85,7 @@
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
-        <item name="backgroundTint">@color/md_theme_surface</item>
+        <item name="backgroundTint">?colorSurface</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:padding">5dp</item>
@@ -123,13 +123,12 @@
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/md_theme_primary</item>
+        <item name="backgroundTint">?colorAccent</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
     </style>
 
     <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
-        <item name="colorSurface">@color/md_theme_surface</item>
         <!-- For dialog -->
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
         <!-- For hour and minute fields -->
@@ -148,6 +147,101 @@
 
     <style name="MaterialTimePickerButtonOutlinedStyle" parent="Widget.MaterialComponents.TimePicker.Button">
         <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- DEFAULT ACCENT COLOR -->
+    <!-- Empty because this theme uses the default colors indicated above -->
+    <style name="DefaultColor" />
+
+    <!-- BLUE GRAY ACCENT COLOR -->
+    <style name="BlueGrayAccentColor">
+        <item name="android:navigationBarColor">@color/blueGrayColorSurface</item>
+        <item name="android:colorBackground">@color/blueGrayColorBackground</item>
+        <item name="colorBackgroundFloating">@color/blueGrayColorSurface</item>
+        <item name="android:textColorHighlight">@color/blueGrayPrimaryInverse</item>
+        <item name="colorAccent">@color/blueGrayColorAccent</item>
+        <item name="colorPrimary">@color/blueGrayColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/blueGrayPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/blueGrayPrimaryInverse</item>
+        <item name="colorSurface">@color/blueGrayColorSurface</item>
+    </style>
+
+    <!-- BROWN ACCENT COLOR -->
+    <style name="BrownAccentColor">
+        <item name="android:navigationBarColor">@color/brownColorSurface</item>
+        <item name="android:colorBackground">@color/brownColorBackground</item>
+        <item name="colorBackgroundFloating">@color/brownColorSurface</item>
+        <item name="android:textColorHighlight">@color/brownPrimaryInverse</item>
+        <item name="colorAccent">@color/brownColorAccent</item>
+        <item name="colorPrimary">@color/brownColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/brownPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/brownPrimaryInverse</item>
+        <item name="colorSurface">@color/brownColorSurface</item>
+    </style>
+
+    <!-- GREEN ACCENT COLOR -->
+    <style name="GreenAccentColor">
+        <item name="android:navigationBarColor">@color/greenColorSurface</item>
+        <item name="android:colorBackground">@color/greenColorBackground</item>
+        <item name="colorBackgroundFloating">@color/greenColorSurface</item>
+        <item name="android:textColorHighlight">@color/greenPrimaryInverse</item>
+        <item name="colorAccent">@color/greenColorAccent</item>
+        <item name="colorPrimary">@color/greenColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/greenPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/greenPrimaryInverse</item>
+        <item name="colorSurface">@color/greenColorSurface</item>
+    </style>
+
+    <!-- INDIGO ACCENT COLOR -->
+    <style name="IndigoAccentColor">
+        <item name="android:navigationBarColor">@color/indigoColorSurface</item>
+        <item name="android:colorBackground">@color/indigoColorBackground</item>
+        <item name="colorBackgroundFloating">@color/indigoColorSurface</item>
+        <item name="android:textColorHighlight">@color/indigoPrimaryInverse</item>
+        <item name="colorAccent">@color/indigoColorAccent</item>
+        <item name="colorPrimary">@color/indigoColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/indigoPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/indigoPrimaryInverse</item>
+        <item name="colorSurface">@color/indigoColorSurface</item>
+    </style>
+
+    <!-- ORANGE ACCENT COLOR -->
+    <style name="OrangeAccentColor">
+        <item name="android:navigationBarColor">@color/orangeColorSurface</item>
+        <item name="android:colorBackground">@color/orangeColorBackground</item>
+        <item name="colorBackgroundFloating">@color/orangeColorSurface</item>
+        <item name="android:textColorHighlight">@color/orangePrimaryInverse</item>
+        <item name="colorAccent">@color/orangeColorAccent</item>
+        <item name="colorPrimary">@color/orangeColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/orangePrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/orangePrimaryInverse</item>
+        <item name="colorSurface">@color/orangeColorSurface</item>
+    </style>
+
+    <!-- PINK ACCENT COLOR -->
+    <style name="PinkAccentColor">
+        <item name="android:navigationBarColor">@color/pinkColorSurface</item>
+        <item name="android:colorBackground">@color/pinkColorBackground</item>
+        <item name="colorBackgroundFloating">@color/pinkColorSurface</item>
+        <item name="android:textColorHighlight">@color/pinkPrimaryInverse</item>
+        <item name="colorAccent">@color/pinkColorAccent</item>
+        <item name="colorPrimary">@color/pinkColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/pinkPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/pinkPrimaryInverse</item>
+        <item name="colorSurface">@color/pinkColorSurface</item>
+    </style>
+
+    <!-- RED ACCENT COLOR -->
+    <style name="RedAccentColor">
+        <item name="android:navigationBarColor">@color/redColorSurface</item>
+        <item name="android:colorBackground">@color/redColorBackground</item>
+        <item name="colorBackgroundFloating">@color/redColorSurface</item>
+        <item name="android:textColorHighlight">@color/redPrimaryInverse</item>
+        <item name="colorAccent">@color/redColorAccent</item>
+        <item name="colorPrimary">@color/redColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/redPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/redPrimaryInverse</item>
+        <item name="colorSurface">@color/redColorSurface</item>
     </style>
 
 </resources>

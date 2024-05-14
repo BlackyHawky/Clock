@@ -10,6 +10,7 @@ import static android.view.View.GONE;
 import static android.view.View.OnClickListener;
 import static android.view.View.VISIBLE;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -19,12 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
+import com.google.android.material.color.MaterialColors;
 
 final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder>
         implements OnClickListener {
@@ -53,18 +54,18 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
         mNameView.setText(itemHolder.getName());
-
+        final Context context = itemView.getContext();
         final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
         mNameView.setAlpha(opaque ? 1f : .63f);
         mImageView.setAlpha(opaque ? 1f : .63f);
         mImageView.clearColorFilter();
 
-        final Drawable ringtone = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_ringtone));
+        final Drawable ringtone = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone);
 
         final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             if (!itemHolder.hasPermissions()) {
-                final Drawable error = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_error));
+                final Drawable error = AppCompatResources.getDrawable(context, R.drawable.ic_error);
                 if (error != null) {
                     error.setTint(Color.parseColor("#FF4444"));
                 }
@@ -73,9 +74,9 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
                 mImageView.setImageDrawable(ringtone);
             }
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
-            final Drawable ringtoneSilent = AppCompatResources.getDrawable(itemView.getContext(), (R.drawable.ic_ringtone_silent));
+            final Drawable ringtoneSilent = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
             if (ringtoneSilent != null) {
-                ringtoneSilent.setTint(itemView.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+                ringtoneSilent.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
             }
             mImageView.setImageDrawable(ringtoneSilent);
         } else {
@@ -85,8 +86,10 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
         mSelectedView.setVisibility(itemHolder.isSelected() ? VISIBLE : GONE);
 
-        final int bgColorId = itemHolder.isSelected() ? R.color.md_theme_surfaceVariant : android.R.color.transparent;
-        itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), bgColorId));
+        final int bgColorId = itemHolder.isSelected()
+                ? MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+                : context.getColor(android.R.color.transparent);
+        itemView.setBackgroundColor(bgColorId);
 
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             mDeleteRingtone.setVisibility(VISIBLE);

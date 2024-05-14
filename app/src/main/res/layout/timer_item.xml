@@ -44,7 +44,7 @@
         android:background="@android:color/transparent"
         android:foreground="?attr/selectableItemBackground"
         android:contentDescription="@string/timer_delete"
-        app:tint="@color/md_theme_primary"
+        app:tint="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,8 +59,7 @@
         <com.best.deskclock.timer.TimerCircleView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
         <com.best.deskclock.widget.AutoSizingTextView
             android:id="@+id/timer_time_text"
@@ -86,7 +85,7 @@
         android:textStyle="bold"
         android:contentDescription="@string/timer_plus_one"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/circle_container"/>
+        app:layout_constraintTop_toBottomOf="@id/circle_container" />
 
     <ImageButton
         android:id="@+id/reset"
@@ -96,11 +95,11 @@
         android:scaleType="centerInside"
         android:background="@android:color/transparent"
         android:contentDescription="@string/timer_reset"
-        app:tint="@color/md_theme_primary"
+        app:tint="?colorPrimary"
         app:layout_constraintStart_toEndOf="@id/add_one_min"
         app:layout_constraintEnd_toStartOf="@id/play_pause"
         app:layout_constraintTop_toTopOf="@+id/play_pause"
-        app:layout_constraintBottom_toBottomOf="@+id/play_pause"/>
+        app:layout_constraintBottom_toBottomOf="@+id/play_pause" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause"
@@ -108,10 +107,10 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/timer_start"
         android:scaleType="centerInside"
-        app:icon="@drawable/ic_fab_pause"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/circle_container"/>
+        app:layout_constraintTop_toBottomOf="@id/circle_container"
+        tools:icon="@drawable/ic_fab_play" />
 
 </com.best.deskclock.timer.TimerItem>

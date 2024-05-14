@@ -14,10 +14,18 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
+import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import android.app.AlarmManager;
@@ -71,6 +79,8 @@ import androidx.core.graphics.ColorUtils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -734,7 +744,7 @@ public class Utils {
         final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(radius);
-        gradientDrawable.setColor(context.getColor(R.color.md_theme_surface));
+        gradientDrawable.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         return gradientDrawable;
     }
 
@@ -864,11 +874,12 @@ public class Utils {
     }
 
     /**
-     * Apply the theme to the activities.
+     * Apply the theme and the accent color to the activities.
      */
-    public static void applyTheme(final AppCompatActivity activity) {
+    public static void applyThemeAndAccentColor(final AppCompatActivity activity) {
         final String getTheme = DataModel.getDataModel().getTheme();
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String accentColor = DataModel.getDataModel().getAccentColor();
 
         if (getDarkMode.equals(KEY_DEFAULT_DARK_MODE)) {
             switch (getTheme) {
@@ -882,6 +893,33 @@ public class Utils {
         } else if (getDarkMode.equals(KEY_AMOLED_DARK_MODE)
                 && !getTheme.equals(SYSTEM_THEME) || !getTheme.equals(LIGHT_THEME)) {
                 activity.setTheme(R.style.AmoledTheme);
+        }
+
+        switch (accentColor) {
+            case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+            case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+            case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+            case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+            case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+            case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+            case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+        }
+
+        if (activity instanceof CollapsingToolbarBaseActivity) {
+            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            } else {
+                activity.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK)
+                );
+            }
+        } else {
+            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)
+                    && !accentColor.equals(DEFAULT_ACCENT_COLOR)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            }
         }
     }
 

@@ -2,8 +2,16 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import android.app.Activity;
@@ -24,12 +32,13 @@ import java.util.WeakHashMap;
 
 /**
  * This class registers ActivityLifecycleCallbacks to collect all activities to a single set.
- * This allows to change the dark mode at runtime.
+ * This allows to change the dark mode and the accent color at runtime.
  */
-public class DarkModeController {
+public class ThemeController {
     private static final Set<Activity> activities = Collections.newSetFromMap(new WeakHashMap<>());
     private static boolean initialized = false;
     private static DarkMode darkMode = DarkMode.DEFAULT_DARK_MODE;
+    private static AccentColor accentColor = AccentColor.DEFAULT;
 
     /**
      * To initialize this class in the application class.
@@ -47,7 +56,18 @@ public class DarkModeController {
      * @param darkMode Dark mode to use.
      */
     public static void applyDarkMode(DarkMode darkMode) {
-        DarkModeController.darkMode = darkMode;
+        ThemeController.darkMode = darkMode;
+        for (Activity activity : activities) {
+            ActivityCompat.recreate(activity);
+        }
+    }
+
+    /**
+     * Store a selected accent color mode in the static field and trigger recreation for all the activities.
+     * @param accentColor Accent color to use.
+     */
+    public static void applyAccentColor(AccentColor accentColor) {
+        ThemeController.accentColor = accentColor;
         for (Activity activity : activities) {
             ActivityCompat.recreate(activity);
         }
@@ -57,6 +77,7 @@ public class DarkModeController {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             final String getTheme = DataModel.getDataModel().getTheme();
+            final String getColor = DataModel.getDataModel().getAccentColor();
             if (Utils.isNight(activity.getResources())) {
                 switch (darkMode) {
                     case DEFAULT_DARK_MODE -> {
@@ -76,8 +97,45 @@ public class DarkModeController {
                         }
                     }
                 }
-                activities.add(activity);
             }
+
+            switch (accentColor) {
+                case DEFAULT -> {
+                    if (getColor.equals(DEFAULT_ACCENT_COLOR))
+                        activity.setTheme(R.style.DefaultColor);
+                }
+                case BLUE_GRAY -> {
+                    if (getColor.equals(BLUE_GRAY_ACCENT_COLOR))
+                        activity.setTheme(R.style.BlueGrayAccentColor);
+                }
+                case BROWN -> {
+                    if (getColor.equals(BROWN_ACCENT_COLOR))
+                        activity.setTheme(R.style.BrownAccentColor);
+                }
+                case GREEN -> {
+                    if (getColor.equals(GREEN_ACCENT_COLOR))
+                        activity.setTheme(R.style.GreenAccentColor);
+                }
+                case INDIGO -> {
+                    if (getColor.equals(INDIGO_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.IndigoAccentColor);
+                    }
+                }
+                case ORANGE -> {
+                    if (getColor.equals(ORANGE_ACCENT_COLOR))
+                        activity.setTheme(R.style.OrangeAccentColor);
+                }
+                case PINK -> {
+                    if (getColor.equals(PINK_ACCENT_COLOR))
+                        activity.setTheme(R.style.PinkAccentColor);
+                }
+                case RED -> {
+                    if (getColor.equals(RED_ACCENT_COLOR))
+                        activity.setTheme(R.style.RedAccentColor);
+                }
+            }
+
+            activities.add(activity);
         }
 
         @Override
@@ -104,4 +162,5 @@ public class DarkModeController {
     }
 
     public enum DarkMode {DEFAULT_DARK_MODE, AMOLED}
+    public enum AccentColor {DEFAULT, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
 }

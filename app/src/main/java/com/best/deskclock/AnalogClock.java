@@ -16,13 +16,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.best.deskclock.alarms.AlarmActivity;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -77,12 +77,9 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
-        // Get color from textColorPrimary attribute
-        final TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(android.R.attr.textColorPrimary, typedValue, true);
         final int color = context instanceof AlarmActivity
                 ? context.getColor(R.color.md_theme_outline)
-                : context.getColor(typedValue.resourceId);
+                : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.
@@ -107,7 +104,9 @@ public class AnalogClock extends FrameLayout {
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
-        mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
+        mSecondHand.setColorFilter(
+                MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+        );
         addView(mSecondHand);
 
         if (context.getClass().getSimpleName().equalsIgnoreCase(ScreensaverActivity.class.getSimpleName())) {

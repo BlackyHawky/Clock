@@ -15,6 +15,7 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
@@ -147,6 +148,13 @@ final class SettingsDAO {
      */
     static String getTheme(SharedPreferences prefs) {
         return prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+    }
+
+    /**
+     * @return the accent color applied.
+     */
+    static String getAccentColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
     }
 
     /**

@@ -80,6 +80,10 @@ final class SettingsModel {
         return SettingsDAO.getTheme(mPrefs);
     }
 
+    String getAccentColor() {
+        return SettingsDAO.getAccentColor(mPrefs);
+    }
+
     String getDarkMode() {
         return SettingsDAO.getDarkMode(mPrefs);
     }

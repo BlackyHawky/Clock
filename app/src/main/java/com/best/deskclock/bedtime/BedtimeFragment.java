@@ -9,6 +9,7 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -49,6 +50,7 @@ import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -191,7 +193,9 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
+            mBottomSheetDialog.getWindow().setNavigationBarColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
         }
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
@@ -384,7 +388,9 @@ public final class BedtimeFragment extends DeskClockFragment {
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mNotificationList.getPopupBackground().setColorFilter(
                     mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
-            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
+            mBottomSheetDialog.getWindow().setNavigationBarColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
         }
 
         buildButton(mBottomSheetDialog);

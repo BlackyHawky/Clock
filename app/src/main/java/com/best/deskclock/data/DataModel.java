@@ -865,6 +865,14 @@ public final class DataModel {
     }
 
     /**
+     * @return the accent color applied.
+     */
+    public String getAccentColor() {
+        enforceMainLooper();
+        return mSettingsModel.getAccentColor();
+    }
+
+    /**
      * @return the dark mode of the applied theme.
      */
     public String getDarkMode() {

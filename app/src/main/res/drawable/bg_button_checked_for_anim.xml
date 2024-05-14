@@ -17,7 +17,7 @@
         android:translateY="12">
         <path
             android:name="path"
-            android:fillColor="@color/md_theme_primary"
+            android:fillColor="?colorPrimary"
             android:pathData="M 0.0,8.0 c -4.42,0.0 -8.0,-3.582 -8.0,-8.0 c 0.0,-4.418 3.58,-8.0 8.0,-8.0 c 4.42,0.0 8.0,3.582 8.0,8.0 c 0.0,4.418 -3.58,8.0 -8.0,8.0 Z" />
     </group>
 </vector>

@@ -9,7 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings">
 
-    <PreferenceCategory android:title="@string/title_theme"
+    <PreferenceCategory android:title="@string/title_interface"
         android:layout="@layout/settings_preference_category_layout"
         app:iconSpaceReserved="false">
 
@@ -20,6 +20,15 @@
             android:defaultValue="0"
             android:entries="@array/array_theme"
             android:entryValues="@array/theme_setting_entries"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="key_accent_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/title_accent_color"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false" />
 
         <ListPreference

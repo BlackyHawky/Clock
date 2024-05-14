@@ -52,6 +52,7 @@ import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -184,7 +185,7 @@ public class DeskClock extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyTheme(this);
+        Utils.applyThemeAndAccentColor(this);
 
         setContentView(R.layout.desk_clock);
 
@@ -284,24 +285,27 @@ public class DeskClock extends AppCompatActivity
 
         // Mirror changes made to the selected tab into UiDataModel.
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final int primaryColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
         mBottomNavigation.setItemActiveIndicatorEnabled(false);
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+                new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
         );
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), Color.WHITE})
+                    new int[]{primaryColor, primaryColor, Color.WHITE})
             );
         } else {
-            mBottomNavigation.setBackgroundColor(getColor(R.color.md_theme_surface));
+            mBottomNavigation.setBackgroundColor(surfaceColor);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+                    new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
             );
         }
 

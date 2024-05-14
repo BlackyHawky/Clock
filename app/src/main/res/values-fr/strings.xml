@@ -97,11 +97,23 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
     <string name="digital_gadget_material_you">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
+    <string name="title_interface">Interface</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">
         <item>Système</item>
         <item>Clair</item>
         <item>Sombre</item>
+    </string-array>
+    <string name="title_accent_color">Couleur d\'accentuation</string>
+    <string-array name="array_accent_color">
+        <item>Par défaut</item>
+        <item>Bleu Gris</item>
+        <item>Marron</item>
+        <item>Vert</item>
+        <item>Indigo</item>
+        <item>Orange</item>
+        <item>Rose</item>
+        <item>Rouge</item>
     </string-array>
     <string name="title_dark_theme_mode">Mode du thème sombre</string>
     <string-array name="dark_theme_mode_array_theme">

@@ -30,6 +30,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Display the time in many cities around the world;
 * Timer, stopwatch and bedtime _(experimental)_ included;
 * Possibility of sharing your stopwatch with your contacts;
+* Customizable interface;
 * Customizable screensaver;
 * Modern widgets;
 * Material design;

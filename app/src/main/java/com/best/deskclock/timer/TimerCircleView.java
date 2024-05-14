@@ -8,6 +8,7 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -16,6 +17,7 @@ import android.view.View;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
+import com.google.android.material.color.MaterialColors;
 
 /**
  * Custom view that draws timer progress as a circle.
@@ -60,7 +62,7 @@ public final class TimerCircleView extends View {
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
         mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);
-        mCompletedColor = context.getColor(R.color.md_theme_inversePrimary);
+        mCompletedColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);

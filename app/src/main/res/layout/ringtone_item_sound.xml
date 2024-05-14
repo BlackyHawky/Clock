@@ -91,7 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/end_guide_very_thin"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/md_theme_primary"
+        app:tint="?colorPrimary"
         app:tintMode="src_in"
         tools:visibility="visible" />
 

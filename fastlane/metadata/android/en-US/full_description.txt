@@ -17,6 +17,7 @@ Features:
   <li>Display the time in many cities around the world;</li>
   <li>Timer, stopwatch and bedtime <i>(experimental)</i> included;</li>
   <li>Possibility of sharing your stopwatch with your contacts;</li>
+  <li>Customizable interface;</li>
   <li>Customizable screensaver;</li>
   <li>Modern widgets;</li>
   <li>Material design;</li>

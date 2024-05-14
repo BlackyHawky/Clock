@@ -44,6 +44,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String SYSTEM_THEME = "0";
     public static final String LIGHT_THEME = "1";
     public static final String DARK_THEME = "2";
+    public static final String KEY_ACCENT_COLOR = "key_accent_color";
+    public static final String DEFAULT_ACCENT_COLOR = "0";
+    public static final String BLUE_GRAY_ACCENT_COLOR = "1";
+    public static final String BROWN_ACCENT_COLOR = "2";
+    public static final String GREEN_ACCENT_COLOR = "3";
+    public static final String INDIGO_ACCENT_COLOR = "4";
+    public static final String ORANGE_ACCENT_COLOR = "5";
+    public static final String PINK_ACCENT_COLOR = "6";
+    public static final String RED_ACCENT_COLOR = "7";
     public static final String KEY_DARK_MODE = "dark_mode";
     public static final String KEY_DEFAULT_DARK_MODE = "default";
     public static final String KEY_AMOLED_DARK_MODE = "amoled";
@@ -148,14 +157,29 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     }
                 }
+                case KEY_ACCENT_COLOR -> {
+                    final ListPreference themePref = (ListPreference) pref;
+                    final int index = themePref.findIndexOfValue((String) newValue);
+                    themePref.setSummary(themePref.getEntries()[index]);
+                    switch (index) {
+                        case 0 -> ThemeController.applyAccentColor(ThemeController.AccentColor.DEFAULT);
+                        case 1 -> ThemeController.applyAccentColor(ThemeController.AccentColor.BLUE_GRAY);
+                        case 2 -> ThemeController.applyAccentColor(ThemeController.AccentColor.BROWN);
+                        case 3 -> ThemeController.applyAccentColor(ThemeController.AccentColor.GREEN);
+                        case 4 -> ThemeController.applyAccentColor(ThemeController.AccentColor.INDIGO);
+                        case 5 -> ThemeController.applyAccentColor(ThemeController.AccentColor.ORANGE);
+                        case 6 -> ThemeController.applyAccentColor(ThemeController.AccentColor.PINK);
+                        case 7 -> ThemeController.applyAccentColor(ThemeController.AccentColor.RED);
+                    }
+                }
                 case KEY_DARK_MODE -> {
                     final ListPreference amoledPref = (ListPreference) pref;
                     final int darkModeIndex = amoledPref.findIndexOfValue((String) newValue);
                     amoledPref.setSummary(amoledPref.getEntries()[darkModeIndex]);
                     if (Utils.isNight(requireActivity().getResources())) {
                         switch (darkModeIndex) {
-                            case 0 -> DarkModeController.applyDarkMode(DarkModeController.DarkMode.DEFAULT_DARK_MODE);
-                            case 1 -> DarkModeController.applyDarkMode(DarkModeController.DarkMode.AMOLED);
+                            case 0 -> ThemeController.applyDarkMode(ThemeController.DarkMode.DEFAULT_DARK_MODE);
+                            case 1 -> ThemeController.applyDarkMode(ThemeController.DarkMode.AMOLED);
                         }
                     }
                 }
@@ -268,6 +292,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final ListPreference themePref = findPreference(KEY_THEME);
             Objects.requireNonNull(themePref).setSummary(themePref.getEntry());
             themePref.setOnPreferenceChangeListener(this);
+
+            final ListPreference colorPref = findPreference(KEY_ACCENT_COLOR);
+            Objects.requireNonNull(colorPref).setSummary(colorPref.getEntry());
+            colorPref.setOnPreferenceChangeListener(this);
 
             final ListPreference amoledModePref = findPreference(KEY_DARK_MODE);
             Objects.requireNonNull(amoledModePref).setSummary(amoledModePref.getEntry());

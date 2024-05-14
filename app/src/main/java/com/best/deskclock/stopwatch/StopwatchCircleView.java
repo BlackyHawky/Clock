@@ -9,6 +9,7 @@ package com.best.deskclock.stopwatch;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -19,6 +20,7 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.List;
 
@@ -76,7 +78,7 @@ public final class StopwatchCircleView extends View {
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
 
         mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);
-        mCompletedColor = context.getColor(R.color.md_theme_inversePrimary);
+        mCompletedColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
