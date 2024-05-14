@@ -6,7 +6,10 @@
 
 package com.best.deskclock.alarms.dataadapter;
 
+import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -16,12 +19,15 @@ import android.widget.TextView;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.TextTime;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Calendar;
 
@@ -43,6 +49,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
+        final Context context = itemView.getContext();
 
         editLabel = itemView.findViewById(R.id.edit_label);
         clock = itemView.findViewById(R.id.digital_clock);
@@ -50,6 +57,29 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
         arrow = itemView.findViewById(R.id.arrow);
+
+        final MaterialCardView itemCardView = itemView.findViewById(R.id.item_card_view);
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        if (isCardBackgroundDisplayed) {
+            itemCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+        } else if (Utils.isNight(context.getResources()) && getDarkMode.equals((KEY_AMOLED_DARK_MODE))) {
+            itemCardView.setCardBackgroundColor(Color.BLACK);
+        } else {
+            itemCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK)
+            );
+        }
+
+        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        if (isCardBackgroundBorderDisplayed) {
+            itemCardView.setStrokeWidth(Utils.toPixel(2, context));
+            itemCardView.setStrokeColor(
+                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
 
         editLabel.setOnClickListener(view -> {
             if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {

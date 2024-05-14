@@ -24,6 +24,7 @@ import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
@@ -56,6 +57,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_DARK_MODE = "dark_mode";
     public static final String KEY_DEFAULT_DARK_MODE = "default";
     public static final String KEY_AMOLED_DARK_MODE = "amoled";
+    public static final String KEY_CARD_BACKGROUND = "key_card_background";
+    public static final String KEY_CARD_BACKGROUND_BORDER = "key_card_background_border";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -183,6 +186,14 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         }
                     }
                 }
+                case KEY_CARD_BACKGROUND -> {
+                    final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
+                    cardBackgroundPref.setChecked(DataModel.getDataModel().isCardBackgroundDisplayed());
+                }
+                case KEY_CARD_BACKGROUND_BORDER -> {
+                    final TwoStatePreference cardBackgroundBorderPref = (TwoStatePreference) pref;
+                    cardBackgroundBorderPref.setChecked(DataModel.getDataModel().isCardBackgroundBorderDisplayed());
+                }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
                         KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
                         KEY_SHAKE_ACTION, KEY_WEEK_START -> {
@@ -300,6 +311,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final ListPreference amoledModePref = findPreference(KEY_DARK_MODE);
             Objects.requireNonNull(amoledModePref).setSummary(amoledModePref.getEntry());
             amoledModePref.setOnPreferenceChangeListener(this);
+
+            final SwitchPreferenceCompat cardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
+            Objects.requireNonNull(cardBackgroundPref).setOnPreferenceChangeListener(this);
+
+            final SwitchPreferenceCompat cardBackgroundBorderPref = findPreference(KEY_CARD_BACKGROUND_BORDER);
+            Objects.requireNonNull(cardBackgroundBorderPref).setOnPreferenceChangeListener(this);
 
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();

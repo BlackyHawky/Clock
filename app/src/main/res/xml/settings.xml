@@ -40,6 +40,22 @@
             android:entryValues="@array/dark_theme_mode_setting_values"
             app:iconSpaceReserved="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_card_background"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_card_background_title"
+            android:summary="@string/display_card_background_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_card_background_border"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_background_border_title"
+            android:summary="@string/display_background_border_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/clock_settings"

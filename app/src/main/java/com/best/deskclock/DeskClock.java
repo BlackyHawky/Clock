@@ -302,7 +302,15 @@ public class DeskClock extends AppCompatActivity
                     new int[]{primaryColor, primaryColor, Color.WHITE})
             );
         } else {
-            mBottomNavigation.setBackgroundColor(surfaceColor);
+            final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+            if (isCardBackgroundDisplayed) {
+                mBottomNavigation.setBackgroundColor(surfaceColor);
+            } else {
+                mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
+                this.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK)
+                );
+            }
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                     new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})

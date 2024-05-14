@@ -17,6 +17,7 @@ Caractéristiques :
   <li>Afficher l'heure dans de nombreuses villes du monde ;</li>
   <li>Minuteur, chronomètre et mode coucher <i>(expérimental)</i> inclus;</li>
   <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
+  <li>Interface personnalisable ;</li>
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>
   <li>Design material ;</li>

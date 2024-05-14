@@ -50,6 +50,7 @@ import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
@@ -104,6 +105,24 @@ public final class BedtimeFragment extends DeskClockFragment {
         mContext = requireContext();
         mBedtimeView = view.findViewById(R.id.bedtime_view);
         mMainLayout = view.findViewById(R.id.main);
+
+        MaterialCardView bedtimeCardView = view.findViewById(R.id.bedtime_card_view);
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        if (isCardBackgroundDisplayed) {
+            bedtimeCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+        } else {
+            bedtimeCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+
+        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        if (isCardBackgroundBorderDisplayed) {
+            bedtimeCardView.setStrokeWidth(Utils.toPixel(2, mContext));
+            bedtimeCardView.setStrokeColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
 
         mEmptyView = view.findViewById(R.id.bedtime_empty_view);
         final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);

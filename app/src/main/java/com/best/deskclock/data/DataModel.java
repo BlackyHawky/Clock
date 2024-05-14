@@ -881,6 +881,22 @@ public final class DataModel {
     }
 
     /**
+     * @return whether or not the background should be displayed in a view.
+     */
+    public boolean isCardBackgroundDisplayed() {
+        enforceMainLooper();
+        return mSettingsModel.isCardBackgroundDisplayed();
+    }
+
+    /**
+     * @return whether or not the background border should be displayed in a view.
+     */
+    public boolean isCardBackgroundBorderDisplayed() {
+        enforceMainLooper();
+        return mSettingsModel.isCardBackgroundBorderDisplayed();
+    }
+
+    /**
      * @return the style of the clock to display in the clock application
      */
     public ClockStyle getClockStyle() {

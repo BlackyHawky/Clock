@@ -120,6 +120,10 @@
         <item>Par défaut</item>
         <item>AMOLED</item>
     </string-array>
+    <string name="display_card_background_title">Afficher les arrière-plans</string>
+    <string name="display_card_background_summary">Affiche un arrière-plan pour certains éléments de l\'application (alarmes, villes, bouton du minuteur, etc.)</string>
+    <string name="display_background_border_title">Afficher les bordures d\'arrière-plan</string>
+    <string name="display_background_border_summary">Affiche une bordure d\'arrière-plan pour certains éléments de l\'application (alarmes, villes, bouton du minuteur, etc.)</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>

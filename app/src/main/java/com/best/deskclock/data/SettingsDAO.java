@@ -165,6 +165,20 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the background should be displayed in a view.
+     */
+    static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND, true);
+    }
+
+    /**
+     * @return whether or not the background border should be displayed in a view.
+     */
+    static boolean isCardBackgroundBorderDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND_BORDER, false);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {

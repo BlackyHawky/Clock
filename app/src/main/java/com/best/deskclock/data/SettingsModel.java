@@ -88,6 +88,14 @@ final class SettingsModel {
         return SettingsDAO.getDarkMode(mPrefs);
     }
 
+    public boolean isCardBackgroundDisplayed() {
+        return SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+    }
+
+    public boolean isCardBackgroundBorderDisplayed() {
+        return SettingsDAO.isCardBackgroundBorderDisplayed(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }
