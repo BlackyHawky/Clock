@@ -74,7 +74,7 @@ public final class StopwatchCircleView extends View {
 
         mScreenDensity = resources.getDisplayMetrics().density;
         mStrokeSize = Utils.toPixel(6, context);
-        mMarkerStrokeSize = Utils.toPixel(0, context);
+        mMarkerStrokeSize = Utils.toPixel(12, context);
         mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, mMarkerStrokeSize);
 
         mRemainderColor = context.getColor(R.color.md_theme_onSurfaceVariant);
