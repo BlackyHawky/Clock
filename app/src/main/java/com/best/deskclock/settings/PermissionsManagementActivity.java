@@ -319,4 +319,13 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         return granted == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * @return {@code true} when essential permissions are not granted; {@code false} otherwise
+     */
+    public static boolean areEssentialPermissionsNotGranted(Context context) {
+        return !isIgnoringBatteryOptimizations(context)
+                || !areNotificationsEnabled(context)
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && !areFullScreenNotificationsEnabled(context);
+    }
+
 }

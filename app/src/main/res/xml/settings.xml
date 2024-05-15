@@ -9,8 +9,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings">
 
+    <Preference
+        android:key="key_permission_message"
+        android:layout="@layout/settings_preference_layout"
+        android:summary="@string/settings_permission_summary"
+        android:icon="@drawable/ic_error" />
+
     <PreferenceCategory android:title="@string/title_interface"
         android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
         <ListPreference

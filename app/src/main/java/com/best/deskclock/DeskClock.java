@@ -22,14 +22,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
@@ -44,7 +42,6 @@ import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
@@ -193,8 +190,6 @@ public class DeskClock extends AppCompatActivity
 
         // Seems necessary if the application is launched from a widget
         isFirstLaunch();
-
-        checkPermissions();
 
         showTabFromNotifications();
 
@@ -448,26 +443,6 @@ public class DeskClock extends AppCompatActivity
         if (isFirstRun) {
             startActivity(new Intent(this, FirstLaunch.class));
             finish();
-        }
-    }
-
-    /**
-     * Check the essential permissions to be granted by the user.
-     */
-    private void checkPermissions() {
-        if (!PermissionsManagementActivity.isIgnoringBatteryOptimizations(this)
-                || !PermissionsManagementActivity.areNotificationsEnabled(this)
-                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
-                    && !PermissionsManagementActivity.areFullScreenNotificationsEnabled(this)) {
-
-            Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
-                            R.string.snackbar_permission_message, 7000).setAction(R.string.snackbar_permission_action, v ->
-                            startActivity(new Intent(this, PermissionsManagementActivity.class)));
-            View snackView = snackbar.getView();
-            TextView snackTextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-            // Necessary because on some devices the text is truncated.
-            snackTextView.setMaxLines(5);
-            snackbar.show();
         }
     }
 

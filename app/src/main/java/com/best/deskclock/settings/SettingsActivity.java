@@ -8,12 +8,19 @@ package com.best.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -41,6 +48,8 @@ import java.util.Objects;
  * Settings for the Alarm Clock.
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
+
+    public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
     public static final String KEY_THEME = "key_theme";
     public static final String SYSTEM_THEME = "0";
     public static final String LIGHT_THEME = "1";
@@ -121,18 +130,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends PreferenceFragmentCompat implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+        Preference mPermissionMessage;
+
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 getPreferenceManager().setStorageDeviceProtected();
             }
             addPreferencesFromResource(R.xml.settings);
-            final Preference vibrations = findPreference(KEY_VIBRATIONS);
-            final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
-            final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
-                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-            Objects.requireNonNull(vibrations).setVisible(hasVibrator);
-            timerVibrate.setVisible(hasVibrator);
+            hidePreferences();
             loadTimeZoneList();
         }
 
@@ -266,7 +272,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
                 }
-                case KEY_PERMISSIONS_MANAGEMENT -> {
+                case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
                     final Intent permissionsManagementIntent = new Intent(context, PermissionsManagementActivity.class);
                     startActivity(permissionsManagementIntent);
                     requireActivity().setResult(RESULT_OK);
@@ -302,6 +308,22 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             fragment.show(getParentFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
+        private void hidePreferences() {
+            mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
+            final Preference vibrations = findPreference(KEY_VIBRATIONS);
+            final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
+            final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
+                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+
+            if (mPermissionMessage != null) {
+                mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
+            }
+
+            Objects.requireNonNull(vibrations).setVisible(hasVibrator);
+
+            timerVibrate.setVisible(hasVibrator);
+        }
+
         /**
          * Reconstruct the timezone list.
          */
@@ -315,6 +337,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void refresh() {
+            mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
+            final SpannableStringBuilder builder = new SpannableStringBuilder();
+            final String messagePermission = requireContext().getString(R.string.settings_permission_message);
+            final Spannable redMessagePermission = new SpannableString(messagePermission);
+            if (messagePermission != null) {
+                redMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                redMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+            }
+            builder.append(redMessagePermission);
+            mPermissionMessage.setTitle(builder);
+            mPermissionMessage.setOnPreferenceClickListener(this);
+
             final ListPreference themePref = findPreference(KEY_THEME);
             Objects.requireNonNull(themePref).setSummary(themePref.getEntry());
             themePref.setOnPreferenceChangeListener(this);

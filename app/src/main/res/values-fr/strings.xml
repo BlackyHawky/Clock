@@ -97,6 +97,8 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
     <string name="digital_gadget_material_you">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
+    <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
+    <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
     <string name="title_interface">Interface</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">
@@ -578,8 +580,6 @@
     <string name="permission_dialog_revoke_title">Révoquer l\'accès</string>
     <string name="permission_dialog_close_button">Fermer</string>
     <string name="revoke_permission_dialog_message">Êtes-vous sûr de vouloir révoquer cette autorisation ?</string>
-    <string name="snackbar_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Afficher la page de gestion des autorisations pour les activer.</string>
-    <string name="snackbar_permission_action">Afficher</string>
     <string name="ignore_battery_optimizations_title">IGNORER LES OPTIMISATIONS DE LA BATTERIE</string>
     <string name="ignore_battery_optimizations_dialog_title">Optimisations de la batterie</string>
     <string name="ignore_battery_optimizations_dialog_text">Par défaut, le système Android configure toutes les applications installées par l\'utilisateur pour qu\'elles soient optimisées afin d\'économiser la batterie.
