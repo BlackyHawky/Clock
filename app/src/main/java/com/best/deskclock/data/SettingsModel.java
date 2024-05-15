@@ -96,6 +96,10 @@ final class SettingsModel {
         return SettingsDAO.isCardBackgroundBorderDisplayed(mPrefs);
     }
 
+    public boolean isVibrationsEnabled() {
+        return SettingsDAO.isVibrationsEnabled(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }

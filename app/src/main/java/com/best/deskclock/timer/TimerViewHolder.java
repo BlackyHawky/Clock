@@ -37,14 +37,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         view.findViewById(R.id.reset).setOnClickListener(v -> {
             DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
-            Utils.vibrationTime(v.getContext(), 10);
+            Utils.setVibrationTime(v.getContext(), 10);
         });
 
         // Must use getTimer() because old timer is no longer accurate.
         View.OnClickListener mAddListener = v -> {
             final Timer timer = getTimer();
             DataModel.getDataModel().addTimerMinute(timer);
-            Utils.vibrationTime(v.getContext(), 10);
+            Utils.setVibrationTime(v.getContext(), 10);
             Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
 
             final Context context = v.getContext();
@@ -58,7 +58,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.add_one_min).setOnClickListener(mAddListener);
         view.findViewById(R.id.timer_label).setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
         View.OnClickListener mPlayPauseListener = v -> {
-            Utils.vibrationTime(v.getContext(), 50);
+            Utils.setVibrationTime(v.getContext(), 50);
             final Timer clickedTimer = getTimer();
             if (clickedTimer.isPaused() || clickedTimer.isReset()) {
                 DataModel.getDataModel().startTimer(clickedTimer);
@@ -71,7 +71,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
         view.findViewById(R.id.close).setOnClickListener(v -> {
             DataModel.getDataModel().removeTimer(getTimer());
-            Utils.vibrationTime(v.getContext(), 10);
+            Utils.setVibrationTime(v.getContext(), 10);
         });
     }
 

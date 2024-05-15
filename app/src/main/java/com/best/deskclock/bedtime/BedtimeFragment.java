@@ -254,7 +254,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                         : R.string.action_disable, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
 
-                Utils.vibrationTime(mContext, 50);
+                Utils.setVibrationTime(mContext, 50);
 
                 hoursOfSleep(alarm);
 
@@ -269,7 +269,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 Events.sendBedtimeEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                 if (newState) {
-                    Utils.vibrationTime(mContext, 300);
+                    Utils.setVibrationTime(mContext, 300);
                 }
             }
         });
@@ -302,7 +302,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
 
-                Utils.vibrationTime(mContext, 10);
+                Utils.setVibrationTime(mContext, 10);
 
                 bindDaysOfWeekButtons(alarm, mContext);
             });
@@ -436,7 +436,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
-                Utils.vibrationTime(mContext, 50);
+                Utils.setVibrationTime(mContext, 50);
 
                 hoursOfSleep(mAlarm);
             }
@@ -498,7 +498,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 mSaver.daysOfWeek = mSaver.daysOfWeek.setBit(weekday, checked);
                 mSaver.save();
 
-                Utils.vibrationTime(mContext, 10);
+                Utils.setVibrationTime(mContext, 10);
 
                 bindDaysOfBedButtons(mContext);
             });

@@ -224,13 +224,13 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         } else {
             append(getDigitForId(view.getId()));
         }
-        Utils.vibrationTime(getContext(), 10);
+        Utils.setVibrationTime(getContext(), 10);
     }
 
     @Override
     public boolean onLongClick(View view) {
         if (view == mDeleteButton) {
-            Utils.vibrationTime(getContext(), 10);
+            Utils.setVibrationTime(getContext(), 10);
             reset();
             updateFab();
             return true;

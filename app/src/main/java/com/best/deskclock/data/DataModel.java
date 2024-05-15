@@ -897,6 +897,14 @@ public final class DataModel {
     }
 
     /**
+     * @return whether or not the vibrations are enabled for the buttons.
+     */
+    public boolean isVibrationsEnabled() {
+        enforceMainLooper();
+        return mSettingsModel.isVibrationsEnabled();
+    }
+
+    /**
      * @return the style of the clock to display in the clock application
      */
     public ClockStyle getClockStyle() {

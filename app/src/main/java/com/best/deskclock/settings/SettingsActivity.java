@@ -59,6 +59,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_AMOLED_DARK_MODE = "amoled";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BACKGROUND_BORDER = "key_card_background_border";
+    public static final String KEY_VIBRATIONS = "key_vibrations";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -126,9 +127,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 getPreferenceManager().setStorageDeviceProtected();
             }
             addPreferencesFromResource(R.xml.settings);
+            final Preference vibrations = findPreference(KEY_VIBRATIONS);
             final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
             final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            Objects.requireNonNull(vibrations).setVisible(hasVibrator);
             timerVibrate.setVisible(hasVibrator);
             loadTimeZoneList();
         }
@@ -189,10 +192,17 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_CARD_BACKGROUND -> {
                     final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
                     cardBackgroundPref.setChecked(DataModel.getDataModel().isCardBackgroundDisplayed());
+                    Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_CARD_BACKGROUND_BORDER -> {
                     final TwoStatePreference cardBackgroundBorderPref = (TwoStatePreference) pref;
                     cardBackgroundBorderPref.setChecked(DataModel.getDataModel().isCardBackgroundBorderDisplayed());
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
+                case KEY_VIBRATIONS -> {
+                    final TwoStatePreference vibrationsPref = (TwoStatePreference) pref;
+                    vibrationsPref.setChecked(DataModel.getDataModel().isVibrationsEnabled());
+                    Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
                         KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
@@ -201,7 +211,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
                 }
-                case KEY_CLOCK_DISPLAY_SECONDS -> DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
+                case KEY_CLOCK_DISPLAY_SECONDS -> {
+                    DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
                 case KEY_AUTO_SILENCE -> {
                     final String delay = (String) newValue;
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
@@ -210,10 +223,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     Objects.requireNonNull(homeTimeZonePref).setEnabled(!autoHomeClockEnabled);
+                    Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_TIMER_VIBRATE -> {
                     final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
+                    Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
@@ -318,6 +333,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final SwitchPreferenceCompat cardBackgroundBorderPref = findPreference(KEY_CARD_BACKGROUND_BORDER);
             Objects.requireNonNull(cardBackgroundBorderPref).setOnPreferenceChangeListener(this);
 
+            final SwitchPreferenceCompat vibrationsPref = findPreference(KEY_VIBRATIONS);
+            Objects.requireNonNull(vibrationsPref).setOnPreferenceChangeListener(this);
+
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);
@@ -380,6 +398,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
             setupFlipOrShakeAction(shakeActionPref);
+
+            final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
+            Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);

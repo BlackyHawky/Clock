@@ -303,12 +303,17 @@
     <!-- Setting title to display the background or not. -->
     <string name="display_card_background_title">Display card backgrounds</string>
     <!-- Setting summary about background display. -->
-    <string name="display_card_background_summary">Displays a background for certain application elements (alarms, cities, timer button, etc.)</string>
+    <string name="display_card_background_summary">Displays a background for some application elements (alarms, cities, timer button, etc.)</string>
 
     <!-- Setting title to display the background border or not. -->
     <string name="display_background_border_title">Display background borders</string>
     <!-- Setting summary about background border display. -->
-    <string name="display_background_border_summary">Displays a background border for certain application elements (alarms, cities, timer button, etc.)</string>
+    <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
+
+    <!-- Setting title to activate vibrations on some buttons. -->
+    <string name="settings_vibration_title">Enable vibrations</string>
+    <!-- Setting summary about vibrations. -->
+    <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>

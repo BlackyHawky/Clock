@@ -179,6 +179,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the vibrations are enabled for the buttons.
+     */
+    static boolean isVibrationsEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_VIBRATIONS, false);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {

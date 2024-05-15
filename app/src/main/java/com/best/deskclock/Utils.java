@@ -867,14 +867,15 @@ public class Utils {
     }
 
     /**
-     * Set the vibration duration if the device is equipped with a vibrator.
+     * Set the vibration duration if the device is equipped with a vibrator and if vibrations are enabled in the settings.
      *
      * @param context to define whether the device is equipped with a vibrator.
      * @param milliseconds Hours to display (if any)
      */
-    public static void vibrationTime(Context context, long milliseconds) {
+    public static void setVibrationTime(Context context, long milliseconds) {
+        final boolean isVibrationsEnabled = DataModel.getDataModel().isVibrationsEnabled();
         final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator.hasVibrator()) {
+        if (vibrator.hasVibrator() && isVibrationsEnabled) {
             vibrator.vibrate(milliseconds);
         }
     }

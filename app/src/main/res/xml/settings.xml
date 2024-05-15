@@ -56,6 +56,14 @@
             android:defaultValue="false"
             app:iconSpaceReserved="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_vibrations"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_vibration_title"
+            android:summary="@string/settings_vibration_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/clock_settings"

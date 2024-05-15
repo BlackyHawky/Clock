@@ -300,7 +300,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doStart() {
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.vibrationTime(mContext, 50);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     /**
@@ -309,7 +309,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doPause() {
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.vibrationTime(mContext, 50);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     /**
@@ -324,7 +324,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-        Utils.vibrationTime(mContext, 10);
+        Utils.setVibrationTime(mContext, 10);
     }
 
     /**
@@ -587,7 +587,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-            Utils.vibrationTime(mContext, 50);
+            Utils.setVibrationTime(mContext, 50);
         }
     }
 

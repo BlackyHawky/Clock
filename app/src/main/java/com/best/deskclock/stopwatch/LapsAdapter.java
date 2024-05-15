@@ -210,7 +210,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     Lap addLap() {
         final Lap lap = DataModel.getDataModel().addLap();
 
-        Utils.vibrationTime(mContext, 10);
+        Utils.setVibrationTime(mContext, 10);
 
         if (getItemCount() == 10) {
             // 10 total laps indicates all items switch from 1 to 2 digit lap numbers.
@@ -278,7 +278,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             builder.append("\n");
         }
 
-        Utils.vibrationTime(mContext, 10);
+        Utils.setVibrationTime(mContext, 10);
 
         return builder.toString();
     }

@@ -68,7 +68,7 @@ public final class AlarmTimeClickHandler {
             alarm.enabled = newState;
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
-            Utils.vibrationTime(mContext, 50);
+            Utils.setVibrationTime(mContext, 50);
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
@@ -82,7 +82,7 @@ public final class AlarmTimeClickHandler {
 
             if (newState) {
                 // Buzz the vibrator to preview the alarm firing behavior.
-                Utils.vibrationTime(mContext, 300);
+                Utils.setVibrationTime(mContext, 300);
             }
         }
     }
@@ -99,7 +99,7 @@ public final class AlarmTimeClickHandler {
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
-        Utils.vibrationTime(mContext, 10);
+        Utils.setVibrationTime(mContext, 10);
     }
 
     public void onDeleteClicked(AlarmItemHolder itemHolder) {

@@ -129,6 +129,10 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                 }
 
+                case KEY_SS_CLOCK_DISPLAY_SECONDS, KEY_BOLD_DIGITAL_CLOCK, KEY_ITALIC_DIGITAL_CLOCK, KEY_BOLD_DATE, KEY_ITALIC_DATE,
+                        KEY_BOLD_NEXT_ALARM, KEY_ITALIC_NEXT_ALARM
+                         -> Utils.setVibrationTime(requireContext(), 50);
+
                 case KEY_CLOCK_DYNAMIC_COLORS -> {
                     if (mClockDynamicColorPref.getSharedPreferences() != null) {
                         final boolean isNotDynamicColors = mClockDynamicColorPref.getSharedPreferences()
@@ -137,6 +141,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                         mDatePresetColorsPref.setVisible(isNotDynamicColors);
                         mNextAlarmPresetColorsPref.setVisible(isNotDynamicColors);
                     }
+                    Utils.setVibrationTime(requireContext(), 50);
                 }
 
                 case KEY_CLOCK_PRESET_COLORS, KEY_DATE_PRESET_COLORS, KEY_NEXT_ALARM_PRESET_COLORS -> {
@@ -230,18 +235,23 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             if (displaySecondsPref != null) {
                 displaySecondsPref.setChecked(DataModel.getDataModel().getDisplayScreensaverClockSeconds());
+                displaySecondsPref.setOnPreferenceChangeListener(this);
             }
 
             mBoldDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverBoldDigitalClock());
+            mBoldDigitalClockPref.setOnPreferenceChangeListener(this);
 
             mItalicDigitalClockPref.setChecked(DataModel.getDataModel().getScreensaverItalicDigitalClock());
+            mItalicDigitalClockPref.setOnPreferenceChangeListener(this);
 
             if (boldDatePref != null) {
                 boldDatePref.setChecked(DataModel.getDataModel().getScreensaverBoldDate());
+                boldDatePref.setOnPreferenceChangeListener(this);
             }
 
             if (italicDatePref != null) {
                 italicDatePref.setChecked(DataModel.getDataModel().getScreensaverItalicDate());
+                italicDatePref.setOnPreferenceChangeListener(this);
             }
 
             if (boldNextAlarmPref != null) {
@@ -249,8 +259,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     boldNextAlarmPref.setEnabled(false);
                     boldNextAlarmPref.setSummary(R.string.screensaver_no_alarm_set);
                 }
-
                 boldNextAlarmPref.setChecked(DataModel.getDataModel().getScreensaverBoldNextAlarm());
+                boldNextAlarmPref.setOnPreferenceChangeListener(this);
             }
 
             if (italicNextAlarmPref != null) {
@@ -258,8 +268,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     italicNextAlarmPref.setEnabled(false);
                     italicNextAlarmPref.setSummary(R.string.screensaver_no_alarm_set);
                 }
-
                 italicNextAlarmPref.setChecked(DataModel.getDataModel().getScreensaverItalicNextAlarm());
+                italicNextAlarmPref.setOnPreferenceChangeListener(this);
             }
 
             if (screensaverPreview != null) {
