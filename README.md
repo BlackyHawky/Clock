@@ -99,6 +99,10 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpg" alt="Screenshot 7" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/9.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpg" alt="Screenshot 8" width="200" />
 </details>
 
 # Credits
