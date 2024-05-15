@@ -51,7 +51,7 @@
             android:background="@android:color/transparent"
             android:foreground="?attr/selectableItemBackground"
             android:contentDescription="@string/timer_delete"
-            app:tint="@color/md_theme_primary"
+            app:tint="?colorPrimary"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,7 +109,7 @@
             android:scaleType="centerInside"
             android:background="@android:color/transparent"
             android:contentDescription="@string/timer_reset"
-            app:tint="@color/md_theme_primary"
+            app:tint="?colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/play_pause"
             app:layout_constraintStart_toEndOf="@+id/add_one_min"
             app:layout_constraintTop_toTopOf="@id/play_pause"
@@ -123,13 +123,12 @@
             android:minWidth="0dp"
             android:paddingHorizontal="20dp"
             android:contentDescription="@string/timer_start"
-            android:backgroundTint="@color/md_theme_primary"
             android:scaleType="centerInside"
-            app:icon="@drawable/ic_fab_pause"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:icon="@drawable/ic_fab_play" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
