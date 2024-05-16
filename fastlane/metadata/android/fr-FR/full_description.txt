@@ -12,12 +12,12 @@ Caractéristiques :
   <li>Sonnerie personnalisable ;</li>
   <li>Thème clair, sombre ou système ;</li>
   <li>Mode AMOLED pour le thèmes sombre ;</li>
+  <li>Interface personnalisable ;</li>
   <li>Style d'horloge numérique ou analogique ;</li>
   <li>Affichage de l'heure locale lors des voyages ;</li>
   <li>Afficher l'heure dans de nombreuses villes du monde ;</li>
   <li>Minuteur, chronomètre et mode coucher <i>(expérimental)</i> inclus;</li>
   <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
-  <li>Interface personnalisable ;</li>
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>
   <li>Design material ;</li>
