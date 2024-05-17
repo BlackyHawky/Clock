@@ -229,7 +229,7 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"Intervalle"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partager"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"min"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"Tour <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
