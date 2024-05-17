@@ -10,6 +10,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
   * [Common Issues](#common-issues)
 - [Contributing](#contributing-)
   * [Reporting Issues](#reporting-issues)
+  * [Translation](#translation)
   * [Code Contribution](#code-contribution)
 - [License](#license)
 - [Screenshots](#screenshots)
@@ -53,6 +54,10 @@ Before opening a new issue, be sure to check the following:
 - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of Clock.
 - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
   Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
+
+## Translation
+Translations can be added using [Weblate](https://translate.codeberg.org/projects/clock/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
+Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 
 ## Code Contribution
 
