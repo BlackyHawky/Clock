@@ -134,17 +134,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     private void bindRepeatText(Context context, Alarm alarm) {
         if (alarm.daysOfWeek.isRepeating()) {
-            daysOfWeek.setVisibility(View.VISIBLE);
-
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
-            final String daysOfWeekText = alarm.enabled
-                    ? alarm.daysOfWeek.toString(context, weekdayOrder)
-                    : context.getString(R.string.alarm_inactive);
+            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
+            final String contentDescription = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+            daysOfWeek.setVisibility(View.VISIBLE);
             daysOfWeek.setText(daysOfWeekText);
             daysOfWeek.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
+            daysOfWeek.setContentDescription(contentDescription);
         } else {
             daysOfWeek.setVisibility(View.GONE);
         }
@@ -154,15 +150,11 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         if (alarm.daysOfWeek.isRepeating()) {
             upcomingInstanceLabel.setVisibility(View.GONE);
         } else {
-            upcomingInstanceLabel.setVisibility(View.VISIBLE);
             final String labelText;
-            if (alarm.enabled) {
-                labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                        ? context.getString(R.string.alarm_tomorrow)
-                        : context.getString(R.string.alarm_today);
-            } else {
-                labelText = context.getString(R.string.alarm_inactive);
-            }
+            labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
+                    ? context.getString(R.string.alarm_tomorrow)
+                    : context.getString(R.string.alarm_today);
+            upcomingInstanceLabel.setVisibility(View.VISIBLE);
             upcomingInstanceLabel.setText(labelText);
             upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
         }
