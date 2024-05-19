@@ -250,6 +250,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Annuler"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Le minuteur a été annulé."</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Le temps est écoulé."</string>
+    <string name="timer_total_duration_text">Durée : %s</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteurs ont expiré."</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> rappels manqués"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>

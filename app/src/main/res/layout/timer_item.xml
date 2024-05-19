@@ -76,6 +76,21 @@
 
     </com.best.deskclock.CircleButtonsLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/timer_total_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        android:drawablePadding="8dp"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_hourglass_top"
+        app:drawableTint="@color/md_theme_onSurfaceVariant"
+        app:layout_constraintStart_toStartOf="@+id/timer_label"
+        app:layout_constraintTop_toTopOf="@id/play_pause"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_one_min"
         android:layout_width="wrap_content"
