@@ -28,6 +28,7 @@ import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -62,6 +63,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -935,6 +937,31 @@ public class Utils {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
+        }
+    }
+
+    /**
+     * Checks if the user is pressing inside of the timer circle or the stopwatch circle.
+     */
+    public static final class CircleTouchListener implements View.OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            final int actionMasked = event.getActionMasked();
+            if (actionMasked != MotionEvent.ACTION_DOWN) {
+                return false;
+            }
+            final float rX = view.getWidth() / 2f;
+            final float rY = (view.getHeight() - view.getPaddingBottom()) / 2f;
+            final float r = Math.min(rX, rY);
+
+            final float x = event.getX() - rX;
+            final float y = event.getY() - rY;
+
+            final boolean inCircle = Math.pow(x / r, 2.0) + Math.pow(y / r, 2.0) <= 1.0;
+
+            // Consume the event if it is outside the circle
+            return !inCircle;
         }
     }
 

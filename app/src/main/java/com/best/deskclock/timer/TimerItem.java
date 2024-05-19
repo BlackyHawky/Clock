@@ -6,7 +6,12 @@
 
 package com.best.deskclock.timer;
 
+import static android.R.attr.state_activated;
+import static android.R.attr.state_pressed;
+
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.View;
@@ -23,6 +28,7 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.color.MaterialColors;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -83,8 +89,14 @@ public class TimerItem extends ConstraintLayout {
         mResetButton = findViewById(R.id.reset);
         mAddButton = findViewById(R.id.add_one_min);
         mCircleView = findViewById(R.id.timer_time);
-        // Displays the remaining time or time since expiration.
+        // Displays the remaining time or time since expiration. Timer text serves as a virtual start/stop button.
         TextView timerText = findViewById(R.id.timer_time_text);
+        final int colorAccent = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int textColorPrimary = timerText.getCurrentTextColor();
+        final ColorStateList timeTextColor = new ColorStateList(
+                new int[][]{{-state_activated, -state_pressed}, {}},
+                new int[]{textColorPrimary, colorAccent});
+        timerText.setTextColor(timeTextColor);
         mTimerTextController = new TimerTextController(timerText);
         mPlayPauseButton = findViewById(R.id.play_pause);
         mCircleContainer = findViewById(R.id.circle_container);

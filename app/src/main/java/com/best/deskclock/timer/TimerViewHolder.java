@@ -68,6 +68,8 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                 DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_deskclock);
             }
         };
+        view.findViewById(R.id.circle_container).setOnClickListener(mPlayPauseListener);
+        view.findViewById(R.id.circle_container).setOnTouchListener(new Utils.CircleTouchListener());
         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
         view.findViewById(R.id.close).setOnClickListener(v -> {
             DataModel.getDataModel().removeTimer(getTimer());

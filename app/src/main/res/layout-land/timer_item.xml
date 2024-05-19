@@ -66,25 +66,25 @@
             app:layout_constraintTop_toBottomOf="@id/close"
             app:layout_constraintBottom_toTopOf="@id/play_pause">
 
+            <com.best.deskclock.widget.AutoSizingTextView
+                android:id="@+id/timer_time_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="40sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/close"
+                app:layout_constraintBottom_toTopOf="@id/play_pause"
+                tools:text="01:23" />
+
             <com.best.deskclock.timer.TimerCircleView
                 android:id="@+id/timer_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </com.best.deskclock.CircleButtonsLayout>
-
-        <com.best.deskclock.widget.AutoSizingTextView
-            android:id="@+id/timer_time_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/close"
-            app:layout_constraintBottom_toTopOf="@id/play_pause"
-            tools:text="01:23" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/add_one_min"
