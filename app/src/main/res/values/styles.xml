@@ -112,16 +112,6 @@
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="Theme.DeskClock.Wallpaper">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="colorOnBackground">@color/md_theme_onBackground</item>
-        <item name="android:windowBackground">@color/md_theme_background</item>
-        <item name="android:colorBackground">@color/md_theme_background</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowShowWallpaper">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">?colorAccent</item>
         <!-- color used by the icon -->
