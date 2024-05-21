@@ -175,7 +175,7 @@ public class AlarmActivity extends AppCompatActivity
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
         } else {
             registerReceiver(PowerBtnReceiver, filter);
         }
@@ -311,7 +311,7 @@ public class AlarmActivity extends AppCompatActivity
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(mReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+                registerReceiver(mReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
                 registerReceiver(mReceiver, filter);
             }

@@ -294,7 +294,7 @@ public class AlarmService extends Service {
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(mActionsReceiver, filter, Context.RECEIVER_EXPORTED);
         } else {
             registerReceiver(mActionsReceiver, filter);
         }
