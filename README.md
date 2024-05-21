@@ -96,15 +96,15 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 <details>
 <summary><b>Click here to see screenshots</b></summary>
 <br>
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" alt="Screenshot 1" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" alt="Screenshot 2" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" alt="Screenshot 3" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" alt="Screenshot 4" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="Screenshot 5" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" alt="Screenshot 6" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpg" alt="Screenshot 7" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/8.jpg" alt="Screenshot 8" width="200" />
- <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/9.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpg" alt="Screenshot 1" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/02.jpg" alt="Screenshot 2" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/03.jpg" alt="Screenshot 3" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/04.jpg" alt="Screenshot 4" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpg" alt="Screenshot 5" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpg" alt="Screenshot 6" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/07.jpg" alt="Screenshot 7" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/08.jpg" alt="Screenshot 8" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/09.jpg" alt="Screenshot 8" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpg" alt="Screenshot 8" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpg" alt="Screenshot 8" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpg" alt="Screenshot 8" width="200" />
