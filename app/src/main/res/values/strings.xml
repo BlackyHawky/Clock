@@ -3,84 +3,59 @@
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Label shown on launcher icon -->
     <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
     <string name="app_label">Clock</string>
-
     <!-- Setting label on Set alarm screen: Label -->
     <string name="label">Label</string>
-
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
-
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
-
     <!-- Setting labels on Set alarm screen: Repeat -->
 
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
-
     <!-- Setting labels on Set alarm screen: Duplicate -->
     <string name="duplicate">Duplicate</string>
-
     <!-- Title of default ringtone played when an alarm triggers [CHAR LIMIT=30] -->
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
-
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
     <string name="alarm_sound">Alarm sound</string>
-
     <!-- Title for timer ringtone picker screen [CHAR LIMIT=30] -->
     <string name="timer_sound">Timer sound</string>
-
     <!-- Label for adding a new ringtone sound [CHAR LIMIT=30]-->
     <string name="add_new_sound">Add new</string>
-
     <!-- Label for removing a ringtone sound [CHAR LIMIT=30] -->
     <string name="remove_sound">Remove</string>
-
     <!-- Description of the checkmark when a ringtone is selected -->
     <string name="selected">Selected</string>
     <!-- Description of the menu button which opens on custom ringtones -->
     <string name="more_options">More options</string>
-
     <!-- Text that explains what happens to alarms and timers after removing the custom ringtone sound they use [CHAR LIMIT=NONE] -->
     <string name="confirm_remove_custom_ringtone">Alarms and timers using this sound will play the default sound instead.</string>
-
     <!-- Label for "Your sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
     <string name="your_sounds">Your sounds</string>
-
     <!-- Label for "Device sounds" section on ringtone selection screen [CHAR LIMIT=60] -->
     <string name="device_sounds">Device sounds</string>
-
     <!-- Text that explains that the ringtone is inaccessible to the app [CHAR LIMIT=NONE] -->
     <string name="custom_ringtone_lost_permissions">The sound content cannot be accessed.</string>
-
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
-
     <!-- Label shown when alarm is inactive -->
     <string name="alarm_inactive">Turned off</string>
-
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow [CHAR LIMIT=15] -->
     <string name="alarm_tomorrow">Tomorrow</string>
-
     <!-- Label shown when user is setting up non-repeating alarm for later today [CHAR LIMIT=15] -->
     <string name="alarm_today">Today</string>
-
     <!-- Button labels on the alarm dialog: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
-
     <!-- Alarm Alert screen: this message is shown after an alarm rung
          unattended for a number of minutes.  It tells the user that
          the alarm has been silenced.-->
     <string name="alarm_missed_title">Missed alarm</string>
     <string name="alarm_missed_text"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
-
     <!-- The text shown after user snoozed an alerting alarm. The text will be shown
          together with the number of minutes in two separate lines. For example:
              Snoozed
@@ -88,7 +63,6 @@
          [CHAR LIMIT=10]
     -->
     <string name="alarm_alert_snoozed_text">Snoozed</string>
-
     <!-- The text shown after user snoozed an alerting alarm. The text will be shown
          together with the word 'Snoozed' in two separate lines or example:
              Snoozed
@@ -101,13 +75,10 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> min</item>
     </plurals>
-
     <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
     <string name="alarm_alert_off_text">Alarm off</string>
-
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
-
     <!-- Toast that appears after Alarm is snoozed from the Alarm
          dialog. Says the alarm will snooze for xxx minutes.  -->
     <plurals name="alarm_alert_snooze_set">
@@ -116,16 +87,12 @@
         <!-- Duration for more than one minute -->
         <item quantity="other">Snoozing for <xliff:g id="minutes">%d</xliff:g> minutes.</item>
     </plurals>
-
     <!-- Text to appear inside a notification while an alarm is snoozing. -->
     <string name="alarm_alert_snooze_until">Snoozing until <xliff:g id="time">%s</xliff:g></string>
-
     <!-- Text to appear in the notification title while an alarm is about to go off. -->
     <string name="alarm_alert_predismiss_title">Upcoming alarm</string>
-
     <!-- Text to appear in when trying to view a missed alarm that has been deleted -->
     <string name="missed_alarm_has_been_deleted">Your missed alarm has been deleted</string>
-
     <!-- 0: nothing
          1: days
          2:      hours
@@ -135,8 +102,7 @@
          6:      hours minutes
          7: days hours minutes
     -->
-    <skip />
-
+    <skip/>
     <!-- Timer notification: how long from now until timer goes off.
          (Also used for timer accessibility announcements.) -->
     <string name="timer_notifications_less_min">Less than a minute remaining</string>
@@ -147,10 +113,8 @@
     <string name="timer_notifications_minutes_seconds"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
-
     <!-- Timer accessibility announcements -->
     <string name="timer_accessibility_one_minute_added">One minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
-
     <!--
         Verb inflection to use for single time units remaining
         Ex. "1 minute remaining"
@@ -161,7 +125,6 @@
         Ex. "2 minutes remaining"
     -->
     <string name="timer_remaining_multiple">remaining</string>
-
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
     <string-array name="alarm_set">
         <item>Alarm set for less than 1 minute from now.</item>
@@ -173,7 +136,6 @@
         <item>Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
         <item>Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
     </string-array>
-
     <!-- Alarm confirmation toast: days -->
     <plurals name="days">
         <!-- Duration for one day -->
@@ -181,7 +143,6 @@
         <!-- Duration for more than one day -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> days</item>
     </plurals>
-
     <!-- Alarm confirmation toast, timer notification and world clock ahead/behind: hours -->
     <plurals name="hours">
         <!-- Duration for one hour -->
@@ -189,14 +150,12 @@
         <!-- Duration for more than one hour -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hours</item>
     </plurals>
-
     <plurals name="hours_short">
         <!-- Duration for one hour [CHAR LIMIT=8] -->
         <item quantity="one">1 hr</item>
         <!-- Duration for more than one hour [CHAR LIMIT=8]-->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> hr</item>
     </plurals>
-
     <!-- Alarm confirmation toast and timer notification: minutes -->
     <plurals name="minutes">
         <!-- Duration for one minute -->
@@ -204,14 +163,12 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> minutes</item>
     </plurals>
-
     <plurals name="minutes_short">
         <!-- Duration for one minute [CHAR LIMIT=8] -->
         <item quantity="one">1 min</item>
         <!-- Duration for more than one minute [CHAR LIMIT=8] -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> min</item>
     </plurals>
-
     <!-- Timer accessibility announcement -->
     <plurals name="seconds">
         <!-- Duration for one second -->
@@ -219,36 +176,28 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> seconds</item>
     </plurals>
-
     <!-- Repeat options that appear under an alarm on main Alarm Clock
          screen to identify repetition schedule: special case for when
          the alarm is set to repeat every day -->
     <string name="every_day">Every day</string>
-
     <!-- Repeat options that appear under an alarm on main Alarm Clock
          screen to identify repetition schedule: concatenate days with
          this character, i.e. "Mon, Tue, Wed" -->
     <string name="day_concat">", "</string>
-
     <!-- Message indicating the widget is being loaded. -->
     <string name="loading_widget">Loading\u2026</string>
-
     <!-- Label for analog clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="analog_gadget">Analog clock</string>
     <string name="analog_gadget_material_you">Analog clock Material You</string>
-
     <!-- Label for digital clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="digital_gadget">Digital clock</string>
     <string name="digital_gadget_material_you">Digital clock Material You</string>
-
     <!-- Settings activity name -->
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
-
     <string name="settings_permission_message">One or more essential permissions are denied. Not granting them can lead to malfunctions.</string>
     <string name="settings_permission_summary">Click here to display the Permissions management page.</string>
     <string name="title_interface">Interface</string>
-
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Entries listed in the ListPreference when selecting the theme. -->
@@ -263,7 +212,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-
     <!-- Settings color title -->
     <string name="title_accent_color">Accent color</string>
     <!-- Entries listed in the ListPreference when selecting the color. -->
@@ -288,7 +236,6 @@
         <item>6</item>
         <item>7</item>
     </string-array>
-
     <!-- Settings amoled title -->
     <string name="title_dark_theme_mode">Dark theme mode</string>
     <!-- Entries listed in the ListPreference when selecting the theme. -->
@@ -301,31 +248,24 @@
         <item>default</item>
         <item>amoled</item>
     </string-array>
-
     <!-- Setting title to display the background or not. -->
     <string name="display_card_background_title">Display card backgrounds</string>
     <!-- Setting summary about background display. -->
     <string name="display_card_background_summary">Displays a background for some application elements (alarms, cities, timer button, etc.)</string>
-
     <!-- Setting title to display the background border or not. -->
     <string name="display_background_border_title">Display background borders</string>
     <!-- Setting summary about background border display. -->
     <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
-
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
-
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
-
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
-
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
-
     <!-- Auto silence summary string set based on the preference value. -->
     <plurals name="auto_silence_summary">
         <!-- Duration for one minute -->
@@ -333,10 +273,8 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> minutes</item>
     </plurals>
-
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
-
     <!-- Entries listed in the ListPreference when invoking the auto silence
          preference. -->
     <string-array name="auto_silence_entries">
@@ -348,7 +286,6 @@
         <item>25 minutes</item>
         <item>Never</item>
     </string-array>
-
     <!-- Values that are retrieved from the ListPreference. These must match
          the auto_silence_entries above. -->
     <string-array name="auto_silence_values" translatable="false">
@@ -358,9 +295,9 @@
         <item>15</item>
         <item>20</item>
         <item>25</item>
-        <item>-1</item> <!-- Off -->
+        <item>-1</item>
+        <!-- Off -->
     </string-array>
-
     <!-- Entries listed in the ListPreference when invoking gradually increase
      volume preferences. -->
     <string-array name="crescendo_entries">
@@ -374,7 +311,6 @@
         <item>50 seconds</item>
         <item>60 seconds</item>
     </string-array>
-
     <!-- Values that are retrieved from the ListPreference. These must match
          the crescendo_entries above. -->
     <string-array name="crescendo_values" translatable="false">
@@ -388,7 +324,6 @@
         <item>50</item>
         <item>60</item>
     </string-array>
-
     <!-- Entries listed in the ListPreference when invoking the snooze duration preference -->
     <string-array name="snooze_duration_entries">
         <item>1 minute</item>
@@ -422,7 +357,6 @@
         <item>29 minutes</item>
         <item>30 minutes</item>
     </string-array>
-
     <!-- Values that are retrieved from the ListPreference. These must match
          the snooze_duration_entries above. -->
     <string-array name="snooze_duration_values" translatable="false">
@@ -457,78 +391,62 @@
         <item>29</item>
         <item>30</item>
     </string-array>
-
     <!-- Week start day preference title. -->
     <string name="week_start_title">Start week on</string>
-
     <!-- Entries listed in ListPreference for start day. -->
     <string-array name="week_start_entries">
         <item>Saturday</item>
         <item>Sunday</item>
         <item>Monday</item>
     </string-array>
-
     <!-- Values for ListPreference for start day of week. -->
     <string-array name="week_start_values" translatable="false">
-        <item>7</item> <!-- Calendar.SATURDAY -->
-        <item>1</item> <!-- Calendar.SUNDAY -->
-        <item>2</item> <!-- Calendar.MONDAY -->
+        <item>7</item>
+        <!-- Calendar.SATURDAY -->
+        <item>1</item>
+        <!-- Calendar.SUNDAY -->
+        <item>2</item>
+        <!-- Calendar.MONDAY -->
     </string-array>
-
     <!-- Setting title for changing the alarm volume. -->
     <string name="alarm_volume_title">Alarm volume</string>
-
     <!-- Title for the silent ringtone. -->
     <string name="silent_ringtone_title">Silent</string>
-
     <!-- Title for ringtones that cannot be located by uri. -->
     <string name="unknown_ringtone_title">Unknown</string>
-
     <!-- Text to display when alarm volume is muted. [CHAR LIMIT=50] -->
     <string name="alarm_volume_muted">Alarm volume muted</string>
-
     <!-- Text for action that presents a volume control to adjust alarm volume. [CHAR LIMIT=20] -->
     <string name="unmute_alarm_volume">Unmute</string>
-
     <!-- Text to display when system default alarm ringtone is silent. [CHAR LIMIT=50] -->
     <string name="silent_default_alarm_ringtone">Default alarm ringtone is silent</string>
-
     <!-- Text for action that shows the UI that changes the default alarm ringtone. [CHAR LIMIT=20] -->
     <string name="change_setting_action">Change</string>
-
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
-
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>
-
     <!-- Entries listed in the setting for the side-button action. -->
     <string-array name="volume_button_setting_entries">
         <item>Snooze</item>
         <item>Dismiss</item>
         <item>Control volume</item>
     </string-array>
-
     <!-- Values for the side-button setting. -->
     <string-array name="volume_button_setting_values" translatable="false">
         <item>1</item>
         <item>2</item>
         <item>0</item>
     </string-array>
-
     <!-- Setting title for the Power button setting. -->
     <string name="power_button_title">Power button</string>
-
     <!-- Accessibility labels for Clock activity buttons -->
-    <skip />
-
+    <skip/>
     <!-- Accessibility labels for alarm buttons -->
     <string name="label_description">Label</string>
     <string name="ringtone_description">Ringtone</string>
-
     <string name="add_label">Add label</string>
-
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
@@ -540,7 +458,6 @@
     <string name="menu_stopwatch">Stopwatch</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Bedtime page -->
     <string name="menu_bedtime">Bedtime</string>
-
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
     <string name="button_alarms">Add alarm</string>
@@ -551,10 +468,8 @@
     <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
     <!-- Menu item on Cities screen to sort by alphabetical order -->
     <string name="menu_item_sort_by_name">Sort by name</string>
-
     <!-- Label for selected cities in Cities list view -->
     <string name="selected_cities_label">Selected Cities</string>
-
     <!-- Stopwatch and Timer shared strings -->
     <!-- Describes the purpose of the button to resume running timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
@@ -565,7 +480,6 @@
         [CHAR LIMIT=15]
     -->
     <string name="sw_reset_button">Reset</string>
-
     <!-- Stopwatch strings -->
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
@@ -576,22 +490,18 @@
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
-
     <!-- Abbreviation for temporal hours [CHAR LIMIT=1] -->
     <string name="hours_label">h</string>
     <!-- Abbreviation for temporal minutes [CHAR LIMIT=1] -->
     <string name="minutes_label">m</string>
     <!-- Abbreviation for temporal seconds [CHAR LIMIT=1] -->
     <string name="seconds_label">s</string>
-
     <!-- Accessibility description for new timer setup duration (e.g. 1 hour, 10 minutes, 30 seconds). [CHAR LIMIT=NONE] -->
     <string name="timer_setup_description"><xliff:g example="1 hour" id="hours">%1$s</xliff:g>, <xliff:g example="15 minutes" id="minutes">%2$s</xliff:g>, <xliff:g example="30 seconds" id="seconds">%3$s</xliff:g></string>
-
     <!-- Formats the lap number display. Allows for control of the symbol preceding the lap number. [CHAR LIMIT=5] -->
     <string name="lap_number_single_digit"># <xliff:g id="lapNumber">%d</xliff:g></string>
     <!-- Formats the lap number display. Allows for control of the symbol preceding the lap number. [CHAR LIMIT=5] -->
     <string name="lap_number_double_digit"># <xliff:g id="lapNumber">%02d</xliff:g></string>
-
     <!--  Stopwatch share strings -->
     <!-- Sentence within the message created to share the total time recorded within the stopwatch -->
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>
@@ -599,7 +509,6 @@
     <string name="sw_share_laps">Lap times:</string>
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
-
     <!-- timer strings -->
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
@@ -648,11 +557,9 @@
     <string name="timer_pause">Pause</string>
     <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
     <string name="timer_reset_all">Reset all timers</string>
-
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="seconds"><xliff:g example="44" id="seconds">%d</xliff:g></string>
-
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
         <item>You\'re quite the speed demon.</item>
@@ -666,12 +573,10 @@
         <item>You have a palette for haste.</item>
         <item>Photonic velocity.</item>
     </string-array>
-
     <!-- Title with the clock on the main page displaying the user's regular timezone (shows when automatic_home_clock enabled) -->
     <string name="home_label">Home</string>
     <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
     <string name="cities_activity_title">Cities</string>
-
     <!-- Settings strings -->
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
     <string name="clock_settings">Clock</string>
@@ -679,24 +584,20 @@
     <string name="clock_style">Style</string>
     <!-- Header for a setting referring to showing seconds on the main clock -->
     <string name="display_clock_seconds_pref">Display time with seconds</string>
-
     <!-- Title for preference to change date & time -->
     <string name="open_date_settings">Change date \u0026 time</string>
-
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
     <string-array name="clock_style_entries">
         <item>Analog</item>
         <item>Digital</item>
     </string-array>
-
     <!-- Values that are retrieved from the ListPreference. These must match
          the clock_style_entries above. -->
     <string-array name="clock_style_values" translatable="false">
         <item>analog</item>
         <item>digital</item>
     </string-array>
-
     <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
@@ -715,7 +616,6 @@
         Ex. "Ann Arbor unchecked"
     -->
     <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> unchecked</string>
-
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels" tools:ignore="Typos">
         <item>"Marshall Islands"</item>
@@ -804,7 +704,6 @@
         <item>"Tonga"</item>
         <item>"Jakarta"</item>
     </string-array>
-
     <!-- Choices for timezones, must be kept in sync with timezone_values. -->
 
     <string-array name="timezone_values" translatable="false" tools:ignore="Typos">
@@ -894,7 +793,6 @@
         <item>Pacific/Tongatapu</item>
         <item>Asia/Jakarta</item>
     </string-array>
-
     <!-- Menu item About -->
     <string name="about_title">About</string>
     <!-- App slogan -->
@@ -919,29 +817,27 @@
     <string name="credits">Credits</string>
     <!-- About features text -->
     <string name="about_dialog_message">
-        &#8226; Flip and shake action to dismiss/postpone alarm;
-        \n\n&#8226; Turn off/postpone the alarm with the power button or volume buttons;
-        \n\n&#8226; For Snapdragon phones only, the alarm is triggered when the phone is switched off;
-        \n\n&#8226; Swipe to delete an alarm;
-        \n\n&#8226; Duplicate alarms;
-        \n\n&#8226; Customize alarm title;
-        \n\n&#8226; Customizable ringtone;
-        \n\n&#8226; Light, dark or system theme;
-        \n\n&#8226; AMOLED mode for dark theme;
-        \n\n&#8226; Digital or analog clock style;
-        \n\n&#8226; Display home time when traveling;
-        \n\n&#8226; Display the time in many cities around the world;
-        \n\n&#8226; Timer, stopwatch and bedtime <i>(experimental)</i> included;
-        \n\n&#8226; Possibility of sharing your stopwatch with your contacts;
-        \n\n&#8226; Customizable screensaver;
-        \n\n&#8226; Modern widgets;
-        \n\n&#8226; Material design;
-        \n\n&#8226; Dynamic colors for Android 12+;
+        • Flip and shake action to dismiss/postpone alarm;
+        \n\n• Turn off/postpone the alarm with the power button or volume buttons;
+        \n\n• For Snapdragon phones only, the alarm is triggered when the phone is switched off;
+        \n\n• Swipe to delete an alarm;
+        \n\n• Duplicate alarms;
+        \n\n• Customize alarm title;
+        \n\n• Customizable ringtone;
+        \n\n• Light, dark or system theme;
+        \n\n• AMOLED mode for dark theme;
+        \n\n• Digital or analog clock style;
+        \n\n• Display home time when traveling;
+        \n\n• Display the time in many cities around the world;
+        \n\n• Timer, stopwatch and bedtime <i>(experimental)</i> included;
+        \n\n• Possibility of sharing your stopwatch with your contacts;
+        \n\n• Customizable screensaver;
+        \n\n• Modern widgets;
+        \n\n• Material design;
+        \n\n• Dynamic colors for Android 12+;
     </string>
-
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
-
     <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters
          (longer translations may be truncated). -->
     <string name="shortcut_new_alarm_short">New alarm</string>
@@ -972,7 +868,6 @@
     <!-- Long label for a shortcut to start the screensaver. The maximum length is ~25 characters
          (longer translations may be truncated). -->
     <string name="shortcut_start_screensaver_long">Start screensaver</string>
-
     <!-- Header in the preferences settings for the section pertaining to alarms -->
     <string name="alarm_settings">Alarms</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
@@ -983,7 +878,6 @@
     <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
-
     <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
          be on the right even on RTL languages so please do not reverse this during
          translation. -->
@@ -996,12 +890,10 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
-
     <!-- Header in the preferences settings for the section pertaining to timers. -->
     <string name="timer_settings">Timers</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
-
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
@@ -1012,7 +904,6 @@
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> timers</string>
     <!-- Notification text when at least one timer, of those in use, is counting down. -->
     <string name="next_timer_notif">Next timer: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
-
     <!-- Header in the preferences settings for the section pertaining to screensaver -->
     <string name="screensaver_settings_title">Screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
@@ -1021,7 +912,6 @@
     <string name="screensaver_daydream_settings">Select/enable screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
     <string name="screensaver_daydream_settings_summary">Opens the main Android screensaver settings</string>
-
     <!-- Screensaver settings strings -->
     <!-- Title for the screensaver settings activity. -->
     <string name="screensaver_settings">Screensaver settings</string>
@@ -1032,7 +922,7 @@
     <!-- Title for the screensaver font group. -->
     <string name="screensaver_font_group">Font</string>
     <!-- Title for the screensaver preview & Android screensaver group. -->
-    <string name="screensaver_preview_group">Preview &#38; Android screensaver</string>
+    <string name="screensaver_preview_group">Preview &amp; Android screensaver</string>
     <!-- Title of dynamic screensaver clock color. -->
     <string name="screensaver_clock_dynamic_colors_title">Dynamic clock colors</string>
     <!-- Title of screensaver clock color. -->
@@ -1061,7 +951,6 @@
     <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
     <!-- Message in screensaver settings if no alarm is set -->
     <string name="screensaver_no_alarm_set">Set an alarm to access this setting</string>
-
     <!-- Color choices for screensaver -->
     <string-array name="screensaver_clock_preset_color_entries" translatable="true">
         <item>White</item>
@@ -1072,7 +961,6 @@
         <item>Indigo</item>
         <item>Blue Gray</item>
     </string-array>
-
     <string-array name="screensaver_clock_preset_color_values" translatable="false">
         <item>FFFFFF</item>
         <item>F44336</item>
@@ -1082,22 +970,18 @@
         <item>3F51B5</item>
         <item>607D8B</item>
     </string-array>
-
     <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
     <string name="expand_alarm">Expand alarm</string>
     <!-- Description of the up caret in the alarm alert screen to collapse the alarm content to summary perspective. [CHAR LIMIT=NONE] -->
     <string name="collapse_alarm">Collapse alarm</string>
-
     <!-- Description of the button to undo change to alarm -->
     <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
     <!-- Toast content when an alarm was created  -->
     <string name="alarm_created">Alarm created</string>
-
     <!-- slash between date and next alarm in the clock: used for the DigitalAppWidget -->
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
-
     <!-- Number of hours or minutes the world city is ahead of the current city [CHAR LIMIT=NONE] -->
     <string name="world_time_ahead"><xliff:g example="6 hours" id="time">%1$s</xliff:g> ahead</string>
     <!-- Number of hours or minutes the world city is behind the current city [CHAR LIMIT=NONE] -->
@@ -1115,10 +999,8 @@
 
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
-
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
-
     <!-- String that represents that invalid time for an alarm was specified, e.g. 23:00am
      or 27:68pm.
     First %d represents hour, second %d represents minutes, %s represents am/pm,
@@ -1126,58 +1008,49 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="invalid_time">Invalid time <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
-
     <!-- String that represents that no alarm has been specified for a requested hour:minutes.
     This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
     alarms specified for that time. %s represents the time of the alarm.
     [CHAR LIMIT=NONE]
     -->
     <string name="no_alarm_at">No alarm at <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g></string>
-
     <!-- String that represents that the user doesn't have any alarms scheduled. This happens when
     a user sends a voice command 'dismiss next alarm' or 'dismiss all of my alarms' but they have
     no alarms scheduled in the app.
     [CHAR LIMIT=NONE]
     -->
     <string name="no_scheduled_alarms">No scheduled alarms</string>
-
     <!-- String that represents that the user specified that they want to select an alarm to
     dismiss by specifying a 'label' but they didn't specify any labels.
     [CHAR LIMIT=NONE]
     -->
     <string name="no_label_specified">No label specified</string>
-
     <!-- String that represents that no alarm has been specified for a requested label.
     This happens when a user sends a voice command 'dismiss my alarm with label pick up kids'
      but they have no alarms with that label.
     [CHAR LIMIT=NONE]
     -->
     <string name="no_alarms_with_label">No alarms contain the label</string>
-
     <!-- String that represents that the user has sent a voice command 'dismiss my alarm at 3pm' when
     there was no alarm scheduled for that time (they might have had an alarm for 3pm on the list
     but it was disabled).
     [CHAR LIMIT=NONE]
     -->
     <string name="no_alarm_scheduled_for_this_time">No alarm scheduled for this time</string>
-
     <!-- String that represents that the user has dismissed an alarm through a voice action.
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_dismissed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed</string>
-
     <!-- String that represents that the user has dismissed an alarm through a voice action.
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_set">Alarm is set for <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
-
     <!-- String that represents that the user has successfully created a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_created">Timer created</string>
-
     <!-- String that represents that the user has successfully dismissed timers.
     [CHAR_LIMIT=NONE]
     -->
@@ -1185,7 +1058,6 @@
         <item quantity="one">Timer dismissed</item>
         <item quantity="other"><xliff:g example="5" id="number">%d</xliff:g> timers dismissed</item>
     </plurals>
-
     <!-- String that represents that the user has successfully deleted a timer. [CHAR LIMIT=NONE]
     -->
 
@@ -1194,44 +1066,37 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="invalid_timer_length">Invalid timer length</string>
-
     <!-- String that represents that the user attempted to dismiss a timer through a voice action
     but specified an invalid timer Uri.
     [CHAR_LIMIT=NONE]
     -->
     <string name="invalid_timer">Invalid timer selected</string>
-
     <!-- String that represents that the user attempted to dismiss a timer through a voice action
     but no expired timers were eligible for dismissal.
     [CHAR_LIMIT=NONE]
     -->
     <string name="no_expired_timers">No expired timers</string>
-
     <!-- String that represents that the user attempted to dismiss an alarm that is more than
     24 hours away
     %s represents the time of the alarm (e.g. 15:39)
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm can\'t be dismissed yet, still more than 24 hours away</string>
-
     <!-- String that shows up in the action bar for the Picker Activity
          where a use gets to pick which alarm to dismiss
    [CHAR LIMIT=NONE]
    -->
     <string name="dismiss_alarm">Dismiss alarm</string>
-
     <!-- String that represents that further action is needed from the user in case their
     voice command was ambiguous or there are more than 1 alarms that match their request.
     The user needs to choose an alarm they want to dismiss through the UI
    [CHAR LIMIT=NONE]
    -->
     <string name="pick_alarm_to_dismiss">Pick which alarm to dismiss</string>
-
     <!-- String that represents that the user doesn't have any alarms firing at the moment.
     [CHAR LIMIT=NONE]
     -->
     <string name="no_firing_alarms">No firing alarms</string>
-
     <!-- String that represents that the user has snoozed an alarm through a voice action for 10
     minutes.
     %s represents alarm time, e.g. 14:20
@@ -1252,7 +1117,6 @@
         <item>1 hour before bedtime</item>
         <item>Off</item>
     </string-array>
-
     <!-- Values that are retrieved from the ListPreference. These must match
          the snooze_duration_entries above. -->
     <string-array name="array_reminder_notification_values" translatable="false">
@@ -1262,43 +1126,34 @@
         <item>30</item>
         <item>45</item>
         <item>60</item>
-        <item>-1</item> <!-- Off -->
+        <item>-1</item>
+        <!-- Off -->
     </string-array>
-
     <!-- Bedtime -->
     <string name="bedtime_reminder_notification_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="bedtime_reminder_notification_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
-
     <string name="bedtime_notification_title">\"Bedtime\" mode is on</string>
-
     <string name="bedtime_notification_action_pause">Pause for 30 min</string>
     <string name="bedtime_notification_action_turn_off">Turn off</string>
     <string name="bedtime_notification_until">until <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="bedtime_paused_notification_title">\"Bedtime\" mode is paused</string>
     <string name="bedtime_notification_resume">Resume on <xliff:g id="time">%1$s</xliff:g></string>
     <string name="bedtime_notification_resume_action">Resume now</string>
-
     <string name="wakeup_alarm_label_visible">Wake-up alarm</string>
-
     <string name="new_bedtime_alarm">Wake-up alarm created</string>
-
     <string name="sleeping_time">Sleeping time: %1$s</string>
     <string name="no_bedtime_alarm">No bedtime set</string>
     <string name="no_wakeup_alarm">No wake-up alarm set</string>
-
     <!-- Setting title for the flip action setting. -->
     <string name="flip_action_title">Device flip action</string>
-
     <!-- Setting title for the shake action setting. -->
     <string name="shake_action_title">Device shake action</string>
-
     <!-- Entries listed in the setting flip and shake. -->
     <string-array name="action_setting_entries">
         <item>Snooze</item>
         <item>Dismiss</item>
         <item>Nothing</item>
     </string-array>
-
     <!-- Strings for notification channel. -->
     <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
     <string name="alarm_missed_channel">Missed alarms</string>
@@ -1306,49 +1161,38 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
-    <string name="bedtime_channel">@string/bedtime</string>
-
+    <string name="bedtime_channel">Bedtime</string>
     <!--
     First launch
     -->
     <string name="first_launch_version">Version %s</string>
-
     <string name="first_launch_main_feature_title">MAIN FEATURES</string>
-
     <string name="first_launch_button_now">Now</string>
-
     <string name="first_launch_button_later">Later</string>
-
     <string name="first_launch_main_feature_message">
-        &#9658; Light, dark or system theme; &lt;br&gt; &lt;br&gt;
-        &#9658; Customizable screensaver; &lt;br&gt; &lt;br&gt;
-        &#9658; Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
-        &#9658; Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
-        &#9658; Duplicate an alarm; &lt;br&gt; &lt;br&gt;
-        &#9658; Flip and shake action to dismiss/postpone alarm; &lt;br&gt; &lt;br&gt;
-        &#9658; Turn off/postpone the alarm with the power button or volume buttons; &lt;br&gt; &lt;br&gt;
-        &#9658; %s</string>
-
+        ► Light, dark or system theme; &lt;br&gt; &lt;br&gt;
+        ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
+        ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
+        ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
+        ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;
+        ► Flip and shake action to dismiss/postpone alarm; &lt;br&gt; &lt;br&gt;
+        ► Turn off/postpone the alarm with the power button or volume buttons; &lt;br&gt; &lt;br&gt;
+        ► %s</string>
     <!-- Title of the link to the web page inserted in the main features message -->
-    <string name="first_launch_main_feature_link">&#8230; and much more!</string>
-
+    <string name="first_launch_main_feature_link">… and much more!</string>
     <string name="first_launch_important_info_title">IMPORTANT INFORMATION</string>
-
     <string name="first_launch_important_info_message">
         To ensure that the application works properly, &lt;b&gt;some of your device settings must be changed:&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;DO NOT DISTURB;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;DO NOT DISTURB;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        &#8226; &lt;b&gt;STORAGE &lt;i&gt;(optional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;STORAGE &lt;i&gt;(optional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         You can change them now or later in the permission management settings:</string>
-    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; &#8226; &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
-
+    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
     <string name="first_launch_dialog_title">Quit</string>
-
     <string name="first_launch_dialog_message">Are you sure you want to leave the application?</string>
-
     <!--
     Permissions
     -->
@@ -1364,25 +1208,21 @@
     <string name="permission_dialog_revoke_title">Revoke access</string>
     <string name="permission_dialog_close_button">Close</string>
     <string name="revoke_permission_dialog_message">Are you sure you want to revoke this permission?</string>
-
     <!-- Ignore Battery Optimization Permission -->
     <string name="ignore_battery_optimizations_title">IGNORE BATTERY OPTIMIZATIONS</string>
     <string name="ignore_battery_optimizations_dialog_title">Battery Optimizations</string>
     <string name="ignore_battery_optimizations_dialog_text">By default, the Android system configures all user-installed apps to be optimized to save battery life.
         \n\nWhile this is acceptable for many apps, this app is an alarm app and often causes issues if configured to optimize battery. Once enabled, the Android system can kill the app at any time and/or cancel alarms it has scheduled, which would adversely affect the app\'s operation.
         \n\nWe recommend whitelisting this app from battery optimizations.</string>
-
     <!-- Notifications Permission -->
     <string name="notifications_permission_title">ENABLE NOTIFICATIONS</string>
     <string name="notifications_dialog_title">Notifications</string>
     <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer, stopwatch, and bedtime mode.
         \n\nIn order for notifications to appear correctly for all modules and especially for the alarm to be triggered, we recommend activating notifications for this application.</string>
-
     <!-- Full screen notifications permission -->
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
     <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
-
     <!-- Storage Permission -->
     <string name="storage_permission_title">READ EXTERNAL STORAGE</string>
     <string name="storage_dialog_title">External Storage</string>
@@ -1393,5 +1233,4 @@
     <string name="storage_permission_dialog_message">It appears that you have denied this permission in the Android system dialog.
         \nAndroid will not allow this application to create this permission request dialog again.
         \n\nWould you like to go to Settings and allow this permission?</string>
-
 </resources>

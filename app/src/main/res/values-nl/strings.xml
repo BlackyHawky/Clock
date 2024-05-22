@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
@@ -172,7 +170,7 @@
         <item msgid="7085774139907653538">"Volume regelen"</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">Beltoon</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>
@@ -220,7 +218,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Je bent wel erg snel."</item>
         <item msgid="6332879039890727169">"Profiteer van je inspanningen."</item>
@@ -364,7 +362,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> later"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> vroeger"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> later"</string>
@@ -401,4 +399,22 @@
         <item>Uitschakelen</item>
         <item>Geen</item>
     </string-array>
+    <string name="title_theme">Thema</string>
+    <string name="selected">Geselecteerd</string>
+    <string name="alarm_inactive">Staat uit</string>
+    <string name="digital_gadget_material_you">Digitale klok Material You</string>
+    <string name="display_background_border_title">Achtergrondranden tonen</string>
+    <string name="display_background_border_summary">Gebruikt een achtergrondrand voor sommige elementen (wekkers, steden, timerknoppen etc.)</string>
+    <string name="settings_vibration_title">Trillen inschakelen</string>
+    <string name="duplicate">Dupliceren</string>
+    <string name="more_options">Meer opties</string>
+    <string name="analog_gadget_material_you">Analoge klok Material You</string>
+    <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
+    <string name="settings_permission_summary">Tik hier om de pagina rechtenbeheer te tonen.</string>
+    <string name="title_interface">Uiterlijk</string>
+    <string name="title_accent_color">Accentkleur</string>
+    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
+    <string name="title_dark_theme_mode">Donker themastijl</string>
+    <string name="display_card_background_title">Kaartachtergronden tonen</string>
+    <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de timer)</string>
 </resources>

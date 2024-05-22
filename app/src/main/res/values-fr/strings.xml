@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingQuantity">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingQuantity">
     <string name="app_label" msgid="6674495003718166674">"Horloge"</string>
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
@@ -260,7 +258,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
         <item msgid="6332879039890727169">"Profitez du fruit de votre travail."</item>
@@ -375,7 +373,6 @@
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
     </string-array>
-
     <string name="about_title">À propos</string>
     <string name="app_slogan">Horloge 100% FOSS, basée sur AOSP</string>
     <string name="version">Version</string>
@@ -388,29 +385,27 @@
     <string name="contributors">Contributeurs</string>
     <string name="credits">Crédits</string>
     <string name="about_dialog_message">
-        &#8226; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ;
-        \n\n&#8226; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
-        \n\n&#8226; Pour les téléphones Snapdragon uniquement, l\'alarme se déclenche lorsque le téléphone est éteint ;
-        \n\n&#8226; Glisser pour supprimer une alarme ;
-        \n\n&#8226; Possibilité de dupliquer les alarmes ;
-        \n\n&#8226; Personnaliser le titre de l\'alarme ;
-        \n\n&#8226; Sonnerie personnalisable ;
-        \n\n&#8226; Thème clair, sombre ou système ;
-        \n\n&#8226; Mode AMOLED pour le thème sombre ;
-        \n\n&#8226; Horloge numérique ou analogique ;
-        \n\n&#8226; Affichage de l\'heure du domicile en cas de déplacement ;
-        \n\n&#8226; Affichage de l\'heure dans de nombreuses villes du monde ;
-        \n\n&#8226; Minuteur, chronomètre et heure du coucher <i>(expérimental)</i> inclus ;
-        \n\n&#8226; Possibilité de partager votre chronomètre avec vos contacts ;
-        \n\n&#8226; Écran de veille personnalisable ;
-        \n\n&#8226; Widgets modernes ;
-        \n\n&#8226; Material design ;
-        \n\n&#8226; Couleurs dynamiques pour Android 12+ ;
+        • L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ;
+        \n\n• Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
+        \n\n• Pour les téléphones Snapdragon uniquement, l\'alarme se déclenche lorsque le téléphone est éteint ;
+        \n\n• Glisser pour supprimer une alarme ;
+        \n\n• Possibilité de dupliquer les alarmes ;
+        \n\n• Personnaliser le titre de l\'alarme ;
+        \n\n• Sonnerie personnalisable ;
+        \n\n• Thème clair, sombre ou système ;
+        \n\n• Mode AMOLED pour le thème sombre ;
+        \n\n• Horloge numérique ou analogique ;
+        \n\n• Affichage de l\'heure du domicile en cas de déplacement ;
+        \n\n• Affichage de l\'heure dans de nombreuses villes du monde ;
+        \n\n• Minuteur, chronomètre et heure du coucher <i>(expérimental)</i> inclus ;
+        \n\n• Possibilité de partager votre chronomètre avec vos contacts ;
+        \n\n• Écran de veille personnalisable ;
+        \n\n• Widgets modernes ;
+        \n\n• Material design ;
+        \n\n• Couleurs dynamiques pour Android 12+ ;
     </string>
-
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Fermer</string>
-
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nouvelle alarme"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Créer une alarme"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Nouveau minuteur"</string>
@@ -466,7 +461,7 @@
     <string name="screensaver_style_group">Style</string>
     <string name="screensaver_color_group">Couleurs</string>
     <string name="screensaver_font_group">Police de caractères</string>
-    <string name="screensaver_preview_group">Prévisualisation &#38; Économiseur d\'écran Android</string>
+    <string name="screensaver_preview_group">Prévisualisation &amp; Économiseur d\'écran Android</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Ouvre les paramètres de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
@@ -547,26 +542,26 @@
     <string name="first_launch_button_now">Maintenant</string>
     <string name="first_launch_button_later">Plus tard</string>
     <string name="first_launch_main_feature_message">
-        &#9658; Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
-        &#9658; Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
-        &#9658; Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
-        &#9658; Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt;
-        &#9658; %s</string>
-    <string name="first_launch_main_feature_link">&#8230; et bien plus encore !</string>
+        ► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
+        ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
+        ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
+        ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
+        ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;
+        ► L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt;
+        ► Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt;
+        ► %s</string>
+    <string name="first_launch_main_feature_link">… et bien plus encore !</string>
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
     <string name="first_launch_important_info_message">
         Pour s\'assurer que l\'application fonctionne correctement, &lt;b&gt;certains paramètres de votre appareil doivent être modifiés :&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;NE PAS DERANGER ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;NE PAS DERANGER ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        &#8226; &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         Vous pouvez les modifier maintenant ou plus tard dans les paramètres de gestion des autorisations :</string>
-    <string name="first_launch_important_info_message_for_SDK34">&#8226; &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
     <string name="permission_category_title">Autorisations</string>
@@ -602,5 +597,5 @@
     <string name="storage_permission_dialog_message">Il semble que vous ayez refusé cette autorisation dans la boîte de dialogue du système Android.
         \nAndroid n\'autorisera pas cette application à créer à nouveau cette boîte de dialogue de demande d\'autorisation.
         \n\nSouhaitez-vous aller dans les Paramètres et autoriser cette autorisation ?</string>
-
+    <string name="bedtime_channel">Coucher</string>
 </resources>
