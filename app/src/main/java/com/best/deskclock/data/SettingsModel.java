@@ -267,4 +267,8 @@ final class SettingsModel {
     TimeZones getTimeZones() {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }
+
+    public String getDigitalWidgetMaxClockFontSize() {
+        return SettingsDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
+    }
 }

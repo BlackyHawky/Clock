@@ -186,13 +186,6 @@ final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the cities are displayed on the widget.
-     */
-    static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_WIDGET_WORLD_CITIES_DISPLAYED, true);
-    }
-
-    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {
@@ -550,5 +543,19 @@ final class SettingsDAO {
         public int compareTo(@NonNull TimeZoneDescriptor other) {
             return mOffset - other.mOffset;
         }
+    }
+
+    /**
+     * @return whether or not the cities are displayed on the widget.
+     */
+    static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_WIDGET_WORLD_CITIES_DISPLAYED, true);
+    }
+
+    /**
+     * @return the font size applied to the digital clock widget.
+     */
+    static String getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "80");
     }
 }

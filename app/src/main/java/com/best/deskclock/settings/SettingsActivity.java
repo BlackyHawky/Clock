@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -26,6 +27,8 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.EditTextPreference;
+import androidx.preference.EditTextPreferenceDialogFragmentCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -69,7 +72,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BACKGROUND_BORDER = "key_card_background_border";
     public static final String KEY_VIBRATIONS = "key_vibrations";
-    public static final String KEY_WIDGET_WORLD_CITIES_DISPLAYED = "key_widget_world_cities_displayed";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -94,6 +96,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
+    public static final String KEY_WIDGET_WORLD_CITIES_DISPLAYED = "key_widget_world_cities_displayed";
+    public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
@@ -211,12 +215,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     vibrationsPref.setChecked(DataModel.getDataModel().isVibrationsEnabled());
                     Utils.setVibrationTime(requireContext(), 50);
                 }
-                case KEY_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                    final TwoStatePreference widgetShowCitiesPref = (TwoStatePreference) pref;
-                    widgetShowCitiesPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
-                    Utils.setVibrationTime(requireContext(), 50);
-                }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
                         KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
                         KEY_SHAKE_ACTION, KEY_WEEK_START -> {
@@ -245,6 +243,22 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
                 case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+                case KEY_WIDGET_WORLD_CITIES_DISPLAYED -> {
+                    final TwoStatePreference showCitiesOnDigitalWidgetPref = (TwoStatePreference) pref;
+                    showCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
+                case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
+                    final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
+                    digitalWidgetMaxClockFontSizePref.setSummary(
+                            requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                                    + newValue.toString()
+                                    + " "
+                                    + "dp"
+                    );
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
+                }
             }
             // Set result so DeskClock knows to refresh itself
             requireActivity().setResult(RESULT_OK);
@@ -296,6 +310,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final PreferenceDialogFragmentCompat f;
             if (preference instanceof ListPreference) {
                 f = ListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+            } else if (preference instanceof EditTextPreference) {
+                f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
             } else {
                 throw new IllegalArgumentException("Unsupported DialogPreference type");
             }
@@ -377,9 +393,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final SwitchPreferenceCompat vibrationsPref = findPreference(KEY_VIBRATIONS);
             Objects.requireNonNull(vibrationsPref).setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat widgetShowCitiesPref = findPreference(KEY_WIDGET_WORLD_CITIES_DISPLAYED);
-            Objects.requireNonNull(widgetShowCitiesPref).setOnPreferenceChangeListener(this);
-
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);
@@ -445,6 +458,22 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
+
+            SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_WIDGET_WORLD_CITIES_DISPLAYED);
+            Objects.requireNonNull(showCitiesOnDigitalWidgetPref).setOnPreferenceChangeListener(this);
+
+            final EditTextPreference digitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+            Objects.requireNonNull(digitalWidgetMaxClockFontSizePref).setOnPreferenceChangeListener(this);
+            digitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                editText.selectAll();
+            });
+            digitalWidgetMaxClockFontSizePref.setSummary(
+                    requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                            + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
+                            + " "
+                            + "dp"
+            );
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);

@@ -244,9 +244,16 @@
         <SwitchPreferenceCompat
             android:key="key_widget_world_cities_displayed"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_widget_city"
+            android:title="@string/settings_widget_city_title"
             android:summary="@string/settings_widget_city_summary"
             android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <EditTextPreference
+            android:key="key_digital_widget_max_clock_font_size"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_max_clock_font_size_title"
+            android:defaultValue="80"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>

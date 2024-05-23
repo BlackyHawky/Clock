@@ -262,10 +262,14 @@
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
 
     <string name="title_widget">Digital widget</string>
-    <!-- Setting title to show cities on the widget. -->
-    <string name="settings_widget_city">Display cities on the digital widget</string>
-    <!-- Setting summary when the widget city setting is disabled. -->
+    <!-- Setting title to show cities on the digital widget. -->
+    <string name="settings_widget_city_title">Display cities on the digital widget</string>
+    <!-- Setting summary about the widget city display. -->
     <string name="settings_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
+
+    <!-- Setting title to set the font size of the clock in the digital widget. -->
+    <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of digital widget clock</string>
+    <string name="settings_digital_widget_max_clock_font_size_summary">The font size of the digital widget clock is only modified if no city is displayed. Maximum font size = </string>
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>

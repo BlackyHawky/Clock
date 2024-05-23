@@ -49,8 +49,8 @@ import java.util.List;
 public final class DataModel {
 
     public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
-
     public static final String ACTION_WORLD_CITIES_DISPLAYED = "com.best.deskclock.WORLD_CITIES_DISPLAYED";
+    public static final String ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED";
 
     /**
      * The single instance of this data model that exists for the life of the application.
@@ -846,10 +846,6 @@ public final class DataModel {
         return mSettingsModel.getGlobalIntentId();
     }
 
-    //
-    // Widgets
-    //
-
     /**
      * Update the id used to discriminate relevant AlarmManager callbacks from defunct ones
      */
@@ -904,14 +900,6 @@ public final class DataModel {
     public boolean isVibrationsEnabled() {
         enforceMainLooper();
         return mSettingsModel.isVibrationsEnabled();
-    }
-
-    /**
-     * @return whether or not the cities are displayed on the widget.
-     */
-    public boolean areWorldCitiesDisplayedOnWidget() {
-        enforceMainLooper();
-        return mSettingsModel.areWorldCitiesDisplayedOnWidget();
     }
 
     /**
@@ -1080,6 +1068,22 @@ public final class DataModel {
     public TimeZones getTimeZones() {
         enforceMainLooper();
         return mSettingsModel.getTimeZones();
+    }
+
+    /**
+     * @return whether or not the cities are displayed on the widget.
+     */
+    public boolean areWorldCitiesDisplayedOnWidget() {
+        enforceMainLooper();
+        return mSettingsModel.areWorldCitiesDisplayedOnWidget();
+    }
+
+    /**
+     * @return the font size applied to the digital clock widget.
+     */
+    public String getDigitalWidgetMaxClockFontSize() {
+        enforceMainLooper();
+        return mSettingsModel.getDigitalWidgetMaxClockFontSize();
     }
 
     /**
