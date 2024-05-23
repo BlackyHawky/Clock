@@ -236,6 +236,21 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/title_widget"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_widget_world_cities_displayed"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_widget_city"
+            android:summary="@string/settings_widget_city_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/screensaver_settings_title"
         android:layout="@layout/settings_preference_category_layout"

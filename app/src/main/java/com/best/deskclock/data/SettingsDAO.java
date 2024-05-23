@@ -186,6 +186,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the cities are displayed on the widget.
+     */
+    static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_WIDGET_WORLD_CITIES_DISPLAYED, true);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {

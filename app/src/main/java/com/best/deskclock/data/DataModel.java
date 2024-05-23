@@ -50,6 +50,8 @@ public final class DataModel {
 
     public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
 
+    public static final String ACTION_WORLD_CITIES_DISPLAYED = "com.best.deskclock.WORLD_CITIES_DISPLAYED";
+
     /**
      * The single instance of this data model that exists for the life of the application.
      */
@@ -902,6 +904,14 @@ public final class DataModel {
     public boolean isVibrationsEnabled() {
         enforceMainLooper();
         return mSettingsModel.isVibrationsEnabled();
+    }
+
+    /**
+     * @return whether or not the cities are displayed on the widget.
+     */
+    public boolean areWorldCitiesDisplayedOnWidget() {
+        enforceMainLooper();
+        return mSettingsModel.areWorldCitiesDisplayedOnWidget();
     }
 
     /**

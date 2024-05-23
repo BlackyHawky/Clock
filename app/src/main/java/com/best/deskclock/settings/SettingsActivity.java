@@ -69,6 +69,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BACKGROUND_BORDER = "key_card_background_border";
     public static final String KEY_VIBRATIONS = "key_vibrations";
+    public static final String KEY_WIDGET_WORLD_CITIES_DISPLAYED = "key_widget_world_cities_displayed";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -208,6 +209,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_VIBRATIONS -> {
                     final TwoStatePreference vibrationsPref = (TwoStatePreference) pref;
                     vibrationsPref.setChecked(DataModel.getDataModel().isVibrationsEnabled());
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
+                case KEY_WIDGET_WORLD_CITIES_DISPLAYED -> {
+                    final TwoStatePreference widgetShowCitiesPref = (TwoStatePreference) pref;
+                    widgetShowCitiesPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
                     Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
@@ -369,6 +376,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final SwitchPreferenceCompat vibrationsPref = findPreference(KEY_VIBRATIONS);
             Objects.requireNonNull(vibrationsPref).setOnPreferenceChangeListener(this);
+
+            final SwitchPreferenceCompat widgetShowCitiesPref = findPreference(KEY_WIDGET_WORLD_CITIES_DISPLAYED);
+            Objects.requireNonNull(widgetShowCitiesPref).setOnPreferenceChangeListener(this);
 
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();

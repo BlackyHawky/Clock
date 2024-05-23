@@ -260,6 +260,13 @@
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
+
+    <string name="title_widget">Digital widget</string>
+    <!-- Setting title to show cities on the widget. -->
+    <string name="settings_widget_city">Display cities on the digital widget</string>
+    <!-- Setting summary when the widget city setting is disabled. -->
+    <string name="settings_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
+
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title for changing the crescendo duration. -->

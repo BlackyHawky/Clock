@@ -265,7 +265,7 @@ public final class ClockFragment extends DeskClockFragment {
      * current time at home does not match the current time in the timezone of the current location.
      * If the phone is in portrait mode it will also include the main clock at the top.
      */
-    private static final class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+    public static final class SelectedCitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             implements CityListener {
 
         private final static int MAIN_CLOCK = R.layout.main_clock_frame;
@@ -276,7 +276,7 @@ public final class ClockFragment extends DeskClockFragment {
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
 
-        private SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility) {
+        public SelectedCitiesAdapter(Context context, String dateFormat, String dateFormatForAccessibility) {
             mContext = context;
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;

@@ -100,6 +100,10 @@ final class SettingsModel {
         return SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
+    public boolean areWorldCitiesDisplayedOnWidget() {
+        return SettingsDAO.areWorldCitiesDisplayedOnWidget(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }
