@@ -271,4 +271,8 @@ final class SettingsModel {
     public String getDigitalWidgetMaxClockFontSize() {
         return SettingsDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
     }
+
+    public String getDigitalWidgetAlignment() {
+        return SettingsDAO.getDigitalWidgetAlignment(mPrefs);
+    }
 }

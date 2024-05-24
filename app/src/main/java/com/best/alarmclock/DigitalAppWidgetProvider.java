@@ -21,9 +21,13 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DIGITAL_WIDGET_LEFT_ALIGNMENT;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DIGITAL_WIDGET_RIGHT_ALIGNMENT;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -45,6 +49,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.ArraySet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -194,6 +199,23 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
             // Insufficient space; hide the world city list.
             rv.setViewVisibility(R.id.world_city_list, GONE);
+
+            // Apply the alignment to the remote views.
+            final String getDigitalWidgetAlignment = DataModel.getDataModel().getDigitalWidgetAlignment();
+            switch (getDigitalWidgetAlignment) {
+                case KEY_DIGITAL_WIDGET_LEFT_ALIGNMENT -> {
+                    rv.setInt(R.id.clock, "setGravity", Gravity.START);
+                    rv.setInt(R.id.digital_widget_bottom_view, "setGravity", Gravity.START);
+                }
+                case KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT -> {
+                    rv.setInt(R.id.clock, "setGravity", Gravity.CENTER);
+                    rv.setInt(R.id.digital_widget_bottom_view, "setGravity", Gravity.CENTER);
+                }
+                case KEY_DIGITAL_WIDGET_RIGHT_ALIGNMENT -> {
+                    rv.setInt(R.id.clock, "setGravity", Gravity.END);
+                    rv.setInt(R.id.digital_widget_bottom_view, "setGravity", Gravity.END);
+                }
+            }
         } else {
             // Set an adapter on the world city list. That adapter connects to a Service via intent.
             final Intent intent = new Intent(context, DigitalAppWidgetCityService.class);
@@ -208,6 +230,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, PendingIntent.FLAG_IMMUTABLE);
                 rv.setPendingIntentTemplate(R.id.world_city_list, pi);
             }
+
+            rv.setInt(R.id.clock, "setGravity", Gravity.CENTER);
+            rv.setInt(R.id.digital_widget_bottom_view, "setGravity", Gravity.CENTER);
         }
 
         return rv;
@@ -381,6 +406,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             case ACTION_WORLD_CITIES_CHANGED:
             case ACTION_WORLD_CITIES_DISPLAYED:
             case ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED:
+            case ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED:
             case ACTION_CONFIGURATION_CHANGED:
                 for (int widgetId : widgetIds) {
                     relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
@@ -415,6 +441,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
         intentFilter.addAction(ACTION_WORLD_CITIES_DISPLAYED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
