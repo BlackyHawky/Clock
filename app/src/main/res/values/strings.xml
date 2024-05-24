@@ -1183,7 +1183,6 @@
     <string name="first_launch_important_info_title">IMPORTANT INFORMATION</string>
     <string name="first_launch_important_info_message">
         To ensure that the application works properly, &lt;b&gt;some of your device settings must be changed:&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        • &lt;b&gt;DO NOT DISTURB;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
