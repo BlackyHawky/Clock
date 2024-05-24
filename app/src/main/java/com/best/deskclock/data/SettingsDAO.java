@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT;
+import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import static java.util.Calendar.MONDAY;
@@ -550,7 +551,7 @@ final class SettingsDAO {
      * @return whether or not the cities are displayed on the widget.
      */
     static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_WIDGET_WORLD_CITIES_DISPLAYED, true);
+        return prefs.getBoolean(SettingsActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
     }
 
     /**
@@ -565,5 +566,26 @@ final class SettingsDAO {
      */
     static String getDigitalWidgetAlignment(SharedPreferences prefs) {
         return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_ALIGNMENT, KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT);
+    }
+
+    /**
+     * @return the color applied to the digital widget clock.
+     */
+    static String getDigitalWidgetClockColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_CLOCK_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+    }
+
+    /**
+     * @return the color applied to the digital widget date.
+     */
+    static String getDigitalWidgetDateColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_DATE_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+    }
+
+    /**
+     * @return the color applied to the digital widget city name.
+     */
+    static String getDigitalWidgetCityNameColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_CITY_NAME_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
     }
 }

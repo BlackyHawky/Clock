@@ -275,4 +275,16 @@ final class SettingsModel {
     public String getDigitalWidgetAlignment() {
         return SettingsDAO.getDigitalWidgetAlignment(mPrefs);
     }
+
+    String getDigitalWidgetClockColor() {
+        return SettingsDAO.getDigitalWidgetClockColor(mPrefs);
+    }
+
+    String getDigitalWidgetDateColor() {
+        return SettingsDAO.getDigitalWidgetDateColor(mPrefs);
+    }
+
+    String getDigitalWidgetCityNameColor() {
+        return SettingsDAO.getDigitalWidgetCityNameColor(mPrefs);
+    }
 }

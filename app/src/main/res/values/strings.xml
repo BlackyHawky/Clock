@@ -263,14 +263,21 @@
 
     <string name="title_widget">Digital widget</string>
     <!-- Setting title to show cities on the digital widget. -->
-    <string name="settings_widget_city_title">Display cities on the digital widget</string>
+    <string name="settings_digital_widget_city_title">Display cities on the digital widget</string>
     <!-- Setting summary about the widget city display. -->
-    <string name="settings_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
+    <string name="settings_digital_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
 
     <!-- Setting title to set the font size of the clock in the digital widget. -->
     <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of digital widget clock</string>
     <!-- Setting summary about the font size of the clock in the digital widget. -->
     <string name="settings_digital_widget_max_clock_font_size_summary">Maximum font size = </string>
+
+    <!-- Setting title to set the color of the clock in the digital widget. -->
+    <string name="settings_digital_widget_clock_color_title">Clock color</string>
+    <!-- Setting title to set the color of the date in the digital widget. -->
+    <string name="settings_digital_widget_date_color_title">Date color</string>
+    <!-- Setting title to set the color of the city name in the digital widget. -->
+    <string name="settings_digital_widget_city_name_color_title">City name color</string>
 
     <string name="settings_digital_widget_message">The settings below change the digital widget only if no city is displayed.</string>
 

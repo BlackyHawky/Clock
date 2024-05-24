@@ -96,7 +96,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_WIDGET_WORLD_CITIES_DISPLAYED = "key_widget_world_cities_displayed";
+    public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";
+    public static final String KEY_DEFAULT_DIGITAL_WIDGET_COLOR = "0";
+    public static final String KEY_DIGITAL_WIDGET_CLOCK_COLOR = "key_digital_widget_clock_color";
+    public static final String KEY_DIGITAL_WIDGET_DATE_COLOR = "key_digital_widget_date_color";
+    public static final String KEY_DIGITAL_WIDGET_CITY_NAME_COLOR = "key_digital_widget_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_MESSAGE = "key_digital_widget_message";
     public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
     public static final String KEY_DIGITAL_WIDGET_ALIGNMENT = "key_digital_widget_alignment";
@@ -248,11 +252,33 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
                 case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-                case KEY_WIDGET_WORLD_CITIES_DISPLAYED -> {
+                case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
                     final TwoStatePreference showCitiesOnDigitalWidgetPref = (TwoStatePreference) pref;
                     showCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
                     Utils.setVibrationTime(requireContext(), 50);
+                    requireActivity().setResult(RESULT_CANCELED);
+                }
+                case KEY_DIGITAL_WIDGET_CLOCK_COLOR -> {
+                    final ListPreference digitalWidgetClockColorPref = (ListPreference) pref;
+                    final int index = digitalWidgetClockColorPref.findIndexOfValue((String) newValue);
+                    digitalWidgetClockColorPref.setSummary(digitalWidgetClockColorPref.getEntries()[index]);
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
+                }
+                case KEY_DIGITAL_WIDGET_DATE_COLOR -> {
+                    final ListPreference digitalWidgetDateColorPref = (ListPreference) pref;
+                    final int index = digitalWidgetDateColorPref.findIndexOfValue((String) newValue);
+                    digitalWidgetDateColorPref.setSummary(digitalWidgetDateColorPref.getEntries()[index]);
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
+                }
+                case KEY_DIGITAL_WIDGET_CITY_NAME_COLOR -> {
+                    final ListPreference digitalWidgetCityNameColorPref = (ListPreference) pref;
+                    final int index = digitalWidgetCityNameColorPref.findIndexOfValue((String) newValue);
+                    digitalWidgetCityNameColorPref.setSummary(digitalWidgetCityNameColorPref.getEntries()[index]);
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
                 }
                 case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
@@ -263,6 +289,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                     + "dp"
                     );
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
                 }
                 case KEY_DIGITAL_WIDGET_ALIGNMENT -> {
                     final ListPreference digitalWidgetAlignmentPref = (ListPreference) pref;
@@ -272,6 +299,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                     + digitalWidgetAlignmentPref.getEntries()[index]
                     );
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
                 }
             }
             // Set result so DeskClock knows to refresh itself
@@ -473,8 +501,20 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
 
-            SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_WIDGET_WORLD_CITIES_DISPLAYED);
+            SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
             Objects.requireNonNull(showCitiesOnDigitalWidgetPref).setOnPreferenceChangeListener(this);
+
+            final ListPreference digitalWidgetClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CLOCK_COLOR);
+            Objects.requireNonNull(digitalWidgetClockColorPref).setSummary(digitalWidgetClockColorPref.getEntry());
+            digitalWidgetClockColorPref.setOnPreferenceChangeListener(this);
+
+            final ListPreference digitalWidgetDateColorPref = findPreference(KEY_DIGITAL_WIDGET_DATE_COLOR);
+            Objects.requireNonNull(digitalWidgetDateColorPref).setSummary(digitalWidgetDateColorPref.getEntry());
+            digitalWidgetDateColorPref.setOnPreferenceChangeListener(this);
+
+            final ListPreference digitalWidgetCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_COLOR);
+            Objects.requireNonNull(digitalWidgetCityNameColorPref).setSummary(digitalWidgetCityNameColorPref.getEntry());
+            digitalWidgetCityNameColorPref.setOnPreferenceChangeListener(this);
 
             Preference digitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
             final SpannableStringBuilder builderDigitalWidgetMessage = new SpannableStringBuilder();

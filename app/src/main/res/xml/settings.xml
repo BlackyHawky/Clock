@@ -242,11 +242,38 @@
         app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
-            android:key="key_widget_world_cities_displayed"
+            android:key="key_digital_widget_world_cities_displayed"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_widget_city_title"
-            android:summary="@string/settings_widget_city_summary"
+            android:title="@string/settings_digital_widget_city_title"
+            android:summary="@string/settings_digital_widget_city_summary"
             android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="key_digital_widget_clock_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_clock_color_title"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="key_digital_widget_date_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_date_color_title"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
+            android:key="key_digital_widget_city_name_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_city_name_color_title"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false" />
 
         <Preference
