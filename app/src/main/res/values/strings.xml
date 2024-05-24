@@ -270,12 +270,14 @@
     <!-- Setting title to set the font size of the clock in the digital widget. -->
     <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of digital widget clock</string>
     <!-- Setting summary about the font size of the clock in the digital widget. -->
-    <string name="settings_digital_widget_max_clock_font_size_summary">The font size of the digital widget clock is only modified if no city is displayed. Maximum font size = </string>
+    <string name="settings_digital_widget_max_clock_font_size_summary">Maximum font size = </string>
+
+    <string name="settings_digital_widget_message">The settings below change the digital widget only if no city is displayed.</string>
 
     <!-- Setting title to set the alignment of the digital widget. -->
     <string name="settings_digital_widget_alignment_title">Alignment of the digital widget</string>
     <!-- Setting summary about the  alignment of the digital widget. -->
-    <string name="settings_digital_widget_alignment_summary">The alignment of the digital widget is only modified if no city is displayed. Alignment set to </string>
+    <string name="settings_digital_widget_alignment_summary">Alignment set to </string>
     <!-- Entries listed in the ListPreference when invoking the alignment of the digital widget. -->
     <string-array name="settings_digital_widget_alignment_entries">
         <item>Left</item>

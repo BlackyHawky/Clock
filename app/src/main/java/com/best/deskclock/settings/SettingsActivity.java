@@ -97,6 +97,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String KEY_WIDGET_WORLD_CITIES_DISPLAYED = "key_widget_world_cities_displayed";
+    public static final String KEY_DIGITAL_WIDGET_MESSAGE = "key_digital_widget_message";
     public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
     public static final String KEY_DIGITAL_WIDGET_ALIGNMENT = "key_digital_widget_alignment";
     public static final String KEY_DIGITAL_WIDGET_LEFT_ALIGNMENT = "0";
@@ -374,15 +375,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void refresh() {
             mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
-            final SpannableStringBuilder builder = new SpannableStringBuilder();
+            final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
             final String messagePermission = requireContext().getString(R.string.settings_permission_message);
-            final Spannable redMessagePermission = new SpannableString(messagePermission);
+            final Spannable spannableMessagePermission = new SpannableString(messagePermission);
             if (messagePermission != null) {
-                redMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
-                redMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
             }
-            builder.append(redMessagePermission);
-            mPermissionMessage.setTitle(builder);
+            builderPermissionMessage.append(spannableMessagePermission);
+            mPermissionMessage.setTitle(builderPermissionMessage);
             mPermissionMessage.setOnPreferenceClickListener(this);
 
             final ListPreference themePref = findPreference(KEY_THEME);
@@ -474,6 +475,19 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_WIDGET_WORLD_CITIES_DISPLAYED);
             Objects.requireNonNull(showCitiesOnDigitalWidgetPref).setOnPreferenceChangeListener(this);
+
+            Preference digitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
+            final SpannableStringBuilder builderDigitalWidgetMessage = new SpannableStringBuilder();
+            final String digitalWidgetMessage = requireContext().getString(R.string.settings_digital_widget_message);
+            final Spannable spannableDigitalWidgetMessage = new SpannableString(digitalWidgetMessage);
+            if (digitalWidgetMessage != null) {
+                spannableDigitalWidgetMessage.setSpan(new StyleSpan(Typeface.ITALIC), 0, digitalWidgetMessage.length(), 0);
+                spannableDigitalWidgetMessage.setSpan(new StyleSpan(Typeface.BOLD), 0, digitalWidgetMessage.length(), 0);
+            }
+            builderDigitalWidgetMessage.append(spannableDigitalWidgetMessage);
+            if (digitalWidgetMessagePref != null) {
+                digitalWidgetMessagePref.setTitle(builderDigitalWidgetMessage);
+            }
 
             final EditTextPreference digitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
             Objects.requireNonNull(digitalWidgetMaxClockFontSizePref).setOnPreferenceChangeListener(this);
