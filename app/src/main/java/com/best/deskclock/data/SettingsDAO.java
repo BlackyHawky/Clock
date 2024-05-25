@@ -575,6 +575,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the color applied to the digital widget next alarm.
+     */
+    static String getDigitalWidgetNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+    }
+
+    /**
      * @return the color applied to the digital widget city name.
      */
     static String getDigitalWidgetCityNameColor(SharedPreferences prefs) {

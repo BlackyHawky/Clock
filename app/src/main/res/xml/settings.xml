@@ -268,6 +268,15 @@
             app:iconSpaceReserved="false" />
 
         <ListPreference
+            android:key="key_digital_widget_next_alarm_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_next_alarm_color_title"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false" />
+
+        <ListPreference
             android:key="key_digital_widget_city_name_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_digital_widget_city_name_color_title"

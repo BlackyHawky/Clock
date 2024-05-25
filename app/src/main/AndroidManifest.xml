@@ -333,6 +333,7 @@
                 <action android:name="com.best.deskclock.WORLD_CITIES_DISPLAYED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED" />
+                <action android:name="com.best.deskclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
@@ -361,6 +362,7 @@
                 <action android:name="com.best.deskclock.WORLD_CITIES_DISPLAYED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED" />
+                <action android:name="com.best.deskclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED" />
                 <action android:name="com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />

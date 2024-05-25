@@ -100,6 +100,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_DEFAULT_DIGITAL_WIDGET_COLOR = "0";
     public static final String KEY_DIGITAL_WIDGET_CLOCK_COLOR = "key_digital_widget_clock_color";
     public static final String KEY_DIGITAL_WIDGET_DATE_COLOR = "key_digital_widget_date_color";
+    public static final String KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR = "key_digital_widget_next_alarm_color";
     public static final String KEY_DIGITAL_WIDGET_CITY_NAME_COLOR = "key_digital_widget_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_MESSAGE = "key_digital_widget_message";
     public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
@@ -267,6 +268,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     final int index = digitalWidgetDateColorPref.findIndexOfValue((String) newValue);
                     digitalWidgetDateColorPref.setSummary(digitalWidgetDateColorPref.getEntries()[index]);
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
+                    requireActivity().setResult(RESULT_CANCELED);
+                }
+                case KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR -> {
+                    final ListPreference digitalWidgetNextAlarmColorPref = (ListPreference) pref;
+                    final int index = digitalWidgetNextAlarmColorPref.findIndexOfValue((String) newValue);
+                    digitalWidgetNextAlarmColorPref.setSummary(digitalWidgetNextAlarmColorPref.getEntries()[index]);
+                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
                     requireActivity().setResult(RESULT_CANCELED);
                 }
                 case KEY_DIGITAL_WIDGET_CITY_NAME_COLOR -> {
@@ -497,6 +505,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final ListPreference digitalWidgetDateColorPref = findPreference(KEY_DIGITAL_WIDGET_DATE_COLOR);
             Objects.requireNonNull(digitalWidgetDateColorPref).setSummary(digitalWidgetDateColorPref.getEntry());
             digitalWidgetDateColorPref.setOnPreferenceChangeListener(this);
+
+            final ListPreference digitalWidgetNextAlarmColorPref = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR);
+            Objects.requireNonNull(digitalWidgetNextAlarmColorPref).setSummary(digitalWidgetNextAlarmColorPref.getEntry());
+            digitalWidgetNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
             final ListPreference digitalWidgetCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_COLOR);
             Objects.requireNonNull(digitalWidgetCityNameColorPref).setSummary(digitalWidgetCityNameColorPref.getEntry());

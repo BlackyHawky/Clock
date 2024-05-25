@@ -276,6 +276,8 @@
     <string name="settings_digital_widget_clock_color_title">Clock color</string>
     <!-- Setting title to set the color of the date in the digital widget. -->
     <string name="settings_digital_widget_date_color_title">Date color</string>
+    <!-- Setting title to set the color of the next alarm in the digital widget. -->
+    <string name="settings_digital_widget_next_alarm_color_title">Next alarm color</string>
     <!-- Setting title to set the color of the city name in the digital widget. -->
     <string name="settings_digital_widget_city_name_color_title">City name color</string>
 
