@@ -236,69 +236,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/title_widget"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
-
-        <SwitchPreferenceCompat
-            android:key="key_digital_widget_world_cities_displayed"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_city_title"
-            android:summary="@string/settings_digital_widget_city_summary"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false" />
-
-        <ListPreference
-            android:key="key_digital_widget_clock_color"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_clock_color_title"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
-            app:iconSpaceReserved="false" />
-
-        <ListPreference
-            android:key="key_digital_widget_date_color"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_date_color_title"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
-            app:iconSpaceReserved="false" />
-
-        <ListPreference
-            android:key="key_digital_widget_next_alarm_color"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_next_alarm_color_title"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
-            app:iconSpaceReserved="false" />
-
-        <ListPreference
-            android:key="key_digital_widget_city_name_color"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_city_name_color_title"
-            android:defaultValue="0"
-            android:entries="@array/array_accent_color"
-            android:entryValues="@array/accent_color_setting_entries"
-            app:iconSpaceReserved="false" />
-
-        <Preference
-            android:key="key_digital_widget_message"
-            android:selectable="false"
-            app:iconSpaceReserved="false" />
-
-        <EditTextPreference
-            android:key="key_digital_widget_max_clock_font_size"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_max_clock_font_size_title"
-            android:defaultValue="80"
-            app:iconSpaceReserved="false" />
-
-    </PreferenceCategory>
-
     <PreferenceCategory
         android:title="@string/screensaver_settings_title"
         android:layout="@layout/settings_preference_category_layout"
@@ -310,6 +247,20 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_settings"
             android:summary="@string/screensaver_settings_summary"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_digital_widget_category"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="key_digital_widget_customization"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_title"
+            android:summary="@string/settings_digital_widget_summary"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>

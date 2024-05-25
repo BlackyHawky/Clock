@@ -99,6 +99,14 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name=".settings.DigitalWidgetCustomizationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/settings_digital_widget_title"
+            android:parentActivityName=".settings.SettingsActivity"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name=".settings.PermissionsManagementActivity"
             android:excludeFromRecents="true"
             android:label="@string/permission_management_title"

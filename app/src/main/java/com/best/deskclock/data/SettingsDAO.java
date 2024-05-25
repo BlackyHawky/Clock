@@ -15,10 +15,11 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_FONT_SIZE;
 import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import static java.util.Calendar.MONDAY;
@@ -37,6 +38,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.DigitalWidgetCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
 import com.best.deskclock.settings.SettingsActivity;
 
@@ -550,41 +552,41 @@ final class SettingsDAO {
      * @return whether or not the cities are displayed on the widget.
      */
     static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
     }
 
     /**
      * @return the font size applied to the digital clock widget.
      */
     static String getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "80");
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_WIDGET_FONT_SIZE);
     }
 
     /**
      * @return the color applied to the digital widget clock.
      */
     static String getDigitalWidgetClockColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_CLOCK_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
     }
 
     /**
      * @return the color applied to the digital widget date.
      */
     static String getDigitalWidgetDateColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_DATE_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
     }
 
     /**
      * @return the color applied to the digital widget next alarm.
      */
     static String getDigitalWidgetNextAlarmColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
     }
 
     /**
      * @return the color applied to the digital widget city name.
      */
     static String getDigitalWidgetCityNameColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_CITY_NAME_COLOR, KEY_DEFAULT_DIGITAL_WIDGET_COLOR);
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
     }
 }

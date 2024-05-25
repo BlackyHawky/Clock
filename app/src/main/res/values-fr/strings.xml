@@ -554,7 +554,6 @@
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
     <string name="first_launch_important_info_message">
         Pour s\'assurer que l\'application fonctionne correctement, &lt;b&gt;certains paramètres de votre appareil doivent être modifiés :&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        • &lt;b&gt;NE PAS DERANGER ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
@@ -564,6 +563,18 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
+    <string name="settings_digital_widget_category">Widgets numériques</string>
+    <string name="settings_digital_widget_title">Personnaliser les widgets numériques</string>
+    <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs des widgets numériques et de modifier la taille de la police de l\'horloge</string>
+    <string name="settings_digital_widget_city_title">Afficher les villes</string>
+    <string name="settings_digital_widget_city_summary">Les villes ne sont affichées dans le widget numérique que si elles ont été ajoutées dans l\'onglet Horloge</string>
+    <string name="settings_digital_widget_clock_color_title">Couleur de l\'horloge</string>
+    <string name="settings_digital_widget_date_color_title">Couleur de la date</string>
+    <string name="settings_digital_widget_next_alarm_color_title">Couleur de la prochaine alarme</string>
+    <string name="settings_digital_widget_city_name_color_title">Couleur du nom des villes</string>
+    <string name="settings_digital_widget_message">Le paramètre ci-dessous modifie le widget numérique uniquement si aucune ville n\'est affichée.</string>
+    <string name="settings_digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
+    <string name="settings_digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
     <string name="permission_category_title">Autorisations</string>
     <string name="permission_management_title">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>

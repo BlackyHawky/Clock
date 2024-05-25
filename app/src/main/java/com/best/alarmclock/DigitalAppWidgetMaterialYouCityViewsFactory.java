@@ -8,14 +8,14 @@ package com.best.alarmclock;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BLUE_GRAY_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BROWN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.GREEN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.INDIGO_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.ORANGE_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.PINK_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.RED_DIGITAL_WIDGET_COLOR;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
@@ -211,47 +211,55 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
 
         final String getClockColor = DataModel.getDataModel().getDigitalWidgetClockColor();
         switch (getClockColor) {
-            case DEFAULT_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
-            case BLUE_GRAY_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.blueGrayColorAccent));
-            case BROWN_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.brownColorAccent));
-            case GREEN_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.greenColorAccent));
-            case INDIGO_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.indigoColorAccent));
-            case ORANGE_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.orangeColorAccent));
-            case PINK_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.pinkColorAccent));
-            case RED_ACCENT_COLOR -> rv.setTextColor(clockId, mContext.getColor(R.color.redColorAccent));
+            case DEFAULT_DIGITAL_WIDGET_COLOR
+                    -> rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(clockId, mContext.getColor(R.color.redColorAccent));
         }
 
         final String getCityNameColor = DataModel.getDataModel().getDigitalWidgetCityNameColor();
         switch (getCityNameColor) {
-            case DEFAULT_ACCENT_COLOR -> {
+            case DEFAULT_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.digital_widget_text_color));
                 rv.setTextColor(dayId, mContext.getColor(R.color.digital_widget_text_color));
             }
-            case BLUE_GRAY_ACCENT_COLOR -> {
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.blueGrayColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.blueGrayColorAccent));
             }
-            case BROWN_ACCENT_COLOR -> {
+            case BROWN_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.brownColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.brownColorAccent));
             }
-            case GREEN_ACCENT_COLOR -> {
+            case GREEN_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.greenColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.greenColorAccent));
             }
-            case INDIGO_ACCENT_COLOR -> {
+            case INDIGO_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.indigoColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.indigoColorAccent));
             }
-            case ORANGE_ACCENT_COLOR -> {
+            case ORANGE_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.orangeColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.orangeColorAccent));
             }
-            case PINK_ACCENT_COLOR -> {
+            case PINK_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.pinkColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.pinkColorAccent));
             }
-            case RED_ACCENT_COLOR -> {
+            case RED_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.redColorAccent));
                 rv.setTextColor(dayId, mContext.getColor(R.color.redColorAccent));
             }

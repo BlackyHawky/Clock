@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -27,8 +26,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.preference.EditTextPreference;
-import androidx.preference.EditTextPreferenceDialogFragmentCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
@@ -96,14 +93,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";
-    public static final String KEY_DEFAULT_DIGITAL_WIDGET_COLOR = "0";
-    public static final String KEY_DIGITAL_WIDGET_CLOCK_COLOR = "key_digital_widget_clock_color";
-    public static final String KEY_DIGITAL_WIDGET_DATE_COLOR = "key_digital_widget_date_color";
-    public static final String KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR = "key_digital_widget_next_alarm_color";
-    public static final String KEY_DIGITAL_WIDGET_CITY_NAME_COLOR = "key_digital_widget_city_name_color";
-    public static final String KEY_DIGITAL_WIDGET_MESSAGE = "key_digital_widget_message";
-    public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
+    public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION = "key_digital_widget_customization";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
@@ -249,52 +239,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
                 case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-                case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                    final TwoStatePreference showCitiesOnDigitalWidgetPref = (TwoStatePreference) pref;
-                    showCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
-                    Utils.setVibrationTime(requireContext(), 50);
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_CLOCK_COLOR -> {
-                    final ListPreference digitalWidgetClockColorPref = (ListPreference) pref;
-                    final int index = digitalWidgetClockColorPref.findIndexOfValue((String) newValue);
-                    digitalWidgetClockColorPref.setSummary(digitalWidgetClockColorPref.getEntries()[index]);
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_DATE_COLOR -> {
-                    final ListPreference digitalWidgetDateColorPref = (ListPreference) pref;
-                    final int index = digitalWidgetDateColorPref.findIndexOfValue((String) newValue);
-                    digitalWidgetDateColorPref.setSummary(digitalWidgetDateColorPref.getEntries()[index]);
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR -> {
-                    final ListPreference digitalWidgetNextAlarmColorPref = (ListPreference) pref;
-                    final int index = digitalWidgetNextAlarmColorPref.findIndexOfValue((String) newValue);
-                    digitalWidgetNextAlarmColorPref.setSummary(digitalWidgetNextAlarmColorPref.getEntries()[index]);
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_CITY_NAME_COLOR -> {
-                    final ListPreference digitalWidgetCityNameColorPref = (ListPreference) pref;
-                    final int index = digitalWidgetCityNameColorPref.findIndexOfValue((String) newValue);
-                    digitalWidgetCityNameColorPref.setSummary(digitalWidgetCityNameColorPref.getEntries()[index]);
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
-                    final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
-                    digitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
-                                    + newValue.toString()
-                                    + " "
-                                    + "dp"
-                    );
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
             }
             // Set result so DeskClock knows to refresh itself
             requireActivity().setResult(RESULT_OK);
@@ -329,10 +273,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
                 }
+                case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> {
+                    final Intent digitalWidgetCustomizationIntent =
+                            new Intent(context, DigitalWidgetCustomizationActivity.class);
+                    startActivity(digitalWidgetCustomizationIntent);
+                    return true;
+                }
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
                     final Intent permissionsManagementIntent = new Intent(context, PermissionsManagementActivity.class);
                     startActivity(permissionsManagementIntent);
-                    requireActivity().setResult(RESULT_OK);
                     return true;
                 }
             }
@@ -346,8 +295,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final PreferenceDialogFragmentCompat f;
             if (preference instanceof ListPreference) {
                 f = ListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-            } else if (preference instanceof EditTextPreference) {
-                f = EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
             } else {
                 throw new IllegalArgumentException("Unsupported DialogPreference type");
             }
@@ -495,50 +442,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
 
-            SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
-            Objects.requireNonNull(showCitiesOnDigitalWidgetPref).setOnPreferenceChangeListener(this);
-
-            final ListPreference digitalWidgetClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CLOCK_COLOR);
-            Objects.requireNonNull(digitalWidgetClockColorPref).setSummary(digitalWidgetClockColorPref.getEntry());
-            digitalWidgetClockColorPref.setOnPreferenceChangeListener(this);
-
-            final ListPreference digitalWidgetDateColorPref = findPreference(KEY_DIGITAL_WIDGET_DATE_COLOR);
-            Objects.requireNonNull(digitalWidgetDateColorPref).setSummary(digitalWidgetDateColorPref.getEntry());
-            digitalWidgetDateColorPref.setOnPreferenceChangeListener(this);
-
-            final ListPreference digitalWidgetNextAlarmColorPref = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR);
-            Objects.requireNonNull(digitalWidgetNextAlarmColorPref).setSummary(digitalWidgetNextAlarmColorPref.getEntry());
-            digitalWidgetNextAlarmColorPref.setOnPreferenceChangeListener(this);
-
-            final ListPreference digitalWidgetCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_COLOR);
-            Objects.requireNonNull(digitalWidgetCityNameColorPref).setSummary(digitalWidgetCityNameColorPref.getEntry());
-            digitalWidgetCityNameColorPref.setOnPreferenceChangeListener(this);
-
-            Preference digitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
-            final SpannableStringBuilder builderDigitalWidgetMessage = new SpannableStringBuilder();
-            final String digitalWidgetMessage = requireContext().getString(R.string.settings_digital_widget_message);
-            final Spannable spannableDigitalWidgetMessage = new SpannableString(digitalWidgetMessage);
-            if (digitalWidgetMessage != null) {
-                spannableDigitalWidgetMessage.setSpan(new StyleSpan(Typeface.ITALIC), 0, digitalWidgetMessage.length(), 0);
-                spannableDigitalWidgetMessage.setSpan(new StyleSpan(Typeface.BOLD), 0, digitalWidgetMessage.length(), 0);
-            }
-            builderDigitalWidgetMessage.append(spannableDigitalWidgetMessage);
-            if (digitalWidgetMessagePref != null) {
-                digitalWidgetMessagePref.setTitle(builderDigitalWidgetMessage);
-            }
-
-            final EditTextPreference digitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
-            Objects.requireNonNull(digitalWidgetMaxClockFontSizePref).setOnPreferenceChangeListener(this);
-            digitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                editText.selectAll();
-            });
-            digitalWidgetMaxClockFontSizePref.setSummary(
-                    requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
-                            + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
-                            + " "
-                            + "dp"
-            );
+            final Preference digitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
+            Objects.requireNonNull(digitalWidgetCustomizationPref).setOnPreferenceClickListener(this);
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);

@@ -28,14 +28,14 @@ import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
-import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BLUE_GRAY_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BROWN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.GREEN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.INDIGO_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.ORANGE_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.PINK_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.RED_DIGITAL_WIDGET_COLOR;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -205,40 +205,64 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         // Apply the colors to the clock.
         final String getClockColor = DataModel.getDataModel().getDigitalWidgetClockColor();
         switch (getClockColor) {
-            case DEFAULT_ACCENT_COLOR -> rv.setTextColor(R.id.clock, Color.WHITE);
-            case BLUE_GRAY_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.brownColorAccent));
-            case GREEN_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.greenColorAccent));
-            case INDIGO_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.orangeColorAccent));
-            case PINK_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.pinkColorAccent));
-            case RED_ACCENT_COLOR -> rv.setTextColor(R.id.clock, context.getColor(R.color.redColorAccent));
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.redColorAccent));
         }
 
         // Apply the colors to the date.
         final String getDateColor = DataModel.getDataModel().getDigitalWidgetDateColor();
         switch (getDateColor) {
-            case DEFAULT_ACCENT_COLOR -> rv.setTextColor(R.id.date, Color.WHITE);
-            case BLUE_GRAY_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.brownColorAccent));
-            case GREEN_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.greenColorAccent));
-            case INDIGO_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.orangeColorAccent));
-            case PINK_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.pinkColorAccent));
-            case RED_ACCENT_COLOR -> rv.setTextColor(R.id.date, context.getColor(R.color.redColorAccent));
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.redColorAccent));
         }
 
         // Apply the colors to the next alarm.
         final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
         switch (getNextAlarmColor) {
-            case DEFAULT_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, Color.WHITE);
-            case BLUE_GRAY_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.brownColorAccent));
-            case GREEN_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.greenColorAccent));
-            case INDIGO_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.orangeColorAccent));
-            case PINK_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.pinkColorAccent));
-            case RED_ACCENT_COLOR -> rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.redColorAccent));
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.redColorAccent));
         }
 
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
@@ -291,16 +315,25 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+            // Apply the colors to the next alarm icon.
             final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
             switch (getNextAlarmColor) {
-                case DEFAULT_ACCENT_COLOR -> nextAlarmIcon.setTextColor(Color.WHITE);
-                case BLUE_GRAY_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.blueGrayColorAccent));
-                case BROWN_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.brownColorAccent));
-                case GREEN_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.greenColorAccent));
-                case INDIGO_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.indigoColorAccent));
-                case ORANGE_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.orangeColorAccent));
-                case PINK_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.pinkColorAccent));
-                case RED_ACCENT_COLOR -> nextAlarmIcon.setTextColor(context.getColor(R.color.redColorAccent));
+                case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(Color.WHITE);
+                case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.blueGrayColorAccent));
+                case BROWN_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.brownColorAccent));
+                case GREEN_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.greenColorAccent));
+                case INDIGO_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.indigoColorAccent));
+                case ORANGE_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.orangeColorAccent));
+                case PINK_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.pinkColorAccent));
+                case RED_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.redColorAccent));
             }
         }
 
