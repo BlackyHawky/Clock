@@ -103,10 +103,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_DIGITAL_WIDGET_CITY_NAME_COLOR = "key_digital_widget_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_MESSAGE = "key_digital_widget_message";
     public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
-    public static final String KEY_DIGITAL_WIDGET_ALIGNMENT = "key_digital_widget_alignment";
-    public static final String KEY_DIGITAL_WIDGET_LEFT_ALIGNMENT = "0";
-    public static final String KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT = "1";
-    public static final String KEY_DIGITAL_WIDGET_RIGHT_ALIGNMENT = "2";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
@@ -289,16 +285,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                     + "dp"
                     );
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
-                    requireActivity().setResult(RESULT_CANCELED);
-                }
-                case KEY_DIGITAL_WIDGET_ALIGNMENT -> {
-                    final ListPreference digitalWidgetAlignmentPref = (ListPreference) pref;
-                    final int index = digitalWidgetAlignmentPref.findIndexOfValue((String) newValue);
-                    digitalWidgetAlignmentPref.setSummary(
-                            requireContext().getString(R.string.settings_digital_widget_alignment_summary)
-                                    + digitalWidgetAlignmentPref.getEntries()[index]
-                    );
-                    requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED));
                     requireActivity().setResult(RESULT_CANCELED);
                 }
             }
@@ -541,12 +527,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             + " "
                             + "dp"
             );
-
-            final ListPreference digitalWidgetAlignmentPref = findPreference(KEY_DIGITAL_WIDGET_ALIGNMENT);
-            Objects.requireNonNull(digitalWidgetAlignmentPref).setSummary(
-                    requireContext().getString(R.string.settings_digital_widget_alignment_summary)
-                            + digitalWidgetAlignmentPref.getEntry());
-            digitalWidgetAlignmentPref.setOnPreferenceChangeListener(this);
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);

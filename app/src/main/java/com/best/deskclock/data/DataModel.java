@@ -54,7 +54,6 @@ public final class DataModel {
     public static final String ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED";
     public static final String ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED";
     public static final String ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_ALIGNMENT_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_ALIGNMENT_CHANGED";
 
     /**
      * The single instance of this data model that exists for the life of the application.
@@ -1088,14 +1087,6 @@ public final class DataModel {
     public String getDigitalWidgetMaxClockFontSize() {
         enforceMainLooper();
         return mSettingsModel.getDigitalWidgetMaxClockFontSize();
-    }
-
-    /**
-     * @return the alignment of the digital widget.
-     */
-    public String getDigitalWidgetAlignment() {
-        enforceMainLooper();
-        return mSettingsModel.getDigitalWidgetAlignment();
     }
 
     /**

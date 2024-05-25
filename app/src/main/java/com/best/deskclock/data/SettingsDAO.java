@@ -18,7 +18,6 @@ import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DIGITAL_WIDGET_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
@@ -559,13 +558,6 @@ final class SettingsDAO {
      */
     static String getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
         return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "80");
-    }
-
-    /**
-     * @return the alignment of the digital widget.
-     */
-    static String getDigitalWidgetAlignment(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DIGITAL_WIDGET_ALIGNMENT, KEY_DEFAULT_DIGITAL_WIDGET_ALIGNMENT);
     }
 
     /**

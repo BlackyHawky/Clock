@@ -288,15 +288,6 @@
             android:defaultValue="80"
             app:iconSpaceReserved="false" />
 
-        <ListPreference
-            android:key="key_digital_widget_alignment"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_alignment_title"
-            android:entries="@array/settings_digital_widget_alignment_entries"
-            android:entryValues="@array/settings_digital_widget_alignment_values"
-            android:defaultValue="1"
-            app:iconSpaceReserved="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

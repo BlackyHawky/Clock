@@ -279,24 +279,7 @@
     <!-- Setting title to set the color of the city name in the digital widget. -->
     <string name="settings_digital_widget_city_name_color_title">City name color</string>
 
-    <string name="settings_digital_widget_message">The settings below change the digital widget only if no city is displayed.</string>
-
-    <!-- Setting title to set the alignment of the digital widget. -->
-    <string name="settings_digital_widget_alignment_title">Alignment of the digital widget</string>
-    <!-- Setting summary about the  alignment of the digital widget. -->
-    <string name="settings_digital_widget_alignment_summary">Alignment set to </string>
-    <!-- Entries listed in the ListPreference when invoking the alignment of the digital widget. -->
-    <string-array name="settings_digital_widget_alignment_entries">
-        <item>Left</item>
-        <item>Center</item>
-        <item>Right</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the alignment of the digital widget. -->
-    <string-array name="settings_digital_widget_alignment_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
+    <string name="settings_digital_widget_message">The setting below change the digital widget only if no city is displayed.</string>
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
