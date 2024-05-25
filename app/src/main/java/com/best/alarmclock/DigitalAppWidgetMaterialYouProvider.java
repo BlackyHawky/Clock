@@ -17,6 +17,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
@@ -475,6 +476,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             case ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED:
             case ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED:
             case ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED:
             case ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED:
             case ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED:
             case ACTION_CONFIGURATION_CHANGED:
@@ -513,6 +515,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);

@@ -284,6 +284,10 @@ final class SettingsModel {
         return SettingsDAO.getDigitalWidgetNextAlarmColor(mPrefs);
     }
 
+    String getDigitalWidgetCityClockColor() {
+        return SettingsDAO.getDigitalWidgetCityClockColor(mPrefs);
+    }
+
     String getDigitalWidgetCityNameColor() {
         return SettingsDAO.getDigitalWidgetCityNameColor(mPrefs);
     }

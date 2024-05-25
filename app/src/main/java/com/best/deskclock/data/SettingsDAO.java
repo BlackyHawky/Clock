@@ -584,6 +584,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the color applied to the digital widget city clock.
+     */
+    static String getDigitalWidgetCityClockColor(SharedPreferences prefs) {
+        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    }
+
+    /**
      * @return the color applied to the digital widget city name.
      */
     static String getDigitalWidgetCityNameColor(SharedPreferences prefs) {

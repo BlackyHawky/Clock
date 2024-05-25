@@ -209,7 +209,7 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final String getClockColor = DataModel.getDataModel().getDigitalWidgetClockColor();
+        final String getClockColor = DataModel.getDataModel().getDigitalWidgetCityClockColor();
         switch (getClockColor) {
             case DEFAULT_DIGITAL_WIDGET_COLOR
                     -> rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
