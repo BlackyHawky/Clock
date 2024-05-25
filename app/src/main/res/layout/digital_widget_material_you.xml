@@ -8,39 +8,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/digital_widget_material_you"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/digital_widget_background"
-    android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical">
 
     <TextClock
         android:id="@+id/date"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:ellipsize="none"
         android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@color/digital_widget_text_color"
         tools:text="Sat. 20 Jan."
-        tools:textSize="18sp" />
+        tools:textSize="18sp"
+        tools:textColor="@color/digital_widget_text_color" />
 
     <TextClock
         android:id="@+id/clock"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:singleLine="true"
-        android:textColor="@color/digital_widget_time_color"
         tools:text="0123 AM"
-        tools:textSize="70sp"/>
+        tools:textSize="70sp"
+        tools:textColor="@color/digital_widget_time_color" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/digital_widget_bottom_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center">
 
@@ -49,11 +47,11 @@
         <ImageView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
-            android:tint="@color/digital_widget_text_color"
             tools:src="@drawable/ic_tab_alarm_static"
+            tools:tint="@color/digital_widget_text_color"
             tools:paddingHorizontal="3dp"
             tools:ignore="UseAppTint" />
 
@@ -61,16 +59,24 @@
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:includeFontPadding="false"
             android:ellipsize="none"
             android:singleLine="true"
-            android:textColor="@color/digital_widget_text_color"
             tools:text="08:30"
-            tools:textSize="18sp" />
+            tools:textSize="18sp"
+            tools:textColor="@color/digital_widget_text_color" />
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/world_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="10dp"
+        android:divider="@null"
+        android:visibility="gone" />
 
 </LinearLayout>
