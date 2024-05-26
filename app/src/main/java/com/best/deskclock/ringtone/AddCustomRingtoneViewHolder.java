@@ -22,7 +22,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.ItemAdapter.ItemViewHolder;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.google.android.material.color.MaterialColors;
 
 final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtoneHolder>
