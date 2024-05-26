@@ -2,6 +2,10 @@
 
 package com.best.deskclock.settings;
 
+import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
+import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -20,6 +24,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
+import com.best.alarmclock.DigitalAppWidgetMaterialYouProvider;
+import com.best.alarmclock.DigitalAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
@@ -64,6 +70,23 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
+
+        private int mAppWidgetId = INVALID_APPWIDGET_ID;
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            requireActivity().setResult(RESULT_CANCELED);
+
+            Intent intent = requireActivity().getIntent();
+            if (intent != null) {
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    mAppWidgetId = extras.getInt(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
+                }
+            }
+        }
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
@@ -130,6 +153,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
                 }
             }
+            updateDigitalWidget();
             return true;
         }
 
@@ -182,6 +206,16 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                             + " "
                             + "dp"
             );
+        }
+
+        private void updateDigitalWidget() {
+            AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
+            DigitalAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+            DigitalAppWidgetMaterialYouProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+
+            Intent result = new Intent();
+            result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
+            requireActivity().setResult(RESULT_OK, result);
         }
     }
 

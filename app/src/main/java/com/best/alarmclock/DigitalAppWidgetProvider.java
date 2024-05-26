@@ -133,6 +133,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
     }
 
+    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+        relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+    }
+
     /**
      * Compute optimal font and icon sizes offscreen for the given orientation.
      */
