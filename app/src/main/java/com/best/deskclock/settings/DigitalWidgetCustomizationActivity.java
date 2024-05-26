@@ -22,7 +22,6 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.preference.TwoStatePreference;
 
 import com.best.alarmclock.DigitalAppWidgetMaterialYouProvider;
 import com.best.alarmclock.DigitalAppWidgetProvider;
@@ -73,9 +72,15 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
 
         private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+        EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+        Preference mDigitalWidgetMessagePref;
+        SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
+
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            hidePreferences();
 
             requireActivity().setResult(RESULT_CANCELED);
 
@@ -106,9 +111,15 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
                 case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                    final TwoStatePreference showCitiesOnDigitalWidgetPref = (TwoStatePreference) pref;
-                    showCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
                     requireContext().sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_DISPLAYED));
+
+                    if (mShowCitiesOnDigitalWidgetPref.getSharedPreferences() != null) {
+                        final boolean areCitiesDisplayed = mShowCitiesOnDigitalWidgetPref.getSharedPreferences()
+                                .getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
+                        mDigitalWidgetMessagePref.setVisible(areCitiesDisplayed);
+                        mDigitalWidgetMaxClockFontSizePref.setVisible(areCitiesDisplayed);
+                    }
+
                     Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_DIGITAL_WIDGET_CLOCK_COLOR -> {
@@ -157,9 +168,18 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             return true;
         }
 
+        private void hidePreferences() {
+            mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
+            mDigitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
+            mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+
+            mShowCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
+            mDigitalWidgetMessagePref.setVisible(!mShowCitiesOnDigitalWidgetPref.isChecked());
+            mDigitalWidgetMaxClockFontSizePref.setVisible(!mShowCitiesOnDigitalWidgetPref.isChecked());
+        }
+
         private void refresh() {
-            SwitchPreferenceCompat showCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
-            Objects.requireNonNull(showCitiesOnDigitalWidgetPref).setOnPreferenceChangeListener(this);
+            mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
             final ListPreference digitalWidgetClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CLOCK_COLOR);
             Objects.requireNonNull(digitalWidgetClockColorPref).setSummary(digitalWidgetClockColorPref.getEntry());
@@ -181,7 +201,6 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             Objects.requireNonNull(digitalWidgetCityNameColorPref).setSummary(digitalWidgetCityNameColorPref.getEntry());
             digitalWidgetCityNameColorPref.setOnPreferenceChangeListener(this);
 
-            Preference digitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
             final SpannableStringBuilder builderDigitalWidgetMessage = new SpannableStringBuilder();
             final String digitalWidgetMessage = requireContext().getString(R.string.settings_digital_widget_message);
             final Spannable spannableDigitalWidgetMessage = new SpannableString(digitalWidgetMessage);
@@ -190,17 +209,14 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                 spannableDigitalWidgetMessage.setSpan(new StyleSpan(Typeface.BOLD), 0, digitalWidgetMessage.length(), 0);
             }
             builderDigitalWidgetMessage.append(spannableDigitalWidgetMessage);
-            if (digitalWidgetMessagePref != null) {
-                digitalWidgetMessagePref.setTitle(builderDigitalWidgetMessage);
-            }
+            mDigitalWidgetMessagePref.setTitle(builderDigitalWidgetMessage);
 
-            final EditTextPreference digitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
-            Objects.requireNonNull(digitalWidgetMaxClockFontSizePref).setOnPreferenceChangeListener(this);
-            digitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
+            mDigitalWidgetMaxClockFontSizePref.setOnPreferenceChangeListener(this);
+            mDigitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
                 editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 editText.selectAll();
             });
-            digitalWidgetMaxClockFontSizePref.setSummary(
+            mDigitalWidgetMaxClockFontSizePref.setSummary(
                     requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
                             + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
                             + " "
