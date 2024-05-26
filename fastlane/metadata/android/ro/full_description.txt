@@ -1,0 +1,25 @@
+Ceas este o aplicație open-source care ține cont de confidențialitate, bazată pe AOSP.
+Nu folosește permisiunea de internet și, prin urmare, este 100% offline.
+
+Caracteristici:
+<ul>
+  <li>Acțiunea de întoarcere și agitare pentru a închide/amâna alarma;</li>
+  <li>Oprește/amână alarma cu butonul de pornire sau butoanele de volum;</li>
+  <li>Numai pentru telefoanele Snapdragon, alarma se declanșează atunci când telefonul este oprit;</li>
+  <li>Glisează pentru a șterge o alarmă;</li>
+  <li>Alarme duplicate;</li>
+  <li>Titlul alarmei personalizabil;</li>
+  <li>Ton de apel personalizabil;</li>
+  <li>Temă deschisă, întunecată sau de sistem;</li>
+  <li>Modul AMOLED pentru tema întunecată;</li>
+  <li>Interfață personalizabilă;</li>
+  <li>Stil de ceas digital sau analogic;</li>
+  <li>Afișează ora acasă când călătorești;</li>
+  <li>Afișează ora în multe orașe din întreaga lume;</li>
+  <li>Cronometru, cronometru și ora de culcare <i>(experimentală)</i> incluse;</li>
+  <li>Posibilitatea de a partaja cronometrul cu persoanele de contact;</li>
+  <li>Screensaver personalizabil;</li>
+  <li>Widget-uri moderne;</li>
+  <li>Design material;</li>
+  <li>Culori dinamice pentru Android 12+;</li>
+</ul>
