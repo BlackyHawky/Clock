@@ -20,7 +20,6 @@ import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -42,9 +41,9 @@ import java.util.TimeZone;
 
 /**
  * This factory produces entries in the world cities list view displayed at the bottom of the
- * digital widget. Each row is comprised of two world cities located side-by-side.
+ * material you digital widget. Each row is comprised of two world cities located side-by-side.
  */
-public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
+public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsFactory {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigWidgetViewsFactory");
 
@@ -61,7 +60,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     private boolean mShowHomeClock;
     private List<City> mCities = Collections.emptyList();
 
-    public DigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
+    public DigitalAppWidgetMaterialYouCityViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
 
@@ -75,12 +74,12 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
     @Override
     public void onCreate() {
-        LOGGER.i("DigitalAppWidgetCityViewsFactory onCreate " + mWidgetId);
+        LOGGER.i("DigitalAppWidgetMaterialYouCityViewsFactory onCreate " + mWidgetId);
     }
 
     @Override
     public void onDestroy() {
-        LOGGER.i("DigitalAppWidgetCityViewsFactory onDestroy " + mWidgetId);
+        LOGGER.i("DigitalAppWidgetMaterialYouCityViewsFactory onDestroy " + mWidgetId);
     }
 
     /**
@@ -116,7 +115,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         final City right = rightIndex < mCities.size() ? mCities.get(rightIndex) : null;
 
         final RemoteViews rv =
-                new RemoteViews(mContext.getPackageName(), R.layout.world_clock_remote_list_item);
+                new RemoteViews(mContext.getPackageName(), R.layout.world_clock_material_you_remote_list_item);
 
         // Show the left clock if one exists.
         if (left != null) {
@@ -213,7 +212,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         final String getClockColor = DataModel.getDataModel().getDigitalWidgetCityClockColor();
         switch (getClockColor) {
             case DEFAULT_DIGITAL_WIDGET_COLOR
-                    -> rv.setTextColor(clockId, Color.WHITE);
+                    -> rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
             case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
                     rv.setTextColor(clockId, mContext.getColor(R.color.blueGrayColorAccent));
             case BROWN_DIGITAL_WIDGET_COLOR ->
@@ -233,8 +232,8 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         final String getCityNameColor = DataModel.getDataModel().getDigitalWidgetCityNameColor();
         switch (getCityNameColor) {
             case DEFAULT_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, Color.WHITE);
-                rv.setTextColor(dayId, Color.WHITE);
+                rv.setTextColor(labelId, mContext.getColor(R.color.digital_widget_text_color));
+                rv.setTextColor(dayId, mContext.getColor(R.color.digital_widget_text_color));
             }
             case BLUE_GRAY_DIGITAL_WIDGET_COLOR -> {
                 rv.setTextColor(labelId, mContext.getColor(R.color.blueGrayColorAccent));

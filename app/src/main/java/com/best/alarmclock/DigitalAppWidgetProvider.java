@@ -21,7 +21,22 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
+import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BLUE_GRAY_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BROWN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.GREEN_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.INDIGO_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.ORANGE_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.PINK_DIGITAL_WIDGET_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.RED_DIGITAL_WIDGET_COLOR;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -37,6 +52,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +67,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.best.deskclock.ClockFragment;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
@@ -116,6 +133,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
     }
 
+    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+        relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+    }
+
     /**
      * Compute optimal font and icon sizes offscreen for the given orientation.
      */
@@ -155,6 +176,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Fetch the widget size selected by the user.
+        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnWidget();
+        final ClockFragment.SelectedCitiesAdapter cityAdapter =
+                new ClockFragment.SelectedCitiesAdapter(context, null, null);
         final Resources resources = context.getResources();
         final float density = resources.getDisplayMetrics().density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
@@ -163,7 +187,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final int largestClockFontSizePx = Utils.toPixel(75, context);
+        final String digitalWidgetMaxClockFontSize = DataModel.getDataModel().getDigitalWidgetMaxClockFontSize();
+        final int largestClockFontSizePx = Utils.toPixel(cityAdapter.getItemCount() > 1 && areWorldCitiesDisplayed
+                ? 80
+                : Integer.parseInt(digitalWidgetMaxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -180,8 +207,72 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
+        // Apply the colors to the clock.
+        final String getClockColor = DataModel.getDataModel().getDigitalWidgetClockColor();
+        switch (getClockColor) {
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.clock, context.getColor(R.color.redColorAccent));
+        }
+
+        // Apply the colors to the date.
+        final String getDateColor = DataModel.getDataModel().getDigitalWidgetDateColor();
+        switch (getDateColor) {
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.date, context.getColor(R.color.redColorAccent));
+        }
+
+        // Apply the colors to the next alarm.
+        final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
+        switch (getNextAlarmColor) {
+            case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.blueGrayColorAccent));
+            case BROWN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.brownColorAccent));
+            case GREEN_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.greenColorAccent));
+            case INDIGO_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.indigoColorAccent));
+            case ORANGE_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.orangeColorAccent));
+            case PINK_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.pinkColorAccent));
+            case RED_DIGITAL_WIDGET_COLOR ->
+                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.redColorAccent));
+        }
+
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
-        if (sizes.getListHeight() <= smallestWorldCityListSizePx) {
+
+        if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
             // Insufficient space; hide the world city list.
             rv.setViewVisibility(R.id.world_city_list, GONE);
         } else {
@@ -229,6 +320,26 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+            // Apply the colors to the next alarm icon.
+            final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
+            switch (getNextAlarmColor) {
+                case DEFAULT_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(Color.WHITE);
+                case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.blueGrayColorAccent));
+                case BROWN_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.brownColorAccent));
+                case GREEN_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.greenColorAccent));
+                case INDIGO_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.indigoColorAccent));
+                case ORANGE_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.orangeColorAccent));
+                case PINK_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.pinkColorAccent));
+                case RED_DIGITAL_WIDGET_COLOR ->
+                        nextAlarmIcon.setTextColor(context.getColor(R.color.redColorAccent));
+            }
         }
 
         // Measure the widget at the largest possible size.
@@ -369,6 +480,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             case ACTION_TIMEZONE_CHANGED:
             case ACTION_ON_DAY_CHANGE:
             case ACTION_WORLD_CITIES_CHANGED:
+            case ACTION_WORLD_CITIES_DISPLAYED:
+            case ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED:
+            case ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED:
             case ACTION_CONFIGURATION_CHANGED:
                 for (int widgetId : widgetIds) {
                     relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
@@ -401,10 +519,17 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+        intentFilter.addAction(ACTION_WORLD_CITIES_DISPLAYED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
+            context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
         } else {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }

@@ -260,6 +260,7 @@
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
+
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title for changing the crescendo duration. -->
@@ -1192,6 +1193,32 @@
     <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
     <string name="first_launch_dialog_title">Quit</string>
     <string name="first_launch_dialog_message">Are you sure you want to leave the application?</string>
+    <!--
+    Digital Widget
+    -->
+    <string name="settings_digital_widget_category">Digital widgets</string>
+    <string name="settings_digital_widget_title">Customize digital widgets</string>
+    <string name="settings_digital_widget_summary">Allows you to customize the colors of digital widgets and change the clock font size</string>
+    <!-- Title to show cities on the digital widget. -->
+    <string name="settings_digital_widget_city_title">Display cities</string>
+    <!-- Summary about the widget city display. -->
+    <string name="settings_digital_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
+    <!-- Title to set the color of the main clock in the digital widget. -->
+    <string name="settings_digital_widget_clock_color_title">Main clock color</string>
+    <!-- Title to set the color of the date in the digital widget. -->
+    <string name="settings_digital_widget_date_color_title">Date color</string>
+    <!-- Title to set the color of the next alarm in the digital widget. -->
+    <string name="settings_digital_widget_next_alarm_color_title">Next alarm color</string>
+    <!-- Title to set the color of the city clock in the digital widget. -->
+    <string name="settings_digital_widget_city_clock_color_title">City clock color</string>
+    <!-- Title to set the color of the city name in the digital widget. -->
+    <string name="settings_digital_widget_city_name_color_title">City name color</string>
+    <!-- Digital widget font size warning -->
+    <string name="settings_digital_widget_message">The setting below change the digital widget only if no city is displayed.</string>
+    <!-- Title to set the font size of the clock in the digital widget. -->
+    <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
+    <!-- Summary about the font size of the clock in the digital widget. -->
+    <string name="settings_digital_widget_max_clock_font_size_summary">Maximum font size = </string>
     <!--
     Permissions
     -->

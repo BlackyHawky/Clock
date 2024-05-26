@@ -34,6 +34,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Customizable interface;
 * Customizable screensaver;
 * Modern widgets;
+* Customizable digital widgets;
 * Material design;
 * Dynamic colors for Android 12+;
 

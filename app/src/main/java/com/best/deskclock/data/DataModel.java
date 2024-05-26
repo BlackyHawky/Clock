@@ -49,6 +49,13 @@ import java.util.List;
 public final class DataModel {
 
     public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
+    public static final String ACTION_WORLD_CITIES_DISPLAYED = "com.best.deskclock.WORLD_CITIES_DISPLAYED";
+    public static final String ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED";
 
     /**
      * The single instance of this data model that exists for the life of the application.
@@ -844,10 +851,6 @@ public final class DataModel {
         return mSettingsModel.getGlobalIntentId();
     }
 
-    //
-    // Widgets
-    //
-
     /**
      * Update the id used to discriminate relevant AlarmManager callbacks from defunct ones
      */
@@ -1070,6 +1073,58 @@ public final class DataModel {
     public TimeZones getTimeZones() {
         enforceMainLooper();
         return mSettingsModel.getTimeZones();
+    }
+
+    /**
+     * @return whether or not the cities are displayed on the widget.
+     */
+    public boolean areWorldCitiesDisplayedOnWidget() {
+        enforceMainLooper();
+        return mSettingsModel.areWorldCitiesDisplayedOnWidget();
+    }
+
+    /**
+     * @return the font size applied to the digital clock widget.
+     */
+    public String getDigitalWidgetMaxClockFontSize() {
+        enforceMainLooper();
+        return mSettingsModel.getDigitalWidgetMaxClockFontSize();
+    }
+
+    /**
+     * @return the color applied to the digital widget clock.
+     */
+    public String getDigitalWidgetClockColor() {
+        return mSettingsModel.getDigitalWidgetClockColor();
+    }
+
+    /**
+     * @return the color applied to the digital widget date.
+     */
+    public String getDigitalWidgetDateColor() {
+        return mSettingsModel.getDigitalWidgetDateColor();
+    }
+
+    /**
+     * @return the color applied to the digital widget next alarm.
+     */
+    public String getDigitalWidgetNextAlarmColor() {
+        return mSettingsModel.getDigitalWidgetNextAlarmColor();
+    }
+
+    /**
+     * @return the color applied to the digital widget city clock.
+     */
+    public String getDigitalWidgetCityClockColor() {
+        return mSettingsModel.getDigitalWidgetCityClockColor();
+    }
+
+
+    /**
+     * @return the color applied to the digital widget city name.
+     */
+    public String getDigitalWidgetCityNameColor() {
+        return mSettingsModel.getDigitalWidgetCityNameColor();
     }
 
     /**

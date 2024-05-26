@@ -93,6 +93,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
+    public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION = "key_digital_widget_customization";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
@@ -272,10 +273,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
                 }
+                case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> {
+                    final Intent digitalWidgetCustomizationIntent =
+                            new Intent(context, DigitalWidgetCustomizationActivity.class);
+                    startActivity(digitalWidgetCustomizationIntent);
+                    return true;
+                }
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
                     final Intent permissionsManagementIntent = new Intent(context, PermissionsManagementActivity.class);
                     startActivity(permissionsManagementIntent);
-                    requireActivity().setResult(RESULT_OK);
                     return true;
                 }
             }
@@ -338,15 +344,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void refresh() {
             mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
-            final SpannableStringBuilder builder = new SpannableStringBuilder();
+            final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
             final String messagePermission = requireContext().getString(R.string.settings_permission_message);
-            final Spannable redMessagePermission = new SpannableString(messagePermission);
+            final Spannable spannableMessagePermission = new SpannableString(messagePermission);
             if (messagePermission != null) {
-                redMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
-                redMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
             }
-            builder.append(redMessagePermission);
-            mPermissionMessage.setTitle(builder);
+            builderPermissionMessage.append(spannableMessagePermission);
+            mPermissionMessage.setTitle(builderPermissionMessage);
             mPermissionMessage.setOnPreferenceClickListener(this);
 
             final ListPreference themePref = findPreference(KEY_THEME);
@@ -435,6 +441,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
+
+            final Preference digitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
+            Objects.requireNonNull(digitalWidgetCustomizationPref).setOnPreferenceClickListener(this);
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);

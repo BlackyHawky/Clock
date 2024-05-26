@@ -6,6 +6,7 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:initialLayout="@layout/loading_widget"
     android:minWidth="150dp"
     android:minHeight="70dp"
@@ -14,4 +15,7 @@
     android:previewImage="@drawable/appwidget_digital_clock_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
-    android:widgetCategory="keyguard|home_screen" />
+    android:widgetCategory="keyguard|home_screen"
+    android:widgetFeatures="configuration_optional|reconfigurable"
+    android:configure="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
+    tools:targetApi="p" />

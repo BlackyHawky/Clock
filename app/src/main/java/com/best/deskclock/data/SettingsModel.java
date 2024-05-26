@@ -100,6 +100,10 @@ final class SettingsModel {
         return SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
+    public boolean areWorldCitiesDisplayedOnWidget() {
+        return SettingsDAO.areWorldCitiesDisplayedOnWidget(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }
@@ -262,5 +266,29 @@ final class SettingsModel {
 
     TimeZones getTimeZones() {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
+    }
+
+    public String getDigitalWidgetMaxClockFontSize() {
+        return SettingsDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
+    }
+
+    String getDigitalWidgetClockColor() {
+        return SettingsDAO.getDigitalWidgetClockColor(mPrefs);
+    }
+
+    String getDigitalWidgetDateColor() {
+        return SettingsDAO.getDigitalWidgetDateColor(mPrefs);
+    }
+
+    String getDigitalWidgetNextAlarmColor() {
+        return SettingsDAO.getDigitalWidgetNextAlarmColor(mPrefs);
+    }
+
+    String getDigitalWidgetCityClockColor() {
+        return SettingsDAO.getDigitalWidgetCityClockColor(mPrefs);
+    }
+
+    String getDigitalWidgetCityNameColor() {
+        return SettingsDAO.getDigitalWidgetCityNameColor(mPrefs);
     }
 }

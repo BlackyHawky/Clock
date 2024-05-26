@@ -33,13 +33,9 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:shadowRadius="2.75"
-                android:shadowColor="@android:color/black"
-                android:shadowDx="2"
-                android:shadowDy="2"
                 tools:text="01:23 AM"
                 tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textColor="@color/digital_widget_time_color" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -61,12 +57,8 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:shadowRadius="2.75"
-                        android:shadowColor="@android:color/black"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
                         tools:text="City1"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@color/digital_widget_text_color" />
 
                 </FrameLayout>
 
@@ -81,12 +73,8 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:shadowRadius="2.75"
-                    android:shadowColor="@android:color/black"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@color/digital_widget_text_color" />
 
             </LinearLayout>
 
@@ -106,13 +94,9 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:shadowRadius="2.75"
-                android:shadowColor="@android:color/black"
-                android:shadowDx="2"
-                android:shadowDy="2"
                 tools:text="01:23 AM"
                 tools:textSize="16sp"
-                tools:textColor="@android:color/white" />
+                tools:textColor="@color/digital_widget_time_color" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -134,12 +118,8 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:shadowRadius="2.75"
-                        android:shadowColor="@android:color/black"
-                        android:shadowDx="2"
-                        android:shadowDy="2"
                         tools:text="City 2"
-                        tools:textColor="@android:color/white" />
+                        tools:textColor="@color/digital_widget_text_color" />
 
                 </FrameLayout>
 
@@ -154,12 +134,8 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:shadowRadius="2.75"
-                    android:shadowColor="@android:color/black"
-                    android:shadowDx="2"
-                    android:shadowDy="2"
                     tools:text="/ Mon"
-                    tools:textColor="@android:color/white" />
+                    tools:textColor="@color/digital_widget_text_color" />
 
             </LinearLayout>
 
