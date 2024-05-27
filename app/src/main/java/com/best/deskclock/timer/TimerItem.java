@@ -50,6 +50,9 @@ public class TimerItem extends ConstraintLayout {
      */
     private TimerCircleView mCircleView;
 
+    /** Displays the remaining time or time since expiration. */
+    private TextView mTimerText;
+
     /** A button that resets the timer. */
     private ImageButton mResetButton;
 
@@ -90,14 +93,14 @@ public class TimerItem extends ConstraintLayout {
         mAddButton = findViewById(R.id.add_one_min);
         mCircleView = findViewById(R.id.timer_time);
         // Displays the remaining time or time since expiration. Timer text serves as a virtual start/stop button.
-        TextView timerText = findViewById(R.id.timer_time_text);
+        mTimerText = findViewById(R.id.timer_time_text);
         final int colorAccent = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
-        final int textColorPrimary = timerText.getCurrentTextColor();
+        final int textColorPrimary = mTimerText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
                 new int[]{textColorPrimary, colorAccent});
-        timerText.setTextColor(timeTextColor);
-        mTimerTextController = new TimerTextController(timerText);
+        mTimerText.setTextColor(timeTextColor);
+        mTimerTextController = new TimerTextController(mTimerText);
         mPlayPauseButton = findViewById(R.id.play_pause);
         mCircleContainer = findViewById(R.id.circle_container);
         // Necessary to avoid the null pointer exception, as only the timer_item layout for portrait mode has these attributes
@@ -140,6 +143,11 @@ public class TimerItem extends ConstraintLayout {
             }
         }
 
+        if (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) {
+            mTimerText.setAlpha(1f);
+        } else {
+            mTimerText.setAlpha(0f);
+        }
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
