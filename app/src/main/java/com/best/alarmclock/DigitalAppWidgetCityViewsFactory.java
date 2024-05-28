@@ -8,14 +8,7 @@ package com.best.alarmclock;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BLUE_GRAY_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BROWN_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.GREEN_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.INDIGO_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.ORANGE_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.PINK_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.RED_DIGITAL_WIDGET_COLOR;
+
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
@@ -210,60 +203,24 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final String getClockColor = DataModel.getDataModel().getDigitalWidgetCityClockColor();
-        switch (getClockColor) {
-            case DEFAULT_DIGITAL_WIDGET_COLOR
-                    -> rv.setTextColor(clockId, Color.WHITE);
-            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.blueGrayColorAccent));
-            case BROWN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.brownColorAccent));
-            case GREEN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.greenColorAccent));
-            case INDIGO_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.indigoColorAccent));
-            case ORANGE_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.orangeColorAccent));
-            case PINK_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.pinkColorAccent));
-            case RED_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(clockId, mContext.getColor(R.color.redColorAccent));
+        final boolean isDigitalWidgetCityClockDefaultColor = DataModel.getDataModel().isDigitalWidgetCityClockDefaultColor();
+        final int getDigitalWidgetCityClockCustomColor = DataModel.getDataModel().getDigitalWidgetCityClockCustomColor();
+
+        if (isDigitalWidgetCityClockDefaultColor) {
+            rv.setTextColor(clockId, Color.WHITE);
+        } else {
+            rv.setTextColor(clockId, getDigitalWidgetCityClockCustomColor);
         }
 
-        final String getCityNameColor = DataModel.getDataModel().getDigitalWidgetCityNameColor();
-        switch (getCityNameColor) {
-            case DEFAULT_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, Color.WHITE);
-                rv.setTextColor(dayId, Color.WHITE);
-            }
-            case BLUE_GRAY_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.blueGrayColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.blueGrayColorAccent));
-            }
-            case BROWN_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.brownColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.brownColorAccent));
-            }
-            case GREEN_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.greenColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.greenColorAccent));
-            }
-            case INDIGO_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.indigoColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.indigoColorAccent));
-            }
-            case ORANGE_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.orangeColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.orangeColorAccent));
-            }
-            case PINK_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.pinkColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.pinkColorAccent));
-            }
-            case RED_DIGITAL_WIDGET_COLOR -> {
-                rv.setTextColor(labelId, mContext.getColor(R.color.redColorAccent));
-                rv.setTextColor(dayId, mContext.getColor(R.color.redColorAccent));
-            }
+        final boolean isDigitalWidgetCityNameDefaultColor = DataModel.getDataModel().isDigitalWidgetCityNameDefaultColor();
+        final int getDigitalWidgetCityNameCustomColor = DataModel.getDataModel().getDigitalWidgetCityNameCustomColor();
+
+        if (isDigitalWidgetCityNameDefaultColor) {
+            rv.setTextColor(labelId, Color.WHITE);
+            rv.setTextColor(dayId, Color.WHITE);
+        } else {
+            rv.setTextColor(labelId, getDigitalWidgetCityNameCustomColor);
+            rv.setTextColor(dayId, getDigitalWidgetCityNameCustomColor);
         }
     }
 

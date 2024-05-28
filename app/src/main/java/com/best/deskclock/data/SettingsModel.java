@@ -272,23 +272,43 @@ final class SettingsModel {
         return SettingsDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
     }
 
-    String getDigitalWidgetClockColor() {
-        return SettingsDAO.getDigitalWidgetClockColor(mPrefs);
+    boolean isDigitalWidgetClockDefaultColor() {
+        return SettingsDAO.isDigitalWidgetClockDefaultColor(mPrefs);
     }
 
-    String getDigitalWidgetDateColor() {
-        return SettingsDAO.getDigitalWidgetDateColor(mPrefs);
+    int getDigitalWidgetClockCustomColor() {
+        return SettingsDAO.getDigitalWidgetClockCustomColor(mPrefs);
     }
 
-    String getDigitalWidgetNextAlarmColor() {
-        return SettingsDAO.getDigitalWidgetNextAlarmColor(mPrefs);
+    boolean isDigitalWidgetDateDefaultColor() {
+        return SettingsDAO.isDigitalWidgetDateDefaultColor(mPrefs);
     }
 
-    String getDigitalWidgetCityClockColor() {
-        return SettingsDAO.getDigitalWidgetCityClockColor(mPrefs);
+    int getDigitalWidgetDateCustomColor() {
+        return SettingsDAO.getDigitalWidgetDateCustomColor(mPrefs);
     }
 
-    String getDigitalWidgetCityNameColor() {
-        return SettingsDAO.getDigitalWidgetCityNameColor(mPrefs);
+    boolean isDigitalWidgetNextAlarmDefaultColor() {
+        return SettingsDAO.isDigitalWidgetNextAlarmDefaultColor(mPrefs);
+    }
+
+    int getDigitalWidgetNextAlarmCustomColor() {
+        return SettingsDAO.getDigitalWidgetNextAlarmCustomColor(mPrefs);
+    }
+
+    boolean isDigitalWidgetCityClockDefaultColor() {
+        return SettingsDAO.isDigitalWidgetCityClockDefaultColor(mPrefs);
+    }
+
+    int getDigitalWidgetCityClockCustomColor() {
+        return SettingsDAO.getDigitalWidgetCityClockCustomColor(mPrefs);
+    }
+
+    boolean isDigitalWidgetCityNameDefaultColor() {
+        return SettingsDAO.isDigitalWidgetCityNameDefaultColor(mPrefs);
+    }
+
+    int getDigitalWidgetCityNameCustomColor() {
+        return SettingsDAO.getDigitalWidgetCityNameCustomColor(mPrefs);
     }
 }

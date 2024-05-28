@@ -1076,7 +1076,7 @@ public final class DataModel {
     }
 
     /**
-     * @return whether or not the cities are displayed on the widget.
+     * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.
      */
     public boolean areWorldCitiesDisplayedOnWidget() {
         enforceMainLooper();
@@ -1092,39 +1092,74 @@ public final class DataModel {
     }
 
     /**
-     * @return the color applied to the digital widget clock.
+     * @return {@code true} if the default color is applied to the digital widget clock; {@code false} otherwise.
      */
-    public String getDigitalWidgetClockColor() {
-        return mSettingsModel.getDigitalWidgetClockColor();
+    public boolean isDigitalWidgetClockDefaultColor() {
+        return mSettingsModel.isDigitalWidgetClockDefaultColor();
     }
 
     /**
-     * @return the color applied to the digital widget date.
+     * @return a value indicating the color of the the digital widget clock
      */
-    public String getDigitalWidgetDateColor() {
-        return mSettingsModel.getDigitalWidgetDateColor();
+    public int getDigitalWidgetClockCustomColor() {
+        return mSettingsModel.getDigitalWidgetClockCustomColor();
     }
 
     /**
-     * @return the color applied to the digital widget next alarm.
+     * @return {@code true} if the default color is applied to the digital widget date; {@code false} otherwise.
      */
-    public String getDigitalWidgetNextAlarmColor() {
-        return mSettingsModel.getDigitalWidgetNextAlarmColor();
+    public boolean isDigitalWidgetDateDefaultColor() {
+        return mSettingsModel.isDigitalWidgetDateDefaultColor();
     }
 
     /**
-     * @return the color applied to the digital widget city clock.
+     * @return a value indicating the color of the the digital widget date.
      */
-    public String getDigitalWidgetCityClockColor() {
-        return mSettingsModel.getDigitalWidgetCityClockColor();
+    public int getDigitalWidgetDateCustomColor() {
+        return mSettingsModel.getDigitalWidgetDateCustomColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the digital widget next alarm; {@code false} otherwise.
+     */
+    public boolean isDigitalWidgetNextAlarmDefaultColor() {
+        return mSettingsModel.isDigitalWidgetNextAlarmDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget next alarm.
+     */
+    public int getDigitalWidgetNextAlarmCustomColor() {
+        return mSettingsModel.getDigitalWidgetNextAlarmCustomColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the digital widget city clock; {@code false} otherwise.
+     */
+    public boolean isDigitalWidgetCityClockDefaultColor() {
+        return mSettingsModel.isDigitalWidgetCityClockDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget city clock.
+     */
+    public int getDigitalWidgetCityClockCustomColor() {
+        return mSettingsModel.getDigitalWidgetCityClockCustomColor();
     }
 
 
     /**
-     * @return the color applied to the digital widget city name.
+     * @return {@code true} if the default color is applied to the digital widget city name; {@code false} otherwise.
      */
-    public String getDigitalWidgetCityNameColor() {
-        return mSettingsModel.getDigitalWidgetCityNameColor();
+    public boolean isDigitalWidgetCityNameDefaultColor() {
+        return mSettingsModel.isDigitalWidgetCityNameDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget city name.
+     */
+    public int getDigitalWidgetCityNameCustomColor() {
+        return mSettingsModel.getDigitalWidgetCityNameCustomColor();
     }
 
     /**

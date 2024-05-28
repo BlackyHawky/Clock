@@ -15,7 +15,6 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_FONT_SIZE;
 import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
@@ -542,7 +541,7 @@ final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the cities are displayed on the widget.
+     * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.
      */
     static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
         return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
@@ -556,37 +555,82 @@ final class SettingsDAO {
     }
 
     /**
-     * @return the color applied to the digital widget clock.
+     * @return {@code true} if the default color is applied to the digital widget clock; {@code false} otherwise.
      */
-    static String getDigitalWidgetClockColor(SharedPreferences prefs) {
-        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    static boolean isDigitalWidgetClockDefaultColor(SharedPreferences prefs) {
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR, true);
     }
 
     /**
-     * @return the color applied to the digital widget date.
+     * @return a value indicating the color of the the digital widget clock
      */
-    static String getDigitalWidgetDateColor(SharedPreferences prefs) {
-        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    static int getDigitalWidgetClockCustomColor(SharedPreferences prefs) {
+        return prefs.getInt(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR,
+                Color.parseColor("#FFFFFF")
+        );
     }
 
     /**
-     * @return the color applied to the digital widget next alarm.
+     * @return {@code true} if the default color is applied to the digital widget date; {@code false} otherwise.
      */
-    static String getDigitalWidgetNextAlarmColor(SharedPreferences prefs) {
-        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    static boolean isDigitalWidgetDateDefaultColor(SharedPreferences prefs) {
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
     }
 
     /**
-     * @return the color applied to the digital widget city clock.
+     * @return a value indicating the color of the the digital widget date.
      */
-    static String getDigitalWidgetCityClockColor(SharedPreferences prefs) {
-        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    static int getDigitalWidgetDateCustomColor(SharedPreferences prefs) {
+        return prefs.getInt(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR,
+                Color.parseColor("#FFFFFF")
+        );
     }
 
     /**
-     * @return the color applied to the digital widget city name.
+     * @return {@code true} if the default color is applied to the digital widget next alarm; {@code false} otherwise.
      */
-    static String getDigitalWidgetCityNameColor(SharedPreferences prefs) {
-        return prefs.getString(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_COLOR, DEFAULT_DIGITAL_WIDGET_COLOR);
+    static boolean isDigitalWidgetNextAlarmDefaultColor(SharedPreferences prefs) {
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget next alarm.
+     */
+    static int getDigitalWidgetNextAlarmCustomColor(SharedPreferences prefs) {
+        return prefs.getInt(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR,
+                Color.parseColor("#FFFFFF")
+        );
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the digital widget city clock; {@code false} otherwise.
+     */
+    static boolean isDigitalWidgetCityClockDefaultColor(SharedPreferences prefs) {
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget city clock.
+     */
+    static int getDigitalWidgetCityClockCustomColor(SharedPreferences prefs) {
+        return prefs.getInt(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR,
+                Color.parseColor("#FFFFFF")
+        );
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the digital widget city name; {@code false} otherwise.
+     */
+    static boolean isDigitalWidgetCityNameDefaultColor(SharedPreferences prefs) {
+        return prefs.getBoolean(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget city name.
+     */
+    static int getDigitalWidgetCityNameCustomColor(SharedPreferences prefs) {
+        return prefs.getInt(DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR,
+                Color.parseColor("#FFFFFF")
+        );
     }
 }

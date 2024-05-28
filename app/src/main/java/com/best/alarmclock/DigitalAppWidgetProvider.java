@@ -29,14 +29,7 @@ import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR
 import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BLUE_GRAY_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.BROWN_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.GREEN_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.INDIGO_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.ORANGE_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.PINK_DIGITAL_WIDGET_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.RED_DIGITAL_WIDGET_COLOR;
+
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -208,66 +201,32 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the colors to the clock.
-        final String getClockColor = DataModel.getDataModel().getDigitalWidgetClockColor();
-        switch (getClockColor) {
-            case DEFAULT_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, Color.WHITE);
-            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.brownColorAccent));
-            case GREEN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.greenColorAccent));
-            case INDIGO_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.orangeColorAccent));
-            case PINK_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.pinkColorAccent));
-            case RED_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.clock, context.getColor(R.color.redColorAccent));
+        final boolean isDigitalWidgetClockDefaultColor = DataModel.getDataModel().isDigitalWidgetClockDefaultColor();
+        final int getDigitalWidgetClockCustomColor = DataModel.getDataModel().getDigitalWidgetClockCustomColor();
+
+        if (isDigitalWidgetClockDefaultColor) {
+            rv.setTextColor(R.id.clock, Color.WHITE);
+        } else {
+            rv.setTextColor(R.id.clock, getDigitalWidgetClockCustomColor);
         }
 
         // Apply the colors to the date.
-        final String getDateColor = DataModel.getDataModel().getDigitalWidgetDateColor();
-        switch (getDateColor) {
-            case DEFAULT_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, Color.WHITE);
-            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.brownColorAccent));
-            case GREEN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.greenColorAccent));
-            case INDIGO_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.orangeColorAccent));
-            case PINK_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.pinkColorAccent));
-            case RED_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.date, context.getColor(R.color.redColorAccent));
+        final boolean isDigitalWidgetDateDefaultColor = DataModel.getDataModel().isDigitalWidgetDateDefaultColor();
+        final int getDigitalWidgetDateCustomColor = DataModel.getDataModel().getDigitalWidgetDateCustomColor();
+        if (isDigitalWidgetDateDefaultColor) {
+            rv.setTextColor(R.id.date, Color.WHITE);
+        } else {
+            rv.setTextColor(R.id.date, getDigitalWidgetDateCustomColor);
         }
 
         // Apply the colors to the next alarm.
-        final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
-        switch (getNextAlarmColor) {
-            case DEFAULT_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, Color.WHITE);
-            case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.blueGrayColorAccent));
-            case BROWN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.brownColorAccent));
-            case GREEN_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.greenColorAccent));
-            case INDIGO_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.indigoColorAccent));
-            case ORANGE_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.orangeColorAccent));
-            case PINK_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.pinkColorAccent));
-            case RED_DIGITAL_WIDGET_COLOR ->
-                    rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.redColorAccent));
+        final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
+        final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
+
+        if (isDigitalWidgetNextAlarmDefaultColor) {
+            rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+        } else {
+            rv.setTextColor(R.id.nextAlarm, getDigitalWidgetNextAlarmCustomColor);
         }
 
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
@@ -321,24 +280,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the colors to the next alarm icon.
-            final String getNextAlarmColor = DataModel.getDataModel().getDigitalWidgetNextAlarmColor();
-            switch (getNextAlarmColor) {
-                case DEFAULT_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(Color.WHITE);
-                case BLUE_GRAY_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.blueGrayColorAccent));
-                case BROWN_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.brownColorAccent));
-                case GREEN_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.greenColorAccent));
-                case INDIGO_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.indigoColorAccent));
-                case ORANGE_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.orangeColorAccent));
-                case PINK_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.pinkColorAccent));
-                case RED_DIGITAL_WIDGET_COLOR ->
-                        nextAlarmIcon.setTextColor(context.getColor(R.color.redColorAccent));
+            final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
+            final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
+
+            if (isDigitalWidgetNextAlarmDefaultColor) {
+                nextAlarmIcon.setTextColor(Color.WHITE);
+            } else {
+                nextAlarmIcon.setTextColor(getDigitalWidgetNextAlarmCustomColor);
             }
         }
 
@@ -473,24 +421,26 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int[] widgetIds = wm.getAppWidgetIds(provider);
 
         final String action = intent.getAction();
-        switch (action) {
-            case ACTION_NEXT_ALARM_CLOCK_CHANGED:
-            case ACTION_LOCALE_CHANGED:
-            case ACTION_TIME_CHANGED:
-            case ACTION_TIMEZONE_CHANGED:
-            case ACTION_ON_DAY_CHANGE:
-            case ACTION_WORLD_CITIES_CHANGED:
-            case ACTION_WORLD_CITIES_DISPLAYED:
-            case ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED:
-            case ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED:
-            case ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED:
-            case ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED:
-            case ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED:
-            case ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED:
-            case ACTION_CONFIGURATION_CHANGED:
-                for (int widgetId : widgetIds) {
-                    relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
-                }
+        if (action != null) {
+            switch (action) {
+                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
+                case ACTION_LOCALE_CHANGED:
+                case ACTION_TIME_CHANGED:
+                case ACTION_TIMEZONE_CHANGED:
+                case ACTION_ON_DAY_CHANGE:
+                case ACTION_WORLD_CITIES_CHANGED:
+                case ACTION_WORLD_CITIES_DISPLAYED:
+                case ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED:
+                case ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED:
+                case ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED:
+                case ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED:
+                case ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED:
+                case ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED:
+                case ACTION_CONFIGURATION_CHANGED:
+                    for (int widgetId : widgetIds) {
+                        relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+                    }
+            }
         }
 
         final DataModel dm = DataModel.getDataModel();

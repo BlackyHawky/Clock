@@ -559,11 +559,16 @@
     <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs des widgets numériques et de modifier la taille de la police de l\'horloge</string>
     <string name="settings_digital_widget_city_title">Afficher les villes</string>
     <string name="settings_digital_widget_city_summary">Les villes ne sont affichées dans le widget numérique que si elles ont été ajoutées dans l\'onglet Horloge</string>
-    <string name="settings_digital_widget_clock_color_title">Couleur de l\'horloge principale</string>
-    <string name="settings_digital_widget_date_color_title">Couleur de la date</string>
-    <string name="settings_digital_widget_next_alarm_color_title">Couleur de la prochaine alarme</string>
-    <string name="settings_digital_widget_city_clock_color_title">Couleur de l\'horloge des villes</string>
-    <string name="settings_digital_widget_city_name_color_title">Couleur du nom des villes</string>
+    <string name="settings_digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>
+    <string name="settings_digital_widget_clock_custom_color_title">Couleur personalisée de l\'horloge principale</string>
+    <string name="settings_digital_widget_date_default_color_title">Utiliser la couleur par défaut pour la date</string>
+    <string name="settings_digital_widget_date_custom_color_title">Couleur personalisée de la date</string>
+    <string name="settings_digital_widget_next_alarm_default_color_title">Utiliser la couleur par défaut pour la prochaine alarme</string>
+    <string name="settings_digital_widget_next_alarm_custom_color_title">Couleur personalisée de la prochaine alarme</string>
+    <string name="settings_digital_widget_city_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge des villes</string>
+    <string name="settings_digital_widget_city_clock_custom_color_title">Couleur personalisée de l\'horloge des villes</string>
+    <string name="settings_digital_widget_city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
+    <string name="settings_digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
     <string name="settings_digital_widget_message">Le paramètre ci-dessous modifie le widget numérique uniquement si aucune ville n\'est affichée.</string>
     <string name="settings_digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
     <string name="settings_digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
