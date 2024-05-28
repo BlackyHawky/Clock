@@ -454,8 +454,6 @@
     <string name="screensaver_color_group">Culori</string>
     <string name="screensaver_preview_group">Previzualizare și screensaver Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Culori dinamice ale ceasului</string>
-    <string name="screensaver_clock_preset_colors_title">Culori presetate ale ceasului</string>
-    <string name="screensaver_date_preset_colors_title">Culori prestabilite pentru dată</string>
     <string name="screensaver_brightness_title">Luminozitate</string>
     <string name="screensaver_bold_digital_clock_title">Ceas digital aldin</string>
     <string name="screensaver_italic_digital_clock_title">Ceas digital cursiv</string>
@@ -561,8 +559,6 @@
 \n• Culori dinamice pentru Android 12+; \u0020</string>
     <string name="title_theme">Temă</string>
     <string name="display_card_background_title">Afișează fundalurile cardului</string>
-    <string name="screensaver_next_alarm_preset_colors_title">Culorile presetate ale următoarei alarme</string>
-    <string name="screensaver_no_alarm_set">Setează o alarmă pentru a accesa această setare</string>
     <string name="bedtime_reminder_notification_text">Ora de culcare se sfârșește la <xliff:g id="wake_time">%1$s</xliff:g> după <xliff:g id="sleep_time">%2$s</xliff:g> de somn.</string>
     <string name="bedtime_channel">Ora de culcare</string>
     <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>

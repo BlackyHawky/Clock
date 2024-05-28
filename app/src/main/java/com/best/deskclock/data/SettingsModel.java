@@ -120,16 +120,16 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockDynamicColors(mPrefs);
     }
 
-    public String getScreensaverClockPresetColors() {
-        return SettingsDAO.getScreensaverClockPresetColors(mContext, mPrefs);
+    public int getPickerClockColor() {
+        return SettingsDAO.getPickerClockColor(mPrefs);
     }
 
-    public String getScreensaverDatePresetColors() {
-        return SettingsDAO.getScreensaverDatePresetColors(mContext, mPrefs);
+    public int getPickerDateColor() {
+        return SettingsDAO.getPickerDateColor(mPrefs);
     }
 
-    public String getScreensaverNextAlarmPresetColors() {
-        return SettingsDAO.getScreensaverNextAlarmPresetColors(mContext, mPrefs);
+    public int getPickerNextAlarmColor() {
+        return SettingsDAO.getPickerNextAlarmColor(mPrefs);
     }
 
     public int getScreensaverBrightness() {

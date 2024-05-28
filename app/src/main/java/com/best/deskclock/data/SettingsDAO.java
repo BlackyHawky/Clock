@@ -29,6 +29,7 @@ import static java.util.Calendar.SUNDAY;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
@@ -221,14 +222,6 @@ final class SettingsDAO {
         return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
     }
 
-    private static String getClockColor(Context context, SharedPreferences prefs, String key) {
-        final String defaultColor = context.getString(R.string.default_screensaver_clock_color);
-        final String clockColor = prefs.getString(key, defaultColor);
-        // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
-        // accent to character, which breaks the enum conversion.
-        return clockColor.toUpperCase(Locale.US);
-    }
-
     /**
      * @return a value indicating whether analog or digital clock dynamic colors are displayed
      */
@@ -239,22 +232,22 @@ final class SettingsDAO {
     /**
      * @return a value indicating the color of the clock of the screensaver
      */
-    public static String getScreensaverClockPresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_PRESET_COLORS);
+    static int getPickerClockColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the date of the screensaver
      */
-    public static String getScreensaverDatePresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_PRESET_COLORS);
+    static int getPickerDateColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the next alarm of the screensaver
      */
-    public static String getScreensaverNextAlarmPresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_PRESET_COLORS);
+    static int getPickerNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**

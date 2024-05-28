@@ -8,6 +8,7 @@
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
+    <string name="color_picker_default_button">Par défaut</string>
     <string name="delete" msgid="5732434972457000541">"Supprimer"</string>
     <string name="duplicate">Dupliquer</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Son de l\'alarme par défaut"</string>
@@ -467,9 +468,9 @@
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
-    <string name="screensaver_clock_preset_colors_title">Couleurs prédéfinies de l\'horloge</string>
-    <string name="screensaver_date_preset_colors_title">Couleurs prédéfinies de la date</string>
-    <string name="screensaver_next_alarm_preset_colors_title">Couleurs prédéfinies de la prochaine alarme</string>
+    <string name="screensaver_clock_color_title">Couleurs de l\'horloge</string>
+    <string name="screensaver_date_color_title">Couleurs de la date</string>
+    <string name="screensaver_next_alarm_color_title">Couleurs de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
     <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
     <string name="screensaver_italic_digital_clock_title">Horloge numérique en italique</string>
@@ -479,16 +480,6 @@
     <string name="screensaver_italic_next_alarm_title">Prochaine alarme en italique</string>
     <string name="screensaver_preview_title">Prévisualisation</string>
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
-    <string name="screensaver_no_alarm_set">Définissez une alarme pour accéder à ce réglage</string>
-    <string-array name="screensaver_clock_preset_color_entries">
-        <item>Blanc</item>
-        <item>Rouge</item>
-        <item>Vert</item>
-        <item>Bleu</item>
-        <item>Orange</item>
-        <item>Indigo</item>
-        <item>Bleu Gris</item>
-    </string-array>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>

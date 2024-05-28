@@ -433,7 +433,8 @@ public class Utils {
      */
     public static String getClockColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverClockPresetColors();
+        int getPickerClockColor = DataModel.getDataModel().getPickerClockColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerClockColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -447,7 +448,8 @@ public class Utils {
      */
     public static String getDateColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverDatePresetColors();
+        int getPickerDateColor = DataModel.getDataModel().getPickerDateColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerDateColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -461,7 +463,8 @@ public class Utils {
      */
     public static String getNextAlarmColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverNextAlarmPresetColors();
+        int getPickerNextAlarmColor = DataModel.getDataModel().getPickerNextAlarmColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerNextAlarmColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 

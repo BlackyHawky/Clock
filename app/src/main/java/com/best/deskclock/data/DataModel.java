@@ -934,25 +934,25 @@ public final class DataModel {
     /**
      * @return the color of the clock to display in the screensaver
      */
-    public String getScreensaverClockPresetColors() {
+    public int getPickerClockColor() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverClockPresetColors();
+        return mSettingsModel.getPickerClockColor();
     }
 
     /**
      * @return the color of the date to display in the screensaver
      */
-    public String getScreensaverDatePresetColors() {
+    public int getPickerDateColor() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverDatePresetColors();
+        return mSettingsModel.getPickerDateColor();
     }
 
     /**
      * @return the color of the next alarm to display in the screensaver
      */
-    public String getScreensaverNextAlarmPresetColors() {
+    public int getPickerNextAlarmColor() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverNextAlarmPresetColors();
+        return mSettingsModel.getPickerNextAlarmColor();
     }
 
     /**

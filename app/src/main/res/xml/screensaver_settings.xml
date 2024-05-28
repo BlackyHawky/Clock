@@ -46,31 +46,31 @@
             app:isPreferenceVisible="false"
             tools:isPreferenceVisible="true" />
 
-        <ListPreference
-            android:key="screensaver_clock_preset_colors"
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_clock_color_picker"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/screensaver_clock_preset_colors_title"
-            android:defaultValue="@string/default_screensaver_clock_color"
-            android:entries="@array/screensaver_clock_preset_color_entries"
-            android:entryValues="@array/screensaver_clock_preset_color_values"
+            android:title="@string/screensaver_clock_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_showAlpha="false"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
             app:iconSpaceReserved="false" />
 
-        <ListPreference
-            android:key="screensaver_date_preset_colors"
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_date_color_picker"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/screensaver_date_preset_colors_title"
-            android:defaultValue="@string/default_screensaver_clock_color"
-            android:entries="@array/screensaver_clock_preset_color_entries"
-            android:entryValues="@array/screensaver_clock_preset_color_values"
+            android:title="@string/screensaver_date_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_showAlpha="false"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
             app:iconSpaceReserved="false" />
 
-        <ListPreference
-            android:key="screensaver_next_alarm_preset_colors"
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_next_alarm_color_picker"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/screensaver_next_alarm_preset_colors_title"
-            android:defaultValue="@string/default_screensaver_clock_color"
-            android:entries="@array/screensaver_clock_preset_color_entries"
-            android:entryValues="@array/screensaver_clock_preset_color_values"
+            android:title="@string/screensaver_next_alarm_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_showAlpha="false"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
             app:iconSpaceReserved="false" />
 
         <SeekBarPreference

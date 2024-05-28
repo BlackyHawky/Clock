@@ -469,8 +469,6 @@
     <string name="screensaver_color_group">Kleuren</string>
     <string name="screensaver_font_group">Lettertype</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
-    <string name="screensaver_clock_preset_colors_title">Vooraf ingestelde klokkleuren</string>
-    <string name="screensaver_date_preset_colors_title">Vooraf ingestelde datumkleuren</string>
     <string name="screensaver_settings_summary">Opent screensaver-instellingen</string>
     <string name="screensaver_bold_digital_clock_title">Dikgedrukte digitale klok</string>
     <string name="screensaver_italic_digital_clock_title">Schuingedrukte digitale klok</string>
@@ -479,7 +477,6 @@
     <string name="screensaver_italic_next_alarm_title">Schuingedrukte volgende wekker</string>
     <string name="screensaver_preview_title">Voorvertoning</string>
     <string name="screensaver_preview_summary">Start de screensaver meteen</string>
-    <string name="screensaver_no_alarm_set">Zet een wekker om deze instelling aan te passen</string>
     <string name="alarm_created">Wekker aangemaakt</string>
     <string name="bedtime_paused_notification_title">De modus \"Bedtijd\" is gepauzeerd</string>
     <string name="bedtime_reminder_notification">Herinneringsmelding</string>
@@ -534,7 +531,6 @@
 \nSinds Android 13 verzoeken we een specifiek recht dat ons toestaat alleen de audio- en muziekbestanden te lezen.
 \nOmdat dit in oudere Androidversies niet ondersteund wordt moeten we toestemming vragen om de externe opslag te lezen.</string>
     <string name="screensaver_preview_group">Voorvertoning &amp; Android screensaver</string>
-    <string name="screensaver_next_alarm_preset_colors_title">Vooraf ingestelde wekkerkleuren</string>
     <string name="screensaver_brightness_title">Helderheid</string>
     <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
     <string name="wakeup">Wakker worden</string>
