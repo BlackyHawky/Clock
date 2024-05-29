@@ -172,8 +172,12 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
     }
 
     private void update(RemoteViews rv, City city, int clockId, int labelId, int dayId) {
-        rv.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(mContext, 0.4f, false));
-        rv.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat(mContext, false));
+        rv.setCharSequence(clockId, "setFormat12Hour",
+                Utils.get12ModeFormat(mContext, 0.4f, false)
+        );
+        rv.setCharSequence(clockId, "setFormat24Hour",
+                Utils.get24ModeFormat(mContext, false)
+        );
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);
         final float fontSize = is24HourFormat ? m24HourFontSize : m12HourFontSize;
@@ -202,8 +206,10 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDigitalWidgetCityClockDefaultColor = DataModel.getDataModel().isDigitalWidgetCityClockDefaultColor();
-        final int getDigitalWidgetCityClockCustomColor = DataModel.getDataModel().getDigitalWidgetCityClockCustomColor();
+        final boolean isDigitalWidgetCityClockDefaultColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetCityClockDefaultColor();
+        final int getDigitalWidgetCityClockCustomColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCityClockCustomColor();
 
         if (isDigitalWidgetCityClockDefaultColor) {
             rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
@@ -211,8 +217,10 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
             rv.setTextColor(clockId, getDigitalWidgetCityClockCustomColor);
         }
 
-        final boolean isDigitalWidgetCityNameDefaultColor = DataModel.getDataModel().isDigitalWidgetCityNameDefaultColor();
-        final int getDigitalWidgetCityNameCustomColor = DataModel.getDataModel().getDigitalWidgetCityNameCustomColor();
+        final boolean isDigitalWidgetCityNameDefaultColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetCityNameDefaultColor();
+        final int getDigitalWidgetCityNameCustomColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCityNameCustomColor();
 
         if (isDigitalWidgetCityNameDefaultColor) {
             rv.setTextColor(labelId, mContext.getColor(R.color.digital_widget_text_color));

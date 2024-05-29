@@ -1180,8 +1180,10 @@
     Digital Widget
     -->
     <string name="settings_digital_widget_category">Digital widgets</string>
-    <string name="settings_digital_widget_title">Customize digital widgets</string>
-    <string name="settings_digital_widget_summary">Allows you to customize the colors of digital widgets and change the clock font size</string>
+    <string name="settings_digital_widget_title">Customize the digital widget</string>
+    <string name="settings_digital_widget_summary">Allows you to customize the colors of the digital widget and change the clock font size</string>
+    <string name="settings_digital_widget_material_you_title">Customize the Material You digital widget</string>
+    <string name="settings_digital_widget_material_you_summary">Allows you to customize the colors of the Material You digital widget and change the clock font size</string>
     <!-- Title to show cities on the digital widget. -->
     <string name="settings_digital_widget_city_title">Display cities</string>
     <!-- Summary about the widget city display. -->

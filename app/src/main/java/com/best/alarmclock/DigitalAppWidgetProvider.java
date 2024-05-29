@@ -21,14 +21,15 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
+
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_DISPLAYED;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -107,7 +108,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      * the default TimeZone changes days. This affects the widget display because the day-of-week is
      * only visible when the world city day-of-week differs from the default TimeZone's day-of-week.
      */
-    private static final String ACTION_ON_DAY_CHANGE = "com.best.deskclock.ON_DAY_CHANGE";
+    private static final String ACTION_ON_DAY_CHANGE = "com.best.alarmclock.ON_DAY_CHANGE";
 
     /**
      * Intent used to deliver the {@link #ACTION_ON_DAY_CHANGE} callback.

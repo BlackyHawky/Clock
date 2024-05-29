@@ -17,14 +17,15 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
-import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
+
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_DISPLAYED;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -103,7 +104,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
      * the default TimeZone changes days. This affects the widget display because the day-of-week is
      * only visible when the world city day-of-week differs from the default TimeZone's day-of-week.
      */
-    private static final String ACTION_ON_DAY_CHANGE = "com.best.deskclock.ON_DAY_CHANGE";
+    private static final String ACTION_ON_DAY_CHANGE = "com.best.alarmclock.ON_DAY_CHANGE";
 
     /**
      * Intent used to deliver the {@link #ACTION_ON_DAY_CHANGE} callback.
@@ -165,7 +166,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         }
 
         // Fetch the widget size selected by the user.
-        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnWidget();
+        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouWidget();
         final ClockFragment.SelectedCitiesAdapter cityAdapter =
                 new ClockFragment.SelectedCitiesAdapter(context, null, null);
         final Resources resources = context.getResources();
@@ -176,7 +177,8 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String digitalWidgetMaxClockFontSize = DataModel.getDataModel().getDigitalWidgetMaxClockFontSize();
+        final String digitalWidgetMaxClockFontSize =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize();
         final int largestClockFontSizePx = Utils.toPixel(cityAdapter.getItemCount() > 1 && areWorldCitiesDisplayed
                 ? 80
                 : Integer.parseInt(digitalWidgetMaxClockFontSize), context);
@@ -197,8 +199,10 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the colors to the clock.
-        final boolean isDigitalWidgetClockDefaultColor = DataModel.getDataModel().isDigitalWidgetClockDefaultColor();
-        final int getDigitalWidgetClockCustomColor = DataModel.getDataModel().getDigitalWidgetClockCustomColor();
+        final boolean isDigitalWidgetClockDefaultColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetClockDefaultColor();
+        final int getDigitalWidgetClockCustomColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetClockCustomColor();
 
         if (isDigitalWidgetClockDefaultColor) {
             rv.setTextColor(R.id.clock, context.getColor(R.color.digital_widget_time_color));
@@ -207,8 +211,10 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         }
 
         // Apply the colors to the date.
-        final boolean isDigitalWidgetDateDefaultColor = DataModel.getDataModel().isDigitalWidgetDateDefaultColor();
-        final int getDigitalWidgetDateCustomColor = DataModel.getDataModel().getDigitalWidgetDateCustomColor();
+        final boolean isDigitalWidgetDateDefaultColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDateDefaultColor();
+        final int getDigitalWidgetDateCustomColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetDateCustomColor();
 
         if (isDigitalWidgetDateDefaultColor) {
             rv.setTextColor(R.id.date, context.getColor(R.color.digital_widget_text_color));
@@ -217,8 +223,10 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         }
 
         // Apply the colors to the next alarm.
-        final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
-        final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
+        final boolean isDigitalWidgetNextAlarmDefaultColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
+        final int getDigitalWidgetNextAlarmCustomColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetNextAlarmCustomColor();
 
         if (isDigitalWidgetNextAlarmDefaultColor) {
             rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.digital_widget_text_color));
@@ -257,7 +265,8 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams") final View sizer = inflater.inflate(R.layout.digital_widget_material_you_sizer, null);
+        @SuppressLint("InflateParams") final View sizer =
+                inflater.inflate(R.layout.digital_widget_material_you_sizer, null);
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -277,8 +286,10 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the colors to the next alarm icon.
-            final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
-            final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
+            final boolean isDigitalWidgetNextAlarmDefaultColor =
+                    DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
+            final int getDigitalWidgetNextAlarmCustomColor =
+                    DataModel.getDataModel().getMaterialYouDigitalWidgetNextAlarmCustomColor();
 
             if (isDigitalWidgetNextAlarmDefaultColor) {
                 nextAlarmIcon.setTextColor(context.getColor(R.color.digital_widget_text_color));

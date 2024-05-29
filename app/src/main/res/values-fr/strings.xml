@@ -555,8 +555,10 @@
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
     <string name="settings_digital_widget_category">Widgets numériques</string>
-    <string name="settings_digital_widget_title">Personnaliser les widgets numériques</string>
-    <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs des widgets numériques et de modifier la taille de la police de l\'horloge</string>
+    <string name="settings_digital_widget_title">Personnaliser le widget numérique</string>
+    <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs du widget numérique et de modifier la taille de la police de l\'horloge</string>
+    <string name="settings_digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
+    <string name="settings_digital_widget_material_you_summary">Permet de personnaliser les couleurs du widget numérique Material You et de modifier la taille de la police de l\'horloge</string>
     <string name="settings_digital_widget_city_title">Afficher les villes</string>
     <string name="settings_digital_widget_city_summary">Les villes ne sont affichées dans le widget numérique que si elles ont été ajoutées dans l\'onglet Horloge</string>
     <string name="settings_digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>

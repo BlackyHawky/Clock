@@ -100,10 +100,6 @@ final class SettingsModel {
         return SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
-    public boolean areWorldCitiesDisplayedOnWidget() {
-        return SettingsDAO.areWorldCitiesDisplayedOnWidget(mPrefs);
-    }
-
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }
@@ -268,47 +264,4 @@ final class SettingsModel {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }
 
-    public String getDigitalWidgetMaxClockFontSize() {
-        return SettingsDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
-    }
-
-    boolean isDigitalWidgetClockDefaultColor() {
-        return SettingsDAO.isDigitalWidgetClockDefaultColor(mPrefs);
-    }
-
-    int getDigitalWidgetClockCustomColor() {
-        return SettingsDAO.getDigitalWidgetClockCustomColor(mPrefs);
-    }
-
-    boolean isDigitalWidgetDateDefaultColor() {
-        return SettingsDAO.isDigitalWidgetDateDefaultColor(mPrefs);
-    }
-
-    int getDigitalWidgetDateCustomColor() {
-        return SettingsDAO.getDigitalWidgetDateCustomColor(mPrefs);
-    }
-
-    boolean isDigitalWidgetNextAlarmDefaultColor() {
-        return SettingsDAO.isDigitalWidgetNextAlarmDefaultColor(mPrefs);
-    }
-
-    int getDigitalWidgetNextAlarmCustomColor() {
-        return SettingsDAO.getDigitalWidgetNextAlarmCustomColor(mPrefs);
-    }
-
-    boolean isDigitalWidgetCityClockDefaultColor() {
-        return SettingsDAO.isDigitalWidgetCityClockDefaultColor(mPrefs);
-    }
-
-    int getDigitalWidgetCityClockCustomColor() {
-        return SettingsDAO.getDigitalWidgetCityClockCustomColor(mPrefs);
-    }
-
-    boolean isDigitalWidgetCityNameDefaultColor() {
-        return SettingsDAO.isDigitalWidgetCityNameDefaultColor(mPrefs);
-    }
-
-    int getDigitalWidgetCityNameCustomColor() {
-        return SettingsDAO.getDigitalWidgetCityNameCustomColor(mPrefs);
-    }
 }

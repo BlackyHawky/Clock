@@ -94,6 +94,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION = "key_digital_widget_customization";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION =
+            "key_digital_widget_material_you_customization";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
@@ -203,7 +205,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 }
                 case KEY_CARD_BACKGROUND_BORDER -> {
                     final TwoStatePreference cardBackgroundBorderPref = (TwoStatePreference) pref;
-                    cardBackgroundBorderPref.setChecked(DataModel.getDataModel().isCardBackgroundBorderDisplayed());
+                    cardBackgroundBorderPref.setChecked(
+                            DataModel.getDataModel().isCardBackgroundBorderDisplayed()
+                    );
                     Utils.setVibrationTime(requireContext(), 50);
                 }
                 case KEY_VIBRATIONS -> {
@@ -237,7 +241,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                     Utils.setVibrationTime(requireContext(), 50);
                 }
-                case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+                case KEY_DEFAULT_ALARM_RINGTONE -> pref.setSummary(
+                        DataModel.getDataModel().getAlarmRingtoneTitle()
+                );
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             }
             // Set result so DeskClock knows to refresh itself
@@ -255,7 +261,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             switch (pref.getKey()) {
                 case KEY_SS_SETTINGS -> {
-                    final Intent screensaverSettingsIntent = new Intent(context, ScreensaverSettingsActivity.class);
+                    final Intent screensaverSettingsIntent =
+                            new Intent(context, ScreensaverSettingsActivity.class);
                     startActivity(screensaverSettingsIntent);
                     return true;
                 }
@@ -279,8 +286,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(digitalWidgetCustomizationIntent);
                     return true;
                 }
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION -> {
+                    final Intent digitalWidgetMaterialYouCustomizationIntent =
+                            new Intent(context, DigitalWidgetMaterialYouCustomizationActivity.class);
+                    startActivity(digitalWidgetMaterialYouCustomizationIntent);
+                    return true;
+                }
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
-                    final Intent permissionsManagementIntent = new Intent(context, PermissionsManagementActivity.class);
+                    final Intent permissionsManagementIntent =
+                            new Intent(context, PermissionsManagementActivity.class);
                     startActivity(permissionsManagementIntent);
                     return true;
                 }
@@ -322,7 +336,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
 
             if (mPermissionMessage != null) {
-                mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
+                mPermissionMessage.setVisible(
+                        PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
+                );
             }
 
             Objects.requireNonNull(vibrations).setVisible(hasVibrator);
@@ -343,14 +359,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void refresh() {
-            mPermissionMessage.setVisible(PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext()));
+            mPermissionMessage.setVisible(
+                    PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
+            );
             final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
             final String messagePermission = requireContext().getString(R.string.settings_permission_message);
             final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-            if (messagePermission != null) {
-                spannableMessagePermission.setSpan(new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
-                spannableMessagePermission.setSpan(new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
-            }
+            spannableMessagePermission.setSpan(
+                    new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+            spannableMessagePermission.setSpan(
+                    new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
             builderPermissionMessage.append(spannableMessagePermission);
             mPermissionMessage.setTitle(builderPermissionMessage);
             mPermissionMessage.setOnPreferenceClickListener(this);
@@ -445,13 +463,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final Preference digitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
             Objects.requireNonNull(digitalWidgetCustomizationPref).setOnPreferenceClickListener(this);
 
+            final Preference digitalWidgetMaterialYouCustomizationPref =
+                    findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
+            Objects.requireNonNull(digitalWidgetMaterialYouCustomizationPref).setOnPreferenceClickListener(this);
+
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);
         }
 
         private void setupFlipOrShakeAction(ListPreference preference) {
             if (preference != null) {
-                SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+                SensorManager sensorManager = (SensorManager) requireActivity()
+                        .getSystemService(Context.SENSOR_SERVICE);
                 if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
                     preference.setValue("0");  // Turn it off
                     preference.setVisible(false);

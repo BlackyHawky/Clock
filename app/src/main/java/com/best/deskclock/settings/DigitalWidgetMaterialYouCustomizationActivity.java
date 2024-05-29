@@ -31,44 +31,44 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.DigitalAppWidgetProvider;
+import com.best.alarmclock.DigitalAppWidgetMaterialYouProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
 
-public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseActivity {
+public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String PREFS_FRAGMENT_TAG = "digital_widget_customization_fragment";
+    private static final String PREFS_FRAGMENT_TAG = "digital_widget_customization_material_you_fragment";
 
-    public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
-            "key_digital_widget_world_cities_displayed";
-    public static final String KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR =
-            "key_digital_widget_clock_default_color";
-    public static final String KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR =
-            "key_digital_widget_clock_custom_color";
-    public static final String KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR =
-            "key_digital_widget_date_default_color";
-    public static final String KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR =
-            "key_digital_widget_date_custom_color";
-    public static final String KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR =
-            "key_digital_widget_next_alarm_default_color";
-    public static final String KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR =
-            "key_digital_widget_next_alarm_custom_color";
-    public static final String KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR =
-            "key_digital_widget_city_clock_default_color";
-    public static final String KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR =
-            "key_digital_widget_city_clock_custom_color";
-    public static final String KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR =
-            "key_digital_widget_city_name_default_color";
-    public static final String KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR =
-            "key_digital_widget_city_name_custom_color";
-    public static final String KEY_DIGITAL_WIDGET_MESSAGE =
-            "key_digital_widget_message";
-    public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
-            "key_digital_widget_max_clock_font_size";
-    public static final String DEFAULT_DIGITAL_WIDGET_FONT_SIZE = "80";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED =
+            "key_digital_widget_material_you_world_cities_displayed";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR =
+            "key_digital_widget_material_you_clock_default_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR =
+            "key_digital_widget_material_you_clock_custom_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR =
+            "key_digital_widget_material_you_date_default_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_CUSTOM_COLOR =
+            "key_digital_widget_material_you_date_custom_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR =
+            "key_digital_widget_material_you_next_alarm_default_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_CUSTOM_COLOR =
+            "key_digital_widget_material_you_next_alarm_custom_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR =
+            "key_digital_widget_material_you_city_clock_default_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_CUSTOM_COLOR =
+            "key_digital_widget_material_you_city_clock_custom_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR =
+            "key_digital_widget_material_you_city_name_default_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_CUSTOM_COLOR =
+            "key_digital_widget_material_you_city_name_custom_color";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_MESSAGE =
+            "key_digital_widget_material_you_message";
+    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE =
+            "key_digital_widget_material_you_max_clock_font_size";
+    public static final String DEFAULT_DIGITAL_WIDGET_MATERIAL_YOU_FONT_SIZE = "80";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -123,34 +123,37 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 getPreferenceManager().setStorageDeviceProtected();
             }
-            addPreferencesFromResource(R.xml.settings_customize_digital_widget);
+            addPreferencesFromResource(R.xml.settings_customize_digital_widget_material_you);
         }
 
         @Override
         public void onResume() {
             super.onResume();
             refresh();
-            updateDigitalWidget();
+            updateMaterialYouDigitalWidget();
         }
 
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED -> {
                     requireContext().sendBroadcast(new Intent(ACTION_WORLD_CITIES_DISPLAYED));
 
                     if (mShowCitiesOnDigitalWidgetPref.getSharedPreferences() != null
                             && mCityClockDefaultColor.getSharedPreferences() != null
                             && mCityNameDefaultColor.getSharedPreferences() != null) {
 
-                        final boolean areCitiesDisplayed = mShowCitiesOnDigitalWidgetPref.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
+                        final boolean areCitiesDisplayed =
+                                mShowCitiesOnDigitalWidgetPref.getSharedPreferences().getBoolean(
+                                        KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED, true);
 
-                        final boolean isCityClockDefaultColors = mCityClockDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR, true);
+                        final boolean isCityClockDefaultColors =
+                                mCityClockDefaultColor.getSharedPreferences().getBoolean(
+                                        KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR, true);
 
-                        final boolean isCityNameDefaultColor = mCityNameDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR, true);
+                        final boolean isCityNameDefaultColor =
+                                mCityNameDefaultColor.getSharedPreferences().getBoolean(
+                                        KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR, true);
 
                         mCityClockDefaultColor.setVisible(!areCitiesDisplayed);
                         mCityClockCustomColor.setVisible(!areCitiesDisplayed && !isCityClockDefaultColors);
@@ -163,69 +166,68 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
-                case KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR -> {
                     if (mClockDefaultColor.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mClockDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR, true);
                         mClockCustomColor.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED)
-                    );
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
                 }
 
-                case KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR ->
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR ->
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
 
 
-                case KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR -> {
                     if (mDateDefaultColor.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mDateDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR, true);
                         mDateCustomColor.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
                 }
 
-                case KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR ->
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_CUSTOM_COLOR ->
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
 
-                case KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR -> {
                     if (mNextAlarmDefaultColor.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mNextAlarmDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR, true);
                         mNextAlarmCustomColor.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
                 }
 
-                case KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR ->
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_CUSTOM_COLOR ->
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
 
-                case KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR -> {
                     if (mCityClockDefaultColor.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mCityClockDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR, true);
                         mCityClockCustomColor.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED));
                 }
 
-                case KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR ->
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_CUSTOM_COLOR ->
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED));
 
-                case KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR -> {
                     if (mCityNameDefaultColor.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mCityNameDefaultColor.getSharedPreferences()
-                                .getBoolean(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR, true);
                         mCityNameCustomColor.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
                 }
 
-                case KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR ->
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_CUSTOM_COLOR ->
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
 
-                case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
+                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
@@ -247,40 +249,48 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
 
         private void hidePreferences() {
-            mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
-            mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR);
-            mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR);
-            mDateDefaultColor = findPreference(KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
-            mDateCustomColor = findPreference(KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR);
-            mNextAlarmDefaultColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR);
-            mNextAlarmCustomColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR);
-            mCityClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR);
-            mCityClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR);
-            mCityNameDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR);
-            mCityNameCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR);
-            mDigitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MESSAGE);
-            mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+            mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED);
+            mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR);
+            mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR);
+            mDateDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR);
+            mDateCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_CUSTOM_COLOR);
+            mNextAlarmDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR);
+            mNextAlarmCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_CUSTOM_COLOR);
+            mCityClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR);
+            mCityClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_CUSTOM_COLOR);
+            mCityNameDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR);
+            mCityNameCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_CUSTOM_COLOR);
+            mDigitalWidgetMessagePref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_MESSAGE);
+            mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE);
 
-            mShowCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnWidget());
+            mShowCitiesOnDigitalWidgetPref.setChecked(
+                    DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouWidget()
+            );
             mDigitalWidgetMessagePref.setVisible(!mShowCitiesOnDigitalWidgetPref.isChecked());
             mDigitalWidgetMaxClockFontSizePref.setVisible(!mShowCitiesOnDigitalWidgetPref.isChecked());
 
-            mClockDefaultColor.setChecked(DataModel.getDataModel().isDigitalWidgetClockDefaultColor());
+            mClockDefaultColor.setChecked(DataModel.getDataModel().isMaterialYouDigitalWidgetClockDefaultColor());
             mClockCustomColor.setVisible(!mClockDefaultColor.isChecked());
 
-            mDateDefaultColor.setChecked(DataModel.getDataModel().isDigitalWidgetDateDefaultColor());
+            mDateDefaultColor.setChecked(DataModel.getDataModel().isMaterialYouDigitalWidgetDateDefaultColor());
             mDateCustomColor.setVisible(!mDateDefaultColor.isChecked());
 
-            mNextAlarmDefaultColor.setChecked(DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor());
+            mNextAlarmDefaultColor.setChecked(
+                    DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor()
+            );
             mNextAlarmCustomColor.setVisible(!mNextAlarmDefaultColor.isChecked());
 
-            mCityClockDefaultColor.setChecked(DataModel.getDataModel().isDigitalWidgetCityClockDefaultColor());
+            mCityClockDefaultColor.setChecked(
+                    DataModel.getDataModel().isMaterialYouDigitalWidgetCityClockDefaultColor()
+            );
             mCityClockDefaultColor.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
             mCityClockCustomColor.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
                     && !mCityClockDefaultColor.isChecked()
             );
 
-            mCityNameDefaultColor.setChecked(DataModel.getDataModel().isDigitalWidgetCityNameDefaultColor());
+            mCityNameDefaultColor.setChecked(
+                    DataModel.getDataModel().isMaterialYouDigitalWidgetCityNameDefaultColor()
+            );
             mCityNameDefaultColor.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
             mCityNameCustomColor.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
                     && !mCityNameDefaultColor.isChecked()
@@ -327,15 +337,15 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             });
             mDigitalWidgetMaxClockFontSizePref.setSummary(
                     requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
-                            + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
+                            + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
                             + " "
                             + "dp"
             );
         }
 
-        private void updateDigitalWidget() {
+        private void updateMaterialYouDigitalWidget() {
             AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
-            DigitalAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+            DigitalAppWidgetMaterialYouProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
 
             Intent result = new Intent();
             result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);

@@ -247,7 +247,7 @@ final class CityModel {
     }
 
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_CHANGED));
+        mContext.sendBroadcast(new Intent(WidgetModel.ACTION_WORLD_CITIES_CHANGED));
         for (CityListener cityListener : mCityListeners) {
             cityListener.citiesChanged();
         }

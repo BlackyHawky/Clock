@@ -48,15 +48,6 @@ import java.util.List;
  */
 public final class DataModel {
 
-    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.deskclock.WORLD_CITIES_CHANGED";
-    public static final String ACTION_WORLD_CITIES_DISPLAYED = "com.best.deskclock.WORLD_CITIES_DISPLAYED";
-    public static final String ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED = "com.best.deskclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED";
-
     /**
      * The single instance of this data model that exists for the life of the application.
      */
@@ -1075,12 +1066,16 @@ public final class DataModel {
         return mSettingsModel.getTimeZones();
     }
 
+    // ********************
+    // ** DIGITAL WIDGET **
+    // ********************
+
     /**
      * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.
      */
     public boolean areWorldCitiesDisplayedOnWidget() {
         enforceMainLooper();
-        return mSettingsModel.areWorldCitiesDisplayedOnWidget();
+        return mWidgetModel.areWorldCitiesDisplayedOnWidget();
     }
 
     /**
@@ -1088,78 +1083,179 @@ public final class DataModel {
      */
     public String getDigitalWidgetMaxClockFontSize() {
         enforceMainLooper();
-        return mSettingsModel.getDigitalWidgetMaxClockFontSize();
+        return mWidgetModel.getDigitalWidgetMaxClockFontSize();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget clock; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the digital widget clock;
+     * {@code false} otherwise.
      */
     public boolean isDigitalWidgetClockDefaultColor() {
-        return mSettingsModel.isDigitalWidgetClockDefaultColor();
+        return mWidgetModel.isDigitalWidgetClockDefaultColor();
     }
 
     /**
      * @return a value indicating the color of the the digital widget clock
      */
     public int getDigitalWidgetClockCustomColor() {
-        return mSettingsModel.getDigitalWidgetClockCustomColor();
+        return mWidgetModel.getDigitalWidgetClockCustomColor();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget date; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the digital widget date;
+     * {@code false} otherwise.
      */
     public boolean isDigitalWidgetDateDefaultColor() {
-        return mSettingsModel.isDigitalWidgetDateDefaultColor();
+        return mWidgetModel.isDigitalWidgetDateDefaultColor();
     }
 
     /**
      * @return a value indicating the color of the the digital widget date.
      */
     public int getDigitalWidgetDateCustomColor() {
-        return mSettingsModel.getDigitalWidgetDateCustomColor();
+        return mWidgetModel.getDigitalWidgetDateCustomColor();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget next alarm; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the digital widget next alarm;
+     * {@code false} otherwise.
      */
     public boolean isDigitalWidgetNextAlarmDefaultColor() {
-        return mSettingsModel.isDigitalWidgetNextAlarmDefaultColor();
+        return mWidgetModel.isDigitalWidgetNextAlarmDefaultColor();
     }
 
     /**
      * @return a value indicating the color of the the digital widget next alarm.
      */
     public int getDigitalWidgetNextAlarmCustomColor() {
-        return mSettingsModel.getDigitalWidgetNextAlarmCustomColor();
+        return mWidgetModel.getDigitalWidgetNextAlarmCustomColor();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget city clock; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the digital widget city clock;
+     * {@code false} otherwise.
      */
     public boolean isDigitalWidgetCityClockDefaultColor() {
-        return mSettingsModel.isDigitalWidgetCityClockDefaultColor();
+        return mWidgetModel.isDigitalWidgetCityClockDefaultColor();
     }
 
     /**
      * @return a value indicating the color of the the digital widget city clock.
      */
     public int getDigitalWidgetCityClockCustomColor() {
-        return mSettingsModel.getDigitalWidgetCityClockCustomColor();
+        return mWidgetModel.getDigitalWidgetCityClockCustomColor();
     }
 
-
     /**
-     * @return {@code true} if the default color is applied to the digital widget city name; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the digital widget city name;
+     * {@code false} otherwise.
      */
     public boolean isDigitalWidgetCityNameDefaultColor() {
-        return mSettingsModel.isDigitalWidgetCityNameDefaultColor();
+        return mWidgetModel.isDigitalWidgetCityNameDefaultColor();
     }
 
     /**
      * @return a value indicating the color of the the digital widget city name.
      */
     public int getDigitalWidgetCityNameCustomColor() {
-        return mSettingsModel.getDigitalWidgetCityNameCustomColor();
+        return mWidgetModel.getDigitalWidgetCityNameCustomColor();
+    }
+
+    // *********************************
+    // ** MATERIAL YOU DIGITAL WIDGET **
+    // *********************************
+
+    /**
+     * @return {@code true} if the cities are displayed on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean areWorldCitiesDisplayedOnMaterialYouWidget() {
+        enforceMainLooper();
+        return mWidgetModel.areWorldCitiesDisplayedOnMaterialYouWidget();
+    }
+
+    /**
+     * @return the font size applied to the Material You digital clock widget.
+     */
+    public String getMaterialYouDigitalWidgetMaxClockFontSize() {
+        enforceMainLooper();
+        return mWidgetModel.getMaterialYouDigitalWidgetMaxClockFontSize();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the Material You digital widget clock;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouDigitalWidgetClockDefaultColor() {
+        return mWidgetModel.isMaterialYouDigitalWidgetClockDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the Material You digital widget clock
+     */
+    public int getMaterialYouDigitalWidgetClockCustomColor() {
+        return mWidgetModel.getMaterialYouDigitalWidgetClockCustomColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the Material You digital widget date;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouDigitalWidgetDateDefaultColor() {
+        return mWidgetModel.isMaterialYouDigitalWidgetDateDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the Material You digital widget date.
+     */
+    public int getMaterialYouDigitalWidgetDateCustomColor() {
+        return mWidgetModel.getMaterialYouDigitalWidgetDateCustomColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the Material You digital widget next alarm;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouDigitalWidgetNextAlarmDefaultColor() {
+        return mWidgetModel.isMaterialYouDigitalWidgetNextAlarmDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the Material You digital widget next alarm.
+     */
+    public int getMaterialYouDigitalWidgetNextAlarmCustomColor() {
+        return mWidgetModel.getMaterialYouDigitalWidgetNextAlarmCustomColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the Material You digital widget city clock;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouDigitalWidgetCityClockDefaultColor() {
+        return mWidgetModel.isMaterialYouDigitalWidgetCityClockDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the the Material You digital widget city clock.
+     */
+    public int getMaterialYouDigitalWidgetCityClockCustomColor() {
+        return mWidgetModel.getMaterialYouDigitalWidgetCityClockCustomColor();
+    }
+
+
+    /**
+     * @return {@code true} if the default color is applied to the Material You digital widget city name;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouDigitalWidgetCityNameDefaultColor() {
+        return mWidgetModel.isMaterialYouDigitalWidgetCityNameDefaultColor();
+    }
+
+    /**
+     * @return a value indicating the color of the Material You digital widget city name.
+     */
+    public int getMaterialYouDigitalWidgetCityNameCustomColor() {
+        return mWidgetModel.getMaterialYouDigitalWidgetCityNameCustomColor();
     }
 
     /**
