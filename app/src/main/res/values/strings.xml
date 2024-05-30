@@ -1185,9 +1185,7 @@
     <string name="settings_digital_widget_material_you_title">Customize the Material You digital widget</string>
     <string name="settings_digital_widget_material_you_summary">Allows you to customize the colors of the Material You digital widget and change the clock font size</string>
     <!-- Title to show cities on the digital widget. -->
-    <string name="settings_digital_widget_city_title">Display cities</string>
-    <!-- Summary about the widget city display. -->
-    <string name="settings_digital_widget_city_summary">Cities are displayed in the digital widget only if they are added in the Clock tab</string>
+    <string name="settings_digital_widget_city_title">Display cities on the widget</string>
     <!-- Title to set the default color of the main clock in the digital widget. -->
     <string name="settings_digital_widget_clock_default_color_title">Use default color for main clock</string>
     <!-- Title to set the custom color of the main clock in the digital widget. -->
@@ -1208,12 +1206,12 @@
     <string name="settings_digital_widget_city_name_default_color_title">Use default color for city name</string>
     <!-- Title to set the custom color of the city name in the digital widget. -->
     <string name="settings_digital_widget_city_name_custom_color_title">City name custom color</string>
-    <!-- Digital widget font size warning -->
-    <string name="settings_digital_widget_message">The setting below change the digital widget only if no city is displayed.</string>
     <!-- Title to set the font size of the clock in the digital widget. -->
     <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
     <!-- Summary about the font size of the clock in the digital widget. -->
     <string name="settings_digital_widget_max_clock_font_size_summary">Maximum font size = </string>
+    <!-- Summary about the font size of the clock when cities are shown -->
+    <string name="settings_digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
     <!--
     Permissions
     -->

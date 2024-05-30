@@ -56,7 +56,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.ClockFragment;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
@@ -66,6 +65,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -167,8 +167,8 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
 
         // Fetch the widget size selected by the user.
         final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouWidget();
-        final ClockFragment.SelectedCitiesAdapter cityAdapter =
-                new ClockFragment.SelectedCitiesAdapter(context, null, null);
+        List<City> getSelectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+        final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
         final Resources resources = context.getResources();
         final float density = resources.getDisplayMetrics().density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
@@ -179,9 +179,10 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String digitalWidgetMaxClockFontSize =
                 DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(cityAdapter.getItemCount() > 1 && areWorldCitiesDisplayed
-                ? 80
-                : Integer.parseInt(digitalWidgetMaxClockFontSize), context);
+        final int largestClockFontSizePx = Utils.toPixel(
+                !getSelectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
+                    ? 80
+                    : Integer.parseInt(digitalWidgetMaxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);

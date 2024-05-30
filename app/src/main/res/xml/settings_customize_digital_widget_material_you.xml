@@ -4,14 +4,12 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         android:key="key_digital_widget_material_you_world_cities_displayed"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/settings_digital_widget_city_title"
-        android:summary="@string/settings_digital_widget_city_summary"
         android:defaultValue="true"
         app:iconSpaceReserved="false" />
 
@@ -104,12 +102,6 @@
         app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
         app:iconSpaceReserved="false"
         app:singleLineTitle="false" />
-
-    <Preference
-        android:key="key_digital_widget_material_you_message"
-        android:selectable="false"
-        app:iconSpaceReserved="false"
-        tools:title="@string/settings_digital_widget_message" />
 
     <EditTextPreference
         android:key="key_digital_widget_material_you_max_clock_font_size"
