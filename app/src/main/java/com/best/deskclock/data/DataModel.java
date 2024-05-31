@@ -1071,6 +1071,21 @@ public final class DataModel {
     // ********************
 
     /**
+     * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
+     */
+    public boolean isBackgroundDisplayedOnDigitalWidget() {
+        enforceMainLooper();
+        return mWidgetModel.isBackgroundDisplayedOnDigitalWidget();
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget background.
+     */
+    public int getDigitalWidgetBackgroundColor() {
+        return mWidgetModel.getDigitalWidgetBackgroundColor();
+    }
+
+    /**
      * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.
      */
     public boolean areWorldCitiesDisplayedOnWidget() {

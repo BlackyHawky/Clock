@@ -101,7 +101,7 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            hidePreferences();
+            setupPreferences();
 
             requireActivity().setResult(RESULT_CANCELED);
 
@@ -251,7 +251,7 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
             } else super.onDisplayPreferenceDialog(preference);
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
             mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED);
             mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR);
             mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR);

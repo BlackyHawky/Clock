@@ -199,7 +199,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
-        // Apply the colors to the clock.
+        // Apply the color to the clock.
         final boolean isDigitalWidgetClockDefaultColor =
                 DataModel.getDataModel().isMaterialYouDigitalWidgetClockDefaultColor();
         final int getDigitalWidgetClockCustomColor =
@@ -211,7 +211,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.clock, getDigitalWidgetClockCustomColor);
         }
 
-        // Apply the colors to the date.
+        // Apply the color to the date.
         final boolean isDigitalWidgetDateDefaultColor =
                 DataModel.getDataModel().isMaterialYouDigitalWidgetDateDefaultColor();
         final int getDigitalWidgetDateCustomColor =
@@ -223,7 +223,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.date, getDigitalWidgetDateCustomColor);
         }
 
-        // Apply the colors to the next alarm.
+        // Apply the color to the next alarm.
         final boolean isDigitalWidgetNextAlarmDefaultColor =
                 DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
         final int getDigitalWidgetNextAlarmCustomColor =
@@ -286,7 +286,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
-            // Apply the colors to the next alarm icon.
+            // Apply the color to the next alarm icon.
             final boolean isDigitalWidgetNextAlarmDefaultColor =
                     DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
             final int getDigitalWidgetNextAlarmCustomColor =

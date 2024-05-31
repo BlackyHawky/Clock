@@ -22,6 +22,8 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
@@ -138,7 +140,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                                               Bundle options, boolean portrait) {
         // Create a remote view for the digital clock.
         final String packageName = context.getPackageName();
-        final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget);
+        final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget();
+        final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
+                ? R.layout.digital_widget_with_background
+                : R.layout.digital_widget
+        );
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour", Utils.get12ModeFormat(context, 0.4f, false));
         rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat(context, false));
@@ -202,7 +208,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
-        // Apply the colors to the clock.
+        // Apply the color to the clock.
         final boolean isDigitalWidgetClockDefaultColor = DataModel.getDataModel().isDigitalWidgetClockDefaultColor();
         final int getDigitalWidgetClockCustomColor = DataModel.getDataModel().getDigitalWidgetClockCustomColor();
 
@@ -212,7 +218,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.clock, getDigitalWidgetClockCustomColor);
         }
 
-        // Apply the colors to the date.
+        // Apply the color to the date.
         final boolean isDigitalWidgetDateDefaultColor = DataModel.getDataModel().isDigitalWidgetDateDefaultColor();
         final int getDigitalWidgetDateCustomColor = DataModel.getDataModel().getDigitalWidgetDateCustomColor();
         if (isDigitalWidgetDateDefaultColor) {
@@ -221,7 +227,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.date, getDigitalWidgetDateCustomColor);
         }
 
-        // Apply the colors to the next alarm.
+        // Apply the color to the next alarm.
         final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
         final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
 
@@ -252,6 +258,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
+        // Apply the color to the digital widget background.
+        int getDigitalWidgetBackgroundColor = DataModel.getDataModel().getDigitalWidgetBackgroundColor();
+        rv.setInt(R.id.digital_widget_background, "setBackgroundColor", getDigitalWidgetBackgroundColor);
+
         return rv;
     }
 
@@ -281,7 +291,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
-            // Apply the colors to the next alarm icon.
+            // Apply the color to the next alarm icon.
             final boolean isDigitalWidgetNextAlarmDefaultColor = DataModel.getDataModel().isDigitalWidgetNextAlarmDefaultColor();
             final int getDigitalWidgetNextAlarmCustomColor = DataModel.getDataModel().getDigitalWidgetNextAlarmCustomColor();
 
@@ -431,6 +441,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
                 case ACTION_WORLD_CITIES_CHANGED:
+                case ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED:
+                case ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED:
                 case ACTION_WORLD_CITIES_DISPLAYED:
                 case ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED:
                 case ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED:
@@ -471,6 +483,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED);
         intentFilter.addAction(ACTION_WORLD_CITIES_DISPLAYED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED);
         intentFilter.addAction(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED);

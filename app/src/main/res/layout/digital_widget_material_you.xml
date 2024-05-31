@@ -10,7 +10,7 @@
     android:id="@+id/digital_widget_material_you"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/digital_widget_background"
+    android:background="@drawable/digital_widget_material_you_background"
     android:gravity="center"
     android:orientation="vertical">
 

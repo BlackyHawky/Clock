@@ -346,6 +346,8 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_DISPLAYED" />
                 <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED" />
                 <action android:name="com.best.alarmclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED" />

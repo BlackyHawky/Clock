@@ -7,6 +7,7 @@
 package com.best.deskclock.data;
 
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_FONT_SIZE;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR;
@@ -15,6 +16,7 @@ import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR;
@@ -69,6 +71,20 @@ final class WidgetDAO {
     // ********************
     // ** DIGITAL WIDGET **
     // ********************
+
+    /**
+     * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
+     */
+    static boolean isBackgroundDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false);
+    }
+
+    /**
+     * @return a value indicating the color of the the digital widget background.
+     */
+    static int getDigitalWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000"));
+    }
 
     /**
      * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.

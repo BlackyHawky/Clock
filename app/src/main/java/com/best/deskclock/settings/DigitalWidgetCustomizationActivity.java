@@ -5,6 +5,8 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
@@ -41,6 +43,10 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
 
     private static final String PREFS_FRAGMENT_TAG = "digital_widget_customization_fragment";
 
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
+            "key_digital_widget_display_background";
+    public static final String KEY_DIGITAL_WIDGET_BACKGROUND_COLOR =
+            "key_digital_widget_background_color";
     public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
             "key_digital_widget_world_cities_displayed";
     public static final String KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR =
@@ -84,12 +90,14 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
 
         private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+        ColorPreference mBackgroundColor;
         ColorPreference mClockCustomColor;
         ColorPreference mDateCustomColor;
         ColorPreference mNextAlarmCustomColor;
         ColorPreference mCityClockCustomColor;
         ColorPreference mCityNameCustomColor;
         EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+        SwitchPreferenceCompat mShowBackgroundOnDigitalWidget;
         SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
         SwitchPreferenceCompat mClockDefaultColor;
         SwitchPreferenceCompat mDateDefaultColor;
@@ -101,7 +109,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            hidePreferences();
+            setupPreferences();
 
             requireActivity().setResult(RESULT_CANCELED);
 
@@ -132,6 +140,19 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
+                case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
+                    if (mShowBackgroundOnDigitalWidget.getSharedPreferences() != null) {
+                        final boolean isNotBackgroundDisplayed = mShowBackgroundOnDigitalWidget.getSharedPreferences()
+                                .getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false);
+                        mBackgroundColor.setVisible(!isNotBackgroundDisplayed);
+                    }
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED));
+                }
+
+                case KEY_DIGITAL_WIDGET_BACKGROUND_COLOR ->
+                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED));
+
                 case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
                     requireContext().sendBroadcast(new Intent(ACTION_WORLD_CITIES_DISPLAYED));
 
@@ -249,7 +270,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             } else super.onDisplayPreferenceDialog(preference);
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
+            mShowBackgroundOnDigitalWidget = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+            mBackgroundColor = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR);
             mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
             mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR);
             mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR);
@@ -262,6 +285,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             mCityNameDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR);
             mCityNameCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR);
             mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+
+            mShowBackgroundOnDigitalWidget.setChecked(DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget());
+            mBackgroundColor.setVisible(mShowBackgroundOnDigitalWidget.isChecked());
 
             List<City> getSelectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
             final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
@@ -320,6 +346,10 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
 
         private void refresh() {
+            mShowBackgroundOnDigitalWidget.setOnPreferenceChangeListener(this);
+
+            mBackgroundColor.setOnPreferenceChangeListener(this);
+
             mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
             mClockDefaultColor.setOnPreferenceChangeListener(this);

@@ -20,6 +20,10 @@ public final class WidgetModel {
 
     public static final String ACTION_WORLD_CITIES_CHANGED =
             "com.best.alarmclock.WORLD_CITIES_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED =
+            "com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED =
+            "com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED";
     public static final String ACTION_WORLD_CITIES_DISPLAYED =
             "com.best.alarmclock.WORLD_CITIES_DISPLAYED";
     public static final String ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED =
@@ -59,6 +63,14 @@ public final class WidgetModel {
     // ********************
     // ** DIGITAL WIDGET **
     // ********************
+
+    public boolean isBackgroundDisplayedOnDigitalWidget() {
+        return WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs);
+    }
+
+    public int getDigitalWidgetBackgroundColor() {
+        return WidgetDAO.getDigitalWidgetBackgroundColor(mPrefs);
+    }
 
     public boolean areWorldCitiesDisplayedOnWidget() {
         return WidgetDAO.areWorldCitiesDisplayedOnWidget(mPrefs);
