@@ -540,8 +540,6 @@
     <string name="timer_canceled">Timer canceled</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
     <string name="timer_times_up">Time\'s up</string>
-    <!-- Duration title that appears when the timer is reset -->
-    <string name="timer_total_duration_text">Duration: %s</string>
     <!--
         Notification content shown when multiple timers have completed and have no more time
         remaining. Arg is the number of timers. [CHAR LIMIT=25]

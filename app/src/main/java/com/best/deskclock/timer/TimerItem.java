@@ -12,6 +12,7 @@ import static android.R.attr.state_pressed;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.View;
@@ -117,17 +118,18 @@ public class TimerItem extends ConstraintLayout {
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
         if (!Utils.isTablet(getContext()) && !Utils.isLandscape(getContext())) {
-            final String totalDuration = timer.getTotalDuration();
-            mTimerTotalDurationText.setText(getContext().getString(R.string.timer_total_duration_text, totalDuration));
+            mTimerTotalDurationText.setText(timer.getTotalDuration());
         }
 
         // Update the label if it changed.
         final String label = timer.getLabel();
         if (label.isEmpty()) {
             mLabelView.setText(getContext().getString(R.string.add_label));
+            mLabelView.setTypeface(Typeface.DEFAULT);
             mLabelView.setAlpha(0.63f);
         } else {
             mLabelView.setText(label);
+            mLabelView.setTypeface(Typeface.DEFAULT_BOLD);
             mLabelView.setAlpha(1f);
         }
 

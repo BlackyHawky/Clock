@@ -515,7 +515,6 @@
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
     <string name="title_interface">Interfață</string>
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
-    <string name="timer_total_duration_text">Durată: %s</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>
     <string name="storage_dialog_text">Această permisiune este necesară dacă dorești să alegi un ton de alarmă diferit de tonul de alarmă implicit al dispozitivului. Prin urmare, aceasta permite aplicației de a reda fișiere audio și muzicale pe dispozitiv.

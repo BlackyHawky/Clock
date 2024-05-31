@@ -537,7 +537,6 @@
     <string name="bedtime_reminder_notification_title">Je bedtijd start om <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="wakeup_alarm_label_visible">Wekalarm</string>
     <string name="add_label">Label toevoegen</string>
-    <string name="timer_total_duration_text">Duur: %s</string>
     <string name="app_slogan">100% FOSS Klok, gebaseerd op AOSP</string>
     <string name="version">Versie</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>

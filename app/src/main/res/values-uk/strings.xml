@@ -412,7 +412,6 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Виберіть, який будильник вимкнути"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Немає ввімкнених будильників"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> відкладено на 10 хвилин"</string>
-    <string name="timer_total_duration_text">Тривалість: %s</string>
     <string name="add_label">Додати мітку</string>
     <string name="app_slogan">100% вільний годинник на основі проєкту Android Open Source</string>
     <string name="version">Версія</string>
