@@ -11,7 +11,8 @@
         android:layout="@layout/settings_preference_layout"
         android:title="@string/settings_digital_widget_city_title"
         android:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
         android:key="key_digital_widget_material_you_clock_default_color"
