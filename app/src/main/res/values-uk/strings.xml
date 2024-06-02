@@ -438,7 +438,6 @@
     <string name="screensaver_font_group">Шрифт</string>
     <string name="screensaver_brightness_title">Яскравість</string>
     <string name="screensaver_preview_title">Попередній перегляд</string>
-    <string name="bedtime">Час сну</string>
     <string name="bedtime_notification_title">Режим «Час сну» увімкнено</string>
     <string name="bedtime_notification_action_turn_off">Вимкнути</string>
     <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>

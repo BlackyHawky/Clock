@@ -14,6 +14,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
@@ -81,7 +83,7 @@ public final class TimerCircleView extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(@NonNull Canvas canvas) {
         if (mTimer == null) {
             return;
         }

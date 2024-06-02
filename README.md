@@ -6,7 +6,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 
 ## Table of Contents
 
-- [Features](#features-)
+- [Features](#features)
   * [Common Issues](#common-issues)
 - [Contributing](#contributing-)
   * [Reporting Issues](#reporting-issues)
@@ -16,7 +16,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 - [Screenshots](#screenshots)
 - [Credits](#credits)
 
-# Features : 
+# Features
 * Flip and shake action to dismiss/postpone alarm;
 * Turn off/postpone the alarm with the power button or volume buttons;
 * For Snapdragon phones only, the alarm is triggered when the phone is switched off;
@@ -94,6 +94,7 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 
 # Screenshots
 
+<!--suppress CheckImageSize -->
 <details>
 <summary><b>Click here to see screenshots</b></summary>
 <br>

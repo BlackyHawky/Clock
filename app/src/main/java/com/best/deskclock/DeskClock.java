@@ -658,7 +658,6 @@ public class DeskClock extends AppCompatActivity
         }
     }
 
-
     /**
      * As the model reports changes to the selected tab, update the user interface.
      */

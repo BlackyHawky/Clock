@@ -104,7 +104,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
-        if (alarm.label.length() == 0) {
+        if (alarm.label.isEmpty()) {
             editLabel.setText(context.getString(R.string.add_label));
             editLabel.setTypeface(Typeface.DEFAULT);
             editLabel.setAlpha(CLOCK_DISABLED_ALPHA);
@@ -112,7 +112,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             editLabel.setText(alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))
                     ? context.getString(R.string.wakeup_alarm_label_visible)
                     : alarm.label);
-            editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
+            editLabel.setContentDescription(alarm.label != null && !alarm.label.isEmpty()
                     ? context.getString(R.string.label_description) + " " + alarm.label
                     : context.getString(R.string.no_label_specified));
             editLabel.setTypeface(Typeface.DEFAULT_BOLD);

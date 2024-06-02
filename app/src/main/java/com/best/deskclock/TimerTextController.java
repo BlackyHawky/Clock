@@ -54,7 +54,7 @@ public final class TimerTextController {
 
         String time = Utils.getTimeString(mTextView.getContext(), hours, minutes, seconds);
         if (isNegative && !(hours == 0 && minutes == 0 && seconds == 0)) {
-            time = "\u2212" + time;
+            time = "−" + time;
         }
 
         mTextView.setText(time);

@@ -15,6 +15,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
@@ -97,7 +99,7 @@ public final class StopwatchCircleView extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(@NonNull Canvas canvas) {
         // Compute the size and location of the circle to be drawn.
         final int xCenter = getWidth() / 2;
         final int yCenter = getHeight() / 2;

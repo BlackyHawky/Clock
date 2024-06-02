@@ -60,24 +60,26 @@ public final class BedtimeService extends Service {
         Context context = getApplicationContext();
         DataSaver saver = DataSaver.getInstance(context);
         String action = intent.getAction();
-        switch (action) {
-            case ACTION_BED_REMIND_NOTIF -> {
-                if (saver.enabled && wakeupAlarm(context).enabled) {
-                    showRemindNotification(context);
+        if (action != null) {
+            switch (action) {
+                case ACTION_BED_REMIND_NOTIF -> {
+                    if (saver.enabled && wakeupAlarm(context).enabled) {
+                        showRemindNotification(context);
+                    }
                 }
-            }
-            case ACTION_LAUNCH_BEDTIME -> startBedtimeMode(context, saver);
-            case ACTION_BEDTIME_CANCEL -> stopBedtimeMode(context);
-            case ACTION_BEDTIME_PAUSE -> {
-                stopBedtimeMode(context);
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(new Date());
-                calendar.add(Calendar.MINUTE, 30);
-                alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), getPendingIntent(context, ACTION_LAUNCH_BEDTIME));
-                String text = AlarmUtils.getFormattedTime(context, calendar.getTimeInMillis());
-                text = context.getString(R.string.bedtime_notification_resume, text);
-                showPausedNotification(context, text);
+                case ACTION_LAUNCH_BEDTIME -> startBedtimeMode(context, saver);
+                case ACTION_BEDTIME_CANCEL -> stopBedtimeMode(context);
+                case ACTION_BEDTIME_PAUSE -> {
+                    stopBedtimeMode(context);
+                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(new Date());
+                    calendar.add(Calendar.MINUTE, 30);
+                    alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), getPendingIntent(context, ACTION_LAUNCH_BEDTIME));
+                    String text = AlarmUtils.getFormattedTime(context, calendar.getTimeInMillis());
+                    text = context.getString(R.string.bedtime_notification_resume, text);
+                    showPausedNotification(context, text);
+                }
             }
         }
         return START_NOT_STICKY;

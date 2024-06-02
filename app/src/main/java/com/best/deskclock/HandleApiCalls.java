@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -509,7 +510,8 @@ public class HandleApiCalls extends Activity {
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {
-        final String message = intent.getExtras().getString(AlarmClock.EXTRA_MESSAGE, defaultLabel);
+        final String message = Objects.requireNonNull(
+                intent.getExtras()).getString(AlarmClock.EXTRA_MESSAGE, defaultLabel);
         return message == null ? "" : message;
     }
 

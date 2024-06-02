@@ -240,7 +240,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
+        public void onLongPress(@NonNull MotionEvent e) {
             final View view = getView();
             if (view != null) {
                 view.performLongClick();
@@ -248,7 +248,7 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         @Override
-        public boolean onDown(MotionEvent e) {
+        public boolean onDown(@NonNull MotionEvent e) {
             return true;
         }
 

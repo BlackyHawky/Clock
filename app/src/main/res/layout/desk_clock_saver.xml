@@ -11,7 +11,8 @@
     android:id="@+id/saver_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    tools:ignore="Overdraw">
 
     <!--  Extra layout to let the clock float in the window -->
     <LinearLayout

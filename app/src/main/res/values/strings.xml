@@ -835,6 +835,7 @@
         \n\n• Possibility of sharing your stopwatch with your contacts;
         \n\n• Customizable screensaver;
         \n\n• Modern widgets;
+        \n\n• Customizable digital widgets;
         \n\n• Material design;
         \n\n• Dynamic colors for Android 12+;
     </string>
@@ -1086,7 +1087,6 @@
     -->
     <!-- Bedtime button to create an alarm -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
-    <string name="bedtime">Bedtime</string>
     <string name="wakeup">Wake Up</string>
     <string name="bedtime_reminder_notification">Reminder Notification</string>
     <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
@@ -1154,6 +1154,7 @@
     <string name="first_launch_main_feature_message">
         ► Light, dark or system theme; &lt;br&gt; &lt;br&gt;
         ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
+        ► Customizable digital widgets; &lt;br&gt; &lt;br&gt;
         ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
         ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
         ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;

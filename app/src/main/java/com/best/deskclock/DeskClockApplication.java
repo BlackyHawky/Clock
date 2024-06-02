@@ -21,6 +21,7 @@ import com.best.deskclock.settings.ThemeController;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.File;
+import java.util.Objects;
 
 public class DeskClockApplication extends Application {
 
@@ -51,7 +52,7 @@ public class DeskClockApplication extends Application {
             storageContext = context.createDeviceProtectedStorageContext();
             final String name = context.getPackageName() + "_preferences";
             final String prefsFilename = storageContext.getDataDir() + "/shared_prefs/" + name + ".xml";
-            final File prefs = new File(Uri.parse(prefsFilename).getPath());
+            final File prefs = new File(Objects.requireNonNull(Uri.parse(prefsFilename).getPath()));
 
             if (!prefs.exists()) {
                 if (!storageContext.moveSharedPreferencesFrom(context, name)) {

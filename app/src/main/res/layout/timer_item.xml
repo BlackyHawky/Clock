@@ -91,7 +91,8 @@
         app:drawableTint="@color/md_theme_onSurfaceVariant"
         app:layout_constraintStart_toStartOf="@+id/timer_label"
         app:layout_constraintTop_toTopOf="@id/play_pause"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="InconsistentLayout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_one_min"

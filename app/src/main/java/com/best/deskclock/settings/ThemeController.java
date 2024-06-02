@@ -139,7 +139,7 @@ public class ThemeController {
         }
 
         @Override
-        public void onActivityDestroyed(Activity activity) {
+        public void onActivityDestroyed(@NonNull Activity activity) {
             activities.remove(activity);
         }
 

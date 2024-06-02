@@ -14,4 +14,5 @@
     android:background="?attr/selectableItemBackground"
     android:textSize="36sp"
     android:includeFontPadding="false"
-    tools:text="08:30" />
+    tools:text="08:30"
+    tools:ignore="Overdraw" />

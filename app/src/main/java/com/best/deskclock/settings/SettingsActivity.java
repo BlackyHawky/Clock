@@ -27,9 +27,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
-import androidx.preference.ListPreferenceDialogFragmentCompat;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
@@ -134,6 +132,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         Preference mPermissionMessage;
+        Preference mTimerVibrate;
+        Preference mVibrationPref;
+        ListPreference mHomeTimeZonePref;
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -251,7 +252,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             return true;
         }
 
-
         @Override
         public boolean onPreferenceClick(@NonNull Preference pref) {
             final Context context = getActivity();
@@ -303,47 +303,23 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             return false;
         }
 
-        @Override
-        public void onDisplayPreferenceDialog(@NonNull Preference preference) {
-            // Only single-selection lists are currently supported.
-            final PreferenceDialogFragmentCompat f;
-            if (preference instanceof ListPreference) {
-                f = ListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-            } else {
-                throw new IllegalArgumentException("Unsupported DialogPreference type");
-            }
-            showDialog(f);
-        }
-
-        private void showDialog(PreferenceDialogFragmentCompat fragment) {
-            // Don't show dialog if one is already shown.
-            if (getParentFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
-                return;
-            }
-            // Always set the target fragment, this is required by PreferenceDialogFragment
-            // internally.
-            fragment.setTargetFragment(this, 0);
-            // Don't use getChildFragmentManager(), it causes issues on older platforms when the
-            // target fragment is being restored after an orientation change.
-            fragment.show(getParentFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
-        }
-
         private void hidePreferences() {
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
-            final Preference vibrations = findPreference(KEY_VIBRATIONS);
-            final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
-            final boolean hasVibrator = ((Vibrator) Objects.requireNonNull(timerVibrate).getContext()
+            mVibrationPref = findPreference(KEY_VIBRATIONS);
+            mTimerVibrate = findPreference(KEY_TIMER_VIBRATE);
+
+            assert mTimerVibrate != null;
+            final boolean hasVibrator = ((Vibrator) mTimerVibrate.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+
+            mTimerVibrate.setVisible(hasVibrator);
+            mVibrationPref.setVisible(hasVibrator);
 
             if (mPermissionMessage != null) {
                 mPermissionMessage.setVisible(
                         PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
                 );
             }
-
-            Objects.requireNonNull(vibrations).setVisible(hasVibrator);
-
-            timerVibrate.setVisible(hasVibrator);
         }
 
         /**
@@ -351,27 +327,29 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
          */
         private void loadTimeZoneList() {
             final TimeZones timezones = DataModel.getDataModel().getTimeZones();
-            final ListPreference homeTimezonePref = findPreference(KEY_HOME_TZ);
-            Objects.requireNonNull(homeTimezonePref).setEntryValues(timezones.getTimeZoneIds());
-            homeTimezonePref.setEntries(timezones.getTimeZoneNames());
-            homeTimezonePref.setSummary(homeTimezonePref.getEntry());
-            homeTimezonePref.setOnPreferenceChangeListener(this);
+            mHomeTimeZonePref = findPreference(KEY_HOME_TZ);
+            assert mHomeTimeZonePref != null;
+            mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
+            mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
+            mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
         }
 
         private void refresh() {
             mPermissionMessage.setVisible(
                     PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
             );
-            final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
-            final String messagePermission = requireContext().getString(R.string.settings_permission_message);
-            final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-            spannableMessagePermission.setSpan(
-                    new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
-            spannableMessagePermission.setSpan(
-                    new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
-            builderPermissionMessage.append(spannableMessagePermission);
-            mPermissionMessage.setTitle(builderPermissionMessage);
-            mPermissionMessage.setOnPreferenceClickListener(this);
+            if (mPermissionMessage.isShown()) {
+                final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
+                final String messagePermission = requireContext().getString(R.string.settings_permission_message);
+                final Spannable spannableMessagePermission = new SpannableString(messagePermission);
+                spannableMessagePermission.setSpan(
+                        new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(
+                        new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+                builderPermissionMessage.append(spannableMessagePermission);
+                mPermissionMessage.setTitle(builderPermissionMessage);
+                mPermissionMessage.setOnPreferenceClickListener(this);
+            }
 
             final ListPreference themePref = findPreference(KEY_THEME);
             Objects.requireNonNull(themePref).setSummary(themePref.getEntry());
@@ -391,8 +369,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final SwitchPreferenceCompat cardBackgroundBorderPref = findPreference(KEY_CARD_BACKGROUND_BORDER);
             Objects.requireNonNull(cardBackgroundBorderPref).setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat vibrationsPref = findPreference(KEY_VIBRATIONS);
-            Objects.requireNonNull(vibrationsPref).setOnPreferenceChangeListener(this);
+            mVibrationPref.setOnPreferenceChangeListener(this);
 
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
@@ -419,9 +396,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     ((TwoStatePreference) Objects.requireNonNull(autoHomeClockPref)).isChecked();
             autoHomeClockPref.setOnPreferenceChangeListener(this);
 
-            final ListPreference homeTimezonePref = findPreference(KEY_HOME_TZ);
-            Objects.requireNonNull(homeTimezonePref).setEnabled(autoHomeClockEnabled);
-            refreshListPreference(homeTimezonePref);
+            mHomeTimeZonePref.setEnabled(autoHomeClockEnabled);
+            refreshListPreference(mHomeTimeZonePref);
 
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_CRESCENDO)));
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_TIMER_CRESCENDO)));
@@ -457,8 +433,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
             setupFlipOrShakeAction(shakeActionPref);
 
-            final SwitchPreferenceCompat timerVibratePref = findPreference(KEY_TIMER_VIBRATE);
-            Objects.requireNonNull(timerVibratePref).setOnPreferenceChangeListener(this);
+            mTimerVibrate.setOnPreferenceChangeListener(this);
 
             final Preference digitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
             Objects.requireNonNull(digitalWidgetCustomizationPref).setOnPreferenceClickListener(this);

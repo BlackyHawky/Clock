@@ -205,7 +205,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.permission_dialog_revoke_title)
                         .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(intent))
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             }

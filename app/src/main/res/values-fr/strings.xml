@@ -401,6 +401,7 @@
         \n\n• Possibilité de partager votre chronomètre avec vos contacts ;
         \n\n• Écran de veille personnalisable ;
         \n\n• Widgets modernes ;
+        \n\n• Widgets numériques personnalisables ;
         \n\n• Material design ;
         \n\n• Couleurs dynamiques pour Android 12+ ;
     </string>
@@ -421,9 +422,9 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Faire glisser le doigt vers la droite pour ignorer"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Faire glisser le doigt vers la droite pour arrêter"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Faire glisser le doigt vers la gauche pour répéter"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Faire glisser le doigt vers la gauche pour répéter ou vers la droite pour ignorer"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Faire glisser le doigt vers la gauche pour répéter ou vers la droite pour arrêter"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
@@ -431,7 +432,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="bedtime">Coucher</string>
     <string name="wakeup">Réveil</string>
     <string name="bedtime_reminder_notification">Notification de rappel</string>
     <string-array name="array_reminder_notification">
@@ -534,6 +534,7 @@
     <string name="first_launch_main_feature_message">
         ► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
         ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
+        ► Widgets numériques personnalisables ; &lt;br&gt; &lt;br&gt;
         ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
         ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
         ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;

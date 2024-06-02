@@ -141,7 +141,7 @@ public class Utils {
 
     /**
      * Configure the clock that is visible to display seconds. The clock that is not visible never
-     * displays seconds to avoid it scheduling unnecessary ticking runnables.
+     * displays seconds to avoid it scheduling unnecessary ticking runnable.
      */
     public static void setClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
         final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();

@@ -57,6 +57,7 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Fragment that shows the bedtime.
@@ -212,7 +213,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            mBottomSheetDialog.getWindow().setNavigationBarColor(
+            Objects.requireNonNull(mBottomSheetDialog.getWindow()).setNavigationBarColor(
                     MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
             );
         }
@@ -407,7 +408,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mNotificationList.getPopupBackground().setColorFilter(
                     mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
-            mBottomSheetDialog.getWindow().setNavigationBarColor(
+            Objects.requireNonNull(mBottomSheetDialog.getWindow()).setNavigationBarColor(
                     MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
             );
         }

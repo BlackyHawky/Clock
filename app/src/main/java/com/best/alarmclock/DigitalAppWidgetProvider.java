@@ -479,6 +479,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();

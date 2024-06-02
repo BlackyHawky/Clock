@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -27,6 +28,9 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * This service is in charge of starting/stopping the alarm. It will bring up and manage the
@@ -98,18 +102,20 @@ public class AlarmService extends Service {
                 return;
             }
 
-            switch (action) {
-                case ALARM_SNOOZE_ACTION -> {
-                    // Set the alarm state to snoozed.
-                    // If this broadcast receiver is handling the snooze intent then AlarmActivity
-                    // must not be showing, so always show snooze toast.
-                    AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true /* showToast */);
-                    Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
-                }
-                case ALARM_DISMISS_ACTION -> {
-                    // Set the alarm state to dismissed.
-                    AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm);
-                    Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
+            if (action != null) {
+                switch (action) {
+                    case ALARM_SNOOZE_ACTION -> {
+                        // Set the alarm state to snoozed.
+                        // If this broadcast receiver is handling the snooze intent then AlarmActivity
+                        // must not be showing, so always show snooze toast.
+                        AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true /* showToast */);
+                        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
+                    }
+                    case ALARM_DISMISS_ACTION -> {
+                        // Set the alarm state to dismissed.
+                        AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm);
+                        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
+                    }
                 }
             }
         }
@@ -136,9 +142,7 @@ public class AlarmService extends Service {
                 public void reset() {
                     mWasFaceUp = false;
                     mStopped = false;
-                    for (int i = 0; i < SENSOR_SAMPLES; i++) {
-                        mSamples[i] = false;
-                    }
+                    Arrays.fill(mSamples, false);
                 }
 
                 private boolean filterSamples() {
@@ -168,9 +172,7 @@ public class AlarmService extends Service {
                         // face up
                         if (filterSamples()) {
                             mWasFaceUp = true;
-                            for (int i = 0; i < SENSOR_SAMPLES; i++) {
-                                mSamples[i] = false;
-                            }
+                            Arrays.fill(mSamples, false);
                         }
                     } else {
                         // Check if its face down enough.
@@ -285,6 +287,7 @@ public class AlarmService extends Service {
         AlarmAlertWakeLock.releaseCpuLock();
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -314,7 +317,7 @@ public class AlarmService extends Service {
         }
 
         final long instanceId = AlarmInstance.getId(intent.getData());
-        switch (intent.getAction()) {
+        switch (Objects.requireNonNull(intent.getAction())) {
             case AlarmStateManager.CHANGE_STATE_ACTION -> {
                 AlarmStateManager.handleIntent(this, intent);
 

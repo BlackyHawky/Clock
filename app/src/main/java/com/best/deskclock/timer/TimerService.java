@@ -109,22 +109,24 @@ public final class TimerService extends Service {
         try {
             final String action = intent.getAction();
             final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
-            switch (action) {
-                case ACTION_UPDATE_NOTIFICATION -> {
-                    DataModel.getDataModel().updateTimerNotification();
-                    return START_NOT_STICKY;
-                }
-                case ACTION_RESET_EXPIRED_TIMERS -> {
-                    DataModel.getDataModel().resetOrDeleteExpiredTimers(label);
-                    return START_NOT_STICKY;
-                }
-                case ACTION_RESET_UNEXPIRED_TIMERS -> {
-                    DataModel.getDataModel().resetUnexpiredTimers(label);
-                    return START_NOT_STICKY;
-                }
-                case ACTION_RESET_MISSED_TIMERS -> {
-                    DataModel.getDataModel().resetMissedTimers(label);
-                    return START_NOT_STICKY;
+            if (action != null) {
+                switch (action) {
+                    case ACTION_UPDATE_NOTIFICATION -> {
+                        DataModel.getDataModel().updateTimerNotification();
+                        return START_NOT_STICKY;
+                    }
+                    case ACTION_RESET_EXPIRED_TIMERS -> {
+                        DataModel.getDataModel().resetOrDeleteExpiredTimers(label);
+                        return START_NOT_STICKY;
+                    }
+                    case ACTION_RESET_UNEXPIRED_TIMERS -> {
+                        DataModel.getDataModel().resetUnexpiredTimers(label);
+                        return START_NOT_STICKY;
+                    }
+                    case ACTION_RESET_MISSED_TIMERS -> {
+                        DataModel.getDataModel().resetMissedTimers(label);
+                        return START_NOT_STICKY;
+                    }
                 }
             }
 
@@ -138,23 +140,25 @@ public final class TimerService extends Service {
             }
 
             // Perform the action on the timer.
-            switch (action) {
-                case ACTION_START_TIMER -> {
-                    Events.sendTimerEvent(R.string.action_start, label);
-                    DataModel.getDataModel().startTimer(this, timer);
-                }
-                case ACTION_PAUSE_TIMER -> {
-                    Events.sendTimerEvent(R.string.action_pause, label);
-                    DataModel.getDataModel().pauseTimer(timer);
-                }
-                case ACTION_ADD_MINUTE_TIMER -> {
-                    Events.sendTimerEvent(R.string.action_add_minute, label);
-                    DataModel.getDataModel().addTimerMinute(timer);
-                }
-                case ACTION_RESET_TIMER -> DataModel.getDataModel().resetOrDeleteTimer(timer, label);
-                case ACTION_TIMER_EXPIRED -> {
-                    Events.sendTimerEvent(R.string.action_fire, label);
-                    DataModel.getDataModel().expireTimer(this, timer);
+            if (action != null) {
+                switch (action) {
+                    case ACTION_START_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_start, label);
+                        DataModel.getDataModel().startTimer(this, timer);
+                    }
+                    case ACTION_PAUSE_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_pause, label);
+                        DataModel.getDataModel().pauseTimer(timer);
+                    }
+                    case ACTION_ADD_MINUTE_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_add_minute, label);
+                        DataModel.getDataModel().addTimerMinute(timer);
+                    }
+                    case ACTION_RESET_TIMER -> DataModel.getDataModel().resetOrDeleteTimer(timer, label);
+                    case ACTION_TIMER_EXPIRED -> {
+                        Events.sendTimerEvent(R.string.action_fire, label);
+                        DataModel.getDataModel().expireTimer(this, timer);
+                    }
                 }
             }
         } finally {

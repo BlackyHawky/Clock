@@ -6,6 +6,7 @@
 
 package com.best.deskclock.widget.toast;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -25,6 +26,7 @@ public final class SnackbarSlidingBehavior extends CoordinatorLayout.Behavior<Vi
     public SnackbarSlidingBehavior(Context ignoredContext, AttributeSet ignoredAttrs) {
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
         return dependency instanceof Snackbar.SnackbarLayout;

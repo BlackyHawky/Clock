@@ -26,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 
+import java.util.Objects;
+
 public class ScreensaverActivity extends AppCompatActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
@@ -47,7 +49,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
-            switch (intent.getAction()) {
+            switch (Objects.requireNonNull(intent.getAction())) {
                 case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();

@@ -72,11 +72,6 @@ public class FirstLaunch extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
      * Automatically sets the application title according to whether it's the debug version or not.
      */

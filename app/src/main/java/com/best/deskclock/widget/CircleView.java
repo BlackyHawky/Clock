@@ -17,6 +17,8 @@ import android.util.Property;
 import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.best.deskclock.R;
 
 /**
@@ -111,7 +113,7 @@ public class CircleView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
         // draw the circle, duh

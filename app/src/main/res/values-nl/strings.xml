@@ -424,7 +424,6 @@
     <string name="storage_dialog_title">Externe opslag</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
     <string name="about_title">Over</string>
-    <string name="bedtime">Bedtijd</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
     <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>

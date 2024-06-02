@@ -73,13 +73,13 @@ public class AlarmVolumePreference extends Preference {
 
         mSeekbar.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
-            public void onViewAttachedToWindow(View v) {
+            public void onViewAttachedToWindow(@NonNull View v) {
                 context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
                         true, volumeObserver);
             }
 
             @Override
-            public void onViewDetachedFromWindow(View v) {
+            public void onViewDetachedFromWindow(@NonNull View v) {
                 context.getContentResolver().unregisterContentObserver(volumeObserver);
             }
         });

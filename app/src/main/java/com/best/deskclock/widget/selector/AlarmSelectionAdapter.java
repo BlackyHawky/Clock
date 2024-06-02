@@ -52,6 +52,7 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
         }
 
         final AlarmSelection selection = getItem(position);
+        assert selection != null;
         final Alarm alarm = selection.getAlarm();
 
         final TextTime alarmTime = row.findViewById(R.id.digital_clock);

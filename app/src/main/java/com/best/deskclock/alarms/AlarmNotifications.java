@@ -12,6 +12,7 @@ import static com.best.deskclock.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_C
 import static com.best.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -309,6 +310,7 @@ public final class AlarmNotifications {
         updateUpcomingAlarmGroupNotification(context, -1, notification);
     }
 
+    @SuppressLint("LaunchActivityFromNotification")
     static synchronized void showMissedNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
 

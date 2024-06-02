@@ -125,11 +125,13 @@ public class AlarmActivity extends AppCompatActivity
             LOGGER.v("Received broadcast: %s", action);
 
             if (!mAlarmHandled) {
-                switch (action) {
-                    case AlarmService.ALARM_SNOOZE_ACTION -> snooze();
-                    case AlarmService.ALARM_DISMISS_ACTION -> dismiss();
-                    case AlarmService.ALARM_DONE_ACTION -> finish();
-                    default -> LOGGER.i("Unknown broadcast: %s", action);
+                if (action != null) {
+                    switch (action) {
+                        case AlarmService.ALARM_SNOOZE_ACTION -> snooze();
+                        case AlarmService.ALARM_DISMISS_ACTION -> dismiss();
+                        case AlarmService.ALARM_DONE_ACTION -> finish();
+                        default -> LOGGER.i("Unknown broadcast: %s", action);
+                    }
                 }
             } else {
                 LOGGER.v("Ignored broadcast: %s", action);
@@ -284,6 +286,7 @@ public class AlarmActivity extends AppCompatActivity
         mPulseAnimator.start();
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onResume() {
         super.onResume();

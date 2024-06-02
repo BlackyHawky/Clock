@@ -467,7 +467,6 @@
     <string name="permission_management_summary">Afișează permisiunile necesare pentru ca aplicația să funcționeze corect</string>
     <string name="permission_requirement_title">Cerință: </string>
     <string name="permission_highly_recommended">Foarte recomandat</string>
-    <string name="bedtime">Ora de culcare</string>
     <string name="wakeup">Trezire</string>
     <string name="bedtime_reminder_notification">Notificare de memento</string>
     <string name="bedtime_reminder_notification_title">Ora de culcare începe la <xliff:g id="bed_time">%1$s</xliff:g></string>
