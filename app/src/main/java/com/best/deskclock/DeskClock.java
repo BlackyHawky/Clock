@@ -182,14 +182,13 @@ public class DeskClock extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        isFirstLaunch();
+
         Utils.applyThemeAndAccentColor(this);
 
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);
-
-        // Seems necessary if the application is launched from a widget
-        isFirstLaunch();
 
         showTabFromNotifications();
 

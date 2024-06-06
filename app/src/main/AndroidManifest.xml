@@ -48,20 +48,19 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.DeskClock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name="com.best.deskclock.DeskClock"
             android:exported="true"
             android:launchMode="singleTask"
-            android:excludeFromRecents="true"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -319,6 +318,7 @@
 
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
+            android:excludeFromRecents="true"
             android:label="@string/settings_digital_widget_title"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
@@ -357,6 +357,7 @@
 
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity"
+            android:excludeFromRecents="true"
             android:label="@string/settings_digital_widget_material_you_title"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
