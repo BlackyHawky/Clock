@@ -66,6 +66,8 @@
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
+        <item name="snackbarStyle">@style/SnackBarStyle</item>
+
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 

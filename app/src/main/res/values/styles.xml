@@ -68,6 +68,8 @@
 
         <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
 
+        <item name="snackbarStyle">@style/SnackBarStyle</item>
+
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
@@ -118,6 +120,10 @@
         <item name="pressedTranslationZ">0dp</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
+    </style>
+
+    <style name="SnackBarStyle" parent="@style/Widget.MaterialComponents.Snackbar">
+        <item name="android:background">@drawable/bg_snackbar</item>
     </style>
 
     <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
