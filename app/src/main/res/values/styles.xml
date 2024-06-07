@@ -114,6 +114,8 @@
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">?colorAccent</item>
+        <!-- Remove animation when floating action button is pressed -->
+        <item name="pressedTranslationZ">0dp</item>
         <!-- color used by the icon -->
         <item name="tint">@color/md_theme_inverseOnSurface</item>
     </style>
