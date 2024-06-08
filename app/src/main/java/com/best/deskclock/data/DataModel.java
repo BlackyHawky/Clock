@@ -401,6 +401,16 @@ public final class DataModel {
                 mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
             }
         }
+        if (timer.getRemainingTime() < 5) {
+            new Handler().postDelayed(new Runnable() {
+                public void run () {
+                    if (service != null) {
+                        expireTimer(service, started);
+                    } else {
+                        mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
+                    }
+                }
+            }, timer.getRemainingTime());
     }
 
     /**
