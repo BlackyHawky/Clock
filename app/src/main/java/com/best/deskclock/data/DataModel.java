@@ -401,7 +401,7 @@ public final class DataModel {
                 mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
             }
         }
-        if (timer.getRemainingTime() < 5) {
+        if (timer.getRemainingTime() < 5000) {
             new Handler().postDelayed(new Runnable() {
                 public void run () {
                     if (service != null) {
