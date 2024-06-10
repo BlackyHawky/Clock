@@ -6,7 +6,7 @@
 
 package com.best.deskclock.alarms.dataadapter;
 
-import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -65,7 +65,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             itemCardView.setCardBackgroundColor(
                     MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
             );
-        } else if (Utils.isNight(context.getResources()) && getDarkMode.equals((KEY_AMOLED_DARK_MODE))) {
+        } else if (Utils.isNight(context.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             itemCardView.setCardBackgroundColor(Color.BLACK);
         } else {
             itemCardView.setCardBackgroundColor(

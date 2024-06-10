@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/interface_customization_title">
+
+    <PreferenceCategory
+        android:title="@string/theme_styles_and_colors_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="key_theme"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/title_theme"
+            android:defaultValue="0"
+            android:entries="@array/array_theme"
+            android:entryValues="@array/theme_setting_entries"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="dark_mode"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/title_dark_theme_mode"
+            android:defaultValue="0"
+            android:entries="@array/dark_theme_mode_array_theme"
+            android:entryValues="@array/dark_theme_mode_setting_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_accent_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/title_accent_color"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_card_background"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_card_background_title"
+            android:summary="@string/display_card_background_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_card_background_border"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_background_border_title"
+            android:summary="@string/display_background_border_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_miscellaneous_category"
+        android:title="@string/miscellaneous_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_vibrations"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_vibration_title"
+            android:summary="@string/settings_vibration_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

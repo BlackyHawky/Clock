@@ -15,10 +15,10 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
-import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -37,6 +37,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
 import com.best.deskclock.settings.SettingsActivity;
 
@@ -148,42 +149,42 @@ final class SettingsDAO {
      * @return the theme applied.
      */
     static String getTheme(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_THEME, SYSTEM_THEME);
     }
 
     /**
      * @return the accent color applied.
      */
     static String getAccentColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
     }
 
     /**
      * @return the dark mode of the applied theme.
      */
     static String getDarkMode(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
     }
 
     /**
      * @return whether or not the background should be displayed in a view.
      */
     static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND, true);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BACKGROUND, true);
     }
 
     /**
      * @return whether or not the background border should be displayed in a view.
      */
     static boolean isCardBackgroundBorderDisplayed(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND_BORDER, false);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BACKGROUND_BORDER, false);
     }
 
     /**
      * @return whether or not the vibrations are enabled for the buttons.
      */
     static boolean isVibrationsEnabled(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_VIBRATIONS, false);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_VIBRATIONS, false);
     }
 
     /**

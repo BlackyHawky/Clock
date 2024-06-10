@@ -8,8 +8,8 @@ package com.best.deskclock.alarms;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
-import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;

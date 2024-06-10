@@ -3,7 +3,7 @@
 package com.best.deskclock.bedtime;
 
 import static android.content.Context.VIBRATOR_SERVICE;
-import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 
 import android.content.ContentResolver;

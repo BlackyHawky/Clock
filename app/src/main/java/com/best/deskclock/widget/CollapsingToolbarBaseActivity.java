@@ -6,7 +6,7 @@
 
 package com.best.deskclock.widget;
 
-import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

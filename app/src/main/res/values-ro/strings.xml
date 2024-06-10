@@ -512,7 +512,7 @@
     <string name="duplicate">Dublează</string>
     <string name="analog_gadget_material_you">Ceas analogic Material You</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
-    <string name="title_interface">Interfață</string>
+    <string name="interface_category_title">Interfață</string>
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>

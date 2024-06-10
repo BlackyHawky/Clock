@@ -98,7 +98,11 @@
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
     <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
-    <string name="title_interface">Interface</string>
+    <string name="interface_category_title">Interface</string>
+    <string name="interface_customization_title">Personnaliser l\'interface</string>
+    <string name="interface_customization_summary">Permet de modifier le style et la couleur appliqués à l\'application</string>
+    <string name="theme_styles_and_colors_category_title">Styles et couleurs du thème</string>
+    <string name="miscellaneous_category_title">Divers</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">
         <item>Système</item>
