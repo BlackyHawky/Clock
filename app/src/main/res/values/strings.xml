@@ -209,6 +209,10 @@
     <string name="theme_styles_and_colors_category_title">Theme styles and colors</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
+    <!-- Category title for ringtone settings -->
+    <string name="ringtone_category_title">Ringtone</string>
+    <!-- Category title for alarm actions -->
+    <string name="actions_category_title">Actions</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Entries listed in the ListPreference when selecting the theme. -->
@@ -882,6 +886,8 @@
     <string name="shortcut_start_screensaver_long">Start screensaver</string>
     <!-- Header in the preferences settings for the section pertaining to alarms -->
     <string name="alarm_settings">Alarms</string>
+    <string name="alarm_settings_title">Alarms settings</string>
+    <string name="alarm_settings_summary">Set ringtone, volume, actions to dismiss or snooze alarms and first day of the week</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->

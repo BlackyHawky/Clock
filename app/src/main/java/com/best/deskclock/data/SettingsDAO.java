@@ -15,10 +15,10 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -37,6 +37,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.AlarmSettingsActivity;
 import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
@@ -339,7 +340,7 @@ final class SettingsDAO {
      * @return the uri of the ringtone from the settings to play for all alarms
      */
     static Uri getAlarmRingtoneUriFromSettings(SharedPreferences prefs, Uri defaultUri) {
-        final String uriString = prefs.getString(SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE, null);
+        final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
@@ -362,7 +363,7 @@ final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied
      */
     static long getAlarmCrescendoDuration(SharedPreferences prefs) {
-        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_ALARM_CRESCENDO, "0");
+        final String crescendoSeconds = prefs.getString(AlarmSettingsActivity.KEY_ALARM_CRESCENDO, "0");
         return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
     }
 
@@ -381,7 +382,7 @@ final class SettingsDAO {
      */
     static Weekdays.Order getWeekdayOrder(SharedPreferences prefs) {
         final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
-        final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_WEEK_START, defaultValue);
         final int firstCalendarDay = Integer.parseInt(value);
         return switch (firstCalendarDay) {
             case SATURDAY -> SAT_TO_FRI;
@@ -413,12 +414,12 @@ final class SettingsDAO {
      * @return the behavior to execute when volume buttons are pressed while firing an alarm
      */
     static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
-        final String defaultValue = SettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
-        final String value = prefs.getString(SettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
+        final String defaultValue = AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
         return switch (value) {
-            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
-            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
-            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
+            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }
@@ -427,12 +428,12 @@ final class SettingsDAO {
      * @return the behavior to execute when power buttons are pressed while firing an alarm
      */
     static AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
-        final String defaultValue = SettingsActivity.DEFAULT_POWER_BEHAVIOR;
-        final String value = prefs.getString(SettingsActivity.KEY_POWER_BUTTONS, defaultValue);
+        final String defaultValue = AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR;
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_POWER_BUTTONS, defaultValue);
         return switch (value) {
-            case SettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
-            case SettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
-            case SettingsActivity.POWER_BEHAVIOR_DISMISS -> DISMISS;
+            case AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
+            case AlarmSettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
+            case AlarmSettingsActivity.POWER_BEHAVIOR_DISMISS -> DISMISS;
             default -> throw new IllegalArgumentException("Unknown power button behavior: " + value);
         };
     }
@@ -442,7 +443,7 @@ final class SettingsDAO {
      */
     static int getAlarmTimeout(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings.xml
-        final String string = prefs.getString(SettingsActivity.KEY_AUTO_SILENCE, "10");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_AUTO_SILENCE, "10");
         return Integer.parseInt(string);
     }
 
@@ -451,7 +452,7 @@ final class SettingsDAO {
      */
     static int getSnoozeLength(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings.xml
-        final String string = prefs.getString(SettingsActivity.KEY_ALARM_SNOOZE, "10");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_SNOOZE, "10");
         return Integer.parseInt(string);
     }
 
@@ -495,12 +496,12 @@ final class SettingsDAO {
     }
 
     static int getFlipAction(SharedPreferences prefs) {
-        final String string = prefs.getString(SettingsActivity.KEY_FLIP_ACTION, "0");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_FLIP_ACTION, "0");
         return Integer.parseInt(string);
     }
 
     static int getShakeAction(SharedPreferences prefs) {
-        final String string = prefs.getString(SettingsActivity.KEY_SHAKE_ACTION, "0");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_SHAKE_ACTION, "0");
         return Integer.parseInt(string);
     }
 
