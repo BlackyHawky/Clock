@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/timer_settings_title">
+
+    <PreferenceCategory
+        android:title="@string/ringtone_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="timer_ringtone"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/timer_sound"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="timer_crescendo_duration"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/crescendo_duration_title"
+            android:entries="@array/crescendo_entries"
+            android:entryValues="@array/crescendo_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="timer_vibrate"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/timer_vibrate_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

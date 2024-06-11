@@ -41,7 +41,7 @@ import com.best.deskclock.settings.AlarmSettingsActivity;
 import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
-import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.settings.TimerSettingsActivity;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -311,7 +311,7 @@ final class SettingsDAO {
      * has yet been made
      */
     static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
-        final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
+        final String uriString = prefs.getString(TimerSettingsActivity.KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
@@ -319,21 +319,21 @@ final class SettingsDAO {
      * @return whether timer vibration is enabled. false by default.
      */
     static boolean getTimerVibrate(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_TIMER_VIBRATE, false);
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, false);
     }
 
     /**
      * @param enabled whether vibration will be turned on for all timers.
      */
     static void setTimerVibrate(SharedPreferences prefs, boolean enabled) {
-        prefs.edit().putBoolean(SettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
+        prefs.edit().putBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
     }
 
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {
-        prefs.edit().putString(SettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
+        prefs.edit().putString(TimerSettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
     }
 
     /**
@@ -372,7 +372,7 @@ final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied
      */
     static long getTimerCrescendoDuration(SharedPreferences prefs) {
-        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_TIMER_CRESCENDO, "0");
+        final String crescendoSeconds = prefs.getString(TimerSettingsActivity.KEY_TIMER_CRESCENDO, "0");
         return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
     }
 

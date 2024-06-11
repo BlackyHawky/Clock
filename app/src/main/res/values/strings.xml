@@ -910,6 +910,8 @@
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
     <!-- Header in the preferences settings for the section pertaining to timers. -->
     <string name="timer_settings">Timers</string>
+    <string name="timer_settings_title">Timers settings</string>
+    <string name="timer_settings_summary">Set ringtone and volume to stop timers alarms</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->

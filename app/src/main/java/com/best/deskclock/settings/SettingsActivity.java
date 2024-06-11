@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -22,15 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;
@@ -46,9 +40,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
     public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
     public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
-    public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
-    public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
-    public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
+    public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
     public static final String KEY_SS_SETTINGS = "screensaver_settings";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_digital_widget_customization";
@@ -86,11 +78,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat implements
-            Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    public static class PrefsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
         Preference mPermissionMessage;
-        Preference mTimerVibrate;
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -113,28 +103,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public void onResume() {
             super.onResume();
             refresh();
-        }
-
-        @Override
-        public boolean onPreferenceChange(Preference pref, Object newValue) {
-            switch (pref.getKey()) {
-                case KEY_TIMER_CRESCENDO -> {
-                    final ListPreference preference = (ListPreference) pref;
-                    final int index = preference.findIndexOfValue((String) newValue);
-                    preference.setSummary(preference.getEntries()[index]);
-                }
-
-                case KEY_TIMER_VIBRATE -> {
-                    final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
-                    DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
-                    Utils.setVibrationTime(requireContext(), 50);
-                }
-
-                case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-            }
-            // Set result so DeskClock knows to refresh itself
-            requireActivity().setResult(RESULT_OK);
-            return true;
         }
 
         @Override
@@ -170,8 +138,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
-                case KEY_TIMER_RINGTONE -> {
-                    startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
+                case KEY_TIMER_SETTINGS -> {
+                    final Intent timerSettingsIntent = new Intent(context, TimerSettingsActivity.class);
+                    startActivity(timerSettingsIntent);
+                    // Set result so DeskClock knows to refresh itself
+                    requireActivity().setResult(RESULT_OK);
                     return true;
                 }
 
@@ -209,12 +180,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void hidePreferences() {
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
-            mTimerVibrate = findPreference(KEY_TIMER_VIBRATE);
-
-            assert mTimerVibrate != null;
-            final boolean hasVibrator = ((Vibrator) mTimerVibrate.getContext()
-                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-            mTimerVibrate.setVisible(hasVibrator);
 
             if (mPermissionMessage != null) {
                 mPermissionMessage.setVisible(
@@ -249,13 +214,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final Preference alarmSettingsPref = findPreference(KEY_ALARM_SETTINGS);
             Objects.requireNonNull(alarmSettingsPref).setOnPreferenceClickListener(this);
 
-            refreshListPreference(Objects.requireNonNull(findPreference(KEY_TIMER_CRESCENDO)));
-
-            final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
-            Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);
-            timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-
-            mTimerVibrate.setOnPreferenceChangeListener(this);
+            final Preference timerSettingsPref = findPreference(KEY_TIMER_SETTINGS);
+            Objects.requireNonNull(timerSettingsPref).setOnPreferenceClickListener(this);
 
             final Preference screensaverSettings = findPreference(KEY_SS_SETTINGS);
             Objects.requireNonNull(screensaverSettings).setOnPreferenceClickListener(this);
@@ -269,11 +229,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);
-        }
-
-        private void refreshListPreference(ListPreference preference) {
-            preference.setSummary(preference.getEntry());
-            preference.setOnPreferenceChangeListener(this);
         }
     }
 }

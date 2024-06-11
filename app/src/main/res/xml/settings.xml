@@ -72,28 +72,11 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:key="timer_ringtone"
+            android:key="key_timer_settings"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/timer_sound"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <ListPreference
-            android:key="timer_crescendo_duration"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/crescendo_duration_title"
-            android:entries="@array/crescendo_entries"
-            android:entryValues="@array/crescendo_values"
-            android:defaultValue="0"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:key="timer_vibrate"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/timer_vibrate_title"
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
+            android:title="@string/timer_settings_title"
+            android:summary="@string/timer_settings_summary"
+            android:icon="@drawable/ic_tab_timer_static"
             app:singleLineTitle="false" />
 
     </PreferenceCategory>

@@ -114,6 +114,13 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name="com.best.deskclock.settings.TimerSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/timer_settings_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name="com.best.deskclock.settings.PermissionsManagementActivity"
             android:excludeFromRecents="true"
             android:label="@string/permission_management_title"
