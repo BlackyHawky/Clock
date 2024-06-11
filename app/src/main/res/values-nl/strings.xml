@@ -412,6 +412,7 @@
     <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
     <string name="settings_permission_summary">Tik hier om de pagina rechtenbeheer te tonen.</string>
     <string name="interface_category_title">Uiterlijk</string>
+    <string name="style_category_title">Stijl</string>
     <string name="title_accent_color">Accentkleur</string>
     <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
     <string name="title_dark_theme_mode">Donker themastijl</string>
@@ -464,7 +465,6 @@
 \n• Dynamische kleuren voor Android 12+;  "</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
-    <string name="screensaver_style_group">Stijl</string>
     <string name="screensaver_color_group">Kleuren</string>
     <string name="screensaver_font_group">Lettertype</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>

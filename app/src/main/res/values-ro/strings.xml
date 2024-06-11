@@ -450,7 +450,6 @@
     <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>
     <string name="screensaver_daydream_settings">Selectează/activează screensaver-ul</string>
     <string name="screensaver_daydream_settings_summary">Deschide setările principale de screensaver Android</string>
-    <string name="screensaver_style_group">Stil</string>
     <string name="screensaver_color_group">Culori</string>
     <string name="screensaver_preview_group">Previzualizare și screensaver Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Culori dinamice ale ceasului</string>
@@ -513,6 +512,7 @@
     <string name="analog_gadget_material_you">Ceas analogic Material You</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
     <string name="interface_category_title">Interfață</string>
+    <string name="style_category_title">Stil</string>
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>

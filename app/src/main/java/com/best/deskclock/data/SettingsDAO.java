@@ -37,6 +37,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
 import com.best.deskclock.settings.SettingsActivity;
@@ -112,14 +113,14 @@ final class SettingsDAO {
      * displayed when it doesn't match the current timezone
      */
     static boolean getAutoShowHomeClock(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, true);
+        return prefs.getBoolean(ClockSettingsActivity.KEY_AUTO_HOME_CLOCK, true);
     }
 
     /**
      * @return the user's home timezone
      */
     static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
-        String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
+        String timeZoneId = prefs.getString(ClockSettingsActivity.KEY_HOME_TIME_ZONE, null);
 
         // If the recorded home timezone is legal, use it.
         final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis());
@@ -130,7 +131,7 @@ final class SettingsDAO {
         // No legal home timezone has yet been recorded, attempt to record the default.
         timeZoneId = defaultTZ.getID();
         if (timeZones.contains(timeZoneId)) {
-            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
+            prefs.edit().putString(ClockSettingsActivity.KEY_HOME_TIME_ZONE, timeZoneId).apply();
         }
 
         // The timezone returned here may be valid or invalid. When it matches TimeZone.getDefault()
@@ -142,7 +143,7 @@ final class SettingsDAO {
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     public static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
-        return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
+        return getClockStyle(context, prefs, ClockSettingsActivity.KEY_CLOCK_STYLE);
     }
 
     /**
@@ -191,14 +192,14 @@ final class SettingsDAO {
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
+        return prefs.getBoolean(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
     }
 
     /**
      * @param displaySeconds whether or not to display seconds on main clock
      */
     static void setDisplayClockSeconds(SharedPreferences prefs, boolean displaySeconds) {
-        prefs.edit().putBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
+        prefs.edit().putBoolean(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
     }
 
     /**
@@ -206,7 +207,7 @@ final class SettingsDAO {
      * not yet been manually chosen.
      */
     static void setDefaultDisplayClockSeconds(Context context, SharedPreferences prefs) {
-        if (!prefs.contains(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
+        if (!prefs.contains(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
             // If on analog clock style on upgrade, default to true. Otherwise, default to false.
             final boolean isAnalog = getClockStyle(context, prefs) == ClockStyle.ANALOG;
             setDisplayClockSeconds(prefs, isAnalog);

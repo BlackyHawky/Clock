@@ -39,46 +39,12 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
-        <ListPreference
-            android:key="clock_style"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/clock_style"
-            android:entries="@array/clock_style_entries"
-            android:entryValues="@array/clock_style_values"
-            android:defaultValue="@string/default_clock_style"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:key="display_clock_seconds"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/display_clock_seconds_pref"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:key="automatic_home_clock"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/automatic_home_clock"
-            android:summary="@string/automatic_home_clock_summary"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <ListPreference
-            android:key="home_time_zone"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/home_time_zone"
-            android:entries="@array/timezone_labels"
-            android:entryValues="@array/timezone_values"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
         <Preference
-            android:key="date_time"
+            android:key="key_clock_settings"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/open_date_settings"
-            app:iconSpaceReserved="false"
+            android:title="@string/clock_settings_title"
+            android:summary="@string/clock_settings_summary"
+            android:icon="@drawable/ic_tab_clock_static"
             app:singleLineTitle="false" />
 
     </PreferenceCategory>

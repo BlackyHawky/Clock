@@ -15,7 +15,6 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -33,7 +32,6 @@ import androidx.preference.TwoStatePreference;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -49,6 +47,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
     public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
+    public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
     public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -56,11 +55,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
     public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
-    public static final String KEY_CLOCK_STYLE = "clock_style";
-    public static final String KEY_CLOCK_DISPLAY_SECONDS = "display_clock_seconds";
-    public static final String KEY_HOME_TZ = "home_time_zone";
-    public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
-    public static final String KEY_DATE_TIME = "date_time";
     public static final String KEY_SS_SETTINGS = "screensaver_settings";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_POWER_BUTTONS = "power_button";
@@ -114,7 +108,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         Preference mPermissionMessage;
         Preference mTimerVibrate;
-        ListPreference mHomeTimeZonePref;
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -123,7 +116,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
             addPreferencesFromResource(R.xml.settings);
             hidePreferences();
-            loadTimeZoneList();
         }
 
         @Override
@@ -143,17 +135,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_CLOCK_STYLE, KEY_ALARM_CRESCENDO, KEY_HOME_TZ, KEY_ALARM_SNOOZE,
-                        KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS, KEY_FLIP_ACTION,
-                        KEY_SHAKE_ACTION, KEY_WEEK_START -> {
+                case KEY_ALARM_CRESCENDO, KEY_ALARM_SNOOZE, KEY_TIMER_CRESCENDO, KEY_VOLUME_BUTTONS,
+                        KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION, KEY_WEEK_START -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
-                }
-
-                case KEY_CLOCK_DISPLAY_SECONDS -> {
-                    DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
-                    Utils.setVibrationTime(requireContext(), 50);
                 }
 
                 case KEY_DEFAULT_ALARM_RINGTONE ->
@@ -162,13 +148,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_AUTO_SILENCE -> {
                     final String delay = (String) newValue;
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
-                }
-
-                case KEY_AUTO_HOME_CLOCK -> {
-                    final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
-                    final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
-                    Objects.requireNonNull(homeTimeZonePref).setEnabled(!autoHomeClockEnabled);
-                    Utils.setVibrationTime(requireContext(), 50);
                 }
 
                 case KEY_TIMER_VIBRATE -> {
@@ -201,10 +180,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
-                case KEY_DATE_TIME -> {
-                    final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
-                    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(dialogIntent);
+                case KEY_CLOCK_SETTINGS -> {
+                    final Intent ClockSettingsIntent = new Intent(context, ClockSettingsActivity.class);
+                    startActivity(ClockSettingsIntent);
+                    // Set result so DeskClock knows to refresh itself
+                    requireActivity().setResult(RESULT_OK);
                     return true;
                 }
 
@@ -266,18 +246,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             }
         }
 
-        /**
-         * Reconstruct the timezone list.
-         */
-        private void loadTimeZoneList() {
-            final TimeZones timezones = DataModel.getDataModel().getTimeZones();
-            mHomeTimeZonePref = findPreference(KEY_HOME_TZ);
-            assert mHomeTimeZonePref != null;
-            mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
-            mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
-            mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
-        }
-
         private void refresh() {
             mPermissionMessage.setVisible(
                     PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
@@ -298,14 +266,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             final Preference interfaceCustomizationPref = findPreference(KEY_INTERFACE_CUSTOMIZATION);
             Objects.requireNonNull(interfaceCustomizationPref).setOnPreferenceClickListener(this);
 
+            final Preference clockSettingsPref = findPreference(KEY_CLOCK_SETTINGS);
+            Objects.requireNonNull(clockSettingsPref).setOnPreferenceClickListener(this);
+
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();
             updateAutoSnoozeSummary(autoSilencePref, delay);
             autoSilencePref.setOnPreferenceChangeListener(this);
-
-            final ListPreference clockStylePref = findPreference(KEY_CLOCK_STYLE);
-            Objects.requireNonNull(clockStylePref).setSummary(clockStylePref.getEntry());
-            clockStylePref.setOnPreferenceChangeListener(this);
 
             final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
             Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());
@@ -315,23 +282,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             Objects.requireNonNull(powerButtonsPref).setSummary(powerButtonsPref.getEntry());
             powerButtonsPref.setOnPreferenceChangeListener(this);
 
-            final Preference clockSecondsPref = findPreference(KEY_CLOCK_DISPLAY_SECONDS);
-            Objects.requireNonNull(clockSecondsPref).setOnPreferenceChangeListener(this);
-
-            final Preference autoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
-            final boolean autoHomeClockEnabled =
-                    ((TwoStatePreference) Objects.requireNonNull(autoHomeClockPref)).isChecked();
-            autoHomeClockPref.setOnPreferenceChangeListener(this);
-
-            mHomeTimeZonePref.setEnabled(autoHomeClockEnabled);
-            refreshListPreference(mHomeTimeZonePref);
-
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_CRESCENDO)));
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_TIMER_CRESCENDO)));
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_SNOOZE)));
-
-            final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
-            Objects.requireNonNull(dateAndTimeSetting).setOnPreferenceClickListener(this);
 
             final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
             // Set the default value programmatically

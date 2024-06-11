@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
-        android:title="@string/screensaver_style_group"
+        android:title="@string/style_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:iconSpaceReserved="false">
 

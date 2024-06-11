@@ -99,6 +99,7 @@
     <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
     <string name="interface_category_title">Interface</string>
+    <string name="style_category_title">Style</string>
     <string name="interface_customization_title">Personnaliser l\'interface</string>
     <string name="interface_customization_summary">Permet de modifier le style et la couleur appliqués à l\'application</string>
     <string name="theme_styles_and_colors_category_title">Styles et couleurs du thème</string>
@@ -462,7 +463,6 @@
     <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
     <string name="no_wakeup_alarm">Aucun réveil défini</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
-    <string name="screensaver_style_group">Style</string>
     <string name="screensaver_color_group">Couleurs</string>
     <string name="screensaver_font_group">Police de caractères</string>
     <string name="screensaver_preview_group">Prévisualisation &amp; Économiseur d\'écran Android</string>
