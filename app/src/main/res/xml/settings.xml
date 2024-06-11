@@ -17,124 +17,68 @@
         android:icon="@drawable/ic_error"
         app:singleLineTitle="false" />
 
-    <PreferenceCategory
-        android:title="@string/interface_category_title"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+    <Preference
+        android:key="key_interface_customization"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/interface_customization_settings"
+        android:summary="@string/interface_customization_summary"
+        android:icon="@drawable/ic_palette"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:key="key_interface_customization"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/interface_customization_title"
-            android:summary="@string/interface_customization_summary"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
+    <Preference
+        android:key="key_clock_settings"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/clock_settings"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        android:summary="@string/clock_settings_summary"
+        android:icon="@drawable/ic_tab_clock_static"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:key="key_clock_settings"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/clock_settings_title"
-            android:summary="@string/clock_settings_summary"
-            android:icon="@drawable/ic_tab_clock_static"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
+    <Preference
+        android:key="key_alarm_settings"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/alarm_settings"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        android:summary="@string/alarm_settings_summary"
+        android:icon="@drawable/ic_tab_alarm_static"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:key="key_alarm_settings"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/alarm_settings_title"
-            android:summary="@string/alarm_settings_summary"
-            android:icon="@drawable/ic_tab_alarm_static"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
+    <Preference
+        android:key="key_timer_settings"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/timer_settings"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        android:summary="@string/timer_settings_summary"
+        android:icon="@drawable/ic_tab_timer_static"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:key="key_timer_settings"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/timer_settings_title"
-            android:summary="@string/timer_settings_summary"
-            android:icon="@drawable/ic_tab_timer_static"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
+    <Preference
+        android:key="screensaver_settings"
+        android:layout="@layout/settings_preference_layout"
         android:title="@string/screensaver_settings_title"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        android:summary="@string/screensaver_settings_summary"
+        android:icon="@drawable/ic_screensaver"
+        app:singleLineTitle="false" />
 
-        <Preference
-            android:key="screensaver_settings"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/screensaver_settings"
-            android:summary="@string/screensaver_settings_summary"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+    <Preference
+        android:key="key_digital_widget_customization"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/digital_widget_settings"
+        android:summary="@string/digital_widget_summary"
+        android:icon="@drawable/ic_widget"
+        app:singleLineTitle="false" />
 
-    </PreferenceCategory>
+    <Preference
+        android:key="key_digital_widget_material_you_customization"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/digital_widget_material_you_settings"
+        android:summary="@string/digital_widget_material_you_summary"
+        android:icon="@drawable/ic_widget"
+        app:singleLineTitle="false" />
 
-    <PreferenceCategory
-        android:title="@string/settings_digital_widget_category"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
-
-        <Preference
-            android:key="key_digital_widget_customization"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_title"
-            android:summary="@string/settings_digital_widget_summary"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <Preference
-            android:key="key_digital_widget_material_you_customization"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/settings_digital_widget_material_you_title"
-            android:summary="@string/settings_digital_widget_material_you_summary"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/permission_category_title"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
-
-        <Preference
-            android:key="permissions_management"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/permission_management_title"
-            android:summary="@string/permission_management_summary"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-    </PreferenceCategory>
+    <Preference
+        android:key="permissions_management"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/permission_settings"
+        android:summary="@string/permission_management_summary"
+        android:icon="@drawable/ic_key"
+        app:singleLineTitle="false" />
 
 </PreferenceScreen>

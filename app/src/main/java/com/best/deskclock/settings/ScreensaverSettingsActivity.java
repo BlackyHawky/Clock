@@ -95,6 +95,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         @Override
         public void onResume() {
             super.onResume();
+            int bottomPadding = Utils.toPixel(20, requireContext());
+            getListView().setPadding(0, 0, 0, bottomPadding);
+
             refresh();
         }
 

@@ -98,12 +98,15 @@
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
     <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
-    <string name="interface_category_title">Interface</string>
+    <string name="interface_customization_settings">Interface</string>
     <string name="style_category_title">Style</string>
+    <string name="styles_and_colors_category_title">Style et couleurs</string>
+    <string name="font_category_title">Police de caractères</string>
     <string name="interface_customization_title">Personnaliser l\'interface</string>
-    <string name="interface_customization_summary">Permet de modifier le style et la couleur appliqués à l\'application</string>
-    <string name="theme_styles_and_colors_category_title">Styles et couleurs du thème</string>
+    <string name="interface_customization_summary">Définit le style et la couleur appliqués à l\'application</string>
     <string name="miscellaneous_category_title">Divers</string>
+    <string name="ringtone_category_title">Sonnerie</string>
+    <string name="actions_category_title">Actions</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">
         <item>Système</item>
@@ -279,6 +282,8 @@
     <string name="home_label" msgid="4436139365695453870">"Domicile"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Villes"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Horloge"</string>
+    <string name="clock_settings_title">Paramètres de l\'horloge</string>
+    <string name="clock_settings_summary">Définit le style, le fuseau horaire et modifie la date et l\'heure de l\'appareil</string>
     <string name="clock_style" msgid="2265011060429742344">"Style"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afficher l\'heure avec les secondes"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Modifier la date et l\'heure"</string>
@@ -423,6 +428,8 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Économ. d\'écran"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
+    <string name="alarm_settings_title">Paramètres des alarmes</string>
+    <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes et le premier jour de la semaine</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
@@ -431,6 +438,8 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Faire glisser le doigt vers la gauche pour répéter"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Faire glisser le doigt vers la gauche pour répéter ou vers la droite pour arrêter"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
+    <string name="timer_settings_title">Paramètres des minuteurs</string>
+    <string name="timer_settings_summary">Définit la sonnerie par défaut et le volume des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs interrompus"</string>
@@ -463,11 +472,8 @@
     <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
     <string name="no_wakeup_alarm">Aucun réveil défini</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
-    <string name="screensaver_color_group">Couleurs</string>
-    <string name="screensaver_font_group">Police de caractères</string>
-    <string name="screensaver_preview_group">Prévisualisation &amp; Économiseur d\'écran Android</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
-    <string name="screensaver_settings_summary">Ouvre les paramètres de l\'économiseur d\'écran</string>
+    <string name="screensaver_settings_summary">Définit le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
@@ -558,28 +564,29 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
-    <string name="settings_digital_widget_category">Widgets numériques</string>
-    <string name="settings_digital_widget_title">Personnaliser le widget numérique</string>
-    <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs du widget numérique et de modifier la taille de la police de l\'horloge</string>
-    <string name="settings_digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
-    <string name="settings_digital_widget_material_you_summary">Permet de personnaliser les couleurs du widget numérique Material You et de modifier la taille de la police de l\'horloge</string>
-    <string name="settings_digital_widget_background_title">Afficher l\'arrière-plan</string>
-    <string name="settings_digital_widget_background_color_title">Couleur d\'arrière-plan</string>
-    <string name="settings_digital_widget_city_title">Afficher les villes sur le widget</string>
-    <string name="settings_digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>
-    <string name="settings_digital_widget_clock_custom_color_title">Couleur personalisée de l\'horloge principale</string>
-    <string name="settings_digital_widget_date_default_color_title">Utiliser la couleur par défaut pour la date</string>
-    <string name="settings_digital_widget_date_custom_color_title">Couleur personalisée de la date</string>
-    <string name="settings_digital_widget_next_alarm_default_color_title">Utiliser la couleur par défaut pour la prochaine alarme</string>
-    <string name="settings_digital_widget_next_alarm_custom_color_title">Couleur personalisée de la prochaine alarme</string>
-    <string name="settings_digital_widget_city_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge des villes</string>
-    <string name="settings_digital_widget_city_clock_custom_color_title">Couleur personalisée de l\'horloge des villes</string>
-    <string name="settings_digital_widget_city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
-    <string name="settings_digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
-    <string name="settings_digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
-    <string name="settings_digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
-    <string name="settings_digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
-    <string name="permission_category_title">Autorisations</string>
+    <string name="digital_widget_settings">Widget numérique</string>
+    <string name="digital_widget_title">Personnaliser le widget numérique</string>
+    <string name="digital_widget_summary">Définit les couleurs du widget numérique et de modifie la taille de la police de l\'horloge</string>
+    <string name="digital_widget_material_you_settings">Widget numérique Material You</string>
+    <string name="digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
+    <string name="digital_widget_material_you_summary">Définit les couleurs du widget numérique Material You et de modifie la taille de la police de l\'horloge</string>
+    <string name="digital_widget_background_title">Afficher l\'arrière-plan</string>
+    <string name="digital_widget_background_color_title">Couleur d\'arrière-plan</string>
+    <string name="digital_widget_city_title">Afficher les villes sur le widget</string>
+    <string name="digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>
+    <string name="digital_widget_clock_custom_color_title">Couleur personalisée de l\'horloge principale</string>
+    <string name="digital_widget_date_default_color_title">Utiliser la couleur par défaut pour la date</string>
+    <string name="digital_widget_date_custom_color_title">Couleur personalisée de la date</string>
+    <string name="digital_widget_next_alarm_default_color_title">Utiliser la couleur par défaut pour la prochaine alarme</string>
+    <string name="digital_widget_next_alarm_custom_color_title">Couleur personalisée de la prochaine alarme</string>
+    <string name="digital_widget_city_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge des villes</string>
+    <string name="digital_widget_city_clock_custom_color_title">Couleur personalisée de l\'horloge des villes</string>
+    <string name="digital_widget_city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
+    <string name="digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
+    <string name="digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
+    <string name="digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
+    <string name="digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
+    <string name="permission_settings">Autorisations</string>
     <string name="permission_management_title">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
     <string name="permission_requirement_title">Exigence : </string>

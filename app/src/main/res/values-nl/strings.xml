@@ -411,8 +411,9 @@
     <string name="analog_gadget_material_you">Analoge klok Material You</string>
     <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
     <string name="settings_permission_summary">Tik hier om de pagina rechtenbeheer te tonen.</string>
-    <string name="interface_category_title">Uiterlijk</string>
+    <string name="interface_customization_settings">Uiterlijk</string>
     <string name="style_category_title">Stijl</string>
+    <string name="font_category_title">Lettertype</string>
     <string name="title_accent_color">Accentkleur</string>
     <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
     <string name="title_dark_theme_mode">Donker themastijl</string>
@@ -465,8 +466,6 @@
 \n• Dynamische kleuren voor Android 12+;  "</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
-    <string name="screensaver_color_group">Kleuren</string>
-    <string name="screensaver_font_group">Lettertype</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
     <string name="screensaver_settings_summary">Opent screensaver-instellingen</string>
     <string name="screensaver_bold_digital_clock_title">Dikgedrukte digitale klok</string>
@@ -497,7 +496,7 @@
     <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN OP VOLLEDIG SCHERM SCHERM;&lt;/b&gt;</string>
     <string name="first_launch_dialog_title">Verlaten</string>
     <string name="first_launch_dialog_message">Weet je zeker dat je de app wil verlaten?</string>
-    <string name="permission_category_title">Rechten</string>
+    <string name="permission_settings">Rechten</string>
     <string name="permission_management_title">Rechtenbeheer</string>
     <string name="permission_requirement_title">Vereiste: </string>
     <string name="permission_highly_recommended">Sterk aanbevolen</string>
@@ -529,7 +528,6 @@
 \n
 \nSinds Android 13 verzoeken we een specifiek recht dat ons toestaat alleen de audio- en muziekbestanden te lezen.
 \nOmdat dit in oudere Androidversies niet ondersteund wordt moeten we toestemming vragen om de externe opslag te lezen.</string>
-    <string name="screensaver_preview_group">Voorvertoning &amp; Android screensaver</string>
     <string name="screensaver_brightness_title">Helderheid</string>
     <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
     <string name="wakeup">Wakker worden</string>

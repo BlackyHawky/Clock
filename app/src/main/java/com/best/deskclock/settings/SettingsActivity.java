@@ -17,14 +17,13 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;
@@ -52,30 +51,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, Menu.NONE, 0, R.string.about_title)
-                .setIcon(R.drawable.ic_about).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            final Intent settingIntent = new Intent(getApplicationContext(), AboutActivity.class);
-            startActivity(settingIntent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
@@ -102,6 +83,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public void onResume() {
             super.onResume();
+            int topAndBottomPadding = Utils.toPixel(20, requireContext());
+            getListView().setPadding(0, topAndBottomPadding, 0, topAndBottomPadding);
+
             refresh();
         }
 

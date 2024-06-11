@@ -423,19 +423,18 @@
     <string name="settings_vibration_title">Увімкнути вібрацію</string>
     <string name="alarm_inactive">Вимкнено</string>
     <string name="digital_gadget_material_you">Цифровий годинник Material You</string>
-    <string name="interface_category_title">Інтерфейс</string>
+    <string name="interface_customization_settings">Інтерфейс</string>
     <string name="style_category_title">Стиль</string>
+    <string name="font_category_title">Шрифт</string>
     <string name="power_button_title">Кнопка живлення</string>
     <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="dialog_close">Закрити</string>
     <string name="whats_new_title">Що нового</string>
     <string name="first_launch_button_now">Зараз</string>
-    <string name="permission_category_title">Дозволи</string>
+    <string name="permission_settings">Дозволи</string>
     <string name="bedtime_notification_action_pause">Призупинити на 30 хв</string>
     <string name="bedtime_channel">Час сну</string>
-    <string name="screensaver_color_group">Кольори</string>
-    <string name="screensaver_font_group">Шрифт</string>
     <string name="screensaver_brightness_title">Яскравість</string>
     <string name="screensaver_preview_title">Попередній перегляд</string>
     <string name="bedtime_notification_title">Режим «Час сну» увімкнено</string>
