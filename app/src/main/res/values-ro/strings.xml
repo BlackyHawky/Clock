@@ -432,7 +432,6 @@
     <string name="power_button_title">Butonul de pornire</string>
     <string name="add_label">Adaugă o etichetă</string>
     <string name="menu_bedtime">Ora de culcare</string>
-    <string name="screensaver_font_group">Font</string>
     <string name="about_title">Despre</string>
     <string name="app_slogan">Ceas 100% FOSS, bazat pe AOSP</string>
     <string name="version">Versiune</string>
@@ -450,9 +449,6 @@
     <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>
     <string name="screensaver_daydream_settings">Selectează/activează screensaver-ul</string>
     <string name="screensaver_daydream_settings_summary">Deschide setările principale de screensaver Android</string>
-    <string name="screensaver_style_group">Stil</string>
-    <string name="screensaver_color_group">Culori</string>
-    <string name="screensaver_preview_group">Previzualizare și screensaver Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Culori dinamice ale ceasului</string>
     <string name="screensaver_brightness_title">Luminozitate</string>
     <string name="screensaver_bold_digital_clock_title">Ceas digital aldin</string>
@@ -490,7 +486,7 @@
     <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI PE TOT ECRAN;&lt;/b&gt;</string>
     <string name="first_launch_dialog_title">Închide</string>
     <string name="first_launch_dialog_message">Sigur dorești să părăsești aplicația?</string>
-    <string name="permission_category_title">Permisiuni</string>
+    <string name="permission_settings">Permisiuni</string>
     <string name="permission_management_title">Gestionarea permisiunilor</string>
     <string name="revoke_permission_dialog_message">Sigur dorești să revoci această permisiune?</string>
     <string name="ignore_battery_optimizations_dialog_title">Optimizarea bateriei</string>
@@ -512,7 +508,9 @@
     <string name="duplicate">Dublează</string>
     <string name="analog_gadget_material_you">Ceas analogic Material You</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
-    <string name="interface_category_title">Interfață</string>
+    <string name="interface_customization_settings">Interfață</string>
+    <string name="style_category_title">Stil</string>
+    <string name="font_category_title">Font</string>
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>

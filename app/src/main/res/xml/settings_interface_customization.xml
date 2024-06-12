@@ -9,7 +9,7 @@
     android:title="@string/interface_customization_title">
 
     <PreferenceCategory
-        android:title="@string/theme_styles_and_colors_category_title"
+        android:title="@string/styles_and_colors_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">

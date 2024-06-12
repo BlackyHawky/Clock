@@ -36,7 +36,7 @@ import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.settings.TimerSettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 
@@ -847,7 +847,7 @@ final class TimerModel {
     private final class PreferenceListener implements OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (SettingsActivity.KEY_TIMER_RINGTONE.equals(key)) {
+            if (TimerSettingsActivity.KEY_TIMER_RINGTONE.equals(key)) {
                 mTimerRingtoneUri = null;
                 mTimerRingtoneTitle = null;
             }

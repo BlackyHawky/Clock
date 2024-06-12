@@ -125,6 +125,9 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
         @Override
         public void onResume() {
             super.onResume();
+            int bottomPadding = Utils.toPixel(20, requireContext());
+            getListView().setPadding(0, 0, 0, bottomPadding);
+
             refresh();
             updateMaterialYouDigitalWidget();
         }
@@ -158,11 +161,11 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
                         mDigitalWidgetMaxClockFontSizePref.setEnabled(areCitiesDisplayed);
                         if (!areCitiesDisplayed) {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                    requireContext().getString(R.string.settings_digital_widget_message_summary)
+                                    requireContext().getString(R.string.digital_widget_message_summary)
                             );
                         } else {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                    requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                                    requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
                                             + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
                             );
                         }
@@ -235,7 +238,7 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
                 case KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                            requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
                                     + newValue.toString()
                     );
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
@@ -296,19 +299,19 @@ public class DigitalWidgetMaterialYouCustomizationActivity extends CollapsingToo
                 if (mShowCitiesOnDigitalWidgetPref.isChecked()) {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.settings_digital_widget_message_summary)
+                            requireContext().getString(R.string.digital_widget_message_summary)
                     );
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                            requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
                                     + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
                     );
                 }
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                 mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.settings_digital_widget_max_clock_font_size_summary)
+                        requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
                                 + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
                 );
             }
