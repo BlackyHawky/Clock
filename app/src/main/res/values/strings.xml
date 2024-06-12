@@ -444,6 +444,8 @@
     <string name="change_setting_action">Change</string>
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
+    <!-- Title of the setting to enable swiping to dismiss or snooze alarms -->
+    <string name="swipe_action_title">Swipe to dismiss or snooze alarms</string>
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>

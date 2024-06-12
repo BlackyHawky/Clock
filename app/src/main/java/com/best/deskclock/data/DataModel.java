@@ -1036,6 +1036,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if swipe action is enabled to dismiss or snooze alarms. {@code false} otherwise.
+     */
+    public boolean isSwipeActionEnabled() {
+        enforceMainLooper();
+        return mSettingsModel.isSwipeActionEnabled();
+    }
+
+    /**
      * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
      * {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */

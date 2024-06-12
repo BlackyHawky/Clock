@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
@@ -30,6 +31,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
+    public static final String KEY_SWIPE_ACTION = "key_swipe_action";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
@@ -85,6 +87,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
                 }
 
+                case KEY_SWIPE_ACTION -> Utils.setVibrationTime(requireContext(), 50);
+
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS,
                         KEY_FLIP_ACTION, KEY_SHAKE_ACTION, KEY_WEEK_START -> {
                     final ListPreference preference = (ListPreference) pref;
@@ -124,6 +128,10 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_SNOOZE)));
 
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_CRESCENDO)));
+
+            final SwitchPreferenceCompat swipeActionPref = findPreference(KEY_SWIPE_ACTION);
+            Objects.requireNonNull(swipeActionPref).setChecked(DataModel.getDataModel().isSwipeActionEnabled());
+            swipeActionPref.setOnPreferenceChangeListener(this);
 
             final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
             Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());

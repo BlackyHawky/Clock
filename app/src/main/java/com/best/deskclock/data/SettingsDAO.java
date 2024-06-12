@@ -16,6 +16,7 @@ import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
@@ -374,6 +375,13 @@ final class SettingsDAO {
     static long getTimerCrescendoDuration(SharedPreferences prefs) {
         final String crescendoSeconds = prefs.getString(TimerSettingsActivity.KEY_TIMER_CRESCENDO, "0");
         return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
+     * @return {@code true} if swipe action is enabled to dismiss or snooze alarms. {@code false} otherwise.
+     */
+    static boolean isSwipeActionEnabled(SharedPreferences pref) {
+        return pref.getBoolean(KEY_SWIPE_ACTION, true);
     }
 
     /**

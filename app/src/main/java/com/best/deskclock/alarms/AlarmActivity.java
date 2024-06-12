@@ -100,6 +100,7 @@ public class AlarmActivity extends AppCompatActivity
     private AlarmVolumeButtonBehavior mPowerBehavior;
     private int mCurrentHourColor;
     private int mTextColor;
+    private boolean isSwipeActionEnabled;
     private boolean mReceiverRegistered;
     /**
      * Whether the AlarmService is currently bound
@@ -269,7 +270,12 @@ public class AlarmActivity extends AppCompatActivity
         mCurrentHourColor = getColor(R.color.md_theme_background);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
-        mAlarmButton.setOnTouchListener(this);
+        isSwipeActionEnabled = DataModel.getDataModel().isSwipeActionEnabled();
+        if (isSwipeActionEnabled) {
+            mAlarmButton.setOnTouchListener(this);
+        } else {
+            mAlarmButton.setOnTouchListener(null);
+        }
         mSnoozeButton.setOnClickListener(this);
         mDismissButton.setOnClickListener(this);
 
@@ -381,8 +387,9 @@ public class AlarmActivity extends AppCompatActivity
         }
         LOGGER.v("onClick: %s", view);
 
-        // If in accessibility mode, allow snooze/dismiss by double tapping on respective icons.
-        if (isAccessibilityEnabled()) {
+        // If in accessibility mode or if alarm swiping is disabled in settings,
+        // allow snooze/dismiss by tapping on respective icons.
+        if (isAccessibilityEnabled() || !isSwipeActionEnabled) {
             if (view == mSnoozeButton) {
                 snooze();
             } else if (view == mDismissButton) {

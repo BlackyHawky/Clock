@@ -67,6 +67,14 @@
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
+        <SwitchPreferenceCompat
+            android:key="key_swipe_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/swipe_action_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <ListPreference
             android:key="volume_button_setting"
             android:layout="@layout/settings_preference_layout"

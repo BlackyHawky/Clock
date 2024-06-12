@@ -240,6 +240,10 @@ final class SettingsModel {
         return SettingsDAO.getTimerCrescendoDuration(mPrefs);
     }
 
+    boolean isSwipeActionEnabled() {
+        return SettingsDAO.isSwipeActionEnabled(mPrefs);
+    }
+
     Weekdays.Order getWeekdayOrder() {
         return SettingsDAO.getWeekdayOrder(mPrefs);
     }

@@ -209,6 +209,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"La sonnerie d\'alarme par défaut est silencieuse."</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Modifier"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"L\'appareil est défini sur \"Aucune interruption\"."</string>
+    <string name="swipe_action_title">Glisser pour répéter ou arrêter les alarmes</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string-array name="volume_button_setting_entries">
         <item msgid="7972756698723318690">"Répéter"</item>
