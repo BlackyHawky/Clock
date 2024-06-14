@@ -513,6 +513,15 @@ final class SettingsDAO {
         return Integer.parseInt(string);
     }
 
+    /**
+     * @return the number of minutes before the upcoming alarm notification appears
+     */
+    static int getAlarmNotificationReminderTime(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30");
+        return Integer.parseInt(string);
+    }
+
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {
         final String defaultStyle = context.getString(R.string.default_clock_style);
         final String clockStyle = prefs.getString(key, defaultStyle);

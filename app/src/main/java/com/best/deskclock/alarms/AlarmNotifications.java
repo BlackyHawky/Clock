@@ -81,14 +81,13 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 7;
 
-    static synchronized void showUpcomingNotification(Context context, AlarmInstance instance, boolean lowPriority) {
-        LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId + "low priority: " + lowPriority);
+    static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
+        LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(
-                        R.string.alarm_alert_predismiss_title))
+                .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance, true))
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -101,15 +100,6 @@ public final class AlarmNotifications {
                 .setGroup(UPCOMING_GROUP_KEY);
 
         final int id = instance.hashCode();
-        if (lowPriority) {
-            // Setup up hide notification
-            Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
-                    AlarmStateManager.ALARM_DELETE_TAG, instance,
-                    AlarmInstance.HIDE_NOTIFICATION_STATE);
-
-            builder.setDeleteIntent(PendingIntent.getService(context, id, hideIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
-        }
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -186,7 +176,9 @@ public final class AlarmNotifications {
         return null;
     }
 
-    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
+    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId,
+                                                             Notification postedNotification) {
+
         final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstUpcoming = getFirstActiveNotification(context, UPCOMING_GROUP_KEY,
                 canceledNotificationId, postedNotification);
@@ -431,8 +423,7 @@ public final class AlarmNotifications {
      */
     static void updateNotification(Context context, AlarmInstance instance) {
         switch (instance.mAlarmState) {
-            case AlarmInstance.LOW_NOTIFICATION_STATE -> showUpcomingNotification(context, instance, true);
-            case AlarmInstance.HIGH_NOTIFICATION_STATE -> showUpcomingNotification(context, instance, false);
+            case AlarmInstance.NOTIFICATION_STATE -> showUpcomingNotification(context, instance);
             case AlarmInstance.SNOOZE_STATE -> showSnoozeNotification(context, instance);
             case AlarmInstance.MISSED_STATE -> showMissedNotification(context, instance);
             default -> LogUtils.d("No notification to update");

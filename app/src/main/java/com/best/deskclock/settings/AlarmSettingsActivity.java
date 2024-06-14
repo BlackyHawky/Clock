@@ -43,6 +43,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_FLIP_ACTION = "flip_action";
     public static final String KEY_SHAKE_ACTION = "shake_action";
     public static final String KEY_WEEK_START = "week_start";
+    public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +90,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_SWIPE_ACTION -> Utils.setVibrationTime(requireContext(), 50);
 
-                case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS, KEY_POWER_BUTTONS,
-                        KEY_FLIP_ACTION, KEY_SHAKE_ACTION, KEY_WEEK_START -> {
+                case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
+                        KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION, KEY_WEEK_START,
+                        KEY_ALARM_NOTIFICATION_REMINDER_TIME -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -156,6 +158,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             weekStartPref.setValueIndex(index);
             weekStartPref.setSummary(weekStartPref.getEntries()[index]);
             weekStartPref.setOnPreferenceChangeListener(this);
+
+            refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME)));
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

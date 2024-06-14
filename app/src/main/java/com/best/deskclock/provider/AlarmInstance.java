@@ -29,19 +29,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public final class AlarmInstance implements ClockContract.InstancesColumns {
-    /**
-     * Offset from alarm time to show low priority notification
-     */
-    public static final int LOW_NOTIFICATION_HOUR_OFFSET = -2;
 
-    /**
-     * Offset from alarm time to show high priority notification
-     */
-    public static final int HIGH_NOTIFICATION_MINUTE_OFFSET = -30;
     /**
      * AlarmInstances start with an invalid id when it hasn't been saved to the database.
      */
     public static final long INVALID_ID = -1;
+
     /**
      * Offset from alarm time to stop showing missed notification.
      */
@@ -362,24 +355,14 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
-     * Return the time when a low priority notification should be shown.
+     * Return the time when the notification should be shown.
      *
      * @return the time
      */
-    public Calendar getLowNotificationTime() {
+    public Calendar getNotificationTime() {
         Calendar calendar = getAlarmTime();
-        calendar.add(Calendar.HOUR_OF_DAY, LOW_NOTIFICATION_HOUR_OFFSET);
-        return calendar;
-    }
-
-    /**
-     * Return the time when a high priority notification should be shown.
-     *
-     * @return the time
-     */
-    public Calendar getHighNotificationTime() {
-        Calendar calendar = getAlarmTime();
-        calendar.add(Calendar.MINUTE, HIGH_NOTIFICATION_MINUTE_OFFSET);
+        int getAlarmNotificationReminderTime = DataModel.getDataModel().getAlarmNotificationReminderTime();
+        calendar.add(Calendar.MINUTE, -getAlarmNotificationReminderTime);
         return calendar;
     }
 

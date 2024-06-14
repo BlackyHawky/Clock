@@ -126,6 +126,10 @@ final class AlarmModel {
         return mSettingsModel.getShakeAction();
     }
 
+    int getAlarmNotificationReminderTime() {
+        return mSettingsModel.getAlarmNotificationReminderTime();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.

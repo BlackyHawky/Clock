@@ -641,6 +641,13 @@ public final class DataModel {
     }
 
     /**
+     * @return the number of minutes before the upcoming alarm notification appears
+     */
+    public int getAlarmNotificationReminderTime() {
+        return mAlarmModel.getAlarmNotificationReminderTime();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

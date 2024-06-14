@@ -54,24 +54,14 @@ import java.util.Objects;
  * <p>
  * SILENT_STATE:
  * This state is used when the alarm is activated, but doesn't need to display anything. It
- * is in charge of changing the alarm instance state to a LOW_NOTIFICATION_STATE.
+ * is in charge of changing the alarm instance state to a NOTIFICATION_STATE.
  * <p>
- * LOW_NOTIFICATION_STATE:
+ * NOTIFICATION_STATE:
  * This state is used to notify the user that the alarm will go off
- * {@link AlarmInstance#LOW_NOTIFICATION_HOUR_OFFSET}. This
- * state handles the state changes to HIGH_NOTIFICATION_STATE, HIDE_NOTIFICATION_STATE and
- * DISMISS_STATE.
- * <p>
- * HIDE_NOTIFICATION_STATE:
- * This is a transient state of the LOW_NOTIFICATION_STATE, where the user wants to hide the
- * notification. This will sit and wait until the HIGH_PRIORITY_NOTIFICATION should go off.
- * <p>
- * HIGH_NOTIFICATION_STATE:
- * This state behaves like the LOW_NOTIFICATION_STATE, but doesn't allow the user to hide it.
- * This state is in charge of triggering a FIRED_STATE or DISMISS_STATE.
+ * It is in charge of triggering a FIRED_STATE or DISMISS_STATE
  * <p>
  * SNOOZED_STATE:
- * The SNOOZED_STATE behaves like a HIGH_NOTIFICATION_STATE, but with a different message. It
+ * The SNOOZED_STATE behaves like a NOTIFICATION_STATE, but with a different message. It
  * also increments the alarm time in the instance to reflect the new snooze time.
  * <p>
  * FIRED_STATE:
@@ -105,10 +95,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Extra key to indicate the state change was launched from a notification.
     public static final String FROM_NOTIFICATION_EXTRA = "intent.extra.from.notification";
 
-    // Intent category tags used to dismiss, snooze or delete an alarm
+    // Intent category tags used to dismiss or snooze an alarm
     public static final String ALARM_DISMISS_TAG = "DISMISS_TAG";
     public static final String ALARM_SNOOZE_TAG = "SNOOZE_TAG";
-    public static final String ALARM_DELETE_TAG = "DELETE_TAG";
 
     // Buffer time in seconds to fire alarm instead of marking it missed.
     public static final int ALARM_FIRE_BUFFER = 15;
@@ -288,7 +277,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         sStateChangeScheduler.cancelScheduledInstanceStateChange(ctx, instance);
     }
 
-
     /**
      * This will set the alarm instance to the SILENT_STATE and update
      * the application notifications and schedule any state changes that need
@@ -307,71 +295,28 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getLowNotificationTime(),
-                instance, AlarmInstance.LOW_NOTIFICATION_STATE);
+        scheduleInstanceStateChange(context, instance.getNotificationTime(),
+                instance, AlarmInstance.NOTIFICATION_STATE);
     }
 
     /**
-     * This will set the alarm instance to the LOW_NOTIFICATION_STATE and update
+     * This will set the alarm instance to the NOTIFICATION_STATE and update
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
      * @param context  application context
      * @param instance to set state to
      */
-    public static void setLowNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.i("Setting low notification state to instance " + instance.mId);
-
-        // Update alarm state in db
-        ContentResolver contentResolver = context.getContentResolver();
-        instance.mAlarmState = AlarmInstance.LOW_NOTIFICATION_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
-
-        // Setup instance notification and scheduling timers
-        AlarmNotifications.showUpcomingNotification(context, instance, true);
-        scheduleInstanceStateChange(context, instance.getHighNotificationTime(),
-                instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
-    }
-
-    /**
-     * This will set the alarm instance to the HIDE_NOTIFICATION_STATE and update
-     * the application notifications and schedule any state changes that need
-     * to occur in the future.
-     *
-     * @param context  application context
-     * @param instance to set state to
-     */
-    public static void setHideNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.i("Setting hide notification state to instance " + instance.mId);
-
-        // Update alarm state in db
-        ContentResolver contentResolver = context.getContentResolver();
-        instance.mAlarmState = AlarmInstance.HIDE_NOTIFICATION_STATE;
-        AlarmInstance.updateInstance(contentResolver, instance);
-
-        // Setup instance notification and scheduling timers
-        AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getHighNotificationTime(), instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
-    }
-
-    /**
-     * This will set the alarm instance to the HIGH_NOTIFICATION_STATE and update
-     * the application notifications and schedule any state changes that need
-     * to occur in the future.
-     *
-     * @param context  application context
-     * @param instance to set state to
-     */
-    public static void setHighNotificationState(Context context, AlarmInstance instance) {
+    public static void setNotificationState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting high notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
-        instance.mAlarmState = AlarmInstance.HIGH_NOTIFICATION_STATE;
+        instance.mAlarmState = AlarmInstance.NOTIFICATION_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
 
         // Setup instance notification and scheduling timers
-        AlarmNotifications.showUpcomingNotification(context, instance, false);
+        AlarmNotifications.showUpcomingNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
     }
 
@@ -596,8 +541,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Calendar currentTime = getCurrentTime();
         final Calendar alarmTime = instance.getAlarmTime();
         final Calendar timeoutTime = instance.getTimeout();
-        final Calendar lowNotificationTime = instance.getLowNotificationTime();
-        final Calendar highNotificationTime = instance.getHighNotificationTime();
+        final Calendar notificationTime = instance.getNotificationTime();
         final Calendar missedTTL = instance.getMissedTimeToLive();
 
         // Handle special use cases here
@@ -624,8 +568,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 }
 
                 // TODO: This will re-activate missed snoozed alarms, but will
-                // use our normal notifications. This is not ideal, but very rare use-case.
-                // We should look into fixing this in the future.
+                //  use our normal notifications. This is not ideal, but very rare use-case.
+                //  We should look into fixing this in the future.
 
                 // Make sure we re-enable the parent alarm of the instance
                 // because it will get activated by by the below code
@@ -662,15 +606,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // so handle showing the notification directly
             AlarmNotifications.showSnoozeNotification(context, instance);
             scheduleInstanceStateChange(context, instance.getAlarmTime(), instance, AlarmInstance.FIRED_STATE);
-        } else if (currentTime.after(highNotificationTime)) {
-            setHighNotificationState(context, instance);
-        } else if (currentTime.after(lowNotificationTime)) {
-            // Only show low notification if it wasn't hidden in the past
-            if (instance.mAlarmState == AlarmInstance.HIDE_NOTIFICATION_STATE) {
-                setHideNotificationState(context, instance);
-            } else {
-                setLowNotificationState(context, instance);
-            }
+        } else if (currentTime.after(notificationTime)) {
+            setNotificationState(context, instance);
         } else {
             // Alarm is still active, so initialize as a silent alarm
             setSilentState(context, instance);
@@ -760,14 +697,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
         switch (state) {
             case AlarmInstance.SILENT_STATE -> setSilentState(context, instance);
-            case AlarmInstance.LOW_NOTIFICATION_STATE -> setLowNotificationState(context, instance);
-            case AlarmInstance.HIDE_NOTIFICATION_STATE ->
-                    setHideNotificationState(context, instance);
-            case AlarmInstance.HIGH_NOTIFICATION_STATE ->
-                    setHighNotificationState(context, instance);
+            case AlarmInstance.NOTIFICATION_STATE -> setNotificationState(context, instance);
             case AlarmInstance.FIRED_STATE -> setFiredState(context, instance);
-            case AlarmInstance.SNOOZE_STATE ->
-                    setSnoozeState(context, instance, true);
+            case AlarmInstance.SNOOZE_STATE -> setSnoozeState(context, instance, true);
             case AlarmInstance.MISSED_STATE -> setMissedState(context, instance);
             case AlarmInstance.PREDISMISSED_STATE -> setPreDismissState(context, instance);
             case AlarmInstance.DISMISSED_STATE -> deleteInstanceAndUpdateParent(context, instance);

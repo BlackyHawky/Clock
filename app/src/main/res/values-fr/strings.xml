@@ -136,6 +136,17 @@
     <string name="settings_vibration_title">Activer les vibrations</string>
     <string name="settings_vibration_summary">Seuls certains boutons de l\'interface sont concernés (ex. : le bouton lecture/pause du minuteur ou les interrupteurs)</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
+    <string name="alarm_notification_reminder_title">Rappel de la notification</string>
+    <string-array name="alarm_notification_reminder_entries">
+        <item>5 minutes avant</item>
+        <item>10 minutes avant</item>
+        <item>15 minutes avant</item>
+        <item>20 minutes avant</item>
+        <item>30 minutes avant</item>
+        <item>45 minutes avant</item>
+        <item>1 heure avant</item>
+        <item>2 heures avant</item>
+    </string-array>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -430,7 +441,7 @@
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="alarm_settings_title">Paramètres des alarmes</string>
-    <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes et le premier jour de la semaine</string>
+    <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>

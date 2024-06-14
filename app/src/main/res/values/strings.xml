@@ -282,6 +282,32 @@
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
+    <!-- Setting title for changing the notification reminder. -->
+    <string name="alarm_notification_reminder_title">Notification reminder</string>
+    <!-- Entries listed in the ListPreference when invoking the notification reminder
+     preference. -->
+    <string-array name="alarm_notification_reminder_entries">
+        <item>5 minutes before</item>
+        <item>10 minutes before</item>
+        <item>15 minutes before</item>
+        <item>20 minutes before</item>
+        <item>30 minutes before</item>
+        <item>45 minutes before</item>
+        <item>1 hour before</item>
+        <item>2 hours before</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the alarm_notification_reminder_entries above. -->
+    <string-array name="alarm_notification_reminder_values" translatable="false">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>120</item>
+    </string-array>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
@@ -893,7 +919,7 @@
     <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
     <string name="alarm_settings_title">Alarms settings</string>
-    <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms and first day of the week</string>
+    <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->

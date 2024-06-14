@@ -213,6 +213,10 @@ final class SettingsModel {
         return SettingsDAO.getShakeAction(mPrefs);
     }
 
+    int getAlarmNotificationReminderTime() {
+        return SettingsDAO.getAlarmNotificationReminderTime(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;

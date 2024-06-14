@@ -29,6 +29,7 @@ import com.best.deskclock.BuildConfig;
  * </ul>
  */
 public final class ClockContract {
+
     /**
      * This authority is used for writing to or querying from the clock
      * provider.
@@ -45,6 +46,7 @@ public final class ClockContract {
      * Constants for tables with AlarmSettings.
      */
     private interface AlarmSettingColumns extends BaseColumns {
+
         /**
          * This string is used to indicate no ringtone.
          */
@@ -83,6 +85,7 @@ public final class ClockContract {
      * Constants for the Alarms table, which contains the user created alarms.
      */
     protected interface AlarmsColumns extends AlarmSettingColumns, BaseColumns {
+
         /**
          * The content:// style URL for this table.
          */
@@ -132,6 +135,7 @@ public final class ClockContract {
      * Constants for the Instance table, which contains the state of each alarm.
      */
     protected interface InstancesColumns extends AlarmSettingColumns, BaseColumns {
+
         /**
          * The content:// style URL for this table.
          */
@@ -141,36 +145,18 @@ public final class ClockContract {
          * Alarm state when to show no notification.
          * <p>
          * Can transitions to:
-         * LOW_NOTIFICATION_STATE
+         * NOTIFICATION_STATE
          */
         int SILENT_STATE = 0;
 
         /**
-         * Alarm state to show low priority alarm notification.
-         * <p>
-         * Can transitions to:
-         * HIDE_NOTIFICATION_STATE
-         * HIGH_NOTIFICATION_STATE
-         * DISMISSED_STATE
-         */
-        int LOW_NOTIFICATION_STATE = 1;
-
-        /**
-         * Alarm state to hide low priority alarm notification.
-         * <p>
-         * Can transitions to:
-         * HIGH_NOTIFICATION_STATE
-         */
-        int HIDE_NOTIFICATION_STATE = 2;
-
-        /**
-         * Alarm state to show high priority alarm notification.
+         * Alarm state to show alarm notification.
          * <p>
          * Can transitions to:
          * DISMISSED_STATE
          * FIRED_STATE
          */
-        int HIGH_NOTIFICATION_STATE = 3;
+        int NOTIFICATION_STATE = 1;
 
         /**
          * Alarm state when alarm is in snooze.
@@ -179,7 +165,7 @@ public final class ClockContract {
          * DISMISSED_STATE
          * FIRED_STATE
          */
-        int SNOOZE_STATE = 4;
+        int SNOOZE_STATE = 2;
 
         /**
          * Alarm state when alarm is being fired.
@@ -189,7 +175,7 @@ public final class ClockContract {
          * SNOOZED_STATE
          * MISSED_STATE
          */
-        int FIRED_STATE = 5;
+        int FIRED_STATE = 3;
 
         /**
          * Alarm state when alarm has been missed.
@@ -197,17 +183,17 @@ public final class ClockContract {
          * Can transitions to:
          * DISMISSED_STATE
          */
-        int MISSED_STATE = 6;
+        int MISSED_STATE = 4;
 
         /**
          * Alarm state when alarm is done.
          */
-        int DISMISSED_STATE = 7;
+        int DISMISSED_STATE = 5;
 
         /**
          * Alarm state when alarm has been dismissed before its intended firing time.
          */
-        int PREDISMISSED_STATE = 8;
+        int PREDISMISSED_STATE = 6;
 
         /**
          * Alarm year.
