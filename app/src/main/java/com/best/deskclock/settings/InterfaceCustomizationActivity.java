@@ -126,6 +126,8 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 case KEY_CARD_BACKGROUND -> {
                     final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
                     cardBackgroundPref.setChecked(DataModel.getDataModel().isCardBackgroundDisplayed());
+                    // Set result so DeskClock knows to refresh itself
+                    requireActivity().setResult(RESULT_OK);
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
@@ -134,6 +136,8 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     cardBackgroundBorderPref.setChecked(
                             DataModel.getDataModel().isCardBackgroundBorderDisplayed()
                     );
+                    // Set result so DeskClock knows to refresh itself
+                    requireActivity().setResult(RESULT_OK);
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 

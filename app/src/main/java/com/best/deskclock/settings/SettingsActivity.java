@@ -61,6 +61,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static class PrefsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
+        public static final int REQUEST_CHANGE_SETTINGS = 10;
+
         Preference mPermissionMessage;
 
         @Override
@@ -90,6 +92,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
+                // Set result so DeskClock knows to refresh itself
+                requireActivity().setResult(RESULT_OK);
+            }
+        }
+
+        @Override
         public boolean onPreferenceClick(@NonNull Preference pref) {
             final Context context = getActivity();
             if (context == null) {
@@ -100,33 +111,25 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_INTERFACE_CUSTOMIZATION -> {
                     final Intent interfaceCustomizationIntent =
                             new Intent(context, InterfaceCustomizationActivity.class);
-                    startActivity(interfaceCustomizationIntent);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
+                    startActivityForResult(interfaceCustomizationIntent, REQUEST_CHANGE_SETTINGS);
                     return true;
                 }
 
                 case KEY_CLOCK_SETTINGS -> {
                     final Intent clockSettingsIntent = new Intent(context, ClockSettingsActivity.class);
-                    startActivity(clockSettingsIntent);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
+                    startActivityForResult(clockSettingsIntent, REQUEST_CHANGE_SETTINGS);
                     return true;
                 }
 
                 case KEY_ALARM_SETTINGS -> {
                     final Intent alarmSettingsIntent = new Intent(context, AlarmSettingsActivity.class);
-                    startActivity(alarmSettingsIntent);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
+                    startActivityForResult(alarmSettingsIntent, REQUEST_CHANGE_SETTINGS);
                     return true;
                 }
 
                 case KEY_TIMER_SETTINGS -> {
                     final Intent timerSettingsIntent = new Intent(context, TimerSettingsActivity.class);
                     startActivity(timerSettingsIntent);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
                     return true;
                 }
 

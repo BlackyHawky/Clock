@@ -91,11 +91,19 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_SWIPE_ACTION -> Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
-                        KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION, KEY_WEEK_START,
+                        KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
                         KEY_ALARM_NOTIFICATION_REMINDER_TIME -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
+                }
+
+                case KEY_WEEK_START -> {
+                    final ListPreference preference = (ListPreference) pref;
+                    final int index = preference.findIndexOfValue((String) newValue);
+                    preference.setSummary(preference.getEntries()[index]);
+                    // Set result so DeskClock knows to refresh itself
+                    requireActivity().setResult(RESULT_OK);
                 }
             }
 
