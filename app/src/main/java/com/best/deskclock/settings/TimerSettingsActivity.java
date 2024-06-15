@@ -113,7 +113,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
             final ListPreference timerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
-            Objects.requireNonNull(timerCrescendoPref).setOnPreferenceClickListener(this);
+            Objects.requireNonNull(timerCrescendoPref).setOnPreferenceChangeListener(this);
             timerCrescendoPref.setSummary(timerCrescendoPref.getEntry());
 
             mTimerVibrate.setOnPreferenceChangeListener(this);
