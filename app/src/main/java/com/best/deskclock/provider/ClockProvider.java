@@ -70,6 +70,8 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.DAYS_OF_WEEK);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
+                ALARMS_TABLE_NAME + "." + AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL,
@@ -97,6 +99,8 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.MINUTES);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
     }

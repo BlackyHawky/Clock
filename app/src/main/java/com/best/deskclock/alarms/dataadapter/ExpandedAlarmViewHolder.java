@@ -47,6 +47,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     public final LinearLayout repeatDays;
     public final CheckBox vibrate;
+    public final CheckBox stopAlarmWhenRingtoneEnds;
     public final TextView ringtone;
     public final Chip delete;
     public final Chip duplicate;
@@ -59,14 +60,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         mHasVibrator = hasVibrator;
 
+        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
+        ringtone = itemView.findViewById(R.id.choose_ringtone);
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
+        stopAlarmWhenRingtoneEnds = itemView.findViewById(R.id.stop_alarm_when_ringtone_ends_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
-        ringtone = itemView.findViewById(R.id.choose_ringtone);
-        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
 
         final Context context = itemView.getContext();
-
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -94,6 +95,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         // Edit time handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+
+        // Ringtone off checkbox handler
+        stopAlarmWhenRingtoneEnds.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setStopAlarmWhenRingtoneEnds(getItemHolder().item, ((CheckBox) v).isChecked()));
 
         // Vibrator checkbox handler
         vibrate.setOnClickListener(v ->
@@ -133,9 +138,24 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
         bindDaysOfWeekButtons(alarm, context);
-        bindVibrator(alarm);
         bindRingtone(context, alarm);
+        bindStopAlarmWhenRingtoneEnds(alarm);
+        bindVibrator(alarm);
         bindDuplicateButton();
+    }
+
+    private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
+        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
+        for (int i = 0; i < weekdays.size(); i++) {
+            final CompoundButton dayButton = dayButtons[i];
+            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
+                dayButton.setChecked(true);
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+            } else {
+                dayButton.setChecked(false);
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+            }
+        }
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -152,17 +172,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
     }
 
-    private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
-        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
-        for (int i = 0; i < weekdays.size(); i++) {
-            final CompoundButton dayButton = dayButtons[i];
-            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
-                dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
-            } else {
-                dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
-            }
+    private void bindStopAlarmWhenRingtoneEnds(Alarm alarm) {
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        if (timeoutMinutes == -2) {
+            stopAlarmWhenRingtoneEnds.setVisibility(View.GONE);
+        } else {
+            stopAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
+            stopAlarmWhenRingtoneEnds.setChecked(alarm.stopAlarmWhenRingtoneEnds);
         }
     }
 

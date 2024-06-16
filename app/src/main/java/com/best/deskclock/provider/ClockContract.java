@@ -53,6 +53,12 @@ public final class ClockContract {
         Uri NO_RINGTONE_URI = Uri.EMPTY;
 
         /**
+         * True if alarm should stop at the end of the ringtone
+         * <p>Type: BOOLEAN</p>
+         */
+        String STOP_ALARM_WHEN_RINGTONE_ENDS = "stopAlarmWhenRingtoneEnds";
+
+        /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */

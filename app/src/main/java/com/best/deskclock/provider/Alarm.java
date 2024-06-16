@@ -34,14 +34,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * Alarms start with an invalid id when it hasn't been saved to the database.
      */
     public static final long INVALID_ID = -1;
-    public static final int INSTANCE_ID_INDEX = 10;
-    public static final int INSTANCE_YEAR_INDEX = 11;
-    public static final int INSTANCE_MONTH_INDEX = 12;
-    public static final int INSTANCE_DAY_INDEX = 13;
-    public static final int INSTANCE_HOUR_INDEX = 14;
-    public static final int INSTANCE_MINUTE_INDEX = 15;
-    public static final int INSTANCE_LABEL_INDEX = 16;
-    public static final int INSTANCE_VIBRATE_INDEX = 17;
+
     public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
         public Alarm createFromParcel(Parcel p) {
             return new Alarm(p);
@@ -64,6 +57,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             MINUTES,
             DAYS_OF_WEEK,
             ENABLED,
+            STOP_ALARM_WHEN_RINGTONE_ENDS,
             VIBRATE,
             LABEL,
             RINGTONE,
@@ -76,6 +70,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + STOP_ALARM_WHEN_RINGTONE_ENDS,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
@@ -90,6 +85,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.HOUR,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE
     };
     /**
@@ -101,21 +97,33 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int MINUTES_INDEX = 2;
     private static final int DAYS_OF_WEEK_INDEX = 3;
     private static final int ENABLED_INDEX = 4;
-    private static final int VIBRATE_INDEX = 5;
-    private static final int LABEL_INDEX = 6;
-    private static final int RINGTONE_INDEX = 7;
-    private static final int DELETE_AFTER_USE_INDEX = 8;
-    private static final int INCREASING_VOLUME_INDEX = 9;
-    private static final int INSTANCE_STATE_INDEX = 9;
+    private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 5;
+    private static final int VIBRATE_INDEX = 6;
+    private static final int LABEL_INDEX = 7;
+    private static final int RINGTONE_INDEX = 8;
+    private static final int DELETE_AFTER_USE_INDEX = 9;
+    private static final int INCREASING_VOLUME_INDEX = 10;
+
+    private static final int INSTANCE_STATE_INDEX = 11;
+    public static final int INSTANCE_ID_INDEX = 12;
+    public static final int INSTANCE_YEAR_INDEX = 13;
+    public static final int INSTANCE_MONTH_INDEX = 14;
+    public static final int INSTANCE_DAY_INDEX = 15;
+    public static final int INSTANCE_HOUR_INDEX = 16;
+    public static final int INSTANCE_MINUTE_INDEX = 17;
+    public static final int INSTANCE_LABEL_INDEX = 18;
+    public static final int INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 19;
+    public static final int INSTANCE_VIBRATE_INDEX = 20;
+
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_VIBRATE_INDEX + 1;
     // Public fields
-    // TODO: Refactor instance names
     public long id;
     public boolean enabled;
     public int hour;
     public int minutes;
     public Weekdays daysOfWeek;
+    public boolean stopAlarmWhenRingtoneEnds;
     public boolean vibrate;
     public String label;
     public Uri alert;
@@ -133,6 +141,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.id = INVALID_ID;
         this.hour = hour;
         this.minutes = minutes;
+        this.stopAlarmWhenRingtoneEnds = true;
         this.vibrate = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
@@ -147,6 +156,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         hour = c.getInt(HOUR_INDEX);
         minutes = c.getInt(MINUTES_INDEX);
         daysOfWeek = Weekdays.fromBits(c.getInt(DAYS_OF_WEEK_INDEX));
+        stopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
@@ -173,6 +183,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         hour = p.readInt();
         minutes = p.readInt();
         daysOfWeek = Weekdays.fromBits(p.readInt());
+        stopAlarmWhenRingtoneEnds = p.readInt() == 1;
         vibrate = p.readInt() == 1;
         label = p.readString();
         alert = p.readParcelable(null);
@@ -190,6 +201,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(HOUR, alarm.hour);
         values.put(MINUTES, alarm.minutes);
         values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
+        values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, alarm.stopAlarmWhenRingtoneEnds ? 1 : 0);
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
@@ -319,6 +331,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(hour);
         p.writeInt(minutes);
         p.writeInt(daysOfWeek.getBits());
+        p.writeInt(stopAlarmWhenRingtoneEnds ? 1 : 0);
         p.writeInt(vibrate ? 1 : 0);
         p.writeString(label);
         p.writeParcelable(alert, flags);
@@ -333,6 +346,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public AlarmInstance createInstanceAfter(Calendar time) {
         Calendar nextInstanceTime = getNextAlarmTime(time);
         AlarmInstance result = new AlarmInstance(nextInstanceTime, id);
+        result.mStopAlarmWhenRingtoneEnds = stopAlarmWhenRingtoneEnds;
         result.mVibrate = vibrate;
         result.mLabel = label;
         result.mRingtone = alert;
@@ -413,6 +427,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", hour=" + hour +
                 ", minutes=" + minutes +
                 ", daysOfWeek=" + daysOfWeek +
+                ", stopAlarmWhenRingtoneEnds=" + stopAlarmWhenRingtoneEnds +
                 ", vibrate=" + vibrate +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +

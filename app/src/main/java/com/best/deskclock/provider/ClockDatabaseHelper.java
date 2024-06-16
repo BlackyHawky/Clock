@@ -59,10 +59,10 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION_11 = 12;
 
     // This creates a default alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
-    private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 0, '', NULL, 0, 0);";
+    private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 0, 0, '', NULL, 0, 0);";
 
     // This creates a default alarm at 9:00 for every Sat,Sun
-    private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 0, '', NULL, 0, 0);";
+    private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 0, 0, '', NULL, 0, 0);";
 
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
@@ -77,6 +77,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.ENABLED + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
@@ -93,6 +94,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.MINUTES + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
@@ -117,6 +119,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.MINUTES + cs +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + cs +
                 ClockContract.AlarmsColumns.ENABLED + cs +
+                ClockContract.AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS + cs +
                 ClockContract.AlarmsColumns.VIBRATE + cs +
                 ClockContract.AlarmsColumns.LABEL + cs +
                 ClockContract.AlarmsColumns.RINGTONE + cs +
@@ -151,6 +154,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     "minutes",
                     "daysofweek",
                     "enabled",
+                    "stopAlarmWhenRingtoneEnds",
                     "vibrate",
                     "message",
                     "alert",
@@ -166,24 +170,23 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.minutes = cursor.getInt(2);
                     alarm.daysOfWeek = Weekdays.fromBits(cursor.getInt(3));
                     alarm.enabled = cursor.getInt(4) == 1;
-                    alarm.vibrate = cursor.getInt(5) == 1;
-                    alarm.label = cursor.getString(6);
+                    alarm.stopAlarmWhenRingtoneEnds = cursor.getInt(5) == 1;
+                    alarm.vibrate = cursor.getInt(6) == 1;
+                    alarm.label = cursor.getString(7);
 
-                    final String alertString = cursor.getString(7);
+                    final String alertString = cursor.getString(8);
                     if ("silent".equals(alertString)) {
                         alarm.alert = Alarm.NO_RINGTONE_URI;
                     } else {
-                        alarm.alert =
-                                TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
+                        alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
                     }
-                    alarm.increasingVolume = cursor.getInt(8) == 1;
+                    alarm.increasingVolume = cursor.getInt(9) == 1;
 
                     // Save new version of alarm and create alarm instance for it
                     db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
                     if (alarm.enabled) {
                         AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
-                        db.insert(INSTANCES_TABLE_NAME, null,
-                                AlarmInstance.createContentValues(newInstance));
+                        db.insert(INSTANCES_TABLE_NAME, null, AlarmInstance.createContentValues(newInstance));
                     }
                 }
             }
@@ -223,6 +226,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     ClockContract.AlarmsColumns.MINUTES,
                     ClockContract.AlarmsColumns.DAYS_OF_WEEK,
                     ClockContract.AlarmsColumns.ENABLED,
+                    ClockContract.AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
                     ClockContract.AlarmsColumns.VIBRATE,
                     ClockContract.AlarmsColumns.LABEL,
                     ClockContract.AlarmsColumns.RINGTONE,

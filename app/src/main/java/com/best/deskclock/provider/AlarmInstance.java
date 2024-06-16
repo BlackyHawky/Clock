@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaMetadataRetriever;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
@@ -47,6 +48,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             HOUR,
             MINUTES,
             LABEL,
+            STOP_ALARM_WHEN_RINGTONE_ENDS,
             VIBRATE,
             RINGTONE,
             ALARM_ID,
@@ -65,11 +67,12 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
-    private static final int VIBRATE_INDEX = 7;
-    private static final int RINGTONE_INDEX = 8;
-    private static final int ALARM_ID_INDEX = 9;
-    private static final int ALARM_STATE_INDEX = 10;
-    private static final int INCREASING_VOLUME_INDEX = 11;
+    private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
+    private static final int VIBRATE_INDEX = 8;
+    private static final int RINGTONE_INDEX = 9;
+    private static final int ALARM_ID_INDEX = 10;
+    private static final int ALARM_STATE_INDEX = 11;
+    private static final int INCREASING_VOLUME_INDEX = 12;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     // Public fields
@@ -80,6 +83,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mHour;
     public int mMinute;
     public String mLabel;
+    public boolean mStopAlarmWhenRingtoneEnds;
     public boolean mVibrate;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -95,6 +99,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
+        mStopAlarmWhenRingtoneEnds = false;
         mVibrate = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -109,6 +114,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mHour = instance.mHour;
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
+        this.mStopAlarmWhenRingtoneEnds = instance.mStopAlarmWhenRingtoneEnds;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -125,6 +131,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
+            mStopAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
@@ -134,6 +141,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(HOUR_INDEX);
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
+            mStopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
@@ -163,6 +171,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
+        values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, instance.mStopAlarmWhenRingtoneEnds ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -382,16 +391,30 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time when alarm should be silence, or null if never
      */
-    public Calendar getTimeout() {
+    public Calendar getTimeout(Context context) {
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        Calendar calendar = getAlarmTime();
 
         // Alarm silence has been set to "None"
-        if (timeoutMinutes < 0) {
+        if (timeoutMinutes == -1) {
             return null;
+        // Alarm silence has been set to "At the end of the ringtone"
+        } else if (timeoutMinutes == -2 || mStopAlarmWhenRingtoneEnds) {
+            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            try {
+                mmr.setDataSource(context, mRingtone);
+                String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                assert durationStr != null;
+                int milliSecond = Integer.parseInt(durationStr);
+                calendar.add(Calendar.MILLISECOND, milliSecond);
+                mmr.close();
+            } catch (Exception e) {
+                LogUtils.e("Could not get ringtone duration");
+            }
+        } else {
+            calendar.add(Calendar.MINUTE, timeoutMinutes);
         }
 
-        Calendar calendar = getAlarmTime();
-        calendar.add(Calendar.MINUTE, timeoutMinutes);
         return calendar;
     }
 
@@ -417,6 +440,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
+                ", mStopAlarmWhenRingtoneEnds=" + mStopAlarmWhenRingtoneEnds +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +

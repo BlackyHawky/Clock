@@ -8,6 +8,7 @@
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
+    <string name="stop_alarm_ringtone_when_ringtone_ends_label">Arrêter l\'alarme à la fin de la sonnerie</string>
     <string name="color_picker_default_button">Par défaut</string>
     <string name="delete" msgid="5732434972457000541">"Supprimer"</string>
     <string name="duplicate">Dupliquer</string>
@@ -148,19 +149,21 @@
         <item>2 heures avant</item>
     </string-array>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minute</item>
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Jamais"</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">La fin de la sonnerie</string>
     <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"Une minute"</item>
+        <item msgid="3024545954917711306">"1 minute"</item>
         <item msgid="5431906692406316549">"5 minutes"</item>
         <item msgid="7742728812068919959">"10 minutes"</item>
         <item msgid="2855948657259647629">"15 minutes"</item>
         <item msgid="6330196381284475079">"20 minutes"</item>
         <item msgid="7809240121716151904">"25 minutes"</item>
+        <item msgid="7809240121716151904">La fin de la sonnerie</item>
         <item msgid="4278641338024561333">"Jamais"</item>
     </string-array>
     <string-array name="crescendo_entries">
