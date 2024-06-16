@@ -58,12 +58,6 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_11 = 12;
 
-    // This creates a default alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
-    private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 0, '', NULL, 0, 0);";
-
-    // This creates a default alarm at 9:00 for every Sat,Sun
-    private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 0, '', NULL, 0, 0);";
-
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
@@ -108,23 +102,6 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         createAlarmsTable(db, ALARMS_TABLE_NAME);
         createInstanceTable(db, INSTANCES_TABLE_NAME);
-
-        // insert default alarms
-        LogUtils.i("Inserting default alarms");
-        String cs = ", "; //comma and space
-        String insertMe = "INSERT INTO " + ALARMS_TABLE_NAME + " (" +
-                ClockContract.AlarmsColumns.HOUR + cs +
-                ClockContract.AlarmsColumns.MINUTES + cs +
-                ClockContract.AlarmsColumns.DAYS_OF_WEEK + cs +
-                ClockContract.AlarmsColumns.ENABLED + cs +
-                ClockContract.AlarmsColumns.VIBRATE + cs +
-                ClockContract.AlarmsColumns.LABEL + cs +
-                ClockContract.AlarmsColumns.RINGTONE + cs +
-                ClockContract.AlarmsColumns.DELETE_AFTER_USE + cs +
-                ClockContract.AlarmsColumns.INCREASING_VOLUME + ") VALUES ";
-
-        db.execSQL(insertMe + DEFAULT_ALARM_1);
-        db.execSQL(insertMe + DEFAULT_ALARM_2);
     }
 
     @Override
