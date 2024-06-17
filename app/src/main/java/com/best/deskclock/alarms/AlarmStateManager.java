@@ -421,9 +421,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         // If alarm silence has been set to "At the end of the ringtone",
-        // we don't want any notifications or updates for this alarm.
+        // we don't want it to be seen as missed but repeated.
         if (timeoutMinutes == -2 || instance.mStopAlarmWhenRingtoneEnds) {
-            deleteInstanceAndUpdateParent(context, instance);
+            setSnoozeState(context, instance, true);
             return;
         }
 
@@ -541,8 +541,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context  application context
      * @param instance to register
      */
-    public static void registerInstance(Context context, AlarmInstance instance,
-                                        boolean updateNextAlarm) {
+    public static void registerInstance(Context context, AlarmInstance instance, boolean updateNextAlarm) {
         LogUtils.i("Registering instance: " + instance.mId);
         final ContentResolver cr = context.getContentResolver();
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
