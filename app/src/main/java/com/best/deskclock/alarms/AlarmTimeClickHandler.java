@@ -76,7 +76,7 @@ public final class AlarmTimeClickHandler {
     public void setStopAlarmWhenRingtoneEnds(Alarm alarm, boolean newState) {
         if (newState != alarm.stopAlarmWhenRingtoneEnds) {
             alarm.stopAlarmWhenRingtoneEnds = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_ringtone_off, R.string.label_deskclock);
+            Events.sendAlarmEvent(R.string.action_toggle_stop_alarm_when_ringtone_ends, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LOGGER.d("Updating stop alarm state to " + newState);
             Utils.setVibrationTime(mContext, 50);
