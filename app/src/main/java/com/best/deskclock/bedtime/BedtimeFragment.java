@@ -425,17 +425,20 @@ public final class BedtimeFragment extends DeskClockFragment {
     }
 
     private void bindNoWakeupAlarmText() {
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+
         if (mOnOff.isChecked()) {
             mNoWakeupAlarmText.setVisibility(View.GONE);
-            mStopAlarmWhenRingtoneBedtimeEnds.setVisibility(View.VISIBLE);
-            mDoNotRepeatBedtimeAlarm.setVisibility(View.VISIBLE);
-            mVibrate.setVisibility(hasVibrator() ? View.VISIBLE : View.INVISIBLE);
+            mStopAlarmWhenRingtoneBedtimeEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.VISIBLE);
+            mDoNotRepeatBedtimeAlarm.setVisibility(snoozeMinutes == -1 ? View.GONE : View.VISIBLE);
+            mVibrate.setVisibility(hasVibrator() ? View.VISIBLE : View.GONE);
             mRingtone.setVisibility(View.VISIBLE);
         } else {
             mNoWakeupAlarmText.setVisibility(View.VISIBLE);
-            mStopAlarmWhenRingtoneBedtimeEnds.setVisibility(View.INVISIBLE);
-            mDoNotRepeatBedtimeAlarm.setVisibility(View.INVISIBLE);
-            mVibrate.setVisibility(View.INVISIBLE);
+            mStopAlarmWhenRingtoneBedtimeEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.INVISIBLE);
+            mDoNotRepeatBedtimeAlarm.setVisibility(snoozeMinutes == -1 ? View.GONE : View.INVISIBLE);
+            mVibrate.setVisibility(hasVibrator() ? View.INVISIBLE : View.GONE);
             mRingtone.setVisibility(View.INVISIBLE);
         }
     }
