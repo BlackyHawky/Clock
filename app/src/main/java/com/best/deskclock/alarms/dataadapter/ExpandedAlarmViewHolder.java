@@ -104,7 +104,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                         getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
-        // Do not repeat alarm checkbox handler
+        // Repeat alarm checkbox handler
         repeatAlarm.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setRepeatAlarmEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())
