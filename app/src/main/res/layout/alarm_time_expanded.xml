@@ -131,7 +131,7 @@
             tools:text="Standard (Hassium)" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/stop_alarm_when_ringtone_ends_onoff"
+            android:id="@+id/dismiss_alarm_when_ringtone_ends_onoff"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?selectableItemBackground"
@@ -139,7 +139,7 @@
             android:drawableStart="@drawable/ic_ringtone_off"
             android:drawableEnd="@drawable/ic_selector_checkbox"
             android:drawablePadding="10dp"
-            android:text="@string/stop_alarm_ringtone_when_ringtone_ends_label"
+            android:text="@string/dismiss_alarm_ringtone_when_ringtone_ends_label"
             android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@id/choose_ringtone"
             tools:ignore="RtlSymmetry"
@@ -156,7 +156,7 @@
             android:drawablePadding="10dp"
             android:text="@string/snooze_alarm_label"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/stop_alarm_when_ringtone_ends_onoff"
+            app:layout_constraintTop_toBottomOf="@id/dismiss_alarm_when_ringtone_ends_onoff"
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 

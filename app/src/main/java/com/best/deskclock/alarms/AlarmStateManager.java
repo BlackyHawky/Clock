@@ -432,7 +432,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // and nothing else; so there's no need to tell him that the alarm has been missed.
         // However, the alarm must be repeatable.
         // See https://github.com/BlackyHawky/Clock/issues/40
-        if (timeoutMinutes == -2 || instance.mStopAlarmWhenRingtoneEnds) {
+        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
             setSnoozeState(context, instance, true);
             return;
         }

@@ -48,7 +48,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             HOUR,
             MINUTES,
             LABEL,
-            STOP_ALARM_WHEN_RINGTONE_ENDS,
+            DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             SNOOZE_ALARM,
             VIBRATE,
             RINGTONE,
@@ -68,7 +68,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
-    private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
+    private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
     private static final int SNOOZE_ALARM_INDEX = 8;
     private static final int VIBRATE_INDEX = 9;
     private static final int RINGTONE_INDEX = 10;
@@ -85,7 +85,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mHour;
     public int mMinute;
     public String mLabel;
-    public boolean mStopAlarmWhenRingtoneEnds;
+    public boolean mDismissAlarmWhenRingtoneEnds;
     public boolean mSnoozeAlarm;
     public boolean mVibrate;
     public Uri mRingtone;
@@ -102,7 +102,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
-        mStopAlarmWhenRingtoneEnds = false;
+        mDismissAlarmWhenRingtoneEnds = false;
         mSnoozeAlarm = true;
         mVibrate = false;
         mRingtone = null;
@@ -118,7 +118,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mHour = instance.mHour;
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
-        this.mStopAlarmWhenRingtoneEnds = instance.mStopAlarmWhenRingtoneEnds;
+        this.mDismissAlarmWhenRingtoneEnds = instance.mDismissAlarmWhenRingtoneEnds;
         this.mSnoozeAlarm = instance.mSnoozeAlarm;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
@@ -136,7 +136,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
-            mStopAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mDismissAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mSnoozeAlarm = c.getInt(Alarm.INSTANCE_SNOOZE_ALARM_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
@@ -147,7 +147,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(HOUR_INDEX);
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
-            mStopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mDismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mSnoozeAlarm = c.getInt(SNOOZE_ALARM_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
@@ -178,7 +178,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
-        values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, instance.mStopAlarmWhenRingtoneEnds ? 1 : 0);
+        values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, instance.mDismissAlarmWhenRingtoneEnds ? 1 : 0);
         values.put(SNOOZE_ALARM, instance.mSnoozeAlarm ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
@@ -407,7 +407,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         if (timeoutMinutes == -1) {
             return null;
         // Alarm silence has been set to "At the end of the ringtone"
-        } else if (timeoutMinutes == -2 || mStopAlarmWhenRingtoneEnds) {
+        } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
             try {
                 mmr.setDataSource(context, mRingtone);
@@ -448,7 +448,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
-                ", mStopAlarmWhenRingtoneEnds=" + mStopAlarmWhenRingtoneEnds +
+                ", mDismissAlarmWhenRingtoneEnds=" + mDismissAlarmWhenRingtoneEnds +
                 ", mSnoozeAlarm=" + mSnoozeAlarm +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +

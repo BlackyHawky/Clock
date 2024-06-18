@@ -8,7 +8,7 @@
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
-    <string name="stop_alarm_ringtone_when_ringtone_ends_label">Arrêter l\'alarme à la fin de la sonnerie</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Arrêter l\'alarme à la fin de la sonnerie</string>
     <string name="snooze_alarm_label">Répéter l\'alarme</string>
     <string name="color_picker_default_button">Par défaut</string>
     <string name="delete" msgid="5732434972457000541">"Supprimer"</string>

@@ -71,7 +71,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.ENABLED + " INTEGER NOT NULL, " +
-                ClockContract.AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.SNOOZE_ALARM + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
@@ -89,7 +89,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.MINUTES + " INTEGER NOT NULL, " +
-                ClockContract.InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.SNOOZE_ALARM + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
@@ -132,7 +132,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     "minutes",
                     "daysofweek",
                     "enabled",
-                    "stopAlarmWhenRingtoneEnds",
+                    "dismissAlarmWhenRingtoneEnds",
                     "snoozeAlarm",
                     "vibrate",
                     "message",
@@ -149,7 +149,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.minutes = cursor.getInt(2);
                     alarm.daysOfWeek = Weekdays.fromBits(cursor.getInt(3));
                     alarm.enabled = cursor.getInt(4) == 1;
-                    alarm.stopAlarmWhenRingtoneEnds = cursor.getInt(5) == 1;
+                    alarm.dismissAlarmWhenRingtoneEnds = cursor.getInt(5) == 1;
                     alarm.snoozeAlarm = cursor.getInt(6) == 1;
                     alarm.vibrate = cursor.getInt(7) == 1;
                     alarm.label = cursor.getString(8);
@@ -206,7 +206,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     ClockContract.AlarmsColumns.MINUTES,
                     ClockContract.AlarmsColumns.DAYS_OF_WEEK,
                     ClockContract.AlarmsColumns.ENABLED,
-                    ClockContract.AlarmsColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
+                    ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
                     ClockContract.AlarmsColumns.SNOOZE_ALARM,
                     ClockContract.AlarmsColumns.VIBRATE,
                     ClockContract.AlarmsColumns.LABEL,

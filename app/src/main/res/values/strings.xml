@@ -13,8 +13,8 @@
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
-    <!-- Setting labels on Set alarm screen: Stop alarm when ringtone ends on or off -->
-    <string name="stop_alarm_ringtone_when_ringtone_ends_label">Stop alarm when ringtone ends</string>
+    <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Snooze alarm on or off -->
     <string name="snooze_alarm_label">Snooze alarm</string>
 

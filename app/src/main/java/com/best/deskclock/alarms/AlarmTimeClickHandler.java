@@ -73,12 +73,12 @@ public final class AlarmTimeClickHandler {
         }
     }
 
-    public void setStopAlarmWhenRingtoneEndsEnabled(Alarm alarm, boolean newState) {
-        if (newState != alarm.stopAlarmWhenRingtoneEnds) {
-            alarm.stopAlarmWhenRingtoneEnds = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_stop_alarm_when_ringtone_ends, R.string.label_deskclock);
+    public void setDismissAlarmWhenRingtoneEndsEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.dismissAlarmWhenRingtoneEnds) {
+            alarm.dismissAlarmWhenRingtoneEnds = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_dismiss_alarm_when_ringtone_ends, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LOGGER.d("Updating stop alarm state to " + newState);
+            LOGGER.d("Updating dismiss alarm state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
     }
@@ -88,7 +88,7 @@ public final class AlarmTimeClickHandler {
             alarm.snoozeAlarm = newState;
             Events.sendAlarmEvent(R.string.action_toggle_snooze_alarm, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LOGGER.d("Updating do not repeat alarm state to " + newState);
+            LOGGER.d("Updating snooze alarm state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
     }
@@ -187,7 +187,7 @@ public final class AlarmTimeClickHandler {
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
-            alarm.stopAlarmWhenRingtoneEnds = false;
+            alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.snoozeAlarm = true;
             alarm.vibrate = false;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);

@@ -84,7 +84,7 @@ public final class BedtimeFragment extends DeskClockFragment {
     TextTime mWakeupText;
     TextTime mBedtimeText;
     LinearLayout mRepeatDays;
-    CheckBox mStopBedtimeAlarmWhenRingtoneEnds;
+    CheckBox mDismissBedtimeAlarmWhenRingtoneEnds;
     CheckBox mSnoozeBedtimeAlarm;
     CheckBox mVibrate;
     final CompoundButton[] mDayButtons = new CompoundButton[7];
@@ -222,7 +222,8 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
         mClock = mBottomSheetDialog.findViewById(R.id.wakeup_time);
-        mStopBedtimeAlarmWhenRingtoneEnds = mBottomSheetDialog.findViewById(R.id.stop_bedtime_alarm_when_ringtone_ends_onoff);
+        mDismissBedtimeAlarmWhenRingtoneEnds = mBottomSheetDialog.findViewById(
+                R.id.dismiss_bedtime_alarm_when_ringtone_ends_onoff);
         mSnoozeBedtimeAlarm = mBottomSheetDialog.findViewById(R.id.snooze_bedtime_alarm_onoff);
         mVibrate = mBottomSheetDialog.findViewById(R.id.vibrate_onoff_wakeup);
         mOnOff = mBottomSheetDialog.findViewById(R.id.toggle_switch_wakeup);
@@ -267,11 +268,11 @@ public final class BedtimeFragment extends DeskClockFragment {
             }
         });
 
-        mStopBedtimeAlarmWhenRingtoneEnds.setOnClickListener(v -> {
+        mDismissBedtimeAlarmWhenRingtoneEnds.setOnClickListener(v -> {
             boolean newState = ((CheckBox) v).isChecked();
-            if (newState != alarm.stopAlarmWhenRingtoneEnds) {
-                alarm.stopAlarmWhenRingtoneEnds = newState;
-                Events.sendBedtimeEvent(R.string.action_toggle_stop_alarm_when_ringtone_ends, R.string.label_deskclock);
+            if (newState != alarm.dismissAlarmWhenRingtoneEnds) {
+                alarm.dismissAlarmWhenRingtoneEnds = newState;
+                Events.sendBedtimeEvent(R.string.action_toggle_dismiss_alarm_when_ringtone_ends, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                 Utils.setVibrationTime(mContext, 50);
             }
@@ -337,7 +338,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
     private void bindWakeStuff(Alarm alarm) {
         bindDaysOfWeekButtons(alarm, mContext);
-        bindStopBedtimeAlarmWhenRingtoneEnds(alarm);
+        bindDismissBedtimeAlarmWhenRingtoneEnds(alarm);
         bindSnoozeBedtimeAlarm(alarm);
         bindVibrator(alarm);
         bindRingtone(mContext, mAlarm);
@@ -374,13 +375,13 @@ public final class BedtimeFragment extends DeskClockFragment {
         }
     }
 
-    private void bindStopBedtimeAlarmWhenRingtoneEnds(Alarm alarm) {
+    private void bindDismissBedtimeAlarmWhenRingtoneEnds(Alarm alarm) {
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         if (timeoutMinutes == -2) {
-            mStopBedtimeAlarmWhenRingtoneEnds.setVisibility(View.GONE);
+            mDismissBedtimeAlarmWhenRingtoneEnds.setVisibility(View.GONE);
         } else {
-            mStopBedtimeAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
-            mStopBedtimeAlarmWhenRingtoneEnds.setChecked(alarm.stopAlarmWhenRingtoneEnds);
+            mDismissBedtimeAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
+            mDismissBedtimeAlarmWhenRingtoneEnds.setChecked(alarm.dismissAlarmWhenRingtoneEnds);
         }
     }
 
@@ -430,13 +431,13 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         if (mOnOff.isChecked()) {
             mNoWakeupAlarmText.setVisibility(View.GONE);
-            mStopBedtimeAlarmWhenRingtoneEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.VISIBLE);
+            mDismissBedtimeAlarmWhenRingtoneEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.VISIBLE);
             mSnoozeBedtimeAlarm.setVisibility(snoozeMinutes == -1 ? View.GONE : View.VISIBLE);
             mVibrate.setVisibility(hasVibrator() ? View.VISIBLE : View.GONE);
             mRingtone.setVisibility(View.VISIBLE);
         } else {
             mNoWakeupAlarmText.setVisibility(View.VISIBLE);
-            mStopBedtimeAlarmWhenRingtoneEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.INVISIBLE);
+            mDismissBedtimeAlarmWhenRingtoneEnds.setVisibility(timeoutMinutes == -2 ? View.GONE : View.INVISIBLE);
             mSnoozeBedtimeAlarm.setVisibility(snoozeMinutes == -1 ? View.GONE : View.INVISIBLE);
             mVibrate.setVisibility(hasVibrator() ? View.INVISIBLE : View.GONE);
             mRingtone.setVisibility(View.INVISIBLE);
@@ -731,7 +732,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         alarm.daysOfWeek = Weekdays.fromBits(31);
         alarm.label = BEDTIME_LABEL;
         alarm.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
-        alarm.stopAlarmWhenRingtoneEnds = false;
+        alarm.dismissAlarmWhenRingtoneEnds = false;
         alarm.snoozeAlarm = true;
         alarm.vibrate = false;
         mWakeupText.setTime(8, 30);
