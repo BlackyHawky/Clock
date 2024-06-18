@@ -49,6 +49,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             MINUTES,
             LABEL,
             STOP_ALARM_WHEN_RINGTONE_ENDS,
+            DO_NOT_REPEAT_ALARM,
             VIBRATE,
             RINGTONE,
             ALARM_ID,
@@ -68,11 +69,12 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
     private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
-    private static final int VIBRATE_INDEX = 8;
-    private static final int RINGTONE_INDEX = 9;
-    private static final int ALARM_ID_INDEX = 10;
-    private static final int ALARM_STATE_INDEX = 11;
-    private static final int INCREASING_VOLUME_INDEX = 12;
+    private static final int DO_NOT_REPEAT_ALARM_INDEX = 8;
+    private static final int VIBRATE_INDEX = 9;
+    private static final int RINGTONE_INDEX = 10;
+    private static final int ALARM_ID_INDEX = 11;
+    private static final int ALARM_STATE_INDEX = 12;
+    private static final int INCREASING_VOLUME_INDEX = 13;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     // Public fields
@@ -84,6 +86,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mMinute;
     public String mLabel;
     public boolean mStopAlarmWhenRingtoneEnds;
+    public boolean mDoNotRepeatAlarm;
     public boolean mVibrate;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -100,6 +103,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         setAlarmTime(calendar);
         mLabel = "";
         mStopAlarmWhenRingtoneEnds = false;
+        mDoNotRepeatAlarm = false;
         mVibrate = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -115,6 +119,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
         this.mStopAlarmWhenRingtoneEnds = instance.mStopAlarmWhenRingtoneEnds;
+        this.mDoNotRepeatAlarm = instance.mDoNotRepeatAlarm;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -132,6 +137,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
             mStopAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mDoNotRepeatAlarm = c.getInt(Alarm.INSTANCE_DO_NOT_REPEAT_ALARM_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
@@ -142,6 +148,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
             mStopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mDoNotRepeatAlarm = c.getInt(DO_NOT_REPEAT_ALARM_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
@@ -172,6 +179,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
         values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, instance.mStopAlarmWhenRingtoneEnds ? 1 : 0);
+        values.put(DO_NOT_REPEAT_ALARM, instance.mDoNotRepeatAlarm ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -279,7 +287,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    result.add(new AlarmInstance(cursor, false /* joinedTable */));
+                    result.add(new AlarmInstance(cursor, false));
                 } while (cursor.moveToNext());
             }
         }
@@ -441,6 +449,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
                 ", mStopAlarmWhenRingtoneEnds=" + mStopAlarmWhenRingtoneEnds +
+                ", mDoNotRepeatAlarm=" + mDoNotRepeatAlarm +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +

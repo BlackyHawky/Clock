@@ -59,6 +59,12 @@ public final class ClockContract {
         String STOP_ALARM_WHEN_RINGTONE_ENDS = "stopAlarmWhenRingtoneEnds";
 
         /**
+         * True if alarm should not be repeated
+         * <p>Type: BOOLEAN</p>
+         */
+        String DO_NOT_REPEAT_ALARM = "doNotRepeatAlarm";
+
+        /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */

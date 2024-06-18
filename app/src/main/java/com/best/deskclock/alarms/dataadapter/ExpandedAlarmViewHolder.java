@@ -46,8 +46,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     public final LinearLayout repeatDays;
-    public final CheckBox vibrate;
     public final CheckBox stopAlarmWhenRingtoneEnds;
+    public final CheckBox doNotRepeatAlarm;
+    public final CheckBox vibrate;
     public final TextView ringtone;
     public final Chip delete;
     public final Chip duplicate;
@@ -65,6 +66,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
         stopAlarmWhenRingtoneEnds = itemView.findViewById(R.id.stop_alarm_when_ringtone_ends_onoff);
+        doNotRepeatAlarm = itemView.findViewById(R.id.do_not_repeat_alarm_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
 
         final Context context = itemView.getContext();
@@ -96,9 +98,17 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // Edit time handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
 
-        // Ringtone off checkbox handler
+        // Stop alarm when ringtone ends checkbox handler
         stopAlarmWhenRingtoneEnds.setOnClickListener(v ->
-                getAlarmTimeClickHandler().setStopAlarmWhenRingtoneEnds(getItemHolder().item, ((CheckBox) v).isChecked()));
+                getAlarmTimeClickHandler().setStopAlarmWhenRingtoneEndsEnabled(
+                        getItemHolder().item, ((CheckBox) v).isChecked())
+        );
+
+        // Do not repeat alarm checkbox handler
+        doNotRepeatAlarm.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setDoNotRepeatAlarmEnabled(
+                        getItemHolder().item, ((CheckBox) v).isChecked())
+        );
 
         // Vibrator checkbox handler
         vibrate.setOnClickListener(v ->
@@ -140,6 +150,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDaysOfWeekButtons(alarm, context);
         bindRingtone(context, alarm);
         bindStopAlarmWhenRingtoneEnds(alarm);
+        bindDoNotRepeatAlarm(alarm);
         bindVibrator(alarm);
         bindDuplicateButton();
     }
@@ -179,6 +190,16 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         } else {
             stopAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
             stopAlarmWhenRingtoneEnds.setChecked(alarm.stopAlarmWhenRingtoneEnds);
+        }
+    }
+
+    private void bindDoNotRepeatAlarm(Alarm alarm) {
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        if (snoozeMinutes == -1) {
+            doNotRepeatAlarm.setVisibility(View.GONE);
+        } else {
+            doNotRepeatAlarm.setVisibility(View.VISIBLE);
+            doNotRepeatAlarm.setChecked(alarm.doNotRepeatAlarm);
         }
     }
 

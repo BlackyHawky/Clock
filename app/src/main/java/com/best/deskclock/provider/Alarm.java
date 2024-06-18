@@ -58,6 +58,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             DAYS_OF_WEEK,
             ENABLED,
             STOP_ALARM_WHEN_RINGTONE_ENDS,
+            DO_NOT_REPEAT_ALARM,
             VIBRATE,
             LABEL,
             RINGTONE,
@@ -71,6 +72,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + STOP_ALARM_WHEN_RINGTONE_ENDS,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DO_NOT_REPEAT_ALARM,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
@@ -86,6 +88,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.STOP_ALARM_WHEN_RINGTONE_ENDS,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DO_NOT_REPEAT_ALARM,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE
     };
     /**
@@ -98,22 +101,24 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int DAYS_OF_WEEK_INDEX = 3;
     private static final int ENABLED_INDEX = 4;
     private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 5;
-    private static final int VIBRATE_INDEX = 6;
-    private static final int LABEL_INDEX = 7;
-    private static final int RINGTONE_INDEX = 8;
-    private static final int DELETE_AFTER_USE_INDEX = 9;
-    private static final int INCREASING_VOLUME_INDEX = 10;
+    private static final int DO_NOT_REPEAT_ALARM_INDEX = 6;
+    private static final int VIBRATE_INDEX = 7;
+    private static final int LABEL_INDEX = 8;
+    private static final int RINGTONE_INDEX = 9;
+    private static final int DELETE_AFTER_USE_INDEX = 10;
+    private static final int INCREASING_VOLUME_INDEX = 11;
 
-    private static final int INSTANCE_STATE_INDEX = 11;
-    public static final int INSTANCE_ID_INDEX = 12;
-    public static final int INSTANCE_YEAR_INDEX = 13;
-    public static final int INSTANCE_MONTH_INDEX = 14;
-    public static final int INSTANCE_DAY_INDEX = 15;
-    public static final int INSTANCE_HOUR_INDEX = 16;
-    public static final int INSTANCE_MINUTE_INDEX = 17;
-    public static final int INSTANCE_LABEL_INDEX = 18;
-    public static final int INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 19;
-    public static final int INSTANCE_VIBRATE_INDEX = 20;
+    private static final int INSTANCE_STATE_INDEX = 12;
+    public static final int INSTANCE_ID_INDEX = 13;
+    public static final int INSTANCE_YEAR_INDEX = 14;
+    public static final int INSTANCE_MONTH_INDEX = 15;
+    public static final int INSTANCE_DAY_INDEX = 16;
+    public static final int INSTANCE_HOUR_INDEX = 17;
+    public static final int INSTANCE_MINUTE_INDEX = 18;
+    public static final int INSTANCE_LABEL_INDEX = 19;
+    public static final int INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 20;
+    public static final int INSTANCE_DO_NOT_REPEAT_ALARM_INDEX = 21;
+    public static final int INSTANCE_VIBRATE_INDEX = 22;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_VIBRATE_INDEX + 1;
@@ -124,6 +129,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public int minutes;
     public Weekdays daysOfWeek;
     public boolean stopAlarmWhenRingtoneEnds;
+    public boolean doNotRepeatAlarm;
     public boolean vibrate;
     public String label;
     public Uri alert;
@@ -142,6 +148,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.hour = hour;
         this.minutes = minutes;
         this.stopAlarmWhenRingtoneEnds = true;
+        this.doNotRepeatAlarm = true;
         this.vibrate = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
@@ -157,6 +164,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         minutes = c.getInt(MINUTES_INDEX);
         daysOfWeek = Weekdays.fromBits(c.getInt(DAYS_OF_WEEK_INDEX));
         stopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+        doNotRepeatAlarm = c.getInt(DO_NOT_REPEAT_ALARM_INDEX) == 1;
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
@@ -184,6 +192,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         minutes = p.readInt();
         daysOfWeek = Weekdays.fromBits(p.readInt());
         stopAlarmWhenRingtoneEnds = p.readInt() == 1;
+        doNotRepeatAlarm = p.readInt() == 1;
         vibrate = p.readInt() == 1;
         label = p.readString();
         alert = p.readParcelable(null);
@@ -202,6 +211,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(MINUTES, alarm.minutes);
         values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
         values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, alarm.stopAlarmWhenRingtoneEnds ? 1 : 0);
+        values.put(DO_NOT_REPEAT_ALARM, alarm.doNotRepeatAlarm ? 1 : 0);
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
@@ -332,6 +342,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(minutes);
         p.writeInt(daysOfWeek.getBits());
         p.writeInt(stopAlarmWhenRingtoneEnds ? 1 : 0);
+        p.writeInt(doNotRepeatAlarm ? 1 : 0);
         p.writeInt(vibrate ? 1 : 0);
         p.writeString(label);
         p.writeParcelable(alert, flags);
@@ -347,6 +358,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         Calendar nextInstanceTime = getNextAlarmTime(time);
         AlarmInstance result = new AlarmInstance(nextInstanceTime, id);
         result.mStopAlarmWhenRingtoneEnds = stopAlarmWhenRingtoneEnds;
+        result.mDoNotRepeatAlarm = doNotRepeatAlarm;
         result.mVibrate = vibrate;
         result.mLabel = label;
         result.mRingtone = alert;
@@ -428,6 +440,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", minutes=" + minutes +
                 ", daysOfWeek=" + daysOfWeek +
                 ", stopAlarmWhenRingtoneEnds=" + stopAlarmWhenRingtoneEnds +
+                ", doNotRepeatAlarm=" + doNotRepeatAlarm +
                 ", vibrate=" + vibrate +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +

@@ -100,6 +100,7 @@ public class AlarmActivity extends AppCompatActivity
     private AlarmVolumeButtonBehavior mPowerBehavior;
     private int mCurrentHourColor;
     private int mTextColor;
+    private int mSnoozeMinutes;
     private boolean isSwipeActionEnabled;
     private boolean mReceiverRegistered;
     /**
@@ -249,8 +250,10 @@ public class AlarmActivity extends AppCompatActivity
         );
         mDismissButton.setColorFilter(mTextColor);
 
-        mSnoozeButton.setImageDrawable(Utils.toScaledBitmapDrawable(
-                mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
+        mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        mSnoozeButton.setImageDrawable(mSnoozeMinutes == -1 || mAlarmInstance.mDoNotRepeatAlarm
+                ? Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_alarm_off, 2f)
+                : Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
         mSnoozeButton.setColorFilter(mTextColor);
 
@@ -514,21 +517,27 @@ public class AlarmActivity extends AppCompatActivity
     private void hintSnooze() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        final int hintLeftResId = mSnoozeMinutes == -1 || mAlarmInstance.mDoNotRepeatAlarm
+                ? R.string.description_direction_left_for_non_repeatable_alarms
+                : R.string.description_direction_left;
         final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
                 + Math.min(mSnoozeButton.getRight() - alarmLeft, 0);
         getAlarmBounceAnimator(translationX, translationX < 0.0f
-                ? R.string.description_direction_left
+                ? hintLeftResId
                 : R.string.description_direction_right).start();
     }
 
     private void hintDismiss() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        final int hintLeftResId = mSnoozeMinutes == -1 || mAlarmInstance.mDoNotRepeatAlarm
+                ? R.string.description_direction_left_for_non_repeatable_alarms
+                : R.string.description_direction_left;
         final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
                 + Math.min(mDismissButton.getRight() - alarmLeft, 0);
 
         getAlarmBounceAnimator(translationX, translationX < 0.0f
-                ? R.string.description_direction_left
+                ? hintLeftResId
                 : R.string.description_direction_right).start();
     }
 
@@ -546,7 +555,8 @@ public class AlarmActivity extends AppCompatActivity
     }
 
     /**
-     * Perform snooze animation and send snooze intent.
+     * Perform snooze animation and send dismiss intent if snooze duration has been set to "None";
+     * otherwise, send snooze intent.
      */
     private void snooze() {
         mAlarmHandled = true;
@@ -554,17 +564,25 @@ public class AlarmActivity extends AppCompatActivity
 
         setAnimatedFractions(1.0f, 0.0f);
 
-        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
-        final String infoText = getResources().getQuantityString(
-                R.plurals.alarm_alert_snooze_duration, snoozeMinutes, snoozeMinutes);
-        final String accessibilityText = getResources().getQuantityString(
-                R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
+        // If snooze duration has been set to "None", simply dismiss the alarm.
+        if (mSnoozeMinutes == -1 || mAlarmInstance.mDoNotRepeatAlarm) {
+            getAlertAnimator(mSnoozeButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text), mCurrentHourColor).start();
 
-        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, mCurrentHourColor).start();
+            AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
-        AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
+            Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+        } else {
+            final String infoText = getResources().getQuantityString(
+                    R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
+            final String accessibilityText = getResources().getQuantityString(
+                    R.plurals.alarm_alert_snooze_set, mSnoozeMinutes, mSnoozeMinutes);
 
-        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
+            getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText, accessibilityText, mCurrentHourColor).start();
+
+            AlarmStateManager.setSnoozeState(this, mAlarmInstance, false);
+
+            Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
+        }
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();

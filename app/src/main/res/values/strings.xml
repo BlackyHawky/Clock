@@ -15,6 +15,8 @@
     <string name="alarm_vibrate">Vibrate</string>
     <!-- Setting labels on Set alarm screen: Stop alarm when ringtone ends on or off -->
     <string name="stop_alarm_ringtone_when_ringtone_ends_label">Stop alarm when ringtone ends</string>
+    <!-- Setting labels on Set alarm screen: Do not repeat alarm on or off -->
+    <string name="do_not_repeat_alarm_label">Do not repeat alarm</string>
 
     <!-- Default button title for the color picker -->
     <string name="color_picker_default_button">Default</string>
@@ -406,6 +408,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
          the snooze_duration_entries above. -->
@@ -440,6 +443,7 @@
         <item>28</item>
         <item>29</item>
         <item>30</item>
+        <item>-1</item>
     </string-array>
     <!-- Week start day preference title. -->
     <string name="week_start_title">Start week on</string>
@@ -940,6 +944,10 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_left">Swipe left to snooze</string>
+    <!-- Text instruction for non-repeatable alarm on alarm lock screen. The snooze button will still
+     be on the left even on RTL languages so please do not reverse this during
+     translation. -->
+    <string name="description_direction_left_for_non_repeatable_alarms">Swipe left to dismiss</string>
     <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
