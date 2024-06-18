@@ -154,13 +154,13 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.vibrate = cursor.getInt(7) == 1;
                     alarm.label = cursor.getString(8);
 
-                    final String alertString = cursor.getString(8);
+                    final String alertString = cursor.getString(9);
                     if ("silent".equals(alertString)) {
                         alarm.alert = Alarm.NO_RINGTONE_URI;
                     } else {
                         alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
                     }
-                    alarm.increasingVolume = cursor.getInt(9) == 1;
+                    alarm.increasingVolume = cursor.getInt(10) == 1;
 
                     // Save new version of alarm and create alarm instance for it
                     db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));

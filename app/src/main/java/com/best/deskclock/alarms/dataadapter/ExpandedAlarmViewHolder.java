@@ -98,13 +98,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // Edit time handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
 
-        // Stop alarm when ringtone ends checkbox handler
+        // Dismiss alarm when ringtone ends checkbox handler
         dismissAlarmWhenRingtoneEnds.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setDismissAlarmWhenRingtoneEndsEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
-        // Repeat alarm checkbox handler
+        // Snooze alarm checkbox handler
         snoozeAlarm.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setSnoozeAlarmEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())
