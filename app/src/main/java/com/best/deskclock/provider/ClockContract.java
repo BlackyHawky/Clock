@@ -62,7 +62,7 @@ public final class ClockContract {
          * True if alarm should not be repeated
          * <p>Type: BOOLEAN</p>
          */
-        String DO_NOT_REPEAT_ALARM = "doNotRepeatAlarm";
+        String REPEAT_ALARM = "repeatAlarm";
 
         /**
          * True if alarm should vibrate

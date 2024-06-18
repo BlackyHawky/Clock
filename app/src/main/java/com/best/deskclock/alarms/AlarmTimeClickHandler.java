@@ -83,10 +83,10 @@ public final class AlarmTimeClickHandler {
         }
     }
 
-    public void setDoNotRepeatAlarmEnabled(Alarm alarm, boolean newState) {
-        if (newState != alarm.doNotRepeatAlarm) {
-            alarm.doNotRepeatAlarm = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_do_not_repeat_alarm, R.string.label_deskclock);
+    public void setRepeatAlarmEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.repeatAlarm) {
+            alarm.repeatAlarm = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_repeat_alarm, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LOGGER.d("Updating do not repeat alarm state to " + newState);
             Utils.setVibrationTime(mContext, 50);
@@ -188,7 +188,7 @@ public final class AlarmTimeClickHandler {
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.stopAlarmWhenRingtoneEnds = false;
-            alarm.doNotRepeatAlarm = false;
+            alarm.repeatAlarm = true;
             alarm.vibrate = false;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {

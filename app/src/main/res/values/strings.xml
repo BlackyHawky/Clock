@@ -16,7 +16,7 @@
     <!-- Setting labels on Set alarm screen: Stop alarm when ringtone ends on or off -->
     <string name="stop_alarm_ringtone_when_ringtone_ends_label">Stop alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Do not repeat alarm on or off -->
-    <string name="do_not_repeat_alarm_label">Do not repeat alarm</string>
+    <string name="repeat_alarm_label">Repeat alarm</string>
 
     <!-- Default button title for the color picker -->
     <string name="color_picker_default_button">Default</string>

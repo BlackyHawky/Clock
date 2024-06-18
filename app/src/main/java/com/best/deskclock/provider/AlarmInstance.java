@@ -49,7 +49,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             MINUTES,
             LABEL,
             STOP_ALARM_WHEN_RINGTONE_ENDS,
-            DO_NOT_REPEAT_ALARM,
+            REPEAT_ALARM,
             VIBRATE,
             RINGTONE,
             ALARM_ID,
@@ -69,7 +69,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
     private static final int STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
-    private static final int DO_NOT_REPEAT_ALARM_INDEX = 8;
+    private static final int REPEAT_ALARM_INDEX = 8;
     private static final int VIBRATE_INDEX = 9;
     private static final int RINGTONE_INDEX = 10;
     private static final int ALARM_ID_INDEX = 11;
@@ -86,7 +86,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mMinute;
     public String mLabel;
     public boolean mStopAlarmWhenRingtoneEnds;
-    public boolean mDoNotRepeatAlarm;
+    public boolean mRepeatAlarm;
     public boolean mVibrate;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -103,7 +103,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         setAlarmTime(calendar);
         mLabel = "";
         mStopAlarmWhenRingtoneEnds = false;
-        mDoNotRepeatAlarm = false;
+        mRepeatAlarm = true;
         mVibrate = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -119,7 +119,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
         this.mStopAlarmWhenRingtoneEnds = instance.mStopAlarmWhenRingtoneEnds;
-        this.mDoNotRepeatAlarm = instance.mDoNotRepeatAlarm;
+        this.mRepeatAlarm = instance.mRepeatAlarm;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -137,7 +137,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
             mStopAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mDoNotRepeatAlarm = c.getInt(Alarm.INSTANCE_DO_NOT_REPEAT_ALARM_INDEX) == 1;
+            mRepeatAlarm = c.getInt(Alarm.INSTANCE_REPEAT_ALARM_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
@@ -148,7 +148,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
             mStopAlarmWhenRingtoneEnds = c.getInt(STOP_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mDoNotRepeatAlarm = c.getInt(DO_NOT_REPEAT_ALARM_INDEX) == 1;
+            mRepeatAlarm = c.getInt(REPEAT_ALARM_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
@@ -179,7 +179,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
         values.put(STOP_ALARM_WHEN_RINGTONE_ENDS, instance.mStopAlarmWhenRingtoneEnds ? 1 : 0);
-        values.put(DO_NOT_REPEAT_ALARM, instance.mDoNotRepeatAlarm ? 1 : 0);
+        values.put(REPEAT_ALARM, instance.mRepeatAlarm ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -449,7 +449,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
                 ", mStopAlarmWhenRingtoneEnds=" + mStopAlarmWhenRingtoneEnds +
-                ", mDoNotRepeatAlarm=" + mDoNotRepeatAlarm +
+                ", mRepeatAlarm=" + mRepeatAlarm +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +
