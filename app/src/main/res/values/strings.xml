@@ -944,9 +944,9 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_left">Swipe left to snooze</string>
-    <!-- Text instruction for non-repeatable alarm on alarm lock screen. The snooze button will still
-     be on the left even on RTL languages so please do not reverse this during
-     translation. -->
+    <!-- Text instruction for non-repeatable alarm on alarm lock screen. The snooze button is replaced
+         with the dismiss button and will still be on the left even on RTL languages so please do not
+         reverse this during translation. -->
     <string name="description_direction_left_for_non_repeatable_alarms">Swipe left to dismiss</string>
     <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
          be on the left even on RTL languages so please do not reverse this during
