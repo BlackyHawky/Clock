@@ -34,6 +34,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 
@@ -372,13 +373,17 @@ public final class AlarmNotifications {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
-        // Setup Snooze Action
-        Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
-                AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
-        snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
-        PendingIntent snoozePendingIntent = PendingIntent.getService(service,
-                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+        // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
+        // or if "Snooze Alarm" is enabled in the expanded alarm view
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        if (instance.mSnoozeAlarm && snoozeMinutes != -1) {
+            Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
+                    AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
+            snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
+            PendingIntent snoozePendingIntent = PendingIntent.getService(service,
+                    ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+        }
 
         // Setup Dismiss Action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(service,
