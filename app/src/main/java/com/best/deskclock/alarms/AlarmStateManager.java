@@ -369,7 +369,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Calendar newAlarmTime = Calendar.getInstance();
         // If snooze duration has been set to "None", simply dismiss the alarm.
         // Otherwise, calculate the new snooze alarm time.
-        if (snoozeMinutes == -1 || !instance.mRepeatAlarm) {
+        if (snoozeMinutes == -1 || !instance.mSnoozeAlarm) {
             deleteInstanceAndUpdateParent(context, instance);
             return;
         } else {
@@ -427,7 +427,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         // If alarm silence has been set to "At the end of the ringtone",
-        // we don't want it to be seen as missed but repeated.
+        // we don't want it to be seen as missed but snoozed.
         // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
         // and nothing else; so there's no need to tell him that the alarm has been missed.
         // However, the alarm must be repeatable.

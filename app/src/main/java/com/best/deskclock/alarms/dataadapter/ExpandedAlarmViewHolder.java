@@ -47,7 +47,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     public final LinearLayout repeatDays;
     public final CheckBox stopAlarmWhenRingtoneEnds;
-    public final CheckBox repeatAlarm;
+    public final CheckBox snoozeAlarm;
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final Chip delete;
@@ -66,7 +66,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
         stopAlarmWhenRingtoneEnds = itemView.findViewById(R.id.stop_alarm_when_ringtone_ends_onoff);
-        repeatAlarm = itemView.findViewById(R.id.repeat_alarm_onoff);
+        snoozeAlarm = itemView.findViewById(R.id.snooze_alarm_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
 
         final Context context = itemView.getContext();
@@ -105,8 +105,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         );
 
         // Repeat alarm checkbox handler
-        repeatAlarm.setOnClickListener(v ->
-                getAlarmTimeClickHandler().setRepeatAlarmEnabled(
+        snoozeAlarm.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setSnoozeAlarmEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
@@ -150,7 +150,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDaysOfWeekButtons(alarm, context);
         bindRingtone(context, alarm);
         bindStopAlarmWhenRingtoneEnds(alarm);
-        bindRepeatAlarm(alarm);
+        bindSnoozeAlarm(alarm);
         bindVibrator(alarm);
         bindDuplicateButton();
     }
@@ -193,13 +193,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
-    private void bindRepeatAlarm(Alarm alarm) {
+    private void bindSnoozeAlarm(Alarm alarm) {
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         if (snoozeMinutes == -1) {
-            repeatAlarm.setVisibility(View.GONE);
+            snoozeAlarm.setVisibility(View.GONE);
         } else {
-            repeatAlarm.setVisibility(View.VISIBLE);
-            repeatAlarm.setChecked(alarm.repeatAlarm);
+            snoozeAlarm.setVisibility(View.VISIBLE);
+            snoozeAlarm.setChecked(alarm.snoozeAlarm);
         }
     }
 

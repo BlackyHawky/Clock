@@ -146,7 +146,7 @@
             tools:checked="false" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/repeat_alarm_onoff"
+            android:id="@+id/snooze_alarm_onoff"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="?selectableItemBackground"
@@ -154,7 +154,7 @@
             android:drawableStart="@drawable/ic_repeat"
             android:drawableEnd="@drawable/ic_selector_checkbox"
             android:drawablePadding="10dp"
-            android:text="@string/repeat_alarm_label"
+            android:text="@string/snooze_alarm_label"
             android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@id/stop_alarm_when_ringtone_ends_onoff"
             tools:ignore="RtlSymmetry"
@@ -171,7 +171,7 @@
             android:drawablePadding="10dp"
             android:text="@string/alarm_vibrate"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/repeat_alarm_onoff"
+            app:layout_constraintTop_toBottomOf="@id/snooze_alarm_onoff"
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 

@@ -251,7 +251,7 @@ public class AlarmActivity extends AppCompatActivity
         mDismissButton.setColorFilter(mTextColor);
 
         mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
-        mSnoozeButton.setImageDrawable(mSnoozeMinutes == -1 || !mAlarmInstance.mRepeatAlarm
+        mSnoozeButton.setImageDrawable(mSnoozeMinutes == -1 || !mAlarmInstance.mSnoozeAlarm
                 ? Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_alarm_off, 2f)
                 : Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
@@ -517,7 +517,7 @@ public class AlarmActivity extends AppCompatActivity
     private void hintSnooze() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mRepeatAlarm
+        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mSnoozeAlarm
                 ? R.string.description_direction_left_for_non_repeatable_alarms
                 : R.string.description_direction_left;
         final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
@@ -530,7 +530,7 @@ public class AlarmActivity extends AppCompatActivity
     private void hintDismiss() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mRepeatAlarm
+        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mSnoozeAlarm
                 ? R.string.description_direction_left_for_non_repeatable_alarms
                 : R.string.description_direction_left;
         final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
@@ -565,7 +565,7 @@ public class AlarmActivity extends AppCompatActivity
         setAnimatedFractions(1.0f, 0.0f);
 
         // If snooze duration has been set to "None", simply dismiss the alarm.
-        if (mSnoozeMinutes == -1 || !mAlarmInstance.mRepeatAlarm) {
+        if (mSnoozeMinutes == -1 || !mAlarmInstance.mSnoozeAlarm) {
             getAlertAnimator(mSnoozeButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text), mCurrentHourColor).start();
 
             AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
