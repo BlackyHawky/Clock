@@ -648,6 +648,13 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if alarm vibrations are enabled when creating alarms. {@code false} otherwise.
+     */
+    public boolean areAlarmVibrationsEnabledByDefault() {
+        return mAlarmModel.areAlarmVibrationsEnabledByDefault();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

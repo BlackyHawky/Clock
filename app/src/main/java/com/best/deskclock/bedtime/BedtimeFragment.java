@@ -725,6 +725,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
     private void createAlarm() {
         final Alarm alarm = new Alarm();
+        final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
         alarm.id = BEDTIME_ID;
         alarm.hour = 8;
         alarm.minutes = 30;
@@ -734,7 +735,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         alarm.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
         alarm.dismissAlarmWhenRingtoneEnds = false;
         alarm.alarmSnoozeActions = true;
-        alarm.vibrate = false;
+        alarm.vibrate = areAlarmVibrationsEnabledByDefault;
         mWakeupText.setTime(8, 30);
         mWakeupText.setAlpha(AlarmItemViewHolder.CLOCK_DISABLED_ALPHA);
         hoursOfSleep(alarm);

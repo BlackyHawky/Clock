@@ -184,12 +184,13 @@ public final class AlarmTimeClickHandler {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm alarm = new Alarm();
+            final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.alarmSnoozeActions = true;
-            alarm.vibrate = false;
+            alarm.vibrate = areAlarmVibrationsEnabledByDefault;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;

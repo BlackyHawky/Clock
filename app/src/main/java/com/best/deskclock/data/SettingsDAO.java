@@ -16,6 +16,7 @@ import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
@@ -520,6 +521,13 @@ final class SettingsDAO {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30");
         return Integer.parseInt(string);
+    }
+
+    /**
+     * @return {@code true} if alarm vibrations are enabled when creating alarms. {@code false} otherwise.
+     */
+    static boolean areAlarmVibrationsEnabledByDefault(SharedPreferences pref) {
+        return pref.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false);
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {

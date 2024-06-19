@@ -311,6 +311,8 @@
         <item>60</item>
         <item>120</item>
     </string-array>
+    <!-- Setting title to enable vibrations when creating alarms -->
+    <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->

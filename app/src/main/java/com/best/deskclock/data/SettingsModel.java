@@ -217,6 +217,10 @@ final class SettingsModel {
         return SettingsDAO.getAlarmNotificationReminderTime(mPrefs);
     }
 
+    boolean areAlarmVibrationsEnabledByDefault() {
+        return SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;

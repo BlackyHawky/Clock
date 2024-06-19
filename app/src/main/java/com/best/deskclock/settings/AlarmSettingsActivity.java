@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
@@ -44,6 +45,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_SHAKE_ACTION = "shake_action";
     public static final String KEY_WEEK_START = "week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
+    public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +62,15 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends PreferenceFragmentCompat implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+        SwitchPreferenceCompat mEnableAlarmVibrationsByDefault;
+
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 getPreferenceManager().setStorageDeviceProtected();
             }
             addPreferencesFromResource(R.xml.settings_alarm);
+            hidePreferences();
         }
 
         @Override
@@ -88,7 +93,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
                 }
 
-                case KEY_SWIPE_ACTION -> Utils.setVibrationTime(requireContext(), 50);
+                case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
+                        Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
                         KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
@@ -123,6 +129,14 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             }
 
             return false;
+        }
+
+        private void hidePreferences() {
+            mEnableAlarmVibrationsByDefault = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
+            assert mEnableAlarmVibrationsByDefault != null;
+            final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefault.getContext()
+                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            mEnableAlarmVibrationsByDefault.setVisible(hasVibrator);
         }
 
         private void refresh() {
@@ -168,6 +182,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             weekStartPref.setOnPreferenceChangeListener(this);
 
             refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME)));
+
+            mEnableAlarmVibrationsByDefault.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
+            mEnableAlarmVibrationsByDefault.setOnPreferenceChangeListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

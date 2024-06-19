@@ -130,6 +130,10 @@ final class AlarmModel {
         return mSettingsModel.getAlarmNotificationReminderTime();
     }
 
+    boolean areAlarmVibrationsEnabledByDefault() {
+        return mSettingsModel.areAlarmVibrationsEnabledByDefault();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.

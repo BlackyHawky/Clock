@@ -149,6 +149,7 @@
         <item>1 heure avant</item>
         <item>2 heures avant</item>
     </string-array>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Activer les vibrations lors de la création des alarmes</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
