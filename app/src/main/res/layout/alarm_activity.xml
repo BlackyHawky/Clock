@@ -126,13 +126,15 @@
             android:id="@+id/hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:textSize="18sp"
+            android:textColor="@color/md_theme_outline"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible"
-            tools:text="Swipe right to dismiss" />
+            tools:text="@string/description_direction_both" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

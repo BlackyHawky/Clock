@@ -954,6 +954,9 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
+    <string name="description_direction_both_clicked">Click left to snooze or right to dismiss</string>
+    <string name="description_direction_both_for_non_repeatable_alarms">Swipe left or right to dismiss</string>
+    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Click left or right to dismiss</string>
     <!-- Timer preference title in the settings -->
     <string name="timer_settings">Timers</string>
     <string name="timer_settings_title">Timers settings</string>

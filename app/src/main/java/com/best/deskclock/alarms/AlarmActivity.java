@@ -277,7 +277,7 @@ public class AlarmActivity extends AppCompatActivity
         if (isSwipeActionEnabled) {
             mAlarmButton.setOnTouchListener(this);
         } else {
-            mAlarmButton.setOnTouchListener(null);
+            mAlarmButton.setOnClickListener(this);
         }
         mSnoozeButton.setOnClickListener(this);
         mDismissButton.setOnClickListener(this);
@@ -397,6 +397,8 @@ public class AlarmActivity extends AppCompatActivity
                 snooze();
             } else if (view == mDismissButton) {
                 dismiss();
+            } else if (view == mAlarmButton) {
+                hintAlarmAction();
             }
             return;
         }
@@ -405,6 +407,8 @@ public class AlarmActivity extends AppCompatActivity
             hintSnooze();
         } else if (view == mDismissButton) {
             hintDismiss();
+        } else if (view == mAlarmButton) {
+            hintAlarmAction();
         }
     }
 
@@ -474,8 +478,8 @@ public class AlarmActivity extends AppCompatActivity
                     // Animate back to the initial state.
                     AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
                 } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
-                    // User touched the alarm button, hint the dismiss action.
-                    hintDismiss();
+                    // User touched the alarm button, hint the alarm action.
+                    hintAlarmAction();
                 }
 
                 // Restart the pulse.
@@ -539,6 +543,25 @@ public class AlarmActivity extends AppCompatActivity
         getAlarmBounceAnimator(translationX, translationX < 0.0f
                 ? hintLeftResId
                 : R.string.description_direction_right).start();
+    }
+
+    private void hintAlarmAction() {
+        final int hintAlarmButtonResId;
+        if (isSwipeActionEnabled) {
+            if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+                hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarms;
+            } else {
+                hintAlarmButtonResId = R.string.description_direction_both;
+            }
+        } else {
+            if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+                hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarms_clicked;
+            } else {
+                hintAlarmButtonResId = R.string.description_direction_both_clicked;
+            }
+        }
+
+        getAlarmBounceAnimator(0, hintAlarmButtonResId).start();
     }
 
     /**
