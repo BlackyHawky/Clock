@@ -104,7 +104,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                         getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
-        // Snooze alarm checkbox handler
+        // Alarm snooze actions checkbox handler
         alarmSnoozeActions.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setAlarmSnoozeActionsEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())

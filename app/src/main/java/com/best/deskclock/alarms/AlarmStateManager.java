@@ -367,7 +367,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         Calendar newAlarmTime = Calendar.getInstance();
-        // If snooze duration has been set to "None", simply dismiss the alarm.
+        // If snooze duration has been set to "None" or if "Enable alarm snooze actions"
+        // is not enabled in the expanded alarm view, simply dismiss the alarm.
         // Otherwise, calculate the new snooze alarm time.
         if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
             deleteInstanceAndUpdateParent(context, instance);

@@ -411,7 +411,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
             // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
             // the ringtone stops before the end of the melody.
-            // We'll use the MediaPlayer class to obtain the ringtone duration.
+            // So, we'll use the MediaPlayer class to obtain the ringtone duration.
             // Tested with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
 
             /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
