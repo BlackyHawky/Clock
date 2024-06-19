@@ -83,10 +83,10 @@ public final class AlarmTimeClickHandler {
         }
     }
 
-    public void setSnoozeAlarmEnabled(Alarm alarm, boolean newState) {
-        if (newState != alarm.snoozeAlarm) {
-            alarm.snoozeAlarm = newState;
-            Events.sendAlarmEvent(R.string.action_toggle_snooze_alarm, R.string.label_deskclock);
+    public void setAlarmSnoozeActionsEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.alarmSnoozeActions) {
+            alarm.alarmSnoozeActions = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_alarm_snooze_actions, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LOGGER.d("Updating snooze alarm state to " + newState);
             Utils.setVibrationTime(mContext, 50);
@@ -188,7 +188,7 @@ public final class AlarmTimeClickHandler {
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
-            alarm.snoozeAlarm = true;
+            alarm.alarmSnoozeActions = true;
             alarm.vibrate = false;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {

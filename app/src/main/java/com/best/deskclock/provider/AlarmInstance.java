@@ -50,7 +50,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             MINUTES,
             LABEL,
             DISMISS_ALARM_WHEN_RINGTONE_ENDS,
-            SNOOZE_ALARM,
+            ALARM_SNOOZE_ACTIONS,
             VIBRATE,
             RINGTONE,
             ALARM_ID,
@@ -70,7 +70,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
     private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
-    private static final int SNOOZE_ALARM_INDEX = 8;
+    private static final int ALARM_SNOOZE_ACTIONS_INDEX = 8;
     private static final int VIBRATE_INDEX = 9;
     private static final int RINGTONE_INDEX = 10;
     private static final int ALARM_ID_INDEX = 11;
@@ -87,7 +87,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mMinute;
     public String mLabel;
     public boolean mDismissAlarmWhenRingtoneEnds;
-    public boolean mSnoozeAlarm;
+    public boolean mAlarmSnoozeActions;
     public boolean mVibrate;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -104,7 +104,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         setAlarmTime(calendar);
         mLabel = "";
         mDismissAlarmWhenRingtoneEnds = false;
-        mSnoozeAlarm = true;
+        mAlarmSnoozeActions = true;
         mVibrate = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -120,7 +120,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
         this.mDismissAlarmWhenRingtoneEnds = instance.mDismissAlarmWhenRingtoneEnds;
-        this.mSnoozeAlarm = instance.mSnoozeAlarm;
+        this.mAlarmSnoozeActions = instance.mAlarmSnoozeActions;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -138,7 +138,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
             mDismissAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mSnoozeAlarm = c.getInt(Alarm.INSTANCE_SNOOZE_ALARM_INDEX) == 1;
+            mAlarmSnoozeActions = c.getInt(Alarm.INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
@@ -149,7 +149,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
             mDismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
-            mSnoozeAlarm = c.getInt(SNOOZE_ALARM_INDEX) == 1;
+            mAlarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
@@ -180,7 +180,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
         values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, instance.mDismissAlarmWhenRingtoneEnds ? 1 : 0);
-        values.put(SNOOZE_ALARM, instance.mSnoozeAlarm ? 1 : 0);
+        values.put(ALARM_SNOOZE_ACTIONS, instance.mAlarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -467,7 +467,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
                 ", mDismissAlarmWhenRingtoneEnds=" + mDismissAlarmWhenRingtoneEnds +
-                ", mSnoozeAlarm=" + mSnoozeAlarm +
+                ", mAlarmSnoozeActions=" + mAlarmSnoozeActions +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +

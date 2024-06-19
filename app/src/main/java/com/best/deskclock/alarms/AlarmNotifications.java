@@ -376,7 +376,7 @@ public final class AlarmNotifications {
         // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
         // or if "Snooze Alarm" is enabled in the expanded alarm view
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
-        if (instance.mSnoozeAlarm && snoozeMinutes != -1) {
+        if (instance.mAlarmSnoozeActions && snoozeMinutes != -1) {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
                     AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
             snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);

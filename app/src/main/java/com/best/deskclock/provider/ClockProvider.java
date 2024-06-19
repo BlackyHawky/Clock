@@ -72,8 +72,8 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.ENABLED);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_ALARM,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.SNOOZE_ALARM);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_SNOOZE_ACTIONS,
+                ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL,
@@ -103,8 +103,8 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.LABEL);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS);
-        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_ALARM,
-                INSTANCES_TABLE_NAME + "." + InstancesColumns.SNOOZE_ALARM);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_SNOOZE_ACTIONS,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
     }

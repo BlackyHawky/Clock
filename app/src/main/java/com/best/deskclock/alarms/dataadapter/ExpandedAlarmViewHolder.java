@@ -47,7 +47,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     public final LinearLayout repeatDays;
     public final CheckBox dismissAlarmWhenRingtoneEnds;
-    public final CheckBox snoozeAlarm;
+    public final CheckBox alarmSnoozeActions;
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final Chip delete;
@@ -66,7 +66,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
         dismissAlarmWhenRingtoneEnds = itemView.findViewById(R.id.dismiss_alarm_when_ringtone_ends_onoff);
-        snoozeAlarm = itemView.findViewById(R.id.snooze_alarm_onoff);
+        alarmSnoozeActions = itemView.findViewById(R.id.alarm_snooze_actions_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
 
         final Context context = itemView.getContext();
@@ -105,8 +105,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         );
 
         // Snooze alarm checkbox handler
-        snoozeAlarm.setOnClickListener(v ->
-                getAlarmTimeClickHandler().setSnoozeAlarmEnabled(
+        alarmSnoozeActions.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setAlarmSnoozeActionsEnabled(
                         getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
@@ -150,7 +150,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDaysOfWeekButtons(alarm, context);
         bindRingtone(context, alarm);
         bindDismissAlarmWhenRingtoneEnds(alarm);
-        bindSnoozeAlarm(alarm);
+        bindAlarmSnoozeActions(alarm);
         bindVibrator(alarm);
         bindDuplicateButton();
     }
@@ -193,13 +193,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
-    private void bindSnoozeAlarm(Alarm alarm) {
+    private void bindAlarmSnoozeActions(Alarm alarm) {
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         if (snoozeMinutes == -1) {
-            snoozeAlarm.setVisibility(View.GONE);
+            alarmSnoozeActions.setVisibility(View.GONE);
         } else {
-            snoozeAlarm.setVisibility(View.VISIBLE);
-            snoozeAlarm.setChecked(alarm.snoozeAlarm);
+            alarmSnoozeActions.setVisibility(View.VISIBLE);
+            alarmSnoozeActions.setChecked(alarm.alarmSnoozeActions);
         }
     }
 

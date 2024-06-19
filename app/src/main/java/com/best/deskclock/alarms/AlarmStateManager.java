@@ -369,7 +369,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Calendar newAlarmTime = Calendar.getInstance();
         // If snooze duration has been set to "None", simply dismiss the alarm.
         // Otherwise, calculate the new snooze alarm time.
-        if (snoozeMinutes == -1 || !instance.mSnoozeAlarm) {
+        if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
             deleteInstanceAndUpdateParent(context, instance);
             return;
         } else {

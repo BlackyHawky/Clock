@@ -138,7 +138,7 @@ public final class AlarmUpdateHandler {
                     // Copy over minor change data to the instance; we don't know
                     // exactly which minor field changed, so just copy them all.
                     newInstance.mDismissAlarmWhenRingtoneEnds = alarm.dismissAlarmWhenRingtoneEnds;
-                    newInstance.mSnoozeAlarm = alarm.snoozeAlarm;
+                    newInstance.mAlarmSnoozeActions = alarm.alarmSnoozeActions;
                     newInstance.mVibrate = alarm.vibrate;
                     newInstance.mRingtone = alarm.alert;
                     newInstance.mLabel = alarm.label;

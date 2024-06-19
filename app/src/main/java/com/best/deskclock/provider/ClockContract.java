@@ -59,10 +59,10 @@ public final class ClockContract {
         String DISMISS_ALARM_WHEN_RINGTONE_ENDS = "dismissAlarmWhenRingtoneEnds";
 
         /**
-         * True if alarm should not be snoozed
+         * True if alarm snooze actions should be enabled
          * <p>Type: BOOLEAN</p>
          */
-        String SNOOZE_ALARM = "snoozeAlarm";
+        String ALARM_SNOOZE_ACTIONS = "alarmSnoozeActions";
 
         /**
          * True if alarm should vibrate
