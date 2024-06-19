@@ -174,6 +174,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             int i = Integer.parseInt(delay);
             if (i == -1) {
                 listPref.setSummary(R.string.auto_silence_never);
+            } else if (i == -2) {
+                listPref.setSummary(R.string.auto_silence_at_the_end_of_the_ringtone);
             } else {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                         R.plurals.auto_silence_summary, i));

@@ -56,6 +56,8 @@
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
+    <string name="action_toggle_dismiss_alarm_when_ringtone_ends">Toggle Dismiss Alarm When Ringtone Ends</string>
+    <string name="action_toggle_alarm_snooze_actions">Toggle Alarm Snooze Actions</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

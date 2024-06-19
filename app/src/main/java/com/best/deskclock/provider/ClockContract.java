@@ -53,6 +53,18 @@ public final class ClockContract {
         Uri NO_RINGTONE_URI = Uri.EMPTY;
 
         /**
+         * True if alarm should dismiss at the end of the ringtone
+         * <p>Type: BOOLEAN</p>
+         */
+        String DISMISS_ALARM_WHEN_RINGTONE_ENDS = "dismissAlarmWhenRingtoneEnds";
+
+        /**
+         * True if alarm snooze actions are enabled
+         * <p>Type: BOOLEAN</p>
+         */
+        String ALARM_SNOOZE_ACTIONS = "alarmSnoozeActions";
+
+        /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */

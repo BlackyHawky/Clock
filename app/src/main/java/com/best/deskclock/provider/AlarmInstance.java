@@ -14,6 +14,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
@@ -24,6 +25,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,6 +49,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             HOUR,
             MINUTES,
             LABEL,
+            DISMISS_ALARM_WHEN_RINGTONE_ENDS,
+            ALARM_SNOOZE_ACTIONS,
             VIBRATE,
             RINGTONE,
             ALARM_ID,
@@ -65,11 +69,13 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
     private static final int LABEL_INDEX = 6;
-    private static final int VIBRATE_INDEX = 7;
-    private static final int RINGTONE_INDEX = 8;
-    private static final int ALARM_ID_INDEX = 9;
-    private static final int ALARM_STATE_INDEX = 10;
-    private static final int INCREASING_VOLUME_INDEX = 11;
+    private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
+    private static final int ALARM_SNOOZE_ACTIONS_INDEX = 8;
+    private static final int VIBRATE_INDEX = 9;
+    private static final int RINGTONE_INDEX = 10;
+    private static final int ALARM_ID_INDEX = 11;
+    private static final int ALARM_STATE_INDEX = 12;
+    private static final int INCREASING_VOLUME_INDEX = 13;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     // Public fields
@@ -80,6 +86,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mHour;
     public int mMinute;
     public String mLabel;
+    public boolean mDismissAlarmWhenRingtoneEnds;
+    public boolean mAlarmSnoozeActions;
     public boolean mVibrate;
     public Uri mRingtone;
     public Long mAlarmId;
@@ -95,6 +103,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mId = INVALID_ID;
         setAlarmTime(calendar);
         mLabel = "";
+        mDismissAlarmWhenRingtoneEnds = false;
+        mAlarmSnoozeActions = true;
         mVibrate = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
@@ -109,6 +119,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mHour = instance.mHour;
         this.mMinute = instance.mMinute;
         this.mLabel = instance.mLabel;
+        this.mDismissAlarmWhenRingtoneEnds = instance.mDismissAlarmWhenRingtoneEnds;
+        this.mAlarmSnoozeActions = instance.mAlarmSnoozeActions;
         this.mVibrate = instance.mVibrate;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
@@ -125,6 +137,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
             mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
             mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
+            mDismissAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mAlarmSnoozeActions = c.getInt(Alarm.INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
@@ -134,6 +148,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mHour = c.getInt(HOUR_INDEX);
             mMinute = c.getInt(MINUTES_INDEX);
             mLabel = c.getString(LABEL_INDEX);
+            mDismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
+            mAlarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
@@ -163,6 +179,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
+        values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, instance.mDismissAlarmWhenRingtoneEnds ? 1 : 0);
+        values.put(ALARM_SNOOZE_ACTIONS, instance.mAlarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
@@ -270,7 +288,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    result.add(new AlarmInstance(cursor, false /* joinedTable */));
+                    result.add(new AlarmInstance(cursor, false));
                 } while (cursor.moveToNext());
             }
         }
@@ -382,16 +400,47 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time when alarm should be silence, or null if never
      */
-    public Calendar getTimeout() {
+    public Calendar getTimeout(Context context) {
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        Calendar calendar = getAlarmTime();
 
         // Alarm silence has been set to "None"
-        if (timeoutMinutes < 0) {
+        if (timeoutMinutes == -1) {
             return null;
+        // Alarm silence has been set to "At the end of the ringtone"
+        } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
+            // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
+            // the ringtone stops before the end of the melody.
+            // So, we'll use the MediaPlayer class to obtain the ringtone duration.
+            // Tested with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
+
+            /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            try {
+                mmr.setDataSource(context, mRingtone);
+                String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                assert durationStr != null;
+                int milliSecond = Integer.parseInt(durationStr);
+                calendar.add(Calendar.MILLISECOND, milliSecond);
+                mmr.close();
+            } catch (Exception e) {
+                LogUtils.e("Could not get ringtone duration");
+            }*/
+
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            try {
+                mediaPlayer.setDataSource(context, mRingtone);
+            } catch (IOException ignored) {}
+
+            try {
+                mediaPlayer.prepare();
+            } catch (IOException ignored) {}
+
+            int milliSeconds = mediaPlayer.getDuration();
+            calendar.add(Calendar.MILLISECOND, milliSeconds);
+        } else {
+            calendar.add(Calendar.MINUTE, timeoutMinutes);
         }
 
-        Calendar calendar = getAlarmTime();
-        calendar.add(Calendar.MINUTE, timeoutMinutes);
         return calendar;
     }
 
@@ -417,6 +466,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
                 ", mLabel=" + mLabel +
+                ", mDismissAlarmWhenRingtoneEnds=" + mDismissAlarmWhenRingtoneEnds +
+                ", mAlarmSnoozeActions=" + mAlarmSnoozeActions +
                 ", mVibrate=" + mVibrate +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +

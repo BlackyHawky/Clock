@@ -344,7 +344,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         Events.sendAlarmEvent(R.string.action_fire, 0);
 
-        Calendar timeout = instance.getTimeout();
+        Calendar timeout = instance.getTimeout(context);
         if (timeout != null) {
             scheduleInstanceStateChange(context, timeout, instance, AlarmInstance.MISSED_STATE);
         }
@@ -365,10 +365,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
-        // Calculate the new snooze alarm time
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         Calendar newAlarmTime = Calendar.getInstance();
-        newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
+        // If snooze duration has been set to "None" or if "Enable alarm snooze actions"
+        // is not enabled in the expanded alarm view, simply dismiss the alarm.
+        // Otherwise, calculate the new snooze alarm time.
+        if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
+            deleteInstanceAndUpdateParent(context, instance);
+            return;
+        } else {
+            newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
+        }
 
         // Update alarm state and new alarm time in db.
         LogUtils.i("Setting snoozed state to instance " + instance.mId + " for "
@@ -418,6 +425,18 @@ public final class AlarmStateManager extends BroadcastReceiver {
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.MISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
+
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        // If alarm silence has been set to "At the end of the ringtone",
+        // we don't want it to be seen as missed but snoozed.
+        // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
+        // and nothing else; so there's no need to tell him that the alarm has been missed.
+        // However, the alarm must be repeatable.
+        // See https://github.com/BlackyHawky/Clock/issues/40
+        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
+            setSnoozeState(context, instance, true);
+            return;
+        }
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showMissedNotification(context, instance);
@@ -533,14 +552,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context  application context
      * @param instance to register
      */
-    public static void registerInstance(Context context, AlarmInstance instance,
-                                        boolean updateNextAlarm) {
+    public static void registerInstance(Context context, AlarmInstance instance, boolean updateNextAlarm) {
         LogUtils.i("Registering instance: " + instance.mId);
         final ContentResolver cr = context.getContentResolver();
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         final Calendar currentTime = getCurrentTime();
         final Calendar alarmTime = instance.getAlarmTime();
-        final Calendar timeoutTime = instance.getTimeout();
+        final Calendar timeoutTime = instance.getTimeout(context);
         final Calendar notificationTime = instance.getNotificationTime();
         final Calendar missedTTL = instance.getMissedTimeToLive();
 

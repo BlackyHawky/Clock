@@ -71,6 +71,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.ENABLED + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
@@ -87,6 +89,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.MINUTES + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
@@ -128,6 +132,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     "minutes",
                     "daysofweek",
                     "enabled",
+                    "dismissAlarmWhenRingtoneEnds",
+                    "alarmSnoozeActions",
                     "vibrate",
                     "message",
                     "alert",
@@ -143,24 +149,24 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.minutes = cursor.getInt(2);
                     alarm.daysOfWeek = Weekdays.fromBits(cursor.getInt(3));
                     alarm.enabled = cursor.getInt(4) == 1;
-                    alarm.vibrate = cursor.getInt(5) == 1;
-                    alarm.label = cursor.getString(6);
+                    alarm.dismissAlarmWhenRingtoneEnds = cursor.getInt(5) == 1;
+                    alarm.alarmSnoozeActions = cursor.getInt(6) == 1;
+                    alarm.vibrate = cursor.getInt(7) == 1;
+                    alarm.label = cursor.getString(8);
 
-                    final String alertString = cursor.getString(7);
+                    final String alertString = cursor.getString(9);
                     if ("silent".equals(alertString)) {
                         alarm.alert = Alarm.NO_RINGTONE_URI;
                     } else {
-                        alarm.alert =
-                                TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
+                        alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
                     }
-                    alarm.increasingVolume = cursor.getInt(8) == 1;
+                    alarm.increasingVolume = cursor.getInt(10) == 1;
 
                     // Save new version of alarm and create alarm instance for it
                     db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
                     if (alarm.enabled) {
                         AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
-                        db.insert(INSTANCES_TABLE_NAME, null,
-                                AlarmInstance.createContentValues(newInstance));
+                        db.insert(INSTANCES_TABLE_NAME, null, AlarmInstance.createContentValues(newInstance));
                     }
                 }
             }
@@ -200,6 +206,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     ClockContract.AlarmsColumns.MINUTES,
                     ClockContract.AlarmsColumns.DAYS_OF_WEEK,
                     ClockContract.AlarmsColumns.ENABLED,
+                    ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
+                    ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS,
                     ClockContract.AlarmsColumns.VIBRATE,
                     ClockContract.AlarmsColumns.LABEL,
                     ClockContract.AlarmsColumns.RINGTONE,
