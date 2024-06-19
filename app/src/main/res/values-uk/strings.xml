@@ -450,8 +450,6 @@
     <string name="FSN_permission_title">Увімкнути повноекранні сповіщення</string>
     <string name="notifications_dialog_title">Сповіщення</string>
     <string name="FSN_dialog_title">Повноекранні сповіщення</string>
-    <string name="storage_dialog_title">Зовнішня пам\'ять</string>
-    <string name="storage_permission_dialog_title">Інформація</string>
     <string name="permission_status_title">Стан: </string>
     <string name="permission_granted">Надано</string>
     <string name="permission_denied">Відхилено</string>

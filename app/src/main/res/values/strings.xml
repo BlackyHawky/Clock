@@ -1221,10 +1221,9 @@
         • &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        • &lt;b&gt;STORAGE &lt;i&gt;(optional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         You can change them now or later in the permission management settings:</string>
-    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quit</string>
     <string name="first_launch_dialog_message">Are you sure you want to leave the application?</string>
     <!--
@@ -1300,14 +1299,4 @@
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
     <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
-    <!-- Storage Permission -->
-    <string name="storage_permission_title">READ EXTERNAL STORAGE</string>
-    <string name="storage_dialog_title">External Storage</string>
-    <string name="storage_dialog_text">This permission is required if you want to choose an alarm tone different from the default alarm tone of your device. This therefore allows the application to play audio and music files on your device.
-        \n\nSince Android 13, we request a specific permission that allow us to read only the music and audio files and nothing else.
-        \nHowever, in earlier Android versions, this is not supported, so we have to ask permission to read external storage.</string>
-    <string name="storage_permission_dialog_title">Information</string>
-    <string name="storage_permission_dialog_message">It appears that you have denied this permission in the Android system dialog.
-        \nAndroid will not allow this application to create this permission request dialog again.
-        \n\nWould you like to go to Settings and allow this permission?</string>
 </resources>

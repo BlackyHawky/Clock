@@ -576,7 +576,6 @@
         • &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        • &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         Vous pouvez les modifier maintenant ou plus tard dans les paramètres de gestion des autorisations :</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -628,14 +627,5 @@
     <string name="FSN_permission_title">ACTIVER LES NOTIFICATIONS EN PLEIN ÉCRAN</string>
     <string name="FSN_dialog_title">Notifications en Plein Écran</string>
     <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation Notifications Plein Écran soit activée.</string>
-    <string name="storage_permission_title">LIRE LE STOCKAGE EXTERNE</string>
-    <string name="storage_dialog_title">Stockage externe</string>
-    <string name="storage_dialog_text">Cette autorisation est requise si vous souhaitez choisir une tonalité d\'alarme différente de la tonalité d\'alarme par défaut de votre appareil. Cette autorisation permet donc à l\'application de lire des fichiers audio et musicaux sur votre appareil.
-        \n\nDepuis Android 13, nous demandons une permission spécifique qui nous permet de lire uniquement les fichiers musicaux et audio et rien d\'autre.
-        \nCependant, dans les versions antérieures d\'Android, cette fonction n\'est pas prise en charge, et nous devons donc demander l\'autorisation de lire le stockage externe.</string>
-    <string name="storage_permission_dialog_title">Information</string>
-    <string name="storage_permission_dialog_message">Il semble que vous ayez refusé cette autorisation dans la boîte de dialogue du système Android.
-        \nAndroid n\'autorisera pas cette application à créer à nouveau cette boîte de dialogue de demande d\'autorisation.
-        \n\nSouhaitez-vous aller dans les Paramètres et autoriser cette autorisation ?</string>
     <string name="bedtime_channel">Coucher</string>
 </resources>

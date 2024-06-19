@@ -483,7 +483,7 @@
     <string name="first_launch_button_later">Mai târziu</string>
     <string name="first_launch_main_feature_link">… și multe altele!</string>
     <string name="first_launch_important_info_title">INFORMAȚII IMPORTANTE</string>
-    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI PE TOT ECRAN;&lt;/b&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICĂRI PE TOT ECRAN;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Închide</string>
     <string name="first_launch_dialog_message">Sigur dorești să părăsești aplicația?</string>
     <string name="permission_settings">Permisiuni</string>
@@ -498,13 +498,6 @@
     <string name="FSN_permission_title">ACTIVEAZĂ NOTIFICĂRILE PE ECRAN COMPLET</string>
     <string name="FSN_dialog_title">Notificări pe ecran complet</string>
     <string name="FSN_dialog_text">Începând cu Android 14, pentru ca alarma să fie declanșată atunci când ecranul este oprit, este imperativ ca permisiunea Notificări pe ecran complet să fie activată</string>
-    <string name="storage_permission_title">CITEȘTE STOCAREA EXTERNĂ</string>
-    <string name="storage_dialog_title">Stocare externă</string>
-    <string name="storage_permission_dialog_title">Informații</string>
-    <string name="storage_permission_dialog_message">Se pare că ai refuzat această permisiune în dialogul de sistem Android.
-\nAndroid nu va permite acestei aplicații să creeze din nou acest dialog de solicitare a permisiunii.
-\n
-\nDorești să accesezi Setări și să acorzi această permisiune?</string>
     <string name="duplicate">Dublează</string>
     <string name="analog_gadget_material_you">Ceas analogic Material You</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
@@ -514,10 +507,6 @@
     <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
     <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
     <string name="permission_granted">Acordată</string>
-    <string name="storage_dialog_text">Această permisiune este necesară dacă dorești să alegi un ton de alarmă diferit de tonul de alarmă implicit al dispozitivului. Prin urmare, aceasta permite aplicației de a reda fișiere audio și muzicale pe dispozitiv.
-\n
-\nÎncepând cu Android 13, solicităm o permisiune specifică care ne permite să citim doar fișierele muzicale și audio și nimic altceva.
-\nCu toate acestea, în versiunile anterioare de Android, acest lucru nu este acceptat, așa că trebuie să cerem permisiunea de a citi stocarea externă.</string>
     <string name="about_dialog_message"> \u0020• Acțiune de întoarcere și agitare pentru a anula/amâna alarma;
 \n
 \n• Oprește/amână alarma cu butonul de pornire sau butoanele de volum;
@@ -558,7 +547,7 @@
     <string name="bedtime_reminder_notification_text">Ora de culcare se sfârșește la <xliff:g id="wake_time">%1$s</xliff:g> după <xliff:g id="sleep_time">%2$s</xliff:g> de somn.</string>
     <string name="bedtime_channel">Ora de culcare</string>
     <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="first_launch_important_info_message">Pentru a te asigura că aplicația funcționează corect, &lt;b&gt;unele dintre setările dispozitivului trebuie să fie modificate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NU DERANJA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt; b&gt;OPTIMIZAREA BATERIEI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s • &lt;b&gt;STOCARE &lt;i&gt;(opțional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt; &lt;i&gt;În funcție de versiunea Android a dispozitivului, unele dintre aceste setări sunt deja optimizate (de exemplu, notificările).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Le poți modifica acum sau mai târziu în setările de gestionare a permisiunilor:</string>
+    <string name="first_launch_important_info_message">Pentru a te asigura că aplicația funcționează corect, &lt;b&gt;unele dintre setările dispozitivului trebuie să fie modificate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NU DERANJA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt; b&gt;OPTIMIZAREA BATERIEI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;În funcție de versiunea Android a dispozitivului, unele dintre aceste setări sunt deja optimizate (de exemplu, notificările).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Le poți modifica acum sau mai târziu în setările de gestionare a permisiunilor:</string>
     <string name="permission_dialog_revoke_title">Revocă accesul</string>
     <string name="ignore_battery_optimizations_title">IGNORĂ OPTIMIZAREA BATERIEI</string>
     <string name="ignore_battery_optimizations_dialog_text">În mod implicit, sistemul Android configurează toate aplicațiile instalate de utilizator pentru a fi optimizate pentru a economisi durata de viață a bateriei.
