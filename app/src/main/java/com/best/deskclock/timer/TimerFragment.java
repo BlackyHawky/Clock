@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,6 @@ public final class TimerFragment extends DeskClockFragment {
     private static final String EXTRA_TIMER_SETUP = "com.best.deskclock.action.TIMER_SETUP";
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
-
 
     /**
      * Scheduled to update the timers while at least one is running.
@@ -96,7 +96,6 @@ public final class TimerFragment extends DeskClockFragment {
     public TimerFragment() {
         super(TIMERS);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -177,6 +176,9 @@ public final class TimerFragment extends DeskClockFragment {
 
         // Stop updating the timers when this fragment is no longer visible.
         stopUpdatingTime();
+
+        // Release the wake lock if it is currently held.
+        releaseWakeLock();
     }
 
     @Override
@@ -445,6 +447,19 @@ public final class TimerFragment extends DeskClockFragment {
                 : LinearLayoutManager.VERTICAL, false);
     }
 
+    private void adjustWakeLock() {
+        final boolean appInForeground = DataModel.getDataModel().isApplicationInForeground();
+        if (isTabSelected() && appInForeground) {
+            requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            releaseWakeLock();
+        }
+    }
+
+    private void releaseWakeLock() {
+        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
     /**
      * Periodically refreshes the state of each timer.
      */
@@ -452,8 +467,10 @@ public final class TimerFragment extends DeskClockFragment {
         @Override
         public void run() {
             final long startTime = SystemClock.elapsedRealtime();
-            // If no timers require continuous updates, avoid scheduling the next update.
+            // If no timer require continuous updates, avoid scheduling the next update
+            // and don't keep the screen on.
             if (!mAdapter.updateTime()) {
+                releaseWakeLock();
                 return;
             }
             final long endTime = SystemClock.elapsedRealtime();
@@ -461,6 +478,9 @@ public final class TimerFragment extends DeskClockFragment {
             // Try to maintain a consistent period of time between redraws.
             final long delay = Math.max(0, startTime + 20 - endTime);
             mTimersView.postDelayed(this, delay);
+
+            // Keep the screen on only if the timer is running or paused.
+            adjustWakeLock();
         }
     }
 

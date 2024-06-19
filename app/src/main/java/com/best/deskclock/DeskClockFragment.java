@@ -73,7 +73,7 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     /**
-     * @return {@code true} iff the currently selected tab displays this fragment
+     * @return {@code true} if the currently selected tab displays this fragment
      */
     public final boolean isTabSelected() {
         return UiDataModel.getUiDataModel().getSelectedTab() == mTab;
