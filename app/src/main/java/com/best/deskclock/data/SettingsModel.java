@@ -272,6 +272,10 @@ final class SettingsModel {
         SettingsDAO.setTimerVibrate(mPrefs, enabled);
     }
 
+    int getDefaultTimeToAddToTimer() {
+        return SettingsDAO.getDefaultTimeToAddToTimer(mPrefs);
+    }
+
     TimeZones getTimeZones() {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }

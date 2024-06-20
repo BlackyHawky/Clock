@@ -238,9 +238,9 @@
     <string name="timer_start">Dechrau</string>
     <string name="timer_delete">Dileu</string>
     <string name="timer_descriptive_delete">Dileu <xliff:g id="number_string">%s</xliff:g></string>
-    <string name="timer_plus_one">Ychwanegu 1 Munud</string>
-    <string name="timer_add_minute">+ 1:00</string>
-    <string name="timer_plus_1_min">Ychwanegu 1 munud</string>
+    <string name="timer_plus_one">Ychwanegu %s Munud</string>
+    <string name="timer_add_minute">+ %s:00</string>
+    <string name="timer_plus_1_min">Ychwanegu %s munud</string>
     <string name="timer_stop">Stopio</string>
     <string name="timer_stop_all">Stopio pob amserydd</string>
     <string name="timer_reset">Ailosod</string>

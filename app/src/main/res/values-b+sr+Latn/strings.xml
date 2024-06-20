@@ -211,9 +211,9 @@
     <string name="timer_start" msgid="6158486445614356442">"Započni"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Izbriši"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Izbrišite <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"Dodaj 1 minut"</string>
-    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"Dodaj 1 min"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Dodaj %s minut"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ %s:00"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Dodaj %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Zaustavi"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Zaustavi sve tajmere"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Resetuj"</string>

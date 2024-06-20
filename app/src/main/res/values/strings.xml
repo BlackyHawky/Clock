@@ -577,11 +577,15 @@
     <!-- Talkback description for deleting a number. -->
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
-    <string name="timer_plus_one">Add 1 Minute</string>
+    <string name="timer_plus_one">Add %s Minute</string>
     <!-- Label for adding one minute to a timer. [CHAR LIMIT=10] -->
-    <string name="timer_add_minute">+ 1:00</string>
+    <string name="timer_add_minute">+ %s:00</string>
     <!-- Like "timer_plus_one", but with 'minute' abbreviated for the notification. -->
-    <string name="timer_plus_1_min">Add 1 min</string>
+    <string name="timer_plus_1_min">Add %s min</string>
+    <!-- Label for adding one hour to a timer. [CHAR LIMIT=10] -->
+    <string name="timer_add_hour">+ 1:00:00</string>
+    <!-- Describes the purpose of the button increase the remaining time on a timer by one hour. -->
+    <string name="timer_plus_one_hour">Add 1 Hour</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
@@ -963,6 +967,39 @@
     <string name="timer_settings_summary">Set default ringtone and volume for timers</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
+    <!-- Default time to add to timer preference title in the settings -->
+    <string name="default_time_to_add_to_timer_title">Default time to add to timer</string>
+    <!-- Entries listed in the ListPreference when invoking the default time to add to timer preference -->
+    <string-array name="default_time_to_add_to_timer_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>4 minutes</item>
+        <item>5 minutes</item>
+        <item>6 minutes</item>
+        <item>7 minutes</item>
+        <item>8 minutes</item>
+        <item>9 minutes</item>
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+     the timer_minutes_to_add_entries above. -->
+    <string-array name="default_time_to_add_to_timer_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->

@@ -41,4 +41,22 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="key_default_time_to_add_to_timer"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/default_time_to_add_to_timer_title"
+            android:entries="@array/default_time_to_add_to_timer_entries"
+            android:entryValues="@array/default_time_to_add_to_timer_values"
+            android:defaultValue="1"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

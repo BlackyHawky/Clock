@@ -266,9 +266,11 @@
     <string name="timer_start" msgid="6158486445614356442">"Départ"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Supprimer"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Supprimer le numéro \"<xliff:g id="NUMBER_STRING">%s</xliff:g>\""</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"Ajouter 1 minute"</string>
-    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"Ajouter 1 min"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Ajouter %s minute"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ %s:00"</string>
+    <string name="timer_add_hour">+ 1:00:00</string>
+    <string name="timer_plus_one_hour">Ajouter 1 heure</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Ajouter %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Arrêter"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Arrêter tous les minuteurs"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Réinitialiser"</string>
@@ -463,6 +465,21 @@
     <string name="timer_settings_title">Paramètres des minuteurs</string>
     <string name="timer_settings_summary">Définit la sonnerie par défaut et le volume des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
+    <string name="default_time_to_add_to_timer_title">Durée par défaut à ajouter au minuteur</string>
+    <string-array name="default_time_to_add_to_timer_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>4 minutes</item>
+        <item>5 minutes</item>
+        <item>6 minutes</item>
+        <item>7 minutes</item>
+        <item>8 minutes</item>
+        <item>9 minutes</item>
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+    </string-array>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs interrompus"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>

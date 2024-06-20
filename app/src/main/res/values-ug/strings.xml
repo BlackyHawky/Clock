@@ -109,8 +109,8 @@
     <string name="timer_add_timer">ۋاقىت خاتىرىلىگۈچنى قوش</string>
     <string name="timer_start">باشلا</string>
     <string name="timer_delete">ئۆچۈر</string>
-    <string name="timer_plus_one">1 مىنۇت قوش</string>
-    <string name="timer_plus_1_min">1 مىنۇت قوش</string>
+    <string name="timer_plus_one">%s مىنۇت قوش</string>
+    <string name="timer_plus_1_min">%s مىنۇت قوش</string>
     <string name="timer_stop">توختا</string>
     <string name="timer_reset">ئەسلىگە قايتۇر</string>
     <string name="timer_cancel">ۋاز كەچ</string>

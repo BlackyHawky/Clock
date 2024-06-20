@@ -133,8 +133,8 @@
     <string name="timer_add_timer">Sandauer dobäisetzen</string>
     <string name="timer_start">Start</string>
     <string name="timer_delete">Läschen</string>
-    <string name="timer_plus_one">Eng Minutt méi</string>
-    <string name="timer_plus_1_min">Eng Min. méi</string>
+    <string name="timer_plus_one">%s Minutt méi</string>
+    <string name="timer_plus_1_min">%s Min. méi</string>
     <string name="timer_stop">Stopp</string>
     <string name="timer_reset">Zrécksetzen</string>
     <string name="timer_cancel">Ofbriechen</string>

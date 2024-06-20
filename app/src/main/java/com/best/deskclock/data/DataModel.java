@@ -464,11 +464,11 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to which a minute should be added to the remaining time
+     * @param timer the timer to which minutes or hours should be added to the remaining time
      */
-    public void addTimerMinute(Timer timer) {
+    public void addTimerMinuteOrHour(Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.addMinute());
+        mTimerModel.updateTimer(timer.addMinuteOrHour());
     }
 
     /**
@@ -551,6 +551,13 @@ public final class DataModel {
     public void setTimerVibrate(boolean enabled) {
         enforceMainLooper();
         mTimerModel.setTimerVibrate(enabled);
+    }
+
+    /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    public int getDefaultTimeToAddToTimer() {
+        return mTimerModel.getDefaultTimeToAddToTimer();
     }
 
     /**

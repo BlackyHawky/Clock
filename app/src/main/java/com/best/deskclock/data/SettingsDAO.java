@@ -332,6 +332,15 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    static int getDefaultTimeToAddToTimer(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        final String string = prefs.getString(TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, "1");
+        return Integer.parseInt(string);
+    }
+
+    /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {
@@ -451,7 +460,7 @@ final class SettingsDAO {
      * @return the number of minutes an alarm may ring before it has timed out and becomes missed
      */
     static int getAlarmTimeout(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings.xml
+        // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(AlarmSettingsActivity.KEY_AUTO_SILENCE, "10");
         return Integer.parseInt(string);
     }
@@ -460,7 +469,7 @@ final class SettingsDAO {
      * @return the number of minutes an alarm will remain snoozed before it rings again
      */
     static int getSnoozeLength(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings.xml
+        // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_SNOOZE, "10");
         return Integer.parseInt(string);
     }

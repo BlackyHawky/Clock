@@ -177,8 +177,8 @@
     <string name="timer_start">Tòisich</string>
     <string name="timer_delete">Sguab às</string>
     <string name="timer_descriptive_delete">Sguab às <xliff:g id="number_string">%s</xliff:g></string>
-    <string name="timer_plus_one">Cuir mionaid ris</string>
-    <string name="timer_plus_1_min">Cuir mionaid ris</string>
+    <string name="timer_plus_one">Cuir mionaid %s</string>
+    <string name="timer_plus_1_min">Cuir mionaid %s</string>
     <string name="timer_stop">Cuir stad air</string>
     <string name="timer_stop_all">Cuir stad air gach tìmear</string>
     <string name="timer_reset">Ath-shuidhich</string>

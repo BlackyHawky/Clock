@@ -87,18 +87,17 @@
         </com.best.deskclock.CircleButtonsLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_one_min"
+            android:id="@+id/add_minute_or_hour_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:text="@string/timer_add_minute"
             android:textStyle="bold"
             android:paddingHorizontal="10dp"
-            android:contentDescription="@string/timer_plus_one"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/play_pause"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="+ 1:00" />
 
         <ImageButton
             android:id="@+id/reset"
@@ -111,7 +110,7 @@
             android:contentDescription="@string/timer_reset"
             app:tint="?colorPrimary"
             app:layout_constraintEnd_toStartOf="@id/play_pause"
-            app:layout_constraintStart_toEndOf="@+id/add_one_min"
+            app:layout_constraintStart_toEndOf="@+id/add_minute_or_hour_button"
             app:layout_constraintTop_toTopOf="@id/play_pause"
             app:layout_constraintBottom_toBottomOf="@id/play_pause" />
 

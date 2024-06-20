@@ -487,6 +487,13 @@ final class TimerModel {
         mSettingsModel.setTimerVibrate(enabled);
     }
 
+    /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    int getDefaultTimeToAddToTimer() {
+        return mSettingsModel.getDefaultTimeToAddToTimer();
+    }
+
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mPrefs);

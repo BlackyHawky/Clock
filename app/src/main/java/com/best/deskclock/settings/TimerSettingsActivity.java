@@ -28,6 +28,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
+    public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             switch (pref.getKey()) {
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-                case KEY_TIMER_CRESCENDO -> {
+                case KEY_TIMER_CRESCENDO, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -117,6 +118,10 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             timerCrescendoPref.setSummary(timerCrescendoPref.getEntry());
 
             mTimerVibrate.setOnPreferenceChangeListener(this);
+
+            final ListPreference defaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
+            Objects.requireNonNull(defaultMinutesToAddToTimerPref).setOnPreferenceChangeListener(this);
+            defaultMinutesToAddToTimerPref.setSummary(defaultMinutesToAddToTimerPref.getEntry());
         }
     }
 }

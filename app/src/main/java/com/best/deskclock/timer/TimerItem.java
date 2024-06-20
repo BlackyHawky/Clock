@@ -26,6 +26,7 @@ import com.best.deskclock.CircleButtonsLayout;
 import com.best.deskclock.R;
 import com.best.deskclock.TimerTextController;
 import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 
 import com.google.android.material.button.MaterialButton;
@@ -91,7 +92,7 @@ public class TimerItem extends ConstraintLayout {
         super.onFinishInflate();
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
-        mAddButton = findViewById(R.id.add_one_min);
+        mAddButton = findViewById(R.id.add_minute_or_hour_button);
         mCircleView = findViewById(R.id.timer_time);
         // Displays the remaining time or time since expiration. Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
@@ -150,6 +151,22 @@ public class TimerItem extends ConstraintLayout {
         } else {
             mTimerText.setAlpha(0f);
         }
+
+        // Update the default minutes or hour to add to timer in the "add_minute_or_hour_button"
+        int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
+        String defaultTimeToAddToTimer = getContext().getString(
+                R.string.timer_add_minute, String.valueOf(getDefaultTimeToAddToTimer)
+        );
+        mAddButton.setText(getDefaultTimeToAddToTimer == 60
+                ? getContext().getString(R.string.timer_add_hour)
+                : defaultTimeToAddToTimer);
+
+        String buttonContentDescription = getContext().getString(
+                R.string.timer_plus_one, String.valueOf(getDefaultTimeToAddToTimer)
+        );
+        mAddButton.setContentDescription(getDefaultTimeToAddToTimer == 60
+                ? getContext().getString(R.string.timer_plus_one_hour)
+                : buttonContentDescription);
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {

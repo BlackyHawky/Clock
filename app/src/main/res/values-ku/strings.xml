@@ -113,8 +113,8 @@
     <string name="timer_add_timer">دیاریکردنی کاتپێو</string>
     <string name="timer_start">دەستپێکردن</string>
     <string name="timer_delete">سڕینه‌وه‌</string>
-    <string name="timer_plus_one">زیادکردنی یه‌ک خوله‌ک</string>
-    <string name="timer_plus_1_min">زیاد کردنی ۱ خوله‌ک</string>
+    <string name="timer_plus_one">%s خولەک زیاد بکە</string>
+    <string name="timer_plus_1_min">%s خولەک زیاد بکە</string>
     <string name="timer_stop">وه‌ستاندن</string>
     <string name="timer_reset">ڕێکخستنەوە</string>
     <string name="timer_cancel">هەڵوەشاندنەوە</string>

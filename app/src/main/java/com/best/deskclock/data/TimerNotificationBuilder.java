@@ -93,14 +93,18 @@ class TimerNotificationBuilder {
                 final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
                 actions.add(new Action.Builder(icon1, title1, intent1).build());
 
-                // Right Button: +1 Minute
-                final Intent addMinute = new Intent(context, TimerService.class)
-                        .setAction(TimerService.ACTION_ADD_MINUTE_TIMER)
+                // Right Button: +x Minutes or +1 Hour
+                final Intent addMinuteOrHour = new Intent(context, TimerService.class)
+                        .setAction(TimerService.ACTION_ADD_MINUTE_OR_HOUR_TIMER)
                         .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 @DrawableRes final int icon2 = R.drawable.ic_add;
-                final CharSequence title2 = context.getText(R.string.timer_plus_1_min);
-                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinute);
+                final int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
+                final CharSequence title2 = getDefaultTimeToAddToTimer == 60
+                        ? context.getString(R.string.timer_plus_one_hour)
+                        : context.getString(R.string.timer_plus_1_min, String.valueOf(getDefaultTimeToAddToTimer)
+                );
+                final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinuteOrHour);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
 
             } else {
@@ -246,11 +250,15 @@ class TimerNotificationBuilder {
             final CharSequence title1 = context.getString(R.string.timer_stop);
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
-            // Right button: Add minute
-            final Intent addTime = TimerService.createAddMinuteTimerIntent(context, timer.getId());
+            // Right Button: +x Minutes or +1 Hour
+            final Intent addTime = TimerService.createAddMinuteOrHourTimerIntent(context, timer.getId());
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime);
             @DrawableRes final int icon2 = R.drawable.ic_add;
-            final CharSequence title2 = context.getString(R.string.timer_plus_1_min);
+            final int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
+            final CharSequence title2 = getDefaultTimeToAddToTimer == 60
+                    ? context.getString(R.string.timer_plus_one_hour)
+                    : context.getString(R.string.timer_plus_1_min, String.valueOf(getDefaultTimeToAddToTimer)
+            );
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
             titleText = context.getString(R.string.timer_multi_times_up, count);

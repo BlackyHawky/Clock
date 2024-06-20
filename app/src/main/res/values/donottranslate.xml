@@ -44,7 +44,7 @@
     <string name="action_fire">Fire</string>
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
-    <string name="action_add_minute">Add Minute</string>
+    <string name="action_add_minute_or_hour">Add Minute Or Hour</string>
     <string name="action_lap">Lap</string>
     <string name="action_enable">Enable</string>
     <string name="action_disable">Disable</string>

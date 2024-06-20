@@ -176,8 +176,8 @@
     <string name="timer_start">Aniciar</string>
     <string name="timer_delete">Desaniciar</string>
     <string name="timer_descriptive_delete">Desaniciar <xliff:g id="number_string">%s</xliff:g></string>
-    <string name="timer_plus_one">Amestar 1 minutu</string>
-    <string name="timer_plus_1_min">Añadir 1 min</string>
+    <string name="timer_plus_one">Amestar %s minutu</string>
+    <string name="timer_plus_1_min">Añadir %s min</string>
     <string name="timer_stop">Detener</string>
     <string name="timer_stop_all">Parar tolos temporizadores</string>
     <string name="timer_reset">Llimpiar</string>
