@@ -1,10 +1,8 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
- * modified
- * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+ * SPDX-License-Identifier: GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.timer;
 
 import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 
@@ -30,58 +28,44 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.provider.Alarm;
 
 import java.util.Objects;
 
 /**
- * DialogFragment to edit label.
+ * DialogFragment to edit timer add time button.
  */
-public class LabelDialogFragment extends DialogFragment {
+public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
     /**
-     * The tag that identifies instances of LabelDialogFragment in the fragment manager.
+     * The tag that identifies instances of TimerAddTimeButtonDialogFragment in the fragment manager.
      */
-    private static final String TAG = "label_dialog";
+    private static final String TAG = "add_time_button_dialog";
 
-    private static final String ARG_LABEL = "arg_label";
-    private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_TIME_BUTTON = "arg_time_button";
     private static final String ARG_TIMER_ID = "arg_timer_id";
-    private static final String ARG_TAG = "arg_tag";
 
-    private AppCompatEditText mLabelBox;
-    private Alarm mAlarm;
+    private AppCompatEditText mAddTimeButtonBox;
     private int mTimerId;
-    private String mTag;
     private InputMethodManager mInput;
 
-    public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
+    public static TimerAddTimeButtonDialogFragment newInstance(Timer timer) {
         final Bundle args = new Bundle();
-        args.putString(ARG_LABEL, label);
-        args.putParcelable(ARG_ALARM, alarm);
-        args.putString(ARG_TAG, tag);
-
-        final LabelDialogFragment frag = new LabelDialogFragment();
-        frag.setArguments(args);
-        return frag;
-    }
-
-    public static LabelDialogFragment newInstance(Timer timer) {
-        final Bundle args = new Bundle();
-        args.putString(ARG_LABEL, timer.getLabel());
+        args.putString(ARG_TIME_BUTTON, timer.getButtonTime());
         args.putInt(ARG_TIMER_ID, timer.getId());
 
-        final LabelDialogFragment frag = new LabelDialogFragment();
+        final TimerAddTimeButtonDialogFragment frag = new TimerAddTimeButtonDialogFragment();
         frag.setArguments(args);
         return frag;
     }
 
     /**
-     * Replaces any existing LabelDialogFragment with the given {@code fragment}.
+     * Replaces any existing TimerAddTimeButtonDialogFragment with the given {@code fragment}.
      */
-    public static void show(FragmentManager manager, LabelDialogFragment fragment) {
+    public static void show(FragmentManager manager, TimerAddTimeButtonDialogFragment fragment) {
         if (manager == null || manager.isDestroyed()) {
             return;
         }
@@ -104,9 +88,9 @@ public class LabelDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        // As long as the label box exists, save its state.
-        if (mLabelBox != null) {
-            outState.putString(ARG_LABEL, Objects.requireNonNull(mLabelBox.getText()).toString());
+        // As long as the add time button box exists, save its state.
+        if (mAddTimeButtonBox != null) {
+            outState.putString(ARG_TIME_BUTTON, Objects.requireNonNull(mAddTimeButtonBox.getText()).toString());
         }
     }
 
@@ -114,40 +98,34 @@ public class LabelDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
-        mAlarm = args.getParcelable(ARG_ALARM);
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
-        mTag = args.getString(ARG_TAG);
 
-        String label = args.getString(ARG_LABEL);
+        String addButtonText = args.getString(ARG_TIME_BUTTON);
         if (savedInstanceState != null) {
-            label = savedInstanceState.getString(ARG_LABEL, label);
+            addButtonText = savedInstanceState.getString(ARG_TIME_BUTTON, addButtonText);
         }
 
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
-                .setTitle(mAlarm != null
-                        ? R.string.alarm_label_box_title
-                        : mTimerId >= 0
-                            ? R.string.timer_label_box_title
-                            : 0)
+                .setTitle(R.string.timer_button_time_box_title)
                 .create();
 
-        mLabelBox = new AppCompatEditText(requireContext());
-        mLabelBox.requestFocus();
+        mAddTimeButtonBox = new AppCompatEditText(requireContext());
+        mAddTimeButtonBox.requestFocus();
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mInput.showSoftInput(mLabelBox, InputMethodManager.SHOW_IMPLICIT);
-        mLabelBox.setOnEditorActionListener(new ImeDoneListener());
-        mLabelBox.addTextChangedListener(new TextChangeListener());
-        mLabelBox.setSingleLine();
-        mLabelBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        mLabelBox.setText(label);
-        mLabelBox.selectAll();
+        mInput.showSoftInput(mAddTimeButtonBox, InputMethodManager.SHOW_IMPLICIT);
+        mAddTimeButtonBox.setOnEditorActionListener(new ImeDoneListener());
+        mAddTimeButtonBox.addTextChangedListener(new TextChangeListener());
+        mAddTimeButtonBox.setSingleLine();
+        mAddTimeButtonBox.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mAddTimeButtonBox.setText(addButtonText);
+        mAddTimeButtonBox.selectAll();
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
         final int padding = Utils.toPixel(21, requireContext());
-        dialog.setView(mLabelBox, padding, 0, padding, 0);
+        dialog.setView(mAddTimeButtonBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {
@@ -162,31 +140,21 @@ public class LabelDialogFragment extends DialogFragment {
         super.onDestroyView();
 
         // Stop callbacks from the IME since there is no view to process them.
-        mLabelBox.setOnEditorActionListener(null);
+        mAddTimeButtonBox.setOnEditorActionListener(null);
     }
 
     /**
-     * Sets the new label into the timer or alarm.
+     * Sets the new time into the timer add button.
      */
-    private void setLabel() {
-        String label = Objects.requireNonNull(mLabelBox.getText()).toString();
-        if (label.trim().isEmpty()) {
-            // Don't allow user to input label with only whitespace.
-            label = "";
-        }
+    private void setAddButtonText() {
+        String addButtonText = Objects.requireNonNull(mAddTimeButtonBox.getText()).toString();
 
-        if (mAlarm != null) {
-            ((AlarmLabelDialogHandler) requireActivity()).onDialogLabelSet(mAlarm, label, mTag);
-        } else if (mTimerId >= 0) {
+        if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
-                DataModel.getDataModel().setTimerLabel(timer, label);
+                DataModel.getDataModel().setTimerButtonTime(timer, addButtonText);
             }
         }
-    }
-
-    public interface AlarmLabelDialogHandler {
-        void onDialogLabelSet(Alarm alarm, String label, String tag);
     }
 
     /**
@@ -195,7 +163,7 @@ public class LabelDialogFragment extends DialogFragment {
     private class TextChangeListener implements TextWatcher {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            mLabelBox.setActivated(!TextUtils.isEmpty(s));
+            mAddTimeButtonBox.setActivated(!TextUtils.isEmpty(s));
         }
 
         @Override
@@ -208,13 +176,13 @@ public class LabelDialogFragment extends DialogFragment {
     }
 
     /**
-     * Handles completing the label edit from the IME keyboard.
+     * Handles completing the add time button edit from the IME keyboard.
      */
     private class ImeDoneListener implements TextView.OnEditorActionListener {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                setLabel();
+                setAddButtonText();
                 dismissAllowingStateLoss();
                 return true;
             }
@@ -223,13 +191,13 @@ public class LabelDialogFragment extends DialogFragment {
     }
 
     /**
-     * Handles completing the label edit from the Ok button of the dialog.
+     * Handles completing the add time button edit from the Ok button of the dialog.
      */
     private class OkListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
-            setLabel();
+            setAddButtonText();
             dismiss();
         }
     }

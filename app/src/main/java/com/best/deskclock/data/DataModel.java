@@ -363,12 +363,13 @@ public final class DataModel {
     /**
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
+     * @param buttonTime     the time indicated in the timer time add button
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, boolean deleteAfterUse) {
+    public Timer addTimer(long length, String label, String buttonTime, boolean deleteAfterUse) {
         enforceMainLooper();
-        return mTimerModel.addTimer(length, label, deleteAfterUse);
+        return mTimerModel.addTimer(length, label, buttonTime, deleteAfterUse);
     }
 
     /**
@@ -466,9 +467,9 @@ public final class DataModel {
     /**
      * @param timer the timer to which minutes or hours should be added to the remaining time
      */
-    public void addTimerMinuteOrHour(Timer timer) {
+    public void addCustomTimeToTimer(Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.addMinuteOrHour());
+        mTimerModel.updateTimer(timer.addCustomTime());
     }
 
     /**
@@ -478,6 +479,15 @@ public final class DataModel {
     public void setTimerLabel(Timer timer, String label) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.setLabel(label));
+    }
+
+    /**
+     * @param timer the timer to which the new {@code buttonTime} belongs
+     * @param buttonTime the new add button text to store for the {@code timer}
+     */
+    public void setTimerButtonTime(Timer timer, String buttonTime) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setButtonTime(buttonTime));
     }
 
     /**

@@ -7,7 +7,6 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">Horloĝo</string>
-    <string name="label">Etikedo</string>
     <string name="delete">Forigi</string>
     <string name="alarm_tomorrow">Morgaŭ</string>
     <string name="alarm_today">Hodiaŭ</string>

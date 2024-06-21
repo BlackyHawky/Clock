@@ -15,7 +15,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.events.Events;
 
 /**
- * Click handler for an alarm time item.
+ * Click handler for a timer item.
  */
 public final class TimerClickHandler {
 
@@ -29,6 +29,12 @@ public final class TimerClickHandler {
         Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
         final LabelDialogFragment fragment = LabelDialogFragment.newInstance(timer);
         LabelDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
+    }
+
+    public void onEditAddTimeButtonLongClicked(Timer timer) {
+        Events.sendAlarmEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
+        final TimerAddTimeButtonDialogFragment fragment = TimerAddTimeButtonDialogFragment.newInstance(timer);
+        TimerAddTimeButtonDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
     
 }

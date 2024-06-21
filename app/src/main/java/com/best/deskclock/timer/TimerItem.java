@@ -14,6 +14,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,7 +27,6 @@ import com.best.deskclock.CircleButtonsLayout;
 import com.best.deskclock.R;
 import com.best.deskclock.TimerTextController;
 import com.best.deskclock.Utils;
-import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 
 import com.google.android.material.button.MaterialButton;
@@ -58,8 +58,8 @@ public class TimerItem extends ConstraintLayout {
     /** A button that resets the timer. */
     private ImageButton mResetButton;
 
-    /** A button that adds a minute to the timer. */
-    private MaterialButton mAddButton;
+    /** A button that adds time to the timer. */
+    private MaterialButton mAddTimeButton;
 
     /**
      * Displays the label associated with the timer. Tapping it presents an edit dialog.
@@ -92,11 +92,12 @@ public class TimerItem extends ConstraintLayout {
         super.onFinishInflate();
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
-        mAddButton = findViewById(R.id.add_minute_or_hour_button);
+        mAddTimeButton = findViewById(R.id.timer_add_time_button);
         mCircleView = findViewById(R.id.timer_time);
         // Displays the remaining time or time since expiration. Timer text serves as a virtual start/stop button.
         mTimerText = findViewById(R.id.timer_time_text);
-        final int colorAccent = MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int colorAccent = MaterialColors.getColor(getContext(),
+                com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mTimerText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
@@ -105,7 +106,8 @@ public class TimerItem extends ConstraintLayout {
         mTimerTextController = new TimerTextController(mTimerText);
         mPlayPauseButton = findViewById(R.id.play_pause);
         mCircleContainer = findViewById(R.id.circle_container);
-        // Necessary to avoid the null pointer exception, as only the timer_item layout for portrait mode has these attributes
+        // Necessary to avoid the null pointer exception,
+        // as only the timer_item layout for portrait mode has these attributes
         if (!Utils.isTablet(getContext()) && !Utils.isLandscape(getContext())) {
             mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
         }
@@ -152,21 +154,15 @@ public class TimerItem extends ConstraintLayout {
             mTimerText.setAlpha(0f);
         }
 
-        // Update the default minutes or hour to add to timer in the "add_minute_or_hour_button"
-        int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
-        String defaultTimeToAddToTimer = getContext().getString(
-                R.string.timer_add_minute, String.valueOf(getDefaultTimeToAddToTimer)
+        // Update the time to add to timer in the "timer_add_time_button"
+        String buttonTime = timer.getButtonTime();
+        mAddTimeButton.setText(getContext().getString(R.string.timer_add_custom_time, buttonTime.isEmpty()
+                ? DateUtils.formatElapsedTime(0)
+                : DateUtils.formatElapsedTime(Long.parseLong(buttonTime)))
         );
-        mAddButton.setText(getDefaultTimeToAddToTimer == 60
-                ? getContext().getString(R.string.timer_add_hour)
-                : defaultTimeToAddToTimer);
 
-        String buttonContentDescription = getContext().getString(
-                R.string.timer_plus_one, String.valueOf(getDefaultTimeToAddToTimer)
-        );
-        mAddButton.setContentDescription(getDefaultTimeToAddToTimer == 60
-                ? getContext().getString(R.string.timer_plus_one_hour)
-                : buttonContentDescription);
+        String buttonContentDescription = getContext().getString(R.string.timer_add_custom_time_description, buttonTime);
+        mAddTimeButton.setContentDescription(buttonContentDescription);
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
@@ -174,7 +170,7 @@ public class TimerItem extends ConstraintLayout {
             final String resetDesc = context.getString(R.string.timer_reset);
             mResetButton.setVisibility(View.VISIBLE);
             mResetButton.setContentDescription(resetDesc);
-            mAddButton.setVisibility(View.VISIBLE);
+            mAddTimeButton.setVisibility(View.VISIBLE);
             mLastState = timer.getState();
 
             if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
@@ -187,7 +183,7 @@ public class TimerItem extends ConstraintLayout {
                 case RESET -> {
                     mResetButton.setVisibility(View.GONE);
                     mResetButton.setContentDescription(null);
-                    mAddButton.setVisibility(View.INVISIBLE);
+                    mAddTimeButton.setVisibility(View.INVISIBLE);
                     mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_play));
                     if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
                         mCircleContainer.setVisibility(GONE);

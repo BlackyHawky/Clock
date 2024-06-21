@@ -167,10 +167,10 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? View.GONE : View.VISIBLE);
 
         // Add logic to the "Add Minute Or Hour" button.
-        final View addMinuteOrHourButton = timerItem.findViewById(R.id.add_minute_or_hour_button);
-        addMinuteOrHourButton.setOnClickListener(v -> {
+        final View addTimeButton = timerItem.findViewById(R.id.timer_add_time_button);
+        addTimeButton.setOnClickListener(v -> {
             final Timer timer12 = DataModel.getDataModel().getTimer(timerId);
-            DataModel.getDataModel().addTimerMinuteOrHour(timer12);
+            DataModel.getDataModel().addCustomTimeToTimer(timer12);
         });
 
         // Add logic to hide the 'X' and reset button

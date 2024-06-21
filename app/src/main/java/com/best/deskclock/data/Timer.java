@@ -6,7 +6,6 @@
 
 package com.best.deskclock.data;
 
-import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.best.deskclock.Utils.now;
@@ -117,12 +116,17 @@ public final class Timer {
     private final String mLabel;
 
     /**
+     * The time indicated in the add time button of the timer.
+     */
+    private final String mButtonTime;
+
+    /**
      * A flag indicating the timer should be deleted when it is reset.
      */
     private final boolean mDeleteAfterUse;
 
     Timer(int id, State state, long length, long totalLength, long lastStartTime,
-          long lastWallClockTime, long remainingTime, String label, boolean deleteAfterUse) {
+          long lastWallClockTime, long remainingTime, String label, String buttonTime, boolean deleteAfterUse) {
         mId = id;
         mState = state;
         mLength = length;
@@ -131,6 +135,7 @@ public final class Timer {
         mLastStartWallClockTime = lastWallClockTime;
         mRemainingTime = remainingTime;
         mLabel = label;
+        mButtonTime = buttonTime;
         mDeleteAfterUse = deleteAfterUse;
     }
 
@@ -146,6 +151,10 @@ public final class Timer {
         return mLabel;
     }
 
+    public String getButtonTime() {
+        return mButtonTime;
+    }
+
     /**
      * @return a copy of this timer with the given {@code label}
      */
@@ -155,7 +164,19 @@ public final class Timer {
         }
 
         return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime,
-                mLastStartWallClockTime, mRemainingTime, label, mDeleteAfterUse);
+                mLastStartWallClockTime, mRemainingTime, label, mButtonTime, mDeleteAfterUse);
+    }
+
+    /**
+     * @return a copy of this timer with the given button time
+     */
+    Timer setButtonTime(String buttonTime) {
+        if (TextUtils.equals(mButtonTime, buttonTime)) {
+            return this;
+        }
+
+        return new Timer(mId, mState, mLength, mTotalLength, mLastStartTime,
+                mLastStartWallClockTime, mRemainingTime, mLabel, buttonTime, mDeleteAfterUse);
     }
 
     public long getLength() {
@@ -243,7 +264,7 @@ public final class Timer {
         }
 
         return new Timer(mId, state, mLength, totalLength, lastStartTime,
-                lastWallClockTime, remainingTime, mLabel, mDeleteAfterUse);
+                lastWallClockTime, remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -293,7 +314,7 @@ public final class Timer {
         }
 
         return new Timer(mId, RUNNING, mLength, mTotalLength, now(), wallClock(), mRemainingTime,
-                mLabel, mDeleteAfterUse);
+                mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -308,7 +329,7 @@ public final class Timer {
 
         final long remainingTime = getRemainingTime();
         return new Timer(mId, PAUSED, mLength, mTotalLength, UNUSED, UNUSED, remainingTime, mLabel,
-                mDeleteAfterUse);
+                mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -321,7 +342,7 @@ public final class Timer {
 
         final long remainingTime = Math.min(0L, getRemainingTime());
         return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
-                mDeleteAfterUse);
+                mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -334,7 +355,7 @@ public final class Timer {
 
         final long remainingTime = Math.min(0L, getRemainingTime());
         return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
-                mDeleteAfterUse);
+                mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -346,7 +367,7 @@ public final class Timer {
         }
 
         return new Timer(mId, RESET, mLength, mLength, UNUSED, UNUSED, mLength, mLabel,
-                mDeleteAfterUse);
+                mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -364,7 +385,7 @@ public final class Timer {
         final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
-                remainingTime, mLabel, mDeleteAfterUse);
+                remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
@@ -386,28 +407,29 @@ public final class Timer {
             return this;
         }
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
-                remainingTime, mLabel, mDeleteAfterUse);
+                remainingTime, mLabel, mButtonTime, mDeleteAfterUse);
     }
 
     /**
      * @return a copy of this timer with additional minutes or hours added to the remaining time and total
      * length, or this Timer if the minutes or hours could not be added
      */
-    Timer addMinuteOrHour() {
-        int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
-
-        // Expired and missed timers restart with the number of minutes or hours indicated
-        // on the button of remaining time.
+    Timer addCustomTime() {
+        // Expired and missed timers restart with the time indicated on the add time button.
         if (mState == EXPIRED || mState == MISSED) {
-            return setRemainingTime(getDefaultTimeToAddToTimer == 60
-                    ? HOUR_IN_MILLIS
-                    : getDefaultTimeToAddToTimer * MINUTE_IN_MILLIS);
+            if (mButtonTime.isEmpty()) {
+                return setRemainingTime(0);
+            } else {
+                return setRemainingTime(Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
+            }
         }
 
-        // Otherwise try to add a minute to the remaining time.
-        return setRemainingTime( getDefaultTimeToAddToTimer == 60
-                ? mRemainingTime + HOUR_IN_MILLIS
-                : mRemainingTime + getDefaultTimeToAddToTimer * MINUTE_IN_MILLIS);
+        // Otherwise try to add time indicated on the add time button to the remaining time.
+        if (mButtonTime.isEmpty()) {
+            return setRemainingTime(mRemainingTime);
+        } else {
+            return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
+        }
     }
 
     @Override

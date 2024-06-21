@@ -42,22 +42,28 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
             Utils.setVibrationTime(context, 10);
         });
 
-        // Must use getTimer() because old timer is no longer accurate.
-        View.OnClickListener mAddListener = v -> {
+        view.findViewById(R.id.timer_add_time_button).setOnClickListener(v -> {
             final Timer timer = getTimer();
-            DataModel.getDataModel().addTimerMinuteOrHour(timer);
+            DataModel.getDataModel().addCustomTimeToTimer(timer);
             Utils.setVibrationTime(context, 10);
-            Events.sendTimerEvent(R.string.action_add_minute_or_hour, R.string.label_deskclock);
+            Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
 
             // Must use getTimer() because old timer is no longer accurate.
             final long currentTime = getTimer().getRemainingTime();
+            final String buttonTime = getTimer().getButtonTime();
             if (currentTime > 0) {
                 v.announceForAccessibility(TimerStringFormatter.formatString(context,
-                        R.string.timer_accessibility_one_minute_added, currentTime, true));
+                        R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
             }
-        };
-        view.findViewById(R.id.add_minute_or_hour_button).setOnClickListener(mAddListener);
+        });
+
+        view.findViewById(R.id.timer_add_time_button).setOnLongClickListener(v -> {
+            mTimerClickHandler.onEditAddTimeButtonLongClicked(getTimer());
+            return true;
+        });
+
         view.findViewById(R.id.timer_label).setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
+
         View.OnClickListener mPlayPauseListener = v -> {
             Utils.setVibrationTime(context, 50);
             final Timer clickedTimer = getTimer();

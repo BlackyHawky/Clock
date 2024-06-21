@@ -7,8 +7,6 @@
     <!-- Label shown on launcher icon -->
     <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
     <string name="app_label">Clock</string>
-    <!-- Setting label on Set alarm screen: Label -->
-    <string name="label">Label</string>
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
@@ -21,6 +19,8 @@
     <!-- Default button title for the color picker -->
     <string name="color_picker_default_button">Default</string>
 
+    <!-- Title of dialog box for editing alarm label -->
+    <string name="alarm_label_box_title">Alarm label</string>
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
@@ -120,7 +120,7 @@
     <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <!-- Timer accessibility announcements -->
-    <string name="timer_accessibility_one_minute_added">One minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
+    <string name="timer_accessibility_custom_time_added">%1$s minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <!--
         Verb inflection to use for single time units remaining
         Ex. "1 minute remaining"
@@ -568,6 +568,10 @@
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
     <!-- timer strings -->
+    <!-- Title of dialog box for editing timer label -->
+    <string name="timer_label_box_title">Timer label</string>
+    <!-- Title of dialog box to edit button for adding time to timer. -->
+    <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
     <!-- Describes the purpose of the button to begin or continue running a timer -->
@@ -577,15 +581,11 @@
     <!-- Talkback description for deleting a number. -->
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
-    <string name="timer_plus_one">Add %s Minute</string>
-    <!-- Label for adding one minute to a timer. [CHAR LIMIT=10] -->
-    <string name="timer_add_minute">+ %s:00</string>
-    <!-- Like "timer_plus_one", but with 'minute' abbreviated for the notification. -->
-    <string name="timer_plus_1_min">Add %s min</string>
-    <!-- Label for adding one hour to a timer. [CHAR LIMIT=10] -->
-    <string name="timer_add_hour">+ 1:00:00</string>
-    <!-- Describes the purpose of the button increase the remaining time on a timer by one hour. -->
-    <string name="timer_plus_one_hour">Add 1 Hour</string>
+    <string name="timer_add_custom_time_description">Add %s Minute</string>
+    <!-- Like "timer_add_custom_time_description", but with 'minute' abbreviated for the notification. -->
+    <string name="timer_add_custom_time_for_notification">Add %s min</string>
+    <!-- Label for adding custom time to a timer. [CHAR LIMIT=10] -->
+    <string name="timer_add_custom_time">+ %s</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->

@@ -95,15 +95,12 @@ class TimerNotificationBuilder {
 
                 // Right Button: +x Minutes or +1 Hour
                 final Intent addMinuteOrHour = new Intent(context, TimerService.class)
-                        .setAction(TimerService.ACTION_ADD_MINUTE_OR_HOUR_TIMER)
+                        .setAction(TimerService.ACTION_ADD_CUSTOM_TIME_TO_TIMER)
                         .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 @DrawableRes final int icon2 = R.drawable.ic_add;
-                final int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
-                final CharSequence title2 = getDefaultTimeToAddToTimer == 60
-                        ? context.getString(R.string.timer_plus_one_hour)
-                        : context.getString(R.string.timer_plus_1_min, String.valueOf(getDefaultTimeToAddToTimer)
-                );
+                String getCustomTimeToAdd = timer.getButtonTime();
+                final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, getCustomTimeToAdd);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinuteOrHour);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
 
@@ -251,14 +248,11 @@ class TimerNotificationBuilder {
             actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right Button: +x Minutes or +1 Hour
-            final Intent addTime = TimerService.createAddMinuteOrHourTimerIntent(context, timer.getId());
+            final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timer.getId());
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime);
             @DrawableRes final int icon2 = R.drawable.ic_add;
-            final int getDefaultTimeToAddToTimer = DataModel.getDataModel().getDefaultTimeToAddToTimer();
-            final CharSequence title2 = getDefaultTimeToAddToTimer == 60
-                    ? context.getString(R.string.timer_plus_one_hour)
-                    : context.getString(R.string.timer_plus_1_min, String.valueOf(getDefaultTimeToAddToTimer)
-            );
+            String getCustomTimeToAdd = timer.getButtonTime();
+            final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, getCustomTimeToAdd);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
             titleText = context.getString(R.string.timer_multi_times_up, count);
