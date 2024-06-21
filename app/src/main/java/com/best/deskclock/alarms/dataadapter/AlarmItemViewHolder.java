@@ -81,11 +81,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             );
         }
 
-        editLabel.setOnClickListener(view -> {
-            if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
-                getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
-            }
-        });
+        editLabel.setOnClickListener(view -> getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item));
 
         onOff.setOnCheckedChangeListener((compoundButton, checked) ->
                 getItemHolder().getAlarmTimeClickHandler().setAlarmEnabled(getItemHolder().item, checked));
@@ -104,14 +100,21 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
+        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
+            editLabel.setOnClickListener(null);
+            editLabel.setBackgroundColor(Color.TRANSPARENT);
+            editLabel.setText(context.getString(R.string.wakeup_alarm_label_visible));
+            editLabel.setTypeface(Typeface.DEFAULT_BOLD);
+            editLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
+            return;
+        }
+
         if (alarm.label.isEmpty()) {
             editLabel.setText(context.getString(R.string.add_label));
             editLabel.setTypeface(Typeface.DEFAULT);
             editLabel.setAlpha(CLOCK_DISABLED_ALPHA);
         } else {
-            editLabel.setText(alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))
-                    ? context.getString(R.string.wakeup_alarm_label_visible)
-                    : alarm.label);
+            editLabel.setText(alarm.label);
             editLabel.setContentDescription(alarm.label != null && !alarm.label.isEmpty()
                     ? context.getString(R.string.label_description) + " " + alarm.label
                     : context.getString(R.string.no_label_specified));
