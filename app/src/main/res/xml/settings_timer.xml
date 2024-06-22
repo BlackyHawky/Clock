@@ -57,6 +57,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_keep_timer_screen_on"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/keep_timer_screen_on_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -205,6 +205,7 @@ public final class TimerFragment extends DeskClockFragment {
             fab.setImageResource(R.drawable.ic_add);
             fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
+            adjustWakeLock();
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
@@ -214,6 +215,7 @@ public final class TimerFragment extends DeskClockFragment {
                 fab.setContentDescription(null);
                 fab.setVisibility(INVISIBLE);
             }
+            releaseWakeLock();
         }
     }
 
@@ -450,8 +452,8 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private void adjustWakeLock() {
-        final boolean appInForeground = DataModel.getDataModel().isApplicationInForeground();
-        if (isTabSelected() && appInForeground) {
+        final boolean shouldTimerDisplayRemainOn = DataModel.getDataModel().shouldTimerDisplayRemainOn();
+        if (shouldTimerDisplayRemainOn) {
             requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             releaseWakeLock();
@@ -472,7 +474,6 @@ public final class TimerFragment extends DeskClockFragment {
             // If no timer require continuous updates, avoid scheduling the next update
             // and don't keep the screen on.
             if (!mAdapter.updateTime()) {
-                releaseWakeLock();
                 return;
             }
             final long endTime = SystemClock.elapsedRealtime();
@@ -480,9 +481,6 @@ public final class TimerFragment extends DeskClockFragment {
             // Try to maintain a consistent period of time between redraws.
             final long delay = Math.max(0, startTime + 20 - endTime);
             mTimersView.postDelayed(this, delay);
-
-            // Keep the screen on only if the timer is running or paused.
-            adjustWakeLock();
         }
     }
 
@@ -506,8 +504,6 @@ public final class TimerFragment extends DeskClockFragment {
             if (before.isReset() && !after.isReset()) {
                 startUpdatingTime();
             }
-
-
         }
 
         @Override

@@ -495,6 +495,13 @@ final class TimerModel {
         return mSettingsModel.getDefaultTimeToAddToTimer();
     }
 
+    /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    boolean shouldTimerDisplayRemainOn() {
+        return mSettingsModel.shouldTimerDisplayRemainOn();
+    }
+
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mPrefs);

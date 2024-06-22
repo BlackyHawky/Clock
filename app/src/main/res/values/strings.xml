@@ -1000,6 +1000,8 @@
         <item>30</item>
         <item>60</item>
     </string-array>
+    <!-- Title of Keep screen on preference in timer settings -->
+    <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->

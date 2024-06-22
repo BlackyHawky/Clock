@@ -341,6 +341,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    static boolean shouldTimerDisplayRemainOn(SharedPreferences pref) {
+        return pref.getBoolean(TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON, true);
+    }
+
+    /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {

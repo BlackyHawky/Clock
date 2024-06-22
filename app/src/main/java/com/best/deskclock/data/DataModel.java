@@ -567,7 +567,16 @@ public final class DataModel {
      * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
      */
     public int getDefaultTimeToAddToTimer() {
+        enforceMainLooper();
         return mTimerModel.getDefaultTimeToAddToTimer();
+    }
+
+    /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    public boolean shouldTimerDisplayRemainOn() {
+        enforceMainLooper();
+        return mTimerModel.shouldTimerDisplayRemainOn();
     }
 
     /**

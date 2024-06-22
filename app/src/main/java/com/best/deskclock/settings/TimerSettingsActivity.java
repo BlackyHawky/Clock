@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
@@ -29,6 +30,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
+    public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,9 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                     Utils.setVibrationTime(requireContext(), 50);
                 }
+
+                case KEY_KEEP_TIMER_SCREEN_ON -> Utils.setVibrationTime(requireContext(), 50);
+
             }
 
             return true;
@@ -122,6 +127,12 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             final ListPreference defaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
             Objects.requireNonNull(defaultMinutesToAddToTimerPref).setOnPreferenceChangeListener(this);
             defaultMinutesToAddToTimerPref.setSummary(defaultMinutesToAddToTimerPref.getEntry());
+
+            final SwitchPreferenceCompat keepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
+            Objects.requireNonNull(keepTimerScreenOnPref).setChecked(
+                    DataModel.getDataModel().shouldTimerDisplayRemainOn()
+            );
+            keepTimerScreenOnPref.setOnPreferenceChangeListener(this);
         }
     }
 }

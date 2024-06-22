@@ -189,6 +189,22 @@ final class SettingsModel {
         SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
     }
 
+    boolean getTimerVibrate() {
+        return SettingsDAO.getTimerVibrate(mPrefs);
+    }
+
+    void setTimerVibrate(boolean enabled) {
+        SettingsDAO.setTimerVibrate(mPrefs, enabled);
+    }
+
+    int getDefaultTimeToAddToTimer() {
+        return SettingsDAO.getDefaultTimeToAddToTimer(mPrefs);
+    }
+
+    boolean shouldTimerDisplayRemainOn() {
+        return SettingsDAO.shouldTimerDisplayRemainOn(mPrefs);
+    }
+
     AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }
@@ -262,18 +278,6 @@ final class SettingsModel {
 
     void setRestoreBackupFinished(boolean finished) {
         SettingsDAO.setRestoreBackupFinished(mPrefs, finished);
-    }
-
-    boolean getTimerVibrate() {
-        return SettingsDAO.getTimerVibrate(mPrefs);
-    }
-
-    void setTimerVibrate(boolean enabled) {
-        SettingsDAO.setTimerVibrate(mPrefs, enabled);
-    }
-
-    int getDefaultTimeToAddToTimer() {
-        return SettingsDAO.getDefaultTimeToAddToTimer(mPrefs);
     }
 
     TimeZones getTimeZones() {
