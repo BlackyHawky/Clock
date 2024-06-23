@@ -8,7 +8,6 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,8 +33,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;
-
-        setLayoutParams(view);
 
         view.findViewById(R.id.reset).setOnClickListener(v -> {
             DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
@@ -77,7 +74,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         };
 
         // If we click on the circular container when the phones (only) are in landscape mode,
-        // indicating a title for the timers is not feasible so in this case we click on the time text.
+        // indicating a title for the timers is not possible so in this case we click on the time text.
         if (!Utils.isTablet(context) && Utils.isLandscape(context)) {
             view.findViewById(R.id.timer_time_text).setOnClickListener(mPlayPauseListener);
         } else {
@@ -95,15 +92,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     public void onBind(int timerId) {
         mTimerId = timerId;
         updateTime();
-    }
-
-    private void setLayoutParams(View view) {
-        if (Utils.isTablet(view.getContext()) && Utils.isLandscape(view.getContext())) {
-            ViewGroup.LayoutParams lp = view.getLayoutParams();
-            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            view.setLayoutParams(lp);
-        }
     }
 
     /**

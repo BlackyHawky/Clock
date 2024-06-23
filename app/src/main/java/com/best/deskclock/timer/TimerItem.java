@@ -14,7 +14,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.SystemClock;
-import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -31,6 +30,9 @@ import com.best.deskclock.data.Timer;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
+
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -111,6 +113,26 @@ public class TimerItem extends ConstraintLayout {
         if (!Utils.isTablet(getContext()) && !Utils.isLandscape(getContext())) {
             mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
         }
+
+        // The size of the Play/Pause and add time buttons are reduced for phones in landscape mode
+        // due to the size of the timers unlike tablets
+        if (!Utils.isTablet(getContext()) && Utils.isLandscape(getContext())) {
+            mAddTimeButton.setIncludeFontPadding(false);
+            mAddTimeButton.setMinHeight(0);
+            mAddTimeButton.setMinimumHeight(0);
+            mAddTimeButton.setMinWidth(0);
+            mAddTimeButton.setMinimumWidth(0);
+            mAddTimeButton.setPadding(Utils.toPixel(10, getContext()), mAddTimeButton.getPaddingTop(),
+                    Utils.toPixel(10, getContext()), mAddTimeButton.getPaddingBottom());
+
+            mPlayPauseButton.setIncludeFontPadding(false);
+            mPlayPauseButton.setMinHeight(0);
+            mPlayPauseButton.setMinimumHeight(0);
+            mPlayPauseButton.setMinWidth(0);
+            mPlayPauseButton.setMinimumWidth(0);
+            mPlayPauseButton.setPadding(Utils.toPixel(20, getContext()), mPlayPauseButton.getPaddingTop(),
+                    Utils.toPixel(20, getContext()), mPlayPauseButton.getPaddingBottom());
+        }
     }
 
     /**
@@ -156,10 +178,10 @@ public class TimerItem extends ConstraintLayout {
 
         // Update the time to add to timer in the "timer_add_time_button"
         String buttonTime = timer.getButtonTime();
-        mAddTimeButton.setText(getContext().getString(R.string.timer_add_custom_time, buttonTime.isEmpty()
-                ? DateUtils.formatElapsedTime(0)
-                : DateUtils.formatElapsedTime(Long.parseLong(buttonTime)))
-        );
+        long buttonTimeHours = TimeUnit.MINUTES.toHours(Long.parseLong(buttonTime));
+        long buttonTimeMinutes = TimeUnit.MINUTES.toMinutes(Long.parseLong(buttonTime)) % 60;
+        String buttonTimeFormatted = String.format(Locale.US, "%01d:%02d", buttonTimeHours, buttonTimeMinutes);
+        mAddTimeButton.setText(getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted));
 
         String buttonContentDescription = getContext().getString(R.string.timer_add_custom_time_description, buttonTime);
         mAddTimeButton.setContentDescription(buttonContentDescription);
@@ -175,7 +197,7 @@ public class TimerItem extends ConstraintLayout {
 
             if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
                 final ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
-                params.topMargin = Utils.toPixel(timer.getState().equals(Timer.State.RESET) ? 20 : 0, context);
+                params.topMargin = Utils.toPixel(timer.getState().equals(Timer.State.RESET) ? 10 : 0, context);
                 mPlayPauseButton.setLayoutParams(params);
             }
 

@@ -417,19 +417,11 @@ public final class Timer {
     Timer addCustomTime() {
         // Expired and missed timers restart with the time indicated on the add time button.
         if (mState == EXPIRED || mState == MISSED) {
-            if (mButtonTime.isEmpty()) {
-                return setRemainingTime(0);
-            } else {
-                return setRemainingTime(Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
-            }
+            return setRemainingTime(Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
         }
 
         // Otherwise try to add time indicated on the add time button to the remaining time.
-        if (mButtonTime.isEmpty()) {
-            return setRemainingTime(mRemainingTime);
-        } else {
-            return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
-        }
+        return setRemainingTime(mRemainingTime + Integer.parseInt(mButtonTime) * MINUTE_IN_MILLIS);
     }
 
     @Override

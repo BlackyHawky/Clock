@@ -149,7 +149,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     private void setAddButtonText() {
         String addButtonText = Objects.requireNonNull(mAddTimeButtonBox.getText()).toString();
 
-        if (mTimerId >= 0) {
+        if (mTimerId >= 0 && !addButtonText.isEmpty()) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
             if (timer != null) {
                 DataModel.getDataModel().setTimerButtonTime(timer, addButtonText);

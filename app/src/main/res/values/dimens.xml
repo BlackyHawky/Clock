@@ -11,4 +11,5 @@
     <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
+    <dimen name="timer_time_text_size">32sp</dimen>
 </resources>

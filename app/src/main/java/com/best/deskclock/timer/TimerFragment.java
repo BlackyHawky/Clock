@@ -108,14 +108,17 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
-        // Set a bottom padding for phones to prevent the reset button from being hidden by the FAB
-        if (!Utils.isTablet(requireContext())) {
-            final int bottomPadding = Utils.isPortrait(requireContext())
+        // Set a bottom padding to prevent the reset button from being hidden by the FAB
+        final int bottomPadding;
+        if (Utils.isTablet(requireContext())) {
+            bottomPadding = Utils.toPixel(110, requireContext());
+        } else {
+            bottomPadding = Utils.isPortrait(requireContext())
                     ? Utils.toPixel(95, requireContext())
                     : Utils.toPixel(80, requireContext());
-            mRecyclerView.setPadding(0, 0, 0, bottomPadding);
-            mRecyclerView.setClipToPadding(false);
         }
+        mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+        mRecyclerView.setClipToPadding(false);
 
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
