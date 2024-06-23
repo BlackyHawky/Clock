@@ -630,7 +630,6 @@
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
     <string name="permission_requirement_title">Exigence : </string>
     <string name="permission_highly_recommended">Hautement recommandée</string>
-    <string name="permission_optional">Optionnelle</string>
     <string name="permission_status_title">État : </string>
     <string name="permission_granted">Accordé</string>
     <string name="permission_denied">Refusé</string>

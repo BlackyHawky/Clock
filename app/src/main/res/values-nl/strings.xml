@@ -497,7 +497,6 @@
     <string name="permission_management_title">Rechtenbeheer</string>
     <string name="permission_requirement_title">Vereiste: </string>
     <string name="permission_highly_recommended">Sterk aanbevolen</string>
-    <string name="permission_optional">Optioneel</string>
     <string name="permission_status_title">Status: </string>
     <string name="permission_granted">Toegestaan</string>
     <string name="permission_denied">Geweigerd</string>

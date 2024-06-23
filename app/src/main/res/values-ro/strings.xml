@@ -416,7 +416,6 @@
     <string name="title_accent_color">Culoare accent</string>
     <string name="permission_denied">Refuzată</string>
     <string name="permission_dialog_close_button">Închidere</string>
-    <string name="permission_optional">Opțional</string>
     <string name="selected">Selectat</string>
     <string name="more_options">Mai multe opțiuni</string>
     <string name="alarm_inactive">Oprit</string>

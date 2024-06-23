@@ -1321,7 +1321,6 @@
     <string name="permission_management_summary">Show the permissions necessary for the application to work properly</string>
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>
-    <string name="permission_optional">Optional</string>
     <string name="permission_status_title">Status: </string>
     <string name="permission_granted">Granted</string>
     <string name="permission_denied">Denied</string>
