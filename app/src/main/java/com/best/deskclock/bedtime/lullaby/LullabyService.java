@@ -43,7 +43,7 @@ public class LullabyService extends AbstractPlayerService {
             // this is saver saves in minutes
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.MINUTE, saver.sleepLength);
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), getStopPendingIntent());
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, calendar.getTimeInMillis(), getStopPendingIntent());
         } else if (action.equals(AbstractPlayerService.ACTION_STOP)) {
             alarmManager.cancel(getStopPendingIntent());
         }
