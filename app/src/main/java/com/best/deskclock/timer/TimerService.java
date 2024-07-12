@@ -56,9 +56,9 @@ public final class TimerService extends Service {
     public static final String ACTION_RESET_TIMER = ACTION_PREFIX + "RESET_TIMER";
 
     /**
-     * Adds an extra minute to the timer.
+     * Adds minutes or hour to the timer.
      */
-    public static final String ACTION_ADD_MINUTE_TIMER = ACTION_PREFIX + "ADD_MINUTE_TIMER";
+    public static final String ACTION_ADD_CUSTOM_TIME_TO_TIMER = ACTION_PREFIX + "ADD_CUSTOM_TIME_TO_TIMER";
     private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
     private static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
     private static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX + "RESET_EXPIRED_TIMERS";
@@ -88,9 +88,9 @@ public final class TimerService extends Service {
     }
 
 
-    public static Intent createAddMinuteTimerIntent(Context context, int timerId) {
+    public static Intent createAddCustomTimeToTimerIntent(Context context, int timerId) {
         return new Intent(context, TimerService.class)
-                .setAction(ACTION_ADD_MINUTE_TIMER)
+                .setAction(ACTION_ADD_CUSTOM_TIME_TO_TIMER)
                 .putExtra(EXTRA_TIMER_ID, timerId);
     }
 
@@ -150,9 +150,9 @@ public final class TimerService extends Service {
                         Events.sendTimerEvent(R.string.action_pause, label);
                         DataModel.getDataModel().pauseTimer(timer);
                     }
-                    case ACTION_ADD_MINUTE_TIMER -> {
-                        Events.sendTimerEvent(R.string.action_add_minute, label);
-                        DataModel.getDataModel().addTimerMinute(timer);
+                    case ACTION_ADD_CUSTOM_TIME_TO_TIMER -> {
+                        Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, label);
+                        DataModel.getDataModel().addCustomTimeToTimer(timer);
                     }
                     case ACTION_RESET_TIMER -> DataModel.getDataModel().resetOrDeleteTimer(timer, label);
                     case ACTION_TIMER_EXPIRED -> {

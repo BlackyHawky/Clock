@@ -7,17 +7,20 @@
     <!-- Label shown on launcher icon -->
     <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
     <string name="app_label">Clock</string>
-    <!-- Setting label on Set alarm screen: Label -->
-    <string name="label">Label</string>
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
-    <!-- Setting labels on Set alarm screen: Repeat -->
+    <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
+    <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
+    <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
 
     <!-- Default button title for the color picker -->
     <string name="color_picker_default_button">Default</string>
 
+    <!-- Title of dialog box for editing alarm label -->
+    <string name="alarm_label_box_title">Alarm label</string>
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
@@ -117,7 +120,7 @@
     <string name="timer_notifications_hours_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g> <xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes_seconds"><xliff:g example="2 hours" id="HOURS">%1$s</xliff:g><xliff:g example="2 minutes" id="MINUTES"> %2$s</xliff:g><xliff:g example="2 seconds" id="SECONDS"> %4$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <!-- Timer accessibility announcements -->
-    <string name="timer_accessibility_one_minute_added">One minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%1$s</xliff:g></string>
+    <string name="timer_accessibility_custom_time_added">%1$s minute added to timer, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <!--
         Verb inflection to use for single time units remaining
         Ex. "1 minute remaining"
@@ -195,12 +198,28 @@
     <!-- Label for digital clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="digital_gadget">Digital clock</string>
     <string name="digital_gadget_material_you">Digital clock Material You</string>
-    <!-- Settings activity name -->
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
     <string name="settings_permission_message">One or more essential permissions are denied. Not granting them can lead to malfunctions.</string>
     <string name="settings_permission_summary">Click here to display the Permissions management page.</string>
-    <string name="title_interface">Interface</string>
+    <!-- Category title for style settings. -->
+    <string name="style_category_title">Style</string>
+    <!-- Category title for styles and colors -->
+    <string name="styles_and_colors_category_title">Style and colors</string>
+    <!-- Category title for font. -->
+    <string name="font_category_title">Font</string>
+    <!-- Category title for miscellaneous settings -->
+    <string name="miscellaneous_category_title">Miscellaneous</string>
+    <!-- Category title for ringtone settings -->
+    <string name="ringtone_category_title">Ringtone</string>
+    <!-- Category title for alarm actions -->
+    <string name="actions_category_title">Actions</string>
+    <!-- Interface customization title in the settings -->
+    <string name="interface_customization_settings">Interface</string>
+    <!-- Interface preference title -->
+    <string name="interface_customization_title">Customize the interface</string>
+    <!-- Interface preference summary -->
+    <string name="interface_customization_summary">Set the style and color applied to the application</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Entries listed in the ListPreference when selecting the theme. -->
@@ -248,8 +267,8 @@
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
     <string-array name="dark_theme_mode_setting_values" translatable="false">
-        <item>default</item>
-        <item>amoled</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
     <!-- Setting title to display the background or not. -->
     <string name="display_card_background_title">Display card backgrounds</string>
@@ -266,6 +285,34 @@
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
+    <!-- Setting title for changing the notification reminder. -->
+    <string name="alarm_notification_reminder_title">Notification reminder</string>
+    <!-- Entries listed in the ListPreference when invoking the notification reminder
+     preference. -->
+    <string-array name="alarm_notification_reminder_entries">
+        <item>5 minutes before</item>
+        <item>10 minutes before</item>
+        <item>15 minutes before</item>
+        <item>20 minutes before</item>
+        <item>30 minutes before</item>
+        <item>45 minutes before</item>
+        <item>1 hour before</item>
+        <item>2 hours before</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the alarm_notification_reminder_entries above. -->
+    <string-array name="alarm_notification_reminder_values" translatable="false">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>120</item>
+    </string-array>
+    <!-- Setting title to enable vibrations when creating alarms -->
+    <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
@@ -279,6 +326,8 @@
     </plurals>
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
+    <!-- Auto silence summary when set at "The end of the ringtone" -->
+    <string name="auto_silence_at_the_end_of_the_ringtone">The end of the ringtone</string>
     <!-- Entries listed in the ListPreference when invoking the auto silence
          preference. -->
     <string-array name="auto_silence_entries">
@@ -288,6 +337,7 @@
         <item>15 minutes</item>
         <item>20 minutes</item>
         <item>25 minutes</item>
+        <item>The end of the ringtone</item>
         <item>Never</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
@@ -299,8 +349,8 @@
         <item>15</item>
         <item>20</item>
         <item>25</item>
+        <item>-2</item>
         <item>-1</item>
-        <!-- Off -->
     </string-array>
     <!-- Entries listed in the ListPreference when invoking gradually increase
      volume preferences. -->
@@ -360,6 +410,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
          the snooze_duration_entries above. -->
@@ -394,6 +445,7 @@
         <item>28</item>
         <item>29</item>
         <item>30</item>
+        <item>-1</item>
     </string-array>
     <!-- Week start day preference title. -->
     <string name="week_start_title">Start week on</string>
@@ -428,6 +480,8 @@
     <string name="change_setting_action">Change</string>
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
+    <!-- Title of the setting to enable swiping to dismiss or snooze alarms -->
+    <string name="swipe_action_title">Swipe to dismiss or snooze alarms</string>
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>
@@ -514,6 +568,10 @@
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
     <!-- timer strings -->
+    <!-- Title of dialog box for editing timer label -->
+    <string name="timer_label_box_title">Timer label</string>
+    <!-- Title of dialog box to edit button for adding time to timer. -->
+    <string name="timer_button_time_box_title">Minutes to add to the timer</string>
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
     <!-- Describes the purpose of the button to begin or continue running a timer -->
@@ -523,11 +581,11 @@
     <!-- Talkback description for deleting a number. -->
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
-    <string name="timer_plus_one">Add 1 Minute</string>
-    <!-- Label for adding one minute to a timer. [CHAR LIMIT=10] -->
-    <string name="timer_add_minute">+ 1:00</string>
-    <!-- Like "timer_plus_one", but with 'minute' abbreviated for the notification. -->
-    <string name="timer_plus_1_min">Add 1 min</string>
+    <string name="timer_add_custom_time_description">Add %s Minute</string>
+    <!-- Like "timer_add_custom_time_description", but with 'minute' abbreviated for the notification. -->
+    <string name="timer_add_custom_time_for_notification">Add %s min</string>
+    <!-- Label for adding custom time to a timer. [CHAR LIMIT=10] -->
+    <string name="timer_add_custom_time">+ %s</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
@@ -579,9 +637,10 @@
     <string name="home_label">Home</string>
     <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
     <string name="cities_activity_title">Cities</string>
-    <!-- Settings strings -->
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
     <string name="clock_settings">Clock</string>
+    <string name="clock_settings_title">Clock settings</string>
+    <string name="clock_settings_summary">Set style, time zone and change device date and time</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
     <!-- Header for a setting referring to showing seconds on the main clock -->
@@ -871,8 +930,10 @@
     <!-- Long label for a shortcut to start the screensaver. The maximum length is ~25 characters
          (longer translations may be truncated). -->
     <string name="shortcut_start_screensaver_long">Start screensaver</string>
-    <!-- Header in the preferences settings for the section pertaining to alarms -->
+    <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
+    <string name="alarm_settings_title">Alarms settings</string>
+    <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
@@ -889,14 +950,58 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_left">Swipe left to snooze</string>
+    <!-- Text instruction for non-repeatable alarm on alarm lock screen. The snooze button is replaced
+         with the dismiss button and will still be on the left even on RTL languages so please do not
+         reverse this during translation. -->
+    <string name="description_direction_left_for_non_repeatable_alarms">Swipe left to dismiss</string>
     <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
-    <!-- Header in the preferences settings for the section pertaining to timers. -->
+    <string name="description_direction_both_clicked">Click left to snooze or right to dismiss</string>
+    <string name="description_direction_both_for_non_repeatable_alarms">Swipe left or right to dismiss</string>
+    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Click left or right to dismiss</string>
+    <!-- Timer preference title in the settings -->
     <string name="timer_settings">Timers</string>
+    <string name="timer_settings_title">Timers settings</string>
+    <string name="timer_settings_summary">Set default ringtone and volume for timers</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
+    <!-- Default time to add to timer preference title in the settings -->
+    <string name="default_time_to_add_to_timer_title">Default time to add to timer</string>
+    <!-- Entries listed in the ListPreference when invoking the default time to add to timer preference -->
+    <string-array name="default_time_to_add_to_timer_entries">
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>4 minutes</item>
+        <item>5 minutes</item>
+        <item>6 minutes</item>
+        <item>7 minutes</item>
+        <item>8 minutes</item>
+        <item>9 minutes</item>
+        <item>10 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match
+     the timer_minutes_to_add_entries above. -->
+    <string-array name="default_time_to_add_to_timer_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+    <!-- Title of Keep screen on preference in timer settings -->
+    <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
@@ -910,22 +1015,13 @@
     <!-- Header in the preferences settings for the section pertaining to screensaver -->
     <string name="screensaver_settings_title">Screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
-    <string name="screensaver_settings_summary">Opens screensaver settings</string>
+    <string name="screensaver_settings_summary">Set the style, color and font of the screensaver</string>
     <!-- Label for the screensaver settings in settings -->
     <string name="screensaver_daydream_settings">Select/enable screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
     <string name="screensaver_daydream_settings_summary">Opens the main Android screensaver settings</string>
-    <!-- Screensaver settings strings -->
-    <!-- Title for the screensaver settings activity. -->
+    <!-- Screensaver preference title in the settings. -->
     <string name="screensaver_settings">Screensaver settings</string>
-    <!-- Title for the screensaver style group. -->
-    <string name="screensaver_style_group">Style</string>
-    <!-- Title for the screensaver color group. -->
-    <string name="screensaver_color_group">Colors</string>
-    <!-- Title for the screensaver font group. -->
-    <string name="screensaver_font_group">Font</string>
-    <!-- Title for the screensaver preview & Android screensaver group. -->
-    <string name="screensaver_preview_group">Preview &amp; Android screensaver</string>
     <!-- Title of dynamic screensaver clock color. -->
     <string name="screensaver_clock_dynamic_colors_title">Dynamic clock colors</string>
     <!-- Title of screensaver clock color. -->
@@ -1169,61 +1265,62 @@
         • &lt;b&gt;BATTERY OPTIMIZATION;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         • &lt;b&gt;NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        • &lt;b&gt;STORAGE &lt;i&gt;(optional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Depending on the Android version of your device, some of these settings are already optimized (e.g. notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         You can change them now or later in the permission management settings:</string>
-    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;FULL SCREEN NOTIFICATIONS;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quit</string>
     <string name="first_launch_dialog_message">Are you sure you want to leave the application?</string>
     <!--
     Digital Widget
     -->
-    <string name="settings_digital_widget_category">Digital widgets</string>
-    <string name="settings_digital_widget_title">Customize the digital widget</string>
-    <string name="settings_digital_widget_summary">Allows you to customize the colors of the digital widget and change the clock font size</string>
-    <string name="settings_digital_widget_material_you_title">Customize the Material You digital widget</string>
-    <string name="settings_digital_widget_material_you_summary">Allows you to customize the colors of the Material You digital widget and change the clock font size</string>
+    <!-- Digital widget preference title in the settings. -->
+    <string name="digital_widget_settings">Digital widget</string>
+    <string name="digital_widget_title">Customize the digital widget</string>
+    <string name="digital_widget_summary">Set the colors of the digital widget and change the clock font size</string>
+    <!-- Digital widget Material You preference title in the settings. -->
+    <string name="digital_widget_material_you_settings">Material You digital widget</string>
+    <string name="digital_widget_material_you_title">Customize the Material You digital widget</string>
+    <string name="digital_widget_material_you_summary">Set the colors of the Material You digital widget and change the clock font size</string>
     <!-- Title to display the background on the digital widget. -->
-    <string name="settings_digital_widget_background_title">Display background</string>
+    <string name="digital_widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->
-    <string name="settings_digital_widget_background_color_title">Background color</string>
+    <string name="digital_widget_background_color_title">Background color</string>
     <!-- Title to show cities on the digital widget. -->
-    <string name="settings_digital_widget_city_title">Display cities on the widget</string>
+    <string name="digital_widget_city_title">Display cities on the widget</string>
     <!-- Title to set the default color of the main clock in the digital widget. -->
-    <string name="settings_digital_widget_clock_default_color_title">Use default color for main clock</string>
+    <string name="digital_widget_clock_default_color_title">Use default color for main clock</string>
     <!-- Title to set the custom color of the main clock in the digital widget. -->
-    <string name="settings_digital_widget_clock_custom_color_title">Main clock custom color</string>
+    <string name="digital_widget_clock_custom_color_title">Main clock custom color</string>
     <!-- Title to set the default color of the date in the digital widget. -->
-    <string name="settings_digital_widget_date_default_color_title">Use default color for date</string>
+    <string name="digital_widget_date_default_color_title">Use default color for date</string>
     <!-- Title to set the custom color of the date in the digital widget. -->
-    <string name="settings_digital_widget_date_custom_color_title">Date custom color</string>
+    <string name="digital_widget_date_custom_color_title">Date custom color</string>
     <!-- Title to set the default color of the next alarm in the digital widget. -->
-    <string name="settings_digital_widget_next_alarm_default_color_title">Use default color for next alarm</string>
+    <string name="digital_widget_next_alarm_default_color_title">Use default color for next alarm</string>
     <!-- Title to set the custom color of the next alarm in the digital widget. -->
-    <string name="settings_digital_widget_next_alarm_custom_color_title">Next alarm custom color</string>
+    <string name="digital_widget_next_alarm_custom_color_title">Next alarm custom color</string>
     <!-- Title to set the default color of the city clock in the digital widget. -->
-    <string name="settings_digital_widget_city_clock_default_color_title">Use default color for city clock</string>
+    <string name="digital_widget_city_clock_default_color_title">Use default color for city clock</string>
     <!-- Title to set the custom color of the city clock in the digital widget. -->
-    <string name="settings_digital_widget_city_clock_custom_color_title">City clock custom color</string>
+    <string name="digital_widget_city_clock_custom_color_title">City clock custom color</string>
     <!-- Title to set the default color of the city name in the digital widget. -->
-    <string name="settings_digital_widget_city_name_default_color_title">Use default color for city name</string>
+    <string name="digital_widget_city_name_default_color_title">Use default color for city name</string>
     <!-- Title to set the custom color of the city name in the digital widget. -->
-    <string name="settings_digital_widget_city_name_custom_color_title">City name custom color</string>
+    <string name="digital_widget_city_name_custom_color_title">City name custom color</string>
     <!-- Title to set the font size of the clock in the digital widget. -->
-    <string name="settings_digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
+    <string name="digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
     <!-- Summary about the font size of the clock in the digital widget. -->
-    <string name="settings_digital_widget_max_clock_font_size_summary">Maximum font size = </string>
+    <string name="digital_widget_max_clock_font_size_summary">Maximum font size = </string>
     <!-- Summary about the font size of the clock when cities are shown -->
-    <string name="settings_digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
+    <string name="digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
     <!--
     Permissions
     -->
-    <string name="permission_category_title">Permissions</string>
+    <string name="permission_settings">Permissions</string>
     <string name="permission_management_title">Permissions management</string>
-    <string name="permission_management_summary">Shows the permissions necessary for the application to work properly</string>
+    <string name="permission_management_summary">Show the permissions necessary for the application to work properly</string>
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>
-    <string name="permission_optional">Optional</string>
     <string name="permission_status_title">Status: </string>
     <string name="permission_granted">Granted</string>
     <string name="permission_denied">Denied</string>
@@ -1245,16 +1342,6 @@
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
     <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
-    <!-- Storage Permission -->
-    <string name="storage_permission_title">READ EXTERNAL STORAGE</string>
-    <string name="storage_dialog_title">External Storage</string>
-    <string name="storage_dialog_text">This permission is required if you want to choose an alarm tone different from the default alarm tone of your device. This therefore allows the application to play audio and music files on your device.
-        \n\nSince Android 13, we request a specific permission that allow us to read only the music and audio files and nothing else.
-        \nHowever, in earlier Android versions, this is not supported, so we have to ask permission to read external storage.</string>
-    <string name="storage_permission_dialog_title">Information</string>
-    <string name="storage_permission_dialog_message">It appears that you have denied this permission in the Android system dialog.
-        \nAndroid will not allow this application to create this permission request dialog again.
-        \n\nWould you like to go to Settings and allow this permission?</string>
 
     <!-- Sleep Strings -->
     <string name="sleep_choose">Choose another sound</string>

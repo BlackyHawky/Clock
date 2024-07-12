@@ -189,6 +189,22 @@ final class SettingsModel {
         SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
     }
 
+    boolean getTimerVibrate() {
+        return SettingsDAO.getTimerVibrate(mPrefs);
+    }
+
+    void setTimerVibrate(boolean enabled) {
+        SettingsDAO.setTimerVibrate(mPrefs, enabled);
+    }
+
+    int getDefaultTimeToAddToTimer() {
+        return SettingsDAO.getDefaultTimeToAddToTimer(mPrefs);
+    }
+
+    boolean shouldTimerDisplayRemainOn() {
+        return SettingsDAO.shouldTimerDisplayRemainOn(mPrefs);
+    }
+
     AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }
@@ -211,6 +227,14 @@ final class SettingsModel {
 
     int getShakeAction() {
         return SettingsDAO.getShakeAction(mPrefs);
+    }
+
+    int getAlarmNotificationReminderTime() {
+        return SettingsDAO.getAlarmNotificationReminderTime(mPrefs);
+    }
+
+    boolean areAlarmVibrationsEnabledByDefault() {
+        return SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
     }
 
     Uri getDefaultAlarmRingtoneUriFromSettings() {
@@ -240,6 +264,10 @@ final class SettingsModel {
         return SettingsDAO.getTimerCrescendoDuration(mPrefs);
     }
 
+    boolean isSwipeActionEnabled() {
+        return SettingsDAO.isSwipeActionEnabled(mPrefs);
+    }
+
     Weekdays.Order getWeekdayOrder() {
         return SettingsDAO.getWeekdayOrder(mPrefs);
     }
@@ -250,14 +278,6 @@ final class SettingsModel {
 
     void setRestoreBackupFinished(boolean finished) {
         SettingsDAO.setRestoreBackupFinished(mPrefs, finished);
-    }
-
-    boolean getTimerVibrate() {
-        return SettingsDAO.getTimerVibrate(mPrefs);
-    }
-
-    void setTimerVibrate(boolean enabled) {
-        SettingsDAO.setTimerVibrate(mPrefs, enabled);
     }
 
     TimeZones getTimeZones() {

@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,6 @@ public final class TimerFragment extends DeskClockFragment {
     private static final String EXTRA_TIMER_SETUP = "com.best.deskclock.action.TIMER_SETUP";
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
-
 
     /**
      * Scheduled to update the timers while at least one is running.
@@ -97,7 +97,6 @@ public final class TimerFragment extends DeskClockFragment {
         super(TIMERS);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
@@ -109,14 +108,17 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
-        // Set a bottom padding for phones to prevent the reset button from being hidden by the FAB
-        if (!Utils.isTablet(requireContext())) {
-            final int bottomPadding = Utils.isPortrait(requireContext())
+        // Set a bottom padding to prevent the reset button from being hidden by the FAB
+        final int bottomPadding;
+        if (Utils.isTablet(requireContext())) {
+            bottomPadding = Utils.toPixel(110, requireContext());
+        } else {
+            bottomPadding = Utils.isPortrait(requireContext())
                     ? Utils.toPixel(95, requireContext())
                     : Utils.toPixel(80, requireContext());
-            mRecyclerView.setPadding(0, 0, 0, bottomPadding);
-            mRecyclerView.setClipToPadding(false);
         }
+        mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+        mRecyclerView.setClipToPadding(false);
 
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
@@ -177,6 +179,9 @@ public final class TimerFragment extends DeskClockFragment {
 
         // Stop updating the timers when this fragment is no longer visible.
         stopUpdatingTime();
+
+        // Release the wake lock if it is currently held.
+        releaseWakeLock();
     }
 
     @Override
@@ -203,6 +208,7 @@ public final class TimerFragment extends DeskClockFragment {
             fab.setImageResource(R.drawable.ic_add);
             fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
             fab.setVisibility(VISIBLE);
+            adjustWakeLock();
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_fab_play);
@@ -212,6 +218,7 @@ public final class TimerFragment extends DeskClockFragment {
                 fab.setContentDescription(null);
                 fab.setVisibility(INVISIBLE);
             }
+            releaseWakeLock();
         }
     }
 
@@ -259,7 +266,9 @@ public final class TimerFragment extends DeskClockFragment {
             try {
                 // Create the new timer.
                 final long timerLength = mCreateTimerView.getTimeInMillis();
-                final Timer timer = DataModel.getDataModel().addTimer(timerLength, "", false);
+                String getDefaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
+                final Timer timer = DataModel.getDataModel().addTimer(timerLength, "",
+                        getDefaultTimeToAddToTimer, false);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
                 // Start the new timer.
@@ -445,6 +454,19 @@ public final class TimerFragment extends DeskClockFragment {
                 : LinearLayoutManager.VERTICAL, false);
     }
 
+    private void adjustWakeLock() {
+        final boolean shouldTimerDisplayRemainOn = DataModel.getDataModel().shouldTimerDisplayRemainOn();
+        if (shouldTimerDisplayRemainOn) {
+            requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            releaseWakeLock();
+        }
+    }
+
+    private void releaseWakeLock() {
+        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
     /**
      * Periodically refreshes the state of each timer.
      */
@@ -452,7 +474,8 @@ public final class TimerFragment extends DeskClockFragment {
         @Override
         public void run() {
             final long startTime = SystemClock.elapsedRealtime();
-            // If no timers require continuous updates, avoid scheduling the next update.
+            // If no timer require continuous updates, avoid scheduling the next update
+            // and don't keep the screen on.
             if (!mAdapter.updateTime()) {
                 return;
             }
@@ -484,8 +507,6 @@ public final class TimerFragment extends DeskClockFragment {
             if (before.isReset() && !after.isReset()) {
                 startUpdatingTime();
             }
-
-
         }
 
         @Override

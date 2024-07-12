@@ -10,4 +10,5 @@
 <resources>
     <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="big_font_size">115sp</dimen>
+    <dimen name="timer_time_text_size">40sp</dimen>
 </resources>

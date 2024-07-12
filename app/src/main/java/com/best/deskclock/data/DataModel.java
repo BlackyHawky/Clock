@@ -13,9 +13,9 @@ import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
 import static com.best.deskclock.Utils.enforceMainLooper;
 import static com.best.deskclock.Utils.enforceNotMainLooper;
-import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
-import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
-import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 
 import android.app.Service;
 import android.content.ActivityNotFoundException;
@@ -34,7 +34,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
-import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.timer.TimerService;
 
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
-            final String themeValue = prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+            final String themeValue = prefs.getString(InterfaceCustomizationActivity.KEY_THEME, SYSTEM_THEME);
             switch (themeValue) {
                 case SYSTEM_THEME ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
@@ -363,12 +363,13 @@ public final class DataModel {
     /**
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
+     * @param buttonTime     the time indicated in the timer time add button
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, boolean deleteAfterUse) {
+    public Timer addTimer(long length, String label, String buttonTime, boolean deleteAfterUse) {
         enforceMainLooper();
-        return mTimerModel.addTimer(length, label, deleteAfterUse);
+        return mTimerModel.addTimer(length, label, buttonTime, deleteAfterUse);
     }
 
     /**
@@ -464,11 +465,11 @@ public final class DataModel {
     }
 
     /**
-     * @param timer the timer to which a minute should be added to the remaining time
+     * @param timer the timer to which minutes or hours should be added to the remaining time
      */
-    public void addTimerMinute(Timer timer) {
+    public void addCustomTimeToTimer(Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.addMinute());
+        mTimerModel.updateTimer(timer.addCustomTime());
     }
 
     /**
@@ -478,6 +479,15 @@ public final class DataModel {
     public void setTimerLabel(Timer timer, String label) {
         enforceMainLooper();
         mTimerModel.updateTimer(timer.setLabel(label));
+    }
+
+    /**
+     * @param timer the timer to which the new {@code buttonTime} belongs
+     * @param buttonTime the new add button text to store for the {@code timer}
+     */
+    public void setTimerButtonTime(Timer timer, String buttonTime) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setButtonTime(buttonTime));
     }
 
     /**
@@ -551,6 +561,22 @@ public final class DataModel {
     public void setTimerVibrate(boolean enabled) {
         enforceMainLooper();
         mTimerModel.setTimerVibrate(enabled);
+    }
+
+    /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    public int getDefaultTimeToAddToTimer() {
+        enforceMainLooper();
+        return mTimerModel.getDefaultTimeToAddToTimer();
+    }
+
+    /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    public boolean shouldTimerDisplayRemainOn() {
+        enforceMainLooper();
+        return mTimerModel.shouldTimerDisplayRemainOn();
     }
 
     /**
@@ -638,6 +664,20 @@ public final class DataModel {
 
     public int getShakeAction() {
         return mAlarmModel.getShakeAction();
+    }
+
+    /**
+     * @return the number of minutes before the upcoming alarm notification appears
+     */
+    public int getAlarmNotificationReminderTime() {
+        return mAlarmModel.getAlarmNotificationReminderTime();
+    }
+
+    /**
+     * @return {@code true} if alarm vibrations are enabled when creating alarms. {@code false} otherwise.
+     */
+    public boolean areAlarmVibrationsEnabledByDefault() {
+        return mAlarmModel.areAlarmVibrationsEnabledByDefault();
     }
 
     /**
@@ -1033,6 +1073,14 @@ public final class DataModel {
     public boolean getShowHomeClock() {
         enforceMainLooper();
         return mSettingsModel.getShowHomeClock();
+    }
+
+    /**
+     * @return {@code true} if swipe action is enabled to dismiss or snooze alarms. {@code false} otherwise.
+     */
+    public boolean isSwipeActionEnabled() {
+        enforceMainLooper();
+        return mSettingsModel.isSwipeActionEnabled();
     }
 
     /**

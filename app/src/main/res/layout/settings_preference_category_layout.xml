@@ -48,7 +48,6 @@
             android:singleLine="true"
             android:textAlignment="viewStart"
             android:textColor="?android:attr/textColorSecondary"
-            android:maxLines="10"
             tools:text="Preference category summary" />
 
     </RelativeLayout>

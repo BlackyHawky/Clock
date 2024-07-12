@@ -111,7 +111,7 @@
     </style>
 
     <style name="CollapsingToolbarTitle.Expanded" parent="CollapsingToolbarTitle.Collapsed">
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">32sp</item>
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">

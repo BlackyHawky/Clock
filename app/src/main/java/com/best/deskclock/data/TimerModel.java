@@ -36,7 +36,7 @@ import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.settings.TimerSettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 
@@ -228,13 +228,14 @@ final class TimerModel {
     /**
      * @param length         the length of the timer in milliseconds
      * @param label          describes the purpose of the timer
+     * @param buttonTime     the time indicated in the timer add time button
      * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, boolean deleteAfterUse) {
+    Timer addTimer(long length, String label, String buttonTime, boolean deleteAfterUse) {
         // Create the timer instance.
         Timer timer = new Timer(-1, RESET, length, length, Timer.UNUSED, Timer.UNUSED, length,
-                label, deleteAfterUse);
+                label, buttonTime, deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mPrefs, timer);
@@ -485,6 +486,20 @@ final class TimerModel {
      */
     void setTimerVibrate(boolean enabled) {
         mSettingsModel.setTimerVibrate(enabled);
+    }
+
+    /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    int getDefaultTimeToAddToTimer() {
+        return mSettingsModel.getDefaultTimeToAddToTimer();
+    }
+
+    /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    boolean shouldTimerDisplayRemainOn() {
+        return mSettingsModel.shouldTimerDisplayRemainOn();
     }
 
     private List<Timer> getMutableTimers() {
@@ -847,7 +862,7 @@ final class TimerModel {
     private final class PreferenceListener implements OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (SettingsActivity.KEY_TIMER_RINGTONE.equals(key)) {
+            if (TimerSettingsActivity.KEY_TIMER_RINGTONE.equals(key)) {
                 mTimerRingtoneUri = null;
                 mTimerRingtoneTitle = null;
             }

@@ -46,6 +46,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     public final LinearLayout repeatDays;
+    public final CheckBox dismissAlarmWhenRingtoneEnds;
+    public final CheckBox alarmSnoozeActions;
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final Chip delete;
@@ -59,14 +61,15 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         mHasVibrator = hasVibrator;
 
+        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
+        ringtone = itemView.findViewById(R.id.choose_ringtone);
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
+        dismissAlarmWhenRingtoneEnds = itemView.findViewById(R.id.dismiss_alarm_when_ringtone_ends_onoff);
+        alarmSnoozeActions = itemView.findViewById(R.id.alarm_snooze_actions_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
-        ringtone = itemView.findViewById(R.id.choose_ringtone);
-        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
 
         final Context context = itemView.getContext();
-
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -94,6 +97,18 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         // Edit time handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+
+        // Dismiss alarm when ringtone ends checkbox handler
+        dismissAlarmWhenRingtoneEnds.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setDismissAlarmWhenRingtoneEndsEnabled(
+                        getItemHolder().item, ((CheckBox) v).isChecked())
+        );
+
+        // Alarm snooze actions checkbox handler
+        alarmSnoozeActions.setOnClickListener(v ->
+                getAlarmTimeClickHandler().setAlarmSnoozeActionsEnabled(
+                        getItemHolder().item, ((CheckBox) v).isChecked())
+        );
 
         // Vibrator checkbox handler
         vibrate.setOnClickListener(v ->
@@ -133,9 +148,25 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
         bindDaysOfWeekButtons(alarm, context);
-        bindVibrator(alarm);
         bindRingtone(context, alarm);
+        bindDismissAlarmWhenRingtoneEnds(alarm);
+        bindAlarmSnoozeActions(alarm);
+        bindVibrator(alarm);
         bindDuplicateButton();
+    }
+
+    private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
+        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
+        for (int i = 0; i < weekdays.size(); i++) {
+            final CompoundButton dayButton = dayButtons[i];
+            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
+                dayButton.setChecked(true);
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+            } else {
+                dayButton.setChecked(false);
+                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+            }
+        }
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -152,17 +183,23 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
     }
 
-    private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
-        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
-        for (int i = 0; i < weekdays.size(); i++) {
-            final CompoundButton dayButton = dayButtons[i];
-            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
-                dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
-            } else {
-                dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
-            }
+    private void bindDismissAlarmWhenRingtoneEnds(Alarm alarm) {
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        if (timeoutMinutes == -2) {
+            dismissAlarmWhenRingtoneEnds.setVisibility(View.GONE);
+        } else {
+            dismissAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
+            dismissAlarmWhenRingtoneEnds.setChecked(alarm.dismissAlarmWhenRingtoneEnds);
+        }
+    }
+
+    private void bindAlarmSnoozeActions(Alarm alarm) {
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        if (snoozeMinutes == -1) {
+            alarmSnoozeActions.setVisibility(View.GONE);
+        } else {
+            alarmSnoozeActions.setVisibility(View.VISIBLE);
+            alarmSnoozeActions.setChecked(alarm.alarmSnoozeActions);
         }
     }
 

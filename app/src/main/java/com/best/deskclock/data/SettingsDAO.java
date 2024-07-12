@@ -15,10 +15,12 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
-import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
-import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -37,8 +39,11 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.settings.AlarmSettingsActivity;
+import com.best.deskclock.settings.ClockSettingsActivity;
+import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.settings.ScreensaverSettingsActivity;
-import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.settings.TimerSettingsActivity;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -111,14 +116,14 @@ final class SettingsDAO {
      * displayed when it doesn't match the current timezone
      */
     static boolean getAutoShowHomeClock(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, true);
+        return prefs.getBoolean(ClockSettingsActivity.KEY_AUTO_HOME_CLOCK, true);
     }
 
     /**
      * @return the user's home timezone
      */
     static TimeZone getHomeTimeZone(Context context, SharedPreferences prefs, TimeZone defaultTZ) {
-        String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
+        String timeZoneId = prefs.getString(ClockSettingsActivity.KEY_HOME_TIME_ZONE, null);
 
         // If the recorded home timezone is legal, use it.
         final TimeZones timeZones = getTimeZones(context, System.currentTimeMillis());
@@ -129,7 +134,7 @@ final class SettingsDAO {
         // No legal home timezone has yet been recorded, attempt to record the default.
         timeZoneId = defaultTZ.getID();
         if (timeZones.contains(timeZoneId)) {
-            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, timeZoneId).apply();
+            prefs.edit().putString(ClockSettingsActivity.KEY_HOME_TIME_ZONE, timeZoneId).apply();
         }
 
         // The timezone returned here may be valid or invalid. When it matches TimeZone.getDefault()
@@ -141,63 +146,63 @@ final class SettingsDAO {
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     public static ClockStyle getClockStyle(Context context, SharedPreferences prefs) {
-        return getClockStyle(context, prefs, SettingsActivity.KEY_CLOCK_STYLE);
+        return getClockStyle(context, prefs, ClockSettingsActivity.KEY_CLOCK_STYLE);
     }
 
     /**
      * @return the theme applied.
      */
     static String getTheme(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_THEME, SYSTEM_THEME);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_THEME, SYSTEM_THEME);
     }
 
     /**
      * @return the accent color applied.
      */
     static String getAccentColor(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
     }
 
     /**
      * @return the dark mode of the applied theme.
      */
     static String getDarkMode(SharedPreferences prefs) {
-        return prefs.getString(SettingsActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
+        return prefs.getString(InterfaceCustomizationActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
     }
 
     /**
      * @return whether or not the background should be displayed in a view.
      */
     static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND, true);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BACKGROUND, true);
     }
 
     /**
      * @return whether or not the background border should be displayed in a view.
      */
     static boolean isCardBackgroundBorderDisplayed(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND_BORDER, false);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BACKGROUND_BORDER, false);
     }
 
     /**
      * @return whether or not the vibrations are enabled for the buttons.
      */
     static boolean isVibrationsEnabled(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_VIBRATIONS, false);
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_VIBRATIONS, false);
     }
 
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
+        return prefs.getBoolean(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
     }
 
     /**
      * @param displaySeconds whether or not to display seconds on main clock
      */
     static void setDisplayClockSeconds(SharedPreferences prefs, boolean displaySeconds) {
-        prefs.edit().putBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
+        prefs.edit().putBoolean(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
     }
 
     /**
@@ -205,7 +210,7 @@ final class SettingsDAO {
      * not yet been manually chosen.
      */
     static void setDefaultDisplayClockSeconds(Context context, SharedPreferences prefs) {
-        if (!prefs.contains(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
+        if (!prefs.contains(ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
             // If on analog clock style on upgrade, default to true. Otherwise, default to false.
             final boolean isAnalog = getClockStyle(context, prefs) == ClockStyle.ANALOG;
             setDisplayClockSeconds(prefs, isAnalog);
@@ -308,7 +313,7 @@ final class SettingsDAO {
      * has yet been made
      */
     static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
-        final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
+        final String uriString = prefs.getString(TimerSettingsActivity.KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
@@ -316,28 +321,44 @@ final class SettingsDAO {
      * @return whether timer vibration is enabled. false by default.
      */
     static boolean getTimerVibrate(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_TIMER_VIBRATE, false);
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, false);
     }
 
     /**
      * @param enabled whether vibration will be turned on for all timers.
      */
     static void setTimerVibrate(SharedPreferences prefs, boolean enabled) {
-        prefs.edit().putBoolean(SettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
+        prefs.edit().putBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
+    }
+
+    /**
+     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
+     */
+    static int getDefaultTimeToAddToTimer(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        final String string = prefs.getString(TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, "1");
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
+     */
+    static boolean shouldTimerDisplayRemainOn(SharedPreferences pref) {
+        return pref.getBoolean(TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON, true);
     }
 
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(SharedPreferences prefs, Uri uri) {
-        prefs.edit().putString(SettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
+        prefs.edit().putString(TimerSettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
     }
 
     /**
      * @return the uri of the ringtone from the settings to play for all alarms
      */
     static Uri getAlarmRingtoneUriFromSettings(SharedPreferences prefs, Uri defaultUri) {
-        final String uriString = prefs.getString(SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE, null);
+        final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
@@ -360,7 +381,7 @@ final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied
      */
     static long getAlarmCrescendoDuration(SharedPreferences prefs) {
-        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_ALARM_CRESCENDO, "0");
+        final String crescendoSeconds = prefs.getString(AlarmSettingsActivity.KEY_ALARM_CRESCENDO, "0");
         return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
     }
 
@@ -369,8 +390,15 @@ final class SettingsDAO {
      * {@code 0} implies no crescendo should be applied
      */
     static long getTimerCrescendoDuration(SharedPreferences prefs) {
-        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_TIMER_CRESCENDO, "0");
+        final String crescendoSeconds = prefs.getString(TimerSettingsActivity.KEY_TIMER_CRESCENDO, "0");
         return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
+     * @return {@code true} if swipe action is enabled to dismiss or snooze alarms. {@code false} otherwise.
+     */
+    static boolean isSwipeActionEnabled(SharedPreferences pref) {
+        return pref.getBoolean(KEY_SWIPE_ACTION, true);
     }
 
     /**
@@ -379,7 +407,7 @@ final class SettingsDAO {
      */
     static Weekdays.Order getWeekdayOrder(SharedPreferences prefs) {
         final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
-        final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_WEEK_START, defaultValue);
         final int firstCalendarDay = Integer.parseInt(value);
         return switch (firstCalendarDay) {
             case SATURDAY -> SAT_TO_FRI;
@@ -411,12 +439,12 @@ final class SettingsDAO {
      * @return the behavior to execute when volume buttons are pressed while firing an alarm
      */
     static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
-        final String defaultValue = SettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
-        final String value = prefs.getString(SettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
+        final String defaultValue = AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
         return switch (value) {
-            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
-            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
-            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
+            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }
@@ -425,12 +453,12 @@ final class SettingsDAO {
      * @return the behavior to execute when power buttons are pressed while firing an alarm
      */
     static AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
-        final String defaultValue = SettingsActivity.DEFAULT_POWER_BEHAVIOR;
-        final String value = prefs.getString(SettingsActivity.KEY_POWER_BUTTONS, defaultValue);
+        final String defaultValue = AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR;
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_POWER_BUTTONS, defaultValue);
         return switch (value) {
-            case SettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
-            case SettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
-            case SettingsActivity.POWER_BEHAVIOR_DISMISS -> DISMISS;
+            case AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
+            case AlarmSettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
+            case AlarmSettingsActivity.POWER_BEHAVIOR_DISMISS -> DISMISS;
             default -> throw new IllegalArgumentException("Unknown power button behavior: " + value);
         };
     }
@@ -439,8 +467,8 @@ final class SettingsDAO {
      * @return the number of minutes an alarm may ring before it has timed out and becomes missed
      */
     static int getAlarmTimeout(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings.xml
-        final String string = prefs.getString(SettingsActivity.KEY_AUTO_SILENCE, "10");
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_AUTO_SILENCE, "10");
         return Integer.parseInt(string);
     }
 
@@ -448,8 +476,8 @@ final class SettingsDAO {
      * @return the number of minutes an alarm will remain snoozed before it rings again
      */
     static int getSnoozeLength(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings.xml
-        final String string = prefs.getString(SettingsActivity.KEY_ALARM_SNOOZE, "10");
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_SNOOZE, "10");
         return Integer.parseInt(string);
     }
 
@@ -493,13 +521,29 @@ final class SettingsDAO {
     }
 
     static int getFlipAction(SharedPreferences prefs) {
-        final String string = prefs.getString(SettingsActivity.KEY_FLIP_ACTION, "0");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_FLIP_ACTION, "0");
         return Integer.parseInt(string);
     }
 
     static int getShakeAction(SharedPreferences prefs) {
-        final String string = prefs.getString(SettingsActivity.KEY_SHAKE_ACTION, "0");
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_SHAKE_ACTION, "0");
         return Integer.parseInt(string);
+    }
+
+    /**
+     * @return the number of minutes before the upcoming alarm notification appears
+     */
+    static int getAlarmNotificationReminderTime(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        final String string = prefs.getString(AlarmSettingsActivity.KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30");
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * @return {@code true} if alarm vibrations are enabled when creating alarms. {@code false} otherwise.
+     */
+    static boolean areAlarmVibrationsEnabledByDefault(SharedPreferences pref) {
+        return pref.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false);
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {

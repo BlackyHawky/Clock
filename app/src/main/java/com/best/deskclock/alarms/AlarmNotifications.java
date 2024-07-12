@@ -34,6 +34,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 
@@ -81,14 +82,13 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 7;
 
-    static synchronized void showUpcomingNotification(Context context, AlarmInstance instance, boolean lowPriority) {
-        LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId + "low priority: " + lowPriority);
+    static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
+        LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(
-                        R.string.alarm_alert_predismiss_title))
+                .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance, true))
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -101,15 +101,6 @@ public final class AlarmNotifications {
                 .setGroup(UPCOMING_GROUP_KEY);
 
         final int id = instance.hashCode();
-        if (lowPriority) {
-            // Setup up hide notification
-            Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
-                    AlarmStateManager.ALARM_DELETE_TAG, instance,
-                    AlarmInstance.HIDE_NOTIFICATION_STATE);
-
-            builder.setDeleteIntent(PendingIntent.getService(context, id, hideIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
-        }
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -186,7 +177,9 @@ public final class AlarmNotifications {
         return null;
     }
 
-    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId, Notification postedNotification) {
+    private static void updateUpcomingAlarmGroupNotification(Context context, int canceledNotificationId,
+                                                             Notification postedNotification) {
+
         final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         final Notification firstUpcoming = getFirstActiveNotification(context, UPCOMING_GROUP_KEY,
                 canceledNotificationId, postedNotification);
@@ -380,13 +373,17 @@ public final class AlarmNotifications {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
-        // Setup Snooze Action
-        Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
-                AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
-        snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
-        PendingIntent snoozePendingIntent = PendingIntent.getService(service,
-                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+        // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
+        // or if "Enable alarm snooze actions" is enabled in the expanded alarm view
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        if (instance.mAlarmSnoozeActions && snoozeMinutes != -1) {
+            Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
+                    AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
+            snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
+            PendingIntent snoozePendingIntent = PendingIntent.getService(service,
+                    ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            notification.addAction(R.drawable.ic_snooze, resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
+        }
 
         // Setup Dismiss Action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(service,
@@ -431,8 +428,7 @@ public final class AlarmNotifications {
      */
     static void updateNotification(Context context, AlarmInstance instance) {
         switch (instance.mAlarmState) {
-            case AlarmInstance.LOW_NOTIFICATION_STATE -> showUpcomingNotification(context, instance, true);
-            case AlarmInstance.HIGH_NOTIFICATION_STATE -> showUpcomingNotification(context, instance, false);
+            case AlarmInstance.NOTIFICATION_STATE -> showUpcomingNotification(context, instance);
             case AlarmInstance.SNOOZE_STATE -> showSnoozeNotification(context, instance);
             case AlarmInstance.MISSED_STATE -> showMissedNotification(context, instance);
             default -> LogUtils.d("No notification to update");

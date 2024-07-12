@@ -13,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 /**
@@ -43,6 +44,13 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
             setupVersion();
             setupWhatsNew();
             setupMainFeatures();
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            int bottomPadding = Utils.toPixel(20, requireContext());
+            getListView().setPadding(0, 0, 0, bottomPadding);
         }
 
         private void setupTitle() {

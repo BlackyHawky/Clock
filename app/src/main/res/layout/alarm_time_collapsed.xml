@@ -32,13 +32,13 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:textSize="16sp"
             android:textColor="?android:attr/textColorPrimary"
-            android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_label"
             app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/add_label" />
+            tools:hint="@string/add_label" />
 
         <include
             layout="@layout/alarm_time_summary"

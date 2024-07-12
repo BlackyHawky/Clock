@@ -3,8 +3,6 @@
 package com.best.deskclock.settings;
 
 import static android.Manifest.permission.POST_NOTIFICATIONS;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.READ_MEDIA_AUDIO;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS;
@@ -39,21 +37,16 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     MaterialCardView mIgnoreBatteryOptimizationsView;
     MaterialCardView mNotificationView;
     MaterialCardView mFullScreenNotificationsView;
-    MaterialCardView mStorageView;
 
     ImageView mIgnoreBatteryOptimizationsDetails;
     ImageView mNotificationDetails;
     ImageView mFullScreenNotificationsDetails;
-    ImageView mStorageDetails;
 
     TextView mIgnoreBatteryOptimizationsStatus;
     TextView mNotificationStatus;
     TextView mFullScreenNotificationsStatus;
-    TextView mStorageStatus;
 
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
-
-    private int clickCountOnStorageButton = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,38 +92,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             );
             mFullScreenNotificationsStatus = findViewById(R.id.FSN_status_text);
         }
-
-        mStorageView = findViewById(R.id.storage_view);
-        mStorageView.setOnClickListener(v -> {
-            /* If the user refuses authorization in the system dialog, Android will not allow
-            this authorization request dialog to be created again.
-            We therefore need to know how many times the button is clicked in order to display
-            an alert dialog to access the storage settings. */
-            clickCountOnStorageButton = clickCountOnStorageButton + 1;
-            if (clickCountOnStorageButton > 1 && !isStoragePermissionsGranted(this)) {
-                Intent intent = new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                        .setData(Uri.fromParts("package", getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.storage_permission_dialog_title)
-                        .setMessage(R.string.storage_permission_dialog_message)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-
-            } else {
-                grantOrRevokeStoragePermission();
-            }
-
-        });
-        mStorageDetails = findViewById(R.id.storage_details_button);
-        mStorageDetails.setOnClickListener(v ->
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.storage_dialog_title)
-                        .setMessage(R.string.storage_dialog_text)
-                        .setPositiveButton(R.string.permission_dialog_close_button, null)
-                        .show()
-        );
-        mStorageStatus = findViewById(R.id.storage_status_text);
 
         grantPowerOffPermission();
     }
@@ -213,32 +174,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     }
 
     /**
-     * Grant or revoke Storage permission
-     */
-    private void grantOrRevokeStoragePermission() {
-        int codeForStorage = 0;
-        String storagePermissions;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            storagePermissions = READ_MEDIA_AUDIO;
-        } else {
-            storagePermissions = READ_EXTERNAL_STORAGE;
-        }
-
-        if (checkSelfPermission(storagePermissions) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{storagePermissions}, codeForStorage);
-        } else {
-            Intent intent = new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
-                    .setData(Uri.fromParts("package", getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.permission_dialog_revoke_title)
-                    .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
-        }
-    }
-
-    /**
      * Grant or revoke Power Off Alarm permission (available only on specific devices)
      */
     private void grantPowerOffPermission() {
@@ -274,13 +209,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     ? Color.parseColor("#66BB6A")
                     : Color.parseColor("#EF5350"));
         }
-
-        mStorageStatus.setText(isStoragePermissionsGranted(this)
-                ? R.string.permission_granted
-                : R.string.permission_denied);
-        mStorageStatus.setTextColor(isStoragePermissionsGranted(this)
-                ? Color.parseColor("#66BB6A")
-                : Color.parseColor("#EF5350"));
     }
 
     /**
@@ -307,16 +235,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             return notificationManager.canUseFullScreenIntent();
         }
         return false;
-    }
-
-    /**
-     * @return {@code true} when Storage permission is granted; {@code false} otherwise
-     */
-    public static boolean isStoragePermissionsGranted(Context context) {
-        int granted = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                ? context.checkSelfPermission(READ_MEDIA_AUDIO)
-                : context.checkSelfPermission(READ_EXTERNAL_STORAGE);
-        return granted == PackageManager.PERMISSION_GRANTED;
     }
 
     /**

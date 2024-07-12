@@ -1,0 +1,10 @@
+**Fixes**
+ - Fix "Gradually increase volume" summary for timer
+
+**Improvements**
+ - Remove unnecessary permissions;
+ - Improve alarm and timer;
+ - To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+ **Note:**
+ Due to a change in database, you'll need to reinstall the app.

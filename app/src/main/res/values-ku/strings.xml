@@ -7,7 +7,6 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label">کاتژمێر</string>
-    <string name="label">پێناس</string>
     <string name="default_label">وریاکەرەوە</string>
     <string name="alarm_vibrate">لەرزین</string>
     <string name="delete">سڕینه‌وه‌</string>
@@ -113,8 +112,8 @@
     <string name="timer_add_timer">دیاریکردنی کاتپێو</string>
     <string name="timer_start">دەستپێکردن</string>
     <string name="timer_delete">سڕینه‌وه‌</string>
-    <string name="timer_plus_one">زیادکردنی یه‌ک خوله‌ک</string>
-    <string name="timer_plus_1_min">زیاد کردنی ۱ خوله‌ک</string>
+    <string name="timer_add_custom_time_description">%s خولەک زیاد بکە</string>
+    <string name="timer_add_custom_time_for_notification">%s خولەک زیاد بکە</string>
     <string name="timer_stop">وه‌ستاندن</string>
     <string name="timer_reset">ڕێکخستنەوە</string>
     <string name="timer_cancel">هەڵوەشاندنەوە</string>

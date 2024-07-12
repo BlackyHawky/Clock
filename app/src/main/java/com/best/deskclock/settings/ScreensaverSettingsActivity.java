@@ -46,7 +46,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
     public static final String KEY_ITALIC_NEXT_ALARM = "screensaver_italic_next_alarm";
     public static final String KEY_SS_PREVIEW = "screensaver_preview";
     public static final String KEY_SS_DAYDREAM_SETTINGS = "screensaver_daydream_settings";
-    private static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
+    private static final String PREFS_FRAGMENT_TAG = "screensaver_prefs_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,9 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         @Override
         public void onResume() {
             super.onResume();
+            int bottomPadding = Utils.toPixel(20, requireContext());
+            getListView().setPadding(0, 0, 0, bottomPadding);
+
             refresh();
         }
 

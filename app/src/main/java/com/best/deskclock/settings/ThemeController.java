@@ -2,17 +2,17 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
-import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
-import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 
 import android.app.Activity;
 import android.app.Application;

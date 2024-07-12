@@ -73,6 +73,26 @@ public final class AlarmTimeClickHandler {
         }
     }
 
+    public void setDismissAlarmWhenRingtoneEndsEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.dismissAlarmWhenRingtoneEnds) {
+            alarm.dismissAlarmWhenRingtoneEnds = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_dismiss_alarm_when_ringtone_ends, R.string.label_deskclock);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+            LOGGER.d("Updating dismiss alarm state to " + newState);
+            Utils.setVibrationTime(mContext, 50);
+        }
+    }
+
+    public void setAlarmSnoozeActionsEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.alarmSnoozeActions) {
+            alarm.alarmSnoozeActions = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_alarm_snooze_actions, R.string.label_deskclock);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+            LOGGER.d("Updating snooze alarm state to " + newState);
+            Utils.setVibrationTime(mContext, 50);
+        }
+    }
+
     public void setAlarmVibrationEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
@@ -164,10 +184,13 @@ public final class AlarmTimeClickHandler {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm alarm = new Alarm();
+            final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
-            alarm.vibrate = false;
+            alarm.dismissAlarmWhenRingtoneEnds = false;
+            alarm.alarmSnoozeActions = true;
+            alarm.vibrate = areAlarmVibrationsEnabledByDefault;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;

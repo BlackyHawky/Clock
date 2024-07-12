@@ -8,10 +8,11 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:title="@string/screensaver_settings">
 
     <PreferenceCategory
-        android:title="@string/screensaver_style_group"
+        android:title="@string/styles_and_colors_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:iconSpaceReserved="false">
 
@@ -31,14 +32,6 @@
             android:title="@string/display_clock_seconds_pref"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/screensaver_color_group"
-        android:layout="@layout/settings_preference_category_layout"
-        app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
             android:key="screensaver_clock_dynamic_colors"
@@ -91,7 +84,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/screensaver_font_group"
+        android:title="@string/font_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
@@ -141,7 +134,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/screensaver_preview_group"
+        android:title="@string/miscellaneous_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">

@@ -66,7 +66,6 @@
                     android:textAlignment="viewStart"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:maxLines="4"
                     tools:text="40%" />
 
             </RelativeLayout>

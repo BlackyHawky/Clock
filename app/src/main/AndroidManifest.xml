@@ -10,8 +10,6 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -90,6 +88,34 @@
             android:name="com.best.deskclock.settings.AboutActivity"
             android:excludeFromRecents="true"
             android:label="@string/about_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name="com.best.deskclock.settings.InterfaceCustomizationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/interface_customization_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name="com.best.deskclock.settings.ClockSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/clock_settings_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name="com.best.deskclock.settings.AlarmSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/alarm_settings_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name="com.best.deskclock.settings.TimerSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/timer_settings_title"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
@@ -325,7 +351,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/settings_digital_widget_title"
+            android:label="@string/digital_widget_title"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
@@ -364,7 +390,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/settings_digital_widget_material_you_title"
+            android:label="@string/digital_widget_material_you_title"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 

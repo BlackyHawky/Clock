@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <TextClock
+        <com.best.deskclock.widget.AutoSizingTextClock
             android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,8 @@
             android:ellipsize="none"
             android:gravity="center"
             android:singleLine="true"
-            android:textSize="@dimen/main_clock_font_size" />
+            android:textSize="@dimen/main_clock_font_size"
+            tools:text="12:34" />
 
         <include layout="@layout/date_and_next_alarm_time" />
 

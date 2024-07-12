@@ -8,7 +8,6 @@ package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,29 +34,33 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;
 
-        setLayoutParams(view);
-
         view.findViewById(R.id.reset).setOnClickListener(v -> {
             DataModel.getDataModel().resetOrDeleteTimer(getTimer(), R.string.label_deskclock);
             Utils.setVibrationTime(context, 10);
         });
 
-        // Must use getTimer() because old timer is no longer accurate.
-        View.OnClickListener mAddListener = v -> {
+        view.findViewById(R.id.timer_add_time_button).setOnClickListener(v -> {
             final Timer timer = getTimer();
-            DataModel.getDataModel().addTimerMinute(timer);
+            DataModel.getDataModel().addCustomTimeToTimer(timer);
             Utils.setVibrationTime(context, 10);
-            Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
+            Events.sendTimerEvent(R.string.action_add_custom_time_to_timer, R.string.label_deskclock);
 
             // Must use getTimer() because old timer is no longer accurate.
             final long currentTime = getTimer().getRemainingTime();
+            final String buttonTime = getTimer().getButtonTime();
             if (currentTime > 0) {
                 v.announceForAccessibility(TimerStringFormatter.formatString(context,
-                        R.string.timer_accessibility_one_minute_added, currentTime, true));
+                        R.string.timer_accessibility_custom_time_added, buttonTime, currentTime, true));
             }
-        };
-        view.findViewById(R.id.add_one_min).setOnClickListener(mAddListener);
+        });
+
+        view.findViewById(R.id.timer_add_time_button).setOnLongClickListener(v -> {
+            mTimerClickHandler.onEditAddTimeButtonLongClicked(getTimer());
+            return true;
+        });
+
         view.findViewById(R.id.timer_label).setOnClickListener(v -> mTimerClickHandler.onEditLabelClicked(getTimer()));
+
         View.OnClickListener mPlayPauseListener = v -> {
             Utils.setVibrationTime(context, 50);
             final Timer clickedTimer = getTimer();
@@ -71,7 +74,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         };
 
         // If we click on the circular container when the phones (only) are in landscape mode,
-        // indicating a title for the timers is not feasible so in this case we click on the time text.
+        // indicating a title for the timers is not possible so in this case we click on the time text.
         if (!Utils.isTablet(context) && Utils.isLandscape(context)) {
             view.findViewById(R.id.timer_time_text).setOnClickListener(mPlayPauseListener);
         } else {
@@ -89,15 +92,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
     public void onBind(int timerId) {
         mTimerId = timerId;
         updateTime();
-    }
-
-    private void setLayoutParams(View view) {
-        if (Utils.isTablet(view.getContext()) && Utils.isLandscape(view.getContext())) {
-            ViewGroup.LayoutParams lp = view.getLayoutParams();
-            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            view.setLayoutParams(lp);
-        }
     }
 
     /**

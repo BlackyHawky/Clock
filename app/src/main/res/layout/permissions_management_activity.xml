@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -303,103 +304,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/FSN_requirement_type_title"
                     app:layout_constraintBottom_toBottomOf="@+id/FSN_status_title"
-                    android:contentDescription="@null" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/storage_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:strokeWidth="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/storage_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingHorizontal="10dp"
-                    android:paddingBottom="20dp"
-                    android:text="@string/storage_permission_title"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/storage_details_button"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/storage_details_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@null"
-                    android:src="@drawable/ic_about"
-                    android:scaleType="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/storage_title" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/storage_requirement_type_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/permission_requirement_title"
-                    android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/storage_title" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/permission_optional"
-                    android:textSize="16sp"
-                    android:textColor="#66BB6A"
-                    app:layout_constraintStart_toEndOf="@+id/storage_requirement_type_title"
-                    app:layout_constraintEnd_toStartOf="@+id/storage_image"
-                    app:layout_constraintTop_toBottomOf="@+id/storage_title" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/storage_status_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/permission_status_title"
-                    android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/storage_requirement_type_title" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/storage_status_text"
-                    android:layout_width="0dp"
-                    android:layout_height="32dp"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/storage_status_title"
-                    app:layout_constraintEnd_toStartOf="@+id/storage_image"
-                    app:layout_constraintTop_toBottomOf="@+id/storage_requirement_type_title"
-                    tools:text="@string/permission_granted"
-                    tools:textColor="#66BB6A" />
-
-                <ImageView
-                    android:id="@+id/storage_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/storage_requirement_type_title"
-                    app:layout_constraintBottom_toBottomOf="@+id/storage_status_title"
                     android:contentDescription="@null" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

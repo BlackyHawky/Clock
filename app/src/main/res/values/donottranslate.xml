@@ -20,8 +20,6 @@
     <string name="full_wday_month_day_no_year">EEEEMMMMd</string>
     <!-- Default clock style. -->
     <string name="default_clock_style">digital</string>
-    <!-- Default dark theme mode. -->
-    <string name="default_dark_theme_mode">default</string>
     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
     <string name="clock_emoji">A</string>
 
@@ -46,7 +44,7 @@
     <string name="action_fire">Fire</string>
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
-    <string name="action_add_minute">Add Minute</string>
+    <string name="action_add_custom_time_to_timer">Add Custom Time To Timer</string>
     <string name="action_lap">Lap</string>
     <string name="action_enable">Enable</string>
     <string name="action_disable">Disable</string>
@@ -58,6 +56,8 @@
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
+    <string name="action_toggle_dismiss_alarm_when_ringtone_ends">Toggle Dismiss Alarm When Ringtone Ends</string>
+    <string name="action_toggle_alarm_snooze_actions">Toggle Alarm Snooze Actions</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

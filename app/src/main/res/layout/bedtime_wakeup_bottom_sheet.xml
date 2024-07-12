@@ -96,15 +96,47 @@
             android:background="?attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_ringtone"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/md_theme_onSurfaceVariant"
             android:textColor="?android:attr/textColorPrimary"
             android:ellipsize="marquee"
             android:gravity="center_vertical"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            app:drawableTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
             tools:text="Standard (Hassium)" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/dismiss_bedtime_alarm_when_ringtone_ends_onoff"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingHorizontal="22dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_ringtone_off"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/dismiss_alarm_ringtone_when_ringtone_ends_label"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/choose_ringtone_bedtime"
+            tools:ignore="RtlSymmetry"
+            tools:checked="false" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/bedtime_alarm_snooze_actions_onoff"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="22dp"
+            android:layout_height="48dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_repeat"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/enable_alarm_snooze_actions_label"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/dismiss_bedtime_alarm_when_ringtone_ends_onoff"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/vibrate_onoff_wakeup"
@@ -118,7 +150,8 @@
             android:drawablePadding="10dp"
             android:text="@string/alarm_vibrate"
             android:textColor="?android:attr/textColorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/choose_ringtone_bedtime" />
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_alarm_snooze_actions_onoff"
+            tools:checked="true" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/no_wakeup_alarm_text"
