@@ -1,37 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Годинник"</string>
     <string name="label" msgid="162189613902857319">"Мітка"</string>
     <string name="default_label" msgid="5590025289805630372">"Будильник"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вібросигнал"</string>
     <string name="delete" msgid="5732434972457000541">"Видалити"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Сигнал будильника за умовчанням"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Сигнал за замовчуванням</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Сигнал будильника"</string>
     <string name="timer_sound" msgid="896163086604894735">"Сигнал таймера"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Додати новий сигнал"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Видалити"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Будильники й таймери, у яких використовується цей сигнал, відтворюватимуть сигнал за умовчанням."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Будильники і таймери, у яких використовується цей сигнал, відтворюватимуть сигнал за замовчуванням.</string>
     <string name="your_sounds" msgid="1672779351352629681">"Ваші звуки"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Звуки на пристрої"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Немає доступу до звуків."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Час таймера вичерпано"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Завтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сьогодні"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Вимкнути"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Відхилити</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Пропущений сигнал"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Відкладено"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> хв</item>
-        <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> хв</item>
-        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> хв</item>
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> хв</item>
+        <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> хвилина</item>
+        <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> хвилини</item>
+        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> хвилин</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> хвилин</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Вимкнено"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
@@ -109,7 +107,7 @@
     <string name="settings" msgid="5849739030579520686">"Налаштування"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Збільшувати гучність поступово"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Вимкнути будильник за…"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">Вимкнути будильник за</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> хвилина</item>
         <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> хвилини</item>
@@ -169,7 +167,7 @@
         <item msgid="6706610539793025916">"29 хвилин"</item>
         <item msgid="2898212818965905529">"30 хвилин"</item>
     </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Початок тижня:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">Початок тижня</string>
     <string-array name="week_start_entries">
         <item msgid="9010198173394482639">"субота"</item>
         <item msgid="3993530639455360921">"неділя"</item>
@@ -180,9 +178,9 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Невідомий сигнал"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Гучність будильника вимкнено"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Увімкнути звук"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Сигнал за умовчанням: без звуку"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Сигнал за замовчуванням: без звуку</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Змінити"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"На пристрої ввімкнено режим \"Без сигналів\""</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">На пристрої ввімкнено режим «Без звуку»</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопки гучності"</string>
     <string-array name="volume_button_setting_entries">
         <item msgid="7972756698723318690">"Відкласти"</item>
@@ -238,7 +236,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Ну ви й швидкі!"</item>
         <item msgid="6332879039890727169">"Насолоджуйтесь плодами своєї праці."</item>
@@ -382,7 +380,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Згорнути"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"відмінити"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник видалено"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"На <xliff:g id="TIME">%1$s</xliff:g> пізніше"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"Минуло <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"На <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> пізніше"</string>
@@ -414,4 +412,51 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Виберіть, який будильник вимкнути"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Немає ввімкнених будильників"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> відкладено на 10 хвилин"</string>
+    <string name="add_label">Додати мітку</string>
+    <string name="app_slogan">100% вільний годинник на основі проєкту Android Open Source</string>
+    <string name="version">Версія</string>
+    <string name="about_title">Про додаток</string>
+    <string name="analog_gadget_material_you">Аналог. годинник Material You</string>
+    <string name="menu_bedtime">Час сну</string>
+    <string name="title_theme">Тема</string>
+    <string name="title_accent_color">Акцентний колір</string>
+    <string name="settings_vibration_title">Увімкнути вібрацію</string>
+    <string name="alarm_inactive">Вимкнено</string>
+    <string name="digital_gadget_material_you">Цифровий годинник Material You</string>
+    <string name="title_interface">Інтерфейс</string>
+    <string name="power_button_title">Кнопка живлення</string>
+    <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="dialog_close">Закрити</string>
+    <string name="whats_new_title">Що нового</string>
+    <string name="screensaver_style_group">Стиль</string>
+    <string name="first_launch_button_now">Зараз</string>
+    <string name="permission_category_title">Дозволи</string>
+    <string name="bedtime_notification_action_pause">Призупинити на 30 хв</string>
+    <string name="bedtime_channel">Час сну</string>
+    <string name="screensaver_color_group">Кольори</string>
+    <string name="screensaver_font_group">Шрифт</string>
+    <string name="screensaver_brightness_title">Яскравість</string>
+    <string name="screensaver_preview_title">Попередній перегляд</string>
+    <string name="bedtime_notification_title">Режим «Час сну» увімкнено</string>
+    <string name="bedtime_notification_action_turn_off">Вимкнути</string>
+    <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="bedtime_paused_notification_title">Режим «Час сну» призупинено</string>
+    <string name="no_bedtime_alarm">Час сну не встановлено</string>
+    <string name="stopwatch_channel">Секундомір</string>
+    <string name="timer_channel">Таймер</string>
+    <string name="first_launch_version">Версія %s</string>
+    <string name="first_launch_button_later">Пізніше</string>
+    <string name="first_launch_dialog_title">Вихід</string>
+    <string name="FSN_permission_title">Увімкнути повноекранні сповіщення</string>
+    <string name="notifications_dialog_title">Сповіщення</string>
+    <string name="FSN_dialog_title">Повноекранні сповіщення</string>
+    <string name="storage_dialog_title">Зовнішня пам\'ять</string>
+    <string name="storage_permission_dialog_title">Інформація</string>
+    <string name="permission_status_title">Стан: </string>
+    <string name="permission_granted">Надано</string>
+    <string name="permission_denied">Відхилено</string>
+    <string name="permission_dialog_revoke_title">Скасувати доступ</string>
+    <string name="permission_dialog_close_button">Закрити</string>
+    <string name="notifications_permission_title">Увімкнути сповіщення</string>
 </resources>

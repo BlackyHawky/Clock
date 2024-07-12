@@ -323,6 +323,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                 case VIEW_TYPE_SELECTED_CITIES_HEADER -> {
                     if (view == null) {
                         view = mInflater.inflate(R.layout.city_list_header, parent, false);
+                        view.setOnClickListener(null);
                     }
                     return view;
                 }

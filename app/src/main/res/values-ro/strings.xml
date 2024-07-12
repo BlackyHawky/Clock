@@ -1,29 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Ceas"</string>
     <string name="label" msgid="162189613902857319">"Etichetă"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarmă"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrare"</string>
-    <string name="delete" msgid="5732434972457000541">"Ștergeți"</string>
+    <string name="delete" msgid="5732434972457000541">Șterge</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sunet de alarmă prestabilit"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Sunetul pentru alarmă"</string>
     <string name="timer_sound" msgid="896163086604894735">"Sunetul pentru temporizator"</string>
-    <string name="add_new_sound" msgid="2546936797351540244">"Adăugați unul nou"</string>
-    <string name="remove_sound" msgid="2064643204455734239">"Eliminați"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">Adaugă unul nou</string>
+    <string name="remove_sound" msgid="2064643204455734239">Elimină</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Alarmele și temporizatoarele care folosesc acest sunet vor reda în schimb sunetul prestabilit."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Sunetele dvs."</string>
+    <string name="your_sounds" msgid="1672779351352629681">Sunete</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sunetele dispozitivului"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Conținutul sonor nu poate fi accesat."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizatorul a expirat"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mâine"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Astăzi"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Închideți"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Închide</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmă ratată"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Amânată"</string>
@@ -33,7 +31,7 @@
         <item quantity="one">un minut</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarmă oprită"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânați"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Amână</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="few">Se amână <xliff:g id="MINUTES">%d</xliff:g> minute.</item>
         <item quantity="other">Se amână <xliff:g id="MINUTES">%d</xliff:g> de minute.</item>
@@ -170,9 +168,9 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silențios"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Necunoscut"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volumul alarmei a fost dezactivat"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Activați sunetul"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">Activează sunetul</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Tonul de alarmă prestabilit este silențios"</string>
-    <string name="change_setting_action" msgid="1224356633832430160">"Schimbați"</string>
+    <string name="change_setting_action" msgid="1224356633832430160">Schimbă</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Dispozitivul este setat pe „Niciun sunet”"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butoane de volum"</string>
     <string-array name="volume_button_setting_entries">
@@ -186,18 +184,18 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporizator"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ceas"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronometru"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Adăugați o alarmă"</string>
+    <string name="button_alarms" msgid="3907838219512538763">Adaugă o alarmă</string>
     <string name="button_cities" msgid="4555761857494501363">"Orașe"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Screensaver"</string>
-    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortați după oră"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortați după nume"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">Sortează după oră</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">Sortează după nume</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Orașele selectate"</string>
-    <string name="sw_resume_button" msgid="2569360966002022248">"Reluați"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Resetați"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"Porniți"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Întrerupeți"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">Reia</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">Resetează</string>
+    <string name="sw_start_button" msgid="8373422516681242270">Pornește</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">Întrerupe</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Tur"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Distribuiți"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">Distribuie</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
@@ -207,29 +205,29 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Ora mea este <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Timpi circuit:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Turul <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"Adăugați un temporizator"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">Adaugă un temporizator</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Ștergeți"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Ștergeți <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"Adăugați 1 minut"</string>
+    <string name="timer_delete" msgid="8699122001991909302">Șterge</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">Șterge <xliff:g id="NUMBER_STRING">%s</xliff:g></string>
+    <string name="timer_plus_one" msgid="6631211310420106116">Adaugă 1 minut</string>
     <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"Adăugați 1 min."</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Opriți"</string>
-    <string name="timer_stop_all" msgid="9080780442843034376">"Opriți temporizatoarele"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Resetați"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"Anulați"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">Adaugă 1 min.</string>
+    <string name="timer_stop" msgid="3361154678667736722">Oprește</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">Oprește temporizatoarele</string>
+    <string name="timer_reset" msgid="7848424809190171640">Resetează</string>
+    <string name="timer_cancel" msgid="3572868404230815644">Anulează</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Temporizator anulat"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"Timpul a expirat!"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">Timpul a expirat</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> temporizatoare expirate"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> temporizatoare ratate"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporizator"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Temporizator ratat: <xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="timer_pause" msgid="3748323712728398743">"Întrerupeți"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Resetați-le pe toate"</string>
+    <string name="timer_pause" msgid="3748323712728398743">Întrerupe</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">Resetează-le pe toate</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Sunteți demonul vitezei."</item>
         <item msgid="6332879039890727169">"Bucurați-vă de roadele muncii dvs."</item>
@@ -247,13 +245,13 @@
     <string name="clock_settings" msgid="8317286807280600391">"Ceas"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afișează ora cu secunde"</string>
-    <string name="open_date_settings" msgid="7712226973337806152">"Schimbați data și ora"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">Schimbă data și ora</string>
     <string-array name="clock_style_entries">
         <item msgid="917900462224167608">"Analogic"</item>
         <item msgid="8483930821046925592">"Digital"</item>
     </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ceas automat pentru ora de acasă"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Când călătoriți într-o zonă în care ora este diferită, adăugați un ceas pentru ora de acasă"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">Când călătorești într-o zonă în care ora este diferită, se adaugă un ceas pentru ora de acasă</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fusul orar de acasă"</string>
     <string name="city_checked" msgid="616847871968019">"Orașul <xliff:g id="CITY_NAME">%s</xliff:g> a fost bifat"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Orașul <xliff:g id="CITY_NAME">%s</xliff:g> a fost debifat"</string>
@@ -345,35 +343,35 @@
         <item msgid="5176858645450908751">"Jakarta"</item>
     </string-array>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarmă nouă"</string>
-    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Creați o alarmă nouă"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">Creează o alarmă nouă</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Temporizator nou"</string>
-    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Creați temporizator nou"</string>
-    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Porniți"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Porniți cronometrul"</string>
-    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Întrerupeți"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Întrerupeți cronometrul"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">Creează temporizator nou</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">Pornește</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">Pornește cronometrul</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">Întrerupe</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">Întrerupe cronometrul</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
-    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Porniți screensaverul"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">Pornește screensaver-ul</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarme"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesează acțiunile din notificările de la temporizator."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesează acțiunile din notificările de la cronometru."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Întrerupt"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Glisați spre dreapta pentru a închide"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Glisați spre stânga pentru a amâna"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Glisați spre stânga pentru a amâna sau spre dreapta pentru a închide"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">Glisează spre dreapta pentru a închide</string>
+    <string name="description_direction_left" msgid="7448141043674998679">Glisează spre stânga pentru a amâna</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Glisează spre stânga pentru a amâna sau spre dreapta pentru a închide</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizatoare"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrare pentru temporizator"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizator întrerupt"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> temporizatoare întrerupte"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Atingeți pentru a vedea temporizatoarele"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">Atinge pentru a vedea temporizatoarele</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Următorul temporizator: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Setări pentru economizorul de ecran"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Extindeți alarma"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Restrângeți alarma"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"anulați"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">Extinde alarma</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">Restrânge alarma</string>
+    <string name="alarm_undo" msgid="5710042601177655254">anulare</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ștearsă"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288"> /<xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"cu <xliff:g id="TIME">%1$s</xliff:g> înainte"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"cu <xliff:g id="TIME">%1$s</xliff:g> în urmă"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"cu <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> înainte"</string>
@@ -388,7 +386,7 @@
     <string name="no_label_specified" msgid="2008482054428460626">"Nicio etichetă specificată"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Nicio alarmă nu conține eticheta"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nicio alarmă programată pentru această oră"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost închisă"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost oprită</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarma este setată pentru <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Temporizator creat"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
@@ -397,11 +395,11 @@
         <item quantity="one">Temporizator închis</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durată nevalidă pentru temporizator"</string>
-    <string name="invalid_timer" msgid="900957020728335675">"Ați selectat un temporizator nevalid"</string>
+    <string name="invalid_timer" msgid="900957020728335675">Ai selectat un temporizator nevalid</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Nu există temporizatoare expirate"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> nu poate fi închisă încă, deoarece este setată peste mai mult de 24 de ore"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Închideți alarma"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Alegeți alarma pe care doriți să o închideți"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">Închide alarma</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Alege alarma pe care dorești să o închizi</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nicio alarmă activată"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarma de la <xliff:g id="ALARM_TIME">%s</xliff:g> a fost amânată cu 10 minute"</string>
     <string name="flip_action_title">Acțiune la rotirea dispozitivului</string>
@@ -411,10 +409,163 @@
         <item>Renunţaţi</item>
         <item>Nimic</item>
     </string-array>
-    <string name="firing_alarms_timers_channel">Expirare alarme &amp; numărători inverse</string>
+    <string name="firing_alarms_timers_channel">Expirare alarme și numărători inverse</string>
     <string name="alarm_missed_channel">Alarme ratate</string>
     <string name="alarm_snooze_channel">Alarme amânate</string>
     <string name="alarm_upcoming_channel">Alarme viitoare</string>
     <string name="stopwatch_channel">Cronometru</string>
     <string name="timer_channel">Numărătoare inversă</string>
+    <string name="title_accent_color">Culoare accent</string>
+    <string name="permission_denied">Refuzată</string>
+    <string name="permission_dialog_close_button">Închidere</string>
+    <string name="permission_optional">Opțional</string>
+    <string name="selected">Selectat</string>
+    <string name="more_options">Mai multe opțiuni</string>
+    <string name="alarm_inactive">Oprit</string>
+    <string name="settings_permission_summary">Clic aici pentru a afișa pagina de gestionare a permisiunilor.</string>
+    <string name="digital_gadget_material_you">Ceas digital Material You</string>
+    <string name="title_dark_theme_mode">Modul temă întunecată</string>
+    <string name="display_background_border_title">Afișează chenarele de fundal</string>
+    <string name="display_background_border_summary">Afișează un chenar de fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
+    <string name="settings_vibration_title">Activează vibrațiile</string>
+    <string name="settings_vibration_summary">Numai unele butoane ale interfeței sunt afectate (de exemplu: butonul de redare/pauză sau comutatoare cu temporizator)</string>
+    <string name="power_button_title">Butonul de pornire</string>
+    <string name="add_label">Adaugă o etichetă</string>
+    <string name="menu_bedtime">Ora de culcare</string>
+    <string name="screensaver_font_group">Font</string>
+    <string name="about_title">Despre</string>
+    <string name="app_slogan">Ceas 100% FOSS, bazat pe AOSP</string>
+    <string name="version">Versiune</string>
+    <string name="version_text">Versiune <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="whats_new_title">Ce este nou</string>
+    <string name="features_title">Caracteristici principale</string>
+    <string name="about_github_link">Vezi pe GitHub</string>
+    <string name="license">Licență open-source</string>
+    <string name="gnu_gpl">Licență GNU General Public v3.0</string>
+    <string name="contributors">Contribuitori</string>
+    <string name="credits">Autori</string>
+    <string name="dialog_close">Închidere</string>
+    <string name="permission_status_title">Stare: </string>
+    <string name="bedtime_service_desc">Procesează acțiunile din notificările de la culcare.</string>
+    <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>
+    <string name="screensaver_daydream_settings">Selectează/activează screensaver-ul</string>
+    <string name="screensaver_daydream_settings_summary">Deschide setările principale de screensaver Android</string>
+    <string name="screensaver_style_group">Stil</string>
+    <string name="screensaver_color_group">Culori</string>
+    <string name="screensaver_preview_group">Previzualizare și screensaver Android</string>
+    <string name="screensaver_clock_dynamic_colors_title">Culori dinamice ale ceasului</string>
+    <string name="screensaver_brightness_title">Luminozitate</string>
+    <string name="screensaver_bold_digital_clock_title">Ceas digital aldin</string>
+    <string name="screensaver_italic_digital_clock_title">Ceas digital cursiv</string>
+    <string name="screensaver_bold_date_title">Dată aldin</string>
+    <string name="screensaver_italic_date_title">Dată cursiv</string>
+    <string name="screensaver_bold_next_alarm_title">Următoarea alarmă aldin</string>
+    <string name="screensaver_italic_next_alarm_title">Următoarea alarmă cursiv</string>
+    <string name="screensaver_preview_title">Previzualizare</string>
+    <string name="screensaver_preview_summary">Pornește imediat screensaver-ul</string>
+    <string name="alarm_created">Alarmă creată</string>
+    <string name="permission_management_summary">Afișează permisiunile necesare pentru ca aplicația să funcționeze corect</string>
+    <string name="permission_requirement_title">Cerință: </string>
+    <string name="permission_highly_recommended">Foarte recomandat</string>
+    <string name="wakeup">Trezire</string>
+    <string name="bedtime_reminder_notification">Notificare de memento</string>
+    <string name="bedtime_reminder_notification_title">Ora de culcare începe la <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_title">Modul „Ora de culcare” este activat</string>
+    <string name="bedtime_notification_action_pause">Pauză 30 de min</string>
+    <string name="bedtime_notification_action_turn_off">Oprește</string>
+    <string name="bedtime_notification_until">până la <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="bedtime_paused_notification_title">Modul „Ora de culcare” este întrerupt</string>
+    <string name="bedtime_notification_resume">Se reia la <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Reia acum</string>
+    <string name="wakeup_alarm_label_visible">Alarma de trezire</string>
+    <string name="new_bedtime_alarm">S-a creat alarma de trezire</string>
+    <string name="sleeping_time">Timpul de somn: %1$s</string>
+    <string name="no_bedtime_alarm">Nu s-a setat ora de culcare</string>
+    <string name="no_wakeup_alarm">Nicio alarmă de trezire setată</string>
+    <string name="first_launch_version">Versiune %s</string>
+    <string name="first_launch_button_now">Acum</string>
+    <string name="first_launch_button_later">Mai târziu</string>
+    <string name="first_launch_main_feature_link">… și multe altele!</string>
+    <string name="first_launch_important_info_title">INFORMAȚII IMPORTANTE</string>
+    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI PE TOT ECRAN;&lt;/b&gt;</string>
+    <string name="first_launch_dialog_title">Închide</string>
+    <string name="first_launch_dialog_message">Sigur dorești să părăsești aplicația?</string>
+    <string name="permission_category_title">Permisiuni</string>
+    <string name="permission_management_title">Gestionarea permisiunilor</string>
+    <string name="revoke_permission_dialog_message">Sigur dorești să revoci această permisiune?</string>
+    <string name="ignore_battery_optimizations_dialog_title">Optimizarea bateriei</string>
+    <string name="notifications_permission_title">ACTIVARE NOTIFICĂRI</string>
+    <string name="notifications_dialog_title">Notificări</string>
+    <string name="notifications_dialog_text">Pe lângă setarea alarmelor, această aplicație are și un cronometru, un cronometru și un mod ora de culcare.
+\n
+\nPentru ca notificările să apară corect pentru toate modulele și mai ales pentru ca alarma să fie declanșată, recomandăm activarea notificărilor pentru această aplicație.</string>
+    <string name="FSN_permission_title">ACTIVEAZĂ NOTIFICĂRILE PE ECRAN COMPLET</string>
+    <string name="FSN_dialog_title">Notificări pe ecran complet</string>
+    <string name="FSN_dialog_text">Începând cu Android 14, pentru ca alarma să fie declanșată atunci când ecranul este oprit, este imperativ ca permisiunea Notificări pe ecran complet să fie activată</string>
+    <string name="storage_permission_title">CITEȘTE STOCAREA EXTERNĂ</string>
+    <string name="storage_dialog_title">Stocare externă</string>
+    <string name="storage_permission_dialog_title">Informații</string>
+    <string name="storage_permission_dialog_message">Se pare că ai refuzat această permisiune în dialogul de sistem Android.
+\nAndroid nu va permite acestei aplicații să creeze din nou acest dialog de solicitare a permisiunii.
+\n
+\nDorești să accesezi Setări și să acorzi această permisiune?</string>
+    <string name="duplicate">Dublează</string>
+    <string name="analog_gadget_material_you">Ceas analogic Material You</string>
+    <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
+    <string name="title_interface">Interfață</string>
+    <string name="display_card_background_summary">Afișează un fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
+    <string name="first_launch_main_feature_title">CARACTERISTICI PRINCIPALE</string>
+    <string name="permission_granted">Acordată</string>
+    <string name="storage_dialog_text">Această permisiune este necesară dacă dorești să alegi un ton de alarmă diferit de tonul de alarmă implicit al dispozitivului. Prin urmare, aceasta permite aplicației de a reda fișiere audio și muzicale pe dispozitiv.
+\n
+\nÎncepând cu Android 13, solicităm o permisiune specifică care ne permite să citim doar fișierele muzicale și audio și nimic altceva.
+\nCu toate acestea, în versiunile anterioare de Android, acest lucru nu este acceptat, așa că trebuie să cerem permisiunea de a citi stocarea externă.</string>
+    <string name="about_dialog_message"> \u0020• Acțiune de întoarcere și agitare pentru a anula/amâna alarma;
+\n
+\n• Oprește/amână alarma cu butonul de pornire sau butoanele de volum;
+\n
+\n• Numai pentru telefoanele Snapdragon, alarma este declanșată când telefonul este oprit;
+\n
+\n• Glisează pentru a șterge o alarmă;
+\n
+\n• Alarme duplicate;
+\n
+\n• Personalizează titlul alarmei;
+\n
+\n• Ton de apel personalizabil;
+\n
+\n• Temă luminoasă, întunecată sau de sistem;
+\n
+\n• Modul AMOLED pentru tema întunecată;
+\n
+\n• Stil de ceas digital sau analog;
+\n
+\n• Afișează ora acasă când călătorești;
+\n
+\n• Afișează ora din multe orașe din întreaga lume;
+\n
+\n• Cronometru, cronometru și ora de culcare <i>(experimentală)</i> incluse;
+\n
+\n• Posibilitatea de a partaja cronometrul cu persoanele de contact;
+\n
+\n• Screensaver personalizabil;
+\n
+\n• Widgeturi moderne;
+\n
+\n• Design material;
+\n
+\n• Culori dinamice pentru Android 12+; \u0020</string>
+    <string name="title_theme">Temă</string>
+    <string name="display_card_background_title">Afișează fundalurile cardului</string>
+    <string name="bedtime_reminder_notification_text">Ora de culcare se sfârșește la <xliff:g id="wake_time">%1$s</xliff:g> după <xliff:g id="sleep_time">%2$s</xliff:g> de somn.</string>
+    <string name="bedtime_channel">Ora de culcare</string>
+    <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_important_info_message">Pentru a te asigura că aplicația funcționează corect, &lt;b&gt;unele dintre setările dispozitivului trebuie să fie modificate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NU DERANJA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt; b&gt;OPTIMIZAREA BATERIEI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s • &lt;b&gt;STOCARE &lt;i&gt;(opțional); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt; &lt;i&gt;În funcție de versiunea Android a dispozitivului, unele dintre aceste setări sunt deja optimizate (de exemplu, notificările).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Le poți modifica acum sau mai târziu în setările de gestionare a permisiunilor:</string>
+    <string name="permission_dialog_revoke_title">Revocă accesul</string>
+    <string name="ignore_battery_optimizations_title">IGNORĂ OPTIMIZAREA BATERIEI</string>
+    <string name="ignore_battery_optimizations_dialog_text">În mod implicit, sistemul Android configurează toate aplicațiile instalate de utilizator pentru a fi optimizate pentru a economisi durata de viață a bateriei.
+\n
+\nDeși acest lucru este acceptabil pentru multe aplicații, această aplicație este o aplicație de alarmă și cauzează adesea probleme dacă este configurată pentru a optimiza bateria. Odată activat, sistemul Android poate opri aplicația în orice moment și/sau poate anula alarmele pe care le-a programat, ceea ce ar afecta negativ funcționarea aplicației.
+\n
+\nRecomandăm să incluzi această aplicație în lista albă din optimizările bateriei.</string>
 </resources>

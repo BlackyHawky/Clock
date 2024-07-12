@@ -20,6 +20,8 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.NonNull;
+
 import java.lang.reflect.Method;
 
 /**
@@ -193,7 +195,7 @@ public final class AsyncRingtonePlayer {
 
         return new Handler(thread.getLooper()) {
             @Override
-            public void handleMessage(Message msg) {
+            public void handleMessage(@NonNull Message msg) {
                 switch (msg.what) {
                     case EVENT_PLAY:
                         final Bundle data = msg.getData();

@@ -155,9 +155,9 @@ final class RingtoneModel {
                 final Uri ringtoneUri = ringtoneManager.getRingtoneUri(cursor.getPosition());
                 mRingtoneTitles.put(ringtoneUri, ringtoneTitle);
             }
-        } catch (Throwable ignored) {
+        } catch (Throwable throwable) {
             // best attempt only
-            LogUtils.e("Error loading ringtone title cache", ignored);
+            LogUtils.e("Error loading ringtone title cache", throwable);
         }
     }
 

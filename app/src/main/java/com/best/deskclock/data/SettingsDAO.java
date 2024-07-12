@@ -15,6 +15,7 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
@@ -26,6 +27,7 @@ import static java.util.Calendar.SUNDAY;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
@@ -150,10 +152,38 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the accent color applied.
+     */
+    static String getAccentColor(SharedPreferences prefs) {
+        return prefs.getString(SettingsActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
+    }
+
+    /**
      * @return the dark mode of the applied theme.
      */
     static String getDarkMode(SharedPreferences prefs) {
         return prefs.getString(SettingsActivity.KEY_DARK_MODE, KEY_DEFAULT_DARK_MODE);
+    }
+
+    /**
+     * @return whether or not the background should be displayed in a view.
+     */
+    static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND, true);
+    }
+
+    /**
+     * @return whether or not the background border should be displayed in a view.
+     */
+    static boolean isCardBackgroundBorderDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_CARD_BACKGROUND_BORDER, false);
+    }
+
+    /**
+     * @return whether or not the vibrations are enabled for the buttons.
+     */
+    static boolean isVibrationsEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(SettingsActivity.KEY_VIBRATIONS, false);
     }
 
     /**
@@ -189,14 +219,6 @@ final class SettingsDAO {
         return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
     }
 
-    private static String getClockColor(Context context, SharedPreferences prefs, String key) {
-        final String defaultColor = context.getString(R.string.default_screensaver_clock_color);
-        final String clockColor = prefs.getString(key, defaultColor);
-        // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
-        // accent to character, which breaks the enum conversion.
-        return clockColor.toUpperCase(Locale.US);
-    }
-
     /**
      * @return a value indicating whether analog or digital clock dynamic colors are displayed
      */
@@ -207,22 +229,22 @@ final class SettingsDAO {
     /**
      * @return a value indicating the color of the clock of the screensaver
      */
-    public static String getScreensaverClockPresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_PRESET_COLORS);
+    static int getPickerClockColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the date of the screensaver
      */
-    public static String getScreensaverDatePresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_DATE_PRESET_COLORS);
+    static int getPickerDateColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the next alarm of the screensaver
      */
-    public static String getScreensaverNextAlarmPresetColors(Context context, SharedPreferences prefs) {
-        return getClockColor(context, prefs, ScreensaverSettingsActivity.KEY_NEXT_ALARM_PRESET_COLORS);
+    static int getPickerNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
@@ -515,4 +537,5 @@ final class SettingsDAO {
             return mOffset - other.mOffset;
         }
     }
+
 }

@@ -8,10 +8,12 @@ package com.best.alarmclock;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -200,6 +202,26 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         rv.setViewVisibility(dayId, displayDayOfWeek ? View.VISIBLE : View.GONE);
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
+
+        final boolean isDigitalWidgetCityClockDefaultColor = DataModel.getDataModel().isDigitalWidgetCityClockDefaultColor();
+        final int getDigitalWidgetCityClockCustomColor = DataModel.getDataModel().getDigitalWidgetCityClockCustomColor();
+
+        if (isDigitalWidgetCityClockDefaultColor) {
+            rv.setTextColor(clockId, Color.WHITE);
+        } else {
+            rv.setTextColor(clockId, getDigitalWidgetCityClockCustomColor);
+        }
+
+        final boolean isDigitalWidgetCityNameDefaultColor = DataModel.getDataModel().isDigitalWidgetCityNameDefaultColor();
+        final int getDigitalWidgetCityNameCustomColor = DataModel.getDataModel().getDigitalWidgetCityNameCustomColor();
+
+        if (isDigitalWidgetCityNameDefaultColor) {
+            rv.setTextColor(labelId, Color.WHITE);
+            rv.setTextColor(dayId, Color.WHITE);
+        } else {
+            rv.setTextColor(labelId, getDigitalWidgetCityNameCustomColor);
+            rv.setTextColor(dayId, getDigitalWidgetCityNameCustomColor);
+        }
     }
 
     private void hide(RemoteViews clock, int clockId, int labelId, int dayId) {

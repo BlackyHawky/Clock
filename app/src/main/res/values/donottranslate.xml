@@ -24,8 +24,6 @@
     <string name="default_dark_theme_mode">default</string>
     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
     <string name="clock_emoji">A</string>
-    <!-- Default screensaver clock color. -->
-    <string name="default_screensaver_clock_color">FFFFFF</string>
 
     <!-- Category names for events describe the type of object that was manipulated. -->
     <string name="category_alarm">Alarm</string>

@@ -13,16 +13,15 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -49,6 +48,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Objects;
 
@@ -166,10 +166,10 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         mStopwatchWrapper.setOnClickListener(new TimeClickListener());
         if (mTime != null) {
-            mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
+            mStopwatchWrapper.setOnTouchListener(new Utils.CircleTouchListener());
         }
 
-        final int colorAccent = mContext.getColor(R.color.md_theme_primary);
+        final int colorAccent = MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int textColorPrimary = mMainTimeText.getCurrentTextColor();
         final ColorStateList timeTextColor = new ColorStateList(
                 new int[][]{{-state_activated, -state_pressed}, {}},
@@ -298,7 +298,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doStart() {
         Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
         DataModel.getDataModel().startStopwatch();
-        Utils.vibrationTime(mContext, 50);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     /**
@@ -307,7 +307,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void doPause() {
         Events.sendStopwatchEvent(R.string.action_pause, R.string.label_deskclock);
         DataModel.getDataModel().pauseStopwatch();
-        Utils.vibrationTime(mContext, 50);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     /**
@@ -322,7 +322,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
-        Utils.vibrationTime(mContext, 10);
+        Utils.setVibrationTime(mContext, 10);
     }
 
     /**
@@ -585,32 +585,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             } else {
                 DataModel.getDataModel().startStopwatch();
             }
-            Utils.vibrationTime(mContext, 50);
-        }
-    }
-
-    /**
-     * Checks if the user is pressing inside of the stopwatch circle.
-     */
-    private static final class CircleTouchListener implements View.OnTouchListener {
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View view, MotionEvent event) {
-            final int actionMasked = event.getActionMasked();
-            if (actionMasked != MotionEvent.ACTION_DOWN) {
-                return false;
-            }
-            final float rX = view.getWidth() / 2f;
-            final float rY = (view.getHeight() - view.getPaddingBottom()) / 2f;
-            final float r = Math.min(rX, rY);
-
-            final float x = event.getX() - rX;
-            final float y = event.getY() - rY;
-
-            final boolean inCircle = Math.pow(x / r, 2.0) + Math.pow(y / r, 2.0) <= 1.0;
-
-            // Consume the event if it is outside the circle
-            return !inCircle;
+            Utils.setVibrationTime(mContext, 50);
         }
     }
 

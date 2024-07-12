@@ -21,25 +21,28 @@
         android:summary="@string/version_text"
         android:icon="@drawable/ic_about"
         android:selectable="false"
+        app:singleLineTitle="false"
         tools:summary="1.0" />
 
     <Preference
         android:key="about_whats_new"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/whats_new_title"
-        android:icon="@drawable/ic_about_update">
-    </Preference>
+        android:icon="@drawable/ic_about_update"
+        app:singleLineTitle="false" />
 
     <Preference
         android:key="about_features"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/features_title"
-        android:icon="@drawable/ic_about_features" />
+        android:icon="@drawable/ic_about_features"
+        app:singleLineTitle="false" />
 
     <Preference
         android:title="@string/about_github_link"
         android:layout="@layout/settings_preference_layout"
-        android:icon="@drawable/ic_about_github">
+        android:icon="@drawable/ic_about_github"
+        app:singleLineTitle="false">
         <intent
             android:action="android.intent.action.VIEW"
             android:data="https://github.com/BlackyHawky/Clock" />
@@ -49,7 +52,8 @@
         android:layout="@layout/settings_preference_layout"
         android:title="@string/license"
         android:summary="@string/gnu_gpl"
-        android:icon="@drawable/ic_about_license">
+        android:icon="@drawable/ic_about_license"
+        app:singleLineTitle="false">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://github.com/BlackyHawky/Clock/blob/main/LICENSE-GPL-3" />
     </Preference>

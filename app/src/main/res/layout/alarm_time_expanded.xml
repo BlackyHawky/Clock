@@ -9,6 +9,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
@@ -167,7 +168,7 @@
             android:textAllCaps="false"
             app:chipIcon="@drawable/ic_duplicate"
             app:chipIconTint="?android:attr/textColorPrimaryInverse"
-            app:chipBackgroundColor="@color/md_theme_primary"
+            app:chipBackgroundColor="?colorPrimary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />

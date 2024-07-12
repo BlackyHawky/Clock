@@ -11,26 +11,27 @@
     android:id="@+id/digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextClock
         android:id="@+id/clock"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:ellipsize="none"
         android:includeFontPadding="false"
         android:singleLine="true"
-        android:textColor="@android:color/white"
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
         android:shadowDy="2"
         tools:text="0123 AM"
-        tools:textSize="70sp" />
+        tools:textSize="70sp"
+        tools:textColor="@android:color/white" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/digital_widget_bottom_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center">
@@ -45,13 +46,13 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
             tools:text="01. Jan, 2023"
-            tools:textSize="18sp" />
+            tools:textSize="18sp"
+            tools:textColor="@android:color/white" />
 
         <ImageView
             android:id="@+id/nextAlarmIcon"
@@ -72,13 +73,13 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
             tools:text="08:30"
-            tools:textSize="18sp" />
+            tools:textSize="18sp"
+            tools:textColor="@android:color/white" />
 
     </LinearLayout>
 

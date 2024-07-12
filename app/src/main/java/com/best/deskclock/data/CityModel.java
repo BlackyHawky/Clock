@@ -247,7 +247,7 @@ final class CityModel {
     }
 
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_CHANGED));
+        mContext.sendBroadcast(new Intent(WidgetModel.ACTION_WORLD_CITIES_CHANGED));
         for (CityListener cityListener : mCityListeners) {
             cityListener.citiesChanged();
         }
@@ -274,12 +274,14 @@ final class CityModel {
     private final class PreferenceListener implements OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            switch (key) {
-                case SettingsActivity.KEY_HOME_TZ:
-                    mHomeCity = null;
-                case SettingsActivity.KEY_AUTO_HOME_CLOCK:
-                    fireCitiesChanged();
-                    break;
+            if (key != null) {
+                switch (key) {
+                    case SettingsActivity.KEY_HOME_TZ:
+                        mHomeCity = null;
+                    case SettingsActivity.KEY_AUTO_HOME_CLOCK:
+                        fireCitiesChanged();
+                        break;
+                }
             }
         }
     }

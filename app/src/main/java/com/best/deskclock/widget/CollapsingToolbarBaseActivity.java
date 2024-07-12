@@ -8,7 +8,6 @@ package com.best.deskclock.widget;
 
 import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyTheme(this);
+        Utils.applyThemeAndAccentColor(this);
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
@@ -53,9 +52,6 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
             mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));
-            getWindow().setNavigationBarColor(Color.BLACK);
-        } else {
-            getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
         }
 
         mAppBarLayout = findViewById(R.id.app_bar);

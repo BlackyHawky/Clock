@@ -9,8 +9,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings">
 
-    <PreferenceCategory android:title="@string/title_theme"
+    <Preference
+        android:key="key_permission_message"
+        android:layout="@layout/settings_preference_layout"
+        android:summary="@string/settings_permission_summary"
+        android:icon="@drawable/ic_error"
+        app:singleLineTitle="false" />
+
+    <PreferenceCategory android:title="@string/title_interface"
         android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
 
         <ListPreference
@@ -20,7 +28,18 @@
             android:defaultValue="0"
             android:entries="@array/array_theme"
             android:entryValues="@array/theme_setting_entries"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_accent_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/title_accent_color"
+            android:defaultValue="0"
+            android:entries="@array/array_accent_color"
+            android:entryValues="@array/accent_color_setting_entries"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="dark_mode"
@@ -29,7 +48,35 @@
             android:defaultValue="@string/default_dark_theme_mode"
             android:entries="@array/dark_theme_mode_array_theme"
             android:entryValues="@array/dark_theme_mode_setting_values"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_card_background"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_card_background_title"
+            android:summary="@string/display_card_background_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_card_background_border"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_background_border_title"
+            android:summary="@string/display_background_border_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_vibrations"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_vibration_title"
+            android:summary="@string/settings_vibration_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
@@ -45,13 +92,15 @@
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             android:defaultValue="@string/default_clock_style"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="display_clock_seconds"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="automatic_home_clock"
@@ -59,7 +108,8 @@
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
             android:defaultValue="true"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="home_time_zone"
@@ -67,13 +117,15 @@
             android:title="@string/home_time_zone"
             android:entries="@array/timezone_labels"
             android:entryValues="@array/timezone_values"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <Preference
             android:key="date_time"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/open_date_settings"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
@@ -86,7 +138,8 @@
             android:key="default_alarm_ringtone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/default_alarm_ringtone_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="auto_silence"
@@ -95,7 +148,8 @@
             android:entries="@array/auto_silence_entries"
             android:entryValues="@array/auto_silence_values"
             android:defaultValue="10"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="snooze_duration"
@@ -104,13 +158,15 @@
             android:entries="@array/snooze_duration_entries"
             android:entryValues="@array/snooze_duration_values"
             android:defaultValue="10"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <com.best.deskclock.settings.AlarmVolumePreference
             android:key="volume_setting"
             android:layout="@layout/settings_preference_seekbar_layout"
             android:title="@string/alarm_volume_title"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="alarm_crescendo_duration"
@@ -119,7 +175,8 @@
             android:entries="@array/crescendo_entries"
             android:entryValues="@array/crescendo_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="volume_button_setting"
@@ -128,7 +185,8 @@
             android:entries="@array/volume_button_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="power_button"
@@ -137,7 +195,8 @@
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="flip_action"
@@ -146,7 +205,8 @@
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="shake_action"
@@ -155,7 +215,8 @@
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="week_start"
@@ -163,7 +224,8 @@
             android:title="@string/week_start_title"
             android:entries="@array/week_start_entries"
             android:entryValues="@array/week_start_values"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
@@ -176,7 +238,8 @@
             android:key="timer_ringtone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_sound"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <ListPreference
             android:key="timer_crescendo_duration"
@@ -185,14 +248,16 @@
             android:entries="@array/crescendo_entries"
             android:entryValues="@array/crescendo_values"
             android:defaultValue="0"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="timer_vibrate"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_vibrate_title"
             android:defaultValue="false"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
@@ -207,7 +272,31 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_settings"
             android:summary="@string/screensaver_settings_summary"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_digital_widget_category"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="key_digital_widget_customization"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_title"
+            android:summary="@string/settings_digital_widget_summary"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
+            android:key="key_digital_widget_material_you_customization"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_digital_widget_material_you_title"
+            android:summary="@string/settings_digital_widget_material_you_summary"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 
@@ -222,7 +311,8 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/permission_management_title"
             android:summary="@string/permission_management_summary"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 

@@ -21,6 +21,8 @@ import android.text.TextUtils;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A read-only domain object representing a countdown timer.
@@ -201,6 +203,16 @@ public final class Timer {
         // ensure the timer is monotonically decreasing, normalize negative time segments to 0,
         final long timeSinceStart = now() - mLastStartTime;
         return mRemainingTime - Math.max(0, timeSinceStart);
+    }
+
+    /**
+     * @return the total timer duration converted to String
+     */
+    public String getTotalDuration() {
+        long HH = TimeUnit.MILLISECONDS.toHours(getRemainingTime());
+        long MM = TimeUnit.MILLISECONDS.toMinutes(getRemainingTime()) % 60;
+        long SS = TimeUnit.MILLISECONDS.toSeconds(getRemainingTime()) % 60;
+        return String.format(Locale.US, "%02d:%02d:%02d", HH, MM, SS);
     }
 
     /**

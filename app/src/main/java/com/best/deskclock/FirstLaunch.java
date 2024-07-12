@@ -41,8 +41,6 @@ public class FirstLaunch extends AppCompatActivity {
         mNowButton = findViewById(R.id.now_button);
         mLaterButton = findViewById(R.id.later_button);
 
-        isFirstLaunch();
-
         setupTitle();
 
         setupVersion();
@@ -70,11 +68,6 @@ public class FirstLaunch extends AppCompatActivity {
                 showDialogToQuit();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     /**
@@ -132,17 +125,6 @@ public class FirstLaunch extends AppCompatActivity {
         }
         Spanned importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
         mImportantInfoText.setText(importantInfoMessage);
-    }
-
-    /**
-     * Check if this is the first time the application has been launched.
-     */
-    private void isFirstLaunch() {
-        final boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
-        if (!isFirstRun) {
-            startActivity(new Intent(this, DeskClock.class));
-            finish();
-        }
     }
 
 }

@@ -12,6 +12,7 @@ Features:
   <li>Customizable ringtone;</li>
   <li>Light, dark or system theme;</li>
   <li>AMOLED mode for dark theme;</li>
+  <li>Customizable interface;</li>
   <li>Digital or analog clock style;</li>
   <li>Display home time when traveling;</li>
   <li>Display the time in many cities around the world;</li>
@@ -19,6 +20,7 @@ Features:
   <li>Possibility of sharing your stopwatch with your contacts;</li>
   <li>Customizable screensaver;</li>
   <li>Modern widgets;</li>
+  <li>Customizable digital widgets;</li>
   <li>Material design;</li>
   <li>Dynamic colors for Android 12+;</li>
 </ul>

@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
@@ -172,7 +170,7 @@
         <item msgid="7085774139907653538">"Volume regelen"</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">Beltoon</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>
@@ -220,7 +218,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Je bent wel erg snel."</item>
         <item msgid="6332879039890727169">"Profiteer van je inspanningen."</item>
@@ -364,7 +362,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> later"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> vroeger"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> later"</string>
@@ -394,11 +392,170 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welke wekker je wilt sluiten"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Geen actieve wekkers"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> wekker tien minuten gesnoozed"</string>
-    <string name="flip_action_title">Actie bij toestel omdraaien</string>
-    <string name="shake_action_title">Actie bij toestel schudden</string>
+    <string name="flip_action_title">Actie bij apparaat omdraaien</string>
+    <string name="shake_action_title">Actie bij apparaat schudden</string>
     <string-array name="action_setting_entries">
         <item>Snoozen</item>
         <item>Uitschakelen</item>
         <item>Geen</item>
     </string-array>
+    <string name="title_theme">Thema</string>
+    <string name="selected">Geselecteerd</string>
+    <string name="alarm_inactive">Staat uit</string>
+    <string name="digital_gadget_material_you">Digitale klok Material You</string>
+    <string name="display_background_border_title">Achtergrondranden tonen</string>
+    <string name="display_background_border_summary">Gebruikt een achtergrondrand voor sommige elementen (wekkers, steden, timerknoppen etc.)</string>
+    <string name="settings_vibration_title">Trillen inschakelen</string>
+    <string name="duplicate">Dupliceren</string>
+    <string name="more_options">Meer opties</string>
+    <string name="analog_gadget_material_you">Analoge klok Material You</string>
+    <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
+    <string name="settings_permission_summary">Tik hier om de pagina rechtenbeheer te tonen.</string>
+    <string name="title_interface">Uiterlijk</string>
+    <string name="title_accent_color">Accentkleur</string>
+    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
+    <string name="title_dark_theme_mode">Donker themastijl</string>
+    <string name="display_card_background_title">Kaartachtergronden tonen</string>
+    <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de timer)</string>
+    <string name="new_bedtime_alarm">Wekalarm aangemaakt</string>
+    <string name="sleeping_time">Slaaptijd: %1$s</string>
+    <string name="no_bedtime_alarm">Geen bedtijd ingesteld</string>
+    <string name="no_wakeup_alarm">Geen wekalarm ingesteld</string>
+    <string name="storage_dialog_title">Externe opslag</string>
+    <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
+    <string name="about_title">Over</string>
+    <string name="contributors">Bijdragers</string>
+    <string name="credits">Credits</string>
+    <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
+    <string name="about_dialog_message">"  • Omdraaien en schudden om wekker uit te zetten/stellen; 
+\n
+\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen; 
+\n
+\n• Alleen voor Snapdragon telefoons, wekker af laten gaan als het toestel is uitgeschakeld; 
+\n
+\n• Veeg om wekker te verwijderen; 
+\n
+\n• Wekkers dupliceren; 
+\n
+\n• Wekkertitel aanpassen; 
+\n
+\n• Wekkergeluid aanpassen; 
+\n
+\n• Licht, donker of systeemthema; 
+\n
+\n• AMOLED-modus voor donker thema; 
+\n
+\n• Digitale of analoge klokstijl; 
+\n
+\n• Klok voor thuis tijdens het reizen; 
+\n
+\n• Bekijk de tijd in vele steden rond de wereld; 
+\n
+\n• Bevat timer, stopwatch en bedtijd; 
+\n
+\n• Mogelijkheid om stopwatchtijden te delen met contacten; 
+\n
+\n• Aanpasbare screensaver; 
+\n
+\n• Moderne widgets; 
+\n
+\n• Material design; 
+\n
+\n• Dynamische kleuren voor Android 12+;  "</string>
+    <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
+    <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
+    <string name="screensaver_style_group">Stijl</string>
+    <string name="screensaver_color_group">Kleuren</string>
+    <string name="screensaver_font_group">Lettertype</string>
+    <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
+    <string name="screensaver_settings_summary">Opent screensaver-instellingen</string>
+    <string name="screensaver_bold_digital_clock_title">Dikgedrukte digitale klok</string>
+    <string name="screensaver_italic_digital_clock_title">Schuingedrukte digitale klok</string>
+    <string name="screensaver_bold_date_title">Dikgedrukte datum</string>
+    <string name="screensaver_italic_date_title">Schuingedrukte datum</string>
+    <string name="screensaver_italic_next_alarm_title">Schuingedrukte volgende wekker</string>
+    <string name="screensaver_preview_title">Voorvertoning</string>
+    <string name="screensaver_preview_summary">Start de screensaver meteen</string>
+    <string name="alarm_created">Wekker aangemaakt</string>
+    <string name="bedtime_paused_notification_title">De modus \"Bedtijd\" is gepauzeerd</string>
+    <string name="bedtime_reminder_notification">Herinneringsmelding</string>
+    <string name="bedtime_reminder_notification_text">Je bedtijd stopt om <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> slaaptijd.</string>
+    <string name="bedtime_notification_title">De modus \"Bedtijd\" staat aan</string>
+    <string name="bedtime_notification_action_pause">Pauzeer voor 30 min.</string>
+    <string name="bedtime_notification_action_turn_off">Uitzetten</string>
+    <string name="bedtime_notification_until">tot <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="alarm_missed_channel">Gemiste wekkers</string>
+    <string name="alarm_snooze_channel">Gesnoozede wekkers</string>
+    <string name="alarm_upcoming_channel">Geplande wekkers</string>
+    <string name="stopwatch_channel">Stopwatch</string>
+    <string name="timer_channel">Timer</string>
+    <string name="first_launch_version">Versie %s</string>
+    <string name="first_launch_main_feature_title">BELANGRIJKSTE KENMERKEN</string>
+    <string name="first_launch_button_now">Nu</string>
+    <string name="first_launch_button_later">Later</string>
+    <string name="first_launch_important_info_title">BELANGRIJKE INFORMATIE</string>
+    <string name="first_launch_important_info_message_for_SDK34">&lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN OP VOLLEDIG SCHERM SCHERM;&lt;/b&gt;</string>
+    <string name="first_launch_dialog_title">Verlaten</string>
+    <string name="first_launch_dialog_message">Weet je zeker dat je de app wil verlaten?</string>
+    <string name="permission_category_title">Rechten</string>
+    <string name="permission_management_title">Rechtenbeheer</string>
+    <string name="permission_requirement_title">Vereiste: </string>
+    <string name="permission_highly_recommended">Sterk aanbevolen</string>
+    <string name="permission_optional">Optioneel</string>
+    <string name="permission_status_title">Status: </string>
+    <string name="permission_granted">Toegestaan</string>
+    <string name="permission_denied">Geweigerd</string>
+    <string name="permission_dialog_revoke_title">Toegang intrekken</string>
+    <string name="permission_dialog_close_button">Sluiten</string>
+    <string name="revoke_permission_dialog_message">Weet je zeker dat je dit recht wilt intrekken?</string>
+    <string name="ignore_battery_optimizations_title">NEGEER BATTERIJOPTIMALISATIES</string>
+    <string name="notifications_permission_title">MELDINGEN INSCHAKELEN</string>
+    <string name="notifications_dialog_title">MELDINGEN</string>
+    <string name="ignore_battery_optimizations_dialog_text">Het Androidsysteem configureert standaard alle gebruikersapps om batterij te besparen.
+\n
+\nHoewel dit aanvaardbaar is voor de meeste apps, kan dit voor problemen zorgen bij een wekker-app zoals deze. Als batterijoptimalisatie aan staat kan Android de app elk moment sluiten en geplande wekkers annuleren, wat de werking van de app negatief zou beïnvloeden.
+\n
+\nWe raden aan deze app op de witte lijst te zetten van batterijoptimalisaties.</string>
+    <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een timer, stopwatch en bedtijdmodus.
+\n
+\nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app te aan te zetten.</string>
+    <string name="bedtime_channel">Bedtijd</string>
+    <string name="storage_permission_dialog_title">Informatie</string>
+    <string name="storage_permission_dialog_message">Het lijkt er op dat je dit recht niet hebt toegestaan in het Android systeemvenster.
+\nAndroid laat deze app niet nog een keer het venster zien.
+\n
+\nWil je naar de instellingen gaan om dit recht toe te staan?</string>
+    <string name="storage_dialog_text">Dit recht is vereist als je een wekkergeluid wilt kiezen die anders is dan de standaard alarmtoon van je apparaat. Hierdoor kan de app audio- en muziekbestanden op je apparaat afspelen.
+\n
+\nSinds Android 13 verzoeken we een specifiek recht dat ons toestaat alleen de audio- en muziekbestanden te lezen.
+\nOmdat dit in oudere Androidversies niet ondersteund wordt moeten we toestemming vragen om de externe opslag te lezen.</string>
+    <string name="screensaver_preview_group">Voorvertoning &amp; Android screensaver</string>
+    <string name="screensaver_brightness_title">Helderheid</string>
+    <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
+    <string name="wakeup">Wakker worden</string>
+    <string name="bedtime_reminder_notification_title">Je bedtijd start om <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="wakeup_alarm_label_visible">Wekalarm</string>
+    <string name="add_label">Label toevoegen</string>
+    <string name="app_slogan">100% FOSS Klok, gebaseerd op AOSP</string>
+    <string name="version">Versie</string>
+    <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="whats_new_title">Wat is er nieuw</string>
+    <string name="features_title">Belangrijkste kenmerken</string>
+    <string name="about_github_link">Bekijk op GitHub</string>
+    <string name="license">Open-source licentie</string>
+    <string name="dialog_close">Sluiten</string>
+    <string name="bedtime_notification_resume">Hervat op <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Nu hervatten</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aanknop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
+    <string name="first_launch_main_feature_link">… en veel meer!</string>
+    <string name="permission_management_summary">Toont de rechten die nodig zijn om de app goed te laten werken</string>
+    <string name="FSN_permission_title">MELDINGEN OP VOLLEDIG SCHERM INSCHAKELEN</string>
+    <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
+    <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om meldingen op volledig scherm toe te staan</string>
+    <string name="storage_permission_title">EXTERNE OPSLAG LEZEN</string>
+    <string name="power_button_title">Aanknop</string>
+    <string name="menu_bedtime">Bedtijd</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s • &lt;b&gt;OPSLAG &lt;i&gt;(optioneel); &lt;/i&gt; &lt;/b&gt; &lt;br&gt; &lt;br&gt; &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
 </resources>

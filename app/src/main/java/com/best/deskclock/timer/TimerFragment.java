@@ -109,6 +109,14 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
+        // Set a bottom padding for phones to prevent the reset button from being hidden by the FAB
+        if (!Utils.isTablet(requireContext())) {
+            final int bottomPadding = Utils.isPortrait(requireContext())
+                    ? Utils.toPixel(95, requireContext())
+                    : Utils.toPixel(80, requireContext());
+            mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+            mRecyclerView.setClipToPadding(false);
+        }
 
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
@@ -276,8 +284,6 @@ public final class TimerFragment extends DeskClockFragment {
         return super.onKeyDown(keyCode, event);
     }
 
-
-
     /**
      * Display the view that creates a new timer.
      */
@@ -316,8 +322,6 @@ public final class TimerFragment extends DeskClockFragment {
         // Start animating the timers.
         startUpdatingTime();
     }
-
-
 
     /**
      * @param toView      one of {@link #mTimersView} or {@link #mCreateTimerView}
@@ -459,7 +463,6 @@ public final class TimerFragment extends DeskClockFragment {
             mTimersView.postDelayed(this, delay);
         }
     }
-
 
     /** Update the fab in response to the visible timer changing.
      */

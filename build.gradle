@@ -6,19 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
-        // 8.2 requires newer Android Studio that is even worse than 2022.x in performance
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
+        classpath 'com.android.tools.build:gradle:8.4.1'
     }
 }
 

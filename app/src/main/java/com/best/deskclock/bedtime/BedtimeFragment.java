@@ -9,6 +9,7 @@ import static com.best.deskclock.uidata.UiDataModel.Tab.BEDTIME;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -54,11 +55,14 @@ import com.best.music.AbstractPlayerService;
 import com.best.music.MediaUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Fragment that shows the bedtime.
@@ -113,6 +117,24 @@ public final class BedtimeFragment extends DeskClockFragment {
         mContext = requireContext();
         mBedtimeView = view.findViewById(R.id.bedtime_view);
         mMainLayout = view.findViewById(R.id.main);
+
+        MaterialCardView bedtimeCardView = view.findViewById(R.id.bedtime_card);
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        if (isCardBackgroundDisplayed) {
+            bedtimeCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+        } else {
+            bedtimeCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+
+        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        if (isCardBackgroundBorderDisplayed) {
+            bedtimeCardView.setStrokeWidth(Utils.toPixel(2, mContext));
+            bedtimeCardView.setStrokeColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
 
         mEmptyView = view.findViewById(R.id.bedtime_empty_view);
         final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
@@ -221,7 +243,9 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
-            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
+            Objects.requireNonNull(mBottomSheetDialog.getWindow()).setNavigationBarColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
         }
 
         mRingtone = mBottomSheetDialog.findViewById(R.id.choose_ringtone_bedtime);
@@ -261,7 +285,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                         : R.string.action_disable, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
 
-                Utils.vibrationTime(mContext, 50);
+                Utils.setVibrationTime(mContext, 50);
 
                 hoursOfSleep(alarm);
 
@@ -276,7 +300,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 Events.sendBedtimeEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
                 if (newState) {
-                    Utils.vibrationTime(mContext, 300);
+                    Utils.setVibrationTime(mContext, 300);
                 }
             }
         });
@@ -309,7 +333,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
 
-                Utils.vibrationTime(mContext, 10);
+                Utils.setVibrationTime(mContext, 10);
 
                 bindDaysOfWeekButtons(alarm, mContext);
             });
@@ -414,7 +438,9 @@ public final class BedtimeFragment extends DeskClockFragment {
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mNotificationList.getPopupBackground().setColorFilter(
                     mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
-            mBottomSheetDialog.getWindow().setNavigationBarColor(mContext.getColor(R.color.md_theme_surface));
+            Objects.requireNonNull(mBottomSheetDialog.getWindow()).setNavigationBarColor(
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
         }
 
         buildButton(mBottomSheetDialog);
@@ -441,7 +467,7 @@ public final class BedtimeFragment extends DeskClockFragment {
 
                 Events.sendBedtimeEvent(checked ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
 
-                Utils.vibrationTime(mContext, 50);
+                Utils.setVibrationTime(mContext, 50);
 
                 hoursOfSleep(mAlarm);
             }
@@ -503,7 +529,7 @@ public final class BedtimeFragment extends DeskClockFragment {
                 mSaver.daysOfWeek = mSaver.daysOfWeek.setBit(weekday, checked);
                 mSaver.save();
 
-                Utils.vibrationTime(mContext, 10);
+                Utils.setVibrationTime(mContext, 10);
 
                 bindDaysOfBedButtons(mContext);
             });

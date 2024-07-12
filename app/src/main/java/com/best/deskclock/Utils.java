@@ -14,12 +14,21 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
+import static com.best.deskclock.settings.SettingsActivity.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.DARK_THEME;
+import static com.best.deskclock.settings.SettingsActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.SettingsActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.SettingsActivity.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.SettingsActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.SettingsActivity.SYSTEM_THEME;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
@@ -54,6 +63,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -71,6 +81,8 @@ import androidx.core.graphics.ColorUtils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -129,7 +141,7 @@ public class Utils {
 
     /**
      * Configure the clock that is visible to display seconds. The clock that is not visible never
-     * displays seconds to avoid it scheduling unnecessary ticking runnables.
+     * displays seconds to avoid it scheduling unnecessary ticking runnable.
      */
     public static void setClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
         final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
@@ -421,7 +433,8 @@ public class Utils {
      */
     public static String getClockColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverClockPresetColors();
+        int getPickerClockColor = DataModel.getDataModel().getPickerClockColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerClockColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -435,7 +448,8 @@ public class Utils {
      */
     public static String getDateColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverDatePresetColors();
+        int getPickerDateColor = DataModel.getDataModel().getPickerDateColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerDateColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -449,7 +463,8 @@ public class Utils {
      */
     public static String getNextAlarmColorFilter() {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        String colorFilter = DataModel.getDataModel().getScreensaverNextAlarmPresetColors();
+        int getPickerNextAlarmColor = DataModel.getDataModel().getPickerNextAlarmColor();
+        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerNextAlarmColor);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -731,10 +746,24 @@ public class Utils {
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
         final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(radius);
-        gradientDrawable.setColor(context.getColor(R.color.md_theme_surface));
+        if (isCardBackgroundDisplayed) {
+            gradientDrawable.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
+        } else {
+            gradientDrawable.setColor(Color.TRANSPARENT);
+        }
+
+        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        if (isCardBackgroundBorderDisplayed) {
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setStroke(toPixel(2, context),
+                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
+
         return gradientDrawable;
     }
 
@@ -843,14 +872,15 @@ public class Utils {
     }
 
     /**
-     * Set the vibration duration if the device is equipped with a vibrator.
+     * Set the vibration duration if the device is equipped with a vibrator and if vibrations are enabled in the settings.
      *
      * @param context to define whether the device is equipped with a vibrator.
      * @param milliseconds Hours to display (if any)
      */
-    public static void vibrationTime(Context context, long milliseconds) {
+    public static void setVibrationTime(Context context, long milliseconds) {
+        final boolean isVibrationsEnabled = DataModel.getDataModel().isVibrationsEnabled();
         final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator.hasVibrator()) {
+        if (vibrator.hasVibrator() && isVibrationsEnabled) {
             vibrator.vibrate(milliseconds);
         }
     }
@@ -864,11 +894,12 @@ public class Utils {
     }
 
     /**
-     * Apply the theme to the activities.
+     * Apply the theme and the accent color to the activities.
      */
-    public static void applyTheme(final AppCompatActivity activity) {
+    public static void applyThemeAndAccentColor(final AppCompatActivity activity) {
         final String getTheme = DataModel.getDataModel().getTheme();
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String accentColor = DataModel.getDataModel().getAccentColor();
 
         if (getDarkMode.equals(KEY_DEFAULT_DARK_MODE)) {
             switch (getTheme) {
@@ -882,6 +913,58 @@ public class Utils {
         } else if (getDarkMode.equals(KEY_AMOLED_DARK_MODE)
                 && !getTheme.equals(SYSTEM_THEME) || !getTheme.equals(LIGHT_THEME)) {
                 activity.setTheme(R.style.AmoledTheme);
+        }
+
+        switch (accentColor) {
+            case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+            case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+            case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+            case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+            case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+            case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+            case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+        }
+
+        if (activity instanceof CollapsingToolbarBaseActivity) {
+            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            } else {
+                activity.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK)
+                );
+            }
+        } else {
+            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)
+                    && !accentColor.equals(DEFAULT_ACCENT_COLOR)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            }
+        }
+    }
+
+    /**
+     * Checks if the user is pressing inside of the timer circle or the stopwatch circle.
+     */
+    public static final class CircleTouchListener implements View.OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            final int actionMasked = event.getActionMasked();
+            if (actionMasked != MotionEvent.ACTION_DOWN) {
+                return false;
+            }
+            final float rX = view.getWidth() / 2f;
+            final float rY = (view.getHeight() - view.getPaddingBottom()) / 2f;
+            final float r = Math.min(rX, rY);
+
+            final float x = event.getX() - rX;
+            final float y = event.getY() - rY;
+
+            final boolean inCircle = Math.pow(x / r, 2.0) + Math.pow(y / r, 2.0) <= 1.0;
+
+            // Consume the event if it is outside the circle
+            return !inCircle;
         }
     }
 

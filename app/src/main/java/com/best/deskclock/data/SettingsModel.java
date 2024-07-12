@@ -80,8 +80,24 @@ final class SettingsModel {
         return SettingsDAO.getTheme(mPrefs);
     }
 
+    String getAccentColor() {
+        return SettingsDAO.getAccentColor(mPrefs);
+    }
+
     String getDarkMode() {
         return SettingsDAO.getDarkMode(mPrefs);
+    }
+
+    public boolean isCardBackgroundDisplayed() {
+        return SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+    }
+
+    public boolean isCardBackgroundBorderDisplayed() {
+        return SettingsDAO.isCardBackgroundBorderDisplayed(mPrefs);
+    }
+
+    public boolean isVibrationsEnabled() {
+        return SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
     boolean getDisplayClockSeconds() {
@@ -100,16 +116,16 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockDynamicColors(mPrefs);
     }
 
-    public String getScreensaverClockPresetColors() {
-        return SettingsDAO.getScreensaverClockPresetColors(mContext, mPrefs);
+    public int getPickerClockColor() {
+        return SettingsDAO.getPickerClockColor(mPrefs);
     }
 
-    public String getScreensaverDatePresetColors() {
-        return SettingsDAO.getScreensaverDatePresetColors(mContext, mPrefs);
+    public int getPickerDateColor() {
+        return SettingsDAO.getPickerDateColor(mPrefs);
     }
 
-    public String getScreensaverNextAlarmPresetColors() {
-        return SettingsDAO.getScreensaverNextAlarmPresetColors(mContext, mPrefs);
+    public int getPickerNextAlarmColor() {
+        return SettingsDAO.getPickerNextAlarmColor(mPrefs);
     }
 
     public int getScreensaverBrightness() {
@@ -247,4 +263,5 @@ final class SettingsModel {
     TimeZones getTimeZones() {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }
+
 }

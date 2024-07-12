@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingQuantity">
+--><resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingQuantity">
     <string name="app_label" msgid="6674495003718166674">"Horloge"</string>
     <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
+    <string name="color_picker_default_button">Par défaut</string>
     <string name="delete" msgid="5732434972457000541">"Supprimer"</string>
     <string name="duplicate">Dupliquer</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Son de l\'alarme par défaut"</string>
@@ -97,17 +96,37 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
     <string name="digital_gadget_material_you">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
+    <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
+    <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
+    <string name="title_interface">Interface</string>
     <string name="title_theme">Thème</string>
     <string-array name="array_theme">
         <item>Système</item>
         <item>Clair</item>
         <item>Sombre</item>
     </string-array>
+    <string name="title_accent_color">Couleur d\'accentuation</string>
+    <string-array name="array_accent_color">
+        <item>Par défaut</item>
+        <item>Bleu Gris</item>
+        <item>Marron</item>
+        <item>Vert</item>
+        <item>Indigo</item>
+        <item>Orange</item>
+        <item>Rose</item>
+        <item>Rouge</item>
+    </string-array>
     <string name="title_dark_theme_mode">Mode du thème sombre</string>
     <string-array name="dark_theme_mode_array_theme">
         <item>Par défaut</item>
         <item>AMOLED</item>
     </string-array>
+    <string name="display_card_background_title">Afficher les arrière-plans</string>
+    <string name="display_card_background_summary">Affiche un arrière-plan pour certains éléments de l\'application (alarmes, villes, bouton du minuteur, etc.)</string>
+    <string name="display_background_border_title">Afficher les bordures d\'arrière-plan</string>
+    <string name="display_background_border_summary">Affiche une bordure d\'arrière-plan pour certains éléments de l\'application (alarmes, villes, bouton du minuteur, etc.)</string>
+    <string name="settings_vibration_title">Activer les vibrations</string>
+    <string name="settings_vibration_summary">Seuls certains boutons de l\'interface sont concernés (ex. : le bouton lecture/pause du minuteur ou les interrupteurs)</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
@@ -209,7 +228,7 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"Intervalle"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partager"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"min"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
     <string name="lap_number_single_digit" msgid="1051159504304610877">"Tour <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
@@ -239,7 +258,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
         <item msgid="6332879039890727169">"Profitez du fruit de votre travail."</item>
@@ -354,7 +373,6 @@
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
     </string-array>
-
     <string name="about_title">À propos</string>
     <string name="app_slogan">Horloge 100% FOSS, basée sur AOSP</string>
     <string name="version">Version</string>
@@ -367,29 +385,28 @@
     <string name="contributors">Contributeurs</string>
     <string name="credits">Crédits</string>
     <string name="about_dialog_message">
-        &#8226; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ;
-        \n\n&#8226; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
-        \n\n&#8226; Pour les téléphones Snapdragon uniquement, l\'alarme se déclenche lorsque le téléphone est éteint ;
-        \n\n&#8226; Glisser pour supprimer une alarme ;
-        \n\n&#8226; Possibilité de dupliquer les alarmes ;
-        \n\n&#8226; Personnaliser le titre de l\'alarme ;
-        \n\n&#8226; Sonnerie personnalisable ;
-        \n\n&#8226; Thème clair, sombre ou système ;
-        \n\n&#8226; Mode AMOLED pour le thème sombre ;
-        \n\n&#8226; Horloge numérique ou analogique ;
-        \n\n&#8226; Affichage de l\'heure du domicile en cas de déplacement ;
-        \n\n&#8226; Affichage de l\'heure dans de nombreuses villes du monde ;
-        \n\n&#8226; Minuteur, chronomètre et heure du coucher <i>(expérimental)</i> inclus ;
-        \n\n&#8226; Possibilité de partager votre chronomètre avec vos contacts ;
-        \n\n&#8226; Écran de veille personnalisable ;
-        \n\n&#8226; Widgets modernes ;
-        \n\n&#8226; Material design ;
-        \n\n&#8226; Couleurs dynamiques pour Android 12+ ;
+        • L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ;
+        \n\n• Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ;
+        \n\n• Pour les téléphones Snapdragon uniquement, l\'alarme se déclenche lorsque le téléphone est éteint ;
+        \n\n• Glisser pour supprimer une alarme ;
+        \n\n• Possibilité de dupliquer les alarmes ;
+        \n\n• Personnaliser le titre de l\'alarme ;
+        \n\n• Sonnerie personnalisable ;
+        \n\n• Thème clair, sombre ou système ;
+        \n\n• Mode AMOLED pour le thème sombre ;
+        \n\n• Horloge numérique ou analogique ;
+        \n\n• Affichage de l\'heure du domicile en cas de déplacement ;
+        \n\n• Affichage de l\'heure dans de nombreuses villes du monde ;
+        \n\n• Minuteur, chronomètre et heure du coucher <i>(expérimental)</i> inclus ;
+        \n\n• Possibilité de partager votre chronomètre avec vos contacts ;
+        \n\n• Écran de veille personnalisable ;
+        \n\n• Widgets modernes ;
+        \n\n• Widgets numériques personnalisables ;
+        \n\n• Material design ;
+        \n\n• Couleurs dynamiques pour Android 12+ ;
     </string>
-
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Fermer</string>
-
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nouvelle alarme"</string>
     <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Créer une alarme"</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Nouveau minuteur"</string>
@@ -405,9 +422,9 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Faire glisser le doigt vers la droite pour ignorer"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Faire glisser le doigt vers la droite pour arrêter"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Faire glisser le doigt vers la gauche pour répéter"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Faire glisser le doigt vers la gauche pour répéter ou vers la droite pour ignorer"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Faire glisser le doigt vers la gauche pour répéter ou vers la droite pour arrêter"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
@@ -415,7 +432,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="bedtime">Coucher</string>
     <string name="wakeup">Réveil</string>
     <string name="bedtime_reminder_notification">Notification de rappel</string>
     <string-array name="array_reminder_notification">
@@ -445,15 +461,15 @@
     <string name="screensaver_style_group">Style</string>
     <string name="screensaver_color_group">Couleurs</string>
     <string name="screensaver_font_group">Police de caractères</string>
-    <string name="screensaver_preview_group">Prévisualisation &#38; Économiseur d\'écran Android</string>
+    <string name="screensaver_preview_group">Prévisualisation &amp; Économiseur d\'écran Android</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Ouvre les paramètres de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
-    <string name="screensaver_clock_preset_colors_title">Couleurs prédéfinies de l\'horloge</string>
-    <string name="screensaver_date_preset_colors_title">Couleurs prédéfinies de la date</string>
-    <string name="screensaver_next_alarm_preset_colors_title">Couleurs prédéfinies de la prochaine alarme</string>
+    <string name="screensaver_clock_color_title">Couleurs de l\'horloge</string>
+    <string name="screensaver_date_color_title">Couleurs de la date</string>
+    <string name="screensaver_next_alarm_color_title">Couleurs de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
     <string name="screensaver_bold_digital_clock_title">Horloge numérique en gras</string>
     <string name="screensaver_italic_digital_clock_title">Horloge numérique en italique</string>
@@ -463,16 +479,6 @@
     <string name="screensaver_italic_next_alarm_title">Prochaine alarme en italique</string>
     <string name="screensaver_preview_title">Prévisualisation</string>
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
-    <string name="screensaver_no_alarm_set">Définissez une alarme pour accéder à ce réglage</string>
-    <string-array name="screensaver_clock_preset_color_entries">
-        <item>Blanc</item>
-        <item>Rouge</item>
-        <item>Vert</item>
-        <item>Bleu</item>
-        <item>Orange</item>
-        <item>Indigo</item>
-        <item>Bleu Gris</item>
-    </string-array>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
@@ -526,28 +532,49 @@
     <string name="first_launch_button_now">Maintenant</string>
     <string name="first_launch_button_later">Plus tard</string>
     <string name="first_launch_main_feature_message">
-        &#9658; Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
-        &#9658; Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
-        &#9658; Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
-        &#9658; Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt;
-        &#9658; Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt;
-        &#9658; %s</string>
-    <string name="first_launch_main_feature_link">&#8230; et bien plus encore !</string>
+        ► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
+        ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
+        ► Widgets numériques personnalisables ; &lt;br&gt; &lt;br&gt;
+        ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
+        ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
+        ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;
+        ► L\'action de basculer ou de secouer l\'appareil permet d\'annuler ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt;
+        ► Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt;
+        ► %s</string>
+    <string name="first_launch_main_feature_link">… et bien plus encore !</string>
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
     <string name="first_launch_important_info_message">
         Pour s\'assurer que l\'application fonctionne correctement, &lt;b&gt;certains paramètres de votre appareil doivent être modifiés :&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;NE PAS DERANGER ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
-        &#8226; &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;OPTIMISATION DE LA BATTERIE ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;NOTIFICATIONS ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         %s
-        &#8226; &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
+        • &lt;b&gt;STOCKAGE &lt;i&gt;(optionnel)&lt;/i&gt; ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;
         &lt;i&gt;Selon la version Android de votre appareil, certains de ces paramètres sont déjà optimisés (par exemple, les notifications).&lt;/i&gt; &lt;br&gt; &lt;br&gt;
         Vous pouvez les modifier maintenant ou plus tard dans les paramètres de gestion des autorisations :</string>
-    <string name="first_launch_important_info_message_for_SDK34">&#8226; &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ECRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
+    <string name="settings_digital_widget_category">Widgets numériques</string>
+    <string name="settings_digital_widget_title">Personnaliser le widget numérique</string>
+    <string name="settings_digital_widget_summary">Permet de personnaliser les couleurs du widget numérique et de modifier la taille de la police de l\'horloge</string>
+    <string name="settings_digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
+    <string name="settings_digital_widget_material_you_summary">Permet de personnaliser les couleurs du widget numérique Material You et de modifier la taille de la police de l\'horloge</string>
+    <string name="settings_digital_widget_background_title">Afficher l\'arrière-plan</string>
+    <string name="settings_digital_widget_background_color_title">Couleur d\'arrière-plan</string>
+    <string name="settings_digital_widget_city_title">Afficher les villes sur le widget</string>
+    <string name="settings_digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>
+    <string name="settings_digital_widget_clock_custom_color_title">Couleur personalisée de l\'horloge principale</string>
+    <string name="settings_digital_widget_date_default_color_title">Utiliser la couleur par défaut pour la date</string>
+    <string name="settings_digital_widget_date_custom_color_title">Couleur personalisée de la date</string>
+    <string name="settings_digital_widget_next_alarm_default_color_title">Utiliser la couleur par défaut pour la prochaine alarme</string>
+    <string name="settings_digital_widget_next_alarm_custom_color_title">Couleur personalisée de la prochaine alarme</string>
+    <string name="settings_digital_widget_city_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge des villes</string>
+    <string name="settings_digital_widget_city_clock_custom_color_title">Couleur personalisée de l\'horloge des villes</string>
+    <string name="settings_digital_widget_city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
+    <string name="settings_digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
+    <string name="settings_digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
+    <string name="settings_digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
+    <string name="settings_digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
     <string name="permission_category_title">Autorisations</string>
     <string name="permission_management_title">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
@@ -560,8 +587,6 @@
     <string name="permission_dialog_revoke_title">Révoquer l\'accès</string>
     <string name="permission_dialog_close_button">Fermer</string>
     <string name="revoke_permission_dialog_message">Êtes-vous sûr de vouloir révoquer cette autorisation ?</string>
-    <string name="snackbar_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Afficher la page de gestion des autorisations pour les activer.</string>
-    <string name="snackbar_permission_action">Afficher</string>
     <string name="ignore_battery_optimizations_title">IGNORER LES OPTIMISATIONS DE LA BATTERIE</string>
     <string name="ignore_battery_optimizations_dialog_title">Optimisations de la batterie</string>
     <string name="ignore_battery_optimizations_dialog_text">Par défaut, le système Android configure toutes les applications installées par l\'utilisateur pour qu\'elles soient optimisées afin d\'économiser la batterie.
@@ -583,5 +608,5 @@
     <string name="storage_permission_dialog_message">Il semble que vous ayez refusé cette autorisation dans la boîte de dialogue du système Android.
         \nAndroid n\'autorisera pas cette application à créer à nouveau cette boîte de dialogue de demande d\'autorisation.
         \n\nSouhaitez-vous aller dans les Paramètres et autoriser cette autorisation ?</string>
-
+    <string name="bedtime_channel">Coucher</string>
 </resources>

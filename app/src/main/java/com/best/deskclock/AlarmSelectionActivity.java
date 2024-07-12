@@ -62,6 +62,7 @@ public class AlarmSelectionActivity extends ListActivity {
         // reading alarms from intent
         // PickSelection is started only if there are more than 1 relevant alarm
         // so no need to check if alarmsFromIntent is empty
+        assert alarmsFromIntent != null;
         for (Parcelable parcelable : alarmsFromIntent) {
             final Alarm alarm = (Alarm) parcelable;
 

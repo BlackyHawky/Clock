@@ -22,14 +22,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
@@ -44,7 +42,6 @@ import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
@@ -52,6 +49,7 @@ import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -184,16 +182,13 @@ public class DeskClock extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyTheme(this);
+        isFirstLaunch();
+
+        Utils.applyThemeAndAccentColor(this);
 
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);
-
-        // Seems necessary if the application is launched from a widget
-        isFirstLaunch();
-
-        checkPermissions();
 
         showTabFromNotifications();
 
@@ -284,24 +279,35 @@ public class DeskClock extends AppCompatActivity
 
         // Mirror changes made to the selected tab into UiDataModel.
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final int primaryColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
         mBottomNavigation.setItemActiveIndicatorEnabled(false);
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+                new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
         );
         if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), Color.WHITE})
+                    new int[]{primaryColor, primaryColor, Color.WHITE})
             );
         } else {
-            mBottomNavigation.setBackgroundColor(getColor(R.color.md_theme_surface));
+            final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+            if (isCardBackgroundDisplayed) {
+                mBottomNavigation.setBackgroundColor(surfaceColor);
+            } else {
+                mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
+                this.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK)
+                );
+            }
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{getColor(R.color.md_theme_primary), getColor(R.color.md_theme_primary), getColor(R.color.md_theme_onBackground)})
+                    new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
             );
         }
 
@@ -436,26 +442,6 @@ public class DeskClock extends AppCompatActivity
         if (isFirstRun) {
             startActivity(new Intent(this, FirstLaunch.class));
             finish();
-        }
-    }
-
-    /**
-     * Check the essential permissions to be granted by the user.
-     */
-    private void checkPermissions() {
-        if (!PermissionsManagementActivity.isIgnoringBatteryOptimizations(this)
-                || !PermissionsManagementActivity.areNotificationsEnabled(this)
-                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
-                    && !PermissionsManagementActivity.areFullScreenNotificationsEnabled(this)) {
-
-            Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
-                            R.string.snackbar_permission_message, 7000).setAction(R.string.snackbar_permission_action, v ->
-                            startActivity(new Intent(this, PermissionsManagementActivity.class)));
-            View snackView = snackbar.getView();
-            TextView snackTextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-            // Necessary because on some devices the text is truncated.
-            snackTextView.setMaxLines(5);
-            snackbar.show();
         }
     }
 
@@ -670,7 +656,6 @@ public class DeskClock extends AppCompatActivity
             SnackbarManager.show(snackbar);
         }
     }
-
 
     /**
      * As the model reports changes to the selected tab, update the user interface.

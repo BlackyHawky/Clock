@@ -205,7 +205,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.permission_dialog_revoke_title)
                         .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(intent))
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             }
@@ -317,6 +317,15 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 ? context.checkSelfPermission(READ_MEDIA_AUDIO)
                 : context.checkSelfPermission(READ_EXTERNAL_STORAGE);
         return granted == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * @return {@code true} when essential permissions are not granted; {@code false} otherwise
+     */
+    public static boolean areEssentialPermissionsNotGranted(Context context) {
+        return !isIgnoringBatteryOptimizations(context)
+                || !areNotificationsEnabled(context)
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && !areFullScreenNotificationsEnabled(context);
     }
 
 }

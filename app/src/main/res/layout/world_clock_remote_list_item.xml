@@ -33,13 +33,13 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 tools:text="01:23 AM"
-                tools:textSize="16sp" />
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -61,12 +61,12 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@android:color/white"
                         android:shadowRadius="2.75"
                         android:shadowColor="@android:color/black"
                         android:shadowDx="2"
                         android:shadowDy="2"
-                        tools:text="City1" />
+                        tools:text="City1"
+                        tools:textColor="@android:color/white" />
 
                 </FrameLayout>
 
@@ -81,12 +81,12 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
-                    tools:text="/ Mon" />
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -106,13 +106,13 @@
                 android:layout_gravity="center"
                 android:baselineAligned="true"
                 android:gravity="center"
-                android:textColor="@android:color/white"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 tools:text="01:23 AM"
-                tools:textSize="16sp" />
+                tools:textSize="16sp"
+                tools:textColor="@android:color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -134,12 +134,12 @@
                         android:includeFontPadding="false"
                         android:singleLine="true"
                         android:textAllCaps="true"
-                        android:textColor="@android:color/white"
                         android:shadowRadius="2.75"
                         android:shadowColor="@android:color/black"
                         android:shadowDx="2"
                         android:shadowDy="2"
-                        tools:text="City 2" />
+                        tools:text="City 2"
+                        tools:textColor="@android:color/white" />
 
                 </FrameLayout>
 
@@ -154,12 +154,12 @@
                     android:includeFontPadding="false"
                     android:singleLine="true"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/white"
                     android:shadowRadius="2.75"
                     android:shadowColor="@android:color/black"
                     android:shadowDx="2"
                     android:shadowDy="2"
-                    tools:text="/ Mon" />
+                    tools:text="/ Mon"
+                    tools:textColor="@android:color/white" />
 
             </LinearLayout>
 

@@ -17,13 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/md_theme_background">
+        android:background="?android:attr/colorBackground">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            app:contentScrim="@color/md_theme_surface"
+            app:contentScrim="?colorSurface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:scrimAnimationDuration="300"
             app:scrimVisibleHeightTrigger="120dp"

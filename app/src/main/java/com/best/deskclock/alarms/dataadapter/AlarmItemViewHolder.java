@@ -6,7 +6,10 @@
 
 package com.best.deskclock.alarms.dataadapter;
 
+import static com.best.deskclock.settings.SettingsActivity.KEY_AMOLED_DARK_MODE;
+
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -16,12 +19,15 @@ import android.widget.TextView;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.TextTime;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Calendar;
 
@@ -43,6 +49,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
+        final Context context = itemView.getContext();
 
         editLabel = itemView.findViewById(R.id.edit_label);
         clock = itemView.findViewById(R.id.digital_clock);
@@ -50,6 +57,29 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
         arrow = itemView.findViewById(R.id.arrow);
+
+        final MaterialCardView itemCardView = itemView.findViewById(R.id.item_card_view);
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        if (isCardBackgroundDisplayed) {
+            itemCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+        } else if (Utils.isNight(context.getResources()) && getDarkMode.equals((KEY_AMOLED_DARK_MODE))) {
+            itemCardView.setCardBackgroundColor(Color.BLACK);
+        } else {
+            itemCardView.setCardBackgroundColor(
+                    MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK)
+            );
+        }
+
+        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        if (isCardBackgroundBorderDisplayed) {
+            itemCardView.setStrokeWidth(Utils.toPixel(2, context));
+            itemCardView.setStrokeColor(
+                    MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
 
         editLabel.setOnClickListener(view -> {
             if (!getItemHolder().item.equals(Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
@@ -74,7 +104,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
-        if (alarm.label.length() == 0) {
+        if (alarm.label.isEmpty()) {
             editLabel.setText(context.getString(R.string.add_label));
             editLabel.setTypeface(Typeface.DEFAULT);
             editLabel.setAlpha(CLOCK_DISABLED_ALPHA);
@@ -82,7 +112,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             editLabel.setText(alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))
                     ? context.getString(R.string.wakeup_alarm_label_visible)
                     : alarm.label);
-            editLabel.setContentDescription(alarm.label != null && alarm.label.length() > 0
+            editLabel.setContentDescription(alarm.label != null && !alarm.label.isEmpty()
                     ? context.getString(R.string.label_description) + " " + alarm.label
                     : context.getString(R.string.no_label_specified));
             editLabel.setTypeface(Typeface.DEFAULT_BOLD);
@@ -104,17 +134,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     private void bindRepeatText(Context context, Alarm alarm) {
         if (alarm.daysOfWeek.isRepeating()) {
-            daysOfWeek.setVisibility(View.VISIBLE);
-
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
-            final String daysOfWeekText = alarm.enabled
-                    ? alarm.daysOfWeek.toString(context, weekdayOrder)
-                    : context.getString(R.string.alarm_inactive);
+            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
+            final String contentDescription = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+            daysOfWeek.setVisibility(View.VISIBLE);
             daysOfWeek.setText(daysOfWeekText);
             daysOfWeek.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-
-            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setContentDescription(string);
+            daysOfWeek.setContentDescription(contentDescription);
         } else {
             daysOfWeek.setVisibility(View.GONE);
         }
@@ -124,15 +150,11 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         if (alarm.daysOfWeek.isRepeating()) {
             upcomingInstanceLabel.setVisibility(View.GONE);
         } else {
-            upcomingInstanceLabel.setVisibility(View.VISIBLE);
             final String labelText;
-            if (alarm.enabled) {
-                labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                        ? context.getString(R.string.alarm_tomorrow)
-                        : context.getString(R.string.alarm_today);
-            } else {
-                labelText = context.getString(R.string.alarm_inactive);
-            }
+            labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
+                    ? context.getString(R.string.alarm_tomorrow)
+                    : context.getString(R.string.alarm_today);
+            upcomingInstanceLabel.setVisibility(View.VISIBLE);
             upcomingInstanceLabel.setText(labelText);
             upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
         }

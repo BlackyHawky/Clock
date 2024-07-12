@@ -66,7 +66,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         final List<Timer> expiredTimers = getExpiredTimers();
 
         // If no expired timers, finish
-        if (expiredTimers.size() == 0) {
+        if (expiredTimers.isEmpty()) {
             LogUtils.i("No expired timers, skipping display.");
             finish();
             return;
