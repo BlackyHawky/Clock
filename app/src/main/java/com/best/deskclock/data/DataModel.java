@@ -681,6 +681,13 @@ public final class DataModel {
     }
 
     /**
+     * @return the time picker style.
+     */
+    public String getMaterialTimePickerStyle() {
+        return mAlarmModel.getMaterialTimePickerStyle();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

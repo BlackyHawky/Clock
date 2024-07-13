@@ -134,6 +134,10 @@ final class AlarmModel {
         return mSettingsModel.areAlarmVibrationsEnabledByDefault();
     }
 
+    String getMaterialTimePickerStyle() {
+        return mSettingsModel.getMaterialTimePickerStyle();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.

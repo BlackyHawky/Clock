@@ -6,6 +6,7 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.content.Context;
@@ -43,6 +44,7 @@ import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.best.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
@@ -510,10 +512,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+        String getMaterialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setInputMode(getMaterialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                        ? MaterialTimePicker.INPUT_MODE_CLOCK
+                        : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)
                 .setMinute(minute)
                 .build();

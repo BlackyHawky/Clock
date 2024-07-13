@@ -46,6 +46,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_WEEK_START = "week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
+    public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
+    public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
                         KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
-                        KEY_ALARM_NOTIFICATION_REMINDER_TIME -> {
+                        KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -185,6 +187,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mEnableAlarmVibrationsByDefault.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
             mEnableAlarmVibrationsByDefault.setOnPreferenceChangeListener(this);
+
+            refreshListPreference(Objects.requireNonNull(findPreference(KEY_MATERIAL_TIME_PICKER_STYLE)));
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

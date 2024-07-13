@@ -237,6 +237,10 @@ final class SettingsModel {
         return SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
     }
 
+    String getMaterialTimePickerStyle() {
+        return SettingsDAO.getMaterialTimePickerStyle(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
