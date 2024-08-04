@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,16 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
     }
 
     @Override
