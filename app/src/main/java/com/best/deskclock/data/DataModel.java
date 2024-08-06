@@ -688,6 +688,76 @@ public final class DataModel {
     }
 
     /**
+     * @return a value indicating whether analog or digital clocks are displayed on the alarm.
+     */
+    public ClockStyle getAlarmClockStyle() {
+        return mAlarmModel.getAlarmClockStyle();
+    }
+
+    /**
+     * @return a value indicating whether analog clock seconds hand is displayed on the alarm.
+     */
+    public boolean isAlarmSecondsHandDisplayed() {
+        return mAlarmModel.isAlarmSecondsHandDisplayed();
+    }
+
+    /**
+     * @return a value indicating alarm background color.
+     */
+    public int getAlarmBackgroundColor() {
+        return mAlarmModel.getAlarmBackgroundColor();
+    }
+
+    /**
+     * @return a value indicating the alarm clock color.
+     */
+    public int getAlarmClockColor() {
+        return mAlarmModel.getAlarmClockColor();
+    }
+
+    /**
+     * @return a value indicating the alarm seconds hand color.
+     */
+    public int getAlarmSecondsHandColor() {
+        return mAlarmModel.getAlarmSecondsHandColor();
+    }
+
+    /**
+     * @return a value indicating the alarm title color.
+     */
+    public int getAlarmTitleColor() {
+        return mAlarmModel.getAlarmTitleColor();
+    }
+
+    /**
+     * @return a value indicating the snooze button color.
+     */
+    public int getSnoozeButtonColor() {
+        return mAlarmModel.getSnoozeButtonColor();
+    }
+
+    /**
+     * @return a value indicating the dismiss button color.
+     */
+    public int getDismissButtonColor() {
+        return mAlarmModel.getDismissButtonColor();
+    }
+
+    /**
+     * @return a value indicating the alarm button color.
+     */
+    public int getAlarmButtonColor() {
+        return mAlarmModel.getAlarmButtonColor();
+    }
+
+    /**
+     * @return a value indicating the pulse color.
+     */
+    public int getPulseColor() {
+        return mAlarmModel.getPulseColor();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

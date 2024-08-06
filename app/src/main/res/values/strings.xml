@@ -206,7 +206,7 @@
     <string name="style_category_title">Style</string>
     <!-- Category title for styles and colors -->
     <string name="styles_and_colors_category_title">Style and colors</string>
-    <!-- Category title for font. -->
+    <!-- Category title for font -->
     <string name="font_category_title">Font</string>
     <!-- Category title for miscellaneous settings -->
     <string name="miscellaneous_category_title">Miscellaneous</string>
@@ -315,6 +315,18 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
+    <!-- Setting title for customizing the alarm display. -->
+    <string name="alarm_display_customization_title">Customize alarm display</string>
+    <!-- Setting title for customizing the alarm title color. -->
+    <string name="alarm_title_color">Alarm title color</string>
+    <!-- Setting title for customizing the snooze button color. -->
+    <string name="snooze_button_color">Snooze button color</string>
+    <!-- Setting title for customizing the dismiss button color. -->
+    <string name="dismiss_button_color">Dismiss button color</string>
+    <!-- Setting title for customizing the alarm button color. -->
+    <string name="alarm_button_color">Alarm button color</string>
+    <!-- Setting title for customizing the pulse color. -->
+    <string name="pulse_color">Pulse color</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->
@@ -1026,8 +1038,10 @@
     <string name="screensaver_settings">Screensaver settings</string>
     <!-- Title of dynamic screensaver clock color. -->
     <string name="screensaver_clock_dynamic_colors_title">Dynamic clock colors</string>
-    <!-- Title of screensaver clock color. -->
-    <string name="screensaver_clock_color_title">Clock color</string>
+    <!-- Title of clock color. -->
+    <string name="clock_color_title">Clock color</string>
+    <!-- Title of seconds hand color. -->
+    <string name="seconds_hand_color_title">Seconds hand color</string>
     <!-- Title of screensaver date color. -->
     <string name="screensaver_date_color_title">Date color</string>
     <!-- Title of screensaver next alarm color. -->
@@ -1047,7 +1061,7 @@
     <!-- Title for switch to pick if the next alarm is displayed in italic -->
     <string name="screensaver_italic_next_alarm_title">Italic next alarm</string>
     <!-- Label for the preview in settings -->
-    <string name="screensaver_preview_title">Preview</string>
+    <string name="preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->
     <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
 
@@ -1286,7 +1300,7 @@
     <!-- Title to display the background on the digital widget. -->
     <string name="digital_widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->
-    <string name="digital_widget_background_color_title">Background color</string>
+    <string name="background_color_title">Background color</string>
     <!-- Title to show cities on the digital widget. -->
     <string name="digital_widget_city_title">Display cities on the widget</string>
     <!-- Title to set the default color of the main clock in the digital widget. -->

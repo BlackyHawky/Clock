@@ -3,6 +3,7 @@
 package com.best.deskclock.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
@@ -48,6 +49,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
+    public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,12 +127,15 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 return false;
             }
 
-            if (pref.getKey().equals(KEY_DEFAULT_ALARM_RINGTONE)) {
-                startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
-                return true;
+            switch (pref.getKey()) {
+                case KEY_DEFAULT_ALARM_RINGTONE ->
+                    startActivity(RingtonePickerActivity.createAlarmRingtonePickerIntentForSettings(context));
+
+                case KEY_ALARM_DISPLAY_CUSTOMIZATION ->
+                    startActivity(new Intent(context, AlarmDisplayCustomizationActivity.class));
             }
 
-            return false;
+            return true;
         }
 
         private void hidePreferences() {
@@ -145,6 +150,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             final Preference alarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
             Objects.requireNonNull(alarmRingtonePref).setOnPreferenceClickListener(this);
             alarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+
+            final Preference alarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
+            Objects.requireNonNull(alarmDisplayCustomizationPref).setOnPreferenceClickListener(this);
 
             final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
             String delay = Objects.requireNonNull(autoSilencePref).getValue();

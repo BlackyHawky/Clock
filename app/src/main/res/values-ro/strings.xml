@@ -454,7 +454,7 @@
     <string name="screensaver_italic_date_title">Dată cursiv</string>
     <string name="screensaver_bold_next_alarm_title">Următoarea alarmă aldin</string>
     <string name="screensaver_italic_next_alarm_title">Următoarea alarmă cursiv</string>
-    <string name="screensaver_preview_title">Previzualizare</string>
+    <string name="preview_title">Previzualizare</string>
     <string name="screensaver_preview_summary">Pornește imediat screensaver-ul</string>
     <string name="alarm_created">Alarmă creată</string>
     <string name="permission_management_summary">Afișează permisiunile necesare pentru ca aplicația să funcționeze corect</string>

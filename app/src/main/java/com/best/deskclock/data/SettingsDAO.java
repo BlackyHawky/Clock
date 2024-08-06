@@ -15,6 +15,16 @@ import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BUTTON_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_STYLE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_SECONDS_HAND_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
@@ -554,6 +564,76 @@ final class SettingsDAO {
     static String getMaterialTimePickerStyle(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return prefs.getString(KEY_MATERIAL_TIME_PICKER_STYLE, MATERIAL_TIME_PICKER_ANALOG_STYLE);
+    }
+
+    /**
+     * @return a value indicating whether analog or digital clocks are displayed on the alarm.
+     */
+    static ClockStyle getAlarmClockStyle(Context context, SharedPreferences prefs) {
+        return getClockStyle(context, prefs, KEY_ALARM_CLOCK_STYLE);
+    }
+
+    /**
+     * @return a value indicating whether analog clock seconds hand is displayed on the alarm.
+     */
+    static boolean isAlarmSecondsHandDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, true);
+    }
+
+    /**
+     * @return a value indicating the alarm background color.
+     */
+    static int getAlarmBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.parseColor("#FF191C1E"));
+    }
+
+    /**
+     * @return a value indicating the alarm clock color.
+     */
+    static int getAlarmClockColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_CLOCK_COLOR, Color.parseColor("#FF8A9297"));
+    }
+
+    /**
+     * @return a value indicating the alarm seconds hand color.
+     */
+    static int getAlarmSecondsHandColor(SharedPreferences prefs, Context context) {
+        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, context.getColor(R.color.md_theme_primary));
+    }
+
+    /**
+     * @return a value indicating the alarm title color.
+     */
+    static int getAlarmTitleColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_TITLE_COLOR, Color.parseColor("#FF8A9297"));
+    }
+
+    /**
+     * @return a value indicating the snooze button color.
+     */
+    static int getSnoozeButtonColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SNOOZE_BUTTON_COLOR, Color.parseColor("#FF8A9297"));
+    }
+
+    /**
+     * @return a value indicating the dismiss button color.
+     */
+    static int getDismissButtonColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DISMISS_BUTTON_COLOR, Color.parseColor("#FF8A9297"));
+    }
+
+    /**
+     * @return a value indicating the alarm button color.
+     */
+    static int getAlarmButtonColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_BUTTON_COLOR, Color.parseColor("#FF8A9297"));
+    }
+
+    /**
+     * @return a value indicating the pulse color.
+     */
+    static int getPulseColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_PULSE_COLOR, Color.parseColor("#FFC0C7CD"));
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {

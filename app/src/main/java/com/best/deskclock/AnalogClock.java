@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.best.deskclock.alarms.AlarmActivity;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
@@ -77,35 +79,38 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
-        final int color = context instanceof AlarmActivity
-                ? context.getColor(R.color.md_theme_outline)
+        final int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
+        final int clockColor = context instanceof AlarmActivity | context instanceof AlarmDisplayPreviewActivity
+                ? alarmClockColor
                 : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
+        final int secondsHandColor = DataModel.getDataModel().getAlarmSecondsHandColor();
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
         dial.getDrawable().mutate();
-        dial.setColorFilter(color);
+        dial.setColorFilter(clockColor);
         addView(dial);
 
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
         mHourHand.getDrawable().mutate();
-        mHourHand.setColorFilter(color);
+        mHourHand.setColorFilter(clockColor);
         addView(mHourHand);
 
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
         mMinuteHand.getDrawable().mutate();
-        mMinuteHand.setColorFilter(color);
+        mMinuteHand.setColorFilter(clockColor);
         addView(mMinuteHand);
 
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
-        mSecondHand.setColorFilter(
-                MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+        mSecondHand.setColorFilter(context instanceof AlarmActivity | context instanceof AlarmDisplayPreviewActivity
+                ? secondsHandColor
+                : context.getColor(R.color.md_theme_primary)
         );
         addView(mSecondHand);
 

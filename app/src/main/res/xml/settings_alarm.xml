@@ -160,6 +160,13 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <Preference
+            android:key="key_alarm_display_customization"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/alarm_display_customization_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

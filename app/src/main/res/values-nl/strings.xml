@@ -470,7 +470,7 @@
     <string name="screensaver_bold_date_title">Dikgedrukte datum</string>
     <string name="screensaver_italic_date_title">Schuingedrukte datum</string>
     <string name="screensaver_italic_next_alarm_title">Schuingedrukte volgende wekker</string>
-    <string name="screensaver_preview_title">Voorvertoning</string>
+    <string name="preview_title">Voorvertoning</string>
     <string name="screensaver_preview_summary">Start de screensaver meteen</string>
     <string name="alarm_created">Wekker aangemaakt</string>
     <string name="bedtime_paused_notification_title">De modus \"Bedtijd\" is gepauzeerd</string>

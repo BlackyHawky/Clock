@@ -143,9 +143,9 @@ public class Utils {
      * Configure the clock that is visible to display seconds. The clock that is not visible never
      * displays seconds to avoid it scheduling unnecessary ticking runnable.
      */
-    public static void setClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
-        final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
-        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+    public static void setClockSecondsEnabled(DataModel.ClockStyle clockStyle, TextClock digitalClock,
+                                              AnalogClock analogClock, boolean displaySeconds) {
+
         switch (clockStyle) {
             case ANALOG -> {
                 setTimeFormat(digitalClock, false);
@@ -166,8 +166,7 @@ public class Utils {
      * Set whether the digital or analog clock should be displayed in the application.
      * Returns the view to be displayed.
      */
-    public static void setClockStyle(View digitalClock, View analogClock) {
-        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+    public static void setClockStyle(DataModel.ClockStyle clockStyle, View digitalClock, View analogClock) {
         switch (clockStyle) {
             case ANALOG -> {
                 final Context context = analogClock.getContext();
@@ -308,7 +307,7 @@ public class Utils {
         dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
     }
 
-    /***
+    /**
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      *

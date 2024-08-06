@@ -241,6 +241,46 @@ final class SettingsModel {
         return SettingsDAO.getMaterialTimePickerStyle(mPrefs);
     }
 
+    ClockStyle getAlarmClockStyle() {
+        return SettingsDAO.getAlarmClockStyle(mContext, mPrefs);
+    }
+
+    boolean isAlarmSecondsHandDisplayed() {
+        return SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs);
+    }
+
+    int getAlarmBackgroundColor() {
+        return SettingsDAO.getAlarmBackgroundColor(mPrefs);
+    }
+
+    int getAlarmClockColor() {
+        return SettingsDAO.getAlarmClockColor(mPrefs);
+    }
+
+    int getAlarmSecondsHandColor() {
+        return SettingsDAO.getAlarmSecondsHandColor(mPrefs, mContext);
+    }
+
+    int getAlarmTitleColor() {
+        return SettingsDAO.getAlarmTitleColor(mPrefs);
+    }
+
+    int getSnoozeButtonColor() {
+        return SettingsDAO.getSnoozeButtonColor(mPrefs);
+    }
+
+    int getDismissButtonColor() {
+        return SettingsDAO.getDismissButtonColor(mPrefs);
+    }
+
+    int getAlarmButtonColor() {
+        return SettingsDAO.getAlarmButtonColor(mPrefs);
+    }
+
+    int getPulseColor() {
+        return SettingsDAO.getPulseColor(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;

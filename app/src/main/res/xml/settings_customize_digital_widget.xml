@@ -24,7 +24,7 @@
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_digital_widget_background_color"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/digital_widget_background_color_title"
+            android:title="@string/background_color_title"
             android:defaultValue="#70000000"
             app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
             app:iconSpaceReserved="false"

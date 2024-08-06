@@ -151,6 +151,12 @@
     </string-array>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activer les vibrations lors de la création des alarmes</string>
     <string name="material_time_picker_style_title">Style de sélection de l\'heure</string>
+    <string name="alarm_display_customization_title">Personnaliser l\'affichage de l\'alarme</string>
+    <string name="alarm_title_color">Couleur du titre de l\'alarme</string>
+    <string name="snooze_button_color">Couleur du bouton Répéter</string>
+    <string name="dismiss_button_color">Couleur du bouton Arrêter</string>
+    <string name="alarm_button_color">Couleur du bouton Alarme</string>
+    <string name="pulse_color">Couleur de la pulsation</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -518,7 +524,8 @@
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings_summary">Ouvre les paramètres principaux de l\'économiseur d\'écran Android</string>
     <string name="screensaver_clock_dynamic_colors_title">Couleurs dynamiques de l\'horloge</string>
-    <string name="screensaver_clock_color_title">Couleurs de l\'horloge</string>
+    <string name="clock_color_title">Couleurs de l\'horloge</string>
+    <string name="seconds_hand_color_title">Couleur de l\'aiguille des secondes</string>
     <string name="screensaver_date_color_title">Couleurs de la date</string>
     <string name="screensaver_next_alarm_color_title">Couleurs de la prochaine alarme</string>
     <string name="screensaver_brightness_title">Luminosité</string>
@@ -528,7 +535,7 @@
     <string name="screensaver_italic_date_title">Date en italique</string>
     <string name="screensaver_bold_next_alarm_title">Prochaine alarme en gras</string>
     <string name="screensaver_italic_next_alarm_title">Prochaine alarme en italique</string>
-    <string name="screensaver_preview_title">Prévisualisation</string>
+    <string name="preview_title">Prévisualisation</string>
     <string name="screensaver_preview_summary">Lance l\'économiseur d\'écran immédiatement</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
@@ -611,7 +618,7 @@
     <string name="digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
     <string name="digital_widget_material_you_summary">Définit les couleurs du widget numérique Material You et de modifie la taille de la police de l\'horloge</string>
     <string name="digital_widget_background_title">Afficher l\'arrière-plan</string>
-    <string name="digital_widget_background_color_title">Couleur d\'arrière-plan</string>
+    <string name="background_color_title">Couleur d\'arrière-plan</string>
     <string name="digital_widget_city_title">Afficher les villes sur le widget</string>
     <string name="digital_widget_clock_default_color_title">Utiliser la couleur par défaut pour l\'horloge principale</string>
     <string name="digital_widget_clock_custom_color_title">Couleur personalisée de l\'horloge principale</string>

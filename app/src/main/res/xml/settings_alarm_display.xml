@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/styles_and_colors_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="key_alarm_clock_style"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/clock_style"
+            android:defaultValue="@string/default_clock_style"
+            android:entries="@array/clock_style_entries"
+            android:entryValues="@array/clock_style_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_display_alarm_seconds_hand"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_clock_seconds_pref"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_background_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/background_color_title"
+            android:defaultValue="#FF191C1E"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_clock_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/clock_color_title"
+            android:defaultValue="#FF8A9297"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_seconds_hand_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/seconds_hand_color_title"
+            android:defaultValue="?colorPrimary"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_title_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/alarm_title_color"
+            android:defaultValue="#FF8A9297"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_snooze_button_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/snooze_button_color"
+            android:defaultValue="#FF8A9297"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_dismiss_button_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/dismiss_button_color"
+            android:defaultValue="#FF8A9297"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_button_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/alarm_button_color"
+            android:defaultValue="#FF8A9297"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_pulse_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/pulse_color"
+            android:defaultValue="#FFC0C7CD"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/miscellaneous_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="key_preview_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/preview_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

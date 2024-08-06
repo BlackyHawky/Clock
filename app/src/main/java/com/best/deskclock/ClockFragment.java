@@ -59,6 +59,8 @@ public final class ClockFragment extends DeskClockFragment {
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
 
+    private DataModel.ClockStyle mClockStyle;
+    private boolean mDisplayClockSeconds;
     private TextClock mDigitalClock;
     private AnalogClock mAnalogClock;
     private View mClockFrame;
@@ -95,6 +97,10 @@ public final class ClockFragment extends DeskClockFragment {
 
         mContext = requireContext();
 
+        mClockStyle = DataModel.getDataModel().getClockStyle();
+
+        mDisplayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
+
         mIsPortrait = Utils.isPortrait(mContext);
 
         mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
@@ -121,8 +127,8 @@ public final class ClockFragment extends DeskClockFragment {
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
             Utils.setClockIconTypeface(mClockFrame);
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            Utils.setClockStyle(mDigitalClock, mAnalogClock);
-            Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
+            Utils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+            Utils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
         }
 
         // Schedule a runnable to update the date every quarter hour.
@@ -152,8 +158,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         // Resume can be invoked after changing the clock style or seconds display.
         if (mDigitalClock != null && mAnalogClock != null) {
-            Utils.setClockStyle(mDigitalClock, mAnalogClock);
-            Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
+            Utils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+            Utils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
         }
 
         final View view = getView();
@@ -456,10 +462,12 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
+                DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+                boolean displayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
                 Utils.refreshAlarm(context, itemView);
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                Utils.setClockStyle(mDigitalClock, mAnalogClock);
-                Utils.setClockSecondsEnabled(mDigitalClock, mAnalogClock);
+                Utils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);
+                Utils.setClockSecondsEnabled(clockStyle, mDigitalClock, mAnalogClock, displayClockSeconds);
             }
         }
     }

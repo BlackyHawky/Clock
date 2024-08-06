@@ -182,9 +182,22 @@
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.DeskClock"
+            android:theme="@style/Theme.DeskClock.Wallpaper"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="DiscouragedApi, NonResizeableActivity" />
+
+        <activity
+            android:name="com.best.deskclock.settings.AlarmDisplayCustomizationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/alarm_display_customization_title"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
+            android:name="com.best.deskclock.settings.AlarmDisplayPreviewActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock.Wallpaper" />
 
         <activity
             android:name="com.best.deskclock.AlarmSelectionActivity"

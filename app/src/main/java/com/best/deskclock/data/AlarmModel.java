@@ -138,6 +138,46 @@ final class AlarmModel {
         return mSettingsModel.getMaterialTimePickerStyle();
     }
 
+    DataModel.ClockStyle getAlarmClockStyle() {
+        return mSettingsModel.getAlarmClockStyle();
+    }
+
+    public boolean isAlarmSecondsHandDisplayed() {
+        return mSettingsModel.isAlarmSecondsHandDisplayed();
+    }
+
+    public int getAlarmBackgroundColor() {
+        return mSettingsModel.getAlarmBackgroundColor();
+    }
+
+    public int getAlarmClockColor() {
+        return mSettingsModel.getAlarmClockColor();
+    }
+
+    public int getAlarmSecondsHandColor() {
+        return mSettingsModel.getAlarmSecondsHandColor();
+    }
+
+    public int getAlarmTitleColor() {
+        return mSettingsModel.getAlarmTitleColor();
+    }
+
+    public int getSnoozeButtonColor() {
+        return mSettingsModel.getSnoozeButtonColor();
+    }
+
+    public int getDismissButtonColor() {
+        return mSettingsModel.getDismissButtonColor();
+    }
+
+    public int getAlarmButtonColor() {
+        return mSettingsModel.getAlarmButtonColor();
+    }
+
+    public int getPulseColor() {
+        return mSettingsModel.getPulseColor();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.
