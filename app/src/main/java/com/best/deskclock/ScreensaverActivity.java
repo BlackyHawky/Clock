@@ -88,7 +88,7 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         mMainClockView = findViewById(R.id.main_clock);
 
-        Utils.setScreenSaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
+        Utils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 

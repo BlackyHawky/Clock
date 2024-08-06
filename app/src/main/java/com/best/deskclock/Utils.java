@@ -76,7 +76,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
-import androidx.core.graphics.ColorUtils;
 
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
@@ -291,11 +290,11 @@ public class Utils {
         if (dateDisplay.getContext() instanceof ScreensaverActivity || dateDisplay.getContext() instanceof Screensaver) {
             // Add a "Thin Space" (\u2009) at the end of the date to prevent its display from being cut off on some devices.
             // (The display of the date is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isItalicDate = DataModel.getDataModel().getScreensaverItalicDate();
-            final boolean isItalicNextAlarm = DataModel.getDataModel().getScreensaverItalicNextAlarm();
-            if (isItalicDate) {
+            final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
+            final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
+            if (isScreensaverDateInItalic) {
                 datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
-            } else if (isItalicNextAlarm) {
+            } else if (isScreensaverNextAlarmInItalic) {
                 datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton);
             }
         }
@@ -326,10 +325,13 @@ public class Utils {
     /**
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
+     *
+     * @param digitalClock if the view concerned is the digital clock
+     * @param analogClock  if the view concerned is the analog clock
      */
     public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
-        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
-        switch (clockStyle) {
+        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        switch (screensaverClockStyle) {
             case ANALOG -> {
                 final Context context = analogClock.getContext();
                 analogClock.getLayoutParams().height = toPixel(isTablet(context) ? 300 : 220, context);
@@ -345,95 +347,35 @@ public class Utils {
             }
         }
 
-        throw new IllegalStateException("unexpected clock style: " + clockStyle);
+        throw new IllegalStateException("unexpected clock style: " + screensaverClockStyle);
     }
 
     /**
-     * For screensavers, dim the clock color.
+     * For screensaver, dim the color.
      */
-    public static void dimClockView(View clockView, Context context) {
-        String colorFilter = getClockColorFilter();
+    public static void dimScreensaverView(Context context, View view, int color) {
+        String colorFilter = getScreensaverColorFilter(context, color);
         Paint paint = new Paint();
-
         paint.setColor(Color.WHITE);
 
-        if (dynamicColors()) {
-            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
-            paint.setColorFilter(new PorterDuffColorFilter(
-                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
-                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
+        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
 
-        } else {
-            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
-        }
-
-        clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        view.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
     /**
-     * For screensavers, dim the date color.
+     * For screensaver, calculate the color filter to use to dim the color.
+     *
+     * @param color the color selected in the screensaver color picker
      */
-    public static void dimDateView(TextView dateView, Context context) {
-        String colorFilter = getDateColorFilter();
-        Paint paint = new Paint();
-
-        paint.setColor(Color.WHITE);
-
-        if (dynamicColors()) {
-            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
-            paint.setColorFilter(new PorterDuffColorFilter(
-                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
-                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
-        } else {
-            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
-        }
-
-        dateView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-    }
-
-    /**
-     * For screensavers, dim the next alarm color.
-     */
-    public static void dimNextAlarmView(TextView nextAlarmIcon, TextView nextAlarm, Context context) {
-        String colorFilter = getNextAlarmColorFilter();
-        Paint paint = new Paint();
-
-        paint.setColor(Color.WHITE);
-
-        if (dynamicColors()) {
-            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-            // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-            final int dynamicColorsBrightness = 16 + (192 * brightnessPercentage / 100);
-            paint.setColorFilter(new PorterDuffColorFilter(
-                    ColorUtils.setAlphaComponent(context.getColor(R.color.md_theme_inversePrimary),
-                            dynamicColorsBrightness), PorterDuff.Mode.SRC_IN));
-        } else {
-            paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
-        }
-
-        if (nextAlarmIcon == null || nextAlarm == null) {
-            return;
-        }
-
-        nextAlarmIcon.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-        nextAlarm.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-    }
-
-    public static boolean dynamicColors() {
-        return DataModel.getDataModel().getScreensaverClockDynamicColors();
-    }
-
-    /**
-     * For screensavers, calculate the color filter to use to dim/color the clock.
-     */
-    public static String getClockColorFilter() {
+    public static String getScreensaverColorFilter(Context context, int color) {
         final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        int getPickerClockColor = DataModel.getDataModel().getPickerClockColor();
-        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerClockColor);
+
+        if (areScreensaverClockDynamicColors()) {
+            color = context.getColor(R.color.md_theme_inversePrimary);
+        }
+
+        String colorFilter = String.format("%06X", 0xFFFFFF & color);
         // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
         String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
 
@@ -442,52 +384,29 @@ public class Utils {
         return colorFilter;
     }
 
-    /**
-     * For screensavers, calculate the color filter to use to dim/color the date.
-     */
-    public static String getDateColorFilter() {
-        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        int getPickerDateColor = DataModel.getDataModel().getPickerDateColor();
-        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerDateColor);
-        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
-
-        colorFilter = "#" + alpha + colorFilter;
-
-        return colorFilter;
+    public static boolean areScreensaverClockDynamicColors() {
+        return DataModel.getDataModel().areScreensaverClockDynamicColors();
     }
 
     /**
-     * For screensavers, calculate the color filter to use to dim/color the date.
-     */
-    public static String getNextAlarmColorFilter() {
-        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-        int getPickerNextAlarmColor = DataModel.getDataModel().getPickerNextAlarmColor();
-        String colorFilter = String.format("%06X", 0xFFFFFF & getPickerNextAlarmColor);
-        // The alpha channel should range from 16 (10 hex) to 192 (C0 hex).
-        String alpha = String.format("%02X", 16 + (192 * brightnessPercentage / 100));
-
-        colorFilter = "#" + alpha + colorFilter;
-
-        return colorFilter;
-    }
-
-    /**
-     * For screensavers, configure the clock that is visible to display seconds. The clock that is not visible never
+     * For screensaver, configure the clock that is visible to display seconds. The clock that is not visible never
      * displays seconds to avoid it scheduling unnecessary ticking runnable.
+     *
+     * @param digitalClock if the view concerned is the digital clock
+     * @param analogClock  if the view concerned is the analog clock
      */
     public static void setScreensaverClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
-        final boolean displaySeconds = DataModel.getDataModel().getDisplayScreensaverClockSeconds();
+        final boolean areScreensaverClockSecondsDisplayed = DataModel.getDataModel().areScreensaverClockSecondsDisplayed();
         final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
         switch (screensaverClockStyle) {
             case ANALOG -> {
                 setScreensaverTimeFormat(digitalClock, false);
-                analogClock.enableSeconds(displaySeconds);
+                analogClock.enableSeconds(areScreensaverClockSecondsDisplayed);
                 return;
             }
             case DIGITAL -> {
                 analogClock.enableSeconds(false);
-                setScreensaverTimeFormat(digitalClock, displaySeconds);
+                setScreensaverTimeFormat(digitalClock, areScreensaverClockSecondsDisplayed);
                 return;
             }
         }
@@ -496,46 +415,47 @@ public class Utils {
     }
 
     /**
-     * For screensavers, format the digital clock to be bold and/or italic or not.
+     * For screensaver, format the digital clock to be bold and/or italic or not.
      *
-     * @param digitalClock TextClock to format
+     * @param screensaverDigitalClock TextClock to format
+     * @param includeSeconds          whether seconds are displayed or not
      */
-    public static void setScreensaverTimeFormat(TextClock digitalClock, boolean includeSeconds) {
-        final boolean boldText = DataModel.getDataModel().getScreensaverBoldDigitalClock();
-        final boolean italicText = DataModel.getDataModel().getScreensaverItalicDigitalClock();
+    public static void setScreensaverTimeFormat(TextClock screensaverDigitalClock, boolean includeSeconds) {
+        final boolean isScreensaverDigitalClockInBold = DataModel.getDataModel().isScreensaverDigitalClockInBold();
+        final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
 
-        if (digitalClock == null) {
+        if (screensaverDigitalClock == null) {
             return;
         }
 
-        digitalClock.setFormat12Hour(get12ModeFormat(digitalClock.getContext(), 0.4f, includeSeconds));
-        digitalClock.setFormat24Hour(get24ModeFormat(digitalClock.getContext(), includeSeconds));
+        screensaverDigitalClock.setFormat12Hour(get12ModeFormat(screensaverDigitalClock.getContext(), 0.4f, includeSeconds));
+        screensaverDigitalClock.setFormat24Hour(get24ModeFormat(screensaverDigitalClock.getContext(), includeSeconds));
 
-        if (boldText && italicText) {
-            digitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (boldText) {
-            digitalClock.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (italicText) {
-            digitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        if (isScreensaverDigitalClockInBold && isScreensaverDigitalClockInItalic) {
+            screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        } else if (isScreensaverDigitalClockInBold) {
+            screensaverDigitalClock.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (isScreensaverDigitalClockInItalic) {
+            screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         } else {
-            digitalClock.setTypeface(Typeface.DEFAULT);
+            screensaverDigitalClock.setTypeface(Typeface.DEFAULT);
         }
     }
 
     /**
-     * For screensavers, format the date and the next alarm to be bold and/or italic or not.
+     * For screensaver, format the date and the next alarm to be bold and/or italic or not.
      *
      * @param date Date to format
      */
     public static void setScreensaverDateFormat(TextView date) {
-        final boolean boldText = DataModel.getDataModel().getScreensaverBoldDate();
-        final boolean italicText = DataModel.getDataModel().getScreensaverItalicDate();
+        final boolean isScreensaverDateInBold = DataModel.getDataModel().isScreensaverDateInBold();
+        final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
 
-        if (boldText && italicText) {
+        if (isScreensaverDateInBold && isScreensaverDateInItalic) {
             date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (boldText) {
+        } else if (isScreensaverDateInBold) {
             date.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (italicText) {
+        } else if (isScreensaverDateInItalic) {
             date.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         } else {
             date.setTypeface(Typeface.DEFAULT);
@@ -543,21 +463,21 @@ public class Utils {
     }
 
     /**
-     * For screensavers, format the date and the next alarm to be bold and/or italic or not.
+     * For screensaver, format the date and the next alarm to be bold and/or italic or not.
      *
      * @param nextAlarm Next alarm to format
      */
     public static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
-        final boolean boldText = DataModel.getDataModel().getScreensaverBoldNextAlarm();
-        final boolean italicText = DataModel.getDataModel().getScreensaverItalicNextAlarm();
+        final boolean isScreensaverNextAlarmInBold = DataModel.getDataModel().isScreensaverNextAlarmInBold();
+        final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
         if (nextAlarm == null) {
             return;
         }
-        if (boldText && italicText) {
+        if (isScreensaverNextAlarmInBold && isScreensaverNextAlarmInItalic) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (boldText) {
+        } else if (isScreensaverNextAlarmInBold) {
             nextAlarm.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (italicText) {
+        } else if (isScreensaverNextAlarmInItalic) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         } else {
             nextAlarm.setTypeface(Typeface.DEFAULT);
@@ -565,9 +485,9 @@ public class Utils {
     }
 
     /**
-     * For screensavers, set the margins and the style of the clock.
+     * For screensaver, set the margins and the style of the clock.
      */
-    public static void setScreenSaverMarginsAndClockStyle(final Context context, final View clock) {
+    public static void setScreensaverMarginsAndClockStyle(final Context context, final View clock) {
         final View mainClockView = clock.findViewById(R.id.main_clock);
 
         // Margins
@@ -595,16 +515,19 @@ public class Utils {
 
         // Style
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
-        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
         final TextClock textClock = mainClockView.findViewById(R.id.digital_clock);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
+        final int screenSaverClockColorPicker = DataModel.getDataModel().getScreensaverClockColorPicker();
+        final int screensaverDateColorPicker = DataModel.getDataModel().getScreensaverDateColorPicker();
+        final int screensaverNextAlarmColorPicker = DataModel.getDataModel().getScreensaverNextAlarmColorPicker();
 
         setScreensaverClockStyle(textClock, analogClock);
-        dimClockView(clockStyle == DataModel.ClockStyle.ANALOG ? analogClock : textClock, context);
-        dimDateView(date, context);
-        dimNextAlarmView(nextAlarmIcon, nextAlarm, context);
+        dimScreensaverView(context, textClock, screenSaverClockColorPicker);
+        dimScreensaverView(context, date, screensaverDateColorPicker);
+        dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
+        dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
         setScreensaverClockSecondsEnabled(textClock, analogClock);
         setScreensaverDateFormat(date);
         setClockIconTypeface(nextAlarmIcon);
@@ -628,8 +551,8 @@ public class Utils {
             pattern = pattern.replaceAll("a", "").trim();
         } else {
             if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-                final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDigitalClock();
-                if (isItalic) {
+                final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
+                if (isScreensaverDigitalClockInItalic) {
                     // For screensaver, add a "Hair Space" (\u200A) at the end of the AM/PM to prevent
                     // its display from being cut off on some devices when in italic.
                     pattern = pattern.replaceAll("a", "a" + "\u200A");
@@ -653,8 +576,8 @@ public class Utils {
 
     public static CharSequence get24ModeFormat(Context context, boolean includeSeconds) {
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            final boolean isItalic = DataModel.getDataModel().getScreensaverItalicDigitalClock();
-            if (isItalic) {
+            final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
+            if (isScreensaverDigitalClockInItalic) {
                 // For screensaver, add a "Hair Space" (\u200A) at the end of the time to prevent
                 // its display from being cut off on some devices when in italic.
                 return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm") + "\u2009";

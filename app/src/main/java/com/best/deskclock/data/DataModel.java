@@ -1034,33 +1034,41 @@ public final class DataModel {
     /**
      * @return the dynamic colors of the clock to display in the screensaver
      */
-    public boolean getScreensaverClockDynamicColors() {
+    public boolean areScreensaverClockDynamicColors() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverClockDynamicColors();
+        return mSettingsModel.areScreensaverClockDynamicColors();
     }
 
     /**
      * @return the color of the clock to display in the screensaver
      */
-    public int getPickerClockColor() {
+    public int getScreensaverClockColorPicker() {
         enforceMainLooper();
-        return mSettingsModel.getPickerClockColor();
+        return mSettingsModel.getScreensaverClockColorPicker();
+    }
+
+    /**
+     * @return the color of the seconds hand to display in the screensaver
+     */
+    public int getScreensaverSecondsHandColorPicker() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverSecondsHandColorPicker();
     }
 
     /**
      * @return the color of the date to display in the screensaver
      */
-    public int getPickerDateColor() {
+    public int getScreensaverDateColorPicker() {
         enforceMainLooper();
-        return mSettingsModel.getPickerDateColor();
+        return mSettingsModel.getScreensaverDateColorPicker();
     }
 
     /**
      * @return the color of the next alarm to display in the screensaver
      */
-    public int getPickerNextAlarmColor() {
+    public int getScreensaverNextAlarmColorPicker() {
         enforceMainLooper();
-        return mSettingsModel.getPickerNextAlarmColor();
+        return mSettingsModel.getScreensaverNextAlarmColorPicker();
     }
 
     /**
@@ -1074,57 +1082,57 @@ public final class DataModel {
     /**
      * @return the style of clock to display in the clock application
      */
-    public boolean getDisplayScreensaverClockSeconds() {
+    public boolean areScreensaverClockSecondsDisplayed() {
         enforceMainLooper();
-        return mSettingsModel.getDisplayScreensaverClockSeconds();
+        return mSettingsModel.areScreensaverClockSecondsDisplayed();
     }
 
     /**
      * @return {@code true} if the screensaver should show the time in bold
      */
-    public boolean getScreensaverBoldDigitalClock() {
+    public boolean isScreensaverDigitalClockInBold() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverBoldDigitalClock();
+        return mSettingsModel.isScreensaverDigitalClockInBold();
     }
 
     /**
      * @return {@code true} if the screensaver should show the time in italic
      */
-    public boolean getScreensaverItalicDigitalClock() {
+    public boolean isScreensaverDigitalClockInItalic() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverItalicDigitalClock();
+        return mSettingsModel.isScreensaverDigitalClockInItalic();
     }
 
     /**
      * @return {@code true} if the screensaver should show the date in bold
      */
-    public boolean getScreensaverBoldDate() {
+    public boolean isScreensaverDateInBold() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverBoldDate();
+        return mSettingsModel.isScreensaverDateInBold();
     }
 
     /**
      * @return {@code true} if the screensaver should show the date in italic
      */
-    public boolean getScreensaverItalicDate() {
+    public boolean isScreensaverDateInItalic() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverItalicDate();
+        return mSettingsModel.isScreensaverDateInItalic();
     }
 
     /**
      * @return {@code true} if the screensaver should show the next alarm in bold
      */
-    public boolean getScreensaverBoldNextAlarm() {
+    public boolean isScreensaverNextAlarmInBold() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverBoldNextAlarm();
+        return mSettingsModel.isScreensaverNextAlarmInBold();
     }
 
     /**
      * @return {@code true} if the screensaver should show the next alarm in italic
      */
-    public boolean getScreensaverItalicNextAlarm() {
+    public boolean isScreensaverNextAlarmInItalic() {
         enforceMainLooper();
-        return mSettingsModel.getScreensaverItalicNextAlarm();
+        return mSettingsModel.isScreensaverNextAlarmInItalic();
     }
 
     /**

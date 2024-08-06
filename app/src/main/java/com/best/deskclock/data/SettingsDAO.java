@@ -33,6 +33,20 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PI
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_STYLE;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_IN_ITALIC;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -54,7 +68,6 @@ import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.settings.AlarmSettingsActivity;
 import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
-import com.best.deskclock.settings.ScreensaverSettingsActivity;
 import com.best.deskclock.settings.TimerSettingsActivity;
 
 import java.util.Arrays;
@@ -233,91 +246,98 @@ final class SettingsDAO {
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver
      */
     static ClockStyle getScreensaverClockStyle(Context context, SharedPreferences prefs) {
-        return getClockStyle(context, prefs, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
+        return getClockStyle(context, prefs, KEY_SCREENSAVER_CLOCK_STYLE);
     }
 
     /**
      * @return a value indicating whether analog or digital clock dynamic colors are displayed
      */
-    static boolean getScreensaverClockDynamicColors(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_CLOCK_DYNAMIC_COLORS, false);
+    static boolean areScreensaverClockDynamicColors(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS, false);
     }
 
     /**
      * @return a value indicating the color of the clock of the screensaver
      */
-    static int getPickerClockColor(SharedPreferences prefs) {
-        return prefs.getInt(ScreensaverSettingsActivity.KEY_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF"));
+    static int getScreensaverClockColorPicker(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return a value indicating the alarm seconds hand color.
+     */
+    static int getScreensaverSecondsHandColorPicker(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the date of the screensaver
      */
-    static int getPickerDateColor(SharedPreferences prefs) {
-        return prefs.getInt(ScreensaverSettingsActivity.KEY_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF"));
+    static int getScreensaverDateColorPicker(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return a value indicating the color of the next alarm of the screensaver
      */
-    static int getPickerNextAlarmColor(SharedPreferences prefs) {
-        return prefs.getInt(ScreensaverSettingsActivity.KEY_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF"));
+    static int getScreensaverNextAlarmColorPicker(SharedPreferences prefs) {
+        return prefs.getInt(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**
      * @return {@code int} the screen saver brightness level at night
      */
     static int getScreensaverBrightness(SharedPreferences prefs) {
-        return prefs.getInt(ScreensaverSettingsActivity.KEY_SS_BRIGHTNESS, 40);
+        return prefs.getInt(KEY_SCREENSAVER_BRIGHTNESS, 40);
     }
 
     /**
      * @return a value indicating whether analog or digital clock seconds are displayed
      */
-    static boolean getDisplayScreensaverClockSeconds(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_SS_CLOCK_DISPLAY_SECONDS, false);
+    static boolean areScreensaverClockSecondsDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, false);
     }
 
     /**
      * @return {@code true} if the screen saver should show the clock in bold
      */
-    static boolean getScreensaverBoldDigitalClock(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DIGITAL_CLOCK, false);
+    static boolean isScreensaverDigitalClockInBold(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, false);
     }
 
     /**
      * @return {@code true} if the screen saver should show the clock in italic
      */
-    static boolean getScreensaverItalicDigitalClock(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_DIGITAL_CLOCK, false);
+    static boolean isScreensaverDigitalClockInItalic(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC, false);
     }
 
     /**
      * @return {@code true} if the screen saver should show the date in bold
      */
-    static boolean getScreensaverBoldDate(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_DATE, true);
+    static boolean isScreensaverDateInBold(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_BOLD, true);
     }
 
     /**
      * @return {@code true} if the screen saver should show the date in italic
      */
-    static boolean getScreensaverItalicDate(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_DATE, false);
+    static boolean isScreensaverDateInItalic(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_DATE_IN_ITALIC, false);
     }
 
     /**
      * @return {@code true} if the screen saver should show the next alarm in bold
      */
-    static boolean getScreensaverBoldNextAlarm(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_BOLD_NEXT_ALARM, true);
+    static boolean isScreensaverNextAlarmInBold(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, true);
     }
 
     /**
      * @return {@code true} if the screen saver should show the next alarm in italic
      */
-    static boolean getScreensaverItalicNextAlarm(SharedPreferences prefs) {
-        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_ITALIC_NEXT_ALARM, false);
+    static boolean isScreensaverNextAlarmInItalic(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, false);
     }
 
     /**

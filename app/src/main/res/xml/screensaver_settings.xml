@@ -17,7 +17,7 @@
         app:iconSpaceReserved="false">
 
         <ListPreference
-            android:key="screensaver_clock_style"
+            android:key="key_screensaver_clock_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
             android:defaultValue="@string/default_clock_style"
@@ -27,14 +27,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="display_screensaver_clock_seconds"
+            android:key="key_display_screensaver_clock_seconds"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_clock_dynamic_colors"
+            android:key="key_screensaver_clock_dynamic_colors"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_clock_dynamic_colors_title"
             app:iconSpaceReserved="false"
@@ -43,7 +43,7 @@
             tools:isPreferenceVisible="true" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_clock_color_picker"
+            android:key="key_screensaver_clock_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_color_title"
             android:defaultValue="#FFFFFF"
@@ -53,7 +53,16 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_date_color_picker"
+            android:key="key_screensaver_seconds_hand_color_picker"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/seconds_hand_color_title"
+            android:defaultValue="#FFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_screensaver_date_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_date_color_title"
             android:defaultValue="#FFFFFF"
@@ -63,7 +72,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_next_alarm_color_picker"
+            android:key="key_screensaver_next_alarm_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_next_alarm_color_title"
             android:defaultValue="#FFFFFF"
@@ -73,7 +82,7 @@
             app:singleLineTitle="false" />
 
         <SeekBarPreference
-            android:key="screensaver_brightness"
+            android:key="key_screensaver_brightness"
             android:layout="@layout/settings_preference_seekbar_layout"
             android:title="@string/screensaver_brightness_title"
             android:defaultValue="40"
@@ -90,42 +99,42 @@
         app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
-            android:key="screensaver_bold_digital_clock"
+            android:key="key_screensaver_digital_clock_in_bold"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_bold_digital_clock_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_italic_digital_clock"
+            android:key="key_screensaver_digital_clock_in_italic"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_italic_digital_clock_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_bold_date"
+            android:key="key_screensaver_date_in_bold"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_bold_date_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_italic_date"
+            android:key="key_screensaver_date_in_italic"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_italic_date_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_bold_next_alarm"
+            android:key="key_screensaver_next_alarm_in_bold"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_bold_next_alarm_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="screensaver_italic_next_alarm"
+            android:key="key_screensaver_next_alarm_in_italic"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_italic_next_alarm_title"
             app:iconSpaceReserved="false"
@@ -140,7 +149,7 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:key="screensaver_preview"
+            android:key="key_screensaver_preview"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/preview_title"
             android:summary="@string/screensaver_preview_summary"
@@ -148,7 +157,7 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:key="screensaver_daydream_settings"
+            android:key="key_screensaver_daydream_settings"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_daydream_settings"
             android:summary="@string/screensaver_daydream_settings_summary"

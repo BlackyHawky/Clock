@@ -112,52 +112,56 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
     }
 
-    public boolean getScreensaverClockDynamicColors() {
-        return SettingsDAO.getScreensaverClockDynamicColors(mPrefs);
+    public boolean areScreensaverClockDynamicColors() {
+        return SettingsDAO.areScreensaverClockDynamicColors(mPrefs);
     }
 
-    public int getPickerClockColor() {
-        return SettingsDAO.getPickerClockColor(mPrefs);
+    public int getScreensaverClockColorPicker() {
+        return SettingsDAO.getScreensaverClockColorPicker(mPrefs);
     }
 
-    public int getPickerDateColor() {
-        return SettingsDAO.getPickerDateColor(mPrefs);
+    public int getScreensaverSecondsHandColorPicker() {
+        return SettingsDAO.getScreensaverSecondsHandColorPicker(mPrefs);
     }
 
-    public int getPickerNextAlarmColor() {
-        return SettingsDAO.getPickerNextAlarmColor(mPrefs);
+    public int getScreensaverDateColorPicker() {
+        return SettingsDAO.getScreensaverDateColorPicker(mPrefs);
+    }
+
+    public int getScreensaverNextAlarmColorPicker() {
+        return SettingsDAO.getScreensaverNextAlarmColorPicker(mPrefs);
     }
 
     public int getScreensaverBrightness() {
         return SettingsDAO.getScreensaverBrightness(mPrefs);
     }
 
-    boolean getDisplayScreensaverClockSeconds() {
-        return SettingsDAO.getDisplayScreensaverClockSeconds(mPrefs);
+    boolean areScreensaverClockSecondsDisplayed() {
+        return SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs);
     }
 
-    boolean getScreensaverBoldDigitalClock() {
-        return SettingsDAO.getScreensaverBoldDigitalClock(mPrefs);
+    boolean isScreensaverDigitalClockInBold() {
+        return SettingsDAO.isScreensaverDigitalClockInBold(mPrefs);
     }
 
-    boolean getScreensaverItalicDigitalClock() {
-        return SettingsDAO.getScreensaverItalicDigitalClock(mPrefs);
+    boolean isScreensaverDigitalClockInItalic() {
+        return SettingsDAO.isScreensaverDigitalClockInItalic(mPrefs);
     }
 
-    boolean getScreensaverBoldDate() {
-        return SettingsDAO.getScreensaverBoldDate(mPrefs);
+    boolean isScreensaverDateInBold() {
+        return SettingsDAO.isScreensaverDateInBold(mPrefs);
     }
 
-    boolean getScreensaverItalicDate() {
-        return SettingsDAO.getScreensaverItalicDate(mPrefs);
+    boolean isScreensaverDateInItalic() {
+        return SettingsDAO.isScreensaverDateInItalic(mPrefs);
     }
 
-    boolean getScreensaverBoldNextAlarm() {
-        return SettingsDAO.getScreensaverBoldNextAlarm(mPrefs);
+    boolean isScreensaverNextAlarmInBold() {
+        return SettingsDAO.isScreensaverNextAlarmInBold(mPrefs);
     }
 
-    boolean getScreensaverItalicNextAlarm() {
-        return SettingsDAO.getScreensaverItalicNextAlarm(mPrefs);
+    boolean isScreensaverNextAlarmInItalic() {
+        return SettingsDAO.isScreensaverNextAlarmInItalic(mPrefs);
     }
 
     boolean getShowHomeClock() {

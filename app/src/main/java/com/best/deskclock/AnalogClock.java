@@ -80,45 +80,56 @@ public class AnalogClock extends FrameLayout {
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
         final int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
-        final int clockColor = context instanceof AlarmActivity | context instanceof AlarmDisplayPreviewActivity
+        final int alarmSecondsHandColor = DataModel.getDataModel().getAlarmSecondsHandColor();
+        final int clockColor = context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity
                 ? alarmClockColor
                 : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
-        final int secondsHandColor = DataModel.getDataModel().getAlarmSecondsHandColor();
+        final int screenSaverClockColor = DataModel.getDataModel().getScreensaverClockColorPicker();
+        final int screensaverSecondsHandColor = DataModel.getDataModel().getScreensaverSecondsHandColorPicker();
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
         dial.getDrawable().mutate();
-        dial.setColorFilter(clockColor);
+        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            Utils.dimScreensaverView(context, dial, screenSaverClockColor);
+        } else {
+            dial.setColorFilter(clockColor);
+        }
         addView(dial);
 
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
         mHourHand.getDrawable().mutate();
-        mHourHand.setColorFilter(clockColor);
+        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            Utils.dimScreensaverView(context, mHourHand, screenSaverClockColor);
+        } else {
+            mHourHand.setColorFilter(clockColor);
+        }
         addView(mHourHand);
 
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
         mMinuteHand.getDrawable().mutate();
-        mMinuteHand.setColorFilter(clockColor);
+        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            Utils.dimScreensaverView(context, mMinuteHand, screenSaverClockColor);
+        } else {
+            mMinuteHand.setColorFilter(clockColor);
+        }
         addView(mMinuteHand);
 
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
         mSecondHand.getDrawable().mutate();
-        mSecondHand.setColorFilter(context instanceof AlarmActivity | context instanceof AlarmDisplayPreviewActivity
-                ? secondsHandColor
-                : context.getColor(R.color.md_theme_primary)
-        );
-        addView(mSecondHand);
-
-        if (context.getClass().getSimpleName().equalsIgnoreCase(ScreensaverActivity.class.getSimpleName())) {
-            dial.setColorFilter(Color.WHITE);
-            mHourHand.setColorFilter(Color.WHITE);
-            mMinuteHand.setColorFilter(Color.WHITE);
+        if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
+            mSecondHand.setColorFilter(alarmSecondsHandColor);
+        } else if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            Utils.dimScreensaverView(context, mSecondHand, screensaverSecondsHandColor);
+        } else {
+            mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
         }
+        addView(mSecondHand);
     }
 
     @Override
