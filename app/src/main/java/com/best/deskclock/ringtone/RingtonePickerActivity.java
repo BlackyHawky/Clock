@@ -46,6 +46,7 @@ import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.RingtonePreviewKlaxon;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -168,6 +169,18 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
     }
 
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of all alarms in the settings
+     */
+    public static Intent createSleepSoundPickerIntent(Context context) {
+        DataSaver saver = DataSaver.getInstance(context);
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.sleep_sound)
+                .putExtra(EXTRA_RINGTONE_URI, saver.sleepUri)
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, saver.sleepUri)
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.sleep_sound);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,31 +234,34 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         if (mSelectedRingtoneUri != null) {
             if (mTitleResourceId == R.string.default_alarm_ringtone_title) {
                 DataModel.getDataModel().setAlarmRingtoneUriFromSettings(mSelectedRingtoneUri);
+            } else if (mAlarmId != -1) {
+                final Context context = getApplicationContext();
+                final ContentResolver cr = getContentResolver();
+
+                // Start a background task to fetch the alarm whose ringtone must be updated.
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                Handler handler = new Handler(Looper.getMainLooper());
+                executor.execute(() -> {
+                    final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
+                    if (alarm != null) {
+                        alarm.alert = mSelectedRingtoneUri;
+
+                        handler.post(() -> {
+                            DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
+
+                            // Start a second background task to persist the updated alarm.
+                            new AlarmUpdateHandler(context, null, null)
+                                    .asyncUpdateAlarm(alarm, false, true);
+                        });
+                    }
+                });
+            } else if (mTitleResourceId == R.string.sleep_sound) {
+                DataSaver saver = DataSaver.getInstance(this);
+                saver.restore();
+                saver.sleepUri = mSelectedRingtoneUri;
+                saver.save();
             } else {
-                if (mAlarmId != -1) {
-                    final Context context = getApplicationContext();
-                    final ContentResolver cr = getContentResolver();
-
-                    // Start a background task to fetch the alarm whose ringtone must be updated.
-                    ExecutorService executor = Executors.newSingleThreadExecutor();
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    executor.execute(() -> {
-                        final Alarm alarm = Alarm.getAlarm(cr, mAlarmId);
-                        if (alarm != null) {
-                            alarm.alert = mSelectedRingtoneUri;
-
-                            handler.post(() -> {
-                                DataModel.getDataModel().setSelectedAlarmRingtoneUri(alarm.alert);
-
-                                // Start a second background task to persist the updated alarm.
-                                new AlarmUpdateHandler(context, null, null)
-                                        .asyncUpdateAlarm(alarm, false, true);
-                            });
-                        }
-                    });
-                } else {
-                    DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
-                }
+                DataModel.getDataModel().setTimerRingtoneUri(mSelectedRingtoneUri);
             }
         }
 

@@ -31,10 +31,12 @@ import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.bedtime.beddata.DataSaver;
+import com.best.deskclock.bedtime.lullaby.LullabyService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.music.AbstractPlayerService;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -128,6 +130,10 @@ public final class BedtimeService extends Service {
 
         final PendingIntent pendingShowApp = Utils.pendingActivityIntent(context, showApp);
 
+        Intent lullaby = new Intent(context, LullabyService.class)
+                .setAction(AbstractPlayerService.ACTION_PLAY); //TODO: Lullaby
+        PendingIntent pendingLullaby = Utils.pendingServiceIntent(context, lullaby);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, BEDTIME_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
@@ -140,7 +146,8 @@ public final class BedtimeService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setLocalOnly(true);
+                .setLocalOnly(true)
+                .addAction(R.drawable.ic_media_song, context.getString(R.string.play_lullaby), pendingLullaby);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -273,6 +280,8 @@ public final class BedtimeService extends Service {
         scheduleBedtimeMode(context, saver, ACTION_LAUNCH_BEDTIME);
 
         String text = context.getString(R.string.bedtime_notification_until, wakeupTime(context));
+        // TODO: reintegrate DND for bedtime mode
+        //  and integrate sleep-tracking (perhaps from https://github.com/Sopamo/sleepminder/)
         showLaunchNotification(context, text);
 
         Intent off = new Intent(context, BedtimeService.class);

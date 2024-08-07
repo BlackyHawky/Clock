@@ -1360,4 +1360,36 @@
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
     <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
+
+    <!-- Sleep Strings -->
+    <string name="sleep_choose">Choose another sound</string>
+    <string name="sleep_sound">Sleep sound</string>
+    <string name="bedtime_schedule">Schedule</string>
+    <string name="play_lullaby">Play sleep sound</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="lullaby_playing">Sleep sound is playing</string>
+    <string name="stop_lullaby">Stop sleep sound</string>
+
+    <!-- Entries listed in the ListPreference when invoking the lullaby duration preference -->
+    <string-array name="array_sleep_length">
+        <item>10 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>40 minutes</item>
+        <item>50 minutes</item>
+        <item>1 hour</item>
+    </string-array>
+
+    <!-- Values that are retrieved from the ListPreference. These must match
+         the array_sleep_length above. -->
+    <string-array name="array_sleep_length_values" translatable="false">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+    </string-array>
+
 </resources>

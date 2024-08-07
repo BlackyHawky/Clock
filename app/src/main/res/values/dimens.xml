@@ -8,6 +8,7 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
+    <dimen name="ringtone_image_size">60dp</dimen>
     <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>

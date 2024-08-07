@@ -4,7 +4,9 @@ package com.best.deskclock.bedtime.beddata;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 
 public class DataSaver {
@@ -17,16 +19,24 @@ public class DataSaver {
     private static final String KEY_NOTIFICATION_SHOW_TIME = PREF_BASE + "notificationShowTime";
     private static final String KEY_DAYS_OF_WEEK = PREF_BASE + "daysOfWeek";
     private static final String KEY_TURN_OFF_ALARM = PREF_BASE + "turnoffAlarm";
+    private static final String SLEEP_BASE = PREF_BASE + "SLEEP.";
+    private static final String KEY_SLEEP_URI = SLEEP_BASE + "sleepUri";
+    private static final String KEY_SLEEP_LENGTH = SLEEP_BASE + "sleepLength";
 
     private static DataSaver instance;
     private final Context context;
 
+    // bedtime mode timing
     public boolean enabled = false;
     public int hour;
     public int minutes;
     public int notificationShowTime;
     public Weekdays daysOfWeek;
     public boolean turnoffAlarm = false;
+
+    // for lullaby
+    public Uri sleepUri = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
+    public int sleepLength = 10;
 
     private DataSaver(Context context) {
         this.context = context;
@@ -49,6 +59,8 @@ public class DataSaver {
         editor.putInt(KEY_NOTIFICATION_SHOW_TIME, notificationShowTime);
         editor.putInt(KEY_DAYS_OF_WEEK, daysOfWeek.getBits());
         editor.putBoolean(KEY_TURN_OFF_ALARM, turnoffAlarm);
+        editor.putString(KEY_SLEEP_URI, sleepUri.toString());
+        editor.putInt(KEY_SLEEP_LENGTH, sleepLength);
         editor.apply();
     }
 
@@ -61,6 +73,8 @@ public class DataSaver {
         notificationShowTime = preferences.getInt(KEY_NOTIFICATION_SHOW_TIME, 15);
         daysOfWeek = Weekdays.fromBits(preferences.getInt(KEY_DAYS_OF_WEEK, 31));
         turnoffAlarm = preferences.getBoolean(KEY_TURN_OFF_ALARM, false);
+        sleepUri = Uri.parse(preferences.getString(KEY_SLEEP_URI, DataModel.getDataModel().getAlarmRingtoneUriFromSettings().toString()));// TODO: the default alarm sound isn't a nice Uri to begin sleeping
+        sleepLength = preferences.getInt(KEY_SLEEP_LENGTH, sleepLength);
     }
 }
 

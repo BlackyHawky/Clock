@@ -22,8 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -40,6 +42,7 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.bedtime.beddata.DataSaver;
+import com.best.deskclock.bedtime.lullaby.LullabyService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
@@ -49,6 +52,8 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.TextTime;
 import com.best.deskclock.widget.toast.SnackbarManager;
+import com.best.music.AbstractPlayerService;
+import com.best.music.MediaUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
@@ -95,6 +100,12 @@ public final class BedtimeFragment extends DeskClockFragment {
     Spinner mNotificationList;
     Alarm mAlarm;
 
+    ImageView mSoundImageView;
+    TextView mSoundTitle;
+    ImageButton mSleepPlay;
+    Spinner mSleepLength;
+    Button mSleepChoose;
+
     /**
      * The public no-arg constructor required by all fragments.
      */
@@ -110,7 +121,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         mBedtimeView = view.findViewById(R.id.bedtime_view);
         mMainLayout = view.findViewById(R.id.main);
 
-        MaterialCardView bedtimeCardView = view.findViewById(R.id.bedtime_card_view);
+        MaterialCardView bedtimeCardView = view.findViewById(R.id.bedtime_card);
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
         if (isCardBackgroundDisplayed) {
             bedtimeCardView.setCardBackgroundColor(
@@ -155,6 +166,24 @@ public final class BedtimeFragment extends DeskClockFragment {
 
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, null, mMainLayout);
 
+        mSoundImageView = view.findViewById(R.id.ringtone_image);
+        mSoundTitle = view.findViewById(R.id.ringtone_name);
+        mSleepLength = view.findViewById(R.id.sleep_spinner);
+        //TODO: replace this spinner with a time
+        mSaver = DataSaver.getInstance(mContext);
+        mSaver.restore();
+        bindSleep();
+        mSleepChoose = view.findViewById(R.id.sleep_choose);
+        mSleepChoose.setOnClickListener(v -> {
+            startActivity(RingtonePickerActivity.createSleepSoundPickerIntent(mContext));
+        });
+        mSleepPlay = view.findViewById(R.id.sleep_play);
+        mSleepPlay.setOnClickListener(v -> {
+            Intent i = new Intent(mContext, LullabyService.class);
+            i.setAction(AbstractPlayerService.ACTION_PLAY);
+            mContext.startService(i);
+        });
+
         return view;
     }
 
@@ -176,6 +205,7 @@ public final class BedtimeFragment extends DeskClockFragment {
         } else {
             mEmptyViewController.setEmpty(true);
         }
+        bindSleep();
 
         // Necessary if from the bedtime view we go to the settings, change one of these settings
         // and return to the bedtime view
@@ -651,6 +681,33 @@ public final class BedtimeFragment extends DeskClockFragment {
         });
     }
 
+    // sleep stuff
+
+    private void bindSleep(){
+        bindSleepTone();
+        mSleepLength.setAdapter(ArrayAdapter.createFromResource(mContext,
+                R.array.array_sleep_length, R.layout.spinner_item));
+        mSleepLength.setSelection(getSpinnerPosition(mSaver.sleepLength,
+                mContext.getResources().getStringArray(R.array.array_sleep_length_values)));
+    }
+    private void bindSleepTone(){
+        DataModel dataModel = DataModel.getDataModel();
+        mSoundTitle.setText(dataModel.getRingtoneTitle(mSaver.sleepUri));
+        Drawable d = mContext.getDrawable(MediaUtils.resolveLocalUriImage(mSaver.sleepUri.toString()));
+        d.setTint(mContext.getColor(R.color.md_theme_surface));
+        /*String imageUri = MediaUtils.getArtworkUri(mContext, mSaver.sleepUri);
+        if (imageUri != null && Uri.parse(imageUri) != null) {
+            Picasso cropper = Picasso.get();
+            cropper.load(Uri.parse(imageUri))
+                    .placeholder(d)
+                    .resizeDimen(R.dimen.ringtone_image_size, R.dimen.ringtone_image_size)
+                    .centerCrop()
+                    .into(mSoundImageView);
+        } else {*/
+            mSoundImageView.setImageDrawable(d);
+//        }
+    }
+    //TODO: implement sleep-timers with common media support(songs, albums, artists and playlists) in here
     private void onTimeSet(int hourOfDay, int minute) {
         if (mClock == mBottomSheetDialog.findViewById(R.id.wakeup_time)) {
             Alarm selectedAlarm = getWakeupAlarm();
