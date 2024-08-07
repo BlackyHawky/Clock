@@ -488,6 +488,7 @@
         <item>1 heure</item>
     </string-array>
     <string name="keep_timer_screen_on_title">Maintenir l\'écran allumé si un minuteur est affiché</string>
+    <string name="transparent_background_for_expired_timer_title">Arrière-plan transparent à l\'expiration des minuteurs</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs interrompus"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>

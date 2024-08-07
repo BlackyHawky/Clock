@@ -502,6 +502,13 @@ final class TimerModel {
         return mSettingsModel.shouldTimerDisplayRemainOn();
     }
 
+    /**
+     * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
+     */
+    boolean isTimerBackgroundTransparent() {
+        return mSettingsModel.isTimerBackgroundTransparent();
+    }
+
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mPrefs);

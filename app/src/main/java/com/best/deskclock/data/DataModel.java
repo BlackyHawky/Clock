@@ -580,6 +580,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
+     */
+    public boolean isTimerBackgroundTransparent() {
+        enforceMainLooper();
+        return mTimerModel.isTimerBackgroundTransparent();
+    }
+
+    /**
      * @return the uri of the default ringtone from the settings to play for all alarms when no user selection exists
      */
     public Uri getDefaultAlarmRingtoneUriFromSettings() {

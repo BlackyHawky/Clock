@@ -47,6 +47,7 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.SATURDAY;
@@ -377,6 +378,13 @@ final class SettingsDAO {
      */
     static boolean shouldTimerDisplayRemainOn(SharedPreferences pref) {
         return pref.getBoolean(TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON, true);
+    }
+
+    /**
+     * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
+     */
+    static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, false);
     }
 
     /**

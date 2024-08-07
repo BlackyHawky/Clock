@@ -31,6 +31,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
     public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
+    public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER =
+            "key_transparent_background_for_expired_timer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
-                case KEY_KEEP_TIMER_SCREEN_ON -> Utils.setVibrationTime(requireContext(), 50);
-
+                case KEY_KEEP_TIMER_SCREEN_ON, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
+                        Utils.setVibrationTime(requireContext(), 50);
             }
 
             return true;
@@ -133,6 +135,13 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     DataModel.getDataModel().shouldTimerDisplayRemainOn()
             );
             keepTimerScreenOnPref.setOnPreferenceChangeListener(this);
+
+            final SwitchPreferenceCompat transparentBackgroundPref =
+                    findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
+            Objects.requireNonNull(transparentBackgroundPref).setChecked(
+                    DataModel.getDataModel().isTimerBackgroundTransparent()
+            );
+            transparentBackgroundPref.setOnPreferenceChangeListener(this);
         }
     }
 }

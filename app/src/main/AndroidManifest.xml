@@ -240,13 +240,14 @@
 
         <activity
             android:name="com.best.deskclock.timer.ExpiredTimersActivity"
-            android:configChanges="screenSize|keyboardHidden|keyboard|navigation"
             android:directBootAware="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:resizeableActivity="false"
             android:showOnLockScreen="true"
+            android:showWhenLocked="true"
             android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock.Wallpaper"
             tools:ignore="DiscouragedApi, NonResizeableActivity" />
 
         <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->

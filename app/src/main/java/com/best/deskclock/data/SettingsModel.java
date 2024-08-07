@@ -209,6 +209,10 @@ final class SettingsModel {
         return SettingsDAO.shouldTimerDisplayRemainOn(mPrefs);
     }
 
+    boolean isTimerBackgroundTransparent() {
+        return SettingsDAO.isTimerBackgroundTransparent(mPrefs);
+    }
+
     AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }

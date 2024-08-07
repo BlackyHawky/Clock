@@ -7,6 +7,8 @@
 package com.best.deskclock.timer;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -72,7 +74,16 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             return;
         }
 
+        hideNavigationBar();
+
+        boolean isTimerBackgroundTransparent = DataModel.getDataModel().isTimerBackgroundTransparent();
+
         setContentView(R.layout.expired_timers_activity);
+
+        if (isTimerBackgroundTransparent) {
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        }
 
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
@@ -129,6 +140,12 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             }
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    private void hideNavigationBar() {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     /**

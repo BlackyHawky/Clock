@@ -65,6 +65,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_transparent_background_for_expired_timer"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/transparent_background_for_expired_timer_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
