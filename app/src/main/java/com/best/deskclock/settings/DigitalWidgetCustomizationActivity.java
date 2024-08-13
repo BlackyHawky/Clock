@@ -17,15 +17,12 @@ import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_DISPLAYED;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.alarmclock.DigitalAppWidgetProvider;
@@ -85,8 +82,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat
-            implements Preference.OnPreferenceChangeListener {
+    public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
 
         private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
@@ -106,8 +102,25 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         SwitchPreferenceCompat mCityNameDefaultColor;
 
         @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
+        public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.settings_customize_digital_widget);
+
+            mShowBackgroundOnDigitalWidget = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
+            mBackgroundColor = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR);
+            mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
+            mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR);
+            mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR);
+            mDateDefaultColor = findPreference(KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
+            mDateCustomColor = findPreference(KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR);
+            mNextAlarmDefaultColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR);
+            mNextAlarmCustomColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR);
+            mCityClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR);
+            mCityClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR);
+            mCityNameDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR);
+            mCityNameCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR);
+            mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
 
             setupPreferences();
 
@@ -123,18 +136,8 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
 
         @Override
-        public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
-            addPreferencesFromResource(R.xml.settings_customize_digital_widget);
-        }
-
-        @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
             updateDigitalWidget();
@@ -274,21 +277,6 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
 
         private void setupPreferences() {
-            mShowBackgroundOnDigitalWidget = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
-            mBackgroundColor = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR);
-            mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
-            mClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR);
-            mClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR);
-            mDateDefaultColor = findPreference(KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
-            mDateCustomColor = findPreference(KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR);
-            mNextAlarmDefaultColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR);
-            mNextAlarmCustomColor = findPreference(KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR);
-            mCityClockDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR);
-            mCityClockCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR);
-            mCityNameDefaultColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR);
-            mCityNameCustomColor = findPreference(KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR);
-            mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
-
             mShowBackgroundOnDigitalWidget.setChecked(DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget());
             mBackgroundColor.setVisible(mShowBackgroundOnDigitalWidget.isChecked());
 

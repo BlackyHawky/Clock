@@ -4,14 +4,12 @@ package com.best.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
@@ -26,11 +24,11 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "clock_settings_fragment";
 
-    public static final String KEY_CLOCK_STYLE = "clock_style";
-    public static final String KEY_CLOCK_DISPLAY_SECONDS = "display_clock_seconds";
-    public static final String KEY_HOME_TIME_ZONE = "home_time_zone";
-    public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
-    public static final String KEY_DATE_TIME = "date_time";
+    public static final String KEY_CLOCK_STYLE = "key_clock_style";
+    public static final String KEY_CLOCK_DISPLAY_SECONDS = "key_display_clock_seconds";
+    public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
+    public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
+    public static final String KEY_DATE_TIME = "key_date_time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +42,23 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat implements
+    public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         ListPreference mHomeTimeZonePref;
 
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings_clock);
+
             loadTimeZoneList();
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }

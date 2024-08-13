@@ -29,8 +29,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.color.MaterialColors;
 
 public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity {
 
@@ -53,6 +56,9 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.permissions_management_activity);
+
+        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
 
         mIgnoreBatteryOptimizationsView = findViewById(R.id.IBO_view);
         mIgnoreBatteryOptimizationsView.setOnClickListener(v -> launchIgnoreBatteryOptimizationsSettings());
@@ -78,6 +84,31 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         );
         mNotificationStatus = findViewById(R.id.notification_status_text);
 
+        if (isCardBackgroundDisplayed) {
+            mIgnoreBatteryOptimizationsView.setCardBackgroundColor(
+                    MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+            mNotificationView.setCardBackgroundColor(
+                    MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+            );
+
+        } else {
+            mIgnoreBatteryOptimizationsView.setCardBackgroundColor(Color.TRANSPARENT);
+            mNotificationView.setCardBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (isCardBorderDisplayed) {
+            mIgnoreBatteryOptimizationsView.setStrokeWidth(Utils.toPixel(2, this));
+            mIgnoreBatteryOptimizationsView.setStrokeColor(
+                    MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+
+            mNotificationView.setStrokeWidth(Utils.toPixel(2, this));
+            mNotificationView.setStrokeColor(
+                    MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+            );
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             mFullScreenNotificationsView = findViewById(R.id.FSN_view);
             mFullScreenNotificationsView.setVisibility(View.VISIBLE);
@@ -91,6 +122,22 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                             .show()
             );
             mFullScreenNotificationsStatus = findViewById(R.id.FSN_status_text);
+
+            if (isCardBackgroundDisplayed) {
+                mFullScreenNotificationsView.setCardBackgroundColor(
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+                );
+            } else {
+                mFullScreenNotificationsView.setCardBackgroundColor(Color.TRANSPARENT);
+            }
+
+            if (isCardBorderDisplayed) {
+                mFullScreenNotificationsView.setStrokeWidth(Utils.toPixel(2, this));
+                mFullScreenNotificationsView.setStrokeColor(
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
+                );
+            }
+
         }
 
         grantPowerOffPermission();

@@ -9,13 +9,13 @@
     android:title="@string/about_title">
 
     <Preference
-        android:key="about_title"
+        android:key="key_about_title"
         android:layout="@layout/settings_about_title"
         android:selectable="false"
         tools:title="@string/app_label" />
 
     <Preference
-        android:key="about_version"
+        android:key="key_about_version"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/version"
         android:summary="@string/version_text"
@@ -25,14 +25,14 @@
         tools:summary="1.0" />
 
     <Preference
-        android:key="about_whats_new"
+        android:key="key_about_whats_new"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/whats_new_title"
         android:icon="@drawable/ic_about_update"
         app:singleLineTitle="false" />
 
     <Preference
-        android:key="about_features"
+        android:key="key_about_features"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/features_title"
         android:icon="@drawable/ic_about_features"

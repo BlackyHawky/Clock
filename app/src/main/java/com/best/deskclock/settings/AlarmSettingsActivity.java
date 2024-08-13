@@ -6,14 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -29,22 +27,23 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "alarm_settings_fragment";
 
-    public static final String KEY_DEFAULT_ALARM_RINGTONE = "default_alarm_ringtone";
-    public static final String KEY_AUTO_SILENCE = "auto_silence";
-    public static final String KEY_ALARM_SNOOZE = "snooze_duration";
-    public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
+    public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
+    public static final String KEY_AUTO_SILENCE = "key_auto_silence";
+    public static final String KEY_ALARM_SNOOZE = "key_snooze_duration";
+    public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
+    public static final String KEY_ALARM_CRESCENDO = "key_alarm_crescendo_duration";
     public static final String KEY_SWIPE_ACTION = "key_swipe_action";
-    public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
+    public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_POWER_BUTTONS = "power_button";
+    public static final String KEY_POWER_BUTTONS = "key_power_button";
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_FLIP_ACTION = "flip_action";
-    public static final String KEY_SHAKE_ACTION = "shake_action";
-    public static final String KEY_WEEK_START = "week_start";
+    public static final String KEY_FLIP_ACTION = "key_flip_action";
+    public static final String KEY_SHAKE_ACTION = "key_shake_action";
+    public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
@@ -63,25 +62,25 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat implements
+    public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefault;
 
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings_alarm);
+
+            mEnableAlarmVibrationsByDefault = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
+
             hidePreferences();
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }
@@ -139,8 +138,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void hidePreferences() {
-            mEnableAlarmVibrationsByDefault = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
-            assert mEnableAlarmVibrationsByDefault != null;
             final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefault.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mEnableAlarmVibrationsByDefault.setVisible(hasVibrator);

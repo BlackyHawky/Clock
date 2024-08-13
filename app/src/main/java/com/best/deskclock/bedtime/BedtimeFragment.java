@@ -120,8 +120,8 @@ public final class BedtimeFragment extends DeskClockFragment {
             bedtimeCardView.setCardBackgroundColor(Color.TRANSPARENT);
         }
 
-        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
-        if (isCardBackgroundBorderDisplayed) {
+        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+        if (isCardBorderDisplayed) {
             bedtimeCardView.setStrokeWidth(Utils.toPixel(2, mContext));
             bedtimeCardView.setStrokeColor(
                     MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorPrimary, Color.BLACK)

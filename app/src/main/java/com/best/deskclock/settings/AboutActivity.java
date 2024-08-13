@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 /**
@@ -22,6 +19,8 @@ import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 public final class AboutActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "about_fragment";
+
+    public static final String KEY_ABOUT_TITLE = "key_about_title";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -35,26 +34,22 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat {
+    public static class PrefsFragment extends ScreenFragment {
 
         @Override
-        public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings_about);
+
             setupTitle();
             setupVersion();
             setupWhatsNew();
             setupMainFeatures();
         }
 
-        @Override
-        public void onResume() {
-            super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
-        }
-
         private void setupTitle() {
-            Preference title = findPreference("about_title");
+            Preference title = findPreference(KEY_ABOUT_TITLE);
             if (title == null) {
                 return;
             }
@@ -66,7 +61,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupVersion() {
-            Preference version = findPreference("about_version");
+            Preference version = findPreference("key_about_version");
             if (version == null) {
                 return;
             }
@@ -74,7 +69,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupWhatsNew() {
-            Preference whatsNewPreference = findPreference("about_whats_new");
+            Preference whatsNewPreference = findPreference("key_about_whats_new");
             if (whatsNewPreference == null) {
                 return;
             }
@@ -92,7 +87,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupMainFeatures() {
-            Preference featuresPreference = findPreference("about_features");
+            Preference featuresPreference = findPreference("key_about_features");
             if (featuresPreference == null) {
                 return;
             }

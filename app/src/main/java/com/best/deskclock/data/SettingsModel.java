@@ -92,8 +92,8 @@ final class SettingsModel {
         return SettingsDAO.isCardBackgroundDisplayed(mPrefs);
     }
 
-    public boolean isCardBackgroundBorderDisplayed() {
-        return SettingsDAO.isCardBackgroundBorderDisplayed(mPrefs);
+    public boolean isCardBorderDisplayed() {
+        return SettingsDAO.isCardBorderDisplayed(mPrefs);
     }
 
     public boolean isVibrationsEnabled() {

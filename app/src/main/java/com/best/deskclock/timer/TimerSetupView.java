@@ -87,7 +87,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final int marginButtonTop = Utils.toPixel(10, getContext());
         final int marginButtonBottom = Utils.toPixel(10, getContext());
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
+        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
 
         mTimeView = findViewById(R.id.timer_setup_time);
@@ -119,7 +119,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                 digitButton.setStateListAnimator(null);
             }
 
-            if (isCardBackgroundBorderDisplayed) {
+            if (isCardBorderDisplayed) {
                 digitButton.setStrokeWidth(Utils.toPixel(2, getContext()));
                 digitButton.setStrokeColor(ColorStateList.valueOf(
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK))
@@ -156,7 +156,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             mDeleteButton.setStateListAnimator(null);
         }
 
-        if (isCardBackgroundBorderDisplayed) {
+        if (isCardBorderDisplayed) {
             doubleZeroButton.setStrokeWidth(Utils.toPixel(2, getContext()));
             doubleZeroButton.setStrokeColor(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK))

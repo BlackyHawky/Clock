@@ -678,8 +678,8 @@ public class Utils {
             gradientDrawable.setColor(Color.TRANSPARENT);
         }
 
-        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
-        if (isCardBackgroundBorderDisplayed) {
+        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+        if (isCardBorderDisplayed) {
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
             gradientDrawable.setStroke(toPixel(2, context),
                     MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)

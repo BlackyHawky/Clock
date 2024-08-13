@@ -204,10 +204,10 @@ final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the background border should be displayed in a view.
+     * @return whether or not the border should be displayed in a view.
      */
-    static boolean isCardBackgroundBorderDisplayed(SharedPreferences prefs) {
-        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BACKGROUND_BORDER, false);
+    static boolean isCardBorderDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_CARD_BORDER, false);
     }
 
     /**

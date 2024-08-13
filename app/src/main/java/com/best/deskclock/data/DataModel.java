@@ -1008,11 +1008,11 @@ public final class DataModel {
     }
 
     /**
-     * @return whether or not the background border should be displayed in a view.
+     * @return whether or not the border should be displayed in a view.
      */
-    public boolean isCardBackgroundBorderDisplayed() {
+    public boolean isCardBorderDisplayed() {
         enforceMainLooper();
-        return mSettingsModel.isCardBackgroundBorderDisplayed();
+        return mSettingsModel.isCardBorderDisplayed();
     }
 
     /**

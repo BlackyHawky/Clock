@@ -2,13 +2,11 @@ package com.best.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -16,8 +14,6 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
-
-import java.util.Objects;
 
 public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActivity {
 
@@ -47,7 +43,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat
+    public static class PrefsFragment extends ScreenFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         ListPreference mAlarmClockStyle;
@@ -55,22 +51,21 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         String mAnalogClock;
         SwitchPreferenceCompat mDisplaySecondsPref;
         ColorPreference mAlarmSecondsHandColorPref;
+        Preference mPreviewAlarmPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+            addPreferencesFromResource(R.xml.settings_alarm_display);
+
+            mAlarmClockStyle = findPreference(KEY_ALARM_CLOCK_STYLE);
+            mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
+            mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
+            mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
             mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
             mAnalogClock = mAlarmClockStyleValues[0];
-        }
-
-        @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            addPreferencesFromResource(R.xml.settings_alarm_display);
 
             setupPreferences();
         }
@@ -78,8 +73,6 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }
@@ -142,21 +135,16 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-            final Preference previewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
-            Objects.requireNonNull(previewAlarmPref).setOnPreferenceClickListener(this);
+            mPreviewAlarmPref.setOnPreferenceClickListener(this);
         }
 
         private void setupPreferences() {
-            mAlarmClockStyle = findPreference(KEY_ALARM_CLOCK_STYLE);
-            mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
-            mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
             final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(DataModel.getDataModel()
                     .getAlarmClockStyle().toString().toLowerCase());
             // clockStyleIndex == 0 --> analog
             mDisplaySecondsPref.setVisible(clockStyleIndex == 0);
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
-            mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked()
-            );
+            mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
         }
     }
 }

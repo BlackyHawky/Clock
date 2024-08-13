@@ -25,7 +25,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="dark_mode"
+            android:key="key_dark_mode"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/title_dark_theme_mode"
             android:defaultValue="0"
@@ -54,7 +54,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_card_background_border"
+            android:key="key_card_border"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_background_border_title"
             android:summary="@string/display_background_border_summary"

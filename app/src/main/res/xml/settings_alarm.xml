@@ -15,14 +15,14 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:key="default_alarm_ringtone"
+            android:key="key_default_alarm_ringtone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/default_alarm_ringtone_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="auto_silence"
+            android:key="key_auto_silence"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/auto_silence_title"
             android:entries="@array/auto_silence_entries"
@@ -32,7 +32,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="snooze_duration"
+            android:key="key_snooze_duration"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_duration_title"
             android:entries="@array/snooze_duration_entries"
@@ -43,14 +43,14 @@
 
         <!-- Todo: to be reworked to display this settings view in Android Studio -->
         <com.best.deskclock.settings.AlarmVolumePreference
-            android:key="volume_setting"
+            android:key="key_volume_setting"
             android:layout="@layout/settings_preference_seekbar_layout"
             android:title="@string/alarm_volume_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="alarm_crescendo_duration"
+            android:key="key_alarm_crescendo_duration"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
             android:entries="@array/crescendo_entries"
@@ -76,7 +76,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="volume_button_setting"
+            android:key="key_volume_button_setting"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/volume_button_setting_title"
             android:entries="@array/volume_button_setting_entries"
@@ -86,7 +86,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="power_button"
+            android:key="key_power_button"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/power_button_title"
             android:entries="@array/action_setting_entries"
@@ -96,7 +96,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="flip_action"
+            android:key="key_flip_action"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/flip_action_title"
             android:entries="@array/action_setting_entries"
@@ -106,7 +106,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="shake_action"
+            android:key="key_shake_action"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/shake_action_title"
             android:entries="@array/action_setting_entries"
@@ -124,7 +124,7 @@
         app:iconSpaceReserved="false">
 
         <ListPreference
-            android:key="week_start"
+            android:key="key_week_start"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/week_start_title"
             android:entries="@array/week_start_entries"

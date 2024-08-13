@@ -3,16 +3,13 @@
 package com.best.deskclock.settings;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
@@ -31,7 +28,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String SYSTEM_THEME = "0";
     public static final String LIGHT_THEME = "1";
     public static final String DARK_THEME = "2";
-    public static final String KEY_DARK_MODE = "dark_mode";
+    public static final String KEY_DARK_MODE = "key_dark_mode";
     public static final String KEY_DEFAULT_DARK_MODE = "0";
     public static final String KEY_AMOLED_DARK_MODE = "1";
     public static final String KEY_ACCENT_COLOR = "key_accent_color";
@@ -44,7 +41,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String PINK_ACCENT_COLOR = "6";
     public static final String RED_ACCENT_COLOR = "7";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
-    public static final String KEY_CARD_BACKGROUND_BORDER = "key_card_background_border";
+    public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_MISCELLANEOUS_CATEGORY = "key_miscellaneous_category";
     public static final String KEY_VIBRATIONS = "key_vibrations";
 
@@ -60,23 +57,34 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat
-            implements Preference.OnPreferenceChangeListener {
+    public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceChangeListener {
+
+        ListPreference mThemePref;
+        ListPreference mDarkModePref;
+        ListPreference mAccentColorPref;
+        SwitchPreferenceCompat mCardBackgroundPref;
+        SwitchPreferenceCompat mCardBorderPref;
+        SwitchPreferenceCompat mVibrationPref;
 
         @Override
-        public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings_interface_customization);
+
+            mThemePref = findPreference(KEY_THEME);
+            mDarkModePref = findPreference(KEY_DARK_MODE);
+            mAccentColorPref = findPreference(KEY_ACCENT_COLOR);
+            mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
+            mCardBorderPref = findPreference(KEY_CARD_BORDER);
+            mVibrationPref = findPreference(KEY_VIBRATIONS);
+
             hidePreferences();
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }
@@ -126,18 +134,22 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 case KEY_CARD_BACKGROUND -> {
                     final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
                     cardBackgroundPref.setChecked(DataModel.getDataModel().isCardBackgroundDisplayed());
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
+                    if (cardBackgroundPref.isChecked()) {
+                        ThemeController.applyLayoutBackground(ThemeController.LayoutBackground.TRANSPARENT);
+                    } else {
+                        ThemeController.applyLayoutBackground(ThemeController.LayoutBackground.DEFAULT);
+                    }
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
-                case KEY_CARD_BACKGROUND_BORDER -> {
-                    final TwoStatePreference cardBackgroundBorderPref = (TwoStatePreference) pref;
-                    cardBackgroundBorderPref.setChecked(
-                            DataModel.getDataModel().isCardBackgroundBorderDisplayed()
-                    );
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
+                case KEY_CARD_BORDER -> {
+                    final TwoStatePreference cardBorderPref = (TwoStatePreference) pref;
+                    cardBorderPref.setChecked(DataModel.getDataModel().isCardBorderDisplayed());
+                    if (cardBorderPref.isChecked()) {
+                        ThemeController.applyLayoutBorderedSettings(ThemeController.LayoutBorder.BORDERED);
+                    } else {
+                        ThemeController.applyLayoutBorderedSettings(ThemeController.LayoutBorder.DEFAULT);
+                    }
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
@@ -161,26 +173,20 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         }
 
         private void refresh() {
-            final ListPreference themePref = findPreference(KEY_THEME);
-            Objects.requireNonNull(themePref).setSummary(themePref.getEntry());
-            themePref.setOnPreferenceChangeListener(this);
+            mThemePref.setSummary(mThemePref.getEntry());
+            mThemePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference amoledModePref = findPreference(KEY_DARK_MODE);
-            Objects.requireNonNull(amoledModePref).setSummary(amoledModePref.getEntry());
-            amoledModePref.setOnPreferenceChangeListener(this);
+            mDarkModePref.setSummary(mDarkModePref.getEntry());
+            mDarkModePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference colorPref = findPreference(KEY_ACCENT_COLOR);
-            Objects.requireNonNull(colorPref).setSummary(colorPref.getEntry());
-            colorPref.setOnPreferenceChangeListener(this);
+            mAccentColorPref.setSummary(mAccentColorPref.getEntry());
+            mAccentColorPref.setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat cardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
-            Objects.requireNonNull(cardBackgroundPref).setOnPreferenceChangeListener(this);
+            mCardBackgroundPref.setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat cardBackgroundBorderPref = findPreference(KEY_CARD_BACKGROUND_BORDER);
-            Objects.requireNonNull(cardBackgroundBorderPref).setOnPreferenceChangeListener(this);
+            mCardBorderPref.setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat vibrationPref = findPreference(KEY_VIBRATIONS);
-            Objects.requireNonNull(vibrationPref).setOnPreferenceChangeListener(this);
+            mVibrationPref.setOnPreferenceChangeListener(this);
         }
     }
 

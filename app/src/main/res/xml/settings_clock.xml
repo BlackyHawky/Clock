@@ -15,7 +15,7 @@
         app:iconSpaceReserved="false">
 
         <ListPreference
-            android:key="clock_style"
+            android:key="key_clock_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
             android:entries="@array/clock_style_entries"
@@ -25,7 +25,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="display_clock_seconds"
+            android:key="key_display_clock_seconds"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             app:iconSpaceReserved="false"
@@ -40,7 +40,7 @@
         app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
-            android:key="automatic_home_clock"
+            android:key="key_automatic_home_clock"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
@@ -49,7 +49,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="home_time_zone"
+            android:key="key_home_time_zone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/home_time_zone"
             android:entries="@array/timezone_labels"
@@ -58,7 +58,7 @@
             app:singleLineTitle="false" />
 
         <Preference
-            android:key="date_time"
+            android:key="key_date_time"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/open_date_settings"
             app:iconSpaceReserved="false"

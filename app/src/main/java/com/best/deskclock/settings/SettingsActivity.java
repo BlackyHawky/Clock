@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,13 +19,9 @@ import android.text.style.StyleSpan;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
-
-import java.util.Objects;
 
 /**
  * Application settings
@@ -40,12 +35,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
     public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
     public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
-    public static final String KEY_SS_SETTINGS = "screensaver_settings";
+    public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_digital_widget_customization";
     public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION =
             "key_digital_widget_material_you_customization";
-    public static final String KEY_PERMISSIONS_MANAGEMENT = "permissions_management";
+    public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +54,36 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
+    public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
         public static final int REQUEST_CHANGE_SETTINGS = 10;
 
+        Preference mInterfaceCustomizationPref;
+        Preference mClockSettingsPref;
+        Preference mAlarmSettingsPref;
+        Preference mTimerSettingsPref;
+        Preference mScreensaverSettings;
+        Preference mDigitalWidgetCustomizationPref;
+        Preference mDigitalWidgetMaterialYouCustomizationPref;
+        Preference mPermissionsManagement;
         Preference mPermissionMessage;
 
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings);
+
+            mInterfaceCustomizationPref = findPreference(KEY_INTERFACE_CUSTOMIZATION);
+            mClockSettingsPref = findPreference(KEY_CLOCK_SETTINGS);
+            mAlarmSettingsPref = findPreference(KEY_ALARM_SETTINGS);
+            mTimerSettingsPref = findPreference(KEY_TIMER_SETTINGS);
+            mScreensaverSettings = findPreference(KEY_SCREENSAVER_SETTINGS);
+            mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
+            mDigitalWidgetMaterialYouCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
+            mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
+            mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
+
             hidePreferences();
         }
 
@@ -85,8 +98,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public void onResume() {
             super.onResume();
-            int topAndBottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, topAndBottomPadding, 0, topAndBottomPadding);
 
             refresh();
         }
@@ -133,7 +144,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
-                case KEY_SS_SETTINGS -> {
+                case KEY_SCREENSAVER_SETTINGS -> {
                     final Intent screensaverSettingsIntent =
                             new Intent(context, ScreensaverSettingsActivity.class);
                     startActivity(screensaverSettingsIntent);
@@ -166,13 +177,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void hidePreferences() {
-            mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
-
-            if (mPermissionMessage != null) {
-                mPermissionMessage.setVisible(
+            mPermissionMessage.setVisible(
                         PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
-                );
-            }
+            );
         }
 
         private void refresh() {
@@ -192,30 +199,21 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 mPermissionMessage.setOnPreferenceClickListener(this);
             }
 
-            final Preference interfaceCustomizationPref = findPreference(KEY_INTERFACE_CUSTOMIZATION);
-            Objects.requireNonNull(interfaceCustomizationPref).setOnPreferenceClickListener(this);
+            mInterfaceCustomizationPref.setOnPreferenceClickListener(this);
 
-            final Preference clockSettingsPref = findPreference(KEY_CLOCK_SETTINGS);
-            Objects.requireNonNull(clockSettingsPref).setOnPreferenceClickListener(this);
+            mClockSettingsPref.setOnPreferenceClickListener(this);
 
-            final Preference alarmSettingsPref = findPreference(KEY_ALARM_SETTINGS);
-            Objects.requireNonNull(alarmSettingsPref).setOnPreferenceClickListener(this);
+            mAlarmSettingsPref.setOnPreferenceClickListener(this);
 
-            final Preference timerSettingsPref = findPreference(KEY_TIMER_SETTINGS);
-            Objects.requireNonNull(timerSettingsPref).setOnPreferenceClickListener(this);
+            mTimerSettingsPref.setOnPreferenceClickListener(this);
 
-            final Preference screensaverSettings = findPreference(KEY_SS_SETTINGS);
-            Objects.requireNonNull(screensaverSettings).setOnPreferenceClickListener(this);
+            mScreensaverSettings.setOnPreferenceClickListener(this);
 
-            final Preference digitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
-            Objects.requireNonNull(digitalWidgetCustomizationPref).setOnPreferenceClickListener(this);
+            mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
-            final Preference digitalWidgetMaterialYouCustomizationPref =
-                    findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
-            Objects.requireNonNull(digitalWidgetMaterialYouCustomizationPref).setOnPreferenceClickListener(this);
+            mDigitalWidgetMaterialYouCustomizationPref.setOnPreferenceClickListener(this);
 
-            final Preference permissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
-            Objects.requireNonNull(permissionsManagement).setOnPreferenceClickListener(this);
+            mPermissionsManagement.setOnPreferenceClickListener(this);
         }
     }
 }

@@ -15,7 +15,6 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -63,7 +62,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat
+    public static class PrefsFragment extends ScreenFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         ColorPreference mClockColorPref;
@@ -83,18 +82,21 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+            addPreferencesFromResource(R.xml.screensaver_settings);
+
+            mClockStyle = findPreference(KEY_SCREENSAVER_CLOCK_STYLE);
+            mDisplaySecondsPref = findPreference(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
+            mClockDynamicColorPref = findPreference(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
+            mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
+            mSecondsHandColorPref = findPreference(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER);
+            mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
+            mNextAlarmColorPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER);
+            mBoldDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
+            mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
 
             mClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
             mAnalogClock = mClockStyleValues[0];
             mDigitalClock = mClockStyleValues[1];
-        }
-
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            addPreferencesFromResource(R.xml.screensaver_settings);
 
             setupPreferences();
         }
@@ -102,8 +104,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }
@@ -202,16 +202,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         private void setupPreferences() {
-            mClockStyle = findPreference(KEY_SCREENSAVER_CLOCK_STYLE);
-            mDisplaySecondsPref = findPreference(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS);
-            mClockDynamicColorPref = findPreference(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS);
-            mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
-            mSecondsHandColorPref = findPreference(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER);
-            mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
-            mNextAlarmColorPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER);
-            mBoldDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
-            mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
-
             final int screensaverClockIndex = mClockStyle.findIndexOfValue(DataModel.getDataModel()
                     .getScreensaverClockStyle().toString().toLowerCase());
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().areScreensaverClockSecondsDisplayed());

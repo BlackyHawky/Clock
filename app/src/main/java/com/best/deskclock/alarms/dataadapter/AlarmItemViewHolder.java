@@ -73,8 +73,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             );
         }
 
-        final boolean isCardBackgroundBorderDisplayed = DataModel.getDataModel().isCardBackgroundBorderDisplayed();
-        if (isCardBackgroundBorderDisplayed) {
+        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+        if (isCardBorderDisplayed) {
             itemCardView.setStrokeWidth(Utils.toPixel(2, context));
             itemCardView.setStrokeColor(
                     MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)

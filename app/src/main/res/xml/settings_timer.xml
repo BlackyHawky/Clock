@@ -15,14 +15,14 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:key="timer_ringtone"
+            android:key="key_timer_ringtone"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_sound"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
         <ListPreference
-            android:key="timer_crescendo_duration"
+            android:key="key_timer_crescendo_duration"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
             android:entries="@array/crescendo_entries"
@@ -32,7 +32,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="timer_vibrate"
+            android:key="key_timer_vibrate"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_vibrate_title"
             android:defaultValue="false"

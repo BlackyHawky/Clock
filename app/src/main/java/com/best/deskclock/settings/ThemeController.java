@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -39,6 +40,8 @@ public class ThemeController {
     private static boolean initialized = false;
     private static DarkMode darkMode = DarkMode.DEFAULT_DARK_MODE;
     private static AccentColor accentColor = AccentColor.DEFAULT;
+    private static LayoutBackground layoutBackground = LayoutBackground.DEFAULT;
+    private static LayoutBorder layoutBorder = LayoutBorder.DEFAULT;
 
     /**
      * To initialize this class in the application class.
@@ -63,7 +66,7 @@ public class ThemeController {
     }
 
     /**
-     * Store a selected accent color mode in the static field and trigger recreation for all the activities.
+     * Store a selected accent color in the static field and trigger recreation for all the activities.
      * @param accentColor Accent color to use.
      */
     public static void applyAccentColor(AccentColor accentColor) {
@@ -73,11 +76,38 @@ public class ThemeController {
         }
     }
 
+    /**
+     * Store the boolean value of the "Display card backgrounds" setting in the static field
+     * and trigger recreation for all the activities.
+     * @param layoutBackground Display or hide backgrounds.
+     */
+    public static void applyLayoutBackground(LayoutBackground layoutBackground) {
+        ThemeController.layoutBackground = layoutBackground;
+        for (Activity activity : activities) {
+            // We add a small delay to give the settings switch button a clean animation.
+            new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
+        }
+    }
+
+    /**
+     * Store the boolean value of the "Display background borders" setting in the static field
+     * and trigger recreation for all the activities.
+     * @param layoutBorder Display or hide background borders.
+     */
+    public static void applyLayoutBorderedSettings(LayoutBorder layoutBorder) {
+        ThemeController.layoutBorder = layoutBorder;
+        for (Activity activity : activities) {
+            // We add a small delay to give the settings switch button a clean animation.
+            new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
+        }
+    }
+
     private static class ActivityCallbacks implements Application.ActivityLifecycleCallbacks {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
             final String getTheme = DataModel.getDataModel().getTheme();
             final String getColor = DataModel.getDataModel().getAccentColor();
+
             if (Utils.isNight(activity.getResources())) {
                 switch (darkMode) {
                     case DEFAULT_DARK_MODE -> {
@@ -89,53 +119,76 @@ public class ThemeController {
                             case DARK_THEME ->
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         }
+                        activities.add(activity);
                     }
 
                     case AMOLED -> {
                         if (!getTheme.equals(SYSTEM_THEME)) {
                             activity.setTheme(R.style.AmoledTheme);
                         }
+                        activities.add(activity);
                     }
                 }
             }
 
             switch (accentColor) {
                 case DEFAULT -> {
-                    if (getColor.equals(DEFAULT_ACCENT_COLOR))
+                    if (getColor.equals(DEFAULT_ACCENT_COLOR)) {
                         activity.setTheme(R.style.DefaultColor);
+                    }
+                    activities.add(activity);
                 }
                 case BLUE_GRAY -> {
-                    if (getColor.equals(BLUE_GRAY_ACCENT_COLOR))
+                    if (getColor.equals(BLUE_GRAY_ACCENT_COLOR)) {
                         activity.setTheme(R.style.BlueGrayAccentColor);
+                    }
+                    activities.add(activity);
                 }
                 case BROWN -> {
-                    if (getColor.equals(BROWN_ACCENT_COLOR))
+                    if (getColor.equals(BROWN_ACCENT_COLOR)) {
                         activity.setTheme(R.style.BrownAccentColor);
+                    }
+                    activities.add(activity);
                 }
                 case GREEN -> {
-                    if (getColor.equals(GREEN_ACCENT_COLOR))
+                    if (getColor.equals(GREEN_ACCENT_COLOR)) {
                         activity.setTheme(R.style.GreenAccentColor);
+                    }
+                    activities.add(activity);
                 }
                 case INDIGO -> {
                     if (getColor.equals(INDIGO_ACCENT_COLOR)) {
                         activity.setTheme(R.style.IndigoAccentColor);
                     }
+                    activities.add(activity);
                 }
                 case ORANGE -> {
-                    if (getColor.equals(ORANGE_ACCENT_COLOR))
+                    if (getColor.equals(ORANGE_ACCENT_COLOR)) {
                         activity.setTheme(R.style.OrangeAccentColor);
+                    }
+                    activities.add(activity);
                 }
                 case PINK -> {
-                    if (getColor.equals(PINK_ACCENT_COLOR))
+                    if (getColor.equals(PINK_ACCENT_COLOR)) {
                         activity.setTheme(R.style.PinkAccentColor);
+                    }
+                    activities.add(activity);
                 }
                 case RED -> {
-                    if (getColor.equals(RED_ACCENT_COLOR))
+                    if (getColor.equals(RED_ACCENT_COLOR)) {
                         activity.setTheme(R.style.RedAccentColor);
+                    }
+                    activities.add(activity);
                 }
             }
 
-            activities.add(activity);
+            switch (layoutBackground) {
+                case DEFAULT, TRANSPARENT -> activities.add(activity);
+            }
+
+            switch (layoutBorder) {
+                case DEFAULT, BORDERED -> activities.add(activity);
+            }
         }
 
         @Override
@@ -163,4 +216,6 @@ public class ThemeController {
 
     public enum DarkMode {DEFAULT_DARK_MODE, AMOLED}
     public enum AccentColor {DEFAULT, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
+    public enum LayoutBackground {DEFAULT, TRANSPARENT}
+    public enum LayoutBorder {DEFAULT, BORDERED}
 }

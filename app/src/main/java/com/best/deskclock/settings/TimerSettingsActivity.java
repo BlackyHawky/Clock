@@ -3,14 +3,12 @@
 package com.best.deskclock.settings;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
@@ -26,9 +24,9 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "timer_settings_fragment";
 
-    public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
-    public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
-    public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
+    public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
+    public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
+    public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
     public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER =
@@ -46,25 +44,25 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         }
     }
 
-    public static class PrefsFragment extends PreferenceFragmentCompat implements
+    public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         Preference mTimerVibrate;
 
         @Override
-        public void onCreatePreferences(Bundle bundle, String rootKey) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                getPreferenceManager().setStorageDeviceProtected();
-            }
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings_timer);
+
+            mTimerVibrate = findPreference(KEY_TIMER_VIBRATE);
+
             hidePreferences();
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            int bottomPadding = Utils.toPixel(20, requireContext());
-            getListView().setPadding(0, 0, 0, bottomPadding);
 
             refresh();
         }
@@ -108,8 +106,6 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void hidePreferences() {
-            mTimerVibrate = findPreference(KEY_TIMER_VIBRATE);
-            assert mTimerVibrate != null;
             final boolean hasVibrator = ((Vibrator) mTimerVibrate.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mTimerVibrate.setVisible(hasVibrator);
