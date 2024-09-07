@@ -22,7 +22,7 @@
             android:id="@+id/IBO_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,7 +118,7 @@
             android:id="@+id/notification_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -215,7 +215,7 @@
             android:id="@+id/FSN_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone"
             app:strokeWidth="0dp"
             tools:visibility="visible">

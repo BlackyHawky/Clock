@@ -39,7 +39,8 @@ public class ScreenFragment extends PreferenceFragmentCompat {
     public void onResume() {
         super.onResume();
         int bottomPadding = Utils.toPixel(20, requireContext());
-        getListView().setPadding(0, 0, 0, bottomPadding);
+        int topPadding = Utils.toPixel(10, requireContext());
+        getListView().setPadding(0, topPadding, 0, bottomPadding);
     }
 
     @Override

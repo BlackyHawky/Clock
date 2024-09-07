@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:minHeight="80dp"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="5dp"
+    android:layout_marginVertical="4dp"
     app:strokeWidth="2dp"
     app:strokeColor="?colorPrimary">
 

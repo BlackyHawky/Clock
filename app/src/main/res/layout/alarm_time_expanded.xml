@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="5dp"
+    android:layout_marginVertical="4dp"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,12 +62,11 @@
         <LinearLayout
             android:id="@+id/days_of_week_layout"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="24dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/onoff"
-            app:layout_constraintTop_toBottomOf="@id/digital_clock"
-            app:layout_constraintBottom_toTopOf="@id/repeat_days_alarm">
+            app:layout_constraintTop_toBottomOf="@id/digital_clock">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/days_of_week"
@@ -99,7 +98,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/digital_clock"
             app:layout_constraintBottom_toBottomOf="@+id/days_of_week_layout" />
 
         <!-- Day buttons are put here programmatically -->
@@ -109,7 +107,7 @@
             android:layout_height="60dp"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/onoff" />
+            app:layout_constraintTop_toBottomOf="@id/days_of_week_layout" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/choose_ringtone"

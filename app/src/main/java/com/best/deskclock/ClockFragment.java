@@ -401,7 +401,7 @@ public final class ClockFragment extends DeskClockFragment {
                 final int marginLeft = Utils.toPixel(10, context);
                 final int marginRight = Utils.toPixel(10, context);
                 final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
-                        ? Utils.toPixel(10, context)
+                        ? Utils.toPixel(8, context)
                         : Utils.toPixel(0, context);
                 params.setMargins(marginLeft, 0, marginRight, marginBottom);
                 itemView.setLayoutParams(params);
