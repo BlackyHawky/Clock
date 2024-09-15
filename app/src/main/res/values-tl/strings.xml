@@ -105,6 +105,7 @@
         <item msgid="2855948657259647629">"15 minuto"</item>
         <item msgid="6330196381284475079">"20 minuto"</item>
         <item msgid="7809240121716151904">"25 minuto"</item>
+        <item>The end of the ringtone</item>
         <item msgid="4278641338024561333">"Hindi Kailanman"</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -149,6 +150,7 @@
         <item msgid="1695830988496463030">"28 minuto"</item>
         <item msgid="6706610539793025916">"29 na minuto"</item>
         <item msgid="2898212818965905529">"30 minuto"</item>
+        <item>None</item>
     </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Simulan ang linggo sa"</string>
     <string-array name="week_start_entries">

@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Relógio"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
@@ -105,6 +103,7 @@
         <item msgid="2855948657259647629">"15 minutos"</item>
         <item msgid="6330196381284475079">"20 minutos"</item>
         <item msgid="7809240121716151904">"25 minutos"</item>
+        <item>The end of the ringtone</item>
         <item msgid="4278641338024561333">"Nunca"</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -149,6 +148,7 @@
         <item msgid="1695830988496463030">"28 minutos"</item>
         <item msgid="6706610539793025916">"29 minutos"</item>
         <item msgid="2898212818965905529">"30 minutos"</item>
+        <item>None</item>
     </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Começar a semana em"</string>
     <string-array name="week_start_entries">
@@ -218,7 +218,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Você é o rei da velocidade."</item>
         <item msgid="6332879039890727169">"Colha os frutos de seu trabalho."</item>
@@ -392,4 +392,42 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Escolher qual alarme dispensar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nenhum alarme disparando"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarme <xliff:g id="ALARM_TIME">%s</xliff:g> adiado por 10 minutos"</string>
+    <string name="title_dark_theme_mode">Tema AMOLED</string>
+    <string name="power_button_title">Botão de ligar</string>
+    <string name="alarm_inactive">Desligado</string>
+    <string name="selected">Selecionado</string>
+    <string name="more_options">Mais opções</string>
+    <string name="analog_gadget_material_you">Relógio analógico com Material You</string>
+    <string name="digital_gadget_material_you">Relógio digital com Material You</string>
+    <string name="color_picker_default_button">Padrão</string>
+    <string name="display_background_border_summary">Mostra a borda do plano de fundo para elementos do app (alarmes, cidades, botão do temporizador, etc.)</string>
+    <string name="settings_vibration_summary">Apenas alguns botões da interface são afetados (ex: o botão play/pause ou os interruptores do temporizador)</string>
+    <string name="settings_vibration_title">Habilitar vibrações</string>
+    <string name="title_accent_color">Cor do acento</string>
+    <string name="duplicate">Duplicar</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dispensar alarme quando o toque terminar</string>
+    <string name="enable_alarm_snooze_actions_label">Habilitar ações do alarme soneca</string>
+    <string name="alarm_label_box_title">Nome do Alarme</string>
+    <string name="interface_customization_settings">Interface</string>
+    <string name="interface_customization_summary">Ajustar o estilo e cor aplicados para o app</string>
+    <string name="title_theme">Tema</string>
+    <string name="display_card_background_title">Mostrar plano de fundo do card</string>
+    <string name="display_card_background_summary">Mostra um plano de fundo para alguns elementos do app (alarmes, cidades, botão do temporizador, etc.)</string>
+    <string name="display_background_border_title">Mostrar as bordas do plano de fundo</string>
+    <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Habilitar vibrações quando criar alarmes</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">O fim do toque</string>
+    <string name="add_label">Adicionar nome</string>
+    <string name="interface_customization_title">Personalizar a interface</string>
+    <string name="style_category_title">Estilo</string>
+    <string name="styles_and_colors_category_title">Estilo e cores</string>
+    <string name="font_category_title">Fonte</string>
+    <string name="miscellaneous_category_title">Variadas</string>
+    <string name="ringtone_category_title">Toque</string>
+    <string name="actions_category_title">Ações</string>
+    <string name="menu_bedtime">Hora de dormir</string>
+    <string name="settings_permission_message">Uma ou mais permissões essenciais foram recusadas. Não as permitindo pode levar à mal funcionamento.</string>
+    <string name="settings_permission_summary">Toque aqui para mostrar a Página de gerenciamento de permissões.</string>
+    <string name="material_time_picker_style_title">Estilo do seletor de horário</string>
+    <string name="swipe_action_title">Deslize para dispensar ou para soneca</string>
 </resources>

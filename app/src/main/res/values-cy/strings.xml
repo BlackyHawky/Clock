@@ -141,6 +141,7 @@
         <item>15 munud</item>
         <item>20 munud</item>
         <item>25 munud</item>
+        <item>The end of the ringtone</item>
         <item>Byth</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -185,6 +186,7 @@
         <item>28 munud</item>
         <item>29 munud</item>
         <item>30 munud</item>
+        <item>None</item>
     </string-array>
     <string name="week_start_title">Dechrau\'r wythnos ar</string>
     <string-array name="week_start_entries">

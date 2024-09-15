@@ -1,0 +1,25 @@
+Uhr ist eine die Privatsphäre schützende Uhr, die auf AOSP basiert. Die erwendet nicht die Internet-Nerevhtigung, läuft also zu 100% lokal.
+
+Merkmale:
+<ul>
+  <li>Schüttle oder drehe das Gerät, um einen Alarm zu beenden oder zu schlummern;</li>
+  <li>Beende oder schlummere einen Alarm mit Einschalt- oder Lautstärketasten;</li>
+  <li>Auf Telefonen mit Snapdragon-SoC wird der Alarm auch aktiviert, wenn das Gerät ausgeschaltet ist ;</li>
+  <li>Wische, um einen Alarm zu löschen;</li>
+  <li>Dupliziere Alarme;</li>
+  <li>Anpassbarer Titel für Alarme;</li>
+  <li>Anpassbarer Klingelton;</li>
+  <li>Light, dark or system theme;</li>
+  <li>AMOLED Modus für dunklen Anzeigemodus;</li>
+  <li>Anpassbare Oberfläche;</li>
+  <li>Digitale oder analoge Uhr;</li>
+  <li>Auf Reisen Heimat-Zeitzone anzeigen;</li>
+  <li>Namen von Städten rund um die Welt anzeigen;</li>
+  <li>Countdown, Wecker und Schlafmodus<i>(experimentell)</i> verfügbar;</li>
+  <li>Möglichkeit, die Stoppuhr mit Adressbuch-Kontakten zu teilen;</li>
+  <li>Anpassbare Bildschirmschoner;</li>
+  <li>Moderne Widgets;</li>
+  <li>Anpassbare Digital-Widgets;</li>
+  <li>Material design;</li>
+  <li>Dynamische Farben für Android 12+;</li>
+</ul>

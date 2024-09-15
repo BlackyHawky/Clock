@@ -1,0 +1,26 @@
+Kell on AOSP'l põhinev privaatsusteadlik kellarakendus.
+Võrguühenduse luba pole vaja rakendus toimib 100% vallasrežiimis.
+
+Funktsionaalsused:
+<ul>
+  <li>Pööramise ja raputamisega saad äratuse katkestada või edasi lükata;</li>
+  <li>Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata;</li>
+  <li>Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud;</li>
+  <li>Viipamisega saad äratuse kustutada;</li>
+  <li>Äratusest saad teha koopiaid;</li>
+  <li>Äratuse nime saad kohendada;</li>
+  <li>Äratuse helinat saad kohendada;</li>
+  <li>Hele, tume ja süsteemi kujundus;</li>
+  <li>AMOLED-režiim tumedas kujunduses;</li>
+  <li>Muudetav kasutajaliides;</li>
+  <li>Digikella või sihverplaadiga kella välimused;</li>
+  <li>Reisimisel muudes ajavööndites kuvatakse kellaaega kodus;</li>
+  <li>Näita kellaaegu linnades üle maailma;</li>
+  <li>Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>;</li>
+  <li>Stopperi aja jagamise võimalus oma kontaktidega;</li>
+  <li>Kohandatav ekraanisäästja;</li>
+  <li>Moodsad vidinad;</li>
+  <li>Kohandatavad digividinad;</li>
+  <li>Material design;</li>
+  <li>Dünaamilised värvid Android 12+ puhul;</li>
+</ul>

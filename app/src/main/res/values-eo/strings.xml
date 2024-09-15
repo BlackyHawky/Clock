@@ -28,6 +28,7 @@
         <item>15 minutoj</item>
         <item>20 minutoj</item>
         <item>25 minutoj</item>
+        <item>The end of the ringtone</item>
         <item>Neniam</item>
     </string-array>
     <string-array name="snooze_duration_entries">
@@ -61,6 +62,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <string name="label_description">Etikedo</string>
     <string name="sw_share_button">Konigi</string>

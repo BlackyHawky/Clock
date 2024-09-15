@@ -54,6 +54,7 @@
         <item>15 Minutten</item>
         <item>20 Minutten</item>
         <item>25 Minutten</item>
+        <item>The end of the ringtone</item>
         <item>Ni</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -98,6 +99,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <string name="alarm_volume_title">Weckerlautstäerkt</string>
     <string name="silent_ringtone_title">Roueg</string>

@@ -42,6 +42,7 @@
         <item>15 minutes</item>
         <item>20 minutes</item>
         <item>25 minutes</item>
+        <item>The end of the ringtone</item>
         <item>ھەرگىز</item>
     </string-array>
     <string-array name="snooze_duration_entries">
@@ -75,6 +76,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <string name="alarm_volume_title">قوڭغۇراق ئاۋازى</string>
     <string name="silent_ringtone_title">ئۈنسىز</string>

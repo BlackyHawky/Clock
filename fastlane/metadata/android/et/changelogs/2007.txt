@@ -1,0 +1,10 @@
+**Parandused**
+ - Parandasime taimeri kokkuvõtte „Suurenda helivaljust sammhaaval“ juures
+
+**Täiendused**
+ - Eemaldasime mittevajalikud õigused;
+ - Täiendasime äratust ja taimerit;
+ - Kõikide täienduste loend: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+ **Märkus:**
+ Kuna andmebaas muutus, siis paigalda rakendus uuesti.

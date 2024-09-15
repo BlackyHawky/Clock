@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Óra"</string>
     <string name="default_label" msgid="5590025289805630372">"Ébresztő"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Rezgés"</string>
@@ -105,6 +103,7 @@
         <item msgid="2855948657259647629">"15 perc"</item>
         <item msgid="6330196381284475079">"20 perc"</item>
         <item msgid="7809240121716151904">"25 perc"</item>
+        <item>The end of the ringtone</item>
         <item msgid="4278641338024561333">"Soha"</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -149,6 +148,7 @@
         <item msgid="1695830988496463030">"28 perc"</item>
         <item msgid="6706610539793025916">"29 perc"</item>
         <item msgid="2898212818965905529">"30 perc"</item>
+        <item>None</item>
     </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Hét kezdőnapja"</string>
     <string-array name="week_start_entries">
@@ -218,7 +218,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string-array name="sw_share_strings">
         <item msgid="842841032273927988">"Ön valósággal a sebesség ördöge."</item>
         <item msgid="6332879039890727169">"Élvezze a munkája gyümölcsét."</item>
@@ -405,4 +405,26 @@
     <string name="alarm_upcoming_channel">Következő ébresztések</string>
     <string name="stopwatch_channel">Stopperóra</string>
     <string name="timer_channel">Időzítő</string>
+    <string name="style_category_title">Téma</string>
+    <string name="settings_vibration_title">Rezgések bekapcsolása</string>
+    <string name="dialog_close">Bezárás</string>
+    <string name="font_category_title">Betűtípus</string>
+    <string name="description_direction_left_for_non_repeatable_alarms">Húzd jobbra a kikapcsoláshoz</string>
+    <string name="license">Nyílt-forráskódú Felhasználás</string>
+    <string name="title_theme">Téma</string>
+    <string name="add_label">Címke hozzáadása</string>
+    <string name="selected">Kiválasztott</string>
+    <string name="more_options">Több</string>
+    <string name="whats_new_title">Frissítések</string>
+    <string name="color_picker_default_button">Alapértelmezett</string>
+    <string name="ringtone_category_title">Csengőhang</string>
+    <string name="interface_customization_settings">Felület</string>
+    <string name="title_dark_theme_mode">Sötét téma</string>
+    <string name="title_accent_color">Kiemelő szín</string>
+    <string name="timer_label_box_title">Időzítő címke</string>
+    <string name="timer_button_time_box_title">Percek hozzáadása az időzítőhöz</string>
+    <string name="clock_settings_title">Óra beállítások</string>
+    <string name="power_button_title">Kikapcs. gomb</string>
+    <string name="version">Verzió</string>
+    <string name="about_github_link">Megtekintés a GitHubon</string>
 </resources>

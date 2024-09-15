@@ -52,7 +52,7 @@ android {
         includeInBundle = false
     }
 
-    ndkVersion '26.2.11394342'
+    ndkVersion '27.0.12077973'
 
     namespace 'com.best.deskclock'
 }

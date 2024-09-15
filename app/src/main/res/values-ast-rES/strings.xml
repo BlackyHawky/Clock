@@ -83,6 +83,7 @@
         <item>15 minutos</item>
         <item>20 minutos</item>
         <item>25 minutos</item>
+        <item>The end of the ringtone</item>
         <item>Nunca</item>
     </string-array>
     <string-array name="crescendo_entries">
@@ -127,6 +128,7 @@
         <item>28 minutes</item>
         <item>29 minutes</item>
         <item>30 minutes</item>
+        <item>None</item>
     </string-array>
     <string name="week_start_title">Entamar la selmana el</string>
     <string-array name="week_start_entries">
