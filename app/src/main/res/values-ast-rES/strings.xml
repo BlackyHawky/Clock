@@ -149,6 +149,7 @@
         <item>Posponer l\'alarma</item>
         <item>Escartar</item>
         <item>Controlar volume</item>
+        <item>Nada</item>
     </string-array>
     <string name="label_description">Nome</string>
     <string name="ringtone_description">Timbre</string>

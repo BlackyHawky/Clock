@@ -9,9 +9,13 @@ package com.best.deskclock.data;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 
-import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
-import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
-import static com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
+import static com.best.deskclock.data.DataModel.PowerButtonBehavior.DISMISS;
+import static com.best.deskclock.data.DataModel.PowerButtonBehavior.NOTHING;
+import static com.best.deskclock.data.DataModel.PowerButtonBehavior.SNOOZE;
+import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.CHANGE_VOLUME;
+import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.DISMISS_ALARM;
+import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.DO_NOTHING;
+import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.SNOOZE_ALARM;
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
@@ -63,9 +67,10 @@ import android.text.format.DateUtils;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.data.DataModel.PowerButtonBehavior;
+import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.settings.AlarmSettingsActivity;
 import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
@@ -476,23 +481,24 @@ final class SettingsDAO {
     }
 
     /**
-     * @return the behavior to execute when volume buttons are pressed while firing an alarm
+     * @return the behavior to execute when volume button is pressed while firing an alarm
      */
-    static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
+    static VolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
         final String defaultValue = AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
         final String value = prefs.getString(AlarmSettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
         return switch (value) {
-            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> NOTHING;
-            case AlarmSettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE;
-            case AlarmSettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS;
+            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> CHANGE_VOLUME;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE_ALARM;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS_ALARM;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_NOTHING -> DO_NOTHING;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }
 
     /**
-     * @return the behavior to execute when power buttons are pressed while firing an alarm
+     * @return the behavior to execute when power button is pressed while firing an alarm
      */
-    static AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
+    static PowerButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
         final String defaultValue = AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR;
         final String value = prefs.getString(AlarmSettingsActivity.KEY_POWER_BUTTONS, defaultValue);
         return switch (value) {

@@ -56,7 +56,8 @@ import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
+import com.best.deskclock.data.DataModel.PowerButtonBehavior;
+import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.CircleView;
@@ -93,8 +94,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
-    private AlarmVolumeButtonBehavior mVolumeBehavior;
-    private AlarmVolumeButtonBehavior mPowerBehavior;
+    private VolumeButtonBehavior mVolumeBehavior;
+    private PowerButtonBehavior mPowerBehavior;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
     private boolean isSwipeActionEnabled;
@@ -145,9 +146,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                         || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                     // Power keys dismiss the alarm.
                     if (!mAlarmHandled) {
-                        if (mPowerBehavior == AlarmVolumeButtonBehavior.SNOOZE) {
+                        if (mPowerBehavior == PowerButtonBehavior.SNOOZE) {
                             snooze();
-                        } else if (mPowerBehavior == AlarmVolumeButtonBehavior.DISMISS) {
+                        } else if (mPowerBehavior == PowerButtonBehavior.DISMISS) {
                             dismiss();
                         }
                     }
@@ -362,17 +363,20 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             case KeyEvent.KEYCODE_FOCUS:
                 if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
-                        case SNOOZE -> {
+                        case SNOOZE_ALARM -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 snooze();
                             }
                             return true;
                         }
-                        case DISMISS -> {
+                        case DISMISS_ALARM -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 dismiss();
                             }
                             return true;
+                        }
+                        case DO_NOTHING -> {
+                            return keyEvent.getAction() != KeyEvent.ACTION_UP;
                         }
                     }
                 }

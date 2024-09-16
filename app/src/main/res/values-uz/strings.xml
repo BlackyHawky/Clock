@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Kechiktirish"</item>
         <item msgid="3450979320164769576">"O‘chirish"</item>
         <item msgid="7085774139907653538">"Ovoz balandligini boshqarish"</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Yorliq"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Rington"</string>

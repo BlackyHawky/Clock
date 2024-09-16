@@ -13,9 +13,10 @@ import android.provider.Settings;
 
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
-import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
+import com.best.deskclock.data.DataModel.PowerButtonBehavior;
+import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 
 import java.util.TimeZone;
 
@@ -213,11 +214,11 @@ final class SettingsModel {
         return SettingsDAO.isTimerBackgroundTransparent(mPrefs);
     }
 
-    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+    VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }
 
-    AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {
+    PowerButtonBehavior getAlarmPowerButtonBehavior() {
         return SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
     }
 

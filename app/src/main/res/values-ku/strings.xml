@@ -89,6 +89,7 @@
         <item>سووکه‌ نوستن</item>
         <item>گوێ نەدان</item>
         <item>Control volume</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description">پێناس</string>
     <string name="ringtone_description">زه‌نگ</string>

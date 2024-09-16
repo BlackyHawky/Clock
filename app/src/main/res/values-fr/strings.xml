@@ -239,6 +239,7 @@
         <item msgid="7972756698723318690">"Répéter"</item>
         <item msgid="3450979320164769576">"Ignorer"</item>
         <item msgid="7085774139907653538">"Contrôler le volume"</item>
+        <item>Aucune</item>
     </string-array>
     <string name="power_button_title">Bouton d\'alimentation</string>
     <string name="label_description" msgid="8736179296142915727">"Titre"</string>

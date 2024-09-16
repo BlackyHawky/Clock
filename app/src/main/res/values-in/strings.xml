@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Tunda"</item>
         <item msgid="3450979320164769576">"Tutup"</item>
         <item msgid="7085774139907653538">"Kontrol volume"</item>
+        <item>Tidak ada</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Nada Dering"</string>

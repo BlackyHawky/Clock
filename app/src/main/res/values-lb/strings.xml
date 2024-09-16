@@ -108,6 +108,7 @@
         <item>Näipen</item>
         <item>Verwerfen</item>
         <item>Control volume</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description">Beschreiwung</string>
     <string name="ringtone_description">Schelltoun</string>

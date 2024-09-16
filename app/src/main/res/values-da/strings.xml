@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Udsætter"</item>
         <item msgid="3450979320164769576">"Slår fra"</item>
         <item msgid="7085774139907653538">"Styr lydstyrken"</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ringetone"</string>

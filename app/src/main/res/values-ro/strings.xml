@@ -178,6 +178,7 @@
         <item msgid="7972756698723318690">"Amânați"</item>
         <item msgid="3450979320164769576">"Închideți"</item>
         <item msgid="7085774139907653538">"Controlați volumul"</item>
+        <item>Nimic</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Etichetă"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ton de apel"</string>

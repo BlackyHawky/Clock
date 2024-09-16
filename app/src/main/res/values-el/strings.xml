@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Αναβολή"</item>
         <item msgid="3450979320164769576">"Παράβλεψη"</item>
         <item msgid="7085774139907653538">"Έλεγχος έντασης ήχου"</item>
+        <item>Καμία</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Ετικέτα"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ήχος κλήσης"</string>

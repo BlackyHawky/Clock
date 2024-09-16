@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Sluimer"</item>
         <item msgid="3450979320164769576">"Maak toe"</item>
         <item msgid="7085774139907653538">"Beheer volume"</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Luitoon"</string>

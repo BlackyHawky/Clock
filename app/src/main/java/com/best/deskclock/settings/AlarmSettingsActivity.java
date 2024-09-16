@@ -37,6 +37,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
+    public static final String VOLUME_BEHAVIOR_NOTHING = "-1";
     public static final String KEY_POWER_BUTTONS = "key_power_button";
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";

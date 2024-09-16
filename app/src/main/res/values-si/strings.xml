@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"යළි සිහි කැඳවන්න"</item>
         <item msgid="3450979320164769576">"ඉවතලන්න"</item>
         <item msgid="7085774139907653538">"හඬ පරිමාව පාලනය කරන්න"</item>
+        <item>Nothing</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"ලේබලය"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"රිංග්ටෝනය"</string>

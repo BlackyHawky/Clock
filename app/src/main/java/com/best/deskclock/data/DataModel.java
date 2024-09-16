@@ -639,7 +639,7 @@ public final class DataModel {
     /**
      * @return the behavior to execute when volume buttons are pressed while firing an alarm
      */
-    public AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+    public VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         enforceMainLooper();
         return mAlarmModel.getAlarmVolumeButtonBehavior();
     }
@@ -647,7 +647,7 @@ public final class DataModel {
     /**
      * @return the behavior to execute when power buttons are pressed while firing an alarm
      */
-    public AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {
+    public PowerButtonBehavior getAlarmPowerButtonBehavior() {
         enforceMainLooper();
         return mAlarmModel.getAlarmPowerButtonBehavior();
     }
@@ -1425,9 +1425,14 @@ public final class DataModel {
     public enum CitySort {NAME, UTC_OFFSET}
 
     /**
-     * Indicates the preferred behavior of hardware volume buttons when firing alarms.
+     * Indicates the preferred behavior of power button when firing alarms.
      */
-    public enum AlarmVolumeButtonBehavior {NOTHING, SNOOZE, DISMISS}
+    public enum PowerButtonBehavior {NOTHING, SNOOZE, DISMISS}
+
+    /**
+     * Indicates the preferred behavior of volume button when firing alarms.
+     */
+    public enum VolumeButtonBehavior {CHANGE_VOLUME, SNOOZE_ALARM, DISMISS_ALARM, DO_NOTHING}
 
     /**
      * Indicates the reason alarms may not fire or may fire silently.

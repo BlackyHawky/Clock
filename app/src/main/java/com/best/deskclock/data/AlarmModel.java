@@ -9,7 +9,8 @@ package com.best.deskclock.data;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-import com.best.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
+import com.best.deskclock.data.DataModel.PowerButtonBehavior;
+import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.AlarmSettingsActivity;
 
@@ -102,11 +103,11 @@ final class AlarmModel {
         return mSettingsModel.getAlarmCrescendoDuration();
     }
 
-    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+    VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return mSettingsModel.getAlarmVolumeButtonBehavior();
     }
 
-    AlarmVolumeButtonBehavior getAlarmPowerButtonBehavior() {
+    PowerButtonBehavior getAlarmPowerButtonBehavior() {
         return mSettingsModel.getAlarmPowerButtonBehavior();
     }
 

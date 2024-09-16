@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"다시 울림"</item>
         <item msgid="3450979320164769576">"알람 해제"</item>
         <item msgid="7085774139907653538">"볼륨 조절"</item>
+        <item>사용 안 함</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"라벨"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"벨소리"</string>

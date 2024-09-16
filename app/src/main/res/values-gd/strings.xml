@@ -150,6 +150,7 @@
         <item>Dèan dùsal</item>
         <item>Leig seachad</item>
         <item>Control volume</item>
+        <item>Na dèan dad</item>
     </string-array>
     <string name="label_description">Leubail</string>
     <string name="ringtone_description">Seirm</string>

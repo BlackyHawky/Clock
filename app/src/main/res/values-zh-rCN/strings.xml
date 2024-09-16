@@ -160,6 +160,7 @@
         <item msgid="7972756698723318690">"暂停"</item>
         <item msgid="3450979320164769576">"关闭"</item>
         <item msgid="7085774139907653538">"控制音量"</item>
+        <item>无</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"标签"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"铃声"</string>

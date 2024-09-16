@@ -171,6 +171,7 @@
         <item msgid="7972756698723318690">"Arrêt momentané"</item>
         <item msgid="3450979320164769576">"Ignorer"</item>
         <item msgid="7085774139907653538">"Régler le volume"</item>
+        <item>Aucune</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Étiquette"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Sonnerie"</string>

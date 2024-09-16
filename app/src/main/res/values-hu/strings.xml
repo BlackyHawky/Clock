@@ -169,6 +169,7 @@
         <item msgid="7972756698723318690">"Szundi"</item>
         <item msgid="3450979320164769576">"Elvetés"</item>
         <item msgid="7085774139907653538">"Hangerő-szabályozás"</item>
+        <item>Semmi</item>
     </string-array>
     <string name="label_description" msgid="8736179296142915727">"Címke"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Csengőhang"</string>
