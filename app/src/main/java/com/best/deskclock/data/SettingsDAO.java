@@ -487,10 +487,10 @@ final class SettingsDAO {
         final String defaultValue = AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
         final String value = prefs.getString(AlarmSettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
         return switch (value) {
-            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> CHANGE_VOLUME;
+            case AlarmSettingsActivity.DEFAULT_VOLUME_BEHAVIOR -> DO_NOTHING;
+            case AlarmSettingsActivity.VOLUME_BEHAVIOR_CHANGE_VOLUME -> CHANGE_VOLUME;
             case AlarmSettingsActivity.VOLUME_BEHAVIOR_SNOOZE -> SNOOZE_ALARM;
             case AlarmSettingsActivity.VOLUME_BEHAVIOR_DISMISS -> DISMISS_ALARM;
-            case AlarmSettingsActivity.VOLUME_BEHAVIOR_NOTHING -> DO_NOTHING;
             default -> throw new IllegalArgumentException("Unknown volume button behavior: " + value);
         };
     }

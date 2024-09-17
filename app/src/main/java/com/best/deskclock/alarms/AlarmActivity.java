@@ -363,6 +363,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             case KeyEvent.KEYCODE_FOCUS:
                 if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
+                        case DO_NOTHING -> {
+                            return keyEvent.getAction() != KeyEvent.ACTION_UP;
+                        }
                         case SNOOZE_ALARM -> {
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 snooze();
@@ -374,9 +377,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                                 dismiss();
                             }
                             return true;
-                        }
-                        case DO_NOTHING -> {
-                            return keyEvent.getAction() != KeyEvent.ACTION_UP;
                         }
                     }
                 }
