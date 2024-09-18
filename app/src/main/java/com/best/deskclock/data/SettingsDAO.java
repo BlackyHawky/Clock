@@ -19,12 +19,16 @@ import static com.best.deskclock.data.DataModel.VolumeButtonBehavior.SNOOZE_ALAR
 import static com.best.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.DEFAULT_ALARM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.DEFAULT_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_SECONDS_HAND_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
@@ -668,6 +672,20 @@ final class SettingsDAO {
      */
     static int getPulseColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_PULSE_COLOR, Color.parseColor("#FFC0C7CD"));
+    }
+
+    /**
+     * @return the font size applied to the alarm clock.
+     */
+    static String getAlarmClockFontSize(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_CLOCK_FONT_SIZE, DEFAULT_ALARM_CLOCK_FONT_SIZE);
+    }
+
+    /**
+     * @return the font size applied to the alarm title.
+     */
+    static String getAlarmTitleFontSize(SharedPreferences prefs) {
+        return prefs.getString(KEY_ALARM_TITLE_FONT_SIZE, DEFAULT_ALARM_TITLE_FONT_SIZE);
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {

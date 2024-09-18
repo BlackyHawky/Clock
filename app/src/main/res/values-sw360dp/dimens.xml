@@ -6,6 +6,5 @@
 -->
 
 <resources>
-    <dimen name="big_font_size">70sp</dimen>
     <dimen name="main_clock_font_size">80sp</dimen>
 </resources>

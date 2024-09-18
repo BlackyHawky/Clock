@@ -3,8 +3,10 @@ package com.best.deskclock.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 
 import androidx.annotation.NonNull;
+import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -29,6 +31,10 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
     public static final String KEY_DISMISS_BUTTON_COLOR = "key_dismiss_button_color";
     public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
     public static final String KEY_PULSE_COLOR = "key_pulse_color";
+    public static final String KEY_ALARM_CLOCK_FONT_SIZE = "key_alarm_clock_font_size";
+    public static final String DEFAULT_ALARM_CLOCK_FONT_SIZE = "70";
+    public static final String KEY_ALARM_TITLE_FONT_SIZE = "key_alarm_title_font_size";
+    public static final String DEFAULT_ALARM_TITLE_FONT_SIZE = "26";
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     @Override
@@ -51,6 +57,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         String mAnalogClock;
         SwitchPreferenceCompat mDisplaySecondsPref;
         ColorPreference mAlarmSecondsHandColorPref;
+        EditTextPreference mAlarmClockFontSizePref;
+        EditTextPreference mAlarmTitleFontSizePref;
         Preference mPreviewAlarmPref;
 
         @Override
@@ -62,6 +70,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
             mAlarmClockStyle = findPreference(KEY_ALARM_CLOCK_STYLE);
             mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
             mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
+            mAlarmClockFontSizePref = findPreference(KEY_ALARM_CLOCK_FONT_SIZE);
+            mAlarmTitleFontSizePref = findPreference(KEY_ALARM_TITLE_FONT_SIZE);
             mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
             mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
@@ -83,6 +93,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
                 case KEY_ALARM_CLOCK_STYLE -> {
                     final int clockIndex = mAlarmClockStyle.findIndexOfValue((String) newValue);
                     mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockIndex]);
+                    mAlarmClockFontSizePref.setVisible(!newValue.equals(mAnalogClock));
                     mDisplaySecondsPref.setVisible(newValue.equals(mAnalogClock));
                     mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
                     mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock)
@@ -97,6 +108,11 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
                         mAlarmSecondsHandColorPref.setVisible(!isAlarmSecondsHandDisplayed);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
+                }
+
+                case KEY_ALARM_CLOCK_FONT_SIZE, KEY_ALARM_TITLE_FONT_SIZE -> {
+                    final EditTextPreference alarmFontSizePref = (EditTextPreference) pref;
+                    alarmFontSizePref.setSummary(newValue.toString());
                 }
             }
 
@@ -135,6 +151,18 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
+            mAlarmClockFontSizePref.setOnPreferenceChangeListener(this);
+            mAlarmClockFontSizePref.setOnBindEditTextListener(editText -> {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                editText.selectAll();
+            });
+
+            mAlarmTitleFontSizePref.setOnPreferenceChangeListener(this);
+            mAlarmTitleFontSizePref.setOnBindEditTextListener(editText -> {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                editText.selectAll();
+            });
+
             mPreviewAlarmPref.setOnPreferenceClickListener(this);
         }
 
@@ -142,9 +170,13 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
             final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(DataModel.getDataModel()
                     .getAlarmClockStyle().toString().toLowerCase());
             // clockStyleIndex == 0 --> analog
+            // clockStyleIndex == 1 --> digital
             mDisplaySecondsPref.setVisible(clockStyleIndex == 0);
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
             mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
+            mAlarmClockFontSizePref.setVisible(clockStyleIndex == 1);
+            mAlarmClockFontSizePref.setSummary(DataModel.getDataModel().getAlarmClockFontSize());
+            mAlarmTitleFontSizePref.setSummary(DataModel.getDataModel().getAlarmTitleFontSize());
         }
     }
 }

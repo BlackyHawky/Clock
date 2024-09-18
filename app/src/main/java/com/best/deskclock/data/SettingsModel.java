@@ -290,6 +290,14 @@ final class SettingsModel {
         return SettingsDAO.getPulseColor(mPrefs);
     }
 
+    public String getAlarmClockFontSize() {
+        return SettingsDAO.getAlarmClockFontSize(mPrefs);
+    }
+
+    public String getAlarmTitleFontSize() {
+        return SettingsDAO.getAlarmTitleFontSize(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;

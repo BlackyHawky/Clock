@@ -96,6 +96,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private boolean mAlarmHandled;
     private VolumeButtonBehavior mVolumeBehavior;
     private PowerButtonBehavior mPowerBehavior;
+    private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
     private boolean isSwipeActionEnabled;
@@ -216,6 +217,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         int alarmBackgroundColor = DataModel.getDataModel().getAlarmBackgroundColor();
         int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
+        float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
+        mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());
         mAlarmTitleColor = DataModel.getDataModel().getAlarmTitleColor();
         int snoozeButtonColor = DataModel.getDataModel().getSnoozeButtonColor();
         int dismissButtonColor = DataModel.getDataModel().getDismissButtonColor();
@@ -268,8 +271,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         Utils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
         Utils.setTimeFormat(digitalClock, false);
+        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
 
         isSwipeActionEnabled = DataModel.getDataModel().isSwipeActionEnabled();
@@ -727,14 +732,14 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             public void onAnimationEnd(Animator animator) {
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
-                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
                 mAlertTitleView.setTextColor(mAlarmTitleColor);
                 mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
                 if (infoText != null) {
                     mAlertInfoView.setVisibility(View.VISIBLE);
                     mAlertInfoView.setText(infoText);
-                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
                     mAlertInfoView.setTextColor(mAlarmTitleColor);
                     mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
                 }

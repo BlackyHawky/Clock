@@ -57,9 +57,9 @@
                 android:gravity="center_horizontal"
                 android:includeFontPadding="false"
                 android:singleLine="true"
-                android:textSize="@dimen/big_font_size"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="12:34" />
+                tools:text="12:34"
+                tools:textSize="70sp" />
 
         </FrameLayout>
 
@@ -69,11 +69,10 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingVertical="20dp"
-            android:singleLine="true"
-            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/clock_layout"
-            tools:text="Test alarm" />
+            tools:text="Test alarm"
+            tools:textSize="26sp" />
 
         <com.best.deskclock.widget.CircleView
             android:id="@+id/pulse"
@@ -83,7 +82,7 @@
             android:layerType="hardware"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:radius="128dp"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
@@ -97,7 +96,7 @@
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_snooze_text"
             app:layout_constraintEnd_toStartOf="@+id/vertical_start_guide"
-            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
 
@@ -110,7 +109,7 @@
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_dismiss_text"
             app:layout_constraintStart_toEndOf="@+id/vertical_end_guide"
-            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
 
@@ -121,7 +120,7 @@
             android:contentDescription="@string/description_direction_both"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clock_layout"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView

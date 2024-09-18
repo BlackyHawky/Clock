@@ -101,6 +101,30 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/font_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            android:key="key_alarm_clock_font_size"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/alarm_clock_font_size"
+            android:defaultValue="70"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <EditTextPreference
+            android:key="key_alarm_title_font_size"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/alarm_title_font_size"
+            android:defaultValue="26"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"

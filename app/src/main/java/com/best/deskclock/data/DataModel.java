@@ -766,6 +766,20 @@ public final class DataModel {
     }
 
     /**
+     * @return the font size applied to the alarm clock.
+     */
+    public String getAlarmClockFontSize() {
+        return mAlarmModel.getAlarmClockFontSize();
+    }
+
+    /**
+     * @return the font size applied to the alarm title.
+     */
+    public String getAlarmTitleFontSize() {
+        return mAlarmModel.getAlarmTitleFontSize();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

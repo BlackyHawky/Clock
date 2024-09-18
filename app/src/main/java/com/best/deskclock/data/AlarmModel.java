@@ -179,6 +179,14 @@ final class AlarmModel {
         return mSettingsModel.getPulseColor();
     }
 
+    public String getAlarmClockFontSize() {
+        return mSettingsModel.getAlarmClockFontSize();
+    }
+
+    public String getAlarmTitleFontSize() {
+        return mSettingsModel.getAlarmTitleFontSize();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.

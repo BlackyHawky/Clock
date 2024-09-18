@@ -59,6 +59,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private static final float BUTTON_SCALE_DEFAULT = 0.7f;
     private static final int BUTTON_DRAWABLE_ALPHA_DEFAULT = 255;
     private final Handler mHandler = new Handler();
+    private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
     private ViewGroup mAlertView;
@@ -90,6 +91,8 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         int alarmBackgroundColor = DataModel.getDataModel().getAlarmBackgroundColor();
         int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
+        float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
+        mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());
         mAlarmTitleColor = DataModel.getDataModel().getAlarmTitleColor();
         int snoozeButtonColor = DataModel.getDataModel().getSnoozeButtonColor();
         int dismissButtonColor = DataModel.getDataModel().getDismissButtonColor();
@@ -141,8 +144,10 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         Utils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
 
         titleView.setText(R.string.app_label);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
         Utils.setTimeFormat(digitalClock, false);
+        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
 
         mAlarmButton.setOnTouchListener(this);
@@ -411,14 +416,14 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             public void onAnimationEnd(Animator animator) {
                 mAlertView.setVisibility(View.VISIBLE);
                 mAlertTitleView.setText(titleResId);
-                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
                 mAlertTitleView.setTextColor(mAlarmTitleColor);
                 mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
                 if (infoText != null) {
                     mAlertInfoView.setVisibility(View.VISIBLE);
                     mAlertInfoView.setText(infoText);
-                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
                     mAlertInfoView.setTextColor(mAlarmTitleColor);
                     mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
                 }
