@@ -593,4 +593,12 @@
     <string name="revoke_permission_dialog_message">是否确定要撤销此权限？</string>
     <string name="permission_status_title">状态： </string>
     <string name="permission_granted">已授予</string>
+    <string name="alarm_display_customization_title">自定义闹钟显示</string>
+    <string name="snooze_button_color">暂停按钮颜色</string>
+    <string name="dismiss_button_color">关闭按钮颜色</string>
+    <string name="alarm_button_color">闹钟按钮颜色</string>
+    <string name="pulse_color">脉冲颜色</string>
+    <string name="transparent_background_for_expired_timer_title">定时器到期时的透明背景</string>
+    <string name="alarm_title_color">闹钟标题颜色</string>
+    <string name="seconds_hand_color_title">秒针颜色</string>
 </resources>

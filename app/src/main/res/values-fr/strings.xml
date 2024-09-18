@@ -659,4 +659,6 @@
     <string name="FSN_dialog_title">Notifications en Plein Écran</string>
     <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation Notifications Plein Écran soit activée.</string>
     <string name="bedtime_channel">Coucher</string>
+    <string name="alarm_clock_font_size">Taille de la police de l\'horloge</string>
+    <string name="alarm_title_font_size">Taille de la police du titre de l\'alarme</string>
 </resources>
