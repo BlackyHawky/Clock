@@ -39,23 +39,20 @@
         app:singleLineTitle="false" />
 
     <Preference
-        android:title="@string/about_github_link"
+        android:key="key_about_view_on_github"
         android:layout="@layout/settings_preference_layout"
+        android:title="@string/about_github_link"
         android:icon="@drawable/ic_about_github"
         app:singleLineTitle="false">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com/BlackyHawky/Clock" />
     </Preference>
 
     <Preference
+        android:key="key_about_read_licence"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/license"
         android:summary="@string/gnu_gpl"
         android:icon="@drawable/ic_about_license"
         app:singleLineTitle="false">
-        <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/BlackyHawky/Clock/blob/main/LICENSE-GPL-3" />
     </Preference>
 
     <PreferenceCategory
@@ -65,27 +62,31 @@
         app:iconSpaceReserved="false">
 
         <Preference
+            android:key="key_about_blackyhawky"
+            android:layout="@layout/settings_preference_layout"
+            android:title="BlackyHawky"
+            app:iconSpaceReserved="false">
+        </Preference>
+
+        <Preference
+            android:key="key_about_qw123wh"
             android:layout="@layout/settings_preference_layout"
             android:title="qw123wh"
             app:iconSpaceReserved="false">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/qw123wh" />
         </Preference>
 
         <Preference
+            android:key="key_about_odmfl"
             android:layout="@layout/settings_preference_layout"
             android:title="odmfl"
             app:iconSpaceReserved="false">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/odmfl" />
         </Preference>
 
         <Preference
+            android:key="key_about_nilsu11"
             android:layout="@layout/settings_preference_layout"
             android:title="Nilsu11"
             app:iconSpaceReserved="false">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/Nilsu11" />
         </Preference>
 
     </PreferenceCategory>
@@ -97,19 +98,17 @@
         app:iconSpaceReserved="false">
 
         <Preference
+            android:key="key_about_lineageos"
             android:layout="@layout/settings_preference_layout"
             android:title="LineageOS"
             app:iconSpaceReserved="false">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/LineageOS" />
         </Preference>
 
         <Preference
+            android:key="key_about_crdroid"
             android:layout="@layout/settings_preference_layout"
             android:title="crDroid Android"
             app:iconSpaceReserved="false">
-            <intent android:action="android.intent.action.VIEW"
-                android:data="https://github.com/crdroidandroid" />
         </Preference>
 
     </PreferenceCategory>

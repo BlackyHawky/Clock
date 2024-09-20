@@ -890,16 +890,24 @@
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <!-- What's new features title -->
     <string name="whats_new_title">What\'s new</string>
+    <!-- What's new dialog message in about screen -->
+    <string name="whats_new_dialog_message">Discover what\'s new:\n\n%s</string>
     <!-- Features title -->
     <string name="features_title">Main features</string>
     <!-- Github repo link for about screen -->
     <string name="about_github_link">View on GitHub</string>
+    <!-- Github dialog message in about screen -->
+    <string name="github_dialog_message">Visit the project GitHub page:\n\n%s</string>
     <!-- License for about screen -->
     <string name="license">Open-source license</string>
+    <!-- License dialog message in about screen -->
+    <string name="license_dialog_message">Read the licence:\n\n%s</string>
     <!-- License link for about screen -->
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Contributors title -->
     <string name="contributors">Contributors</string>
+    <!-- Contributors dialog message in about screen -->
+    <string name="contributors_dialog_message">Visit %1$s\'s GitHub page:\n\n%2$s</string>
     <!-- Credits title -->
     <string name="credits">Credits</string>
     <!-- About features text -->
