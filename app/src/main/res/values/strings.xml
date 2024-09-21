@@ -198,6 +198,7 @@
     <!-- Label for digital clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="digital_gadget">Digital clock</string>
     <string name="digital_gadget_material_you">Digital clock Material You</string>
+    <string name="material_you_vertical_digital_gadget">Vertical digital clock Material You</string>
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
     <string name="settings_permission_message">One or more essential permissions are denied. Not granting them can lead to malfunctions.</string>
@@ -1315,10 +1316,14 @@
     <string name="digital_widget_settings">Digital widget</string>
     <string name="digital_widget_title">Customize the digital widget</string>
     <string name="digital_widget_summary">Set the colors of the digital widget and change the clock font size</string>
-    <!-- Digital widget Material You preference title in the settings. -->
+    <!-- Material You digital widget preference title in the settings. -->
     <string name="digital_widget_material_you_settings">Material You digital widget</string>
     <string name="digital_widget_material_you_title">Customize the Material You digital widget</string>
     <string name="digital_widget_material_you_summary">Set the colors of the Material You digital widget and change the clock font size</string>
+    <!-- Material You vertical digital widget preference title in the settings. -->
+    <string name="material_you_vertical_digital_widget_settings">Material You vertical digital widget</string>
+    <string name="material_you_vertical_digital_widget_title">Customize the Material You vertical digital widget</string>
+    <string name="material_you_vertical_digital_widget_summary">Set the colors of the Material You vertical digital widget and change the clock font size</string>
     <!-- Title to display the background on the digital widget. -->
     <string name="digital_widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->
@@ -1329,6 +1334,14 @@
     <string name="digital_widget_clock_default_color_title">Use default color for main clock</string>
     <!-- Title to set the custom color of the main clock in the digital widget. -->
     <string name="digital_widget_clock_custom_color_title">Main clock custom color</string>
+    <!-- Title to set the default color of hours in the vertical digital widget. -->
+    <string name="digital_widget_default_hours_color_title">Use default color for hours</string>
+    <!-- Title to set the custom color of hours in the vertical digital widget. -->
+    <string name="digital_widget_custom_hours_color_title">Custom hours color</string>
+    <!-- Title to set the default color of minutes in the vertical digital widget. -->
+    <string name="digital_widget_default_minutes_color_title">Use default color for minutes</string>
+    <!-- Title to set the custom color of minutes in the vertical digital widget. -->
+    <string name="digital_widget_custom_minutes_color_title">Custom minutes color</string>
     <!-- Title to set the default color of the date in the digital widget. -->
     <string name="digital_widget_date_default_color_title">Use default color for date</string>
     <!-- Title to set the custom color of the date in the digital widget. -->

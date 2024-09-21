@@ -60,6 +60,8 @@
     <color name="digital_widget_background_color">#E0F3FF</color>
     <color name="digital_widget_time_color">#00668B</color>
     <color name="digital_widget_text_color">#1D1B20</color>
+    <color name="vertical_digital_widget_hour_color">#4E616C</color>
+    <color name="vertical_digital_widget_minute_color">#00668B</color>
 
     <!-- The colors are picked up from https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
     except for xxxColorBackground -->

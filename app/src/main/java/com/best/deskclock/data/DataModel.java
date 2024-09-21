@@ -423,7 +423,7 @@ public final class DataModel {
 
     /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
-     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * removes the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
      * @param timer        the timer to be reset
@@ -1234,7 +1234,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget background.
+     * @return a value indicating the color of the digital widget background.
      */
     public int getDigitalWidgetBackgroundColor() {
         return mWidgetModel.getDigitalWidgetBackgroundColor();
@@ -1265,7 +1265,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget clock
+     * @return a value indicating the color of the digital widget clock
      */
     public int getDigitalWidgetClockCustomColor() {
         return mWidgetModel.getDigitalWidgetClockCustomColor();
@@ -1280,7 +1280,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget date.
+     * @return a value indicating the color of the digital widget date.
      */
     public int getDigitalWidgetDateCustomColor() {
         return mWidgetModel.getDigitalWidgetDateCustomColor();
@@ -1295,7 +1295,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget next alarm.
+     * @return a value indicating the color of the digital widget next alarm.
      */
     public int getDigitalWidgetNextAlarmCustomColor() {
         return mWidgetModel.getDigitalWidgetNextAlarmCustomColor();
@@ -1310,7 +1310,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget city clock.
+     * @return a value indicating the color of the digital widget city clock.
      */
     public int getDigitalWidgetCityClockCustomColor() {
         return mWidgetModel.getDigitalWidgetCityClockCustomColor();
@@ -1325,7 +1325,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the digital widget city name.
+     * @return a value indicating the color of the digital widget city name.
      */
     public int getDigitalWidgetCityNameCustomColor() {
         return mWidgetModel.getDigitalWidgetCityNameCustomColor();
@@ -1361,7 +1361,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the Material You digital widget clock
+     * @return a value indicating the color of the Material You digital widget clock
      */
     public int getMaterialYouDigitalWidgetClockCustomColor() {
         return mWidgetModel.getMaterialYouDigitalWidgetClockCustomColor();
@@ -1376,7 +1376,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the Material You digital widget date.
+     * @return a value indicating the color of the Material You digital widget date.
      */
     public int getMaterialYouDigitalWidgetDateCustomColor() {
         return mWidgetModel.getMaterialYouDigitalWidgetDateCustomColor();
@@ -1391,7 +1391,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the Material You digital widget next alarm.
+     * @return a value indicating the color of the Material You digital widget next alarm.
      */
     public int getMaterialYouDigitalWidgetNextAlarmCustomColor() {
         return mWidgetModel.getMaterialYouDigitalWidgetNextAlarmCustomColor();
@@ -1406,12 +1406,11 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the the Material You digital widget city clock.
+     * @return a value indicating the color of the Material You digital widget city clock.
      */
     public int getMaterialYouDigitalWidgetCityClockCustomColor() {
         return mWidgetModel.getMaterialYouDigitalWidgetCityClockCustomColor();
     }
-
 
     /**
      * @return {@code true} if the default color is applied to the Material You digital widget city name;
@@ -1426,6 +1425,77 @@ public final class DataModel {
      */
     public int getMaterialYouDigitalWidgetCityNameCustomColor() {
         return mWidgetModel.getMaterialYouDigitalWidgetCityNameCustomColor();
+    }
+
+    // ******************************************
+    // ** MATERIAL YOU VERTICAL DIGITAL WIDGET **
+    // ******************************************
+
+    /**
+     * @return the font size applied to the hours in the Material You vertical digital widget.
+     */
+    public String getMaterialYouVerticalDigitalWidgetMaxClockFontSize() {
+        return mWidgetModel.getMaterialYouVerticalDigitalWidgetMaxClockFontSize();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the hours in the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouVerticalDigitalWidgetDefaultHoursColor() {
+        return mWidgetModel.isMaterialYouVerticalDigitalWidgetDefaultHoursColor();
+    }
+
+    /**
+     * @return a value indicating the color of the hours in the Material You vertical digital widget.
+     */
+    public int getMaterialYouVerticalDigitalWidgetCustomHoursColor() {
+        return mWidgetModel.getMaterialYouVerticalDigitalWidgetCustomHoursColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the minutes in the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouVerticalDigitalWidgetDefaultMinutesColor() {
+        return mWidgetModel.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor();
+    }
+
+    /**
+     * @return a value indicating the color of the minutes in the Material You vertical digital widget.
+     */
+    public int getMaterialYouVerticalDigitalWidgetCustomMinutesColor() {
+        return mWidgetModel.getMaterialYouVerticalDigitalWidgetCustomMinutesColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the date in the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouVerticalDigitalWidgetDefaultDateColor() {
+        return mWidgetModel.isMaterialYouVerticalDigitalWidgetDefaultDateColor();
+    }
+
+    /**
+     * @return a value indicating the color of the date in the Material You vertical digital widget.
+     */
+    public int getMaterialYouVerticalDigitalWidgetCustomDateColor() {
+        return mWidgetModel.getMaterialYouVerticalDigitalWidgetCustomDateColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the next alarm in the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor() {
+        return mWidgetModel.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor();
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm in the Material You vertical digital widget.
+     */
+    public int getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor() {
+        return mWidgetModel.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
     }
 
     /**

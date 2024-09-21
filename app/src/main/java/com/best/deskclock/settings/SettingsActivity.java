@@ -40,6 +40,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             "key_digital_widget_customization";
     public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION =
             "key_digital_widget_material_you_customization";
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
+            "key_material_you_vertical_digital_widget_customization";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
 
     @Override
@@ -65,6 +67,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mScreensaverSettings;
         Preference mDigitalWidgetCustomizationPref;
         Preference mDigitalWidgetMaterialYouCustomizationPref;
+        Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
 
@@ -81,6 +84,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mScreensaverSettings = findPreference(KEY_SCREENSAVER_SETTINGS);
             mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
             mDigitalWidgetMaterialYouCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
+            mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
             mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
 
@@ -165,6 +169,13 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
+                case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION -> {
+                    final Intent materialYouVerticalDigitalWidgetCustomizationIntent =
+                            new Intent(context, MaterialYouVerticalDigitalWidgetCustomizationActivity.class);
+                    startActivity(materialYouVerticalDigitalWidgetCustomizationIntent);
+                    return true;
+                }
+
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
                     final Intent permissionsManagementIntent =
                             new Intent(context, PermissionsManagementActivity.class);
@@ -212,6 +223,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mDigitalWidgetMaterialYouCustomizationPref.setOnPreferenceClickListener(this);
+
+            mMaterialYouVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mPermissionsManagement.setOnPreferenceClickListener(this);
         }

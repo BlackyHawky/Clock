@@ -74,6 +74,14 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:key="key_material_you_vertical_digital_widget_customization"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/material_you_vertical_digital_widget_settings"
+        android:summary="@string/material_you_vertical_digital_widget_summary"
+        android:icon="@drawable/ic_widget"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:key="key_permissions_management"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/permission_settings"

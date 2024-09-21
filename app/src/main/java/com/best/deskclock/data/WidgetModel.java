@@ -171,4 +171,45 @@ public final class WidgetModel {
     int getMaterialYouDigitalWidgetCityNameCustomColor() {
         return WidgetDAO.getMaterialYouDigitalWidgetCityNameCustomColor(mPrefs);
     }
+
+    // ******************************************
+    // ** MATERIAL YOU VERTICAL DIGITAL WIDGET **
+    // ******************************************
+
+    public String getMaterialYouVerticalDigitalWidgetMaxClockFontSize() {
+        return WidgetDAO.getMaterialYouVerticalDigitalWidgetMaxClockFontSize(mPrefs);
+    }
+
+    boolean isMaterialYouVerticalDigitalWidgetDefaultHoursColor() {
+        return WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(mPrefs);
+    }
+
+    int getMaterialYouVerticalDigitalWidgetCustomHoursColor() {
+        return WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomHoursColor(mPrefs);
+    }
+
+    boolean isMaterialYouVerticalDigitalWidgetDefaultMinutesColor() {
+        return WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(mPrefs);
+    }
+
+    int getMaterialYouVerticalDigitalWidgetCustomMinutesColor() {
+        return WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomMinutesColor(mPrefs);
+    }
+
+    boolean isMaterialYouVerticalDigitalWidgetDefaultDateColor() {
+        return WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs);
+    }
+
+    int getMaterialYouVerticalDigitalWidgetCustomDateColor() {
+        return WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomDateColor(mPrefs);
+    }
+
+    boolean isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor() {
+        return WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs);
+    }
+
+    int getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor() {
+        return WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(mPrefs);
+    }
+
 }
