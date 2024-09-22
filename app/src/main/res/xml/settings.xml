@@ -58,26 +58,10 @@
         app:singleLineTitle="false" />
 
     <Preference
-        android:key="key_digital_widget_customization"
+        android:key="key_widgets_settings"
         android:layout="@layout/settings_preference_layout"
-        android:title="@string/digital_widget_settings"
-        android:summary="@string/digital_widget_summary"
-        android:icon="@drawable/ic_widget"
-        app:singleLineTitle="false" />
-
-    <Preference
-        android:key="key_digital_widget_material_you_customization"
-        android:layout="@layout/settings_preference_layout"
-        android:title="@string/digital_widget_material_you_settings"
-        android:summary="@string/digital_widget_material_you_summary"
-        android:icon="@drawable/ic_widget"
-        app:singleLineTitle="false" />
-
-    <Preference
-        android:key="key_material_you_vertical_digital_widget_customization"
-        android:layout="@layout/settings_preference_layout"
-        android:title="@string/material_you_vertical_digital_widget_settings"
-        android:summary="@string/material_you_vertical_digital_widget_summary"
+        android:title="@string/widgets_settings"
+        android:summary="@string/widgets_settings_summary"
         android:icon="@drawable/ic_widget"
         app:singleLineTitle="false" />
 

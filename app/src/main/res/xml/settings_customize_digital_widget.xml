@@ -5,7 +5,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/digital_widget_settings">
+    android:title="@string/digital_gadget">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"

@@ -119,6 +119,13 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name="com.best.deskclock.settings.WidgetsSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/widgets_settings"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name="com.best.deskclock.settings.PermissionsManagementActivity"
             android:excludeFromRecents="true"
             android:label="@string/permission_management_settings"
@@ -359,7 +366,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_widget_settings"
+            android:label="@string/digital_gadget"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
@@ -398,7 +405,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_widget_material_you_settings"
+            android:label="@string/digital_gadget_material_you"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
@@ -435,7 +442,7 @@
         <activity
             android:name="com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/material_you_vertical_digital_widget_settings"
+            android:label="@string/material_you_vertical_digital_gadget"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 

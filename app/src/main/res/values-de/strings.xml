@@ -541,13 +541,9 @@
     <string name="screensaver_bold_digital_clock_title">Digitaluhr fett</string>
     <string name="screensaver_italic_digital_clock_title">Digitaluhr kursiv</string>
     <string name="bedtime_notification_title">Der Modus \"Bettzeit\" ist aktiviert</string>
-    <string name="digital_widget_material_you_summary">Einstellen der Farben des Material You Digitaluhr-Widgets und Ändern der Schriftgröße der Uhr</string>
     <string name="digital_widget_background_title">Hintergrund anzeigen</string>
     <string name="background_color_title">Hintergrundfarbe</string>
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
-    <string name="digital_widget_settings">Digitaluhr-Widget</string>
-    <string name="digital_widget_summary">Einstellen der Farben des Digitaluhr-Widgets und Ändern der Schriftgröße der Uhr</string>
-    <string name="digital_widget_material_you_settings">Material You Digitaluhr-Widget</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
     <string name="FSN_dialog_title">Vollbild-Benachrichtigungen</string>
     <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>

@@ -564,7 +564,6 @@
     <string name="screensaver_settings_summary">Стиль, колір і шрифт заставки</string>
     <string name="first_launch_important_info_title">ВАЖЛИВА ІНФОРМАЦІЯ</string>
     <string name="first_launch_important_info_message">Щоб додаток працював належним чином, необхідно &lt;b&gt;змінити деякі налаштування Вашого пристрою:&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Оптимізація заряду акумулятора;&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Сповіщення;&lt;/b&gt;&lt;br&gt;&lt;br&gt; %s • &lt;b&gt;Сховище &lt;i&gt;(необов\'язково).&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Залежно від версії Android Вашого пристрою, деякі з цих налаштувань (наприклад, Сповіщення) можуть бути вже оптимізовані.&lt;/i&gt;&lt;br&gt;&lt;br&gt;Ви можете змінити їх зараз або пізніше в налаштуваннях управління дозволами:</string>
-    <string name="digital_widget_settings">Цифровий віджет</string>
     <string name="ignore_battery_optimizations_title">Ігнорувати оптимізацію заряду</string>
     <string name="ignore_battery_optimizations_dialog_title">Оптимізація заряду акумулятора</string>
     <string name="wakeup">Пробудження</string>
@@ -596,9 +595,6 @@
     <string name="first_launch_main_feature_link">…і багато іншого!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ПОВНОЕКРАННІ СПОВІЩЕННЯ;&lt;/b&gt;&lt;br&gt;&lt;br&gt;</string>
     <string name="first_launch_dialog_message">Ви дійсно хочете закрити додаток?</string>
-    <string name="digital_widget_material_you_summary">Кольори цифрового віджета Material You і розмір шрифту годинника</string>
-    <string name="digital_widget_summary">Кольори цифрового віджета і розмір шрифту годинника</string>
-    <string name="digital_widget_material_you_settings">Цифровий віджет Material You</string>
     <string name="digital_widget_city_title">Показувати міста у віджеті</string>
     <string name="digital_widget_background_title">Показувати фон</string>
     <string name="background_color_title">Колір фону</string>
@@ -632,8 +628,6 @@
 \n
 \n%s</string>
     <string name="material_you_vertical_digital_gadget">Вертикальний цифровий годинник Material You</string>
-    <string name="material_you_vertical_digital_widget_settings">Вертикальний цифровий віджет Material You</string>
-    <string name="material_you_vertical_digital_widget_summary">Кольори вертикального цифрового віджета Material You і розмір шрифту годинника</string>
     <string name="digital_widget_custom_hours_color_title">Власний колір годин</string>
     <string name="digital_widget_default_hours_color_title">Колір за замовчуванням для годин</string>
     <string name="digital_widget_default_minutes_color_title">Колір за замовчуванням для хвилин</string>

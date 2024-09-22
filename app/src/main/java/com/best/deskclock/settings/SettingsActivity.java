@@ -36,12 +36,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
     public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
     public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_digital_widget_customization";
-    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION =
-            "key_digital_widget_material_you_customization";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_material_you_vertical_digital_widget_customization";
+    public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
 
     @Override
@@ -65,9 +60,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mAlarmSettingsPref;
         Preference mTimerSettingsPref;
         Preference mScreensaverSettings;
-        Preference mDigitalWidgetCustomizationPref;
-        Preference mDigitalWidgetMaterialYouCustomizationPref;
-        Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
+        Preference mWidgetsSettings;
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
 
@@ -82,9 +75,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mAlarmSettingsPref = findPreference(KEY_ALARM_SETTINGS);
             mTimerSettingsPref = findPreference(KEY_TIMER_SETTINGS);
             mScreensaverSettings = findPreference(KEY_SCREENSAVER_SETTINGS);
-            mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
-            mDigitalWidgetMaterialYouCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
-            mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
+            mWidgetsSettings = findPreference(KEY_WIDGETS_SETTINGS);
             mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
 
@@ -155,24 +146,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
-                case KEY_DIGITAL_WIDGET_CUSTOMIZATION -> {
-                    final Intent digitalWidgetCustomizationIntent =
-                            new Intent(context, DigitalWidgetCustomizationActivity.class);
-                    startActivity(digitalWidgetCustomizationIntent);
-                    return true;
-                }
-
-                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION -> {
-                    final Intent digitalWidgetMaterialYouCustomizationIntent =
-                            new Intent(context, DigitalWidgetMaterialYouCustomizationActivity.class);
-                    startActivity(digitalWidgetMaterialYouCustomizationIntent);
-                    return true;
-                }
-
-                case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION -> {
-                    final Intent materialYouVerticalDigitalWidgetCustomizationIntent =
-                            new Intent(context, MaterialYouVerticalDigitalWidgetCustomizationActivity.class);
-                    startActivity(materialYouVerticalDigitalWidgetCustomizationIntent);
+                case KEY_WIDGETS_SETTINGS -> {
+                    final Intent widgetsSettingsIntent = new Intent(context, WidgetsSettingsActivity.class);
+                    startActivity(widgetsSettingsIntent);
                     return true;
                 }
 
@@ -220,11 +196,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
             mScreensaverSettings.setOnPreferenceClickListener(this);
 
-            mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
-
-            mDigitalWidgetMaterialYouCustomizationPref.setOnPreferenceClickListener(this);
-
-            mMaterialYouVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
+            mWidgetsSettings.setOnPreferenceClickListener(this);
 
             mPermissionsManagement.setOnPreferenceClickListener(this);
         }

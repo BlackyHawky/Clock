@@ -503,11 +503,7 @@
     <string name="bedtime_notification_resume_action">Jätka kohe</string>
     <string name="first_launch_version">Versioon %s</string>
     <string name="first_launch_main_feature_title">PÕHIFUNKTSIONAALSUSED</string>
-    <string name="digital_widget_settings">Digividin</string>
-    <string name="digital_widget_summary">Seadista digividina värve ja kellateksti suurust</string>
-    <string name="digital_widget_material_you_settings">Material You digividin</string>
     <string name="digital_widget_background_title">Vidina taust</string>
-    <string name="digital_widget_material_you_summary">Seadista Material You digividina värve ja kellateksti suurust</string>
     <string name="sleeping_time">Uneaeg: %1$s</string>
     <string name="bedtime_reminder_notification">Meeldetuletuse teavitus</string>
     <string name="wakeup">Äratushelin</string>

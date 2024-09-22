@@ -433,7 +433,6 @@
     <string name="analog_gadget_material_you">模拟时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="digital_widget_settings">数字小部件</string>
     <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟；
 \n
 \n• 使用电源按钮或音量按钮关闭/推迟闹钟；
@@ -485,7 +484,6 @@
     <string name="keep_timer_screen_on_title">如果显示定时器，请保持屏幕打开</string>
     <string name="first_launch_main_feature_link">…还有更多！</string>
     <string name="screensaver_italic_date_title">斜体日期</string>
-    <string name="digital_widget_material_you_summary">设置 Material You 数字小部件的颜色并更改时钟字体大小</string>
     <string name="background_color_title">背景颜色</string>
     <string name="digital_widget_city_title">在小部件上显示城市</string>
     <string name="digital_widget_city_clock_custom_color_title">城市时钟自定义颜色</string>
@@ -543,8 +541,6 @@
     <string name="first_launch_important_info_title">重要信息</string>
     <string name="first_launch_dialog_title">退出</string>
     <string name="first_launch_dialog_message">是否确定要离开应用程序？</string>
-    <string name="digital_widget_summary">设置数字小部件的颜色并更改时钟字体大小</string>
-    <string name="digital_widget_material_you_settings">Material You 数字小部件</string>
     <string name="digital_widget_background_title">显示背景</string>
     <string name="digital_widget_clock_default_color_title">使用主时钟的默认颜色</string>
     <string name="digital_widget_date_default_color_title">使用日期的默认颜色</string>

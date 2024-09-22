@@ -608,10 +608,6 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICATIONS EN PLEIN ÉCRAN ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
-    <string name="digital_widget_settings">Widget numérique</string>
-    <string name="digital_widget_summary">Définit les couleurs du widget numérique et modifie la taille de la police de l\'horloge</string>
-    <string name="digital_widget_material_you_settings">Widget numérique Material You</string>
-    <string name="digital_widget_material_you_summary">Définit les couleurs du widget numérique Material You et modifie la taille de la police de l\'horloge</string>
     <string name="digital_widget_background_title">Afficher l\'arrière-plan</string>
     <string name="background_color_title">Couleur d\'arrière-plan</string>
     <string name="digital_widget_city_title">Afficher les villes sur le widget</string>
@@ -665,11 +661,9 @@
     <string name="whats_new_dialog_message">Découvrir les nouveautés :
 \n
 \n%s</string>
-    <string name="material_you_vertical_digital_widget_summary">Définit les couleurs du widget numérique vertical Material You et modifie la taille de la police de l\'horloge</string>
     <string name="digital_widget_default_hours_color_title">Utiliser la couleur par défaut pour les heures</string>
     <string name="digital_widget_custom_hours_color_title">Couleur personnalisée des heures</string>
     <string name="digital_widget_default_minutes_color_title">Utiliser la couleur par défaut pour les minutes</string>
     <string name="digital_widget_custom_minutes_color_title">Couleur personnalisée des minutes</string>
     <string name="material_you_vertical_digital_gadget">Horloge numérique verticale Material You</string>
-    <string name="material_you_vertical_digital_widget_settings">Widget numérique vertical Material You</string>
 </resources>
