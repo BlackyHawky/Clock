@@ -376,7 +376,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Торкніться, щоб переглянути таймери"</string>
     <string name="timers_in_use" msgid="5570729467344408506">Таймерів: <xliff:g example="7" id="number">%d</xliff:g></string>
     <string name="next_timer_notif" msgid="6136454740115613653">Наступний за <xliff:g id="time_remaining">%s</xliff:g></string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Налаштування заставки"</string>
     <string name="expand_alarm" msgid="7392616528943305020">Розгорнути</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Згорнути"</string>
     <string name="alarm_undo" msgid="5710042601177655254">Скасувати</string>
@@ -433,7 +432,6 @@
     <string name="dialog_close">Закрити</string>
     <string name="whats_new_title">Що нового</string>
     <string name="first_launch_button_now">Зараз</string>
-    <string name="permission_settings">Дозволи</string>
     <string name="bedtime_notification_action_pause">Призупинити на 30 хв</string>
     <string name="bedtime_channel">Час сну</string>
     <string name="screensaver_brightness_title">Яскравість</string>
@@ -487,7 +485,7 @@
     <string name="digital_widget_clock_default_color_title">Колір за замовчуванням для основного годинника</string>
     <string name="digital_widget_date_default_color_title">Колір за замовчуванням для дати</string>
     <string name="digital_widget_next_alarm_default_color_title">Колір за замовчуванням для наступного будильника</string>
-    <string name="permission_management_title">Керування дозволами</string>
+    <string name="permission_management_settings">Керування дозволами</string>
     <string name="permission_management_summary">Дозволи, необхідні для коректної роботи додатка</string>
     <string name="permission_requirement_title">Вимога: </string>
     <string name="digital_widget_max_clock_font_size_summary">Максимальний розмір шрифту = </string>
@@ -540,7 +538,6 @@
     <string name="bedtime_notification_resume">Відновити о <xliff:g id="time">%1$s</xliff:g></string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
     <string name="digital_widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
-    <string name="digital_widget_material_you_title">Налаштування цифрового віджета Material You</string>
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані цифрові віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
@@ -558,14 +555,12 @@
     <string name="bedtime_reminder_notification_text">Ваш час сну закінчується о <xliff:g id="wake_time">%1$s</xliff:g> після <xliff:g id="sleep_time">%2$s</xliff:g> сну.</string>
     <string name="permission_highly_recommended">Настійно рекомендується</string>
     <string name="interface_customization_summary">Налаштування стилю і кольору додатка</string>
-    <string name="interface_customization_title">Інтерфейс</string>
     <string name="timer_settings_summary">Сигнал за замовчуванням і гучність для таймерів</string>
     <string name="sleeping_time">Тривалість сну: %1$s</string>
     <string name="revoke_permission_dialog_message">Ви впевнені, що хочете відкликати цей дозвіл?</string>
     <string name="swipe_action_title">Жести, щоб вимкнути або відкласти будильник</string>
     <string name="screensaver_daydream_settings">Вибрати/ввімкнути заставку</string>
     <string name="screensaver_daydream_settings_summary">Відкриває основні налаштування заставки Android</string>
-    <string name="timer_settings_title">Таймери</string>
     <string name="screensaver_settings_summary">Стиль, колір і шрифт заставки</string>
     <string name="first_launch_important_info_title">ВАЖЛИВА ІНФОРМАЦІЯ</string>
     <string name="first_launch_important_info_message">Щоб додаток працював належним чином, необхідно &lt;b&gt;змінити деякі налаштування Вашого пристрою:&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Оптимізація заряду акумулятора;&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Сповіщення;&lt;/b&gt;&lt;br&gt;&lt;br&gt; %s • &lt;b&gt;Сховище &lt;i&gt;(необов\'язково).&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Залежно від версії Android Вашого пристрою, деякі з цих налаштувань (наприклад, Сповіщення) можуть бути вже оптимізовані.&lt;/i&gt;&lt;br&gt;&lt;br&gt;Ви можете змінити їх зараз або пізніше в налаштуваннях управління дозволами:</string>
@@ -581,12 +576,10 @@
     <string name="enable_alarm_snooze_actions_label">Увімкнути дії відкладення будильника</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Вимкнути будильник після відтворення сигналу</string>
     <string name="timer_add_custom_time">+%s</string>
-    <string name="clock_settings_title">Годинник</string>
     <string name="timer_label_box_title">Мітка таймера</string>
     <string name="timer_button_time_box_title">Хвилини для додавання до таймера</string>
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="contributors">Автори</string>
-    <string name="alarm_settings_title">Будильник</string>
     <string name="alarm_settings_summary">Сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
     <string name="description_direction_left_for_non_repeatable_alarms">Щоб вимкнути, проведіть пальцем ліворуч</string>
     <string name="description_direction_both_clicked">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути</string>
@@ -609,7 +602,6 @@
     <string name="digital_widget_city_title">Показувати міста у віджеті</string>
     <string name="digital_widget_background_title">Показувати фон</string>
     <string name="background_color_title">Колір фону</string>
-    <string name="digital_widget_title">Налаштування цифрового віджета</string>
     <string name="ignore_battery_optimizations_dialog_text">За замовчуванням система Android налаштовує всі встановлені користувачем додатки на оптимізацію для економії заряду акумулятора.
 \n
 \nДля багатьох програм це прийнятно, однак цей додаток є будильником і оптимізація заряду часто спричиняє проблеми. Якщо її увімкнено, Android може в будь-який момент завершити роботу додатка та/або скасувати заплановані будильники, що може негативно вплинути на роботу додатка.
@@ -625,4 +617,25 @@
     <string name="pulse_color">Колір пульсу</string>
     <string name="transparent_background_for_expired_timer_title">Прозорий фон, коли час таймерів вичерпано</string>
     <string name="alarm_display_customization_title">Налаштування вигляду будильника</string>
+    <string name="alarm_clock_font_size">Розмір шрифту будильника</string>
+    <string name="alarm_title_font_size">Розмір шрифту заголовка будильника</string>
+    <string name="whats_new_dialog_message">Дізнайтеся, що нового:
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Відвідайте сторінку %1$s на GitHub:
+\n
+\n%2$s</string>
+    <string name="license_dialog_message">Ознайомитися з ліцензією:
+\n
+\n%s</string>
+    <string name="github_dialog_message">Відвідайте сторінку проєкту на GitHub:
+\n
+\n%s</string>
+    <string name="material_you_vertical_digital_gadget">Вертикальний цифровий годинник Material You</string>
+    <string name="material_you_vertical_digital_widget_settings">Вертикальний цифровий віджет Material You</string>
+    <string name="material_you_vertical_digital_widget_summary">Кольори вертикального цифрового віджета Material You і розмір шрифту годинника</string>
+    <string name="digital_widget_custom_hours_color_title">Власний колір годин</string>
+    <string name="digital_widget_default_hours_color_title">Колір за замовчуванням для годин</string>
+    <string name="digital_widget_default_minutes_color_title">Колір за замовчуванням для хвилин</string>
+    <string name="digital_widget_custom_minutes_color_title">Власний колір хвилин</string>
 </resources>

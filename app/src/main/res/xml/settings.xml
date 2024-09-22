@@ -84,7 +84,7 @@
     <Preference
         android:key="key_permissions_management"
         android:layout="@layout/settings_preference_layout"
-        android:title="@string/permission_settings"
+        android:title="@string/permission_management_settings"
         android:summary="@string/permission_management_summary"
         android:icon="@drawable/ic_key"
         app:singleLineTitle="false" />

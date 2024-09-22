@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"ඔබගේ කාල ගණක බැලීමට තට්ටු කරන්න"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"කාල ගැනීම් <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"මීළඟ කාල ගණනය කිරීම: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"තිර සුරැකුම් සැකසීම්"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ඇඟවීම දිග හරින්න"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ඇඟවීම අකුලන්න"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"අස් කරන්න"</string>

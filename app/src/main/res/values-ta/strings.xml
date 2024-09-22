@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"டைமர்களைப் பார்க்க, தட்டவும்"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள்"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"அடுத்த டைமர்: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"ஸ்கிரீன் சேவர் அமைப்புகள்"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"செயல்தவிர்"</string>

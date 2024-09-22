@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"നിങ്ങളുടെ ടൈമറുകൾ കാണാൻ ടാപ്പുചെയ്യുക"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"അടുത്ത ടൈമർ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"സ്ക്രീൻ സേവർ ക്രമീകരണം"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"അലാറം വിപുലീകരിക്കുക"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"അലാറം ചുരുക്കുക"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"പഴയപടിയാക്കുക"</string>

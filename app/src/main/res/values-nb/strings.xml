@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Trykk for å se tidtakerne dine"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> nedtellinger"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Neste nedtelling: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Innstillinger for skjermspareren"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Vis alarmen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skjul alarmen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"angre"</string>

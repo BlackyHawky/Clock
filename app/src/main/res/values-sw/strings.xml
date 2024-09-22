@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Gusa ili uone vipima muda vyako"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kinachofuata: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Mipangilio ya taswira ya skrini"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Kunja kengele"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"tendua"</string>

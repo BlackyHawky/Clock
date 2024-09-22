@@ -349,7 +349,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">点击查看您的定时器</string>
     <string name="timers_in_use" msgid="5570729467344408506"><xliff:g example="7" id="number">%d</xliff:g> 个定时器</string>
     <string name="next_timer_notif" msgid="6136454740115613653">下一个定时器：<xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
-    <string name="screensaver_settings" msgid="1780742944194267226">屏幕保护程序设置</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">折叠闹钟</string>
     <string name="alarm_undo" msgid="5710042601177655254">撤销</string>
@@ -418,7 +417,6 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">创建闹钟时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="color_picker_default_button">默认</string>
-    <string name="clock_settings_title">时钟设置</string>
     <string name="notifications_dialog_text">除了设置闹钟外，这款应用还具有定时器、秒表和就寝模式。
 \n
 \n为了使所有模块的通知都能正确显示，尤其是为了触发闹钟，我们建议为此应用激活通知。</string>
@@ -506,7 +504,6 @@
     <string name="contributors">贡献者</string>
     <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
-    <string name="alarm_settings_title">闹钟设置</string>
     <string name="bedtime_service_desc">处理来自就寝时间通知的操作。</string>
     <string name="description_direction_both_for_non_repeatable_alarms">向左或向右滑动以关闭</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">单击左或右以关闭</string>
@@ -546,10 +543,8 @@
     <string name="first_launch_important_info_title">重要信息</string>
     <string name="first_launch_dialog_title">退出</string>
     <string name="first_launch_dialog_message">是否确定要离开应用程序？</string>
-    <string name="digital_widget_title">自定义数字小部件</string>
     <string name="digital_widget_summary">设置数字小部件的颜色并更改时钟字体大小</string>
     <string name="digital_widget_material_you_settings">Material You 数字小部件</string>
-    <string name="digital_widget_material_you_title">自定义 Material You 数字小部件</string>
     <string name="digital_widget_background_title">显示背景</string>
     <string name="digital_widget_clock_default_color_title">使用主时钟的默认颜色</string>
     <string name="digital_widget_date_default_color_title">使用日期的默认颜色</string>
@@ -559,8 +554,7 @@
     <string name="digital_widget_max_clock_font_size_title">主时钟的最大字体大小</string>
     <string name="digital_widget_max_clock_font_size_summary">最大字体大小 = </string>
     <string name="digital_widget_message_summary">必须禁用小部件上的显示城市才能访问此设置</string>
-    <string name="permission_settings">权限</string>
-    <string name="permission_management_title">权限管理</string>
+    <string name="permission_management_settings">权限管理</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;全屏通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="digital_widget_next_alarm_default_color_title">下次闹钟使用默认颜色</string>
     <string name="digital_widget_next_alarm_custom_color_title">下次闹钟自定义颜色</string>
@@ -576,7 +570,6 @@
     <string name="ringtone_category_title">铃声</string>
     <string name="actions_category_title">操作</string>
     <string name="interface_customization_settings">界面</string>
-    <string name="interface_customization_title">自定义界面</string>
     <string name="interface_customization_summary">设置应用于应用程序的风格和颜色</string>
     <string name="title_theme">主题</string>
     <string name="title_accent_color">强调色</string>
@@ -586,7 +579,6 @@
     <string name="settings_vibration_title">启用振动</string>
     <string name="settings_vibration_summary">只有一些界面按钮受到影响（例如：定时器播放/暂停按钮或开关）</string>
     <string name="display_background_border_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景边框</string>
-    <string name="timer_settings_title">定时器设置</string>
     <string name="ignore_battery_optimizations_title">忽略电池优化</string>
     <string name="permission_denied">已拒绝</string>
     <string name="permission_dialog_close_button">关闭</string>
@@ -601,4 +593,18 @@
     <string name="transparent_background_for_expired_timer_title">定时器到期时的透明背景</string>
     <string name="alarm_title_color">闹钟标题颜色</string>
     <string name="seconds_hand_color_title">秒针颜色</string>
+    <string name="alarm_clock_font_size">闹钟字体大小</string>
+    <string name="alarm_title_font_size">闹钟标题字体大小</string>
+    <string name="whats_new_dialog_message">了解更新内容：
+\n
+\n%s</string>
+    <string name="github_dialog_message">访问项目的 GitHub 页面：
+\n
+\n%s</string>
+    <string name="license_dialog_message">阅读许可证：
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">访问 %1$s 的 GitHub 页面：
+\n
+\n%2$s</string>
 </resources>

@@ -42,7 +42,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Problem encountered with bedtime mode as this is an experimental feature;;
 * Maybe other things, but nothing about the alarm's functionality.
 
-_<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_
+⚠ _<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_ ⚠
 
 # Contributing ❤
 

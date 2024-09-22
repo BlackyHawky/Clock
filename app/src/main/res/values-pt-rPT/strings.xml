@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Toque para ver os seus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Temp. seguinte: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Definições de proteção de ecrã"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Reduzir alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anular"</string>

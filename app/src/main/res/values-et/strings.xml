@@ -358,7 +358,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Puudutage taimerite nägemiseks"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> taimerit"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Järgmine taimer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Ekraanisäästja seaded"</string>
     <string name="expand_alarm" msgid="7392616528943305020">Laienda äratus</string>
     <string name="collapse_alarm" msgid="3561772046433483980">Ahenda äratus</string>
     <string name="alarm_undo" msgid="5710042601177655254">"võta tagasi"</string>
@@ -426,7 +425,6 @@
     <string name="ringtone_category_title">Helin</string>
     <string name="actions_category_title">Tegevused</string>
     <string name="interface_customization_settings">Kasutajaliides</string>
-    <string name="interface_customization_title">Kohenda kasutajaliidest</string>
     <string name="style_category_title">Välimus</string>
     <string name="styles_and_colors_category_title">Stiil ja värvid</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Helina lõppemisel lülita äratus välja</string>
@@ -448,14 +446,12 @@
     <string name="timer_label_box_title">Taimeri silt</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">Helina lõppedes</string>
     <string name="timer_button_time_box_title">Taimerile lisatavad minutid</string>
-    <string name="clock_settings_title">Kella seadistused</string>
     <string name="clock_settings_summary">Muuda välimust, ajavööndeid ning seadme kuupäeva ja kellaaega</string>
     <string name="version">Versioon</string>
     <string name="whats_new_title">Rakenduse muudatused</string>
     <string name="about_github_link">Vaata GitHubis</string>
     <string name="contributors">Kaasautorid</string>
     <string name="credits">Tänuavaldused</string>
-    <string name="alarm_settings_title">Äratuse seadistused</string>
     <string name="version_text">Versioon <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="features_title">Põhifunktsionaalsused</string>
     <string name="about_title">Rakenduse teave</string>
@@ -489,7 +485,6 @@
     <string name="digital_widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
     <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste kasutamiseks</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
-    <string name="timer_settings_title">Taimerite seadistused</string>
     <string name="menu_bedtime">Magamamineku aeg</string>
     <string name="screensaver_next_alarm_color_title">Järgmise äratuse värv</string>
     <string name="timer_settings_summary">Määra taimeritele vaikimisi helin ja valjus</string>
@@ -510,7 +505,6 @@
     <string name="first_launch_main_feature_title">PÕHIFUNKTSIONAALSUSED</string>
     <string name="digital_widget_settings">Digividin</string>
     <string name="digital_widget_summary">Seadista digividina värve ja kellateksti suurust</string>
-    <string name="digital_widget_title">Kohanda digividinat</string>
     <string name="digital_widget_material_you_settings">Material You digividin</string>
     <string name="digital_widget_background_title">Vidina taust</string>
     <string name="digital_widget_material_you_summary">Seadista Material You digividina värve ja kellateksti suurust</string>
@@ -528,14 +522,12 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;TÄISEKRAANITEAVITUSED;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Välju</string>
     <string name="first_launch_dialog_message">Kas sa oled kindel, et soovid rakendusest väljuda?</string>
-    <string name="digital_widget_material_you_title">Kohanda Material You digividinat</string>
     <string name="background_color_title">Taustavärv</string>
     <string name="digital_widget_city_title">Näita vidinas linnu</string>
     <string name="digital_widget_clock_default_color_title">Kasuta põhikellana vaikimisi kella</string>
     <string name="digital_widget_city_clock_custom_color_title">Vali linnade kellale oma värv</string>
     <string name="digital_widget_max_clock_font_size_title">Kella põhivaate kirjatüübi suurim suurus</string>
     <string name="digital_widget_max_clock_font_size_summary">Maksimaalne kirjatüübi suurus = </string>
-    <string name="permission_settings">Õigused</string>
     <string name="FSN_dialog_title">Täisekraaniteavitused</string>
     <string name="permission_status_title">Olek: </string>
     <string name="permission_management_summary">Näita õigusi, mis on vajalikud rakenduse korrektseks toimimiseks</string>
@@ -584,7 +576,7 @@
     <string name="FSN_permission_title">LUBA TÄISEKRAANITEAVITUSED</string>
     <string name="permission_requirement_title">Vajadus: </string>
     <string name="permission_denied">Keelatud</string>
-    <string name="permission_management_title">Õiguste haldus</string>
+    <string name="permission_management_settings">Õiguste haldus</string>
     <string name="permission_highly_recommended">Väga soovitatav</string>
     <string name="permission_dialog_revoke_title">Keela ligipääs</string>
     <string name="permission_dialog_close_button">Sulge</string>
@@ -602,4 +594,26 @@
     <string name="permission_granted">Lubatud</string>
     <string name="digital_widget_message_summary">Selle seadistuse jaoks peab linnade vidin olema välja lülitatud</string>
     <string name="notifications_dialog_title">Teavitused</string>
+    <string name="alarm_display_customization_title">Kohenda äratuse vaadet</string>
+    <string name="snooze_button_color">Uinu-nupu värv</string>
+    <string name="dismiss_button_color">Äratuse lõpetamise nupu värv</string>
+    <string name="alarm_button_color">Äratuse nupu värv</string>
+    <string name="pulse_color">Pulseeruva vaate värv</string>
+    <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
+    <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
+    <string name="transparent_background_for_expired_timer_title">Taimerite aegumisel kuva läbipaistev taust</string>
+    <string name="seconds_hand_color_title">Sekundiostuti värv</string>
+    <string name="alarm_title_color">Äratuse nime värv</string>
+    <string name="whats_new_dialog_message">Vaata uuendusi:
+\n
+\n%s</string>
+    <string name="license_dialog_message">Loe litsentsi tingimusi:
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Vaata %1$s lehte Githubis:
+\n
+\n%2$s</string>
+    <string name="github_dialog_message">Külasta projekti lehte GitHubis:
+\n
+\n%s</string>
 </resources>

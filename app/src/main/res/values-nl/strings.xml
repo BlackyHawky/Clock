@@ -358,7 +358,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tik om je timers te bekijken"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Volgende timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Instellingen voor screensaver"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Wekker uitvouwen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
@@ -498,8 +497,7 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;MELDINGEN OP VOLLEDIG SCHERM SCHERM;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Verlaten</string>
     <string name="first_launch_dialog_message">Weet je zeker dat je de app wil verlaten?</string>
-    <string name="permission_settings">Rechten</string>
-    <string name="permission_management_title">Rechtenbeheer</string>
+    <string name="permission_management_settings">Rechtenbeheer</string>
     <string name="permission_requirement_title">Vereiste: </string>
     <string name="permission_highly_recommended">Sterk aanbevolen</string>
     <string name="permission_status_title">Status: </string>
@@ -548,7 +546,6 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie stijl</string>
-    <string name="alarm_settings_title">Wekkerinstellingen</string>
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, snooze-acties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="digital_widget_settings">Digitale widget</string>
     <string name="digital_widget_material_you_summary">Kleuren en lettergrootte van de Material You digitale widget aanpassen</string>
@@ -558,10 +555,8 @@
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uit zetten als wekkergeluid eindigt</string>
-    <string name="clock_settings_title">Klokinstellingen</string>
     <string name="color_picker_default_button">Standaard</string>
     <string name="actions_category_title">Acties</string>
-    <string name="interface_customization_title">Pas het uiterlijk aan</string>
     <string name="interface_customization_summary">Uiterlijk en de kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te snoozen of uit te zetten</string>
     <string name="clock_color_title">Kleur klok</string>
@@ -575,14 +570,11 @@
     <string name="description_direction_both_clicked">Tik links om te snoozen of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarms">Veeg naar links of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Tik links of rechts om uit te zetten</string>
-    <string name="timer_settings_title">Timerinstellingen</string>
     <string name="timer_settings_summary">Standaard ringtoon en volume voor timers aanpassen</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan timer toe te voegen</string>
     <string name="keep_timer_screen_on_title">Scherm aanhouden als timer getoond wordt</string>
-    <string name="digital_widget_title">Digitale widget aanpassen</string>
     <string name="digital_widget_summary">Kleuren en lettergrootte van de digitale widget aanpassen</string>
     <string name="digital_widget_material_you_settings">Material You digitale widget</string>
-    <string name="digital_widget_material_you_title">De Material You digitale widget aanpassen</string>
     <string name="digital_widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
     <string name="digital_widget_city_title">Steden op widget tonen</string>

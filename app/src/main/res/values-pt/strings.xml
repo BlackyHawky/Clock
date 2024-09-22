@@ -358,7 +358,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Toque para ver seus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Configurações do protetor de tela"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Recolher alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desfazer"</string>
@@ -419,7 +418,6 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilitar vibrações quando criar alarmes</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">O fim do toque</string>
     <string name="add_label">Adicionar nome</string>
-    <string name="interface_customization_title">Personalizar a interface</string>
     <string name="style_category_title">Estilo</string>
     <string name="styles_and_colors_category_title">Estilo e cores</string>
     <string name="font_category_title">Fonte</string>

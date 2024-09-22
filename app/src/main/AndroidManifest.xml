@@ -93,35 +93,35 @@
         <activity
             android:name="com.best.deskclock.settings.InterfaceCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/interface_customization_title"
+            android:label="@string/interface_customization_settings"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name="com.best.deskclock.settings.ClockSettingsActivity"
             android:excludeFromRecents="true"
-            android:label="@string/clock_settings_title"
+            android:label="@string/clock_settings"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name="com.best.deskclock.settings.AlarmSettingsActivity"
             android:excludeFromRecents="true"
-            android:label="@string/alarm_settings_title"
+            android:label="@string/alarm_settings"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name="com.best.deskclock.settings.TimerSettingsActivity"
             android:excludeFromRecents="true"
-            android:label="@string/timer_settings_title"
+            android:label="@string/timer_settings"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
         <activity
             android:name="com.best.deskclock.settings.PermissionsManagementActivity"
             android:excludeFromRecents="true"
-            android:label="@string/permission_management_title"
+            android:label="@string/permission_management_settings"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
 
@@ -299,7 +299,7 @@
         <activity
             android:name="com.best.deskclock.settings.ScreensaverSettingsActivity"
             android:excludeFromRecents="true"
-            android:label="@string/screensaver_settings"
+            android:label="@string/screensaver_settings_title"
             android:parentActivityName=".settings.SettingsActivity"
             android:taskAffinity=""
             android:theme="@style/Theme.DeskClock" />
@@ -359,7 +359,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_widget_title"
+            android:label="@string/digital_widget_settings"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
@@ -398,7 +398,7 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_widget_material_you_title"
+            android:label="@string/digital_widget_material_you_settings"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
@@ -435,7 +435,7 @@
         <activity
             android:name="com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/material_you_vertical_digital_widget_title"
+            android:label="@string/material_you_vertical_digital_widget_settings"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 

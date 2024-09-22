@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"ແຕະເພື່ອເບິ່ງໂມງນັບຖອຍຫຼັງຂອງທ່ານ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ໂມງນັບຖອຍຫຼັງ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"ໂມງຈັບເວລາຄັ້ງຕໍ່ໄປ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"ການຕັ້ງຄ່າຕົວພັກໜ້າຈໍ"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ຂະຫຍາຍໂມງປຸກ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ຫຍໍ້ແຖບໂມງປຸກ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ຍົກເລີກ"</string>

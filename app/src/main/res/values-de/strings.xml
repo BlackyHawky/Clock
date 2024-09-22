@@ -358,7 +358,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">Tippen, um deine Timer abzurufen</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> Timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Nächster Timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Bildschirmschoner-Einstellungen"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Wecker maximieren"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Wecker minimieren"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig"</string>
@@ -452,7 +451,6 @@
     <string name="description_direction_left_for_non_repeatable_alarms">Zum Schließen nach links wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms">Zum Schließen nach links oder rechts wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Zum Schließen links oder rechts klicken</string>
-    <string name="timer_settings_title">Timer-Einstellungen</string>
     <string name="timer_settings_summary">Standardklingelton und -lautstärke für Timer festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
@@ -485,8 +483,7 @@
     <string name="digital_widget_next_alarm_default_color_title">Standardfarbe für nächsten Alarm verwenden</string>
     <string name="digital_widget_next_alarm_custom_color_title">Benutzerdefinierte Farbe des nächsten Alarms</string>
     <string name="digital_widget_city_clock_custom_color_title">Benutzerdefinierte Farbe der Uhr einer Stadt</string>
-    <string name="permission_settings">Berechtigungen</string>
-    <string name="permission_management_title">Berechtigungen verwalten</string>
+    <string name="permission_management_settings">Berechtigungen verwalten</string>
     <string name="permission_management_summary">Anzeige der für die ordnungsgemäße Funktion der Anwendung erforderlichen Berechtigungen</string>
     <string name="permission_highly_recommended">Sehr empfohlen</string>
     <string name="permission_status_title">Status: </string>
@@ -504,7 +501,6 @@
 \n
 \nWir empfehlen, diese App von den Akku-Optimierungen auszuschließen.</string>
     <string name="settings_permission_summary">Hier klicken, um die Seite zur Berechtigungsverwaltung anzuzeigen.</string>
-    <string name="interface_customization_title">Das Aussehen anpassen</string>
     <string name="credits">Dank an</string>
     <string name="settings_permission_message">Eine oder mehrere notwendige Berechtigungen fehlen. Sie nicht zu gewähren, kann zu Fehlfunktionen führen.</string>
     <string name="miscellaneous_category_title">Verschiedenes</string>
@@ -512,7 +508,6 @@
     <string name="screensaver_date_color_title">Farbe des Datums</string>
     <string name="screensaver_italic_next_alarm_title">Nächster Alarm kursiv</string>
     <string name="FSN_permission_title">VOLLBILD-BENACHRICHTIGUNGEN AKTIVIEREN</string>
-    <string name="alarm_settings_title">Wecker-Einstellungen</string>
     <string name="screensaver_settings_summary">Einstellen von Stil, Farbe und Schriftart des Bildschirmschoners</string>
     <string name="digital_widget_city_clock_default_color_title">Standardfarbe für Uhr einer Stadt verwenden</string>
     <string name="digital_widget_city_name_default_color_title">Standardfarbe für Stadtnamen verwenden</string>
@@ -536,7 +531,6 @@
     <string name="wakeup">Wecken</string>
     <string name="settings_vibration_title">Vibrationsfeetback aktivieren</string>
     <string name="settings_vibration_summary">Nur einige Tasten der Benutzeroberfläche sind betroffen (z. B. die Taste für Start/Pause des Timers oder die Umschalt-Button)</string>
-    <string name="clock_settings_title">Uhr-Einstellungen</string>
     <string name="clock_settings_summary">Einstellen von Stil, Zeitzone und Ändern von Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>
     <string name="permission_requirement_title">Erfordernis: </string>
@@ -552,10 +546,8 @@
     <string name="background_color_title">Hintergrundfarbe</string>
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
     <string name="digital_widget_settings">Digitaluhr-Widget</string>
-    <string name="digital_widget_title">Anpassen des Digitaluhr-Widgets</string>
     <string name="digital_widget_summary">Einstellen der Farben des Digitaluhr-Widgets und Ändern der Schriftgröße der Uhr</string>
     <string name="digital_widget_material_you_settings">Material You Digitaluhr-Widget</string>
-    <string name="digital_widget_material_you_title">Anpassen des Material You Digitaluhr-Widgets</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
     <string name="FSN_dialog_title">Vollbild-Benachrichtigungen</string>
     <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>

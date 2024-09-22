@@ -217,8 +217,6 @@
     <string name="actions_category_title">Actions</string>
     <!-- Interface customization title in the settings -->
     <string name="interface_customization_settings">Interface</string>
-    <!-- Interface preference title -->
-    <string name="interface_customization_title">Customize the interface</string>
     <!-- Interface preference summary -->
     <string name="interface_customization_summary">Set the style and color applied to the application</string>
     <!-- Settings theme title -->
@@ -666,7 +664,6 @@
     <string name="cities_activity_title">Cities</string>
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
     <string name="clock_settings">Clock</string>
-    <string name="clock_settings_title">Clock settings</string>
     <string name="clock_settings_summary">Set style, time zone and change device date and time</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
@@ -967,7 +964,6 @@
     <string name="shortcut_start_screensaver_long">Start screensaver</string>
     <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
-    <string name="alarm_settings_title">Alarms settings</string>
     <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
@@ -998,7 +994,6 @@
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Click left or right to dismiss</string>
     <!-- Timer preference title in the settings -->
     <string name="timer_settings">Timers</string>
-    <string name="timer_settings_title">Timers settings</string>
     <string name="timer_settings_summary">Set default ringtone and volume for timers</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>
@@ -1057,8 +1052,6 @@
     <string name="screensaver_daydream_settings">Select/enable screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
     <string name="screensaver_daydream_settings_summary">Opens the main Android screensaver settings</string>
-    <!-- Screensaver preference title in the settings. -->
-    <string name="screensaver_settings">Screensaver settings</string>
     <!-- Title of dynamic screensaver clock color. -->
     <string name="screensaver_clock_dynamic_colors_title">Dynamic clock colors</string>
     <!-- Title of clock color. -->
@@ -1314,15 +1307,15 @@
     -->
     <!-- Digital widget preference title in the settings. -->
     <string name="digital_widget_settings">Digital widget</string>
-    <string name="digital_widget_title">Customize the digital widget</string>
+    <!-- Digital widget summary in the settings. -->
     <string name="digital_widget_summary">Set the colors of the digital widget and change the clock font size</string>
     <!-- Material You digital widget preference title in the settings. -->
     <string name="digital_widget_material_you_settings">Material You digital widget</string>
-    <string name="digital_widget_material_you_title">Customize the Material You digital widget</string>
+    <!-- Material You digital widget summary in the settings. -->
     <string name="digital_widget_material_you_summary">Set the colors of the Material You digital widget and change the clock font size</string>
     <!-- Material You vertical digital widget preference title in the settings. -->
     <string name="material_you_vertical_digital_widget_settings">Material You vertical digital widget</string>
-    <string name="material_you_vertical_digital_widget_title">Customize the Material You vertical digital widget</string>
+    <!-- Material You vertical digital widget summary in the settings. -->
     <string name="material_you_vertical_digital_widget_summary">Set the colors of the Material You vertical digital widget and change the clock font size</string>
     <!-- Title to display the background on the digital widget. -->
     <string name="digital_widget_background_title">Display background</string>
@@ -1367,8 +1360,7 @@
     <!--
     Permissions
     -->
-    <string name="permission_settings">Permissions</string>
-    <string name="permission_management_title">Permissions management</string>
+    <string name="permission_management_settings">Permissions management</string>
     <string name="permission_management_summary">Show the permissions necessary for the application to work properly</string>
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>

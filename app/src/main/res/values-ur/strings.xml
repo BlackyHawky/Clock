@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"اپنے ٹائمرز دیکھنے کے لئے تھپتھپائیں"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ٹائمرز"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"اگلا ٹائمر: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"اسکرین سیور کی ترتیبات"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"الارم کی توسیع کریں"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"الارم کو سکیڑیں"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"کالعدم کریں"</string>

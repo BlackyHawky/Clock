@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"आफ्नो टाइमरहरू हेर्न ट्याप गर्नुहोस्"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"अर्को घडी: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रिन सेभरसम्बन्धी सेटिङहरू"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"अन्डू गर्नुहोस्"</string>

@@ -1,0 +1,9 @@
+**Parandused**
+ - Parandasime digividinate uuendamise Android13+ puhul;
+
+**Täiendused**
+ - Digividinad on nüüd kohandatavad:
+  • saad muuta kõikide elementide värvi;
+  • saad muuta kella põhivaate kirjatüübi suurust (vaid siis, kui linna ei kuvata);
+  • Android 9+ puhul saad pika vajutusega avada digividinate seadistused;
+ - Uuendasime mõned tõlked;

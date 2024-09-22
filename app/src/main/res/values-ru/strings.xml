@@ -376,7 +376,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Нажмите, чтобы посмотреть таймеры"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Таймеров: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"След.: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Настройки заставки"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Развернуть"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Свернуть"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"отмена"</string>
@@ -435,7 +434,6 @@
     <string name="bedtime_notification_action_pause">Пауза на 30 минут</string>
     <string name="bedtime_notification_action_turn_off">Выключение</string>
     <string name="bedtime_notification_resume_action">Возобновить сейчас</string>
-    <string name="digital_widget_title">Настроить цифрой виджет</string>
     <string name="digital_widget_summary">Поставить цвета цифрового виджета и изменить размер шрифта часов</string>
     <string name="digital_widget_material_you_settings">Material You цифровой виджет</string>
     <string name="digital_widget_background_title">Отображать задний фон</string>
@@ -446,21 +444,19 @@
     <string name="digital_widget_message_summary">\"Показывать города\" на виджете должно быть отключено, чтобы получить доступ к этой настройке</string>
     <string name="permission_management_summary">Показывать разрешения необходимые для правильной работы приложения</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИРОВАТЬ ОПТИМИЗАЦИИ БАТАРЕИ</string>
-    <string name="permission_management_title">Управление разрешениями</string>
+    <string name="permission_management_settings">Управление разрешениями</string>
     <string name="alarm_inactive">Выключен</string>
     <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="FSN_dialog_text">С Android 14, чтобы позволить будильнику сработать с выключенным экраном, необходимо, чтобы разрешение Полноэкранных Уведомлений было включено</string>
     <string name="style_category_title">Стиль</string>
     <string name="alarm_settings_summary">Выбрать стандартный рингтон, звук, действия для отключения или откладывания будильников, первый день недели и время напоминания в уведомлениях</string>
     <string name="description_direction_left_for_non_repeatable_alarms">Смахните влево, чтобы отключить</string>
-    <string name="alarm_settings_title">Настройки будильников</string>
     <string name="styles_and_colors_category_title">Стиль и цвета</string>
     <string name="gnu_gpl">Общая публичная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет часов</string>
     <string name="analog_gadget_material_you">Аналоговые часы Material You</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Выбрать стиль, часовой пояс и изменить дату и время девайса</string>
-    <string name="timer_settings_title">Настройки таймеров</string>
     <string name="keep_timer_screen_on_title">Оставлять экран включённым, если таймер отображается на экране</string>
     <string name="screensaver_next_alarm_color_title">Следующий цвет будильника</string>
     <string name="alarm_created">Будильник создан</string>
@@ -481,10 +477,7 @@
     <string name="miscellaneous_category_title">Разное</string>
     <string name="ringtone_category_title">Рингтон</string>
     <string name="interface_customization_settings">Интерфейс</string>
-    <string name="interface_customization_title">Персонализировать интерфейс</string>
-    <string name="permission_settings">Разрешения</string>
     <string name="swipe_action_title">Смахивание для выключения или откладывания будильников</string>
-    <string name="clock_settings_title">Настройки часов</string>
     <string name="app_slogan">100% FOSS Часы, основанные на AOSP</string>
     <string name="version">Версия</string>
     <string name="whats_new_title">Что нового</string>
@@ -501,7 +494,6 @@
     <string name="first_launch_button_now">Сейчас</string>
     <string name="first_launch_button_later">Позже</string>
     <string name="digital_widget_settings">Цифровой виджет</string>
-    <string name="digital_widget_material_you_title">Настроить Material You цифровой виджет</string>
     <string name="digital_widget_clock_default_color_title">Использовать цвет по умолчанию для основных часов</string>
     <string name="digital_widget_date_default_color_title">Использовать цвет по умолчанию для даты</string>
     <string name="digital_widget_max_clock_font_size_title">Максимальный размер шрифта основных часов</string>

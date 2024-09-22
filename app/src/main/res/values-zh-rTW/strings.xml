@@ -358,7 +358,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"輕觸即可查看計時器"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"下一個計時器：<xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"螢幕保護程式設定"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"展開鬧鐘"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"收合鬧鐘"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"復原"</string>
@@ -404,7 +403,6 @@
     <string name="about_title">關於</string>
     <string name="bedtime_channel">就寢時間</string>
     <string name="style_category_title">樣式</string>
-    <string name="permission_settings">權限</string>
     <string name="screensaver_daydream_settings">選擇／啟用螢幕保護程式</string>
     <string name="bedtime_notification_action_turn_off">關閉</string>
     <string name="contributors">貢獻者</string>

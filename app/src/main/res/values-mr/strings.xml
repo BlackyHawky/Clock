@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"तुमचे टायमर पाहण्यासाठी टॅप करा"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> टायमर"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"पुढील टायमर: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रीन सेव्हर सेटिंग्ज"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तृत करा"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म संकुचित करा"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"पूर्ववत करा"</string>

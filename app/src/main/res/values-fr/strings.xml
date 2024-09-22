@@ -104,7 +104,6 @@
     <string name="style_category_title">Style</string>
     <string name="styles_and_colors_category_title">Style et couleurs</string>
     <string name="font_category_title">Police de caractères</string>
-    <string name="interface_customization_title">Personnaliser l\'interface</string>
     <string name="interface_customization_summary">Définit le style et la couleur appliqués à l\'application</string>
     <string name="miscellaneous_category_title">Divers</string>
     <string name="ringtone_category_title">Sonnerie</string>
@@ -310,7 +309,6 @@
     <string name="home_label" msgid="4436139365695453870">"Domicile"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Villes"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Horloge"</string>
-    <string name="clock_settings_title">Paramètres de l\'horloge</string>
     <string name="clock_settings_summary">Définit le style, le fuseau horaire et modifie la date et l\'heure de l\'appareil</string>
     <string name="clock_style" msgid="2265011060429742344">"Style"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afficher l\'heure avec les secondes"</string>
@@ -456,7 +454,6 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Économ. d\'écran"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="alarm_settings_title">Paramètres des alarmes</string>
     <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
@@ -470,7 +467,6 @@
     <string name="description_direction_both_for_non_repeatable_alarms">Glisser à gauche ou à droite pour arrêter</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Cliquer à gauche ou à droite pour arrêter</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
-    <string name="timer_settings_title">Paramètres des minuteurs</string>
     <string name="timer_settings_summary">Définit la sonnerie par défaut et le volume des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
     <string name="default_time_to_add_to_timer_title">Durée par défaut à ajouter au minuteur</string>
@@ -520,7 +516,6 @@
     <string name="sleeping_time">Temps de sommeil : %1$s</string>
     <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
     <string name="no_wakeup_alarm">Aucun réveil défini</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Paramètres de l\'économiseur d\'écran"</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Définit le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
@@ -614,11 +609,9 @@
     <string name="first_launch_dialog_title">Quitter</string>
     <string name="first_launch_dialog_message">Êtes-vous sûr de vouloir quitter l\'application ?</string>
     <string name="digital_widget_settings">Widget numérique</string>
-    <string name="digital_widget_title">Personnaliser le widget numérique</string>
-    <string name="digital_widget_summary">Définit les couleurs du widget numérique et de modifie la taille de la police de l\'horloge</string>
+    <string name="digital_widget_summary">Définit les couleurs du widget numérique et modifie la taille de la police de l\'horloge</string>
     <string name="digital_widget_material_you_settings">Widget numérique Material You</string>
-    <string name="digital_widget_material_you_title">Personnaliser le widget numérique Material You</string>
-    <string name="digital_widget_material_you_summary">Définit les couleurs du widget numérique Material You et de modifie la taille de la police de l\'horloge</string>
+    <string name="digital_widget_material_you_summary">Définit les couleurs du widget numérique Material You et modifie la taille de la police de l\'horloge</string>
     <string name="digital_widget_background_title">Afficher l\'arrière-plan</string>
     <string name="background_color_title">Couleur d\'arrière-plan</string>
     <string name="digital_widget_city_title">Afficher les villes sur le widget</string>
@@ -635,8 +628,7 @@
     <string name="digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
     <string name="digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
     <string name="digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
-    <string name="permission_settings">Autorisations</string>
-    <string name="permission_management_title">Gestion des autorisations</string>
+    <string name="permission_management_settings">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
     <string name="permission_requirement_title">Exigence : </string>
     <string name="permission_highly_recommended">Hautement recommandée</string>
@@ -661,4 +653,23 @@
     <string name="bedtime_channel">Coucher</string>
     <string name="alarm_clock_font_size">Taille de la police de l\'horloge</string>
     <string name="alarm_title_font_size">Taille de la police du titre de l\'alarme</string>
+    <string name="github_dialog_message">Visiter la page GitHub du projet :
+\n
+\n%s</string>
+    <string name="license_dialog_message">Lire la licence :
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Visiter la page GitHub de %1$s :
+\n
+\n%2$s</string>
+    <string name="whats_new_dialog_message">Découvrir les nouveautés :
+\n
+\n%s</string>
+    <string name="material_you_vertical_digital_widget_summary">Définit les couleurs du widget numérique vertical Material You et modifie la taille de la police de l\'horloge</string>
+    <string name="digital_widget_default_hours_color_title">Utiliser la couleur par défaut pour les heures</string>
+    <string name="digital_widget_custom_hours_color_title">Couleur personnalisée des heures</string>
+    <string name="digital_widget_default_minutes_color_title">Utiliser la couleur par défaut pour les minutes</string>
+    <string name="digital_widget_custom_minutes_color_title">Couleur personnalisée des minutes</string>
+    <string name="material_you_vertical_digital_gadget">Horloge numérique verticale Material You</string>
+    <string name="material_you_vertical_digital_widget_settings">Widget numérique vertical Material You</string>
 </resources>

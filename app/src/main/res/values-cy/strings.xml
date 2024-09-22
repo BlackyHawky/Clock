@@ -395,7 +395,6 @@
     <string name="all_timers_stopped_notif">Tapia i weld dy amseryddion</string>
     <string name="timers_in_use"><xliff:g example="7" id="number">%d</xliff:g> amserydd</string>
     <string name="next_timer_notif">Amserydd nesaf: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
-    <string name="screensaver_settings">Gosodiadau arbedwr sgrin</string>
     <string name="expand_alarm">Ehangu\'r larwm</string>
     <string name="collapse_alarm">Lleihau\'r larwm</string>
     <string name="alarm_undo">dad-wneud</string>

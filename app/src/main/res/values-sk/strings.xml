@@ -378,7 +378,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Časovače zobrazíte klepnutím"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Ďalší časovač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Nastavenia šetriča obrazovky"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbaliť budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Zbaliť budík"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"späť"</string>

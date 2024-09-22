@@ -360,7 +360,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"మీ టైమర్‌లను చూడటానికి నొక్కండి"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"తదుపరి టైమర్: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"స్క్రీన్ సేవర్ సెట్టింగ్‌లు"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"అలారంను విస్తరింపజేయండి"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"అలారం వివరాలు కుదించు"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"చర్య రద్దు చేయి"</string>

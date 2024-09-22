@@ -1,0 +1,7 @@
+**Parandused**
+ - Saad määrata ajavalija vaikimisi välimust;
+ - Lisasime seadistuste sirvimisele tuhmumise efekti ;
+ - Saad kohandada äratuse animatsiooni;
+ - Lisasime helinuppudele tegevuse „Mitte midagi“;
+ - Uuendasime tõlkeid;
+ - Kõikide paranduste loendi leiad siit: https://github.com/BlackyHawky/Clock/releases/tag/2.7
