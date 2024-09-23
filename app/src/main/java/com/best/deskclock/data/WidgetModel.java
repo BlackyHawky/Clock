@@ -72,104 +72,104 @@ public final class WidgetModel {
         return WidgetDAO.getDigitalWidgetBackgroundColor(mPrefs);
     }
 
-    public boolean areWorldCitiesDisplayedOnWidget() {
-        return WidgetDAO.areWorldCitiesDisplayedOnWidget(mPrefs);
+    public boolean areWorldCitiesDisplayedOnDigitalWidget() {
+        return WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(mPrefs);
     }
 
     public String getDigitalWidgetMaxClockFontSize() {
         return WidgetDAO.getDigitalWidgetMaxClockFontSize(mPrefs);
     }
 
-    boolean isDigitalWidgetClockDefaultColor() {
-        return WidgetDAO.isDigitalWidgetClockDefaultColor(mPrefs);
+    boolean isDigitalWidgetDefaultClockColor() {
+        return WidgetDAO.isDigitalWidgetDefaultClockColor(mPrefs);
     }
 
-    int getDigitalWidgetClockCustomColor() {
-        return WidgetDAO.getDigitalWidgetClockCustomColor(mPrefs);
+    int getDigitalWidgetCustomClockColor() {
+        return WidgetDAO.getDigitalWidgetCustomClockColor(mPrefs);
     }
 
-    boolean isDigitalWidgetDateDefaultColor() {
-        return WidgetDAO.isDigitalWidgetDateDefaultColor(mPrefs);
+    boolean isDigitalWidgetDefaultDateColor() {
+        return WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs);
     }
 
-    int getDigitalWidgetDateCustomColor() {
-        return WidgetDAO.getDigitalWidgetDateCustomColor(mPrefs);
+    int getDigitalWidgetCustomDateColor() {
+        return WidgetDAO.getDigitalWidgetCustomDateColor(mPrefs);
     }
 
-    boolean isDigitalWidgetNextAlarmDefaultColor() {
-        return WidgetDAO.isDigitalWidgetNextAlarmDefaultColor(mPrefs);
+    boolean isDigitalWidgetDefaultNextAlarmColor() {
+        return WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs);
     }
 
-    int getDigitalWidgetNextAlarmCustomColor() {
-        return WidgetDAO.getDigitalWidgetNextAlarmCustomColor(mPrefs);
+    int getDigitalWidgetCustomNextAlarmColor() {
+        return WidgetDAO.getDigitalWidgetCustomNextAlarmColor(mPrefs);
     }
 
-    boolean isDigitalWidgetCityClockDefaultColor() {
-        return WidgetDAO.isDigitalWidgetCityClockDefaultColor(mPrefs);
+    boolean isDigitalWidgetDefaultCityClockColor() {
+        return WidgetDAO.isDigitalWidgetDefaultCityClockColor(mPrefs);
     }
 
-    int getDigitalWidgetCityClockCustomColor() {
-        return WidgetDAO.getDigitalWidgetCityClockCustomColor(mPrefs);
+    int getDigitalWidgetCustomCityClockColor() {
+        return WidgetDAO.getDigitalWidgetCustomCityClockColor(mPrefs);
     }
 
-    boolean isDigitalWidgetCityNameDefaultColor() {
-        return WidgetDAO.isDigitalWidgetCityNameDefaultColor(mPrefs);
+    boolean isDigitalWidgetDefaultCityNameColor() {
+        return WidgetDAO.isDigitalWidgetDefaultCityNameColor(mPrefs);
     }
 
-    int getDigitalWidgetCityNameCustomColor() {
-        return WidgetDAO.getDigitalWidgetCityNameCustomColor(mPrefs);
+    int getDigitalWidgetCustomCityNameColor() {
+        return WidgetDAO.getDigitalWidgetCustomCityNameColor(mPrefs);
     }
 
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
 
-    public boolean areWorldCitiesDisplayedOnMaterialYouWidget() {
-        return WidgetDAO.areWorldCitiesDisplayedOnMaterialYouWidget(mPrefs);
+    public boolean areWorldCitiesDisplayedOnMaterialYouDigitalWidget() {
+        return WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(mPrefs);
     }
 
     public String getMaterialYouDigitalWidgetMaxClockFontSize() {
         return WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(mPrefs);
     }
 
-    boolean isMaterialYouDigitalWidgetClockDefaultColor() {
-        return WidgetDAO.isMaterialYouDigitalWidgetClockDefaultColor(mPrefs);
+    boolean isMaterialYouDigitalWidgetDefaultClockColor() {
+        return WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(mPrefs);
     }
 
-    int getMaterialYouDigitalWidgetClockCustomColor() {
-        return WidgetDAO.getMaterialYouDigitalWidgetClockCustomColor(mPrefs);
+    int getMaterialYouDigitalWidgetCustomClockColor() {
+        return WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(mPrefs);
     }
 
-    boolean isMaterialYouDigitalWidgetDateDefaultColor() {
-        return WidgetDAO.isMaterialYouDigitalWidgetDateDefaultColor(mPrefs);
+    boolean isMaterialYouDigitalWidgetDefaultDateColor() {
+        return WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(mPrefs);
     }
 
-    int getMaterialYouDigitalWidgetDateCustomColor() {
-        return WidgetDAO.getMaterialYouDigitalWidgetDateCustomColor(mPrefs);
+    int getMaterialYouDigitalWidgetCustomDateColor() {
+        return WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(mPrefs);
     }
 
-    boolean isMaterialYouDigitalWidgetNextAlarmDefaultColor() {
-        return WidgetDAO.isMaterialYouDigitalWidgetNextAlarmDefaultColor(mPrefs);
+    boolean isMaterialYouDigitalWidgetDefaultNextAlarmColor() {
+        return WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(mPrefs);
     }
 
-    int getMaterialYouDigitalWidgetNextAlarmCustomColor() {
-        return WidgetDAO.getMaterialYouDigitalWidgetNextAlarmCustomColor(mPrefs);
+    int getMaterialYouDigitalWidgetCustomNextAlarmColor() {
+        return WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(mPrefs);
     }
 
-    boolean isMaterialYouDigitalWidgetCityClockDefaultColor() {
-        return WidgetDAO.isMaterialYouDigitalWidgetCityClockDefaultColor(mPrefs);
+    boolean isMaterialYouDigitalWidgetDefaultCityClockColor() {
+        return WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(mPrefs);
     }
 
-    int getMaterialYouDigitalWidgetCityClockCustomColor() {
-        return WidgetDAO.getMaterialYouDigitalWidgetCityClockCustomColor(mPrefs);
+    int getMaterialYouDigitalWidgetCustomCityClockColor() {
+        return WidgetDAO.getMaterialYouDigitalWidgetCustomCityClockColor(mPrefs);
     }
 
-    boolean isMaterialYouDigitalWidgetCityNameDefaultColor() {
-        return WidgetDAO.isMaterialYouDigitalWidgetCityNameDefaultColor(mPrefs);
+    boolean isMaterialYouDigitalWidgetDefaultCityNameColor() {
+        return WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(mPrefs);
     }
 
-    int getMaterialYouDigitalWidgetCityNameCustomColor() {
-        return WidgetDAO.getMaterialYouDigitalWidgetCityNameCustomColor(mPrefs);
+    int getMaterialYouDigitalWidgetCustomCityNameColor() {
+        return WidgetDAO.getMaterialYouDigitalWidgetCustomCityNameColor(mPrefs);
     }
 
     // ******************************************

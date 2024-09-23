@@ -9,10 +9,10 @@ package com.best.alarmclock;
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
-public class DigitalAppWidgetMaterialYouCityService extends RemoteViewsService {
+public class MaterialYouDigitalAppWidgetCityService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent i) {
-        return new DigitalAppWidgetMaterialYouCityViewsFactory(getApplicationContext(), i);
+        return new MaterialYouDigitalAppWidgetCityViewsFactory(getApplicationContext(), i);
     }
 }

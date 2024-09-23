@@ -5,7 +5,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/digital_gadget">
+    android:title="@string/digital_widget">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
@@ -39,7 +39,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_digital_widget_clock_default_color"
+            android:key="key_digital_widget_default_clock_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_clock_default_color_title"
             android:defaultValue="true"
@@ -47,7 +47,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_digital_widget_clock_custom_color"
+            android:key="key_digital_widget_custom_clock_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_clock_custom_color_title"
             android:defaultValue="#FFFFFF"
@@ -57,7 +57,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_digital_widget_date_default_color"
+            android:key="key_digital_widget_default_date_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_date_default_color_title"
             android:defaultValue="true"
@@ -65,7 +65,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_digital_widget_date_custom_color"
+            android:key="key_digital_widget_custom_date_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_date_custom_color_title"
             android:defaultValue="#FFFFFF"
@@ -75,7 +75,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_digital_widget_next_alarm_default_color"
+            android:key="key_digital_widget_default_next_alarm_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_next_alarm_default_color_title"
             android:defaultValue="true"
@@ -83,7 +83,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_digital_widget_next_alarm_custom_color"
+            android:key="key_digital_widget_custom_next_alarm_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_next_alarm_custom_color_title"
             android:defaultValue="#FFFFFF"
@@ -93,7 +93,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_digital_widget_city_clock_default_color"
+            android:key="key_digital_widget_default_city_clock_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_city_clock_default_color_title"
             android:defaultValue="true"
@@ -101,7 +101,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_digital_widget_city_clock_custom_color"
+            android:key="key_digital_widget_custom_city_clock_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_city_clock_custom_color_title"
             android:defaultValue="#FFFFFF"
@@ -111,7 +111,7 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
-            android:key="key_digital_widget_city_name_default_color"
+            android:key="key_digital_widget_default_city_name_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_city_name_default_color_title"
             android:defaultValue="true"
@@ -119,7 +119,7 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_digital_widget_city_name_custom_color"
+            android:key="key_digital_widget_custom_city_name_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_city_name_custom_color_title"
             android:defaultValue="#FFFFFF"

@@ -87,8 +87,8 @@
     <string name="every_day" msgid="4100909974923444602">"എല്ലാ ദിവസവും"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"ലോഡുചെയ്യുന്നു…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണം"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"സാവധാനം വോളിയം കൂട്ടിക്കൊണ്ടുവരിക"</string>

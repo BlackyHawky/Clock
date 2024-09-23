@@ -119,8 +119,8 @@
     <string name="every_day">Pob dydd</string>
     <string name="day_concat">", "</string>
     <string name="loading_widget">Yn llwytho\u2026</string>
-    <string name="analog_gadget">Cloc analog</string>
-    <string name="digital_gadget">Cloc digidol</string>
+    <string name="analog_widget">Cloc analog</string>
+    <string name="digital_widget">Cloc digidol</string>
     <string name="settings">Gosodiadau</string>
     <string name="snooze_duration_title">Hyd hepian</string>
     <string name="crescendo_duration_title">Cynyddu\'r sain yn raddol</string>

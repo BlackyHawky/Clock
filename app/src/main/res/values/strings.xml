@@ -193,14 +193,14 @@
     <!-- Message indicating the widget is being loaded. -->
     <string name="loading_widget">Loading\u2026</string>
     <!-- Label for analog clock gadget displayed in the widget picker -->
-    <string name="analog_gadget">Analog clock</string>
-    <string name="analog_gadget_material_you">Analog clock Material You</string>
+    <string name="analog_widget">Analog clock</string>
+    <string name="analog_widget_material_you">Analog clock Material You</string>
     <!-- Label for digital clock gadget displayed in the widget picker -->
-    <string name="digital_gadget">Digital clock</string>
+    <string name="digital_widget">Digital clock</string>
     <!-- Label for Material You digital clock gadget displayed in the widget picker -->
-    <string name="digital_gadget_material_you">Digital clock Material You</string>
+    <string name="material_you_digital_widget">Digital clock Material You</string>
     <!-- Label for Material You vertical digital clock gadget displayed in the widget picker -->
-    <string name="material_you_vertical_digital_gadget">Vertical digital clock Material You</string>
+    <string name="material_you_vertical_digital_widget">Vertical digital clock Material You</string>
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
     <!-- Message displayed at the top of the settings if one or more permissions are missing -->

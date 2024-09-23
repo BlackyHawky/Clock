@@ -87,8 +87,8 @@
     <string name="every_day" msgid="4100909974923444602">"Todos os dias"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"A carregar…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Relógio analógico"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Relógio digital"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Relógio analógico"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Relógio digital"</string>
     <string name="settings" msgid="5849739030579520686">"Definições"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da suspensão"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumento gradual do volume"</string>

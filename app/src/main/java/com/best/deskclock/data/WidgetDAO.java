@@ -6,40 +6,40 @@
 
 package com.best.deskclock.data;
 
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.DEFAULT_DIGITAL_WIDGET_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.DEFAULT_DIGITAL_WIDGET_MATERIAL_YOU_FONT_SIZE;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_CUSTOM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity.KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
@@ -90,98 +90,98 @@ final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating the color of the digital widget background.
+     * @return a value indicating the background color in the digital widget .
      */
     static int getDigitalWidgetBackgroundColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000"));
     }
 
     /**
-     * @return {@code true} if the cities are displayed on the widget; {@code false} otherwise.
+     * @return {@code true} if the cities are displayed on the digital widget; {@code false} otherwise.
      */
-    static boolean areWorldCitiesDisplayedOnWidget(SharedPreferences prefs) {
+    static boolean areWorldCitiesDisplayedOnDigitalWidget(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
     }
 
     /**
-     * @return the font size applied to the digital clock widget.
+     * @return the font size applied to the clock in the digital widget.
      */
     static String getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_WIDGET_FONT_SIZE);
+        return prefs.getString(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, KEY_DIGITAL_WIDGET_DEFAULT_FONT_SIZE);
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget clock; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the clock in the digital widget; {@code false} otherwise.
      */
-    static boolean isDigitalWidgetClockDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CLOCK_DEFAULT_COLOR, true);
+    static boolean isDigitalWidgetDefaultClockColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the digital widget clock
+     * @return a value indicating the color of the clock in the digital widget.
      */
-    static int getDigitalWidgetClockCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_CLOCK_CUSTOM_COLOR, Color.parseColor("#FFFFFF"));
+    static int getDigitalWidgetCustomClockColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR, Color.parseColor("#FFFFFF"));
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget date; {@code false} otherwise.
+     * @return {@code true} if the default color is applied to the date in the digital widget; {@code false} otherwise.
      */
-    static boolean isDigitalWidgetDateDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
+    static boolean isDigitalWidgetDefaultDateColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the digital widget date.
+     * @return a value indicating the color of the date in the digital widget.
      */
-    static int getDigitalWidgetDateCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_DATE_CUSTOM_COLOR, Color.parseColor("#FFFFFF"));
+    static int getDigitalWidgetCustomDateColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF"));
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget next alarm;
+     * @return {@code true} if the default color is applied to the next alarm in the digital widget;
      * {@code false} otherwise.
      */
-    static boolean isDigitalWidgetNextAlarmDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_NEXT_ALARM_DEFAULT_COLOR, true);
+    static boolean isDigitalWidgetDefaultNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the digital widget next alarm.
+     * @return a value indicating the color of the next alarm in the digital widget.
      */
-    static int getDigitalWidgetNextAlarmCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_NEXT_ALARM_CUSTOM_COLOR, Color.parseColor("#FFFFFF")
+    static int getDigitalWidgetCustomNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF")
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget city clock;
+     * @return {@code true} if the default color is applied to the city clock in the digital widget;
      * {@code false} otherwise.
      */
-    static boolean isDigitalWidgetCityClockDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CITY_CLOCK_DEFAULT_COLOR, true);
+    static boolean isDigitalWidgetDefaultCityClockColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the digital widget city clock.
+     * @return a value indicating the color of the city clock in the digital widget.
      */
-    static int getDigitalWidgetCityClockCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_CITY_CLOCK_CUSTOM_COLOR, Color.parseColor("#FFFFFF"));
+    static int getDigitalWidgetCustomCityClockColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, Color.parseColor("#FFFFFF"));
     }
 
     /**
-     * @return {@code true} if the default color is applied to the digital widget city name;
+     * @return {@code true} if the default color is applied to the city name in the digital widget;
      * {@code false} otherwise.
      */
-    static boolean isDigitalWidgetCityNameDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_CITY_NAME_DEFAULT_COLOR, true);
+    static boolean isDigitalWidgetDefaultCityNameColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the digital widget city name.
+     * @return a value indicating the color of the city name in the digital widget.
      */
-    static int getDigitalWidgetCityNameCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_CITY_NAME_CUSTOM_COLOR, Color.parseColor("#FFFFFF"));
+    static int getDigitalWidgetCustomCityNameColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, Color.parseColor("#FFFFFF"));
     }
 
     // *********************************
@@ -192,100 +192,100 @@ final class WidgetDAO {
      * @return {@code true} if the cities are displayed on the Material You digital widget;
      * {@code false} otherwise.
      */
-    static boolean areWorldCitiesDisplayedOnMaterialYouWidget(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_WORLD_CITIES_DISPLAYED, true);
+    static boolean areWorldCitiesDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
     }
 
     /**
-     * @return the font size applied to the Material You digital clock widget.
+     * @return the font size applied to the clock in the Material You digital widget.
      */
     static String getMaterialYouDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_DIGITAL_WIDGET_MATERIAL_YOU_MAX_CLOCK_FONT_SIZE,
-                DEFAULT_DIGITAL_WIDGET_MATERIAL_YOU_FONT_SIZE
+        return prefs.getString(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE,
+                KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_FONT_SIZE
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the Material You digital widget clock;
+     * @return {@code true} if the default color is applied to the digital clock in the Material You widget;
      * {@code false} otherwise.
      */
-    static boolean isMaterialYouDigitalWidgetClockDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_DEFAULT_COLOR, true);
+    static boolean isMaterialYouDigitalWidgetDefaultClockColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the Material You digital widget clock
+     * @return a value indicating the color of the clock in the Material You digital widget.
      */
-    static int getMaterialYouDigitalWidgetClockCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CLOCK_CUSTOM_COLOR,
+    static int getMaterialYouDigitalWidgetCustomClockColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR,
                 Color.parseColor("#FFFFFF")
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the Material You digital widget date;
+     * @return {@code true} if the default color is applied to the date in the Material You digital widget;
      * {@code false} otherwise.
      */
-    static boolean isMaterialYouDigitalWidgetDateDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_DEFAULT_COLOR, true);
+    static boolean isMaterialYouDigitalWidgetDefaultDateColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the Material You digital widget date.
+     * @return a value indicating the color of the date in the Material You digital widget.
      */
-    static int getMaterialYouDigitalWidgetDateCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_MATERIAL_YOU_DATE_CUSTOM_COLOR,
+    static int getMaterialYouDigitalWidgetCustomDateColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR,
                 Color.parseColor("#FFFFFF")
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the Material You digital widget next alarm;
+     * @return {@code true} if the default color is applied to the next alarm in the Material You digital widget;
      * {@code false} otherwise.
      */
-    static boolean isMaterialYouDigitalWidgetNextAlarmDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_DEFAULT_COLOR, true);
+    static boolean isMaterialYouDigitalWidgetDefaultNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the Material You digital widget next alarm.
+     * @return a value indicating the color of the next alarm in the Material You digital widget.
      */
-    static int getMaterialYouDigitalWidgetNextAlarmCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_MATERIAL_YOU_NEXT_ALARM_CUSTOM_COLOR,
+    static int getMaterialYouDigitalWidgetCustomNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR,
                 Color.parseColor("#FFFFFF")
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the Material You digital widget city clock;
+     * @return {@code true} if the default color is applied to the city clock in the Material You digital widget;
      * {@code false} otherwise.
      */
-    static boolean isMaterialYouDigitalWidgetCityClockDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_DEFAULT_COLOR, true);
+    static boolean isMaterialYouDigitalWidgetDefaultCityClockColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the Material You digital widget city clock.
+     * @return a value indicating the color of the city clock in the Material You digital widget.
      */
-    static int getMaterialYouDigitalWidgetCityClockCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_CLOCK_CUSTOM_COLOR,
+    static int getMaterialYouDigitalWidgetCustomCityClockColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR,
                 Color.parseColor("#FFFFFF")
         );
     }
 
     /**
-     * @return {@code true} if the default color is applied to the Material You digital widget city name;
+     * @return {@code true} if the default color is applied to the city name in the Material You digital widget;
      * {@code false} otherwise.
      */
-    static boolean isMaterialYouDigitalWidgetCityNameDefaultColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_DEFAULT_COLOR, true);
+    static boolean isMaterialYouDigitalWidgetDefaultCityNameColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true);
     }
 
     /**
-     * @return a value indicating the color of the Material You digital widget city name.
+     * @return a value indicating the color of the city name in the Material You digital widget.
      */
-    static int getMaterialYouDigitalWidgetCityNameCustomColor(SharedPreferences prefs) {
-        return prefs.getInt(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CITY_NAME_CUSTOM_COLOR,
+    static int getMaterialYouDigitalWidgetCustomCityNameColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR,
                 Color.parseColor("#FFFFFF")
         );
     }
@@ -299,7 +299,7 @@ final class WidgetDAO {
      */
     static String getMaterialYouVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
         return prefs.getString(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE,
-                DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_FONT_SIZE
+                KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE
         );
     }
 

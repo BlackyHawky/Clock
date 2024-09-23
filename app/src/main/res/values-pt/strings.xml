@@ -85,8 +85,8 @@
     <string name="every_day" msgid="4100909974923444602">"Todos os dias"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Carregando…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Relógio analógico"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Relógio digital"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Relógio analógico"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Relógio digital"</string>
     <string name="settings" msgid="5849739030579520686">"Configurações"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da soneca"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumentar gradualmente o volume"</string>
@@ -397,8 +397,8 @@
     <string name="alarm_inactive">Desligado</string>
     <string name="selected">Selecionado</string>
     <string name="more_options">Mais opções</string>
-    <string name="analog_gadget_material_you">Relógio analógico com Material You</string>
-    <string name="digital_gadget_material_you">Relógio digital com Material You</string>
+    <string name="analog_widget_material_you">Relógio analógico com Material You</string>
+    <string name="material_you_digital_widget">Relógio digital com Material You</string>
     <string name="color_picker_default_button">Padrão</string>
     <string name="display_background_border_summary">Mostra a borda do plano de fundo para elementos do app (alarmes, cidades, botão do temporizador, etc.)</string>
     <string name="settings_vibration_summary">Apenas alguns botões da interface são afetados (ex: o botão play/pause ou os interruptores do temporizador)</string>

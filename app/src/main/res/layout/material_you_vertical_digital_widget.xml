@@ -7,7 +7,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vertical_digital_widget_material_you"
+    android:id="@+id/material_you_vertical_digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/material_you_vertical_digital_widget_background"

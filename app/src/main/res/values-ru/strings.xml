@@ -101,8 +101,8 @@
     <string name="every_day" msgid="4100909974923444602">"Каждый день"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Загрузка…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Часы"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Часы"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Часы"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Часы"</string>
     <string name="settings" msgid="5849739030579520686">"Настройки"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Интервал повтора сигнала"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепенно увеличивать громкость"</string>
@@ -451,7 +451,7 @@
     <string name="styles_and_colors_category_title">Стиль и цвета</string>
     <string name="gnu_gpl">Общая публичная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет часов</string>
-    <string name="analog_gadget_material_you">Аналоговые часы Material You</string>
+    <string name="analog_widget_material_you">Аналоговые часы Material You</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Выбрать стиль, часовой пояс и изменить дату и время девайса</string>
     <string name="keep_timer_screen_on_title">Оставлять экран включённым, если таймер отображается на экране</string>
@@ -467,7 +467,7 @@
     <string name="more_options">Больше опций</string>
     <string name="FSN_dialog_title">Полноэкранные Уведомления</string>
     <string name="duplicate">Дубликат</string>
-    <string name="digital_gadget_material_you">Цифровые часы Material You</string>
+    <string name="material_you_digital_widget">Цифровые часы Material You</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы отобразить экран \"Управление разрешениями\".</string>
     <string name="settings_vibration_title">Включить вибрации</string>
     <string name="color_picker_default_button">По умолчанию</string>

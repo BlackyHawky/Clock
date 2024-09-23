@@ -77,8 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"每天"</string>
     <string name="day_concat" msgid="971998564991636532">"， "</string>
     <string name="loading_widget" msgid="5306242862476796500">"正在加载…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">模拟时钟</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"数字时钟"</string>
+    <string name="analog_widget" msgid="1670505720837152766">模拟时钟</string>
+    <string name="digital_widget" msgid="2326954556720571358">"数字时钟"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">逐渐增加音量</string>
@@ -413,7 +413,7 @@
     <string name="about_title">关于</string>
     <string name="version">版本</string>
     <string name="bedtime_channel">就寝时间</string>
-    <string name="digital_gadget_material_you">数字时钟 Material You</string>
+    <string name="material_you_digital_widget">数字时钟 Material You</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">创建闹钟时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="color_picker_default_button">默认</string>
@@ -430,7 +430,7 @@
 \n虽然这对于许多应用来说是可以接受的，但此应用是一款闹钟应用，如果配置为优化电池，通常会导致问题。一旦启用，Android 系统可以随时终止此应用和/或取消其已安排的闹钟，这将对应用的运行产生不利影响。
 \n
 \n我们建议将此应用列入电池优化白名单。</string>
-    <string name="analog_gadget_material_you">模拟时钟 Material You</string>
+    <string name="analog_widget_material_you">模拟时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
     <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟；

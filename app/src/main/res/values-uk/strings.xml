@@ -101,8 +101,8 @@
     <string name="every_day" msgid="4100909974923444602">"Щодня"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Завантаження…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Аналог. годинник"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Цифровий годинник"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Аналог. годинник"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Цифровий годинник"</string>
     <string name="settings" msgid="5849739030579520686">"Налаштування"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Збільшувати гучність поступово"</string>
@@ -416,13 +416,13 @@
     <string name="app_slogan">100% вільний годинник на основі проєкту Android Open Source</string>
     <string name="version">Версія</string>
     <string name="about_title">Про додаток</string>
-    <string name="analog_gadget_material_you">Аналог. годинник Material You</string>
+    <string name="analog_widget_material_you">Аналог. годинник Material You</string>
     <string name="menu_bedtime">Час сну</string>
     <string name="title_theme">Тема</string>
     <string name="title_accent_color">Акцентний колір</string>
     <string name="settings_vibration_title">Увімкнути вібрацію</string>
     <string name="alarm_inactive">Вимкнено</string>
-    <string name="digital_gadget_material_you">Цифровий годинник Material You</string>
+    <string name="material_you_digital_widget">Цифровий годинник Material You</string>
     <string name="interface_customization_settings">Інтерфейс</string>
     <string name="style_category_title">Стиль</string>
     <string name="font_category_title">Шрифт</string>
@@ -627,7 +627,7 @@
     <string name="github_dialog_message">Відвідайте сторінку проєкту на GitHub:
 \n
 \n%s</string>
-    <string name="material_you_vertical_digital_gadget">Вертикальний цифровий годинник Material You</string>
+    <string name="material_you_vertical_digital_widget">Вертикальний цифровий годинник Material You</string>
     <string name="digital_widget_custom_hours_color_title">Власний колір годин</string>
     <string name="digital_widget_default_hours_color_title">Колір за замовчуванням для годин</string>
     <string name="digital_widget_default_minutes_color_title">Колір за замовчуванням для хвилин</string>

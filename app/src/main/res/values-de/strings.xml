@@ -85,8 +85,8 @@
     <string name="every_day" msgid="4100909974923444602">"Täglich"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Wird geladen…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Analoguhr"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Digitaluhr"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Analoguhr"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Digitaluhr"</string>
     <string name="settings" msgid="5849739030579520686">"Einstellungen"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dauer der Schlummerfunktion"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Lautstärke schrittweise erhöhen"</string>
@@ -426,8 +426,8 @@
     <string name="color_picker_default_button">Standard</string>
     <string name="display_background_border_summary">Hintergrundrahmen für einige Symbole der App anzeigen (Wecker, Städte, Timer-Taste, usw.)</string>
     <string name="swipe_action_title">Wischen zum Ausschalten oder Schlummern von Weckern</string>
-    <string name="analog_gadget_material_you">Material You Analoguhr</string>
-    <string name="digital_gadget_material_you">Material You Digitaluhr</string>
+    <string name="analog_widget_material_you">Material You Analoguhr</string>
+    <string name="material_you_digital_widget">Material You Digitaluhr</string>
     <string name="style_category_title">Stil</string>
     <string name="styles_and_colors_category_title">Stil und Farben</string>
     <string name="font_category_title">Schrift</string>

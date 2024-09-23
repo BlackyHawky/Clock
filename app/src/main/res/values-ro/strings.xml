@@ -93,8 +93,8 @@
     <string name="every_day" msgid="4100909974923444602">"În fiecare zi"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Se încarcă…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Ceas analogic"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Ceas digital"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Ceas analogic"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Ceas digital"</string>
     <string name="settings" msgid="5849739030579520686">"Setări"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durata amânării"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Mărește treptat volumul"</string>
@@ -422,7 +422,7 @@
     <string name="more_options">Mai multe opțiuni</string>
     <string name="alarm_inactive">Oprit</string>
     <string name="settings_permission_summary">Clic aici pentru a afișa pagina de gestionare a permisiunilor.</string>
-    <string name="digital_gadget_material_you">Ceas digital Material You</string>
+    <string name="material_you_digital_widget">Ceas digital Material You</string>
     <string name="title_dark_theme_mode">Modul temă întunecată</string>
     <string name="display_background_border_title">Afișează chenarele de fundal</string>
     <string name="display_background_border_summary">Afișează un chenar de fundal pentru unele elemente ale aplicației (alarme, orașe, buton cronometru etc.)</string>
@@ -497,7 +497,7 @@
     <string name="FSN_dialog_title">Notificări pe ecran complet</string>
     <string name="FSN_dialog_text">Începând cu Android 14, pentru ca alarma să fie declanșată atunci când ecranul este oprit, este imperativ ca permisiunea Notificări pe ecran complet să fie activată</string>
     <string name="duplicate">Dublează</string>
-    <string name="analog_gadget_material_you">Ceas analogic Material You</string>
+    <string name="analog_widget_material_you">Ceas analogic Material You</string>
     <string name="settings_permission_message">Una sau mai multe permisiuni esențiale sunt refuzate. Neacordarea acestora poate duce la defecțiuni.</string>
     <string name="interface_customization_settings">Interfață</string>
     <string name="style_category_title">Stil</string>

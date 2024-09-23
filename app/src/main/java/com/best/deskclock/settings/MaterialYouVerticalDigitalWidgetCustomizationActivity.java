@@ -48,7 +48,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
             "key_material_you_vertical_digital_widget_custom_next_alarm_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
             "key_material_you_vertical_digital_widget_max_clock_font_size";
-    public static final String DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_FONT_SIZE = "70";
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -66,15 +66,15 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
 
         private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
-        ColorPreference mCustomHoursColor;
-        ColorPreference mCustomMinutesColor;
-        ColorPreference mCustomDateColor;
-        ColorPreference mCustomNextAlarmColor;
+        ColorPreference mCustomHoursColorPref;
+        ColorPreference mCustomMinutesColorPref;
+        ColorPreference mCustomDateColorPref;
+        ColorPreference mCustomNextAlarmColorPref;
         EditTextPreference mDigitalWidgetMaxClockFontSizePref;
-        SwitchPreferenceCompat mDefaultHoursColor;
-        SwitchPreferenceCompat mDefaultMinutesColor;
-        SwitchPreferenceCompat mDefaultDateColor;
-        SwitchPreferenceCompat mDefaultNextAlarmColor;
+        SwitchPreferenceCompat mDefaultHoursColorPref;
+        SwitchPreferenceCompat mDefaultMinutesColorPref;
+        SwitchPreferenceCompat mDefaultDateColorPref;
+        SwitchPreferenceCompat mDefaultNextAlarmColorPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -82,14 +82,14 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
 
             addPreferencesFromResource(R.xml.settings_customize_material_you_vertical_digital_widget);
 
-            mDefaultHoursColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR);
-            mCustomHoursColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR);
-            mDefaultMinutesColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR);
-            mCustomMinutesColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR);
-            mDefaultDateColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
-            mCustomDateColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
-            mDefaultNextAlarmColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
-            mCustomNextAlarmColor = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
+            mDefaultHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR);
+            mCustomHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR);
+            mDefaultMinutesColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR);
+            mCustomMinutesColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR);
+            mDefaultDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
+            mCustomDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
+            mDefaultNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
+            mCustomNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
             mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
 
             setupPreferences();
@@ -117,10 +117,10 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR -> {
-                    if (mDefaultHoursColor.getSharedPreferences() != null) {
-                        final boolean isNotDefaultColors = mDefaultHoursColor.getSharedPreferences()
+                    if (mDefaultHoursColorPref.getSharedPreferences() != null) {
+                        final boolean isNotDefaultColors = mDefaultHoursColorPref.getSharedPreferences()
                                 .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, true);
-                        mCustomHoursColor.setVisible(isNotDefaultColors);
+                        mCustomHoursColorPref.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
                 }
@@ -130,19 +130,19 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
-                    if (mDefaultMinutesColor.getSharedPreferences() != null) {
-                        final boolean isNotDefaultColors = mDefaultMinutesColor.getSharedPreferences()
+                    if (mDefaultMinutesColorPref.getSharedPreferences() != null) {
+                        final boolean isNotDefaultColors = mDefaultMinutesColorPref.getSharedPreferences()
                                 .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, true);
-                        mCustomMinutesColor.setVisible(isNotDefaultColors);
+                        mCustomMinutesColorPref.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR -> {
-                    if (mDefaultDateColor.getSharedPreferences() != null) {
-                        final boolean isNotDefaultColors = mDefaultDateColor.getSharedPreferences()
+                    if (mDefaultDateColorPref.getSharedPreferences() != null) {
+                        final boolean isNotDefaultColors = mDefaultDateColorPref.getSharedPreferences()
                                 .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
-                        mCustomDateColor.setVisible(isNotDefaultColors);
+                        mCustomDateColorPref.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
                 }
@@ -151,10 +151,10 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                    if (mDefaultNextAlarmColor.getSharedPreferences() != null) {
-                        final boolean isNotDefaultColors = mDefaultNextAlarmColor.getSharedPreferences()
+                    if (mDefaultNextAlarmColorPref.getSharedPreferences() != null) {
+                        final boolean isNotDefaultColors = mDefaultNextAlarmColorPref.getSharedPreferences()
                                 .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
-                        mCustomNextAlarmColor.setVisible(isNotDefaultColors);
+                        mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                     }
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
                 }
@@ -187,37 +187,37 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                             + DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetMaxClockFontSize()
             );
 
-            mDefaultHoursColor.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultHoursColor());
-            mCustomHoursColor.setVisible(!mDefaultHoursColor.isChecked());
+            mDefaultHoursColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultHoursColor());
+            mCustomHoursColorPref.setVisible(!mDefaultHoursColorPref.isChecked());
 
-            mDefaultMinutesColor.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultMinutesColor());
-            mCustomMinutesColor.setVisible(!mDefaultMinutesColor.isChecked());
+            mDefaultMinutesColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultMinutesColor());
+            mCustomMinutesColorPref.setVisible(!mDefaultMinutesColorPref.isChecked());
 
-            mDefaultDateColor.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor());
-            mCustomDateColor.setVisible(!mDefaultDateColor.isChecked());
+            mDefaultDateColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor());
+            mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-            mDefaultNextAlarmColor.setChecked(
+            mDefaultNextAlarmColorPref.setChecked(
                     DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor()
             );
-            mCustomNextAlarmColor.setVisible(!mDefaultNextAlarmColor.isChecked());
+            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
         }
 
         private void refresh() {
-            mDefaultHoursColor.setOnPreferenceChangeListener(this);
+            mDefaultHoursColorPref.setOnPreferenceChangeListener(this);
 
-            mCustomHoursColor.setOnPreferenceChangeListener(this);
+            mCustomHoursColorPref.setOnPreferenceChangeListener(this);
 
-            mDefaultMinutesColor.setOnPreferenceChangeListener(this);
+            mDefaultMinutesColorPref.setOnPreferenceChangeListener(this);
 
-            mCustomMinutesColor.setOnPreferenceChangeListener(this);
+            mCustomMinutesColorPref.setOnPreferenceChangeListener(this);
 
-            mDefaultDateColor.setOnPreferenceChangeListener(this);
+            mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
-            mCustomDateColor.setOnPreferenceChangeListener(this);
+            mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
-            mDefaultNextAlarmColor.setOnPreferenceChangeListener(this);
+            mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
-            mCustomNextAlarmColor.setOnPreferenceChangeListener(this);
+            mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
             mDigitalWidgetMaxClockFontSizePref.setOnPreferenceChangeListener(this);
             mDigitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {

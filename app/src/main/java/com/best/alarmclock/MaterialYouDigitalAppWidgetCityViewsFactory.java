@@ -36,7 +36,7 @@ import java.util.TimeZone;
  * This factory produces entries in the world cities list view displayed at the bottom of the
  * material you digital widget. Each row is comprised of two world cities located side-by-side.
  */
-public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsFactory {
+public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigWidgetViewsFactory");
 
@@ -53,7 +53,7 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
     private boolean mShowHomeClock;
     private List<City> mCities = Collections.emptyList();
 
-    public DigitalAppWidgetMaterialYouCityViewsFactory(Context context, Intent intent) {
+    public MaterialYouDigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
 
@@ -206,28 +206,28 @@ public class DigitalAppWidgetMaterialYouCityViewsFactory implements RemoteViewsF
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDigitalWidgetCityClockDefaultColor =
-                DataModel.getDataModel().isMaterialYouDigitalWidgetCityClockDefaultColor();
-        final int getDigitalWidgetCityClockCustomColor =
-                DataModel.getDataModel().getMaterialYouDigitalWidgetCityClockCustomColor();
+        final boolean isDigitalWidgetDefaultCityClockColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityClockColor();
+        final int digitalWidgetCustomCityClockColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCustomCityClockColor();
 
-        if (isDigitalWidgetCityClockDefaultColor) {
+        if (isDigitalWidgetDefaultCityClockColor) {
             rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
         } else {
-            rv.setTextColor(clockId, getDigitalWidgetCityClockCustomColor);
+            rv.setTextColor(clockId, digitalWidgetCustomCityClockColor);
         }
 
-        final boolean isDigitalWidgetCityNameDefaultColor =
-                DataModel.getDataModel().isMaterialYouDigitalWidgetCityNameDefaultColor();
-        final int getDigitalWidgetCityNameCustomColor =
-                DataModel.getDataModel().getMaterialYouDigitalWidgetCityNameCustomColor();
+        final boolean isDigitalWidgetDefaultCityNameColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityNameColor();
+        final int digitalWidgetCustomCityNameColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCustomCityNameColor();
 
-        if (isDigitalWidgetCityNameDefaultColor) {
+        if (isDigitalWidgetDefaultCityNameColor) {
             rv.setTextColor(labelId, mContext.getColor(R.color.digital_widget_text_color));
             rv.setTextColor(dayId, mContext.getColor(R.color.digital_widget_text_color));
         } else {
-            rv.setTextColor(labelId, getDigitalWidgetCityNameCustomColor);
-            rv.setTextColor(dayId, getDigitalWidgetCityNameCustomColor);
+            rv.setTextColor(labelId, digitalWidgetCustomCityNameColor);
+            rv.setTextColor(dayId, digitalWidgetCustomCityNameColor);
         }
     }
 

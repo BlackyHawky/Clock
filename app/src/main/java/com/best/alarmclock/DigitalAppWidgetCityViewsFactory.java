@@ -203,24 +203,24 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDigitalWidgetCityClockDefaultColor = DataModel.getDataModel().isDigitalWidgetCityClockDefaultColor();
-        final int getDigitalWidgetCityClockCustomColor = DataModel.getDataModel().getDigitalWidgetCityClockCustomColor();
+        final boolean isDigitalWidgetDefaultCityClockColor = DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor();
+        final int digitalWidgetCustomCityClockColor = DataModel.getDataModel().getDigitalWidgetCustomCityClockColor();
 
-        if (isDigitalWidgetCityClockDefaultColor) {
+        if (isDigitalWidgetDefaultCityClockColor) {
             rv.setTextColor(clockId, Color.WHITE);
         } else {
-            rv.setTextColor(clockId, getDigitalWidgetCityClockCustomColor);
+            rv.setTextColor(clockId, digitalWidgetCustomCityClockColor);
         }
 
-        final boolean isDigitalWidgetCityNameDefaultColor = DataModel.getDataModel().isDigitalWidgetCityNameDefaultColor();
-        final int getDigitalWidgetCityNameCustomColor = DataModel.getDataModel().getDigitalWidgetCityNameCustomColor();
+        final boolean isDigitalWidgetDefaultCityNameColor = DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor();
+        final int digitalWidgetCustomCityNameColor = DataModel.getDataModel().getDigitalWidgetCustomCityNameColor();
 
-        if (isDigitalWidgetCityNameDefaultColor) {
+        if (isDigitalWidgetDefaultCityNameColor) {
             rv.setTextColor(labelId, Color.WHITE);
             rv.setTextColor(dayId, Color.WHITE);
         } else {
-            rv.setTextColor(labelId, getDigitalWidgetCityNameCustomColor);
-            rv.setTextColor(dayId, getDigitalWidgetCityNameCustomColor);
+            rv.setTextColor(labelId, digitalWidgetCustomCityNameColor);
+            rv.setTextColor(dayId, digitalWidgetCustomCityNameColor);
         }
     }
 

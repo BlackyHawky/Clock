@@ -94,7 +94,7 @@ import java.util.TimeZone;
  * any clipping. To do so it measures layouts offscreen using a range of font sizes in order to
  * choose optimal values.
  */
-public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
+public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
     private static boolean sReceiversRegistered;
@@ -134,7 +134,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
                                               Bundle options, boolean portrait) {
         // Create a remote view for the digital clock.
         final String packageName = context.getPackageName();
-        final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget_material_you);
+        final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_digital_widget);
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour", Utils.get12ModeFormat(context, 0.4f, false));
         rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat(context, false));
@@ -143,7 +143,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            rv.setOnClickPendingIntent(R.id.digital_widget_material_you, pi);
+            rv.setOnClickPendingIntent(R.id.material_you_digital_widget, pi);
         }
 
         // Configure child views of the remote view.
@@ -166,7 +166,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         }
 
         // Fetch the widget size selected by the user.
-        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouWidget();
+        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouDigitalWidget();
         List<City> getSelectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
         final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
         final Resources resources = context.getResources();
@@ -200,39 +200,39 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the clock.
-        final boolean isDigitalWidgetClockDefaultColor =
-                DataModel.getDataModel().isMaterialYouDigitalWidgetClockDefaultColor();
-        final int getDigitalWidgetClockCustomColor =
-                DataModel.getDataModel().getMaterialYouDigitalWidgetClockCustomColor();
+        final boolean isDigitalWidgetDefaultClockColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultClockColor();
+        final int digitalWidgetCustomClockColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCustomClockColor();
 
-        if (isDigitalWidgetClockDefaultColor) {
+        if (isDigitalWidgetDefaultClockColor) {
             rv.setTextColor(R.id.clock, context.getColor(R.color.digital_widget_time_color));
         } else {
-            rv.setTextColor(R.id.clock, getDigitalWidgetClockCustomColor);
+            rv.setTextColor(R.id.clock, digitalWidgetCustomClockColor);
         }
 
         // Apply the color to the date.
-        final boolean isDigitalWidgetDateDefaultColor =
-                DataModel.getDataModel().isMaterialYouDigitalWidgetDateDefaultColor();
-        final int getDigitalWidgetDateCustomColor =
-                DataModel.getDataModel().getMaterialYouDigitalWidgetDateCustomColor();
+        final boolean isDigitalWidgetDateDefaultDateColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultDateColor();
+        final int digitalWidgetCustomDateColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCustomDateColor();
 
-        if (isDigitalWidgetDateDefaultColor) {
+        if (isDigitalWidgetDateDefaultDateColor) {
             rv.setTextColor(R.id.date, context.getColor(R.color.digital_widget_text_color));
         } else {
-            rv.setTextColor(R.id.date, getDigitalWidgetDateCustomColor);
+            rv.setTextColor(R.id.date, digitalWidgetCustomDateColor);
         }
 
         // Apply the color to the next alarm.
-        final boolean isDigitalWidgetNextAlarmDefaultColor =
-                DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
-        final int getDigitalWidgetNextAlarmCustomColor =
-                DataModel.getDataModel().getMaterialYouDigitalWidgetNextAlarmCustomColor();
+        final boolean isDigitalWidgetDefaultNextAlarmColor =
+                DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
+        final int digitalWidgetCustomNextAlarmColor =
+                DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
-        if (isDigitalWidgetNextAlarmDefaultColor) {
+        if (isDigitalWidgetDefaultNextAlarmColor) {
             rv.setTextColor(R.id.nextAlarm, context.getColor(R.color.digital_widget_text_color));
         } else {
-            rv.setTextColor(R.id.nextAlarm, getDigitalWidgetNextAlarmCustomColor);
+            rv.setTextColor(R.id.nextAlarm, digitalWidgetCustomNextAlarmColor);
         }
 
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
@@ -242,7 +242,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             rv.setViewVisibility(R.id.world_city_list, GONE);
         } else {
             // Set an adapter on the world city list. That adapter connects to a Service via intent.
-            final Intent intent = new Intent(context, DigitalAppWidgetMaterialYouCityService.class);
+            final Intent intent = new Intent(context, MaterialYouDigitalAppWidgetCityService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             rv.setRemoteAdapter(R.id.world_city_list, intent);
@@ -267,7 +267,7 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
-                inflater.inflate(R.layout.digital_widget_material_you_sizer, null);
+                inflater.inflate(R.layout.material_you_digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -287,15 +287,15 @@ public class DigitalAppWidgetMaterialYouProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the color to the next alarm icon.
-            final boolean isDigitalWidgetNextAlarmDefaultColor =
-                    DataModel.getDataModel().isMaterialYouDigitalWidgetNextAlarmDefaultColor();
-            final int getDigitalWidgetNextAlarmCustomColor =
-                    DataModel.getDataModel().getMaterialYouDigitalWidgetNextAlarmCustomColor();
+            final boolean isDigitalWidgetDefaultNextAlarmColor =
+                    DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
+            final int digitalWidgetCustomNextAlarmColor =
+                    DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
-            if (isDigitalWidgetNextAlarmDefaultColor) {
+            if (isDigitalWidgetDefaultNextAlarmColor) {
                 nextAlarmIcon.setTextColor(context.getColor(R.color.digital_widget_text_color));
             } else {
-                nextAlarmIcon.setTextColor(getDigitalWidgetNextAlarmCustomColor);
+                nextAlarmIcon.setTextColor(digitalWidgetCustomNextAlarmColor);
             }
         }
 

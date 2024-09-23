@@ -85,8 +85,8 @@
     <string name="every_day" msgid="4100909974923444602">"Elke dag"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Laden…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Analoge klok"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Digitale klok"</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Analoge klok"</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Digitale klok"</string>
     <string name="settings" msgid="5849739030579520686">"Instellingen"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Snoozeduur"</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Volume geleidelijk verhogen"</string>
@@ -402,13 +402,13 @@
     <string name="title_theme">Thema</string>
     <string name="selected">Geselecteerd</string>
     <string name="alarm_inactive">Staat uit</string>
-    <string name="digital_gadget_material_you">Digitale klok Material You</string>
+    <string name="material_you_digital_widget">Digitale klok Material You</string>
     <string name="display_background_border_title">Achtergrondranden tonen</string>
     <string name="display_background_border_summary">Gebruikt een achtergrondrand voor sommige elementen (wekkers, steden, timerknoppen etc.)</string>
     <string name="settings_vibration_title">Trillen inschakelen</string>
     <string name="duplicate">Dupliceren</string>
     <string name="more_options">Meer opties</string>
-    <string name="analog_gadget_material_you">Analoge klok Material You</string>
+    <string name="analog_widget_material_you">Analoge klok Material You</string>
     <string name="settings_permission_message">Één of meer essentiële rechten zijn niet toegestaan. Niet toestemmen kan ervoor zorgen dat de app niet goed werkt.</string>
     <string name="settings_permission_summary">Tik hier om de pagina rechtenbeheer te tonen.</string>
     <string name="interface_customization_settings">Uiterlijk</string>

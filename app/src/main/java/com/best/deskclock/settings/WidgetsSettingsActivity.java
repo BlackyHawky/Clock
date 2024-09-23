@@ -18,8 +18,8 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_digital_widget_customization";
-    public static final String KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION =
-            "key_digital_widget_material_you_customization";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION =
+            "key_material_you_digital_widget_customization";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_material_you_vertical_digital_widget_customization";
 
@@ -38,7 +38,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
         Preference mDigitalWidgetCustomizationPref;
-        Preference mDigitalWidgetMaterialYouCustomizationPref;
+        Preference mMaterialYouDigitalWidgetCustomizationPref;
         Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
 
         @Override
@@ -48,7 +48,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             addPreferencesFromResource(R.xml.settings_widgets);
 
             mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
-            mDigitalWidgetMaterialYouCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION);
+            mMaterialYouDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION);
             mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
         }
 
@@ -74,9 +74,9 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
-                case KEY_DIGITAL_WIDGET_MATERIAL_YOU_CUSTOMIZATION -> {
+                case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION -> {
                     final Intent digitalWidgetMaterialYouCustomizationIntent =
-                            new Intent(context, DigitalWidgetMaterialYouCustomizationActivity.class);
+                            new Intent(context, MaterialYouDigitalWidgetCustomizationActivity.class);
                     startActivity(digitalWidgetMaterialYouCustomizationIntent);
                     return true;
                 }
@@ -95,7 +95,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
         private void refresh() {
             mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
-            mDigitalWidgetMaterialYouCustomizationPref.setOnPreferenceClickListener(this);
+            mMaterialYouDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mMaterialYouVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
         }

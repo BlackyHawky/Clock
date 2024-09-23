@@ -18,7 +18,7 @@ import com.best.deskclock.data.DataModel;
 /**
  * Simple widget to show the Material You analog clock.
  */
-public class AnalogAppWidgetMaterialYouProvider extends AppWidgetProvider {
+public class MaterialYouAnalogAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {

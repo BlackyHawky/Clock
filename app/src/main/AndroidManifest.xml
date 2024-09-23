@@ -334,7 +334,7 @@
         <receiver
             android:name="com.best.alarmclock.AnalogAppWidgetProvider"
             android:exported="true"
-            android:label="@string/analog_gadget">
+            android:label="@string/analog_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -348,9 +348,9 @@
         </receiver>
 
         <receiver
-            android:name="com.best.alarmclock.AnalogAppWidgetMaterialYouProvider"
+            android:name="com.best.alarmclock.MaterialYouAnalogAppWidgetProvider"
             android:exported="true"
-            android:label="@string/analog_gadget_material_you">
+            android:label="@string/analog_widget_material_you">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -366,14 +366,14 @@
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_gadget"
+            android:label="@string/digital_widget"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
             android:name="com.best.alarmclock.DigitalAppWidgetProvider"
             android:exported="true"
-            android:label="@string/digital_gadget">
+            android:label="@string/digital_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
@@ -403,16 +403,16 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
-            android:name="com.best.deskclock.settings.DigitalWidgetMaterialYouCustomizationActivity"
+            android:name="com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/digital_gadget_material_you"
+            android:label="@string/material_you_digital_widget"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.DigitalAppWidgetMaterialYouProvider"
+            android:name="com.best.alarmclock.MaterialYouDigitalAppWidgetProvider"
             android:exported="true"
-            android:label="@string/digital_gadget_material_you">
+            android:label="@string/material_you_digital_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
@@ -436,20 +436,20 @@
         </receiver>
 
         <service
-            android:name="com.best.alarmclock.DigitalAppWidgetMaterialYouCityService"
+            android:name="com.best.alarmclock.MaterialYouDigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
             android:name="com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/material_you_vertical_digital_gadget"
+            android:label="@string/material_you_vertical_digital_widget"
             android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
             android:name="com.best.alarmclock.MaterialYouVerticalDigitalAppWidgetProvider"
             android:exported="true"
-            android:label="@string/material_you_vertical_digital_gadget">
+            android:label="@string/material_you_vertical_digital_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />

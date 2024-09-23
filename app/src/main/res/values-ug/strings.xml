@@ -29,8 +29,8 @@
     </string-array>
     <string name="every_day">ھەر كۈنى</string>
     <string name="day_concat">"« ،»"</string>
-    <string name="analog_gadget">تەقلىد سائەت</string>
-    <string name="digital_gadget">رەقەملىك سائەت</string>
+    <string name="analog_widget">تەقلىد سائەت</string>
+    <string name="digital_widget">رەقەملىك سائەت</string>
     <string name="settings">تەڭشەكلەر</string>
     <string name="snooze_duration_title">مۈگدەش ئۇزۇنلۇقى</string>
     <string name="auto_silence_title">قوڭغۇراق ۋاقتى</string>

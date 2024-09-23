@@ -93,10 +93,10 @@
     <string name="every_day" msgid="4100909974923444602">"Tous les jours"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Chargement…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Horloge analogique"</string>
-    <string name="analog_gadget_material_you">Horloge analogique Material You</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Horloge numérique"</string>
-    <string name="digital_gadget_material_you">Horloge numérique Material You</string>
+    <string name="analog_widget" msgid="1670505720837152766">"Horloge analogique"</string>
+    <string name="analog_widget_material_you">Horloge analogique Material You</string>
+    <string name="digital_widget" msgid="2326954556720571358">"Horloge numérique"</string>
+    <string name="material_you_digital_widget">Horloge numérique Material You</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
     <string name="settings_permission_message">Une ou plusieurs autorisations essentielles sont refusées. Ne pas les accorder peut entraîner des dysfonctionnements.</string>
     <string name="settings_permission_summary">Cliquez ici pour afficher la page de Gestion des autorisations.</string>
@@ -665,5 +665,5 @@
     <string name="digital_widget_custom_hours_color_title">Couleur personnalisée des heures</string>
     <string name="digital_widget_default_minutes_color_title">Utiliser la couleur par défaut pour les minutes</string>
     <string name="digital_widget_custom_minutes_color_title">Couleur personnalisée des minutes</string>
-    <string name="material_you_vertical_digital_gadget">Horloge numérique verticale Material You</string>
+    <string name="material_you_vertical_digital_widget">Horloge numérique verticale Material You</string>
 </resources>
