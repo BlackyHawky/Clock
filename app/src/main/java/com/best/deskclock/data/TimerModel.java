@@ -26,6 +26,8 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.util.ArraySet;
 
 import androidx.annotation.StringRes;
@@ -714,6 +716,14 @@ final class TimerModel {
                 mAlarmManager.cancel(pi);
                 pi.cancel();
             }
+        /* TODO: we can consider that issue #5 is solved as indicated in the discussion here: https://github.com/BlackyHawky/Clock/issues/5).
+            Added out of curiosity to see how it will be solved in the LineageOS clock app (https://gitlab.com/LineageOS/issues/android/-/issues/5579). */
+        } else if (nextExpiringTimer.getRemainingTime() <= 0) {
+            mContext.startService(intent);
+        } else if (nextExpiringTimer.getRemainingTime() < 5000) {
+            PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
+            wl.acquire(nextExpiringTimer.getRemainingTime());
+            new Handler().postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
         } else {
             // Update the existing timer expiration callback.
             final PendingIntent pi = PendingIntent.getService(mContext,
