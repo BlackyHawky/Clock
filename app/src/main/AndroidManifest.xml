@@ -403,6 +403,37 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
+            android:name="com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/vertical_digital_widget"
+            android:exported="true"
+            android:theme="@style/Theme.DeskClock" />
+
+        <receiver
+            android:name="com.best.alarmclock.VerticalDigitalAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/vertical_digital_widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED" />
+                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/vertical_digital_appwidget" />
+        </receiver>
+
+        <activity
             android:name="com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/material_you_digital_widget"

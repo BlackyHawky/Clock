@@ -44,6 +44,18 @@ import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustom
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -182,6 +194,93 @@ final class WidgetDAO {
      */
     static int getDigitalWidgetCustomCityNameColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    // *****************************
+    // ** VERTICAL DIGITAL WIDGET **
+    // *****************************
+
+    /**
+     * @return {@code true} if the background is displayed on the vertical digital widget; {@code false} otherwise.
+     */
+    static boolean isBackgroundDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false);
+    }
+
+    /**
+     * @return a value indicating the background color in the vertical digital widget .
+     */
+    static int getVerticalDigitalWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000"));
+    }
+
+    /**
+     * @return the font size applied to the hours in the vertical digital widget.
+     */
+    static String getVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getString(KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE,
+                KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE
+        );
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the hours in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    static boolean isVerticalDigitalWidgetDefaultHoursColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the hours in the vertical digital widget.
+     */
+    static int getVerticalDigitalWidgetCustomHoursColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the minutes in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    static boolean isVerticalDigitalWidgetDefaultMinutesColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the minutes in the vertical digital widget.
+     */
+    static int getVerticalDigitalWidgetCustomMinutesColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the date in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    static boolean isVerticalDigitalWidgetDefaultDateColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the date in the vertical digital widget.
+     */
+    static int getVerticalDigitalWidgetCustomDateColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the next alarm in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    static boolean isVerticalDigitalWidgetDefaultNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm in the vertical digital widget.
+     */
+    static int getVerticalDigitalWidgetCustomNextAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF"));
     }
 
     // *********************************

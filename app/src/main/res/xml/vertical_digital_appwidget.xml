@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    xml from https://github.com/ProjectInfinity-X/packages_apps_DeskClock
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialLayout="@layout/loading_widget"
+    android:minWidth="70dp"
+    android:minHeight="150dp"
+    android:minResizeWidth="30dp"
+    android:minResizeHeight="50dp"
+    android:previewImage="@drawable/appwidget_vertical_digital_clock_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="keyguard|home_screen"
+    android:widgetFeatures="configuration_optional|reconfigurable"
+    android:configure="com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity"
+    tools:targetApi="p" />

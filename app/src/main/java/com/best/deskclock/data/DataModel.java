@@ -1229,7 +1229,6 @@ public final class DataModel {
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
      */
     public boolean isBackgroundDisplayedOnDigitalWidget() {
-        enforceMainLooper();
         return mWidgetModel.isBackgroundDisplayedOnDigitalWidget();
     }
 
@@ -1325,6 +1324,91 @@ public final class DataModel {
      */
     public int getDigitalWidgetCustomCityNameColor() {
         return mWidgetModel.getDigitalWidgetCustomCityNameColor();
+    }
+
+    // *****************************
+    // ** VERTICAL DIGITAL WIDGET **
+    // *****************************
+
+    /**
+     * @return {@code true} if the background is displayed on the vertical digital widget; {@code false} otherwise.
+     */
+    public boolean isBackgroundDisplayedOnVerticalDigitalWidget() {
+        return mWidgetModel.isBackgroundDisplayedOnVerticalDigitalWidget();
+    }
+
+    /**
+     * @return a value indicating the background color in the vertical digital widget .
+     */
+    public int getVerticalDigitalWidgetBackgroundColor() {
+        return mWidgetModel.getVerticalDigitalWidgetBackgroundColor();
+    }
+
+    /**
+     * @return the font size applied to the hours in the vertical digital widget.
+     */
+    public String getVerticalDigitalWidgetMaxClockFontSize() {
+        return mWidgetModel.getVerticalDigitalWidgetMaxClockFontSize();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the hours in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isVerticalDigitalWidgetDefaultHoursColor() {
+        return mWidgetModel.isVerticalDigitalWidgetDefaultHoursColor();
+    }
+
+    /**
+     * @return a value indicating the color of the hours in the vertical digital widget.
+     */
+    public int getVerticalDigitalWidgetCustomHoursColor() {
+        return mWidgetModel.getVerticalDigitalWidgetCustomHoursColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the minutes in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isVerticalDigitalWidgetDefaultMinutesColor() {
+        return mWidgetModel.isVerticalDigitalWidgetDefaultMinutesColor();
+    }
+
+    /**
+     * @return a value indicating the color of the minutes in the vertical digital widget.
+     */
+    public int getVerticalDigitalWidgetCustomMinutesColor() {
+        return mWidgetModel.getVerticalDigitalWidgetCustomMinutesColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the date in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isVerticalDigitalWidgetDefaultDateColor() {
+        return mWidgetModel.isVerticalDigitalWidgetDefaultDateColor();
+    }
+
+    /**
+     * @return a value indicating the color of the date in the vertical digital widget.
+     */
+    public int getVerticalDigitalWidgetCustomDateColor() {
+        return mWidgetModel.getVerticalDigitalWidgetCustomDateColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the next alarm in the vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean isVerticalDigitalWidgetDefaultNextAlarmColor() {
+        return mWidgetModel.isVerticalDigitalWidgetDefaultNextAlarmColor();
+    }
+
+    /**
+     * @return a value indicating the color of the next alarm in the vertical digital widget.
+     */
+    public int getVerticalDigitalWidgetCustomNextAlarmColor() {
+        return mWidgetModel.getVerticalDigitalWidgetCustomNextAlarmColor();
     }
 
     // *********************************

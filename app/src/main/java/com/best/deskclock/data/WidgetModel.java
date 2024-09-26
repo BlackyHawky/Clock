@@ -120,6 +120,54 @@ public final class WidgetModel {
         return WidgetDAO.getDigitalWidgetCustomCityNameColor(mPrefs);
     }
 
+    // *****************************
+    // ** VERTICAL DIGITAL WIDGET **
+    // *****************************
+
+    public boolean isBackgroundDisplayedOnVerticalDigitalWidget() {
+        return WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs);
+    }
+
+    public int getVerticalDigitalWidgetBackgroundColor() {
+        return WidgetDAO.getVerticalDigitalWidgetBackgroundColor(mPrefs);
+    }
+
+    public String getVerticalDigitalWidgetMaxClockFontSize() {
+        return WidgetDAO.getVerticalDigitalWidgetMaxClockFontSize(mPrefs);
+    }
+
+    boolean isVerticalDigitalWidgetDefaultHoursColor() {
+        return WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(mPrefs);
+    }
+
+    int getVerticalDigitalWidgetCustomHoursColor() {
+        return WidgetDAO.getVerticalDigitalWidgetCustomHoursColor(mPrefs);
+    }
+
+    boolean isVerticalDigitalWidgetDefaultMinutesColor() {
+        return WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(mPrefs);
+    }
+
+    int getVerticalDigitalWidgetCustomMinutesColor() {
+        return WidgetDAO.getVerticalDigitalWidgetCustomMinutesColor(mPrefs);
+    }
+
+    boolean isVerticalDigitalWidgetDefaultDateColor() {
+        return WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs);
+    }
+
+    int getVerticalDigitalWidgetCustomDateColor() {
+        return WidgetDAO.getVerticalDigitalWidgetCustomDateColor(mPrefs);
+    }
+
+    boolean isVerticalDigitalWidgetDefaultNextAlarmColor() {
+        return WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs);
+    }
+
+    int getVerticalDigitalWidgetCustomNextAlarmColor() {
+        return WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(mPrefs);
+    }
+
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
