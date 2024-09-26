@@ -20,24 +20,8 @@ public final class WidgetModel {
 
     public static final String ACTION_WORLD_CITIES_CHANGED =
             "com.best.alarmclock.WORLD_CITIES_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED";
-    public static final String ACTION_WORLD_CITIES_DISPLAYED =
-            "com.best.alarmclock.WORLD_CITIES_DISPLAYED";
-    public static final String ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_CLOCK_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_DATE_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED =
-            "com.best.alarmclock.DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_CUSTOMIZED =
+            "com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED";
 
     private final SharedPreferences mPrefs;
 

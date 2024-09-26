@@ -5,15 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_DISPLAYED;
+import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -153,15 +145,10 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_BACKGROUND_DISPLAY_CHANGED));
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_DIGITAL_WIDGET_BACKGROUND_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_BACKGROUND_COLOR_CHANGED));
-
                 case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
-                    requireContext().sendBroadcast(new Intent(ACTION_WORLD_CITIES_DISPLAYED));
-
                     if (mShowCitiesOnDigitalWidgetPref.getSharedPreferences() != null
                             && mDefaultCityClockColorPref.getSharedPreferences() != null
                             && mDefaultCityNameColorPref.getSharedPreferences() != null) {
@@ -191,8 +178,8 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                             );
                         }
                     }
-
                     Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
@@ -201,13 +188,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                                 .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true);
                         mCustomClockColorPref.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED)
-                    );
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
-
-                case KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR ->
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_COLOR_CHANGED));
-
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
                     if (mDefaultDateColorPref.getSharedPreferences() != null) {
@@ -215,11 +198,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                                 .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
                         mCustomDateColorPref.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
-
-                case KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_DATE_COLOR_CHANGED));
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
                     if (mDefaultNextAlarmColorPref.getSharedPreferences() != null) {
@@ -227,11 +208,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                                 .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
                         mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
-
-                case KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_NEXT_ALARM_COLOR_CHANGED));
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
                     if (mDefaultCityClockColorPref.getSharedPreferences() != null) {
@@ -239,11 +218,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                                 .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true);
                         mCustomCityClockColorPref.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED));
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
-
-                case KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_CLOCK_COLOR_CHANGED));
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
                     if (mDefaultCityNameColorPref.getSharedPreferences() != null) {
@@ -251,11 +228,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                                 .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true);
                         mCustomCityNameColorPref.setVisible(isNotDefaultColors);
                     }
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
-
-                case KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CITY_NAME_COLOR_CHANGED));
 
                 case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
@@ -263,9 +238,15 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                             requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
                                     + newValue.toString()
                     );
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CLOCK_FONT_SIZE_CHANGED));
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
+
+                case KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR,
+                     KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR,
+                     KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR ->
+                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
+
             return true;
         }
 
