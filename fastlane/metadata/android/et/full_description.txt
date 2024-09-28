@@ -1,5 +1,5 @@
 Kell on AOSP'l põhinev privaatsusteadlik kellarakendus.
-Võrguühenduse luba pole vaja rakendus toimib 100% vallasrežiimis.
+Võrguühenduse luba pole vaja ja rakendus toimib 100% vallasrežiimis.
 
 Funktsionaalsused:
 <ul>

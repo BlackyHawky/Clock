@@ -529,7 +529,7 @@
     <string name="permission_denied">Verweigert</string>
     <string name="title_theme">Thema</string>
     <string name="wakeup">Wecken</string>
-    <string name="settings_vibration_title">Vibrationsfeetback aktivieren</string>
+    <string name="settings_vibration_title">Vibrationsfeedback aktivieren</string>
     <string name="settings_vibration_summary">Nur einige Tasten der Benutzeroberfläche sind betroffen (z. B. die Taste für Start/Pause des Timers oder die Umschalt-Button)</string>
     <string name="clock_settings_summary">Einstellen von Stil, Zeitzone und Ändern von Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>

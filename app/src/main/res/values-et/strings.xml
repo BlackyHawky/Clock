@@ -612,4 +612,14 @@
     <string name="github_dialog_message">Külasta projekti lehte GitHubis:
 \n
 \n%s</string>
+    <string name="digital_widget_default_hours_color_title">Tundide jaoks kasuta vaikimisi värve</string>
+    <string name="digital_widget_custom_hours_color_title">Sinu valitud värvid tundide jaoks</string>
+    <string name="digital_widget_default_minutes_color_title">Minutite jaoks kasuta vaikimisi värve</string>
+    <string name="digital_widget_custom_minutes_color_title">Sinu valitud värvid minutite jaoks</string>
+    <string name="material_you_vertical_digital_widget">Material You kujunduses püstine digikell</string>
+    <string name="standard_category_title">Tavavälimus</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="widgets_settings_summary">Seadista vidinate kujundust, värvi ja kirjatüübi suurust</string>
+    <string name="vertical_digital_widget">Püstine digikell</string>
+    <string name="widgets_settings">Vidinad</string>
 </resources>

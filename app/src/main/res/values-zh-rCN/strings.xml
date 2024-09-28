@@ -433,45 +433,45 @@
     <string name="analog_widget_material_you">模拟时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟；
-\n
-\n• 使用电源按钮或音量按钮关闭/推迟闹钟；
-\n
-\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟；
-\n
-\n• 滑动以删除闹钟；
-\n
-\n• 重复闹钟；
-\n
-\n• 自定义闹钟标题；
-\n
-\n• 可自定义铃声；
-\n
-\n• 浅色、深色或系统主题；
-\n
-\n• 深色主题的 AMOLED 模式；
-\n
-\n• 数字或模拟时钟风格；
-\n
-\n• 旅行时显示家乡时间；
-\n
-\n• 显示世界各地许多城市的时间；
-\n
-\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>；
-\n
-\n• 可以与联系人共享秒表；
-\n
-\n• 可自定义的屏幕保护程序；
-\n
-\n• 现代小部件；
-\n
-\n• 可自定义的数字小部件；
-\n
-\n• Material 设计；
-\n
+    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； 
+\n 
+\n• 使用电源按钮或音量按钮关闭/推迟闹钟； 
+\n 
+\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； 
+\n 
+\n• 滑动以删除闹钟； 
+\n 
+\n• 重复闹钟； 
+\n 
+\n• 自定义闹钟标题； 
+\n 
+\n• 可自定义铃声； 
+\n 
+\n• 浅色、深色或系统主题； 
+\n 
+\n• 深色主题的 AMOLED 模式； 
+\n 
+\n• 数字或模拟时钟风格； 
+\n 
+\n• 旅行时显示家乡时间； 
+\n 
+\n• 显示世界各地许多城市的时间； 
+\n 
+\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； 
+\n 
+\n• 可以与联系人共享秒表； 
+\n 
+\n• 可自定义的屏幕保护程序； 
+\n 
+\n• 现代微件； 
+\n 
+\n• 可自定义的数字微件； 
+\n 
+\n• Material 设计； 
+\n 
 \n• 适用于 Android 12+ 的动态色彩； \u0020</string>
     <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
-    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的数字小部件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的数字微件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
@@ -485,7 +485,7 @@
     <string name="first_launch_main_feature_link">…还有更多！</string>
     <string name="screensaver_italic_date_title">斜体日期</string>
     <string name="background_color_title">背景颜色</string>
-    <string name="digital_widget_city_title">在小部件上显示城市</string>
+    <string name="digital_widget_city_title">在微件上显示城市</string>
     <string name="digital_widget_city_clock_custom_color_title">城市时钟自定义颜色</string>
     <string name="digital_widget_city_name_custom_color_title">城市名称自定义颜色</string>
     <string name="bedtime_notification_until">直到 <xliff:g id="wake_time">%s</xliff:g></string>
@@ -549,7 +549,7 @@
     <string name="digital_widget_city_name_default_color_title">使用城市名称的默认颜色</string>
     <string name="digital_widget_max_clock_font_size_title">主时钟的最大字体大小</string>
     <string name="digital_widget_max_clock_font_size_summary">最大字体大小 = </string>
-    <string name="digital_widget_message_summary">必须禁用小部件上的显示城市才能访问此设置</string>
+    <string name="digital_widget_message_summary">必须禁用微件上的显示城市才能访问此设置</string>
     <string name="permission_management_settings">权限管理</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;全屏通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="digital_widget_next_alarm_default_color_title">下次闹钟使用默认颜色</string>
@@ -603,4 +603,14 @@
     <string name="contributors_dialog_message">访问 %1$s 的 GitHub 页面：
 \n
 \n%2$s</string>
+    <string name="material_you_vertical_digital_widget">立式数字时钟 Material You</string>
+    <string name="widgets_settings">微件</string>
+    <string name="vertical_digital_widget">立式数字时钟</string>
+    <string name="digital_widget_custom_hours_color_title">自定义小时颜色</string>
+    <string name="digital_widget_default_minutes_color_title">使用分钟默认颜色</string>
+    <string name="digital_widget_default_hours_color_title">使用小时默认颜色</string>
+    <string name="digital_widget_custom_minutes_color_title">自定义分钟颜色</string>
+    <string name="standard_category_title">标准</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="widgets_settings_summary">设置微件的样式、颜色和字体大小</string>
 </resources>
