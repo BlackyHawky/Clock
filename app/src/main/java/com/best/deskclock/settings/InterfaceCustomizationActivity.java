@@ -44,6 +44,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_MISCELLANEOUS_CATEGORY = "key_miscellaneous_category";
     public static final String KEY_VIBRATIONS = "key_vibrations";
+    public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         SwitchPreferenceCompat mCardBackgroundPref;
         SwitchPreferenceCompat mCardBorderPref;
         SwitchPreferenceCompat mVibrationPref;
+        SwitchPreferenceCompat mTabIndicatorPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
             mCardBorderPref = findPreference(KEY_CARD_BORDER);
             mVibrationPref = findPreference(KEY_VIBRATIONS);
+            mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
 
             hidePreferences();
         }
@@ -158,6 +161,13 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     vibrationsPref.setChecked(DataModel.getDataModel().isVibrationsEnabled());
                     Utils.setVibrationTime(requireContext(), 50);
                 }
+
+                case KEY_TAB_INDICATOR -> {
+                    final TwoStatePreference tabIndicatorPref = (TwoStatePreference) pref;
+                    tabIndicatorPref.setChecked(DataModel.getDataModel().isTabIndicatorDisplayed());
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireActivity().setResult(RESULT_OK);
+                }
             }
 
             return true;
@@ -187,6 +197,8 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mCardBorderPref.setOnPreferenceChangeListener(this);
 
             mVibrationPref.setOnPreferenceChangeListener(this);
+
+            mTabIndicatorPref.setOnPreferenceChangeListener(this);
         }
     }
 

@@ -290,6 +290,8 @@
     <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
+    <!-- Setting title to display the tab indicator in the bottom navigation menu. -->
+    <string name="settings_tab_indicator_title">Display the tab indicator in the bottom navigation menu</string>
     <!-- Setting summary about vibrations. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
 

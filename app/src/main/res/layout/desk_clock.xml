@@ -99,7 +99,6 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:paddingVertical="4dp"
         app:menu="@menu/bottom_navigation_menu"
         app:labelVisibilityMode="labeled"
         tools:background="@color/md_theme_surface" />

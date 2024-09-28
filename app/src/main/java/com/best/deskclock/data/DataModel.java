@@ -1038,6 +1038,13 @@ public final class DataModel {
     }
 
     /**
+     * @return whether or not the tab indicator is displayed in the bottom navigation menu.
+     */
+    public boolean isTabIndicatorDisplayed() {
+        return mSettingsModel.isTabIndicatorDisplayed();
+    }
+
+    /**
      * @return the style of the clock to display in the clock application
      */
     public ClockStyle getClockStyle() {

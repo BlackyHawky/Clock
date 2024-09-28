@@ -62,6 +62,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_tab_indicator"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_indicator_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -101,6 +101,10 @@ final class SettingsModel {
         return SettingsDAO.isVibrationsEnabled(mPrefs);
     }
 
+    public boolean isTabIndicatorDisplayed() {
+        return SettingsDAO.isTabIndicatorDisplayed(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }

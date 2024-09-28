@@ -281,10 +281,17 @@ public class DeskClock extends AppCompatActivity
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         final int primaryColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        final boolean isTabIndicatorDisplayed = DataModel.getDataModel().isTabIndicatorDisplayed();
 
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
-        mBottomNavigation.setItemActiveIndicatorEnabled(false);
+        mBottomNavigation.setItemActiveIndicatorEnabled(isTabIndicatorDisplayed);
+
+        if (!isTabIndicatorDisplayed) {
+            final int bottomNavigationMenuPadding = Utils.toPixel(4, context);
+            mBottomNavigation.setPadding(0, bottomNavigationMenuPadding, 0, bottomNavigationMenuPadding);
+        }
+
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})

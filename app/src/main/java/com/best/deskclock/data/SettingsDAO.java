@@ -227,6 +227,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the tab indicator is displayed in the bottom navigation menu.
+     */
+    static boolean isTabIndicatorDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_TAB_INDICATOR, true);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {
