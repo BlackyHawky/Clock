@@ -18,9 +18,19 @@
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:maxLines="1"
+        android:textColor="@color/digital_widget_text_color"
         tools:text="Sat. 20 Jan."
-        tools:textSize="18sp"
-        tools:textColor="@color/digital_widget_text_color" />
+        tools:textSize="18sp" />
+
+    <TextClock
+        android:id="@+id/dateForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <TextClock
         android:id="@+id/clock"
@@ -31,12 +41,23 @@
         android:format12Hour="hh"
         android:format24Hour="kk"
         android:maxLines="1"
+        android:textColor="@color/vertical_digital_widget_hour_color"
         tools:text="01"
-        tools:textSize="70sp"
-        tools:textColor="@color/vertical_digital_widget_hour_color" />
+        tools:textSize="70sp" />
 
     <TextClock
-        android:id="@+id/clock_minutes"
+        android:id="@+id/clockForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:format12Hour="hh"
+        android:format24Hour="kk"
+        android:maxLines="1"
+        tools:visibility="gone" />
+
+    <TextClock
+        android:id="@+id/clockMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -44,9 +65,20 @@
         android:format12Hour="mm"
         android:format24Hour="mm"
         android:maxLines="1"
+        android:textColor="@color/vertical_digital_widget_minute_color"
         tools:text="00"
-        tools:textSize="70sp"
-        tools:textColor="@color/vertical_digital_widget_minute_color" />
+        tools:textSize="70sp" />
+
+    <TextClock
+        android:id="@+id/clockMinutesForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:format12Hour="mm"
+        android:format24Hour="mm"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -62,25 +94,42 @@
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
+            android:textColor="@color/digital_widget_text_color"
             tools:text=""
             tools:drawableStart="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
-            tools:drawableTint="@color/digital_widget_text_color"
-            tools:textColor="@color/digital_widget_text_color" />
+            tools:drawableTint="@color/digital_widget_text_color" />
+
+        <TextView
+            android:id="@+id/nextAlarmIconForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/clock_emoji"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:includeFontPadding="false"
-            android:paddingStart="@null"
-            android:paddingEnd="3dp"
             android:ellipsize="none"
+            android:includeFontPadding="false"
             android:maxLines="1"
             android:textColor="@color/digital_widget_text_color"
             tools:text="Mo, 07:30 AM"
             tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            tools:visibility="gone" />
 
     </LinearLayout>
 

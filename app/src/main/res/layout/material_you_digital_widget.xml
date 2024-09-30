@@ -91,6 +91,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ellipsize="none"
+            android:includeFontPadding="false"
             android:maxLines="1"
             android:textColor="@color/digital_widget_text_color"
             tools:text="08:30"
@@ -102,6 +103,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ellipsize="none"
+            android:includeFontPadding="false"
             android:maxLines="1"
             tools:visibility="gone" />
 

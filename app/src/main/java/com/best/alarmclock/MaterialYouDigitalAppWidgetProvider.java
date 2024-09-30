@@ -230,7 +230,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.clockForCustomColor, digitalWidgetCustomClockColor);
         }
 
-        // Apply the color to the date.
+        // Apply the custom color to the date.
         // The default color is defined in the xml files to match the device's day/night theme.
         final CharSequence dateFormat = getDateFormat(context);
         final boolean isDigitalWidgetDateDefaultDateColor =
@@ -430,7 +430,9 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         measuredSizes.mMeasuredWidthPx = sizer.getMeasuredWidth();
         measuredSizes.mMeasuredHeightPx = sizer.getMeasuredHeight();
         measuredSizes.mMeasuredTextClockWidthPx = clock.getMeasuredWidth();
+        measuredSizes.mMeasuredTextClockForCustomColorWidthPx = clockForCustomColor.getMeasuredWidth();
         measuredSizes.mMeasuredTextClockHeightPx = clock.getMeasuredHeight();
+        measuredSizes.mMeasuredTextClockForCustomColorHeightPx = clockForCustomColor.getMeasuredHeight();
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
@@ -619,7 +621,9 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         private int mMeasuredWidthPx;
         private int mMeasuredHeightPx;
         private int mMeasuredTextClockWidthPx;
+        private int mMeasuredTextClockForCustomColorWidthPx;
         private int mMeasuredTextClockHeightPx;
+        private int mMeasuredTextClockForCustomColorHeightPx;
 
         /**
          * The size of the font to use on the date / next alarm time fields.
@@ -684,9 +688,15 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         public String toString() {
             final StringBuilder builder = new StringBuilder(1000);
             builder.append("\n");
-            append(builder, "Target dimensions: %dpx x %dpx\n", mTargetWidthPx, mTargetHeightPx);
-            append(builder, "Last valid widget container measurement: %dpx x %dpx\n", mMeasuredWidthPx, mMeasuredHeightPx);
-            append(builder, "Last text clock measurement: %dpx x %dpx\n", mMeasuredTextClockWidthPx, mMeasuredTextClockHeightPx);
+            append(builder, "Target dimensions: %dpx x %dpx\n",
+                    mTargetWidthPx, mTargetHeightPx);
+            append(builder, "Last valid widget container measurement: %dpx x %dpx\n",
+                    mMeasuredWidthPx, mMeasuredHeightPx);
+            append(builder, "Last text clock measurement: %dpx x %dpx\n",
+                    mMeasuredTextClockWidthPx, mMeasuredTextClockHeightPx);
+            append(builder, "Last text clock measurement: %dpx x %dpx\n",
+                    mMeasuredTextClockForCustomColorWidthPx, mMeasuredTextClockForCustomColorHeightPx);
+
             if (mMeasuredWidthPx > mTargetWidthPx) {
                 append(builder, "Measured width %dpx exceeded widget width %dpx\n",
                         mMeasuredWidthPx, mTargetWidthPx);
