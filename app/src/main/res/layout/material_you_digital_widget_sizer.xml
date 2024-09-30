@@ -15,12 +15,23 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:includeFontPadding="false"
         android:ellipsize="none"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="@color/digital_widget_text_color"
         tools:text="Sat. 20 Jan."
-        tools:textSize="18sp"
-        tools:textColor="@color/digital_widget_text_color" />
+        tools:textSize="18sp" />
+
+    <TextClock
+        android:id="@+id/dateForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <TextClock
         android:id="@+id/clock"
@@ -30,14 +41,26 @@
         android:ellipsize="none"
         android:format12Hour="@string/lock_screen_12_hour_format"
         android:format24Hour="@string/lock_screen_24_hour_format"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="@color/digital_widget_time_color"
         tools:text="01:23"
-        tools:textSize="70sp"
-        tools:textColor="@color/digital_widget_time_color" />
+        tools:textSize="70sp" />
+
+    <TextClock
+        android:id="@+id/clockForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:format12Hour="@string/lock_screen_12_hour_format"
+        android:format24Hour="@string/lock_screen_24_hour_format"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center">
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
@@ -46,26 +69,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="none"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/clock_emoji"
+            android:textColor="@color/digital_widget_text_color"
             tools:text=""
             tools:drawableStart="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
-            tools:drawableTint="@color/digital_widget_text_color"
-            tools:textColor="@color/digital_widget_text_color" />
+            tools:drawableTint="@color/digital_widget_text_color" />
+
+        <TextView
+            android:id="@+id/nextAlarmIconForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:maxLines="1"
+            android:text="@string/clock_emoji"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingHorizontal="3dp"
-            android:includeFontPadding="false"
             android:ellipsize="none"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@color/digital_widget_text_color"
             tools:text="Mo, 07:30 AM"
             tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:maxLines="1"
+            tools:visibility="gone" />
 
     </LinearLayout>
 

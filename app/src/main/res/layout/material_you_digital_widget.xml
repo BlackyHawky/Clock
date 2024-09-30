@@ -18,12 +18,23 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ellipsize="none"
         android:includeFontPadding="false"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:textColor="@color/digital_widget_text_color"
         tools:text="Sat. 20 Jan."
-        tools:textSize="18sp"
-        tools:textColor="@color/digital_widget_text_color" />
+        tools:textSize="18sp" />
+
+    <TextClock
+        android:id="@+id/dateForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ellipsize="none"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <TextClock
         android:id="@+id/clock"
@@ -31,15 +42,26 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:ellipsize="none"
-        android:singleLine="true"
-        tools:text="0123 AM"
-        tools:textSize="70sp"
-        tools:textColor="@color/digital_widget_time_color" />
+        android:maxLines="1"
+        android:textColor="@color/digital_widget_time_color"
+        android:visibility="visible"
+        tools:text="01:23 AM"
+        tools:textSize="70sp" />
+
+    <TextClock
+        android:id="@+id/clockForCustomColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:maxLines="1"
+        tools:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/digital_widget_bottom_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center">
 
         <!-- Do not use the App tint attribute, otherwise the icon will not
@@ -50,23 +72,38 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
+            android:tint="@color/digital_widget_text_color"
             tools:src="@drawable/ic_tab_alarm_static"
-            tools:tint="@color/digital_widget_text_color"
             tools:paddingHorizontal="3dp"
             tools:ignore="UseAppTint" />
+
+        <ImageView
+            android:id="@+id/nextAlarmIconForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:includeFontPadding="false"
             android:ellipsize="none"
-            android:singleLine="true"
+            android:maxLines="1"
+            android:textColor="@color/digital_widget_text_color"
             tools:text="08:30"
-            tools:textSize="18sp"
-            tools:textColor="@color/digital_widget_text_color" />
+            tools:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/nextAlarmForCustomColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:ellipsize="none"
+            android:maxLines="1"
+            tools:visibility="gone" />
 
     </LinearLayout>
 
@@ -75,7 +112,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="10dp"
         android:divider="@null"
         android:visibility="gone" />
 
