@@ -57,9 +57,11 @@
     <color name="analog_widget_second_hand_color">#E6DEFF</color>
     <color name="digital_widget_background_color">#20333D</color>
     <color name="digital_widget_time_color">#D1E5F4</color>
-    <color name="digital_widget_text_color">#E6E1E8</color>
+    <color name="widget_text_color">#E6E1E8</color>
     <color name="vertical_digital_widget_hour_color">#D1E5F4</color>
     <color name="vertical_digital_widget_minute_color">#C1E8FF</color>
+    <color name="next_alarm_widget_title_color">#D1E5F4</color>
+    <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
 
     <!-- The colors are picked up from https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors -->
 

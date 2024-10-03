@@ -514,7 +514,7 @@
     <string name="digital_widget_city_name_custom_color_title">Benutzerdefinierte Farbe des Stadtnamens</string>
     <string name="digital_widget_message_summary">“Städte im Widget anzeigen“ muss deaktiviert sein, um auf diese Einstellung zugreifen zu können</string>
     <string name="digital_widget_max_clock_font_size_title">Maximale Schriftgröße der Hauptuhr</string>
-    <string name="digital_widget_max_clock_font_size_summary">Maximale Schriftgröße = </string>
+    <string name="widget_max_clock_font_size_summary">Maximale Schriftgröße = </string>
     <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für Vollbild-Benachrichtigungen aktiviert sein</string>
     <string name="gnu_gpl">GNU General Public Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Clock“ basiert auf AOSP</string>

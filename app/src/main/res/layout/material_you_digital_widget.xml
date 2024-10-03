@@ -22,7 +22,7 @@
         android:ellipsize="none"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:textColor="@color/digital_widget_text_color"
+        android:textColor="@color/widget_text_color"
         tools:text="Sat. 20 Jan."
         tools:textSize="18sp" />
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
-            android:tint="@color/digital_widget_text_color"
+            android:tint="@color/widget_text_color"
             tools:src="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
             tools:ignore="UseAppTint" />
@@ -93,7 +93,7 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textColor="@color/digital_widget_text_color"
+            android:textColor="@color/widget_text_color"
             tools:text="08:30"
             tools:textSize="18sp" />
 

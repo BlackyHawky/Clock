@@ -523,7 +523,7 @@
     <string name="digital_widget_clock_default_color_title">Kasuta põhikellana vaikimisi kella</string>
     <string name="digital_widget_city_clock_custom_color_title">Vali linnade kellale oma värv</string>
     <string name="digital_widget_max_clock_font_size_title">Kella põhivaate kirjatüübi suurim suurus</string>
-    <string name="digital_widget_max_clock_font_size_summary">Maksimaalne kirjatüübi suurus = </string>
+    <string name="widget_max_clock_font_size_summary">Maksimaalne kirjatüübi suurus = </string>
     <string name="FSN_dialog_title">Täisekraaniteavitused</string>
     <string name="permission_status_title">Olek: </string>
     <string name="permission_management_summary">Näita õigusi, mis on vajalikud rakenduse korrektseks toimimiseks</string>

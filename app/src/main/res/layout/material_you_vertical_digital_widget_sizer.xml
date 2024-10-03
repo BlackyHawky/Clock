@@ -18,7 +18,7 @@
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:maxLines="1"
-        android:textColor="@color/digital_widget_text_color"
+        android:textColor="@color/widget_text_color"
         tools:text="Sat. 20 Jan."
         tools:textSize="18sp" />
 
@@ -94,11 +94,11 @@
             android:ellipsize="none"
             android:maxLines="1"
             android:text="@string/clock_emoji"
-            android:textColor="@color/digital_widget_text_color"
+            android:textColor="@color/widget_text_color"
             tools:text=""
             tools:drawableStart="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
-            tools:drawableTint="@color/digital_widget_text_color" />
+            tools:drawableTint="@color/widget_text_color" />
 
         <TextView
             android:id="@+id/nextAlarmIconForCustomColor"
@@ -117,7 +117,7 @@
             android:ellipsize="none"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:textColor="@color/digital_widget_text_color"
+            android:textColor="@color/widget_text_color"
             tools:text="Mo, 07:30 AM"
             tools:textSize="18sp" />
 

@@ -63,6 +63,12 @@ public class AlarmUtils {
                 : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
     }
 
+    public static String getAlarmTitle(Context context, AlarmInstance instance) {
+        return (instance.mLabel.isEmpty())
+                ? ""
+                : instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel;
+    }
+
     /**
      * format "Alarm set for 2 days, 7 hours, and 53 minutes from now."
      */

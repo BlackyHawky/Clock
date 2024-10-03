@@ -18,10 +18,9 @@ import com.best.deskclock.events.Events;
  */
 public final class WidgetModel {
 
-    public static final String ACTION_WORLD_CITIES_CHANGED =
-            "com.best.alarmclock.WORLD_CITIES_CHANGED";
-    public static final String ACTION_DIGITAL_WIDGET_CUSTOMIZED =
-            "com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED";
+    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.alarmclock.WORLD_CITIES_CHANGED";
+    public static final String ACTION_WIDGET_CUSTOMIZED = "com.best.alarmclock.WIDGET_CUSTOMIZED";
+    public static final String ACTION_NEXT_ALARM_LABEL_CHANGED = "com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED";
 
     private final SharedPreferences mPrefs;
 
@@ -242,6 +241,38 @@ public final class WidgetModel {
 
     int getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor() {
         return WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(mPrefs);
+    }
+
+    // ************************************
+    // ** MATERIAL YOU NEXT ALARM WIDGET **
+    // ************************************
+
+    public String getMaterialYouNextAlarmWidgetMaxFontSize() {
+        return WidgetDAO.getMaterialYouNextAlarmWidgetMaxFontSize(mPrefs);
+    }
+
+    boolean isMaterialYouNextAlarmWidgetDefaultTitleColor() {
+        return WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs);
+    }
+
+    int getMaterialYouNextAlarmWidgetCustomTitleColor() {
+        return WidgetDAO.getMaterialYouNextAlarmWidgetCustomTitleColor(mPrefs);
+    }
+
+    boolean isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor() {
+        return WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(mPrefs);
+    }
+
+    int getMaterialYouNextAlarmWidgetCustomAlarmTitleColor() {
+        return WidgetDAO.getMaterialYouNextAlarmWidgetCustomAlarmTitleColor(mPrefs);
+    }
+
+    boolean isMaterialYouNextAlarmWidgetDefaultAlarmColor() {
+        return WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmColor(mPrefs);
+    }
+
+    int getMaterialYouNextAlarmWidgetCustomAlarmColor() {
+        return WidgetDAO.getMaterialYouNextAlarmWidgetCustomAlarmColor(mPrefs);
     }
 
 }

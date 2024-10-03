@@ -16,7 +16,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -376,7 +376,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
-                case ACTION_DIGITAL_WIDGET_CUSTOMIZED:
+                case ACTION_WIDGET_CUSTOMIZED:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
@@ -407,7 +407,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
-        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_WIDGET_CUSTOMIZED);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);

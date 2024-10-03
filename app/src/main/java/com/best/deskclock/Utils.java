@@ -77,6 +77,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
@@ -230,6 +231,17 @@ public class Utils {
             return AlarmUtils.getFormattedTime(context, alarmTime);
         }
 
+        return null;
+    }
+
+    /**
+     * @return The next alarm title
+     */
+    public static String getNextAlarmTitle(Context context) {
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance != null) {
+            return AlarmUtils.getAlarmTitle(context, instance);
+        }
         return null;
     }
 

@@ -5,7 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -145,7 +145,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
@@ -173,13 +173,13 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                             );
                         } else {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                    requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
+                                    requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                             + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
                             );
                         }
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
@@ -189,7 +189,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mCustomClockColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
@@ -199,7 +199,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mCustomDateColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
@@ -209,7 +209,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
@@ -219,7 +219,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mCustomCityClockColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
@@ -229,22 +229,22 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mCustomCityNameColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
+                            requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                     + newValue.toString()
                     );
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR,
                      KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR,
                      KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                        requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
             }
 
             return true;
@@ -295,14 +295,14 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
+                            requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                     + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
                     );
                 }
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                 mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.digital_widget_max_clock_font_size_summary)
+                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                 + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
                 );
             }

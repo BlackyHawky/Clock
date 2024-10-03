@@ -1585,6 +1585,62 @@ public final class DataModel {
         return mWidgetModel.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
     }
 
+    // ************************************
+    // ** MATERIAL YOU NEXT ALARM WIDGET **
+    // ************************************
+
+    /**
+     * @return the font size applied to the Material You next alarm widget.
+     */
+    public String getMaterialYouNextAlarmWidgetMaxFontSize() {
+        return mWidgetModel.getMaterialYouNextAlarmWidgetMaxFontSize();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the title in the Material You next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouNextAlarmWidgetDefaultTitleColor() {
+        return mWidgetModel.isMaterialYouNextAlarmWidgetDefaultTitleColor();
+    }
+
+    /**
+     * @return a value indicating the color of the title in the Material You next alarm widget.
+     */
+    public int getMaterialYouNextAlarmWidgetCustomTitleColor() {
+        return mWidgetModel.getMaterialYouNextAlarmWidgetCustomTitleColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm title in the Material You next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor() {
+        return mWidgetModel.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor();
+    }
+
+    /**
+     * @return a value indicating the color of the alarm title in the Material You next alarm widget.
+     */
+    public int getMaterialYouNextAlarmWidgetCustomAlarmTitleColor() {
+        return mWidgetModel.getMaterialYouNextAlarmWidgetCustomAlarmTitleColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm in the Material You next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isMaterialYouNextAlarmWidgetDefaultAlarmColor() {
+        return mWidgetModel.isMaterialYouNextAlarmWidgetDefaultAlarmColor();
+    }
+
+    /**
+     * @return a value indicating the color of the alarm in the Material You next alarm widget.
+     */
+    public int getMaterialYouNextAlarmWidgetCustomAlarmColor() {
+        return mWidgetModel.getMaterialYouNextAlarmWidgetCustomAlarmColor();
+    }
+
     /**
      * Indicates the display style of clocks.
      */

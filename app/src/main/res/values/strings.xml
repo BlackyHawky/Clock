@@ -204,6 +204,8 @@
     <string name="material_you_digital_widget">Digital clock Material You</string>
     <!-- Label for Material You vertical digital clock widget displayed in the widget picker -->
     <string name="material_you_vertical_digital_widget">Vertical digital clock Material You</string>
+    <!-- Label for Material You next alarm widget displayed in the widget picker -->
+    <string name="material_you_next_alarm_widget">Next alarm Material You</string>
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
     <!-- Message displayed at the top of the settings if one or more permissions are missing -->
@@ -1359,9 +1361,23 @@
     <!-- Title to set the font size of the clock in the digital widget. -->
     <string name="digital_widget_max_clock_font_size_title">Maximum font size of main clock</string>
     <!-- Summary about the font size of the clock in the digital widget. -->
-    <string name="digital_widget_max_clock_font_size_summary">Maximum font size = </string>
+    <string name="widget_max_clock_font_size_summary">Maximum font size = </string>
     <!-- Summary about the font size of the clock when cities are shown -->
     <string name="digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
+    <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
+    <string name="next_alarm_widget_default_title_color">Use default color for the &#34;Next alarm&#34; title</string>
+    <!-- Title to set the custom color of the next alarm title in the next alarm widget. -->
+    <string name="next_alarm_widget_custom_title_color">Next alarm title custom color</string>
+    <!-- Title to set the default color of the alarm title in the next alarm widget. -->
+    <string name="next_alarm_widget_default_alarm_title_color">Use default color for the alarm title</string>
+    <!-- Title to set the custom color of the alarm title in the next alarm widget. -->
+    <string name="next_alarm_widget_custom_alarm_title_color">Alarm title custom color</string>
+    <!-- Title to set the font size of the next alarm widget. -->
+    <string name="next_alarm_widget_max_font_size_title">Maximum widget font size</string>
+    <!-- Title in the next alarm widget if an alarm is set -->
+    <string name="next_alarm_widget_text">Next alarm</string>
+    <!-- Title in the next alarm widget if no alarm is set -->
+    <string name="next_alarm_widget_title_no_alarm">No upcoming alarm</string>
     <!--
     Permissions
     -->

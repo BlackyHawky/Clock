@@ -58,7 +58,7 @@
                         android:singleLine="true"
                         android:textAllCaps="true"
                         tools:text="City1"
-                        tools:textColor="@color/digital_widget_text_color" />
+                        tools:textColor="@color/widget_text_color" />
 
                 </FrameLayout>
 
@@ -74,7 +74,7 @@
                     android:singleLine="true"
                     android:textAllCaps="true"
                     tools:text="/ Mon"
-                    tools:textColor="@color/digital_widget_text_color" />
+                    tools:textColor="@color/widget_text_color" />
 
             </LinearLayout>
 
@@ -119,7 +119,7 @@
                         android:singleLine="true"
                         android:textAllCaps="true"
                         tools:text="City 2"
-                        tools:textColor="@color/digital_widget_text_color" />
+                        tools:textColor="@color/widget_text_color" />
 
                 </FrameLayout>
 
@@ -135,7 +135,7 @@
                     android:singleLine="true"
                     android:textAllCaps="true"
                     tools:text="/ Mon"
-                    tools:textColor="@color/digital_widget_text_color" />
+                    tools:textColor="@color/widget_text_color" />
 
             </LinearLayout>
 

@@ -11,6 +11,7 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 
 import android.animation.Animator;
@@ -394,6 +395,8 @@ public class DeskClock extends AppCompatActivity
         final Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
+            // Update the alarm title in the “Next alarm” widget
+            sendBroadcast(new Intent(ACTION_NEXT_ALARM_LABEL_CHANGED));
         }
     }
 

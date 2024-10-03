@@ -622,7 +622,7 @@
     <string name="digital_widget_city_name_default_color_title">Utiliser la couleur par défaut pour le nom des villes</string>
     <string name="digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
     <string name="digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
-    <string name="digital_widget_max_clock_font_size_summary">Taille maximale de la police = </string>
+    <string name="widget_max_clock_font_size_summary">Taille maximale de la police = </string>
     <string name="digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
     <string name="permission_management_settings">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>

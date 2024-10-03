@@ -548,7 +548,7 @@
     <string name="digital_widget_city_clock_default_color_title">使用城市时钟的默认颜色</string>
     <string name="digital_widget_city_name_default_color_title">使用城市名称的默认颜色</string>
     <string name="digital_widget_max_clock_font_size_title">主时钟的最大字体大小</string>
-    <string name="digital_widget_max_clock_font_size_summary">最大字体大小 = </string>
+    <string name="widget_max_clock_font_size_summary">最大字体大小 = </string>
     <string name="digital_widget_message_summary">必须禁用微件上的显示城市才能访问此设置</string>
     <string name="permission_management_settings">权限管理</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;全屏通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>

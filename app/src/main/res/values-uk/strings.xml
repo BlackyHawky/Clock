@@ -488,7 +488,7 @@
     <string name="permission_management_settings">Керування дозволами</string>
     <string name="permission_management_summary">Дозволи, необхідні для коректної роботи додатка</string>
     <string name="permission_requirement_title">Вимога: </string>
-    <string name="digital_widget_max_clock_font_size_summary">Максимальний розмір шрифту = </string>
+    <string name="widget_max_clock_font_size_summary">Максимальний розмір шрифту = </string>
     <string name="digital_widget_message_summary">Для доступу до цього налаштування вимкніть «Показувати міста у віджеті»</string>
     <string name="digital_widget_city_clock_custom_color_title">Власний колір додаткового годинника</string>
     <string name="digital_widget_city_clock_default_color_title">Колір за замовчуванням для додаткового годинника</string>

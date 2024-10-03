@@ -223,8 +223,8 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
                 DataModel.getDataModel().getMaterialYouDigitalWidgetCustomCityNameColor();
 
         if (isDigitalWidgetDefaultCityNameColor) {
-            rv.setTextColor(labelId, mContext.getColor(R.color.digital_widget_text_color));
-            rv.setTextColor(dayId, mContext.getColor(R.color.digital_widget_text_color));
+            rv.setTextColor(labelId, mContext.getColor(R.color.widget_text_color));
+            rv.setTextColor(dayId, mContext.getColor(R.color.widget_text_color));
         } else {
             rv.setTextColor(labelId, digitalWidgetCustomCityNameColor);
             rv.setTextColor(dayId, digitalWidgetCustomCityNameColor);

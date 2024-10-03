@@ -24,6 +24,8 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             "key_material_you_digital_widget_customization";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_material_you_vertical_digital_widget_customization";
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION =
+            "key_material_you_next_alarm_widget_customization";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mVerticalDigitalWidgetCustomizationPref;
         Preference mMaterialYouDigitalWidgetCustomizationPref;
         Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
+        Preference mMaterialYouNextAlarmWidgetCustomizationPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             mVerticalDigitalWidgetCustomizationPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
             mMaterialYouDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION);
             mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
+            mMaterialYouNextAlarmWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION);
         }
 
         @Override
@@ -98,6 +102,13 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
                     startActivity(materialYouVerticalDigitalWidgetCustomizationIntent);
                     return true;
                 }
+
+                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION -> {
+                    final Intent materialYouNextAlarmWidgetCustomizationIntent =
+                            new Intent(context, MaterialYouNextAlarmWidgetCustomizationActivity.class);
+                    startActivity(materialYouNextAlarmWidgetCustomizationIntent);
+                    return true;
+                }
             }
 
             return false;
@@ -111,6 +122,8 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             mMaterialYouDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mMaterialYouVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
+
+            mMaterialYouNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
         }
     }
 }
