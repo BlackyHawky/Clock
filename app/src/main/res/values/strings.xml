@@ -1368,7 +1368,7 @@
     <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_default_title_color">Use default color for the \"Next alarm\" title</string>
     <!-- Title to set the custom color of the next alarm title in the next alarm widget. -->
-    <string name="next_alarm_widget_custom_title_color">Next alarm title custom color</string>
+    <string name="next_alarm_widget_custom_title_color">\"Next alarm\" title custom color</string>
     <!-- Title to set the default color of the alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_default_alarm_title_color">Use default color for the alarm title</string>
     <!-- Title to set the custom color of the alarm title in the next alarm widget. -->
