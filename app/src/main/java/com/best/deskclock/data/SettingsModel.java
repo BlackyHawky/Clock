@@ -105,6 +105,10 @@ final class SettingsModel {
         return SettingsDAO.isTabIndicatorDisplayed(mPrefs);
     }
 
+    public boolean isFadeTransitionsEnabled() {
+        return SettingsDAO.isFadeTransitionsEnabled(mPrefs);
+    }
+
     boolean getDisplayClockSeconds() {
         return SettingsDAO.getDisplayClockSeconds(mPrefs);
     }

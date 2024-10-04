@@ -234,6 +234,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the fade transitions are enabled.
+     */
+    static boolean isFadeTransitionsEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_FADE_TRANSITIONS, false);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static boolean getDisplayClockSeconds(SharedPreferences prefs) {

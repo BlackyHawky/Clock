@@ -67,15 +67,18 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
 
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+        if (isFadeTransitionsEnabled) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            });
+        }
     }
 
     @Override

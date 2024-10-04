@@ -42,6 +42,7 @@ public class ThemeController {
     private static AccentColor accentColor = AccentColor.DEFAULT;
     private static LayoutBackground layoutBackground = LayoutBackground.DEFAULT;
     private static LayoutBorder layoutBorder = LayoutBorder.DEFAULT;
+    private static FadeTransitions fadeTransitions = FadeTransitions.DISABLED;
 
     /**
      * To initialize this class in the application class.
@@ -96,6 +97,19 @@ public class ThemeController {
      */
     public static void applyLayoutBorderedSettings(LayoutBorder layoutBorder) {
         ThemeController.layoutBorder = layoutBorder;
+        for (Activity activity : activities) {
+            // We add a small delay to give the settings switch button a clean animation.
+            new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
+        }
+    }
+
+    /**
+     * Store the boolean value of the "Enable fade transitions" setting in the static field
+     * and trigger recreation for all the activities.
+     * @param fadeTransitions Enable or disable fade transitions.
+     */
+    public static void enableFadeTransitions(FadeTransitions fadeTransitions) {
+        ThemeController.fadeTransitions = fadeTransitions;
         for (Activity activity : activities) {
             // We add a small delay to give the settings switch button a clean animation.
             new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
@@ -189,6 +203,10 @@ public class ThemeController {
             switch (layoutBorder) {
                 case DEFAULT, BORDERED -> activities.add(activity);
             }
+
+            switch (fadeTransitions) {
+                case DISABLED, ENABLED -> activities.add(activity);
+            }
         }
 
         @Override
@@ -218,4 +236,5 @@ public class ThemeController {
     public enum AccentColor {DEFAULT, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
     public enum LayoutBackground {DEFAULT, TRANSPARENT}
     public enum LayoutBorder {DEFAULT, BORDERED}
+    public enum FadeTransitions {DISABLED, ENABLED}
 }

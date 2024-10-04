@@ -9,7 +9,6 @@ import android.os.Vibrator;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
@@ -42,9 +41,9 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String RED_ACCENT_COLOR = "7";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
-    public static final String KEY_MISCELLANEOUS_CATEGORY = "key_miscellaneous_category";
     public static final String KEY_VIBRATIONS = "key_vibrations";
     public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
+    public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +66,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         SwitchPreferenceCompat mCardBorderPref;
         SwitchPreferenceCompat mVibrationPref;
         SwitchPreferenceCompat mTabIndicatorPref;
+        SwitchPreferenceCompat mFadeTransitions;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mCardBorderPref = findPreference(KEY_CARD_BORDER);
             mVibrationPref = findPreference(KEY_VIBRATIONS);
             mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
+            mFadeTransitions = findPreference(KEY_FADE_TRANSITIONS);
 
             hidePreferences();
         }
@@ -168,18 +169,25 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     Utils.setVibrationTime(requireContext(), 50);
                     requireActivity().setResult(RESULT_OK);
                 }
+
+                case KEY_FADE_TRANSITIONS -> {
+                    final TwoStatePreference fadeTransitionsPref = (TwoStatePreference) pref;
+                    fadeTransitionsPref.setChecked(DataModel.getDataModel().isFadeTransitionsEnabled());
+                    if (fadeTransitionsPref.isChecked()) {
+                        ThemeController.enableFadeTransitions(ThemeController.FadeTransitions.ENABLED);
+                    } else {
+                        ThemeController.enableFadeTransitions(ThemeController.FadeTransitions.DISABLED);
+                    }
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
             }
 
             return true;
         }
 
         private void hidePreferences() {
-            // Don't hide this category if we add others settings in the future;
-            // only the “Enable vibrations” setting will have to be hidden if the device doesn't have a vibrator.
-            PreferenceCategory miscellaneousCategory = findPreference(KEY_MISCELLANEOUS_CATEGORY);
             final Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
-
-            Objects.requireNonNull(miscellaneousCategory).setVisible(vibrator.hasVibrator());
+            mVibrationPref.setVisible(vibrator.hasVibrator());
         }
 
         private void refresh() {
@@ -199,6 +207,8 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mVibrationPref.setOnPreferenceChangeListener(this);
 
             mTabIndicatorPref.setOnPreferenceChangeListener(this);
+
+            mFadeTransitions.setOnPreferenceChangeListener(this);
         }
     }
 

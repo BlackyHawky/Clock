@@ -75,6 +75,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private ValueAnimator mDismissAnimator;
     private ValueAnimator mPulseAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
+    private boolean mIsFadeTransitionsEnabled;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -166,13 +167,16 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mPulseAnimator.start();
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                finish();
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            }
-        });
+        mIsFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+        if (mIsFadeTransitionsEnabled) {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            });
+        }
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -456,7 +460,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
     private void finishActivity() {
         finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        if (mIsFadeTransitionsEnabled) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
     }
 
 }

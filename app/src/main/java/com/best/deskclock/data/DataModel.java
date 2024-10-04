@@ -1045,6 +1045,14 @@ public final class DataModel {
     }
 
     /**
+     * @return whether or not the fade transitions are enabled.
+     */
+    public boolean isFadeTransitionsEnabled() {
+        enforceMainLooper();
+        return mSettingsModel.isFadeTransitionsEnabled();
+    }
+
+    /**
      * @return the style of the clock to display in the clock application
      */
     public ClockStyle getClockStyle() {

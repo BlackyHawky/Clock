@@ -135,7 +135,10 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
 
             if (pref.getKey().equals(KEY_PREVIEW_ALARM)) {
                 startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
-                requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+                if (isFadeTransitionsEnabled) {
+                    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
             }
 
             return true;

@@ -73,7 +73,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="key_miscellaneous_category"
         android:title="@string/miscellaneous_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
@@ -84,6 +83,14 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_vibration_title"
             android:summary="@string/settings_vibration_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_fade_transitions"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_fade_transitions_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
