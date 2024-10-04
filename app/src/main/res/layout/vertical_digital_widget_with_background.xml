@@ -6,7 +6,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vertical_digital_widget"
+    android:id="@+id/verticalDigitalWidget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -92,7 +92,7 @@
             <ImageView
                 android:id="@+id/nextAlarmIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
                 tools:src="@drawable/ic_tab_alarm_static"

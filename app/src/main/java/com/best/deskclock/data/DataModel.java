@@ -1426,6 +1426,76 @@ public final class DataModel {
         return mWidgetModel.getVerticalDigitalWidgetCustomNextAlarmColor();
     }
 
+    // ***********************
+    // ** NEXT ALARM WIDGET **
+    // ***********************
+
+    /**
+     * @return {@code true} if the background is displayed on the Next alarm widget; {@code false} otherwise.
+     */
+    public boolean isBackgroundDisplayedOnNextAlarmWidget() {
+        return mWidgetModel.isBackgroundDisplayedOnNextAlarmWidget();
+    }
+
+    /**
+     * @return a value indicating the background color in the Next alarm widget .
+     */
+    public int getNextAlarmWidgetBackgroundColor() {
+        return mWidgetModel.getNextAlarmWidgetBackgroundColor();
+    }
+
+    /**
+     * @return the font size applied to the Next alarm widget.
+     */
+    public String getNextAlarmWidgetMaxFontSize() {
+        return mWidgetModel.getNextAlarmWidgetMaxFontSize();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the title in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isNextAlarmWidgetDefaultTitleColor() {
+        return mWidgetModel.isNextAlarmWidgetDefaultTitleColor();
+    }
+
+    /**
+     * @return a value indicating the color of the title in the Next alarm widget.
+     */
+    public int getNextAlarmWidgetCustomTitleColor() {
+        return mWidgetModel.getNextAlarmWidgetCustomTitleColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm title in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isNextAlarmWidgetDefaultAlarmTitleColor() {
+        return mWidgetModel.isNextAlarmWidgetDefaultAlarmTitleColor();
+    }
+
+    /**
+     * @return a value indicating the color of the alarm title in the Next alarm widget.
+     */
+    public int getNextAlarmWidgetCustomAlarmTitleColor() {
+        return mWidgetModel.getNextAlarmWidgetCustomAlarmTitleColor();
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    public boolean isNextAlarmWidgetDefaultAlarmColor() {
+        return mWidgetModel.isNextAlarmWidgetDefaultAlarmColor();
+    }
+
+    /**
+     * @return a value indicating the color of the alarm in the Next alarm widget.
+     */
+    public int getNextAlarmWidgetCustomAlarmColor() {
+        return mWidgetModel.getNextAlarmWidgetCustomAlarmColor();
+    }
+
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
@@ -1598,14 +1668,14 @@ public final class DataModel {
     // ************************************
 
     /**
-     * @return the font size applied to the Material You next alarm widget.
+     * @return the font size applied to the Material You Next alarm widget.
      */
     public String getMaterialYouNextAlarmWidgetMaxFontSize() {
         return mWidgetModel.getMaterialYouNextAlarmWidgetMaxFontSize();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the title in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the title in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     public boolean isMaterialYouNextAlarmWidgetDefaultTitleColor() {
@@ -1613,14 +1683,14 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the title in the Material You next alarm widget.
+     * @return a value indicating the color of the title in the Material You Next alarm widget.
      */
     public int getMaterialYouNextAlarmWidgetCustomTitleColor() {
         return mWidgetModel.getMaterialYouNextAlarmWidgetCustomTitleColor();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the alarm title in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the alarm title in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     public boolean isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor() {
@@ -1628,14 +1698,14 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the alarm title in the Material You next alarm widget.
+     * @return a value indicating the color of the alarm title in the Material You Next alarm widget.
      */
     public int getMaterialYouNextAlarmWidgetCustomAlarmTitleColor() {
         return mWidgetModel.getMaterialYouNextAlarmWidgetCustomAlarmTitleColor();
     }
 
     /**
-     * @return {@code true} if the default color is applied to the alarm in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the alarm in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     public boolean isMaterialYouNextAlarmWidgetDefaultAlarmColor() {
@@ -1643,7 +1713,7 @@ public final class DataModel {
     }
 
     /**
-     * @return a value indicating the color of the alarm in the Material You next alarm widget.
+     * @return a value indicating the color of the alarm in the Material You Next alarm widget.
      */
     public int getMaterialYouNextAlarmWidgetCustomAlarmColor() {
         return mWidgetModel.getMaterialYouNextAlarmWidgetCustomAlarmColor();

@@ -52,6 +52,16 @@ import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustom
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
 import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
@@ -291,6 +301,77 @@ final class WidgetDAO {
         return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF"));
     }
 
+    // ***********************
+    // ** NEXT ALARM WIDGET **
+    // ***********************
+
+    /**
+     * @return {@code true} if the background is displayed on the Next alarm widget; {@code false} otherwise.
+     */
+    static boolean isBackgroundDisplayedOnNextAlarmWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, false);
+    }
+
+    /**
+     * @return a value indicating the background color in the Next alarm widget .
+     */
+    static int getNextAlarmWidgetBackgroundColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000"));
+    }
+
+    /**
+     * @return the font size applied to the Next alarm widget.
+     */
+    static String getNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
+        return prefs.getString(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, KEY_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE
+        );
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the title in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    static boolean isNextAlarmWidgetDefaultTitleColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the title in the Next alarm widget.
+     */
+    static int getNextAlarmWidgetCustomTitleColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm title in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    static boolean isNextAlarmWidgetDefaultAlarmTitleColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the alarm title in the Next alarm widget.
+     */
+    static int getNextAlarmWidgetCustomAlarmTitleColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
+    /**
+     * @return {@code true} if the default color is applied to the alarm in the Next alarm widget;
+     * {@code false} otherwise.
+     */
+    static boolean isNextAlarmWidgetDefaultAlarmColor(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true);
+    }
+
+    /**
+     * @return a value indicating the color of the alarm in the Next alarm widget.
+     */
+    static int getNextAlarmWidgetCustomAlarmColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, Color.parseColor("#FFFFFF"));
+    }
+
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
@@ -483,7 +564,7 @@ final class WidgetDAO {
     // ************************************
 
     /**
-     * @return the font size applied to the Material You next alarm widget.
+     * @return the font size applied to the Material You Next alarm widget.
      */
     static String getMaterialYouNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
         return prefs.getString(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE,
@@ -492,7 +573,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return {@code true} if the default color is applied to the title in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the title in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     static boolean isMaterialYouNextAlarmWidgetDefaultTitleColor(SharedPreferences prefs) {
@@ -500,7 +581,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating the color of the title in the Material You next alarm widget.
+     * @return a value indicating the color of the title in the Material You Next alarm widget.
      */
     static int getMaterialYouNextAlarmWidgetCustomTitleColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR,
@@ -509,7 +590,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return {@code true} if the default color is applied to the alarm title in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the alarm title in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     static boolean isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(SharedPreferences prefs) {
@@ -517,7 +598,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating the color of the alarm title in the Material You next alarm widget.
+     * @return a value indicating the color of the alarm title in the Material You Next alarm widget.
      */
     static int getMaterialYouNextAlarmWidgetCustomAlarmTitleColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR,
@@ -526,7 +607,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return {@code true} if the default color is applied to the alarm in the Material You next alarm widget;
+     * @return {@code true} if the default color is applied to the alarm in the Material You Next alarm widget;
      * {@code false} otherwise.
      */
     static boolean isMaterialYouNextAlarmWidgetDefaultAlarmColor(SharedPreferences prefs) {
@@ -534,7 +615,7 @@ final class WidgetDAO {
     }
 
     /**
-     * @return a value indicating the color of the alarm in the Material You next alarm widget.
+     * @return a value indicating the color of the alarm in the Material You Next alarm widget.
      */
     static int getMaterialYouNextAlarmWidgetCustomAlarmColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR,

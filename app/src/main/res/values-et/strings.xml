@@ -457,7 +457,7 @@
     <string name="about_title">Rakenduse teave</string>
     <string name="dialog_close">Sulge</string>
     <string name="alarm_created">Äratus on loodud</string>
-    <string name="digital_widget_next_alarm_custom_color_title">Sinu valitud värv järgmise äratuse jaoks</string>
+    <string name="widget_next_alarm_custom_color_title">Sinu valitud värv järgmise äratuse jaoks</string>
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
     <string name="notifications_dialog_text">Lisaks äratustele saad seda rakendust kasutada ka taimeri, stopperi ja uneajaga seotud toimingute jaoks.
 \n
@@ -482,7 +482,7 @@
     <string name="new_bedtime_alarm">Ülesärkamiseks mõeldud äratus on loodud</string>
     <string name="wakeup_alarm_label_visible">Ülesärkamiseks mõeldud äratus</string>
     <string name="no_wakeup_alarm">Ülesärkamiseks mõeldud äratusi pole seadistatud</string>
-    <string name="digital_widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
+    <string name="widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
     <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste kasutamiseks</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
     <string name="menu_bedtime">Magamamineku aeg</string>
@@ -503,7 +503,7 @@
     <string name="bedtime_notification_resume_action">Jätka kohe</string>
     <string name="first_launch_version">Versioon %s</string>
     <string name="first_launch_main_feature_title">PÕHIFUNKTSIONAALSUSED</string>
-    <string name="digital_widget_background_title">Vidina taust</string>
+    <string name="widget_background_title">Vidina taust</string>
     <string name="sleeping_time">Uneaeg: %1$s</string>
     <string name="bedtime_reminder_notification">Meeldetuletuse teavitus</string>
     <string name="wakeup">Äratushelin</string>

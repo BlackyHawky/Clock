@@ -434,7 +434,7 @@
     <string name="bedtime_notification_action_pause">Пауза на 30 минут</string>
     <string name="bedtime_notification_action_turn_off">Выключение</string>
     <string name="bedtime_notification_resume_action">Возобновить сейчас</string>
-    <string name="digital_widget_background_title">Отображать задний фон</string>
+    <string name="widget_background_title">Отображать задний фон</string>
     <string name="background_color_title">Цвет заднего фона</string>
     <string name="digital_widget_city_clock_default_color_title">Использовать цвет по умолчанию для городских часов</string>
     <string name="digital_widget_city_name_default_color_title">Использовать цвет по умолчанию для названия города</string>
@@ -461,7 +461,7 @@
     <string name="first_launch_important_info_message">Чтобы убедиться в правильной работе приложения, &lt;b&gt;некоторые настройки вашего девайса должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android вашего девайса, некоторые из этих настроек уже оптимизированы (такие как уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>
     <string name="first_launch_dialog_message">Вы уверены, что вы хотите покинуть приложение?</string>
     <string name="digital_widget_city_title">Отображать города на виджете</string>
-    <string name="digital_widget_next_alarm_default_color_title">Использовать цвет по умолчанию для следующего будильника</string>
+    <string name="widget_next_alarm_default_color_title">Использовать цвет по умолчанию для следующего будильника</string>
     <string name="permission_dialog_close_button">Закрыть</string>
     <string name="selected">Выбор</string>
     <string name="more_options">Больше опций</string>
@@ -589,7 +589,7 @@
     <string name="new_bedtime_alarm">Будильник задан</string>
     <string name="digital_widget_clock_custom_color_title">Пользовательский цвет основных часов</string>
     <string name="digital_widget_date_custom_color_title">Пользовательский цвет даты</string>
-    <string name="digital_widget_next_alarm_custom_color_title">Следующий настраиваемый цвет будильника</string>
+    <string name="widget_next_alarm_custom_color_title">Следующий настраиваемый цвет будильника</string>
     <string name="ignore_battery_optimizations_dialog_text">По умолчанию, система Android настраивает все пользовательские приложения на оптимизацию расхода заряда батареи.
 \n
 \nИ хотя это приемлимо для многих приложений, это приложение — будильник и часто может работать неправильно если оно настроено на оптимизацию заряда батареи. Когда включена оптимизация, While this is acceptable for many apps, this app is an alarm app and often causes issues if configured to optimize battery. Once enabled, the Android system can kill the app at any time and/or cancel alarms it has scheduled, which would adversely affect the app\'s operation.

@@ -151,6 +151,46 @@ public final class WidgetModel {
         return WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(mPrefs);
     }
 
+    // ***********************
+    // ** NEXT ALARM WIDGET **
+    // ***********************
+
+    public boolean isBackgroundDisplayedOnNextAlarmWidget() {
+        return WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs);
+    }
+
+    public int getNextAlarmWidgetBackgroundColor() {
+        return WidgetDAO.getNextAlarmWidgetBackgroundColor(mPrefs);
+    }
+
+    public String getNextAlarmWidgetMaxFontSize() {
+        return WidgetDAO.getNextAlarmWidgetMaxFontSize(mPrefs);
+    }
+
+    boolean isNextAlarmWidgetDefaultTitleColor() {
+        return WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs);
+    }
+
+    int getNextAlarmWidgetCustomTitleColor() {
+        return WidgetDAO.getNextAlarmWidgetCustomTitleColor(mPrefs);
+    }
+
+    boolean isNextAlarmWidgetDefaultAlarmTitleColor() {
+        return WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(mPrefs);
+    }
+
+    int getNextAlarmWidgetCustomAlarmTitleColor() {
+        return WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(mPrefs);
+    }
+
+    boolean isNextAlarmWidgetDefaultAlarmColor() {
+        return WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs);
+    }
+
+    int getNextAlarmWidgetCustomAlarmColor() {
+        return WidgetDAO.getNextAlarmWidgetCustomAlarmColor(mPrefs);
+    }
+
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************

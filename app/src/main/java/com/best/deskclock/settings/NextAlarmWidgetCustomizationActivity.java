@@ -17,32 +17,36 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.MaterialYouNextAlarmAppWidgetProvider;
+import com.best.alarmclock.NextAlarmAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
 
-public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingToolbarBaseActivity {
+public class NextAlarmWidgetCustomizationActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String PREFS_FRAGMENT_TAG = "material_you_next_alarm_widget_customization_fragment";
+    private static final String PREFS_FRAGMENT_TAG = "next_alarm_widget_customization_fragment";
 
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR =
-            "key_material_you_next_alarm_widget_default_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR =
-            "key_material_you_next_alarm_widget_custom_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR =
-            "key_material_you_next_alarm_widget_default_alarm_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR =
-            "key_material_you_next_alarm_widget_custom_alarm_title_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR =
-            "key_material_you_next_alarm_widget_default_alarm_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR =
-            "key_material_you_next_alarm_widget_custom_alarm_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE =
-            "key_material_you_next_alarm_widget_max_font_size";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE = "70";
+    public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND =
+            "key_next_alarm_widget_display_background";
+    public static final String KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR =
+            "key_next_alarm_widget_background_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR =
+            "key_next_alarm_widget_default_title_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR =
+            "key_next_alarm_widget_custom_title_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR =
+            "key_next_alarm_widget_default_alarm_title_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR =
+            "key_next_alarm_widget_custom_alarm_title_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR =
+            "key_next_alarm_widget_default_alarm_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR =
+            "key_next_alarm_widget_custom_alarm_color";
+    public static final String KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE =
+            "key_next_alarm_widget_max_font_size";
+    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -60,10 +64,12 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
 
         private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+        ColorPreference mBackgroundColorPref;
         ColorPreference mCustomTitleColorPref;
         ColorPreference mCustomAlarmTitleColorPref;
         ColorPreference mCustomAlarmColorPref;
         EditTextPreference mNextAlarmWidgetMaxFontSizePref;
+        SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
         SwitchPreferenceCompat mDefaultTitleColorPref;
         SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
         SwitchPreferenceCompat mDefaultAlarmColorPref;
@@ -73,15 +79,17 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            addPreferencesFromResource(R.xml.settings_customize_material_you_next_alarm_widget);
+            addPreferencesFromResource(R.xml.settings_customize_next_alarm_widget);
 
-            mDefaultTitleColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR);
-            mCustomTitleColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR);
-            mDefaultAlarmTitleColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR);
-            mCustomAlarmTitleColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR);
-            mDefaultAlarmColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR);
-            mCustomAlarmColorPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR);
-            mNextAlarmWidgetMaxFontSizePref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE);
+            mShowBackgroundOnNextAlarmWidgetPref = findPreference(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
+            mBackgroundColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR);
+            mDefaultTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR);
+            mCustomTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR);
+            mDefaultAlarmTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR);
+            mCustomAlarmTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR);
+            mDefaultAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR);
+            mCustomAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR);
+            mNextAlarmWidgetMaxFontSizePref = findPreference(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE);
 
             setupPreferences();
 
@@ -101,43 +109,53 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
             super.onResume();
 
             refresh();
-            updateMaterialYouNextAlarmWidget();
+            updateNextAlarmWidget();
         }
 
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
+                case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
+                    if (mShowBackgroundOnNextAlarmWidgetPref.getSharedPreferences() != null) {
+                        final boolean isNotBackgroundDisplayed = mShowBackgroundOnNextAlarmWidgetPref.getSharedPreferences()
+                                .getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, false);
+                        mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
+                    }
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                }
+
+                case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
                     if (mDefaultTitleColorPref.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mDefaultTitleColorPref.getSharedPreferences()
-                                .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true);
+                                .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true);
                         mCustomTitleColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
                     requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
+                case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
                     if (mDefaultAlarmTitleColorPref.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mDefaultAlarmTitleColorPref.getSharedPreferences()
-                                .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true);
+                                .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true);
                         mCustomAlarmTitleColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
                     requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
+                case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
                     if (mDefaultAlarmColorPref.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mDefaultAlarmColorPref.getSharedPreferences()
-                                .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true);
+                                .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true);
                         mCustomAlarmColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
                     requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE -> {
+                case KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE -> {
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
@@ -146,9 +164,10 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
                     requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR,
-                     KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR,
-                     KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR ->
+                case KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR,
+                     KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR,
+                     KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR,
+                     KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR ->
                         requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
             }
 
@@ -163,22 +182,29 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
         }
 
         private void setupPreferences() {
+            mShowBackgroundOnNextAlarmWidgetPref.setChecked(DataModel.getDataModel().isBackgroundDisplayedOnNextAlarmWidget());
+            mBackgroundColorPref.setVisible(mShowBackgroundOnNextAlarmWidgetPref.isChecked());
+
             mNextAlarmWidgetMaxFontSizePref.setSummary(
                     requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                            + DataModel.getDataModel().getMaterialYouNextAlarmWidgetMaxFontSize()
+                            + DataModel.getDataModel().getNextAlarmWidgetMaxFontSize()
             );
 
-            mDefaultTitleColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor());
+            mDefaultTitleColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor());
             mCustomTitleColorPref.setVisible(!mDefaultTitleColorPref.isChecked());
 
-            mDefaultAlarmTitleColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor());
+            mDefaultAlarmTitleColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor());
             mCustomAlarmTitleColorPref.setVisible(!mDefaultAlarmTitleColorPref.isChecked());
 
-            mDefaultAlarmColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmColor());
+            mDefaultAlarmColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor());
             mCustomAlarmColorPref.setVisible(!mDefaultAlarmColorPref.isChecked());
         }
 
         private void refresh() {
+            mShowBackgroundOnNextAlarmWidgetPref.setOnPreferenceChangeListener(this);
+
+            mBackgroundColorPref.setOnPreferenceChangeListener(this);
+
             mDefaultTitleColorPref.setOnPreferenceChangeListener(this);
 
             mCustomTitleColorPref.setOnPreferenceChangeListener(this);
@@ -198,9 +224,9 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
             });
         }
 
-        private void updateMaterialYouNextAlarmWidget() {
+        private void updateNextAlarmWidget() {
             AppWidgetManager wm = AppWidgetManager.getInstance(requireContext());
-            MaterialYouNextAlarmAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
+            NextAlarmAppWidgetProvider.updateAppWidget(requireContext(), wm, mAppWidgetId);
 
             Intent result = new Intent();
             result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);

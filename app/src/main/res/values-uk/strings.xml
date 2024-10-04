@@ -484,7 +484,7 @@
     <string name="digital_widget_date_custom_color_title">Власний колір дати</string>
     <string name="digital_widget_clock_default_color_title">Колір за замовчуванням для основного годинника</string>
     <string name="digital_widget_date_default_color_title">Колір за замовчуванням для дати</string>
-    <string name="digital_widget_next_alarm_default_color_title">Колір за замовчуванням для наступного будильника</string>
+    <string name="widget_next_alarm_default_color_title">Колір за замовчуванням для наступного будильника</string>
     <string name="permission_management_settings">Керування дозволами</string>
     <string name="permission_management_summary">Дозволи, необхідні для коректної роботи додатка</string>
     <string name="permission_requirement_title">Вимога: </string>
@@ -537,7 +537,7 @@
 \nЩоб сповіщення коректно відображалися для всіх модулів, а особливо щоб спрацьовував будильник, рекомендуємо активувати сповіщення для цього додатка.</string>
     <string name="bedtime_notification_resume">Відновити о <xliff:g id="time">%1$s</xliff:g></string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
-    <string name="digital_widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
+    <string name="widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані цифрові віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
@@ -596,7 +596,7 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ПОВНОЕКРАННІ СПОВІЩЕННЯ;&lt;/b&gt;&lt;br&gt;&lt;br&gt;</string>
     <string name="first_launch_dialog_message">Ви дійсно хочете закрити додаток?</string>
     <string name="digital_widget_city_title">Показувати міста у віджеті</string>
-    <string name="digital_widget_background_title">Показувати фон</string>
+    <string name="widget_background_title">Показувати фон</string>
     <string name="background_color_title">Колір фону</string>
     <string name="ignore_battery_optimizations_dialog_text">За замовчуванням система Android налаштовує всі встановлені користувачем додатки на оптимізацію для економії заряду акумулятора.
 \n

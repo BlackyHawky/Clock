@@ -77,7 +77,7 @@ import java.util.Locale;
  */
 public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("VerticalDigitalWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MaterialYouVerticalDigitalWidgetProvider");
 
     private static boolean sReceiversRegistered;
 

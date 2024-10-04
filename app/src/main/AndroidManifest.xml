@@ -328,7 +328,7 @@
         </service>
 
         <!-- ============================================================== -->
-        <!-- App widget components.                                         -->
+        <!-- Standard app widget components.                                -->
         <!-- ============================================================== -->
 
         <!-- Analog clock -->
@@ -406,6 +406,37 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/vertical_digital_appwidget" />
         </receiver>
+
+        <!-- Next alarm -->
+        <activity
+            android:name="com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/next_alarm_widget"
+            android:exported="true"
+            android:theme="@style/Theme.DeskClock" />
+
+        <receiver
+            android:name="com.best.alarmclock.NextAlarmAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/next_alarm_widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="com.best.alarmclock.WIDGET_CUSTOMIZED" />
+                <action android:name="com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/next_alarm_appwidget" />
+        </receiver>
+
+        <!-- ============================================================== -->
+        <!-- Material You app widget components.                            -->
+        <!-- ============================================================== -->
 
         <!-- Analog clock Material You -->
         <receiver

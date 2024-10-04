@@ -548,7 +548,7 @@
     <string name="material_time_picker_style_title">Tijdselectie stijl</string>
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, snooze-acties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="description_direction_left_for_non_repeatable_alarms">Naar links vegen om te negeren</string>
-    <string name="digital_widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
+    <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">Steden op widget tonen moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
@@ -571,12 +571,12 @@
     <string name="timer_settings_summary">Standaard ringtoon en volume voor timers aanpassen</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan timer toe te voegen</string>
     <string name="keep_timer_screen_on_title">Scherm aanhouden als timer getoond wordt</string>
-    <string name="digital_widget_background_title">Achtergrond tonen</string>
+    <string name="widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
     <string name="digital_widget_city_title">Steden op widget tonen</string>
     <string name="digital_widget_clock_default_color_title">Standaardkleur voor klok</string>
     <string name="digital_widget_date_default_color_title">Standaardkleur voor datum</string>
-    <string name="digital_widget_next_alarm_custom_color_title">Volgende wekker kleur aanpassen</string>
+    <string name="widget_next_alarm_custom_color_title">Volgende wekker kleur aanpassen</string>
     <string name="digital_widget_city_clock_default_color_title">Standaardkleur voor stedenklok</string>
     <string name="digital_widget_city_clock_custom_color_title">Stedenklok kleur aanpassen</string>
     <string name="digital_widget_date_custom_color_title">Datum kleur aanpassen</string>

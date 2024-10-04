@@ -200,6 +200,8 @@
     <string name="digital_widget">Digital clock</string>
     <!-- Label for vertical digital clock widget displayed in the widget picker -->
     <string name="vertical_digital_widget">Vertical digital clock</string>
+    <!-- Label for next alarm widget displayed in the widget picker -->
+    <string name="next_alarm_widget">Next alarm</string>
     <!-- Label for Material You digital clock widget displayed in the widget picker -->
     <string name="material_you_digital_widget">Digital clock Material You</string>
     <!-- Label for Material You vertical digital clock widget displayed in the widget picker -->
@@ -1326,7 +1328,7 @@
     <!-- Widgets preference summary in the settings. -->
     <string name="widgets_settings_summary">Set the style, colors and font size of the widgets</string>
     <!-- Title to display the background on the digital widget. -->
-    <string name="digital_widget_background_title">Display background</string>
+    <string name="widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->
     <string name="background_color_title">Background color</string>
     <!-- Title to show cities on the digital widget. -->
@@ -1348,9 +1350,9 @@
     <!-- Title to set the custom color of the date in the digital widget. -->
     <string name="digital_widget_date_custom_color_title">Date custom color</string>
     <!-- Title to set the default color of the next alarm in the digital widget. -->
-    <string name="digital_widget_next_alarm_default_color_title">Use default color for next alarm</string>
+    <string name="widget_next_alarm_default_color_title">Use default color for next alarm</string>
     <!-- Title to set the custom color of the next alarm in the digital widget. -->
-    <string name="digital_widget_next_alarm_custom_color_title">Next alarm custom color</string>
+    <string name="widget_next_alarm_custom_color_title">Next alarm custom color</string>
     <!-- Title to set the default color of the city clock in the digital widget. -->
     <string name="digital_widget_city_clock_default_color_title">Use default color for city clock</string>
     <!-- Title to set the custom color of the city clock in the digital widget. -->
@@ -1366,9 +1368,9 @@
     <!-- Summary about the font size of the clock when cities are shown -->
     <string name="digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
     <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
-    <string name="next_alarm_widget_default_title_color">Use default color for the \"Next alarm\" title</string>
-    <!-- Title to set the custom color of the next alarm title in the next alarm widget. -->
-    <string name="next_alarm_widget_custom_title_color">\"Next alarm\" title custom color</string>
+    <string name="next_alarm_widget_default_title_color">Use default color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
+    <!-- Title to set the custom color of the "Next alarm" and "No upcoming alarm" titles in the next alarm widget. -->
+    <string name="next_alarm_widget_custom_title_color">Custom color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
     <!-- Title to set the default color of the alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_default_alarm_title_color">Use default color for the alarm title</string>
     <!-- Title to set the custom color of the alarm title in the next alarm widget. -->

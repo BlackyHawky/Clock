@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialLayout="@layout/loading_widget"
+    android:minWidth="150dp"
+    android:minHeight="50dp"
+    android:minResizeWidth="30dp"
+    android:minResizeHeight="20dp"
+    android:previewImage="@drawable/appwidget_next_alarm_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="keyguard|home_screen"
+    android:widgetFeatures="configuration_optional|reconfigurable"
+    android:configure="com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity"
+    tools:targetApi="p" />

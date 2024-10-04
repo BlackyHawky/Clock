@@ -111,7 +111,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/world_city_list"
+        android:id="@+id/worldCityList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"

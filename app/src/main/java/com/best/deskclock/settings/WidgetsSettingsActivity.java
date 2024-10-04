@@ -20,6 +20,8 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             "key_digital_widget_customization";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_vertical_digital_widget_customization";
+    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION =
+            "key_next_alarm_widget_customization";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION =
             "key_material_you_digital_widget_customization";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
@@ -43,6 +45,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
 
         Preference mDigitalWidgetCustomizationPref;
         Preference mVerticalDigitalWidgetCustomizationPref;
+        Preference mNextAlarmWidgetCustomizationPref;
         Preference mMaterialYouDigitalWidgetCustomizationPref;
         Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
         Preference mMaterialYouNextAlarmWidgetCustomizationPref;
@@ -55,6 +58,7 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mDigitalWidgetCustomizationPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOMIZATION);
             mVerticalDigitalWidgetCustomizationPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
+            mNextAlarmWidgetCustomizationPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION);
             mMaterialYouDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION);
             mMaterialYouVerticalDigitalWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION);
             mMaterialYouNextAlarmWidgetCustomizationPref = findPreference(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION);
@@ -89,6 +93,13 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
                     return true;
                 }
 
+                case KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION -> {
+                    final Intent nextAlarmWidgetCustomizationIntent =
+                            new Intent(context, NextAlarmWidgetCustomizationActivity.class);
+                    startActivity(nextAlarmWidgetCustomizationIntent);
+                    return true;
+                }
+
                 case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION -> {
                     final Intent digitalWidgetMaterialYouCustomizationIntent =
                             new Intent(context, MaterialYouDigitalWidgetCustomizationActivity.class);
@@ -118,6 +129,8 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             mDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mVerticalDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
+
+            mNextAlarmWidgetCustomizationPref.setOnPreferenceClickListener(this);
 
             mMaterialYouDigitalWidgetCustomizationPref.setOnPreferenceClickListener(this);
 

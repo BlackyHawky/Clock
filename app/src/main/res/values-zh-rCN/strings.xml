@@ -541,7 +541,7 @@
     <string name="first_launch_important_info_title">重要信息</string>
     <string name="first_launch_dialog_title">退出</string>
     <string name="first_launch_dialog_message">是否确定要离开应用程序？</string>
-    <string name="digital_widget_background_title">显示背景</string>
+    <string name="widget_background_title">显示背景</string>
     <string name="digital_widget_clock_default_color_title">使用主时钟的默认颜色</string>
     <string name="digital_widget_date_default_color_title">使用日期的默认颜色</string>
     <string name="digital_widget_date_custom_color_title">日期自定义颜色</string>
@@ -552,8 +552,8 @@
     <string name="digital_widget_message_summary">必须禁用微件上的显示城市才能访问此设置</string>
     <string name="permission_management_settings">权限管理</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;全屏通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
-    <string name="digital_widget_next_alarm_default_color_title">下次闹钟使用默认颜色</string>
-    <string name="digital_widget_next_alarm_custom_color_title">下次闹钟自定义颜色</string>
+    <string name="widget_next_alarm_default_color_title">下次闹钟使用默认颜色</string>
+    <string name="widget_next_alarm_custom_color_title">下次闹钟自定义颜色</string>
     <string name="enable_alarm_snooze_actions_label">启用闹钟暂停操作</string>
     <string name="alarm_label_box_title">闹钟标签</string>
     <string name="alarm_inactive">已关闭</string>

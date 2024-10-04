@@ -115,7 +115,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            rv.setOnClickPendingIntent(R.id.vertical_digital_widget, pi);
+            rv.setOnClickPendingIntent(R.id.verticalDigitalWidget, pi);
         }
 
         // Configure child views of the remote view.

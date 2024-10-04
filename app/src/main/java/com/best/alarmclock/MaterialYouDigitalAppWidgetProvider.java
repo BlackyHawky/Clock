@@ -90,7 +90,7 @@ import java.util.TimeZone;
  */
 public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MaterialYouDigitalWidgetProvider");
 
     private static boolean sReceiversRegistered;
 
@@ -115,7 +115,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
         final RemoteViews widget = new RemoteViews(landscape, portrait);
         wm.updateAppWidget(widgetId, widget);
-        wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
+        wm.notifyAppWidgetViewDataChanged(widgetId, R.id.worldCityList);
     }
 
     public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
@@ -249,20 +249,20 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
             // Insufficient space; hide the world city list.
-            rv.setViewVisibility(R.id.world_city_list, GONE);
+            rv.setViewVisibility(R.id.worldCityList, GONE);
         } else {
             // Set an adapter on the world city list. That adapter connects to a Service via intent.
             final Intent intent = new Intent(context, MaterialYouDigitalAppWidgetCityService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-            rv.setRemoteAdapter(R.id.world_city_list, intent);
-            rv.setViewVisibility(R.id.world_city_list, VISIBLE);
+            rv.setRemoteAdapter(R.id.worldCityList, intent);
+            rv.setViewVisibility(R.id.worldCityList, VISIBLE);
 
             // Tapping on the widget opens the city selection activity (if not on the lock screen).
             if (Utils.isWidgetClickable(wm, widgetId)) {
                 final Intent selectCity = new Intent(context, CitySelectionActivity.class);
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, PendingIntent.FLAG_IMMUTABLE);
-                rv.setPendingIntentTemplate(R.id.world_city_list, pi);
+                rv.setPendingIntentTemplate(R.id.worldCityList, pi);
             }
         }
 

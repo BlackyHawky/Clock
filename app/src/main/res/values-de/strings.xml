@@ -480,8 +480,8 @@
     <string name="digital_widget_clock_custom_color_title">Benutzerdefinierte Farbe der Hauptuhr</string>
     <string name="digital_widget_date_default_color_title">Standardfarbe für Datum verwenden</string>
     <string name="digital_widget_date_custom_color_title">Benutzerdefinierte Farbe des Datums</string>
-    <string name="digital_widget_next_alarm_default_color_title">Standardfarbe für nächsten Alarm verwenden</string>
-    <string name="digital_widget_next_alarm_custom_color_title">Benutzerdefinierte Farbe des nächsten Alarms</string>
+    <string name="widget_next_alarm_default_color_title">Standardfarbe für nächsten Alarm verwenden</string>
+    <string name="widget_next_alarm_custom_color_title">Benutzerdefinierte Farbe des nächsten Alarms</string>
     <string name="digital_widget_city_clock_custom_color_title">Benutzerdefinierte Farbe der Uhr einer Stadt</string>
     <string name="permission_management_settings">Berechtigungen verwalten</string>
     <string name="permission_management_summary">Anzeige der für die ordnungsgemäße Funktion der Anwendung erforderlichen Berechtigungen</string>
@@ -541,7 +541,7 @@
     <string name="screensaver_bold_digital_clock_title">Digitaluhr fett</string>
     <string name="screensaver_italic_digital_clock_title">Digitaluhr kursiv</string>
     <string name="bedtime_notification_title">Der Modus \"Bettzeit\" ist aktiviert</string>
-    <string name="digital_widget_background_title">Hintergrund anzeigen</string>
+    <string name="widget_background_title">Hintergrund anzeigen</string>
     <string name="background_color_title">Hintergrundfarbe</string>
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
