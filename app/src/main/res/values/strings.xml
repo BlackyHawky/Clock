@@ -1366,7 +1366,7 @@
     <!-- Summary about the font size of the clock when cities are shown -->
     <string name="digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
     <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
-    <string name="next_alarm_widget_default_title_color">Use default color for the &#34;Next alarm&#34; title</string>
+    <string name="next_alarm_widget_default_title_color">Use default color for the \"Next alarm\" title</string>
     <!-- Title to set the custom color of the next alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_custom_title_color">Next alarm title custom color</string>
     <!-- Title to set the default color of the alarm title in the next alarm widget. -->
