@@ -10,6 +10,6 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:includeFontPadding="false"
-    android:singleLine="true"
+    android:maxLines="1"
     android:text="@string/loading_widget"
     android:textColor="@android:color/white" />

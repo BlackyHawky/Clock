@@ -3,18 +3,22 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
 
+    <!-- A horizontal padding is added because on some devices
+    the text shadow is cut off. -->
     <TextClock
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:paddingHorizontal="3dp"
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:maxLines="1"
@@ -28,7 +32,7 @@
         tools:textColor="@android:color/white" />
 
     <TextClock
-        android:id="@+id/clock"
+        android:id="@+id/clockHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -45,7 +49,7 @@
         tools:textColor="@android:color/white" />
 
     <TextClock
-        android:id="@+id/clock_minutes"
+        android:id="@+id/clockMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
@@ -85,13 +89,15 @@
             tools:paddingHorizontal="3dp"
             tools:textColor="@android:color/white" />
 
+        <!-- A padding is added at the end because on some devices
+        the text shadow is cut off. -->
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
             android:paddingStart="@null"
             android:paddingEnd="3dp"
+            android:includeFontPadding="false"
             android:gravity="center"
             android:ellipsize="none"
             android:maxLines="1"

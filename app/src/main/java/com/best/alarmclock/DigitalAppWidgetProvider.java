@@ -95,6 +95,7 @@ import java.util.TimeZone;
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
+
     private static boolean sReceiversRegistered;
 
     /**
@@ -130,6 +131,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
+
         // Create a remote view for the digital clock.
         final String packageName = context.getPackageName();
         final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget();
@@ -179,11 +181,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String digitalWidgetMaxClockFontSize = DataModel.getDataModel().getDigitalWidgetMaxClockFontSize();
+        final String maxClockFontSize = DataModel.getDataModel().getDigitalWidgetMaxClockFontSize();
         final int largestClockFontSizePx = Utils.toPixel(
                 !getSelectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
-                    : Integer.parseInt(digitalWidgetMaxClockFontSize), context);
+                    : Integer.parseInt(maxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -201,32 +203,32 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the clock.
-        final boolean isDigitalWidgetDefaultClockColor = DataModel.getDataModel().isDigitalWidgetDefaultClockColor();
-        final int digitalWidgetCustomClockColor = DataModel.getDataModel().getDigitalWidgetCustomClockColor();
+        final boolean isDefaultClockColor = DataModel.getDataModel().isDigitalWidgetDefaultClockColor();
+        final int customClockColor = DataModel.getDataModel().getDigitalWidgetCustomClockColor();
 
-        if (isDigitalWidgetDefaultClockColor) {
+        if (isDefaultClockColor) {
             rv.setTextColor(R.id.clock, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.clock, digitalWidgetCustomClockColor);
+            rv.setTextColor(R.id.clock, customClockColor);
         }
 
         // Apply the color to the date.
-        final boolean isDigitalWidgetDefaultDateColor = DataModel.getDataModel().isDigitalWidgetDefaultDateColor();
-        final int digitalWidgetCustomDateColor = DataModel.getDataModel().getDigitalWidgetCustomDateColor();
-        if (isDigitalWidgetDefaultDateColor) {
+        final boolean isDefaultDateColor = DataModel.getDataModel().isDigitalWidgetDefaultDateColor();
+        final int customDateColor = DataModel.getDataModel().getDigitalWidgetCustomDateColor();
+        if (isDefaultDateColor) {
             rv.setTextColor(R.id.date, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.date, digitalWidgetCustomDateColor);
+            rv.setTextColor(R.id.date, customDateColor);
         }
 
         // Apply the color to the next alarm.
-        final boolean isDigitalWidgetDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
-        final int digitalWidgetCustomNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
+        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
+        final int customNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
 
-        if (isDigitalWidgetDefaultNextAlarmColor) {
+        if (isDefaultNextAlarmColor) {
             rv.setTextColor(R.id.nextAlarm, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.nextAlarm, digitalWidgetCustomNextAlarmColor);
+            rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
         }
 
         final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
@@ -251,8 +253,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int digitalWidgetBackgroundColor = DataModel.getDataModel().getDigitalWidgetBackgroundColor();
-        rv.setInt(R.id.digital_widget_background, "setBackgroundColor", digitalWidgetBackgroundColor);
+        int backgroundColor = DataModel.getDataModel().getDigitalWidgetBackgroundColor();
+        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         return rv;
     }
@@ -284,13 +286,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the color to the next alarm icon.
-            final boolean isDigitalWidgetDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
-            final int digitalWidgetCustomNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
+            final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
+            final int customNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
 
-            if (isDigitalWidgetDefaultNextAlarmColor) {
+            if (isDefaultNextAlarmColor) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
-                nextAlarmIcon.setTextColor(digitalWidgetCustomNextAlarmColor);
+                nextAlarmIcon.setTextColor(customNextAlarmColor);
             }
         }
 

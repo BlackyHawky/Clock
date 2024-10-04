@@ -331,6 +331,7 @@
         <!-- App widget components.                                         -->
         <!-- ============================================================== -->
 
+        <!-- Analog clock -->
         <receiver
             android:name="com.best.alarmclock.AnalogAppWidgetProvider"
             android:exported="true"
@@ -347,22 +348,7 @@
                 android:resource="@xml/analog_appwidget" />
         </receiver>
 
-        <receiver
-            android:name="com.best.alarmclock.MaterialYouAnalogAppWidgetProvider"
-            android:exported="true"
-            android:label="@string/analog_widget_material_you">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.oldName"
-                android:value="com.best.deskclock.AnalogAppWidgetMaterialYouProvider" />
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/analog_appwidget_material_you" />
-        </receiver>
-
+        <!-- Digital clock -->
         <activity
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
@@ -395,6 +381,7 @@
             android:name="com.best.alarmclock.DigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <!-- Vertical digital clock -->
         <activity
             android:name="com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
@@ -413,7 +400,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
                 <action android:name="com.best.alarmclock.WIDGET_CUSTOMIZED" />
             </intent-filter>
             <meta-data
@@ -421,6 +407,24 @@
                 android:resource="@xml/vertical_digital_appwidget" />
         </receiver>
 
+        <!-- Analog clock Material You -->
+        <receiver
+            android:name="com.best.alarmclock.MaterialYouAnalogAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/analog_widget_material_you">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.oldName"
+                android:value="com.best.deskclock.AnalogAppWidgetMaterialYouProvider" />
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/analog_appwidget_material_you" />
+        </receiver>
+
+        <!-- Digital clock Material You -->
         <activity
             android:name="com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
@@ -452,6 +456,7 @@
             android:name="com.best.alarmclock.MaterialYouDigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <!-- Vertical digital clock Material You -->
         <activity
             android:name="com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
@@ -470,7 +475,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
                 <action android:name="com.best.alarmclock.WIDGET_CUSTOMIZED" />
             </intent-filter>
             <meta-data
@@ -478,6 +482,7 @@
                 android:resource="@xml/material_you_vertical_digital_appwidget" />
         </receiver>
 
+        <!-- Next alarm Material You -->
         <activity
             android:name="com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity"
             android:excludeFromRecents="true"

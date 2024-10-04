@@ -97,6 +97,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
      */
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
+
         // Create a remote view for the next alarm.
         final String packageName = context.getPackageName();
         final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_next_alarm_widget);
@@ -208,12 +209,13 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // Apply the computed sizes to the remote views.
         rv.setTextViewTextSize(R.id.nextAlarmText, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        rv.setTextViewTextSize(R.id.nextAlarmTextForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.nextAlarmTitle, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        rv.setTextViewTextSize(R.id.nextAlarmTitleForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
-        rv.setImageViewBitmap(R.id.nextAlarmIconForCustomColor, sizes.mIconBitmap);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+
+        rv.setTextViewTextSize(R.id.nextAlarmTextForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setTextViewTextSize(R.id.nextAlarmTitleForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setImageViewBitmap(R.id.nextAlarmIconForCustomColor, sizes.mIconBitmap);
         rv.setTextViewTextSize(R.id.nextAlarmForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
 
         return rv;
@@ -232,12 +234,12 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = Utils.getNextAlarmTitle(context);
         final TextView nextAlarmTitleView = sizer.findViewById(R.id.nextAlarmTitle);
-        final TextView nextAlarmTitleViewForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
         final TextView nextAlarmText = sizer.findViewById(R.id.nextAlarmText);
-        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
-        final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
+        final TextView nextAlarmTitleViewForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
+        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
+        final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
         final boolean isDefaultTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor();
         final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor();
@@ -349,32 +351,38 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // Configure the next alarm to display the widest time string.
         final TextView nextAlarmText = sizer.findViewById(R.id.nextAlarmText);
-        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
         final TextView nextAlarmTitle = sizer.findViewById(R.id.nextAlarmTitle);
-        final TextView nextAlarmTitleForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
-        final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
+
+        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
+        final TextView nextAlarmTitleForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
+        final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
 
         // Adjust the font sizes.
         measuredSizes.setNextAlarmFontSizePx(nextAlarmFontSize);
+
         nextAlarmText.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
-        nextAlarmTextForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarmTitle.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
-        nextAlarmTitleForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
-        nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarm.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
         nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+
+        nextAlarmTextForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmTitleForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
         nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-        nextAlarmIconForCustomColor.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
+        nextAlarmIconForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
 
         // Measure and layout the sizer.
         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
         final int heightSize = View.MeasureSpec.getSize(measuredSizes.mTargetHeightPx);
         final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(widthSize, UNSPECIFIED);
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(heightSize, UNSPECIFIED);
+
         sizer.measure(widthMeasureSpec, heightMeasureSpec);
         sizer.layout(0, 0, sizer.getMeasuredWidth(), sizer.getMeasuredHeight());
 

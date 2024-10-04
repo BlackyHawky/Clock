@@ -8,7 +8,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget_item"
+    android:id="@+id/widgetItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <TextClock
-                android:id="@+id/left_clock"
+                android:id="@+id/leftClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -49,13 +49,13 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/city_name_left"
+                        android:id="@+id/cityNameLeft"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:ellipsize="end"
                         android:includeFontPadding="false"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textAllCaps="true"
                         tools:text="City1"
                         tools:textColor="@color/widget_text_color" />
@@ -63,7 +63,7 @@
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/city_day_left"
+                    android:id="@+id/cityDayLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -71,7 +71,7 @@
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textAllCaps="true"
                     tools:text="/ Mon"
                     tools:textColor="@color/widget_text_color" />
@@ -88,7 +88,7 @@
             android:orientation="vertical">
 
             <TextClock
-                android:id="@+id/right_clock"
+                android:id="@+id/rightClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -110,13 +110,13 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/city_name_right"
+                        android:id="@+id/cityNameRight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:ellipsize="end"
                         android:includeFontPadding="false"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textAllCaps="true"
                         tools:text="City 2"
                         tools:textColor="@color/widget_text_color" />
@@ -124,7 +124,7 @@
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/city_day_right"
+                    android:id="@+id/cityDayRight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -132,7 +132,7 @@
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
                     android:includeFontPadding="false"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textAllCaps="true"
                     tools:text="/ Mon"
                     tools:textColor="@color/widget_text_color" />
@@ -145,7 +145,7 @@
 
     <!-- Spacer must be a @RemoteView; can't use Space. -->
     <FrameLayout
-        android:id="@+id/city_spacer"
+        android:id="@+id/citySpacer"
         android:layout_width="match_parent"
         android:layout_height="12dp" />
 

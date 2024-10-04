@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="none"
         android:includeFontPadding="false"
-        android:singleLine="true"
+        android:maxLines="1"
         android:shadowRadius="2.75"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
@@ -30,12 +30,14 @@
         tools:textColor="@android:color/white" />
 
     <LinearLayout
-        android:id="@+id/digital_widget_bottom_view"
+        android:id="@+id/digitalWidgetBottomView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center">
 
+        <!-- A horizontal padding is added because on some devices
+        the text shadow is cut off. -->
         <TextClock
             android:id="@+id/date"
             android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAllCaps="true"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
@@ -63,6 +65,8 @@
             tools:src="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="8dp" />
 
+        <!-- A horizontal padding is added because on some devices
+        the text shadow is cut off. -->
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
@@ -71,7 +75,7 @@
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAllCaps="true"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"

@@ -56,7 +56,7 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
             if (Utils.isWidgetClickable(wm, widgetId)) {
                 final Intent openApp = new Intent(context, DeskClock.class);
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-                widget.setOnClickPendingIntent(R.id.analog_appwidget, pi);
+                widget.setOnClickPendingIntent(R.id.analogAppwidget, pi);
             }
 
             wm.updateAppWidget(widgetId, widget);

@@ -113,23 +113,23 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
         // Show the left clock if one exists.
         if (left != null) {
-            update(rv, left, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+            update(rv, left, R.id.leftClock, R.id.cityNameLeft, R.id.cityDayLeft);
         } else {
-            hide(rv, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+            hide(rv, R.id.leftClock, R.id.cityNameLeft, R.id.cityDayLeft);
         }
 
         // Show the right clock if one exists.
         if (right != null) {
-            update(rv, right, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+            update(rv, right, R.id.rightClock, R.id.cityNameRight, R.id.cityDayRight);
         } else {
-            hide(rv, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+            hide(rv, R.id.rightClock, R.id.cityNameRight, R.id.cityDayRight);
         }
 
         // Hide last spacer in last row; show for all others.
         final boolean lastRow = position == getCount() - 1;
-        rv.setViewVisibility(R.id.city_spacer, lastRow ? View.GONE : View.VISIBLE);
+        rv.setViewVisibility(R.id.citySpacer, lastRow ? View.GONE : View.VISIBLE);
 
-        rv.setOnClickFillInIntent(R.id.widget_item, mFillInIntent);
+        rv.setOnClickFillInIntent(R.id.widgetItem, mFillInIntent);
         return rv;
     }
 
@@ -203,24 +203,24 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDigitalWidgetDefaultCityClockColor = DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor();
-        final int digitalWidgetCustomCityClockColor = DataModel.getDataModel().getDigitalWidgetCustomCityClockColor();
+        final boolean isDefaultCityClockColor = DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor();
+        final int customCityClockColor = DataModel.getDataModel().getDigitalWidgetCustomCityClockColor();
 
-        if (isDigitalWidgetDefaultCityClockColor) {
+        if (isDefaultCityClockColor) {
             rv.setTextColor(clockId, Color.WHITE);
         } else {
-            rv.setTextColor(clockId, digitalWidgetCustomCityClockColor);
+            rv.setTextColor(clockId, customCityClockColor);
         }
 
-        final boolean isDigitalWidgetDefaultCityNameColor = DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor();
-        final int digitalWidgetCustomCityNameColor = DataModel.getDataModel().getDigitalWidgetCustomCityNameColor();
+        final boolean isDefaultCityNameColor = DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor();
+        final int customCityNameColor = DataModel.getDataModel().getDigitalWidgetCustomCityNameColor();
 
-        if (isDigitalWidgetDefaultCityNameColor) {
+        if (isDefaultCityNameColor) {
             rv.setTextColor(labelId, Color.WHITE);
             rv.setTextColor(dayId, Color.WHITE);
         } else {
-            rv.setTextColor(labelId, digitalWidgetCustomCityNameColor);
-            rv.setTextColor(dayId, digitalWidgetCustomCityNameColor);
+            rv.setTextColor(labelId, customCityNameColor);
+            rv.setTextColor(dayId, customCityNameColor);
         }
     }
 

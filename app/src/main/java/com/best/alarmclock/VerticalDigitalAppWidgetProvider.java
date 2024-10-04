@@ -79,14 +79,8 @@ import java.util.Locale;
 public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("VerticalDigitalWidgetProvider");
-    private static boolean sReceiversRegistered;
 
-    /**
-     * Intent action used for refreshing a world city display when any of them changes days or when
-     * the default TimeZone changes days. This affects the widget display because the day-of-week is
-     * only visible when the world city day-of-week differs from the default TimeZone's day-of-week.
-     */
-    private static final String ACTION_ON_DAY_CHANGE = "com.best.alarmclock.ON_DAY_CHANGE";
+    private static boolean sReceiversRegistered;
 
     /**
      * Compute optimal font and icon sizes offscreen for both portrait and landscape orientations
@@ -108,6 +102,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
+
         // Create a remote view for the digital clock.
         final String packageName = context.getPackageName();
         final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnVerticalDigitalWidget();
@@ -151,9 +146,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String verticalDigitalWidgetMaxClockFontSize =
-                DataModel.getDataModel().getVerticalDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(Integer.parseInt(verticalDigitalWidgetMaxClockFontSize), context);
+        final String maxClockFontSize = DataModel.getDataModel().getVerticalDigitalWidgetMaxClockFontSize();
+        final int largestClockFontSizePx = Utils.toPixel(Integer.parseInt(maxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -168,60 +162,52 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
         rv.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-        rv.setTextViewTextSize(R.id.clock_minutes, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+        rv.setTextViewTextSize(R.id.clockHours, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+        rv.setTextViewTextSize(R.id.clockMinutes, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the hours.
-        final boolean isVerticalDigitalWidgetDefaultHoursColor =
-                DataModel.getDataModel().isVerticalDigitalWidgetDefaultHoursColor();
-        final int verticalDigitalWidgetCustomHoursColor =
-                DataModel.getDataModel().getVerticalDigitalWidgetCustomHoursColor();
+        final boolean isDefaultHoursColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultHoursColor();
+        final int customHoursColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomHoursColor();
 
-        if (isVerticalDigitalWidgetDefaultHoursColor) {
-            rv.setTextColor(R.id.clock, Color.WHITE);
+        if (isDefaultHoursColor) {
+            rv.setTextColor(R.id.clockHours, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.clock, verticalDigitalWidgetCustomHoursColor);
+            rv.setTextColor(R.id.clockHours, customHoursColor);
         }
 
         // Apply the color to the minutes.
-        final boolean isVerticalDigitalWidgetDefaultMinutesColor =
-                DataModel.getDataModel().isVerticalDigitalWidgetDefaultMinutesColor();
-        final int verticalDigitalWidgetCustomMinutesColor =
-                DataModel.getDataModel().getVerticalDigitalWidgetCustomMinutesColor();
+        final boolean isDefaultMinutesColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultMinutesColor();
+        final int customMinutesColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomMinutesColor();
 
-        if (isVerticalDigitalWidgetDefaultMinutesColor) {
-            rv.setTextColor(R.id.clock_minutes, Color.WHITE);
+        if (isDefaultMinutesColor) {
+            rv.setTextColor(R.id.clockMinutes, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.clock_minutes, verticalDigitalWidgetCustomMinutesColor);
+            rv.setTextColor(R.id.clockMinutes, customMinutesColor);
         }
 
         // Apply the color to the date.
-        final boolean isVerticalDigitalWidgetDefaultDateColor =
-                DataModel.getDataModel().isVerticalDigitalWidgetDefaultDateColor();
-        final int verticalDigitalWidgetCustomDateColor =
-                DataModel.getDataModel().getVerticalDigitalWidgetCustomDateColor();
+        final boolean isDefaultDateColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultDateColor();
+        final int customDateColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomDateColor();
 
-        if (isVerticalDigitalWidgetDefaultDateColor) {
+        if (isDefaultDateColor) {
             rv.setTextColor(R.id.date, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.date, verticalDigitalWidgetCustomDateColor);
+            rv.setTextColor(R.id.date, customDateColor);
         }
 
         // Apply the color to the next alarm.
-        final boolean isVerticalDigitalWidgetDefaultNextAlarmColor =
-                DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
-        final int verticalDigitalWidgetCustomNextAlarmColor =
-                DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
+        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
+        final int customNextAlarmColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
 
-        if (isVerticalDigitalWidgetDefaultNextAlarmColor) {
+        if (isDefaultNextAlarmColor) {
             rv.setTextColor(R.id.nextAlarm, Color.WHITE);
         } else {
-            rv.setTextColor(R.id.nextAlarm, verticalDigitalWidgetCustomNextAlarmColor);
+            rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
         }
 
         // Apply the color to the digital widget background.
-        int digitalWidgetBackgroundColor = DataModel.getDataModel().getVerticalDigitalWidgetBackgroundColor();
-        rv.setInt(R.id.digital_widget_background, "setBackgroundColor", digitalWidgetBackgroundColor);
+        int backgroundColor = DataModel.getDataModel().getVerticalDigitalWidgetBackgroundColor();
+        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         return rv;
     }
@@ -254,15 +240,13 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the color to the next alarm icon.
-            final boolean isVerticalDigitalWidgetDefaultNextAlarmColor =
-                    DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
-            final int verticalDigitalWidgetCustomNextAlarmColor =
-                    DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
+            final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
+            final int customNextAlarmColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
 
-            if (isVerticalDigitalWidgetDefaultNextAlarmColor) {
+            if (isDefaultNextAlarmColor) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
-                nextAlarmIcon.setTextColor(verticalDigitalWidgetCustomNextAlarmColor);
+                nextAlarmIcon.setTextColor(customNextAlarmColor);
             }
         }
 
@@ -307,35 +291,42 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Configure the clock to display the widest time string.
         final TextClock date = sizer.findViewById(R.id.date);
-        final TextClock clock = sizer.findViewById(R.id.clock);
-        final TextClock minutes = sizer.findViewById(R.id.clock_minutes);
+        final TextClock hours = sizer.findViewById(R.id.clockHours);
+        final TextClock minutes = sizer.findViewById(R.id.clockMinutes);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
+        // On some devices, the text shadow is cut off, so we have to add it to the end of the next alarm text.
+        // The result is that next alarm text and the icon are perfectly centered.
+        final int textShadowPadding = Utils.toPixel(3, sizer.getContext());
 
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSize);
-        clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
+
+        hours.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
         minutes.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
         date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarm.setPadding(0, 0, measuredSizes.mIconFontSizePx + textShadowPadding, 0);
         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
-        nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
+        nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
 
         // Measure and layout the sizer.
         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
         final int heightSize = View.MeasureSpec.getSize(measuredSizes.mTargetHeightPx);
         final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(widthSize, UNSPECIFIED);
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(heightSize, UNSPECIFIED);
+
         sizer.measure(widthMeasureSpec, heightMeasureSpec);
         sizer.layout(0, 0, sizer.getMeasuredWidth(), sizer.getMeasuredHeight());
 
         // Copy the measurements into the result object.
         measuredSizes.mMeasuredWidthPx = sizer.getMeasuredWidth();
         measuredSizes.mMeasuredHeightPx = sizer.getMeasuredHeight();
-        measuredSizes.mMeasuredTextClockWidthPx = clock.getMeasuredWidth();
-        measuredSizes.mMeasuredTextClockHeightPx = clock.getMeasuredHeight();
-        measuredSizes.mMeasuredTextClockMinutesWidthPx = clock.getMeasuredWidth();
-        measuredSizes.mMeasuredTextClockMinutesHeightPx = clock.getMeasuredHeight();
+
+        measuredSizes.mMeasuredTextClockWidthPx = hours.getMeasuredWidth();
+        measuredSizes.mMeasuredTextClockHeightPx = hours.getMeasuredHeight();
+        measuredSizes.mMeasuredTextClockMinutesWidthPx = hours.getMeasuredWidth();
+        measuredSizes.mMeasuredTextClockMinutesHeightPx = hours.getMeasuredHeight();
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
@@ -375,7 +366,6 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_ON_DAY_CHANGE:
                 case ACTION_WIDGET_CUSTOMIZED:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
@@ -406,7 +396,6 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
         intentFilter.addAction(ACTION_WIDGET_CUSTOMIZED);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

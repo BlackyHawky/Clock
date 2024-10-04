@@ -9,7 +9,7 @@
 <!--suppress ALL -->
 <AnalogClock xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/analog_appwidget_material_you"
+    android:id="@+id/analogAppwidgetMaterialYou"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:dial="@drawable/analog_widget_material_you_clock_dial"

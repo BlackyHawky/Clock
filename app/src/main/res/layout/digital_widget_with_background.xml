@@ -13,7 +13,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/digital_widget_background"
+        android:id="@+id/digitalWidgetBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null" />
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="none"
             android:includeFontPadding="false"
-            android:singleLine="true"
+            android:maxLines="1"
             android:shadowRadius="2.75"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
@@ -42,7 +42,7 @@
             tools:textColor="@android:color/white" />
 
         <LinearLayout
-            android:id="@+id/digital_widget_bottom_view"
+            android:id="@+id/digitalWidgetBottomView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center">
@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:ellipsize="none"
                 android:includeFontPadding="false"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAllCaps="true"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
@@ -82,7 +82,7 @@
                 android:gravity="center"
                 android:ellipsize="none"
                 android:includeFontPadding="false"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textAllCaps="true"
                 android:shadowRadius="2.75"
                 android:shadowColor="@android:color/black"
