@@ -526,7 +526,7 @@
 \n
 \n• Сучасні віджети;
 \n
-\n• Налаштовувані цифрові віджети;
+\n• Налаштовувані віджети;
 \n
 \n• Material design;
 \n
@@ -538,7 +538,7 @@
     <string name="bedtime_notification_resume">Відновити о <xliff:g id="time">%1$s</xliff:g></string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
     <string name="widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
-    <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані цифрові віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
+    <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Натисніть ліворуч або праворуч, щоб вимкнути</string>
@@ -637,4 +637,15 @@
     <string name="material_you_category_title">Material You</string>
     <string name="vertical_digital_widget">Вертикальний цифровий годинник</string>
     <string name="widgets_settings_summary">Стиль, колір і шрифт віджетів</string>
+    <string name="settings_tab_indicator_title">Показувати індикатор вкладки в нижньому навігаційному меню</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Власний колір заголовка будильника</string>
+    <string name="next_alarm_widget_title_no_alarm">Немає наступного будильника</string>
+    <string name="next_alarm_widget_custom_title_color">Власний колір заголовків «Наступний будильник» і «Немає наступного будильника»</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Колір за замовчуванням для заголовка будильника</string>
+    <string name="next_alarm_widget_max_font_size_title">Максимальний розмір шрифту у віджеті</string>
+    <string name="next_alarm_widget_text">Наступний будильник</string>
+    <string name="material_you_next_alarm_widget">Наступний будильник Material You</string>
+    <string name="next_alarm_widget_default_title_color">Колір за замовчуванням для заголовків «Наступний будильник» і «Немає наступного будильника»</string>
+    <string name="settings_fade_transitions_title">Увімкнути ефект переходу із згасанням при перемиканні екранів</string>
+    <string name="next_alarm_widget">Наступний будильник</string>
 </resources>

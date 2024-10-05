@@ -460,7 +460,7 @@
 \n
 \n• Moderne widgets; 
 \n
-\n• Aanpasbare digitale widgets; 
+\n• Aanpasbare widgets;
 \n
 \n• Material design; 
 \n
@@ -534,7 +534,7 @@
     <string name="dialog_close">Sluiten</string>
     <string name="bedtime_notification_resume">Hervat op <xliff:g id="time">%1$s</xliff:g></string>
     <string name="bedtime_notification_resume_action">Nu hervatten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare digitale widgets; &lt;br&gt; &lt;br&gt; ► ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aanknop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aanknop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>

@@ -462,7 +462,7 @@
     <string name="notifications_dialog_text">Lisaks äratustele saad seda rakendust kasutada ka taimeri, stopperi ja uneajaga seotud toimingute jaoks.
 \n
 \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
-    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad digividinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
     <string name="bedtime_reminder_notification_title">Sinu uneaeg algab <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
@@ -564,7 +564,7 @@
 \n
 \n• Moodsad vidinad; 
 \n
-\n• Kohandatavad digividinad; 
+\n• Kohandatavad vidinad;
 \n
 \n• Material design; 
 \n
@@ -622,4 +622,15 @@
     <string name="widgets_settings_summary">Seadista vidinate kujundust, värvi ja kirjatüübi suurust</string>
     <string name="vertical_digital_widget">Püstine digikell</string>
     <string name="widgets_settings">Vidinad</string>
+    <string name="settings_tab_indicator_title">Kuva menüü lõpus vahekaartide näidikut</string>
+    <string name="material_you_next_alarm_widget">Järgmine Material You kujunduses äratus</string>
+    <string name="next_alarm_widget_custom_title_color">Vali „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks oma värv</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Kasuta äratuse pealkirja jaoks vaikimisi värvi</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Vali äratuse pealkirja jaoks oma värv</string>
+    <string name="next_alarm_widget_max_font_size_title">Vidina kirjatüübi maksimaalne suurus</string>
+    <string name="next_alarm_widget_text">Järgmine äratus</string>
+    <string name="next_alarm_widget_default_title_color">Kasuta „Järgmise äratuse“ ja „Järgmist äratust pole“ pealkirjade jaoks vaikimisi värvi</string>
+    <string name="next_alarm_widget_title_no_alarm">Järgmisi äratusi ei leidu</string>
+    <string name="settings_fade_transitions_title">Ekraanivaadete vahetamisel kasuta üleminekutel hajutamist</string>
+    <string name="next_alarm_widget">Järgmine äratus</string>
 </resources>

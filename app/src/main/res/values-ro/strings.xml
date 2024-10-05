@@ -537,6 +537,8 @@
 \n
 \n• Widgeturi moderne;
 \n
+\n• Widgeturi personalizabil;
+\n
 \n• Design material;
 \n
 \n• Culori dinamice pentru Android 12+; \u0020</string>
@@ -544,7 +546,7 @@
     <string name="display_card_background_title">Afișează fundalurile cardului</string>
     <string name="bedtime_reminder_notification_text">Ora de culcare se sfârșește la <xliff:g id="wake_time">%1$s</xliff:g> după <xliff:g id="sleep_time">%2$s</xliff:g> de somn.</string>
     <string name="bedtime_channel">Ora de culcare</string>
-    <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Widgeturi personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Pentru a te asigura că aplicația funcționează corect, &lt;b&gt;unele dintre setările dispozitivului trebuie să fie modificate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NU DERANJA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt; b&gt;OPTIMIZAREA BATERIEI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;În funcție de versiunea Android a dispozitivului, unele dintre aceste setări sunt deja optimizate (de exemplu, notificările).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Le poți modifica acum sau mai târziu în setările de gestionare a permisiunilor:</string>
     <string name="permission_dialog_revoke_title">Revocă accesul</string>
     <string name="ignore_battery_optimizations_title">IGNORĂ OPTIMIZAREA BATERIEI</string>

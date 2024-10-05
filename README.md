@@ -34,7 +34,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Customizable interface;
 * Customizable screensaver;
 * Modern widgets;
-* Customizable digital widgets;
+* Customizable widgets;
 * Material design;
 * Dynamic colors for Android 12+;
 
@@ -117,6 +117,8 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpg" alt="Screenshot 10" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpg" alt="Screenshot 11" width="200" />
  <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpg" alt="Screenshot 12" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/13.jpg" alt="Screenshot 13" width="200" />
+ <img src="/fastlane/metadata/android/en-US/images/phoneScreenshots/14.jpg" alt="Screenshot 14" width="200" />
 </details>
 
 # Credits

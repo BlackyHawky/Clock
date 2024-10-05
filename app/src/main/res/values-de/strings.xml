@@ -10,7 +10,7 @@
     <string name="delete" msgid="5732434972457000541">"Löschen"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Standard-Weckton"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Weckton"</string>
-    <string name="timer_sound" msgid="896163086604894735">"Timerton"</string>
+    <string name="timer_sound" msgid="896163086604894735">Timer-Ton</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Hinzufügen"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Entfernen"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Bei Weckrufen und Timern mit diesem Ton wird stattdessen der Standardton verwendet."</string>
@@ -548,7 +548,7 @@
     <string name="FSN_dialog_title">Vollbild-Benachrichtigungen</string>
     <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>
     <string name="bedtime_notification_resume">Fortsetzung am <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Digitaluhr-Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Abstellen/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Abstellen/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="bedtime_notification_until">bis <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
     <string name="about_dialog_message"> \u0020• Kippen und Schütteln zum Abstellen/Aufschieben des Alarms; 
@@ -583,11 +583,18 @@
 \n
 \n• Moderne Widgets; 
 \n
-\n• Anpassbare Digitaluhr-Widgets; 
+\n• Anpassbare Widgets;
 \n
 \n• Material You Design; 
 \n
 \n• Dynamische Farben für Android 12+; \u0020</string>
     <string name="bedtime_reminder_notification">Erinnerung</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
+    <string name="material_you_vertical_digital_widget">Senkrechte Material You Digitaluhr</string>
+    <string name="snooze_button_color">Farbe der Schlummer-Taste</string>
+    <string name="dismiss_button_color">Farbe der Stopp-Taste</string>
+    <string name="alarm_button_color">Farbe der Alarm-Taste</string>
+    <string name="pulse_color">Farbe des Impulses</string>
+    <string name="alarm_clock_font_size">Schriftgröße der Weckzeit</string>
+    <string name="alarm_title_font_size">Schriftgröße des Wecker-Namens</string>
 </resources>

@@ -1,0 +1,13 @@
+**Fixes**
+- Fix timer that continues to run if set to less than 5 seconds
+- Fix the colors of Material You widgets that didn't follow the device's day/night theme
+- Fix Clock settings that didn't apply correctly on some devices
+
+**Improvements**
+- Add 2 new widgets
+- Fade transitions are disabled by default
+ 
+- To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+ **Note:**
+Due to internal changes to widgets, you may need to reload them

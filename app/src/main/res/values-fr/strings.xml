@@ -437,7 +437,7 @@
         \n\n• Possibilité de partager votre chronomètre avec vos contacts ;
         \n\n• Écran de veille personnalisable ;
         \n\n• Widgets modernes ;
-        \n\n• Widgets numériques personnalisables ;
+        \n\n• Widgets personnalisables ;
         \n\n• Material design ;
         \n\n• Couleurs dynamiques pour Android 12+ ;
     </string>
@@ -589,7 +589,7 @@
     <string name="first_launch_main_feature_message">
         ► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt;
         ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt;
-        ► Widgets numériques personnalisables ; &lt;br&gt; &lt;br&gt;
+        ► Widgets personnalisables ; &lt;br&gt; &lt;br&gt;
         ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt;
         ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt;
         ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt;
@@ -671,4 +671,15 @@
     <string name="material_you_category_title">Material You</string>
     <string name="widgets_settings">Widgets</string>
     <string name="widgets_settings_summary">Définir le style, les couleurs et la taille de la police des widgets</string>
+    <string name="settings_tab_indicator_title">Afficher l\'indicateur d\'onglet dans le menu de navigation inférieur</string>
+    <string name="material_you_next_alarm_widget">Prochaine alarme Material You</string>
+    <string name="settings_fade_transitions_title">Activer les transitions en fondu lors du changement d\'écran</string>
+    <string name="next_alarm_widget_default_title_color">Utiliser la couleur par défaut pour les titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Utiliser la couleur par défaut pour le titre de l\'alarme</string>
+    <string name="next_alarm_widget_max_font_size_title">Taille maximale de la police du widget</string>
+    <string name="next_alarm_widget_custom_title_color">Couleur personnalisée des titres \"Prochaine alarme\" et \"Aucune alarme à venir\"</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Couleur personnalisée du titre de l\'alarme</string>
+    <string name="next_alarm_widget_text">Prochaine alarme</string>
+    <string name="next_alarm_widget_title_no_alarm">Aucune alarme à venir</string>
+    <string name="next_alarm_widget">Prochaine alarme</string>
 </resources>

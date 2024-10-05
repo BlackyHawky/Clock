@@ -20,7 +20,7 @@ Features:
   <li>Possibility of sharing your stopwatch with your contacts;</li>
   <li>Customizable screensaver;</li>
   <li>Modern widgets;</li>
-  <li>Customizable digital widgets;</li>
+  <li>Customizable widgets;</li>
   <li>Material design;</li>
   <li>Dynamic colors for Android 12+;</li>
 </ul>

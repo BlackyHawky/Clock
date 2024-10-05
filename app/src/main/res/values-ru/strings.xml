@@ -569,13 +569,13 @@
 \n
 \n• Современные виджеты; 
 \n
-\n• Настраиваемые цифровые виджеты; 
+\n• Настраиваемые виджеты;
 \n
 \n• Дизайн материалов; 
 \n
 \n• Динамические цвета для Android 12+; \u0020</string>
     <string name="screensaver_italic_date_title">Курсивный шрифт даты</string>
-    <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Метка таймера</string>
     <string name="timer_button_time_box_title">Минуты для добавления к таймеру</string>
     <string name="contributors">Участники</string>
@@ -610,4 +610,47 @@
     <string name="actions_category_title">Действия</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ПОЛНОЭКРАННЫЕ УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="permission_granted">Выдано</string>
+    <string name="alarm_display_customization_title">Изменить отображение будильников</string>
+    <string name="alarm_title_color">Цвет заголовка будильника</string>
+    <string name="snooze_button_color">Цвет кнопки отложить</string>
+    <string name="alarm_clock_font_size">Размер шрифта часов будильника</string>
+    <string name="alarm_title_font_size">Размер шрифта плитки будильника</string>
+    <string name="transparent_background_for_expired_timer_title">Прозрачный фон по истечению таймеров</string>
+    <string name="whats_new_dialog_message">Узнайте что нового:
+\n
+\n%s</string>
+    <string name="github_dialog_message">Посетите страницу GitHub:
+\n
+\n%s</string>
+    <string name="license_dialog_message">Прочтайте лицензию:
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Посетите страницу GitHub %1$s:
+\n
+\n%2$s</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="vertical_digital_widget">Вертикальные цифровые часы</string>
+    <string name="material_you_vertical_digital_widget">Вертикальные цифровые часы Material You</string>
+    <string name="standard_category_title">Стандартные</string>
+    <string name="settings_tab_indicator_title">Показывать индикатор вкладки в нижнем меню навигации</string>
+    <string name="widgets_settings">Виджеты</string>
+    <string name="material_you_next_alarm_widget">Следующий будильник Material You</string>
+    <string name="settings_fade_transitions_title">Включить затихающие переходы при переключении между экранами</string>
+    <string name="dismiss_button_color">Цвет кнопки отклонить</string>
+    <string name="alarm_button_color">Цвет кнопки будильника</string>
+    <string name="pulse_color">Цвет пульса</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Использовать стандартный цвет для плитки будильников</string>
+    <string name="next_alarm_widget_default_title_color">Использовать стандартный цвет для плиток \"Следующий будильник\" и \"Нет будильников\"</string>
+    <string name="digital_widget_default_minutes_color_title">Использовать стандартные цвета для минут</string>
+    <string name="digital_widget_custom_minutes_color_title">Пользовательские цвета минут</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Пользовательский цвет плитки будильников</string>
+    <string name="next_alarm_widget_max_font_size_title">Максимальный размер шрифта виджета</string>
+    <string name="next_alarm_widget_text">Следующий будильник</string>
+    <string name="next_alarm_widget_title_no_alarm">Нет следующих будильников</string>
+    <string name="seconds_hand_color_title">Цвет второй стрелки</string>
+    <string name="digital_widget_custom_hours_color_title">Пользовательские цвета часов</string>
+    <string name="next_alarm_widget">Следующий будильник</string>
+    <string name="widgets_settings_summary">Установите стиль, цвета и размер шрифта для виджетов</string>
+    <string name="digital_widget_default_hours_color_title">Использовать стандартные цвета для часов</string>
+    <string name="next_alarm_widget_custom_title_color">Пользовательский цвет для плиток \"Следующий будильник\" и \"Нет будильников\"</string>
 </resources>

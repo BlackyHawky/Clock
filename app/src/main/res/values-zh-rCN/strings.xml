@@ -465,13 +465,13 @@
 \n 
 \n• 现代微件； 
 \n 
-\n• 可自定义的数字微件； 
+\n• 可定制的小部件；
 \n 
 \n• Material 设计； 
 \n 
 \n• 适用于 Android 12+ 的动态色彩； \u0020</string>
     <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
-    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的数字微件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可定制的小部件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
@@ -613,4 +613,15 @@
     <string name="standard_category_title">标准</string>
     <string name="material_you_category_title">Material You</string>
     <string name="widgets_settings_summary">设置微件的样式、颜色和字体大小</string>
+    <string name="settings_tab_indicator_title">在底部导航菜单中显示选项卡指示</string>
+    <string name="material_you_next_alarm_widget">下次闹钟 Material You</string>
+    <string name="next_alarm_widget_custom_title_color">“下次闹钟”和“没有即将到来的闹钟”标题自定义颜色</string>
+    <string name="next_alarm_widget_default_alarm_title_color">使用默认颜色作为闹钟标题</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">闹钟标题自定义颜色</string>
+    <string name="next_alarm_widget_max_font_size_title">微件最大字体大小</string>
+    <string name="next_alarm_widget_text">下次闹钟</string>
+    <string name="next_alarm_widget_title_no_alarm">没有即将到来的闹钟</string>
+    <string name="next_alarm_widget_default_title_color">为“下次闹钟”和“没有即将到来的闹钟”标题使用默认颜色</string>
+    <string name="settings_fade_transitions_title">切换屏幕时启用淡入淡出过渡</string>
+    <string name="next_alarm_widget">下次闹钟</string>
 </resources>
