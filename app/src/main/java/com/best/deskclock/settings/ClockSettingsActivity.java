@@ -66,7 +66,7 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
-                case KEY_CLOCK_STYLE -> {
+                case KEY_CLOCK_STYLE, KEY_HOME_TIME_ZONE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -81,20 +81,12 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
                     final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
                     Objects.requireNonNull(homeTimeZonePref).setEnabled(!autoHomeClockEnabled);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
                     Utils.setVibrationTime(requireContext(), 50);
-                }
-
-                case KEY_HOME_TIME_ZONE -> {
-                    final ListPreference preference = (ListPreference) pref;
-                    final int index = preference.findIndexOfValue((String) newValue);
-                    preference.setSummary(preference.getEntries()[index]);
-                    // Set result so DeskClock knows to refresh itself
-                    requireActivity().setResult(RESULT_OK);
                 }
             }
 
+            // Set result so DeskClock knows to refresh itself
+            requireActivity().setResult(RESULT_OK);
             return true;
         }
 
