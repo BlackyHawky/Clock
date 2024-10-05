@@ -270,6 +270,10 @@ final class SettingsModel {
         return SettingsDAO.getAlarmBackgroundColor(mPrefs);
     }
 
+    int getAlarmBackgroundAmoledColor() {
+        return SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs);
+    }
+
     int getAlarmClockColor() {
         return SettingsDAO.getAlarmClockColor(mPrefs);
     }

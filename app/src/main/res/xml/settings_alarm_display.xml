@@ -36,6 +36,15 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_background_amoled_color"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/background_color_title"
+            android:defaultValue="#FF000000"
+            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_clock_color"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_color_title"

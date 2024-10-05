@@ -151,6 +151,10 @@ final class AlarmModel {
         return mSettingsModel.getAlarmBackgroundColor();
     }
 
+    public int getAlarmBackgroundAmoledColor() {
+        return mSettingsModel.getAlarmBackgroundAmoledColor();
+    }
+
     public int getAlarmClockColor() {
         return mSettingsModel.getAlarmClockColor();
     }

@@ -21,6 +21,7 @@ import static com.best.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.best.deskclock.data.Weekdays.Order.SUN_TO_SAT;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.DEFAULT_ALARM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.DEFAULT_ALARM_TITLE_FONT_SIZE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_COLOR;
@@ -637,6 +638,13 @@ final class SettingsDAO {
      */
     static int getAlarmBackgroundColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.parseColor("#FF191C1E"));
+    }
+
+    /**
+     * @return a value indicating the alarm background amoled color.
+     */
+    static int getAlarmBackgroundAmoledColor(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_BACKGROUND_AMOLED_COLOR, Color.parseColor("#FF000000"));
     }
 
     /**

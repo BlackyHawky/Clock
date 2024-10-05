@@ -8,6 +8,8 @@ package com.best.deskclock.alarms;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -215,7 +217,11 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.alarm_activity);
 
-        int alarmBackgroundColor = DataModel.getDataModel().getAlarmBackgroundColor();
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final boolean isAmoledMode = Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        int alarmBackgroundColor = isAmoledMode
+                ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
+                : DataModel.getDataModel().getAlarmBackgroundColor();
         int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
         float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
         mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());

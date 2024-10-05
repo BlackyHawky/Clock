@@ -1,5 +1,7 @@
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
     public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
     public static final String KEY_DISPLAY_ALARM_SECONDS_HAND = "key_display_alarm_seconds_hand";
     public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
+    public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
     public static final String KEY_ALARM_CLOCK_COLOR = "key_alarm_clock_color";
     public static final String KEY_ALARM_SECONDS_HAND_COLOR = "key_alarm_seconds_hand_color";
     public static final String KEY_ALARM_TITLE_COLOR = "key_alarm_title_color";
@@ -57,6 +60,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         String mAnalogClock;
         SwitchPreferenceCompat mDisplaySecondsPref;
         ColorPreference mAlarmSecondsHandColorPref;
+        ColorPreference mBackgroundColorPref;
+        ColorPreference mBackgroundAmoledColorPref;
         EditTextPreference mAlarmClockFontSizePref;
         EditTextPreference mAlarmTitleFontSizePref;
         Preference mPreviewAlarmPref;
@@ -69,6 +74,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
 
             mAlarmClockStyle = findPreference(KEY_ALARM_CLOCK_STYLE);
             mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
+            mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
+            mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
             mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
             mAlarmClockFontSizePref = findPreference(KEY_ALARM_CLOCK_FONT_SIZE);
             mAlarmTitleFontSizePref = findPreference(KEY_ALARM_TITLE_FONT_SIZE);
@@ -170,6 +177,12 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         }
 
         private void setupPreferences() {
+            final String getDarkMode = DataModel.getDataModel().getDarkMode();
+            final boolean isAmoledMode = Utils.isNight(requireContext().getResources())
+                    && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+            mBackgroundAmoledColorPref.setVisible(isAmoledMode);
+            mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());
+
             final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(DataModel.getDataModel()
                     .getAlarmClockStyle().toString().toLowerCase());
             // clockStyleIndex == 0 --> analog

@@ -6,6 +6,8 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -90,7 +92,11 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         // Hide navigation bar to minimize accidental tap on Home key
         hideNavigationBar();
 
-        int alarmBackgroundColor = DataModel.getDataModel().getAlarmBackgroundColor();
+        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final boolean isAmoledMode = Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        int alarmBackgroundColor = isAmoledMode
+                ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
+                : DataModel.getDataModel().getAlarmBackgroundColor();
         int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
         float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
         mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());

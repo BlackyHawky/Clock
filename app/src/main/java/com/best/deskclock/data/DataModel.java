@@ -717,6 +717,13 @@ public final class DataModel {
     }
 
     /**
+     * @return a value indicating alarm background amoled color.
+     */
+    public int getAlarmBackgroundAmoledColor() {
+        return mAlarmModel.getAlarmBackgroundAmoledColor();
+    }
+
+    /**
      * @return a value indicating the alarm clock color.
      */
     public int getAlarmClockColor() {
