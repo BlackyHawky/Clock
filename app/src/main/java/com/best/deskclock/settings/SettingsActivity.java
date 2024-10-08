@@ -17,6 +17,8 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
@@ -64,6 +66,17 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
 
+        /**
+         * Callback for getting the result from Activity
+         */
+        ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+                    requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
+                });
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -83,27 +96,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-
-            // By default, do not recreate the DeskClock activity
-            requireActivity().setResult(RESULT_CANCELED);
-        }
-
-        @Override
         public void onResume() {
             super.onResume();
 
             refresh();
-        }
-
-        @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
-                // Set result so DeskClock knows to refresh itself
-                requireActivity().setResult(RESULT_OK);
-            }
         }
 
         @Override
@@ -117,19 +113,19 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_INTERFACE_CUSTOMIZATION -> {
                     final Intent interfaceCustomizationIntent =
                             new Intent(context, InterfaceCustomizationActivity.class);
-                    startActivityForResult(interfaceCustomizationIntent, REQUEST_CHANGE_SETTINGS);
+                    getActivity.launch(interfaceCustomizationIntent);
                     return true;
                 }
 
                 case KEY_CLOCK_SETTINGS -> {
                     final Intent clockSettingsIntent = new Intent(context, ClockSettingsActivity.class);
-                    startActivityForResult(clockSettingsIntent, REQUEST_CHANGE_SETTINGS);
+                    getActivity.launch(clockSettingsIntent);
                     return true;
                 }
 
                 case KEY_ALARM_SETTINGS -> {
                     final Intent alarmSettingsIntent = new Intent(context, AlarmSettingsActivity.class);
-                    startActivityForResult(alarmSettingsIntent, REQUEST_CHANGE_SETTINGS);
+                    getActivity.launch(alarmSettingsIntent);
                     return true;
                 }
 

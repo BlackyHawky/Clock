@@ -30,6 +30,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -170,6 +172,17 @@ public class DeskClock extends AppCompatActivity
      * {@code true} when a settings change necessitates recreating this activity.
      */
     private boolean mRecreateActivity;
+
+    /**
+     * Callback for getting the result from Activity
+     */
+    private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                if (result.getResultCode() != REQUEST_CHANGE_SETTINGS) {
+                    return;
+                }
+                mRecreateActivity = true;
+            });
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -381,7 +394,7 @@ public class DeskClock extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivityForResult(settingIntent, REQUEST_CHANGE_SETTINGS);
+            getActivity.launch(settingIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -432,15 +445,6 @@ public class DeskClock extends AppCompatActivity
         switch (updateType & FAB_AND_BUTTONS_SHRINK_EXPAND_MASK) {
             case FAB_AND_BUTTONS_SHRINK -> mHideAnimation.start();
             case FAB_AND_BUTTONS_EXPAND -> mShowAnimation.start();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Recreate the activity if any settings have been changed
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
-            mRecreateActivity = true;
         }
     }
 
