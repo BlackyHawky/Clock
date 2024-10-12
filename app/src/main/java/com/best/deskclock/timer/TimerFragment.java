@@ -48,6 +48,7 @@ import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -501,9 +502,10 @@ public final class TimerFragment extends DeskClockFragment {
 
         @Override
         public void timerUpdated(Timer before, Timer after) {
-            // If the timer started, animate the timers.
+            // If the timer started, animate the timers and scroll to its position.
             if (before.isReset() && !after.isReset()) {
                 startUpdatingTime();
+                Objects.requireNonNull(mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before));
             }
         }
 
