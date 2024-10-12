@@ -15,6 +15,10 @@ import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.data.Timer.State.RUNNING;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_CREATION_DATE;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_NAME;
 
 import android.text.TextUtils;
 
@@ -36,12 +40,7 @@ public final class Timer {
     static final long UNUSED = Long.MIN_VALUE;
 
     /**
-     * Orders timers by their IDs. Oldest timers are at the bottom. Newest timers are at the top.
-     */
-    static final Comparator<Timer> ID_COMPARATOR = (timer1, timer2) -> Integer.compare(timer2.getId(), timer1.getId());
-
-    /**
-     * Orders timers by their expected/actual expiration time. The general order is:
+     * Sorts timers by their expected/actual expiration time. The general sorting is:
      *
      * <ol>
      *     <li>{@link State#MISSED MISSED} timers; ties broken by {@link #getRemainingTime()}</li>
@@ -50,28 +49,37 @@ public final class Timer {
      *     <li>{@link State#PAUSED PAUSED} timers; ties broken by {@link #getRemainingTime()}</li>
      *     <li>{@link State#RESET RESET} timers; ties broken by {@link #getLength()}</li>
      * </ol>
+     *
+     * For reset timers, sorting is based on the setting selected in timer settings.
      */
-    static final Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<>() {
+    public static final Comparator<Timer> TIMER_STATE_COMPARATOR = new Comparator<>() {
 
-        private final List<State> stateExpiryOrder = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED,
-                RESET);
+        private final List<State> sortingStatus = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED, RESET);
 
         @Override
         public int compare(Timer timer1, Timer timer2) {
-            final int stateIndex1 = stateExpiryOrder.indexOf(timer1.getState());
-            final int stateIndex2 = stateExpiryOrder.indexOf(timer2.getState());
+            final int stateIndex1 = sortingStatus.indexOf(timer1.getState());
+            final int stateIndex2 = sortingStatus.indexOf(timer2.getState());
+            int sorting = Integer.compare(stateIndex1, stateIndex2);
 
-            int order = Integer.compare(stateIndex1, stateIndex2);
-            if (order == 0) {
+            if (sorting == 0) {
                 final State state = timer1.getState();
+                final String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
+
                 if (state == RESET) {
-                    order = Long.compare(timer1.getLength(), timer2.getLength());
+                    switch (timerSortingPreference) {
+                        case KEY_SORT_TIMER_BY_CREATION_DATE -> sorting = Integer.compare(timer2.getId(), timer1.getId());
+                        case KEY_SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
+                        case KEY_SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
+                        case KEY_SORT_TIMER_BY_NAME -> sorting =
+                                CharSequence.compare(timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
+                    }
                 } else {
-                    order = Long.compare(timer1.getRemainingTime(), timer2.getRemainingTime());
+                    sorting = Long.compare(timer1.getRemainingTime(), timer2.getRemainingTime());
                 }
             }
 
-            return order;
+            return sorting;
         }
     };
 

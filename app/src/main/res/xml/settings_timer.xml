@@ -48,6 +48,16 @@
         app:iconSpaceReserved="false">
 
         <ListPreference
+            android:key="key_sort_timer"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sort_timer_title"
+            android:entries="@array/sort_timer_entries"
+            android:entryValues="@array/sort_timer_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
             android:key="key_default_time_to_add_to_timer"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/default_time_to_add_to_timer_title"

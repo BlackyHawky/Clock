@@ -47,6 +47,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
+import java.util.Collections;
 
 /**
  * Displays a vertical list of timers in all states.
@@ -57,6 +58,14 @@ public final class TimerFragment extends DeskClockFragment {
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
+    private Context mContext;
+    private RecyclerView mRecyclerView;
+    private Serializable mTimerSetupState;
+    private TimerSetupView mCreateTimerView;
+    private TimerAdapter mAdapter;
+    private View mTimersView;
+    private View mCurrentView;
+
     /**
      * Scheduled to update the timers while at least one is running.
      */
@@ -66,17 +75,6 @@ public final class TimerFragment extends DeskClockFragment {
      * Updates the FABs in response to timers being added or removed.
      */
     private final TimerListener mTimerWatcher = new TimerWatcher();
-
-    private TimerSetupView mCreateTimerView;
-    private TimerAdapter mAdapter;
-
-    private View mTimersView;
-    private View mCurrentView;
-    private RecyclerView mRecyclerView;
-
-    private Serializable mTimerSetupState;
-
-    private Context mContext;
 
     /**
      * {@code true} while this fragment is creating a new timer; {@code false} otherwise.
@@ -102,10 +100,12 @@ public final class TimerFragment extends DeskClockFragment {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
         mContext = requireContext();
-
         TimerClickHandler timerClickHandler = new TimerClickHandler(this);
         mAdapter = new TimerAdapter(timerClickHandler);
         mRecyclerView = view.findViewById(R.id.recycler_view);
+        mTimersView = view.findViewById(R.id.timer_view);
+        mCreateTimerView = view.findViewById(R.id.timer_setup);
+
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
         // Set a bottom padding to prevent the reset button from being hidden by the FAB
@@ -120,8 +120,6 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 
-        mTimersView = view.findViewById(R.id.timer_view);
-        mCreateTimerView = view.findViewById(R.id.timer_setup);
         mCreateTimerView.setFabContainer(this);
 
         DataModel.getDataModel().addTimerListener(mAdapter);
@@ -131,6 +129,8 @@ public final class TimerFragment extends DeskClockFragment {
         if (savedInstanceState != null) {
             mTimerSetupState = savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
         }
+
+        Collections.sort(mAdapter.getTimers(), Timer.TIMER_STATE_COMPARATOR);
 
         return view;
     }
@@ -274,8 +274,6 @@ public final class TimerFragment extends DeskClockFragment {
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-
-
             } finally {
                 mCreatingTimer = false;
             }

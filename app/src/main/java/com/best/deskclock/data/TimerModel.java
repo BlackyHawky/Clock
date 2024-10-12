@@ -196,21 +196,21 @@ final class TimerModel {
      * @return all defined timers in their creation order
      */
     List<Timer> getTimers() {
-        return Collections.unmodifiableList(getMutableTimers());
+        return getMutableTimers();
     }
 
     /**
      * @return all expired timers in their expiration order
      */
     List<Timer> getExpiredTimers() {
-        return Collections.unmodifiableList(getMutableExpiredTimers());
+        return getMutableExpiredTimers();
     }
 
     /**
      * @return all missed timers in their expiration order
      */
     private List<Timer> getMissedTimers() {
-        return Collections.unmodifiableList(getMutableMissedTimers());
+        return getMutableMissedTimers();
     }
 
     /**
@@ -491,6 +491,13 @@ final class TimerModel {
     }
 
     /**
+     * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
+     */
+    String getTimerSortingPreference() {
+        return mSettingsModel.getTimerSortingPreference();
+    }
+
+    /**
      * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
      */
     int getDefaultTimeToAddToTimer() {
@@ -514,7 +521,6 @@ final class TimerModel {
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mPrefs);
-            Collections.sort(mTimers, Timer.ID_COMPARATOR);
         }
 
         return mTimers;
@@ -529,7 +535,7 @@ final class TimerModel {
                     mExpiredTimers.add(timer);
                 }
             }
-            Collections.sort(mExpiredTimers, Timer.EXPIRY_COMPARATOR);
+            Collections.sort(mExpiredTimers, Timer.TIMER_STATE_COMPARATOR);
         }
 
         return mExpiredTimers;
@@ -544,7 +550,7 @@ final class TimerModel {
                     mMissedTimers.add(timer);
                 }
             }
-            Collections.sort(mMissedTimers, Timer.EXPIRY_COMPARATOR);
+            Collections.sort(mMissedTimers, Timer.TIMER_STATE_COMPARATOR);
         }
 
         return mMissedTimers;
@@ -787,7 +793,7 @@ final class TimerModel {
         }
 
         // Sort the unexpired timers to locate the next one scheduled to expire.
-        Collections.sort(unexpired, Timer.EXPIRY_COMPARATOR);
+        Collections.sort(unexpired, Timer.TIMER_STATE_COMPARATOR);
 
         // Otherwise build and post a notification reflecting the latest unexpired timers.
         final Notification notification =

@@ -131,7 +131,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_TIMER_SETTINGS -> {
                     final Intent timerSettingsIntent = new Intent(context, TimerSettingsActivity.class);
-                    startActivity(timerSettingsIntent);
+                    getActivity.launch(timerSettingsIntent);
                     return true;
                 }
 

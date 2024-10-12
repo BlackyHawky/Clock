@@ -18,8 +18,6 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import java.util.Objects;
-
 public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "timer_settings_fragment";
@@ -27,6 +25,11 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
     public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
+    public static final String KEY_SORT_TIMER = "key_sort_timer";
+    public static final String KEY_SORT_TIMER_BY_CREATION_DATE = "0";
+    public static final String KEY_SORT_TIMER_BY_ASCENDING_DURATION = "1";
+    public static final String KEY_SORT_TIMER_BY_DESCENDING_DURATION = "2";
+    public static final String KEY_SORT_TIMER_BY_NAME = "3";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
     public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER =
@@ -47,7 +50,13 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-        Preference mTimerVibrate;
+        ListPreference mTimerCrescendoPref;
+        ListPreference mSortTimerPref;
+        ListPreference mDefaultMinutesToAddToTimerPref;
+        Preference mTimerRingtonePref;
+        Preference mTimerVibratePref;
+        SwitchPreferenceCompat mKeepTimerScreenOnPref;
+        SwitchPreferenceCompat mTransparentBackgroundPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,13 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
 
             addPreferencesFromResource(R.xml.settings_timer);
 
-            mTimerVibrate = findPreference(KEY_TIMER_VIBRATE);
+            mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
+            mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
+            mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
+            mSortTimerPref = findPreference(KEY_SORT_TIMER);
+            mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
+            mKeepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
+            mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
 
             hidePreferences();
         }
@@ -84,6 +99,13 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
+                case KEY_SORT_TIMER -> {
+                    final ListPreference preference = (ListPreference) pref;
+                    final int index = preference.findIndexOfValue((String) newValue);
+                    preference.setSummary(preference.getEntries()[index]);
+                    requireActivity().setResult(RESULT_OK);
+                }
+
                 case KEY_KEEP_TIMER_SCREEN_ON, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
                         Utils.setVibrationTime(requireContext(), 50);
             }
@@ -106,38 +128,31 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void hidePreferences() {
-            final boolean hasVibrator = ((Vibrator) mTimerVibrate.getContext()
+            final boolean hasVibrator = ((Vibrator) mTimerVibratePref.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-            mTimerVibrate.setVisible(hasVibrator);
+            mTimerVibratePref.setVisible(hasVibrator);
         }
 
         private void refresh() {
-            final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
-            Objects.requireNonNull(timerRingtonePref).setOnPreferenceClickListener(this);
-            timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            mTimerRingtonePref.setOnPreferenceClickListener(this);
+            mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            final ListPreference timerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
-            Objects.requireNonNull(timerCrescendoPref).setOnPreferenceChangeListener(this);
-            timerCrescendoPref.setSummary(timerCrescendoPref.getEntry());
+            mTimerCrescendoPref.setOnPreferenceChangeListener(this);
+            mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());
 
-            mTimerVibrate.setOnPreferenceChangeListener(this);
+            mTimerVibratePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference defaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
-            Objects.requireNonNull(defaultMinutesToAddToTimerPref).setOnPreferenceChangeListener(this);
-            defaultMinutesToAddToTimerPref.setSummary(defaultMinutesToAddToTimerPref.getEntry());
+            mSortTimerPref.setOnPreferenceChangeListener(this);
+            mSortTimerPref.setSummary(mSortTimerPref.getEntry());
 
-            final SwitchPreferenceCompat keepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
-            Objects.requireNonNull(keepTimerScreenOnPref).setChecked(
-                    DataModel.getDataModel().shouldTimerDisplayRemainOn()
-            );
-            keepTimerScreenOnPref.setOnPreferenceChangeListener(this);
+            mDefaultMinutesToAddToTimerPref.setOnPreferenceChangeListener(this);
+            mDefaultMinutesToAddToTimerPref.setSummary(mDefaultMinutesToAddToTimerPref.getEntry());
 
-            final SwitchPreferenceCompat transparentBackgroundPref =
-                    findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
-            Objects.requireNonNull(transparentBackgroundPref).setChecked(
-                    DataModel.getDataModel().isTimerBackgroundTransparent()
-            );
-            transparentBackgroundPref.setOnPreferenceChangeListener(this);
+            mKeepTimerScreenOnPref.setChecked(DataModel.getDataModel().shouldTimerDisplayRemainOn());
+            mKeepTimerScreenOnPref.setOnPreferenceChangeListener(this);
+
+            mTransparentBackgroundPref.setChecked(DataModel.getDataModel().isTimerBackgroundTransparent());
+            mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
         }
     }
 }

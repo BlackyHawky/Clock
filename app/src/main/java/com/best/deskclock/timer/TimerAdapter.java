@@ -20,6 +20,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.R;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -88,7 +89,9 @@ class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> impleme
         return getTimers().get(index);
     }
 
-    private List<Timer> getTimers() {
-        return DataModel.getDataModel().getTimers();
+    public List<Timer> getTimers() {
+        List<Timer> timers = DataModel.getDataModel().getTimers();
+        Collections.sort(timers, Timer.TIMER_STATE_COMPARATOR);
+        return timers;
     }
 }

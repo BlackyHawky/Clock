@@ -210,6 +210,10 @@ final class SettingsModel {
         SettingsDAO.setTimerVibrate(mPrefs, enabled);
     }
 
+    String getTimerSortingPreference() {
+        return SettingsDAO.getTimerSortingPreference(mPrefs);
+    }
+
     int getDefaultTimeToAddToTimer() {
         return SettingsDAO.getDefaultTimeToAddToTimer(mPrefs);
     }

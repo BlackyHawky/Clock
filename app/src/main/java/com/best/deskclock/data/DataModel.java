@@ -564,6 +564,14 @@ public final class DataModel {
     }
 
     /**
+     * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
+     */
+    public String getTimerSortingPreference() {
+        enforceMainLooper();
+        return mTimerModel.getTimerSortingPreference();
+    }
+
+    /**
      * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
      */
     public int getDefaultTimeToAddToTimer() {
