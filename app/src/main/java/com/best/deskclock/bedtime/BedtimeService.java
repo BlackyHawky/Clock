@@ -59,6 +59,7 @@ public final class BedtimeService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Context context = getApplicationContext();
         DataSaver saver = DataSaver.getInstance(context);
+        saver.restore();
         String action = intent.getAction();
         if (action != null) {
             switch (action) {
@@ -85,6 +86,12 @@ public final class BedtimeService extends Service {
         return START_NOT_STICKY;
     }
 
+    /**
+     * PendingIntent constructor generally used in here just for scheduling bedtime mode.
+     * @param context any Context
+     * @param action for the intent either remind notification or launch bedtime
+     * @return PendingIntent ready for scheduling
+     */
     private static PendingIntent getPendingIntent(Context context, String action) {
         Intent intent = new Intent(context, BedtimeService.class);
         intent.setAction(action);
@@ -92,6 +99,10 @@ public final class BedtimeService extends Service {
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
+    /**
+     * Gets the next time for scheduling based on the action.
+     * @param action for remind notification or launch bedtime
+     */
     private static long getNextBedtime(DataSaver saver, String action) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -288,12 +299,20 @@ public final class BedtimeService extends Service {
 
     }
 
+    /**
+     * Schedules corresponding to the given action.
+     * @param action remind notification or launch bedtime
+     */
     public static void scheduleBedtimeMode(Context context, DataSaver saver, String action) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         cancelBedtimeMode(context, action);
         alarmManager.setExact(AlarmManager.RTC, getNextBedtime(saver, action), getPendingIntent(context, action));
     }
 
+    /**
+     * Cancels the schedule set by scheduleBedtimeMode.
+     * @param action remind notification or launch bedtime
+     */
     public static void cancelBedtimeMode(Context context, String action) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(getPendingIntent(context, action));
@@ -305,6 +324,7 @@ public final class BedtimeService extends Service {
 
     private static String bedtimeString(Context context) {
         DataSaver saver = DataSaver.getInstance(context);
+        saver.restore(); // Without this we can see the issue wrong bedtime length coming.
         String bedtimeHour = saver.hour < 10 ? "0" + saver.hour : Integer.toString(saver.hour);
         String bedtimeMinute = saver.minutes < 10 ? "0" + saver.minutes : Integer.toString(saver.minutes);
         String ending = "";

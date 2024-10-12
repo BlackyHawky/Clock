@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 
 import com.best.deskclock.data.Weekdays;
 
+/**
+ * A class for saving data used for Bedtime mode
+ */
 public class DataSaver {
 
     private static final String PREF_BASE = "BEDTIME.";
