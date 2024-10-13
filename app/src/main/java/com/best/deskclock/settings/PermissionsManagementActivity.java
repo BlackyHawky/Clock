@@ -11,6 +11,8 @@ import static android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT
 import static android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
+import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -162,11 +164,15 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
         if (!isIgnoringBatteryOptimizations(this)) {
             startActivity(intentGrant);
+            setResult(REQUEST_CHANGE_PERMISSIONS);
         } else {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.permission_dialog_revoke_title)
                     .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intentRevoke))
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        startActivity(intentRevoke);
+                        setResult(REQUEST_CHANGE_PERMISSIONS);
+                    })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
@@ -186,7 +192,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             new AlertDialog.Builder(this)
                     .setTitle(R.string.permission_dialog_revoke_title)
                     .setMessage(R.string.revoke_permission_dialog_message)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> startActivity(intent))
+                    .setPositiveButton(android.R.string.yes, (dialog, which) ->{
+                        startActivity(intent);
+                        setResult(REQUEST_CHANGE_PERMISSIONS);
+                    })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         } else {
@@ -196,6 +205,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             } else {
                 startActivity(intent);
             }
+            setResult(REQUEST_CHANGE_PERMISSIONS);
         }
     }
 
@@ -209,11 +219,15 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             if (!areFullScreenNotificationsEnabled(this)) {
                 startActivity(intent);
+                setResult(REQUEST_CHANGE_PERMISSIONS);
             } else {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.permission_dialog_revoke_title)
                         .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(intent))
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            startActivity(intent);
+                            setResult(REQUEST_CHANGE_PERMISSIONS);
+                        })
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             }

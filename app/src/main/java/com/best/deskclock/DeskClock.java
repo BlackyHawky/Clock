@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,6 +37,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -45,6 +48,7 @@ import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
@@ -64,6 +68,7 @@ public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
+    public static final int REQUEST_CHANGE_PERMISSIONS = 20;
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -174,11 +179,22 @@ public class DeskClock extends AppCompatActivity
     private boolean mRecreateActivity;
 
     /**
-     * Callback for getting the result from Activity
+     * Callback for getting the result from the Settings activity.
      */
-    private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> getSettingsActivity = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), (result) -> {
                 if (result.getResultCode() != REQUEST_CHANGE_SETTINGS) {
+                    return;
+                }
+                mRecreateActivity = true;
+            });
+
+    /**
+     * Callback for getting the result from the Permission Management activity.
+     */
+    private final ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
                     return;
                 }
                 mRecreateActivity = true;
@@ -385,8 +401,16 @@ public class DeskClock extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, Menu.NONE, 0, R.string.settings)
+        menu.add(0, Menu.NONE, 1, R.string.settings)
                 .setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        if (PermissionsManagementActivity.areEssentialPermissionsNotGranted(this)) {
+            final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
+            assert warningIcon != null;
+            warningIcon.setColorFilter(Color.parseColor("#EF5350"), PorterDuff.Mode.SRC_IN);
+            menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label)
+                    .setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
         return true;
     }
 
@@ -394,7 +418,13 @@ public class DeskClock extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
             final Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-            getActivity.launch(settingIntent);
+            getSettingsActivity.launch(settingIntent);
+            return true;
+        }
+
+        if (item.getItemId() == 1) {
+            final Intent permissionManagementIntent = new Intent(getApplicationContext(), PermissionsManagementActivity.class);
+            getPermissionManagementActivity.launch(permissionManagementIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);

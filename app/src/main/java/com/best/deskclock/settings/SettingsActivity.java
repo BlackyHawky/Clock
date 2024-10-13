@@ -6,6 +6,9 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
+import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -55,8 +58,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
-        public static final int REQUEST_CHANGE_SETTINGS = 10;
-
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
         Preference mAlarmSettingsPref;
@@ -67,13 +68,26 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mPermissionMessage;
 
         /**
-         * Callback for getting the result from Activity
+         * Callback for getting the result from the settings sub-activities.
          */
         ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
                     }
+
+                    requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
+                });
+
+        /**
+         * Callback for getting the result from the Permission Management activity.
+         */
+        ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                    if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
+                        return;
+                    }
+
                     requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
                 });
 
@@ -151,7 +165,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
                     final Intent permissionsManagementIntent =
                             new Intent(context, PermissionsManagementActivity.class);
-                    startActivity(permissionsManagementIntent);
+                    getPermissionManagementActivity.launch(permissionsManagementIntent);
                     return true;
                 }
             }
