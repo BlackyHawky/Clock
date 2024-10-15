@@ -98,66 +98,55 @@
         <item quantity="one">1 минут</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ешқашан"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 минут"</item>
-        <item msgid="5431906692406316549">"5 минут"</item>
-        <item msgid="7742728812068919959">"10 минут"</item>
-        <item msgid="2855948657259647629">"15 минут"</item>
-        <item msgid="6330196381284475079">"20 минут"</item>
-        <item msgid="7809240121716151904">"25 минут"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Ешқашан"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Өшірулі"</item>
-        <item msgid="7195451681426992018">"5 секунд"</item>
-        <item msgid="592917601923801901">"10 секунд"</item>
-        <item msgid="5050318776687582653">"15 секунд"</item>
-        <item msgid="6997726466563948756">"20 секунд"</item>
-        <item msgid="248014374051498284">"30 секунд"</item>
-        <item msgid="8010211657612404516">"40 секунд"</item>
-        <item msgid="623829984393124488">"50 секунд"</item>
-        <item msgid="5261571706794132923">"60 секунд"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 минут"</item>
-        <item msgid="4482596794620161030">"2 минут"</item>
-        <item msgid="8478276201849960314">"3 минут"</item>
-        <item msgid="4038456474851212478">"4 минут"</item>
-        <item msgid="6298175579152122770">"5 минут"</item>
-        <item msgid="9021860177999278496">"6 минут"</item>
-        <item msgid="7224689200902680256">"7 минут"</item>
-        <item msgid="4610012663985162123">"8 минут"</item>
-        <item msgid="1717028898015659426">"9 минут"</item>
-        <item msgid="8058492636464337699">"10 минут"</item>
-        <item msgid="577767219993868603">"11 минут"</item>
-        <item msgid="3710047869487864775">"12 минут"</item>
-        <item msgid="3794200935630619331">"13 минут"</item>
-        <item msgid="5462266433522229437">"14 минут"</item>
-        <item msgid="2192100038569306041">"15 минут"</item>
-        <item msgid="6636326047858437620">"16 минут"</item>
-        <item msgid="2481054808772108352">"17 минут"</item>
-        <item msgid="4080984064428458050">"18 минут"</item>
-        <item msgid="5844319398703041730">"19 минут"</item>
-        <item msgid="2334964289857921073">"20 минут"</item>
-        <item msgid="4755209855817904977">"21 минут"</item>
-        <item msgid="8414394445389367355">"22 минут"</item>
-        <item msgid="2604612428763230265">"23 минут"</item>
-        <item msgid="6871696471373403806">"24 минут"</item>
-        <item msgid="1573685398431466364">"25 минут"</item>
-        <item msgid="6999090368236684971">"26 минут"</item>
-        <item msgid="7125056720603734703">"27 минут"</item>
-        <item msgid="1695830988496463030">"28 минут"</item>
-        <item msgid="6706610539793025916">"29 минут"</item>
-        <item msgid="2898212818965905529">"30 минут"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 минут</string>
+    <string name="auto_silence_5_minutes">5 минут</string>
+    <string name="auto_silence_10_minutes">10 минут</string>
+    <string name="auto_silence_15_minutes">15 минут</string>
+    <string name="auto_silence_20_minutes">20 минут</string>
+    <string name="auto_silence_25_minutes">25 минут</string>
+    <string name="label_off">Өшірулі</string>
+    <string name="crescendo_5_seconds">5 секунд</string>
+    <string name="crescendo_10_seconds">10 секунд</string>
+    <string name="crescendo_15_seconds">15 секунд</string>
+    <string name="crescendo_20_seconds">20 секунд</string>
+    <string name="crescendo_30_seconds">30 секунд</string>
+    <string name="crescendo_40_seconds">40 секунд</string>
+    <string name="crescendo_50_seconds">50 секунд</string>
+    <string name="crescendo_60_seconds">60 секунд</string>
+    <string name="snooze_duration_1_minute">1 минут</string>
+    <string name="snooze_duration_2_minutes">2 минут</string>
+    <string name="snooze_duration_3_minutes">3 минут</string>
+    <string name="snooze_duration_4_minutes">4 минут</string>
+    <string name="snooze_duration_5_minutes">5 минут</string>
+    <string name="snooze_duration_6_minutes">6 минут</string>
+    <string name="snooze_duration_7_minutes">7 минут</string>
+    <string name="snooze_duration_8_minutes">8 минут</string>
+    <string name="snooze_duration_9_minutes">9 минут</string>
+    <string name="snooze_duration_10_minutes">10 минут</string>
+    <string name="snooze_duration_11_minutes">11 минут</string>
+    <string name="snooze_duration_12_minutes">12 минут</string>
+    <string name="snooze_duration_13_minutes">13 минут</string>
+    <string name="snooze_duration_14_minutes">14 минут</string>
+    <string name="snooze_duration_15_minutes">15 минут</string>
+    <string name="snooze_duration_16_minutes">16 минут</string>
+    <string name="snooze_duration_17_minutes">17 минут</string>
+    <string name="snooze_duration_18_minutes">18 минут</string>
+    <string name="snooze_duration_19_minutes">19 минут</string>
+    <string name="snooze_duration_20_minutes">20 минут</string>
+    <string name="snooze_duration_21_minutes">21 минут</string>
+    <string name="snooze_duration_22_minutes">22 минут</string>
+    <string name="snooze_duration_23_minutes">23 минут</string>
+    <string name="snooze_duration_24_minutes">24 минут</string>
+    <string name="snooze_duration_25_minutes">25 минут</string>
+    <string name="snooze_duration_26_minutes">26 минут</string>
+    <string name="snooze_duration_27_minutes">27 минут</string>
+    <string name="snooze_duration_28_minutes">28 минут</string>
+    <string name="snooze_duration_29_minutes">29 минут</string>
+    <string name="snooze_duration_30_minutes">30 минут</string>
     <string name="week_start_title" msgid="4268917518596832096">"Аптаның басы"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Сенбі"</item>
-        <item msgid="3993530639455360921">"Жексенбі"</item>
-        <item msgid="8594709368683324282">"Дүйсенбі"</item>
-    </string-array>
+    <string name="week_start_saturday">Сенбі</string>
+    <string name="week_start_sunday">Жексенбі</string>
+    <string name="week_start_monday">Дүйсенбі</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Дабылдың дыбыс деңгейі"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Үнсіз"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Белгісіз"</string>
@@ -167,12 +156,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Өзгерту"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Құрылғы толық тыныштық режиміне орнатылды"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Дыбыс түймелері"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Кейінге қалдыру"</item>
-        <item msgid="3450979320164769576">"Өшіру"</item>
-        <item msgid="7085774139907653538">"Дыбыс деңгейін басқару"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Кейінге қалдыру</string>
+    <string name="button_action_dismiss">Өшіру</string>
+    <string name="button_action_control_volume">Дыбыс деңгейін басқару</string>
     <string name="label_description" msgid="8736179296142915727">"Белгі"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Қоңырау әуені"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Дабыл"</string>
@@ -222,28 +208,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Сіз өте жылдамсыз."</item>
-        <item msgid="6332879039890727169">"Еңбегіңіздің жемістеріне қуаныңыз."</item>
-        <item msgid="815382761274660130">"Android құрылғылары жылдам екені белгілі, бірақ сіз сияқты жылдам емес!"</item>
-        <item msgid="7916250650982813737">"Пәлі."</item>
-        <item msgid="6836603904515182333">"L33t рет."</item>
-        <item msgid="7508085100680861631">"Неткен таң қалдыратын жылдамдық."</item>
-        <item msgid="5961245252909589573">"Уақытты бұрмалауды қайтадан істейік."</item>
-        <item msgid="5211891900854545940">"Жай солға секіріңіз."</item>
-        <item msgid="9071353477103826053">"Сізде асығуға арналған паллета бар."</item>
-        <item msgid="3785193933691117181">"Фотондық жылдамдық."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Сіз өте жылдамсыз."</string>
+    <string name="jocular_content_message_2">"Еңбегіңіздің жемістеріне қуаныңыз."</string>
+    <string name="jocular_content_message_3">"Android құрылғылары жылдам екені белгілі, бірақ сіз сияқты жылдам емес!"</string>
+    <string name="jocular_content_message_4">"Пәлі."</string>
+    <string name="jocular_content_message_5">"L33t рет."</string>
+    <string name="jocular_content_message_6">"Неткен таң қалдыратын жылдамдық."</string>
+    <string name="jocular_content_message_7">"Уақытты бұрмалауды қайтадан істейік."</string>
+    <string name="jocular_content_message_8">"Жай солға секіріңіз."</string>
+    <string name="jocular_content_message_9">"Сізде асығуға арналған паллета бар."</string>
+    <string name="jocular_content_message_10">"Фотондық жылдамдық."</string>
     <string name="home_label" msgid="4436139365695453870">"Негізгі"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Қалалар"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Cағат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Секунд бойынша көрсету уақыты"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Күнді және уақытты өзгерту"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Аналогтық"</item>
-        <item msgid="8483930821046925592">"Цифрлық"</item>
-    </string-array>
+    <string name="clock_style_analog">Аналогтық</string>
+    <string name="clock_style_digital">Цифрлық</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Автоматты үй сағаты"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Басқа уақыт белдеуінде жүргенде, үй уақытын да көрсету"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Үй уақыт белдеуі"</string>

@@ -98,66 +98,55 @@
         <item quantity="one">1分</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1分"</item>
-        <item msgid="5431906692406316549">"5分"</item>
-        <item msgid="7742728812068919959">"10分"</item>
-        <item msgid="2855948657259647629">"15分"</item>
-        <item msgid="6330196381284475079">"20分"</item>
-        <item msgid="7809240121716151904">"25分"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"なし"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"OFF"</item>
-        <item msgid="7195451681426992018">"5秒"</item>
-        <item msgid="592917601923801901">"10秒"</item>
-        <item msgid="5050318776687582653">"15秒"</item>
-        <item msgid="6997726466563948756">"20秒"</item>
-        <item msgid="248014374051498284">"30秒"</item>
-        <item msgid="8010211657612404516">"40秒"</item>
-        <item msgid="623829984393124488">"50秒"</item>
-        <item msgid="5261571706794132923">"60秒"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1分"</item>
-        <item msgid="4482596794620161030">"2分"</item>
-        <item msgid="8478276201849960314">"3分"</item>
-        <item msgid="4038456474851212478">"4分"</item>
-        <item msgid="6298175579152122770">"5分"</item>
-        <item msgid="9021860177999278496">"6分"</item>
-        <item msgid="7224689200902680256">"7分"</item>
-        <item msgid="4610012663985162123">"8分"</item>
-        <item msgid="1717028898015659426">"9分"</item>
-        <item msgid="8058492636464337699">"10分"</item>
-        <item msgid="577767219993868603">"11分"</item>
-        <item msgid="3710047869487864775">"12分"</item>
-        <item msgid="3794200935630619331">"13分"</item>
-        <item msgid="5462266433522229437">"14分"</item>
-        <item msgid="2192100038569306041">"15分"</item>
-        <item msgid="6636326047858437620">"16分"</item>
-        <item msgid="2481054808772108352">"17分"</item>
-        <item msgid="4080984064428458050">"18分"</item>
-        <item msgid="5844319398703041730">"19分"</item>
-        <item msgid="2334964289857921073">"20分"</item>
-        <item msgid="4755209855817904977">"21分"</item>
-        <item msgid="8414394445389367355">"22分"</item>
-        <item msgid="2604612428763230265">"23分"</item>
-        <item msgid="6871696471373403806">"24分"</item>
-        <item msgid="1573685398431466364">"25分"</item>
-        <item msgid="6999090368236684971">"26分"</item>
-        <item msgid="7125056720603734703">"27分"</item>
-        <item msgid="1695830988496463030">"28分"</item>
-        <item msgid="6706610539793025916">"29分"</item>
-        <item msgid="2898212818965905529">"30分"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1分</string>
+    <string name="auto_silence_5_minutes">5分</string>
+    <string name="auto_silence_10_minutes">10分</string>
+    <string name="auto_silence_15_minutes">15分</string>
+    <string name="auto_silence_20_minutes">20分</string>
+    <string name="auto_silence_25_minutes">25分</string>
+    <string name="label_off">OFF</string>
+    <string name="crescendo_5_seconds">5秒</string>
+    <string name="crescendo_10_seconds">10秒</string>
+    <string name="crescendo_15_seconds">15秒</string>
+    <string name="crescendo_20_seconds">20秒</string>
+    <string name="crescendo_30_seconds">30秒</string>
+    <string name="crescendo_40_seconds">40秒</string>
+    <string name="crescendo_50_seconds">50秒</string>
+    <string name="crescendo_60_seconds">60秒</string>
+    <string name="snooze_duration_1_minute">1分</string>
+    <string name="snooze_duration_2_minutes">2分</string>
+    <string name="snooze_duration_3_minutes">3分</string>
+    <string name="snooze_duration_4_minutes">4分</string>
+    <string name="snooze_duration_5_minutes">5分</string>
+    <string name="snooze_duration_6_minutes">6分</string>
+    <string name="snooze_duration_7_minutes">7分</string>
+    <string name="snooze_duration_8_minutes">8分</string>
+    <string name="snooze_duration_9_minutes">9分</string>
+    <string name="snooze_duration_10_minutes">10分</string>
+    <string name="snooze_duration_11_minutes">11分</string>
+    <string name="snooze_duration_12_minutes">12分</string>
+    <string name="snooze_duration_13_minutes">13分</string>
+    <string name="snooze_duration_14_minutes">14分</string>
+    <string name="snooze_duration_15_minutes">15分</string>
+    <string name="snooze_duration_16_minutes">16分</string>
+    <string name="snooze_duration_17_minutes">17分</string>
+    <string name="snooze_duration_18_minutes">18分</string>
+    <string name="snooze_duration_19_minutes">19分</string>
+    <string name="snooze_duration_20_minutes">20分</string>
+    <string name="snooze_duration_21_minutes">21分</string>
+    <string name="snooze_duration_22_minutes">22分</string>
+    <string name="snooze_duration_23_minutes">23分</string>
+    <string name="snooze_duration_24_minutes">24分</string>
+    <string name="snooze_duration_25_minutes">25分</string>
+    <string name="snooze_duration_26_minutes">26分</string>
+    <string name="snooze_duration_27_minutes">27分</string>
+    <string name="snooze_duration_28_minutes">28分</string>
+    <string name="snooze_duration_29_minutes">29分</string>
+    <string name="snooze_duration_30_minutes">30分</string>
     <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"土曜日"</item>
-        <item msgid="3993530639455360921">"日曜日"</item>
-        <item msgid="8594709368683324282">"月曜日"</item>
-    </string-array>
+    <string name="week_start_saturday">土曜日</string>
+    <string name="week_start_sunday">日曜日</string>
+    <string name="week_start_monday">月曜日</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"アラームの音量"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"マナーモード"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"不明"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"変更"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"デバイスは [サイレント] に設定されています"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量ボタン"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"スヌーズ"</item>
-        <item msgid="3450979320164769576">"解除"</item>
-        <item msgid="7085774139907653538">"音量の調整"</item>
-        <item>なし</item>
-    </string-array>
+    <string name="button_action_snooze">スヌーズ</string>
+    <string name="button_action_dismiss">解除</string>
+    <string name="button_action_control_volume">音量の調整</string>
+    <string name="button_action_nothing">なし</string>
     <string name="label_description" msgid="8736179296142915727">"ラベル"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"着信音"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"アラーム"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"なかなかのスピード狂です。"</item>
-        <item msgid="6332879039890727169">"まさに努力の賜物です。"</item>
-        <item msgid="815382761274660130">"Androidも高速ですが、あなたのスピードには負けます！"</item>
-        <item msgid="7916250650982813737">"肩の力を抜いて。"</item>
-        <item msgid="6836603904515182333">"すご腕の持ち主です。"</item>
-        <item msgid="7508085100680861631">"まさに驚きの速さです。"</item>
-        <item msgid="5961245252909589573">"もう一度タイムワープしましょう。"</item>
-        <item msgid="5211891900854545940">"左に移動するだけです。"</item>
-        <item msgid="9071353477103826053">"急ぎのパレットがあります。"</item>
-        <item msgid="3785193933691117181">"光の速さです。"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"なかなかのスピード狂です。"</string>
+    <string name="jocular_content_message_2">"まさに努力の賜物です。"</string>
+    <string name="jocular_content_message_3">"Androidも高速ですが、あなたのスピードには負けます！"</string>
+    <string name="jocular_content_message_4">"肩の力を抜いて。"</string>
+    <string name="jocular_content_message_5">"すご腕の持ち主です。"</string>
+    <string name="jocular_content_message_6">"まさに驚きの速さです。"</string>
+    <string name="jocular_content_message_7">"もう一度タイムワープしましょう。"</string>
+    <string name="jocular_content_message_8">"左に移動するだけです。"</string>
+    <string name="jocular_content_message_9">"急ぎのパレットがあります。"</string>
+    <string name="jocular_content_message_10">"光の速さです。"</string>
     <string name="home_label" msgid="4436139365695453870">"自宅"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
     <string name="clock_settings" msgid="8317286807280600391">"時計"</string>
     <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"時刻に秒を表示"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"日付と時刻の変更"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"アナログ"</item>
-        <item msgid="8483930821046925592">"デジタル"</item>
-    </string-array>
+    <string name="clock_style_analog">アナログ</string>
+    <string name="clock_style_digital">デジタル</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自宅の時計を自動表示"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"時差のある場所にいるときに自宅の時刻を追加する"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"自宅タイムゾーン"</string>
@@ -396,9 +379,4 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
     <string name="flip_action_title">端末反転アクション</string>
     <string name="shake_action_title">端末を振った時の動作</string>
-    <string-array name="action_setting_entries">
-        <item>スヌーズ</item>
-        <item>閉じる</item>
-        <item>なし</item>
-    </string-array>
 </resources>

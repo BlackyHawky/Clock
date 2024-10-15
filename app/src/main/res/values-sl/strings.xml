@@ -116,66 +116,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikoli"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minuta"</item>
-        <item msgid="5431906692406316549">"5 minut"</item>
-        <item msgid="7742728812068919959">"10 minut"</item>
-        <item msgid="2855948657259647629">"15 minut"</item>
-        <item msgid="6330196381284475079">"20 minut"</item>
-        <item msgid="7809240121716151904">"25 minut"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Nikoli"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Izklopljeno"</item>
-        <item msgid="7195451681426992018">"5 sekund"</item>
-        <item msgid="592917601923801901">"10 sekund"</item>
-        <item msgid="5050318776687582653">"15 sekund"</item>
-        <item msgid="6997726466563948756">"20 sekund"</item>
-        <item msgid="248014374051498284">"30 sekund"</item>
-        <item msgid="8010211657612404516">"40 sekund"</item>
-        <item msgid="623829984393124488">"50 sekund"</item>
-        <item msgid="5261571706794132923">"60 sekund"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minuta"</item>
-        <item msgid="4482596794620161030">"2 minuti"</item>
-        <item msgid="8478276201849960314">"3 minute"</item>
-        <item msgid="4038456474851212478">"4 minute"</item>
-        <item msgid="6298175579152122770">"5 minut"</item>
-        <item msgid="9021860177999278496">"6 minut"</item>
-        <item msgid="7224689200902680256">"7 minut"</item>
-        <item msgid="4610012663985162123">"8 minut"</item>
-        <item msgid="1717028898015659426">"9 minut"</item>
-        <item msgid="8058492636464337699">"10 minut"</item>
-        <item msgid="577767219993868603">"11 minut"</item>
-        <item msgid="3710047869487864775">"12 minut"</item>
-        <item msgid="3794200935630619331">"13 minut"</item>
-        <item msgid="5462266433522229437">"14 minut"</item>
-        <item msgid="2192100038569306041">"15 minut"</item>
-        <item msgid="6636326047858437620">"16 minut"</item>
-        <item msgid="2481054808772108352">"17 minut"</item>
-        <item msgid="4080984064428458050">"18 minut"</item>
-        <item msgid="5844319398703041730">"19 minut"</item>
-        <item msgid="2334964289857921073">"20 minut"</item>
-        <item msgid="4755209855817904977">"21 minut"</item>
-        <item msgid="8414394445389367355">"22 minut"</item>
-        <item msgid="2604612428763230265">"23 minut"</item>
-        <item msgid="6871696471373403806">"24 minut"</item>
-        <item msgid="1573685398431466364">"25 minut"</item>
-        <item msgid="6999090368236684971">"26 minut"</item>
-        <item msgid="7125056720603734703">"27 minut"</item>
-        <item msgid="1695830988496463030">"28 minut"</item>
-        <item msgid="6706610539793025916">"29 minut"</item>
-        <item msgid="2898212818965905529">"30 minut"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minuta</string>
+    <string name="auto_silence_5_minutes">5 minut</string>
+    <string name="auto_silence_10_minutes">10 minut</string>
+    <string name="auto_silence_15_minutes">15 minut</string>
+    <string name="auto_silence_20_minutes">20 minut</string>
+    <string name="auto_silence_25_minutes">25 minut</string>
+    <string name="label_off">Izklopljeno</string>
+    <string name="crescendo_5_seconds">5 sekund</string>
+    <string name="crescendo_10_seconds">10 sekund</string>
+    <string name="crescendo_15_seconds">15 sekund</string>
+    <string name="crescendo_20_seconds">20 sekund</string>
+    <string name="crescendo_30_seconds">30 sekund</string>
+    <string name="crescendo_40_seconds">40 sekund</string>
+    <string name="crescendo_50_seconds">50 sekund</string>
+    <string name="crescendo_60_seconds">60 sekund</string>
+    <string name="snooze_duration_1_minute">1 minuta</string>
+    <string name="snooze_duration_2_minutes">2 minut</string>
+    <string name="snooze_duration_3_minutes">3 minut</string>
+    <string name="snooze_duration_4_minutes">4 minut</string>
+    <string name="snooze_duration_5_minutes">5 minut</string>
+    <string name="snooze_duration_6_minutes">6 minut</string>
+    <string name="snooze_duration_7_minutes">7 minut</string>
+    <string name="snooze_duration_8_minutes">8 minut</string>
+    <string name="snooze_duration_9_minutes">9 minut</string>
+    <string name="snooze_duration_10_minutes">10 minut</string>
+    <string name="snooze_duration_11_minutes">11 minut</string>
+    <string name="snooze_duration_12_minutes">12 minut</string>
+    <string name="snooze_duration_13_minutes">13 minut</string>
+    <string name="snooze_duration_14_minutes">14 minut</string>
+    <string name="snooze_duration_15_minutes">15 minut</string>
+    <string name="snooze_duration_16_minutes">16 minut</string>
+    <string name="snooze_duration_17_minutes">17 minut</string>
+    <string name="snooze_duration_18_minutes">18 minut</string>
+    <string name="snooze_duration_19_minutes">19 minut</string>
+    <string name="snooze_duration_20_minutes">20 minut</string>
+    <string name="snooze_duration_21_minutes">21 minut</string>
+    <string name="snooze_duration_22_minutes">22 minut</string>
+    <string name="snooze_duration_23_minutes">23 minut</string>
+    <string name="snooze_duration_24_minutes">24 minut</string>
+    <string name="snooze_duration_25_minutes">25 minut</string>
+    <string name="snooze_duration_26_minutes">26 minut</string>
+    <string name="snooze_duration_27_minutes">27 minut</string>
+    <string name="snooze_duration_28_minutes">28 minut</string>
+    <string name="snooze_duration_29_minutes">29 minut</string>
+    <string name="snooze_duration_30_minutes">30 minut</string>
     <string name="week_start_title" msgid="4268917518596832096">"Začni teden s tem dnevom:"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"sobota"</item>
-        <item msgid="3993530639455360921">"nedelja"</item>
-        <item msgid="8594709368683324282">"ponedeljek"</item>
-    </string-array>
+    <string name="week_start_saturday">sobota</string>
+    <string name="week_start_sunday">nedelja</string>
+    <string name="week_start_monday">ponedeljek</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Glasnost alarma"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Tiho"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Neznano"</string>
@@ -185,12 +174,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Spremeni"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Naprava je nastavljena na popolno tišino"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnost"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Dremež"</item>
-        <item msgid="3450979320164769576">"Opusti"</item>
-        <item msgid="7085774139907653538">"Nadziranje glasnosti"</item>
-        <item>Brez</item>
-    </string-array>
+    <string name="button_action_snooze">Dremež</string>
+    <string name="button_action_dismiss">Opusti</string>
+    <string name="button_action_control_volume">Nadziranje glasnosti</string>
+    <string name="button_action_nothing">Brez</string>
     <string name="label_description" msgid="8736179296142915727">"Oznaka"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Melodija zvonjenja"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
@@ -240,28 +227,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Hitri ste kot blisk."</item>
-        <item msgid="6332879039890727169">"Uživajte v sadovih svojega dela."</item>
-        <item msgid="815382761274660130">"Znano je, da so Androidi hitri, vendar ste vi hitrejši."</item>
-        <item msgid="7916250650982813737">"Uf."</item>
-        <item msgid="6836603904515182333">"Tolikokrat: l33t."</item>
-        <item msgid="7508085100680861631">"Izjemna hitrost."</item>
-        <item msgid="5961245252909589573">"Dajmo še enkrat."</item>
-        <item msgid="5211891900854545940">"En skok na levo."</item>
-        <item msgid="9071353477103826053">"Imate pester izbor hitrosti."</item>
-        <item msgid="3785193933691117181">"Fotonska hitrost."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Hitri ste kot blisk."</string>
+    <string name="jocular_content_message_2">"Uživajte v sadovih svojega dela."</string>
+    <string name="jocular_content_message_3">"Znano je, da so Androidi hitri, vendar ste vi hitrejši."</string>
+    <string name="jocular_content_message_4">"Uf."</string>
+    <string name="jocular_content_message_5">"Tolikokrat: l33t."</string>
+    <string name="jocular_content_message_6">"Izjemna hitrost."</string>
+    <string name="jocular_content_message_7">"Dajmo še enkrat."</string>
+    <string name="jocular_content_message_8">"En skok na levo."</string>
+    <string name="jocular_content_message_9">"Imate pester izbor hitrosti."</string>
+    <string name="jocular_content_message_10">"Fotonska hitrost."</string>
     <string name="home_label" msgid="4436139365695453870">"Doma"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Mesta"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Ura"</string>
     <string name="clock_style" msgid="2265011060429742344">"Slog"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Prikaz ure s sekundami"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Spreminjanje datuma in ure"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analogno"</item>
-        <item msgid="8483930821046925592">"Digitalno"</item>
-    </string-array>
+    <string name="clock_style_analog">Analogno</string>
+    <string name="clock_style_digital">Digitalno</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Samod. ura za domač čas. pas"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Med potovanjem v drugem časovnem območju dodaj uro z domačim časom"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domač časovni pas"</string>
@@ -416,11 +399,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm ob <xliff:g id="ALARM_TIME">%s</xliff:g> je preložen za 10 minut"</string>
     <string name="flip_action_title">Dejanje obračanja naprave</string>
     <string name="shake_action_title">Dejanje tresenja naprave</string>
-    <string-array name="action_setting_entries">
-        <item>Dremež</item>
-        <item>Opusti</item>
-        <item>Brez</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Opuščanje budilk in odštevalnikov</string>
     <string name="alarm_missed_channel">Zamujene budilke</string>
     <string name="alarm_snooze_channel">Budilke v dremežu</string>

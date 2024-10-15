@@ -98,66 +98,55 @@
         <item quantity="one">1 minut</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minut"</item>
-        <item msgid="5431906692406316549">"5 minuts"</item>
-        <item msgid="7742728812068919959">"10 minuts"</item>
-        <item msgid="2855948657259647629">"15 minuts"</item>
-        <item msgid="6330196381284475079">"20 minuts"</item>
-        <item msgid="7809240121716151904">"25 minuts"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Mai"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Desactivada"</item>
-        <item msgid="7195451681426992018">"5 segons"</item>
-        <item msgid="592917601923801901">"10 segons"</item>
-        <item msgid="5050318776687582653">"15 segons"</item>
-        <item msgid="6997726466563948756">"20 segons"</item>
-        <item msgid="248014374051498284">"30 segons"</item>
-        <item msgid="8010211657612404516">"40 segons"</item>
-        <item msgid="623829984393124488">"50 segons"</item>
-        <item msgid="5261571706794132923">"60 segons"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minut"</item>
-        <item msgid="4482596794620161030">"2 minuts"</item>
-        <item msgid="8478276201849960314">"3 minuts"</item>
-        <item msgid="4038456474851212478">"4 minuts"</item>
-        <item msgid="6298175579152122770">"5 minuts"</item>
-        <item msgid="9021860177999278496">"6 minuts"</item>
-        <item msgid="7224689200902680256">"7 minuts"</item>
-        <item msgid="4610012663985162123">"8 minuts"</item>
-        <item msgid="1717028898015659426">"9 minuts"</item>
-        <item msgid="8058492636464337699">"10 minuts"</item>
-        <item msgid="577767219993868603">"11 minuts"</item>
-        <item msgid="3710047869487864775">"12 minuts"</item>
-        <item msgid="3794200935630619331">"13 minuts"</item>
-        <item msgid="5462266433522229437">"14 minuts"</item>
-        <item msgid="2192100038569306041">"15 minuts"</item>
-        <item msgid="6636326047858437620">"16 minuts"</item>
-        <item msgid="2481054808772108352">"17 minuts"</item>
-        <item msgid="4080984064428458050">"18 minuts"</item>
-        <item msgid="5844319398703041730">"19 minuts"</item>
-        <item msgid="2334964289857921073">"20 minuts"</item>
-        <item msgid="4755209855817904977">"21 minuts"</item>
-        <item msgid="8414394445389367355">"22 minuts"</item>
-        <item msgid="2604612428763230265">"23 minuts"</item>
-        <item msgid="6871696471373403806">"24 minuts"</item>
-        <item msgid="1573685398431466364">"25 minuts"</item>
-        <item msgid="6999090368236684971">"26 minuts"</item>
-        <item msgid="7125056720603734703">"27 minuts"</item>
-        <item msgid="1695830988496463030">"28 minuts"</item>
-        <item msgid="6706610539793025916">"29 minuts"</item>
-        <item msgid="2898212818965905529">"30 minuts"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minut</string>
+    <string name="auto_silence_5_minutes">5 minuts</string>
+    <string name="auto_silence_10_minutes">10 minuts</string>
+    <string name="auto_silence_15_minutes">15 minuts</string>
+    <string name="auto_silence_20_minutes">20 minuts</string>
+    <string name="auto_silence_25_minutes">25 minuts</string>
+    <string name="label_off">Desactivada</string>
+    <string name="crescendo_5_seconds">5 segons</string>
+    <string name="crescendo_10_seconds">10 segons</string>
+    <string name="crescendo_15_seconds">15 segons</string>
+    <string name="crescendo_20_seconds">20 segons</string>
+    <string name="crescendo_30_seconds">30 segons</string>
+    <string name="crescendo_40_seconds">40 segons</string>
+    <string name="crescendo_50_seconds">50 segons</string>
+    <string name="crescendo_60_seconds">60 segons</string>
+    <string name="snooze_duration_1_minute">1 minut</string>
+    <string name="snooze_duration_2_minutes">2 minuts</string>
+    <string name="snooze_duration_3_minutes">3 minuts</string>
+    <string name="snooze_duration_4_minutes">4 minuts</string>
+    <string name="snooze_duration_5_minutes">5 minuts</string>
+    <string name="snooze_duration_6_minutes">6 minuts</string>
+    <string name="snooze_duration_7_minutes">7 minuts</string>
+    <string name="snooze_duration_8_minutes">8 minuts</string>
+    <string name="snooze_duration_9_minutes">9 minuts</string>
+    <string name="snooze_duration_10_minutes">10 minuts</string>
+    <string name="snooze_duration_11_minutes">11 minuts</string>
+    <string name="snooze_duration_12_minutes">12 minuts</string>
+    <string name="snooze_duration_13_minutes">13 minuts</string>
+    <string name="snooze_duration_14_minutes">14 minuts</string>
+    <string name="snooze_duration_15_minutes">15 minuts</string>
+    <string name="snooze_duration_16_minutes">16 minuts</string>
+    <string name="snooze_duration_17_minutes">17 minuts</string>
+    <string name="snooze_duration_18_minutes">18 minuts</string>
+    <string name="snooze_duration_19_minutes">19 minuts</string>
+    <string name="snooze_duration_20_minutes">20 minuts</string>
+    <string name="snooze_duration_21_minutes">21 minuts</string>
+    <string name="snooze_duration_22_minutes">22 minuts</string>
+    <string name="snooze_duration_23_minutes">23 minuts</string>
+    <string name="snooze_duration_24_minutes">24 minuts</string>
+    <string name="snooze_duration_25_minutes">25 minuts</string>
+    <string name="snooze_duration_26_minutes">26 minuts</string>
+    <string name="snooze_duration_27_minutes">27 minuts</string>
+    <string name="snooze_duration_28_minutes">28 minuts</string>
+    <string name="snooze_duration_29_minutes">29 minuts</string>
+    <string name="snooze_duration_30_minutes">30 minuts</string>
     <string name="week_start_title" msgid="4268917518596832096">"La setmana comença"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Dissabte"</item>
-        <item msgid="3993530639455360921">"Diumenge"</item>
-        <item msgid="8594709368683324282">"Dilluns"</item>
-    </string-array>
+    <string name="week_start_saturday">Dissabte</string>
+    <string name="week_start_sunday">Diumenge</string>
+    <string name="week_start_monday">Dilluns</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volum de l\'alarma"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silenci"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Desconegut"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Canvia"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"El dispositiu està configurat en silenci total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botons de volum"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Posposa"</item>
-        <item msgid="3450979320164769576">"Ignora"</item>
-        <item msgid="7085774139907653538">"Controla el volum"</item>
-        <item>Res</item>
-    </string-array>
+    <string name="button_action_snooze">Posposa</string>
+    <string name="button_action_dismiss">Ignora</string>
+    <string name="button_action_control_volume">Controla el volum</string>
+    <string name="button_action_nothing">Res</string>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"So"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarma"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Ets un boig del volant."</item>
-        <item msgid="6332879039890727169">"Gaudeix dels fruits de la teva feina."</item>
-        <item msgid="815382761274660130">"Se sap que els Android són ràpids, però no tan com tu!"</item>
-        <item msgid="7916250650982813737">"Uf!"</item>
-        <item msgid="6836603904515182333">"L33t vegades."</item>
-        <item msgid="7508085100680861631">"Una velocitat prodigiosa com aquesta."</item>
-        <item msgid="5961245252909589573">"Tornem a fer un salt en el temps."</item>
-        <item msgid="5211891900854545940">"Només un salt cap a l\'esquerra."</item>
-        <item msgid="9071353477103826053">"Tens moltes opcions per afanyar-te."</item>
-        <item msgid="3785193933691117181">"Velocitat fotònica."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Ets un boig del volant."</string>
+    <string name="jocular_content_message_2">"Gaudeix dels fruits de la teva feina."</string>
+    <string name="jocular_content_message_3">"Se sap que els Android són ràpids, però no tan com tu!"</string>
+    <string name="jocular_content_message_4">"Uf!"</string>
+    <string name="jocular_content_message_5">"L33t vegades."</string>
+    <string name="jocular_content_message_6">"Una velocitat prodigiosa com aquesta."</string>
+    <string name="jocular_content_message_7">"Tornem a fer un salt en el temps."</string>
+    <string name="jocular_content_message_8">"Només un salt cap a l\'esquerra."</string>
+    <string name="jocular_content_message_9">"Tens moltes opcions per afanyar-te."</string>
+    <string name="jocular_content_message_10">"Velocitat fotònica."</string>
     <string name="home_label" msgid="4436139365695453870">"Casa"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Ciutats"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Rellotge"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estil"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Mostra l\'hora amb segons"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Canvia la data i l\'hora"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analògic"</item>
-        <item msgid="8483930821046925592">"Digital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analògic</string>
+    <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Rellotge de la teva ciutat automàtic"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quan viatgis a una zona amb una hora diferent, afegeix un rellotge per a l\'hora de la teva ciutat"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horària de casa"</string>
@@ -396,11 +379,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha posposat deu minuts"</string>
     <string name="flip_action_title">Acció girar del dispositiu</string>
     <string name="shake_action_title">Acció agitar del dispositiu</string>
-    <string-array name="action_setting_entries">
-        <item>Posposa</item>
-        <item>Descarta</item>
-        <item>Res</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Desencadena alarmes i temporitzadors</string>
     <string name="alarm_missed_channel">Alarmes perdudes</string>
     <string name="alarm_snooze_channel">Alarmes posposades</string>

@@ -76,66 +76,55 @@
         <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> minutos</item>
     </plurals>
     <string name="auto_silence_never">Enxamás</string>
-    <string-array name="auto_silence_entries">
-        <item>1 minutu</item>
-        <item>5 minutos</item>
-        <item>10 minutos</item>
-        <item>15 minutos</item>
-        <item>20 minutos</item>
-        <item>25 minutos</item>
-        <item>The end of the ringtone</item>
-        <item>Nunca</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item>Non</item>
-        <item>5 seconds</item>
-        <item>10 seconds</item>
-        <item>15 seconds</item>
-        <item>20 seconds</item>
-        <item>30 seconds</item>
-        <item>40 seconds</item>
-        <item>50 seconds</item>
-        <item>60 seconds</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item>1 minutu</item>
-        <item>2 minutes</item>
-        <item>3 minutes</item>
-        <item>4 minutes</item>
-        <item>5 minutos</item>
-        <item>6 minutes</item>
-        <item>7 minutes</item>
-        <item>8 minutes</item>
-        <item>9 minutes</item>
-        <item>10 minutos</item>
-        <item>11 minutes</item>
-        <item>12 minutes</item>
-        <item>13 minutes</item>
-        <item>14 minutes</item>
-        <item>15 minutos</item>
-        <item>16 minutes</item>
-        <item>17 minutes</item>
-        <item>18 minutes</item>
-        <item>19 minutes</item>
-        <item>20 minutos</item>
-        <item>21 minutes</item>
-        <item>22 minutes</item>
-        <item>23 minutes</item>
-        <item>24 minutes</item>
-        <item>25 minutos</item>
-        <item>26 minutes</item>
-        <item>27 minutes</item>
-        <item>28 minutes</item>
-        <item>29 minutes</item>
-        <item>30 minutes</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minutu</string>
+    <string name="auto_silence_5_minutes">5 minutos</string>
+    <string name="auto_silence_10_minutes">10 minutos</string>
+    <string name="auto_silence_15_minutes">15 minutos</string>
+    <string name="auto_silence_20_minutes">20 minutos</string>
+    <string name="auto_silence_25_minutes">25 minutos</string>
+    <string name="label_off">Non</string>
+    <string name="crescendo_5_seconds">5 seconds</string>
+    <string name="crescendo_10_seconds">10 seconds</string>
+    <string name="crescendo_15_seconds">15 seconds</string>
+    <string name="crescendo_20_seconds">20 seconds</string>
+    <string name="crescendo_30_seconds">30 seconds</string>
+    <string name="crescendo_40_seconds">40 seconds</string>
+    <string name="crescendo_50_seconds">50 seconds</string>
+    <string name="crescendo_60_seconds">60 seconds</string>
+    <string name="snooze_duration_1_minute">1 minutu</string>
+    <string name="snooze_duration_2_minutes">2 minutos</string>
+    <string name="snooze_duration_3_minutes">3 minutos</string>
+    <string name="snooze_duration_4_minutes">4 minutos</string>
+    <string name="snooze_duration_5_minutes">5 minutos</string>
+    <string name="snooze_duration_6_minutes">6 minutos</string>
+    <string name="snooze_duration_7_minutes">7 minutos</string>
+    <string name="snooze_duration_8_minutes">8 minutos</string>
+    <string name="snooze_duration_9_minutes">9 minutos</string>
+    <string name="snooze_duration_10_minutes">10 minutos</string>
+    <string name="snooze_duration_11_minutes">11 minutos</string>
+    <string name="snooze_duration_12_minutes">12 minutos</string>
+    <string name="snooze_duration_13_minutes">13 minutos</string>
+    <string name="snooze_duration_14_minutes">14 minutos</string>
+    <string name="snooze_duration_15_minutes">15 minutos</string>
+    <string name="snooze_duration_16_minutes">16 minutos</string>
+    <string name="snooze_duration_17_minutes">17 minutos</string>
+    <string name="snooze_duration_18_minutes">18 minutos</string>
+    <string name="snooze_duration_19_minutes">19 minutos</string>
+    <string name="snooze_duration_20_minutes">20 minutos</string>
+    <string name="snooze_duration_21_minutes">21 minutos</string>
+    <string name="snooze_duration_22_minutes">22 minutos</string>
+    <string name="snooze_duration_23_minutes">23 minutos</string>
+    <string name="snooze_duration_24_minutes">24 minutos</string>
+    <string name="snooze_duration_25_minutes">25 minutos</string>
+    <string name="snooze_duration_26_minutes">26 minutos</string>
+    <string name="snooze_duration_27_minutes">27 minutos</string>
+    <string name="snooze_duration_28_minutes">28 minutos</string>
+    <string name="snooze_duration_29_minutes">29 minutos</string>
+    <string name="snooze_duration_30_minutes">30 minutos</string>
     <string name="week_start_title">Entamar la selmana el</string>
-    <string-array name="week_start_entries">
-        <item>Sábadu</item>
-        <item>Domingu</item>
-        <item>Llunes</item>
-    </string-array>
+    <string name="week_start_saturday">Sábadu</string>
+    <string name="week_start_sunday">Domingu</string>
+    <string name="week_start_monday">Llunes</string>
     <string name="alarm_volume_title">Volume d\'alarma</string>
     <string name="silent_ringtone_title">Silenciu</string>
     <string name="unknown_ringtone_title">Desconocíu</string>
@@ -145,12 +134,10 @@
     <string name="change_setting_action">Camudar</string>
     <string name="alarms_blocked_by_dnd">El preséu ta configuráu pa silenciu ensembre</string>
     <string name="volume_button_setting_title">Botones de volume</string>
-    <string-array name="volume_button_setting_entries">
-        <item>Posponer l\'alarma</item>
-        <item>Escartar</item>
-        <item>Controlar volume</item>
-        <item>Nada</item>
-    </string-array>
+    <string name="button_action_snooze">Posponer l\'alarma</string>
+    <string name="button_action_dismiss">Escartar</string>
+    <string name="button_action_control_volume">Controlar volume</string>
+    <string name="button_action_nothing">Nada</string>
     <string name="label_description">Nome</string>
     <string name="ringtone_description">Timbre</string>
     <string name="menu_alarm">Alarma</string>
@@ -192,28 +179,24 @@
     <string name="missed_named_timer_notification_label">Cronu desapaecíu: <xliff:g example="Pick up kids" id="name">%s</xliff:g></string>
     <string name="timer_pause">Posar</string>
     <string name="timer_reset_all">Reaniciar tolos temporizadores</string>
-    <string-array name="sw_share_strings" translatable="true">
-        <item>Yes el rei de la velocidá.</item>
-        <item>Esfruta de los frutos del to trabayu.</item>
-        <item>Los androides son conocíos por ser rápidos, pero non tanto como tu.</item>
-        <item>¡Uf!</item>
-        <item>L33t vegaes</item>
-        <item>Una velocidá ablucante</item>
-        <item>Vamos a saltar nel tiempu otra vegada.</item>
-        <item>Namái un saltu a la esquierda</item>
-        <item>Tienes munches coses que facer en pocu tiempu.</item>
-        <item>Velocidá fotónica</item>
-    </string-array>
+    <string name="jocular_content_message_1">Yes el rei de la velocidá.</string>
+    <string name="jocular_content_message_2">Esfruta de los frutos del to trabayu.</string>
+    <string name="jocular_content_message_3">Los androides son conocíos por ser rápidos, pero non tanto como tu.</string>
+    <string name="jocular_content_message_4">¡Uf!</string>
+    <string name="jocular_content_message_5">L33t vegaes</string>
+    <string name="jocular_content_message_6">Una velocidá ablucante</string>
+    <string name="jocular_content_message_7">Vamos a saltar nel tiempu otra vegada.</string>
+    <string name="jocular_content_message_8">Namái un saltu a la esquierda</string>
+    <string name="jocular_content_message_9">Tienes munches coses que facer en pocu tiempu.</string>
+    <string name="jocular_content_message_10">Velocidá fotónica</string>
     <string name="home_label">Casa</string>
     <string name="cities_activity_title">Ciudaes</string>
     <string name="clock_settings">Reló</string>
     <string name="clock_style">Estilu</string>
     <string name="display_clock_seconds_pref">Pantalla de tiempu con segundos</string>
     <string name="open_date_settings">Camudar data \u0026 y hora</string>
-    <string-array name="clock_style_entries">
-        <item>Analóxicu</item>
-        <item>Dixital</item>
-    </string-array>
+    <string name="clock_style_analog">Analóxicu</string>
+    <string name="clock_style_digital">Dixital</string>
     <string name="automatic_home_clock">Reló de la to ciudá automáticu</string>
     <string name="automatic_home_clock_summary">Cuando viaxes a una zona con una hora diferente, amiesta un reló pa la hora de la to ciudá</string>
     <string name="home_time_zone">Estaya horaria llocal</string>
@@ -366,9 +349,4 @@
     <string name="alarm_is_snoozed">L\'alarma <xliff:g example="14:20" id="alarm_time">%s</xliff:g> pospúsose por diez minutos</string>
     <string name="flip_action_title">Aición al voltiar el preséu</string>
     <string name="shake_action_title">Aición al ximelgar el preséu</string>
-    <string-array name="action_setting_entries">
-        <item>Posponer</item>
-        <item>Escartar</item>
-        <item>Nada</item>
-    </string-array>
 </resources>

@@ -98,66 +98,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> mínútur</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Aldrei"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 mínúta"</item>
-        <item msgid="5431906692406316549">"5 mínútur"</item>
-        <item msgid="7742728812068919959">"10 mínútur"</item>
-        <item msgid="2855948657259647629">"15 mínútur"</item>
-        <item msgid="6330196381284475079">"20 mínútur"</item>
-        <item msgid="7809240121716151904">"25 mínútur"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Aldrei"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Slökkt"</item>
-        <item msgid="7195451681426992018">"5 sekúndur"</item>
-        <item msgid="592917601923801901">"10 sekúndur"</item>
-        <item msgid="5050318776687582653">"15 sekúndur"</item>
-        <item msgid="6997726466563948756">"20 sekúndur"</item>
-        <item msgid="248014374051498284">"30 sekúndur"</item>
-        <item msgid="8010211657612404516">"40 sekúndur"</item>
-        <item msgid="623829984393124488">"50 sekúndur"</item>
-        <item msgid="5261571706794132923">"60 sekúndur"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 mínúta"</item>
-        <item msgid="4482596794620161030">"2 mínútur"</item>
-        <item msgid="8478276201849960314">"3 mínútur"</item>
-        <item msgid="4038456474851212478">"4 mínútur"</item>
-        <item msgid="6298175579152122770">"5 mínútur"</item>
-        <item msgid="9021860177999278496">"6 mínútur"</item>
-        <item msgid="7224689200902680256">"7 mínútur"</item>
-        <item msgid="4610012663985162123">"8 mínútur"</item>
-        <item msgid="1717028898015659426">"9 mínútur"</item>
-        <item msgid="8058492636464337699">"10 mínútur"</item>
-        <item msgid="577767219993868603">"11 mínútur"</item>
-        <item msgid="3710047869487864775">"12 mínútur"</item>
-        <item msgid="3794200935630619331">"13 mínútur"</item>
-        <item msgid="5462266433522229437">"14 mínútur"</item>
-        <item msgid="2192100038569306041">"15 mínútur"</item>
-        <item msgid="6636326047858437620">"16 mínútur"</item>
-        <item msgid="2481054808772108352">"17 mínútur"</item>
-        <item msgid="4080984064428458050">"18 mínútur"</item>
-        <item msgid="5844319398703041730">"19 mínútur"</item>
-        <item msgid="2334964289857921073">"20 mínútur"</item>
-        <item msgid="4755209855817904977">"21 mínúta"</item>
-        <item msgid="8414394445389367355">"22 mínútur"</item>
-        <item msgid="2604612428763230265">"23 mínútur"</item>
-        <item msgid="6871696471373403806">"24 mínútur"</item>
-        <item msgid="1573685398431466364">"25 mínútur"</item>
-        <item msgid="6999090368236684971">"26 mínútur"</item>
-        <item msgid="7125056720603734703">"27 mínútur"</item>
-        <item msgid="1695830988496463030">"28 mínútur"</item>
-        <item msgid="6706610539793025916">"29 mínútur"</item>
-        <item msgid="2898212818965905529">"30 mínútur"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 mínúta</string>
+    <string name="auto_silence_5_minutes">5 mínútur</string>
+    <string name="auto_silence_10_minutes">10 mínútur</string>
+    <string name="auto_silence_15_minutes">15 mínútur</string>
+    <string name="auto_silence_20_minutes">20 mínútur</string>
+    <string name="auto_silence_25_minutes">25 mínútur</string>
+    <string name="label_off">Slökkt</string>
+    <string name="crescendo_5_seconds">5 sekúndur</string>
+    <string name="crescendo_10_seconds">10 sekúndur</string>
+    <string name="crescendo_15_seconds">15 sekúndur</string>
+    <string name="crescendo_20_seconds">20 sekúndur</string>
+    <string name="crescendo_30_seconds">30 sekúndur</string>
+    <string name="crescendo_40_seconds">40 sekúndur</string>
+    <string name="crescendo_50_seconds">50 sekúndur</string>
+    <string name="crescendo_60_seconds">60 sekúndur</string>
+    <string name="snooze_duration_1_minute">1 mínúta</string>
+    <string name="snooze_duration_2_minutes">2 mínútur</string>
+    <string name="snooze_duration_3_minutes">3 mínútur</string>
+    <string name="snooze_duration_4_minutes">4 mínútur</string>
+    <string name="snooze_duration_5_minutes">5 mínútur</string>
+    <string name="snooze_duration_6_minutes">6 mínútur</string>
+    <string name="snooze_duration_7_minutes">7 mínútur</string>
+    <string name="snooze_duration_8_minutes">8 mínútur</string>
+    <string name="snooze_duration_9_minutes">9 mínútur</string>
+    <string name="snooze_duration_10_minutes">10 mínútur</string>
+    <string name="snooze_duration_11_minutes">11 mínútur</string>
+    <string name="snooze_duration_12_minutes">12 mínútur</string>
+    <string name="snooze_duration_13_minutes">13 mínútur</string>
+    <string name="snooze_duration_14_minutes">14 mínútur</string>
+    <string name="snooze_duration_15_minutes">15 mínútur</string>
+    <string name="snooze_duration_16_minutes">16 mínútur</string>
+    <string name="snooze_duration_17_minutes">17 mínútur</string>
+    <string name="snooze_duration_18_minutes">18 mínútur</string>
+    <string name="snooze_duration_19_minutes">19 mínútur</string>
+    <string name="snooze_duration_20_minutes">20 mínútur</string>
+    <string name="snooze_duration_21_minutes">21 mínútur</string>
+    <string name="snooze_duration_22_minutes">22 mínútur</string>
+    <string name="snooze_duration_23_minutes">23 mínútur</string>
+    <string name="snooze_duration_24_minutes">24 mínútur</string>
+    <string name="snooze_duration_25_minutes">25 mínútur</string>
+    <string name="snooze_duration_26_minutes">26 mínútur</string>
+    <string name="snooze_duration_27_minutes">27 mínútur</string>
+    <string name="snooze_duration_28_minutes">28 mínútur</string>
+    <string name="snooze_duration_29_minutes">29 mínútur</string>
+    <string name="snooze_duration_30_minutes">30 mínútur</string>
     <string name="week_start_title" msgid="4268917518596832096">"Vikan hefst á"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Laugardegi"</item>
-        <item msgid="3993530639455360921">"Sunnudegi"</item>
-        <item msgid="8594709368683324282">"Mánudegi"</item>
-    </string-array>
+    <string name="week_start_saturday">Laugardegi</string>
+    <string name="week_start_sunday">Sunnudegi</string>
+    <string name="week_start_monday">Mánudegi</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Hljóðstyrkur vekjara"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Hljóðlaus"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Óþekktur"</string>
@@ -167,12 +156,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Breyta"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Tækið er stillt á algjöra þögn"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Hljóðstyrkstakkar"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Blunda"</item>
-        <item msgid="3450979320164769576">"Hunsa"</item>
-        <item msgid="7085774139907653538">"Stjórna hljóðstyrk"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Blunda</string>
+    <string name="button_action_dismiss">Hunsa</string>
+    <string name="button_action_control_volume">Stjórna hljóðstyrk</string>
     <string name="label_description" msgid="8736179296142915727">"Skýring"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Hringitónn"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Vekjari"</string>
@@ -222,28 +208,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Skolli ferðu hratt yfir."</item>
-        <item msgid="6332879039890727169">"Njóttu ávaxta erfiðisins."</item>
-        <item msgid="815382761274660130">"Android er hraðvirkt en á ekkert í þig!"</item>
-        <item msgid="7916250650982813737">"Hjúff."</item>
-        <item msgid="6836603904515182333">"Hér eru brögð í tafli."</item>
-        <item msgid="7508085100680861631">"Vonandi flýtirðu þér ekki svona mikið í öllu sem þú gerir."</item>
-        <item msgid="5961245252909589573">"Ég hljóp svo hratt að ég hrasaði og datt."</item>
-        <item msgid="5211891900854545940">"Bíddu, pabbi, bíddu mín."</item>
-        <item msgid="9071353477103826053">"Með háskólagráðu í hraða."</item>
-        <item msgid="3785193933691117181">"Á hraða ljóssins."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Skolli ferðu hratt yfir."</string>
+    <string name="jocular_content_message_2">"Njóttu ávaxta erfiðisins."</string>
+    <string name="jocular_content_message_3">"Android er hraðvirkt en á ekkert í þig!"</string>
+    <string name="jocular_content_message_4">"Hjúff."</string>
+    <string name="jocular_content_message_5">"Hér eru brögð í tafli."</string>
+    <string name="jocular_content_message_6">"Vonandi flýtirðu þér ekki svona mikið í öllu sem þú gerir."</string>
+    <string name="jocular_content_message_7">"Ég hljóp svo hratt að ég hrasaði og datt."</string>
+    <string name="jocular_content_message_8">"Bíddu, pabbi, bíddu mín."</string>
+    <string name="jocular_content_message_9">"Með háskólagráðu í hraða."</string>
+    <string name="jocular_content_message_10">"Á hraða ljóssins."</string>
     <string name="home_label" msgid="4436139365695453870">"Heima"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Borgir"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Klukka"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stíll"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Sýna tíma með sekúndum"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Breyta dag- og tímasetningu"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Með vísum"</item>
-        <item msgid="8483930821046925592">"Stafræn"</item>
-    </string-array>
+    <string name="clock_style_analog">Með vísum</string>
+    <string name="clock_style_digital">Stafræn</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Sjálfvirk heimaklukka"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Bæta við heimaklukku þegar ferðast er um svæði þar sem tíminn er annar"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Heimatímabelti"</string>

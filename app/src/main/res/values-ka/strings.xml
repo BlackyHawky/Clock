@@ -98,66 +98,55 @@
         <item quantity="one">1 წუთი</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"არასოდეს"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 წუთი"</item>
-        <item msgid="5431906692406316549">"5 წუთი"</item>
-        <item msgid="7742728812068919959">"10 წუთი"</item>
-        <item msgid="2855948657259647629">"15 წუთი"</item>
-        <item msgid="6330196381284475079">"20 წუთი"</item>
-        <item msgid="7809240121716151904">"25 წუთი"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"არასოდეს"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"გამორთული"</item>
-        <item msgid="7195451681426992018">"5 წამი"</item>
-        <item msgid="592917601923801901">"10 წამი"</item>
-        <item msgid="5050318776687582653">"15 წამი"</item>
-        <item msgid="6997726466563948756">"20 წამი"</item>
-        <item msgid="248014374051498284">"30 წამი"</item>
-        <item msgid="8010211657612404516">"40 წამი"</item>
-        <item msgid="623829984393124488">"50 წამი"</item>
-        <item msgid="5261571706794132923">"60 წამი"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 წუთი"</item>
-        <item msgid="4482596794620161030">"2 წუთი"</item>
-        <item msgid="8478276201849960314">"3 წუთი"</item>
-        <item msgid="4038456474851212478">"4 წუთი"</item>
-        <item msgid="6298175579152122770">"5 წუთი"</item>
-        <item msgid="9021860177999278496">"6 წუთი"</item>
-        <item msgid="7224689200902680256">"7 წუთი"</item>
-        <item msgid="4610012663985162123">"8 წუთი"</item>
-        <item msgid="1717028898015659426">"9 წუთი"</item>
-        <item msgid="8058492636464337699">"10 წუთი"</item>
-        <item msgid="577767219993868603">"11 წუთი"</item>
-        <item msgid="3710047869487864775">"12 წუთი"</item>
-        <item msgid="3794200935630619331">"13 წუთი"</item>
-        <item msgid="5462266433522229437">"14 წუთი"</item>
-        <item msgid="2192100038569306041">"15 წუთი"</item>
-        <item msgid="6636326047858437620">"16 წუთი"</item>
-        <item msgid="2481054808772108352">"17 წუთი"</item>
-        <item msgid="4080984064428458050">"18 წუთი"</item>
-        <item msgid="5844319398703041730">"19 წუთი"</item>
-        <item msgid="2334964289857921073">"20 წუთი"</item>
-        <item msgid="4755209855817904977">"21 წუთი"</item>
-        <item msgid="8414394445389367355">"22 წუთი"</item>
-        <item msgid="2604612428763230265">"23 წუთი"</item>
-        <item msgid="6871696471373403806">"24 წუთი"</item>
-        <item msgid="1573685398431466364">"25 წუთი"</item>
-        <item msgid="6999090368236684971">"26 წუთი"</item>
-        <item msgid="7125056720603734703">"27 წუთი"</item>
-        <item msgid="1695830988496463030">"28 წუთი"</item>
-        <item msgid="6706610539793025916">"29 წუთი"</item>
-        <item msgid="2898212818965905529">"30 წუთი"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 წუთი</string>
+    <string name="auto_silence_5_minutes">5 წუთი</string>
+    <string name="auto_silence_10_minutes">10 წუთი</string>
+    <string name="auto_silence_15_minutes">15 წუთი</string>
+    <string name="auto_silence_20_minutes">20 წუთი</string>
+    <string name="auto_silence_25_minutes">25 წუთი</string>
+    <string name="label_off">გამორთული</string>
+    <string name="crescendo_5_seconds">5 წამი</string>
+    <string name="crescendo_10_seconds">10 წამი</string>
+    <string name="crescendo_15_seconds">15 წამი</string>
+    <string name="crescendo_20_seconds">20 წამი</string>
+    <string name="crescendo_30_seconds">30 წამი</string>
+    <string name="crescendo_40_seconds">40 წამი</string>
+    <string name="crescendo_50_seconds">50 წამი</string>
+    <string name="crescendo_60_seconds">60 წამი</string>
+    <string name="snooze_duration_1_minute">1 წუთი</string>
+    <string name="snooze_duration_2_minutes">2 წუთი</string>
+    <string name="snooze_duration_3_minutes">3 წუთი</string>
+    <string name="snooze_duration_4_minutes">4 წუთი</string>
+    <string name="snooze_duration_5_minutes">5 წუთი</string>
+    <string name="snooze_duration_6_minutes">6 წუთი</string>
+    <string name="snooze_duration_7_minutes">7 წუთი</string>
+    <string name="snooze_duration_8_minutes">8 წუთი</string>
+    <string name="snooze_duration_9_minutes">9 წუთი</string>
+    <string name="snooze_duration_10_minutes">10 წუთი</string>
+    <string name="snooze_duration_11_minutes">11 წუთი</string>
+    <string name="snooze_duration_12_minutes">12 წუთი</string>
+    <string name="snooze_duration_13_minutes">13 წუთი</string>
+    <string name="snooze_duration_14_minutes">14 წუთი</string>
+    <string name="snooze_duration_15_minutes">15 წუთი</string>
+    <string name="snooze_duration_16_minutes">16 წუთი</string>
+    <string name="snooze_duration_17_minutes">17 წუთი</string>
+    <string name="snooze_duration_18_minutes">18 წუთი</string>
+    <string name="snooze_duration_19_minutes">19 წუთი</string>
+    <string name="snooze_duration_20_minutes">20 წუთი</string>
+    <string name="snooze_duration_21_minutes">21 წუთი</string>
+    <string name="snooze_duration_22_minutes">22 წუთი</string>
+    <string name="snooze_duration_23_minutes">23 წუთი</string>
+    <string name="snooze_duration_24_minutes">24 წუთი</string>
+    <string name="snooze_duration_25_minutes">25 წუთი</string>
+    <string name="snooze_duration_26_minutes">26 წუთი</string>
+    <string name="snooze_duration_27_minutes">27 წუთი</string>
+    <string name="snooze_duration_28_minutes">28 წუთი</string>
+    <string name="snooze_duration_29_minutes">29 წუთი</string>
+    <string name="snooze_duration_30_minutes">30 წუთი</string>
     <string name="week_start_title" msgid="4268917518596832096">"კვირის დაწყების დღეა"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"შაბათი"</item>
-        <item msgid="3993530639455360921">"კვირა"</item>
-        <item msgid="8594709368683324282">"ორშაბათი"</item>
-    </string-array>
+    <string name="week_start_saturday">შაბათი</string>
+    <string name="week_start_sunday">კვირა</string>
+    <string name="week_start_monday">ორშაბათი</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"მაღვიძარას ხმა"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ჩუმი"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"უცნობი"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"შეცვლა"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"მოწყობილობა დაყენებულია სრული სიჩუმის რეჟიმზე"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ხმის ღილაკები"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"ჩაჩუმება"</item>
-        <item msgid="3450979320164769576">"დახურვა"</item>
-        <item msgid="7085774139907653538">"ხმის მართვა"</item>
-        <item>არაფერი</item>
-    </string-array>
+    <string name="button_action_snooze">ჩაჩუმება</string>
+    <string name="button_action_dismiss">დახურვა</string>
+    <string name="button_action_control_volume">ხმის მართვა</string>
+    <string name="button_action_nothing">არაფერი</string>
     <string name="label_description" msgid="8736179296142915727">"ლეიბლი"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"ზარი"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"მაღვიძარა"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"საკმაოდ სწრაფი ხართ."</item>
-        <item msgid="6332879039890727169">"ისიამოვნეთ თქვენი შრომის ნაყოფით."</item>
-        <item msgid="815382761274660130">"ანდროიდები ცნობილია, როგორც სწრაფი. მაგრამ თქვეზე სწარფი მაინც ვერაა!"</item>
-        <item msgid="7916250650982813737">"Phew."</item>
-        <item msgid="6836603904515182333">"L33t times."</item>
-        <item msgid="7508085100680861631">"ამას ჰქვია სიჩქარე!"</item>
-        <item msgid="5961245252909589573">"მოდით, ისევ შევეჭიდოთ დროს."</item>
-        <item msgid="5211891900854545940">"უბრალოდ მარცხნივ ახტომა."</item>
-        <item msgid="9071353477103826053">"დროს ნუ დაკარგავთ."</item>
-        <item msgid="3785193933691117181">"ფოტონური სისწრაფე."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"საკმაოდ სწრაფი ხართ."</string>
+    <string name="jocular_content_message_2">"ისიამოვნეთ თქვენი შრომის ნაყოფით."</string>
+    <string name="jocular_content_message_3">"ანდროიდები ცნობილია, როგორც სწრაფი. მაგრამ თქვეზე სწარფი მაინც ვერაა!"</string>
+    <string name="jocular_content_message_4">"Phew."</string>
+    <string name="jocular_content_message_5">"L33t times."</string>
+    <string name="jocular_content_message_6">"ამას ჰქვია სიჩქარე!"</string>
+    <string name="jocular_content_message_7">"მოდით, ისევ შევეჭიდოთ დროს."</string>
+    <string name="jocular_content_message_8">"უბრალოდ მარცხნივ ახტომა."</string>
+    <string name="jocular_content_message_9">"დროს ნუ დაკარგავთ."</string>
+    <string name="jocular_content_message_10">"ფოტონური სისწრაფე."</string>
     <string name="home_label" msgid="4436139365695453870">"ჩემი"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ქალაქები"</string>
     <string name="clock_settings" msgid="8317286807280600391">"საათი"</string>
     <string name="clock_style" msgid="2265011060429742344">"სტილი"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"დროის წამებთან ერთად ჩვენება"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"თარიღისა და დროის შეცვლა"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"ისრებიანი"</item>
-        <item msgid="8483930821046925592">"ციფრული"</item>
-    </string-array>
+    <string name="clock_style_analog">ისრებიანი</string>
+    <string name="clock_style_digital">ციფრული</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი სახლის დროს საჩვენებლად"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"სახლის დროის სარტყელი"</string>
@@ -395,11 +378,6 @@
     <string name="no_firing_alarms" msgid="4986161963178722289">"აქტიური მაღვიძარა არ არის"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>-ის მაღვიძარა 10 წუთით ჩაჩუმდა"</string>
     <string name="flip_action_title">მოქმედება მოწყობილობის შეტრიალებისას</string>
-    <string-array name="action_setting_entries">
-        <item>გადადება</item>
-        <item>გაუქმება</item>
-        <item>არაფერი</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">საგანგებო სიგნალები და წამზომები</string>
     <string name="alarm_missed_channel">გაცდენილი მაღვიძარა</string>
     <string name="alarm_snooze_channel">გადადებული მაღვიძარა</string>

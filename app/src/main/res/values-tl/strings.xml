@@ -98,66 +98,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> na minuto</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hindi Kailanman"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minuto"</item>
-        <item msgid="5431906692406316549">"5 minuto"</item>
-        <item msgid="7742728812068919959">"10 minuto"</item>
-        <item msgid="2855948657259647629">"15 minuto"</item>
-        <item msgid="6330196381284475079">"20 minuto"</item>
-        <item msgid="7809240121716151904">"25 minuto"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Hindi Kailanman"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Naka-off"</item>
-        <item msgid="7195451681426992018">"5 segundo"</item>
-        <item msgid="592917601923801901">"10 segundo"</item>
-        <item msgid="5050318776687582653">"15 segundo"</item>
-        <item msgid="6997726466563948756">"20 segundo"</item>
-        <item msgid="248014374051498284">"30 segundo"</item>
-        <item msgid="8010211657612404516">"40 segundo"</item>
-        <item msgid="623829984393124488">"50 segundo"</item>
-        <item msgid="5261571706794132923">"60 segundo"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minuto"</item>
-        <item msgid="4482596794620161030">"2 minuto"</item>
-        <item msgid="8478276201849960314">"3 minuto"</item>
-        <item msgid="4038456474851212478">"4 na minuto"</item>
-        <item msgid="6298175579152122770">"5 minuto"</item>
-        <item msgid="9021860177999278496">"6 na minuto"</item>
-        <item msgid="7224689200902680256">"7 minuto"</item>
-        <item msgid="4610012663985162123">"8 minuto"</item>
-        <item msgid="1717028898015659426">"9 na minuto"</item>
-        <item msgid="8058492636464337699">"10 minuto"</item>
-        <item msgid="577767219993868603">"11 minuto"</item>
-        <item msgid="3710047869487864775">"12 minuto"</item>
-        <item msgid="3794200935630619331">"13 minuto"</item>
-        <item msgid="5462266433522229437">"14 na minuto"</item>
-        <item msgid="2192100038569306041">"15 minuto"</item>
-        <item msgid="6636326047858437620">"16 na minuto"</item>
-        <item msgid="2481054808772108352">"17 minuto"</item>
-        <item msgid="4080984064428458050">"18 minuto"</item>
-        <item msgid="5844319398703041730">"19 na minuto"</item>
-        <item msgid="2334964289857921073">"20 minuto"</item>
-        <item msgid="4755209855817904977">"21 minuto"</item>
-        <item msgid="8414394445389367355">"22 minuto"</item>
-        <item msgid="2604612428763230265">"23 minuto"</item>
-        <item msgid="6871696471373403806">"24 na minuto"</item>
-        <item msgid="1573685398431466364">"25 minuto"</item>
-        <item msgid="6999090368236684971">"26 na minuto"</item>
-        <item msgid="7125056720603734703">"27 minuto"</item>
-        <item msgid="1695830988496463030">"28 minuto"</item>
-        <item msgid="6706610539793025916">"29 na minuto"</item>
-        <item msgid="2898212818965905529">"30 minuto"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minuto</string>
+    <string name="auto_silence_5_minutes">5 minuto</string>
+    <string name="auto_silence_10_minutes">10 minuto</string>
+    <string name="auto_silence_15_minutes">15 minuto</string>
+    <string name="auto_silence_20_minutes">20 minuto</string>
+    <string name="auto_silence_25_minutes">25 minuto</string>
+    <string name="label_off">Naka-off</string>
+    <string name="crescendo_5_seconds">5 segundo</string>
+    <string name="crescendo_10_seconds">10 segundo</string>
+    <string name="crescendo_15_seconds">15 segundo</string>
+    <string name="crescendo_20_seconds">20 segundo</string>
+    <string name="crescendo_30_seconds">30 segundo</string>
+    <string name="crescendo_40_seconds">40 segundo</string>
+    <string name="crescendo_50_seconds">50 segundo</string>
+    <string name="crescendo_60_seconds">60 segundo</string>
+    <string name="snooze_duration_1_minute">1 minuto</string>
+    <string name="snooze_duration_2_minutes">2 minuto</string>
+    <string name="snooze_duration_3_minutes">3 minuto</string>
+    <string name="snooze_duration_4_minutes">4 minuto</string>
+    <string name="snooze_duration_5_minutes">5 minuto</string>
+    <string name="snooze_duration_6_minutes">6 minuto</string>
+    <string name="snooze_duration_7_minutes">7 minuto</string>
+    <string name="snooze_duration_8_minutes">8 minuto</string>
+    <string name="snooze_duration_9_minutes">9 minuto</string>
+    <string name="snooze_duration_10_minutes">10 minuto</string>
+    <string name="snooze_duration_11_minutes">11 minuto</string>
+    <string name="snooze_duration_12_minutes">12 minuto</string>
+    <string name="snooze_duration_13_minutes">13 minuto</string>
+    <string name="snooze_duration_14_minutes">14 minuto</string>
+    <string name="snooze_duration_15_minutes">15 minuto</string>
+    <string name="snooze_duration_16_minutes">16 minuto</string>
+    <string name="snooze_duration_17_minutes">17 minuto</string>
+    <string name="snooze_duration_18_minutes">18 minuto</string>
+    <string name="snooze_duration_19_minutes">19 minuto</string>
+    <string name="snooze_duration_20_minutes">20 minuto</string>
+    <string name="snooze_duration_21_minutes">21 minuto</string>
+    <string name="snooze_duration_22_minutes">22 minuto</string>
+    <string name="snooze_duration_23_minutes">23 minuto</string>
+    <string name="snooze_duration_24_minutes">24 minuto</string>
+    <string name="snooze_duration_25_minutes">25 minuto</string>
+    <string name="snooze_duration_26_minutes">26 minuto</string>
+    <string name="snooze_duration_27_minutes">27 minuto</string>
+    <string name="snooze_duration_28_minutes">28 minuto</string>
+    <string name="snooze_duration_29_minutes">29 minuto</string>
+    <string name="snooze_duration_30_minutes">30 minuto</string>
     <string name="week_start_title" msgid="4268917518596832096">"Simulan ang linggo sa"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Sabado"</item>
-        <item msgid="3993530639455360921">"Linggo"</item>
-        <item msgid="8594709368683324282">"Lunes"</item>
-    </string-array>
+    <string name="week_start_saturday">Sabado</string>
+    <string name="week_start_sunday">Linggo</string>
+    <string name="week_start_monday">Lunes</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lakas ng tunog ng alarm"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Naka-silent"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Hindi alam"</string>
@@ -167,12 +156,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Palitan"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Nakatakda ang device na hindi talaga tumunog"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Button ng volume"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"I-snooze"</item>
-        <item msgid="3450979320164769576">"I-dismiss"</item>
-        <item msgid="7085774139907653538">"Kontrolin ang volume"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">I-snooze</string>
+    <string name="button_action_dismiss">I-dismiss</string>
+    <string name="button_action_control_volume">Kontrolin ang volume</string>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
@@ -222,28 +208,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Napakabilis mo naman."</item>
-        <item msgid="6332879039890727169">"I-enjoy ang mga pinagsikapan mo."</item>
-        <item msgid="815382761274660130">"Kilalang mabilis ang mga Android, ngunit hindi kasing bilis mo!"</item>
-        <item msgid="7916250650982813737">"Phew."</item>
-        <item msgid="6836603904515182333">"L33t times."</item>
-        <item msgid="7508085100680861631">"Lubhang napakabilis."</item>
-        <item msgid="5961245252909589573">"Mag-time warp tayo ulit."</item>
-        <item msgid="5211891900854545940">"Isang talon lang pakaliwa."</item>
-        <item msgid="9071353477103826053">"Mahilig kang magmadali."</item>
-        <item msgid="3785193933691117181">"Kasing bilis ng liwanag."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Napakabilis mo naman."</string>
+    <string name="jocular_content_message_2">"I-enjoy ang mga pinagsikapan mo."</string>
+    <string name="jocular_content_message_3">"Kilalang mabilis ang mga Android, ngunit hindi kasing bilis mo!"</string>
+    <string name="jocular_content_message_4">"Phew."</string>
+    <string name="jocular_content_message_5">"L33t times."</string>
+    <string name="jocular_content_message_6">"Lubhang napakabilis."</string>
+    <string name="jocular_content_message_7">"Mag-time warp tayo ulit."</string>
+    <string name="jocular_content_message_8">"Isang talon lang pakaliwa."</string>
+    <string name="jocular_content_message_9">"Mahilig kang magmadali."</string>
+    <string name="jocular_content_message_10">"Kasing bilis ng liwanag."</string>
     <string name="home_label" msgid="4436139365695453870">"Local"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Mga Lungsod"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Orasan"</string>
     <string name="clock_style" msgid="2265011060429742344">"Istilo"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Ipakita ang oras na may mga segundo"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Baguhin ang petsa at oras"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analog"</item>
-        <item msgid="8483930821046925592">"Digital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Awtomatikong orasan sa tahanan"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Habang nasa isang lugar kung saan iba ang oras, magdagdag ng orasan para sa tahanan"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Time zone sa tahanan"</string>

@@ -98,66 +98,55 @@
         <item quantity="one">1 phút</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Không bao giờ"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 phút"</item>
-        <item msgid="5431906692406316549">"5 phút"</item>
-        <item msgid="7742728812068919959">"10 phút"</item>
-        <item msgid="2855948657259647629">"15 phút"</item>
-        <item msgid="6330196381284475079">"20 phút"</item>
-        <item msgid="7809240121716151904">"25 phút"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Không bao giờ"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Tắt"</item>
-        <item msgid="7195451681426992018">"5 giây"</item>
-        <item msgid="592917601923801901">"10 giây"</item>
-        <item msgid="5050318776687582653">"15 giây"</item>
-        <item msgid="6997726466563948756">"20 giây"</item>
-        <item msgid="248014374051498284">"30 giây"</item>
-        <item msgid="8010211657612404516">"40 giây"</item>
-        <item msgid="623829984393124488">"50 giây"</item>
-        <item msgid="5261571706794132923">"60 giây"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 phút"</item>
-        <item msgid="4482596794620161030">"2 phút"</item>
-        <item msgid="8478276201849960314">"3 phút"</item>
-        <item msgid="4038456474851212478">"4 phút"</item>
-        <item msgid="6298175579152122770">"5 phút"</item>
-        <item msgid="9021860177999278496">"6 phút"</item>
-        <item msgid="7224689200902680256">"7 phút"</item>
-        <item msgid="4610012663985162123">"8 phút"</item>
-        <item msgid="1717028898015659426">"9 phút"</item>
-        <item msgid="8058492636464337699">"10 phút"</item>
-        <item msgid="577767219993868603">"11 phút"</item>
-        <item msgid="3710047869487864775">"12 phút"</item>
-        <item msgid="3794200935630619331">"13 phút"</item>
-        <item msgid="5462266433522229437">"14 phút"</item>
-        <item msgid="2192100038569306041">"15 phút"</item>
-        <item msgid="6636326047858437620">"16 phút"</item>
-        <item msgid="2481054808772108352">"17 phút"</item>
-        <item msgid="4080984064428458050">"18 phút"</item>
-        <item msgid="5844319398703041730">"19 phút"</item>
-        <item msgid="2334964289857921073">"20 phút"</item>
-        <item msgid="4755209855817904977">"21 phút"</item>
-        <item msgid="8414394445389367355">"22 phút"</item>
-        <item msgid="2604612428763230265">"23 phút"</item>
-        <item msgid="6871696471373403806">"24 phút"</item>
-        <item msgid="1573685398431466364">"25 phút"</item>
-        <item msgid="6999090368236684971">"26 phút"</item>
-        <item msgid="7125056720603734703">"27 phút"</item>
-        <item msgid="1695830988496463030">"28 phút"</item>
-        <item msgid="6706610539793025916">"29 phút"</item>
-        <item msgid="2898212818965905529">"30 phút"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 phút</string>
+    <string name="auto_silence_5_minutes">5 phút</string>
+    <string name="auto_silence_10_minutes">10 phút</string>
+    <string name="auto_silence_15_minutes">15 phút</string>
+    <string name="auto_silence_20_minutes">20 phút</string>
+    <string name="auto_silence_25_minutes">25 phút</string>
+    <string name="label_off">Tắt</string>
+    <string name="crescendo_5_seconds">5 giây</string>
+    <string name="crescendo_10_seconds">10 giây</string>
+    <string name="crescendo_15_seconds">15 giây</string>
+    <string name="crescendo_20_seconds">20 giây</string>
+    <string name="crescendo_30_seconds">30 giây</string>
+    <string name="crescendo_40_seconds">40 giây</string>
+    <string name="crescendo_50_seconds">50 giây</string>
+    <string name="crescendo_60_seconds">60 giây</string>
+    <string name="snooze_duration_1_minute">1 phút</string>
+    <string name="snooze_duration_2_minutes">2 phút</string>
+    <string name="snooze_duration_3_minutes">3 phút</string>
+    <string name="snooze_duration_4_minutes">4 phút</string>
+    <string name="snooze_duration_5_minutes">5 phút</string>
+    <string name="snooze_duration_6_minutes">6 phút</string>
+    <string name="snooze_duration_7_minutes">7 phút</string>
+    <string name="snooze_duration_8_minutes">8 phút</string>
+    <string name="snooze_duration_9_minutes">9 phút</string>
+    <string name="snooze_duration_10_minutes">10 phút</string>
+    <string name="snooze_duration_11_minutes">11 phút</string>
+    <string name="snooze_duration_12_minutes">12 phút</string>
+    <string name="snooze_duration_13_minutes">13 phút</string>
+    <string name="snooze_duration_14_minutes">14 phút</string>
+    <string name="snooze_duration_15_minutes">15 phút</string>
+    <string name="snooze_duration_16_minutes">16 phút</string>
+    <string name="snooze_duration_17_minutes">17 phút</string>
+    <string name="snooze_duration_18_minutes">18 phút</string>
+    <string name="snooze_duration_19_minutes">19 phút</string>
+    <string name="snooze_duration_20_minutes">20 phút</string>
+    <string name="snooze_duration_21_minutes">21 phút</string>
+    <string name="snooze_duration_22_minutes">22 phút</string>
+    <string name="snooze_duration_23_minutes">23 phút</string>
+    <string name="snooze_duration_24_minutes">24 phút</string>
+    <string name="snooze_duration_25_minutes">25 phút</string>
+    <string name="snooze_duration_26_minutes">26 phút</string>
+    <string name="snooze_duration_27_minutes">27 phút</string>
+    <string name="snooze_duration_28_minutes">28 phút</string>
+    <string name="snooze_duration_29_minutes">29 phút</string>
+    <string name="snooze_duration_30_minutes">30 phút</string>
     <string name="week_start_title" msgid="4268917518596832096">"Tuần bắt đầu vào"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Thứ Bảy"</item>
-        <item msgid="3993530639455360921">"Chủ Nhật"</item>
-        <item msgid="8594709368683324282">"Thứ Hai"</item>
-    </string-array>
+    <string name="week_start_saturday">Thứ Bảy</string>
+    <string name="week_start_sunday">Chủ Nhật</string>
+    <string name="week_start_monday">Thứ Hai</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Âm lượng báo thức"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Im lặng"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Không xác định"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Thay đổi"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Thiết bị được đặt thành hoàn toàn tắt tiếng"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Nút âm lượng"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Báo lại"</item>
-        <item msgid="3450979320164769576">"Loại bỏ"</item>
-        <item msgid="7085774139907653538">"Điều khiển âm lượng"</item>
-        <item>Không có</item>
-    </string-array>
+    <string name="button_action_snooze">Báo lại</string>
+    <string name="button_action_dismiss">Loại bỏ</string>
+    <string name="button_action_control_volume">Điều khiển âm lượng</string>
+    <string name="button_action_nothing">Không có</string>
     <string name="label_description" msgid="8736179296142915727">"Nhãn"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Nhạc chuông"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Báo thức"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Bạn đúng là con quỷ tốc độ."</item>
-        <item msgid="6332879039890727169">"Tận hưởng thành quả lao động của bạn."</item>
-        <item msgid="815382761274660130">"Android được cho là nhanh, nhưng không nhanh bằng bạn!"</item>
-        <item msgid="7916250650982813737">"Kinh quá."</item>
-        <item msgid="6836603904515182333">"L33t lần."</item>
-        <item msgid="7508085100680861631">"Vận tốc phi thường."</item>
-        <item msgid="5961245252909589573">"Hãy làm chậm thời gian lại."</item>
-        <item msgid="5211891900854545940">"Chỉ cần nhảy sang bên trái."</item>
-        <item msgid="9071353477103826053">"Bạn có một bảng màu vội vàng."</item>
-        <item msgid="3785193933691117181">"Vận tốc của lượng tử ánh sáng."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Bạn đúng là con quỷ tốc độ."</string>
+    <string name="jocular_content_message_2">"Tận hưởng thành quả lao động của bạn."</string>
+    <string name="jocular_content_message_3">"Android được cho là nhanh, nhưng không nhanh bằng bạn!"</string>
+    <string name="jocular_content_message_4">"Kinh quá."</string>
+    <string name="jocular_content_message_5">"L33t lần."</string>
+    <string name="jocular_content_message_6">"Vận tốc phi thường."</string>
+    <string name="jocular_content_message_7">"Hãy làm chậm thời gian lại."</string>
+    <string name="jocular_content_message_8">"Chỉ cần nhảy sang bên trái."</string>
+    <string name="jocular_content_message_9">"Bạn có một bảng màu vội vàng."</string>
+    <string name="jocular_content_message_10">"Vận tốc của lượng tử ánh sáng."</string>
     <string name="home_label" msgid="4436139365695453870">"Nhà riêng"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Thành phố"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Đồng hồ"</string>
     <string name="clock_style" msgid="2265011060429742344">"Kiểu"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Hiển thị thời gian với số giây"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Thay đổi ngày và giờ"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Đồng hồ kim"</item>
-        <item msgid="8483930821046925592">"Đồng hồ số"</item>
-    </string-array>
+    <string name="clock_style_analog">Đồng hồ kim</string>
+    <string name="clock_style_digital">Đồng hồ số</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Đồng hồ tự động"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Trong khi đi qua khu vực có giờ khác nhau, hãy thêm đồng hồ cho màn hình chính"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Múi giờ chính"</string>
@@ -396,9 +379,4 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Báo lại báo thức <xliff:g id="ALARM_TIME">%s</xliff:g> sau 10 phút"</string>
     <string name="flip_action_title">Hành động lật thiết bị</string>
     <string name="shake_action_title">Hành động lắc thiết bị</string>
-    <string-array name="action_setting_entries">
-        <item>Báo lại</item>
-        <item>Loại bỏ</item>
-        <item>Không có</item>
-    </string-array>
 </resources>

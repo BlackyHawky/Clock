@@ -98,66 +98,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutter</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Aldrig"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minut"</item>
-        <item msgid="5431906692406316549">"5 minutter"</item>
-        <item msgid="7742728812068919959">"10 minutter"</item>
-        <item msgid="2855948657259647629">"15 minutter"</item>
-        <item msgid="6330196381284475079">"20 minutter"</item>
-        <item msgid="7809240121716151904">"25 minutter"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Aldrig"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Fra"</item>
-        <item msgid="7195451681426992018">"5 sekunder"</item>
-        <item msgid="592917601923801901">"10 sekunder"</item>
-        <item msgid="5050318776687582653">"15 sekunder"</item>
-        <item msgid="6997726466563948756">"20 sekunder"</item>
-        <item msgid="248014374051498284">"30 sekunder"</item>
-        <item msgid="8010211657612404516">"40 sekunder"</item>
-        <item msgid="623829984393124488">"50 sekunder"</item>
-        <item msgid="5261571706794132923">"60 sekunder"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minut"</item>
-        <item msgid="4482596794620161030">"2 minutter"</item>
-        <item msgid="8478276201849960314">"3 minutter"</item>
-        <item msgid="4038456474851212478">"4 minutter"</item>
-        <item msgid="6298175579152122770">"5 minutter"</item>
-        <item msgid="9021860177999278496">"6 minutter"</item>
-        <item msgid="7224689200902680256">"7 minutter"</item>
-        <item msgid="4610012663985162123">"8 minutter"</item>
-        <item msgid="1717028898015659426">"9 minutter"</item>
-        <item msgid="8058492636464337699">"10 minutter"</item>
-        <item msgid="577767219993868603">"11 minutter"</item>
-        <item msgid="3710047869487864775">"12 minutter"</item>
-        <item msgid="3794200935630619331">"13 minutter"</item>
-        <item msgid="5462266433522229437">"14 minutter"</item>
-        <item msgid="2192100038569306041">"15 minutter"</item>
-        <item msgid="6636326047858437620">"16 minutter"</item>
-        <item msgid="2481054808772108352">"17 minutter"</item>
-        <item msgid="4080984064428458050">"18 minutter"</item>
-        <item msgid="5844319398703041730">"19 minutter"</item>
-        <item msgid="2334964289857921073">"20 minutter"</item>
-        <item msgid="4755209855817904977">"21 minutter"</item>
-        <item msgid="8414394445389367355">"22 minutter"</item>
-        <item msgid="2604612428763230265">"23 minutter"</item>
-        <item msgid="6871696471373403806">"24 minutter"</item>
-        <item msgid="1573685398431466364">"25 minutter"</item>
-        <item msgid="6999090368236684971">"26 minutter"</item>
-        <item msgid="7125056720603734703">"27 minutter"</item>
-        <item msgid="1695830988496463030">"28 minutter"</item>
-        <item msgid="6706610539793025916">"29 minutter"</item>
-        <item msgid="2898212818965905529">"30 minutter"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minut</string>
+    <string name="auto_silence_5_minutes">5 minutter</string>
+    <string name="auto_silence_10_minutes">10 minutter</string>
+    <string name="auto_silence_15_minutes">15 minutter</string>
+    <string name="auto_silence_20_minutes">20 minutter</string>
+    <string name="auto_silence_25_minutes">25 minutter</string>
+    <string name="label_off">Fra</string>
+    <string name="crescendo_5_seconds">5 sekunder</string>
+    <string name="crescendo_10_seconds">10 sekunder</string>
+    <string name="crescendo_15_seconds">15 sekunder</string>
+    <string name="crescendo_20_seconds">20 sekunder</string>
+    <string name="crescendo_30_seconds">30 sekunder</string>
+    <string name="crescendo_40_seconds">40 sekunder</string>
+    <string name="crescendo_50_seconds">50 sekunder</string>
+    <string name="crescendo_60_seconds">60 sekunder</string>
+    <string name="snooze_duration_1_minute">1 minut</string>
+    <string name="snooze_duration_2_minutes">2 minutter</string>
+    <string name="snooze_duration_3_minutes">3 minutter</string>
+    <string name="snooze_duration_4_minutes">4 minutter</string>
+    <string name="snooze_duration_5_minutes">5 minutter</string>
+    <string name="snooze_duration_6_minutes">6 minutter</string>
+    <string name="snooze_duration_7_minutes">7 minutter</string>
+    <string name="snooze_duration_8_minutes">8 minutter</string>
+    <string name="snooze_duration_9_minutes">9 minutter</string>
+    <string name="snooze_duration_10_minutes">10 minutter</string>
+    <string name="snooze_duration_11_minutes">11 minutter</string>
+    <string name="snooze_duration_12_minutes">12 minutter</string>
+    <string name="snooze_duration_13_minutes">13 minutter</string>
+    <string name="snooze_duration_14_minutes">14 minutter</string>
+    <string name="snooze_duration_15_minutes">15 minutter</string>
+    <string name="snooze_duration_16_minutes">16 minutter</string>
+    <string name="snooze_duration_17_minutes">17 minutter</string>
+    <string name="snooze_duration_18_minutes">18 minutter</string>
+    <string name="snooze_duration_19_minutes">19 minutter</string>
+    <string name="snooze_duration_20_minutes">20 minutter</string>
+    <string name="snooze_duration_21_minutes">21 minutter</string>
+    <string name="snooze_duration_22_minutes">22 minutter</string>
+    <string name="snooze_duration_23_minutes">23 minutter</string>
+    <string name="snooze_duration_24_minutes">24 minutter</string>
+    <string name="snooze_duration_25_minutes">25 minutter</string>
+    <string name="snooze_duration_26_minutes">26 minutter</string>
+    <string name="snooze_duration_27_minutes">27 minutter</string>
+    <string name="snooze_duration_28_minutes">28 minutter</string>
+    <string name="snooze_duration_29_minutes">29 minutter</string>
+    <string name="snooze_duration_30_minutes">30 minutter</string>
     <string name="week_start_title" msgid="4268917518596832096">"Første ugedag"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Lørdag"</item>
-        <item msgid="3993530639455360921">"Søndag"</item>
-        <item msgid="8594709368683324282">"Mandag"</item>
-    </string-array>
+    <string name="week_start_saturday">Lørdag</string>
+    <string name="week_start_sunday">Søndag</string>
+    <string name="week_start_monday">Mandag</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Lydløs"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Ukendt"</string>
@@ -167,12 +156,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Skift"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Enheden er indstillet til total stilhed"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Udsætter"</item>
-        <item msgid="3450979320164769576">"Slår fra"</item>
-        <item msgid="7085774139907653538">"Styr lydstyrken"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Udsætter</string>
+    <string name="button_action_dismiss">Slår fra</string>
+    <string name="button_action_control_volume">Styr lydstyrken</string>
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ringetone"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
@@ -222,28 +208,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Du er en rigtig fartdjævel."</item>
-        <item msgid="6332879039890727169">"Nyd frugterne af dit arbejde."</item>
-        <item msgid="815382761274660130">"Android-enheder er kendte for at være hurtige, men ikke så hurtige som dig!"</item>
-        <item msgid="7916250650982813737">"Pyh!"</item>
-        <item msgid="6836603904515182333">"L33t times."</item>
-        <item msgid="7508085100680861631">"Fænomenal hastighed."</item>
-        <item msgid="5961245252909589573">"Lad os træde ind i tidslommen igen."</item>
-        <item msgid="5211891900854545940">"Blot et hop til venstre."</item>
-        <item msgid="9071353477103826053">"Du har smag for hurtighed."</item>
-        <item msgid="3785193933691117181">"Med lysets hastighed."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Du er en rigtig fartdjævel."</string>
+    <string name="jocular_content_message_2">"Nyd frugterne af dit arbejde."</string>
+    <string name="jocular_content_message_3">"Android-enheder er kendte for at være hurtige, men ikke så hurtige som dig!"</string>
+    <string name="jocular_content_message_4">"Pyh!"</string>
+    <string name="jocular_content_message_5">"L33t times."</string>
+    <string name="jocular_content_message_6">"Fænomenal hastighed."</string>
+    <string name="jocular_content_message_7">"Lad os træde ind i tidslommen igen."</string>
+    <string name="jocular_content_message_8">"Blot et hop til venstre."</string>
+    <string name="jocular_content_message_9">"Du har smag for hurtighed."</string>
+    <string name="jocular_content_message_10">"Med lysets hastighed."</string>
     <string name="home_label" msgid="4436139365695453870">"Hjemme"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Byer"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Ur"</string>
     <string name="clock_style" msgid="2265011060429742344">"Urtype"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Vis tid med sekunder"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Rediger dato og tid"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analog"</item>
-        <item msgid="8483930821046925592">"Digital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatisk ur for egen tidszone"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du befinder dig i en anden tidszone, vises der et ur, der viser tiden derhjemme"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Egen tidszone"</string>

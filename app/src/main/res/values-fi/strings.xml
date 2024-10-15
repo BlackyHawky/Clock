@@ -98,66 +98,55 @@
         <item quantity="one">1 minuutti</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ei koskaan"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minuutti"</item>
-        <item msgid="5431906692406316549">"5 minuuttia"</item>
-        <item msgid="7742728812068919959">"10 minuuttia"</item>
-        <item msgid="2855948657259647629">"15 minuuttia"</item>
-        <item msgid="6330196381284475079">"20 minuuttia"</item>
-        <item msgid="7809240121716151904">"25 minuuttia"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Jatkuva"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Pois käytöstä"</item>
-        <item msgid="7195451681426992018">"5 sekuntia"</item>
-        <item msgid="592917601923801901">"10 sekuntia"</item>
-        <item msgid="5050318776687582653">"15 sekuntia"</item>
-        <item msgid="6997726466563948756">"20 sekuntia"</item>
-        <item msgid="248014374051498284">"30 sekuntia"</item>
-        <item msgid="8010211657612404516">"40 sekuntia"</item>
-        <item msgid="623829984393124488">"50 sekuntia"</item>
-        <item msgid="5261571706794132923">"60 sekuntia"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minuutti"</item>
-        <item msgid="4482596794620161030">"2 minuuttia"</item>
-        <item msgid="8478276201849960314">"3 minuuttia"</item>
-        <item msgid="4038456474851212478">"4 minuuttia"</item>
-        <item msgid="6298175579152122770">"5 minuuttia"</item>
-        <item msgid="9021860177999278496">"6 minuuttia"</item>
-        <item msgid="7224689200902680256">"7 minuuttia"</item>
-        <item msgid="4610012663985162123">"8 minuuttia"</item>
-        <item msgid="1717028898015659426">"9 minuuttia"</item>
-        <item msgid="8058492636464337699">"10 minuuttia"</item>
-        <item msgid="577767219993868603">"11 minuuttia"</item>
-        <item msgid="3710047869487864775">"12 minuuttia"</item>
-        <item msgid="3794200935630619331">"13 minuuttia"</item>
-        <item msgid="5462266433522229437">"14 minuuttia"</item>
-        <item msgid="2192100038569306041">"15 minuuttia"</item>
-        <item msgid="6636326047858437620">"16 minuuttia"</item>
-        <item msgid="2481054808772108352">"17 minuuttia"</item>
-        <item msgid="4080984064428458050">"18 minuuttia"</item>
-        <item msgid="5844319398703041730">"19 minuuttia"</item>
-        <item msgid="2334964289857921073">"20 minuuttia"</item>
-        <item msgid="4755209855817904977">"21 minuuttia"</item>
-        <item msgid="8414394445389367355">"22 minuuttia"</item>
-        <item msgid="2604612428763230265">"23 minuuttia"</item>
-        <item msgid="6871696471373403806">"24 minuuttia"</item>
-        <item msgid="1573685398431466364">"25 minuuttia"</item>
-        <item msgid="6999090368236684971">"26 minuuttia"</item>
-        <item msgid="7125056720603734703">"27 minuuttia"</item>
-        <item msgid="1695830988496463030">"28 minuuttia"</item>
-        <item msgid="6706610539793025916">"29 minuuttia"</item>
-        <item msgid="2898212818965905529">"30 minuuttia"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minuutti</string>
+    <string name="auto_silence_5_minutes">5 minuuttia</string>
+    <string name="auto_silence_10_minutes">10 minuuttia</string>
+    <string name="auto_silence_15_minutes">15 minuuttia</string>
+    <string name="auto_silence_20_minutes">20 minuuttia</string>
+    <string name="auto_silence_25_minutes">25 minuuttia</string>
+    <string name="label_off">Pois käytöstä</string>
+    <string name="crescendo_5_seconds">5 sekuntia</string>
+    <string name="crescendo_10_seconds">10 sekuntia</string>
+    <string name="crescendo_15_seconds">15 sekuntia</string>
+    <string name="crescendo_20_seconds">20 sekuntia</string>
+    <string name="crescendo_30_seconds">30 sekuntia</string>
+    <string name="crescendo_40_seconds">40 sekuntia</string>
+    <string name="crescendo_50_seconds">50 sekuntia</string>
+    <string name="crescendo_60_seconds">60 sekuntia</string>
+    <string name="snooze_duration_1_minute">1 minuutti</string>
+    <string name="snooze_duration_2_minutes">2 minuuttia</string>
+    <string name="snooze_duration_3_minutes">3 minuuttia</string>
+    <string name="snooze_duration_4_minutes">4 minuuttia</string>
+    <string name="snooze_duration_5_minutes">5 minuuttia</string>
+    <string name="snooze_duration_6_minutes">6 minuuttia</string>
+    <string name="snooze_duration_7_minutes">7 minuuttia</string>
+    <string name="snooze_duration_8_minutes">8 minuuttia</string>
+    <string name="snooze_duration_9_minutes">9 minuuttia</string>
+    <string name="snooze_duration_10_minutes">10 minuuttia</string>
+    <string name="snooze_duration_11_minutes">11 minuuttia</string>
+    <string name="snooze_duration_12_minutes">12 minuuttia</string>
+    <string name="snooze_duration_13_minutes">13 minuuttia</string>
+    <string name="snooze_duration_14_minutes">14 minuuttia</string>
+    <string name="snooze_duration_15_minutes">15 minuuttia</string>
+    <string name="snooze_duration_16_minutes">16 minuuttia</string>
+    <string name="snooze_duration_17_minutes">17 minuuttia</string>
+    <string name="snooze_duration_18_minutes">18 minuuttia</string>
+    <string name="snooze_duration_19_minutes">19 minuuttia</string>
+    <string name="snooze_duration_20_minutes">20 minuuttia</string>
+    <string name="snooze_duration_21_minutes">21 minuuttia</string>
+    <string name="snooze_duration_22_minutes">22 minuuttia</string>
+    <string name="snooze_duration_23_minutes">23 minuuttia</string>
+    <string name="snooze_duration_24_minutes">24 minuuttia</string>
+    <string name="snooze_duration_25_minutes">25 minuuttia</string>
+    <string name="snooze_duration_26_minutes">26 minuuttia</string>
+    <string name="snooze_duration_27_minutes">27 minuuttia</string>
+    <string name="snooze_duration_28_minutes">28 minuuttia</string>
+    <string name="snooze_duration_29_minutes">29 minuuttia</string>
+    <string name="snooze_duration_30_minutes">30 minuuttia</string>
     <string name="week_start_title" msgid="4268917518596832096">"Viikon aloituspäivä:"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"lauantai"</item>
-        <item msgid="3993530639455360921">"sunnuntai"</item>
-        <item msgid="8594709368683324282">"maanantai"</item>
-    </string-array>
+    <string name="week_start_saturday">lauantai</string>
+    <string name="week_start_sunday">sunnuntai</string>
+    <string name="week_start_monday">maanantai</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Herätysäänen voimakkuus"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Äänetön"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tuntematon"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Vaihda"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Täydellinen hiljaisuus on käytössä"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Äänenvoimakkuuspainikkeet"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Torkku"</item>
-        <item msgid="3450979320164769576">"Ohita"</item>
-        <item msgid="7085774139907653538">"Säädä äänenvoimakkuutta"</item>
-        <item>Ei mitään</item>
-    </string-array>
+    <string name="button_action_snooze">Torkku</string>
+    <string name="button_action_dismiss">Ohita</string>
+    <string name="button_action_control_volume">Säädä äänenvoimakkuutta</string>
+    <string name="button_action_nothing">Ei mitään</string>
     <string name="label_description" msgid="8736179296142915727">"Tunniste"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Soittoääni"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Herätys"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>.<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Olet supernopea."</item>
-        <item msgid="6332879039890727169">"Nauti työsi hedelmistä."</item>
-        <item msgid="815382761274660130">"Androidien tiedetään toimivan nopeasti, mutta sinä olet vielä nopeampi!"</item>
-        <item msgid="7916250650982813737">"Huh."</item>
-        <item msgid="6836603904515182333">"Makeat ajat."</item>
-        <item msgid="7508085100680861631">"Nopeuden ihmelapsi."</item>
-        <item msgid="5961245252909589573">"Tehdään aikahyppy uudestaan."</item>
-        <item msgid="5211891900854545940">"Hyppää vasemmalle."</item>
-        <item msgid="9071353477103826053">"Tunnet kiireen anatomian."</item>
-        <item msgid="3785193933691117181">"Valonnopea."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Olet supernopea."</string>
+    <string name="jocular_content_message_2">"Nauti työsi hedelmistä."</string>
+    <string name="jocular_content_message_3">"Androidien tiedetään toimivan nopeasti, mutta sinä olet vielä nopeampi!"</string>
+    <string name="jocular_content_message_4">"Huh."</string>
+    <string name="jocular_content_message_5">"Makeat ajat."</string>
+    <string name="jocular_content_message_6">"Nopeuden ihmelapsi."</string>
+    <string name="jocular_content_message_7">"Tehdään aikahyppy uudestaan."</string>
+    <string name="jocular_content_message_8">"Hyppää vasemmalle."</string>
+    <string name="jocular_content_message_9">"Tunnet kiireen anatomian."</string>
+    <string name="jocular_content_message_10">"Valonnopea."</string>
     <string name="home_label" msgid="4436139365695453870">"Koti"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Kaupungit"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Kello"</string>
     <string name="clock_style" msgid="2265011060429742344">"Tyyli"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Näytä aika sekunteina"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Vaihda päivämäärä ja aika"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analoginen"</item>
-        <item msgid="8483930821046925592">"Digitaalinen"</item>
-    </string-array>
+    <string name="clock_style_analog">Analoginen</string>
+    <string name="clock_style_digital">Digitaalinen</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automaattinen kotiajan kello"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Lisää kotiaikavyöhykkeen kello matkustaessasi eri aikavyöhykkeellä"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Kotiaikavyöhyke"</string>
@@ -396,11 +379,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> herätys torkutettu 10 minuutin päähän."</string>
     <string name="flip_action_title">Laitteen kääntö</string>
     <string name="shake_action_title">Laitteen ravistus</string>
-    <string-array name="action_setting_entries">
-        <item>Torkku</item>
-        <item>Hylkää</item>
-        <item>Ei mitään</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Hälytysten &amp; ajastimien laukaisu</string>
     <string name="alarm_missed_channel">Vastaamattomat hälytykset</string>
     <string name="alarm_snooze_channel">Torkutetut hälytykset</string>

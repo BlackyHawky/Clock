@@ -134,66 +134,55 @@
         <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> munud</item>
     </plurals>
     <string name="auto_silence_never">Byth</string>
-    <string-array name="auto_silence_entries">
-        <item>1 munud</item>
-        <item>5 munud</item>
-        <item>10 munud</item>
-        <item>15 munud</item>
-        <item>20 munud</item>
-        <item>25 munud</item>
-        <item>The end of the ringtone</item>
-        <item>Byth</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item>I ffwrdd</item>
-        <item>5 eiliad</item>
-        <item>10 eiliad</item>
-        <item>15 eiliad</item>
-        <item>20 eiliad</item>
-        <item>30 eiliad</item>
-        <item>40 eiliad</item>
-        <item>50 eiliad</item>
-        <item>60 eiliad</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item>1 munud</item>
-        <item>2 funud</item>
-        <item>3 munud</item>
-        <item>4 munud</item>
-        <item>5 munud</item>
-        <item>6 munud</item>
-        <item>7 munud</item>
-        <item>8 munud</item>
-        <item>9 munud</item>
-        <item>10 munud</item>
-        <item>11 munud</item>
-        <item>12 munud</item>
-        <item>13 munud</item>
-        <item>14 munud</item>
-        <item>15 munud</item>
-        <item>16 munud</item>
-        <item>17 munud</item>
-        <item>18 munud</item>
-        <item>19 munud</item>
-        <item>20 munud</item>
-        <item>21 munud</item>
-        <item>22 munud</item>
-        <item>23 munud</item>
-        <item>24 munud</item>
-        <item>25 munud</item>
-        <item>26 munud</item>
-        <item>27 munud</item>
-        <item>28 munud</item>
-        <item>29 munud</item>
-        <item>30 munud</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 munud</string>
+    <string name="auto_silence_5_minutes">5 munud</string>
+    <string name="auto_silence_10_minutes">10 munud</string>
+    <string name="auto_silence_15_minutes">15 munud</string>
+    <string name="auto_silence_20_minutes">20 munud</string>
+    <string name="auto_silence_25_minutes">25 munud</string>
+    <string name="label_off">I ffwrdd</string>
+    <string name="crescendo_5_seconds">5 eiliad</string>
+    <string name="crescendo_10_seconds">10 eiliad</string>
+    <string name="crescendo_15_seconds">15 eiliad</string>
+    <string name="crescendo_20_seconds">20 eiliad</string>
+    <string name="crescendo_30_seconds">30 eiliad</string>
+    <string name="crescendo_40_seconds">40 eiliad</string>
+    <string name="crescendo_50_seconds">50 eiliad</string>
+    <string name="crescendo_60_seconds">60 eiliad</string>
+    <string name="snooze_duration_1_minute">1 munud</string>
+    <string name="snooze_duration_2_minutes">2 munud</string>
+    <string name="snooze_duration_3_minutes">3 munud</string>
+    <string name="snooze_duration_4_minutes">4 munud</string>
+    <string name="snooze_duration_5_minutes">5 munud</string>
+    <string name="snooze_duration_6_minutes">6 munud</string>
+    <string name="snooze_duration_7_minutes">7 munud</string>
+    <string name="snooze_duration_8_minutes">8 munud</string>
+    <string name="snooze_duration_9_minutes">9 munud</string>
+    <string name="snooze_duration_10_minutes">10 munud</string>
+    <string name="snooze_duration_11_minutes">11 munud</string>
+    <string name="snooze_duration_12_minutes">12 munud</string>
+    <string name="snooze_duration_13_minutes">13 munud</string>
+    <string name="snooze_duration_14_minutes">14 munud</string>
+    <string name="snooze_duration_15_minutes">15 munud</string>
+    <string name="snooze_duration_16_minutes">16 munud</string>
+    <string name="snooze_duration_17_minutes">17 munud</string>
+    <string name="snooze_duration_18_minutes">18 munud</string>
+    <string name="snooze_duration_19_minutes">19 munud</string>
+    <string name="snooze_duration_20_minutes">20 munud</string>
+    <string name="snooze_duration_21_minutes">21 munud</string>
+    <string name="snooze_duration_22_minutes">22 munud</string>
+    <string name="snooze_duration_23_minutes">23 munud</string>
+    <string name="snooze_duration_24_minutes">24 munud</string>
+    <string name="snooze_duration_25_minutes">25 munud</string>
+    <string name="snooze_duration_26_minutes">26 munud</string>
+    <string name="snooze_duration_27_minutes">27 munud</string>
+    <string name="snooze_duration_28_minutes">28 munud</string>
+    <string name="snooze_duration_29_minutes">29 munud</string>
+    <string name="snooze_duration_30_minutes">30 munud</string>
     <string name="week_start_title">Dechrau\'r wythnos ar</string>
-    <string-array name="week_start_entries">
-        <item>Dydd Sadwrn</item>
-        <item>Dydd Sul</item>
-        <item>Dydd Llun</item>
-    </string-array>
+    <string name="week_start_saturday">Dydd Sadwrn</string>
+    <string name="week_start_sunday">Dydd Sul</string>
+    <string name="week_start_monday">Dydd Llun</string>
     <string name="alarm_volume_title">Uchder sain larymau</string>
     <string name="silent_ringtone_title">Distaw</string>
     <string name="unknown_ringtone_title">Anhysbys</string>
@@ -203,12 +192,10 @@
     <string name="change_setting_action">Newid</string>
     <string name="alarms_blocked_by_dnd">Mae\'r ddyfais wedi\'i gosod i ddistawrwydd llwyr</string>
     <string name="volume_button_setting_title">Botymau uchder sain</string>
-    <string-array name="volume_button_setting_entries">
-        <item>Hepian</item>
-        <item>Diystyru</item>
-        <item>Rheoli uchder sain</item>
-        <item>Dim byd</item>
-    </string-array>
+    <string name="button_action_snooze">Hepian</string>
+    <string name="button_action_dismiss">Diystyru</string>
+    <string name="button_action_control_volume">Rheoli uchder sain</string>
+    <string name="button_action_nothing">Dim byd</string>
     <string name="label_description">Label</string>
     <string name="ringtone_description">Tôn caniad</string>
     <string name="menu_alarm">Larwm</string>
@@ -257,28 +244,24 @@
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="seconds"><xliff:g example="44" id="seconds">%d</xliff:g></string>
-    <string-array name="sw_share_strings" translatable="true">
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Mae Android yn gyflym, ond nid mor gyflym ag wyt ti!</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-        <item>Dy amseroedd di</item>
-    </string-array>
+    <string name="jocular_content_message_1">Dy amseroedd di</string>
+    <string name="jocular_content_message_2">Dy amseroedd di</string>
+    <string name="jocular_content_message_3">Mae Android yn gyflym, ond nid mor gyflym ag wyt ti!</string>
+    <string name="jocular_content_message_4">Dy amseroedd di</string>
+    <string name="jocular_content_message_5">Dy amseroedd di</string>
+    <string name="jocular_content_message_6">Dy amseroedd di</string>
+    <string name="jocular_content_message_7">Dy amseroedd di</string>
+    <string name="jocular_content_message_8">Dy amseroedd di</string>
+    <string name="jocular_content_message_9">Dy amseroedd di</string>
+    <string name="jocular_content_message_10">Dy amseroedd di</string>
     <string name="home_label">Cartref</string>
     <string name="cities_activity_title">Dinasoedd</string>
     <string name="clock_settings">Cloc</string>
     <string name="clock_style">Arddull</string>
     <string name="display_clock_seconds_pref">Dangos yr amser gydag eiliadau</string>
     <string name="open_date_settings">Newid dyddiad ac amser</string>
-    <string-array name="clock_style_entries">
-        <item>Analog</item>
-        <item>Digidol</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Digidol</string>
     <string name="automatic_home_clock">Cloc adref awtomatig</string>
     <string name="automatic_home_clock_summary">Wrth deithio rhywle ble mae\'r amser yn wahanol, ychwanega cloc ar gyfer adref.</string>
     <string name="home_time_zone">Cylchfa amser adref</string>
@@ -435,11 +418,6 @@
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> larwm yn caniatáu hepian am 10 munud</string>
     <string name="flip_action_title">Effaith troi\'r ddyfais drosodd</string>
     <string name="shake_action_title">Effaith ysgwyd y ddyfais</string>
-    <string-array name="action_setting_entries">
-        <item>Hepian</item>
-        <item>Diystyru</item>
-        <item>Dim byd</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Tanio larymau ac amseryddion</string>
     <string name="alarm_missed_channel">Larymau wedi\'u methu</string>
     <string name="alarm_snooze_channel">Larymau wedi\'u hepian</string>

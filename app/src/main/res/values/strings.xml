@@ -19,6 +19,10 @@
     <string name="color_picker_default_button">Default</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
+    <!-- Label "Default" -->
+    <string name="label_default">Default</string>
+    <!-- Label "Off" -->
+    <string name="label_off">Off</string>
     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
@@ -234,54 +238,34 @@
     <string name="interface_customization_summary">Set the style and color applied to the application</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
-    <!-- Entries listed in the ListPreference when selecting the theme. -->
-    <string-array name="array_theme">
-        <item>System</item>
-        <item>Light</item>
-        <item>Dark</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
-    <string-array name="theme_setting_entries" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <!-- Settings color title -->
+    <!-- Setting title to switch to system theme -->
+    <string name="system_theme">System</string>
+    <!-- Setting title to switch to light theme -->
+    <string name="light_theme">Light</string>
+    <!-- Setting title to switch to dark theme -->
+    <string name="dark_theme">Dark</string>
+    <!-- Settings accent color title -->
     <string name="title_accent_color">Accent color</string>
-    <!-- Entries listed in the ListPreference when selecting the color. -->
-    <string-array name="array_accent_color">
-        <item>Default</item>
-        <item>Blue Gray</item>
-        <item>Brown</item>
-        <item>Green</item>
-        <item>Indigo</item>
-        <item>Orange</item>
-        <item>Pink</item>
-        <item>Red</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the color entries above. -->
-    <string-array name="accent_color_setting_entries" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-    </string-array>
+    <!-- Setting title to switch to default accent color -->
+    <string name="default_accent_color">Default</string>
+    <!-- Setting title to switch to blue gray accent color -->
+    <string name="blue_gray_accent_color">Blue Gray</string>
+    <!-- Setting title to switch to brown accent color -->
+    <string name="brown_accent_color">Brown</string>
+    <!-- Setting title to switch to green accent color -->
+    <string name="green_accent_color">Green</string>
+    <!-- Setting title to switch to indigo accent color -->
+    <string name="indigo_accent_color">Indigo</string>
+    <!-- Setting title to switch to orange accent color -->
+    <string name="orange_accent_color">Orange</string>
+    <!-- Setting title to switch to pink accent color -->
+    <string name="pink_accent_color">Pink</string>
+    <!-- Setting title to switch to red accent color -->
+    <string name="red_accent_color">Red</string>
     <!-- Settings amoled title -->
     <string name="title_dark_theme_mode">Dark theme mode</string>
-    <!-- Entries listed in the ListPreference when selecting the theme. -->
-    <string-array name="dark_theme_mode_array_theme">
-        <item>Default</item>
-        <item>AMOLED</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
-    <string-array name="dark_theme_mode_setting_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
+    <!-- Setting title to switch to AMOLED dark theme mode -->
+    <string name="amoled_dark_theme_mode">AMOLED</string>
     <!-- Setting title to display the background or not. -->
     <string name="display_card_background_title">Display card backgrounds</string>
     <!-- Setting summary about background display. -->
@@ -302,30 +286,22 @@
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title for changing the notification reminder. -->
     <string name="alarm_notification_reminder_title">Notification reminder</string>
-    <!-- Entries listed in the ListPreference when invoking the notification reminder
-     preference. -->
-    <string-array name="alarm_notification_reminder_entries">
-        <item>5 minutes before</item>
-        <item>10 minutes before</item>
-        <item>15 minutes before</item>
-        <item>20 minutes before</item>
-        <item>30 minutes before</item>
-        <item>45 minutes before</item>
-        <item>1 hour before</item>
-        <item>2 hours before</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the alarm_notification_reminder_entries above. -->
-    <string-array name="alarm_notification_reminder_values" translatable="false">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>30</item>
-        <item>45</item>
-        <item>60</item>
-        <item>120</item>
-    </string-array>
+    <!-- Setting title for changing the notification reminder to 5 minutes before. -->
+    <string name="alarm_notification_reminder_5_minutes">5 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 10 minutes before. -->
+    <string name="alarm_notification_reminder_10_minutes">10 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 15 minutes before. -->
+    <string name="alarm_notification_reminder_15_minutes">15 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 20 minutes before. -->
+    <string name="alarm_notification_reminder_20_minutes">20 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 30 minutes before. -->
+    <string name="alarm_notification_reminder_30_minutes">30 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 45 minutes before. -->
+    <string name="alarm_notification_reminder_45_minutes">45 minutes before</string>
+    <!-- Setting title for changing the notification reminder to 1 hour before. -->
+    <string name="alarm_notification_reminder_1_hour">1 hour before</string>
+    <!-- Setting title for changing the notification reminder to 2 hours before. -->
+    <string name="alarm_notification_reminder_2_hours">2 hours before</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
     <!-- Setting title for changing the time picker style. -->
@@ -359,144 +335,106 @@
     </plurals>
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
-    <!-- Auto silence summary when set at "The end of the ringtone" -->
+    <!-- Auto silence summary when set at "The end of the ringtone" or for changing the auto silence.-->
     <string name="auto_silence_at_the_end_of_the_ringtone">The end of the ringtone</string>
-    <!-- Entries listed in the ListPreference when invoking the auto silence
-         preference. -->
-    <string-array name="auto_silence_entries">
-        <item>1 minute</item>
-        <item>5 minutes</item>
-        <item>10 minutes</item>
-        <item>15 minutes</item>
-        <item>20 minutes</item>
-        <item>25 minutes</item>
-        <item>The end of the ringtone</item>
-        <item>Never</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the auto_silence_entries above. -->
-    <string-array name="auto_silence_values" translatable="false">
-        <item>1</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
-        <item>-2</item>
-        <item>-1</item>
-    </string-array>
-    <!-- Entries listed in the ListPreference when invoking gradually increase
-     volume preferences. -->
-    <string-array name="crescendo_entries">
-        <item>Off</item>
-        <item>5 seconds</item>
-        <item>10 seconds</item>
-        <item>15 seconds</item>
-        <item>20 seconds</item>
-        <item>30 seconds</item>
-        <item>40 seconds</item>
-        <item>50 seconds</item>
-        <item>60 seconds</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the crescendo_entries above. -->
-    <string-array name="crescendo_values" translatable="false">
-        <item>0</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
-        <item>60</item>
-    </string-array>
-    <!-- Entries listed in the ListPreference when invoking the snooze duration preference -->
-    <string-array name="snooze_duration_entries">
-        <item>1 minute</item>
-        <item>2 minutes</item>
-        <item>3 minutes</item>
-        <item>4 minutes</item>
-        <item>5 minutes</item>
-        <item>6 minutes</item>
-        <item>7 minutes</item>
-        <item>8 minutes</item>
-        <item>9 minutes</item>
-        <item>10 minutes</item>
-        <item>11 minutes</item>
-        <item>12 minutes</item>
-        <item>13 minutes</item>
-        <item>14 minutes</item>
-        <item>15 minutes</item>
-        <item>16 minutes</item>
-        <item>17 minutes</item>
-        <item>18 minutes</item>
-        <item>19 minutes</item>
-        <item>20 minutes</item>
-        <item>21 minutes</item>
-        <item>22 minutes</item>
-        <item>23 minutes</item>
-        <item>24 minutes</item>
-        <item>25 minutes</item>
-        <item>26 minutes</item>
-        <item>27 minutes</item>
-        <item>28 minutes</item>
-        <item>29 minutes</item>
-        <item>30 minutes</item>
-        <item>None</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the snooze_duration_entries above. -->
-    <string-array name="snooze_duration_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
-        <item>-1</item>
-    </string-array>
+    <!-- Setting title for changing the auto silence to 1 minute. -->
+    <string name="auto_silence_1_minute">1 minute</string>
+    <!-- Setting title for changing the auto silence to 5 minutes. -->
+    <string name="auto_silence_5_minutes">5 minutes</string>
+    <!-- Setting title for changing the auto silence to 10 minutes. -->
+    <string name="auto_silence_10_minutes">10 minutes</string>
+    <!-- Setting title for changing the auto silence to 15 minutes. -->
+    <string name="auto_silence_15_minutes">15 minutes</string>
+    <!-- Setting title for changing the auto silence to 20 minutes. -->
+    <string name="auto_silence_20_minutes">20 minutes</string>
+    <!-- Setting title for changing the auto silence to 25 minutes. -->
+    <string name="auto_silence_25_minutes">25 minutes</string>
+    <!-- Setting title for changing the gradually increase volume to 5 seconds. -->
+    <string name="crescendo_5_seconds">5 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 10 seconds. -->
+    <string name="crescendo_10_seconds">10 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 15 seconds. -->
+    <string name="crescendo_15_seconds">15 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 20 seconds. -->
+    <string name="crescendo_20_seconds">20 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 30 seconds. -->
+    <string name="crescendo_30_seconds">30 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 40 seconds. -->
+    <string name="crescendo_40_seconds">40 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 50 seconds. -->
+    <string name="crescendo_50_seconds">50 seconds</string>
+    <!-- Setting title for changing the gradually increase volume to 60 seconds. -->
+    <string name="crescendo_60_seconds">60 seconds</string>
+    <!-- Setting title for changing the snooze duration to 1 minute. -->
+    <string name="snooze_duration_1_minute">1 minute</string>
+    <!-- Setting title for changing the snooze duration to 2 minutes. -->
+    <string name="snooze_duration_2_minutes">2 minutes</string>
+    <!-- Setting title for changing the snooze duration to 3 minutes. -->
+    <string name="snooze_duration_3_minutes">3 minutes</string>
+    <!-- Setting title for changing the snooze duration to 4 minutes. -->
+    <string name="snooze_duration_4_minutes">4 minutes</string>
+    <!-- Setting title for changing the snooze duration to 5 minutes. -->
+    <string name="snooze_duration_5_minutes">5 minutes</string>
+    <!-- Setting title for changing the snooze duration to 6 minutes. -->
+    <string name="snooze_duration_6_minutes">6 minutes</string>
+    <!-- Setting title for changing the snooze duration to 7 minutes. -->
+    <string name="snooze_duration_7_minutes">7 minutes</string>
+    <!-- Setting title for changing the snooze duration to 8 minutes. -->
+    <string name="snooze_duration_8_minutes">8 minutes</string>
+    <!-- Setting title for changing the snooze duration to 9 minutes. -->
+    <string name="snooze_duration_9_minutes">9 minutes</string>
+    <!-- Setting title for changing the snooze duration to 10 minutes. -->
+    <string name="snooze_duration_10_minutes">10 minutes</string>
+    <!-- Setting title for changing the snooze duration to 11 minutes. -->
+    <string name="snooze_duration_11_minutes">11 minutes</string>
+    <!-- Setting title for changing the snooze duration to 12 minutes. -->
+    <string name="snooze_duration_12_minutes">12 minutes</string>
+    <!-- Setting title for changing the snooze duration to 13 minutes. -->
+    <string name="snooze_duration_13_minutes">13 minutes</string>
+    <!-- Setting title for changing the snooze duration to 14 minutes. -->
+    <string name="snooze_duration_14_minutes">14 minutes</string>
+    <!-- Setting title for changing the snooze duration to 15 minutes. -->
+    <string name="snooze_duration_15_minutes">15 minutes</string>
+    <!-- Setting title for changing the snooze duration to 16 minutes. -->
+    <string name="snooze_duration_16_minutes">16 minutes</string>
+    <!-- Setting title for changing the snooze duration to 17 minutes. -->
+    <string name="snooze_duration_17_minutes">17 minutes</string>
+    <!-- Setting title for changing the snooze duration to 18 minutes. -->
+    <string name="snooze_duration_18_minutes">18 minutes</string>
+    <!-- Setting title for changing the snooze duration to 19 minutes. -->
+    <string name="snooze_duration_19_minutes">19 minutes</string>
+    <!-- Setting title for changing the snooze duration to 20 minutes. -->
+    <string name="snooze_duration_20_minutes">20 minutes</string>
+    <!-- Setting title for changing the snooze duration to 21 minutes. -->
+    <string name="snooze_duration_21_minutes">21 minutes</string>
+    <!-- Setting title for changing the snooze duration to 22 minutes. -->
+    <string name="snooze_duration_22_minutes">22 minutes</string>
+    <!-- Setting title for changing the snooze duration to 23 minutes. -->
+    <string name="snooze_duration_23_minutes">23 minutes</string>
+    <!-- Setting title for changing the snooze duration to 24 minutes. -->
+    <string name="snooze_duration_24_minutes">24 minutes</string>
+    <!-- Setting title for changing the snooze duration to 25 minutes. -->
+    <string name="snooze_duration_25_minutes">25 minutes</string>
+    <!-- Setting title for changing the snooze duration to 26 minutes. -->
+    <string name="snooze_duration_26_minutes">26 minutes</string>
+    <!-- Setting title for changing the snooze duration to 27 minutes. -->
+    <string name="snooze_duration_27_minutes">27 minutes</string>
+    <!-- Setting title for changing the snooze duration to 28 minutes. -->
+    <string name="snooze_duration_28_minutes">28 minutes</string>
+    <!-- Setting title for changing the snooze duration to 29 minutes. -->
+    <string name="snooze_duration_29_minutes">29 minutes</string>
+    <!-- Setting title for changing the snooze duration to 30 minutes. -->
+    <string name="snooze_duration_30_minutes">30 minutes</string>
+    <!-- Setting title for changing the snooze duration to None. -->
+    <string name="snooze_duration_none">None</string>
     <!-- Week start day preference title. -->
     <string name="week_start_title">Start week on</string>
-    <!-- Entries listed in ListPreference for start day. -->
-    <string-array name="week_start_entries">
-        <item>Saturday</item>
-        <item>Sunday</item>
-        <item>Monday</item>
-    </string-array>
-    <!-- Values for ListPreference for start day of week. -->
-    <string-array name="week_start_values" translatable="false">
-        <item>7</item>
-        <!-- Calendar.SATURDAY -->
-        <item>1</item>
-        <!-- Calendar.SUNDAY -->
-        <item>2</item>
-        <!-- Calendar.MONDAY -->
-    </string-array>
+    <!-- Setting title for changing the start of the week to Saturday. -->
+    <string name="week_start_saturday">Saturday</string>
+    <!-- Setting title for changing the start of the week to Sunday. -->
+    <string name="week_start_sunday">Sunday</string>
+    <!-- Setting title for changing the start of the week to Monday. -->
+    <string name="week_start_monday">Monday</string>
     <!-- Setting title for changing the alarm volume. -->
     <string name="alarm_volume_title">Alarm volume</string>
     <!-- Title for the silent ringtone. -->
@@ -518,26 +456,14 @@
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>
-    <!-- Entries listed in the setting for the volume button actions. -->
-    <string-array name="volume_button_setting_entries">
-        <item>Snooze</item>
-        <item>Dismiss</item>
-        <item>Control volume</item>
-        <item>Nothing</item>
-    </string-array>
-    <!-- Values for the volume buttons setting. -->
-    <string-array name="volume_button_setting_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-    <!-- Values for the power button and flip and shake settings. -->
-    <string-array name="side_button_setting_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>0</item>
-    </string-array>
+    <!-- Setting title for changing the button action to Snooze. -->
+    <string name="button_action_snooze">Snooze</string>
+    <!-- Setting title for changing the button action to Dismiss. -->
+    <string name="button_action_dismiss">Dismiss</string>
+    <!-- Setting title for changing the button action to Control volume. -->
+    <string name="button_action_control_volume">Control volume</string>
+    <!-- Setting title for changing the button action to Nothing. -->
+    <string name="button_action_nothing">Nothing</string>
     <!-- Setting title for the Power button setting. -->
     <string name="power_button_title">Power button</string>
     <!-- Accessibility labels for Clock activity buttons -->
@@ -661,19 +587,26 @@
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
     <string name="seconds"><xliff:g example="44" id="seconds">%d</xliff:g></string>
-    <!-- Jocular content that user may append when sharing the lap times -->
-    <string-array name="sw_share_strings" translatable="true">
-        <item>You\'re quite the speed demon.</item>
-        <item>Enjoy the fruits of your labor.</item>
-        <item>Androids are known to be fast, but not as fast as you!</item>
-        <item>Phew.</item>
-        <item>L33t times.</item>
-        <item>Such prodigious velocity.</item>
-        <item>Let\'s do the time warp again.</item>
-        <item>Just a jump to the left.</item>
-        <item>You have a palette for haste.</item>
-        <item>Photonic velocity.</item>
-    </string-array>
+    <!-- Jocular content that user may append when sharing the lap times - Message 1 -->
+    <string name="jocular_content_message_1">You\'re quite the speed demon.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 2 -->
+    <string name="jocular_content_message_2">Enjoy the fruits of your labor.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 3 -->
+    <string name="jocular_content_message_3">Androids are known to be fast, but not as fast as you!</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 4 -->
+    <string name="jocular_content_message_4">Phew.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 5 -->
+    <string name="jocular_content_message_5">L33t times.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 6 -->
+    <string name="jocular_content_message_6">Such prodigious velocity.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 7 -->
+    <string name="jocular_content_message_7">Let\'s do the time warp again.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 8 -->
+    <string name="jocular_content_message_8">Just a jump to the left.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 9 -->
+    <string name="jocular_content_message_9">You have a palette for haste.</string>
+    <!-- Jocular content that user may append when sharing the lap times - Message 10 -->
+    <string name="jocular_content_message_10">Photonic velocity.</string>
     <!-- Title with the clock on the main page displaying the user's regular timezone (shows when automatic_home_clock enabled) -->
     <string name="home_label">Home</string>
     <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
@@ -687,18 +620,10 @@
     <string name="display_clock_seconds_pref">Display time with seconds</string>
     <!-- Title for preference to change date & time -->
     <string name="open_date_settings">Change date \u0026 time</string>
-    <!-- Entries listed in the ListPreference when invoking the clock style
-         preference. -->
-    <string-array name="clock_style_entries">
-        <item>Analog</item>
-        <item>Digital</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the clock_style_entries above. -->
-    <string-array name="clock_style_values" translatable="false">
-        <item>analog</item>
-        <item>digital</item>
-    </string-array>
+    <!-- Setting title for changing the clock style to Analog. -->
+    <string name="clock_style_analog">Analog</string>
+    <!-- Setting title for changing the clock style to Digital. -->
+    <string name="clock_style_digital">Digital</string>
     <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
@@ -806,7 +731,6 @@
         <item>"Jakarta"</item>
     </string-array>
     <!-- Choices for timezones, must be kept in sync with timezone_values. -->
-
     <string-array name="timezone_values" translatable="false" tools:ignore="Typos">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
@@ -1015,54 +939,40 @@
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Title to sort timers -->
     <string name="sort_timer_title">Sort timers</string>
-    <!-- Entries listed in the ListPreference when invoking the timer sort preference -->
-    <string-array name="sort_timer_entries">
-        <item>By creation date (most recent at the top)</item>
-        <item>By duration (ascending order)</item>
-        <item>By duration (descending order)</item>
-        <item>By name</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
- the sort_timer_entries above. -->
-    <string-array name="sort_timer_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+    <!-- Setting title for changing the timer sorting to By creation date. -->
+    <string name="sort_timer_creation_date">By creation date (most recent at the top)</string>
+    <!-- Setting title for changing the timer sorting to By duration (ascending order). -->
+    <string name="sort_timer_ascending_duration">By duration (ascending order)</string>
+    <!-- Setting title for changing the timer sorting to By duration (descending order). -->
+    <string name="sort_timer_descending_duration">By duration (descending order)</string>
+    <!-- Setting title for changing the timer sorting to By name. -->
+    <string name="sort_timer_name">By name</string>
     <!-- Default time to add to timer preference title in the settings -->
     <string name="default_time_to_add_to_timer_title">Default time to add to timer</string>
-    <!-- Entries listed in the ListPreference when invoking the default time to add to timer preference -->
-    <string-array name="default_time_to_add_to_timer_entries">
-        <item>1 minute</item>
-        <item>2 minutes</item>
-        <item>3 minutes</item>
-        <item>4 minutes</item>
-        <item>5 minutes</item>
-        <item>6 minutes</item>
-        <item>7 minutes</item>
-        <item>8 minutes</item>
-        <item>9 minutes</item>
-        <item>10 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-     the timer_minutes_to_add_entries above. -->
-    <string-array name="default_time_to_add_to_timer_values" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
-    </string-array>
+    <!-- Setting title for changing the default time to add to 1 minute. -->
+    <string name="default_time_to_add_to_timer_1_minute">1 minute</string>
+    <!-- Setting title for changing the default time to add to 2 minutes. -->
+    <string name="default_time_to_add_to_timer_2_minutes">2 minutes</string>
+    <!-- Setting title for changing the default time to add to 3 minutes. -->
+    <string name="default_time_to_add_to_timer_3_minutes">3 minutes</string>
+    <!-- Setting title for changing the default time to add to 4 minutes. -->
+    <string name="default_time_to_add_to_timer_4_minutes">4 minutes</string>
+    <!-- Setting title for changing the default time to add to 5 minutes. -->
+    <string name="default_time_to_add_to_timer_5_minutes">5 minutes</string>
+    <!-- Setting title for changing the default time to add to 6 minutes. -->
+    <string name="default_time_to_add_to_timer_6_minutes">6 minutes</string>
+    <!-- Setting title for changing the default time to add to 7 minutes. -->
+    <string name="default_time_to_add_to_timer_7_minutes">7 minutes</string>
+    <!-- Setting title for changing the default time to add to 8 minutes. -->
+    <string name="default_time_to_add_to_timer_8_minutes">8 minutes</string>
+    <!-- Setting title for changing the default time to add to 9 minutes. -->
+    <string name="default_time_to_add_to_timer_9_minutes">9 minutes</string>
+    <!-- Setting title for changing the default time to add to 10 minutes. -->
+    <string name="default_time_to_add_to_timer_10_minutes">10 minutes</string>
+    <!-- Setting title for changing the default time to add to 30 minutes. -->
+    <string name="default_time_to_add_to_timer_30_minutes">30 minutes</string>
+    <!-- Setting title for changing the default time to add to 1 hour. -->
+    <string name="default_time_to_add_to_timer_1_hour">1 hour</string>
     <!-- Title of Keep screen on preference in timer settings -->
     <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
@@ -1113,7 +1023,6 @@
     <string name="preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->
     <string name="screensaver_preview_summary">Starts the screensaver immediately</string>
-
     <!-- Description of the down caret in the alarm alert screen to expand the alarm content to edit perspective. [CHAR LIMIT=NONE] -->
     <string name="expand_alarm">Expand alarm</string>
     <!-- Description of the up caret in the alarm alert screen to collapse the alarm content to summary perspective. [CHAR LIMIT=NONE] -->
@@ -1250,28 +1159,18 @@
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
     <string name="wakeup">Wake Up</string>
     <string name="bedtime_reminder_notification">Reminder Notification</string>
-    <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
-    <string-array name="array_reminder_notification">
-        <item>10 minutes before bedtime</item>
-        <item>15 minutes before bedtime</item>
-        <item>20 minutes before bedtime</item>
-        <item>30 minutes before bedtime</item>
-        <item>45 minutes before bedtime</item>
-        <item>1 hour before bedtime</item>
-        <item>Off</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the snooze_duration_entries above. -->
-    <string-array name="array_reminder_notification_values" translatable="false">
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>30</item>
-        <item>45</item>
-        <item>60</item>
-        <item>-1</item>
-        <!-- Off -->
-    </string-array>
+    <!-- Setting title for changing the bedtime reminder notification to 10 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_10_minutes">10 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 15 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_15_minutes">15 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 20 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_20_minutes">20 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 30 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_30_minutes">30 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 45 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_45_minutes">45 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 1 hour before bedtime. -->
+    <string name="bedtime_reminder_notification_1_hour">1 hour before bedtime</string>
     <!-- Bedtime -->
     <string name="bedtime_reminder_notification_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="bedtime_reminder_notification_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
@@ -1291,12 +1190,6 @@
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
     <string name="shake_action_title">Device shake action</string>
-    <!-- Entries listed in the power button and flip and shake settings. -->
-    <string-array name="action_setting_entries">
-        <item>Snooze</item>
-        <item>Dismiss</item>
-        <item>Nothing</item>
-    </string-array>
     <!-- Strings for notification channel. -->
     <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
     <string name="alarm_missed_channel">Missed alarms</string>

@@ -98,66 +98,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> মিনিট</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"কেতিয়াও নহয়"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"১ মিনিট"</item>
-        <item msgid="5431906692406316549">"৫ মিনিট"</item>
-        <item msgid="7742728812068919959">"১০ মিনিট"</item>
-        <item msgid="2855948657259647629">"১৫ মিনিট"</item>
-        <item msgid="6330196381284475079">"২০ মিনিট"</item>
-        <item msgid="7809240121716151904">"২৫ মিনিট"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"কেতিয়াও নহয়"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"অফ কৰক"</item>
-        <item msgid="7195451681426992018">"৫ ছেকেণ্ড"</item>
-        <item msgid="592917601923801901">"১০ ছেকেণ্ড"</item>
-        <item msgid="5050318776687582653">"১৫ ছেকেণ্ড"</item>
-        <item msgid="6997726466563948756">"২০ ছেকেণ্ড"</item>
-        <item msgid="248014374051498284">"৩০ ছেকেণ্ড"</item>
-        <item msgid="8010211657612404516">"৪০ ছেকেণ্ড"</item>
-        <item msgid="623829984393124488">"৫০ ছেকেণ্ড"</item>
-        <item msgid="5261571706794132923">"৬০ ছেকেণ্ড"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"১ মিনিট"</item>
-        <item msgid="4482596794620161030">"২ মিনিট"</item>
-        <item msgid="8478276201849960314">"৩ মিনিট"</item>
-        <item msgid="4038456474851212478">"৪ মিনিট"</item>
-        <item msgid="6298175579152122770">"৫ মিনিট"</item>
-        <item msgid="9021860177999278496">"৬ মিনিট"</item>
-        <item msgid="7224689200902680256">"৭ মিনিট"</item>
-        <item msgid="4610012663985162123">"৮ মিনিট"</item>
-        <item msgid="1717028898015659426">"৯ মিনিট"</item>
-        <item msgid="8058492636464337699">"১০ মিনিট"</item>
-        <item msgid="577767219993868603">"১১ মিনিট"</item>
-        <item msgid="3710047869487864775">"১২ মিনিট"</item>
-        <item msgid="3794200935630619331">"১৩ মিনিট"</item>
-        <item msgid="5462266433522229437">"১৪ মিনিট"</item>
-        <item msgid="2192100038569306041">"১৫ মিনিট"</item>
-        <item msgid="6636326047858437620">"১৬ মিনিট"</item>
-        <item msgid="2481054808772108352">"১৭ মিনিট"</item>
-        <item msgid="4080984064428458050">"১৮ মিনিট"</item>
-        <item msgid="5844319398703041730">"১৯ মিনিট"</item>
-        <item msgid="2334964289857921073">"২০ মিনিট"</item>
-        <item msgid="4755209855817904977">"২১ মিনিট"</item>
-        <item msgid="8414394445389367355">"২২ মিনিট"</item>
-        <item msgid="2604612428763230265">"২৩ মিনিট"</item>
-        <item msgid="6871696471373403806">"২৪ মিনিট"</item>
-        <item msgid="1573685398431466364">"২৫ মিনিট"</item>
-        <item msgid="6999090368236684971">"২৬ মিনিট"</item>
-        <item msgid="7125056720603734703">"২৭ মিনিট"</item>
-        <item msgid="1695830988496463030">"২৮ মিনিট"</item>
-        <item msgid="6706610539793025916">"২৯ মিনিট"</item>
-        <item msgid="2898212818965905529">"৩০ মিনিট"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">১ মিনিট</string>
+    <string name="auto_silence_5_minutes">৫ মিনিট</string>
+    <string name="auto_silence_10_minutes">১০ মিনিট</string>
+    <string name="auto_silence_15_minutes">১৫ মিনিট</string>
+    <string name="auto_silence_20_minutes">২০ মিনিট</string>
+    <string name="auto_silence_25_minutes">২৫ মিনিট</string>
+    <string name="label_off">অফ কৰক</string>
+    <string name="crescendo_5_seconds">৫ ছেকেণ্ড</string>
+    <string name="crescendo_10_seconds">১০ ছেকেণ্ড</string>
+    <string name="crescendo_15_seconds">১৫ ছেকেণ্ড</string>
+    <string name="crescendo_20_seconds">২০ ছেকেণ্ড</string>
+    <string name="crescendo_30_seconds">৩০ ছেকেণ্ড</string>
+    <string name="crescendo_40_seconds">৪০ ছেকেণ্ড</string>
+    <string name="crescendo_50_seconds">৫০ ছেকেণ্ড</string>
+    <string name="crescendo_60_seconds">৬০ ছেকেণ্ড</string>
+    <string name="snooze_duration_1_minute">"১ মিনিট"</string>
+    <string name="snooze_duration_2_minutes">"২ মিনিট"</string>
+    <string name="snooze_duration_3_minutes">"৩ মিনিট"</string>
+    <string name="snooze_duration_4_minutes">"৪ মিনিট"</string>
+    <string name="snooze_duration_5_minutes">"৫ মিনিট"</string>
+    <string name="snooze_duration_6_minutes">"৬ মিনিট"</string>
+    <string name="snooze_duration_7_minutes">"৭ মিনিট"</string>
+    <string name="snooze_duration_8_minutes">"৮ মিনিট"</string>
+    <string name="snooze_duration_9_minutes">"৯ মিনিট"</string>
+    <string name="snooze_duration_10_minutes">"১০ মিনিট"</string>
+    <string name="snooze_duration_11_minutes">"১১ মিনিট"</string>
+    <string name="snooze_duration_12_minutes">"১২ মিনিট"</string>
+    <string name="snooze_duration_13_minutes">"১৩ মিনিট"</string>
+    <string name="snooze_duration_14_minutes">"১৪ মিনিট"</string>
+    <string name="snooze_duration_15_minutes">"১৫ মিনিট"</string>
+    <string name="snooze_duration_16_minutes">"১৬ মিনিট"</string>
+    <string name="snooze_duration_17_minutes">"১৭ মিনিট"</string>
+    <string name="snooze_duration_18_minutes">"১৮ মিনিট"</string>
+    <string name="snooze_duration_19_minutes">"১৯ মিনিট"</string>
+    <string name="snooze_duration_20_minutes">"২০ মিনিট"</string>
+    <string name="snooze_duration_21_minutes">"২১ মিনিট"</string>
+    <string name="snooze_duration_22_minutes">"২২ মিনিট"</string>
+    <string name="snooze_duration_23_minutes">"২৩ মিনিট"</string>
+    <string name="snooze_duration_24_minutes">"২৪ মিনিট"</string>
+    <string name="snooze_duration_25_minutes">"২৫ মিনিট"</string>
+    <string name="snooze_duration_26_minutes">"২৬ মিনিট"</string>
+    <string name="snooze_duration_27_minutes">"২৭ মিনিট"</string>
+    <string name="snooze_duration_28_minutes">"২৮ মিনিট"</string>
+    <string name="snooze_duration_29_minutes">"২৯ মিনিট"</string>
+    <string name="snooze_duration_30_minutes">"৩০ মিনিট"</string>
     <string name="week_start_title" msgid="4268917518596832096">"সপ্তাহ আৰম্ভ হোৱা দিন"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"শনিবাৰ"</item>
-        <item msgid="3993530639455360921">"দেওবাৰ"</item>
-        <item msgid="8594709368683324282">"সোমবাৰ"</item>
-    </string-array>
+    <string name="week_start_saturday">শনিবাৰ</string>
+    <string name="week_start_sunday">দেওবাৰ</string>
+    <string name="week_start_monday">সোমবাৰ</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"এলাৰ্মৰ ভলিউম"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"নীৰৱ ম\'ড"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজ্ঞাত"</string>
@@ -167,12 +156,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"সলনি কৰক"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ডিভাইচক সম্পূৰ্ণ নীৰৱ ম\'ডত ছেট কৰা হৈছে"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউমৰ বুটাম"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"স্নুজ কৰক"</item>
-        <item msgid="3450979320164769576">"বাতিল কৰক"</item>
-        <item msgid="7085774139907653538">"ভলিউম নিয়ন্ত্ৰণ কৰক"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">স্নুজ কৰক</string>
+    <string name="button_action_dismiss">বাতিল কৰক</string>
+    <string name="button_action_control_volume">ভলিউম নিয়ন্ত্ৰণ কৰক</string>
     <string name="label_description" msgid="8736179296142915727">"লেবেল"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"ৰিংট’ন"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"এলাৰ্ম"</string>
@@ -222,28 +208,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"আপুনি নিশ্চয় গতি ভাল পায়।"</item>
-        <item msgid="6332879039890727169">"নিজৰ কষ্টৰ ফল উপভোগ কৰক।"</item>
-        <item msgid="815382761274660130">"Androidবোৰক বেগী বুলি জনা যায়, কিন্তু এইবোৰ আপোনাৰ দৰে বেগী নহয়!"</item>
-        <item msgid="7916250650982813737">"উহ।"</item>
-        <item msgid="6836603904515182333">"L33t বাৰ।"</item>
-        <item msgid="7508085100680861631">"ইমান বিস্ময়কৰ বেগ।"</item>
-        <item msgid="5961245252909589573">"আহক সময়ক আকৌ সাঙুৰি লওঁ।"</item>
-        <item msgid="5211891900854545940">"এবাৰ বাওঁফালে গ\'লেই হ’ল।"</item>
-        <item msgid="9071353477103826053">"আপোনাৰ লৰালৰিকৈ কাম কৰাৰ অভ্য়াস আছে।"</item>
-        <item msgid="3785193933691117181">"ফ\'টোনিক বেগ।"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"আপুনি নিশ্চয় গতি ভাল পায়।"</string>
+    <string name="jocular_content_message_2">"নিজৰ কষ্টৰ ফল উপভোগ কৰক।"</string>
+    <string name="jocular_content_message_3">"Androidবোৰক বেগী বুলি জনা যায়, কিন্তু এইবোৰ আপোনাৰ দৰে বেগী নহয়!"</string>
+    <string name="jocular_content_message_4">"উহ।"</string>
+    <string name="jocular_content_message_5">"L33t বাৰ।"</string>
+    <string name="jocular_content_message_6">"ইমান বিস্ময়কৰ বেগ।"</string>
+    <string name="jocular_content_message_7">"আহক সময়ক আকৌ সাঙুৰি লওঁ।"</string>
+    <string name="jocular_content_message_8">"এবাৰ বাওঁফালে গ\'লেই হ’ল।"</string>
+    <string name="jocular_content_message_9">"আপোনাৰ লৰালৰিকৈ কাম কৰাৰ অভ্য়াস আছে।"</string>
+    <string name="jocular_content_message_10">"ফ\'টোনিক বেগ।"</string>
     <string name="home_label" msgid="4436139365695453870">"দেশৰ সময়"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"চহৰবোৰ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ঘড়ী"</string>
     <string name="clock_style" msgid="2265011060429742344">"শৈলী"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"ছেকেণ্ডসহ সময় দেখুৱাওক"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"তাৰিখ আৰু সময় সলনি কৰক"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"এনাল\'গ"</item>
-        <item msgid="8483930821046925592">"ডিজিটেল"</item>
-    </string-array>
+    <string name="clock_style_analog">এনাল\'গ</string>
+    <string name="clock_style_digital">ডিজিটেল</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"স্ৱয়ংক্ৰিয়ভাৱে দেশৰ ঘড়ী দেখুৱাওক"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময় থকা কোনো ক্ষেত্ৰত যাত্ৰা কৰাৰ সময় নিজৰ দেশৰ সময় দেখুওৱা ঘড়ী যোগ কৰক"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"দেশৰ সময় ক্ষেত্ৰ"</string>

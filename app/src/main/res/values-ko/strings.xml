@@ -98,66 +98,55 @@
         <item quantity="one">1분</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"사용 안함"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1분"</item>
-        <item msgid="5431906692406316549">"5분"</item>
-        <item msgid="7742728812068919959">"10분"</item>
-        <item msgid="2855948657259647629">"15분"</item>
-        <item msgid="6330196381284475079">"20분"</item>
-        <item msgid="7809240121716151904">"25분"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"사용 안함"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"꺼짐"</item>
-        <item msgid="7195451681426992018">"5초"</item>
-        <item msgid="592917601923801901">"10초"</item>
-        <item msgid="5050318776687582653">"15초"</item>
-        <item msgid="6997726466563948756">"20초"</item>
-        <item msgid="248014374051498284">"30초"</item>
-        <item msgid="8010211657612404516">"40초"</item>
-        <item msgid="623829984393124488">"50초"</item>
-        <item msgid="5261571706794132923">"60초"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1분"</item>
-        <item msgid="4482596794620161030">"2분"</item>
-        <item msgid="8478276201849960314">"3분"</item>
-        <item msgid="4038456474851212478">"4분"</item>
-        <item msgid="6298175579152122770">"5분"</item>
-        <item msgid="9021860177999278496">"6분"</item>
-        <item msgid="7224689200902680256">"7분"</item>
-        <item msgid="4610012663985162123">"8분"</item>
-        <item msgid="1717028898015659426">"9분"</item>
-        <item msgid="8058492636464337699">"10분"</item>
-        <item msgid="577767219993868603">"11분"</item>
-        <item msgid="3710047869487864775">"12분"</item>
-        <item msgid="3794200935630619331">"13분"</item>
-        <item msgid="5462266433522229437">"14분"</item>
-        <item msgid="2192100038569306041">"15분"</item>
-        <item msgid="6636326047858437620">"16분"</item>
-        <item msgid="2481054808772108352">"17분"</item>
-        <item msgid="4080984064428458050">"18분"</item>
-        <item msgid="5844319398703041730">"19분"</item>
-        <item msgid="2334964289857921073">"20분"</item>
-        <item msgid="4755209855817904977">"21분"</item>
-        <item msgid="8414394445389367355">"22분"</item>
-        <item msgid="2604612428763230265">"23분"</item>
-        <item msgid="6871696471373403806">"24분"</item>
-        <item msgid="1573685398431466364">"25분"</item>
-        <item msgid="6999090368236684971">"26분"</item>
-        <item msgid="7125056720603734703">"27분"</item>
-        <item msgid="1695830988496463030">"28분"</item>
-        <item msgid="6706610539793025916">"29분"</item>
-        <item msgid="2898212818965905529">"30분"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1분</string>
+    <string name="auto_silence_5_minutes">5분</string>
+    <string name="auto_silence_10_minutes">10분</string>
+    <string name="auto_silence_15_minutes">15분</string>
+    <string name="auto_silence_20_minutes">20분</string>
+    <string name="auto_silence_25_minutes">25분</string>
+    <string name="label_off">꺼짐</string>
+    <string name="crescendo_5_seconds">5초</string>
+    <string name="crescendo_10_seconds">10초</string>
+    <string name="crescendo_15_seconds">15초</string>
+    <string name="crescendo_20_seconds">20초</string>
+    <string name="crescendo_30_seconds">30초</string>
+    <string name="crescendo_40_seconds">40초</string>
+    <string name="crescendo_50_seconds">50초</string>
+    <string name="crescendo_60_seconds">60초</string>
+    <string name="snooze_duration_1_minute">1분</string>
+    <string name="snooze_duration_2_minutes">2분</string>
+    <string name="snooze_duration_3_minutes">3분</string>
+    <string name="snooze_duration_4_minutes">4분</string>
+    <string name="snooze_duration_5_minutes">5분</string>
+    <string name="snooze_duration_6_minutes">6분</string>
+    <string name="snooze_duration_7_minutes">7분</string>
+    <string name="snooze_duration_8_minutes">8분</string>
+    <string name="snooze_duration_9_minutes">9분</string>
+    <string name="snooze_duration_10_minutes">10분</string>
+    <string name="snooze_duration_11_minutes">11분</string>
+    <string name="snooze_duration_12_minutes">12분</string>
+    <string name="snooze_duration_13_minutes">13분</string>
+    <string name="snooze_duration_14_minutes">14분</string>
+    <string name="snooze_duration_15_minutes">15분</string>
+    <string name="snooze_duration_16_minutes">16분</string>
+    <string name="snooze_duration_17_minutes">17분</string>
+    <string name="snooze_duration_18_minutes">18분</string>
+    <string name="snooze_duration_19_minutes">19분</string>
+    <string name="snooze_duration_20_minutes">20분</string>
+    <string name="snooze_duration_21_minutes">21분</string>
+    <string name="snooze_duration_22_minutes">22분</string>
+    <string name="snooze_duration_23_minutes">23분</string>
+    <string name="snooze_duration_24_minutes">24분</string>
+    <string name="snooze_duration_25_minutes">25분</string>
+    <string name="snooze_duration_26_minutes">26분</string>
+    <string name="snooze_duration_27_minutes">27분</string>
+    <string name="snooze_duration_28_minutes">28분</string>
+    <string name="snooze_duration_29_minutes">29분</string>
+    <string name="snooze_duration_30_minutes">30분</string>
     <string name="week_start_title" msgid="4268917518596832096">"1주일 시작일:"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"토요일"</item>
-        <item msgid="3993530639455360921">"일요일"</item>
-        <item msgid="8594709368683324282">"월요일"</item>
-    </string-array>
+    <string name="week_start_saturday">토요일</string>
+    <string name="week_start_sunday">일요일</string>
+    <string name="week_start_monday">월요일</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"알람 볼륨"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"무음"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"알 수 없음"</string>
@@ -167,12 +156,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"변경"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"기기가 모두 차단으로 설정됨"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"다시 울림"</item>
-        <item msgid="3450979320164769576">"알람 해제"</item>
-        <item msgid="7085774139907653538">"볼륨 조절"</item>
-        <item>사용 안 함</item>
-    </string-array>
+    <string name="button_action_snooze">다시 울림</string>
+    <string name="button_action_dismiss">알람 해제</string>
+    <string name="button_action_control_volume">볼륨 조절</string>
+    <string name="button_action_nothing">사용 안 함</string>
     <string name="label_description" msgid="8736179296142915727">"라벨"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"벨소리"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"알람"</string>
@@ -222,28 +209,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"속도광이시군요."</item>
-        <item msgid="6332879039890727169">"결과를 확인하세요."</item>
-        <item msgid="815382761274660130">"Android의 속도도 아주 빠르지만 당신이 더 빠르군요."</item>
-        <item msgid="7916250650982813737">"휴…"</item>
-        <item msgid="6836603904515182333">"엄청나게 많군요."</item>
-        <item msgid="7508085100680861631">"엄청난 속도군요."</item>
-        <item msgid="5961245252909589573">"다시 타임 와프를 하세요."</item>
-        <item msgid="5211891900854545940">"왼쪽으로 점프하세요."</item>
-        <item msgid="9071353477103826053">"서두르세요."</item>
-        <item msgid="3785193933691117181">"엄청난 속도입니다."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"속도광이시군요."</string>
+    <string name="jocular_content_message_2">"결과를 확인하세요."</string>
+    <string name="jocular_content_message_3">"Android의 속도도 아주 빠르지만 당신이 더 빠르군요."</string>
+    <string name="jocular_content_message_4">"휴…"</string>
+    <string name="jocular_content_message_5">"엄청나게 많군요."</string>
+    <string name="jocular_content_message_6">"엄청난 속도군요."</string>
+    <string name="jocular_content_message_7">"다시 타임 와프를 하세요."</string>
+    <string name="jocular_content_message_8">"왼쪽으로 점프하세요."</string>
+    <string name="jocular_content_message_9">"서두르세요."</string>
+    <string name="jocular_content_message_10">"엄청난 속도입니다."</string>
     <string name="home_label" msgid="4436139365695453870">"기본"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"도시"</string>
     <string name="clock_settings" msgid="8317286807280600391">"시계"</string>
     <string name="clock_style" msgid="2265011060429742344">"종류"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"초 단위로 시간 표시"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"날짜 및 시간 변경"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"아날로그"</item>
-        <item msgid="8483930821046925592">"디지털"</item>
-    </string-array>
+    <string name="clock_style_analog">아날로그</string>
+    <string name="clock_style_digital">디지털</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시간대 시계"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시간대 시계 추가"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"기본 시간대"</string>
@@ -396,11 +379,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람이 10분 동안 일시 중지됨"</string>
     <string name="flip_action_title">기기 뒤집을 때 동작</string>
     <string name="shake_action_title">기기 흔들 때 동작</string>
-    <string-array name="action_setting_entries">
-        <item>알람 일시 정지</item>
-        <item>알람 해제</item>
-        <item>사용 안 함</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">알람 및 타이머 시작</string>
     <string name="alarm_missed_channel">부재 중 알람</string>
     <string name="alarm_snooze_channel">일시 중지된 알람</string>

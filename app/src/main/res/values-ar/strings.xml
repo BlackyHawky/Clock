@@ -134,66 +134,55 @@
         <item quantity="one">دقيقة واحدة</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"أبدًا"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"دقيقة واحدة"</item>
-        <item msgid="5431906692406316549">"٥ دقائق"</item>
-        <item msgid="7742728812068919959">"۱۰ دقائق"</item>
-        <item msgid="2855948657259647629">"١٥ دقيقة"</item>
-        <item msgid="6330196381284475079">"۲۰ دقيقة"</item>
-        <item msgid="7809240121716151904">"٢٥ دقيقة"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"أبدًا"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"إيقاف"</item>
-        <item msgid="7195451681426992018">"٥ ثوانٍ"</item>
-        <item msgid="592917601923801901">"۱۰ ثوانٍ"</item>
-        <item msgid="5050318776687582653">"١٥ ثانية"</item>
-        <item msgid="6997726466563948756">"۲۰ ثانية"</item>
-        <item msgid="248014374051498284">"٣۰ ثانية"</item>
-        <item msgid="8010211657612404516">"٤٠ ثانية"</item>
-        <item msgid="623829984393124488">"٥۰ ثانية"</item>
-        <item msgid="5261571706794132923">"٦٠ ثانية"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"دقيقة واحدة"</item>
-        <item msgid="4482596794620161030">"دقيقتان"</item>
-        <item msgid="8478276201849960314">"٣ دقائق"</item>
-        <item msgid="4038456474851212478">"٤ دقائق"</item>
-        <item msgid="6298175579152122770">"٥ دقائق"</item>
-        <item msgid="9021860177999278496">"٦ دقائق"</item>
-        <item msgid="7224689200902680256">"٧ دقائق"</item>
-        <item msgid="4610012663985162123">"٨ دقائق"</item>
-        <item msgid="1717028898015659426">"٩ دقائق"</item>
-        <item msgid="8058492636464337699">"١٠ دقائق"</item>
-        <item msgid="577767219993868603">"١١ دقيقة"</item>
-        <item msgid="3710047869487864775">"١٢ دقيقة"</item>
-        <item msgid="3794200935630619331">"١٣ دقيقة"</item>
-        <item msgid="5462266433522229437">"١٤ دقيقة"</item>
-        <item msgid="2192100038569306041">"١٥ دقيقة"</item>
-        <item msgid="6636326047858437620">"١٦ دقيقة"</item>
-        <item msgid="2481054808772108352">"١٧ دقيقة"</item>
-        <item msgid="4080984064428458050">"١٨ دقيقة"</item>
-        <item msgid="5844319398703041730">"١٩ دقيقة"</item>
-        <item msgid="2334964289857921073">"۲۰ دقيقة"</item>
-        <item msgid="4755209855817904977">"٢١ دقيقة"</item>
-        <item msgid="8414394445389367355">"٢٢ دقيقة"</item>
-        <item msgid="2604612428763230265">"٢٣ دقيقة"</item>
-        <item msgid="6871696471373403806">"٢٤ دقيقة"</item>
-        <item msgid="1573685398431466364">"٢٥ دقيقة"</item>
-        <item msgid="6999090368236684971">"٢٦ دقيقة"</item>
-        <item msgid="7125056720603734703">"٢٧ دقيقة"</item>
-        <item msgid="1695830988496463030">"٢٨ دقيقة"</item>
-        <item msgid="6706610539793025916">"٢٩ دقيقة"</item>
-        <item msgid="2898212818965905529">"٣۰ دقيقة"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">دقيقة واحدة</string>
+    <string name="auto_silence_5_minutes">٥ دقائق</string>
+    <string name="auto_silence_10_minutes">۱۰ دقائق</string>
+    <string name="auto_silence_15_minutes">١٥ دقيقة</string>
+    <string name="auto_silence_20_minutes">۲۰ دقيقة</string>
+    <string name="auto_silence_25_minutes">٢٥ دقيقة</string>
+    <string name="label_off">إيقاف</string>
+    <string name="crescendo_5_seconds">٥ ثوانٍ</string>
+    <string name="crescendo_10_seconds">۱۰ ثوان</string>
+    <string name="crescendo_15_seconds">١٥ ثانية</string>
+    <string name="crescendo_20_seconds">۲۰ ثانية</string>
+    <string name="crescendo_30_seconds">٣۰ ثانية</string>
+    <string name="crescendo_40_seconds">٤٠ ثانية</string>
+    <string name="crescendo_50_seconds">٥۰ ثانية</string>
+    <string name="crescendo_60_seconds">٦٠ ثانية</string>
+    <string name="snooze_duration_1_minute">"دقيقة واحدة"</string>
+    <string name="snooze_duration_2_minutes">"دقيقتان"</string>
+    <string name="snooze_duration_3_minutes">"٣ دقائق"</string>
+    <string name="snooze_duration_4_minutes">"٤ دقائق"</string>
+    <string name="snooze_duration_5_minutes">"٥ دقائق"</string>
+    <string name="snooze_duration_6_minutes">"٦ دقائق"</string>
+    <string name="snooze_duration_7_minutes">"٧ دقائق"</string>
+    <string name="snooze_duration_8_minutes">"٨ دقائق"</string>
+    <string name="snooze_duration_9_minutes">"٩ دقائق"</string>
+    <string name="snooze_duration_10_minutes">"١٠ دقائق"</string>
+    <string name="snooze_duration_11_minutes">"١١ دقيقة"</string>
+    <string name="snooze_duration_12_minutes">"١٢ دقيقة"</string>
+    <string name="snooze_duration_13_minutes">"١٣ دقيقة"</string>
+    <string name="snooze_duration_14_minutes">"١٤ دقيقة"</string>
+    <string name="snooze_duration_15_minutes">"١٥ دقيقة"</string>
+    <string name="snooze_duration_16_minutes">"١٦ دقيقة"</string>
+    <string name="snooze_duration_17_minutes">"١٧ دقيقة"</string>
+    <string name="snooze_duration_18_minutes">"١٨ دقيقة"</string>
+    <string name="snooze_duration_19_minutes">"١٩ دقيقة"</string>
+    <string name="snooze_duration_20_minutes">"۲۰ دقيقة"</string>
+    <string name="snooze_duration_21_minutes">"٢١ دقيقة"</string>
+    <string name="snooze_duration_22_minutes">"٢٢ دقيقة"</string>
+    <string name="snooze_duration_23_minutes">"٢٣ دقيقة"</string>
+    <string name="snooze_duration_24_minutes">"٢٤ دقيقة"</string>
+    <string name="snooze_duration_25_minutes">"٢٥ دقيقة"</string>
+    <string name="snooze_duration_26_minutes">"٢٦ دقيقة"</string>
+    <string name="snooze_duration_27_minutes">"٢٧ دقيقة"</string>
+    <string name="snooze_duration_28_minutes">"٢٨ دقيقة"</string>
+    <string name="snooze_duration_29_minutes">"٢٩ دقيقة"</string>
+    <string name="snooze_duration_30_minutes">"٣۰ دقيقة"</string>
     <string name="week_start_title" msgid="4268917518596832096">"بداية الأسبوع يوم"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"السبت"</item>
-        <item msgid="3993530639455360921">"الأحد"</item>
-        <item msgid="8594709368683324282">"الاثنين"</item>
-    </string-array>
+    <string name="week_start_saturday">السبت</string>
+    <string name="week_start_sunday">الأحد</string>
+    <string name="week_start_monday">الاثنين</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"مستوى صوت المنبّه"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"صامت"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"غير معروف"</string>
@@ -203,12 +192,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"تغيير"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"تم تعيين الجهاز إلى الوضع الصامت كليًا."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"أزرار مستوى الصوت"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"غفوة"</item>
-        <item msgid="3450979320164769576">"تجاهل"</item>
-        <item msgid="7085774139907653538">"التحكم في مستوى الصوت"</item>
-        <item>لا شيء</item>
-    </string-array>
+    <string name="button_action_snooze">غفوة</string>
+    <string name="button_action_dismiss">تجاهل</string>
+    <string name="button_action_control_volume">التحكم في مستوى الصوت</string>
+    <string name="button_action_nothing">لا شيء</string>
     <string name="label_description" msgid="8736179296142915727">"تصنيف"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"نغمة الرنين"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"المنبّه"</string>
@@ -258,28 +245,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"يمكنك إجراء كل شيء بسرعة البرق."</item>
-        <item msgid="6332879039890727169">"استمتع بحصاد ثمار تعبك."</item>
-        <item msgid="815382761274660130">"‏مشهور أن أجهزة Android سريعة، لكن ليس بسرعتك!"</item>
-        <item msgid="7916250650982813737">"فو"</item>
-        <item msgid="6836603904515182333">"‏L33t أوقات"</item>
-        <item msgid="7508085100680861631">"هذه السرعة المذهلة."</item>
-        <item msgid="5961245252909589573">"هيا بنا نجري التحريف الزمني مرة أخرى."</item>
-        <item msgid="5211891900854545940">"الانتقال إلى اليمين."</item>
-        <item msgid="9071353477103826053">"لديك لوحة للإسراع."</item>
-        <item msgid="3785193933691117181">"السرعة الضوئية"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"يمكنك إجراء كل شيء بسرعة البرق."</string>
+    <string name="jocular_content_message_2">"استمتع بحصاد ثمار تعبك."</string>
+    <string name="jocular_content_message_3">"‏مشهور أن أجهزة Android سريعة، لكن ليس بسرعتك!"</string>
+    <string name="jocular_content_message_4">"فو"</string>
+    <string name="jocular_content_message_5">"‏L33t أوقات"</string>
+    <string name="jocular_content_message_6">"هذه السرعة المذهلة."</string>
+    <string name="jocular_content_message_7">"هيا بنا نجري التحريف الزمني مرة أخرى."</string>
+    <string name="jocular_content_message_8">"الانتقال إلى اليمين."</string>
+    <string name="jocular_content_message_9">"لديك لوحة للإسراع."</string>
+    <string name="jocular_content_message_10">"السرعة الضوئية"</string>
     <string name="home_label" msgid="4436139365695453870">"الوقت المحلي"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"مدن"</string>
     <string name="clock_settings" msgid="8317286807280600391">"الساعة"</string>
     <string name="clock_style" msgid="2265011060429742344">"النمط"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"عرض الوقت بالثواني"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"تغيير التاريخ والوقت"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"تناظري"</item>
-        <item msgid="8483930821046925592">"رقمي"</item>
-    </string-array>
+    <string name="clock_style_analog">تناظري</string>
+    <string name="clock_style_digital">رقمي</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة آلية للبلد الأم"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"تتيح لك هذه الميزة إضافة ساعة بتوقيت بلدك الأم عند السفر إلى مكان بمنطقة زمنية مختلفة"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"المنطقة الزمنية للبلد الأم"</string>
@@ -436,9 +419,4 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبّه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة ۱۰ دقائق"</string>
     <string name="flip_action_title">تأثير قلب الجهاز</string>
     <string name="shake_action_title">تأثير هز الجهاز</string>
-    <string-array name="action_setting_entries">
-        <item>غفوة</item>
-        <item>تجاهل</item>
-        <item>لا شيء</item>
-    </string-array>
 </resources>
