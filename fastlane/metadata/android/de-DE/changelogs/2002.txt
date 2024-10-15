@@ -1,0 +1,7 @@
+**Fix:**
+* Anzeige der Verknüpfungen beim langen Drücken des App-Symbols korrigiert;
+
+**Verbesserung:**
+* Entfernen von unnötige Berechtigungen
+
+Die wichtigsten Änderungen sind hier zu finden: https://github.com/BlackyHawky/Clock/releases/tag/2.0

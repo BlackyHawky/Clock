@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"တိုင်မာသို့ %1$s မိနစ်ကို ထည့်လိုက်ပါပြီ။ <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"ကျန်ရှိနေသော"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ကျန်ရှိနေသော"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"နှိုးစက် သတ်မှတ်ချိန်မှာ ယခု အချိန်မှ ၁ မိနစ်ထက် နည်းနေသည်။"</item>
-        <item msgid="6002066367368421848">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="8824719306247973774">"ယခု အချိန်မှ စပြီး <xliff:g id="HOURS">%2$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="8182406852935468862">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> နှင့် <xliff:g id="HOURS">%2$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="2532279224777213194">"ယခု အချိန်မှ စပြီး <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="5936557894247187717">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="9115697840826129603">"ယခု အချိန်မှ စပြီး <xliff:g id="HOURS">%2$s</xliff:g> နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-        <item msgid="2332583385137381060">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g>၊ <xliff:g id="HOURS">%2$s</xliff:g>  နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"နှိုးစက် သတ်မှတ်ချိန်မှာ ယခု အချိန်မှ ၁ မိနစ်ထက် နည်းနေသည်။"</string>
+    <string name="alarm_confirmation_toast_2">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_3">"ယခု အချိန်မှ စပြီး <xliff:g id="HOURS">%2$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_4">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> နှင့် <xliff:g id="HOURS">%2$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_5">"ယခု အချိန်မှ စပြီး <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_6">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g> နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_7">"ယခု အချိန်မှ စပြီး <xliff:g id="HOURS">%2$s</xliff:g> နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
+    <string name="alarm_confirmation_toast_8">"ယခု အချိန်မှ စပြီး <xliff:g id="DAYS">%1$s</xliff:g>၊ <xliff:g id="HOURS">%2$s</xliff:g>  နှင့် <xliff:g id="MINUTES">%3$s</xliff:g> အကြာမှာ နှိုးစက် သတ်မှတ်ထားသည်။"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ရက်</item>
         <item quantity="one">1 ရက်</item>
@@ -98,66 +96,55 @@
         <item quantity="one"> ၁ မိနစ်</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ဘယ်တော့မှ"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"၁ မိနစ်"</item>
-        <item msgid="5431906692406316549">"၅ မိနစ်"</item>
-        <item msgid="7742728812068919959">"၁၀ မိနစ်"</item>
-        <item msgid="2855948657259647629">"၁၅ မိနစ်"</item>
-        <item msgid="6330196381284475079">"၂၀ မိနစ်"</item>
-        <item msgid="7809240121716151904">"၂၅ မိနစ်"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"ဘယ်တော့မှ"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"ပိတ်ထားသည်"</item>
-        <item msgid="7195451681426992018">"၅ စက္ကန့်"</item>
-        <item msgid="592917601923801901">"၁၀ စက္ကန့်"</item>
-        <item msgid="5050318776687582653">"၁၅ စက္ကန့်"</item>
-        <item msgid="6997726466563948756">"၂၀ စက္ကန့်"</item>
-        <item msgid="248014374051498284">"၃၀ စက္ကန့်"</item>
-        <item msgid="8010211657612404516">"၄၀ စက္ကန့်"</item>
-        <item msgid="623829984393124488">"၅၀ စက္ကန့်"</item>
-        <item msgid="5261571706794132923">"၆၀ စက္ကန့်"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"၁ မိနစ်"</item>
-        <item msgid="4482596794620161030">"၂ မိနစ်"</item>
-        <item msgid="8478276201849960314">"၃ မိနစ်"</item>
-        <item msgid="4038456474851212478">"၄ မိနစ်"</item>
-        <item msgid="6298175579152122770">"၅ မိနစ်"</item>
-        <item msgid="9021860177999278496">"၆ မိနစ်"</item>
-        <item msgid="7224689200902680256">"၇ မိနစ်"</item>
-        <item msgid="4610012663985162123">"၈ မိနစ်"</item>
-        <item msgid="1717028898015659426">"၉ မိနစ်"</item>
-        <item msgid="8058492636464337699">"၁၀ မိနစ်"</item>
-        <item msgid="577767219993868603">"၁၁ မိနစ်"</item>
-        <item msgid="3710047869487864775">"၁၂ မိနစ်"</item>
-        <item msgid="3794200935630619331">"၁၃ မိနစ်"</item>
-        <item msgid="5462266433522229437">"၁၄ မိနစ်"</item>
-        <item msgid="2192100038569306041">"၁၅ မိနစ်"</item>
-        <item msgid="6636326047858437620">"၁၆ မိနစ်"</item>
-        <item msgid="2481054808772108352">"၁၇ မိနစ်"</item>
-        <item msgid="4080984064428458050">"၁၈ မိနစ်"</item>
-        <item msgid="5844319398703041730">"၁၉ မိနစ်"</item>
-        <item msgid="2334964289857921073">"၂၀ မိနစ်"</item>
-        <item msgid="4755209855817904977">"၂၁ မိနစ်"</item>
-        <item msgid="8414394445389367355">"၂၂ မိနစ်"</item>
-        <item msgid="2604612428763230265">"၂၃ မိနစ်"</item>
-        <item msgid="6871696471373403806">"၂၄ မိနစ်"</item>
-        <item msgid="1573685398431466364">"၂၅ မိနစ်"</item>
-        <item msgid="6999090368236684971">"၂၆ မိနစ်"</item>
-        <item msgid="7125056720603734703">"၂၇ မိနစ်"</item>
-        <item msgid="1695830988496463030">"၂၈ မိနစ်"</item>
-        <item msgid="6706610539793025916">"၂၉ မိနစ်"</item>
-        <item msgid="2898212818965905529">"၃၀ မိနစ်"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">၁ မိနစ်</string>
+    <string name="auto_silence_5_minutes">၅ မိနစ်</string>
+    <string name="auto_silence_10_minutes">၁၀ မိနစ်</string>
+    <string name="auto_silence_15_minutes">၁၅ မိနစ်</string>
+    <string name="auto_silence_20_minutes">၂၀ မိနစ်</string>
+    <string name="auto_silence_25_minutes">၂၅ မိနစ်</string>
+    <string name="label_off">ပိတ်ထားသည်</string>
+    <string name="crescendo_5_seconds">၅ စက္ကန့်</string>
+    <string name="crescendo_10_seconds">၁၀ စက္ကန့်</string>
+    <string name="crescendo_15_seconds">၁၅ စက္ကန့်</string>
+    <string name="crescendo_20_seconds">၂၀ စက္ကန့်</string>
+    <string name="crescendo_30_seconds">၃၀ စက္ကန့်</string>
+    <string name="crescendo_40_seconds">၄၀ စက္ကန့်</string>
+    <string name="crescendo_50_seconds">၅၀ စက္ကန့်</string>
+    <string name="crescendo_60_seconds">၆၀ စက္ကန့်</string>
+    <string name="snooze_duration_1_minute">"၁ မိနစ်"</string>
+    <string name="snooze_duration_2_minutes">"၂ မိနစ်"</string>
+    <string name="snooze_duration_3_minutes">"၃ မိနစ်"</string>
+    <string name="snooze_duration_4_minutes">"၄ မိနစ်"</string>
+    <string name="snooze_duration_5_minutes">"၅ မိနစ်"</string>
+    <string name="snooze_duration_6_minutes">"၆ မိနစ်"</string>
+    <string name="snooze_duration_7_minutes">"၇ မိနစ်"</string>
+    <string name="snooze_duration_8_minutes">"၈ မိနစ်"</string>
+    <string name="snooze_duration_9_minutes">"၉ မိနစ်"</string>
+    <string name="snooze_duration_10_minutes">"၁၀ မိနစ်"</string>
+    <string name="snooze_duration_11_minutes">"၁၁ မိနစ်"</string>
+    <string name="snooze_duration_12_minutes">"၁၂ မိနစ်"</string>
+    <string name="snooze_duration_13_minutes">"၁၃ မိနစ်"</string>
+    <string name="snooze_duration_14_minutes">"၁၄ မိနစ်"</string>
+    <string name="snooze_duration_15_minutes">"၁၅ မိနစ်"</string>
+    <string name="snooze_duration_16_minutes">"၁၆ မိနစ်"</string>
+    <string name="snooze_duration_17_minutes">"၁၇ မိနစ်"</string>
+    <string name="snooze_duration_18_minutes">"၁၈ မိနစ်"</string>
+    <string name="snooze_duration_19_minutes">"၁၉ မိနစ်"</string>
+    <string name="snooze_duration_20_minutes">"၂၀ မိနစ်"</string>
+    <string name="snooze_duration_21_minutes">"၂၁ မိနစ်"</string>
+    <string name="snooze_duration_22_minutes">"၂၂ မိနစ်"</string>
+    <string name="snooze_duration_23_minutes">"၂၃ မိနစ်"</string>
+    <string name="snooze_duration_24_minutes">"၂၄ မိနစ်"</string>
+    <string name="snooze_duration_25_minutes">"၂၅ မိနစ်"</string>
+    <string name="snooze_duration_26_minutes">"၂၆ မိနစ်"</string>
+    <string name="snooze_duration_27_minutes">"၂၇ မိနစ်"</string>
+    <string name="snooze_duration_28_minutes">"၂၈ မိနစ်"</string>
+    <string name="snooze_duration_29_minutes">"၂၉ မိနစ်"</string>
+    <string name="snooze_duration_30_minutes">"၃၀ မိနစ်"</string>
     <string name="week_start_title" msgid="4268917518596832096">"ရက်သတ္တပတ် စရက်"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"စနေနေ့"</item>
-        <item msgid="3993530639455360921">"တနင်္ဂနွေနေ့"</item>
-        <item msgid="8594709368683324282">"တနင်္လာနေ့"</item>
-    </string-array>
+    <string name="week_start_saturday">စနေနေ့</string>
+    <string name="week_start_sunday">တနင်္ဂနွေနေ့</string>
+    <string name="week_start_monday">တနင်္လာနေ့</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"နှိုးစက်သံ အတိုးအကျယ်"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"အသံတိတ်ရန်"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"မသိရ"</string>
@@ -167,12 +154,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"ပြောင်းရန်"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"စက်ပစ္စည်းကို အသံတိတ် သတ်မှတ်ထားသည်"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"အသံခလုတ်များ"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"မှေးရန်"</item>
-        <item msgid="3450979320164769576">"ပယ်ရန်"</item>
-        <item msgid="7085774139907653538">"အသံထိန်းချုပ်မှု"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">မှေးရန်</string>
+    <string name="button_action_dismiss">ပယ်ရန်</string>
+    <string name="button_action_control_volume">အသံထိန်းချုပ်မှု</string>
     <string name="label_description" msgid="8736179296142915727">"အညွှန်း"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"သံစဉ်"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"နှိုးစက်"</string>
@@ -222,28 +206,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"သင်၏ အတော့်ကို နှုန်း မြန်လွန်းနေသည်။"</item>
-        <item msgid="6332879039890727169">"သင် ကြိုးစားခဲ့မှု အသီးအပွင့်များကို ခံစားနိုင်ပါပြီ။"</item>
-        <item msgid="815382761274660130">"Android များ မြန်ဆန်ခြင်းကို အားလုံးသိကြပေမည့်၊ သင့်လို မမြန်လှပါ!"</item>
-        <item msgid="7916250650982813737">"ဝှူး။"</item>
-        <item msgid="6836603904515182333">"L33t အချိန်များ"</item>
-        <item msgid="7508085100680861631">"သိပ်ကို များလွန်းနေသည့် အရှိန်အဟုန်။"</item>
-        <item msgid="5961245252909589573">"အချိန် မူမမှန်မှုများကို ပြန်ပြီး လုပ်ကိုင်ကြရအောင်။"</item>
-        <item msgid="5211891900854545940">"ဘယ်ဘက်ကို ခုန်လိုက်ရုံပါပဲ။"</item>
-        <item msgid="9071353477103826053">"သင့်ဆီမှာ ရွေးစရာ တစ်ပုံကြီးပဲ။"</item>
-        <item msgid="3785193933691117181">"အလင်း၏ အမြန်နှုန်း။"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"သင်၏ အတော့်ကို နှုန်း မြန်လွန်းနေသည်။"</string>
+    <string name="jocular_content_message_2">"သင် ကြိုးစားခဲ့မှု အသီးအပွင့်များကို ခံစားနိုင်ပါပြီ။"</string>
+    <string name="jocular_content_message_3">"Android များ မြန်ဆန်ခြင်းကို အားလုံးသိကြပေမည့်၊ သင့်လို မမြန်လှပါ!"</string>
+    <string name="jocular_content_message_4">"ဝှူး။"</string>
+    <string name="jocular_content_message_5">"L33t အချိန်များ"</string>
+    <string name="jocular_content_message_6">"သိပ်ကို များလွန်းနေသည့် အရှိန်အဟုန်။"</string>
+    <string name="jocular_content_message_7">"အချိန် မူမမှန်မှုများကို ပြန်ပြီး လုပ်ကိုင်ကြရအောင်။"</string>
+    <string name="jocular_content_message_8">"ဘယ်ဘက်ကို ခုန်လိုက်ရုံပါပဲ။"</string>
+    <string name="jocular_content_message_9">"သင့်ဆီမှာ ရွေးစရာ တစ်ပုံကြီးပဲ။"</string>
+    <string name="jocular_content_message_10">"အလင်း၏ အမြန်နှုန်း။"</string>
     <string name="home_label" msgid="4436139365695453870">"ပင်မ​"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"မြို့များ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"နာရီ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ပုံစံ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"အချိန်ကို စက္ကန့်ပါ ထည့်ပြရန်"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"ရက်စွဲနှင့် အချိန် ပြောင်းရန်"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"လက်တံနာရီ"</item>
-        <item msgid="8483930821046925592">"ဒစ်ဂျစ်တယ်"</item>
-    </string-array>
+    <string name="clock_style_analog">လက်တံနာရီ</string>
+    <string name="clock_style_digital">ဒစ်ဂျစ်တယ်</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"အလိုအလျောက် အိမ် နာရီ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"အချိန်မတူသည့် ဒေသမှာ ခရီးထွက်နေစဉ်၊ အိမ်အတွက် နာရီကို ထည့်ပါ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"အိမ်၏ အချိန်ဇုန်"</string>

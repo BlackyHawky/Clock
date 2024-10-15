@@ -48,16 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Dem Timer wurde %1$s Minute hinzugefügt, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Noch"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Noch"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Der Wecker klingelt in weniger als einer Minute."</item>
-        <item msgid="6002066367368421848">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Der Wecker klingelt in <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Der Wecker klingelt in weniger als einer Minute."</string>
+    <string name="alarm_confirmation_toast_2">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Der Wecker klingelt in <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Tagen</item>
         <item quantity="one">1 Tag</item>
@@ -96,66 +94,55 @@
         <item quantity="one">1 Minute</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nie"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 Minute"</item>
-        <item msgid="5431906692406316549">"5 Minuten"</item>
-        <item msgid="7742728812068919959">"10 Minuten"</item>
-        <item msgid="2855948657259647629">"15 Minuten"</item>
-        <item msgid="6330196381284475079">"20 Minuten"</item>
-        <item msgid="7809240121716151904">"25 Minuten"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Nie"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Aus"</item>
-        <item msgid="7195451681426992018">"5 Sekunden"</item>
-        <item msgid="592917601923801901">"10 Sekunden"</item>
-        <item msgid="5050318776687582653">"15 Sekunden"</item>
-        <item msgid="6997726466563948756">"20 Sekunden"</item>
-        <item msgid="248014374051498284">"30 Sekunden"</item>
-        <item msgid="8010211657612404516">"40 Sekunden"</item>
-        <item msgid="623829984393124488">"50 Sekunden"</item>
-        <item msgid="5261571706794132923">"60 Sekunden"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 Minute"</item>
-        <item msgid="4482596794620161030">"2 Minuten"</item>
-        <item msgid="8478276201849960314">"3 Minuten"</item>
-        <item msgid="4038456474851212478">"4 Minuten"</item>
-        <item msgid="6298175579152122770">"5 Minuten"</item>
-        <item msgid="9021860177999278496">"6 Minuten"</item>
-        <item msgid="7224689200902680256">"7 Minuten"</item>
-        <item msgid="4610012663985162123">"8 Minuten"</item>
-        <item msgid="1717028898015659426">"9 Minuten"</item>
-        <item msgid="8058492636464337699">"10 Minuten"</item>
-        <item msgid="577767219993868603">"11 Minuten"</item>
-        <item msgid="3710047869487864775">"12 Minuten"</item>
-        <item msgid="3794200935630619331">"13 Minuten"</item>
-        <item msgid="5462266433522229437">"14 Minuten"</item>
-        <item msgid="2192100038569306041">"15 Minuten"</item>
-        <item msgid="6636326047858437620">"16 Minuten"</item>
-        <item msgid="2481054808772108352">"17 Minuten"</item>
-        <item msgid="4080984064428458050">"18 Minuten"</item>
-        <item msgid="5844319398703041730">"19 Minuten"</item>
-        <item msgid="2334964289857921073">"20 Minuten"</item>
-        <item msgid="4755209855817904977">"21 Minuten"</item>
-        <item msgid="8414394445389367355">"22 Minuten"</item>
-        <item msgid="2604612428763230265">"23 Minuten"</item>
-        <item msgid="6871696471373403806">"24 Minuten"</item>
-        <item msgid="1573685398431466364">"25 Minuten"</item>
-        <item msgid="6999090368236684971">"26 Minuten"</item>
-        <item msgid="7125056720603734703">"27 Minuten"</item>
-        <item msgid="1695830988496463030">"28 Minuten"</item>
-        <item msgid="6706610539793025916">"29 Minuten"</item>
-        <item msgid="2898212818965905529">"30 Minuten"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 Minute</string>
+    <string name="auto_silence_5_minutes">5 Minuten</string>
+    <string name="auto_silence_10_minutes">10 Minuten</string>
+    <string name="auto_silence_15_minutes">15 Minuten</string>
+    <string name="auto_silence_20_minutes">20 Minuten</string>
+    <string name="auto_silence_25_minutes">25 Minuten</string>
+    <string name="label_off">Aus</string>
+    <string name="crescendo_5_seconds">5 Sekunden</string>
+    <string name="crescendo_10_seconds">10 Sekunden</string>
+    <string name="crescendo_15_seconds">15 Sekunden</string>
+    <string name="crescendo_20_seconds">20 Sekunden</string>
+    <string name="crescendo_30_seconds">30 Sekunden</string>
+    <string name="crescendo_40_seconds">40 Sekunden</string>
+    <string name="crescendo_50_seconds">50 Sekunden</string>
+    <string name="crescendo_60_seconds">60 Sekunden</string>
+    <string name="snooze_duration_1_minute">1 Minute</string>
+    <string name="snooze_duration_2_minutes">2 Minuten</string>
+    <string name="snooze_duration_3_minutes">3 Minuten</string>
+    <string name="snooze_duration_4_minutes">4 Minuten</string>
+    <string name="snooze_duration_5_minutes">5 Minuten</string>
+    <string name="snooze_duration_6_minutes">6 Minuten</string>
+    <string name="snooze_duration_7_minutes">7 Minuten</string>
+    <string name="snooze_duration_8_minutes">8 Minuten</string>
+    <string name="snooze_duration_9_minutes">9 Minuten</string>
+    <string name="snooze_duration_10_minutes">10 Minuten</string>
+    <string name="snooze_duration_11_minutes">11 Minuten</string>
+    <string name="snooze_duration_12_minutes">12 Minuten</string>
+    <string name="snooze_duration_13_minutes">13 Minuten</string>
+    <string name="snooze_duration_14_minutes">14 Minuten</string>
+    <string name="snooze_duration_15_minutes">15 Minuten</string>
+    <string name="snooze_duration_16_minutes">16 Minuten</string>
+    <string name="snooze_duration_17_minutes">17 Minuten</string>
+    <string name="snooze_duration_18_minutes">18 Minuten</string>
+    <string name="snooze_duration_19_minutes">19 Minuten</string>
+    <string name="snooze_duration_20_minutes">20 Minuten</string>
+    <string name="snooze_duration_21_minutes">21 Minuten</string>
+    <string name="snooze_duration_22_minutes">22 Minuten</string>
+    <string name="snooze_duration_23_minutes">23 Minuten</string>
+    <string name="snooze_duration_24_minutes">24 Minuten</string>
+    <string name="snooze_duration_25_minutes">25 Minuten</string>
+    <string name="snooze_duration_26_minutes">26 Minuten</string>
+    <string name="snooze_duration_27_minutes">27 Minuten</string>
+    <string name="snooze_duration_28_minutes">28 Minuten</string>
+    <string name="snooze_duration_29_minutes">29 Minuten</string>
+    <string name="snooze_duration_30_minutes">30 Minuten</string>
     <string name="week_start_title" msgid="4268917518596832096">"Wochenbeginn am"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Samstag"</item>
-        <item msgid="3993530639455360921">"Sonntag"</item>
-        <item msgid="8594709368683324282">"Montag"</item>
-    </string-array>
+    <string name="week_start_saturday">Samstag</string>
+    <string name="week_start_sunday">Sonntag</string>
+    <string name="week_start_monday">Montag</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lautstärke für Wecker"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Lautlos"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Unbekannt"</string>
@@ -165,12 +152,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Ändern"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Gerät ist im Modus \"Lautlos\""</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">Lautstärketasten</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Schlummern"</item>
-        <item msgid="3450979320164769576">"Beenden"</item>
-        <item msgid="7085774139907653538">"Lautstärke regeln"</item>
-        <item>Keine Aktion</item>
-    </string-array>
+    <string name="button_action_snooze">Schlummern</string>
+    <string name="button_action_dismiss">Beenden</string>
+    <string name="button_action_control_volume">Lautstärke regeln</string>
+    <string name="button_action_nothing">Keine Aktion</string>
     <string name="label_description" msgid="8736179296142915727">"Name"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Klingelton"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wecker"</string>
@@ -220,28 +205,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip/>
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Du bist teuflisch schnell."</item>
-        <item msgid="6332879039890727169">"Ernte die Früchte deiner Arbeit!"</item>
-        <item msgid="815382761274660130">"Du bist ja schneller als ein Roboter!"</item>
-        <item msgid="7916250650982813737">"Puh!"</item>
-        <item msgid="6836603904515182333">"L33t-Zeiten"</item>
-        <item msgid="7508085100680861631">"Wahnsinnsgeschwindigkeit"</item>
-        <item msgid="5961245252909589573">"Let\'s do the time warp again!"</item>
-        <item msgid="5211891900854545940">"Just a jump to the left."</item>
-        <item msgid="9071353477103826053">"Du hast es ganz schön eilig."</item>
-        <item msgid="3785193933691117181">"Photonengeschwindigkeit"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Du bist teuflisch schnell."</string>
+    <string name="jocular_content_message_2">"Ernte die Früchte deiner Arbeit!"</string>
+    <string name="jocular_content_message_3">"Du bist ja schneller als ein Roboter!"</string>
+    <string name="jocular_content_message_4">"Puh!"</string>
+    <string name="jocular_content_message_5">"L33t-Zeiten"</string>
+    <string name="jocular_content_message_6">"Wahnsinnsgeschwindigkeit"</string>
+    <string name="jocular_content_message_7">"Let\'s do the time warp again!"</string>
+    <string name="jocular_content_message_8">"Just a jump to the left."</string>
+    <string name="jocular_content_message_9">"Du hast es ganz schön eilig."</string>
+    <string name="jocular_content_message_10">"Photonengeschwindigkeit"</string>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Städte"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Uhr"</string>
     <string name="clock_style" msgid="2265011060429742344">"Design"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Zeit mit Sekunden anzeigen"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Datum &amp; Uhrzeit ändern"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analog"</item>
-        <item msgid="8483930821046925592">"Digital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Uhr mit Heimatzeitzone"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Bei Aufenthalt in einer anderen Zeitzone Uhr für Heimatzeitzone hinzufügen"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Heimatzeitzone"</string>
@@ -394,11 +375,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">Für den Weckruf um <xliff:g id="ALARM_TIME">%s</xliff:g> wurde die Schlummerfunktion aktiviert. Der Wecker klingelt in 10 Minuten erneut</string>
     <string name="flip_action_title">Aktion beim Umdrehen</string>
     <string name="shake_action_title">Aktion beim Schütteln</string>
-    <string-array name="action_setting_entries">
-        <item>Schlummern</item>
-        <item>Verwerfen</item>
-        <item>Keine Aktion</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Starten von Alarmen &amp; Timern</string>
     <string name="alarm_missed_channel">Entgangene Weckrufe</string>
     <string name="alarm_snooze_channel">Schlummernde Weckrufe</string>
@@ -451,7 +427,7 @@
     <string name="description_direction_left_for_non_repeatable_alarms">Zum Schließen nach links wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms">Zum Schließen nach links oder rechts wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Zum Schließen links oder rechts klicken</string>
-    <string name="timer_settings_summary">Standardklingelton und -lautstärke für Timer festlegen</string>
+    <string name="timer_settings_summary">Standardklingelton. -lautstärke und Timersortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
@@ -597,4 +573,39 @@
     <string name="pulse_color">Farbe des Impulses</string>
     <string name="alarm_clock_font_size">Schriftgröße der Weckzeit</string>
     <string name="alarm_title_font_size">Schriftgröße des Wecker-Namens</string>
+    <string name="standard_category_title">Standard</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="settings_tab_indicator_title">Unten im Navigationsmenü aktives Tab-Symbol mit Hintergrund anzeigen</string>
+    <string name="settings_fade_transitions_title">Einblenden von Übergängen beim Bildschirmwechsel</string>
+    <string name="vertical_digital_widget">Vertikale digitale Uhr</string>
+    <string name="sort_timer_title">Sortiere Timer</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Nutze die Standardfarbe für den Wecker Titel</string>
+    <string name="denied_permission_label">Zugriff verweigert</string>
+    <string name="alarm_title_color">Wecker Titelfarbe</string>
+    <string name="alarm_display_customization_title">Wecker Anzeige anpassen</string>
+    <string name="github_dialog_message">Besuche das Projekt auf GitHub:
+\n
+\n%s</string>
+    <string name="whats_new_dialog_message">Entdecke die Neuerungen:
+\n
+\n%s</string>
+    <string name="transparent_background_for_expired_timer_title">Durchsichtiger Hintergrund, wenn Timer ablaufen</string>
+    <string name="material_you_next_alarm_widget">Nächster Wecker Material You</string>
+    <string name="next_alarm_widget">Nächster Wecker</string>
+    <string name="next_alarm_widget_text">Nächster Wecker</string>
+    <string name="next_alarm_widget_title_no_alarm">Keine anstehenden Wecker</string>
+    <string name="license_dialog_message">Lizenz lesen:
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Besuche %1$s\'s GitHub Seite:
+\n
+\n%2$s</string>
+    <string name="digital_widget_default_minutes_color_title">Farbvorgabe für Minuten verwenden</string>
+    <string name="digital_widget_custom_minutes_color_title">Eigene Farbe für Minuten</string>
+    <string name="widgets_settings_summary">Stil, Farben und Schriftgröße für Widgets festlegen</string>
+    <string name="next_alarm_widget_custom_title_color">Eigene Farbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
+    <string name="digital_widget_custom_hours_color_title">Eigene Farbe für Stunden</string>
+    <string name="next_alarm_widget_default_title_color">Vorgabefarbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Eigene Ferbe für Alarm-Titel</string>
+    <string name="widgets_settings">Widgets</string>
 </resources>

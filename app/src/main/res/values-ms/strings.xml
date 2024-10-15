@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minit ditambah pada pemasa, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"lagi"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"lagi"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Penggera ditetapkan pada kurang daripada 1 minit dari sekarang."</item>
-        <item msgid="6002066367368421848">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</item>
-        <item msgid="8824719306247973774">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
-        <item msgid="8182406852935468862">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
-        <item msgid="2532279224777213194">"Penggera ditetapkan pada <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="5936557894247187717">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="9115697840826129603">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="2332583385137381060">"Penggera ditetapkan untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Penggera ditetapkan pada kurang daripada 1 minit dari sekarang."</string>
+    <string name="alarm_confirmation_toast_2">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_3">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_4">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_5">"Penggera ditetapkan pada <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_6">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_7">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_8">"Penggera ditetapkan untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hari</item>
         <item quantity="one">1 hari</item>
@@ -98,66 +96,55 @@
         <item quantity="one">1 minit</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Jangan sekali-kali"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minit"</item>
-        <item msgid="5431906692406316549">"5 minit"</item>
-        <item msgid="7742728812068919959">"10 minit"</item>
-        <item msgid="2855948657259647629">"15 minit"</item>
-        <item msgid="6330196381284475079">"20 minit"</item>
-        <item msgid="7809240121716151904">"25 minit"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Jangan sekali-kali"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Dimatikan"</item>
-        <item msgid="7195451681426992018">"5 saat"</item>
-        <item msgid="592917601923801901">"10 saat"</item>
-        <item msgid="5050318776687582653">"15 saat"</item>
-        <item msgid="6997726466563948756">"20 saat"</item>
-        <item msgid="248014374051498284">"30 saat"</item>
-        <item msgid="8010211657612404516">"40 saat"</item>
-        <item msgid="623829984393124488">"50 saat"</item>
-        <item msgid="5261571706794132923">"60 saat"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minit"</item>
-        <item msgid="4482596794620161030">"2 minit"</item>
-        <item msgid="8478276201849960314">"3 minit"</item>
-        <item msgid="4038456474851212478">"4 minit"</item>
-        <item msgid="6298175579152122770">"5 minit"</item>
-        <item msgid="9021860177999278496">"6 minit"</item>
-        <item msgid="7224689200902680256">"7 minit"</item>
-        <item msgid="4610012663985162123">"8 minit"</item>
-        <item msgid="1717028898015659426">"9 minit"</item>
-        <item msgid="8058492636464337699">"10 minit"</item>
-        <item msgid="577767219993868603">"11 minit"</item>
-        <item msgid="3710047869487864775">"12 minit"</item>
-        <item msgid="3794200935630619331">"13 minit"</item>
-        <item msgid="5462266433522229437">"14 minit"</item>
-        <item msgid="2192100038569306041">"15 minit"</item>
-        <item msgid="6636326047858437620">"16 minit"</item>
-        <item msgid="2481054808772108352">"17 minit"</item>
-        <item msgid="4080984064428458050">"18 minit"</item>
-        <item msgid="5844319398703041730">"19 minit"</item>
-        <item msgid="2334964289857921073">"20 minit"</item>
-        <item msgid="4755209855817904977">"21 minit"</item>
-        <item msgid="8414394445389367355">"22 minit"</item>
-        <item msgid="2604612428763230265">"23 minit"</item>
-        <item msgid="6871696471373403806">"24 minit"</item>
-        <item msgid="1573685398431466364">"25 minit"</item>
-        <item msgid="6999090368236684971">"26 minit"</item>
-        <item msgid="7125056720603734703">"27 minit"</item>
-        <item msgid="1695830988496463030">"28 minit"</item>
-        <item msgid="6706610539793025916">"29 minit"</item>
-        <item msgid="2898212818965905529">"30 minit"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minit</string>
+    <string name="auto_silence_5_minutes">5 minit</string>
+    <string name="auto_silence_10_minutes">10 minit</string>
+    <string name="auto_silence_15_minutes">15 minit</string>
+    <string name="auto_silence_20_minutes">20 minit</string>
+    <string name="auto_silence_25_minutes">25 minit</string>
+    <string name="label_off">Dimatikan</string>
+    <string name="crescendo_5_seconds">5 saat</string>
+    <string name="crescendo_10_seconds">10 saat</string>
+    <string name="crescendo_15_seconds">15 saat</string>
+    <string name="crescendo_20_seconds">20 saat</string>
+    <string name="crescendo_30_seconds">30 saat</string>
+    <string name="crescendo_40_seconds">40 saat</string>
+    <string name="crescendo_50_seconds">50 saat</string>
+    <string name="crescendo_60_seconds">60 saat</string>
+    <string name="snooze_duration_1_minute">1 minit</string>
+    <string name="snooze_duration_2_minutes">2 minit</string>
+    <string name="snooze_duration_3_minutes">3 minit</string>
+    <string name="snooze_duration_4_minutes">4 minit</string>
+    <string name="snooze_duration_5_minutes">5 minit</string>
+    <string name="snooze_duration_6_minutes">6 minit</string>
+    <string name="snooze_duration_7_minutes">7 minit</string>
+    <string name="snooze_duration_8_minutes">8 minit</string>
+    <string name="snooze_duration_9_minutes">9 minit</string>
+    <string name="snooze_duration_10_minutes">10 minit</string>
+    <string name="snooze_duration_11_minutes">11 minit</string>
+    <string name="snooze_duration_12_minutes">12 minit</string>
+    <string name="snooze_duration_13_minutes">13 minit</string>
+    <string name="snooze_duration_14_minutes">14 minit</string>
+    <string name="snooze_duration_15_minutes">15 minit</string>
+    <string name="snooze_duration_16_minutes">16 minit</string>
+    <string name="snooze_duration_17_minutes">17 minit</string>
+    <string name="snooze_duration_18_minutes">18 minit</string>
+    <string name="snooze_duration_19_minutes">19 minit</string>
+    <string name="snooze_duration_20_minutes">20 minit</string>
+    <string name="snooze_duration_21_minutes">21 minit</string>
+    <string name="snooze_duration_22_minutes">22 minit</string>
+    <string name="snooze_duration_23_minutes">23 minit</string>
+    <string name="snooze_duration_24_minutes">24 minit</string>
+    <string name="snooze_duration_25_minutes">25 minit</string>
+    <string name="snooze_duration_26_minutes">26 minit</string>
+    <string name="snooze_duration_27_minutes">27 minit</string>
+    <string name="snooze_duration_28_minutes">28 minit</string>
+    <string name="snooze_duration_29_minutes">29 minit</string>
+    <string name="snooze_duration_30_minutes">30 minit</string>
     <string name="week_start_title" msgid="4268917518596832096">"Mulakan minggu pada"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Sabtu"</item>
-        <item msgid="3993530639455360921">"Ahad"</item>
-        <item msgid="8594709368683324282">"Isnin"</item>
-    </string-array>
+    <string name="week_start_saturday">Sabtu</string>
+    <string name="week_start_sunday">Ahad</string>
+    <string name="week_start_monday">Isnin</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Kelantangan penggera"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Senyap"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tidak diketahui"</string>
@@ -167,12 +154,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Tukar"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Peranti ditetapkan kepada senyap sepenuhnya"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butang kelantangan"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Tunda"</item>
-        <item msgid="3450979320164769576">"Tutup"</item>
-        <item msgid="7085774139907653538">"Kawal kelantangan"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Tunda</string>
+    <string name="button_action_dismiss">Tutup</string>
+    <string name="button_action_control_volume">Kawal kelantangan</string>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Nada dering"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Penggera"</string>
@@ -222,28 +206,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Anda memang pantas."</item>
-        <item msgid="6332879039890727169">"Nikmati hasil usaha anda."</item>
-        <item msgid="815382761274660130">"Android memang diketahui cepat, tetapi tidak secepat anda!"</item>
-        <item msgid="7916250650982813737">"Huh."</item>
-        <item msgid="6836603904515182333">"L33t kali."</item>
-        <item msgid="7508085100680861631">"Halaju yang luar biasa."</item>
-        <item msgid="5961245252909589573">"Mari kita buat pelompatan masa lagi."</item>
-        <item msgid="5211891900854545940">"Hanya melompat ke kiri."</item>
-        <item msgid="9071353477103826053">"Anda suka tergesa-gesa."</item>
-        <item msgid="3785193933691117181">"Halaju fotonik."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Anda memang pantas."</string>
+    <string name="jocular_content_message_2">"Nikmati hasil usaha anda."</string>
+    <string name="jocular_content_message_3">"Android memang diketahui cepat, tetapi tidak secepat anda!"</string>
+    <string name="jocular_content_message_4">"Huh."</string>
+    <string name="jocular_content_message_5">"L33t kali."</string>
+    <string name="jocular_content_message_6">"Halaju yang luar biasa."</string>
+    <string name="jocular_content_message_7">"Mari kita buat pelompatan masa lagi."</string>
+    <string name="jocular_content_message_8">"Hanya melompat ke kiri."</string>
+    <string name="jocular_content_message_9">"Anda suka tergesa-gesa."</string>
+    <string name="jocular_content_message_10">"Halaju fotonik."</string>
     <string name="home_label" msgid="4436139365695453870">"Tempatan"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Bandar"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Jam"</string>
     <string name="clock_style" msgid="2265011060429742344">"Gaya"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Paparkan masa dengan saat"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Tukar tarikh &amp; masa"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analog"</item>
-        <item msgid="8483930821046925592">"Digital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Digital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Jam rumah automatik"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Semasa dalam perjalanan di kawasan dengan waktu berbeza, tambahkan jam untuk rumah"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zon waktu rumah"</string>

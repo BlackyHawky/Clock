@@ -38,16 +38,14 @@
     <string name="timer_notifications_minutes"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_remaining_single">air fhàgail</string>
     <string name="timer_remaining_multiple">air fhàgail</string>
-    <string-array name="alarm_set">
-        <item>Gheibh thu caismeachd am broinn mionaid.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">Gheibh thu caismeachd am broinn mionaid.</string>
+    <string name="alarm_confirmation_toast_2">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_3">Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_4">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Gheibh thu caismeachd an ceann <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Gheibh thu caismeachd <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days">
         <item quantity="one"><xliff:g example="7" id="number">%s</xliff:g> latha</item>
         <item quantity="two"><xliff:g example="7" id="number">%s</xliff:g> latha</item>
@@ -82,76 +80,63 @@
         <item quantity="other"><xliff:g example="7" id="formatted_number">%s</xliff:g> mionaid</item>
     </plurals>
     <string name="auto_silence_never">Chan ann idir</string>
-    <string-array name="auto_silence_entries">
-        <item>Mionaid</item>
-        <item>5 mionaidean</item>
-        <item>10 mionaidean</item>
-        <item>10 mionaidean</item>
-        <item>20 mionaid</item>
-        <item>25 mionaid</item>
-        <item>The end of the ringtone</item>
-        <item>Chan ann idir</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item>Dheth</item>
-        <item>5 seconds</item>
-        <item>10 seconds</item>
-        <item>15 seconds</item>
-        <item>20 seconds</item>
-        <item>30 seconds</item>
-        <item>40 seconds</item>
-        <item>50 seconds</item>
-        <item>60 seconds</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item>Mionaid</item>
-        <item>2 minutes</item>
-        <item>3 minutes</item>
-        <item>4 minutes</item>
-        <item>5 mionaidean</item>
-        <item>6 minutes</item>
-        <item>7 minutes</item>
-        <item>8 minutes</item>
-        <item>9 minutes</item>
-        <item>10 mionaidean</item>
-        <item>11 minutes</item>
-        <item>12 minutes</item>
-        <item>13 minutes</item>
-        <item>14 minutes</item>
-        <item>10 mionaidean</item>
-        <item>16 minutes</item>
-        <item>17 minutes</item>
-        <item>18 minutes</item>
-        <item>19 minutes</item>
-        <item>20 mionaid</item>
-        <item>21 minutes</item>
-        <item>22 minutes</item>
-        <item>23 minutes</item>
-        <item>24 minutes</item>
-        <item>25 mionaid</item>
-        <item>26 minutes</item>
-        <item>27 minutes</item>
-        <item>28 minutes</item>
-        <item>29 minutes</item>
-        <item>30 minutes</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 mionaid</string>
+    <string name="auto_silence_5_minutes">5 mionaidean</string>
+    <string name="auto_silence_10_minutes">10 mionaidean</string>
+    <string name="auto_silence_15_minutes">15 mionaidean</string>
+    <string name="auto_silence_20_minutes">20 mionaidean</string>
+    <string name="auto_silence_25_minutes">25 mionaidean</string>
+    <string name="label_off">Dheth</string>
+    <string name="crescendo_5_seconds">5 seconds</string>
+    <string name="crescendo_10_seconds">10 seconds</string>
+    <string name="crescendo_15_seconds">15 seconds</string>
+    <string name="crescendo_20_seconds">20 seconds</string>
+    <string name="crescendo_30_seconds">30 seconds</string>
+    <string name="crescendo_40_seconds">40 seconds</string>
+    <string name="crescendo_50_seconds">50 seconds</string>
+    <string name="crescendo_60_seconds">60 seconds</string>
+    <string name="snooze_duration_1_minute">1 mionaid</string>
+    <string name="snooze_duration_2_minutes">2 mionaidean</string>
+    <string name="snooze_duration_3_minutes">3 mionaidean</string>
+    <string name="snooze_duration_4_minutes">4 mionaidean</string>
+    <string name="snooze_duration_5_minutes">5 mionaidean</string>
+    <string name="snooze_duration_6_minutes">6 mionaidean</string>
+    <string name="snooze_duration_7_minutes">7 mionaidean</string>
+    <string name="snooze_duration_8_minutes">8 mionaidean</string>
+    <string name="snooze_duration_9_minutes">9 mionaidean</string>
+    <string name="snooze_duration_10_minutes">10 mionaidean</string>
+    <string name="snooze_duration_11_minutes">11 mionaidean</string>
+    <string name="snooze_duration_12_minutes">12 mionaidean</string>
+    <string name="snooze_duration_13_minutes">13 mionaidean</string>
+    <string name="snooze_duration_14_minutes">14 mionaidean</string>
+    <string name="snooze_duration_15_minutes">15 mionaidean</string>
+    <string name="snooze_duration_16_minutes">16 mionaidean</string>
+    <string name="snooze_duration_17_minutes">17 mionaidean</string>
+    <string name="snooze_duration_18_minutes">18 mionaidean</string>
+    <string name="snooze_duration_19_minutes">19 mionaidean</string>
+    <string name="snooze_duration_20_minutes">20 mionaidean</string>
+    <string name="snooze_duration_21_minutes">21 mionaidean</string>
+    <string name="snooze_duration_22_minutes">22 mionaidean</string>
+    <string name="snooze_duration_23_minutes">23 mionaidean</string>
+    <string name="snooze_duration_24_minutes">24 mionaidean</string>
+    <string name="snooze_duration_25_minutes">25 mionaidean</string>
+    <string name="snooze_duration_26_minutes">26 mionaidean</string>
+    <string name="snooze_duration_27_minutes">27 mionaidean</string>
+    <string name="snooze_duration_28_minutes">28 mionaidean</string>
+    <string name="snooze_duration_29_minutes">29 mionaidean</string>
+    <string name="snooze_duration_30_minutes">30 mionaidean</string>
     <string name="week_start_title">Tòisich an t-seachdain air</string>
-    <string-array name="week_start_entries">
-        <item>DiSathairne</item>
-        <item>DiDòmhnaich</item>
-        <item>DiLuain</item>
-    </string-array>
+    <string name="week_start_saturday">DiSathairne</string>
+    <string name="week_start_sunday">DiDòmhnaich</string>
+    <string name="week_start_monday">DiLuain</string>
     <string name="alarm_volume_title">Àirde fuaim nan caismeachdan</string>
     <string name="silent_ringtone_title">’Na thost</string>
     <string name="unknown_ringtone_title">Chan eil fhios</string>
     <string name="volume_button_setting_title">Putain àirde na fuaime</string>
-    <string-array name="volume_button_setting_entries">
-        <item>Dèan dùsal</item>
-        <item>Leig seachad</item>
-        <item>Control volume</item>
-        <item>Na dèan dad</item>
-    </string-array>
+    <string name="button_action_snooze">Dèan dùsal</string>
+    <string name="button_action_dismiss">Leig seachad</string>
+    <string name="button_action_control_volume">Smachd air an tomhas-lìonaidh</string>
+    <string name="button_action_nothing">Na dèan dad</string>
     <string name="label_description">Leubail</string>
     <string name="ringtone_description">Seirm</string>
     <string name="menu_alarm">Caismeachd</string>
@@ -191,26 +176,22 @@
     <string name="timer_notification_label">Tìmear</string>
     <string name="timer_pause">Cuir ’na stad</string>
     <string name="timer_reset_all">Ath-shuidhich gach tìmear</string>
-    <string-array name="sw_share_strings" translatable="true">
-        <item>Nach tusa a tha luath!</item>
-        <item>Meal d’ obair.</item>
-        <item>Ruigidh each mall muileann.</item>
-        <item>Murt!</item>
-        <item>Cuairt luath.</item>
-        <item>Nach luath sin?</item>
-        <item>A’ falbh leis a’ ghaoth.</item>
-        <item>Làrach nam bonn.</item>
-        <item>Nach ortsa a tha a’ chabhag!</item>
-        <item>Cho luath ri geàrr.</item>
-    </string-array>
+    <string name="jocular_content_message_1">Nach tusa a tha luath!</string>
+    <string name="jocular_content_message_2">Meal d’ obair.</string>
+    <string name="jocular_content_message_3">Ruigidh each mall muileann.</string>
+    <string name="jocular_content_message_4">Murt!</string>
+    <string name="jocular_content_message_5">Cuairt luath.</string>
+    <string name="jocular_content_message_6">Nach luath sin?</string>
+    <string name="jocular_content_message_7">A’ falbh leis a’ ghaoth.</string>
+    <string name="jocular_content_message_8">Làrach nam bonn.</string>
+    <string name="jocular_content_message_9">Nach ortsa a tha a’ chabhag!</string>
+    <string name="jocular_content_message_10">Cho luath ri geàrr.</string>
     <string name="home_label">Dachaigh</string>
     <string name="cities_activity_title">Bailtean</string>
     <string name="clock_settings">Cleoc</string>
     <string name="clock_style">Stoidhle</string>
-    <string-array name="clock_style_entries">
-        <item>Analogach</item>
-        <item>Digiteach</item>
-    </string-array>
+    <string name="clock_style_analog">Analogach</string>
+    <string name="clock_style_digital">Digiteach</string>
     <string name="automatic_home_clock">Cleoc dachaigh fèin-obrachail</string>
     <string name="automatic_home_clock_summary">Nuair a bhios mi a’ siubhal am badeigin far a bheil an t-àm eadar-dhealaichte, cuir ris cleoc mo dhachaigh</string>
     <string name="home_time_zone">Roinn-tìde na dachaigh</string>
@@ -347,9 +328,4 @@
     <string name="alarm_is_snoozed">Chaidh a’ chaismeachd aig <xliff:g example="14:20" id="alarm_time">%s</xliff:g> a chur ’na dùsal fad 10 mionaidean</string>
     <string name="flip_action_title">Gnìomh flipeadh an uidheim</string>
     <string name="shake_action_title">Gnìomh crathadh an uidheim</string>
-    <string-array name="action_setting_entries">
-        <item>Dèan dùsal</item>
-        <item>Leig seachad</item>
-        <item>Na dèan dad</item>
-    </string-array>
 </resources>

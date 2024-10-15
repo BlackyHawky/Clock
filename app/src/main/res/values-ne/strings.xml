@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s मिनेट टाइमरमा थपिएको छ, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"बाँकी"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"बाँकी"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"अहिलेबाट एक मिनेटभन्दा कम समयका लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="6002066367368421848">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="8824719306247973774">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="8182406852935468862">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g> र <xliff:g id="HOURS">%2$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="2532279224777213194">"अहिलेबाट <xliff:g id="MINUTES">%3$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="5936557894247187717">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="9115697840826129603">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
-        <item msgid="2332583385137381060">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"अहिलेबाट एक मिनेटभन्दा कम समयका लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_2">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_3">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_4">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g> र <xliff:g id="HOURS">%2$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_5">"अहिलेबाट <xliff:g id="MINUTES">%3$s</xliff:g>का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_6">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_7">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
+    <string name="alarm_confirmation_toast_8">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
         <item quantity="one">१ दिन</item>
@@ -98,66 +96,55 @@
         <item quantity="one"> १ मिनेट</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"कहिले पनि होइन"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"१ मिनेट"</item>
-        <item msgid="5431906692406316549">"५ मिनेट"</item>
-        <item msgid="7742728812068919959">"१० मिनेट"</item>
-        <item msgid="2855948657259647629">"१५ मिनेट"</item>
-        <item msgid="6330196381284475079">"२० मिनेट"</item>
-        <item msgid="7809240121716151904">"२५ मिनेट"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"कहिल्यै पनि होइन"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"निष्क्रिय"</item>
-        <item msgid="7195451681426992018">"५ सेकेन्ड"</item>
-        <item msgid="592917601923801901">"१० सेकेन्ड"</item>
-        <item msgid="5050318776687582653">"१५ सेकेन्ड"</item>
-        <item msgid="6997726466563948756">"२० सेकेन्ड"</item>
-        <item msgid="248014374051498284">"३० सेकेन्ड"</item>
-        <item msgid="8010211657612404516">"४० सेकेन्ड"</item>
-        <item msgid="623829984393124488">"५० सेकेन्ड"</item>
-        <item msgid="5261571706794132923">"६० सेकेन्ड"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"१ मिनेट"</item>
-        <item msgid="4482596794620161030">"२ मिनेट"</item>
-        <item msgid="8478276201849960314">"३ मिनेट"</item>
-        <item msgid="4038456474851212478">"४ मिनेट"</item>
-        <item msgid="6298175579152122770">"५ मिनेट"</item>
-        <item msgid="9021860177999278496">"६ मिनेट"</item>
-        <item msgid="7224689200902680256">"७ मिनेट"</item>
-        <item msgid="4610012663985162123">"८ मिनेट"</item>
-        <item msgid="1717028898015659426">"९ मिनेट"</item>
-        <item msgid="8058492636464337699">"१० मिनेट"</item>
-        <item msgid="577767219993868603">"११ मिनेट"</item>
-        <item msgid="3710047869487864775">"१२ मिनेट"</item>
-        <item msgid="3794200935630619331">"१३ मिनेट"</item>
-        <item msgid="5462266433522229437">"१४ मिनेट"</item>
-        <item msgid="2192100038569306041">"१५ मिनेट"</item>
-        <item msgid="6636326047858437620">"१६ मिनेट"</item>
-        <item msgid="2481054808772108352">"१७ मिनेट"</item>
-        <item msgid="4080984064428458050">"१८ मिनेट"</item>
-        <item msgid="5844319398703041730">"१९ मिनेट"</item>
-        <item msgid="2334964289857921073">"२० मिनेट"</item>
-        <item msgid="4755209855817904977">"२१ मिनेट"</item>
-        <item msgid="8414394445389367355">"२२ मिनेट"</item>
-        <item msgid="2604612428763230265">"२३ मिनेट"</item>
-        <item msgid="6871696471373403806">"२४ मिनेट"</item>
-        <item msgid="1573685398431466364">"२५ मिनेट"</item>
-        <item msgid="6999090368236684971">"२६ मिनेट"</item>
-        <item msgid="7125056720603734703">"२७ मिनेट"</item>
-        <item msgid="1695830988496463030">"२८ मिनेट"</item>
-        <item msgid="6706610539793025916">"२९ मिनेट"</item>
-        <item msgid="2898212818965905529">"३० मिनेट"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">१ मिनेट</string>
+    <string name="auto_silence_5_minutes">५ मिनेट</string>
+    <string name="auto_silence_10_minutes">१० मिनेट</string>
+    <string name="auto_silence_15_minutes">१५ मिनेट</string>
+    <string name="auto_silence_20_minutes">२० मिनेट</string>
+    <string name="auto_silence_25_minutes">२५ मिनेट</string>
+    <string name="label_off">निष्क्रिय</string>
+    <string name="crescendo_5_seconds">५ सेकेन्ड</string>
+    <string name="crescendo_10_seconds">१० सेकेन्ड</string>
+    <string name="crescendo_15_seconds">१५ सेकेन्ड</string>
+    <string name="crescendo_20_seconds">२० सेकेन्ड</string>
+    <string name="crescendo_30_seconds">३० सेकेन्ड</string>
+    <string name="crescendo_40_seconds">४० सेकेन्ड</string>
+    <string name="crescendo_50_seconds">५० सेकेन्ड</string>
+    <string name="crescendo_60_seconds">६० सेकेन्ड</string>
+    <string name="snooze_duration_1_minute">"१ मिनेट"</string>
+    <string name="snooze_duration_2_minutes">"२ मिनेट"</string>
+    <string name="snooze_duration_3_minutes">"३ मिनेट"</string>
+    <string name="snooze_duration_4_minutes">"४ मिनेट"</string>
+    <string name="snooze_duration_5_minutes">"५ मिनेट"</string>
+    <string name="snooze_duration_6_minutes">"६ मिनेट"</string>
+    <string name="snooze_duration_7_minutes">"७ मिनेट"</string>
+    <string name="snooze_duration_8_minutes">"८ मिनेट"</string>
+    <string name="snooze_duration_9_minutes">"९ मिनेट"</string>
+    <string name="snooze_duration_10_minutes">"१० मिनेट"</string>
+    <string name="snooze_duration_11_minutes">"११ मिनेट"</string>
+    <string name="snooze_duration_12_minutes">"१२ मिनेट"</string>
+    <string name="snooze_duration_13_minutes">"१३ मिनेट"</string>
+    <string name="snooze_duration_14_minutes">"१४ मिनेट"</string>
+    <string name="snooze_duration_15_minutes">"१५ मिनेट"</string>
+    <string name="snooze_duration_16_minutes">"१६ मिनेट"</string>
+    <string name="snooze_duration_17_minutes">"१७ मिनेट"</string>
+    <string name="snooze_duration_18_minutes">"१८ मिनेट"</string>
+    <string name="snooze_duration_19_minutes">"१९ मिनेट"</string>
+    <string name="snooze_duration_20_minutes">"२० मिनेट"</string>
+    <string name="snooze_duration_21_minutes">"२१ मिनेट"</string>
+    <string name="snooze_duration_22_minutes">"२२ मिनेट"</string>
+    <string name="snooze_duration_23_minutes">"२३ मिनेट"</string>
+    <string name="snooze_duration_24_minutes">"२४ मिनेट"</string>
+    <string name="snooze_duration_25_minutes">"२५ मिनेट"</string>
+    <string name="snooze_duration_26_minutes">"२६ मिनेट"</string>
+    <string name="snooze_duration_27_minutes">"२७ मिनेट"</string>
+    <string name="snooze_duration_28_minutes">"२८ मिनेट"</string>
+    <string name="snooze_duration_29_minutes">"२९ मिनेट"</string>
+    <string name="snooze_duration_30_minutes">"३० मिनेट"</string>
     <string name="week_start_title" msgid="4268917518596832096">"हप्ता सुरु हुने दिन"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"शनिबार"</item>
-        <item msgid="3993530639455360921">"आइतबार"</item>
-        <item msgid="8594709368683324282">"सोमबार"</item>
-    </string-array>
+    <string name="week_start_saturday">शनिबार</string>
+    <string name="week_start_sunday">आइतबार</string>
+    <string name="week_start_monday">सोमबार</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म भोल्युम"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"मौन"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"अज्ञात"</string>
@@ -167,12 +154,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"परिवर्तन गर्नुहोस्"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"यन्त्रलाई पूर्ण शान्तमा सेट गरिएको छ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"भोल्युम बटनहरू"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"स्नुज"</item>
-        <item msgid="3450979320164769576">"खारेज गर्नुहोस्"</item>
-        <item msgid="7085774139907653538">"भोल्युम नियन्त्रण गर्नुहोस्"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">स्नुज</string>
+    <string name="button_action_dismiss">खारेज गर्नुहोस्</string>
+    <string name="button_action_control_volume">भोल्युम नियन्त्रण गर्नुहोस्</string>
     <string name="label_description" msgid="8736179296142915727">"लेबल"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"रिङटोन"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"आलार्म"</string>
@@ -222,28 +206,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"तपाईं पक्कै पनि तेजिलो डेमन हुनुहुन्छ।"</item>
-        <item msgid="6332879039890727169">"तपाईँको मेहेनतको फलको आनन्द लिनुहोस्।"</item>
-        <item msgid="815382761274660130">"एन्ड्रोइडहरू तेजिला मानिन्छन् तर तपाईं जत्तिको होइन!"</item>
-        <item msgid="7916250650982813737">"उफ।"</item>
-        <item msgid="6836603904515182333">"L33t पटक"</item>
-        <item msgid="7508085100680861631">"यस्तो खतरा वेग"</item>
-        <item msgid="5961245252909589573">"टाइम वार्प पुनः गरौं"</item>
-        <item msgid="5211891900854545940">"दायाँतिर एउटा उफ्राइ मात्र।"</item>
-        <item msgid="9071353477103826053">"तपाईँसँग हतारको प्यालेट छ।"</item>
-        <item msgid="3785193933691117181">"फोटोनिक वेग"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"तपाईं पक्कै पनि तेजिलो डेमन हुनुहुन्छ।"</string>
+    <string name="jocular_content_message_2">"तपाईँको मेहेनतको फलको आनन्द लिनुहोस्।"</string>
+    <string name="jocular_content_message_3">"एन्ड्रोइडहरू तेजिला मानिन्छन् तर तपाईं जत्तिको होइन!"</string>
+    <string name="jocular_content_message_4">"उफ।"</string>
+    <string name="jocular_content_message_5">"L33t पटक"</string>
+    <string name="jocular_content_message_6">"यस्तो खतरा वेग"</string>
+    <string name="jocular_content_message_7">"टाइम वार्प पुनः गरौं"</string>
+    <string name="jocular_content_message_8">"दायाँतिर एउटा उफ्राइ मात्र।"</string>
+    <string name="jocular_content_message_9">"तपाईँसँग हतारको प्यालेट छ।"</string>
+    <string name="jocular_content_message_10">"फोटोनिक वेग"</string>
     <string name="home_label" msgid="4436139365695453870">"गृह"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"शहरहरू"</string>
     <string name="clock_settings" msgid="8317286807280600391">"घडी"</string>
     <string name="clock_style" msgid="2265011060429742344">"शैली"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"सेकेन्डसहितको प्रदर्शन समय"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"मिति &amp; समय परिवर्तन गर्नुहोस्"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"एनालग"</item>
-        <item msgid="8483930821046925592">"डिजिटल"</item>
-    </string-array>
+    <string name="clock_style_analog">एनालग</string>
+    <string name="clock_style_digital">डिजिटल</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"स्वचालित गृह घडी"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"समय फरक भएको क्षेत्रमा यात्रा गर्दा गृहका लागि घडी थप्नुहोस्"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"गृह समय क्षेत्र"</string>

@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minuut is by afteller gevoeg, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"oor"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"oor"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Wekker gestel vir minder as 1 minuut van nou af."</item>
-        <item msgid="6002066367368421848">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
-        <item msgid="8824719306247973774">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
-        <item msgid="8182406852935468862">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
-        <item msgid="2532279224777213194">"Wekker gestel vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="5936557894247187717">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="9115697840826129603">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="2332583385137381060">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Wekker gestel vir minder as 1 minuut van nou af."</string>
+    <string name="alarm_confirmation_toast_2">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_3">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_4">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_5">"Wekker gestel vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_6">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_7">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_8">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dae</item>
         <item quantity="one">1 dag</item>
@@ -98,66 +96,55 @@
         <item quantity="one">1 minuut</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nooit"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minuut"</item>
-        <item msgid="5431906692406316549">"5 minute"</item>
-        <item msgid="7742728812068919959">"10 minute"</item>
-        <item msgid="2855948657259647629">"15 minute"</item>
-        <item msgid="6330196381284475079">"20 minute"</item>
-        <item msgid="7809240121716151904">"25 minute"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Nooit"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Af"</item>
-        <item msgid="7195451681426992018">"5 sekondes"</item>
-        <item msgid="592917601923801901">"10 sekondes"</item>
-        <item msgid="5050318776687582653">"15 sekondes"</item>
-        <item msgid="6997726466563948756">"20 sekondes"</item>
-        <item msgid="248014374051498284">"30 sekondes"</item>
-        <item msgid="8010211657612404516">"40 sekondes"</item>
-        <item msgid="623829984393124488">"50 sekondes"</item>
-        <item msgid="5261571706794132923">"60 sekondes"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minuut"</item>
-        <item msgid="4482596794620161030">"2 minute"</item>
-        <item msgid="8478276201849960314">"3 minute"</item>
-        <item msgid="4038456474851212478">"4 minute"</item>
-        <item msgid="6298175579152122770">"5 minute"</item>
-        <item msgid="9021860177999278496">"6 minute"</item>
-        <item msgid="7224689200902680256">"7 minute"</item>
-        <item msgid="4610012663985162123">"8 minute"</item>
-        <item msgid="1717028898015659426">"9 minute"</item>
-        <item msgid="8058492636464337699">"10 minute"</item>
-        <item msgid="577767219993868603">"11 minute"</item>
-        <item msgid="3710047869487864775">"12 minute"</item>
-        <item msgid="3794200935630619331">"13 minute"</item>
-        <item msgid="5462266433522229437">"14 minute"</item>
-        <item msgid="2192100038569306041">"15 minute"</item>
-        <item msgid="6636326047858437620">"16 minute"</item>
-        <item msgid="2481054808772108352">"17 minute"</item>
-        <item msgid="4080984064428458050">"18 minute"</item>
-        <item msgid="5844319398703041730">"19 minute"</item>
-        <item msgid="2334964289857921073">"20 minute"</item>
-        <item msgid="4755209855817904977">"21 minute"</item>
-        <item msgid="8414394445389367355">"22 minute"</item>
-        <item msgid="2604612428763230265">"23 minute"</item>
-        <item msgid="6871696471373403806">"24 minute"</item>
-        <item msgid="1573685398431466364">"25 minute"</item>
-        <item msgid="6999090368236684971">"26 minute"</item>
-        <item msgid="7125056720603734703">"27 minute"</item>
-        <item msgid="1695830988496463030">"28 minute"</item>
-        <item msgid="6706610539793025916">"29 minute"</item>
-        <item msgid="2898212818965905529">"30 minute"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minuut</string>
+    <string name="auto_silence_5_minutes">5 minute</string>
+    <string name="auto_silence_10_minutes">10 minute</string>
+    <string name="auto_silence_15_minutes">15 minute</string>
+    <string name="auto_silence_20_minutes">20 minute</string>
+    <string name="auto_silence_25_minutes">25 minute</string>
+    <string name="label_off">Af</string>
+    <string name="crescendo_5_seconds">5 sekondes</string>
+    <string name="crescendo_10_seconds">10 sekondes</string>
+    <string name="crescendo_15_seconds">15 sekondes</string>
+    <string name="crescendo_20_seconds">20 sekondes</string>
+    <string name="crescendo_30_seconds">30 sekondes</string>
+    <string name="crescendo_40_seconds">40 sekondes</string>
+    <string name="crescendo_50_seconds">50 sekondes</string>
+    <string name="crescendo_60_seconds">60 sekondes</string>
+    <string name="snooze_duration_1_minute">1 minuut</string>
+    <string name="snooze_duration_2_minutes">2 minute</string>
+    <string name="snooze_duration_3_minutes">3 minute</string>
+    <string name="snooze_duration_4_minutes">4 minute</string>
+    <string name="snooze_duration_5_minutes">5 minute</string>
+    <string name="snooze_duration_6_minutes">6 minute</string>
+    <string name="snooze_duration_7_minutes">7 minute</string>
+    <string name="snooze_duration_8_minutes">8 minute</string>
+    <string name="snooze_duration_9_minutes">9 minute</string>
+    <string name="snooze_duration_10_minutes">10 minute</string>
+    <string name="snooze_duration_11_minutes">11 minute</string>
+    <string name="snooze_duration_12_minutes">12 minute</string>
+    <string name="snooze_duration_13_minutes">13 minute</string>
+    <string name="snooze_duration_14_minutes">14 minute</string>
+    <string name="snooze_duration_15_minutes">15 minute</string>
+    <string name="snooze_duration_16_minutes">16 minute</string>
+    <string name="snooze_duration_17_minutes">17 minute</string>
+    <string name="snooze_duration_18_minutes">18 minute</string>
+    <string name="snooze_duration_19_minutes">19 minute</string>
+    <string name="snooze_duration_20_minutes">20 minute</string>
+    <string name="snooze_duration_21_minutes">21 minute</string>
+    <string name="snooze_duration_22_minutes">22 minute</string>
+    <string name="snooze_duration_23_minutes">23 minute</string>
+    <string name="snooze_duration_24_minutes">24 minute</string>
+    <string name="snooze_duration_25_minutes">25 minute</string>
+    <string name="snooze_duration_26_minutes">26 minute</string>
+    <string name="snooze_duration_27_minutes">27 minute</string>
+    <string name="snooze_duration_28_minutes">28 minute</string>
+    <string name="snooze_duration_29_minutes">29 minute</string>
+    <string name="snooze_duration_30_minutes">30 minute</string>
     <string name="week_start_title" msgid="4268917518596832096">"Begin week op"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Saterdag"</item>
-        <item msgid="3993530639455360921">"Sondag"</item>
-        <item msgid="8594709368683324282">"Maandag"</item>
-    </string-array>
+    <string name="week_start_saturday">Saterdag</string>
+    <string name="week_start_sunday">Sondag</string>
+    <string name="week_start_monday">Maandag</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Wekkervolume"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Stil"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
@@ -167,12 +154,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Verander"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Toestel is op algehele stilte gestel"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppies"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Sluimer"</item>
-        <item msgid="3450979320164769576">"Maak toe"</item>
-        <item msgid="7085774139907653538">"Beheer volume"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Sluimer</string>
+    <string name="button_action_dismiss">Maak toe</string>
+    <string name="button_action_control_volume">Beheer volume</string>
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Luitoon"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
@@ -222,28 +206,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Jy\'s \'n regte spoedduiwel."</item>
-        <item msgid="6332879039890727169">"Geniet die vrugte van jou arbeid."</item>
-        <item msgid="815382761274660130">"Androids is bekend daarvoor om vinnig te wees, maar nie so vinnig soos jy nie!"</item>
-        <item msgid="7916250650982813737">"Sjoe."</item>
-        <item msgid="6836603904515182333">"L33t keer."</item>
-        <item msgid="7508085100680861631">"Sulke ontsaglike snelheid."</item>
-        <item msgid="5961245252909589573">"Kom ons doen die tydverwringing weer."</item>
-        <item msgid="5211891900854545940">"Net \'n sprong na links."</item>
-        <item msgid="9071353477103826053">"Jy het \'n smaak vir haastigheid."</item>
-        <item msgid="3785193933691117181">"Fototoniese snelheid."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Jy\'s \'n regte spoedduiwel."</string>
+    <string name="jocular_content_message_2">"Geniet die vrugte van jou arbeid."</string>
+    <string name="jocular_content_message_3">"Androids is bekend daarvoor om vinnig te wees, maar nie so vinnig soos jy nie!"</string>
+    <string name="jocular_content_message_4">"Sjoe."</string>
+    <string name="jocular_content_message_5">"L33t keer."</string>
+    <string name="jocular_content_message_6">"Sulke ontsaglike snelheid."</string>
+    <string name="jocular_content_message_7">"Kom ons doen die tydverwringing weer."</string>
+    <string name="jocular_content_message_8">"Net \'n sprong na links."</string>
+    <string name="jocular_content_message_9">"Jy het \'n smaak vir haastigheid."</string>
+    <string name="jocular_content_message_10">"Fototoniese snelheid."</string>
     <string name="home_label" msgid="4436139365695453870">"Tuis"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Stede"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Horlosie"</string>
     <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Wys tyd met sekondes"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Verander datum en tyd"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analoog"</item>
-        <item msgid="8483930821046925592">"Digitaal"</item>
-    </string-array>
+    <string name="clock_style_analog">Analoog</string>
+    <string name="clock_style_digital">Digitaal</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Outomatiese tuishorlosie"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Terwyl jy reis in \'n streek waar die tyd anders is, voeg \'n tuishorlosie by"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Tuistydsone"</string>

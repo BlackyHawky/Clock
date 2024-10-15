@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Dakika %1$s imeongezwa kwenye kipima wakati, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"imesalia"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"zimesalia"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Kengele imewashwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
-        <item msgid="6002066367368421848">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
-        <item msgid="8824719306247973774">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-        <item msgid="8182406852935468862">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-        <item msgid="2532279224777213194">"Kengele imewashwa na italia dakika <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="5936557894247187717">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="9115697840826129603">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="2332583385137381060">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Kengele imewashwa na italia baada ya chini ya dakika 1 kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_2">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_3">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_4">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_5">"Kengele imewashwa na italia dakika <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_6">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_7">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_8">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other">Siku <xliff:g id="NUMBER">%s</xliff:g></item>
         <item quantity="one">Siku 1</item>
@@ -98,66 +96,55 @@
         <item quantity="one">Dakika 1</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Isirudie"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"Dakika 1"</item>
-        <item msgid="5431906692406316549">"Dakika 5"</item>
-        <item msgid="7742728812068919959">"Dakika 10"</item>
-        <item msgid="2855948657259647629">"Dakika 15"</item>
-        <item msgid="6330196381284475079">"Dakika 20"</item>
-        <item msgid="7809240121716151904">"Dakika 25"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Isirudie"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Kimezimwa"</item>
-        <item msgid="7195451681426992018">"Sekunde 5"</item>
-        <item msgid="592917601923801901">"Sekunde 10"</item>
-        <item msgid="5050318776687582653">"Sekunde 15"</item>
-        <item msgid="6997726466563948756">"Sekunde 20"</item>
-        <item msgid="248014374051498284">"Sekunde 30"</item>
-        <item msgid="8010211657612404516">"Sekunde 40"</item>
-        <item msgid="623829984393124488">"Sekunde 50"</item>
-        <item msgid="5261571706794132923">"Sekunde 60"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"Dakika 1"</item>
-        <item msgid="4482596794620161030">"Dakika 2"</item>
-        <item msgid="8478276201849960314">"Dakika 3"</item>
-        <item msgid="4038456474851212478">"Dakika 4"</item>
-        <item msgid="6298175579152122770">"Dakika 5"</item>
-        <item msgid="9021860177999278496">"Dakika 6"</item>
-        <item msgid="7224689200902680256">"Dakika 7"</item>
-        <item msgid="4610012663985162123">"Dakika 8"</item>
-        <item msgid="1717028898015659426">"Dakika 9"</item>
-        <item msgid="8058492636464337699">"Dakika 10"</item>
-        <item msgid="577767219993868603">"Dakika 11"</item>
-        <item msgid="3710047869487864775">"Dakika 12"</item>
-        <item msgid="3794200935630619331">"Dakika 13"</item>
-        <item msgid="5462266433522229437">"Dakika 14"</item>
-        <item msgid="2192100038569306041">"Dakika 15"</item>
-        <item msgid="6636326047858437620">"Dakika 16"</item>
-        <item msgid="2481054808772108352">"Dakika 17"</item>
-        <item msgid="4080984064428458050">"Dakika 18"</item>
-        <item msgid="5844319398703041730">"Dakika 19"</item>
-        <item msgid="2334964289857921073">"Dakika 20"</item>
-        <item msgid="4755209855817904977">"Dakika 21"</item>
-        <item msgid="8414394445389367355">"Dakika 22"</item>
-        <item msgid="2604612428763230265">"Dakika 23"</item>
-        <item msgid="6871696471373403806">"Dakika 24"</item>
-        <item msgid="1573685398431466364">"Dakika 25"</item>
-        <item msgid="6999090368236684971">"Dakika 26"</item>
-        <item msgid="7125056720603734703">"Dakika 27"</item>
-        <item msgid="1695830988496463030">"Dakika 28"</item>
-        <item msgid="6706610539793025916">"Dakika 29"</item>
-        <item msgid="2898212818965905529">"Dakika 30"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">Dakika 1</string>
+    <string name="auto_silence_5_minutes">Dakika 5</string>
+    <string name="auto_silence_10_minutes">Dakika 10</string>
+    <string name="auto_silence_15_minutes">Dakika 15</string>
+    <string name="auto_silence_20_minutes">Dakika 20</string>
+    <string name="auto_silence_25_minutes">Dakika 25</string>
+    <string name="label_off">Kimezimwa</string>
+    <string name="crescendo_5_seconds">Sekunde 5</string>
+    <string name="crescendo_10_seconds">Sekunde 10</string>
+    <string name="crescendo_15_seconds">Sekunde 15</string>
+    <string name="crescendo_20_seconds">Sekunde 20</string>
+    <string name="crescendo_30_seconds">Sekunde 30</string>
+    <string name="crescendo_40_seconds">Sekunde 40</string>
+    <string name="crescendo_50_seconds">Sekunde 50</string>
+    <string name="crescendo_60_seconds">Sekunde 60</string>
+    <string name="snooze_duration_1_minute">Dakika 1</string>
+    <string name="snooze_duration_2_minutes">Dakika 2</string>
+    <string name="snooze_duration_3_minutes">Dakika 3</string>
+    <string name="snooze_duration_4_minutes">Dakika 4</string>
+    <string name="snooze_duration_5_minutes">Dakika 5</string>
+    <string name="snooze_duration_6_minutes">Dakika 6</string>
+    <string name="snooze_duration_7_minutes">Dakika 7</string>
+    <string name="snooze_duration_8_minutes">Dakika 8</string>
+    <string name="snooze_duration_9_minutes">Dakika 9</string>
+    <string name="snooze_duration_10_minutes">Dakika 10</string>
+    <string name="snooze_duration_11_minutes">Dakika 11</string>
+    <string name="snooze_duration_12_minutes">Dakika 12</string>
+    <string name="snooze_duration_13_minutes">Dakika 13</string>
+    <string name="snooze_duration_14_minutes">Dakika 14</string>
+    <string name="snooze_duration_15_minutes">Dakika 15</string>
+    <string name="snooze_duration_16_minutes">Dakika 16</string>
+    <string name="snooze_duration_17_minutes">Dakika 17</string>
+    <string name="snooze_duration_18_minutes">Dakika 18</string>
+    <string name="snooze_duration_19_minutes">Dakika 19</string>
+    <string name="snooze_duration_20_minutes">Dakika 20</string>
+    <string name="snooze_duration_21_minutes">Dakika 21</string>
+    <string name="snooze_duration_22_minutes">Dakika 22</string>
+    <string name="snooze_duration_23_minutes">Dakika 23</string>
+    <string name="snooze_duration_24_minutes">Dakika 24</string>
+    <string name="snooze_duration_25_minutes">Dakika 25</string>
+    <string name="snooze_duration_26_minutes">Dakika 26</string>
+    <string name="snooze_duration_27_minutes">Dakika 27</string>
+    <string name="snooze_duration_28_minutes">Dakika 28</string>
+    <string name="snooze_duration_29_minutes">Dakika 29</string>
+    <string name="snooze_duration_30_minutes">Dakika 30</string>
     <string name="week_start_title" msgid="4268917518596832096">"Anza wiki siku ya"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Jumamosi"</item>
-        <item msgid="3993530639455360921">"Jumapili"</item>
-        <item msgid="8594709368683324282">"Jumatatu"</item>
-    </string-array>
+    <string name="week_start_saturday">Jumamosi</string>
+    <string name="week_start_sunday">Jumapili</string>
+    <string name="week_start_monday">Jumatatu</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Sauti ya kengele"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Kimya"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Isiyojulikana"</string>
@@ -167,12 +154,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Badilisha"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Kifaa kimewekwa katika hali ya kimya"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Nikumbushe baadaye"</item>
-        <item msgid="3450979320164769576">"Ondoa"</item>
-        <item msgid="7085774139907653538">"Dhibiti kiwango cha sauti"</item>
-        <item>Nothing</item>
-    </string-array>
+    <string name="button_action_snooze">Nikumbushe baadaye</string>
+    <string name="button_action_dismiss">Ondoa</string>
+    <string name="button_action_control_volume">Dhibiti kiwango cha sauti</string>
     <string name="label_description" msgid="8736179296142915727">"Lebo"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Mlio wa simu"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Kengele"</string>
@@ -222,28 +206,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Una kasi ya ajabu."</item>
-        <item msgid="6332879039890727169">"Furahia matunda ya kazi yako."</item>
-        <item msgid="815382761274660130">"Androids zinajulikana kwa kasi, lakini si kasi kama yako!"</item>
-        <item msgid="7916250650982813737">"Pumua."</item>
-        <item msgid="6836603904515182333">"Nyakati za L33t."</item>
-        <item msgid="7508085100680861631">"Kasi hiyo ya kupendeza."</item>
-        <item msgid="5961245252909589573">"Hebu tufanye mabadiliko ya muda tena."</item>
-        <item msgid="5211891900854545940">"Ruka tu kushoto."</item>
-        <item msgid="9071353477103826053">"Una safu ya rangi ya kasi."</item>
-        <item msgid="3785193933691117181">"Kasi ya picha."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Una kasi ya ajabu."</string>
+    <string name="jocular_content_message_2">"Furahia matunda ya kazi yako."</string>
+    <string name="jocular_content_message_3">"Androids zinajulikana kwa kasi, lakini si kasi kama yako!"</string>
+    <string name="jocular_content_message_4">"Pumua."</string>
+    <string name="jocular_content_message_5">"Nyakati za L33t."</string>
+    <string name="jocular_content_message_6">"Kasi hiyo ya kupendeza."</string>
+    <string name="jocular_content_message_7">"Hebu tufanye mabadiliko ya muda tena."</string>
+    <string name="jocular_content_message_8">"Ruka tu kushoto."</string>
+    <string name="jocular_content_message_9">"Una safu ya rangi ya kasi."</string>
+    <string name="jocular_content_message_10">"Kasi ya picha."</string>
     <string name="home_label" msgid="4436139365695453870">"Mwanzo"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Miji"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Saa"</string>
     <string name="clock_style" msgid="2265011060429742344">"Mtindo"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Onyesha sekunde kwenye saa"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Badilisha tarehe na saa"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analogi"</item>
-        <item msgid="8483930821046925592">"Dijito"</item>
-    </string-array>
+    <string name="clock_style_analog">Analogi</string>
+    <string name="clock_style_digital">Dijito</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Saa otomatiki ya nyumbani"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Unaposafiri katika eneo ambalo majira ya saa ni tofauti, ongeza saa ya nyumbani"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Majira ya nyumbani"</string>

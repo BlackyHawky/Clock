@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Zamanlayıcıya %1$s dakika eklendi, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"kaldı"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"kaldı"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Alarmın çalmasına şu andan itibaren bir dakikadan az var."</item>
-        <item msgid="6002066367368421848">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> var."</item>
-        <item msgid="8824719306247973774">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> var."</item>
-        <item msgid="8182406852935468862">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> var."</item>
-        <item msgid="2532279224777213194">"Alarmın çalmasına şu andan itibaren <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-        <item msgid="5936557894247187717">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-        <item msgid="9115697840826129603">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-        <item msgid="2332583385137381060">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Alarmın çalmasına şu andan itibaren bir dakikadan az var."</string>
+    <string name="alarm_confirmation_toast_2">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_3">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_4">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_5">"Alarmın çalmasına şu andan itibaren <xliff:g id="MINUTES">%3$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_6">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_7">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</string>
+    <string name="alarm_confirmation_toast_8">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> gün</item>
         <item quantity="one">1 gün</item>
@@ -98,66 +96,55 @@
         <item quantity="one">1 dakika</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hiçbir zaman"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 dakika"</item>
-        <item msgid="5431906692406316549">"5 dakika"</item>
-        <item msgid="7742728812068919959">"10 dakika"</item>
-        <item msgid="2855948657259647629">"15 dakika"</item>
-        <item msgid="6330196381284475079">"20 dakika"</item>
-        <item msgid="7809240121716151904">"25 dakika"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Hiçbir zaman"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Kapalı"</item>
-        <item msgid="7195451681426992018">"5 saniye"</item>
-        <item msgid="592917601923801901">"10 saniye"</item>
-        <item msgid="5050318776687582653">"15 saniye"</item>
-        <item msgid="6997726466563948756">"20 saniye"</item>
-        <item msgid="248014374051498284">"30 saniye"</item>
-        <item msgid="8010211657612404516">"40 saniye"</item>
-        <item msgid="623829984393124488">"50 saniye"</item>
-        <item msgid="5261571706794132923">"60 saniye"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 dakika"</item>
-        <item msgid="4482596794620161030">"2 dakika"</item>
-        <item msgid="8478276201849960314">"3 dakika"</item>
-        <item msgid="4038456474851212478">"4 dakika"</item>
-        <item msgid="6298175579152122770">"5 dakika"</item>
-        <item msgid="9021860177999278496">"6 dakika"</item>
-        <item msgid="7224689200902680256">"7 dakika"</item>
-        <item msgid="4610012663985162123">"8 dakika"</item>
-        <item msgid="1717028898015659426">"9 dakika"</item>
-        <item msgid="8058492636464337699">"10 dakika"</item>
-        <item msgid="577767219993868603">"11 dakika"</item>
-        <item msgid="3710047869487864775">"12 dakika"</item>
-        <item msgid="3794200935630619331">"13 dakika"</item>
-        <item msgid="5462266433522229437">"14 dakika"</item>
-        <item msgid="2192100038569306041">"15 dakika"</item>
-        <item msgid="6636326047858437620">"16 dakika"</item>
-        <item msgid="2481054808772108352">"17 dakika"</item>
-        <item msgid="4080984064428458050">"18 dakika"</item>
-        <item msgid="5844319398703041730">"19 dakika"</item>
-        <item msgid="2334964289857921073">"20 dakika"</item>
-        <item msgid="4755209855817904977">"21 dakika"</item>
-        <item msgid="8414394445389367355">"22 dakika"</item>
-        <item msgid="2604612428763230265">"23 dakika"</item>
-        <item msgid="6871696471373403806">"24 dakika"</item>
-        <item msgid="1573685398431466364">"25 dakika"</item>
-        <item msgid="6999090368236684971">"26 dakika"</item>
-        <item msgid="7125056720603734703">"27 dakika"</item>
-        <item msgid="1695830988496463030">"28 dakika"</item>
-        <item msgid="6706610539793025916">"29 dakika"</item>
-        <item msgid="2898212818965905529">"30 dakika"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 dakika</string>
+    <string name="auto_silence_5_minutes">5 dakika</string>
+    <string name="auto_silence_10_minutes">10 dakika</string>
+    <string name="auto_silence_15_minutes">15 dakika</string>
+    <string name="auto_silence_20_minutes">20 dakika</string>
+    <string name="auto_silence_25_minutes">25 dakika</string>
+    <string name="label_off">Kapalı</string>
+    <string name="crescendo_5_seconds">5 saniye</string>
+    <string name="crescendo_10_seconds">10 saniye</string>
+    <string name="crescendo_15_seconds">15 saniye</string>
+    <string name="crescendo_20_seconds">20 saniye</string>
+    <string name="crescendo_30_seconds">30 saniye</string>
+    <string name="crescendo_40_seconds">40 saniye</string>
+    <string name="crescendo_50_seconds">50 saniye</string>
+    <string name="crescendo_60_seconds">60 saniye</string>
+    <string name="snooze_duration_1_minute">1 dakika</string>
+    <string name="snooze_duration_2_minutes">2 dakika</string>
+    <string name="snooze_duration_3_minutes">3 dakika</string>
+    <string name="snooze_duration_4_minutes">4 dakika</string>
+    <string name="snooze_duration_5_minutes">5 dakika</string>
+    <string name="snooze_duration_6_minutes">6 dakika</string>
+    <string name="snooze_duration_7_minutes">7 dakika</string>
+    <string name="snooze_duration_8_minutes">8 dakika</string>
+    <string name="snooze_duration_9_minutes">9 dakika</string>
+    <string name="snooze_duration_10_minutes">10 dakika</string>
+    <string name="snooze_duration_11_minutes">11 dakika</string>
+    <string name="snooze_duration_12_minutes">12 dakika</string>
+    <string name="snooze_duration_13_minutes">13 dakika</string>
+    <string name="snooze_duration_14_minutes">14 dakika</string>
+    <string name="snooze_duration_15_minutes">15 dakika</string>
+    <string name="snooze_duration_16_minutes">16 dakika</string>
+    <string name="snooze_duration_17_minutes">17 dakika</string>
+    <string name="snooze_duration_18_minutes">18 dakika</string>
+    <string name="snooze_duration_19_minutes">19 dakika</string>
+    <string name="snooze_duration_20_minutes">20 dakika</string>
+    <string name="snooze_duration_21_minutes">21 dakika</string>
+    <string name="snooze_duration_22_minutes">22 dakika</string>
+    <string name="snooze_duration_23_minutes">23 dakika</string>
+    <string name="snooze_duration_24_minutes">24 dakika</string>
+    <string name="snooze_duration_25_minutes">25 dakika</string>
+    <string name="snooze_duration_26_minutes">26 dakika</string>
+    <string name="snooze_duration_27_minutes">27 dakika</string>
+    <string name="snooze_duration_28_minutes">28 dakika</string>
+    <string name="snooze_duration_29_minutes">29 dakika</string>
+    <string name="snooze_duration_30_minutes">30 dakika</string>
     <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Cumartesi"</item>
-        <item msgid="3993530639455360921">"Pazar"</item>
-        <item msgid="8594709368683324282">"Pazartesi"</item>
-    </string-array>
+    <string name="week_start_saturday">Cumartesi</string>
+    <string name="week_start_sunday">Pazar</string>
+    <string name="week_start_monday">Pazartesi</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Alarm ses düzeyi"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Sessiz"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Bilinmiyor"</string>
@@ -167,12 +154,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Değiştir"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Cihaz tamamen sessize ayarlı"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ses düğmeleri"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Ertele"</item>
-        <item msgid="3450979320164769576">"Kapat"</item>
-        <item msgid="7085774139907653538">"Ses seviyesi denetle"</item>
-        <item>Hiçbiri</item>
-    </string-array>
+    <string name="button_action_snooze">Ertele</string>
+    <string name="button_action_dismiss">Kapat</string>
+    <string name="button_action_control_volume">Ses seviyesi denetle</string>
+    <string name="button_action_nothing">Hiçbiri</string>
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Zil sesi"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
@@ -222,28 +207,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Oldukça yüksek hız tutkunusunuz."</item>
-        <item msgid="6332879039890727169">"Çalışmanızın meyvesini toplayabilirsiniz."</item>
-        <item msgid="815382761274660130">"Android\'ler hızlarıyla bilinir, ancak sizin kadar hızlı değiller!"</item>
-        <item msgid="7916250650982813737">"Vay canına."</item>
-        <item msgid="6836603904515182333">"L33t kez."</item>
-        <item msgid="7508085100680861631">"Olağanüstü bir hız."</item>
-        <item msgid="5961245252909589573">"Zaman atlamasını yine yapalım."</item>
-        <item msgid="5211891900854545940">"Yalnızca sola bir atlama."</item>
-        <item msgid="9071353477103826053">"Aceleci bir yapınız var."</item>
-        <item msgid="3785193933691117181">"Işık hızı."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Oldukça yüksek hız tutkunusunuz."</string>
+    <string name="jocular_content_message_2">"Çalışmanızın meyvesini toplayabilirsiniz."</string>
+    <string name="jocular_content_message_3">"Android\'ler hızlarıyla bilinir, ancak sizin kadar hızlı değiller!"</string>
+    <string name="jocular_content_message_4">"Vay canına."</string>
+    <string name="jocular_content_message_5">"L33t kez."</string>
+    <string name="jocular_content_message_6">"Olağanüstü bir hız."</string>
+    <string name="jocular_content_message_7">"Zaman atlamasını yine yapalım."</string>
+    <string name="jocular_content_message_8">"Yalnızca sola bir atlama."</string>
+    <string name="jocular_content_message_9">"Aceleci bir yapınız var."</string>
+    <string name="jocular_content_message_10">"Işık hızı."</string>
     <string name="home_label" msgid="4436139365695453870">"Ev"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Şehirler"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Saat"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Saatte saniye değeri göster"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Tarih ve saati değiştirin"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analog"</item>
-        <item msgid="8483930821046925592">"Dijital"</item>
-    </string-array>
+    <string name="clock_style_analog">Analog</string>
+    <string name="clock_style_digital">Dijital</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Otomatik ev saati"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat diliminin farklı olduğu bir bölgede seyahat ederken yaşadığınız yerin saatini ekleyin"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Ev saat dilimi"</string>
@@ -396,11 +377,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarmı 10 dakika ertelendi"</string>
     <string name="flip_action_title">Cihazı çevirme eylemi</string>
     <string name="shake_action_title">Cihazı sallama eylemi</string>
-    <string-array name="action_setting_entries">
-        <item>Ertele</item>
-        <item>Reddet</item>
-        <item>Hiçbiri</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Alarmı ve zamanlayıcıları tetikler</string>
     <string name="alarm_missed_channel">Alarmlar kaçırıldı</string>
     <string name="alarm_snooze_channel">Alarmları ertele</string>

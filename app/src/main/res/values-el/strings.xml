@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Προσθήκη %1$s λεπτού στο χρονόμετρο, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"απομένουν"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"απομένουν"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Το ξυπνητήρι έχει οριστεί σε λιγότερο από 1 λεπτό από τώρα."</item>
-        <item msgid="6002066367368421848">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> από τώρα."</item>
-        <item msgid="8824719306247973774">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</item>
-        <item msgid="8182406852935468862">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</item>
-        <item msgid="2532279224777213194">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="5936557894247187717">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="9115697840826129603">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="2332583385137381060">"Το ξυπνητήρι αυτό έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Το ξυπνητήρι έχει οριστεί σε λιγότερο από 1 λεπτό από τώρα."</string>
+    <string name="alarm_confirmation_toast_2">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_3">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_4">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_5">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_6">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_7">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_8">"Το ξυπνητήρι αυτό έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ημέρες</item>
         <item quantity="one">1 ημέρα</item>
@@ -98,66 +96,55 @@
         <item quantity="one">1 λεπτό</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ποτέ"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 λεπτό"</item>
-        <item msgid="5431906692406316549">"5 λεπτά"</item>
-        <item msgid="7742728812068919959">"10 λεπτά"</item>
-        <item msgid="2855948657259647629">"15 λεπτά"</item>
-        <item msgid="6330196381284475079">"20 λεπτά"</item>
-        <item msgid="7809240121716151904">"25 λεπτά"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Ποτέ"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Απενεργοποίηση"</item>
-        <item msgid="7195451681426992018">"5 δευτερόλεπτα"</item>
-        <item msgid="592917601923801901">"10 δευτερόλεπτα"</item>
-        <item msgid="5050318776687582653">"15 δευτερόλεπτα"</item>
-        <item msgid="6997726466563948756">"20 δευτερόλεπτα"</item>
-        <item msgid="248014374051498284">"30 δευτερόλεπτα"</item>
-        <item msgid="8010211657612404516">"40 δευτερόλεπτα"</item>
-        <item msgid="623829984393124488">"50 δευτερόλεπτα"</item>
-        <item msgid="5261571706794132923">"60 δευτερόλεπτα"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 λεπτό"</item>
-        <item msgid="4482596794620161030">"2 λεπτά"</item>
-        <item msgid="8478276201849960314">"3 λεπτά"</item>
-        <item msgid="4038456474851212478">"4 λεπτά"</item>
-        <item msgid="6298175579152122770">"5 λεπτά"</item>
-        <item msgid="9021860177999278496">"6 λεπτά"</item>
-        <item msgid="7224689200902680256">"7 λεπτά"</item>
-        <item msgid="4610012663985162123">"8 λεπτά"</item>
-        <item msgid="1717028898015659426">"9 λεπτά"</item>
-        <item msgid="8058492636464337699">"10 λεπτά"</item>
-        <item msgid="577767219993868603">"11 λεπτά"</item>
-        <item msgid="3710047869487864775">"12 λεπτά"</item>
-        <item msgid="3794200935630619331">"13 λεπτά"</item>
-        <item msgid="5462266433522229437">"14 λεπτά"</item>
-        <item msgid="2192100038569306041">"15 λεπτά"</item>
-        <item msgid="6636326047858437620">"16 λεπτά"</item>
-        <item msgid="2481054808772108352">"17 λεπτά"</item>
-        <item msgid="4080984064428458050">"18 λεπτά"</item>
-        <item msgid="5844319398703041730">"19 λεπτά"</item>
-        <item msgid="2334964289857921073">"20 λεπτά"</item>
-        <item msgid="4755209855817904977">"21 λεπτά"</item>
-        <item msgid="8414394445389367355">"22 λεπτά"</item>
-        <item msgid="2604612428763230265">"23 λεπτά"</item>
-        <item msgid="6871696471373403806">"24 λεπτά"</item>
-        <item msgid="1573685398431466364">"25 λεπτά"</item>
-        <item msgid="6999090368236684971">"26 λεπτά"</item>
-        <item msgid="7125056720603734703">"27 λεπτά"</item>
-        <item msgid="1695830988496463030">"28 λεπτά"</item>
-        <item msgid="6706610539793025916">"29 λεπτά"</item>
-        <item msgid="2898212818965905529">"30 λεπτά"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 λεπτό</string>
+    <string name="auto_silence_5_minutes">5 λεπτά</string>
+    <string name="auto_silence_10_minutes">10 λεπτά</string>
+    <string name="auto_silence_15_minutes">15 λεπτά</string>
+    <string name="auto_silence_20_minutes">20 λεπτά</string>
+    <string name="auto_silence_25_minutes">25 λεπτά</string>
+    <string name="label_off">Απενεργοποίηση</string>
+    <string name="crescendo_5_seconds">5 δευτερόλεπτα</string>
+    <string name="crescendo_10_seconds">10 δευτερόλεπτα</string>
+    <string name="crescendo_15_seconds">15 δευτερόλεπτα</string>
+    <string name="crescendo_20_seconds">20 δευτερόλεπτα</string>
+    <string name="crescendo_30_seconds">30 δευτερόλεπτα</string>
+    <string name="crescendo_40_seconds">40 δευτερόλεπτα</string>
+    <string name="crescendo_50_seconds">50 δευτερόλεπτα</string>
+    <string name="crescendo_60_seconds">60 δευτερόλεπτα</string>
+    <string name="snooze_duration_1_minute">1 λεπτό</string>
+    <string name="snooze_duration_2_minutes">2 λεπτά</string>
+    <string name="snooze_duration_3_minutes">3 λεπτά</string>
+    <string name="snooze_duration_4_minutes">4 λεπτά</string>
+    <string name="snooze_duration_5_minutes">5 λεπτά</string>
+    <string name="snooze_duration_6_minutes">6 λεπτά</string>
+    <string name="snooze_duration_7_minutes">7 λεπτά</string>
+    <string name="snooze_duration_8_minutes">8 λεπτά</string>
+    <string name="snooze_duration_9_minutes">9 λεπτά</string>
+    <string name="snooze_duration_10_minutes">10 λεπτά</string>
+    <string name="snooze_duration_11_minutes">11 λεπτά</string>
+    <string name="snooze_duration_12_minutes">12 λεπτά</string>
+    <string name="snooze_duration_13_minutes">13 λεπτά</string>
+    <string name="snooze_duration_14_minutes">14 λεπτά</string>
+    <string name="snooze_duration_15_minutes">15 λεπτά</string>
+    <string name="snooze_duration_16_minutes">16 λεπτά</string>
+    <string name="snooze_duration_17_minutes">17 λεπτά</string>
+    <string name="snooze_duration_18_minutes">18 λεπτά</string>
+    <string name="snooze_duration_19_minutes">19 λεπτά</string>
+    <string name="snooze_duration_20_minutes">20 λεπτά</string>
+    <string name="snooze_duration_21_minutes">21 λεπτά</string>
+    <string name="snooze_duration_22_minutes">22 λεπτά</string>
+    <string name="snooze_duration_23_minutes">23 λεπτά</string>
+    <string name="snooze_duration_24_minutes">24 λεπτά</string>
+    <string name="snooze_duration_25_minutes">25 λεπτά</string>
+    <string name="snooze_duration_26_minutes">26 λεπτά</string>
+    <string name="snooze_duration_27_minutes">27 λεπτά</string>
+    <string name="snooze_duration_28_minutes">28 λεπτά</string>
+    <string name="snooze_duration_29_minutes">29 λεπτά</string>
+    <string name="snooze_duration_30_minutes">30 λεπτά</string>
     <string name="week_start_title" msgid="4268917518596832096">"Έναρξη εβδομάδας"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Σάββατο"</item>
-        <item msgid="3993530639455360921">"Κυριακή"</item>
-        <item msgid="8594709368683324282">"Δευτέρα"</item>
-    </string-array>
+    <string name="week_start_saturday">Σάββατο</string>
+    <string name="week_start_sunday">Κυριακή</string>
+    <string name="week_start_monday">Δευτέρα</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Ένταση ήχου ξυπνητηριού"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Αθόρυβο"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Άγνωστο"</string>
@@ -167,12 +154,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Αλλαγή"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Η συσκευή έχει τεθεί σε πλήρη σίγαση"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπιά έντασης"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Αναβολή"</item>
-        <item msgid="3450979320164769576">"Παράβλεψη"</item>
-        <item msgid="7085774139907653538">"Έλεγχος έντασης ήχου"</item>
-        <item>Καμία</item>
-    </string-array>
+    <string name="button_action_snooze">Αναβολή</string>
+    <string name="button_action_dismiss">Παράβλεψη</string>
+    <string name="button_action_control_volume">Έλεγχος έντασης ήχου</string>
+    <string name="button_action_nothing">Καμία</string>
     <string name="label_description" msgid="8736179296142915727">"Ετικέτα"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ήχος κλήσης"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Ξυπνητήρι"</string>
@@ -222,28 +207,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Είστε πάρα πολύ γρήγοροι."</item>
-        <item msgid="6332879039890727169">"Απολαύστε"</item>
-        <item msgid="815382761274660130">"Τα Android είναι γρήγορα, αλλά όχι τόσο όσο εσείς!"</item>
-        <item msgid="7916250650982813737">"Ουφ."</item>
-        <item msgid="6836603904515182333">"Τρελοί χρόνοι."</item>
-        <item msgid="7508085100680861631">"Απίστευτη ταχύτητα."</item>
-        <item msgid="5961245252909589573">"Ας ξανακάνουμε ένα ταξίδι στο χρόνο."</item>
-        <item msgid="5211891900854545940">"Ένα απλό άλμα προς τα αριστερά."</item>
-        <item msgid="9071353477103826053">"Έχετε μια τάση να βιάζεστε."</item>
-        <item msgid="3785193933691117181">"Ταχύτητα φωτονίου."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Είστε πάρα πολύ γρήγοροι."</string>
+    <string name="jocular_content_message_2">"Απολαύστε"</string>
+    <string name="jocular_content_message_3">"Τα Android είναι γρήγορα, αλλά όχι τόσο όσο εσείς!"</string>
+    <string name="jocular_content_message_4">"Ουφ."</string>
+    <string name="jocular_content_message_5">"Τρελοί χρόνοι."</string>
+    <string name="jocular_content_message_6">"Απίστευτη ταχύτητα."</string>
+    <string name="jocular_content_message_7">"Ας ξανακάνουμε ένα ταξίδι στο χρόνο."</string>
+    <string name="jocular_content_message_8">"Ένα απλό άλμα προς τα αριστερά."</string>
+    <string name="jocular_content_message_9">"Έχετε μια τάση να βιάζεστε."</string>
+    <string name="jocular_content_message_10">"Ταχύτητα φωτονίου."</string>
     <string name="home_label" msgid="4436139365695453870">"Σπίτι"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Πόλεις"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Ρολόι"</string>
     <string name="clock_style" msgid="2265011060429742344">"Στυλ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Προβολή ώρας με δευτερόλεπτα"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Αλλαγή ημερομηνίας και ώρας"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Αναλογικό"</item>
-        <item msgid="8483930821046925592">"Ψηφιακό"</item>
-    </string-array>
+    <string name="clock_style_analog">Αναλογικό</string>
+    <string name="clock_style_digital">Ψηφιακό</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Αυτόματη ώρα χώρας προέλευσης"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Όταν ταξιδεύετε σε μια περιοχή με διαφορετική ώρα, να προστίθεται ένα ρολόι με την ώρα της χώρας προέλευσής σας"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Βασική ζώνη ώρας"</string>
@@ -396,11 +377,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Έγινε αναβολή του ξυπνητηριού <xliff:g id="ALARM_TIME">%s</xliff:g> για 10 λεπτά"</string>
     <string name="flip_action_title">Ενέργεια αναποδογυρίσματος συσκευής</string>
     <string name="shake_action_title">Ενέργεια κουνήματος συσκευής</string>
-    <string-array name="action_setting_entries">
-        <item>Αναβολή</item>
-        <item>Παράβλεψη</item>
-        <item>Καμία</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Ξυπνητήρια &amp; χρονοδιακόπτες</string>
     <string name="alarm_missed_channel">Χαμένα ξυπνητήρια</string>
     <string name="alarm_snooze_channel">Ξυπνητήρια σε αναβολή</string>

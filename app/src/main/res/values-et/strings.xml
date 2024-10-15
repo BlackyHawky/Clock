@@ -48,16 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Taimerile lisati %1$s minut, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"on jäänud"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"on jäänud"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Äratuseni on jäänud vähem kui 1 minut."</item>
-        <item msgid="6002066367368421848">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Äratuseni on jäänud <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Selle äratuseni on <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Äratuseni on jäänud vähem kui 1 minut."</string>
+    <string name="alarm_confirmation_toast_2">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Äratuseni on jäänud <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Selle äratuseni on <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> päeva</item>
         <item quantity="one">1 päev</item>
@@ -96,66 +94,55 @@
         <item quantity="one">1 minut</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mitte kunagi"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minut"</item>
-        <item msgid="5431906692406316549">"5 minutit"</item>
-        <item msgid="7742728812068919959">"10 minutit"</item>
-        <item msgid="2855948657259647629">"15 minutit"</item>
-        <item msgid="6330196381284475079">"20 minutit"</item>
-        <item msgid="7809240121716151904">"25 minutit"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"Mitte kunagi"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Väljas"</item>
-        <item msgid="7195451681426992018">"5 sekundit"</item>
-        <item msgid="592917601923801901">"10 sekundit"</item>
-        <item msgid="5050318776687582653">"15 sekundit"</item>
-        <item msgid="6997726466563948756">"20 sekundit"</item>
-        <item msgid="248014374051498284">"30 sekundit"</item>
-        <item msgid="8010211657612404516">"40 sekundit"</item>
-        <item msgid="623829984393124488">"50 sekundit"</item>
-        <item msgid="5261571706794132923">"60 sekundit"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minut"</item>
-        <item msgid="4482596794620161030">"2 minutit"</item>
-        <item msgid="8478276201849960314">"3 minutit"</item>
-        <item msgid="4038456474851212478">"4 minutit"</item>
-        <item msgid="6298175579152122770">"5 minutit"</item>
-        <item msgid="9021860177999278496">"6 minutit"</item>
-        <item msgid="7224689200902680256">"7 minutit"</item>
-        <item msgid="4610012663985162123">"8 minutit"</item>
-        <item msgid="1717028898015659426">"9 minutit"</item>
-        <item msgid="8058492636464337699">"10 minutit"</item>
-        <item msgid="577767219993868603">"11 minutit"</item>
-        <item msgid="3710047869487864775">"12 minutit"</item>
-        <item msgid="3794200935630619331">"13 minutit"</item>
-        <item msgid="5462266433522229437">"14 minutit"</item>
-        <item msgid="2192100038569306041">"15 minutit"</item>
-        <item msgid="6636326047858437620">"16 minutit"</item>
-        <item msgid="2481054808772108352">"17 minutit"</item>
-        <item msgid="4080984064428458050">"18 minutit"</item>
-        <item msgid="5844319398703041730">"19 minutit"</item>
-        <item msgid="2334964289857921073">"20 minutit"</item>
-        <item msgid="4755209855817904977">"21 minutit"</item>
-        <item msgid="8414394445389367355">"22 minutit"</item>
-        <item msgid="2604612428763230265">"23 minutit"</item>
-        <item msgid="6871696471373403806">"24 minutit"</item>
-        <item msgid="1573685398431466364">"25 minutit"</item>
-        <item msgid="6999090368236684971">"26 minutit"</item>
-        <item msgid="7125056720603734703">"27 minutit"</item>
-        <item msgid="1695830988496463030">"28 minutit"</item>
-        <item msgid="6706610539793025916">"29 minutit"</item>
-        <item msgid="2898212818965905529">"30 minutit"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minut</string>
+    <string name="auto_silence_5_minutes">5 minutit</string>
+    <string name="auto_silence_10_minutes">10 minutit</string>
+    <string name="auto_silence_15_minutes">15 minutit</string>
+    <string name="auto_silence_20_minutes">20 minutit</string>
+    <string name="auto_silence_25_minutes">25 minutit</string>
+    <string name="label_off">Väljas</string>
+    <string name="crescendo_5_seconds">5 sekundit</string>
+    <string name="crescendo_10_seconds">10 sekundit</string>
+    <string name="crescendo_15_seconds">15 sekundit</string>
+    <string name="crescendo_20_seconds">20 sekundit</string>
+    <string name="crescendo_30_seconds">30 sekundit</string>
+    <string name="crescendo_40_seconds">40 sekundit</string>
+    <string name="crescendo_50_seconds">50 sekundit</string>
+    <string name="crescendo_60_seconds">60 sekundit</string>
+    <string name="snooze_duration_1_minute">1 minut</string>
+    <string name="snooze_duration_2_minutes">2 minutit</string>
+    <string name="snooze_duration_3_minutes">3 minutit</string>
+    <string name="snooze_duration_4_minutes">4 minutit</string>
+    <string name="snooze_duration_5_minutes">5 minutit</string>
+    <string name="snooze_duration_6_minutes">6 minutit</string>
+    <string name="snooze_duration_7_minutes">7 minutit</string>
+    <string name="snooze_duration_8_minutes">8 minutit</string>
+    <string name="snooze_duration_9_minutes">9 minutit</string>
+    <string name="snooze_duration_10_minutes">10 minutit</string>
+    <string name="snooze_duration_11_minutes">11 minutit</string>
+    <string name="snooze_duration_12_minutes">12 minutit</string>
+    <string name="snooze_duration_13_minutes">13 minutit</string>
+    <string name="snooze_duration_14_minutes">14 minutit</string>
+    <string name="snooze_duration_15_minutes">15 minutit</string>
+    <string name="snooze_duration_16_minutes">16 minutit</string>
+    <string name="snooze_duration_17_minutes">17 minutit</string>
+    <string name="snooze_duration_18_minutes">18 minutit</string>
+    <string name="snooze_duration_19_minutes">19 minutit</string>
+    <string name="snooze_duration_20_minutes">20 minutit</string>
+    <string name="snooze_duration_21_minutes">21 minutit</string>
+    <string name="snooze_duration_22_minutes">22 minutit</string>
+    <string name="snooze_duration_23_minutes">23 minutit</string>
+    <string name="snooze_duration_24_minutes">24 minutit</string>
+    <string name="snooze_duration_25_minutes">25 minutit</string>
+    <string name="snooze_duration_26_minutes">26 minutit</string>
+    <string name="snooze_duration_27_minutes">27 minutit</string>
+    <string name="snooze_duration_28_minutes">28 minutit</string>
+    <string name="snooze_duration_29_minutes">29 minutit</string>
+    <string name="snooze_duration_30_minutes">30 minutit</string>
     <string name="week_start_title" msgid="4268917518596832096">Nädala algus</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Laupäev"</item>
-        <item msgid="3993530639455360921">"Pühapäev"</item>
-        <item msgid="8594709368683324282">"Esmaspäev"</item>
-    </string-array>
+    <string name="week_start_saturday">Laupäev</string>
+    <string name="week_start_sunday">Pühapäev</string>
+    <string name="week_start_monday">Esmaspäev</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Äratuse helitugevus"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Hääletu"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tundmatu"</string>
@@ -165,12 +152,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Muuda"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Seade on täielikult vaigistatud"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Helitugevuse nupud"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Lükka edasi"</item>
-        <item msgid="3450979320164769576">"Loobu"</item>
-        <item msgid="7085774139907653538">"Juhi helitugevust"</item>
-        <item>Mitte midagi</item>
-    </string-array>
+    <string name="button_action_snooze">Lükka edasi</string>
+    <string name="button_action_dismiss">Loobu</string>
+    <string name="button_action_control_volume">Juhi helitugevust</string>
+    <string name="button_action_nothing">Mitte midagi</string>
     <string name="label_description" msgid="8736179296142915727">"Silt"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Helin"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Äratus"</string>
@@ -220,28 +205,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip/>
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"Olete ülikiire."</item>
-        <item msgid="6332879039890727169">"Nautige oma töö vilju."</item>
-        <item msgid="815382761274660130">"Androidid on kiired, aga mitte nii kiired kui teie!"</item>
-        <item msgid="7916250650982813737">"Oeh."</item>
-        <item msgid="6836603904515182333">"L33t aeg."</item>
-        <item msgid="7508085100680861631">"Milline imeline kiirus."</item>
-        <item msgid="5961245252909589573">"Teeme uuesti ajahüpe."</item>
-        <item msgid="5211891900854545940">"Lihtsalt hüpe vasakule."</item>
-        <item msgid="9071353477103826053">"Naudite kiirust."</item>
-        <item msgid="3785193933691117181">"Footonkiirus."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"Olete ülikiire."</string>
+    <string name="jocular_content_message_2">"Nautige oma töö vilju."</string>
+    <string name="jocular_content_message_3">"Androidid on kiired, aga mitte nii kiired kui teie!"</string>
+    <string name="jocular_content_message_4">"Oeh."</string>
+    <string name="jocular_content_message_5">"L33t aeg."</string>
+    <string name="jocular_content_message_6">"Milline imeline kiirus."</string>
+    <string name="jocular_content_message_7">"Teeme uuesti ajahüpe."</string>
+    <string name="jocular_content_message_8">"Lihtsalt hüpe vasakule."</string>
+    <string name="jocular_content_message_9">"Naudite kiirust."</string>
+    <string name="jocular_content_message_10">"Footonkiirus."</string>
     <string name="home_label" msgid="4436139365695453870">"Kodu"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Linnad"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Kell"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stiil"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Kuva aeg sekundites"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Kuupäeva ja kellaaja muutmine"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analoog"</item>
-        <item msgid="8483930821046925592">"Digitaalne"</item>
-    </string-array>
+    <string name="clock_style_analog">Analoog</string>
+    <string name="clock_style_digital">Digitaalne</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automaatne kodu kell"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Kui reisite teise ajavööndisse jäävas riigis, siis lisage kell kodu vööndiajaga"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Kodune ajavöönd"</string>
@@ -394,11 +375,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">Äratus kellaajaks <xliff:g id="ALARM_TIME">%s</xliff:g> lükati 10 minutit edasi</string>
     <string name="flip_action_title">Tegevus seadme pööramisel</string>
     <string name="shake_action_title">Tegevus seadme raputamisel</string>
-    <string-array name="action_setting_entries">
-        <item>Kordus</item>
-        <item>Tühista</item>
-        <item>Mitte midagi</item>
-    </string-array>
     <string name="firing_alarms_timers_channel">Toimuvad äratused ja taimerid</string>
     <string name="alarm_missed_channel">Märkamata jäänud äratused</string>
     <string name="alarm_snooze_channel">Edasilükatud äratused</string>

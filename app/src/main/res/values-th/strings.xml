@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"ตัวจับเวลาผ่านไปอีก %1$s นาที <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"เหลืออีก"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"เหลืออีก"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</item>
-        <item msgid="6002066367368421848">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="8824719306247973774">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="8182406852935468862">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="2532279224777213194">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="5936557894247187717">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="9115697840826129603">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="2332583385137381060">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_2">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_3">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_4">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_5">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_6">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_7">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_8">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> วัน</item>
         <item quantity="one">1 วัน</item>
@@ -98,66 +96,55 @@
         <item quantity="one">1 นาที</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ไม่ใช้"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 นาที"</item>
-        <item msgid="5431906692406316549">"5 นาที"</item>
-        <item msgid="7742728812068919959">"10 นาที"</item>
-        <item msgid="2855948657259647629">"15 นาที"</item>
-        <item msgid="6330196381284475079">"20 นาที"</item>
-        <item msgid="7809240121716151904">"25 นาที"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"ไม่ใช้"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"ปิด"</item>
-        <item msgid="7195451681426992018">"5 วินาที"</item>
-        <item msgid="592917601923801901">"10 วินาที"</item>
-        <item msgid="5050318776687582653">"15 วินาที"</item>
-        <item msgid="6997726466563948756">"20 วินาที"</item>
-        <item msgid="248014374051498284">"30 วินาที"</item>
-        <item msgid="8010211657612404516">"40 วินาที"</item>
-        <item msgid="623829984393124488">"50 วินาที"</item>
-        <item msgid="5261571706794132923">"60 วินาที"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 นาที"</item>
-        <item msgid="4482596794620161030">"2 นาที"</item>
-        <item msgid="8478276201849960314">"3 นาที"</item>
-        <item msgid="4038456474851212478">"4 นาที"</item>
-        <item msgid="6298175579152122770">"5 นาที"</item>
-        <item msgid="9021860177999278496">"6 นาที"</item>
-        <item msgid="7224689200902680256">"7 นาที"</item>
-        <item msgid="4610012663985162123">"8 นาที"</item>
-        <item msgid="1717028898015659426">"9 นาที"</item>
-        <item msgid="8058492636464337699">"10 นาที"</item>
-        <item msgid="577767219993868603">"11 นาที"</item>
-        <item msgid="3710047869487864775">"12 นาที"</item>
-        <item msgid="3794200935630619331">"13 นาที"</item>
-        <item msgid="5462266433522229437">"14 นาที"</item>
-        <item msgid="2192100038569306041">"15 นาที"</item>
-        <item msgid="6636326047858437620">"16 นาที"</item>
-        <item msgid="2481054808772108352">"17 นาที"</item>
-        <item msgid="4080984064428458050">"18 นาที"</item>
-        <item msgid="5844319398703041730">"19 นาที"</item>
-        <item msgid="2334964289857921073">"20 นาที"</item>
-        <item msgid="4755209855817904977">"21 นาที"</item>
-        <item msgid="8414394445389367355">"22 นาที"</item>
-        <item msgid="2604612428763230265">"23 นาที"</item>
-        <item msgid="6871696471373403806">"24 นาที"</item>
-        <item msgid="1573685398431466364">"25 นาที"</item>
-        <item msgid="6999090368236684971">"26 นาที"</item>
-        <item msgid="7125056720603734703">"27 นาที"</item>
-        <item msgid="1695830988496463030">"28 นาที"</item>
-        <item msgid="6706610539793025916">"29 นาที"</item>
-        <item msgid="2898212818965905529">"30 นาที"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 นาที</string>
+    <string name="auto_silence_5_minutes">5 นาที</string>
+    <string name="auto_silence_10_minutes">10 นาที</string>
+    <string name="auto_silence_15_minutes">15 นาที</string>
+    <string name="auto_silence_20_minutes">20 นาที</string>
+    <string name="auto_silence_25_minutes">25 นาที</string>
+    <string name="label_off">ปิด</string>
+    <string name="crescendo_5_seconds">5 วินาที</string>
+    <string name="crescendo_10_seconds">10 วินาที</string>
+    <string name="crescendo_15_seconds">15 วินาที</string>
+    <string name="crescendo_20_seconds">20 วินาที</string>
+    <string name="crescendo_30_seconds">30 วินาที</string>
+    <string name="crescendo_40_seconds">40 วินาที</string>
+    <string name="crescendo_50_seconds">50 วินาที</string>
+    <string name="crescendo_60_seconds">60 วินาที</string>
+    <string name="snooze_duration_1_minute">1 นาที</string>
+    <string name="snooze_duration_2_minutes">2 นาที</string>
+    <string name="snooze_duration_3_minutes">3 นาที</string>
+    <string name="snooze_duration_4_minutes">4 นาที</string>
+    <string name="snooze_duration_5_minutes">5 นาที</string>
+    <string name="snooze_duration_6_minutes">6 นาที</string>
+    <string name="snooze_duration_7_minutes">7 นาที</string>
+    <string name="snooze_duration_8_minutes">8 นาที</string>
+    <string name="snooze_duration_9_minutes">9 นาที</string>
+    <string name="snooze_duration_10_minutes">10 นาที</string>
+    <string name="snooze_duration_11_minutes">11 นาที</string>
+    <string name="snooze_duration_12_minutes">12 นาที</string>
+    <string name="snooze_duration_13_minutes">13 นาที</string>
+    <string name="snooze_duration_14_minutes">14 นาที</string>
+    <string name="snooze_duration_15_minutes">15 นาที</string>
+    <string name="snooze_duration_16_minutes">16 นาที</string>
+    <string name="snooze_duration_17_minutes">17 นาที</string>
+    <string name="snooze_duration_18_minutes">18 นาที</string>
+    <string name="snooze_duration_19_minutes">19 นาที</string>
+    <string name="snooze_duration_20_minutes">20 นาที</string>
+    <string name="snooze_duration_21_minutes">21 นาที</string>
+    <string name="snooze_duration_22_minutes">22 นาที</string>
+    <string name="snooze_duration_23_minutes">23 นาที</string>
+    <string name="snooze_duration_24_minutes">24 นาที</string>
+    <string name="snooze_duration_25_minutes">25 นาที</string>
+    <string name="snooze_duration_26_minutes">26 นาที</string>
+    <string name="snooze_duration_27_minutes">27 นาที</string>
+    <string name="snooze_duration_28_minutes">28 นาที</string>
+    <string name="snooze_duration_29_minutes">29 นาที</string>
+    <string name="snooze_duration_30_minutes">30 นาที</string>
     <string name="week_start_title" msgid="4268917518596832096">"เริ่มต้นสัปดาห์ใน"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"วันเสาร์"</item>
-        <item msgid="3993530639455360921">"วันอาทิตย์"</item>
-        <item msgid="8594709368683324282">"วันจันทร์"</item>
-    </string-array>
+    <string name="week_start_saturday">วันเสาร์</string>
+    <string name="week_start_sunday">วันอาทิตย์</string>
+    <string name="week_start_monday">วันจันทร์</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"ระดับเสียงปลุก"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"เงียบ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ไม่ทราบ"</string>
@@ -167,12 +154,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"เปลี่ยน"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"อุปกรณ์อยู่ในโหมดปิดเสียง"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ปุ่มระดับเสียง"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"ปิดเสียงเตือนชั่วคราว"</item>
-        <item msgid="3450979320164769576">"ปิด"</item>
-        <item msgid="7085774139907653538">"ควบคุมระดับเสียง"</item>
-        <item>ไม่ทำอะไร</item>
-    </string-array>
+    <string name="button_action_snooze">ปิดเสียงเตือนชั่วคราว</string>
+    <string name="button_action_dismiss">ปิด</string>
+    <string name="button_action_control_volume">ควบคุมระดับเสียง</string>
+    <string name="button_action_nothing">ไม่ทำอะไร</string>
     <string name="label_description" msgid="8736179296142915727">"ป้ายกำกับ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"เสียงเรียกเข้า"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"ปลุก"</string>
@@ -222,28 +207,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"คุณนี่เป็นพวกคลั่งไคล้ความเร็วเสียจริง"</item>
-        <item msgid="6332879039890727169">"เริงรื่นกับผลสำเร็จจากความทุ่มเทของคุณ"</item>
-        <item msgid="815382761274660130">" Android ขึ้นชื่อในเรื่องความเร็ว แต่ก็ยังไม่เร็วเท่าคุณ!"</item>
-        <item msgid="7916250650982813737">"เฮ้อ"</item>
-        <item msgid="6836603904515182333">"L33t ครั้ง"</item>
-        <item msgid="7508085100680861631">"เป็นความเร็วที่น่าอัศจรรย์"</item>
-        <item msgid="5961245252909589573">"มาข้ามเวลากันอีกเถอะ"</item>
-        <item msgid="5211891900854545940">"เพียงแค่กระโดดไปทางซ้าย"</item>
-        <item msgid="9071353477103826053">"คุณมีจานสีสำหรับกรณีเร่งรีบ"</item>
-        <item msgid="3785193933691117181">"ความเร็วโฟตอนิกส์"</item>
-    </string-array>
+    <string name="jocular_content_message_1">"คุณนี่เป็นพวกคลั่งไคล้ความเร็วเสียจริง"</string>
+    <string name="jocular_content_message_2">"เริงรื่นกับผลสำเร็จจากความทุ่มเทของคุณ"</string>
+    <string name="jocular_content_message_3">" Android ขึ้นชื่อในเรื่องความเร็ว แต่ก็ยังไม่เร็วเท่าคุณ!"</string>
+    <string name="jocular_content_message_4">"เฮ้อ"</string>
+    <string name="jocular_content_message_5">"L33t ครั้ง"</string>
+    <string name="jocular_content_message_6">"เป็นความเร็วที่น่าอัศจรรย์"</string>
+    <string name="jocular_content_message_7">"มาข้ามเวลากันอีกเถอะ"</string>
+    <string name="jocular_content_message_8">"เพียงแค่กระโดดไปทางซ้าย"</string>
+    <string name="jocular_content_message_9">"คุณมีจานสีสำหรับกรณีเร่งรีบ"</string>
+    <string name="jocular_content_message_10">"ความเร็วโฟตอนิกส์"</string>
     <string name="home_label" msgid="4436139365695453870">"บ้าน"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"เมือง"</string>
     <string name="clock_settings" msgid="8317286807280600391">"นาฬิกา"</string>
     <string name="clock_style" msgid="2265011060429742344">"รูปแบบ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"แสดงเวลาพร้อมวินาที"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"เปลี่ยนแปลงวันที่และเวลา"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"แอนะล็อก"</item>
-        <item msgid="8483930821046925592">"ดิจิทัล"</item>
-    </string-array>
+    <string name="clock_style_analog">แอนะล็อก</string>
+    <string name="clock_style_digital">ดิจิทัล</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาแสดงเวลาที่บ้านอัตโนมัติ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"เมื่อเดินทางไปในที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาแสดงเวลาที่บ้าน"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
@@ -396,11 +377,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"เลื่อนการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> ไปอีก 10 นาทีแล้ว"</string>
     <string name="flip_action_title">การพลิกอุปกรณ์</string>
     <string name="shake_action_title">การเขย่าอุปกรณ์</string>
-    <string-array name="action_setting_entries">
-        <item>งีบหลับ</item>
-        <item>ยกเลิก</item>
-        <item>ไม่ทำอะไร</item>
-    </string-array>
     <string name="stopwatch_channel">จับเวลา</string>
     <string name="timer_channel">จับเวลา</string>
 </resources>

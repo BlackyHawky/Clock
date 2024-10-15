@@ -20,7 +20,7 @@ Caractéristiques :
   <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>
-  <li>Widgets numériques personnalisables ;</li>
+  <li>Widgets personnalisables ;</li>
   <li>Design material ;</li>
   <li>Couleurs dynamiques pour Android 12+ ;</li>
 </ul>

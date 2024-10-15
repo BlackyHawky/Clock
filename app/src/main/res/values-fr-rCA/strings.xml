@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minute a été ajoutée à la minuterie, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Il reste"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Il reste"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Prochaine alarme prévue dans moins d\'une minute."</item>
-        <item msgid="6002066367368421848">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Prochaine alarme prévue dans <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"La prochaine alarme est prévue dans <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Prochaine alarme prévue dans moins d\'une minute."</string>
+    <string name="alarm_confirmation_toast_2">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Prochaine alarme prévue dans <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Prochaine alarme prévue dans <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Prochaine alarme prévue dans <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> jour</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jours</item>
@@ -98,66 +96,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutes</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Jamais"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 minute"</item>
-        <item msgid="5431906692406316549">"5 minutes"</item>
-        <item msgid="7742728812068919959">"10 minutes"</item>
-        <item msgid="2855948657259647629">"15 minutes"</item>
-        <item msgid="6330196381284475079">"20 minutes"</item>
-        <item msgid="7809240121716151904">"25 minutes"</item>
-        <item>La fin de la sonnerie</item>
-        <item msgid="4278641338024561333">"Jamais"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"Désactivé"</item>
-        <item msgid="7195451681426992018">"5 secondes"</item>
-        <item msgid="592917601923801901">"10 secondes"</item>
-        <item msgid="5050318776687582653">"15 secondes"</item>
-        <item msgid="6997726466563948756">"20 secondes"</item>
-        <item msgid="248014374051498284">"30 secondes"</item>
-        <item msgid="8010211657612404516">"40 secondes"</item>
-        <item msgid="623829984393124488">"50 secondes"</item>
-        <item msgid="5261571706794132923">"60 secondes"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 minute"</item>
-        <item msgid="4482596794620161030">"2 minutes"</item>
-        <item msgid="8478276201849960314">"3 minutes"</item>
-        <item msgid="4038456474851212478">"4 minutes"</item>
-        <item msgid="6298175579152122770">"5 minutes"</item>
-        <item msgid="9021860177999278496">"6 minutes"</item>
-        <item msgid="7224689200902680256">"7 minutes"</item>
-        <item msgid="4610012663985162123">"8 minutes"</item>
-        <item msgid="1717028898015659426">"9 minutes"</item>
-        <item msgid="8058492636464337699">"10 minutes"</item>
-        <item msgid="577767219993868603">"11 minutes"</item>
-        <item msgid="3710047869487864775">"12 minutes"</item>
-        <item msgid="3794200935630619331">"13 minutes"</item>
-        <item msgid="5462266433522229437">"14 minutes"</item>
-        <item msgid="2192100038569306041">"15 minutes"</item>
-        <item msgid="6636326047858437620">"16 minutes"</item>
-        <item msgid="2481054808772108352">"17 minutes"</item>
-        <item msgid="4080984064428458050">"18 minutes"</item>
-        <item msgid="5844319398703041730">"19 minutes"</item>
-        <item msgid="2334964289857921073">"20 minutes"</item>
-        <item msgid="4755209855817904977">"21 minutes"</item>
-        <item msgid="8414394445389367355">"22 minutes"</item>
-        <item msgid="2604612428763230265">"23 minutes"</item>
-        <item msgid="6871696471373403806">"24 minutes"</item>
-        <item msgid="1573685398431466364">"25 minutes"</item>
-        <item msgid="6999090368236684971">"26 minutes"</item>
-        <item msgid="7125056720603734703">"27 minutes"</item>
-        <item msgid="1695830988496463030">"28 minutes"</item>
-        <item msgid="6706610539793025916">"29 minutes"</item>
-        <item msgid="2898212818965905529">"30 minutes"</item>
-        <item>Aucune</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 minute</string>
+    <string name="auto_silence_5_minutes">5 minutes</string>
+    <string name="auto_silence_10_minutes">10 minutes</string>
+    <string name="auto_silence_15_minutes">15 minutes</string>
+    <string name="auto_silence_20_minutes">20 minutes</string>
+    <string name="auto_silence_25_minutes">25 minutes</string>
+    <string name="label_off">Désactivé</string>
+    <string name="crescendo_5_seconds">5 secondes</string>
+    <string name="crescendo_10_seconds">10 secondes</string>
+    <string name="crescendo_15_seconds">15 secondes</string>
+    <string name="crescendo_20_seconds">20 secondes</string>
+    <string name="crescendo_30_seconds">30 secondes</string>
+    <string name="crescendo_40_seconds">40 secondes</string>
+    <string name="crescendo_50_seconds">50 secondes</string>
+    <string name="crescendo_60_seconds">60 secondes</string>
+    <string name="snooze_duration_1_minute">1 minute</string>
+    <string name="snooze_duration_2_minutes">2 minutes</string>
+    <string name="snooze_duration_3_minutes">3 minutes</string>
+    <string name="snooze_duration_4_minutes">4 minutes</string>
+    <string name="snooze_duration_5_minutes">5 minutes</string>
+    <string name="snooze_duration_6_minutes">6 minutes</string>
+    <string name="snooze_duration_7_minutes">7 minutes</string>
+    <string name="snooze_duration_8_minutes">8 minutes</string>
+    <string name="snooze_duration_9_minutes">9 minutes</string>
+    <string name="snooze_duration_10_minutes">10 minutes</string>
+    <string name="snooze_duration_11_minutes">11 minutes</string>
+    <string name="snooze_duration_12_minutes">12 minutes</string>
+    <string name="snooze_duration_13_minutes">13 minutes</string>
+    <string name="snooze_duration_14_minutes">14 minutes</string>
+    <string name="snooze_duration_15_minutes">15 minutes</string>
+    <string name="snooze_duration_16_minutes">16 minutes</string>
+    <string name="snooze_duration_17_minutes">17 minutes</string>
+    <string name="snooze_duration_18_minutes">18 minutes</string>
+    <string name="snooze_duration_19_minutes">19 minutes</string>
+    <string name="snooze_duration_20_minutes">20 minutes</string>
+    <string name="snooze_duration_21_minutes">21 minutes</string>
+    <string name="snooze_duration_22_minutes">22 minutes</string>
+    <string name="snooze_duration_23_minutes">23 minutes</string>
+    <string name="snooze_duration_24_minutes">24 minutes</string>
+    <string name="snooze_duration_25_minutes">25 minutes</string>
+    <string name="snooze_duration_26_minutes">26 minutes</string>
+    <string name="snooze_duration_27_minutes">27 minutes</string>
+    <string name="snooze_duration_28_minutes">28 minutes</string>
+    <string name="snooze_duration_29_minutes">29 minutes</string>
+    <string name="snooze_duration_30_minutes">30 minutes</string>
     <string name="week_start_title" msgid="4268917518596832096">"Premier jour de la semaine"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"Samedi"</item>
-        <item msgid="3993530639455360921">"Dimanche"</item>
-        <item msgid="8594709368683324282">"Lundi"</item>
-    </string-array>
+    <string name="week_start_saturday">Samedi</string>
+    <string name="week_start_sunday">Dimanche</string>
+    <string name="week_start_monday">Lundi</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume de l\'alarme"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Mode silencieux"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Inconnu"</string>
@@ -167,12 +154,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Modifier"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"L\'appareil est réglé en mode Silence total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"Arrêt momentané"</item>
-        <item msgid="3450979320164769576">"Ignorer"</item>
-        <item msgid="7085774139907653538">"Régler le volume"</item>
-        <item>Aucune</item>
-    </string-array>
+    <string name="button_action_snooze">Arrêt momentané</string>
+    <string name="button_action_dismiss">Ignorer</string>
+    <string name="button_action_control_volume">Régler le volume</string>
+    <string name="button_action_nothing">Aucune</string>
     <string name="label_description" msgid="8736179296142915727">"Étiquette"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Sonnerie"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarme"</string>
@@ -222,28 +207,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
-        <item msgid="6332879039890727169">"Profitez du fruit de votre travail."</item>
-        <item msgid="815382761274660130">"Les appareils Android sont connus pour leur rapidité, mais ils ne sont pas aussi rapides que vous!"</item>
-        <item msgid="7916250650982813737">"Ouf!"</item>
-        <item msgid="6836603904515182333">"Temps record!"</item>
-        <item msgid="7508085100680861631">"Quelle vitesse prodigieuse!"</item>
-        <item msgid="5961245252909589573">"Distorsion temporelle"</item>
-        <item msgid="5211891900854545940">"Un bond vers la gauche"</item>
-        <item msgid="9071353477103826053">"Quoi qu\'il arrive, vous n\'êtes jamais en retard."</item>
-        <item msgid="3785193933691117181">"Vitesse photonique"</item>
-    </string-array>
+    <string name="jocular_content_message_1">On peut dire que vous êtes rapide.</string>
+    <string name="jocular_content_message_2">Profitez du fruit de votre travail.</string>
+    <string name="jocular_content_message_3">Les appareils Android sont connus pour leur rapidité, mais ils ne sont pas aussi rapides que vous!</string>
+    <string name="jocular_content_message_4">Ouf!</string>
+    <string name="jocular_content_message_5">Temps record!</string>
+    <string name="jocular_content_message_6">Quelle vitesse prodigieuse!</string>
+    <string name="jocular_content_message_7">Distorsion temporelle.</string>
+    <string name="jocular_content_message_8">Un bond vers la gauche.</string>
+    <string name="jocular_content_message_9">Quoi qu\'il arrive, vous n\'êtes jamais en retard.</string>
+    <string name="jocular_content_message_10">Vitesse photonique.</string>
     <string name="home_label" msgid="4436139365695453870">"Domicile"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Villes"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Horloge"</string>
     <string name="clock_style" msgid="2265011060429742344">"Style"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Afficher l\'heure avec les secondes"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Modifier la date et l\'heure"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"Analogique"</item>
-        <item msgid="8483930821046925592">"Numérique"</item>
-    </string-array>
+    <string name="clock_style_analog">Analogique</string>
+    <string name="clock_style_digital">Numérique</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Horloge automatique du domicile"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Lors de vos déplacements dans des régions où le fuseau horaire est différent, ajoutez une horloge pour connaître l\'heure de votre domicile."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Mon fuseau horaire"</string>

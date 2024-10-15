@@ -19,7 +19,7 @@ Merkmale:
   <li>Möglichkeit, die Stoppuhr mit Adressbuch-Kontakten zu teilen;</li>
   <li>Anpassbare Bildschirmschoner;</li>
   <li>Moderne Widgets;</li>
-  <li>Anpassbare Digital-Widgets;</li>
+  <li>Anpassbare Widgets;</li>
   <li>Material design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

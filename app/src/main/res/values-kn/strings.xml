@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"ಟೈಮರ್‌ಗೆ %1$s ನಿಮಿಷವನ್ನು ಸೇರಿಸಲಾಗಿದೆ, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"ಉಳಿದಿದೆ"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ಉಳಿದಿದೆ"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ಈಗಿನಿಂದ 1 ನಿಮಿಷಕ್ಕೂ ಕಡಿಮೆ ಅವಧಿಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="6002066367368421848">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="8824719306247973774">"ಈಗಿನಿಂದ <xliff:g id="HOURS">%2$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="8182406852935468862">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಮತ್ತು <xliff:g id="HOURS">%2$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="2532279224777213194">"ಈಗಿನಿಂದ <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="5936557894247187717">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಮತ್ತು <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="9115697840826129603">"ಈಗಿನಿಂದ <xliff:g id="HOURS">%2$s</xliff:g> ಮತ್ತು <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-        <item msgid="2332583385137381060">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ಈಗಿನಿಂದ 1 ನಿಮಿಷಕ್ಕೂ ಕಡಿಮೆ ಅವಧಿಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_2">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_3">"ಈಗಿನಿಂದ <xliff:g id="HOURS">%2$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_4">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಮತ್ತು <xliff:g id="HOURS">%2$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_5">"ಈಗಿನಿಂದ <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_6">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g> ಮತ್ತು <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_7">"ಈಗಿನಿಂದ <xliff:g id="HOURS">%2$s</xliff:g> ಮತ್ತು <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
+    <string name="alarm_confirmation_toast_8">"ಈಗಿನಿಂದ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ದಿನಗಳು</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ದಿನಗಳು</item>
@@ -98,66 +96,55 @@
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ನಿಮಿಷಗಳು</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
-    <string-array name="auto_silence_entries">
-        <item msgid="3024545954917711306">"1 ನಿಮಿಷ"</item>
-        <item msgid="5431906692406316549">"5 ನಿಮಿಷಗಳು"</item>
-        <item msgid="7742728812068919959">"10 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2855948657259647629">"15 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6330196381284475079">"20 ನಿಮಿಷಗಳು"</item>
-        <item msgid="7809240121716151904">"25 ನಿಮಿಷಗಳು"</item>
-        <item>The end of the ringtone</item>
-        <item msgid="4278641338024561333">"ಎಂದಿಗೂ ಬೇಡ"</item>
-    </string-array>
-    <string-array name="crescendo_entries">
-        <item msgid="7435149932182641128">"ಆಫ್ ಆಗಿದೆ"</item>
-        <item msgid="7195451681426992018">"5 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="592917601923801901">"10 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="5050318776687582653">"15 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="6997726466563948756">"20 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="248014374051498284">"30 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="8010211657612404516">"40 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="623829984393124488">"50 ಸೆಕೆಂಡುಗಳು"</item>
-        <item msgid="5261571706794132923">"60 ಸೆಕೆಂಡುಗಳು"</item>
-    </string-array>
-    <string-array name="snooze_duration_entries">
-        <item msgid="7668553664977446797">"1 ನಿಮಿಷ"</item>
-        <item msgid="4482596794620161030">"2 ನಿಮಿಷಗಳು"</item>
-        <item msgid="8478276201849960314">"3 ನಿಮಿಷಗಳು"</item>
-        <item msgid="4038456474851212478">"4 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6298175579152122770">"5 ನಿಮಿಷಗಳು"</item>
-        <item msgid="9021860177999278496">"6 ನಿಮಿಷಗಳು"</item>
-        <item msgid="7224689200902680256">"7 ನಿಮಿಷಗಳು"</item>
-        <item msgid="4610012663985162123">"8 ನಿಮಿಷಗಳು"</item>
-        <item msgid="1717028898015659426">"9 ನಿಮಿಷಗಳು"</item>
-        <item msgid="8058492636464337699">"10 ನಿಮಿಷಗಳು"</item>
-        <item msgid="577767219993868603">"11 ನಿಮಿಷಗಳು"</item>
-        <item msgid="3710047869487864775">"12 ನಿಮಿಷಗಳು"</item>
-        <item msgid="3794200935630619331">"13 ನಿಮಿಷಗಳು"</item>
-        <item msgid="5462266433522229437">"14 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2192100038569306041">"15 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6636326047858437620">"16 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2481054808772108352">"17 ನಿಮಿಷಗಳು"</item>
-        <item msgid="4080984064428458050">"18 ನಿಮಿಷಗಳು"</item>
-        <item msgid="5844319398703041730">"19 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2334964289857921073">"20 ನಿಮಿಷಗಳು"</item>
-        <item msgid="4755209855817904977">"21 ನಿಮಿಷಗಳು"</item>
-        <item msgid="8414394445389367355">"22 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2604612428763230265">"23 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6871696471373403806">"24 ನಿಮಿಷಗಳು"</item>
-        <item msgid="1573685398431466364">"25 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6999090368236684971">"26 ನಿಮಿಷಗಳು"</item>
-        <item msgid="7125056720603734703">"27 ನಿಮಿಷಗಳು"</item>
-        <item msgid="1695830988496463030">"28 ನಿಮಿಷಗಳು"</item>
-        <item msgid="6706610539793025916">"29 ನಿಮಿಷಗಳು"</item>
-        <item msgid="2898212818965905529">"30 ನಿಮಿಷಗಳು"</item>
-        <item>None</item>
-    </string-array>
+    <string name="auto_silence_1_minute">1 ನಿಮಿಷ</string>
+    <string name="auto_silence_5_minutes">5 ನಿಮಿಷಗಳು</string>
+    <string name="auto_silence_10_minutes">10 ನಿಮಿಷಗಳು</string>
+    <string name="auto_silence_15_minutes">15 ನಿಮಿಷಗಳು</string>
+    <string name="auto_silence_20_minutes">20 ನಿಮಿಷಗಳು</string>
+    <string name="auto_silence_25_minutes">25 ನಿಮಿಷಗಳು</string>
+    <string name="label_off">ಆಫ್ ಆಗಿದೆ</string>
+    <string name="crescendo_5_seconds">5 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_10_seconds">10 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_15_seconds">15 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_20_seconds">20 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_30_seconds">30 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_40_seconds">40 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_50_seconds">50 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="crescendo_60_seconds">60 ಸೆಕೆಂಡುಗಳು</string>
+    <string name="snooze_duration_1_minute">1 ನಿಮಿಷ</string>
+    <string name="snooze_duration_2_minutes">2 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_3_minutes">3 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_4_minutes">4 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_5_minutes">5 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_6_minutes">6 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_7_minutes">7 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_8_minutes">8 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_9_minutes">9 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_10_minutes">10 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_11_minutes">11 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_12_minutes">12 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_13_minutes">13 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_14_minutes">14 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_15_minutes">15 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_16_minutes">16 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_17_minutes">17 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_18_minutes">18 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_19_minutes">19 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_20_minutes">20 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_21_minutes">21 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_22_minutes">22 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_23_minutes">23 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_24_minutes">24 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_25_minutes">25 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_26_minutes">26 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_27_minutes">27 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_28_minutes">28 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_29_minutes">29 ನಿಮಿಷಗಳು</string>
+    <string name="snooze_duration_30_minutes">30 ನಿಮಿಷಗಳು</string>
     <string name="week_start_title" msgid="4268917518596832096">"ವಾರದ ಪ್ರಾರಂಭ"</string>
-    <string-array name="week_start_entries">
-        <item msgid="9010198173394482639">"ಶನಿವಾರ"</item>
-        <item msgid="3993530639455360921">"ಭಾನುವಾರ"</item>
-        <item msgid="8594709368683324282">"ಸೋಮವಾರ"</item>
-    </string-array>
+    <string name="week_start_saturday">ಶನಿವಾರ</string>
+    <string name="week_start_sunday">ಭಾನುವಾರ</string>
+    <string name="week_start_monday">ಸೋಮವಾರ</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"ಅಲಾರಮ್ ವಾಲ್ಯೂಮ್"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ನಿಶ್ಯಬ್ಧ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ಅಪರಿಚಿತ"</string>
@@ -167,12 +154,10 @@
     <string name="change_setting_action" msgid="1224356633832430160">"ಬದಲಾಯಿಸಿ"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ಸಾಧನವನ್ನು ಸಂಪೂರ್ಣ ನಿಶ್ಯಬ್ದವಾಗಿ ಹೊಂದಿಸಿ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
-    <string-array name="volume_button_setting_entries">
-        <item msgid="7972756698723318690">"ಸ್ನೂಜ್"</item>
-        <item msgid="3450979320164769576">"ವಜಾಗೊಳಿಸಿ"</item>
-        <item msgid="7085774139907653538">"ವಾಲ್ಯೂಮ್ ನಿಯಂತ್ರಿಸಿ"</item>
-        <item>ಏನಿಲ್ಲ</item>
-    </string-array>
+    <string name="button_action_snooze">ಸ್ನೂಜ್</string>
+    <string name="button_action_dismiss">ವಜಾಗೊಳಿಸಿ</string>
+    <string name="button_action_control_volume">ವಾಲ್ಯೂಮ್ ನಿಯಂತ್ರಿಸಿ</string>
+    <string name="button_action_nothing">ಏನಿಲ್ಲ</string>
     <string name="label_description" msgid="8736179296142915727">"ಲೇಬಲ್"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"ರಿಂಗ್‌ಟೋನ್‌"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"ಅಲಾರಮ್"</string>
@@ -222,28 +207,24 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip />
-    <string-array name="sw_share_strings">
-        <item msgid="842841032273927988">"ನೀವು ಸ್ವಲ್ಪ ಹೆಚ್ಚಿನ ವೇಗಿ."</item>
-        <item msgid="6332879039890727169">"ನಿಮ್ಮ ಪರಿಶ್ರಮದ ಪ್ರತಿಫಲವನ್ನು ಆನಂದಿಸಿ."</item>
-        <item msgid="815382761274660130">"Android ತಮ್ಮ ವೇಗಕ್ಕೆ ಹೆಸರುವಾಸಿ, ಆದರೆ ನಿಮ್ಮಷ್ಟು ವೇಗವೇನು ಅಲ್ಲ!"</item>
-        <item msgid="7916250650982813737">"ಥೂ."</item>
-        <item msgid="6836603904515182333">"L33t ಬಾರಿ."</item>
-        <item msgid="7508085100680861631">"ಅಂಥ ಅಸಾಧಾರಣ ವೇಗ."</item>
-        <item msgid="5961245252909589573">"ಕಾಲ್ಪನಿಕ ಸಮಯವನ್ನು ಮತ್ತೆ ಮಾಡೋಣ."</item>
-        <item msgid="5211891900854545940">"ಕೇವಲ ಎಡಕ್ಕೆ ಜಿಗಿ."</item>
-        <item msgid="9071353477103826053">"ವೇಗಕ್ಕಾಗಿ ನಿಮಗೊಂದು ವರ್ಣಫಲಕವಿದೆ."</item>
-        <item msgid="3785193933691117181">"ಫೋಟೋನಿಕ್ ವೇಗ."</item>
-    </string-array>
+    <string name="jocular_content_message_1">"ನೀವು ಸ್ವಲ್ಪ ಹೆಚ್ಚಿನ ವೇಗಿ."</string>
+    <string name="jocular_content_message_2">"ನಿಮ್ಮ ಪರಿಶ್ರಮದ ಪ್ರತಿಫಲವನ್ನು ಆನಂದಿಸಿ."</string>
+    <string name="jocular_content_message_3">"Android ತಮ್ಮ ವೇಗಕ್ಕೆ ಹೆಸರುವಾಸಿ, ಆದರೆ ನಿಮ್ಮಷ್ಟು ವೇಗವೇನು ಅಲ್ಲ!"</string>
+    <string name="jocular_content_message_4">"ಥೂ."</string>
+    <string name="jocular_content_message_5">"L33t ಬಾರಿ."</string>
+    <string name="jocular_content_message_6">"ಅಂಥ ಅಸಾಧಾರಣ ವೇಗ."</string>
+    <string name="jocular_content_message_7">"ಕಾಲ್ಪನಿಕ ಸಮಯವನ್ನು ಮತ್ತೆ ಮಾಡೋಣ."</string>
+    <string name="jocular_content_message_8">"ಕೇವಲ ಎಡಕ್ಕೆ ಜಿಗಿ."</string>
+    <string name="jocular_content_message_9">"ವೇಗಕ್ಕಾಗಿ ನಿಮಗೊಂದು ವರ್ಣಫಲಕವಿದೆ."</string>
+    <string name="jocular_content_message_10">"ಫೋಟೋನಿಕ್ ವೇಗ."</string>
     <string name="home_label" msgid="4436139365695453870">"ಮನೆ"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ನಗರಗಳು"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ಗಡಿಯಾರ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ಶೈಲಿ"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"ಸಮಯವನ್ನು ಸೆಕೆಂಡುಗಳ ಜೊತೆಗೆ ಪ್ರದರ್ಶಿಸು"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"ದಿನಾಂಕ &amp; ಸಮಯವನ್ನು ಬದಲಾಯಿಸಿ"</string>
-    <string-array name="clock_style_entries">
-        <item msgid="917900462224167608">"ಅನಲಾಗ್‌"</item>
-        <item msgid="8483930821046925592">"ಡಿಜಿಟಲ್"</item>
-    </string-array>
+    <string name="clock_style_analog">ಅನಲಾಗ್‌</string>
+    <string name="clock_style_digital">ಡಿಜಿಟಲ್</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"ಸ್ವಯಂಚಾಲಿತ ಹೋಮ್ ಗಡಿಯಾರ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ಸಮಯವು ಭಿನ್ನವಾಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿ ಪ್ರಯಾಣಿಸುವಾಗ ಹೋಮ್‌ನಲ್ಲಿ ಗಡಿಯಾರ ಸೇರಿಸಿ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
@@ -396,9 +377,4 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ 10 ನಿಮಿಷಗಳವರೆಗೆ ಸ್ನೂಜ್ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="flip_action_title">ಸಾಧನದ ಮಗುಚು ಕ್ರಿಯೆ</string>
     <string name="shake_action_title">ಸಾಧನದ ಕುಲುಕು ಕ್ರಿಯೆ</string>
-    <string-array name="action_setting_entries">
-        <item>ಲಘುನಿದ್ದೆ</item>
-        <item>ವಜಾಮಾಡು</item>
-        <item>ಏನಿಲ್ಲ</item>
-    </string-array>
 </resources>
