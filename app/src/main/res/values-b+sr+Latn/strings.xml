@@ -52,16 +52,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minut je dodat u tajmer, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"preostaje"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"preostaje"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Alarm će se uključiti za manje od 1 minuta."</item>
-        <item msgid="6002066367368421848">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Alarm će se uključiti za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Alarm će se uključiti za <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Alarm će se uključiti za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Alarm će se uključiti za manje od 1 minuta."</string>
+    <string name="alarm_confirmation_toast_2">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Alarm će se uključiti za <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Alarm će se uključiti za <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Alarm će se uključiti za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Alarm će se uključiti za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dan</item>
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dana</item>

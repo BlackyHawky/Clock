@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s মিনিট টাইমাৰত যোগ কৰা হৈছে, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"বাকী আছে"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"বাকী আছে"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"এলাৰ্মক এতিয়াৰ পৰা ১ মিনিটতকৈও কম সময়ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="6002066367368421848">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="8824719306247973774">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="HOURS">%2$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="8182406852935468862">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g> আৰু <xliff:g id="HOURS">%2$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="2532279224777213194">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল"</item>
-        <item msgid="5936557894247187717">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g> আৰু <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="9115697840826129603">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="HOURS">%2$s</xliff:g> আৰু <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</item>
-        <item msgid="2332583385137381060">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, আৰু <xliff:g id="MINUTES">%3$s</xliff:g> ৰ বাবে ছেট কৰা হ’ল।"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"এলাৰ্মক এতিয়াৰ পৰা ১ মিনিটতকৈও কম সময়ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_2">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_3">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="HOURS">%2$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_4">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g> আৰু <xliff:g id="HOURS">%2$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_5">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল"</string>
+    <string name="alarm_confirmation_toast_6">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g> আৰু <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_7">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="HOURS">%2$s</xliff:g> আৰু <xliff:g id="MINUTES">%3$s</xliff:g>ৰ বাবে ছেট কৰা হ’ল।"</string>
+    <string name="alarm_confirmation_toast_8">"এলাৰ্মক এতিয়াৰ পৰা <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, আৰু <xliff:g id="MINUTES">%3$s</xliff:g> ৰ বাবে ছেট কৰা হ’ল।"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>

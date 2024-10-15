@@ -133,17 +133,22 @@
         Ex. "2 minutes remaining"
     -->
     <string name="timer_remaining_multiple">remaining</string>
-    <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
-    <string-array name="alarm_set">
-        <item>Alarm set for less than 1 minute from now.</item>
-        <item>Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
-        <item>Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</item>
-    </string-array>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 1 -->
+    <string name="alarm_confirmation_toast_1">Alarm set for less than 1 minute from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 2 -->
+    <string name="alarm_confirmation_toast_2">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 3 -->
+    <string name="alarm_confirmation_toast_3">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 4 -->
+    <string name="alarm_confirmation_toast_4">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 5 -->
+    <string name="alarm_confirmation_toast_5">Alarm set for <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 6 -->
+    <string name="alarm_confirmation_toast_6">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 7 -->
+    <string name="alarm_confirmation_toast_7">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires - Toast 8 -->
+    <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <!-- Alarm confirmation toast: days -->
     <plurals name="days">
         <!-- Duration for one day -->

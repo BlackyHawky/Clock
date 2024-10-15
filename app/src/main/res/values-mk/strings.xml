@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s минута е додадена на тајмерот, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Преостанува"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Преостануваат"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Алармот е поставен за помалку од 1 минута од сега."</item>
-        <item msgid="6002066367368421848">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> од сега."</item>
-        <item msgid="8824719306247973774">"Алармот е поставен за <xliff:g id="HOURS">%2$s</xliff:g> од сега."</item>
-        <item msgid="8182406852935468862">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g> од сега."</item>
-        <item msgid="2532279224777213194">"Алармот е поставен за <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</item>
-        <item msgid="5936557894247187717">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</item>
-        <item msgid="9115697840826129603">"Алармот е поставен за <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</item>
-        <item msgid="2332583385137381060">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Алармот е поставен за помалку од 1 минута од сега."</string>
+    <string name="alarm_confirmation_toast_2">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_3">"Алармот е поставен за <xliff:g id="HOURS">%2$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_4">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_5">"Алармот е поставен за <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_6">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_7">"Алармот е поставен за <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</string>
+    <string name="alarm_confirmation_toast_8">"Алармот е поставен за <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g> од сега."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ден</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дена</item>

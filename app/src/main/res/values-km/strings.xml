@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"បានបន្ថែម %1$s នាទីទៅកម្មវិធីកំណត់ពេល <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"នៅសល់"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"នៅសល់"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"បាន​កំណត់​សំឡេង​រោទ៍​តិច​ជាង​១​នាទី គិត​ចាប់ពី​ឥឡូវ។"</item>
-        <item msgid="6002066367368421848">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> ទៀត។"</item>
-        <item msgid="8824719306247973774">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="HOURS">%2$s</xliff:g> ទៀត។"</item>
-        <item msgid="8182406852935468862">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> និង <xliff:g id="HOURS">%2$s</xliff:g> ទៀត។"</item>
-        <item msgid="2532279224777213194">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
-        <item msgid="5936557894247187717">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
-        <item msgid="9115697840826129603">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="HOURS">%2$s</xliff:g> និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
-        <item msgid="2332583385137381060">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"បាន​កំណត់​សំឡេង​រោទ៍​តិច​ជាង​១​នាទី គិត​ចាប់ពី​ឥឡូវ។"</string>
+    <string name="alarm_confirmation_toast_2">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_3">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="HOURS">%2$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_4">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> និង <xliff:g id="HOURS">%2$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_5">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_6">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g> និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_7">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="HOURS">%2$s</xliff:g> និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</string>
+    <string name="alarm_confirmation_toast_8">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ថ្ងៃ</item>
         <item quantity="one">1 ថ្ងៃ</item>

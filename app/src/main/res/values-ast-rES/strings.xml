@@ -40,16 +40,14 @@
     <string name="timer_accessibility_custom_time_added">Amestáu %1$s minutu al cronu, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <string name="timer_remaining_single">restante</string>
     <string name="timer_remaining_multiple">restantes</string>
-    <string-array name="alarm_set">
-        <item>L\'alarma va sonar en menos d\'un minutu.</item>
-        <item>L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="HOURS">%2$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g> y <xliff:g id="HOURS">%2$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="MINUTES">%3$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</item>
-        <item>L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">L\'alarma va sonar en menos d\'un minutu.</string>
+    <string name="alarm_confirmation_toast_2">L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_3">L\'alarma va sonar en <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_4">L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g> y <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">L\'alarma va sonar en <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">L\'alarma va sonar en <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">L\'alarma va sonar en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days">
         <item quantity="one">1 día</item>
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> díes</item>

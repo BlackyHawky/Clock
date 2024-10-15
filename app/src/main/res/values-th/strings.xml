@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"ตัวจับเวลาผ่านไปอีก %1$s นาที <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"เหลืออีก"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"เหลืออีก"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</item>
-        <item msgid="6002066367368421848">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="8824719306247973774">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="8182406852935468862">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="2532279224777213194">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="5936557894247187717">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="9115697840826129603">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-        <item msgid="2332583385137381060">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_2">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_3">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_4">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_5">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_6">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_7">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
+    <string name="alarm_confirmation_toast_8">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> วัน</item>
         <item quantity="one">1 วัน</item>

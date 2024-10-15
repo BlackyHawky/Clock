@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Προσθήκη %1$s λεπτού στο χρονόμετρο, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"απομένουν"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"απομένουν"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Το ξυπνητήρι έχει οριστεί σε λιγότερο από 1 λεπτό από τώρα."</item>
-        <item msgid="6002066367368421848">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> από τώρα."</item>
-        <item msgid="8824719306247973774">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</item>
-        <item msgid="8182406852935468862">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</item>
-        <item msgid="2532279224777213194">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="5936557894247187717">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="9115697840826129603">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-        <item msgid="2332583385137381060">"Το ξυπνητήρι αυτό έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Το ξυπνητήρι έχει οριστεί σε λιγότερο από 1 λεπτό από τώρα."</string>
+    <string name="alarm_confirmation_toast_2">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_3">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_4">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="HOURS">%2$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_5">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_6">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_7">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
+    <string name="alarm_confirmation_toast_8">"Το ξυπνητήρι αυτό έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> και <xliff:g id="MINUTES">%3$s</xliff:g> από τώρα."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ημέρες</item>
         <item quantity="one">1 ημέρα</item>

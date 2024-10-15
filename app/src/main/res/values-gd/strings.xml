@@ -38,16 +38,14 @@
     <string name="timer_notifications_minutes"><xliff:g example="2 minutes" id="MINUTES">%2$s</xliff:g><xliff:g example="remaining" id="REMAINING"> %3$s</xliff:g></string>
     <string name="timer_remaining_single">air fhàgail</string>
     <string name="timer_remaining_multiple">air fhàgail</string>
-    <string-array name="alarm_set">
-        <item>Gheibh thu caismeachd am broinn mionaid.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-        <item>Gheibh thu caismeachd <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">Gheibh thu caismeachd am broinn mionaid.</string>
+    <string name="alarm_confirmation_toast_2">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_3">Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_4">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Gheibh thu caismeachd an ceann <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Gheibh thu caismeachd an ceann <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Gheibh thu caismeachd an ceann <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Gheibh thu caismeachd <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> ’s <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days">
         <item quantity="one"><xliff:g example="7" id="number">%s</xliff:g> latha</item>
         <item quantity="two"><xliff:g example="7" id="number">%s</xliff:g> latha</item>

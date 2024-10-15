@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"計時器已延長 %1$s 分鐘，<xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"尚餘"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"尚餘"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"鬧鐘設定在 1 分鐘內響起。"</item>
-        <item msgid="6002066367368421848">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後響起。"</item>
-        <item msgid="8824719306247973774">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</item>
-        <item msgid="8182406852935468862">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</item>
-        <item msgid="2532279224777213194">"鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
-        <item msgid="5936557894247187717">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
-        <item msgid="9115697840826129603">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
-        <item msgid="2332583385137381060">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"鬧鐘設定在 1 分鐘內響起。"</string>
+    <string name="alarm_confirmation_toast_2">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_3">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_4">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_5">"鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_6">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_7">"鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</string>
+    <string name="alarm_confirmation_toast_8">"鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>後響起。"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 天</item>
         <item quantity="one">1 天</item>

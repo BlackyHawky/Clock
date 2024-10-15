@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minuut is by afteller gevoeg, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"oor"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"oor"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Wekker gestel vir minder as 1 minuut van nou af."</item>
-        <item msgid="6002066367368421848">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
-        <item msgid="8824719306247973774">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
-        <item msgid="8182406852935468862">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
-        <item msgid="2532279224777213194">"Wekker gestel vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="5936557894247187717">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="9115697840826129603">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-        <item msgid="2332583385137381060">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Wekker gestel vir minder as 1 minuut van nou af."</string>
+    <string name="alarm_confirmation_toast_2">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_3">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_4">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_5">"Wekker gestel vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_6">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_7">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
+    <string name="alarm_confirmation_toast_8">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dae</item>
         <item quantity="one">1 dag</item>

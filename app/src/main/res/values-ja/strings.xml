@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"タイマーに %1$s 分追加しました、<xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"残り"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"残り"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"アラームは今から1分以内に設定されています。"</item>
-        <item msgid="6002066367368421848">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>後に設定されています。"</item>
-        <item msgid="8824719306247973774">"アラームは<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</item>
-        <item msgid="8182406852935468862">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</item>
-        <item msgid="2532279224777213194">"アラームは<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
-        <item msgid="5936557894247187717">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
-        <item msgid="9115697840826129603">"アラームは<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</item>
-        <item msgid="2332583385137381060">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"アラームは今から1分以内に設定されています。"</string>
+    <string name="alarm_confirmation_toast_2">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_3">"アラームは<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_4">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_5">"アラームは<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_6">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_7">"アラームは<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています。"</string>
+    <string name="alarm_confirmation_toast_8">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>日</item>
         <item quantity="one">1日</item>

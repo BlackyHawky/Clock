@@ -17,16 +17,14 @@
     <string name="alarm_alert_predismiss_title">ئالدىن بېكىتىلگەن قوڭغۇراق</string>
     <string name="missed_alarm_has_been_deleted">ئۆتكۈزۈۋەتكەن قوڭغۇراق ئۆچۈرۈلدى</string>
     <string name="timer_notifications_less_min">بىر مىنۇتمۇ قالمىدى</string>
-    <string-array name="alarm_set">
-        <item>قوڭغۇراق ھازىردىن باشلاپ 1 مىنۇتقا يەتمىگەن ۋاقىتتا ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ<xliff:g id="DAYS">%1$s</xliff:g>  <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-        <item>قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">قوڭغۇراق ھازىردىن باشلاپ 1 مىنۇتقا يەتمىگەن ۋاقىتتا ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_2">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_3">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_4">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_5">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_6">قوڭغۇراق ھازىردىن باشلاپ<xliff:g id="DAYS">%1$s</xliff:g>  <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_7">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
+    <string name="alarm_confirmation_toast_8">قوڭغۇراق ھازىردىن باشلاپ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>  دىن كېيىن ئەسكەرتىشكە تەڭشەلدى.</string>
     <string name="every_day">ھەر كۈنى</string>
     <string name="day_concat">"« ،»"</string>
     <string name="analog_widget">تەقلىد سائەت</string>

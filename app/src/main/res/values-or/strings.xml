@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"ଟାଇମର୍, <xliff:g id="TIME">%2$s</xliff:g> %1$s ମିନିଟ୍ ଯୋଡା ଯାଇଛି |"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"ବଳକା ଅଛି"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ବଳକା ଅଛି"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ଆଲାର୍ମ ଏବେଠାରୁ 1 ମିନିଟ୍‌ରୁ କମ୍ ପାଇଁ ସେଟ୍ ହୋଇଛି।"</item>
-        <item msgid="6002066367368421848">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ପାଇଁ ସେଟ୍।"</item>
-        <item msgid="8824719306247973774">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="HOURS">%2$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</item>
-        <item msgid="8182406852935468862">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ଓ <xliff:g id="HOURS">%2$s</xliff:g> ପାଇଁ ସେଟ୍।"</item>
-        <item msgid="2532279224777213194">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍।"</item>
-        <item msgid="5936557894247187717">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</item>
-        <item msgid="9115697840826129603">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="HOURS">%2$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</item>
-        <item msgid="2332583385137381060">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ଆଲାର୍ମ ଏବେଠାରୁ 1 ମିନିଟ୍‌ରୁ କମ୍ ପାଇଁ ସେଟ୍ ହୋଇଛି।"</string>
+    <string name="alarm_confirmation_toast_2">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ପାଇଁ ସେଟ୍।"</string>
+    <string name="alarm_confirmation_toast_3">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="HOURS">%2$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</string>
+    <string name="alarm_confirmation_toast_4">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ଓ <xliff:g id="HOURS">%2$s</xliff:g> ପାଇଁ ସେଟ୍।"</string>
+    <string name="alarm_confirmation_toast_5">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍।"</string>
+    <string name="alarm_confirmation_toast_6">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</string>
+    <string name="alarm_confirmation_toast_7">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="HOURS">%2$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</string>
+    <string name="alarm_confirmation_toast_8">"ଆଲାର୍ମ ଏବେଠାରୁ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ଓ <xliff:g id="MINUTES">%3$s</xliff:g> ପାଇଁ ସେଟ୍ ହୋଇଛି।"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ଦିନ</item>
         <item quantity="one">1 ଦିନ</item>

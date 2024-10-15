@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Към таймера е добавена %1$s минута, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Остава"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Остават"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Будилникът e настроен да звъни след по-малко от минута."</item>
-        <item msgid="6002066367368421848">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Будилникът е настроен да звъни след <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Будилникът е настроен да звъни след <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Будилникът ще се включи след <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Будилникът e настроен да звъни след по-малко от минута."</string>
+    <string name="alarm_confirmation_toast_2">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Будилникът е настроен да звъни след <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Будилникът е настроен да звъни след <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Будилникът ще се включи след <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Будилникът е настроен да звъни след <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> дни</item>
         <item quantity="one">1 ден</item>

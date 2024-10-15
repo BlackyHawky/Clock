@@ -117,6 +117,18 @@
         <item>1</item>
     </string-array>
 
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
+    <string-array name="alarm_set">
+        <item>@string/alarm_confirmation_toast_1</item>
+        <item>@string/alarm_confirmation_toast_2</item>
+        <item>@string/alarm_confirmation_toast_3</item>
+        <item>@string/alarm_confirmation_toast_4</item>
+        <item>@string/alarm_confirmation_toast_5</item>
+        <item>@string/alarm_confirmation_toast_6</item>
+        <item>@string/alarm_confirmation_toast_7</item>
+        <item>@string/alarm_confirmation_toast_8</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the notification reminder preference. -->
     <string-array name="alarm_notification_reminder_entries">
         <item>@string/alarm_notification_reminder_5_minutes</item>

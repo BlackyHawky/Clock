@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minit ditambah pada pemasa, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"lagi"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"lagi"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Penggera ditetapkan pada kurang daripada 1 minit dari sekarang."</item>
-        <item msgid="6002066367368421848">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</item>
-        <item msgid="8824719306247973774">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
-        <item msgid="8182406852935468862">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
-        <item msgid="2532279224777213194">"Penggera ditetapkan pada <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="5936557894247187717">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="9115697840826129603">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-        <item msgid="2332583385137381060">"Penggera ditetapkan untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Penggera ditetapkan pada kurang daripada 1 minit dari sekarang."</string>
+    <string name="alarm_confirmation_toast_2">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_3">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_4">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_5">"Penggera ditetapkan pada <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_6">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_7">"Penggera ditetapkan pada <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
+    <string name="alarm_confirmation_toast_8">"Penggera ditetapkan untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hari</item>
         <item quantity="one">1 hari</item>

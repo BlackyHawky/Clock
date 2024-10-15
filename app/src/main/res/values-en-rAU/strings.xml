@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minute added to timer, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"remaining"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"remaining"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Alarm set for less than 1 minute from now."</item>
-        <item msgid="6002066367368421848">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> from now."</item>
-        <item msgid="8824719306247973774">"Alarm set for <xliff:g id="HOURS">%2$s</xliff:g> from now."</item>
-        <item msgid="8182406852935468862">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> and <xliff:g id="HOURS">%2$s</xliff:g> from now."</item>
-        <item msgid="2532279224777213194">"Alarm set for <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
-        <item msgid="5936557894247187717">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
-        <item msgid="9115697840826129603">"Alarm set for <xliff:g id="HOURS">%2$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
-        <item msgid="2332583385137381060">"Alarm set for <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> and <xliff:g id="MINUTES">%3$s</xliff:g> from now."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">Alarm set for less than 1 minute from now.</string>
+    <string name="alarm_confirmation_toast_2">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_3">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_4">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_5">Alarm set for <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_6">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_7">Alarm set for <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
+    <string name="alarm_confirmation_toast_8">Alarm set for <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, and <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> from now.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> days</item>
         <item quantity="one">1 day</item>

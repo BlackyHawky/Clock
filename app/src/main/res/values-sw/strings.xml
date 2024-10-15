@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Dakika %1$s imeongezwa kwenye kipima wakati, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"imesalia"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"zimesalia"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Kengele imewashwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
-        <item msgid="6002066367368421848">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
-        <item msgid="8824719306247973774">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-        <item msgid="8182406852935468862">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
-        <item msgid="2532279224777213194">"Kengele imewashwa na italia dakika <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="5936557894247187717">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="9115697840826129603">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-        <item msgid="2332583385137381060">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Kengele imewashwa na italia baada ya chini ya dakika 1 kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_2">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_3">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_4">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_5">"Kengele imewashwa na italia dakika <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_6">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_7">"Kengele imewashwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
+    <string name="alarm_confirmation_toast_8">"Kengele imewashwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other">Siku <xliff:g id="NUMBER">%s</xliff:g></item>
         <item quantity="one">Siku 1</item>

@@ -58,16 +58,14 @@
     <string name="timer_accessibility_custom_time_added">Ychwanegwyd %1$s munud i\'r amserydd, <xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <string name="timer_remaining_single">yn weddill</string>
     <string name="timer_remaining_multiple">yn weddill</string>
-    <string-array name="alarm_set">
-        <item>Mae\'r larwm wedi\'i osod ar gyfer llai na funud o nawr.</item>
-        <item>Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> o nawr.</item>
-        <item>Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> o nawr.</item>
-        <item>Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> o nawr.</item>
-        <item>Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</item>
-        <item>Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</item>
-        <item>Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> a <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</item>
-        <item>Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">Mae\'r larwm wedi\'i osod ar gyfer llai na funud o nawr.</string>
+    <string name="alarm_confirmation_toast_2">Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_3">Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_4">Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_5">Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_6">Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_7">Mae\'r larwm wedi\'i osod ar gyfer <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> a <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</string>
+    <string name="alarm_confirmation_toast_8">Gosodwyd y larwm i ganu ymhen <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g> o nawr.</string>
     <plurals name="days">
         <item quantity="zero"><xliff:g example="7" id="number">%s</xliff:g> diwrnodau</item>
         <item quantity="one">1 diwrnod</item>

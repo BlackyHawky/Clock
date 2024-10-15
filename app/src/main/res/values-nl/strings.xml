@@ -48,16 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s minuut toegevoegd aan timer, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"resterend"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"resterend"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Wekker gaat over minder dan 1 minuut."</item>
-        <item msgid="6002066367368421848">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Wekker gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Wekker gaat over minder dan 1 minuut."</string>
+    <string name="alarm_confirmation_toast_2">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Wekker gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagen</item>
         <item quantity="one">1 dag</item>

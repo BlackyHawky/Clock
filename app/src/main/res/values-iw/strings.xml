@@ -54,16 +54,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"דקה %1$s נוספה לטיימר, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"נותרה"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"נותרו"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ההתראה הוגדרה לעוד פחות מדקה מעכשיו."</item>
-        <item msgid="6002066367368421848">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> מעכשיו."</item>
-        <item msgid="8824719306247973774">"ההתראה הוגדרה לעוד <xliff:g id="HOURS">%2$s</xliff:g> מעכשיו."</item>
-        <item msgid="8182406852935468862">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> ו-<xliff:g id="HOURS">%2$s</xliff:g> מעכשיו."</item>
-        <item msgid="2532279224777213194">"הוגדרה התראה לעוד <xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</item>
-        <item msgid="5936557894247187717">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</item>
-        <item msgid="9115697840826129603">"ההתראה הוגדרה לעוד <xliff:g id="HOURS">%2$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</item>
-        <item msgid="2332583385137381060">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ההתראה הוגדרה לעוד פחות מדקה מעכשיו."</string>
+    <string name="alarm_confirmation_toast_2">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_3">"ההתראה הוגדרה לעוד <xliff:g id="HOURS">%2$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_4">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> ו-<xliff:g id="HOURS">%2$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_5">"הוגדרה התראה לעוד <xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_6">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_7">"ההתראה הוגדרה לעוד <xliff:g id="HOURS">%2$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</string>
+    <string name="alarm_confirmation_toast_8">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> ימים</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ימים</item>

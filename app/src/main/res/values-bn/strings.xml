@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"টাইমারে %1$s মিনিট যোগ করা হয়েছে, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"বাকি আছে"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"বাকি আছে"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"এখন থেকে ১ মিনিটের কম সময়ের জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="6002066367368421848">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="8824719306247973774">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="8182406852935468862">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="2532279224777213194">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="5936557894247187717">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="9115697840826129603">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-        <item msgid="2332583385137381060">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"এখন থেকে ১ মিনিটের কম সময়ের জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_2">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_3">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_4">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_5">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_6">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_7">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
+    <string name="alarm_confirmation_toast_8">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>

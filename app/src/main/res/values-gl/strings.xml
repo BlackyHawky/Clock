@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Engadiuse %1$s minuto ao temporizador, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Queda"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Quedan"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Alarma definida para dentro de menos de 1 minuto."</item>
-        <item msgid="6002066367368421848">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-        <item msgid="8824719306247973774">"Alarma definida para dentro de <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="8182406852935468862">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-        <item msgid="2532279224777213194">"Alarma definida para dentro de <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="9115697840826129603">"Alarma definida para dentro de <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="2332583385137381060">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Alarma definida para dentro de menos de 1 minuto."</string>
+    <string name="alarm_confirmation_toast_2">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_3">"Alarma definida para dentro de <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="HOURS">%2$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_5">"Alarma definida para dentro de <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_7">"Alarma definida para dentro de <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_8">"Alarma definida para dentro de <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
         <item quantity="one">1 día</item>

@@ -48,16 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"%1$s perc hozzáadva az időzítőhöz: <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"hátralévő idő"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"van hátra"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Ébresztés beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</item>
-        <item msgid="6002066367368421848">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> múlva."</item>
-        <item msgid="8824719306247973774">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
-        <item msgid="8182406852935468862">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
-        <item msgid="2532279224777213194">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="MINUTES">%3$s</xliff:g> perc múlva."</item>
-        <item msgid="5936557894247187717">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
-        <item msgid="9115697840826129603">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
-        <item msgid="2332583385137381060">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Ébresztés beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</string>
+    <string name="alarm_confirmation_toast_2">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_3">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_4">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_5">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="MINUTES">%3$s</xliff:g> perc múlva."</string>
+    <string name="alarm_confirmation_toast_6">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_7">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
+    <string name="alarm_confirmation_toast_8">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> nap</item>
         <item quantity="one">1 nap</item>

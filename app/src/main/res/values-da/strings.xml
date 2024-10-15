@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Der blev føjet %1$s minut til timeren – <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"tilbage"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"tilbage"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Alarmen er indstillet til mindre end 1 minut fra nu."</item>
-        <item msgid="6002066367368421848">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> fra nu."</item>
-        <item msgid="8824719306247973774">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
-        <item msgid="8182406852935468862">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
-        <item msgid="2532279224777213194">"Alarmen går i gang om <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-        <item msgid="5936557894247187717">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
-        <item msgid="9115697840826129603">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
-        <item msgid="2332583385137381060">"Alarm indstillet til <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Alarmen er indstillet til mindre end 1 minut fra nu."</string>
+    <string name="alarm_confirmation_toast_2">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> fra nu."</string>
+    <string name="alarm_confirmation_toast_3">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</string>
+    <string name="alarm_confirmation_toast_4">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</string>
+    <string name="alarm_confirmation_toast_5">"Alarmen går i gang om <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_6">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</string>
+    <string name="alarm_confirmation_toast_7">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</string>
+    <string name="alarm_confirmation_toast_8">"Alarm indstillet til <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dag</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dage</item>

@@ -58,16 +58,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"تمت إضافة %1$s دقيقة إلى الموقّت <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"تتبقى"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"تتبقى"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"ضبط المنبّه :أقل من دقيقة واحدة من الآن."</item>
-        <item msgid="6002066367368421848">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> من الآن."</item>
-        <item msgid="8824719306247973774">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
-        <item msgid="8182406852935468862">"ضبط المنبّه:<xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
-        <item msgid="2532279224777213194">"ضبط المنبّه: <xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-        <item msgid="5936557894247187717">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-        <item msgid="9115697840826129603">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-        <item msgid="2332583385137381060">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"ضبط المنبّه :أقل من دقيقة واحدة من الآن."</string>
+    <string name="alarm_confirmation_toast_2">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_3">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_4">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_5">"ضبط المنبّه: <xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_6">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_7">"ضبط المنبّه: <xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
+    <string name="alarm_confirmation_toast_8">"ضبط المنبّه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
         <item quantity="two">يومان (<xliff:g id="NUMBER">%s</xliff:g>)</item>

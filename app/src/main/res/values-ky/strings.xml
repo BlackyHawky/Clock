@@ -50,16 +50,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Таймерге %1$s мүнөт кошулду, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"калды"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"калды"</string>
-    <string-array name="alarm_set">
-        <item msgid="6450913786084215050">"Ойготкуч 1 мүнөткө жетпеген убакыттан кийин чырылдайт."</item>
-        <item msgid="6002066367368421848">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="8824719306247973774">"Ойготкуч <xliff:g id="HOURS">%2$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="8182406852935468862">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="2532279224777213194">"Ойготкуч <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="5936557894247187717">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="9115697840826129603">"Ойготкуч <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</item>
-        <item msgid="2332583385137381060">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> күндөн кийин саат <xliff:g id="HOURS">%2$s</xliff:g>:<xliff:g id="MINUTES">%3$s</xliff:g> чырылдайт."</item>
-    </string-array>
+    <string name="alarm_confirmation_toast_1">"Ойготкуч 1 мүнөткө жетпеген убакыттан кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_2">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_3">"Ойготкуч <xliff:g id="HOURS">%2$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_4">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_5">"Ойготкуч <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_6">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_7">"Ойготкуч <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> кийин чырылдайт."</string>
+    <string name="alarm_confirmation_toast_8">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> күндөн кийин саат <xliff:g id="HOURS">%2$s</xliff:g>:<xliff:g id="MINUTES">%3$s</xliff:g> чырылдайт."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> күн</item>
         <item quantity="one">1 күн</item>
