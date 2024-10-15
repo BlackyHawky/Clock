@@ -535,7 +535,7 @@
     <string name="bedtime_reminder_notification_text">Ваш час сну закінчується о <xliff:g id="wake_time">%1$s</xliff:g> після <xliff:g id="sleep_time">%2$s</xliff:g> сну.</string>
     <string name="permission_highly_recommended">Настійно рекомендується</string>
     <string name="interface_customization_summary">Налаштування стилю і кольору додатка</string>
-    <string name="timer_settings_summary">Сигнал за замовчуванням і гучність для таймерів</string>
+    <string name="timer_settings_summary">Сигнал за замовчуванням, гучність і сортування для таймерів</string>
     <string name="sleeping_time">Тривалість сну: %1$s</string>
     <string name="revoke_permission_dialog_message">Ви впевнені, що хочете відкликати цей дозвіл?</string>
     <string name="swipe_action_title">Жести, щоб вимкнути або відкласти будильник</string>
@@ -628,4 +628,6 @@
     <string name="next_alarm_widget_default_title_color">Колір за замовчуванням для заголовків «Наступний будильник» і «Немає наступного будильника»</string>
     <string name="settings_fade_transitions_title">Увімкнути ефект переходу із згасанням при перемиканні екранів</string>
     <string name="next_alarm_widget">Наступний будильник</string>
+    <string name="denied_permission_label">Дозвіл не надано</string>
+    <string name="sort_timer_title">Сортування таймерів</string>
 </resources>

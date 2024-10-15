@@ -409,45 +409,45 @@
     <string name="analog_widget_material_you">模拟时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； 
-\n 
-\n• 使用电源按钮或音量按钮关闭/推迟闹钟； 
-\n 
-\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； 
-\n 
-\n• 滑动以删除闹钟； 
-\n 
-\n• 重复闹钟； 
-\n 
-\n• 自定义闹钟标题； 
-\n 
-\n• 可自定义铃声； 
-\n 
-\n• 浅色、深色或系统主题； 
-\n 
-\n• 深色主题的 AMOLED 模式； 
-\n 
-\n• 数字或模拟时钟风格； 
-\n 
-\n• 旅行时显示家乡时间； 
-\n 
-\n• 显示世界各地许多城市的时间； 
-\n 
-\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； 
-\n 
-\n• 可以与联系人共享秒表； 
-\n 
-\n• 可自定义的屏幕保护程序； 
-\n 
-\n• 现代微件； 
-\n 
-\n• 可定制的小部件；
-\n 
-\n• Material 设计； 
-\n 
+    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； \u0020
+\n \u0020
+\n• 使用电源按钮或音量按钮关闭/推迟闹钟； \u0020
+\n \u0020
+\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； \u0020
+\n \u0020
+\n• 滑动以删除闹钟； \u0020
+\n \u0020
+\n• 重复闹钟； \u0020
+\n \u0020
+\n• 自定义闹钟标题； \u0020
+\n \u0020
+\n• 可自定义铃声； \u0020
+\n \u0020
+\n• 浅色、深色或系统主题； \u0020
+\n \u0020
+\n• 深色主题的 AMOLED 模式； \u0020
+\n \u0020
+\n• 数字或模拟时钟风格； \u0020
+\n \u0020
+\n• 旅行时显示家乡时间； \u0020
+\n \u0020
+\n• 显示世界各地许多城市的时间； \u0020
+\n \u0020
+\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； \u0020
+\n \u0020
+\n• 可以与联系人共享秒表； \u0020
+\n \u0020
+\n• 可自定义的屏幕保护程序； \u0020
+\n \u0020
+\n• 现代微件； \u0020
+\n \u0020
+\n• 可自定义的微件；
+\n \u0020
+\n• Material 设计； \u0020
+\n \u0020
 \n• 适用于 Android 12+ 的动态色彩； \u0020</string>
     <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
-    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可定制的小部件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的微件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
@@ -481,7 +481,7 @@
     <string name="bedtime_service_desc">处理来自就寝时间通知的操作。</string>
     <string name="description_direction_both_for_non_repeatable_alarms">向左或向右滑动以关闭</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">单击左或右以关闭</string>
-    <string name="timer_settings_summary">为定时器设置默认铃声和音量</string>
+    <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
     <string name="default_time_to_add_to_timer_title">添加到定时器的默认时间</string>
     <string name="screensaver_settings_summary">设置屏幕保护程序的风格、颜色和字体</string>
     <string name="screensaver_daydream_settings">选择/启用屏幕保护程序</string>
@@ -600,4 +600,6 @@
     <string name="next_alarm_widget_default_title_color">为“下次闹钟”和“没有即将到来的闹钟”标题使用默认颜色</string>
     <string name="settings_fade_transitions_title">切换屏幕时启用淡入淡出过渡</string>
     <string name="next_alarm_widget">下次闹钟</string>
+    <string name="sort_timer_title">排序定时器</string>
+    <string name="denied_permission_label">权限已拒绝</string>
 </resources>

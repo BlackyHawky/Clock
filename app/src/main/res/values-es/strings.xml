@@ -60,26 +60,32 @@
     <string name="alarm_confirmation_toast_8">"La alarma sonará en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> días</item>
         <item quantity="one">1 día</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
         <item quantity="one">1 hora</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> h</item>
         <item quantity="one">1 h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
         <item quantity="one">1 minuto</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="one">1 min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
         <item quantity="one">1 segundo</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos los días"</string>
@@ -206,7 +212,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string name="jocular_content_message_1">"Eres el rey de la velocidad."</string>
     <string name="jocular_content_message_2">"Disfruta de los frutos de tu trabajo."</string>
     <string name="jocular_content_message_3">"Los androides se caracterizan por ser rápidos, pero no tanto como tú."</string>
@@ -377,4 +383,29 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> pospuesta 10 minutos"</string>
     <string name="flip_action_title">Voltear dispositivo</string>
     <string name="shake_action_title">Agitar dispositivo</string>
+    <string name="alarm_label_box_title">Etiqueta para la alarma</string>
+    <string name="duplicate">Duplicar</string>
+    <string name="color_picker_default_button">Por defecto</string>
+    <string name="selected">Seleccionado</string>
+    <string name="more_options">Mas opciones</string>
+    <string name="alarm_inactive">Apagado</string>
+    <string name="vertical_digital_widget">Reloj digital vertical</string>
+    <string name="standard_category_title">Estandar</string>
+    <string name="interface_customization_summary">Estilo y color aplicados a la aplicación</string>
+    <string name="display_card_background_title">Mostrar fondo de tarjetas</string>
+    <string name="display_card_background_summary">Muestra un fondo para algunos elementos de la aplicación (alarmas, ciudades, botón temporizador, etc.)</string>
+    <string name="display_background_border_title">Mostrar bordes en el fondo</string>
+    <string name="ringtone_category_title">Tono de llamada</string>
+    <string name="actions_category_title">Acciones</string>
+    <string name="interface_customization_settings">Interfase</string>
+    <string name="settings_permission_message">Uno o mas permisos esenciales no han sido concedidos. No concederlos puede llevar a problemas de funcionamiento.</string>
+    <string name="style_category_title">Estilo</string>
+    <string name="styles_and_colors_category_title">Estilo y colores</string>
+    <string name="font_category_title">Tipo de letra</string>
+    <string name="miscellaneous_category_title">Diversos</string>
+    <string name="title_theme">Tema</string>
+    <string name="title_accent_color">Color de resalte</string>
+    <string name="title_dark_theme_mode">Tema oscuro</string>
+    <string name="next_alarm_widget">Próxima alarma</string>
+    <string name="settings_permission_summary">Pulse aquí para mostrar la pagina de gestión de permisos.</string>
 </resources>

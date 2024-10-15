@@ -427,7 +427,7 @@
     <string name="description_direction_left_for_non_repeatable_alarms">Zum Schließen nach links wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms">Zum Schließen nach links oder rechts wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarms_clicked">Zum Schließen links oder rechts klicken</string>
-    <string name="timer_settings_summary">Standardklingelton und -lautstärke für Timer festlegen</string>
+    <string name="timer_settings_summary">Standardklingelton. -lautstärke und Timersortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
@@ -573,4 +573,39 @@
     <string name="pulse_color">Farbe des Impulses</string>
     <string name="alarm_clock_font_size">Schriftgröße der Weckzeit</string>
     <string name="alarm_title_font_size">Schriftgröße des Wecker-Namens</string>
+    <string name="standard_category_title">Standard</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="settings_tab_indicator_title">Unten im Navigationsmenü aktives Tab-Symbol mit Hintergrund anzeigen</string>
+    <string name="settings_fade_transitions_title">Einblenden von Übergängen beim Bildschirmwechsel</string>
+    <string name="vertical_digital_widget">Vertikale digitale Uhr</string>
+    <string name="sort_timer_title">Sortiere Timer</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Nutze die Standardfarbe für den Wecker Titel</string>
+    <string name="denied_permission_label">Zugriff verweigert</string>
+    <string name="alarm_title_color">Wecker Titelfarbe</string>
+    <string name="alarm_display_customization_title">Wecker Anzeige anpassen</string>
+    <string name="github_dialog_message">Besuche das Projekt auf GitHub:
+\n
+\n%s</string>
+    <string name="whats_new_dialog_message">Entdecke die Neuerungen:
+\n
+\n%s</string>
+    <string name="transparent_background_for_expired_timer_title">Durchsichtiger Hintergrund, wenn Timer ablaufen</string>
+    <string name="material_you_next_alarm_widget">Nächster Wecker Material You</string>
+    <string name="next_alarm_widget">Nächster Wecker</string>
+    <string name="next_alarm_widget_text">Nächster Wecker</string>
+    <string name="next_alarm_widget_title_no_alarm">Keine anstehenden Wecker</string>
+    <string name="license_dialog_message">Lizenz lesen:
+\n
+\n%s</string>
+    <string name="contributors_dialog_message">Besuche %1$s\'s GitHub Seite:
+\n
+\n%2$s</string>
+    <string name="digital_widget_default_minutes_color_title">Farbvorgabe für Minuten verwenden</string>
+    <string name="digital_widget_custom_minutes_color_title">Eigene Farbe für Minuten</string>
+    <string name="widgets_settings_summary">Stil, Farben und Schriftgröße für Widgets festlegen</string>
+    <string name="next_alarm_widget_custom_title_color">Eigene Farbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
+    <string name="digital_widget_custom_hours_color_title">Eigene Farbe für Stunden</string>
+    <string name="next_alarm_widget_default_title_color">Vorgabefarbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Eigene Ferbe für Alarm-Titel</string>
+    <string name="widgets_settings">Widgets</string>
 </resources>
