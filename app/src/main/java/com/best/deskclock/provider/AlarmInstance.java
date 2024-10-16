@@ -14,7 +14,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
@@ -22,10 +21,10 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -404,38 +403,13 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         Calendar calendar = getAlarmTime();
 
-        // Alarm silence has been set to "None"
+        // Alarm silence has been set to "Never"
         if (timeoutMinutes == -1) {
             return null;
         // Alarm silence has been set to "At the end of the ringtone"
+        // or "Dismiss alarm when ringtone ends" has been ticked in the expanded alarm view
         } else if (timeoutMinutes == -2 || mDismissAlarmWhenRingtoneEnds) {
-            // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
-            // the ringtone stops before the end of the melody.
-            // So, we'll use the MediaPlayer class to obtain the ringtone duration.
-            // Tested with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
-
-            /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-            try {
-                mmr.setDataSource(context, mRingtone);
-                String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                assert durationStr != null;
-                int milliSecond = Integer.parseInt(durationStr);
-                calendar.add(Calendar.MILLISECOND, milliSecond);
-                mmr.close();
-            } catch (Exception e) {
-                LogUtils.e("Could not get ringtone duration");
-            }*/
-
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(context, mRingtone);
-            } catch (IOException ignored) {}
-
-            try {
-                mediaPlayer.prepare();
-            } catch (IOException ignored) {}
-
-            int milliSeconds = mediaPlayer.getDuration();
+            int milliSeconds = Utils.getRingtoneDuration(context, mRingtone);
             calendar.add(Calendar.MILLISECOND, milliSeconds);
         } else {
             calendar.add(Calendar.MINUTE, timeoutMinutes);

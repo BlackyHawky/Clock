@@ -48,6 +48,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -84,6 +85,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.color.MaterialColors;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -875,6 +877,41 @@ public class Utils {
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
         }
+    }
+
+    /**
+     * @param context The context from which to obtain the duration
+     * @param ringtoneUri the ringtone path
+     * @return the duration of the ringtone
+     */
+    public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
+        // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
+        // the ringtone stops before the end of the melody.
+        // So, we'll use the MediaPlayer class to obtain the ringtone duration.
+        // Bug found with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
+
+        /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        try {
+            mmr.setDataSource(context, mRingtone);
+            String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            assert durationStr != null;
+            int milliSecond = Integer.parseInt(durationStr);
+            calendar.add(Calendar.MILLISECOND, milliSecond);
+            mmr.close();
+        } catch (Exception e) {
+            LogUtils.e("Could not get ringtone duration");
+        }*/
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(context, ringtoneUri);
+        } catch (IOException ignored) {}
+
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException ignored) {}
+
+        return mediaPlayer.getDuration();
     }
 
     /**

@@ -23,6 +23,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     private static final String PREFS_FRAGMENT_TAG = "timer_settings_fragment";
 
     public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
+    public static final String KEY_TIMER_AUTO_SILENCE = "key_timer_auto_silence";
     public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
@@ -50,6 +51,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+        ListPreference mTimerAutoSilence;
         ListPreference mTimerCrescendoPref;
         ListPreference mSortTimerPref;
         ListPreference mDefaultMinutesToAddToTimerPref;
@@ -65,6 +67,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             addPreferencesFromResource(R.xml.settings_timer);
 
             mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
+            mTimerAutoSilence = findPreference(KEY_TIMER_AUTO_SILENCE);
             mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
             mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             mSortTimerPref = findPreference(KEY_SORT_TIMER);
@@ -87,7 +90,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             switch (pref.getKey()) {
                 case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-                case KEY_TIMER_CRESCENDO, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
+                case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -136,6 +139,9 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         private void refresh() {
             mTimerRingtonePref.setOnPreferenceClickListener(this);
             mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+
+            mTimerAutoSilence.setOnPreferenceChangeListener(this);
+            mTimerAutoSilence.setSummary(mTimerAutoSilence.getEntry());
 
             mTimerCrescendoPref.setOnPreferenceChangeListener(this);
             mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());

@@ -202,6 +202,10 @@ final class SettingsModel {
         SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
     }
 
+    long getTimerAutoSilenceDuration() {
+        return SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
+    }
+
     boolean getTimerVibrate() {
         return SettingsDAO.getTimerVibrate(mPrefs);
     }

@@ -37,6 +37,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
+import com.best.deskclock.Utils;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.TimerSettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
@@ -469,6 +470,13 @@ final class TimerModel {
     }
 
     /**
+     * @return the duration for which a timer can ring before expiring and being reset
+     */
+    long getTimerAutoSilenceDuration() {
+        return mSettingsModel.getTimerAutoSilenceDuration();
+    }
+
+    /**
      * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
      * {@code 0} implies no crescendo should be applied
      */
@@ -758,6 +766,7 @@ final class TimerModel {
         if (afterState == EXPIRED && mRingingIds.add(after.getId()) && mRingingIds.size() == 1) {
             AlarmAlertWakeLock.acquireScreenCpuWakeLock(mContext);
             TimerKlaxon.start(mContext);
+            stopRingtoneAfterDelay();
         }
 
         // If the expired timer was the last to reset, stop ringing.
@@ -765,6 +774,32 @@ final class TimerModel {
             TimerKlaxon.stop(mContext);
             AlarmAlertWakeLock.releaseCpuLock();
         }
+    }
+
+    /**
+     * Stop timer ringing after a duration selected in Timers settings.
+     */
+    private void stopRingtoneAfterDelay() {
+        Handler handler = new Handler();
+        long duration;
+
+        // Timer silence has been set to "Never"
+        if (getTimerAutoSilenceDuration() == -1) {
+            return;
+        }
+
+        // Timer silence has been set to "At the end of the ringtone"
+        if (getTimerAutoSilenceDuration() == -2) {
+            duration = Utils.getRingtoneDuration(mContext, mTimerRingtoneUri);
+        } else {
+            duration = getTimerAutoSilenceDuration() * 1000;
+        }
+
+        handler.postDelayed(() -> {
+            TimerKlaxon.stop(mContext);
+            resetOrDeleteExpiredTimers(R.string.label_deskclock);
+            AlarmAlertWakeLock.releaseCpuLock();
+        }, duration);
     }
 
     /**

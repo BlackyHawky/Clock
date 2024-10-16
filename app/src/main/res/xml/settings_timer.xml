@@ -22,6 +22,16 @@
             app:singleLineTitle="false" />
 
         <ListPreference
+            android:key="key_timer_auto_silence"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/auto_silence_title"
+            android:entries="@array/timer_auto_silence_entries"
+            android:entryValues="@array/timer_auto_silence_values"
+            android:defaultValue="30"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
             android:key="key_timer_crescendo_duration"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
