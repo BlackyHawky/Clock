@@ -446,7 +446,6 @@
     <string name="material_you_digital_widget">Цифровые часы Material You</string>
     <string name="settings_permission_summary">Нажмите здесь, чтобы отобразить экран \"Управление разрешениями\".</string>
     <string name="settings_vibration_title">Включить вибрации</string>
-    <string name="color_picker_default_button">По умолчанию</string>
     <string name="miscellaneous_category_title">Разное</string>
     <string name="ringtone_category_title">Рингтон</string>
     <string name="interface_customization_settings">Интерфейс</string>
@@ -629,4 +628,5 @@
     <string name="widgets_settings_summary">Установите стиль, цвета и размер шрифта для виджетов</string>
     <string name="digital_widget_default_hours_color_title">Использовать стандартные цвета для часов</string>
     <string name="next_alarm_widget_custom_title_color">Пользовательский цвет для плиток \"Следующий будильник\" и \"Нет будильников\"</string>
+    <string name="label_default">По умолчанию</string>
 </resources>

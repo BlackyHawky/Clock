@@ -385,7 +385,6 @@
     <string name="shake_action_title">Agitar dispositivo</string>
     <string name="alarm_label_box_title">Etiqueta para la alarma</string>
     <string name="duplicate">Duplicar</string>
-    <string name="color_picker_default_button">Por defecto</string>
     <string name="selected">Seleccionado</string>
     <string name="more_options">Mas opciones</string>
     <string name="alarm_inactive">Apagado</string>
@@ -408,4 +407,5 @@
     <string name="title_dark_theme_mode">Tema oscuro</string>
     <string name="next_alarm_widget">Próxima alarma</string>
     <string name="settings_permission_summary">Pulse aquí para mostrar la pagina de gestión de permisos.</string>
+    <string name="label_default">Por defecto</string>
 </resources>

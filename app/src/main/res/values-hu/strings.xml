@@ -392,7 +392,6 @@
     <string name="selected">Kiválasztott</string>
     <string name="more_options">Több</string>
     <string name="whats_new_title">Frissítések</string>
-    <string name="color_picker_default_button">Alapértelmezett</string>
     <string name="ringtone_category_title">Csengőhang</string>
     <string name="interface_customization_settings">Felület</string>
     <string name="title_dark_theme_mode">Sötét téma</string>
@@ -402,4 +401,5 @@
     <string name="power_button_title">Kikapcs. gomb</string>
     <string name="version">Verzió</string>
     <string name="about_github_link">Megtekintés a GitHubon</string>
+    <string name="label_default">Alapértelmezett</string>
 </resources>

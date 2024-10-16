@@ -15,8 +15,6 @@
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
     <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
-    <!-- Default button title for the color picker -->
-    <string name="color_picker_default_button">Default</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
     <!-- Label "Default" -->
@@ -251,8 +249,6 @@
     <string name="dark_theme">Dark</string>
     <!-- Settings accent color title -->
     <string name="title_accent_color">Accent color</string>
-    <!-- Setting title to switch to default accent color -->
-    <string name="default_accent_color">Default</string>
     <!-- Setting title to switch to blue gray accent color -->
     <string name="blue_gray_accent_color">Blue Gray</string>
     <!-- Setting title to switch to brown accent color -->

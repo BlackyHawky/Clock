@@ -391,7 +391,6 @@
     <string name="duplicate">重複</string>
     <string name="selected">已選取</string>
     <string name="more_options">更多選項</string>
-    <string name="color_picker_default_button">預設</string>
     <string name="alarm_inactive">已關閉</string>
     <string name="version">版本</string>
     <string name="bedtime_reminder_notification">提醒通知</string>
@@ -423,4 +422,5 @@
     <string name="material_you_digital_widget">數位時鐘 Material You</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">鈴聲結束時關閉鬧鐘</string>
     <string name="alarm_label_box_title">鬧鐘標籤</string>
+    <string name="label_default">預設</string>
 </resources>

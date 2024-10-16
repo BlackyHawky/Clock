@@ -31,7 +31,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF191C1E"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -40,7 +40,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF000000"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -49,7 +49,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_color_title"
             android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -58,7 +58,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/seconds_hand_color_title"
             android:defaultValue="?colorPrimary"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -67,7 +67,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_title_color"
             android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -76,7 +76,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_button_color"
             android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -85,7 +85,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/dismiss_button_color"
             android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -94,7 +94,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_button_color"
             android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -103,7 +103,7 @@
             android:layout="@layout/settings_preference_layout"
             android:title="@string/pulse_color"
             android:defaultValue="#FFC0C7CD"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

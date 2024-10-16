@@ -529,7 +529,6 @@
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uit zetten als wekkergeluid eindigt</string>
-    <string name="color_picker_default_button">Standaard</string>
     <string name="actions_category_title">Acties</string>
     <string name="interface_customization_summary">Uiterlijk en de kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te snoozen of uit te zetten</string>
@@ -566,4 +565,5 @@
     <string name="ringtone_category_title">Ringtoon</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Trillen inschakelen bij het maken van wekkers</string>
     <string name="alarm_notification_reminder_title">Wekkerherinnering</string>
+    <string name="label_default">Standaard</string>
 </resources>

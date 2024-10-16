@@ -20,7 +20,7 @@ Funktsionaalsused:
   <li>Stopperi aja jagamise võimalus oma kontaktidega;</li>
   <li>Kohandatav ekraanisäästja;</li>
   <li>Moodsad vidinad;</li>
-  <li>Kohandatavad digividinad;</li>
+  <li>Kohandatavad vidinad;</li>
   <li>Material design;</li>
   <li>Dünaamilised värvid Android 12+ puhul;</li>
 </ul>

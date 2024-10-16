@@ -46,14 +46,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">定时器增加了 %1$s 分钟，<xliff:g example="5 hours remaining" id="TIME">%2$s</xliff:g></string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"还剩"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"还剩"</string>
-    <string name="alarm_confirmation_toast_1">"闹钟时间已设为不到1分钟后。"</string>
-    <string name="alarm_confirmation_toast_2">"闹钟时间已设为 <xliff:g id="DAYS">%1$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_3">"闹钟时间已设为 <xliff:g id="HOURS">%2$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_4">"闹钟时间已设为 <xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="HOURS">%2$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_5">"闹钟时间已设为 <xliff:g id="MINUTES">%3$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_6">"闹钟时间已设为 <xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_7">"闹钟时间已设为 <xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>后。"</string>
-    <string name="alarm_confirmation_toast_8">"闹钟时间已设为 <xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>后。"</string>
+    <string name="alarm_confirmation_toast_1">闹钟时间已设为不到 1 分钟后。</string>
+    <string name="alarm_confirmation_toast_2">闹钟时间已设为 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_3">闹钟时间已设为 <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_4">闹钟时间已设为 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_5">闹钟时间已设为 <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_6">闹钟时间已设为 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_7">闹钟时间已设为 <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>后。</string>
+    <string name="alarm_confirmation_toast_8">闹钟时间已设为 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>后。</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g example="7" id="number">%s</xliff:g> 天</item>
     </plurals>
@@ -75,7 +75,7 @@
     <string name="every_day" msgid="4100909974923444602">"每天"</string>
     <string name="day_concat" msgid="971998564991636532">"， "</string>
     <string name="loading_widget" msgid="5306242862476796500">"正在加载…"</string>
-    <string name="analog_widget" msgid="1670505720837152766">模拟时钟</string>
+    <string name="analog_widget" msgid="1670505720837152766">指针时钟</string>
     <string name="digital_widget" msgid="2326954556720571358">"数字时钟"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
@@ -392,7 +392,6 @@
     <string name="material_you_digital_widget">数字时钟 Material You</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">创建闹钟时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="color_picker_default_button">默认</string>
     <string name="notifications_dialog_text">除了设置闹钟外，这款应用还具有定时器、秒表和就寝模式。
 \n
 \n为了使所有模块的通知都能正确显示，尤其是为了触发闹钟，我们建议为此应用激活通知。</string>
@@ -406,45 +405,45 @@
 \n虽然这对于许多应用来说是可以接受的，但此应用是一款闹钟应用，如果配置为优化电池，通常会导致问题。一旦启用，Android 系统可以随时终止此应用和/或取消其已安排的闹钟，这将对应用的运行产生不利影响。
 \n
 \n我们建议将此应用列入电池优化白名单。</string>
-    <string name="analog_widget_material_you">模拟时钟 Material You</string>
+    <string name="analog_widget_material_you">指针时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； \u0020
-\n \u0020
-\n• 使用电源按钮或音量按钮关闭/推迟闹钟； \u0020
-\n \u0020
-\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； \u0020
-\n \u0020
-\n• 滑动以删除闹钟； \u0020
-\n \u0020
-\n• 重复闹钟； \u0020
-\n \u0020
-\n• 自定义闹钟标题； \u0020
-\n \u0020
-\n• 可自定义铃声； \u0020
-\n \u0020
-\n• 浅色、深色或系统主题； \u0020
-\n \u0020
-\n• 深色主题的 AMOLED 模式； \u0020
-\n \u0020
-\n• 数字或模拟时钟风格； \u0020
-\n \u0020
-\n• 旅行时显示家乡时间； \u0020
-\n \u0020
-\n• 显示世界各地许多城市的时间； \u0020
-\n \u0020
-\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； \u0020
-\n \u0020
-\n• 可以与联系人共享秒表； \u0020
-\n \u0020
-\n• 可自定义的屏幕保护程序； \u0020
-\n \u0020
-\n• 现代微件； \u0020
-\n \u0020
-\n• 可自定义的微件；
-\n \u0020
-\n• Material 设计； \u0020
-\n \u0020
+    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； \u0020 
+\n \u0020 
+\n• 使用电源按钮或音量按钮关闭/推迟闹钟； \u0020 
+\n \u0020 
+\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； \u0020 
+\n \u0020 
+\n• 滑动以删除闹钟； \u0020 
+\n \u0020 
+\n• 重复闹钟； \u0020 
+\n \u0020 
+\n• 自定义闹钟标题； \u0020 
+\n \u0020 
+\n• 可自定义铃声； \u0020 
+\n \u0020 
+\n• 浅色、深色或系统主题； \u0020 
+\n \u0020 
+\n• 深色主题的 AMOLED 模式； \u0020 
+\n \u0020 
+\n• 数字或指针时钟风格； \u0020 
+\n \u0020 
+\n• 旅行时显示家乡时间； \u0020 
+\n \u0020 
+\n• 显示世界各地许多城市的时间； \u0020 
+\n \u0020 
+\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； \u0020 
+\n \u0020 
+\n• 可以与联系人共享秒表； \u0020 
+\n \u0020 
+\n• 可自定义的屏幕保护程序； \u0020 
+\n \u0020 
+\n• 现代微件； \u0020 
+\n \u0020 
+\n• 可自定义的微件； 
+\n \u0020 
+\n• Material 设计； \u0020 
+\n \u0020 
 \n• 适用于 Android 12+ 的动态色彩； \u0020</string>
     <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
     <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的微件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -602,4 +601,47 @@
     <string name="next_alarm_widget">下次闹钟</string>
     <string name="sort_timer_title">排序定时器</string>
     <string name="denied_permission_label">权限已拒绝</string>
+    <string name="label_default">默认</string>
+    <string name="light_theme">浅色</string>
+    <string name="dark_theme">深色</string>
+    <string name="system_theme">系统</string>
+    <string name="blue_gray_accent_color">蓝灰色</string>
+    <string name="brown_accent_color">棕色</string>
+    <string name="green_accent_color">绿色</string>
+    <string name="indigo_accent_color">靛蓝色</string>
+    <string name="orange_accent_color">橙色</string>
+    <string name="pink_accent_color">粉红色</string>
+    <string name="red_accent_color">红色</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="alarm_notification_reminder_5_minutes">5 分钟前</string>
+    <string name="alarm_notification_reminder_10_minutes">10 分钟前</string>
+    <string name="alarm_notification_reminder_20_minutes">20 分钟前</string>
+    <string name="alarm_notification_reminder_30_minutes">30 分钟前</string>
+    <string name="alarm_notification_reminder_45_minutes">45 分钟前</string>
+    <string name="alarm_notification_reminder_1_hour">1 小时前</string>
+    <string name="alarm_notification_reminder_2_hours">2 小时前</string>
+    <string name="sort_timer_ascending_duration">按持续时间（升序）</string>
+    <string name="sort_timer_descending_duration">按持续时间（降序）</string>
+    <string name="sort_timer_name">按名称</string>
+    <string name="default_time_to_add_to_timer_1_minute">1 分钟</string>
+    <string name="default_time_to_add_to_timer_2_minutes">2 分钟</string>
+    <string name="default_time_to_add_to_timer_3_minutes">3 分钟</string>
+    <string name="default_time_to_add_to_timer_4_minutes">4 分钟</string>
+    <string name="default_time_to_add_to_timer_5_minutes">5 分钟</string>
+    <string name="default_time_to_add_to_timer_6_minutes">6 分钟</string>
+    <string name="default_time_to_add_to_timer_7_minutes">7 分钟</string>
+    <string name="default_time_to_add_to_timer_9_minutes">9 分钟</string>
+    <string name="default_time_to_add_to_timer_10_minutes">10 分钟</string>
+    <string name="default_time_to_add_to_timer_30_minutes">30 分钟</string>
+    <string name="default_time_to_add_to_timer_1_hour">1 小时</string>
+    <string name="bedtime_reminder_notification_10_minutes">睡前 10 分钟</string>
+    <string name="bedtime_reminder_notification_15_minutes">睡前 15 分钟</string>
+    <string name="bedtime_reminder_notification_20_minutes">睡前 20 分钟</string>
+    <string name="bedtime_reminder_notification_30_minutes">睡前 30 分钟</string>
+    <string name="bedtime_reminder_notification_1_hour">睡前 1 小时</string>
+    <string name="sort_timer_creation_date">按创建日期（最新日期在顶部）</string>
+    <string name="bedtime_reminder_notification_45_minutes">睡前 45 分钟</string>
+    <string name="alarm_notification_reminder_15_minutes">15 分钟前</string>
+    <string name="snooze_duration_none">无</string>
+    <string name="default_time_to_add_to_timer_8_minutes">8 分钟</string>
 </resources>

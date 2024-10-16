@@ -35,7 +35,7 @@
             android:title="@string/digital_widget_clock_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -53,7 +53,7 @@
             android:title="@string/digital_widget_date_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -71,7 +71,7 @@
             android:title="@string/widget_next_alarm_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -89,7 +89,7 @@
             android:title="@string/digital_widget_city_clock_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
@@ -107,7 +107,7 @@
             android:title="@string/digital_widget_city_name_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
-            app:colorpicker_selectNoneButtonText="@string/color_picker_default_button"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
