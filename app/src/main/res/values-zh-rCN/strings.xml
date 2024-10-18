@@ -450,7 +450,7 @@
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">向左滑动以关闭</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">向左滑动以关闭</string>
     <string name="material_time_picker_style_title">时间选择器风格</string>
     <string name="timer_label_box_title">定时器标签</string>
     <string name="whats_new_title">更新日志</string>
@@ -478,8 +478,8 @@
     <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
     <string name="bedtime_service_desc">处理来自就寝时间通知的操作。</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">向左或向右滑动以关闭</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">单击左或右以关闭</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑动以关闭</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">单击左或右以关闭</string>
     <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
     <string name="default_time_to_add_to_timer_title">添加到定时器的默认时间</string>
     <string name="screensaver_settings_summary">设置屏幕保护程序的风格、颜色和字体</string>

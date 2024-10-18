@@ -150,6 +150,15 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_enable_delete_occasional_alarm_by_default"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
+            android:summary="@string/enable_delete_occasional_alarm_by_default_setting_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <ListPreference
             android:key="key_material_time_picker_style"
             android:layout="@layout/settings_preference_layout"

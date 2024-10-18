@@ -449,7 +449,7 @@
     <string name="screensaver_clock_dynamic_colors_title">Динамічні кольори годинника</string>
     <string name="clock_color_title">Колір годинника</string>
     <string name="screensaver_date_color_title">Колір дати</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Щоб вимкнути, проведіть пальцем ліворуч або праворуч</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Щоб вимкнути, проведіть пальцем ліворуч або праворуч</string>
     <string name="keep_timer_screen_on_title">Не вимикати екран, якщо відображається таймер</string>
     <string name="default_time_to_add_to_timer_title">Час за замовчуванням, який додається до таймера</string>
     <string name="miscellaneous_category_title">Різне</string>
@@ -520,7 +520,7 @@
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Натисніть ліворуч або праворуч, щоб вимкнути</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Натисніть ліворуч або праворуч, щоб вимкнути</string>
     <string name="display_card_background_summary">Відображає фон для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
     <string name="display_background_border_title">Рамки фону</string>
     <string name="display_background_border_summary">Відображає рамки фону для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
@@ -559,7 +559,7 @@
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="contributors">Автори</string>
     <string name="alarm_settings_summary">Сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Щоб вимкнути, проведіть пальцем ліворуч</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Щоб вимкнути, проведіть пальцем ліворуч</string>
     <string name="description_direction_both_clicked">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути</string>
     <string name="bedtime_notification_resume_action">Відновити зараз</string>
     <string name="wakeup_alarm_label_visible">Будильник</string>

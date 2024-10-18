@@ -523,7 +523,7 @@
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie stijl</string>
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, snooze-acties, eerste weekdag, herinneringstijd aanpassen</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Naar links vegen om te negeren</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Naar links vegen om te negeren</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">Steden op widget tonen moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
@@ -541,8 +541,8 @@
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, tijdzone en systeemtijd aanpassen</string>
     <string name="description_direction_both_clicked">Tik links om te snoozen of rechts om uit te zetten</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Veeg naar links of rechts om uit te zetten</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Tik links of rechts om uit te zetten</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Tik links of rechts om uit te zetten</string>
     <string name="timer_settings_summary">Standaard ringtoon en volume voor timers aanpassen</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan timer toe te voegen</string>
     <string name="keep_timer_screen_on_title">Scherm aanhouden als timer getoond wordt</string>

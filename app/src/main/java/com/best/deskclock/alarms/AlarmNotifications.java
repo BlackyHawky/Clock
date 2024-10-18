@@ -101,11 +101,24 @@ public final class AlarmNotifications {
                 .setGroup(UPCOMING_GROUP_KEY);
 
         final int id = instance.hashCode();
+        final String dismissActionTitle;
+        final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+        assert alarm != null;
 
         // Setup up dismiss action
+        if (!alarm.daysOfWeek.isRepeating()) {
+            if (alarm.deleteAfterUse) {
+                dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_and_delete_text);
+            } else {
+                dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_text);
+            }
+        } else {
+            dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_text);
+        }
+
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.PREDISMISSED_STATE);
-        builder.addAction(R.drawable.ic_alarm_off, context.getString(R.string.alarm_alert_dismiss_text),
+        builder.addAction(R.drawable.ic_alarm_off, dismissActionTitle,
                 PendingIntent.getService(context, id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT
                         | PendingIntent.FLAG_IMMUTABLE));
 
@@ -193,8 +206,7 @@ public final class AlarmNotifications {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationUtils.createChannel(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID);
             }
-            summary = new NotificationCompat.Builder(context,
-                    ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
+            summary = new NotificationCompat.Builder(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
                     .setShowWhen(false)
                     .setContentIntent(firstUpcoming.contentIntent)
                     .setColor(context.getColor(R.color.md_theme_primary))
@@ -386,12 +398,27 @@ public final class AlarmNotifications {
         }
 
         // Setup Dismiss Action
+        final String dismissActionTitle;
+        final Alarm alarm = Alarm.getAlarm(service.getContentResolver(), instance.mAlarmId);
+        assert alarm != null;
+
+        // Setup up dismiss action
+        if (!alarm.daysOfWeek.isRepeating()) {
+            if (alarm.deleteAfterUse) {
+                dismissActionTitle = resources.getString(R.string.alarm_alert_dismiss_and_delete_text);
+            } else {
+                dismissActionTitle = resources.getString(R.string.alarm_alert_dismiss_text);
+            }
+        } else {
+            dismissActionTitle = resources.getString(R.string.alarm_alert_dismiss_text);
+        }
+
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(service,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
                 ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        notification.addAction(R.drawable.ic_alarm_off, resources.getString(R.string.alarm_alert_dismiss_text), dismissPendingIntent);
+        notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
 
         // Setup Content Action
         Intent contentIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);
@@ -424,7 +451,7 @@ public final class AlarmNotifications {
     }
 
     /**
-     * Updates the notification for an existing alarm. Use if the label has changed.
+     * Updates the notification for an existing alarm.
      */
     static void updateNotification(Context context, AlarmInstance instance) {
         switch (instance.mAlarmState) {

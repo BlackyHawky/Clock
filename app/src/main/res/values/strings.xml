@@ -15,6 +15,8 @@
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
     <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
+    <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
+    <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
     <!-- Label "Default" -->
@@ -55,8 +57,10 @@
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today [CHAR LIMIT=15] -->
     <string name="alarm_today">Today</string>
-    <!-- Button labels on the alarm dialog: Dismiss -->
+    <!-- Button label on the alarm notification panel: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
+    <!-- Button label on the alarm notification panel: Dismiss & Delete -->
+    <string name="alarm_alert_dismiss_and_delete_text">Dismiss &amp; Delete</string>
     <!-- Alarm Alert screen: this message is shown after an alarm rung
          unattended for a number of minutes.  It tells the user that
          the alarm has been silenced.-->
@@ -81,8 +85,10 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> min</item>
     </plurals>
-    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
+    <!-- The text shown after user dismissed a repeated alarm -->
     <string name="alarm_alert_off_text">Alarm off</string>
+    <!-- The text shown after user dismissed a single alarm -->
+    <string name="alarm_alert_off_and_deleted_text">Alarm off and deleted</string>
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
     <!-- Toast that appears after Alarm is snoozed from the Alarm
@@ -305,6 +311,10 @@
     <string name="alarm_notification_reminder_2_hours">2 hours before</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
+    <!-- Setting summary about the button for deleting single alarms in the expanded alarm view -->
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
     <!-- Setting title for customizing the alarm display. -->
@@ -913,6 +923,7 @@
     <string name="shortcut_start_screensaver_long">Start screensaver</string>
     <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
+    <!-- Alarm preferences summary in the settings -->
     <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
@@ -922,27 +933,46 @@
     <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
-    <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
-         be on the right even on RTL languages so please do not reverse this during
-         translation. -->
+    <!-- Text instruction to dismiss alarm on alarm lock screen. The dismiss button will still
+         be on the right even on RTL languages so please do not reverse this during translation. -->
     <string name="description_direction_right">Swipe right to dismiss</string>
+    <!-- Text instruction to dismiss occasional alarm on alarm lock screen. The dismiss button will still
+         be on the right even on RTL languages so please do not reverse this during translation. -->
+    <string name="description_direction_right_for_occasional_alarm">Swipe right to dismiss and delete alarm</string>
     <!-- Text instruction for snooze alarm on alarm lock screen. The snooze button will still
-         be on the left even on RTL languages so please do not reverse this during
-         translation. -->
+         be on the left even on RTL languages so please do not reverse this during translation. -->
     <string name="description_direction_left">Swipe left to snooze</string>
     <!-- Text instruction for non-repeatable alarm on alarm lock screen. The snooze button is replaced
          with the dismiss button and will still be on the left even on RTL languages so please do not
          reverse this during translation. -->
-    <string name="description_direction_left_for_non_repeatable_alarms">Swipe left to dismiss</string>
-    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
-         be on the left even on RTL languages so please do not reverse this during
-         translation. -->
+    <string name="description_direction_left_for_non_repeatable_alarm">Swipe left to dismiss</string>
+    <!-- Text instruction for occasional non-repeatable alarm on alarm lock screen. The snooze button is replaced
+         with the dismiss button and will still be on the left even on RTL languages so please do not
+         reverse this during translation. -->
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Swipe left to dismiss and delete alarm</string>
+    <!-- Text instruction for alarm icon on alarm lock screen when swipe action is enabled.
+         The snooze button will still be on the left even on RTL languages so please do not reverse this during translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
+    <!-- Text instruction for occasional alarm icon on alarm lock screen when swipe action is enabled.
+         The snooze button will still be on the left even on RTL languages so please do not reverse this during translation. -->
+    <string name="description_direction_both_for_occasional_alarm">Swipe left to snooze or right to dismiss and delete alarm</string>
+    <!-- Text instruction for alarm icon on alarm lock screen when swipe action is disabled.
+         The snooze button will still be on the left even on RTL languages so please do not reverse this during translation. -->
     <string name="description_direction_both_clicked">Click left to snooze or right to dismiss</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Swipe left or right to dismiss</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Click left or right to dismiss</string>
+    <!-- Text instruction for occasional alarm icon on alarm lock screen when swipe action is disabled.
+         The snooze button will still be on the left even on RTL languages so please do not reverse this during translation. -->
+    <string name="description_direction_both_clicked_for_occasional_alarm">Click left to snooze or right to dismiss and delete alarm</string>
+    <!-- Text instruction for non-repeatable alarm icon on alarm lock screen when swipe action is enabled. -->
+    <string name="description_direction_both_for_non_repeatable_alarm">Swipe left or right to dismiss</string>
+    <!-- Text instruction for occasional non-repeatable alarm icon on alarm lock screen when swipe action is enabled. -->
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Swipe left or right to dismiss and delete alarm</string>
+    <!-- Text instruction for non-repeatable alarm icon on alarm lock screen when swipe action is disabled. -->
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Click left or right to dismiss</string>
+    <!-- Text instruction for occasional non-repeatable alarm icon on alarm lock screen when swipe action is disabled. -->
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Click left or right to dismiss and delete alarm</string>
     <!-- Timer preference title in the settings -->
     <string name="timer_settings">Timers</string>
+    <!-- Timer preference summary in the settings -->
     <string name="timer_settings_summary">Set default ringtone, volume and timer sorting</string>
     <!-- Description for timer vibration. -->
     <string name="timer_vibrate_title">Timer vibrate</string>

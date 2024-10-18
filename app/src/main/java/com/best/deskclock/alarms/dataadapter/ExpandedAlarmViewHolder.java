@@ -7,6 +7,9 @@
 package com.best.deskclock.alarms.dataadapter;
 
 import static android.content.Context.VIBRATOR_SERVICE;
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -49,6 +52,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final CheckBox dismissAlarmWhenRingtoneEnds;
     public final CheckBox alarmSnoozeActions;
     public final CheckBox vibrate;
+    public final CheckBox deleteOccasionalAlarmAfterUse;
     public final TextView ringtone;
     public final Chip delete;
     public final Chip duplicate;
@@ -68,6 +72,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         dismissAlarmWhenRingtoneEnds = itemView.findViewById(R.id.dismiss_alarm_when_ringtone_ends_onoff);
         alarmSnoozeActions = itemView.findViewById(R.id.alarm_snooze_actions_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
+        deleteOccasionalAlarmAfterUse = itemView.findViewById(R.id.delete_occasional_alarm_after_use);
 
         final Context context = itemView.getContext();
 
@@ -114,6 +119,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         vibrate.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setAlarmVibrationEnabled(getItemHolder().item, ((CheckBox) v).isChecked()));
 
+        deleteOccasionalAlarmAfterUse.setOnClickListener(v ->
+                getAlarmTimeClickHandler().deleteOccasionalAlarmAfterUse(getItemHolder().item, ((CheckBox) v).isChecked()));
+
         // Ringtone editor handler
         ringtone.setOnClickListener(view -> getAlarmTimeClickHandler().onRingtoneClicked(context, getItemHolder().item));
 
@@ -152,6 +160,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDismissAlarmWhenRingtoneEnds(alarm);
         bindAlarmSnoozeActions(alarm);
         bindVibrator(alarm);
+        bindDeleteOccasionalAlarmAfterUse(alarm);
         bindDuplicateButton();
     }
 
@@ -186,9 +195,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindDismissAlarmWhenRingtoneEnds(Alarm alarm) {
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         if (timeoutMinutes == -2) {
-            dismissAlarmWhenRingtoneEnds.setVisibility(View.GONE);
+            dismissAlarmWhenRingtoneEnds.setVisibility(GONE);
         } else {
-            dismissAlarmWhenRingtoneEnds.setVisibility(View.VISIBLE);
+            dismissAlarmWhenRingtoneEnds.setVisibility(VISIBLE);
             dismissAlarmWhenRingtoneEnds.setChecked(alarm.dismissAlarmWhenRingtoneEnds);
         }
     }
@@ -196,28 +205,37 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private void bindAlarmSnoozeActions(Alarm alarm) {
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         if (snoozeMinutes == -1) {
-            alarmSnoozeActions.setVisibility(View.GONE);
+            alarmSnoozeActions.setVisibility(GONE);
         } else {
-            alarmSnoozeActions.setVisibility(View.VISIBLE);
+            alarmSnoozeActions.setVisibility(VISIBLE);
             alarmSnoozeActions.setChecked(alarm.alarmSnoozeActions);
         }
     }
 
     private void bindVibrator(Alarm alarm) {
         if (mHasVibrator) {
-            vibrate.setVisibility(View.VISIBLE);
+            vibrate.setVisibility(VISIBLE);
             vibrate.setChecked(alarm.vibrate);
         } else {
-            vibrate.setVisibility(View.GONE);
+            vibrate.setVisibility(GONE);
+        }
+    }
+
+    private void bindDeleteOccasionalAlarmAfterUse(Alarm alarm) {
+        if (alarm.daysOfWeek.isRepeating()) {
+            deleteOccasionalAlarmAfterUse.setVisibility(GONE);
+        } else {
+            deleteOccasionalAlarmAfterUse.setVisibility(VISIBLE);
+            deleteOccasionalAlarmAfterUse.setChecked(alarm.deleteAfterUse);
         }
     }
 
     private void bindDuplicateButton() {
         if (getItemHolder().item.equals(
                 Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
-            duplicate.setVisibility(View.INVISIBLE);
+            duplicate.setVisibility(INVISIBLE);
         } else {
-            duplicate.setVisibility(View.VISIBLE);
+            duplicate.setVisibility(VISIBLE);
         }
     }
 

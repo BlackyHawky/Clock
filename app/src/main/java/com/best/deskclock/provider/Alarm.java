@@ -214,7 +214,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(ALARM_SNOOZE_ACTIONS, alarm.alarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
-        values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
+        values.put(DELETE_AFTER_USE, alarm.deleteAfterUse ? 1 : 0);
         values.put(INCREASING_VOLUME, alarm.increasingVolume ? 1 : 0);
         if (alarm.alert == null) {
             // We want to put null, so default alarm changes

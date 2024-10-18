@@ -697,6 +697,13 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if occasional alarm should be deleted by default. {@code false} otherwise.
+     */
+    public boolean isOccasionalAlarmDeletedByDefault() {
+        return mAlarmModel.isOccasionalAlarmDeletedByDefault();
+    }
+
+    /**
      * @return the time picker style.
      */
     public String getMaterialTimePickerStyle() {

@@ -433,11 +433,11 @@
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Glisser vers la droite pour arrêter"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glisser vers la gauche pour répéter"</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Glisser vers la gauche pour arrêter</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Glisser vers la gauche pour arrêter</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Glisser vers la gauche pour répéter ou vers la droite pour arrêter"</string>
     <string name="description_direction_both_clicked">Cliquer à gauche pour répéter ou à droite pour arrêter</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Glisser à gauche ou à droite pour arrêter</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Cliquer à gauche ou à droite pour arrêter</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Cliquer à gauche ou à droite pour arrêter</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
     <string name="timer_settings_summary">Définit la sonnerie par défaut, le volume et le tri des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>

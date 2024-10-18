@@ -173,6 +173,21 @@
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/delete_occasional_alarm_after_use"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_clear"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/delete_occasional_alarm_after_use_title"
+            android:textColor="?android:attr/textColorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/delete"
             android:layout_width="wrap_content"
@@ -199,7 +214,7 @@
             app:chipBackgroundColor="?colorPrimary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vibrate_onoff" />
+            app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

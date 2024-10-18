@@ -423,9 +423,9 @@
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="license">Open-Source-Lizenz</string>
     <string name="dialog_close">Schließen</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Zum Schließen nach links wischen</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Zum Schließen nach links oder rechts wischen</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Zum Schließen links oder rechts klicken</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Zum Schließen nach links wischen</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Zum Schließen nach links oder rechts wischen</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Schließen links oder rechts klicken</string>
     <string name="timer_settings_summary">Standardklingelton. -lautstärke und Timersortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>

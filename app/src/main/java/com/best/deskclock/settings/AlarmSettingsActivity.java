@@ -21,8 +21,6 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import java.util.Objects;
-
 public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "alarm_settings_fragment";
@@ -38,7 +36,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String VOLUME_BEHAVIOR_CHANGE_VOLUME = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_POWER_BUTTONS = "key_power_button";
+    public static final String KEY_POWER_BUTTON = "key_power_button";
     public static final String DEFAULT_POWER_BEHAVIOR = "0";
     public static final String POWER_BEHAVIOR_SNOOZE = "1";
     public static final String POWER_BEHAVIOR_DISMISS = "2";
@@ -47,6 +45,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
+    public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
     public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
@@ -66,7 +65,21 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-        SwitchPreferenceCompat mEnableAlarmVibrationsByDefault;
+        Preference mAlarmRingtonePref;
+        ListPreference mAutoSilencePref;
+        ListPreference mAlarmSnoozePref;
+        ListPreference mAlarmCrescendoPref;
+        SwitchPreferenceCompat mSwipeActionPref;
+        ListPreference mVolumeButtonsPref;
+        ListPreference mPowerButtonPref;
+        ListPreference mFlipActionPref;
+        ListPreference mShakeActionPref;
+        ListPreference mWeekStartPref;
+        ListPreference mAlarmNotificationReminderTimePref;
+        SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
+        SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
+        ListPreference mMaterialTimePickerStylePref;
+        Preference mAlarmDisplayCustomizationPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +87,21 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             addPreferencesFromResource(R.xml.settings_alarm);
 
-            mEnableAlarmVibrationsByDefault = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
+            mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
+            mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
+            mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE);
+            mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO);
+            mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
+            mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
+            mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
+            mFlipActionPref = findPreference(KEY_FLIP_ACTION);
+            mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
+            mWeekStartPref = findPreference(KEY_WEEK_START);
+            mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
+            mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
+            mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
+            mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
+            mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
             hidePreferences();
         }
@@ -97,12 +124,13 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
                 }
 
-                case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT ->
+                case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
+                     KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                         Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
-                        KEY_POWER_BUTTONS, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
-                        KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
+                     KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
+                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -139,62 +167,59 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void hidePreferences() {
-            final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefault.getContext()
+            final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefaultPref.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-            mEnableAlarmVibrationsByDefault.setVisible(hasVibrator);
+            mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
         }
 
         private void refresh() {
-            final Preference alarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
-            Objects.requireNonNull(alarmRingtonePref).setOnPreferenceClickListener(this);
-            alarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
+            mAlarmRingtonePref.setOnPreferenceClickListener(this);
+            mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
 
-            final Preference alarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
-            Objects.requireNonNull(alarmDisplayCustomizationPref).setOnPreferenceClickListener(this);
+            String delay = mAutoSilencePref.getValue();
+            updateAutoSnoozeSummary(mAutoSilencePref, delay);
+            mAutoSilencePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference autoSilencePref = findPreference(KEY_AUTO_SILENCE);
-            String delay = Objects.requireNonNull(autoSilencePref).getValue();
-            updateAutoSnoozeSummary(autoSilencePref, delay);
-            autoSilencePref.setOnPreferenceChangeListener(this);
+            mAlarmSnoozePref.setOnPreferenceChangeListener(this);
+            mAlarmSnoozePref.setSummary(mAlarmSnoozePref.getEntry());
 
-            refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_SNOOZE)));
+            mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
+            mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
 
-            refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_CRESCENDO)));
+            mSwipeActionPref.setChecked(DataModel.getDataModel().isSwipeActionEnabled());
+            mSwipeActionPref.setOnPreferenceChangeListener(this);
 
-            final SwitchPreferenceCompat swipeActionPref = findPreference(KEY_SWIPE_ACTION);
-            Objects.requireNonNull(swipeActionPref).setChecked(DataModel.getDataModel().isSwipeActionEnabled());
-            swipeActionPref.setOnPreferenceChangeListener(this);
+            mVolumeButtonsPref.setOnPreferenceChangeListener(this);
+            mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());
 
-            final ListPreference volumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
-            Objects.requireNonNull(volumeButtonsPref).setSummary(volumeButtonsPref.getEntry());
-            volumeButtonsPref.setOnPreferenceChangeListener(this);
+            mPowerButtonPref.setOnPreferenceChangeListener(this);
+            mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
 
-            final ListPreference powerButtonsPref = findPreference(KEY_POWER_BUTTONS);
-            Objects.requireNonNull(powerButtonsPref).setSummary(powerButtonsPref.getEntry());
-            powerButtonsPref.setOnPreferenceChangeListener(this);
+            setupFlipOrShakeAction(mFlipActionPref);
+            setupFlipOrShakeAction(mShakeActionPref);
 
-            final ListPreference flipActionPref = findPreference(KEY_FLIP_ACTION);
-            setupFlipOrShakeAction(flipActionPref);
-
-            final ListPreference shakeActionPref = findPreference(KEY_SHAKE_ACTION);
-            setupFlipOrShakeAction(shakeActionPref);
-
-            final ListPreference weekStartPref = findPreference(KEY_WEEK_START);
-            // Set the default value programmatically
+            // Set the default first day of the week programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
             final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
             final String value = String.valueOf(firstDay);
-            final int index = Objects.requireNonNull(weekStartPref).findIndexOfValue(value);
-            weekStartPref.setValueIndex(index);
-            weekStartPref.setSummary(weekStartPref.getEntries()[index]);
-            weekStartPref.setOnPreferenceChangeListener(this);
+            final int index = mWeekStartPref.findIndexOfValue(value);
+            mWeekStartPref.setValueIndex(index);
+            mWeekStartPref.setSummary(mWeekStartPref.getEntries()[index]);
+            mWeekStartPref.setOnPreferenceChangeListener(this);
 
-            refreshListPreference(Objects.requireNonNull(findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME)));
+            mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
+            mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
 
-            mEnableAlarmVibrationsByDefault.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
-            mEnableAlarmVibrationsByDefault.setOnPreferenceChangeListener(this);
+            mEnableAlarmVibrationsByDefaultPref.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
+            mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
 
-            refreshListPreference(Objects.requireNonNull(findPreference(KEY_MATERIAL_TIME_PICKER_STYLE)));
+            mDeleteOccasionalAlarmByDefaultPref.setChecked(DataModel.getDataModel().isOccasionalAlarmDeletedByDefault());
+            mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
+
+            mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
+            mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
+
+            mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
@@ -207,11 +232,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                         R.plurals.auto_silence_summary, i));
             }
-        }
-
-        private void refreshListPreference(ListPreference preference) {
-            preference.setSummary(preference.getEntry());
-            preference.setOnPreferenceChangeListener(this);
         }
 
         private void setupFlipOrShakeAction(ListPreference preference) {

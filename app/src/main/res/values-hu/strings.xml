@@ -385,7 +385,7 @@
     <string name="settings_vibration_title">Rezgések bekapcsolása</string>
     <string name="dialog_close">Bezárás</string>
     <string name="font_category_title">Betűtípus</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Húzd jobbra a kikapcsoláshoz</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Húzd jobbra a kikapcsoláshoz</string>
     <string name="license">Nyílt-forráskódú Felhasználás</string>
     <string name="title_theme">Téma</string>
     <string name="add_label">Címke hozzáadása</string>

@@ -61,6 +61,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.CircleView;
 
@@ -534,43 +535,89 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private void hintSnooze() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
-                ? R.string.description_direction_left_for_non_repeatable_alarms
-                : R.string.description_direction_left;
+        final int hintLeftResId;
+        if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+            if (isOccasionalAlarmDeletedAfterUse()) {
+                hintLeftResId = R.string.description_direction_left_for_occasional_non_repeatable_alarm;
+            } else {
+                hintLeftResId = R.string.description_direction_left_for_non_repeatable_alarm;
+            }
+        } else {
+            hintLeftResId = R.string.description_direction_left;
+        }
+
+        final int hintRightResId;
+        if (isOccasionalAlarmDeletedAfterUse()) {
+            hintRightResId = R.string.description_direction_right_for_occasional_alarm;
+        } else {
+            hintRightResId = R.string.description_direction_right;
+        }
+
         final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
                 + Math.min(mSnoozeButton.getRight() - alarmLeft, 0);
         getAlarmBounceAnimator(translationX, translationX < 0.0f
                 ? hintLeftResId
-                : R.string.description_direction_right).start();
+                : hintRightResId).start();
     }
 
     private void hintDismiss() {
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintLeftResId = mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
-                ? R.string.description_direction_left_for_non_repeatable_alarms
-                : R.string.description_direction_left;
+        final int hintLeftResId;
+        if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
+            if (isOccasionalAlarmDeletedAfterUse()) {
+                hintLeftResId = R.string.description_direction_left_for_occasional_non_repeatable_alarm;
+            } else {
+                hintLeftResId = R.string.description_direction_left_for_non_repeatable_alarm;
+            }
+        } else {
+            hintLeftResId = R.string.description_direction_left;
+        }
+
+        final int hintRightResId;
+        if (isOccasionalAlarmDeletedAfterUse()) {
+            hintRightResId = R.string.description_direction_right_for_occasional_alarm;
+        } else {
+            hintRightResId = R.string.description_direction_right;
+        }
+
         final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
                 + Math.min(mDismissButton.getRight() - alarmLeft, 0);
 
         getAlarmBounceAnimator(translationX, translationX < 0.0f
                 ? hintLeftResId
-                : R.string.description_direction_right).start();
+                : hintRightResId).start();
     }
 
     private void hintAlarmAction() {
         final int hintAlarmButtonResId;
         if (isSwipeActionEnabled) {
             if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
-                hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarms;
+                if (isOccasionalAlarmDeletedAfterUse()) {
+                    hintAlarmButtonResId = R.string.description_direction_both_for_occasional_non_repeatable_alarm;
+                } else {
+                    hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarm;
+                }
             } else {
-                hintAlarmButtonResId = R.string.description_direction_both;
+                if (isOccasionalAlarmDeletedAfterUse()) {
+                    hintAlarmButtonResId = R.string.description_direction_both_for_occasional_alarm;
+                } else {
+                    hintAlarmButtonResId = R.string.description_direction_both;
+                }
             }
         } else {
             if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
-                hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarms_clicked;
+                if (isOccasionalAlarmDeletedAfterUse()) {
+                    hintAlarmButtonResId = R.string.description_direction_both_for_occasional_non_repeatable_alarm_clicked;
+                } else {
+                    hintAlarmButtonResId = R.string.description_direction_both_for_non_repeatable_alarm_clicked;
+                }
             } else {
-                hintAlarmButtonResId = R.string.description_direction_both_clicked;
+                if (isOccasionalAlarmDeletedAfterUse()) {
+                    hintAlarmButtonResId = R.string.description_direction_both_clicked_for_occasional_alarm;
+                } else {
+                    hintAlarmButtonResId = R.string.description_direction_both_clicked;
+                }
             }
         }
 
@@ -602,11 +649,22 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         // If snooze duration has been set to "None", simply dismiss the alarm.
         if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
-            getAlertAnimator(mSnoozeButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text)).start();
+            int titleResId;
+            int action;
+
+            if (isOccasionalAlarmDeletedAfterUse()) {
+                titleResId = R.string.alarm_alert_off_and_deleted_text;
+                action = R.string.action_delete_alarm_after_use;
+            } else {
+                titleResId = R.string.alarm_alert_off_text;
+                action = R.string.action_dismiss;
+            }
+
+            getAlertAnimator(mSnoozeButton, titleResId, null, getString(titleResId)).start();
 
             AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
-            Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+            Events.sendAlarmEvent(action, R.string.label_deskclock);
         } else {
             final String infoText = getResources().getQuantityString(
                     R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
@@ -631,16 +689,41 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mAlarmHandled = true;
         LOGGER.v("Dismissed: %s", mAlarmInstance);
 
+        int titleResId;
+        int action;
+
+        if (isOccasionalAlarmDeletedAfterUse()) {
+            titleResId = R.string.alarm_alert_off_and_deleted_text;
+            action = R.string.action_delete_alarm_after_use;
+        } else {
+            titleResId = R.string.alarm_alert_off_text;
+            action = R.string.action_dismiss;
+        }
+
         setAnimatedFractions(0.0f, 1.0f);
 
-        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null, getString(R.string.alarm_alert_off_text)).start();
+        getAlertAnimator(mDismissButton, titleResId, null, getString(titleResId)).start();
 
         AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
-        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+        Events.sendAlarmEvent(action, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    /**
+     * @return {@code true} if the "Delete alarm once dismissed" button is ticked or if no day of the week is selected;
+     * {@code false} otherwise.
+     */
+    private boolean isOccasionalAlarmDeletedAfterUse() {
+        final Alarm alarm = Alarm.getAlarm(getContentResolver(), mAlarmInstance.mAlarmId);
+        assert alarm != null;
+        if (alarm.daysOfWeek.isRepeating()) {
+            return false;
+        }
+
+        return alarm.deleteAfterUse;
     }
 
     /**

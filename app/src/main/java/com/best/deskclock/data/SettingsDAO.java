@@ -36,6 +36,7 @@ import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
@@ -537,7 +538,7 @@ final class SettingsDAO {
      */
     static PowerButtonBehavior getAlarmPowerButtonBehavior(SharedPreferences prefs) {
         final String defaultValue = AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR;
-        final String value = prefs.getString(AlarmSettingsActivity.KEY_POWER_BUTTONS, defaultValue);
+        final String value = prefs.getString(AlarmSettingsActivity.KEY_POWER_BUTTON, defaultValue);
         return switch (value) {
             case AlarmSettingsActivity.DEFAULT_POWER_BEHAVIOR -> NOTHING;
             case AlarmSettingsActivity.POWER_BEHAVIOR_SNOOZE -> SNOOZE;
@@ -627,6 +628,13 @@ final class SettingsDAO {
      */
     static boolean areAlarmVibrationsEnabledByDefault(SharedPreferences pref) {
         return pref.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false);
+    }
+
+    /**
+     * @return {@code true} if occasional alarm should be deleted by default. {@code false} otherwise.
+     */
+    static boolean isOccasionalAlarmDeletedByDefault(SharedPreferences pref) {
+        return pref.getBoolean(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, false);
     }
 
     /**

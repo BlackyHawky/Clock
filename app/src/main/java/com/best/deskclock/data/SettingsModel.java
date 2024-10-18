@@ -262,6 +262,10 @@ final class SettingsModel {
         return SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
     }
 
+    boolean isOccasionalAlarmDeletedByDefault() {
+        return SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
+    }
+
     String getMaterialTimePickerStyle() {
         return SettingsDAO.getMaterialTimePickerStyle(mPrefs);
     }

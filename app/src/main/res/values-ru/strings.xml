@@ -423,7 +423,7 @@
     <string name="FSN_dialog_text">С Android 14, чтобы позволить будильнику сработать с выключенным экраном, необходимо, чтобы разрешение Полноэкранных Уведомлений было включено</string>
     <string name="style_category_title">Стиль</string>
     <string name="alarm_settings_summary">Выбрать стандартный рингтон, звук, действия для отключения или откладывания будильников, первый день недели и время напоминания в уведомлениях</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Смахните влево, чтобы отключить</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Смахните влево, чтобы отключить</string>
     <string name="styles_and_colors_category_title">Стиль и цвета</string>
     <string name="gnu_gpl">Общая публичная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет часов</string>
@@ -457,8 +457,8 @@
     <string name="about_github_link">Посмотреть на Github</string>
     <string name="license">Лицензия открытого кода</string>
     <string name="description_direction_both_clicked">Нажмите влево, чтобы отложить или вправо, чтобы отключить</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Смахните влево или вправо, чтобы отключить</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Нажмите влево или вправо, чтобы отключить</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Смахните влево или вправо, чтобы отключить</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Нажмите влево или вправо, чтобы отключить</string>
     <string name="timer_settings_summary">Установить рингтон по умолчанию и звук для таймеров</string>
     <string name="screensaver_date_color_title">Цвет даты</string>
     <string name="first_launch_version">Версия %s</string>

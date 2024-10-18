@@ -443,9 +443,9 @@
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="keep_timer_screen_on_title">Taimeri kuvamisel ära lülita ekraani välja</string>
     <string name="description_direction_both_clicked">Edasilükkamiseks klõpsi vasakule ja loobumiseks paremale</string>
-    <string name="description_direction_left_for_non_repeatable_alarms">Loobumiseks viipa vasakule</string>
-    <string name="description_direction_both_for_non_repeatable_alarms">Loobumiseks viipa vasakule või paremale</string>
-    <string name="description_direction_both_for_non_repeatable_alarms_clicked">Loobumiseks klikka vasakule või paremale</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Loobumiseks viipa vasakule</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Loobumiseks viipa vasakule või paremale</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Loobumiseks klikka vasakule või paremale</string>
     <string name="default_time_to_add_to_timer_title">Taimerile lisatav vaikimisi aeg</string>
     <string name="screensaver_clock_dynamic_colors_title">Kella dünaamilised värvid</string>
     <string name="clock_color_title">Kella värv</string>

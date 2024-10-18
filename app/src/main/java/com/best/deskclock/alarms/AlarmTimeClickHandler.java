@@ -109,6 +109,16 @@ public final class AlarmTimeClickHandler {
         }
     }
 
+    public void deleteOccasionalAlarmAfterUse(Alarm alarm, boolean newState) {
+        if (newState != alarm.deleteAfterUse) {
+            alarm.deleteAfterUse = newState;
+            Events.sendAlarmEvent(R.string.action_delete_alarm_after_use, R.string.label_deskclock);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+            LOGGER.d("Delete alarm after use state to " + newState);
+            Utils.setVibrationTime(mContext, 50);
+        }
+    }
+
     public void setDayOfWeekEnabled(Alarm alarm, boolean checked, int index) {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
@@ -190,12 +200,14 @@ public final class AlarmTimeClickHandler {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm alarm = new Alarm();
             final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
+            final boolean isOccasionalAlarmDeletedByDefault = DataModel.getDataModel().isOccasionalAlarmDeletedByDefault();
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.alarmSnoozeActions = true;
             alarm.vibrate = areAlarmVibrationsEnabledByDefault;
+            alarm.deleteAfterUse = isOccasionalAlarmDeletedByDefault;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;

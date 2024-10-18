@@ -135,6 +135,10 @@ final class AlarmModel {
         return mSettingsModel.areAlarmVibrationsEnabledByDefault();
     }
 
+    boolean isOccasionalAlarmDeletedByDefault() {
+        return mSettingsModel.isOccasionalAlarmDeletedByDefault();
+    }
+
     String getMaterialTimePickerStyle() {
         return mSettingsModel.getMaterialTimePickerStyle();
     }
