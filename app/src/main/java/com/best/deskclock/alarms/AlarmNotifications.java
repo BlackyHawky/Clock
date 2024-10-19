@@ -85,10 +85,24 @@ public final class AlarmNotifications {
     static synchronized void showUpcomingNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
 
+        final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+        assert alarm != null;
+
+        final String contentTitle;
+        if (!alarm.daysOfWeek.isRepeating()) {
+            if (alarm.deleteAfterUse) {
+                contentTitle = context.getString(R.string.occasional_alarm_alert_predismiss_title);
+            } else {
+                contentTitle = context.getString(R.string.alarm_alert_predismiss_title);
+            }
+        } else {
+            contentTitle = context.getString(R.string.alarm_alert_predismiss_title);
+        }
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
                 .setShowWhen(false)
-                .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
+                .setContentTitle(contentTitle)
                 .setContentText(AlarmUtils.getAlarmText(context, instance, true))
                 .setColor(context.getColor(R.color.md_theme_primary))
                 .setSmallIcon(R.drawable.ic_tab_alarm_static)
@@ -100,12 +114,9 @@ public final class AlarmNotifications {
                 .setLocalOnly(true)
                 .setGroup(UPCOMING_GROUP_KEY);
 
+        // Setup up dismiss action
         final int id = instance.hashCode();
         final String dismissActionTitle;
-        final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-        assert alarm != null;
-
-        // Setup up dismiss action
         if (!alarm.daysOfWeek.isRepeating()) {
             if (alarm.deleteAfterUse) {
                 dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_and_delete_text);

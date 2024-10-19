@@ -416,6 +416,32 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
+        Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
+        if (alarm == null) {
+            LogUtils.e("Parent has been deleted with instance: " + instance);
+            return;
+        }
+
+        // If the "Delete alarm once dismissed" button is ticked in the expanded alarm view, just delete the alarm and nothing else.
+        if (alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()) {
+            Alarm.deleteAlarm(context.getContentResolver(), alarm.id);
+            Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // If alarm silence has been set to "At the end of the ringtone",
+        // we don't want it to be seen as missed but snoozed.
+        // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
+        // and nothing else; so there's no need to tell him that the alarm has been missed.
+        // See https://github.com/BlackyHawky/Clock/issues/40
+        // However, the alarm must be repeatable and the alarm activation button must remain enabled.
+        // This is also true if no day of the week is selected.
+        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds || !alarm.daysOfWeek.isRepeating()) {
+            setSnoozeState(context, instance, true);
+            return;
+        }
+
         // Check parent if it needs to reschedule, disable or delete itself
         if (instance.mAlarmId != null) {
             updateParentAlarm(context, instance);
@@ -425,18 +451,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.MISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
-
-        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
-        // If alarm silence has been set to "At the end of the ringtone",
-        // we don't want it to be seen as missed but snoozed.
-        // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
-        // and nothing else; so there's no need to tell him that the alarm has been missed.
-        // However, the alarm must be repeatable.
-        // See https://github.com/BlackyHawky/Clock/issues/40
-        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
-            setSnoozeState(context, instance, true);
-            return;
-        }
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showMissedNotification(context, instance);
