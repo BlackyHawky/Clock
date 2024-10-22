@@ -8,25 +8,41 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Application settings
@@ -43,6 +59,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
     public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
+    public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +83,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mWidgetsSettings;
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
+        Preference mBackupRestorePref;
 
         /**
          * Callback for getting the result from the settings sub-activities.
@@ -91,6 +109,48 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
                 });
 
+        /**
+         * Callback for getting the backup result.
+         */
+        ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+
+                    Intent intent = result.getData();
+                    final Uri uri = intent == null ? null : intent.getData();
+                    if (uri == null) {
+                        return;
+                    }
+
+                    backupPreferences(requireContext(), uri);
+                });
+
+        /**
+         * Callback for getting the restoration result.
+         */
+        ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), (result) -> {
+                    if (result.getResultCode() != RESULT_OK) {
+                        return;
+                    }
+
+                    Intent intent = result.getData();
+                    final Uri uri = intent == null ? null : intent.getData();
+                    if (uri == null) {
+                        return;
+                    }
+
+                    try {
+                        restorePreferences(requireContext(), uri);
+                        requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                        ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -105,6 +165,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mWidgetsSettings = findPreference(KEY_WIDGETS_SETTINGS);
             mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
+            mBackupRestorePref = findPreference(KEY_BACKUP_RESTORE_PREFERENCES);
 
             hidePreferences();
         }
@@ -168,6 +229,30 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     getPermissionManagementActivity.launch(permissionsManagementIntent);
                     return true;
                 }
+
+                case KEY_BACKUP_RESTORE_PREFERENCES -> {
+                    final AlertDialog builder = new AlertDialog.Builder(requireContext())
+                            .setIcon(R.drawable.ic_backup_restore)
+                            .setTitle(R.string.backup_restore_settings_title)
+                            .setMessage(R.string.backup_restore_dialog_message)
+                            .setPositiveButton(android.R.string.cancel, null)
+                            .setNegativeButton(R.string.backup_restore_backup_button_title, (dialog, which) -> {
+                                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                                        .addCategory(Intent.CATEGORY_OPENABLE)
+                                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label) + "_backup.txt")
+                                        .setType("text/plain");
+                                backupToFile.launch(intent);
+                            })
+                            .setNeutralButton(R.string.backup_restore_restore_button_title, (dialog, which) -> {
+                                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                        .addCategory(Intent.CATEGORY_OPENABLE)
+                                        .setType("text/plain");
+                                restoreFromFile.launch(intent);
+                            })
+                            .create();
+                    builder.show();
+                    return true;
+                }
             }
 
             return false;
@@ -209,6 +294,36 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mWidgetsSettings.setOnPreferenceClickListener(this);
 
             mPermissionsManagement.setOnPreferenceClickListener(this);
+
+            mBackupRestorePref.setOnPreferenceClickListener(this);
+        }
+
+        private void backupPreferences(Context context, Uri uri) {
+            SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
+
+            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
+                BackupAndRestoreUtils.settingsToJsonStream(sharedPreferences.getAll(), outputStream, sharedPreferences, context);
+            } catch (IOException e) {
+                Log.w(PREFS_FRAGMENT_TAG, "error during backup");
+            }
+        }
+
+        private void restorePreferences(Context context, Uri uri) throws FileNotFoundException {
+            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
+
+            BackupAndRestoreUtils.readJsonLines(inputStream, sharedPreferences);
+
+            // This is to ensure that the interface theme loads correctly after the restore.
+            String getTheme = DataModel.getDataModel().getTheme();
+            switch (getTheme) {
+                case SYSTEM_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                case LIGHT_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                case DARK_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
         }
     }
 }

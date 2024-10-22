@@ -46,7 +46,7 @@ import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustom
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
 import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
@@ -530,7 +530,7 @@ final class WidgetDAO {
      * {@code false} otherwise.
      */
     static boolean isMaterialYouVerticalDigitalWidgetDefaultDateColor(SharedPreferences prefs) {
-        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
     }
 
     /**

@@ -1362,4 +1362,17 @@
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
     <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
+    <!--
+    Backup & Restore
+    -->
+    <!-- Backup & Restore preference title in the settings. -->
+    <string name="backup_restore_settings_title">Backup &amp; Restore</string>
+    <!-- Backup & Restore preference summary in the settings. -->
+    <string name="backup_restore_settings_summary">Backup or restore settings except alarms, timers and ringtones</string>
+    <!-- Backup & Restore dialog message -->
+    <string name="backup_restore_dialog_message">Do you want to backup or restore settings from a file?</string>
+    <!-- Backup button in the Backup and Restore dialog -->
+    <string name="backup_restore_backup_button_title">Backup</string>
+    <!-- Restore button in the Backup and Restore dialog -->
+    <string name="backup_restore_restore_button_title">Restore</string>
 </resources>

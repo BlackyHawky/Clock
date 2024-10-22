@@ -73,4 +73,12 @@
         android:icon="@drawable/ic_key"
         app:singleLineTitle="false" />
 
+    <Preference
+        android:key="key_backup_restore_preferences"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/backup_restore_settings_title"
+        android:summary="@string/backup_restore_settings_summary"
+        android:icon="@drawable/ic_backup_restore"
+        app:singleLineTitle="false" />
+
 </PreferenceScreen>

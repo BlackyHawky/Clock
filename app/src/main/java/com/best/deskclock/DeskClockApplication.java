@@ -43,7 +43,7 @@ public class DeskClockApplication extends Application {
     /**
      * Returns the default {@link SharedPreferences} instance from the underlying storage context.
      */
-    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+    public static SharedPreferences getDefaultSharedPreferences(Context context) {
         final Context storageContext;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

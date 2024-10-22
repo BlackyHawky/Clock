@@ -36,7 +36,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
             "key_material_you_vertical_digital_widget_default_minutes_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR =
             "key_material_you_vertical_digital_widget_custom_minutes_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR =
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR =
             "key_material_you_vertical_digital_widget_default_date_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR =
             "key_material_you_vertical_digital_widget_custom_date_color";
@@ -84,7 +84,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
             mCustomHoursColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR);
             mDefaultMinutesColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR);
             mCustomMinutesColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR);
-            mDefaultDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR);
+            mDefaultDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR);
             mCustomDateColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
             mDefaultNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
             mCustomNextAlarmColorPref = findPreference(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
@@ -134,10 +134,10 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                     requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
                 }
 
-                case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR -> {
+                case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
                     if (mDefaultDateColorPref.getSharedPreferences() != null) {
                         final boolean isNotDefaultColors = mDefaultDateColorPref.getSharedPreferences()
-                                .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true);
+                                .getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
                         mCustomDateColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);

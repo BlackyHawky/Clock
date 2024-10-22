@@ -28,6 +28,7 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 import java.util.WeakHashMap;
 
@@ -43,6 +44,7 @@ public class ThemeController {
     private static LayoutBackground layoutBackground = LayoutBackground.DEFAULT;
     private static LayoutBorder layoutBorder = LayoutBorder.DEFAULT;
     private static FadeTransitions fadeTransitions = FadeTransitions.DISABLED;
+    private static RestoreSettings restoreSettings = RestoreSettings.DONE;
 
     /**
      * To initialize this class in the application class.
@@ -113,6 +115,17 @@ public class ThemeController {
         for (Activity activity : activities) {
             // We add a small delay to give the settings switch button a clean animation.
             new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
+        }
+    }
+
+    /**
+     * Allow all activities to be recreated if settings are restored.
+     * @param restoreSettings Restore is done.
+     */
+    public static void recreateActivityAfterRestoringSettings(RestoreSettings restoreSettings) {
+        ThemeController.restoreSettings = restoreSettings;
+        for (Activity activity : activities) {
+            ActivityCompat.recreate(activity);
         }
     }
 
@@ -207,6 +220,10 @@ public class ThemeController {
             switch (fadeTransitions) {
                 case DISABLED, ENABLED -> activities.add(activity);
             }
+
+            if (Objects.requireNonNull(restoreSettings) == RestoreSettings.DONE) {
+                activities.add(activity);
+            }
         }
 
         @Override
@@ -237,4 +254,5 @@ public class ThemeController {
     public enum LayoutBackground {DEFAULT, TRANSPARENT}
     public enum LayoutBorder {DEFAULT, BORDERED}
     public enum FadeTransitions {DISABLED, ENABLED}
+    public enum RestoreSettings {DONE}
 }
