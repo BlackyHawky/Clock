@@ -18,9 +18,23 @@ import com.best.deskclock.events.Events;
  */
 public final class WidgetModel {
 
-    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.alarmclock.WORLD_CITIES_CHANGED";
-    public static final String ACTION_WIDGET_CUSTOMIZED = "com.best.alarmclock.WIDGET_CUSTOMIZED";
+    // For all widgets
     public static final String ACTION_NEXT_ALARM_LABEL_CHANGED = "com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED";
+    public static final String ACTION_UPDATE_WIDGETS_AFTER_RESTORE = "com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE";
+
+    // For digital and Material You digital widgets
+    public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.alarmclock.WORLD_CITIES_CHANGED";
+
+    // For standard widgets
+    public static final String ACTION_DIGITAL_WIDGET_CUSTOMIZED = "com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED";
+    public static final String ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED = "com.best.alarmclock.NEXT_ALARM_WIDGET_CUSTOMIZED";
+    public static final String ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED = "com.best.alarmclock.VERTICAL_DIGITAL_WIDGET_CUSTOMIZED";
+
+    // For Material You widgets
+    public static final String ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED = "com.best.alarmclock.MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED";
+    public static final String ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED = "com.best.alarmclock.MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED";
+    public static final String ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED = "com.best.alarmclock.MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED";
+
 
     private final SharedPreferences mPrefs;
 

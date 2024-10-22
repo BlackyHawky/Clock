@@ -5,7 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
@@ -121,7 +121,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         mCustomHoursColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
@@ -131,7 +131,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         mCustomMinutesColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
@@ -141,7 +141,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         mCustomDateColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
@@ -151,7 +151,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                         mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                     }
                     Utils.setVibrationTime(requireContext(), 50);
-                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
@@ -160,14 +160,14 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                     + newValue.toString()
                     );
-                    requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
                 case KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR,
                      KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR,
                      KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR,
                      KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR ->
-                        requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                        requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             return true;

@@ -16,7 +16,8 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.deskclock.data.WidgetModel.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -366,7 +367,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_WIDGET_CUSTOMIZED:
+                case ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
+                case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
@@ -396,7 +398,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);

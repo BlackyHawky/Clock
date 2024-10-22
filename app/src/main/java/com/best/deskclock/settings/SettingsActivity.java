@@ -9,7 +9,7 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.data.WidgetModel.ACTION_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
@@ -144,7 +144,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                     try {
                         restorePreferences(requireContext(), uri);
-                        requireContext().sendBroadcast(new Intent(ACTION_WIDGET_CUSTOMIZED));
+                        requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
                         ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
