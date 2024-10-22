@@ -17,8 +17,6 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
-import java.util.Objects;
-
 public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "customization_interface_fragment";

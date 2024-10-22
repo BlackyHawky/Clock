@@ -14,6 +14,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
         <item name="colorAccent">@color/md_theme_primary</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
 
         <item name="colorPrimary">@color/md_theme_primary</item>
@@ -157,7 +158,7 @@
 
     <!-- DEFAULT ACCENT COLOR -->
     <!-- Empty because this theme uses the default colors indicated above -->
-    <style name="DefaultColor" />
+    <style name="DefaultColor" parent="@style/Theme.DeskClock" />
 
     <!-- BLUE GRAY ACCENT COLOR -->
     <style name="BlueGrayAccentColor">

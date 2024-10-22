@@ -12,6 +12,7 @@
         <item name="android:navigationBarColor">@color/md_theme_surface</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
         <item name="colorAccent">@color/md_theme_primary</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
 
         <item name="colorPrimary">@color/md_theme_primary</item>

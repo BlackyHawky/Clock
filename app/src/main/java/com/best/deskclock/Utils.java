@@ -852,6 +852,13 @@ public class Utils {
         }
 
         switch (accentColor) {
+            case DEFAULT_ACCENT_COLOR -> {
+                if (activity instanceof CollapsingToolbarBaseActivity) {
+                    activity.setTheme(R.style.DefaultColor);
+                } else {
+                    activity.setTheme(R.style.Theme_DeskClock_Actionbar);
+                }
+            }
             case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
             case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
             case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
@@ -871,8 +878,7 @@ public class Utils {
                 );
             }
         } else {
-            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)
-                    && !accentColor.equals(DEFAULT_ACCENT_COLOR)) {
+            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
