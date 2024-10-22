@@ -144,6 +144,16 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                     try {
                         restorePreferences(requireContext(), uri);
+                        // This is to ensure that the interface theme loads correctly after the restore.
+                        String getTheme = DataModel.getDataModel().getTheme();
+                        switch (getTheme) {
+                            case SYSTEM_THEME ->
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                            case LIGHT_THEME ->
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                            case DARK_THEME ->
+                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        }
                         requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
                         ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
                     } catch (FileNotFoundException e) {
@@ -313,17 +323,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
 
             BackupAndRestoreUtils.readJsonLines(inputStream, sharedPreferences);
-
-            // This is to ensure that the interface theme loads correctly after the restore.
-            String getTheme = DataModel.getDataModel().getTheme();
-            switch (getTheme) {
-                case SYSTEM_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                case LIGHT_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                case DARK_THEME ->
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            }
         }
     }
 }
