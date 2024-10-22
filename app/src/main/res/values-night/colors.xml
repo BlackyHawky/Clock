@@ -76,6 +76,8 @@
     <color name="blueGrayPrimaryInverse">#546E7A</color>
     <!-- Blue Gray 700 -->
     <color name="blueGrayPrimaryContainer">#455A64</color>
+    <!-- Blue Gray 700 with transparency set to 40% -->
+    <color name="blueGraySecondaryContainer">#66455A64</color>
     <!-- Blue Gray 900 - Darkened to 40% with https://mdigi.tools/darken-color/ -->
     <color name="blueGrayColorBackground">#171E22</color>
 
@@ -90,6 +92,8 @@
     <color name="brownPrimaryInverse">#6D4C41</color>
     <!-- Brown 700 -->
     <color name="brownPrimaryContainer">#5D4037</color>
+    <!-- Brown 700 with transparency set to 90% -->
+    <color name="brownSecondaryContainer">#E65D4037</color>
     <!-- Brown 900 - Darkened to 40% with https://mdigi.tools/darken-color/ -->
     <color name="brownColorBackground">#251715</color>
 
@@ -104,6 +108,8 @@
     <color name="greenPrimaryInverse">#43A047</color>
     <!-- Green 700 -->
     <color name="greenPrimaryContainer">#388E3C</color>
+    <!-- Green 700 with transparency set to 40% -->
+    <color name="greenSecondaryContainer">#66388E3C</color>
     <!-- Green 900 - Darkened to 60% with https://mdigi.tools/darken-color/ -->
     <color name="greenColorBackground">#0B260D</color>
 
@@ -118,6 +124,8 @@
     <color name="indigoPrimaryInverse">#3949AB</color>
     <!-- Indigo 700 -->
     <color name="indigoPrimaryContainer">#303F9F</color>
+    <!-- Indigo 700 with transparency set to 90% -->
+    <color name="indigoSecondaryContainer">#E6303F9F</color>
     <!-- Indigo 900 - Darkened to 50% with https://mdigi.tools/darken-color/ -->
     <color name="indigoColorBackground">#0D123F</color>
 
@@ -132,6 +140,8 @@
     <color name="orangePrimaryInverse">#FB8C00</color>
     <!-- Orange 700 -->
     <color name="orangePrimaryContainer">#F57C00</color>
+    <!-- Orange 700 with transparency set to 30% -->
+    <color name="orangeSecondaryContainer">#4DF57C00</color>
     <!-- Orange 900 - Darkened to 80% with https://mdigi.tools/darken-color/ -->
     <color name="orangeColorBackground">#2E1000</color>
 
@@ -146,6 +156,8 @@
     <color name="pinkPrimaryInverse">#D81B60</color>
     <!-- Pink 700 -->
     <color name="pinkPrimaryContainer">#C2185B</color>
+    <!-- Pink 700 with transparency set to 40% -->
+    <color name="pinkSecondaryContainer">#66C2185B</color>
     <!-- Pink 900 - Darkened to 70% with https://mdigi.tools/darken-color/ -->
     <color name="pinkColorBackground">#290418</color>
 
@@ -160,6 +172,8 @@
     <color name="redPrimaryInverse">#E53935</color>
     <!-- Red 700 -->
     <color name="redPrimaryContainer">#D32F2F</color>
+    <!-- Red 700 with transparency set to 40% -->
+    <color name="redSecondaryContainer">#66D32F2F</color>
     <!-- Red 900 - Darkened to 80% with https://mdigi.tools/darken-color/ -->
     <color name="redColorBackground">#250606</color>
 </resources>

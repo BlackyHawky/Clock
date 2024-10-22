@@ -170,6 +170,7 @@
         <item name="colorPrimary">@color/blueGrayColorPrimary</item>
         <item name="colorPrimaryContainer">@color/blueGrayPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/blueGrayPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/blueGraySecondaryContainer</item>
         <item name="colorSurface">@color/blueGrayColorSurface</item>
     </style>
 
@@ -183,6 +184,7 @@
         <item name="colorPrimary">@color/brownColorPrimary</item>
         <item name="colorPrimaryContainer">@color/brownPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/brownPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/brownSecondaryContainer</item>
         <item name="colorSurface">@color/brownColorSurface</item>
     </style>
 
@@ -196,6 +198,7 @@
         <item name="colorPrimary">@color/greenColorPrimary</item>
         <item name="colorPrimaryContainer">@color/greenPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/greenPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/greenSecondaryContainer</item>
         <item name="colorSurface">@color/greenColorSurface</item>
     </style>
 
@@ -209,6 +212,7 @@
         <item name="colorPrimary">@color/indigoColorPrimary</item>
         <item name="colorPrimaryContainer">@color/indigoPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/indigoPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/indigoSecondaryContainer</item>
         <item name="colorSurface">@color/indigoColorSurface</item>
     </style>
 
@@ -222,6 +226,7 @@
         <item name="colorPrimary">@color/orangeColorPrimary</item>
         <item name="colorPrimaryContainer">@color/orangePrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/orangePrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/orangeSecondaryContainer</item>
         <item name="colorSurface">@color/orangeColorSurface</item>
     </style>
 
@@ -235,6 +240,7 @@
         <item name="colorPrimary">@color/pinkColorPrimary</item>
         <item name="colorPrimaryContainer">@color/pinkPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/pinkPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/pinkSecondaryContainer</item>
         <item name="colorSurface">@color/pinkColorSurface</item>
     </style>
 
@@ -248,6 +254,7 @@
         <item name="colorPrimary">@color/redColorPrimary</item>
         <item name="colorPrimaryContainer">@color/redPrimaryContainer</item>
         <item name="colorPrimaryInverse">@color/redPrimaryInverse</item>
+        <item name="colorSecondaryContainer">@color/redSecondaryContainer</item>
         <item name="colorSurface">@color/redColorSurface</item>
     </style>
 

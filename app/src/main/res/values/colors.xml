@@ -78,6 +78,8 @@
     <color name="blueGrayPrimaryInverse">#B0BEC5</color>
     <!-- Blue Gray 100 -->
     <color name="blueGrayPrimaryContainer">#CFD8DC</color>
+    <!-- Blue Gray 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="blueGraySecondaryContainer">#D0D8DC</color>
     <color name="blueGrayColorBackground">#FCFCFF</color>
 
     <!-- Brown colors -->
@@ -90,7 +92,10 @@
     <!-- Brown 200 -->
     <color name="brownPrimaryInverse">#BCAAA4</color>
     <!-- Brown 100 -->
-    <color name="brownPrimaryContainer">#D7CCC8</color>
+    <color name="brownPrimaryContainer">#BCAAA4</color>
+    <!-- Brown 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="brownSecondaryContainer">#D7CCC8</color>
+
     <color name="brownColorBackground">#FCFCFF</color>
 
     <!-- Green colors -->
@@ -104,6 +109,8 @@
     <color name="greenPrimaryInverse">#A5D6A7</color>
     <!-- Green 100 -->
     <color name="greenPrimaryContainer">#C8E6C9</color>
+    <!-- Green 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="greenSecondaryContainer">#C9E6CA</color>
     <color name="greenColorBackground">#FCFCFF</color>
 
     <!-- Indigo colors -->
@@ -117,6 +124,8 @@
     <color name="indigoPrimaryInverse">#9FA8DA</color>
     <!-- Indigo 100 -->
     <color name="indigoPrimaryContainer">#C5CAE9</color>
+    <!-- Indigo 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="indigoSecondaryContainer">#C5CBE9</color>
     <color name="indigoColorBackground">#FCFCFF</color>
 
     <!-- Orange colors -->
@@ -130,6 +139,8 @@
     <color name="orangePrimaryInverse">#FFCC80</color>
     <!-- Orange 100 -->
     <color name="orangePrimaryContainer">#FFE0B2</color>
+    <!-- Orange 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorBackground">#FCFCFF</color>
 
     <!-- Pink colors -->
@@ -143,6 +154,8 @@
     <color name="pinkPrimaryInverse">#F48FB1</color>
     <!-- Pink 100 -->
     <color name="pinkPrimaryContainer">#F8BBD0</color>
+    <!-- Pink 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="pinkSecondaryContainer">#F8BCD0</color>
     <color name="pinkColorBackground">#FCFCFF</color>
 
     <!-- Red colors -->
@@ -156,5 +169,7 @@
     <color name="redPrimaryInverse">#EF9A9A</color>
     <!-- Red 100 -->
     <color name="redPrimaryContainer">#FFCDD2</color>
+    <!-- Red 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorBackground">#FCFCFF</color>
 </resources>
