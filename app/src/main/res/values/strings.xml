@@ -1375,4 +1375,8 @@
     <string name="backup_restore_backup_button_title">Backup</string>
     <!-- Restore button in the Backup and Restore dialog -->
     <string name="backup_restore_restore_button_title">Restore</string>
+    <!-- Toast message when backup is complete -->
+    <string name="backup_restore_toast_message_for_backup">Backup completed</string>
+    <!-- Toast message when restore is complete -->
+    <string name="backup_restore_toast_message_for_restore">Restore completed</string>
 </resources>

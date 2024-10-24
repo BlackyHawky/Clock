@@ -27,6 +27,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -125,6 +126,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     }
 
                     backupPreferences(requireContext(), uri);
+                    Toast.makeText(requireContext(),
+                            requireContext().getString(R.string.backup_restore_toast_message_for_backup),
+                            Toast.LENGTH_LONG)
+                            .show();
                 });
 
         /**
@@ -156,6 +161,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         }
                         requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
                         ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
+                        Toast.makeText(requireContext(),
+                                requireContext().getString(R.string.backup_restore_toast_message_for_restore),
+                                Toast.LENGTH_LONG)
+                                .show();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
