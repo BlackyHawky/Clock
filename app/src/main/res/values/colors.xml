@@ -65,111 +65,73 @@
     <color name="next_alarm_widget_title_color">#4E616C</color>
     <color name="next_alarm_widget_alarm_color">#00668B</color>
 
-    <!-- The colors are picked up from https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
-    except for xxxColorBackground -->
     <!-- Blue Gray colors -->
-    <!-- Blue Gray 600 -->
     <color name="blueGrayColorAccent">#546E7A</color>
-    <!-- Blue Gray 600 -->
     <color name="blueGrayColorPrimary">#546E7A</color>
-    <!-- Blue Gray 50 -->
     <color name="blueGrayColorSurface">#ECEFF1</color>
-    <!-- Blue Gray 200 -->
     <color name="blueGrayPrimaryInverse">#B0BEC5</color>
-    <!-- Blue Gray 100 -->
     <color name="blueGrayPrimaryContainer">#CFD8DC</color>
-    <!-- Blue Gray 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
     <color name="blueGraySecondaryContainer">#D0D8DC</color>
+    <color name="blueGrayOnPrimary">#FFFFFF</color>
     <color name="blueGrayColorBackground">#FCFCFF</color>
 
     <!-- Brown colors -->
-    <!-- Brown 600 -->
     <color name="brownColorAccent">#6D4C41</color>
-    <!-- Brown 600 -->
     <color name="brownColorPrimary">#FF6D4C41</color>
-    <!-- Brown 50 -->
     <color name="brownColorSurface">#EFEBE9</color>
-    <!-- Brown 200 -->
     <color name="brownPrimaryInverse">#BCAAA4</color>
-    <!-- Brown 100 -->
     <color name="brownPrimaryContainer">#BCAAA4</color>
-    <!-- Brown 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
     <color name="brownSecondaryContainer">#D7CCC8</color>
-
+    <color name="brownOnPrimary">#FFFFFF</color>
     <color name="brownColorBackground">#FCFCFF</color>
 
     <!-- Green colors -->
-    <!-- Green 600 -->
     <color name="greenColorAccent">#43A047</color>
-    <!-- Green 600 -->
     <color name="greenColorPrimary">#43A047</color>
-    <!-- Green 50 -->
     <color name="greenColorSurface">#E8F5E9</color>
-    <!-- Green 200 -->
     <color name="greenPrimaryInverse">#A5D6A7</color>
-    <!-- Green 100 -->
     <color name="greenPrimaryContainer">#C8E6C9</color>
-    <!-- Green 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
     <color name="greenSecondaryContainer">#C9E6CA</color>
+    <color name="greenOnPrimary">#FFFFFF</color>
     <color name="greenColorBackground">#FCFCFF</color>
 
     <!-- Indigo colors -->
-    <!-- Indigo 600 -->
     <color name="indigoColorAccent">#3949AB</color>
-    <!-- Indigo 600 -->
     <color name="indigoColorPrimary">#3949AB</color>
-    <!-- Indigo 50 -->
     <color name="indigoColorSurface">#E8EAF6</color>
-    <!-- Indigo 200 -->
     <color name="indigoPrimaryInverse">#9FA8DA</color>
-    <!-- Indigo 100 -->
     <color name="indigoPrimaryContainer">#C5CAE9</color>
-    <!-- Indigo 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
     <color name="indigoSecondaryContainer">#C5CBE9</color>
+    <color name="indigoOnPrimary">#FFFFFF</color>
     <color name="indigoColorBackground">#FCFCFF</color>
 
     <!-- Orange colors -->
-    <!-- Orange 600 -->
     <color name="orangeColorAccent">#FB8C00</color>
-    <!-- Orange 600 -->
     <color name="orangeColorPrimary">#FB8C00</color>
-    <!-- Orange 50 -->
     <color name="orangeColorSurface">#FFF3E0</color>
-    <!-- Orange 200 -->
     <color name="orangePrimaryInverse">#FFCC80</color>
-    <!-- Orange 100 -->
     <color name="orangePrimaryContainer">#FFE0B2</color>
-    <!-- Orange 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="orangeOnPrimary">#FFFFFF</color>
     <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorBackground">#FCFCFF</color>
 
     <!-- Pink colors -->
-    <!-- Pink 600 -->
     <color name="pinkColorAccent">#D81B60</color>
-    <!-- Pink 600 -->
     <color name="pinkColorPrimary">#D81B60</color>
-    <!-- Pink 50 -->
     <color name="pinkColorSurface">#FCE4EC</color>
-    <!-- Pink 200 -->
     <color name="pinkPrimaryInverse">#F48FB1</color>
-    <!-- Pink 100 -->
     <color name="pinkPrimaryContainer">#F8BBD0</color>
-    <!-- Pink 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
     <color name="pinkSecondaryContainer">#F8BCD0</color>
+    <color name="pinkOnPrimary">#FFFFFF</color>
     <color name="pinkColorBackground">#FCFCFF</color>
 
     <!-- Red colors -->
-    <!-- Red 600 -->
     <color name="redColorAccent">#E53935</color>
-    <!-- Red 600 -->
     <color name="redColorPrimary">#E53935</color>
-    <!-- Red 50 -->
     <color name="redColorSurface">#FFEBEE</color>
-    <!-- Red 200 -->
     <color name="redPrimaryInverse">#EF9A9A</color>
-    <!-- Red 100 -->
     <color name="redPrimaryContainer">#FFCDD2</color>
-    <!-- Red 200 - Lighten to 40% with https://mdigi.tools/lighten-color/ -->
+    <color name="redOnPrimary">#FFFFFF</color>
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorBackground">#FCFCFF</color>
 </resources>

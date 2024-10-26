@@ -63,117 +63,73 @@
     <color name="next_alarm_widget_title_color">#D1E5F4</color>
     <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
 
-    <!-- The colors are picked up from https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors -->
-
     <!-- Blue Gray colors -->
-    <!-- Blue Gray 200 -->
     <color name="blueGrayColorAccent">#B0BEC5</color>
-    <!-- Blue Gray 200 -->
     <color name="blueGrayColorPrimary">#B0BEC5</color>
-    <!-- Blue Gray 900 -->
-    <color name="blueGrayColorSurface">#263238</color>
-    <!-- Blue Gray 600 -->
+    <color name="blueGrayColorSurface">#383a3c</color>
     <color name="blueGrayPrimaryInverse">#546E7A</color>
-    <!-- Blue Gray 700 -->
-    <color name="blueGrayPrimaryContainer">#455A64</color>
-    <!-- Blue Gray 700 with transparency set to 40% -->
-    <color name="blueGraySecondaryContainer">#66455A64</color>
-    <!-- Blue Gray 900 - Darkened to 40% with https://mdigi.tools/darken-color/ -->
-    <color name="blueGrayColorBackground">#171E22</color>
+    <color name="blueGrayPrimaryContainer">#2a353a</color>
+    <color name="blueGraySecondaryContainer">#3f5059</color>
+    <color name="blueGrayOnPrimary">#37474F</color>
+    <color name="blueGrayColorBackground">#161717</color>
 
     <!-- Brown colors -->
-    <!-- Brown 200 -->
     <color name="brownColorAccent">#BCAAA4</color>
-    <!-- Brown 200 -->
     <color name="brownColorPrimary">#BCAAA4</color>
-    <!-- Brown 900 -->
-    <color name="brownColorSurface">#3E2723</color>
-    <!-- Brown 600 -->
+    <color name="brownColorSurface">#3a3838</color>
     <color name="brownPrimaryInverse">#6D4C41</color>
-    <!-- Brown 700 -->
-    <color name="brownPrimaryContainer">#5D4037</color>
-    <!-- Brown 700 with transparency set to 90% -->
-    <color name="brownSecondaryContainer">#E65D4037</color>
-    <!-- Brown 900 - Darkened to 40% with https://mdigi.tools/darken-color/ -->
-    <color name="brownColorBackground">#251715</color>
+    <color name="brownPrimaryContainer">#352622</color>
+    <color name="brownSecondaryContainer">#503931</color>
+    <color name="brownOnPrimary">#4E342E</color>
+    <color name="brownColorBackground">#171515</color>
 
     <!-- Green colors -->
-    <!-- Green 200 -->
     <color name="greenColorAccent">#A5D6A7</color>
-    <!-- Green 200 -->
     <color name="greenColorPrimary">#A5D6A7</color>
-    <!-- Green 900 - Darkened to 30% with https://mdigi.tools/darken-color/ -->
-    <color name="greenColorSurface">#134216</color>
-    <!-- Green 600 -->
+    <color name="greenColorSurface">#383e38</color>
     <color name="greenPrimaryInverse">#43A047</color>
-    <!-- Green 700 -->
-    <color name="greenPrimaryContainer">#388E3C</color>
-    <!-- Green 700 with transparency set to 40% -->
-    <color name="greenSecondaryContainer">#66388E3C</color>
-    <!-- Green 900 - Darkened to 60% with https://mdigi.tools/darken-color/ -->
-    <color name="greenColorBackground">#0B260D</color>
+    <color name="greenPrimaryContainer">#264a25</color>
+    <color name="greenSecondaryContainer">#347336</color>
+    <color name="greenOnPrimary">#2E7D32</color>
+    <color name="greenColorBackground">#151915</color>
 
     <!-- Indigo colors -->
-    <!-- Indigo 200 -->
     <color name="indigoColorAccent">#9FA8DA</color>
-    <!-- Indigo 200 -->
     <color name="indigoColorPrimary">#9FA8DA</color>
-    <!-- Indigo 900 - Darkened to 10% with https://mdigi.tools/darken-color/ -->
-    <color name="indigoColorSurface">#172071</color>
-    <!-- Indigo 600 -->
+    <color name="indigoColorSurface">#37383f</color>
     <color name="indigoPrimaryInverse">#3949AB</color>
-    <!-- Indigo 700 -->
-    <color name="indigoPrimaryContainer">#303F9F</color>
-    <!-- Indigo 700 with transparency set to 90% -->
-    <color name="indigoSecondaryContainer">#E6303F9F</color>
-    <!-- Indigo 900 - Darkened to 50% with https://mdigi.tools/darken-color/ -->
-    <color name="indigoColorBackground">#0D123F</color>
+    <color name="indigoPrimaryContainer">#22254e</color>
+    <color name="indigoSecondaryContainer">#2e377b</color>
+    <color name="indigoOnPrimary">#283593</color>
+    <color name="indigoColorBackground">#151519</color>
 
     <!-- Orange colors -->
-    <!-- Orange 200 -->
     <color name="orangeColorAccent">#FFCC80</color>
-    <!-- Orange 200 -->
     <color name="orangeColorPrimary">#FFCC80</color>
-    <!-- Orange 900 - Darkened to 65% with https://mdigi.tools/darken-color/ -->
-    <color name="orangeColorSurface">#501C00</color>
-    <!-- Orange 600 -->
+    <color name="orangeColorSurface">#453d32</color>
     <color name="orangePrimaryInverse">#FB8C00</color>
-    <!-- Orange 700 -->
-    <color name="orangePrimaryContainer">#F57C00</color>
-    <!-- Orange 700 with transparency set to 30% -->
-    <color name="orangeSecondaryContainer">#4DF57C00</color>
-    <!-- Orange 900 - Darkened to 80% with https://mdigi.tools/darken-color/ -->
-    <color name="orangeColorBackground">#2E1000</color>
+    <color name="orangePrimaryContainer">#714212</color>
+    <color name="orangeSecondaryContainer">#b36610</color>
+    <color name="orangeOnPrimary">#EF6C00</color>
+    <color name="orangeColorBackground">#1c1812</color>
 
     <!-- Pink colors -->
-    <!-- Pink 200 -->
     <color name="pinkColorAccent">#F48FB1</color>
-    <!-- Pink 200 -->
     <color name="pinkColorPrimary">#F48FB1</color>
-    <!-- Pink 900 - Darkened to 50% with https://mdigi.tools/darken-color/ -->
-    <color name="pinkColorSurface">#440727</color>
-    <!-- Pink 600 -->
+    <color name="pinkColorSurface">#433538</color>
     <color name="pinkPrimaryInverse">#D81B60</color>
-    <!-- Pink 700 -->
-    <color name="pinkPrimaryContainer">#C2185B</color>
-    <!-- Pink 700 with transparency set to 40% -->
-    <color name="pinkSecondaryContainer">#66C2185B</color>
-    <!-- Pink 900 - Darkened to 70% with https://mdigi.tools/darken-color/ -->
-    <color name="pinkColorBackground">#290418</color>
+    <color name="pinkPrimaryContainer">#621c2f</color>
+    <color name="pinkSecondaryContainer">#9b1f47</color>
+    <color name="pinkOnPrimary">#AD1457</color>
+    <color name="pinkColorBackground">#1b1416</color>
 
     <!-- Red colors -->
-    <!-- Red 200 -->
     <color name="redColorAccent">#EF9A9A</color>
-    <!-- Red 200 -->
     <color name="redColorPrimary">#EF9A9A</color>
-    <!-- Red 900 - Darkened to 60% with https://mdigi.tools/darken-color/ -->
-    <color name="redColorSurface">#490B0B</color>
-    <!-- Red 600 -->
+    <color name="redColorSurface">#433636</color>
     <color name="redPrimaryInverse">#E53935</color>
-    <!-- Red 700 -->
-    <color name="redPrimaryContainer">#D32F2F</color>
-    <!-- Red 700 with transparency set to 40% -->
-    <color name="redSecondaryContainer">#66D32F2F</color>
-    <!-- Red 900 - Darkened to 80% with https://mdigi.tools/darken-color/ -->
-    <color name="redColorBackground">#250606</color>
+    <color name="redPrimaryContainer">#68231d</color>
+    <color name="redSecondaryContainer">#a42f29</color>
+    <color name="redOnPrimary">#C62828</color>
+    <color name="redColorBackground">#1b1414</color>
 </resources>

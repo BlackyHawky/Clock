@@ -8,6 +8,14 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -127,7 +135,17 @@ public class AnalogClock extends FrameLayout {
         } else if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
             Utils.dimScreensaverView(context, mSecondHand, screensaverSecondsHandColor);
         } else {
-            mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
+            final String accentColor = DataModel.getDataModel().getAccentColor();
+            switch (accentColor) {
+                case BLUE_GRAY_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));
+                case BROWN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.brownColorPrimary));
+                case GREEN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.greenColorPrimary));
+                case INDIGO_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.indigoColorPrimary));
+                case ORANGE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.orangeColorPrimary));
+                case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
+                case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
+                default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
+            }
         }
         addView(mSecondHand);
     }
