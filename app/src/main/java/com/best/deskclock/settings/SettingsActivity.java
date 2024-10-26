@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -44,6 +45,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 /**
  * Application settings
@@ -256,16 +258,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             .setMessage(R.string.backup_restore_dialog_message)
                             .setPositiveButton(android.R.string.cancel, null)
                             .setNegativeButton(R.string.backup_restore_backup_button_title, (dialog, which) -> {
+                                String currentDateAndTime = DateFormat.format("yyyyMMdd_HHmmss", new Date()).toString();
                                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label) + "_backup.txt")
-                                        .setType("text/plain");
+                                        .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
+                                                + "_backup_" + currentDateAndTime + ".json")
+                                        .setType("application/json");
                                 backupToFile.launch(intent);
                             })
                             .setNeutralButton(R.string.backup_restore_restore_button_title, (dialog, which) -> {
                                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
-                                        .setType("text/plain");
+                                        .setType("application/json");
                                 restoreFromFile.launch(intent);
                             })
                             .create();
