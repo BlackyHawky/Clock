@@ -129,10 +129,6 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockColorPicker(mPrefs);
     }
 
-    public int getScreensaverSecondsHandColorPicker() {
-        return SettingsDAO.getScreensaverSecondsHandColorPicker(mPrefs);
-    }
-
     public int getScreensaverDateColorPicker() {
         return SettingsDAO.getScreensaverDateColorPicker(mPrefs);
     }

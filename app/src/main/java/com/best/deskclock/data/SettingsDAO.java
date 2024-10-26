@@ -56,7 +56,6 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_CREATION_DATE;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
@@ -288,13 +287,6 @@ final class SettingsDAO {
      */
     static int getScreensaverClockColorPicker(SharedPreferences prefs) {
         return prefs.getInt(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF"));
-    }
-
-    /**
-     * @return a value indicating the alarm seconds hand color.
-     */
-    static int getScreensaverSecondsHandColorPicker(SharedPreferences prefs) {
-        return prefs.getInt(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER, Color.parseColor("#FFFFFF"));
     }
 
     /**

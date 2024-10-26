@@ -107,7 +107,6 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER;
@@ -308,7 +307,6 @@ public class BackupAndRestoreUtils {
 
                     // Values from ScreensaverSettingsActivity
                     ints.put(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF")));
-                    ints.put(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_SECONDS_HAND_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_DATE_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_BRIGHTNESS, prefs.getInt(KEY_SCREENSAVER_BRIGHTNESS, 40));

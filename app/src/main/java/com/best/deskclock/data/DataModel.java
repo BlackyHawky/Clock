@@ -1107,14 +1107,6 @@ public final class DataModel {
     }
 
     /**
-     * @return the color of the seconds hand to display in the screensaver
-     */
-    public int getScreensaverSecondsHandColorPicker() {
-        enforceMainLooper();
-        return mSettingsModel.getScreensaverSecondsHandColorPicker();
-    }
-
-    /**
      * @return the color of the date to display in the screensaver
      */
     public int getScreensaverDateColorPicker() {

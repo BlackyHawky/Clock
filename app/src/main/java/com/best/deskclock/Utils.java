@@ -539,6 +539,7 @@ public class Utils {
 
         setScreensaverClockStyle(textClock, analogClock);
         dimScreensaverView(context, textClock, screenSaverClockColorPicker);
+        dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
         dimScreensaverView(context, date, screensaverDateColorPicker);
         dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
         dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
@@ -853,8 +854,8 @@ public class Utils {
 
         switch (accentColor) {
             case DEFAULT_ACCENT_COLOR -> {
-                if (activity instanceof CollapsingToolbarBaseActivity) {
-                    activity.setTheme(R.style.DefaultColor);
+                if (activity instanceof CollapsingToolbarBaseActivity || activity instanceof ScreensaverActivity) {
+                    activity.setTheme(R.style.Theme_DeskClock);
                 } else {
                     activity.setTheme(R.style.Theme_DeskClock_Actionbar);
                 }

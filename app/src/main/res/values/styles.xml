@@ -156,10 +156,6 @@
         <item name="cornerRadius">8dp</item>
     </style>
 
-    <!-- DEFAULT ACCENT COLOR -->
-    <!-- Empty because this theme uses the default colors indicated above -->
-    <style name="DefaultColor" parent="@style/Theme.DeskClock" />
-
     <!-- BLUE GRAY ACCENT COLOR -->
     <style name="BlueGrayAccentColor">
         <item name="android:navigationBarColor">@color/blueGrayColorSurface</item>

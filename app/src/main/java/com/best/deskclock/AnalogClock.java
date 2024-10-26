@@ -92,17 +92,13 @@ public class AnalogClock extends FrameLayout {
         final int clockColor = context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity
                 ? alarmClockColor
                 : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
-        final int screenSaverClockColor = DataModel.getDataModel().getScreensaverClockColorPicker();
-        final int screensaverSecondsHandColor = DataModel.getDataModel().getScreensaverSecondsHandColorPicker();
 
         // Must call mutate on these instances, otherwise the drawables will blur, because they're
         // sharing their size characteristics with the (smaller) world cities analog clocks.
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
         dial.getDrawable().mutate();
-        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            Utils.dimScreensaverView(context, dial, screenSaverClockColor);
-        } else {
+        if (!(context instanceof ScreensaverActivity)) {
             dial.setColorFilter(clockColor);
         }
         addView(dial);
@@ -110,9 +106,7 @@ public class AnalogClock extends FrameLayout {
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
         mHourHand.getDrawable().mutate();
-        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            Utils.dimScreensaverView(context, mHourHand, screenSaverClockColor);
-        } else {
+        if (!(context instanceof ScreensaverActivity)) {
             mHourHand.setColorFilter(clockColor);
         }
         addView(mHourHand);
@@ -120,9 +114,7 @@ public class AnalogClock extends FrameLayout {
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
         mMinuteHand.getDrawable().mutate();
-        if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            Utils.dimScreensaverView(context, mMinuteHand, screenSaverClockColor);
-        } else {
+        if (!(context instanceof ScreensaverActivity)) {
             mMinuteHand.setColorFilter(clockColor);
         }
         addView(mMinuteHand);
@@ -132,9 +124,7 @@ public class AnalogClock extends FrameLayout {
         mSecondHand.getDrawable().mutate();
         if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
             mSecondHand.setColorFilter(alarmSecondsHandColor);
-        } else if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            Utils.dimScreensaverView(context, mSecondHand, screensaverSecondsHandColor);
-        } else {
+        } else if (!(context instanceof ScreensaverActivity)) {
             final String accentColor = DataModel.getDataModel().getAccentColor();
             switch (accentColor) {
                 case BLUE_GRAY_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));

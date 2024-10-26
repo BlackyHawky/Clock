@@ -53,15 +53,6 @@
             app:singleLineTitle="false" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_screensaver_seconds_hand_color_picker"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/seconds_hand_color_title"
-            android:defaultValue="#FFFFFF"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
-        <com.rarepebble.colorpicker.ColorPreference
             android:key="key_screensaver_date_color_picker"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/screensaver_date_color_title"
