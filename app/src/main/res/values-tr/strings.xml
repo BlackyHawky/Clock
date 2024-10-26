@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Saat"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Titreşim"</string>
@@ -206,7 +204,7 @@
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
-    <skip />
+    <skip/>
     <string name="jocular_content_message_1">"Oldukça yüksek hız tutkunusunuz."</string>
     <string name="jocular_content_message_2">"Çalışmanızın meyvesini toplayabilirsiniz."</string>
     <string name="jocular_content_message_3">"Android\'ler hızlarıyla bilinir, ancak sizin kadar hızlı değiller!"</string>
@@ -345,7 +343,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarmı daralt"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"geri al"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm silindi"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> önde"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> geride"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> önde"</string>

@@ -343,7 +343,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">Ahenda äratus</string>
     <string name="alarm_undo" msgid="5710042601177655254">"võta tagasi"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Äratus on kustutatud"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ees"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> taga"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ees"</string>
@@ -507,43 +507,7 @@
 \nEnamuse rakenduste jaoks see ongi sobilik, aga meie rakendus on mõeldud äratuste jaoks ning akukasutuse optimeerimine segab seda tööd. Näiteks sel puhul võib Android rakenduse töö suvalisel hetkel lõpetada ja sellega enam ei toimi ka ajastatud äratused.
 \n
 \nMeie soovitame, et sa selle rakenduse puhul ei kasuta akukasutuse optimeerimist.</string>
-    <string name="about_dialog_message"> \u0020• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; 
-\n
-\n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; 
-\n
-\n• Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud; 
-\n
-\n• Viipamisega saad äratuse kustutada; 
-\n
-\n• Äratusest saad teha koopiaid; 
-\n
-\n• Äratuse nime saad kohendada; 
-\n
-\n• Äratuse helinat saad kohendada; 
-\n
-\n• Hele, tume ja süsteemne kujundus; 
-\n
-\n• AMOLED-režiim tumedas kujunduses; 
-\n
-\n• Digikella või sihverplaadiga kella välimused; 
-\n
-\n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; 
-\n
-\n• Näita kellaaegu linnades üle maailma; 
-\n
-\n• Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>; 
-\n
-\n• Stopperi aja jagamise võimalus oma kontaktidega; 
-\n
-\n• Kohandatav ekraanisäästja; 
-\n
-\n• Moodsad vidinad; 
-\n
-\n• Kohandatavad vidinad;
-\n
-\n• Material design; 
-\n
-\n• Dünaamilised värvid Android 12+ puhul; \u0020</string>
+    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud; \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
     <string name="FSN_permission_title">LUBA TÄISEKRAANITEAVITUSED</string>
     <string name="permission_requirement_title">Vajadus: </string>
     <string name="permission_denied">Keelatud</string>
@@ -653,4 +617,28 @@
     <string name="bedtime_reminder_notification_10_minutes">10 minutit enne magamaminekut</string>
     <string name="bedtime_reminder_notification_20_minutes">20 minutit enne magamaminekut</string>
     <string name="bedtime_reminder_notification_45_minutes">45 minutit enne magamaminekut</string>
+    <string name="auto_silence_10_seconds">10 sekundit</string>
+    <string name="auto_silence_20_seconds">20 sekundit</string>
+    <string name="auto_silence_30_seconds">30 sekundit</string>
+    <string name="auto_silence_5_seconds">5 sekundit</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Loobu ja kustuta</string>
+    <string name="alarm_alert_off_and_deleted_text">Loobusid äratusest ja kustutasid ta</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Seda seadistust saad iga äratuse puhul muuta äratuse laiendatud vaates</string>
+    <string name="description_direction_right_for_occasional_alarm">Viipa paremale äratuse kustutamiseks peale loobumist</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Viipa vasakule äratuse kustutamiseks peale loobumist</string>
+    <string name="description_direction_both_for_occasional_alarm">Edasilükkamiseks viipa vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Edasilükkamiseks klõpsi vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Äratusest loobumiseks ning tema kustutamiseks viipa vasakule või paremale</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Äratusest loobumiseks ning tema kustutamiseks klõpsi vasakule või paremale</string>
+    <string name="delete_occasional_alarm_after_use_title">Kustuta äratus peale loobumist</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Vaikimisi kasuta juhuslike äratuste automaatset kustutamist</string>
+    <string name="occasional_alarm_alert_predismiss_title">Tulevane juhuäratus</string>
+    <string name="occasional_alarm_deleted">Juhuäratus on kustutatud</string>
+    <string name="backup_restore_dialog_message">Kas sa soovid seadistusi varundada faili või neid taastada sealt?</string>
+    <string name="backup_restore_backup_button_title">Varunda</string>
+    <string name="backup_restore_restore_button_title">Taasta</string>
+    <string name="backup_restore_settings_title">Varundus ja taastamine</string>
+    <string name="backup_restore_settings_summary">Varunda ja taasta seadistusi, aga mitte äratusi, taimereid ja helinaid</string>
+    <string name="backup_restore_toast_message_for_backup">Varukoopia on tehtud</string>
+    <string name="backup_restore_toast_message_for_restore">Varukoopiast taastamine on lõppenud</string>
 </resources>

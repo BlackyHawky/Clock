@@ -213,7 +213,7 @@
     <string name="swipe_action_title">Glisser pour répéter ou arrêter les alarmes</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string name="button_action_snooze">Répéter</string>
-    <string name="button_action_dismiss">Ignorer</string>
+    <string name="button_action_dismiss">Arrêter</string>
     <string name="button_action_control_volume">Contrôler le volume</string>
     <string name="button_action_nothing">Aucune</string>
     <string name="power_button_title">Bouton d\'alimentation</string>
@@ -506,7 +506,7 @@
     <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarme supprimée"</string>
     <string name="alarm_created">Alarme créée</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> de plus"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> de moins"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> et <xliff:g id="MINUTES">%2$s</xliff:g> de plus"</string>
@@ -531,9 +531,9 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durée de minuteur incorrecte."</string>
     <string name="invalid_timer" msgid="900957020728335675">"Minuteur non valide sélectionné"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Aucun minuteur expiré"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Impossible d\'ignorer l\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> pour le moment, car celle-ci est prévue pour dans plus de 24 heures."</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorer l\'alarme"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Veuillez sélectionner l\'alarme que vous souhaitez ignorer."</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Impossible d\'arrêter l\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> pour le moment, car celle-ci est prévue pour dans plus de 24 heures.</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">Arrêter l\'alarme</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Veuillez sélectionner l\'alarme que vous souhaitez arrêter</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Aucune alarme n\'a été déclenchée."</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"L\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> a été reportée de 10 minutes."</string>
     <string name="flip_action_title">Action lorsque l\'appareil est retourné</string>
@@ -650,4 +650,28 @@
     <string name="sort_timer_ascending_duration">Par durée (ordre croissant)</string>
     <string name="sort_timer_descending_duration">Par durée (ordre décroissant)</string>
     <string name="sort_timer_name">Par nom</string>
+    <string name="auto_silence_5_seconds">5 secondes</string>
+    <string name="auto_silence_10_seconds">10 secondes</string>
+    <string name="auto_silence_20_seconds">20 secondes</string>
+    <string name="auto_silence_30_seconds">30 secondes</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Glisser vers la gauche pour arrêter et supprimer l\'alarme</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Activer par défaut la suppression automatique des alarmes occasionnelles</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
+    <string name="description_direction_right_for_occasional_alarm">Glisser vers la droite pour arrêter et supprimer l\'alarme</string>
+    <string name="delete_occasional_alarm_after_use_title">Supprimer l\'alarme une fois arrêtée</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Quitter &amp; Supprimer</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarme arrêtée et supprimée</string>
+    <string name="description_direction_both_for_occasional_alarm">Glisser vers la gauche pour répéter ou vers la droite pour arrêter et supprimer l\'alarme</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Cliquer à gauche pour répéter ou à droite pour arrêter et supprimer l\'alarme</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter et supprimer l\'alarme</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Cliquer à gauche ou à droite pour arrêter et supprimer l\'alarme</string>
+    <string name="occasional_alarm_alert_predismiss_title">Alarme occasionnelle imminente</string>
+    <string name="occasional_alarm_deleted">Alarme occasionnelle supprimée</string>
+    <string name="backup_restore_settings_title">Sauvegarde &amp; Restauration</string>
+    <string name="backup_restore_dialog_message">Voulez-vous sauvegarder ou restaurer les paramètres depuis un fichier ?</string>
+    <string name="backup_restore_backup_button_title">Sauvegarder</string>
+    <string name="backup_restore_restore_button_title">Restaurer</string>
+    <string name="backup_restore_settings_summary">Sauvegarde ou restaure les paramètres à l\'exception des alarmes, des minuteurs et des sonneries</string>
+    <string name="backup_restore_toast_message_for_backup">Sauvegarde terminée</string>
+    <string name="backup_restore_toast_message_for_restore">Restauration terminée</string>
 </resources>

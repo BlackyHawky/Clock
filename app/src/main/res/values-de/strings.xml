@@ -343,7 +343,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Wecker minimieren"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Weckzeit gelöscht"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> vor</string>
     <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> zurück</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> vor</string>

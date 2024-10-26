@@ -334,7 +334,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">折叠闹钟</string>
     <string name="alarm_undo" msgid="5710042601177655254">撤销</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"闹钟已删除"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">提前 <xliff:g example="6 hours" id="time">%1$s</xliff:g></string>
     <string name="world_time_behind" msgid="5395771290726167865">落后 <xliff:g example="4 hours" id="time">%1$s</xliff:g></string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">提前 <xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g></string>
@@ -369,7 +369,7 @@
     <string name="firing_alarms_timers_channel">触发闹钟和定时器</string>
     <string name="alarm_missed_channel">错过的闹钟</string>
     <string name="alarm_snooze_channel">暂停的闹钟</string>
-    <string name="alarm_upcoming_channel">即将响铃的闹钟</string>
+    <string name="alarm_upcoming_channel">预定的闹钟</string>
     <string name="stopwatch_channel">秒表</string>
     <string name="timer_channel">定时器</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">铃声结束</string>
@@ -479,7 +479,7 @@
     <string name="dialog_close">关闭</string>
     <string name="bedtime_service_desc">处理来自就寝时间通知的操作。</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑动以关闭</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">单击左或右以关闭</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">单击左键或右键以关闭</string>
     <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
     <string name="default_time_to_add_to_timer_title">添加到定时器的默认时间</string>
     <string name="screensaver_settings_summary">设置屏幕保护程序的风格、颜色和字体</string>
@@ -590,13 +590,13 @@
     <string name="widgets_settings_summary">设置微件的样式、颜色和字体大小</string>
     <string name="settings_tab_indicator_title">在底部导航菜单中显示选项卡指示</string>
     <string name="material_you_next_alarm_widget">下次闹钟 Material You</string>
-    <string name="next_alarm_widget_custom_title_color">“下次闹钟”和“没有即将到来的闹钟”标题自定义颜色</string>
+    <string name="next_alarm_widget_custom_title_color">“下次闹钟”和“没有预定的闹钟”标题自定义颜色</string>
     <string name="next_alarm_widget_default_alarm_title_color">使用默认颜色作为闹钟标题</string>
     <string name="next_alarm_widget_custom_alarm_title_color">闹钟标题自定义颜色</string>
     <string name="next_alarm_widget_max_font_size_title">微件最大字体大小</string>
     <string name="next_alarm_widget_text">下次闹钟</string>
-    <string name="next_alarm_widget_title_no_alarm">没有即将到来的闹钟</string>
-    <string name="next_alarm_widget_default_title_color">为“下次闹钟”和“没有即将到来的闹钟”标题使用默认颜色</string>
+    <string name="next_alarm_widget_title_no_alarm">没有预定的闹钟</string>
+    <string name="next_alarm_widget_default_title_color">为“下次闹钟”和“没有预定的闹钟”标题使用默认颜色</string>
     <string name="settings_fade_transitions_title">切换屏幕时启用淡入淡出过渡</string>
     <string name="next_alarm_widget">下次闹钟</string>
     <string name="sort_timer_title">排序定时器</string>
@@ -644,4 +644,28 @@
     <string name="alarm_notification_reminder_15_minutes">15 分钟前</string>
     <string name="snooze_duration_none">无</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 分钟</string>
+    <string name="auto_silence_10_seconds">10 秒</string>
+    <string name="auto_silence_20_seconds">20 秒</string>
+    <string name="auto_silence_30_seconds">30 秒</string>
+    <string name="auto_silence_5_seconds">5 秒</string>
+    <string name="alarm_alert_dismiss_and_delete_text">关闭并删除</string>
+    <string name="description_direction_both_for_occasional_alarm">向左滑动以暂停，向右滑动以关闭并删除闹钟</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">单击左键以暂停，单击右键以关闭并删除闹钟</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">向左或向右滑动以关闭并删除闹钟</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">单击左键或右键以关闭并删除闹钟</string>
+    <string name="delete_occasional_alarm_after_use_title">关闭后立即删除闹钟</string>
+    <string name="description_direction_right_for_occasional_alarm">向右滑动以关闭并删除闹钟</string>
+    <string name="alarm_alert_off_and_deleted_text">闹钟已关闭并删除</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">向左滑动以关闭并删除闹钟</string>
+    <string name="occasional_alarm_alert_predismiss_title">预定的临时闹钟</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">默认启用自动删除临时闹钟</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
+    <string name="occasional_alarm_deleted">临时闹钟已删除</string>
+    <string name="backup_restore_settings_title">备份和还原</string>
+    <string name="backup_restore_settings_summary">备份或还原设置，闹钟、定时器和铃声除外</string>
+    <string name="backup_restore_dialog_message">是否要从文件中备份或还原设置？</string>
+    <string name="backup_restore_backup_button_title">备份</string>
+    <string name="backup_restore_restore_button_title">还原</string>
+    <string name="backup_restore_toast_message_for_backup">备份已完成</string>
+    <string name="backup_restore_toast_message_for_restore">还原已完成</string>
 </resources>

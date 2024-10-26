@@ -352,7 +352,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">Restrânge alarma</string>
     <string name="alarm_undo" msgid="5710042601177655254">anulare</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ștearsă"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288"> /<xliff:g id="LABEL">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"cu <xliff:g id="TIME">%1$s</xliff:g> înainte"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"cu <xliff:g id="TIME">%1$s</xliff:g> în urmă"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"cu <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> înainte"</string>

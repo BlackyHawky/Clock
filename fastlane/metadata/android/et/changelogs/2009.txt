@@ -1,0 +1,13 @@
+**Parandused**
+- alla 5-sekundilise kestusega taimer jääb lõputult tööle
+- Material You vidinate värviloogika, mis ei järginud nutiseadme päeva/öökujundust
+- Kella seadistused ei jõustunud korrektselt kõikides nutiseadmetes
+
+**Täiendused**
+- lisasime 2 uut vidinat
+- hajumisega üleminekud pole enam vaikimisi kasutusel
+ 
+- Kõik parandused leiad siit: https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+ **Märkus:**
+Kuna vidinate sisemine loogika muutus, siis võib neid vaja olla uuesti laadida

@@ -207,7 +207,7 @@
     <skip/>
     <string name="jocular_content_message_1">"Je bent wel erg snel."</string>
     <string name="jocular_content_message_2">"Profiteer van je inspanningen."</string>
-    <string name="jocular_content_message_3">"Androids staan bekend om hun snelheid, maar jij bent nog sneller."</string>
+    <string name="jocular_content_message_3">Androids staan bekend om hun snelheid, maar jij bent nog sneller!</string>
     <string name="jocular_content_message_4">"Oef."</string>
     <string name="jocular_content_message_5">"Mooie tijden."</string>
     <string name="jocular_content_message_6">"Wat een wonderbaarlijke snelheid."</string>
@@ -343,7 +343,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Wekker samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288"> / <xliff:g id="label">%s</xliff:g></string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> later"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> vroeger"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> later"</string>
@@ -404,43 +404,7 @@
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
     <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
-    <string name="about_dialog_message">"  • Omdraaien en schudden om wekker uit te zetten/stellen; 
-\n
-\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen; 
-\n
-\n• Alleen voor Snapdragon telefoons, wekker af laten gaan als het toestel is uitgeschakeld; 
-\n
-\n• Veeg om wekker te verwijderen; 
-\n
-\n• Wekkers dupliceren; 
-\n
-\n• Wekkertitel aanpassen; 
-\n
-\n• Wekkergeluid aanpassen; 
-\n
-\n• Licht, donker of systeemthema;; 
-\n
-\n• AMOLED-modus voor donker thema; 
-\n
-\n• Digitale of analoge klokstijl; 
-\n
-\n• Klok voor thuis tijdens het reizen; 
-\n
-\n• Bekijk de tijd in vele steden rond de wereld; 
-\n
-\n• Bevat timer, stopwatch en bedtijd; 
-\n
-\n• Mogelijkheid om stopwatchtijden te delen met contacten; 
-\n
-\n• Aanpasbare screensaver; 
-\n
-\n• Moderne widgets; 
-\n
-\n• Aanpasbare widgets;
-\n
-\n• Material design; 
-\n
-\n• Dynamische kleuren voor Android 12+;  "</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen; \n\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen; \n\n• Alleen voor Snapdragon telefoons, wekker af laten gaan als het toestel is uitgeschakeld; \n\n• Veeg om wekker te verwijderen; \n\n• Wekkers dupliceren; \n\n• Wekkertitel aanpassen; \n\n• Wekkergeluid aanpassen; \n\n• Licht, donker of systeemthema;; \n\n• AMOLED-modus voor donker thema; \n\n• Digitale of analoge klokstijl; \n\n• Klok voor thuis tijdens het reizen; \n\n• Bekijk de tijd in vele steden rond de wereld; \n\n• Bevat timer, stopwatch en bedtijd; \n\n• Mogelijkheid om stopwatchtijden te delen met contacten; \n\n• Aanpasbare screensaver; \n\n• Moderne widgets; \n\n• Aanpasbare widgets;\n\n• Material design; \n\n• Dynamische kleuren voor Android 12+;</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -528,7 +492,7 @@
     <string name="digital_widget_message_summary">Steden op widget tonen moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uit zetten als wekkergeluid eindigt</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als wekkergeluid eindigt</string>
     <string name="actions_category_title">Acties</string>
     <string name="interface_customization_summary">Uiterlijk en de kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te snoozen of uit te zetten</string>
