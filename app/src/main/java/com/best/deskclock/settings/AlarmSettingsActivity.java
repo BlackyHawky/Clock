@@ -103,7 +103,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
             mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
-            hidePreferences();
+            setupPreferences();
         }
 
         @Override
@@ -166,10 +166,23 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             return true;
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
             final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefaultPref.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
+
+            SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+            if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+                mFlipActionPref.setValue("0");
+                mShakeActionPref.setValue("0");
+                mFlipActionPref.setVisible(false);
+                mShakeActionPref.setVisible(false);
+            } else {
+                mFlipActionPref.setSummary(mFlipActionPref.getEntry());
+                mFlipActionPref.setOnPreferenceChangeListener(this);
+                mShakeActionPref.setSummary(mShakeActionPref.getEntry());
+                mShakeActionPref.setOnPreferenceChangeListener(this);
+            }
         }
 
         private void refresh() {
@@ -194,9 +207,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mPowerButtonPref.setOnPreferenceChangeListener(this);
             mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
-
-            setupFlipOrShakeAction(mFlipActionPref);
-            setupFlipOrShakeAction(mShakeActionPref);
 
             // Set the default first day of the week programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
@@ -231,20 +241,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             } else {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                         R.plurals.auto_silence_summary, i));
-            }
-        }
-
-        private void setupFlipOrShakeAction(ListPreference preference) {
-            if (preference != null) {
-                SensorManager sensorManager = (SensorManager) requireActivity()
-                        .getSystemService(Context.SENSOR_SERVICE);
-                if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
-                    preference.setValue("0");  // Turn it off
-                    preference.setVisible(false);
-                } else {
-                    preference.setSummary(preference.getEntry());
-                    preference.setOnPreferenceChangeListener(this);
-                }
             }
         }
     }

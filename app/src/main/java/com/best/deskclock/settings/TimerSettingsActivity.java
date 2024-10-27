@@ -3,6 +3,8 @@
 package com.best.deskclock.settings;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 
@@ -26,6 +28,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_AUTO_SILENCE = "key_timer_auto_silence";
     public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
+    public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
+    public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_SORT_TIMER_BY_CREATION_DATE = "0";
     public static final String KEY_SORT_TIMER_BY_ASCENDING_DURATION = "1";
@@ -51,12 +55,14 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static class PrefsFragment extends ScreenFragment implements
             Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-        ListPreference mTimerAutoSilence;
+        ListPreference mTimerAutoSilencePref;
         ListPreference mTimerCrescendoPref;
         ListPreference mSortTimerPref;
         ListPreference mDefaultMinutesToAddToTimerPref;
         Preference mTimerRingtonePref;
         Preference mTimerVibratePref;
+        SwitchPreferenceCompat mTimerFlipActionPref;
+        SwitchPreferenceCompat mTimerShakeActionPref;
         SwitchPreferenceCompat mKeepTimerScreenOnPref;
         SwitchPreferenceCompat mTransparentBackgroundPref;
 
@@ -67,15 +73,17 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             addPreferencesFromResource(R.xml.settings_timer);
 
             mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
-            mTimerAutoSilence = findPreference(KEY_TIMER_AUTO_SILENCE);
+            mTimerAutoSilencePref = findPreference(KEY_TIMER_AUTO_SILENCE);
             mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
             mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
+            mTimerFlipActionPref = findPreference(KEY_TIMER_FLIP_ACTION);
+            mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
             mSortTimerPref = findPreference(KEY_SORT_TIMER);
             mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
             mKeepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
             mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
 
-            hidePreferences();
+            setupPreferences();
         }
 
         @Override
@@ -109,7 +117,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     requireActivity().setResult(RESULT_OK);
                 }
 
-                case KEY_KEEP_TIMER_SCREEN_ON, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
+                case KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_KEEP_TIMER_SCREEN_ON,
+                     KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
                         Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -130,18 +139,31 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             return false;
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
             final boolean hasVibrator = ((Vibrator) mTimerVibratePref.getContext()
                     .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mTimerVibratePref.setVisible(hasVibrator);
+
+            SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
+            if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
+                mTimerFlipActionPref.setChecked(false);
+                mTimerShakeActionPref.setChecked(false);
+                mTimerFlipActionPref.setVisible(false);
+                mTimerShakeActionPref.setVisible(false);
+            } else {
+                mTimerFlipActionPref.setChecked(DataModel.getDataModel().isFlipActionForTimersEnabled());
+                mTimerFlipActionPref.setOnPreferenceChangeListener(this);
+                mTimerShakeActionPref.setChecked(DataModel.getDataModel().isShakeActionForTimersEnabled());
+                mTimerShakeActionPref.setOnPreferenceChangeListener(this);
+            }
         }
 
         private void refresh() {
             mTimerRingtonePref.setOnPreferenceClickListener(this);
             mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            mTimerAutoSilence.setOnPreferenceChangeListener(this);
-            mTimerAutoSilence.setSummary(mTimerAutoSilence.getEntry());
+            mTimerAutoSilencePref.setOnPreferenceChangeListener(this);
+            mTimerAutoSilencePref.setSummary(mTimerAutoSilencePref.getEntry());
 
             mTimerCrescendoPref.setOnPreferenceChangeListener(this);
             mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());

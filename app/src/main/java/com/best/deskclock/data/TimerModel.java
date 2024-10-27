@@ -485,10 +485,24 @@ final class TimerModel {
     }
 
     /**
-     * @return {@code true} if the device vibrates when timers expire
+     * @return {@code true} if the device vibrates when timers expire. {@code false} otherwise.
      */
     boolean getTimerVibrate() {
         return mSettingsModel.getTimerVibrate();
+    }
+
+    /**
+     * @return whether flip action for timers is enabled. {@code false} otherwise.
+     */
+    boolean isFlipActionForTimersEnabled() {
+        return mSettingsModel.isFlipActionForTimersEnabled();
+    }
+
+    /**
+     * @return whether shake action for timers is enabled. {@code false} otherwise.
+     */
+    boolean isShakeActionForTimersEnabled() {
+        return mSettingsModel.isShakeActionForTimersEnabled();
     }
 
     /**

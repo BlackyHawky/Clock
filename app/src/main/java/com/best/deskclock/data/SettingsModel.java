@@ -210,6 +210,14 @@ final class SettingsModel {
         SettingsDAO.setTimerVibrate(mPrefs, enabled);
     }
 
+    boolean isFlipActionForTimersEnabled() {
+        return SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
+    }
+
+    boolean isShakeActionForTimersEnabled() {
+        return SettingsDAO.isShakeActionForTimersEnabled(mPrefs);
+    }
+
     String getTimerSortingPreference() {
         return SettingsDAO.getTimerSortingPreference(mPrefs);
     }

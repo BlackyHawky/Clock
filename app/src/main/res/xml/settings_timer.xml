@@ -52,6 +52,30 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/actions_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_timer_flip_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/timer_flip_action_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_timer_shake_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/timer_shake_action_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"

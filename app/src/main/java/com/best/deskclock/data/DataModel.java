@@ -564,6 +564,20 @@ public final class DataModel {
     }
 
     /**
+     * @return whether flip action for timers is enabled. {@code false} otherwise.
+     */
+    public boolean isFlipActionForTimersEnabled() {
+        return mTimerModel.isFlipActionForTimersEnabled();
+    }
+
+    /**
+     * @return whether shake action for timers is enabled. {@code false} otherwise.
+     */
+    public boolean isShakeActionForTimersEnabled() {
+        return mTimerModel.isShakeActionForTimersEnabled();
+    }
+
+    /**
      * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
      */
     public String getTimerSortingPreference() {

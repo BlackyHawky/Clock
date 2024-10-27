@@ -378,7 +378,7 @@ final class SettingsDAO {
     }
 
     /**
-     * @return whether timer vibration is enabled. false by default.
+     * @return whether timer vibration is enabled. {@code false} otherwise.
      */
     static boolean getTimerVibrate(SharedPreferences prefs) {
         return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, false);
@@ -389,6 +389,20 @@ final class SettingsDAO {
      */
     static void setTimerVibrate(SharedPreferences prefs, boolean enabled) {
         prefs.edit().putBoolean(TimerSettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
+    }
+
+    /**
+     * @return whether flip action for timers is enabled. {@code false} otherwise.
+     */
+    static boolean isFlipActionForTimersEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_FLIP_ACTION, false);
+    }
+
+    /**
+     * @return whether shake action for timers is enabled. {@code false} otherwise.
+     */
+    static boolean isShakeActionForTimersEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_SHAKE_ACTION, false);
     }
 
     /**
