@@ -24,10 +24,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.ScreensaverActivity;
 import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -163,11 +161,7 @@ public class ThemeController {
             switch (accentColor) {
                 case DEFAULT -> {
                     if (getColor.equals(DEFAULT_ACCENT_COLOR)) {
-                        if (activity instanceof CollapsingToolbarBaseActivity || activity instanceof ScreensaverActivity) {
-                            activity.setTheme(R.style.Theme_DeskClock);
-                        } else {
-                            activity.setTheme(R.style.Theme_DeskClock_Actionbar);
-                        }
+                        activity.setTheme(R.style.DefaultColor);
                     }
                     activities.add(activity);
                 }

@@ -74,14 +74,6 @@
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
-    <style name="Theme.DeskClock.Wallpaper">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowShowWallpaper">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
-    </style>
-
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
         <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
     </style>
@@ -108,11 +100,6 @@
         <item name="autoSizeTextType">uniform</item>
         <item name="autoSizeMaxTextSize">36sp</item>
         <item name="autoSizeStepGranularity">1sp</item>
-    </style>
-
-    <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="CollapsingToolbarTitle.Collapsed" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
@@ -155,6 +142,26 @@
     <style name="MaterialTimePickerButtonOutlinedStyle" parent="Widget.MaterialComponents.TimePicker.Button">
         <item name="cornerRadius">8dp</item>
     </style>
+
+    <!-- ============ -->
+    <!--    THEMES    -->
+    <!-- ============ -->
+    <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+    </style>
+
+    <style name="Theme.DeskClock.Wallpaper">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+    </style>
+
+    <!-- DEFAULT ACCENT COLOR -->
+    <!-- Empty because this theme uses the default colors indicated above -->
+    <style name="DefaultColor" />
 
     <!-- BLUE GRAY ACCENT COLOR -->
     <style name="BlueGrayAccentColor">

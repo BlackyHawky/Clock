@@ -17,7 +17,6 @@ import static android.graphics.Bitmap.Config.ARGB_8888;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
@@ -853,13 +852,6 @@ public class Utils {
         }
 
         switch (accentColor) {
-            case DEFAULT_ACCENT_COLOR -> {
-                if (activity instanceof CollapsingToolbarBaseActivity || activity instanceof ScreensaverActivity) {
-                    activity.setTheme(R.style.Theme_DeskClock);
-                } else {
-                    activity.setTheme(R.style.Theme_DeskClock_Actionbar);
-                }
-            }
             case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
             case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
             case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);

@@ -54,8 +54,6 @@ public final class Screensaver extends DreamService {
     @Override
     public void onCreate() {
         LOGGER.v("Screensaver created");
-
-        setTheme(R.style.Theme_DeskClock);
         super.onCreate();
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);

@@ -65,6 +65,8 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Utils.applyThemeAndAccentColor(this);
+
         final List<Timer> expiredTimers = getExpiredTimers();
 
         // If no expired timers, finish
