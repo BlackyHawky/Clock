@@ -20,6 +20,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Flip and shake action to dismiss/postpone alarm;
 * Turn off/postpone the alarm with the power button or volume buttons;
 * For Snapdragon phones only, the alarm is triggered when the phone is switched off;
+  * Unfortunately, this feature may not work on some devices despite the presence of the _“com.qualcomm.qti.poweroffalarm”_ system app. See the discussion [here](https://github.com/BlackyHawky/Clock/issues/88).
 * Swipe to delete an alarm;
 * Duplicate alarms;
 * Customizable alarm title;
@@ -35,11 +36,12 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Customizable screensaver;
 * Modern widgets;
 * Customizable widgets;
+* Backup and restore settings;
 * Material design;
 * Dynamic colors for Android 12+;
 
 ## Common Issues
-* Problem encountered with bedtime mode as this is an experimental feature;;
+* Problem encountered with bedtime mode as this is an experimental feature;
 * Maybe other things, but nothing about the alarm's functionality.
 
 ⚠ _<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_ ⚠
