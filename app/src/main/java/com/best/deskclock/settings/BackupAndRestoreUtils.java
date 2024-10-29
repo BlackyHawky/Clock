@@ -50,10 +50,12 @@ import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_FADE_TRANSITIONS;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_TAB_INDICATOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_VIBRATIONS;
@@ -163,6 +165,7 @@ public class BackupAndRestoreUtils {
             if (entry.getKey() != null) {
                 if (entry.getValue() instanceof Boolean) {
                     // Values from InterfaceCustomizationActivity
+                    booleans.put(KEY_AUTO_NIGHT_ACCENT_COLOR, prefs.getBoolean(KEY_AUTO_NIGHT_ACCENT_COLOR, true));
                     booleans.put(KEY_CARD_BACKGROUND, prefs.getBoolean(KEY_CARD_BACKGROUND, true));
                     booleans.put(KEY_CARD_BORDER, prefs.getBoolean(KEY_CARD_BORDER, false));
                     booleans.put(KEY_VIBRATIONS, prefs.getBoolean(KEY_VIBRATIONS, false));
@@ -244,6 +247,7 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_THEME, prefs.getString(KEY_THEME, "0"));
                     strings.put(KEY_DARK_MODE, prefs.getString(KEY_DARK_MODE, "0"));
                     strings.put(KEY_ACCENT_COLOR, prefs.getString(KEY_ACCENT_COLOR, "0"));
+                    strings.put(KEY_NIGHT_ACCENT_COLOR, prefs.getString(KEY_NIGHT_ACCENT_COLOR, "0"));
 
                     // Values from ClockSettingsActivity
                     strings.put(KEY_CLOCK_STYLE, prefs.getString(KEY_CLOCK_STYLE, "digital"));

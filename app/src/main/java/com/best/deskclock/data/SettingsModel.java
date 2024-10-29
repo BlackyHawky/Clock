@@ -85,6 +85,14 @@ final class SettingsModel {
         return SettingsDAO.getAccentColor(mPrefs);
     }
 
+    public boolean isAutoNightAccentColorEnabled() {
+        return SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
+    }
+
+    String getNightAccentColor() {
+        return SettingsDAO.getNightAccentColor(mPrefs);
+    }
+
     String getDarkMode() {
         return SettingsDAO.getDarkMode(mPrefs);
     }

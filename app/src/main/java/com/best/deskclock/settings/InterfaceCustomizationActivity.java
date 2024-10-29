@@ -37,6 +37,16 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String ORANGE_ACCENT_COLOR = "5";
     public static final String PINK_ACCENT_COLOR = "6";
     public static final String RED_ACCENT_COLOR = "7";
+    public static final String KEY_AUTO_NIGHT_ACCENT_COLOR = "key_auto_night_accent_color";
+    public static final String KEY_NIGHT_ACCENT_COLOR = "key_night_accent_color";
+    public static final String DEFAULT_NIGHT_ACCENT_COLOR = "0";
+    public static final String BLUE_GRAY_NIGHT_ACCENT_COLOR = "1";
+    public static final String BROWN_NIGHT_ACCENT_COLOR = "2";
+    public static final String GREEN_NIGHT_ACCENT_COLOR = "3";
+    public static final String INDIGO_NIGHT_ACCENT_COLOR = "4";
+    public static final String ORANGE_NIGHT_ACCENT_COLOR = "5";
+    public static final String PINK_NIGHT_ACCENT_COLOR = "6";
+    public static final String RED_NIGHT_ACCENT_COLOR = "7";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_VIBRATIONS = "key_vibrations";
@@ -60,11 +70,13 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         ListPreference mThemePref;
         ListPreference mDarkModePref;
         ListPreference mAccentColorPref;
+        SwitchPreferenceCompat mAutoNightAccentColorPref;
+        ListPreference mNightAccentColorPref;
         SwitchPreferenceCompat mCardBackgroundPref;
         SwitchPreferenceCompat mCardBorderPref;
         SwitchPreferenceCompat mVibrationPref;
         SwitchPreferenceCompat mTabIndicatorPref;
-        SwitchPreferenceCompat mFadeTransitions;
+        SwitchPreferenceCompat mFadeTransitionsPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -75,13 +87,15 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mThemePref = findPreference(KEY_THEME);
             mDarkModePref = findPreference(KEY_DARK_MODE);
             mAccentColorPref = findPreference(KEY_ACCENT_COLOR);
+            mAutoNightAccentColorPref = findPreference(KEY_AUTO_NIGHT_ACCENT_COLOR);
+            mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
             mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
             mCardBorderPref = findPreference(KEY_CARD_BORDER);
             mVibrationPref = findPreference(KEY_VIBRATIONS);
             mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
-            mFadeTransitions = findPreference(KEY_FADE_TRANSITIONS);
+            mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
 
-            hidePreferences();
+            setupPreferences();
         }
 
         @Override
@@ -103,6 +117,9 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                         case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         case 2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     }
+                    mAutoNightAccentColorPref.setChecked(DataModel.getDataModel().isAutoNightAccentColorEnabled());
+                    mAutoNightAccentColorPref.setVisible(index != 1);
+                    mNightAccentColorPref.setVisible(index != 1 && !mAutoNightAccentColorPref.isChecked());
                 }
 
                 case KEY_DARK_MODE -> {
@@ -118,9 +135,9 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 }
 
                 case KEY_ACCENT_COLOR -> {
-                    final ListPreference themePref = (ListPreference) pref;
-                    final int index = themePref.findIndexOfValue((String) newValue);
-                    themePref.setSummary(themePref.getEntries()[index]);
+                    final ListPreference accentColorPref = (ListPreference) pref;
+                    final int index = accentColorPref.findIndexOfValue((String) newValue);
+                    accentColorPref.setSummary(accentColorPref.getEntries()[index]);
                     switch (index) {
                         case 0 -> ThemeController.applyAccentColor(ThemeController.AccentColor.DEFAULT);
                         case 1 -> ThemeController.applyAccentColor(ThemeController.AccentColor.BLUE_GRAY);
@@ -130,6 +147,27 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                         case 5 -> ThemeController.applyAccentColor(ThemeController.AccentColor.ORANGE);
                         case 6 -> ThemeController.applyAccentColor(ThemeController.AccentColor.PINK);
                         case 7 -> ThemeController.applyAccentColor(ThemeController.AccentColor.RED);
+                    }
+                }
+
+                case KEY_AUTO_NIGHT_ACCENT_COLOR -> {
+                    ThemeController.recreateActivityForAutoNightAccentColor(ThemeController.AutoNightAccentColor.TOGGLED);
+                    Utils.setVibrationTime(requireContext(), 50);
+                }
+
+                case KEY_NIGHT_ACCENT_COLOR -> {
+                    final ListPreference nightAccentColorPref = (ListPreference) pref;
+                    final int index = nightAccentColorPref.findIndexOfValue((String) newValue);
+                    nightAccentColorPref.setSummary(nightAccentColorPref.getEntries()[index]);
+                    switch (index) {
+                        case 0 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.DEFAULT_NIGHT);
+                        case 1 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_BLUE_GRAY);
+                        case 2 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_BROWN);
+                        case 3 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_GREEN);
+                        case 4 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_INDIGO);
+                        case 5 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_ORANGE);
+                        case 6 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_PINK);
+                        case 7 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_RED);
                     }
                 }
 
@@ -183,9 +221,15 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             return true;
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
             final Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
             mVibrationPref.setVisible(vibrator.hasVibrator());
+
+            final int themeIndex = mThemePref.findIndexOfValue(DataModel.getDataModel().getTheme().toLowerCase());
+            mAutoNightAccentColorPref.setChecked(DataModel.getDataModel().isAutoNightAccentColorEnabled());
+            // themeIndex != 1 --> System or Dark
+            mAutoNightAccentColorPref.setVisible(themeIndex != 1);
+            mNightAccentColorPref.setVisible(themeIndex != 1 && !mAutoNightAccentColorPref.isChecked());
         }
 
         private void refresh() {
@@ -198,6 +242,14 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mAccentColorPref.setSummary(mAccentColorPref.getEntry());
             mAccentColorPref.setOnPreferenceChangeListener(this);
 
+            mAutoNightAccentColorPref.setChecked(DataModel.getDataModel().isAutoNightAccentColorEnabled());
+            mAutoNightAccentColorPref.setOnPreferenceChangeListener(this);
+
+            final int themeIndex = mThemePref.findIndexOfValue(DataModel.getDataModel().getTheme());
+            mNightAccentColorPref.setVisible(!mAutoNightAccentColorPref.isChecked() && themeIndex != 1);
+            mNightAccentColorPref.setSummary(mNightAccentColorPref.getEntry());
+            mNightAccentColorPref.setOnPreferenceChangeListener(this);
+
             mCardBackgroundPref.setOnPreferenceChangeListener(this);
 
             mCardBorderPref.setOnPreferenceChangeListener(this);
@@ -206,7 +258,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
 
             mTabIndicatorPref.setOnPreferenceChangeListener(this);
 
-            mFadeTransitions.setOnPreferenceChangeListener(this);
+            mFadeTransitionsPref.setOnPreferenceChangeListener(this);
         }
     }
 

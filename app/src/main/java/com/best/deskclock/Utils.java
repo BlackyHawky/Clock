@@ -22,6 +22,13 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
@@ -836,6 +843,8 @@ public class Utils {
         final String getTheme = DataModel.getDataModel().getTheme();
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         final String accentColor = DataModel.getDataModel().getAccentColor();
+        final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
+        final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
 
         if (getDarkMode.equals(KEY_DEFAULT_DARK_MODE)) {
             switch (getTheme) {
@@ -851,14 +860,38 @@ public class Utils {
                 activity.setTheme(R.style.AmoledTheme);
         }
 
-        switch (accentColor) {
-            case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
-            case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
-            case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
-            case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
-            case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
-            case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
-            case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+        if (isAutoNightAccentColorEnabled) {
+            switch (accentColor) {
+                case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+                case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+                case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+                case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+                case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+                case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+            }
+        } else {
+            if (isNight(activity.getResources())) {
+                switch (nightAccentColor) {
+                    case BLUE_GRAY_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+                    case BROWN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+                    case GREEN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+                    case INDIGO_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+                    case ORANGE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+                    case PINK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                    case RED_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                }
+            } else {
+                switch (accentColor) {
+                    case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+                    case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+                    case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+                    case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+                    case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+                    case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                    case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                }
+            }
         }
 
         if (activity instanceof CollapsingToolbarBaseActivity) {

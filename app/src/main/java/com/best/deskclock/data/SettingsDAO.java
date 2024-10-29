@@ -41,6 +41,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIM
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
@@ -198,6 +199,20 @@ final class SettingsDAO {
      */
     static String getAccentColor(SharedPreferences prefs) {
         return prefs.getString(InterfaceCustomizationActivity.KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
+    }
+
+    /**
+     * @return {@code true} if auto night accent color is enabled. {@code false} otherwise.
+     */
+    static boolean isAutoNightAccentColorEnabled(SharedPreferences prefs) {
+        return prefs.getBoolean(InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR, true);
+    }
+
+    /**
+     * @return the night accent color applied.
+     */
+    static String getNightAccentColor(SharedPreferences prefs) {
+        return prefs.getString(InterfaceCustomizationActivity.KEY_NIGHT_ACCENT_COLOR, DEFAULT_NIGHT_ACCENT_COLOR);
     }
 
     /**

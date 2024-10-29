@@ -1042,6 +1042,21 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if auto night accent color is enabled. {@code false} otherwise.
+     */
+    public boolean isAutoNightAccentColorEnabled() {
+        return mSettingsModel.isAutoNightAccentColorEnabled();
+    }
+
+    /**
+     * @return the night accent color applied.
+     */
+    public String getNightAccentColor() {
+        enforceMainLooper();
+        return mSettingsModel.getNightAccentColor();
+    }
+
+    /**
      * @return the dark mode of the applied theme.
      */
     public String getDarkMode() {
