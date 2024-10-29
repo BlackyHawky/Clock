@@ -109,7 +109,6 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         setContentView(R.layout.alarm_activity);
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
-        getWindow().setNavigationBarColor(alarmBackgroundColor);
 
         mAlertView = findViewById(R.id.alert);
         mAlertTitleView = mAlertView.findViewById(R.id.alert_title);

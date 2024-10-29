@@ -9,8 +9,9 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- For the settings page, ringtone selection and city selection, the color of the navigation bar is defined programmatically -->
-        <item name="android:navigationBarColor">@color/md_theme_surface</item>
+        <!-- For the settings page, ringtone selection and city selection, the color of
+             the navigation bar is defined programmatically -->
+        <item name="android:navigationBarColor">?android:colorBackground</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
         <item name="colorAccent">@color/md_theme_primary</item>
@@ -160,12 +161,21 @@
     </style>
 
     <!-- DEFAULT ACCENT COLOR -->
-    <!-- Empty because this theme uses the default colors indicated above -->
-    <style name="DefaultColor" />
+    <style name="DefaultColor">
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorBackgroundFloating">@color/md_theme_surface</item>
+        <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
+        <item name="colorAccent">@color/md_theme_primary</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+    </style>
 
     <!-- BLUE GRAY ACCENT COLOR -->
     <style name="BlueGrayAccentColor">
-        <item name="android:navigationBarColor">@color/blueGrayColorSurface</item>
         <item name="android:colorBackground">@color/blueGrayColorBackground</item>
         <item name="colorBackgroundFloating">@color/blueGrayColorSurface</item>
         <item name="android:textColorHighlight">@color/blueGrayPrimaryInverse</item>
@@ -180,7 +190,6 @@
 
     <!-- BROWN ACCENT COLOR -->
     <style name="BrownAccentColor">
-        <item name="android:navigationBarColor">@color/brownColorSurface</item>
         <item name="android:colorBackground">@color/brownColorBackground</item>
         <item name="colorBackgroundFloating">@color/brownColorSurface</item>
         <item name="android:textColorHighlight">@color/brownPrimaryInverse</item>
@@ -195,7 +204,6 @@
 
     <!-- GREEN ACCENT COLOR -->
     <style name="GreenAccentColor">
-        <item name="android:navigationBarColor">@color/greenColorSurface</item>
         <item name="android:colorBackground">@color/greenColorBackground</item>
         <item name="colorBackgroundFloating">@color/greenColorSurface</item>
         <item name="android:textColorHighlight">@color/greenPrimaryInverse</item>
@@ -210,7 +218,6 @@
 
     <!-- INDIGO ACCENT COLOR -->
     <style name="IndigoAccentColor">
-        <item name="android:navigationBarColor">@color/indigoColorSurface</item>
         <item name="android:colorBackground">@color/indigoColorBackground</item>
         <item name="colorBackgroundFloating">@color/indigoColorSurface</item>
         <item name="android:textColorHighlight">@color/indigoPrimaryInverse</item>
@@ -225,7 +232,6 @@
 
     <!-- ORANGE ACCENT COLOR -->
     <style name="OrangeAccentColor">
-        <item name="android:navigationBarColor">@color/orangeColorSurface</item>
         <item name="android:colorBackground">@color/orangeColorBackground</item>
         <item name="colorBackgroundFloating">@color/orangeColorSurface</item>
         <item name="android:textColorHighlight">@color/orangePrimaryInverse</item>
@@ -240,7 +246,6 @@
 
     <!-- PINK ACCENT COLOR -->
     <style name="PinkAccentColor">
-        <item name="android:navigationBarColor">@color/pinkColorSurface</item>
         <item name="android:colorBackground">@color/pinkColorBackground</item>
         <item name="colorBackgroundFloating">@color/pinkColorSurface</item>
         <item name="android:textColorHighlight">@color/pinkPrimaryInverse</item>
@@ -255,7 +260,6 @@
 
     <!-- RED ACCENT COLOR -->
     <style name="RedAccentColor">
-        <item name="android:navigationBarColor">@color/redColorSurface</item>
         <item name="android:colorBackground">@color/redColorBackground</item>
         <item name="colorBackgroundFloating">@color/redColorSurface</item>
         <item name="android:textColorHighlight">@color/redPrimaryInverse</item>

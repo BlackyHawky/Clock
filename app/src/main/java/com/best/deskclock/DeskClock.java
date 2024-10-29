@@ -336,6 +336,9 @@ public class DeskClock extends AppCompatActivity
             final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
             if (isCardBackgroundDisplayed) {
                 mBottomNavigation.setBackgroundColor(surfaceColor);
+                this.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
+                );
             } else {
                 mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
                 this.getWindow().setNavigationBarColor(

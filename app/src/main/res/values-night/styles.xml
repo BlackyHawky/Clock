@@ -8,8 +8,9 @@
     <style name="Theme.DeskClock" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- For the settings page, ringtone selection and city selection, the color of the navigation bar is defined programmatically -->
-        <item name="android:navigationBarColor">@color/md_theme_surface</item>
+        <!-- For the settings page, ringtone selection and city selection, the color of
+             the navigation bar is defined programmatically -->
+        <item name="android:navigationBarColor">?android:colorBackground</item>
         <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
         <item name="colorAccent">@color/md_theme_primary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
@@ -77,8 +78,18 @@
     <!-- ============ -->
 
     <!-- DEFAULT ACCENT COLOR -->
-    <!-- Empty because this theme uses the default colors indicated above -->
-    <style name="DefaultColor" />
+    <style name="DefaultColor">
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorBackgroundFloating">@color/md_theme_surface</item>
+        <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
+        <item name="colorAccent">@color/md_theme_primary</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+    </style>
 
     <!-- BLUE GRAY ACCENT COLOR -->
     <style name="BlueGrayAccentColor">

@@ -30,8 +30,6 @@ public class FirstLaunch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setNavigationBarColor(getColor(R.color.md_theme_background));
-
         setContentView(R.layout.first_launch_activity);
 
         mAppTitle = findViewById(R.id.first_launch_app_title);
