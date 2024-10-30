@@ -10,6 +10,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.Lap;
+
+import java.util.List;
+
 /**
  * A container that frames a timer circle of some sort. The circle is allowed to grow naturally
  * according to its layout constraints up to the allowable size.
@@ -49,7 +54,33 @@ public class TimerCircleFrameLayout extends FrameLayout {
         final int smallestDimension = Math.min(width, height);
 
         // Fetch the absolute maximum circle size allowed.
-        final int maxSize = Utils.toPixel(240, getContext());
+        final List<Lap> laps = DataModel.getDataModel().getLaps();
+        final int maxSize;
+        if (Utils.isTablet(getContext())) {
+            if (laps.isEmpty()) {
+                if (getResources().getDisplayMetrics().densityDpi <= 213) {
+                    maxSize = Utils.toPixel(360, getContext());
+                } else if (getResources().getDisplayMetrics().densityDpi <= 240) {
+                    maxSize = Utils.toPixel(300, getContext());
+                } else if (getResources().getDisplayMetrics().densityDpi <= 280) {
+                    maxSize = Utils.toPixel(240, getContext());
+                } else {
+                    maxSize = Utils.toPixel(200, getContext());
+                }
+            } else {
+                if (getResources().getDisplayMetrics().densityDpi <= 213) {
+                    maxSize = Utils.toPixel(420, getContext());
+                } else if (getResources().getDisplayMetrics().densityDpi <= 240) {
+                    maxSize = Utils.toPixel(360, getContext());
+                } else if (getResources().getDisplayMetrics().densityDpi <= 280) {
+                    maxSize = Utils.toPixel(300, getContext());
+                } else {
+                    maxSize = Utils.toPixel(240, getContext());
+                }
+            }
+        } else {
+            maxSize = Utils.toPixel(240, getContext());
+        }
         final int size = Math.min(smallestDimension, maxSize);
 
         // Set the size of this container.
