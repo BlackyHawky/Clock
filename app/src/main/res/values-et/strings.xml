@@ -612,7 +612,6 @@
     <string name="orange_accent_color">Oranž</string>
     <string name="alarm_notification_reminder_1_hour">1 tund varem</string>
     <string name="alarm_notification_reminder_5_minutes">5 minutit varem</string>
-    <string name="sort_timer_creation_date">Loomise aja alusel (hilisem ülal)</string>
     <string name="sort_timer_ascending_duration">Kestuse alusel (kasvavalt)</string>
     <string name="bedtime_reminder_notification_10_minutes">10 minutit enne magamaminekut</string>
     <string name="bedtime_reminder_notification_20_minutes">20 minutit enne magamaminekut</string>

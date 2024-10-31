@@ -635,7 +635,6 @@
     <string name="bedtime_reminder_notification_45_minutes">45 хвилин до сну</string>
     <string name="bedtime_reminder_notification_1_hour">1 годину до сну</string>
     <string name="bedtime_reminder_notification_30_minutes">30 хвилин до сну</string>
-    <string name="sort_timer_creation_date">За датою створення (найновіші вгорі)</string>
     <string name="default_time_to_add_to_timer_1_minute">1 хвилина</string>
     <string name="auto_silence_10_seconds">10 секунд</string>
     <string name="auto_silence_20_seconds">20 секунд</string>

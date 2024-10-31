@@ -989,8 +989,8 @@
     <string name="timer_shake_action_title">Shake the device to stop the alarm</string>
     <!-- Title to sort timers -->
     <string name="sort_timer_title">Sort timers</string>
-    <!-- Setting title for changing the timer sorting to By creation date. -->
-    <string name="sort_timer_creation_date">By creation date (most recent at the top)</string>
+    <!-- Setting title for sorting timers manually. -->
+    <string name="sort_timer_manually">Manually (by dragging)</string>
     <!-- Setting title for changing the timer sorting to By duration (ascending order). -->
     <string name="sort_timer_ascending_duration">By duration (ascending order)</string>
     <!-- Setting title for changing the timer sorting to By duration (descending order). -->

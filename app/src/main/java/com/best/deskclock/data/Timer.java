@@ -16,7 +16,6 @@ import static com.best.deskclock.data.Timer.State.PAUSED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.data.Timer.State.RUNNING;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_CREATION_DATE;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_NAME;
 
@@ -68,7 +67,6 @@ public final class Timer {
 
                 if (state == RESET) {
                     switch (timerSortingPreference) {
-                        case KEY_SORT_TIMER_BY_CREATION_DATE -> sorting = Integer.compare(timer2.getId(), timer1.getId());
                         case KEY_SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
                         case KEY_SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
                         case KEY_SORT_TIMER_BY_NAME -> sorting =

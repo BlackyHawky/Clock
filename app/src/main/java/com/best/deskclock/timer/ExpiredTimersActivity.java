@@ -6,6 +6,7 @@
 
 package com.best.deskclock.timer;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -294,7 +295,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
      */
     private class TimerChangeWatcher implements TimerListener {
         @Override
-        public void timerAdded(Timer timer) {
+        public void timerAdded(Context context, Timer timer) {
             if (timer.isExpired()) {
                 addTimer(timer);
             }

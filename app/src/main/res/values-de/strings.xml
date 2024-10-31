@@ -639,7 +639,6 @@
     <string name="default_time_to_add_to_timer_10_minutes">10 Minuten</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 Minuten</string>
     <string name="default_time_to_add_to_timer_1_hour">1 Stunde</string>
-    <string name="sort_timer_creation_date">Nach Erstelldatum (neuste oben)</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 Minuten</string>
     <string name="sort_timer_descending_duration">Nach Dauer (absteigend)</string>
     <string name="bedtime_reminder_notification_10_minutes">10 vor Schlafenszeit</string>

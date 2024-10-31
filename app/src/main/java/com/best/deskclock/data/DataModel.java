@@ -578,7 +578,7 @@ public final class DataModel {
     }
 
     /**
-     * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
+     * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     public String getTimerSortingPreference() {
         enforceMainLooper();

@@ -539,7 +539,6 @@
     <string name="sort_timer_name">По имену</string>
     <string name="default_time_to_add_to_timer_1_minute">1 минута</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 минуте</string>
-    <string name="sort_timer_creation_date">По датуму креирања (најновији на врху)</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 минуте</string>
     <string name="default_time_to_add_to_timer_10_minutes">10 минута</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 минута</string>

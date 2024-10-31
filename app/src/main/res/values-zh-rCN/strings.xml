@@ -639,7 +639,6 @@
     <string name="bedtime_reminder_notification_20_minutes">睡前 20 分钟</string>
     <string name="bedtime_reminder_notification_30_minutes">睡前 30 分钟</string>
     <string name="bedtime_reminder_notification_1_hour">睡前 1 小时</string>
-    <string name="sort_timer_creation_date">按创建日期（最新日期在顶部）</string>
     <string name="bedtime_reminder_notification_45_minutes">睡前 45 分钟</string>
     <string name="alarm_notification_reminder_15_minutes">15 分钟前</string>
     <string name="snooze_duration_none">无</string>

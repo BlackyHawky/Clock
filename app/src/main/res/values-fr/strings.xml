@@ -646,7 +646,6 @@
     <string name="next_alarm_widget_title_no_alarm">Aucune alarme à venir</string>
     <string name="next_alarm_widget">Prochaine alarme</string>
     <string name="sort_timer_title">Trier les minuteurs</string>
-    <string name="sort_timer_creation_date">Par date de création (le plus récent en haut)</string>
     <string name="sort_timer_ascending_duration">Par durée (ordre croissant)</string>
     <string name="sort_timer_descending_duration">Par durée (ordre décroissant)</string>
     <string name="sort_timer_name">Par nom</string>

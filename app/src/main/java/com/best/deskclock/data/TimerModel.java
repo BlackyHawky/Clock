@@ -252,7 +252,7 @@ final class TimerModel {
 
         // Notify listeners of the change.
         for (TimerListener timerListener : mTimerListeners) {
-            timerListener.timerAdded(timer);
+            timerListener.timerAdded(mContext, timer);
         }
 
         return timer;
@@ -513,7 +513,7 @@ final class TimerModel {
     }
 
     /**
-     * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
+     * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     String getTimerSortingPreference() {
         return mSettingsModel.getTimerSortingPreference();

@@ -348,7 +348,7 @@
 
     <!-- Entries listed in the ListPreference when invoking the timer sort preference -->
     <string-array name="sort_timer_entries">
-        <item>@string/sort_timer_creation_date</item>
+        <item>@string/sort_timer_manually</item>
         <item>@string/sort_timer_ascending_duration</item>
         <item>@string/sort_timer_descending_duration</item>
         <item>@string/sort_timer_name</item>

@@ -31,7 +31,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
-    public static final String KEY_SORT_TIMER_BY_CREATION_DATE = "0";
+    public static final String KEY_SORT_TIMER_MANUALLY = "0";
     public static final String KEY_SORT_TIMER_BY_ASCENDING_DURATION = "1";
     public static final String KEY_SORT_TIMER_BY_DESCENDING_DURATION = "2";
     public static final String KEY_SORT_TIMER_BY_NAME = "3";

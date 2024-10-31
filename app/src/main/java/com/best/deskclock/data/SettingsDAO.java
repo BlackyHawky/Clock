@@ -57,7 +57,7 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_CREATION_DATE;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
 import static java.util.Calendar.MONDAY;
@@ -421,11 +421,11 @@ final class SettingsDAO {
     }
 
     /**
-     * @return the timer sorting by creation date, in ascending order of duration, in descending order of duration or by name
+     * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     static String getTimerSortingPreference(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
-        return prefs.getString(TimerSettingsActivity.KEY_SORT_TIMER, KEY_SORT_TIMER_BY_CREATION_DATE);
+        return prefs.getString(TimerSettingsActivity.KEY_SORT_TIMER, KEY_SORT_TIMER_MANUALLY);
     }
 
     /**
