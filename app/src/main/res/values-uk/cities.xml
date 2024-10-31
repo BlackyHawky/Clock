@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">"А<xliff:g id="SEPARATOR">=</xliff:g>Абіджан<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"А<xliff:g id="SEPARATOR">=</xliff:g>Аккра<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
     <string name="C3" msgid="5172979423931428620">"А<xliff:g id="SEPARATOR">=</xliff:g>Аддис-Абеба<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
@@ -111,7 +109,7 @@
     <string name="C105" msgid="1812915124794679606">"Б<xliff:g id="SEPARATOR">=</xliff:g>Баку<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бангкок<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C107" msgid="227554925153715426">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бейрут<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
-    <string name="C108" msgid="357033582615345158">"K<xliff:g id="SEPARATOR">=</xliff:g>Колката<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
+    <string name="C108" msgid="357033582615345158">К<xliff:g id="SEPARATOR">=</xliff:g>Колката<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g></string>
     <string name="C109" msgid="6386566477244958752">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дамаск<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
     <string name="C110" msgid="1165712058024165012">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дакка<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
     <string name="C111" msgid="5895260692253797547">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дубай<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>
@@ -346,4 +344,5 @@
     <string name="C346" msgid="2947674392768816097">"<xliff:g id="SEPARATOR">=</xliff:g>Яунде<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
     <string name="C347" msgid="6291282205599716861">"<xliff:g id="SEPARATOR">=</xliff:g>Ярен<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"<xliff:g id="SEPARATOR">=</xliff:g>Єреван<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
+    <string name="C349">П<xliff:g id="separator">=</xliff:g>Понта-Делгада<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
 </resources>

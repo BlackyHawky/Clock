@@ -408,7 +408,7 @@
     <string name="font_category_title">Шрифт</string>
     <string name="power_button_title">Кнопка живлення</string>
     <string name="version_text">Версія <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="gnu_gpl">GNU General Public License v3.0</string>
+    <string name="gnu_gpl">Загальна громадська ліцензія GNU версії 3.0</string>
     <string name="dialog_close">Закрити</string>
     <string name="whats_new_title">Що нового</string>
     <string name="first_launch_button_now">Зараз</string>
@@ -473,7 +473,7 @@
     <string name="digital_widget_city_clock_default_color_title">Колір за замовчуванням для додаткового годинника</string>
     <string name="digital_widget_city_name_default_color_title">Колір за замовчуванням для назви міста</string>
     <string name="screensaver_next_alarm_color_title">Колір наступного будильника</string>
-    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою; \n \n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності; \n \n• Тільки для телефонів на Snapdragon — будильник спрацьовує, коли телефон вимкнено; \n \n• Провести пальцем, щоб видалити будильник; \n \n• Дублювання будильників; \n \n• Налаштовуваний заголовок будильника; \n \n• Вибір мелодії сигналу; \n \n• Світла, темна або системна тема; \n \n• Режим AMOLED для темної теми; \n \n• Цифровий або аналоговий стиль годинника; \n \n• Відображення домашнього часу під час подорожі; \n \n• Відображення часу в багатьох містах світу; \n \n• Таймер, секундомір та час сну <i>(експериментально)</i>; \n \n• Можливість ділитися своїм секундоміром з контактами; \n \n• Налаштовувана заставка; \n \n• Сучасні віджети; \n \n• Налаштовувані віджети; \n \n• Material design; \n \n• Динамічні кольори для Android 12 і новіших;</string>
+    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою; \n \n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності; \n \n• Тільки для деяких пристроїв на Snapdragon — будильник спрацьовує, коли вони вимкнені; \n \n• Провести пальцем, щоб видалити будильник; \n \n• Дублювання будильників; \n \n• Налаштовуваний заголовок будильника; \n \n• Вибір мелодії сигналу; \n \n• Світла, темна або системна тема; \n \n• Режим AMOLED для темної теми; \n \n• Цифровий або аналоговий стиль годинника; \n \n• Відображення домашнього часу під час подорожі; \n \n• Відображення часу в багатьох містах світу; \n \n• Таймер, секундомір та час сну <i>(експериментально)</i>; \n \n• Можливість ділитися своїм секундоміром з контактами; \n \n• Налаштовувана заставка; \n \n• Сучасні віджети; \n \n• Налаштовувані віджети; \n \n• Резервне копіювання та відновлення налаштувань\n\n• Material design; \n \n• Динамічні кольори для Android 12 і новіших;</string>
     <string name="shake_action_title">Дія струшування пристрою</string>
     <string name="notifications_dialog_text">Окрім встановлення будильників, цей додаток також має таймер, секундомір і режим «Час сну».
 \n
@@ -660,4 +660,8 @@
     <string name="backup_restore_settings_summary">Резервне копіювання або відновлення налаштувань (крім будильників, таймерів та мелодій сигналу) з наявної резервної копії</string>
     <string name="backup_restore_toast_message_for_backup">Резервну копію створено</string>
     <string name="backup_restore_toast_message_for_restore">Відновлення завершено</string>
+    <string name="timer_shake_action_title">Зупиняти будильник струшуванням пристрою</string>
+    <string name="timer_flip_action_title">Зупиняти будильник перевертанням пристрою</string>
+    <string name="auto_night_accent_color_title">Застосовувати акцентний колір до нічного режиму</string>
+    <string name="night_accent_color_title">Акцентний колір для нічного режиму</string>
 </resources>

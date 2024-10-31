@@ -408,43 +408,7 @@
     <string name="analog_widget_material_you">指针时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message"> \u0020• 翻转和摇动操作可关闭/推迟闹钟； \u0020 
-\n \u0020 
-\n• 使用电源按钮或音量按钮关闭/推迟闹钟； \u0020 
-\n \u0020 
-\n• 仅适用于骁龙处理器手机，手机关机时会触发闹钟； \u0020 
-\n \u0020 
-\n• 滑动以删除闹钟； \u0020 
-\n \u0020 
-\n• 重复闹钟； \u0020 
-\n \u0020 
-\n• 自定义闹钟标题； \u0020 
-\n \u0020 
-\n• 可自定义铃声； \u0020 
-\n \u0020 
-\n• 浅色、深色或系统主题； \u0020 
-\n \u0020 
-\n• 深色主题的 AMOLED 模式； \u0020 
-\n \u0020 
-\n• 数字或指针时钟风格； \u0020 
-\n \u0020 
-\n• 旅行时显示家乡时间； \u0020 
-\n \u0020 
-\n• 显示世界各地许多城市的时间； \u0020 
-\n \u0020 
-\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； \u0020 
-\n \u0020 
-\n• 可以与联系人共享秒表； \u0020 
-\n \u0020 
-\n• 可自定义的屏幕保护程序； \u0020 
-\n \u0020 
-\n• 现代微件； \u0020 
-\n \u0020 
-\n• 可自定义的微件； 
-\n \u0020 
-\n• Material 设计； \u0020 
-\n \u0020 
-\n• 适用于 Android 12+ 的动态色彩； \u0020</string>
+    <string name="about_dialog_message">• 翻转和摇动操作可关闭/推迟闹钟； \u0020 \n \u0020 \n• 使用电源按钮或音量按钮关闭/推迟闹钟； \u0020 \n \u0020 \n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟； \u0020 \n \u0020 \n• 滑动以删除闹钟； \u0020 \n \u0020 \n• 重复闹钟； \u0020 \n \u0020 \n• 自定义闹钟标题； \u0020 \n \u0020 \n• 可自定义铃声； \u0020 \n \u0020 \n• 浅色、深色或系统主题； \u0020 \n \u0020 \n• 深色主题的 AMOLED 模式； \u0020 \n \u0020 \n• 数字或指针时钟风格； \u0020 \n \u0020 \n• 旅行时显示家乡时间； \u0020 \n \u0020 \n• 显示世界各地许多城市的时间； \u0020 \n \u0020 \n• 包括定时器、秒表和就寝时间<i>（实验性）</i>； \u0020 \n \u0020 \n• 可以与联系人共享秒表； \u0020 \n \u0020 \n• 可自定义的屏幕保护程序； \u0020 \n \u0020 \n• 现代微件； \u0020 \n \u0020 \n• 可自定义的微件； \n \u0020 \n• 备份和还原设置；\n\n• Material 设计； \u0020 \n \u0020 \n• 适用于 Android 12+ 的动态色彩；</string>
     <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
     <string name="first_launch_main_feature_message">► 浅色、深色或系统主题； &lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序； &lt;br&gt; &lt;br&gt; ► 可自定义的微件； &lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩； &lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟； &lt;br&gt; &lt;br&gt; ► 重复闹钟； &lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟； &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
@@ -667,4 +631,9 @@
     <string name="backup_restore_restore_button_title">还原</string>
     <string name="backup_restore_toast_message_for_backup">备份已完成</string>
     <string name="backup_restore_toast_message_for_restore">还原已完成</string>
+    <string name="timer_flip_action_title">翻转设备以停止闹钟</string>
+    <string name="timer_shake_action_title">摇动设备以停止闹钟</string>
+    <string name="auto_night_accent_color_title">将强调色应用于夜间模式</string>
+    <string name="night_accent_color_title">夜间模式的强调色</string>
+    <string name="sort_timer_manually">手动（通过拖动）</string>
 </resources>

@@ -3,7 +3,7 @@ Elle n'utilise pas d'autorisation Internet et est donc 100% hors ligne.
 
 Caractéristiques :
 <ul>
-  <li>L'action de basculer et de secouer l'appareil permet d'annuler ou de reporter l'alarme ;</li>
+  <li>L'action de retourner ou de secouer l'appareil permet d'arrêter ou de reporter l'alarme ;</li>
   <li>Désactiver ou reporter l'alarme à l'aide du bouton d'alimentation ou des boutons du volume ;</li>
   <li>Pour les téléphones Snapdragon uniquement, l'alarme se déclenche lorsque le téléphone est éteint ;</li>
   <li>Glisser pour supprimer une alarme ;</li>
