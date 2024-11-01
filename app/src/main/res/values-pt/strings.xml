@@ -428,12 +428,14 @@
     <string name="indigo_accent_color">Índigo</string>
     <string name="red_accent_color">Vermelho</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="alarm_notification_reminder_5_minutes">5 minutos antes</string>
-    <string name="alarm_notification_reminder_10_minutes">10 minutos antes</string>
-    <string name="alarm_notification_reminder_15_minutes">15 minutos antes</string>
+    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
     <string name="alarm_notification_reminder_1_hour">1 hora antes</string>
-    <string name="alarm_notification_reminder_45_minutes">45 minutos antes</string>
     <string name="alarm_notification_reminder_2_hours">2 horas antes</string>
+    <string name="alarm_notification_reminder_4_hours">4 horas antes</string>
+    <string name="alarm_notification_reminder_6_hours">6 horas antes</string>
+    <string name="alarm_notification_reminder_8_hours">8 horas antes</string>
+    <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
+    <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="alarm_title_color">Cor do título do alarme</string>
     <string name="snooze_button_color">Cor do botão de Soneca</string>
     <string name="dismiss_button_color">Cor do botão Dispensar</string>
@@ -450,8 +452,6 @@
     <string name="auto_silence_10_seconds">10 segundos</string>
     <string name="brown_accent_color">Marrom</string>
     <string name="green_accent_color">Verde</string>
-    <string name="alarm_notification_reminder_20_minutes">20 minutos antes</string>
-    <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
     <string name="button_action_nothing">Nada</string>
     <string name="sort_timer_descending_duration">Por duração (ordem descendente)</string>
     <string name="sort_timer_name">Por nome</string>

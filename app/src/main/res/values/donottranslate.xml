@@ -132,25 +132,25 @@
 
     <!-- Entries listed in the ListPreference when invoking the notification reminder preference. -->
     <string-array name="alarm_notification_reminder_entries">
-        <item>@string/alarm_notification_reminder_5_minutes</item>
-        <item>@string/alarm_notification_reminder_10_minutes</item>
-        <item>@string/alarm_notification_reminder_15_minutes</item>
-        <item>@string/alarm_notification_reminder_20_minutes</item>
         <item>@string/alarm_notification_reminder_30_minutes</item>
-        <item>@string/alarm_notification_reminder_45_minutes</item>
         <item>@string/alarm_notification_reminder_1_hour</item>
         <item>@string/alarm_notification_reminder_2_hours</item>
+        <item>@string/alarm_notification_reminder_4_hours</item>
+        <item>@string/alarm_notification_reminder_6_hours</item>
+        <item>@string/alarm_notification_reminder_8_hours</item>
+        <item>@string/alarm_notification_reminder_10_hours</item>
+        <item>@string/alarm_notification_reminder_12_hours</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the alarm_notification_reminder_entries above. -->
     <string-array name="alarm_notification_reminder_values" translatable="false">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
         <item>30</item>
-        <item>45</item>
         <item>60</item>
         <item>120</item>
+        <item>240</item>
+        <item>360</item>
+        <item>480</item>
+        <item>600</item>
+        <item>720</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the auto silence preference. -->

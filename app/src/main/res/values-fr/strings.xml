@@ -129,14 +129,14 @@
     <string name="settings_vibration_summary">Seuls certains boutons de l\'interface sont concernés (ex. : le bouton lecture/pause du minuteur ou les interrupteurs)</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
     <string name="alarm_notification_reminder_title">Rappel de la notification</string>
-    <string name="alarm_notification_reminder_5_minutes">5 minutes avant</string>
-    <string name="alarm_notification_reminder_10_minutes">10 minutes avant</string>
-    <string name="alarm_notification_reminder_15_minutes">15 minutes avant</string>
-    <string name="alarm_notification_reminder_20_minutes">20 minutes avant</string>
     <string name="alarm_notification_reminder_30_minutes">30 minutes avant</string>
-    <string name="alarm_notification_reminder_45_minutes">45 minutes avant</string>
     <string name="alarm_notification_reminder_1_hour">1 heure avant</string>
     <string name="alarm_notification_reminder_2_hours">2 heures avant</string>
+    <string name="alarm_notification_reminder_4_hours">4 heures avant</string>
+    <string name="alarm_notification_reminder_6_hours">6 heures avant</string>
+    <string name="alarm_notification_reminder_8_hours">8 heures avant</string>
+    <string name="alarm_notification_reminder_10_hours">10 heures avant</string>
+    <string name="alarm_notification_reminder_12_hours">12 heures avant</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activer les vibrations lors de la création des alarmes</string>
     <string name="material_time_picker_style_title">Style de sélection de l\'heure</string>
     <string name="alarm_display_customization_title">Personnaliser l\'affichage de l\'alarme</string>

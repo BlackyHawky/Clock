@@ -112,6 +112,7 @@ public final class AlarmNotifications {
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true)
+                .setOngoing(true)
                 .setGroup(UPCOMING_GROUP_KEY);
 
         // Setup up dismiss action
