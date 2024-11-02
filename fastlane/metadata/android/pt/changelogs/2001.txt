@@ -1,0 +1,40 @@
+**Correções:**
+* Correção do acionamento do alarme para Android 14;
+* Correção das notificações do cronômetro e do timer;
+* Correção do fechamento forçado para a hora de dormir quando nenhum alarme é definido ou quando o dispositivo é girado;
+* Correção de alguns problemas de funcionamento do modo Hora de dormir;
+* Correção da inicialização do protetor de tela para Android 13+;
+* Correção da exibição e atualização do widget digital para Android 12+;
+* Correção da configuração do volume do alarme nas configurações;
+* Correção da cor de fundo da barra de navegação inferior (os tablets são os mais afetados);
+
+**Melhorias:**
+* Implementação do material design (interruptores, seletor de hora, ícones arredondados, fundo de cartão...);
+* Adicionar cores dinâmicas;
+* Adicionar o modo AMOLED para o tema escuro;
+* Adicionar novo gerenciamento de permissões;
+* Adicionar ícone monocromático;
+* Adicionar barra de ferramentas colapsável;
+* Adicionar widgets analógicos e digitais do Material You;
+* Adicionar o modo “Hora de dormir” (por @Nilsu11);
+* Substituir os ícones por outros mais arredondados;
+* Quando o aplicativo é iniciado pela primeira vez, é incluída uma apresentação dos principais recursos, bem como a possibilidade de gerenciar permissões;
+* Adicionar verificação de que as permissões essenciais são concedidas na inicialização do aplicativo para garantir que o aplicativo esteja funcionando corretamente;
+* Permitir que a versão de depuração seja instalada junto com a versão de lançamento;
+* Definir o toque padrão para alarmes nas configurações;
+* Adicionar opções de exibição de proteção de tela;
+* Ativar o protetor de tela com um toque longo no relógio;
+* Reduzir a animação do protetor de tela para 30 segundos;
+* Os menus são exibidos por ícones;
+* Modernizar a aparência das configurações;
+* Adicionar a seção “Sobre” nas configurações;
+* Animar o ícone da hora de dormir;
+* Exibe o teclado automaticamente ao editar um alarme;
+* Adicionar um ícone de deletar e o texto “Deletar” ao passar o dedo para excluir um alarme;
+* Adicionar um botão para duplicar um alarme (exceto para o alarme de hora de dormir, que é inútil);
+*A vibração não é ativada quando um alarme é criado e nos alarmes criados inicialmente;
+* Aumentar a duração da vibração ao ativar um alarme;
+* Permitir a exibição do relógio analógico na visualização do acionador de alarme;
+* Atualizar o código relacionado ao Fragment para usar o AndroidX;
+* Atualizar os cabeçalhos de licença;
+* Excluir arquivos e códigos desnecessários;

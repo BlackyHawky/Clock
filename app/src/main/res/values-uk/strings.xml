@@ -610,10 +610,10 @@
     <string name="alarm_notification_reminder_1_hour">1 годину</string>
     <string name="alarm_notification_reminder_2_hours">2 години</string>
     <string name="alarm_notification_reminder_4_hours">4 години</string>
-    <string name="alarm_notification_reminder_6_hours">6 години</string>
-    <string name="alarm_notification_reminder_8_hours">8 години</string>
-    <string name="alarm_notification_reminder_10_hours">10 години</string>
-    <string name="alarm_notification_reminder_12_hours">12 години</string>
+    <string name="alarm_notification_reminder_6_hours">6 годин</string>
+    <string name="alarm_notification_reminder_8_hours">8 годин</string>
+    <string name="alarm_notification_reminder_10_hours">10 годин</string>
+    <string name="alarm_notification_reminder_12_hours">12 годин</string>
     <string name="snooze_duration_none">Немає</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 хвилини</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 хвилини</string>
@@ -664,4 +664,5 @@
     <string name="timer_flip_action_title">Зупиняти будильник перевертанням пристрою</string>
     <string name="auto_night_accent_color_title">Застосовувати акцентний колір до нічного режиму</string>
     <string name="night_accent_color_title">Акцентний колір для нічного режиму</string>
+    <string name="sort_timer_manually">Уручну (перетягуванням)</string>
 </resources>

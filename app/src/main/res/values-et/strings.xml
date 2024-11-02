@@ -644,4 +644,5 @@
     <string name="timer_shake_action_title">Äratuse peatamiseks raputa nutiseadet</string>
     <string name="night_accent_color_title">Aktsentvärv öörežiimis</string>
     <string name="auto_night_accent_color_title">Kasuta aktsentvärve ka öörežiimis</string>
+    <string name="sort_timer_manually">Käsitsi (lohistades)</string>
 </resources>
