@@ -6,10 +6,14 @@
 
 package com.best.deskclock.timer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -62,11 +66,36 @@ public class ExpiredTimersActivity extends AppCompatActivity {
      */
     private ViewGroup mExpiredTimersView;
 
+    private final BroadcastReceiver PowerBtnReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null) {
+                if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)
+                        || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                    final boolean isExpiredTimerResetWithPowerButton =
+                            DataModel.getDataModel().isExpiredTimerResetWithPowerButton();
+                    if (isExpiredTimerResetWithPowerButton) {
+                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                    }
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Utils.applyThemeAndAccentColor(this);
+
+        // Register Power button (screen off) intent receiver
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(PowerBtnReceiver, filter);
+        }
 
         final List<Timer> expiredTimers = getExpiredTimers();
 
@@ -123,6 +152,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         stopUpdatingTime();
+        //unregisterReceiver(PowerBtnReceiver);
     }
 
     @Override

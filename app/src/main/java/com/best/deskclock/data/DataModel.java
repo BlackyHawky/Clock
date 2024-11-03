@@ -571,6 +571,13 @@ public final class DataModel {
     }
 
     /**
+     * @return whether the expired timer is reset with the power button. {@code false} otherwise.
+     */
+    public boolean isExpiredTimerResetWithPowerButton() {
+        return mTimerModel.isExpiredTimerResetWithPowerButton();
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     public boolean isFlipActionForTimersEnabled() {

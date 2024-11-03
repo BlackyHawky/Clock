@@ -29,6 +29,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
     public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
     public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
+    public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";
     public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
@@ -63,6 +64,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mTimerRingtonePref;
         Preference mTimerVibratePref;
         SwitchPreferenceCompat mTimerVolumeButtonsActionPref;
+        SwitchPreferenceCompat mTimerPowerButtonActionPref;
         SwitchPreferenceCompat mTimerFlipActionPref;
         SwitchPreferenceCompat mTimerShakeActionPref;
         SwitchPreferenceCompat mKeepTimerScreenOnPref;
@@ -79,6 +81,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
             mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
             mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
+            mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
             mTimerFlipActionPref = findPreference(KEY_TIMER_FLIP_ACTION);
             mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
             mSortTimerPref = findPreference(KEY_SORT_TIMER);
@@ -120,8 +123,9 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
                     requireActivity().setResult(RESULT_OK);
                 }
 
-                case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION,
-                     KEY_KEEP_TIMER_SCREEN_ON, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
+                case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
+                     KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_KEEP_TIMER_SCREEN_ON,
+                     KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
                         Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -174,6 +178,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             mTimerVibratePref.setOnPreferenceChangeListener(this);
 
             mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
+
+            mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
 
             mSortTimerPref.setOnPreferenceChangeListener(this);
             mSortTimerPref.setSummary(mSortTimerPref.getEntry());

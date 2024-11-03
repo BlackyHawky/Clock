@@ -636,4 +636,6 @@
     <string name="auto_night_accent_color_title">将强调色应用于夜间模式</string>
     <string name="night_accent_color_title">夜间模式的强调色</string>
     <string name="sort_timer_manually">手动（通过拖动）</string>
+    <string name="timer_volume_buttons_action_title">使用音量按钮重置已过期的定时器</string>
+    <string name="timer_buttons_action_summary">仅适用于锁屏</string>
 </resources>

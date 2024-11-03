@@ -222,6 +222,10 @@ final class SettingsModel {
         return SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
     }
 
+    boolean isExpiredTimerResetWithPowerButton() {
+        return SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs);
+    }
+
     boolean isFlipActionForTimersEnabled() {
         return SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
     }

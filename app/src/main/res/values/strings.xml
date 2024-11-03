@@ -985,8 +985,10 @@
     <string name="timer_vibrate_title">Timer vibrate</string>
     <!-- Setting title to reset expired timers with volume buttons. -->
     <string name="timer_volume_buttons_action_title">Reset expired timers with volume buttons</string>
+    <!-- Setting title to reset expired timers with power button. -->
+    <string name="timer_power_button_action_title">Reset expired timers with power button</string>
     <!-- Summary of timer preferences for volume buttons action. -->
-    <string name="timer_volume_buttons_action_summary">Only works on lock screen</string>
+    <string name="timer_buttons_action_summary">Only works on lock screen</string>
     <!-- Setting title to enable flip action for expired timers. -->
     <string name="timer_flip_action_title">Flip the device to stop the alarm</string>
     <!-- Setting title to enable shake action for expired timers. -->

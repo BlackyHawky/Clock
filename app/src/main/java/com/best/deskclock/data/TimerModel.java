@@ -499,6 +499,13 @@ final class TimerModel {
     }
 
     /**
+     * @return whether the expired timer is reset with the power button. {@code false} otherwise.
+     */
+    boolean isExpiredTimerResetWithPowerButton() {
+        return mSettingsModel.isExpiredTimerResetWithPowerButton();
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     boolean isFlipActionForTimersEnabled() {

@@ -533,4 +533,6 @@
     <string name="delete_occasional_alarm_after_use_title">Wekker verwijderen na uitzetten</string>
     <string name="alarm_alert_dismiss_and_delete_text">Uitzetten &amp; Verwijderen</string>
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
+    <string name="timer_volume_buttons_action_title">Verlopen timers op nul zetten met volumeknoppen</string>
+    <string name="timer_buttons_action_summary">Werkt alleen op een vergrendeld scherm</string>
 </resources>

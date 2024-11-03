@@ -414,6 +414,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether the expired timer is reset with the power button. {@code false} otherwise.
+     */
+    static boolean isExpiredTimerResetWithPowerButton(SharedPreferences prefs) {
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_POWER_BUTTON_ACTION, false);
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     static boolean isFlipActionForTimersEnabled(SharedPreferences prefs) {
