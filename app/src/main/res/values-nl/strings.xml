@@ -16,7 +16,7 @@
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Voor wekkers en timers die dit geluid gebruiken, wordt in plaats daarvan het standaardgeluid afgespeeld."</string>
     <string name="your_sounds" msgid="1672779351352629681">"Jouw geluiden"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Apparaatgeluiden"</string>
-    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"De geluidscontent is niet toegankelijk."</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">De geluidsinhoud is niet toegankelijk.</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer verlopen"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Morgen"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Vandaag"</string>
@@ -426,7 +426,7 @@
     <string name="bedtime_notification_until">tot <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="alarm_missed_channel">Gemiste wekkers</string>
     <string name="alarm_snooze_channel">Gesnoozede wekkers</string>
-    <string name="alarm_upcoming_channel">Geplande wekkers</string>
+    <string name="alarm_upcoming_channel">Volgende wekkers</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
     <string name="first_launch_version">Versie %s</string>
@@ -535,4 +535,108 @@
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
     <string name="timer_volume_buttons_action_title">Verlopen timers op nul zetten met volumeknoppen</string>
     <string name="timer_buttons_action_summary">Werkt alleen op een vergrendeld scherm</string>
+    <string name="alarm_notification_reminder_4_hours">4 uur van te voren</string>
+    <string name="alarm_notification_reminder_6_hours">6 uur van te voren</string>
+    <string name="alarm_notification_reminder_10_hours">10 uur van te voren</string>
+    <string name="alarm_notification_reminder_12_hours">12 uur van te voren</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 minuten voor bedtijd</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 minuten voor bedtijd</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 minuten voor betijd</string>
+    <string name="bedtime_reminder_notification_1_hour">1 uur voor betijd</string>
+    <string name="backup_restore_dialog_message">Wil je een back-up maken, of instellingen herstellen uit een bestand?</string>
+    <string name="backup_restore_backup_button_title">Back-up</string>
+    <string name="backup_restore_restore_button_title">Herstel</string>
+    <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
+    <string name="snooze_button_color">Kleur snoozeknop</string>
+    <string name="auto_silence_20_seconds">20 seconden</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 minuten voor bedtijd</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 minuten voor betijd</string>
+    <string name="digital_widget_custom_minutes_color_title">Aangepaste kleuren voor minuten</string>
+    <string name="next_alarm_widget_default_title_color">Standaardkleur voor \"Volgende wekker\" en \"Geen volgende wekker\" titels</string>
+    <string name="denied_permission_label">Toestemming geweigerd</string>
+    <string name="sort_timer_title">Timers sorteren</string>
+    <string name="next_alarm_widget_text">Volgende wekker</string>
+    <string name="next_alarm_widget_title_no_alarm">Geen volgende wekker</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Aangepaste kleur voor wekkerlabel</string>
+    <string name="next_alarm_widget_max_font_size_title">Maximum lettergrootte widget</string>
+    <string name="snooze_duration_none">Geen</string>
+    <string name="sort_timer_ascending_duration">Op duur (oplopende volgorde)</string>
+    <string name="sort_timer_descending_duration">Op duur (aflopende volgorde)</string>
+    <string name="sort_timer_name">Op labelnaam</string>
+    <string name="default_time_to_add_to_timer_1_minute">1 minuut</string>
+    <string name="default_time_to_add_to_timer_2_minutes">2 minuten</string>
+    <string name="default_time_to_add_to_timer_3_minutes">3 minuten</string>
+    <string name="default_time_to_add_to_timer_30_minutes">30 minuten</string>
+    <string name="default_time_to_add_to_timer_1_hour">1 uur</string>
+    <string name="alarm_title_font_size">Lettergrootte wekkerlabel</string>
+    <string name="alarm_clock_font_size">Lettergrootte wekkerklok</string>
+    <string name="indigo_accent_color">Indigo</string>
+    <string name="orange_accent_color">Oranje</string>
+    <string name="pink_accent_color">Roze</string>
+    <string name="green_accent_color">Groen</string>
+    <string name="default_time_to_add_to_timer_10_minutes">10 minuten</string>
+    <string name="transparent_background_for_expired_timer_title">Transparante achtergrond als timer verloopt</string>
+    <string name="widgets_settings_summary">Stijl, kleur en lettergrootte van widgets aanpassen</string>
+    <string name="whats_new_dialog_message">Ondek wat er nieuw is:\n\n%s</string>
+    <string name="github_dialog_message">Bekijk het project op GitHub:\n\n%s</string>
+    <string name="license_dialog_message">Lees de licentie:\n\n%s</string>
+    <string name="contributors_dialog_message">Bekijk %1$s\'s GitHub:\n\n%2$s</string>
+    <string name="seconds_hand_color_title">Kleur secondewijzer</string>
+    <string name="system_theme">Systeem</string>
+    <string name="light_theme">Licht</string>
+    <string name="dark_theme">Donker</string>
+    <string name="alarm_notification_reminder_30_minutes">30 minuten van te voren</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Standaardkleur voor wekkerlabel</string>
+    <string name="next_alarm_widget_custom_title_color">Aangepaste kleur voor \"Volgende wekker\" en \"Geen volgende wekker\" titels</string>
+    <string name="digital_widget_custom_hours_color_title">Aangepaste kleuren voor uren</string>
+    <string name="digital_widget_default_minutes_color_title">Standaardkleuren voor minuten</string>
+    <string name="digital_widget_default_hours_color_title">Standaardkleuren voor uren</string>
+    <string name="occasional_alarm_alert_predismiss_title">Aankomende gelegenheidswekker</string>
+    <string name="vertical_digital_widget">Verticale digitale klok</string>
+    <string name="alarm_notification_reminder_1_hour">1 uur van te voren</string>
+    <string name="alarm_notification_reminder_2_hours">2 uur van te voren</string>
+    <string name="description_direction_right_for_occasional_alarm">Veeg naar rechts om wekker uit te zetten en te verwijderen</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Veeg naar links om wekker uit te zetten en te verwijderen</string>
+    <string name="description_direction_both_for_occasional_alarm">Veeg naar links om te snoozen of naar rechts om wekker uit te zetten en te verwijderen</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Tik links om wekker te snoozen of rechts om uit te zetten en te verwijderen</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Veeg naar links of rechts om wekker uit te zetten en te verwijderen</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Tik links of rechts om wekker uit te zetten en te verwijderen</string>
+    <string name="occasional_alarm_deleted">Gelegenheidswekker verwijderd</string>
+    <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
+    <string name="standard_category_title">Standaard</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="settings_tab_indicator_title">Tabbladindicator in het onderste navigatiemenu tonen</string>
+    <string name="widgets_settings">Widgets</string>
+    <string name="material_you_next_alarm_widget">Volgende wekker Material You</string>
+    <string name="settings_fade_transitions_title">Vervagingsovergangen inschakelen bij het wisselen van scherm</string>
+    <string name="next_alarm_widget">Volgende wekker</string>
+    <string name="backup_restore_settings_summary">Back-up of herstel instellingen behalve wekkers, timers en ringtoon</string>
+    <string name="backup_restore_settings_title">Back-up &amp; Herstel</string>
+    <string name="backup_restore_toast_message_for_backup">Backup voltooid</string>
+    <string name="backup_restore_toast_message_for_restore">Herstel voltooid</string>
+    <string name="timer_flip_action_title">Apparaat omdraaien om timer uit te zetten</string>
+    <string name="timer_shake_action_title">Apparaat schudden om timer uit te zetten</string>
+    <string name="default_time_to_add_to_timer_4_minutes">4 minuten</string>
+    <string name="default_time_to_add_to_timer_5_minutes">5 minuten</string>
+    <string name="default_time_to_add_to_timer_6_minutes">6 minuten</string>
+    <string name="default_time_to_add_to_timer_7_minutes">7 minuten</string>
+    <string name="default_time_to_add_to_timer_8_minutes">8 minuten</string>
+    <string name="default_time_to_add_to_timer_9_minutes">9 minuten</string>
+    <string name="alarm_title_color">Kleur wekkerlabel</string>
+    <string name="auto_night_accent_color_title">Accentkleur op nachtmodus toepassen</string>
+    <string name="night_accent_color_title">Accentkleur voor nachtmodus</string>
+    <string name="blue_gray_accent_color">Blauwgrijs</string>
+    <string name="brown_accent_color">Bruin</string>
+    <string name="red_accent_color">Rood</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Standaard gelegenheidswekkers verwijderen</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Deze instelling kan per wekker aangepast worden in het uitvouwmenu</string>
+    <string name="alarm_display_customization_title">Wekkeruiterlijk aanpassen</string>
+    <string name="dismiss_button_color">Kleur uitzetknop</string>
+    <string name="alarm_button_color">Kleur wekkerknop</string>
+    <string name="pulse_color">Kleur pulseren</string>
+    <string name="auto_silence_5_seconds">5 seconden</string>
+    <string name="auto_silence_10_seconds">10 seconden</string>
+    <string name="auto_silence_30_seconds">30 seconden</string>
+    <string name="sort_timer_manually">Handmatig (door te slepen)</string>
 </resources>
