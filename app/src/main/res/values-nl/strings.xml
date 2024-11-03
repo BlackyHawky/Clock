@@ -404,7 +404,7 @@
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
     <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen; \n\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen; \n\n• Alleen voor Snapdragon telefoons, wekker af laten gaan als het toestel is uitgeschakeld; \n\n• Veeg om wekker te verwijderen; \n\n• Wekkers dupliceren; \n\n• Wekkertitel aanpassen; \n\n• Wekkergeluid aanpassen; \n\n• Licht, donker of systeemthema;; \n\n• AMOLED-modus voor donker thema; \n\n• Digitale of analoge klokstijl; \n\n• Klok voor thuis tijdens het reizen; \n\n• Bekijk de tijd in vele steden rond de wereld; \n\n• Bevat timer, stopwatch en bedtijd; \n\n• Mogelijkheid om stopwatchtijden te delen met contacten; \n\n• Aanpasbare screensaver; \n\n• Moderne widgets; \n\n• Aanpasbare widgets;\n\n• Material design; \n\n• Dynamische kleuren voor Android 12+;</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten; \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+;</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -507,7 +507,7 @@
     <string name="description_direction_both_clicked">Tik links om te snoozen of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Tik links of rechts om uit te zetten</string>
-    <string name="timer_settings_summary">Standaard ringtoon en volume voor timers aanpassen</string>
+    <string name="timer_settings_summary">Standaard ringtoon, volume en timers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan timer toe te voegen</string>
     <string name="keep_timer_screen_on_title">Scherm aanhouden als timer getoond wordt</string>
     <string name="widget_background_title">Achtergrond tonen</string>
@@ -530,4 +530,7 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Trillen inschakelen bij het maken van wekkers</string>
     <string name="alarm_notification_reminder_title">Wekkerherinnering</string>
     <string name="label_default">Standaard</string>
+    <string name="delete_occasional_alarm_after_use_title">Wekker verwijderen na uitzetten</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Uitzetten &amp; Verwijderen</string>
+    <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
 </resources>

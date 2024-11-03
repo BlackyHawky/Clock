@@ -1,0 +1,15 @@
+**Parandused**
+- vahekaartide näidiku värvid
+- kella vahekaardi sekundiosuti värvid
+- kuvamise vea, kui ekraanisäästja on käivitatud nutiseadme seadistustest
+
+**Täiendused**
+- varundamise ja taastamise seadistused
+- taimerite järjestamise ja uued seadistused
+- eraldi aktsentvärvid päeva- ja öörežiimidele
+- uuendasime öiseid aktsentvärve
+- uuendasime tõlkeid
+
+Muudatuste logi: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Märkus: palun lähtesta seadistus „Teavituste meeldetuletus“

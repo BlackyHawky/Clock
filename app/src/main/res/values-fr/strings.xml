@@ -649,4 +649,6 @@
     <string name="auto_night_accent_color_title">Appliquer la couleur d\'accentuation au mode nuit</string>
     <string name="night_accent_color_title">Couleur d\'accentuation pour le mode nuit</string>
     <string name="sort_timer_manually">Manuellement (par glissement)</string>
+    <string name="timer_volume_buttons_action_title">Réinitialiser les minuteur expirés avec les boutons de volume</string>
+    <string name="timer_volume_buttons_action_summary">Ne fonctionne que sur l\'écran de verrouillage</string>
 </resources>
