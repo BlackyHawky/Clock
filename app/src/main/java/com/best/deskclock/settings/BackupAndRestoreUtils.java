@@ -117,6 +117,7 @@ import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_CRESCE
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_FLIP_ACTION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_SHAKE_ACTION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_VIBRATE;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_VOLUME_BUTTONS_ACTION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
@@ -186,6 +187,7 @@ public class BackupAndRestoreUtils {
 
                     // Values from TimerSettingsActivity
                     booleans.put(KEY_TIMER_VIBRATE, prefs.getBoolean(KEY_TIMER_VIBRATE, false));
+                    booleans.put(KEY_TIMER_VOLUME_BUTTONS_ACTION, prefs.getBoolean(KEY_TIMER_VOLUME_BUTTONS_ACTION, false));
                     booleans.put(KEY_TIMER_FLIP_ACTION, prefs.getBoolean(KEY_TIMER_FLIP_ACTION, false));
                     booleans.put(KEY_TIMER_SHAKE_ACTION, prefs.getBoolean(KEY_TIMER_SHAKE_ACTION, false));
                     booleans.put(KEY_KEEP_TIMER_SCREEN_ON, prefs.getBoolean(KEY_KEEP_TIMER_SCREEN_ON, true));

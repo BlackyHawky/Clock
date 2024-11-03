@@ -133,15 +133,20 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_UP) {
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE,
-                        KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS -> {
-                    DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
-                    return true;
+        switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_MUTE,
+                    KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS, KeyEvent.KEYCODE_HEADSETHOOK -> {
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    final boolean isExpiredTimerResetWithVolumeButtons =
+                            DataModel.getDataModel().isExpiredTimerResetWithVolumeButtons();
+                    if (isExpiredTimerResetWithVolumeButtons) {
+                        DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
+                    }
                 }
+                return true;
             }
         }
+
         return super.dispatchKeyEvent(event);
     }
 

@@ -564,6 +564,13 @@ public final class DataModel {
     }
 
     /**
+     * @return whether the expired timer is reset with the volume buttons. {@code false} otherwise.
+     */
+    public boolean isExpiredTimerResetWithVolumeButtons() {
+        return mTimerModel.isExpiredTimerResetWithVolumeButtons();
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     public boolean isFlipActionForTimersEnabled() {

@@ -407,6 +407,13 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether the expired timer is reset with the volume buttons. {@code false} otherwise.
+     */
+    static boolean isExpiredTimerResetWithVolumeButtons(SharedPreferences prefs) {
+        return prefs.getBoolean(TimerSettingsActivity.KEY_TIMER_VOLUME_BUTTONS_ACTION, false);
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     static boolean isFlipActionForTimersEnabled(SharedPreferences prefs) {

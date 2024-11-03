@@ -492,6 +492,13 @@ final class TimerModel {
     }
 
     /**
+     * @return whether the expired timer is reset with the volume buttons. {@code false} otherwise.
+     */
+    boolean isExpiredTimerResetWithVolumeButtons() {
+        return mSettingsModel.isExpiredTimerResetWithVolumeButtons();
+    }
+
+    /**
      * @return whether flip action for timers is enabled. {@code false} otherwise.
      */
     boolean isFlipActionForTimersEnabled() {

@@ -218,6 +218,10 @@ final class SettingsModel {
         SettingsDAO.setTimerVibrate(mPrefs, enabled);
     }
 
+    boolean isExpiredTimerResetWithVolumeButtons() {
+        return SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
+    }
+
     boolean isFlipActionForTimersEnabled() {
         return SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
     }
