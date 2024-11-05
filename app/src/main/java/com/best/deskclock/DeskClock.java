@@ -456,6 +456,11 @@ public class DeskClock extends AppCompatActivity
     }
 
     @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return getSelectedDeskClockFragment().onKeyUp(keyCode, event) || super.onKeyUp(keyCode, event);
+    }
+
+    @Override
     public void updateFab(@UpdateFabFlag int updateType) {
         final DeskClockFragment f = getSelectedDeskClockFragment();
 

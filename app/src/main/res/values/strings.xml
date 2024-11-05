@@ -531,6 +531,18 @@
     -->
     <string name="sw_reset_button">Reset</string>
     <!-- Stopwatch strings -->
+    <!-- Stopwatch preference summary in the settings -->
+    <string name="sw_settings_summary">Set actions for volume buttons</string>
+    <!-- Setting title to set the volume up action for the stopwatch -->
+    <string name="sw_volume_up_action_title">Volume up</string>
+    <!-- Setting title to set volume up action after long press for stopwatch -->
+    <string name="sw_long_press_volume_up_action_title">Volume up (after long press)</string>
+    <!-- Setting title to set the volume down action for the stopwatch -->
+    <string name="sw_volume_down_action_title">Volume down</string>
+    <!-- Setting title to set volume down action after long press for stopwatch -->
+    <string name="sw_long_press_volume_down_action_title">Volume down (after long press)</string>
+    <!-- Setting title to start / pause the stopwatch. -->
+    <string name="sw_start_pause_action">Start / Pause</string>
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
     <!-- Describes the purpose of the button to pause a stopwatch. -->

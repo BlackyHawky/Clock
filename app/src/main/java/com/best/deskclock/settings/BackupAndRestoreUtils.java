@@ -109,6 +109,10 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER;
@@ -283,6 +287,12 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_TIMER_CRESCENDO, prefs.getString(KEY_TIMER_CRESCENDO, "0"));
                     strings.put(KEY_SORT_TIMER, prefs.getString(KEY_SORT_TIMER, "0"));
                     strings.put(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, prefs.getString(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, "1"));
+
+                    // Values from StopwatchSettingsActivity
+                    strings.put(KEY_SW_VOLUME_UP_ACTION, prefs.getString(KEY_SW_VOLUME_UP_ACTION, "0"));
+                    strings.put(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, prefs.getString(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, "0"));
+                    strings.put(KEY_SW_VOLUME_DOWN_ACTION, prefs.getString(KEY_SW_VOLUME_DOWN_ACTION, "0"));
+                    strings.put(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, prefs.getString(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, "0"));
 
                     // Values from ScreensaverSettingsActivity
                     strings.put(KEY_SCREENSAVER_CLOCK_STYLE, prefs.getString(KEY_SCREENSAVER_CLOCK_STYLE, "digital"));

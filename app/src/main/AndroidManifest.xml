@@ -119,6 +119,13 @@
             android:theme="@style/Theme.DeskClock" />
 
         <activity
+            android:name="com.best.deskclock.settings.StopwatchSettingsActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/stopwatch_channel"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DeskClock" />
+
+        <activity
             android:name="com.best.deskclock.settings.WidgetsSettingsActivity"
             android:excludeFromRecents="true"
             android:label="@string/widgets_settings"

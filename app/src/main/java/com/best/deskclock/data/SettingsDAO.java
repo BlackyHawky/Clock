@@ -57,6 +57,7 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_DEFAULT_ACTION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
@@ -81,6 +82,7 @@ import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.settings.AlarmSettingsActivity;
 import com.best.deskclock.settings.ClockSettingsActivity;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
+import com.best.deskclock.settings.StopwatchSettingsActivity;
 import com.best.deskclock.settings.TimerSettingsActivity;
 
 import java.util.Arrays;
@@ -777,6 +779,38 @@ final class SettingsDAO {
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
         // accent to character, which breaks the enum conversion.
         return ClockStyle.valueOf(clockStyle.toUpperCase(Locale.US));
+    }
+
+    /**
+     * @return the action to execute when volume up button is pressed for the stopwatch
+     */
+    static String getVolumeUpActionForStopwatch(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_stopwatch.xml
+        return prefs.getString(StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION, KEY_SW_DEFAULT_ACTION);
+    }
+
+    /**
+     * @return the action to execute when volume up button is long pressed for the stopwatch
+     */
+    static String getVolumeUpActionAfterLongPressForStopwatch(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_stopwatch.xml
+        return prefs.getString(StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, KEY_SW_DEFAULT_ACTION);
+    }
+
+    /**
+     * @return the action to execute when volume down button is pressed for the stopwatch
+     */
+    static String getVolumeDownActionForStopwatch(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_stopwatch.xml
+        return prefs.getString(StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION, KEY_SW_DEFAULT_ACTION);
+    }
+
+    /**
+     * @return the action to execute when volume down button is long pressed for the stopwatch
+     */
+    static String getVolumeDownActionAfterLongPressForStopwatch(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_stopwatch.xml
+        return prefs.getString(StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, KEY_SW_DEFAULT_ACTION);
     }
 
     /**

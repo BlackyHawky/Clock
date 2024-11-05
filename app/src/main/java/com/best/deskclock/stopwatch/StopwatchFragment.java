@@ -11,6 +11,11 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_LAP;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_RESET;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_SHARE;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_START_PAUSE;
+import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_DEFAULT_ACTION;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.app.Activity;
@@ -21,6 +26,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.transition.TransitionManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,6 +137,12 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     private Activity mActivity;
     private Context mContext;
+    private String mVolumeUpAction;
+    private String mVolumeUpActionAfterLongPress;
+    private String mVolumeDownAction;
+    private String mVolumeDownActionAfterLongPress;
+    private boolean isVolumeUpLongPressed;
+    private boolean isVolumeDownLongPressed;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -177,7 +189,60 @@ public final class StopwatchFragment extends DeskClockFragment {
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
 
+        mVolumeUpAction = DataModel.getDataModel().getVolumeUpActionForStopwatch();
+        mVolumeUpActionAfterLongPress = DataModel.getDataModel().getVolumeUpActionAfterLongPressForStopwatch();
+        mVolumeDownAction = DataModel.getDataModel().getVolumeDownActionForStopwatch();
+        mVolumeDownActionAfterLongPress = DataModel.getDataModel().getVolumeDownActionAfterLongPressForStopwatch();
+
         return v;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    if (mVolumeUpAction.equals(KEY_SW_DEFAULT_ACTION)
+                            && mVolumeUpActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                        return false;
+                    }
+                    isVolumeUpLongPressed = event.getRepeatCount() >= 2;
+                    return true;
+
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    if (mVolumeDownAction.equals(KEY_SW_DEFAULT_ACTION)
+                            && mVolumeDownActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                        return false;
+                    }
+                    isVolumeDownLongPressed = event.getRepeatCount() >= 2;
+                    return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_UP) {
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+                if (isVolumeUpLongPressed) {
+                    getVolumeUpActionAfterLongPress();
+                } else {
+                    getVolumeUpAction();
+                }
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                if (isVolumeDownLongPressed) {
+                    getVolumeDownActionAfterLongPress();
+                } else {
+                    getVolumeDownAction();
+                }
+                return true;
+            }
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override
@@ -504,6 +569,67 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Update button states.
         updateFab(updateTypes);
+    }
+
+    /**
+     * Return the action to execute to the volume up button
+     */
+    private void getVolumeUpAction() {
+        getVolumeButtonsActions(mVolumeUpAction);
+    }
+
+    /**
+     * Return the action to execute to the volume up button after a long press
+     */
+    private void getVolumeUpActionAfterLongPress() {
+        getVolumeButtonsActions(mVolumeUpActionAfterLongPress);
+    }
+
+    /**
+     * Return the action to execute to the volume down button
+     */
+    private void getVolumeDownAction() {
+        getVolumeButtonsActions(mVolumeDownAction);
+    }
+
+    /**
+     * Return the action to execute to the volume down button after a long press
+     */
+    private void getVolumeDownActionAfterLongPress() {
+        getVolumeButtonsActions(mVolumeDownActionAfterLongPress);
+    }
+
+    /**
+     * Set actions for volume buttons
+     */
+    private void getVolumeButtonsActions(String volumeAction) {
+        switch (volumeAction) {
+            case KEY_SW_ACTION_START_PAUSE -> {
+                if (getStopwatch().isReset() || getStopwatch().isPaused()) {
+                    doStart();
+                } else {
+                    doPause();
+                }
+            }
+            case KEY_SW_ACTION_RESET -> {
+                if (getStopwatch().isRunning() || getStopwatch().isPaused()) {
+                    doReset();
+                }
+            }
+            case KEY_SW_ACTION_LAP -> {
+                if (getStopwatch().isRunning()) {
+                    doAddLap();
+                }
+            }
+            case KEY_SW_ACTION_SHARE -> {
+                if (getStopwatch().isRunning()) {
+                    doPause();
+                    doShare();
+                } else if (getStopwatch().isPaused()) {
+                    doShare();
+                }
+            }
+        }
     }
 
     /**

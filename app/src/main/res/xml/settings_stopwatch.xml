@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/menu_stopwatch">
+
+    <PreferenceCategory
+        android:title="@string/actions_category_title"
+        android:layout="@layout/settings_preference_category_layout"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="key_sw_volume_up_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sw_volume_up_action_title"
+            android:entries="@array/stopwatch_actions_entries"
+            android:entryValues="@array/stopwatch_actions_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_sw_volume_up_action_after_long_press"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sw_long_press_volume_up_action_title"
+            android:entries="@array/stopwatch_actions_entries"
+            android:entryValues="@array/stopwatch_actions_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_sw_volume_down_action"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sw_volume_down_action_title"
+            android:entries="@array/stopwatch_actions_entries"
+            android:entryValues="@array/stopwatch_actions_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            android:key="key_sw_volume_down_action_after_long_press"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/sw_long_press_volume_down_action_title"
+            android:entries="@array/stopwatch_actions_entries"
+            android:entryValues="@array/stopwatch_actions_values"
+            android:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

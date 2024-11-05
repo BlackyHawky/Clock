@@ -46,6 +46,11 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         return false;
     }
 
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        // By default return false so event continues to propagate
+        return false;
+    }
+
     /**
      * Called before onUpdateFab when the fab should be animated.
      * @param fab the fab component to be configured based on current state

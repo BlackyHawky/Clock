@@ -385,6 +385,22 @@ final class SettingsModel {
         SettingsDAO.setRestoreBackupFinished(mPrefs, finished);
     }
 
+    String getVolumeUpActionForStopwatch() {
+        return SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
+    }
+
+    String getVolumeUpActionAfterLongPressForStopwatch() {
+        return SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
+    }
+
+    String getVolumeDownActionForStopwatch() {
+        return SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
+    }
+
+    String getVolumeDownActionAfterLongPressForStopwatch() {
+        return SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
+    }
+
     TimeZones getTimeZones() {
         return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }

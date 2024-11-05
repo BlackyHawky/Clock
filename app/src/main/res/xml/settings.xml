@@ -50,6 +50,14 @@
         app:singleLineTitle="false" />
 
     <Preference
+        android:key="key_stopwatch_settings"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/menu_stopwatch"
+        android:summary="@string/sw_settings_summary"
+        android:icon="@drawable/ic_tab_stopwatch_static"
+        app:singleLineTitle="false" />
+
+    <Preference
         android:key="key_screensaver_settings"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/screensaver_settings_title"

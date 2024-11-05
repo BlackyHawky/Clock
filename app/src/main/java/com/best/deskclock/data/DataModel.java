@@ -1286,6 +1286,38 @@ public final class DataModel {
     }
 
     /**
+     * @return the action to execute when volume up button is pressed for the stopwatch
+     */
+    public String getVolumeUpActionForStopwatch() {
+        enforceMainLooper();
+        return mSettingsModel.getVolumeUpActionForStopwatch();
+    }
+
+    /**
+     * @return the action to execute when volume up button is long pressed for the stopwatch
+     */
+    public String getVolumeUpActionAfterLongPressForStopwatch() {
+        enforceMainLooper();
+        return mSettingsModel.getVolumeUpActionAfterLongPressForStopwatch();
+    }
+
+    /**
+     * @return the action to execute when volume down button is pressed for the stopwatch
+     */
+    public String getVolumeDownActionForStopwatch() {
+        enforceMainLooper();
+        return mSettingsModel.getVolumeDownActionForStopwatch();
+    }
+
+    /**
+     * @return the action to execute when volume down button is long pressed for the stopwatch
+     */
+    public String getVolumeDownActionAfterLongPressForStopwatch() {
+        enforceMainLooper();
+        return mSettingsModel.getVolumeDownActionAfterLongPressForStopwatch();
+    }
+
+    /**
      * @return a description of the time zones available for selection
      */
     public TimeZones getTimeZones() {

@@ -59,6 +59,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
     public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
     public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
+    public static final String KEY_STOPWATCH_SETTINGS = "key_stopwatch_settings";
     public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
     public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
@@ -82,6 +83,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mClockSettingsPref;
         Preference mAlarmSettingsPref;
         Preference mTimerSettingsPref;
+        Preference mStopwatchSettingsPref;
         Preference mScreensaverSettings;
         Preference mWidgetsSettings;
         Preference mPermissionsManagement;
@@ -182,6 +184,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mClockSettingsPref = findPreference(KEY_CLOCK_SETTINGS);
             mAlarmSettingsPref = findPreference(KEY_ALARM_SETTINGS);
             mTimerSettingsPref = findPreference(KEY_TIMER_SETTINGS);
+            mStopwatchSettingsPref = findPreference(KEY_STOPWATCH_SETTINGS);
             mScreensaverSettings = findPreference(KEY_SCREENSAVER_SETTINGS);
             mWidgetsSettings = findPreference(KEY_WIDGETS_SETTINGS);
             mPermissionsManagement = findPreference(KEY_PERMISSIONS_MANAGEMENT);
@@ -228,6 +231,12 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_TIMER_SETTINGS -> {
                     final Intent timerSettingsIntent = new Intent(context, TimerSettingsActivity.class);
                     getActivity.launch(timerSettingsIntent);
+                    return true;
+                }
+
+                case KEY_STOPWATCH_SETTINGS -> {
+                    final Intent stopwatchSettingsIntent = new Intent(context, StopwatchSettingsActivity.class);
+                    getActivity.launch(stopwatchSettingsIntent);
                     return true;
                 }
 
@@ -311,6 +320,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mAlarmSettingsPref.setOnPreferenceClickListener(this);
 
             mTimerSettingsPref.setOnPreferenceClickListener(this);
+
+            mStopwatchSettingsPref.setOnPreferenceClickListener(this);
 
             mScreensaverSettings.setOnPreferenceClickListener(this);
 
