@@ -97,7 +97,7 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
             final Uri ringtoneUri = ringtoneManager.getRingtoneUri(i);
             itemHolders.add(new SystemRingtoneHolder(ringtoneUri, null));
         }
-        itemHolders.add(new SystemRingtoneHolder(Uri.parse("random"), "shuffle"));
+        itemHolders.add(new SystemRingtoneHolder(Uri.parse("random"), null));
 
         return itemHolders;
     }

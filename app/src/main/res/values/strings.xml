@@ -1406,4 +1406,6 @@
     <string name="backup_restore_toast_message_for_backup">Backup completed</string>
     <!-- Toast message when restore is complete -->
     <string name="backup_restore_toast_message_for_restore">Restore completed</string>
+    <!-- String for random alarms -->
+    <string name="random_ringtone_title">Random alarms</string>
 </resources>
