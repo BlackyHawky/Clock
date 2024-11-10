@@ -85,6 +85,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         onOff.setOnCheckedChangeListener((compoundButton, checked) ->
                 getItemHolder().getAlarmTimeClickHandler().setAlarmEnabled(getItemHolder().item, checked));
+
+        clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
     }
 
     @Override

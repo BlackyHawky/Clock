@@ -155,8 +155,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, mAlarmsEmptyView);
-        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
-                this);
+        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
 
         mItemAdapter = new ItemAdapter<>();
         mItemAdapter.setHasStableIds();

@@ -100,9 +100,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             getItemHolder().collapse();
         });
 
-        // Edit time handler
-        clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
-
         // Dismiss alarm when ringtone ends checkbox handler
         dismissAlarmWhenRingtoneEnds.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setDismissAlarmWhenRingtoneEndsEnabled(

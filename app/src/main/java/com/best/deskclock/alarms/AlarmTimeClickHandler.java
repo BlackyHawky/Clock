@@ -42,17 +42,15 @@ public final class AlarmTimeClickHandler {
     private final Fragment mFragment;
     private final Context mContext;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
-    private final ScrollHandler mScrollHandler;
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
 
-    public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
-                                 AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
+    public AlarmTimeClickHandler(Fragment fragment, Bundle savedState, AlarmUpdateHandler alarmUpdateHandler) {
 
         mFragment = fragment;
         mContext = mFragment.requireActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
-        mScrollHandler = smoothScrollController;
+
         if (savedState != null) {
             mPreviousDaysOfWeekMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
@@ -213,7 +211,6 @@ public final class AlarmTimeClickHandler {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
             mSelectedAlarm.enabled = true;
-            mScrollHandler.setSmoothScrollStableId(mSelectedAlarm.id);
             mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
             mSelectedAlarm = null;
         }
