@@ -73,6 +73,8 @@
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
+
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
     </style>
 
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
@@ -123,6 +125,9 @@
         <item name="android:background">@drawable/bg_snackbar</item>
     </style>
 
+    <!-- ================= -->
+    <!--    TIME PICKER    -->
+    <!-- ================= -->
     <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
         <!-- For dialog -->
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
@@ -132,16 +137,49 @@
         <item name="materialButtonOutlinedStyle">@style/MaterialTimePickerButtonOutlinedStyle</item>
     </style>
 
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerSize">28dp</item>
-    </style>
-
     <style name="MaterialTimePickerChipStyle" parent="Widget.MaterialComponents.TimePicker.Display">
         <item name="chipCornerRadius">8dp</item>
     </style>
 
     <style name="MaterialTimePickerButtonOutlinedStyle" parent="Widget.MaterialComponents.TimePicker.Button">
         <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- ================= -->
+    <!--    DATE PICKER    -->
+    <!-- ================= -->
+    <style name="ThemeOverlay.App.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarStyle">@style/MaterialCalendarStyle</item>
+        <item name="materialCalendarHeaderLayout">@style/MaterialCalendarHeaderLayout</item>
+        <item name="materialCalendarHeaderTitle">@style/MaterialCalendarHeaderTitle</item>
+        <item name="materialCalendarHeaderToggleButton">@style/MaterialCalendarHeaderToggleButton</item>
+        <item name="materialCalendarHeaderSelection">@style/MaterialCalendarHeaderSelection</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <style name="MaterialCalendarStyle" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="backgroundTint">?attr/colorSurface</item>
+    </style>
+
+    <style name="MaterialCalendarHeaderLayout" parent="Widget.MaterialComponents.MaterialCalendar.HeaderLayout">
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+    <style name="MaterialCalendarHeaderSelection" parent="Widget.MaterialComponents.MaterialCalendar.HeaderSelection">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="MaterialCalendarHeaderTitle" parent="Widget.MaterialComponents.MaterialCalendar.HeaderTitle">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="MaterialCalendarHeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:tint">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">28dp</item>
     </style>
 
     <!-- ============ -->

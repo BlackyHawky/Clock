@@ -54,19 +54,28 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION_10 = 11;
 
     /**
-     * Removed change profile
+     * Removed change profile + add the ability to dismiss alarms at the end of the ringtone
+     * and add alarm snooze actions.
      */
     private static final int VERSION_11 = 12;
+
+    /**
+     * Add the ability to set an alarm on a specific date
+     */
+    private static final int VERSION_12 = 13;
 
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_11);
+        super(context, DATABASE_NAME, null, VERSION_12);
     }
 
     private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
         db.execSQL("CREATE TABLE " + alarmsTableName + " (" +
                 ClockContract.AlarmsColumns._ID + " INTEGER PRIMARY KEY," +
+                ClockContract.AlarmsColumns.YEAR + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.MONTH + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
@@ -90,7 +99,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
-                ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
@@ -132,10 +141,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     "minutes",
                     "daysofweek",
                     "enabled",
-                    "dismissAlarmWhenRingtoneEnds",
-                    "alarmSnoozeActions",
                     "vibrate",
-                    "message",
+                    "label",
                     "alert",
                     "incvol"
             };
@@ -149,18 +156,16 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                     alarm.minutes = cursor.getInt(2);
                     alarm.daysOfWeek = Weekdays.fromBits(cursor.getInt(3));
                     alarm.enabled = cursor.getInt(4) == 1;
-                    alarm.dismissAlarmWhenRingtoneEnds = cursor.getInt(5) == 1;
-                    alarm.alarmSnoozeActions = cursor.getInt(6) == 1;
-                    alarm.vibrate = cursor.getInt(7) == 1;
-                    alarm.label = cursor.getString(8);
+                    alarm.vibrate = cursor.getInt(5) == 1;
+                    alarm.label = cursor.getString(6);
 
-                    final String alertString = cursor.getString(9);
+                    final String alertString = cursor.getString(7);
                     if ("silent".equals(alertString)) {
                         alarm.alert = Alarm.NO_RINGTONE_URI;
                     } else {
                         alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
                     }
-                    alarm.increasingVolume = cursor.getInt(10) == 1;
+                    alarm.increasingVolume = cursor.getInt(8) == 1;
 
                     // Save new version of alarm and create alarm instance for it
                     db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
@@ -186,12 +191,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (oldVersion < VERSION_10) {
-            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME
-                    + " ADD COLUMN profile"
-                    + " TEXT NOT NULL DEFAULT '';");
-            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME
-                    + " ADD COLUMN profile"
-                    + " TEXT NOT NULL DEFAULT '';");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN profile" + " TEXT NOT NULL DEFAULT '';");
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN profile" + " TEXT NOT NULL DEFAULT '';");
         }
 
         if (oldVersion < VERSION_11) {
@@ -232,10 +233,20 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             }
             db.execSQL("DROP TABLE IF EXISTS " + ALARMS_TABLE_NAME + ";");
             db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
-            db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME
-                    + " RENAME TO " + ALARMS_TABLE_NAME + ";");
-            db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME
-                    + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
+            db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME + " RENAME TO " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
+        }
+
+        if (oldVersion < VERSION_12) {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+            int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN year INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN month INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN day INTEGER NOT NULL DEFAULT 0;");
+
+            db.execSQL("UPDATE " + ALARMS_TABLE_NAME + " SET year = " + year + ", month = " + month + ", day = " + day + ";");
         }
     }
 

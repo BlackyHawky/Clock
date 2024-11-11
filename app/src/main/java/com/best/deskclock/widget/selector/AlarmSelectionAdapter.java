@@ -7,6 +7,7 @@
 package com.best.deskclock.widget.selector;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,10 @@ import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.TextTime;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
 
@@ -62,18 +65,32 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
         alarmLabel.setText(alarm.label);
 
         // find days when alarm is firing
-        final String daysOfWeek;
-        if (!alarm.daysOfWeek.isRepeating()) {
-            daysOfWeek = Alarm.isTomorrow(alarm, Calendar.getInstance()) ?
-                    context.getResources().getString(R.string.alarm_tomorrow) :
-                    context.getResources().getString(R.string.alarm_today);
-        } else {
-            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
-            daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
-        }
-
         final TextView daysOfWeekView = row.findViewById(R.id.daysOfWeek);
-        daysOfWeekView.setText(daysOfWeek);
+
+        if (alarm.daysOfWeek.isRepeating()) {
+            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            daysOfWeekView.setText(alarm.daysOfWeek.toString(context, weekdayOrder));
+        } else {
+            if (Alarm.isTomorrow(alarm, Calendar.getInstance()) && !alarm.isDateSpecified()) {
+                daysOfWeekView.setText(context.getString(R.string.alarm_tomorrow));
+            } else if (alarm.isDateSpecified()) {
+                if (Alarm.isDateSpecifiedTomorrow(alarm.year, alarm.month, alarm.day)) {
+                    daysOfWeekView.setText(context.getString(R.string.alarm_tomorrow));
+                } else {
+                    int year = alarm.year;
+                    int month = alarm.month;
+                    int dayOfMonth = alarm.day;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, dayOfMonth);
+                    String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                    String formattedDate = dateFormat.format(calendar.getTime());
+                    daysOfWeekView.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
+                }
+            } else {
+                daysOfWeekView.setText(context.getString(R.string.alarm_today));
+            }
+        }
 
         return row;
     }

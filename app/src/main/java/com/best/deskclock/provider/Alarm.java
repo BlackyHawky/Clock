@@ -53,6 +53,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                     ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
     private static final String[] QUERY_COLUMNS = {
             _ID,
+            YEAR,
+            MONTH,
+            DAY,
             HOUR,
             MINUTES,
             DAYS_OF_WEEK,
@@ -67,6 +70,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     };
     private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + YEAR,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MONTH,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAY,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
@@ -96,35 +102,41 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * THEY MUST BE KEPT IN SYNC WITH ABOVE QUERY COLUMNS
      */
     private static final int ID_INDEX = 0;
-    private static final int HOUR_INDEX = 1;
-    private static final int MINUTES_INDEX = 2;
-    private static final int DAYS_OF_WEEK_INDEX = 3;
-    private static final int ENABLED_INDEX = 4;
-    private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 5;
-    private static final int ALARM_SNOOZE_ACTIONS_INDEX = 6;
-    private static final int VIBRATE_INDEX = 7;
-    private static final int LABEL_INDEX = 8;
-    private static final int RINGTONE_INDEX = 9;
-    private static final int DELETE_AFTER_USE_INDEX = 10;
-    private static final int INCREASING_VOLUME_INDEX = 11;
+    private static final int YEAR_INDEX = 1;
+    private static final int MONTH_INDEX = 2;
+    private static final int DAY_INDEX = 3;
+    private static final int HOUR_INDEX = 4;
+    private static final int MINUTES_INDEX = 5;
+    private static final int DAYS_OF_WEEK_INDEX = 6;
+    private static final int ENABLED_INDEX = 7;
+    private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 8;
+    private static final int ALARM_SNOOZE_ACTIONS_INDEX = 9;
+    private static final int VIBRATE_INDEX = 10;
+    private static final int LABEL_INDEX = 11;
+    private static final int RINGTONE_INDEX = 12;
+    private static final int DELETE_AFTER_USE_INDEX = 13;
+    private static final int INCREASING_VOLUME_INDEX = 14;
 
-    private static final int INSTANCE_STATE_INDEX = 12;
-    public static final int INSTANCE_ID_INDEX = 13;
-    public static final int INSTANCE_YEAR_INDEX = 14;
-    public static final int INSTANCE_MONTH_INDEX = 15;
-    public static final int INSTANCE_DAY_INDEX = 16;
-    public static final int INSTANCE_HOUR_INDEX = 17;
-    public static final int INSTANCE_MINUTE_INDEX = 18;
-    public static final int INSTANCE_LABEL_INDEX = 19;
-    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 20;
-    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 21;
-    public static final int INSTANCE_VIBRATE_INDEX = 22;
+    private static final int INSTANCE_STATE_INDEX = 15;
+    public static final int INSTANCE_ID_INDEX = 16;
+    public static final int INSTANCE_YEAR_INDEX = 17;
+    public static final int INSTANCE_MONTH_INDEX = 18;
+    public static final int INSTANCE_DAY_INDEX = 19;
+    public static final int INSTANCE_HOUR_INDEX = 20;
+    public static final int INSTANCE_MINUTE_INDEX = 21;
+    public static final int INSTANCE_LABEL_INDEX = 22;
+    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 23;
+    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 24;
+    public static final int INSTANCE_VIBRATE_INDEX = 25;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_VIBRATE_INDEX + 1;
     // Public fields
     public long id;
     public boolean enabled;
+    public int year;
+    public int month;
+    public int day;
     public int hour;
     public int minutes;
     public Weekdays daysOfWeek;
@@ -140,11 +152,18 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     // Creates a default alarm at the current time.
     public Alarm() {
-        this(0, 0);
+        this(Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+                0,
+                0);
     }
 
-    public Alarm(int hour, int minutes) {
+    public Alarm(int year, int month, int day, int hour, int minutes) {
         this.id = INVALID_ID;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.hour = hour;
         this.minutes = minutes;
         this.dismissAlarmWhenRingtoneEnds = true;
@@ -160,6 +179,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public Alarm(Cursor c) {
         id = c.getLong(ID_INDEX);
         enabled = c.getInt(ENABLED_INDEX) == 1;
+        year = c.getInt(YEAR_INDEX);
+        month = c.getInt(MONTH_INDEX);
+        day = c.getInt(DAY_INDEX);
         hour = c.getInt(HOUR_INDEX);
         minutes = c.getInt(MINUTES_INDEX);
         daysOfWeek = Weekdays.fromBits(c.getInt(DAYS_OF_WEEK_INDEX));
@@ -188,6 +210,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     Alarm(Parcel p) {
         id = p.readLong();
         enabled = p.readInt() == 1;
+        year = p.readInt();
+        month = p.readInt();
+        day = p.readInt();
         hour = p.readInt();
         minutes = p.readInt();
         daysOfWeek = Weekdays.fromBits(p.readInt());
@@ -207,6 +232,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         values.put(ENABLED, alarm.enabled ? 1 : 0);
+        values.put(YEAR, alarm.year);
+        values.put(MONTH, alarm.month);
+        values.put(DAY, alarm.day);
         values.put(HOUR, alarm.hour);
         values.put(MINUTES, alarm.minutes);
         values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBits());
@@ -312,6 +340,22 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return totalAlarmMinutes <= totalNowMinutes;
     }
 
+    public static boolean isDateSpecifiedTomorrow(int alarmYear, int alarmMonth, int alarmDayOfMonth) {
+        Calendar today = Calendar.getInstance();
+        Calendar tomorrow = (Calendar) today.clone();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
+        return (alarmYear == tomorrow.get(Calendar.YEAR)) &&
+                (alarmMonth == tomorrow.get(Calendar.MONTH)) &&
+                (alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public boolean isDateSpecified() {
+        return year != Calendar.getInstance().get(Calendar.YEAR)
+                || month != Calendar.getInstance().get(Calendar.MONTH)
+                || day != Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    }
+
     public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
         ContentValues values = createContentValues(alarm);
         Uri uri = contentResolver.insert(CONTENT_URI, values);
@@ -338,6 +382,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public void writeToParcel(Parcel p, int flags) {
         p.writeLong(id);
         p.writeInt(enabled ? 1 : 0);
+        p.writeInt(year);
+        p.writeInt(month);
+        p.writeInt(day);
         p.writeInt(hour);
         p.writeInt(minutes);
         p.writeInt(daysOfWeek.getBits());
@@ -372,9 +419,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public Calendar getPreviousAlarmTime(Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
-        previousInstanceTime.set(Calendar.YEAR, currentTime.get(Calendar.YEAR));
-        previousInstanceTime.set(Calendar.MONTH, currentTime.get(Calendar.MONTH));
-        previousInstanceTime.set(Calendar.DAY_OF_MONTH, currentTime.get(Calendar.DAY_OF_MONTH));
+        previousInstanceTime.set(Calendar.YEAR, year);
+        previousInstanceTime.set(Calendar.MONTH, month);
+        previousInstanceTime.set(Calendar.DAY_OF_MONTH, day);
         previousInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
         previousInstanceTime.set(Calendar.MINUTE, minutes);
         previousInstanceTime.set(Calendar.SECOND, 0);
@@ -391,9 +438,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     public Calendar getNextAlarmTime(Calendar currentTime) {
         final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
-        nextInstanceTime.set(Calendar.YEAR, currentTime.get(Calendar.YEAR));
-        nextInstanceTime.set(Calendar.MONTH, currentTime.get(Calendar.MONTH));
-        nextInstanceTime.set(Calendar.DAY_OF_MONTH, currentTime.get(Calendar.DAY_OF_MONTH));
+        nextInstanceTime.set(Calendar.YEAR, year);
+        nextInstanceTime.set(Calendar.MONTH, month);
+        nextInstanceTime.set(Calendar.DAY_OF_MONTH, day);
         nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
         nextInstanceTime.set(Calendar.MINUTE, minutes);
         nextInstanceTime.set(Calendar.SECOND, 0);
@@ -436,6 +483,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 "alert=" + alert +
                 ", id=" + id +
                 ", enabled=" + enabled +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
                 ", hour=" + hour +
                 ", minutes=" + minutes +
                 ", daysOfWeek=" + daysOfWeek +

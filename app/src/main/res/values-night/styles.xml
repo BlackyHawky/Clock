@@ -71,6 +71,8 @@
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
+
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
     </style>
 
     <!-- ============ -->

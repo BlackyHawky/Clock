@@ -21,6 +21,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Turn off/postpone the alarm with the power button or volume buttons;
 * For Snapdragon phones only, the alarm is triggered when the phone is switched off;
   * Unfortunately, this feature may not work on some devices despite the presence of the _“com.qualcomm.qti.poweroffalarm”_ system app. See the discussion [here](https://github.com/BlackyHawky/Clock/issues/88).
+* Set alarms for a specific date;
 * Swipe to delete an alarm;
 * Duplicate alarms;
 * Customizable alarm title;
@@ -56,7 +57,7 @@ Before opening a new issue, be sure to check the following:
 - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/BlackyHawky/Clock/issues). Please search open and closed issues.
 - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of Clock.
 - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
-  Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
+  Note that issues that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
 
 ## Translation
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/clock/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.

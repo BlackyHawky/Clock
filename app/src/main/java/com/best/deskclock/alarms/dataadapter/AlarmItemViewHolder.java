@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMO
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -29,7 +30,9 @@ import com.best.deskclock.widget.TextTime;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -60,12 +63,12 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         final MaterialCardView itemCardView = itemView.findViewById(R.id.item_card_view);
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String darkMode = DataModel.getDataModel().getDarkMode();
         if (isCardBackgroundDisplayed) {
             itemCardView.setCardBackgroundColor(
                     MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
             );
-        } else if (Utils.isNight(context.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        } else if (Utils.isNight(context.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             itemCardView.setCardBackgroundColor(Color.BLACK);
         } else {
             itemCardView.setCardBackgroundColor(
@@ -155,12 +158,26 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         if (alarm.daysOfWeek.isRepeating()) {
             upcomingInstanceLabel.setVisibility(View.GONE);
         } else {
-            final String labelText;
-            labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                    ? context.getString(R.string.alarm_tomorrow)
-                    : context.getString(R.string.alarm_today);
+            if (Alarm.isTomorrow(alarm, Calendar.getInstance()) && !alarm.isDateSpecified()) {
+                upcomingInstanceLabel.setText(context.getString(R.string.alarm_tomorrow));
+            } else if (alarm.isDateSpecified()) {
+                if (Alarm.isDateSpecifiedTomorrow(alarm.year, alarm.month, alarm.day)) {
+                    upcomingInstanceLabel.setText(context.getString(R.string.alarm_tomorrow));
+                } else {
+                    int year = alarm.year;
+                    int month = alarm.month;
+                    int dayOfMonth = alarm.day;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(year, month, dayOfMonth);
+                    String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                    String formattedDate = dateFormat.format(calendar.getTime());
+                    upcomingInstanceLabel.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
+                }
+            } else {
+                upcomingInstanceLabel.setText(context.getString(R.string.alarm_today));
+            }
             upcomingInstanceLabel.setVisibility(View.VISIBLE);
-            upcomingInstanceLabel.setText(labelText);
             upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
         }
     }

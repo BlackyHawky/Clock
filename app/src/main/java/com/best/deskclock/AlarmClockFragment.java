@@ -499,7 +499,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         right.setVisibility(View.INVISIBLE);
     }
 
-
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
