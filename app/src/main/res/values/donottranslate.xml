@@ -347,6 +347,17 @@
         <item>digital</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when invoking the date picker style preference. -->
+    <string-array name="material_date_picker_style_entries">
+        <item>@string/material_date_picker_style_calendar</item>
+        <item>@string/material_date_picker_style_text</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the material_date_picker_style_entries above. -->
+    <string-array name="material_date_picker_style_values" translatable="false">
+        <item>calendar</item>
+        <item>text</item>
+    </string-array>
+
     <!-- Entries listed in the ListPreference when invoking the timer sort preference -->
     <string-array name="sort_timer_entries">
         <item>@string/sort_timer_manually</item>

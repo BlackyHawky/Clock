@@ -327,6 +327,12 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
+    <!-- Setting title for changing the date picker style. -->
+    <string name="material_date_picker_style_title">Date picker style</string>
+    <!-- Setting title for changing the material date picker style to calendar. -->
+    <string name="material_date_picker_style_calendar">Calendar</string>
+    <!-- Setting title for changing the material date picker style to text. -->
+    <string name="material_date_picker_style_text">Text</string>
     <!-- Setting title for customizing the alarm display. -->
     <string name="alarm_display_customization_title">Customize alarm display</string>
     <!-- Setting title for customizing the alarm title color. -->

@@ -739,6 +739,13 @@ public final class DataModel {
     }
 
     /**
+     * @return the date picker style.
+     */
+    public String getMaterialDatePickerStyle() {
+        return mAlarmModel.getMaterialDatePickerStyle();
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed on the alarm.
      */
     public ClockStyle getAlarmClockStyle() {

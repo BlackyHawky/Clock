@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_DATE_PICKER_CALENDAR_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
 
 import android.content.Context;
@@ -168,11 +169,11 @@ public final class AlarmTimeClickHandler {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mFragment.getContext());
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String getMaterialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(getMaterialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)
@@ -189,7 +190,14 @@ public final class AlarmTimeClickHandler {
     }
 
     public void ShowMaterialDatePicker(Alarm alarm) {
+        String materialDatePickerStyle = DataModel.getDataModel().getMaterialDatePickerStyle();
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+
+        // Set date picker style
+        builder.setInputMode(materialDatePickerStyle.equals(MATERIAL_DATE_PICKER_CALENDAR_STYLE)
+                ? MaterialDatePicker.INPUT_MODE_CALENDAR
+                : MaterialDatePicker.INPUT_MODE_TEXT);
+
         // If a date has already been selected, select it when opening the MaterialDatePicker.
         if (alarm.isDateSpecified()) {
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
