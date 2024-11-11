@@ -459,8 +459,8 @@ public class HandleApiCalls extends Activity {
 
         // Create a new timer if one could not be reused.
         if (timer == null) {
-            String getDefaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
-            timer = DataModel.getDataModel().addTimer(lengthMillis, label, getDefaultTimeToAddToTimer, skipUi);
+            String defaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
+            timer = DataModel.getDataModel().addTimer(lengthMillis, label, defaultTimeToAddToTimer, skipUi);
             Events.sendTimerEvent(R.string.action_create, R.string.label_intent);
         }
 

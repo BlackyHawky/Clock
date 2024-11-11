@@ -218,8 +218,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.alarm_activity);
 
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        final String darkMode = DataModel.getDataModel().getDarkMode();
+        final boolean isAmoledMode = Utils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
                 ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
                 : DataModel.getDataModel().getAlarmBackgroundColor();

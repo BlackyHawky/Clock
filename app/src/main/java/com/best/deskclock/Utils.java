@@ -840,14 +840,14 @@ public class Utils {
      * Apply the theme and the accent color to the activities.
      */
     public static void applyThemeAndAccentColor(final AppCompatActivity activity) {
-        final String getTheme = DataModel.getDataModel().getTheme();
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String theme = DataModel.getDataModel().getTheme();
+        final String darkMode = DataModel.getDataModel().getDarkMode();
         final String accentColor = DataModel.getDataModel().getAccentColor();
         final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
         final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
 
-        if (getDarkMode.equals(KEY_DEFAULT_DARK_MODE)) {
-            switch (getTheme) {
+        if (darkMode.equals(KEY_DEFAULT_DARK_MODE)) {
+            switch (theme) {
                 case SYSTEM_THEME ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 case LIGHT_THEME ->
@@ -855,8 +855,8 @@ public class Utils {
                 case DARK_THEME ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
-        } else if (getDarkMode.equals(KEY_AMOLED_DARK_MODE)
-                && !getTheme.equals(SYSTEM_THEME) || !getTheme.equals(LIGHT_THEME)) {
+        } else if (darkMode.equals(KEY_AMOLED_DARK_MODE)
+                && !theme.equals(SYSTEM_THEME) || !theme.equals(LIGHT_THEME)) {
                 activity.setTheme(R.style.AmoledTheme);
         }
 
@@ -895,7 +895,7 @@ public class Utils {
         }
 
         if (activity instanceof CollapsingToolbarBaseActivity) {
-            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             } else {
@@ -904,7 +904,7 @@ public class Utils {
                 );
             }
         } else {
-            if (isNight(activity.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }

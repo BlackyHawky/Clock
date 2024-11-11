@@ -174,7 +174,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Fetch the widget size selected by the user.
         final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouDigitalWidget();
-        List<City> getSelectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+        List<City> selectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
         final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
         final Resources resources = context.getResources();
         final float density = resources.getDisplayMetrics().density;
@@ -186,7 +186,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String maxClockFontSize = DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize();
         final int largestClockFontSizePx = Utils.toPixel(
-                !getSelectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
+                !selectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
                     : Integer.parseInt(maxClockFontSize), context);
 

@@ -510,11 +510,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String getMaterialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(getMaterialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)

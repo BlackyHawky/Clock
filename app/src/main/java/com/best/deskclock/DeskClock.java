@@ -308,7 +308,7 @@ public class DeskClock extends AppCompatActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Mirror changes made to the selected tab into UiDataModel.
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String darkMode = DataModel.getDataModel().getDarkMode();
         final int primaryColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final boolean isTabIndicatorDisplayed = DataModel.getDataModel().isTabIndicatorDisplayed();
@@ -326,7 +326,7 @@ public class DeskClock extends AppCompatActivity
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
         );
-        if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (Utils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
