@@ -17,6 +17,10 @@ import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivity {
 
     private static final String PREFS_FRAGMENT_TAG = "customization_interface_fragment";
@@ -96,6 +100,9 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
 
             setupPreferences();
+
+            sortListPreference(mAccentColorPref);
+            sortListPreference(mNightAccentColorPref);
         }
 
         @Override
@@ -259,6 +266,62 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mTabIndicatorPref.setOnPreferenceChangeListener(this);
 
             mFadeTransitionsPref.setOnPreferenceChangeListener(this);
+        }
+
+        private void sortListPreference(ListPreference listPreference) {
+            if (listPreference != null) {
+
+                CharSequence[] entries = listPreference.getEntries();
+                CharSequence[] values = listPreference.getEntryValues();
+
+                if (entries != null && values != null && entries.length > 1) {
+                    // Create a list of (entry, value) pairs to sort
+                    List<Pair> entryValuePairs = new ArrayList<>();
+
+                    // Add the first entry and value that should not be sorted
+                    entryValuePairs.add(new Pair(entries[0], values[0]));
+
+                    // Add the rest of the entries and values to sort (starting from the second element)
+                    for (int i = 1; i < entries.length; i++) {
+                        entryValuePairs.add(new Pair(entries[i], values[i]));
+                    }
+
+                    // Sort elements starting from second (index 1)
+                    List<Pair> remainingPairs = entryValuePairs.subList(1, entryValuePairs.size());
+                    Collections.sort(remainingPairs, (pair1, pair2) ->
+                        CharSequence.compare(pair1.entry.toString(), pair2.entry.toString()));
+
+                    CharSequence[] sortedEntries = new CharSequence[entries.length];
+                    CharSequence[] sortedValues = new CharSequence[values.length];
+
+                    // Place first entry and value (unsorted)
+                    sortedEntries[0] = entryValuePairs.get(0).entry;
+                    sortedValues[0] = entryValuePairs.get(0).value;
+
+                    // Copy sorted items
+                    for (int i = 1; i < entryValuePairs.size(); i++) {
+                        sortedEntries[i] = entryValuePairs.get(i).entry;
+                        sortedValues[i] = entryValuePairs.get(i).value;
+                    }
+
+                    // Update entries and sorted values in the ListPreference
+                    listPreference.setEntries(sortedEntries);
+                    listPreference.setEntryValues(sortedValues);
+                }
+            }
+        }
+
+        /**
+         * Internal class to store entry/value pairs
+         */
+        private static class Pair {
+            CharSequence entry;
+            CharSequence value;
+
+            Pair(CharSequence entry, CharSequence value) {
+                this.entry = entry;
+                this.value = value;
+            }
         }
     }
 
