@@ -187,15 +187,20 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+            final Context context = recyclerView.getContext();
             final int dragFlags;
             String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
 
             // Allow dragging only if timers are sorted manually
             if (timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
-                if (Utils.isTablet(recyclerView.getContext())) {
+                if (Utils.isTablet(context)) {
                     dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
                 } else {
-                    dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                    if (Utils.isLandscape(context)) {
+                        dragFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                    } else {
+                        dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                    }
                 }
             } else {
                 dragFlags = 0;
