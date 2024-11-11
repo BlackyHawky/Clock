@@ -132,7 +132,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     backupPreferences(requireContext(), uri);
                     Toast.makeText(requireContext(),
                             requireContext().getString(R.string.backup_restore_toast_message_for_backup),
-                            Toast.LENGTH_LONG)
+                            Toast.LENGTH_SHORT)
                             .show();
                 });
 
@@ -167,7 +167,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),
-                                Toast.LENGTH_LONG)
+                                Toast.LENGTH_SHORT)
                                 .show();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
@@ -267,7 +267,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             .setMessage(R.string.backup_restore_dialog_message)
                             .setPositiveButton(android.R.string.cancel, null)
                             .setNegativeButton(R.string.backup_restore_backup_button_title, (dialog, which) -> {
-                                String currentDateAndTime = DateFormat.format("yyyyMMdd_HHmmss", new Date()).toString();
+                                String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
                                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
                                         .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
