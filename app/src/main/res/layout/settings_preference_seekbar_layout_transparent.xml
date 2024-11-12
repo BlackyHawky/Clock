@@ -51,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:fontFamily="sans-serif-medium"
                     android:ellipsize="marquee"
                     android:text="@null"

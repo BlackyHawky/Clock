@@ -76,7 +76,8 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
             final Drawable ringtoneSilent = AppCompatResources.getDrawable(context, R.drawable.ic_ringtone_silent);
             if (ringtoneSilent != null) {
-                ringtoneSilent.setTint(context.getColor(R.color.md_theme_onSurfaceVariant));
+                ringtoneSilent.setTint(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
             }
             mImageView.setImageDrawable(ringtoneSilent);
         } else {
@@ -93,7 +94,8 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             mDeleteRingtone.setVisibility(VISIBLE);
-            mDeleteRingtone.getDrawable().setTint(mDeleteRingtone.getContext().getColor(R.color.md_theme_onSurfaceVariant));
+            mDeleteRingtone.getDrawable().setTint(MaterialColors.getColor(
+                            context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
             mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
         }
     }

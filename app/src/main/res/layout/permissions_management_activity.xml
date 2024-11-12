@@ -40,7 +40,6 @@
                     android:text="@string/ignore_battery_optimizations_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/IBO_details_button"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +61,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_requirement_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/IBO_title" />
 
@@ -84,7 +82,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_status_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/IBO_requirement_type_title" />
 
@@ -136,7 +133,6 @@
                     android:text="@string/notifications_permission_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/notification_details_button"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -159,7 +155,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_requirement_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/notification_title" />
 
@@ -181,7 +176,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_status_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/notification_requirement_type_title" />
 
@@ -235,7 +229,6 @@
                     android:text="@string/FSN_permission_title"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/FSN_details_button"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -258,7 +251,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_requirement_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/FSN_title" />
 
@@ -280,7 +272,6 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_status_title"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/FSN_requirement_type_title" />
 

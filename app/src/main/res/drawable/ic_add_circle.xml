@@ -11,6 +11,6 @@
     android:viewportWidth="960"
     android:viewportHeight="960">
     <path
-        android:fillColor="@color/md_theme_onSurfaceVariant"
+        android:fillColor="?colorOnSurfaceVariant"
         android:pathData="M440 520V640q0 17 11.5 28.5T480 680t28.5-11.5T520 640V520H640q17 0 28.5-11.5T680 480t-11.5-28.5T640 440H520V320q0-17-11.5-28.5T480 280t-28.5 11.5T440 320V440H320q-17 0-28.5 11.5T280 480t11.5 28.5T320 520H440Zm40 360q-83 0-156-31.5T197 763 111.5 636 80 480t31.5-156T197 197t127-85.5T480 80t156 31.5T763 197t85.5 127T880 480 848.5 636 763 763 636 848.5 480 880Zm0-80q134 0 227-93t93-227-93-227-227-93-227 93-93 227 93 227 227 93Z" />
 </vector>

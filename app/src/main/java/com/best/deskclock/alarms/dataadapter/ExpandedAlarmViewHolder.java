@@ -15,6 +15,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -41,6 +42,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -194,11 +196,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             final CompoundButton dayButton = dayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
                 selectedDate.setVisibility(GONE);
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
                 selectedDate.setVisibility(VISIBLE);
             }
         }

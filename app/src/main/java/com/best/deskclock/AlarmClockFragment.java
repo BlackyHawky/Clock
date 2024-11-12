@@ -51,6 +51,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -420,7 +421,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 setTabScrolledToTop(true);
                 final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
                 if (noAlarmsIcon != null) {
-                    noAlarmsIcon.setTint(mContext.getColor(R.color.md_theme_onSurfaceVariant));
+                    noAlarmsIcon.setTint(MaterialColors.getColor(
+                            mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
                 }
                 mAlarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
                 mAlarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));

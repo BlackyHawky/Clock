@@ -7,5 +7,5 @@
     android:shape="rectangle">
 
     <corners android:radius="80dp" />
-    <solid android:color="@color/md_theme_onSurfaceVariant" />
+    <solid android:color="?colorOnSurfaceVariant" />
 </shape>

@@ -28,7 +28,7 @@
             android:layout_width="60dp"
             android:layout_height="4dp"
             android:layout_marginTop="12dp"
-            android:foreground="@color/md_theme_outline"
+            android:foreground="?colorOutline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,11 +44,10 @@
             android:text="@string/menu_bedtime"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
             android:textAllCaps="true"
             android:drawableStart="@drawable/ic_moon"
             android:drawablePadding="8dp"
-            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:drawableTint="?colorOnSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
@@ -59,7 +58,6 @@
             android:layout_marginStart="22dp"
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
-            android:text="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_label"
             tools:text="23:00" />
@@ -91,7 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:background="@color/md_theme_outline"
+            android:background="?colorOutline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repeat_days_bedtime"/>
@@ -103,7 +101,6 @@
             android:paddingVertical="20dp"
             android:gravity="center"
             android:text="@string/no_bedtime_alarm"
-            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"
@@ -120,7 +117,6 @@
             android:text="@string/bedtime_reminder_notification"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bottom_sheet_center_guide_vertical"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline" />

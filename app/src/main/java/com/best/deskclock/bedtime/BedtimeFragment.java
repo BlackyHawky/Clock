@@ -131,7 +131,8 @@ public final class BedtimeFragment extends DeskClockFragment {
         mEmptyView = view.findViewById(R.id.bedtime_empty_view);
         final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
         if (noAlarmsIcon != null) {
-            noAlarmsIcon.setTint(mContext.getColor(R.color.md_theme_onSurfaceVariant));
+            noAlarmsIcon.setTint(MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
         }
         mEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
         mEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
@@ -368,10 +369,12 @@ public final class BedtimeFragment extends DeskClockFragment {
             final CompoundButton dayButton = mDayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
             }
         }
     }
@@ -462,7 +465,8 @@ public final class BedtimeFragment extends DeskClockFragment {
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         if (Utils.isNight(mContext.getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mNotificationList.getPopupBackground().setColorFilter(
-                    mContext.getColor(R.color.md_theme_surface), PorterDuff.Mode.SRC_IN);
+                    MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK),
+                    PorterDuff.Mode.SRC_IN);
             Objects.requireNonNull(mBottomSheetDialog.getWindow()).setNavigationBarColor(
                     MaterialColors.getColor(mContext, com.google.android.material.R.attr.colorSurface, Color.BLACK)
             );
@@ -538,7 +542,8 @@ public final class BedtimeFragment extends DeskClockFragment {
             final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setChecked(true);
-            dayButton.setTextColor(mContext.getColor(R.color.md_theme_inverseOnSurface));
+            dayButton.setTextColor(MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
             mRepeatDays.addView(dayButtonFrame);
@@ -575,10 +580,12 @@ public final class BedtimeFragment extends DeskClockFragment {
             final CompoundButton dayButton = mDayButtons[i];
             if (mSaver.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
             }
         }
     }

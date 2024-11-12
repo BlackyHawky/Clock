@@ -44,7 +44,8 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
-        imageView.getDrawable().setColorFilter(context.getColor(R.color.md_theme_background), PorterDuff.Mode.SRC_IN);
+        imageView.getDrawable().setColorFilter(MaterialColors.getColor(
+                context, android.R.attr.colorBackground, Color.BLACK), PorterDuff.Mode.SRC_IN);
         imageView.setBackgroundResource(R.drawable.bg_circle);
         imageView.setBackgroundTintList(ColorStateList.valueOf(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK))
