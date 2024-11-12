@@ -252,23 +252,23 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 ? R.string.permission_granted
                 : R.string.permission_denied);
         mIgnoreBatteryOptimizationsStatus.setTextColor(isIgnoringBatteryOptimizations(this)
-                ? Color.parseColor("#66BB6A")
-                : Color.parseColor("#EF5350"));
+                ? this.getColor(R.color.colorGranted)
+                : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
 
         mNotificationStatus.setText(areNotificationsEnabled(this)
                 ? R.string.permission_granted
                 : R.string.permission_denied);
         mNotificationStatus.setTextColor(areNotificationsEnabled(this)
-                ? Color.parseColor("#66BB6A")
-                : Color.parseColor("#EF5350"));
+                ? this.getColor(R.color.colorGranted)
+                : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             mFullScreenNotificationsStatus.setText(areFullScreenNotificationsEnabled(this)
                     ? R.string.permission_granted
                     : R.string.permission_denied);
             mFullScreenNotificationsStatus.setTextColor(areFullScreenNotificationsEnabled(this)
-                    ? Color.parseColor("#66BB6A")
-                    : Color.parseColor("#EF5350"));
+                    ? this.getColor(R.color.colorGranted)
+                    : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
         }
     }
 

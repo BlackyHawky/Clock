@@ -134,4 +134,7 @@
     <color name="redOnPrimary">#FFFFFF</color>
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorBackground">#FCFCFF</color>
+
+    <!-- Miscellaneous -->
+    <color name="colorGranted">#388E3C</color>
 </resources>

@@ -40,6 +40,7 @@ import androidx.preference.Preference;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+import com.google.android.material.color.MaterialColors;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -305,7 +306,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
                 final Spannable spannableMessagePermission = new SpannableString(messagePermission);
                 spannableMessagePermission.setSpan(
-                        new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                        new ForegroundColorSpan(MaterialColors.getColor(
+                                requireContext(), com.google.android.material.R.attr.colorError, Color.BLACK)),
+                        0, messagePermission.length(), 0);
                 spannableMessagePermission.setSpan(
                         new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
                 builderPermissionMessage.append(spannableMessagePermission);

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -226,7 +227,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     );
 
                     final GradientDrawable background = new GradientDrawable();
-                    background.setColor(Color.parseColor("#EF5350"));
+                    background.setColor(MaterialColors.getColor(
+                            mContext, com.google.android.material.R.attr.colorError, Color.BLACK));
                     background.setBounds(
                             viewHolder.itemView.getLeft(),
                             viewHolder.itemView.getTop(),
@@ -243,6 +245,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     if (dX > deleteIconHorizontalMargin) {
                         Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
                         if (deleteIcon != null) {
+                            deleteIcon.setColorFilter(MaterialColors.getColor(
+                                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK),
+                                    PorterDuff.Mode.SRC_IN);
                             deleteIconSize = deleteIcon.getIntrinsicHeight();
                             int halfIcon = deleteIconSize / 2;
                             int top = viewHolder.itemView.getTop()
@@ -266,7 +271,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                         textPaint.setAntiAlias(true);
                         textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
                                 mContext.getResources().getDisplayMetrics()));
-                        textPaint.setColor(Color.WHITE);
+                        textPaint.setColor(MaterialColors.getColor(
+                                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
                         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
                         int textMarginLeft = (int) (viewHolder.itemView.getLeft() + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
