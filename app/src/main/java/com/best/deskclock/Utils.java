@@ -14,6 +14,8 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
@@ -862,6 +864,7 @@ public class Utils {
 
         if (isAutoNightAccentColorEnabled) {
             switch (accentColor) {
+                case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
                 case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
                 case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
                 case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
@@ -873,6 +876,7 @@ public class Utils {
         } else {
             if (isNight(activity.getResources())) {
                 switch (nightAccentColor) {
+                    case BLACK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
                     case BLUE_GRAY_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
                     case BROWN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
                     case GREEN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
@@ -883,6 +887,7 @@ public class Utils {
                 }
             } else {
                 switch (accentColor) {
+                    case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
                     case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
                     case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
                     case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);

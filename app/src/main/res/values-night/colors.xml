@@ -63,6 +63,14 @@
     <color name="next_alarm_widget_title_color">#D1E5F4</color>
     <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
 
+    <!-- Black colors -->
+    <color name="blackColorAccent">@android:color/white</color>
+    <color name="blackColorPrimary">@android:color/white</color>
+    <color name="blackColorBackground">@android:color/black</color>
+    <color name="blackColorGray1">#757575</color>
+    <color name="blackColorGray2">#444444</color>
+    <color name="blackColorGray3">#333333</color>
+
     <!-- Blue Gray colors -->
     <color name="blueGrayColorAccent">#B0BEC5</color>
     <color name="blueGrayColorPrimary">#B0BEC5</color>

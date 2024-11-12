@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
@@ -134,6 +135,7 @@ public class AnalogClock extends FrameLayout {
                 case ORANGE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.orangeColorPrimary));
                 case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
                 case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
+                case BLACK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
                 default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
             }
         }

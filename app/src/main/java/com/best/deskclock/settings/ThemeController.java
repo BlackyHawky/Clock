@@ -2,6 +2,8 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
@@ -197,6 +199,12 @@ public class ThemeController {
                     }
                     activities.add(activity);
                 }
+                case BLACK -> {
+                    if (getColor.equals(BLACK_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.BlackAccentColor);
+                    }
+                    activities.add(activity);
+                }
                 case BLUE_GRAY -> {
                     if (getColor.equals(BLUE_GRAY_ACCENT_COLOR)) {
                         activity.setTheme(R.style.BlueGrayAccentColor);
@@ -250,6 +258,12 @@ public class ThemeController {
                     case DEFAULT_NIGHT -> {
                         if (getNightColor.equals(DEFAULT_NIGHT_ACCENT_COLOR)) {
                             activity.setTheme(R.style.DefaultColor);
+                        }
+                        activities.add(activity);
+                    }
+                    case NIGHT_BLACK -> {
+                        if (getNightColor.equals(BLACK_NIGHT_ACCENT_COLOR)) {
+                            activity.setTheme(R.style.BlackAccentColor);
                         }
                         activities.add(activity);
                     }
@@ -339,9 +353,9 @@ public class ThemeController {
     }
 
     public enum DarkMode {DEFAULT_DARK_MODE, AMOLED}
-    public enum AccentColor {DEFAULT, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
+    public enum AccentColor {DEFAULT, BLACK, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
     public enum AutoNightAccentColor {TOGGLED}
-    public enum NightAccentColor {DEFAULT_NIGHT, NIGHT_BLUE_GRAY, NIGHT_BROWN, NIGHT_GREEN,
+    public enum NightAccentColor {DEFAULT_NIGHT, NIGHT_BLACK, NIGHT_BLUE_GRAY, NIGHT_BROWN, NIGHT_GREEN,
         NIGHT_INDIGO, NIGHT_ORANGE, NIGHT_PINK, NIGHT_RED}
     public enum LayoutBackground {DEFAULT, TRANSPARENT}
     public enum LayoutBorder {DEFAULT, BORDERED}

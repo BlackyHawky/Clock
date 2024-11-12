@@ -265,6 +265,8 @@
     <string name="auto_night_accent_color_title">Apply accent color to night mode</string>
     <!-- Settings night accent color title -->
     <string name="night_accent_color_title">Accent color for night mode</string>
+    <!-- Setting title to switch to black accent color -->
+    <string name="black_accent_color">Black</string>
     <!-- Setting title to switch to blue gray accent color -->
     <string name="blue_gray_accent_color">Blue Gray</string>
     <!-- Setting title to switch to brown accent color -->
