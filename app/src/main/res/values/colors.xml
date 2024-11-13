@@ -7,6 +7,10 @@
 
 <resources>
     <!-- MATERIAL COLORS -->
+    <!--
+    Source: https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md
+    Converted to hex value
+    -->
     <color name="md_theme_primary">#00668B</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#C1E8FF</color>
@@ -65,16 +69,18 @@
     <color name="next_alarm_widget_title_color">#4E616C</color>
     <color name="next_alarm_widget_alarm_color">#00668B</color>
 
-    <!-- TO FIND ACCENT COLORS (except for Black colors):
+    <!--
 
-     • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
-     • xxxColorPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
-     • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
-     • xxxPrimaryContainer: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°100
-     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FFFFFF
-     • xxxSecondaryContainer: https://mdigi.tools/lighten-color/ : Lighten the color n°200 by 40%.
-     • xxxColorSurface: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°50
-     • xxxColorBackground: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FCFCFF
+    TO FIND ACCENT COLORS (except for Black colors):
+
+    • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
+    • xxxColorPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
+    • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
+    • xxxPrimaryContainer: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°100
+    • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FFFFFF
+    • xxxSecondaryContainer: https://mdigi.tools/lighten-color/ : Lighten the color n°200 by 40%.
+    • xxxColorSurface: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°50
+    • xxxColorBackground: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FCFCFF
 
     -->
 
@@ -167,6 +173,9 @@
     <color name="redColorBackground">#FCFCFF</color>
 
     <!-- MISCELLANEOUS -->
-    <color name="colorGranted">#388E3C</color>
+    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->
+    <color name="colorGranted">#66BB6A</color>
+    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->
+    <color name="colorAlert">#EF5350</color>
 
 </resources>

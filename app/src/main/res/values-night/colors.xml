@@ -5,6 +5,10 @@
 
 <resources>
     <!-- MATERIAL COLORS -->
+    <!--
+    Source: https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md
+    Converted to hex value
+    -->
     <color name="md_theme_primary">#76D1FF</color>
     <color name="md_theme_onPrimary">#003549</color>
     <color name="md_theme_primaryContainer">#004C69</color>
@@ -63,31 +67,33 @@
     <color name="next_alarm_widget_title_color">#D1E5F4</color>
     <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
 
-    <!-- TO FIND ACCENT COLORS (except for Black colors):
+    <!--
 
-     • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
-     • xxxColorPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
-     • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
-     • xxxPrimaryContainer: https://colorffy.com/color-scheme-generator :
-         - Color: xxxPrimaryInverse
-         - Mixing colors: Move the cursor to the end which makes 20 shades appear
-         - Select the 10th shade
-     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°800
-     • xxxSecondaryContainer: https://colordesigner.io/color-mixer
-         - Choose only 2 colors
-         - 1st color = xxxPrimaryInverse ==> Quantity 1
-         - 2nd color = xxxColorSurface ==> Quantity 2
-         - Select mixed color
-     • xxxColorSurface: https://colorffy.com/dark-theme-generator :
-         - Primary color: xxxColorAccent
-         - Dark color: #000000
-         - Mix Intensity: Move the cursor one notch
-         - Select the color where it is written: "Mixed - a20"
-     • xxxColorBackground: https://colorffy.com/dark-theme-generator :
-         - Primary color: xxxColorAccent
-         - Dark color: #000000
-         - Mix Intensity: Leave the cursor at the 1st position
-         - Select the color where it is written: "Mixed - a0"
+    TO FIND ACCENT COLORS (except for Black colors):
+
+    • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
+    • xxxColorPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
+    • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
+    • xxxPrimaryContainer: https://colorffy.com/color-scheme-generator :
+        - Color: xxxPrimaryInverse
+        - Mixing colors: Move the cursor to the end which makes 20 shades appear
+        - Select the 10th shade
+    • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°800
+    • xxxSecondaryContainer: https://colordesigner.io/color-mixer
+        - Choose only 2 colors
+        - 1st color = xxxPrimaryInverse ==> Quantity 1
+        - 2nd color = xxxColorSurface ==> Quantity 2
+        - Select mixed color
+    • xxxColorSurface: https://colorffy.com/dark-theme-generator :
+        - Primary color: xxxColorAccent
+        - Dark color: #000000
+        - Mix Intensity: Move the cursor one notch
+        - Select the color where it is written: "Mixed - a20"
+    • xxxColorBackground: https://colorffy.com/dark-theme-generator :
+        - Primary color: xxxColorAccent
+        - Dark color: #000000
+        - Mix Intensity: Leave the cursor at the 1st position
+        - Select the color where it is written: "Mixed - a0"
 
     -->
 
@@ -180,6 +186,8 @@
     <color name="redColorBackground">#1B1414</color>
 
     <!-- MISCELLANEOUS -->
+    <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200 -->
     <color name="colorGranted">#A5D6A7</color>
+    <color name="colorAlert">@color/md_theme_error</color>
 
 </resources>

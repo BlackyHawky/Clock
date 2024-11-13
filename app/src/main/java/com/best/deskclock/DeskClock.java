@@ -414,8 +414,7 @@ public class DeskClock extends AppCompatActivity
         if (PermissionsManagementActivity.areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             assert warningIcon != null;
-            warningIcon.setColorFilter(MaterialColors.getColor(
-                    this, com.google.android.material.R.attr.colorError, Color.BLACK), PorterDuff.Mode.SRC_IN);
+            warningIcon.setColorFilter(this.getColor(R.color.colorAlert), PorterDuff.Mode.SRC_IN);
             menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label)
                     .setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }

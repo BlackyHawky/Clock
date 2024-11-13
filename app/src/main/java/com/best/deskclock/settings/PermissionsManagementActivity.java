@@ -253,14 +253,14 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 : R.string.permission_denied);
         mIgnoreBatteryOptimizationsStatus.setTextColor(isIgnoringBatteryOptimizations(this)
                 ? this.getColor(R.color.colorGranted)
-                : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
+                : this.getColor(R.color.colorAlert));
 
         mNotificationStatus.setText(areNotificationsEnabled(this)
                 ? R.string.permission_granted
                 : R.string.permission_denied);
         mNotificationStatus.setTextColor(areNotificationsEnabled(this)
                 ? this.getColor(R.color.colorGranted)
-                : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
+                : this.getColor(R.color.colorAlert));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             mFullScreenNotificationsStatus.setText(areFullScreenNotificationsEnabled(this)
@@ -268,7 +268,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     : R.string.permission_denied);
             mFullScreenNotificationsStatus.setTextColor(areFullScreenNotificationsEnabled(this)
                     ? this.getColor(R.color.colorGranted)
-                    : MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.BLACK));
+                    : this.getColor(R.color.colorAlert));
         }
     }
 

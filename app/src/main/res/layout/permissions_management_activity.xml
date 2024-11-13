@@ -70,7 +70,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_highly_recommended"
                     android:textSize="16sp"
-                    android:textColor="?colorError"
+                    android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/IBO_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/IBO_image"
                     app:layout_constraintTop_toBottomOf="@+id/IBO_title" />
@@ -164,7 +164,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_highly_recommended"
                     android:textSize="16sp"
-                    android:textColor="?colorError"
+                    android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/notification_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/notification_image"
                     app:layout_constraintTop_toBottomOf="@+id/notification_title" />
@@ -260,7 +260,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/permission_highly_recommended"
                     android:textSize="16sp"
-                    android:textColor="?colorError"
+                    android:textColor="@color/colorAlert"
                     app:layout_constraintStart_toEndOf="@+id/FSN_requirement_type_title"
                     app:layout_constraintEnd_toStartOf="@+id/FSN_image"
                     app:layout_constraintTop_toBottomOf="@+id/FSN_title" />

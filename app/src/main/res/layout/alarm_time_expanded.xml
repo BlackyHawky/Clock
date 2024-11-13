@@ -257,7 +257,7 @@
             android:textAllCaps="false"
             app:chipIcon="@drawable/ic_delete"
             app:chipIconTint="?colorOnError"
-            app:chipBackgroundColor="?colorError"
+            app:chipBackgroundColor="@color/colorAlert"
             app:chipStrokeWidth="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

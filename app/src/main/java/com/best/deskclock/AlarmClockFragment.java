@@ -227,8 +227,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     );
 
                     final GradientDrawable background = new GradientDrawable();
-                    background.setColor(MaterialColors.getColor(
-                            mContext, com.google.android.material.R.attr.colorError, Color.BLACK));
+                    background.setColor(mContext.getColor(R.color.colorAlert));
                     background.setBounds(
                             viewHolder.itemView.getLeft(),
                             viewHolder.itemView.getTop(),
