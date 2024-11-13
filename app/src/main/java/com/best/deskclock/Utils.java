@@ -13,6 +13,7 @@ import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
+import static android.media.AudioManager.STREAM_ALARM;
 
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
@@ -55,6 +56,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -94,9 +96,11 @@ import com.google.android.material.color.MaterialColors;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -934,16 +938,37 @@ public class Utils {
             LogUtils.e("Could not get ringtone duration");
         }*/
 
+        int duration = 0;
+
         MediaPlayer mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setDataSource(context, ringtoneUri);
-        } catch (IOException ignored) {}
+        if (ringtoneUri.toString().equals("random")) {
+            // get the whole list if multiple alarms should be played
+            RingtoneManager ringtoneManager = new RingtoneManager(context);
+            ringtoneManager.setType(STREAM_ALARM);
+            int systemRingtoneCount = ringtoneManager.getCursor().getCount();
+            for (int i = 0; i < systemRingtoneCount; i++) {
+                final Uri uri = ringtoneManager.getRingtoneUri(i);
+                try {
+                    mediaPlayer.setDataSource(context, uri);
+                    duration = duration + mediaPlayer.getDuration();
+                } catch (IOException ignored) {}
+            }
+        } else {
 
-        try {
-            mediaPlayer.prepare();
-        } catch (IOException ignored) {}
+            try {
+                mediaPlayer.setDataSource(context, ringtoneUri);
+            } catch (IOException ignored) {
+            }
 
-        return mediaPlayer.getDuration();
+            try {
+                mediaPlayer.prepare();
+            } catch (IOException ignored) {
+            }
+
+            duration = mediaPlayer.getDuration();
+        }
+
+        return duration;
     }
 
     /**

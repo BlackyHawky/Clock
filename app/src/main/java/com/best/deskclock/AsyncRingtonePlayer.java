@@ -25,8 +25,8 @@ import androidx.annotation.NonNull;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * <p>This class controls playback of ringtones. Uses {@link Ringtone} in a
@@ -288,6 +288,8 @@ public final class AsyncRingtonePlayer {
         /** The list of Uris to play */
         private List<Uri> mUriList = new ArrayList<>();
 
+        private int mUriListPos = 0;
+
         /**
          * Starts the actual playback of the ringtone. Executes on ringtone-thread.
          */
@@ -359,7 +361,10 @@ public final class AsyncRingtonePlayer {
 
         private void prepareList(Context context) {
             try {
-                mMediaPlayer.setDataSource(context, mUriList.get((new Random()).nextInt(mUriList.size())));
+                mUriListPos = 0;
+                Collections.shuffle(mUriList);
+                mMediaPlayer.setDataSource(context, mUriList.get(mUriListPos));
+                mUriListPos++;
             } catch (IOException e) {
                 LOGGER.e("ringtone not accepted", e);
             }
@@ -367,7 +372,11 @@ public final class AsyncRingtonePlayer {
                 try {
                     LOGGER.i("nextTone");
                     mMediaPlayer.reset();
-                    mMediaPlayer.setDataSource(context, mUriList.get((new Random()).nextInt(mUriList.size())));
+                    mMediaPlayer.setDataSource(context, mUriList.get(mUriListPos));
+                    mUriListPos++;
+                    if (!(mUriListPos < mUriList.size())) {
+                        mUriListPos = 0;
+                    }
                     startPlayback(false);
                 } catch (IOException e) {
                     LOGGER.e("ringtone not accepted", e);
