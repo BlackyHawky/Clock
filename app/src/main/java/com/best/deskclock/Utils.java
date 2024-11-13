@@ -30,6 +30,8 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_N
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
@@ -871,6 +873,7 @@ public class Utils {
                 case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
                 case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
                 case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                 case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
             }
         } else {
@@ -883,6 +886,7 @@ public class Utils {
                     case INDIGO_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
                     case ORANGE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
                     case PINK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                    case PURPLE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                     case RED_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
                 }
             } else {
@@ -894,6 +898,7 @@ public class Utils {
                     case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
                     case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
                     case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                    case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                     case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
                 }
             }

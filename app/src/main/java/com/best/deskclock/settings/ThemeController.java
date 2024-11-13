@@ -18,6 +18,8 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_N
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
@@ -241,6 +243,12 @@ public class ThemeController {
                     }
                     activities.add(activity);
                 }
+                case PURPLE -> {
+                    if (getColor.equals(PURPLE_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.PurpleAccentColor);
+                    }
+                    activities.add(activity);
+                }
                 case RED -> {
                     if (getColor.equals(RED_ACCENT_COLOR)) {
                         activity.setTheme(R.style.RedAccentColor);
@@ -303,6 +311,12 @@ public class ThemeController {
                         }
                         activities.add(activity);
                     }
+                    case NIGHT_PURPLE -> {
+                        if (getNightColor.equals(PURPLE_NIGHT_ACCENT_COLOR)) {
+                            activity.setTheme(R.style.PurpleAccentColor);
+                        }
+                        activities.add(activity);
+                    }
                     case NIGHT_RED -> {
                         if (getNightColor.equals(RED_NIGHT_ACCENT_COLOR)) {
                             activity.setTheme(R.style.RedAccentColor);
@@ -353,10 +367,10 @@ public class ThemeController {
     }
 
     public enum DarkMode {DEFAULT_DARK_MODE, AMOLED}
-    public enum AccentColor {DEFAULT, BLACK, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
+    public enum AccentColor {DEFAULT, BLACK, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, PURPLE, RED}
     public enum AutoNightAccentColor {TOGGLED}
     public enum NightAccentColor {DEFAULT_NIGHT, NIGHT_BLACK, NIGHT_BLUE_GRAY, NIGHT_BROWN, NIGHT_GREEN,
-        NIGHT_INDIGO, NIGHT_ORANGE, NIGHT_PINK, NIGHT_RED}
+        NIGHT_INDIGO, NIGHT_ORANGE, NIGHT_PINK, NIGHT_PURPLE, NIGHT_RED}
     public enum LayoutBackground {DEFAULT, TRANSPARENT}
     public enum LayoutBorder {DEFAULT, BORDERED}
     public enum FadeTransitions {DISABLED, ENABLED}

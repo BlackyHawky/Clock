@@ -4,7 +4,7 @@
 -->
 
 <resources>
-    <!-- Material colors -->
+    <!-- MATERIAL COLORS -->
     <color name="md_theme_primary">#76D1FF</color>
     <color name="md_theme_onPrimary">#003549</color>
     <color name="md_theme_primaryContainer">#004C69</color>
@@ -50,7 +50,7 @@
     <color name="md_theme_surfaceContainerLowest">#161C20</color>
     <color name="md_theme_surfaceContainerHighest">#211F26</color>
 
-    <!-- Widget colors -->
+    <!-- WIDGET COLORS -->
     <color name="analog_widget_background">#20333D</color>
     <color name="analog_widget_hour_hand_color">#8094A0</color>
     <color name="analog_widget_minute_hand_color">#C1E8FF</color>
@@ -63,7 +63,35 @@
     <color name="next_alarm_widget_title_color">#D1E5F4</color>
     <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
 
-    <!-- Black colors -->
+    <!-- TO FIND ACCENT COLORS (except for Black colors):
+
+     • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
+     • xxxColorPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°200
+     • xxxPrimaryInverse: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
+     • xxxPrimaryContainer: https://colorffy.com/color-scheme-generator :
+         - Color: xxxPrimaryInverse
+         - Mixing colors: Move the cursor to the end which makes 20 shades appear
+         - Select the 10th shade
+     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°800
+     • xxxSecondaryContainer: https://colordesigner.io/color-mixer
+         - Choose only 2 colors
+         - 1st color = xxxPrimaryInverse ==> Quantity 1
+         - 2nd color = xxxColorSurface ==> Quantity 2
+         - Select mixed color
+     • xxxColorSurface: https://colorffy.com/dark-theme-generator :
+         - Primary color: xxxColorAccent
+         - Dark color: #000000
+         - Mix Intensity: Move the cursor one notch
+         - Select the color where it is written: "Mixed - a20"
+     • xxxColorBackground: https://colorffy.com/dark-theme-generator :
+         - Primary color: xxxColorAccent
+         - Dark color: #000000
+         - Mix Intensity: Leave the cursor at the 1st position
+         - Select the color where it is written: "Mixed - a0"
+
+    -->
+
+    <!-- BLACK COLORS -->
     <color name="blackColorAccent">@android:color/white</color>
     <color name="blackColorPrimary">@android:color/white</color>
     <color name="blackColorBackground">@android:color/black</color>
@@ -71,76 +99,87 @@
     <color name="blackColorGray2">#444444</color>
     <color name="blackColorGray3">#333333</color>
 
-    <!-- Blue Gray colors -->
+    <!-- BLUE GRAY COLORS -->
     <color name="blueGrayColorAccent">#B0BEC5</color>
     <color name="blueGrayColorPrimary">#B0BEC5</color>
-    <color name="blueGrayColorSurface">#383A3C</color>
     <color name="blueGrayPrimaryInverse">#546E7A</color>
     <color name="blueGrayPrimaryContainer">#2A353A</color>
-    <color name="blueGraySecondaryContainer">#424C50</color>
     <color name="blueGrayOnPrimary">#37474F</color>
+    <color name="blueGraySecondaryContainer">#424C50</color>
+    <color name="blueGrayColorSurface">#383A3C</color>
     <color name="blueGrayColorBackground">#161717</color>
 
-    <!-- Brown colors -->
+    <!-- BROWN COLORS -->
     <color name="brownColorAccent">#BCAAA4</color>
     <color name="brownColorPrimary">#BCAAA4</color>
-    <color name="brownColorSurface">#3A3838</color>
     <color name="brownPrimaryInverse">#6D4C41</color>
     <color name="brownPrimaryContainer">#352622</color>
-    <color name="brownSecondaryContainer">#4A3E3A</color>
     <color name="brownOnPrimary">#4E342E</color>
+    <color name="brownSecondaryContainer">#4A3E3A</color>
+    <color name="brownColorSurface">#3A3838</color>
     <color name="brownColorBackground">#171515</color>
 
-    <!-- Green colors -->
+    <!-- GREEN COLORS -->
     <color name="greenColorAccent">#A5D6A7</color>
     <color name="greenColorPrimary">#A5D6A7</color>
-    <color name="greenColorSurface">#383E38</color>
     <color name="greenPrimaryInverse">#43A047</color>
     <color name="greenPrimaryContainer">#264A25</color>
-    <color name="greenSecondaryContainer">#3C5f3D</color>
     <color name="greenOnPrimary">#2E7D32</color>
+    <color name="greenSecondaryContainer">#3C5f3D</color>
+    <color name="greenColorSurface">#383E38</color>
     <color name="greenColorBackground">#151915</color>
 
-    <!-- Indigo colors -->
+    <!-- INDIGO COLORS -->
     <color name="indigoColorAccent">#9FA8DA</color>
     <color name="indigoColorPrimary">#9FA8DA</color>
-    <color name="indigoColorSurface">#37383f</color>
     <color name="indigoPrimaryInverse">#3949AB</color>
     <color name="indigoPrimaryContainer">#22254E</color>
-    <color name="indigoSecondaryContainer">#383E63</color>
     <color name="indigoOnPrimary">#283593</color>
+    <color name="indigoSecondaryContainer">#383E63</color>
+    <color name="indigoColorSurface">#37383F</color>
     <color name="indigoColorBackground">#151519</color>
 
-    <!-- Orange colors -->
+    <!-- ORANGE COLORS -->
     <color name="orangeColorAccent">#FFCC80</color>
     <color name="orangeColorPrimary">#FFCC80</color>
-    <color name="orangeColorSurface">#453D32</color>
     <color name="orangePrimaryInverse">#FB8C00</color>
     <color name="orangePrimaryContainer">#714212</color>
-    <color name="orangeSecondaryContainer">#815621</color>
     <color name="orangeOnPrimary">#EF6C00</color>
+    <color name="orangeSecondaryContainer">#815621</color>
+    <color name="orangeColorSurface">#453D32</color>
     <color name="orangeColorBackground">#1C1812</color>
 
-    <!-- Pink colors -->
+    <!-- PINK COLORS -->
     <color name="pinkColorAccent">#F48FB1</color>
     <color name="pinkColorPrimary">#F48FB1</color>
-    <color name="pinkColorSurface">#433538</color>
     <color name="pinkPrimaryInverse">#D81B60</color>
-    <color name="pinkPrimaryContainer">#621C2f</color>
-    <color name="pinkSecondaryContainer">#772D46</color>
+    <color name="pinkPrimaryContainer">#621C2F</color>
     <color name="pinkOnPrimary">#AD1457</color>
+    <color name="pinkSecondaryContainer">#772D46</color>
+    <color name="pinkColorSurface">#433538</color>
     <color name="pinkColorBackground">#1B1416</color>
 
-    <!-- Red colors -->
+    <!-- PURPLE COLORS -->
+    <color name="purpleColorAccent">#CE93D8</color>
+    <color name="purpleColorPrimary">#CE93D8</color>
+    <color name="purplePrimaryInverse">#8E24AA</color>
+    <color name="purplePrimaryContainer">#431A4E</color>
+    <color name="purpleOnPrimary">#6A1B9A</color>
+    <color name="purpleSecondaryContainer">#582F63</color>
+    <color name="purpleColorSurface">#3D353F</color>
+    <color name="purpleColorBackground">#181419</color>
+
+    <!-- RED COLORS -->
     <color name="redColorAccent">#EF9A9A</color>
     <color name="redColorPrimary">#EF9A9A</color>
-    <color name="redColorSurface">#433636</color>
     <color name="redPrimaryInverse">#E53935</color>
     <color name="redPrimaryContainer">#68231D</color>
-    <color name="redSecondaryContainer">#7A3635</color>
     <color name="redOnPrimary">#C62828</color>
+    <color name="redSecondaryContainer">#7A3635</color>
+    <color name="redColorSurface">#433636</color>
     <color name="redColorBackground">#1B1414</color>
 
-    <!-- Miscellaneous -->
+    <!-- MISCELLANEOUS -->
     <color name="colorGranted">#A5D6A7</color>
+
 </resources>

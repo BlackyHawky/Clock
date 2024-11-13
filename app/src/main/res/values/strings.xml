@@ -279,6 +279,8 @@
     <string name="orange_accent_color">Orange</string>
     <!-- Setting title to switch to pink accent color -->
     <string name="pink_accent_color">Pink</string>
+    <!-- Setting title to switch to purple accent color -->
+    <string name="purple_accent_color">Purple</string>
     <!-- Setting title to switch to red accent color -->
     <string name="red_accent_color">Red</string>
     <!-- Settings amoled title -->

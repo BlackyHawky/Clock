@@ -96,6 +96,7 @@
         <item>@string/pink_accent_color</item>
         <item>@string/red_accent_color</item>
         <item>@string/black_accent_color</item>
+        <item>@string/purple_accent_color</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the color entries above. -->
     <string-array name="accent_color_setting_entries" translatable="false">
@@ -108,6 +109,7 @@
         <item>6</item>
         <item>7</item>
         <item>8</item>
+        <item>9</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when selecting the theme. -->

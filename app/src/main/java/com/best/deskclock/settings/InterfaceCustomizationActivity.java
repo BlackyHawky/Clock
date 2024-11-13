@@ -42,6 +42,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String PINK_ACCENT_COLOR = "6";
     public static final String RED_ACCENT_COLOR = "7";
     public static final String BLACK_ACCENT_COLOR = "8";
+    public static final String PURPLE_ACCENT_COLOR = "9";
     public static final String KEY_AUTO_NIGHT_ACCENT_COLOR = "key_auto_night_accent_color";
     public static final String KEY_NIGHT_ACCENT_COLOR = "key_night_accent_color";
     public static final String DEFAULT_NIGHT_ACCENT_COLOR = "0";
@@ -53,6 +54,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String PINK_NIGHT_ACCENT_COLOR = "6";
     public static final String RED_NIGHT_ACCENT_COLOR = "7";
     public static final String BLACK_NIGHT_ACCENT_COLOR = "8";
+    public static final String PURPLE_NIGHT_ACCENT_COLOR = "9";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_VIBRATIONS = "key_vibrations";
@@ -159,6 +161,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                         case 6 -> ThemeController.applyAccentColor(ThemeController.AccentColor.PINK);
                         case 7 -> ThemeController.applyAccentColor(ThemeController.AccentColor.RED);
                         case 8 -> ThemeController.applyAccentColor(ThemeController.AccentColor.BLACK);
+                        case 9 -> ThemeController.applyAccentColor(ThemeController.AccentColor.PURPLE);
                     }
                 }
 
@@ -181,6 +184,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                         case 6 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_PINK);
                         case 7 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_RED);
                         case 8 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_BLACK);
+                        case 9 -> ThemeController.applyNightAccentColor(ThemeController.NightAccentColor.NIGHT_PURPLE);
                     }
                 }
 
