@@ -71,6 +71,15 @@ public final class AlarmTimeClickHandler {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
+            // Necessary when an alarm is set on a specific date and it is not activated:
+            // If the date is in the past we replace that date with the current date:
+            // indeed, an alarm cannot be triggered in the past.
+            if (alarm.isDateSpecifiedInThePast()) {
+                Calendar currentCalendar = Calendar.getInstance();
+                alarm.year = currentCalendar.get(Calendar.YEAR);
+                alarm.month = currentCalendar.get(Calendar.MONTH);
+                alarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+            }
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
             Utils.setVibrationTime(mContext, 50);

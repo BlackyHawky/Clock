@@ -350,6 +350,19 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 (alarmDayOfMonth == tomorrow.get(Calendar.DAY_OF_MONTH));
     }
 
+    public boolean isDateSpecifiedInThePast() {
+        Calendar alarmCalendar = Calendar.getInstance();
+        alarmCalendar.set(year, month, day);
+        alarmCalendar.set(Calendar.MILLISECOND, 0);
+
+        Calendar currentCalendar = Calendar.getInstance();
+
+        long alarmTimeInMillis = alarmCalendar.getTimeInMillis();
+        long currentTimeInMillis = currentCalendar.getTimeInMillis();
+
+        return alarmTimeInMillis < currentTimeInMillis;
+    }
+
     public boolean isDateSpecified() {
         return year != Calendar.getInstance().get(Calendar.YEAR)
                 || month != Calendar.getInstance().get(Calendar.MONTH)
