@@ -8,7 +8,6 @@ package com.best.deskclock;
 
 import android.content.Context;
 import android.os.PowerManager;
-import android.util.Log;
 
 /**
  * Utility class to hold wake lock in app.
@@ -31,7 +30,6 @@ public class AlarmAlertWakeLock {
 
         sCpuWakeLock = createPartialWakeLock(context);
         sCpuWakeLock.acquire(10000L);
-        Log.i(TAG, "WakeLock acquire");
     }
 
     public static void releaseCpuLock() {
