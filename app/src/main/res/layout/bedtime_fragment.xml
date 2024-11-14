@@ -64,7 +64,6 @@
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/center_guide_vertical"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -92,7 +91,6 @@
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:textColor="?android:attr/textColorPrimary"
                 android:importantForAccessibility="no"
                 app:layout_constraintStart_toStartOf="@+id/center_guide_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +115,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="16dp"
-                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/bedtime_time"
                 tools:text="Sleeping time: 9h30" />

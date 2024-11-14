@@ -6,13 +6,14 @@
 
 package com.best.deskclock;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.widget.selector.AlarmSelection;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AlarmSelectionActivity extends ListActivity {
+public class AlarmSelectionActivity extends AppCompatActivity implements AlarmSelectionAdapter.OnAlarmClickListener {
 
     /**
      * Action used to signify alarm should be dismissed on selection.
@@ -55,6 +56,9 @@ public class AlarmSelectionActivity extends ListActivity {
         final Button cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(v -> finish());
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = intent.getParcelableArrayExtra(EXTRA_ALARMS);
         mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
@@ -70,18 +74,13 @@ public class AlarmSelectionActivity extends ListActivity {
             mSelections.add(new AlarmSelection(alarm));
         }
 
-        setListAdapter(new AlarmSelectionAdapter(this, R.layout.alarm_row, mSelections));
+        AlarmSelectionAdapter adapter = new AlarmSelectionAdapter(this, mSelections, this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        // id corresponds to mSelections id because the view adapter used mSelections
-        final AlarmSelection selection = mSelections.get((int) id);
-        final Alarm alarm = selection.getAlarm();
-        if (alarm != null) {
-            processAlarmActionAsync(alarm);
-        }
+    public void onAlarmClick(Alarm alarm) {
+        processAlarmActionAsync(alarm);
         finish();
     }
 

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -51,6 +52,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -155,8 +157,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, mAlarmsEmptyView);
-        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
-                this);
+        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
 
         mItemAdapter = new ItemAdapter<>();
         mItemAdapter.setHasStableIds();
@@ -164,33 +165,25 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(mContext),
                 null, ExpandedAlarmViewHolder.VIEW_TYPE);
-        mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
-            @Override
-            public void onItemChanged(ItemAdapter.ItemHolder<?> holder) {
-                if (((AlarmItemHolder) holder).isExpanded()) {
-                    if (mExpandedAlarmId != holder.itemId) {
-                        // Collapse the prior expanded alarm.
-                        final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
-                        if (aih != null) {
-                            aih.collapse();
-                        }
-                        // Record the freshly expanded alarm.
-                        mExpandedAlarmId = holder.itemId;
-                        final RecyclerView.ViewHolder viewHolder =
-                                mRecyclerView.findViewHolderForItemId(mExpandedAlarmId);
-                        if (viewHolder != null) {
-                            smoothScrollTo(viewHolder.getBindingAdapterPosition());
-                        }
+        mItemAdapter.setOnItemChangedListener(holder -> {
+            if (((AlarmItemHolder) holder).isExpanded()) {
+                if (mExpandedAlarmId != holder.itemId) {
+                    // Collapse the prior expanded alarm.
+                    final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+                    if (aih != null) {
+                        aih.collapse();
                     }
-                } else if (mExpandedAlarmId == holder.itemId) {
-                    // The expanded alarm is now collapsed so update the tracking id.
-                    mExpandedAlarmId = Alarm.INVALID_ID;
+                    // Record the freshly expanded alarm.
+                    mExpandedAlarmId = holder.itemId;
+                    final RecyclerView.ViewHolder viewHolder =
+                            mRecyclerView.findViewHolderForItemId(mExpandedAlarmId);
+                    if (viewHolder != null) {
+                        smoothScrollTo(viewHolder.getBindingAdapterPosition());
+                    }
                 }
-            }
-
-            @Override
-            public void onItemChanged(ItemAdapter.ItemHolder<?> holder, Object payload) {
-                /* No additional work to do */
+            } else if (mExpandedAlarmId == holder.itemId) {
+                // The expanded alarm is now collapsed so update the tracking id.
+                mExpandedAlarmId = Alarm.INVALID_ID;
             }
         });
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
@@ -226,7 +219,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     );
 
                     final GradientDrawable background = new GradientDrawable();
-                    background.setColor(Color.parseColor("#EF5350"));
+                    background.setColor(mContext.getColor(R.color.colorAlert));
                     background.setBounds(
                             viewHolder.itemView.getLeft(),
                             viewHolder.itemView.getTop(),
@@ -243,6 +236,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     if (dX > deleteIconHorizontalMargin) {
                         Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
                         if (deleteIcon != null) {
+                            deleteIcon.setColorFilter(MaterialColors.getColor(
+                                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK),
+                                    PorterDuff.Mode.SRC_IN);
                             deleteIconSize = deleteIcon.getIntrinsicHeight();
                             int halfIcon = deleteIconSize / 2;
                             int top = viewHolder.itemView.getTop()
@@ -266,7 +262,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                         textPaint.setAntiAlias(true);
                         textPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16,
                                 mContext.getResources().getDisplayMetrics()));
-                        textPaint.setColor(Color.WHITE);
+                        textPaint.setColor(MaterialColors.getColor(
+                                mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
                         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
                         int textMarginLeft = (int) (viewHolder.itemView.getLeft() + 1.5 * deleteIconHorizontalMargin + deleteIconSize);
@@ -421,7 +418,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 setTabScrolledToTop(true);
                 final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
                 if (noAlarmsIcon != null) {
-                    noAlarmsIcon.setTint(mContext.getColor(R.color.md_theme_onSurfaceVariant));
+                    noAlarmsIcon.setTint(MaterialColors.getColor(
+                            mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
                 }
                 mAlarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
                 mAlarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
@@ -500,7 +498,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         right.setVisibility(View.INVISIBLE);
     }
 
-
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
@@ -512,11 +509,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String getMaterialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(getMaterialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)

@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        app:tint="?attr/colorControlNormal"
+        app:tint="?attr/colorOnSurface"
         app:maxWidth="48dp"
         app:maxHeight="48dp"
         tools:src="@drawable/ic_settings" />

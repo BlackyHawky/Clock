@@ -2,6 +2,8 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
@@ -16,11 +18,15 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_N
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_NIGHT_ACCENT_COLOR;
 
 import android.app.Activity;
 import android.app.Application;
@@ -197,6 +203,12 @@ public class ThemeController {
                     }
                     activities.add(activity);
                 }
+                case BLACK -> {
+                    if (getColor.equals(BLACK_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.BlackAccentColor);
+                    }
+                    activities.add(activity);
+                }
                 case BLUE_GRAY -> {
                     if (getColor.equals(BLUE_GRAY_ACCENT_COLOR)) {
                         activity.setTheme(R.style.BlueGrayAccentColor);
@@ -233,9 +245,21 @@ public class ThemeController {
                     }
                     activities.add(activity);
                 }
+                case PURPLE -> {
+                    if (getColor.equals(PURPLE_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.PurpleAccentColor);
+                    }
+                    activities.add(activity);
+                }
                 case RED -> {
                     if (getColor.equals(RED_ACCENT_COLOR)) {
                         activity.setTheme(R.style.RedAccentColor);
+                    }
+                    activities.add(activity);
+                }
+                case YELLOW -> {
+                    if (getColor.equals(YELLOW_ACCENT_COLOR)) {
+                        activity.setTheme(R.style.YellowAccentColor);
                     }
                     activities.add(activity);
                 }
@@ -250,6 +274,12 @@ public class ThemeController {
                     case DEFAULT_NIGHT -> {
                         if (getNightColor.equals(DEFAULT_NIGHT_ACCENT_COLOR)) {
                             activity.setTheme(R.style.DefaultColor);
+                        }
+                        activities.add(activity);
+                    }
+                    case NIGHT_BLACK -> {
+                        if (getNightColor.equals(BLACK_NIGHT_ACCENT_COLOR)) {
+                            activity.setTheme(R.style.BlackAccentColor);
                         }
                         activities.add(activity);
                     }
@@ -289,9 +319,21 @@ public class ThemeController {
                         }
                         activities.add(activity);
                     }
+                    case NIGHT_PURPLE -> {
+                        if (getNightColor.equals(PURPLE_NIGHT_ACCENT_COLOR)) {
+                            activity.setTheme(R.style.PurpleAccentColor);
+                        }
+                        activities.add(activity);
+                    }
                     case NIGHT_RED -> {
                         if (getNightColor.equals(RED_NIGHT_ACCENT_COLOR)) {
                             activity.setTheme(R.style.RedAccentColor);
+                        }
+                        activities.add(activity);
+                    }
+                    case NIGHT_YELLOW -> {
+                        if (getNightColor.equals(YELLOW_NIGHT_ACCENT_COLOR)) {
+                            activity.setTheme(R.style.YellowAccentColor);
                         }
                         activities.add(activity);
                     }
@@ -339,10 +381,10 @@ public class ThemeController {
     }
 
     public enum DarkMode {DEFAULT_DARK_MODE, AMOLED}
-    public enum AccentColor {DEFAULT, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, RED}
+    public enum AccentColor {DEFAULT, BLACK, BLUE_GRAY, BROWN, GREEN, INDIGO, ORANGE, PINK, PURPLE, RED, YELLOW}
     public enum AutoNightAccentColor {TOGGLED}
-    public enum NightAccentColor {DEFAULT_NIGHT, NIGHT_BLUE_GRAY, NIGHT_BROWN, NIGHT_GREEN,
-        NIGHT_INDIGO, NIGHT_ORANGE, NIGHT_PINK, NIGHT_RED}
+    public enum NightAccentColor {DEFAULT_NIGHT, NIGHT_BLACK, NIGHT_BLUE_GRAY, NIGHT_BROWN, NIGHT_GREEN,
+        NIGHT_INDIGO, NIGHT_ORANGE, NIGHT_PINK, NIGHT_PURPLE, NIGHT_RED, NIGHT_YELLOW}
     public enum LayoutBackground {DEFAULT, TRANSPARENT}
     public enum LayoutBorder {DEFAULT, BORDERED}
     public enum FadeTransitions {DISABLED, ENABLED}

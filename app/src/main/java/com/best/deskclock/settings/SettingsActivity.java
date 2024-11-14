@@ -17,7 +17,6 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -93,7 +92,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the result from the settings sub-activities.
          */
-        ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
@@ -105,7 +104,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the result from the Permission Management activity.
          */
-        ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
                         return;
@@ -117,7 +116,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the backup result.
          */
-        ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
@@ -132,14 +131,14 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     backupPreferences(requireContext(), uri);
                     Toast.makeText(requireContext(),
                             requireContext().getString(R.string.backup_restore_toast_message_for_backup),
-                            Toast.LENGTH_LONG)
+                            Toast.LENGTH_SHORT)
                             .show();
                 });
 
         /**
          * Callback for getting the restoration result.
          */
-        ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
@@ -167,7 +166,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),
-                                Toast.LENGTH_LONG)
+                                Toast.LENGTH_SHORT)
                                 .show();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
@@ -267,7 +266,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             .setMessage(R.string.backup_restore_dialog_message)
                             .setPositiveButton(android.R.string.cancel, null)
                             .setNegativeButton(R.string.backup_restore_backup_button_title, (dialog, which) -> {
-                                String currentDateAndTime = DateFormat.format("yyyyMMdd_HHmmss", new Date()).toString();
+                                String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
                                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
                                         .putExtra(Intent.EXTRA_TITLE, requireContext().getString(R.string.app_label)
@@ -305,7 +304,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
                 final Spannable spannableMessagePermission = new SpannableString(messagePermission);
                 spannableMessagePermission.setSpan(
-                        new ForegroundColorSpan(Color.RED), 0, messagePermission.length(), 0);
+                        new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
+                        0, messagePermission.length(), 0);
                 spannableMessagePermission.setSpan(
                         new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
                 builderPermissionMessage.append(spannableMessagePermission);

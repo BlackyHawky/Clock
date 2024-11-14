@@ -21,7 +21,6 @@
         android:singleLine="true"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
         tools:text="Fictive city"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -32,7 +31,6 @@
         android:maxLines="2"
         android:paddingTop="3dp"
         android:scrollHorizontally="true"
-        android:textColor="?android:attr/textColorPrimary"
         tools:text="1 hour ahead"/>
 
 </LinearLayout>

@@ -792,7 +792,7 @@ final class TimerModel {
 
         // If the timer is the first to expire, start ringing.
         if (afterState == EXPIRED && mRingingIds.add(after.getId()) && mRingingIds.size() == 1) {
-            AlarmAlertWakeLock.acquireScreenCpuWakeLock(mContext);
+            AlarmAlertWakeLock.acquireCpuWakeLock(mContext);
             TimerKlaxon.start(mContext);
             stopRingtoneAfterDelay();
         }

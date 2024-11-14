@@ -20,7 +20,7 @@
             android:layout_width="60dp"
             android:layout_height="4dp"
             android:layout_marginTop="12dp"
-            android:foreground="@color/md_theme_outline"
+            android:foreground="?colorOutline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,11 +36,10 @@
             android:text="@string/wakeup"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/textColorPrimary"
             android:textAllCaps="true"
             android:drawableStart="@drawable/ic_tab_wakeup"
             android:drawablePadding="8dp"
-            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:drawableTint="?colorOnSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
@@ -51,7 +50,6 @@
             android:layout_marginStart="22dp"
             android:background="?attr/selectableItemBackground"
             android:textSize="36sp"
-            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wakeup_label"
             tools:text="08:30" />
@@ -80,7 +78,7 @@
 
         <View
             android:id="@+id/bedtime_preference_hairline"
-            android:background="@color/md_theme_outline"
+            android:background="?colorOutline"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
@@ -96,13 +94,12 @@
             android:background="?attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_ringtone"
             android:drawablePadding="10dp"
-            android:textColor="?android:attr/textColorPrimary"
             android:ellipsize="marquee"
             android:gravity="center_vertical"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:drawableTint="?colorOnSurfaceVariant"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
             tools:text="Standard (Hassium)" />
 
@@ -117,7 +114,6 @@
             android:drawableEnd="@drawable/ic_selector_checkbox"
             android:drawablePadding="10dp"
             android:text="@string/dismiss_alarm_ringtone_when_ringtone_ends_label"
-            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@id/choose_ringtone_bedtime"
             tools:ignore="RtlSymmetry"
             tools:checked="false" />
@@ -133,7 +129,6 @@
             android:drawableEnd="@drawable/ic_selector_checkbox"
             android:drawablePadding="10dp"
             android:text="@string/enable_alarm_snooze_actions_label"
-            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@id/dismiss_bedtime_alarm_when_ringtone_ends_onoff"
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
@@ -149,7 +144,6 @@
             android:drawableEnd="@drawable/ic_selector_checkbox"
             android:drawablePadding="10dp"
             android:text="@string/alarm_vibrate"
-            android:textColor="?android:attr/textColorPrimary"
             app:layout_constraintTop_toBottomOf="@+id/bedtime_alarm_snooze_actions_onoff"
             tools:checked="true" />
 
@@ -159,7 +153,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_wakeup_alarm"
-            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"

@@ -99,8 +99,8 @@ class TimerNotificationBuilder {
                         .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 @DrawableRes final int icon2 = R.drawable.ic_add;
-                String getCustomTimeToAdd = timer.getButtonTime();
-                final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, getCustomTimeToAdd);
+                String customTimeToAdd = timer.getButtonTime();
+                final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, customTimeToAdd);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, addMinuteOrHour);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
 
@@ -251,8 +251,8 @@ class TimerNotificationBuilder {
             final Intent addTime = TimerService.createAddCustomTimeToTimerIntent(context, timer.getId());
             final PendingIntent intent2 = Utils.pendingServiceIntent(context, addTime);
             @DrawableRes final int icon2 = R.drawable.ic_add;
-            String getCustomTimeToAdd = timer.getButtonTime();
-            final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, getCustomTimeToAdd);
+            String customTimeToAdd = timer.getButtonTime();
+            final CharSequence title2 = context.getString(R.string.timer_add_custom_time_for_notification, customTimeToAdd);
             actions.add(new Action.Builder(icon2, title2, intent2).build());
         } else {
             titleText = context.getString(R.string.timer_multi_times_up, count);

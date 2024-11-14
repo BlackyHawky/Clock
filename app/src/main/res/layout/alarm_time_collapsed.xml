@@ -33,9 +33,8 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textSize="16sp"
-            android:textColor="?android:attr/textColorPrimary"
             app:drawableStartCompat="@drawable/ic_label"
-            app:drawableTint="@color/md_theme_onSurfaceVariant"
+            app:drawableTint="?colorOnSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:hint="@string/add_label" />
@@ -95,7 +94,7 @@
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/onoff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/days_of_week_layout" />
 

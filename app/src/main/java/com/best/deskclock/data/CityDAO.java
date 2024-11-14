@@ -91,11 +91,11 @@ final class CityDAO {
      */
     static Map<String, City> getCities(Context context) {
         final Resources resources = context.getResources();
-        final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
-        final int citiesCount = cityStrings.length();
+        try (TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids)) {
+            final int citiesCount = cityStrings.length();
 
-        final Map<String, City> cities = new ArrayMap<>(citiesCount);
-        try {
+            final Map<String, City> cities = new ArrayMap<>(citiesCount);
+
             for (int i = 0; i < citiesCount; ++i) {
                 // Attempt to locate the resource id defining the city as a string.
                 final int cityResourceId = cityStrings.getResourceId(i, 0);
@@ -126,11 +126,9 @@ final class CityDAO {
                     cities.put(id, city);
                 }
             }
-        } finally {
-            cityStrings.recycle();
-        }
 
-        return Collections.unmodifiableMap(cities);
+            return Collections.unmodifiableMap(cities);
+        }
     }
 
     /**

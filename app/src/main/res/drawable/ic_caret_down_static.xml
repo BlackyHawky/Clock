@@ -9,7 +9,7 @@
     android:name="caret_toclose"
     android:width="24dp"
     android:height="24dp"
-    android:tint="?android:attr/textColorPrimary"
+    android:tint="?android:attr/textColor"
     android:viewportWidth="24"
     android:viewportHeight="24">
     <group
@@ -28,8 +28,8 @@
                     android:translateY="-1">
                     <path
                         android:name="caret_l_rect"
-                        android:fillColor="?android:attr/textColorPrimary"
-                        android:pathData="M-1-4l2 0l0 8l-2 0l0-8Z" />
+                        android:fillColor="?android:attr/textColor"
+                        android:pathData="M-1-4H1V4H-1V-4Z" />
                 </group>
             </group>
         </group>
@@ -44,8 +44,8 @@
                     android:translateY="1">
                     <path
                         android:name="caret_r_rect"
-                        android:fillColor="?android:attr/textColorPrimary"
-                        android:pathData="M-1-4l2 0l0 8l-2 0l0-8Z" />
+                        android:fillColor="?android:attr/textColor"
+                        android:pathData="M-1-4H1V4H-1V-4Z" />
                 </group>
             </group>
         </group>

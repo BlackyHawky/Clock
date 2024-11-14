@@ -308,9 +308,13 @@ public class DeskClock extends AppCompatActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Mirror changes made to the selected tab into UiDataModel.
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final int primaryColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
-        final int surfaceColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        final String darkMode = DataModel.getDataModel().getDarkMode();
+        final int primaryColor = MaterialColors.getColor(
+                this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
+        final int surfaceColor = MaterialColors.getColor(
+                this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        final int onBackgroundColor = MaterialColors.getColor(
+                this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
         final boolean isTabIndicatorDisplayed = DataModel.getDataModel().isTabIndicatorDisplayed();
 
         mBottomNavigation = findViewById(R.id.bottom_view);
@@ -324,9 +328,9 @@ public class DeskClock extends AppCompatActivity
 
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
+                new int[]{primaryColor, primaryColor, onBackgroundColor})
         );
-        if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (Utils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
@@ -347,7 +351,7 @@ public class DeskClock extends AppCompatActivity
             }
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, getColor(R.color.md_theme_onBackground)})
+                    new int[]{primaryColor, primaryColor, onBackgroundColor})
             );
         }
 
@@ -410,7 +414,7 @@ public class DeskClock extends AppCompatActivity
         if (PermissionsManagementActivity.areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             assert warningIcon != null;
-            warningIcon.setColorFilter(Color.parseColor("#EF5350"), PorterDuff.Mode.SRC_IN);
+            warningIcon.setColorFilter(this.getColor(R.color.colorAlert), PorterDuff.Mode.SRC_IN);
             menu.add(0, Menu.FIRST, 0, R.string.denied_permission_label)
                     .setIcon(warningIcon).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }

@@ -15,13 +15,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,8 +42,12 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.color.MaterialColors;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A ViewHolder containing views for an alarm item in expanded state.
@@ -49,6 +56,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     public final LinearLayout repeatDays;
+    public final View emptyView;
+    public final TextView scheduleAlarm;
+    public final TextView selectedDate;
+    public final ImageView addDate;
+    public final ImageView removeDate;
     public final CheckBox dismissAlarmWhenRingtoneEnds;
     public final CheckBox alarmSnoozeActions;
     public final CheckBox vibrate;
@@ -66,6 +78,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         mHasVibrator = hasVibrator;
 
         repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
+        emptyView = itemView.findViewById(R.id.alarm_expanded_empty_view);
+        scheduleAlarm = itemView.findViewById(R.id.schedule_alarm);
+        selectedDate = itemView.findViewById(R.id.selected_date);
+        addDate = itemView.findViewById(R.id.add_date);
+        removeDate = itemView.findViewById(R.id.remove_date);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
@@ -100,8 +117,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             getItemHolder().collapse();
         });
 
-        // Edit time handler
-        clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+        scheduleAlarm.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        selectedDate.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        addDate.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        removeDate.setOnClickListener(v -> getAlarmTimeClickHandler().removeDate(getItemHolder().item));
 
         // Dismiss alarm when ringtone ends checkbox handler
         dismissAlarmWhenRingtoneEnds.setOnClickListener(v ->
@@ -156,6 +178,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Alarm alarm = itemHolder.item;
         final Context context = itemView.getContext();
         bindDaysOfWeekButtons(alarm, context);
+        bindScheduleAlarm(alarm);
+        bindSelectedDate(alarm);
         bindRingtone(context, alarm);
         bindDismissAlarmWhenRingtoneEnds(alarm);
         bindAlarmSnoozeActions(alarm);
@@ -170,10 +194,52 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             final CompoundButton dayButton = dayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseOnSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
+                selectedDate.setVisibility(GONE);
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(context.getColor(R.color.md_theme_inverseSurface));
+                dayButton.setTextColor(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
+                selectedDate.setVisibility(VISIBLE);
+            }
+        }
+    }
+
+    private void bindScheduleAlarm(Alarm alarm) {
+        if (alarm.daysOfWeek.isRepeating()) {
+            scheduleAlarm.setVisibility(GONE);
+        } else {
+            scheduleAlarm.setVisibility(VISIBLE);
+        }
+    }
+
+    private void bindSelectedDate(Alarm alarm) {
+        int year = alarm.year;
+        int month = alarm.month;
+        int dayOfMonth = alarm.day;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyy/MM/d");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        String formattedDate = dateFormat.format(calendar.getTime());
+        if (alarm.daysOfWeek.isRepeating()) {
+            selectedDate.setVisibility(GONE);
+            addDate.setVisibility(GONE);
+            removeDate.setVisibility(GONE);
+        } else {
+            if (alarm.isDateSpecified()) {
+                emptyView.setVisibility(VISIBLE);
+                repeatDays.setVisibility(GONE);
+                selectedDate.setText(formattedDate);
+                addDate.setVisibility(GONE);
+                removeDate.setVisibility(VISIBLE);
+            } else {
+                emptyView.setVisibility(GONE);
+                repeatDays.setVisibility(VISIBLE);
+                selectedDate.setVisibility(GONE);
+                addDate.setVisibility(VISIBLE);
+                removeDate.setVisibility(GONE);
             }
         }
     }

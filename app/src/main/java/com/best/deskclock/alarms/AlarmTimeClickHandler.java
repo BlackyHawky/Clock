@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_DATE_PICKER_CALENDAR_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
 
 import android.content.Context;
@@ -26,10 +27,14 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Click handler for an alarm time item.
@@ -42,17 +47,15 @@ public final class AlarmTimeClickHandler {
     private final Fragment mFragment;
     private final Context mContext;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
-    private final ScrollHandler mScrollHandler;
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
 
-    public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
-                                 AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
+    public AlarmTimeClickHandler(Fragment fragment, Bundle savedState, AlarmUpdateHandler alarmUpdateHandler) {
 
         mFragment = fragment;
         mContext = mFragment.requireActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
-        mScrollHandler = smoothScrollController;
+
         if (savedState != null) {
             mPreviousDaysOfWeekMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
@@ -68,6 +71,15 @@ public final class AlarmTimeClickHandler {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
+            // Necessary when an alarm is set on a specific date and it is not activated:
+            // If the date is in the past we replace that date with the current date:
+            // indeed, an alarm cannot be triggered in the past.
+            if (alarm.isDateSpecifiedInThePast()) {
+                Calendar currentCalendar = Calendar.getInstance();
+                alarm.year = currentCalendar.get(Calendar.YEAR);
+                alarm.month = currentCalendar.get(Calendar.MONTH);
+                alarm.day = currentCalendar.get(Calendar.DAY_OF_MONTH);
+            }
             Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
             Utils.setVibrationTime(mContext, 50);
@@ -156,16 +168,21 @@ public final class AlarmTimeClickHandler {
         ShowMaterialTimePicker(alarm.hour, alarm.minutes);
     }
 
-    private void ShowMaterialTimePicker(int hour, int minute) {
+    public void onDateClicked(Alarm alarm) {
+        mSelectedAlarm = alarm;
+        Events.sendAlarmEvent(R.string.action_set_date, R.string.label_deskclock);
+        ShowMaterialDatePicker(alarm);
+    }
 
+    private void ShowMaterialTimePicker(int hour, int minute) {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mFragment.getContext());
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String getMaterialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(getMaterialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)
@@ -178,6 +195,44 @@ public final class AlarmTimeClickHandler {
             int newHour = materialTimePicker.getHour();
             int newMinute = materialTimePicker.getMinute();
             onTimeSet(newHour, newMinute);
+        });
+    }
+
+    public void ShowMaterialDatePicker(Alarm alarm) {
+        String materialDatePickerStyle = DataModel.getDataModel().getMaterialDatePickerStyle();
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+
+        // Set date picker style
+        builder.setInputMode(materialDatePickerStyle.equals(MATERIAL_DATE_PICKER_CALENDAR_STYLE)
+                ? MaterialDatePicker.INPUT_MODE_CALENDAR
+                : MaterialDatePicker.INPUT_MODE_TEXT);
+
+        // If a date has already been selected, select it when opening the MaterialDatePicker.
+        if (alarm.isDateSpecified()) {
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            calendar.set(alarm.year, alarm.month, alarm.day);
+            long date = calendar.getTimeInMillis();
+            builder.setSelection(date);
+        }
+
+        // Do not allow selection of past dates.
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        constraintsBuilder.setValidator(DateValidatorPointForward.now());
+        builder.setCalendarConstraints(constraintsBuilder.build());
+        MaterialDatePicker<Long> materialDatePicker = builder.build();
+
+        Context context = mFragment.requireContext();
+        materialDatePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
+        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+            // Selection contains the selected date as a timestamp (long)
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(selection);
+
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+            onDateSet(year, month, dayOfMonth, alarm.hour, alarm.minutes);
         });
     }
 
@@ -212,8 +267,49 @@ public final class AlarmTimeClickHandler {
         } else {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
-            mSelectedAlarm.enabled = true;
-            mScrollHandler.setSmoothScrollStableId(mSelectedAlarm.id);
+            mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
+            mSelectedAlarm = null;
+        }
+    }
+
+    public void onDateSet(int year, int month, int day, int hourOfDay, int minute) {
+        if (mSelectedAlarm == null) {
+            // If mSelectedAlarm is null then we're creating a new alarm.
+            final Alarm alarm = new Alarm();
+            final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
+            final boolean isOccasionalAlarmDeletedByDefault = DataModel.getDataModel().isOccasionalAlarmDeletedByDefault();
+            alarm.year = year;
+            alarm.month = month;
+            alarm.day = day;
+            alarm.hour = hourOfDay;
+            alarm.minutes = minute;
+            alarm.enabled = true;
+            alarm.dismissAlarmWhenRingtoneEnds = false;
+            alarm.alarmSnoozeActions = true;
+            alarm.vibrate = areAlarmVibrationsEnabledByDefault;
+            alarm.deleteAfterUse = isOccasionalAlarmDeletedByDefault;
+            mAlarmUpdateHandler.asyncAddAlarm(alarm);
+        } else {
+            mSelectedAlarm.year = year;
+            mSelectedAlarm.month = month;
+            mSelectedAlarm.day = day;
+            mSelectedAlarm.hour = hourOfDay;
+            mSelectedAlarm.minutes = minute;
+            mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
+            mSelectedAlarm = null;
+        }
+    }
+
+    public void removeDate(Alarm alarm) {
+        if (mSelectedAlarm == null) {
+            alarm.year = Calendar.getInstance().get(Calendar.YEAR);
+            alarm.month = Calendar.getInstance().get(Calendar.MONTH);
+            alarm.day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, true, false);
+        } else {
+            mSelectedAlarm.year = Calendar.getInstance().get(Calendar.YEAR);
+            mSelectedAlarm.month = Calendar.getInstance().get(Calendar.MONTH);
+            mSelectedAlarm.day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
             mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
             mSelectedAlarm = null;
         }

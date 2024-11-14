@@ -245,13 +245,13 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
         }
 
         private void setupPreferences() {
-            List<City> getSelectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+            List<City> selectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
             final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
-            mShowCitiesOnDigitalWidgetPref.setVisible(!getSelectedCities.isEmpty() || showHomeClock);
-            mDefaultCityClockColorPref.setVisible(!getSelectedCities.isEmpty() || showHomeClock);
-            mCustomCityClockColorPref.setVisible(!getSelectedCities.isEmpty() || showHomeClock);
-            mDefaultCityNameColorPref.setVisible(!getSelectedCities.isEmpty() || showHomeClock);
-            mCustomCityNameColorPref.setVisible(!getSelectedCities.isEmpty() || showHomeClock);
+            mShowCitiesOnDigitalWidgetPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
+            mDefaultCityClockColorPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
+            mCustomCityClockColorPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
+            mDefaultCityNameColorPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
+            mCustomCityNameColorPref.setVisible(!selectedCities.isEmpty() || showHomeClock);
 
             mShowCitiesOnDigitalWidgetPref.setChecked(
                     DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouDigitalWidget()
