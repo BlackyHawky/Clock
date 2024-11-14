@@ -283,6 +283,8 @@
     <string name="purple_accent_color">Purple</string>
     <!-- Setting title to switch to red accent color -->
     <string name="red_accent_color">Red</string>
+    <!-- Setting title to switch to yellow accent color -->
+    <string name="yellow_accent_color">Yellow</string>
     <!-- Settings amoled title -->
     <string name="title_dark_theme_mode">Dark theme mode</string>
     <!-- Setting title to switch to AMOLED dark theme mode -->

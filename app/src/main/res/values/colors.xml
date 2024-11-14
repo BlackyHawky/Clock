@@ -172,6 +172,16 @@
     <color name="redColorSurface">#FFEBEE</color>
     <color name="redColorBackground">#FCFCFF</color>
 
+    <!-- YELLOW COLORS -->
+    <color name="yellowColorAccent">#FDD835</color>
+    <color name="yellowColorPrimary">#FDD835</color>
+    <color name="yellowPrimaryInverse">#FFF59D</color>
+    <color name="yellowPrimaryContainer">#FFF9C4</color>
+    <color name="yellowOnPrimary">#FFFFFF</color>
+    <color name="yellowSecondaryContainer">#FFF9C4</color>
+    <color name="yellowColorSurface">#FFFDE7</color>
+    <color name="yellowColorBackground">#FCFCFF</color>
+
     <!-- MISCELLANEOUS -->
     <!-- https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°400 -->
     <color name="colorGranted">#66BB6A</color>

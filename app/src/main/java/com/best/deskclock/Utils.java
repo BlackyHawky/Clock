@@ -37,6 +37,8 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_NIGHT_ACCENT_COLOR;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -875,6 +877,7 @@ public class Utils {
                 case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
                 case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                 case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
             }
         } else {
             if (isNight(activity.getResources())) {
@@ -888,6 +891,7 @@ public class Utils {
                     case PINK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
                     case PURPLE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                     case RED_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                    case YELLOW_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
                 }
             } else {
                 switch (accentColor) {
@@ -900,6 +904,7 @@ public class Utils {
                     case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
                     case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
                     case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                    case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
                 }
             }
         }

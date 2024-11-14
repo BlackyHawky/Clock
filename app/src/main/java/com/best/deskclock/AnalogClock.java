@@ -26,6 +26,8 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_NIGHT_ACCENT_COLOR;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -150,6 +152,7 @@ public class AnalogClock extends FrameLayout {
                     case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
                     case PURPLE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
                     case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
+                    case YELLOW_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
                     default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
                 }
             } else {
@@ -164,6 +167,7 @@ public class AnalogClock extends FrameLayout {
                         case PINK_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
                         case PURPLE_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
                         case RED_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
+                        case YELLOW_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
                         default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
                     }
                 } else {
@@ -177,6 +181,7 @@ public class AnalogClock extends FrameLayout {
                         case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
                         case PURPLE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
                         case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
+                        case YELLOW_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
                         default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
                     }
                 }

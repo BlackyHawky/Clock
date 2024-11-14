@@ -97,6 +97,16 @@
 
     -->
 
+    <!-- YELLOW COLORS -->
+    <color name="yellowColorAccent">#FFF59D</color>
+    <color name="yellowColorPrimary">#FFF59D</color>
+    <color name="yellowPrimaryInverse">#FDD835</color>
+    <color name="yellowPrimaryContainer">#716022</color>
+    <color name="yellowOnPrimary">#F9A825</color>
+    <color name="yellowSecondaryContainer">#827436</color>
+    <color name="yellowColorSurface">#454337</color>
+    <color name="yellowColorBackground">#1C1B15</color>
+
     <!-- BLACK COLORS -->
     <color name="blackColorAccent">@android:color/white</color>
     <color name="blackColorPrimary">@android:color/white</color>

@@ -238,4 +238,18 @@
         <item name="colorSurface">@color/redColorSurface</item>
     </style>
 
+    <!-- YELLOW THEME -->
+    <style name="YellowAccentColor">
+        <item name="android:colorBackground">@color/yellowColorBackground</item>
+        <item name="colorBackgroundFloating">@color/yellowColorSurface</item>
+        <item name="android:textColorHighlight">@color/yellowPrimaryInverse</item>
+        <item name="colorAccent">@color/yellowColorAccent</item>
+        <item name="colorPrimary">@color/yellowColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/yellowPrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/yellowPrimaryInverse</item>
+        <item name="colorOnPrimary">@color/yellowOnPrimary</item>
+        <item name="colorSecondaryContainer">@color/yellowSecondaryContainer</item>
+        <item name="colorSurface">@color/yellowColorSurface</item>
+    </style>
+
 </resources>
