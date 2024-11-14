@@ -299,13 +299,11 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         public City getItem(int position) {
             if (hasHeader()) {
                 final int itemViewType = getItemViewType(position);
-                switch (itemViewType) {
-                    case VIEW_TYPE_SELECTED_CITIES_HEADER:
-                        return null;
-                    case VIEW_TYPE_CITY:
-                        return mFilteredCities.get(position - 1);
-                }
-                throw new IllegalStateException("unexpected item view type: " + itemViewType);
+                return switch (itemViewType) {
+                    case VIEW_TYPE_SELECTED_CITIES_HEADER -> null;
+                    case VIEW_TYPE_CITY -> mFilteredCities.get(position - 1);
+                    default -> throw new IllegalStateException("unexpected item view type: " + itemViewType);
+                };
             }
 
             return mFilteredCities.get(position);

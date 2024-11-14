@@ -175,6 +175,7 @@ public final class DataModel {
     /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
+     * @noinspection SynchronizationOnLocalVariableOrMethodParameter
      */
     public void run(Runnable runnable, long waitMillis) throws InterruptedException {
         if (Looper.myLooper() == Looper.getMainLooper()) {

@@ -165,33 +165,25 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(mContext),
                 null, ExpandedAlarmViewHolder.VIEW_TYPE);
-        mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
-            @Override
-            public void onItemChanged(ItemAdapter.ItemHolder<?> holder) {
-                if (((AlarmItemHolder) holder).isExpanded()) {
-                    if (mExpandedAlarmId != holder.itemId) {
-                        // Collapse the prior expanded alarm.
-                        final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
-                        if (aih != null) {
-                            aih.collapse();
-                        }
-                        // Record the freshly expanded alarm.
-                        mExpandedAlarmId = holder.itemId;
-                        final RecyclerView.ViewHolder viewHolder =
-                                mRecyclerView.findViewHolderForItemId(mExpandedAlarmId);
-                        if (viewHolder != null) {
-                            smoothScrollTo(viewHolder.getBindingAdapterPosition());
-                        }
+        mItemAdapter.setOnItemChangedListener(holder -> {
+            if (((AlarmItemHolder) holder).isExpanded()) {
+                if (mExpandedAlarmId != holder.itemId) {
+                    // Collapse the prior expanded alarm.
+                    final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+                    if (aih != null) {
+                        aih.collapse();
                     }
-                } else if (mExpandedAlarmId == holder.itemId) {
-                    // The expanded alarm is now collapsed so update the tracking id.
-                    mExpandedAlarmId = Alarm.INVALID_ID;
+                    // Record the freshly expanded alarm.
+                    mExpandedAlarmId = holder.itemId;
+                    final RecyclerView.ViewHolder viewHolder =
+                            mRecyclerView.findViewHolderForItemId(mExpandedAlarmId);
+                    if (viewHolder != null) {
+                        smoothScrollTo(viewHolder.getBindingAdapterPosition());
+                    }
                 }
-            }
-
-            @Override
-            public void onItemChanged(ItemAdapter.ItemHolder<?> holder, Object payload) {
-                /* No additional work to do */
+            } else if (mExpandedAlarmId == holder.itemId) {
+                // The expanded alarm is now collapsed so update the tracking id.
+                mExpandedAlarmId = Alarm.INVALID_ID;
             }
         });
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();

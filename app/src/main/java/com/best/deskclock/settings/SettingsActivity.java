@@ -92,7 +92,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the result from the settings sub-activities.
          */
-        ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
@@ -104,7 +104,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the result from the Permission Management activity.
          */
-        ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
                         return;
@@ -116,7 +116,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the backup result.
          */
-        ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> backupToFile = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;
@@ -138,7 +138,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         /**
          * Callback for getting the restoration result.
          */
-        ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
+        private final ActivityResultLauncher<Intent> restoreFromFile = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), (result) -> {
                     if (result.getResultCode() != RESULT_OK) {
                         return;

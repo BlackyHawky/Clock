@@ -69,7 +69,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ColorPreference mNextAlarmColorPref;
         ListPreference mClockStyle;
         String[] mClockStyleValues;
-        String mAnalogClock;
         String mDigitalClock;
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
@@ -92,7 +91,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
 
             mClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
-            mAnalogClock = mClockStyleValues[0];
             mDigitalClock = mClockStyleValues[1];
 
             setupPreferences();

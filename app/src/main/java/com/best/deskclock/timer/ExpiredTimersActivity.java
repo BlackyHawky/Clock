@@ -152,7 +152,6 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         stopUpdatingTime();
-        //unregisterReceiver(PowerBtnReceiver);
     }
 
     @Override

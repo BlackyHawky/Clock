@@ -136,7 +136,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     /**
      * Callback for getting the result from Activity
      */
-    ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
+    private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), (result) -> {
                 if (result.getResultCode() != RESULT_OK ) {
                     return;

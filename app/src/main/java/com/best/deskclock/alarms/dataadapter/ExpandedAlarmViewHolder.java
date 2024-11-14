@@ -57,7 +57,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     public final LinearLayout repeatDays;
     public final View emptyView;
-    public final TextView daysOfWeek;
     public final TextView scheduleAlarm;
     public final TextView selectedDate;
     public final ImageView addDate;
@@ -80,7 +79,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
         emptyView = itemView.findViewById(R.id.alarm_expanded_empty_view);
-        daysOfWeek = itemView.findViewById(R.id.days_of_week);
         scheduleAlarm = itemView.findViewById(R.id.schedule_alarm);
         selectedDate = itemView.findViewById(R.id.selected_date);
         addDate = itemView.findViewById(R.id.add_date);

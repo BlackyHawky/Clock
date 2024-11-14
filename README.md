@@ -1,3 +1,4 @@
+<!--suppress CheckImageSize -->
 # Clock
 Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 
@@ -104,7 +105,6 @@ Since the app is based on Apache 2.0 licensed AOSP Clock, an [Apache 2.0](LICENS
 
 # Screenshots
 
-<!--suppress CheckImageSize -->
 <details>
 <summary><b>Click here to see screenshots</b></summary>
 <br>

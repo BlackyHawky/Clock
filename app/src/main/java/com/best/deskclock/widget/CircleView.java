@@ -81,17 +81,15 @@ public class CircleView extends View {
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        final TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.CircleView, defStyleAttr, 0);
+        try (TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleView, defStyleAttr, 0)) {
 
-        mGravity = a.getInt(R.styleable.CircleView_android_gravity, Gravity.NO_GRAVITY);
-        mCenterX = a.getDimension(R.styleable.CircleView_centerX, 0.0f);
-        mCenterY = a.getDimension(R.styleable.CircleView_centerY, 0.0f);
-        mRadius = a.getDimension(R.styleable.CircleView_radius, 0.0f);
+            mGravity = a.getInt(R.styleable.CircleView_android_gravity, Gravity.NO_GRAVITY);
+            mCenterX = a.getDimension(R.styleable.CircleView_centerX, 0.0f);
+            mCenterY = a.getDimension(R.styleable.CircleView_centerY, 0.0f);
+            mRadius = a.getDimension(R.styleable.CircleView_radius, 0.0f);
 
-        mCirclePaint.setColor(a.getColor(R.styleable.CircleView_fillColor, Color.WHITE));
-
-        a.recycle();
+            mCirclePaint.setColor(a.getColor(R.styleable.CircleView_fillColor, Color.WHITE));
+        }
     }
 
     @Override

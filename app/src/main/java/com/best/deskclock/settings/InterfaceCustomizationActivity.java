@@ -324,14 +324,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         /**
          * Internal class to store entry/value pairs
          */
-        private static class Pair {
-            CharSequence entry;
-            CharSequence value;
-
-            Pair(CharSequence entry, CharSequence value) {
-                this.entry = entry;
-                this.value = value;
-            }
+        private record Pair(CharSequence entry, CharSequence value) {
         }
     }
 

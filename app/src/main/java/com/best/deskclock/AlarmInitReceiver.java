@@ -60,7 +60,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
-        wl.acquire(10000L /*10 seconds*/);
+        wl.acquire(10000L);
 
         // We need to increment the global id out of the async task to prevent race conditions
         DataModel.getDataModel().updateGlobalIntentId();
