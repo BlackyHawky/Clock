@@ -932,33 +932,22 @@ public class Utils {
      * @return the duration of the ringtone
      */
     public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
-        // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
+        // Using the MediaMetadataRetriever method causes a bug when using the default ringtone:
         // the ringtone stops before the end of the melody.
         // So, we'll use the MediaPlayer class to obtain the ringtone duration.
         // Bug found with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
 
-        /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        try {
-            mmr.setDataSource(context, mRingtone);
-            String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-            assert durationStr != null;
-            int milliSecond = Integer.parseInt(durationStr);
-            calendar.add(Calendar.MILLISECOND, milliSecond);
-            mmr.close();
-        } catch (Exception e) {
-            LogUtils.e("Could not get ringtone duration");
-        }*/
-
         MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(context, ringtoneUri);
-        } catch (IOException ignored) {}
-
-        try {
             mediaPlayer.prepare();
-        } catch (IOException ignored) {}
-
-        return mediaPlayer.getDuration();
+            return mediaPlayer.getDuration();
+        } catch (IOException e) {
+            LogUtils.e("Error while preparing MediaPlayer", e);
+            return 0;
+        } finally {
+            mediaPlayer.release();
+        }
     }
 
     /**
