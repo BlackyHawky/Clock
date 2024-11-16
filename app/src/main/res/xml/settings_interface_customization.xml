@@ -3,9 +3,9 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:title="@string/interface_customization_settings">
 
     <PreferenceCategory
@@ -37,12 +37,12 @@
         <ListPreference
             android:key="key_accent_color"
             android:layout="@layout/settings_preference_layout"
-            android:title="@string/title_accent_color"
             android:defaultValue="0"
             android:entries="@array/array_accent_color"
             android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:title="@string/title_accent_color" />
 
         <SwitchPreferenceCompat
             android:key="key_auto_night_accent_color"

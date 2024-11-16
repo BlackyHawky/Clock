@@ -13,6 +13,7 @@ import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RE
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.ThemeController.Setting.CHANGED;
 
 import android.content.Context;
 import android.content.Intent;
@@ -163,7 +164,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         }
                         requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
-                        ThemeController.recreateActivityAfterRestoringSettings(ThemeController.RestoreSettings.DONE);
+                        ThemeController.setNewSetting(CHANGED);
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),
                                 Toast.LENGTH_SHORT)

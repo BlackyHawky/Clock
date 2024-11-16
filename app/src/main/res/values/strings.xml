@@ -263,6 +263,8 @@
     <string name="title_accent_color">Accent color</string>
     <!-- Settings title to enable auto night accent color -->
     <string name="auto_night_accent_color_title">Apply accent color to night mode</string>
+    <!-- Settings day accent color title -->
+    <string name="day_accent_color_title">Accent color for day mode</string>
     <!-- Settings night accent color title -->
     <string name="night_accent_color_title">Accent color for night mode</string>
     <!-- Setting title to switch to black accent color -->
