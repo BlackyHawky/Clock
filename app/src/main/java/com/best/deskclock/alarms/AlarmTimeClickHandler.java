@@ -267,6 +267,7 @@ public final class AlarmTimeClickHandler {
         } else {
             mSelectedAlarm.hour = hourOfDay;
             mSelectedAlarm.minutes = minute;
+            mSelectedAlarm.enabled = true;
             mAlarmUpdateHandler.asyncUpdateAlarm(mSelectedAlarm, true, false);
             mSelectedAlarm = null;
         }
