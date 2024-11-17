@@ -1,0 +1,7 @@
+**Correzione:**
+* Corretta la visualizzazione delle scorciatoie quando si preme a lungo sull'icona dell'app;
+
+**Miglioramento:**
+* Rimossi i permessi non necessari;
+
+Le modifiche principali sono disponibili qui: https://github.com/BlackyHawky/Clock/releases/tag/2.0

@@ -526,43 +526,7 @@
     <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Abstellen/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="bedtime_notification_until">bis <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
-    <string name="about_dialog_message"> \u0020• Kippen und Schütteln zum Abstellen/Aufschieben des Alarms; 
-\n
-\n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; 
-\n
-\n• Nur bei Snapdragon-Telefonen: Der Alarm wird auch ausgelöst, wenn das Telefon ausgeschaltet ist; 
-\n
-\n• Wischen, um einen Alarm zu beenden; 
-\n
-\n• Möglichkeit, Alarme zu duplizieren; 
-\n
-\n• Alarm-Titel erstellen und ändern; 
-\n
-\n• Individuell anpassbare Klingeltöne; 
-\n
-\n• Helles, dunkles oder System-Thema; 
-\n
-\n• AMOLED-Modus für dunkles Thema; 
-\n
-\n• Digitaler oder analoger Uhrenstil; 
-\n
-\n• Anzeige der Heimatzeit auf Reisen; 
-\n
-\n• Anzeige der Uhrzeit in vielen Städten der Welt; 
-\n
-\n• Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten; 
-\n
-\n• Möglichkeit, die Stoppuhr-Zeiten mit eigenen Kontakten zu teilen; 
-\n
-\n• Anpassbarer Bildschirmschoner; 
-\n
-\n• Moderne Widgets; 
-\n
-\n• Anpassbare Widgets;
-\n
-\n• Material You Design; 
-\n
-\n• Dynamische Farben für Android 12+; \u0020</string>
+    <string name="about_dialog_message">• Kippen und Schütteln zum Abstellen/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-Telefonen: Der Alarm wird auch ausgelöst, wenn das Telefon ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Klingeltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit in vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Material You Design; \n \n• Dynamische Farben für Android 12+; \u0020</string>
     <string name="bedtime_reminder_notification">Erinnerung</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
     <string name="material_you_vertical_digital_widget">Senkrechte Material You Digitaluhr</string>

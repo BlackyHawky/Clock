@@ -23,21 +23,23 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Spegni"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Sveglia ignorata"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Posticip."</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Rimandata</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
         <item quantity="one">1 min</item>
+        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> di min</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Sveglia off"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posticipa"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Rimanda</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">Posticipazione di <xliff:g id="MINUTES">%d</xliff:g> minuti.</item>
-        <item quantity="one">Posticipazione di un minuto.</item>
+        <item quantity="one">Rimandata di un minuto.</item>
+        <item quantity="many">Rimandata di <xliff:g id="MINUTES">%d</xliff:g> di minuti.</item>
+        <item quantity="other">Rimandata di <xliff:g id="MINUTES">%d</xliff:g> minuti.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posticipa a <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Rimanda fino alle <xliff:g id="TIME">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Prossima sveglia"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"La sveglia ignorata è stata eliminata"</string>
-    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Resta meno di un minuto."</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">Resta meno di un minuto</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g> e <xliff:g id="MINUTES"> %2$s</xliff:g> rimasti"</string>
@@ -57,28 +59,34 @@
     <string name="alarm_confirmation_toast_7">"La sveglia sarà attivata tra <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <string name="alarm_confirmation_toast_8">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> giorni</item>
         <item quantity="one">1 giorno</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di giorni</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> giorni</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ore</item>
         <item quantity="one">1 ora</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di ore</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ore</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+        <item quantity="one">Un\'ora</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di ore</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ore</item>
-        <item quantity="one">1 ora</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuti</item>
         <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di minuti</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuti</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+        <item quantity="one">Un minuto</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di minuti</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuti</item>
-        <item quantity="one">1 minuto</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondi</item>
         <item quantity="one">1 secondo</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di secondi</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> secondi</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Ogni giorno"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -86,12 +94,13 @@
     <string name="analog_widget" msgid="1670505720837152766">"Orologio analogico"</string>
     <string name="digital_widget" msgid="2326954556720571358">"Orologio digitale"</string>
     <string name="settings" msgid="5849739030579520686">"Impostazioni"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Intervallo ripetizione sveglia"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">Durata rinvio sveglia</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumenta gradualmente il volume"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Disattiva suoneria dopo"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuti</item>
         <item quantity="one">1 minuto</item>
+        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> di minuti</item>
+        <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuti</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
     <string name="auto_silence_1_minute">1 minuto</string>
@@ -100,7 +109,7 @@
     <string name="auto_silence_15_minutes">15 minuti</string>
     <string name="auto_silence_20_minutes">20 minuti</string>
     <string name="auto_silence_25_minutes">25 minuti</string>
-    <string name="label_off">Off</string>
+    <string name="label_off">Spento</string>
     <string name="crescendo_5_seconds">5 secondi</string>
     <string name="crescendo_10_seconds">10 secondi</string>
     <string name="crescendo_15_seconds">15 secondi</string>
@@ -153,7 +162,7 @@
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Il dispositivo è impostato su \"Silenzio totale\""</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Pulsanti volume"</string>
     <string name="power_button_title">"Pulsante Accensione"</string>
-    <string name="button_action_snooze">Posticipa</string>
+    <string name="button_action_snooze">Rimanda</string>
     <string name="button_action_dismiss">Spegni</string>
     <string name="button_action_control_volume">Regola volume</string>
     <string name="button_action_nothing">Niente</string>
@@ -208,8 +217,8 @@
     <skip/>
     <string name="jocular_content_message_1">"Sei davvero un fulmine."</string>
     <string name="jocular_content_message_2">"Goditi i frutti del tuo lavoro."</string>
-    <string name="jocular_content_message_3">"Si sa che gli androidi sono veloci, ma non quanto te."</string>
-    <string name="jocular_content_message_4">"Fiuuu!"</string>
+    <string name="jocular_content_message_3">Si sa che gli androidi sono veloci, ma non quanto te!</string>
+    <string name="jocular_content_message_4">Fiuuu.</string>
     <string name="jocular_content_message_5">"L33t volte."</string>
     <string name="jocular_content_message_6">"Che velocità portentosa."</string>
     <string name="jocular_content_message_7">"Velocità di curvatura 5."</string>
@@ -331,8 +340,8 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Consente di elaborare le azioni derivanti dalle notifiche relative al cronometro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"In pausa"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Fai scorrere a destra per eliminare"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Fai scorrere a sinistra per posticipare"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Fai scorrere a sinistra per posticiparla o a destra per chiuderla"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">Fai scorrere a sinistra per rimandare</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Fai scorrere a sinistra per rimandarla o a destra per chiuderla</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrazione timer"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer in pausa"</string>
@@ -363,8 +372,9 @@
     <string name="alarm_is_set" msgid="5503226382620011088">"Sveglia impostata per le ore <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer creato"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timer ignorati</item>
         <item quantity="one">Timer ignorato</item>
+        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> di timer ignorati</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timer ignorati</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durata del timer non valida"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Timer selezionato non valido"</string>
@@ -373,13 +383,271 @@
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignora sveglia"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Scegli la sveglia da ignorare"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nessuna sveglia da attivare"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> posticipata di 10 minuti"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> rimandata di 10 minuti</string>
     <string name="flip_action_title">Azione capovolgimento</string>
     <string name="shake_action_title">Azione scuotimento</string>
     <string name="firing_alarms_timers_channel">Sveglie &amp; timer</string>
     <string name="alarm_missed_channel">Sveglie perse</string>
-    <string name="alarm_snooze_channel">Sveglie silenziate</string>
+    <string name="alarm_snooze_channel">Sveglie rimandate</string>
     <string name="alarm_upcoming_channel">Prossime sveglie</string>
     <string name="stopwatch_channel">Cronometro</string>
     <string name="timer_channel">Timer</string>
+    <string name="alarm_notification_reminder_4_hours">4 ore prima</string>
+    <string name="alarm_notification_reminder_6_hours">6 ore prima</string>
+    <string name="alarm_notification_reminder_8_hours">8 ore prima</string>
+    <string name="alarm_notification_reminder_10_hours">10 ore prima</string>
+    <string name="screensaver_date_color_title">Colore data</string>
+    <string name="screensaver_next_alarm_color_title">Colore prossima sveglia</string>
+    <string name="screensaver_italic_digital_clock_title">Orologio digitale in corsivo</string>
+    <string name="digital_widget_custom_minutes_color_title">Colore dei minuti personalizzato</string>
+    <string name="timer_volume_buttons_action_title">Azzera i timer scaduti con i pulsanti del volume</string>
+    <string name="bedtime_notification_title">È attiva la modalità \"Ora di andare a nanna\"</string>
+    <string name="first_launch_version">Versione %s</string>
+    <string name="widgets_settings">Widget</string>
+    <string name="digital_widget_date_default_color_title">Usa colore predefinito per la data</string>
+    <string name="sw_volume_up_action_title">Alza volume</string>
+    <string name="sw_long_press_volume_up_action_title">Alza volume (dopo pressione prolungata)</string>
+    <string name="sw_volume_down_action_title">Abbassa volume</string>
+    <string name="sw_long_press_volume_down_action_title">Abbassa volume (dopo pressione prolungata)</string>
+    <string name="sw_start_pause_action">Avvio / Pausa</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Scorri a sinistra per fermare</string>
+    <string name="timer_power_button_action_title">Azzera i timer scaduti con il pulsante di accensione</string>
+    <string name="timer_buttons_action_summary">Funzionamento solo sul blocco schermo</string>
+    <string name="screensaver_bold_date_title">Data in grassetto</string>
+    <string name="screensaver_bold_next_alarm_title">Prossima sveglia in grassetto</string>
+    <string name="occasional_alarm_deleted">Sveglia occasionale rimossa</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 minuti prima di andare a nanna</string>
+    <string name="bedtime_channel">Ora di andare a nanna</string>
+    <string name="bedtime_reminder_notification_text">L\'ora del risveglio è alle <xliff:g id="wake_time">%1$s</xliff:g> dopo <xliff:g id="sleep_time">%2$s</xliff:g> ore di sonno.</string>
+    <string name="wakeup_alarm_label_visible">Sveglia per alzarsi</string>
+    <string name="first_launch_button_later">Dopo</string>
+    <string name="first_launch_button_now">Adesso</string>
+    <string name="first_launch_main_feature_link">… ed altro ancora!</string>
+    <string name="widgets_settings_summary">Imposta lo stile, colori e dimensione carattere del widget</string>
+    <string name="digital_widget_custom_hours_color_title">Colore delle ore personalizzato</string>
+    <string name="digital_widget_default_minutes_color_title">Usa colore predefinito per i minuti</string>
+    <string name="digital_widget_date_custom_color_title">Colore della data personalizzato</string>
+    <string name="next_alarm_widget_custom_title_color">Colore personalizzato per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Usa colore predefinito per il titolo della sveglia</string>
+    <string name="next_alarm_widget_text">Sveglia successiva</string>
+    <string name="next_alarm_widget_title_no_alarm">Nessuna sveglia in programma</string>
+    <string name="notifications_permission_title">ABILITA NOTIFICHE</string>
+    <string name="backup_restore_toast_message_for_restore">Ripristino completato</string>
+    <string name="alarm_settings_summary">Imposta la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 minuti prima di andare a nanna</string>
+    <string name="analog_widget_material_you">Orologio analogico Material You</string>
+    <string name="material_you_digital_widget">Orologio digitale Material You</string>
+    <string name="alarm_notification_reminder_12_hours">12 ore prima</string>
+    <string name="sw_settings_summary">Imposta azione dei pulsanti del volume</string>
+    <string name="description_direction_right_for_occasional_alarm">Scorri verso destra per fermare e rimuovere la sveglia</string>
+    <string name="widget_next_alarm_default_color_title">Usa colore predefinito per la prossima sveglia</string>
+    <string name="ignore_battery_optimizations_dialog_text">Per impostazione predefinita, il sistema Android configura tutte le app installate dall\'utente in modo che siano ottimizzate per risparmiare la durata della batteria. \n\nSebbene ciò sia accettabile per molte applicazioni, questa app è un\'applicazione per le sveglie e spesso causa problemi se configurata per ottimizzare la batteria. Una volta abilitata, il sistema Android può disattivare l\'app in qualsiasi momento e/o annullare le sveglie programmate, il che influisce negativamente sul funzionamento dell\'app. \n\nSi consiglia di escludere questa app dall\'ottimizzazione della batteria.</string>
+    <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Material design e colori dinamici; &lt;br&gt; &lt;br&gt; ► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="denied_permission_label">Autorizzazione negata</string>
+    <string name="sort_timer_title">Ordina timer</string>
+    <string name="bedtime_notification_action_pause">Pausa per 30 min</string>
+    <string name="bedtime_notification_action_turn_off">Disattiva</string>
+    <string name="bedtime_notification_until">fino alle <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="widget_background_title">Mostra sfondo</string>
+    <string name="digital_widget_city_title">Mostra città nel widget</string>
+    <string name="digital_widget_clock_default_color_title">Usa colore predefinito per l\'orologio principale</string>
+    <string name="digital_widget_default_hours_color_title">Usa colore predefinito per le ore</string>
+    <string name="digital_widget_clock_custom_color_title">Colore personalizzato per l\'orologio principale</string>
+    <string name="permission_requirement_title">Necessarie:</string>
+    <string name="permission_management_summary">Mostra le autorizzazioni necessarie per il corretto funzionamento dell\'applicazione</string>
+    <string name="permission_management_settings">Gestione autorizzazioni</string>
+    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.; \n\n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro e ora di andare a nanna <i>(sperimentale)</i> inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
+    <string name="credits">Riconoscimenti</string>
+    <string name="dialog_close">Chiudi</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
+    <string name="enable_alarm_snooze_actions_label">Abilita le azioni di rimando della sveglia</string>
+    <string name="alarm_label_box_title">Etichetta sveglia</string>
+    <string name="screensaver_italic_next_alarm_title">Prossima sveglia in corsivo</string>
+    <string name="font_category_title">Carattere</string>
+    <string name="alarm_display_customization_title">Personalizzazione visualizzazione sveglia</string>
+    <string name="alarm_title_color">Colore titolo sveglia</string>
+    <string name="dismiss_button_color">Colore tasto di spegnimento</string>
+    <string name="snooze_button_color">Colore pulsante rimando</string>
+    <string name="screensaver_settings_summary">Imposta lo stile, il colore e il carattere del salvaschermo</string>
+    <string name="clock_color_title">Colore orologio</string>
+    <string name="seconds_hand_color_title">Colore lancetta dei secondi</string>
+    <string name="screensaver_daydream_settings">Seleziona/abilita salvaschermo</string>
+    <string name="screensaver_daydream_settings_summary">Apre le impostazioni principali del salvaschermo di Android</string>
+    <string name="bedtime_reminder_notification_title">L\'ora di andare a nanna è alle <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification">Notifica di promemoria</string>
+    <string name="first_launch_important_info_title">INFORMAZIONE IMPORTANTE</string>
+    <string name="background_color_title">Colore sfondo</string>
+    <string name="digital_widget_message_summary">Per accedere a questa impostazione è necessario disabilitare la funzione Mostra città sul widget</string>
+    <string name="permission_granted">Concesse</string>
+    <string name="ignore_battery_optimizations_title">IGNORA OTTIMIZZAZIONE BATTERIA</string>
+    <string name="ignore_battery_optimizations_dialog_title">Ottimizzazione Batteria</string>
+    <string name="notifications_dialog_title">Notifiche</string>
+    <string name="FSN_permission_title">ABILITA NOTIFICHE A SCHERMO INTERO</string>
+    <string name="FSN_dialog_title">Notifiche a Schermo Intero</string>
+    <string name="notifications_dialog_text">Oltre all\'impostazione delle sveglie, questa applicazione dispone anche di un timer, di un cronometro e di una modalità per andare a nanna. \n\nAffinché le notifiche vengano visualizzate correttamente per tutti i moduli e soprattutto per l\'attivazione della sveglia, si consiglia di attivare le notifiche per questa applicazione.</string>
+    <string name="FSN_dialog_text">Da Android 14, affinché la sveglia venga attivata quando lo schermo è spento, è necessario che l\'autorizzazione Notifiche a schermo intero sia abilitata</string>
+    <string name="screensaver_bold_digital_clock_title">Orologio digitale in grassetto</string>
+    <string name="about_title">Info</string>
+    <string name="first_launch_important_info_message">Per essere sicuri che l\'applicazione funzioni correttamente, &lt;b&gt;alcune impostazioni del tuo dispositivo devono essere cambiate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OTTIMIZZAZIONE BATTERIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICHE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;In base alla versione Android del tuo dispositivo, alcune di queste impostazioni sono già ottimizzate (es. notifiche).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Puoi modificarle adesso o più tardi nella gestione delle impostazioni delle autorizzazioni:</string>
+    <string name="permission_highly_recommended">Altamente consigliate</string>
+    <string name="screensaver_brightness_title">Luminosità</string>
+    <string name="title_dark_theme_mode">Modalità tema scuro</string>
+    <string name="permission_dialog_revoke_title">Accesso revocato</string>
+    <string name="permission_dialog_close_button">Chiudi</string>
+    <string name="revoke_permission_dialog_message">Vuoi veramente revocare questa autorizzazione?</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">Alla fine della suoneria</string>
+    <string name="app_slogan">Orologio 100% FOSS, basato su AOSP</string>
+    <string name="default_time_to_add_to_timer_2_minutes">2 minuti</string>
+    <string name="default_time_to_add_to_timer_3_minutes">3 minuti</string>
+    <string name="digital_widget_city_clock_custom_color_title">Colore personalizzato per orologio della città</string>
+    <string name="digital_widget_city_name_default_color_title">Usa colore predefinito per il nome della città</string>
+    <string name="digital_widget_max_clock_font_size_title">Dimensione massima caratteri dell\'orologio principale</string>
+    <string name="widget_next_alarm_custom_color_title">Colore della prossima sveglia personalizzato</string>
+    <string name="digital_widget_city_clock_default_color_title">Usa colore predefinito per orologio della città</string>
+    <string name="widget_max_clock_font_size_summary">Dimensione massima dei caratteri =</string>
+    <string name="duplicate">Duplica</string>
+    <string name="display_background_border_summary">Visualizza un bordo di sfondo per alcuni elementi dell\'applicazione (sveglie, città, pulsante del timer, ecc.)</string>
+    <string name="settings_vibration_title">Abilita vibrazioni</string>
+    <string name="add_label">Aggiungi etichetta</string>
+    <string name="alarm_created">Sveglia creata</string>
+    <string name="timer_label_box_title">Etichetta Timer</string>
+    <string name="contributors">Collaboratori</string>
+    <string name="bedtime_service_desc">Elabora le azioni delle notifiche per la nanna.</string>
+    <string name="timer_settings_summary">Imposta la suoneria predefinita, il volume e l\'ordine dei timer</string>
+    <string name="preview_title">Anteprima</string>
+    <string name="screensaver_preview_summary">Avvia subito il salvaschermo</string>
+    <string name="new_bedtime_alarm">Sveglia per alzarsi creata</string>
+    <string name="sleeping_time">Durata del sonno: %1$s</string>
+    <string name="permission_status_title">Stato:</string>
+    <string name="swipe_action_title">Scorri per fermare o rimandare la sveglia</string>
+    <string name="label_default">Predefinita</string>
+    <string name="alarm_button_color">Colore pulsante sveglia</string>
+    <string name="alarm_notification_reminder_30_minutes">30 minuti prima</string>
+    <string name="alarm_notification_reminder_1_hour">1 ora prima</string>
+    <string name="alarm_notification_reminder_2_hours">2 ore prima</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Abilita vibrazioni alla creazione delle sveglie</string>
+    <string name="clock_settings_summary">Imposta stile, fuso orario e modifica della data e dell\'ora del dispositivo</string>
+    <string name="version">Versione</string>
+    <string name="sort_timer_ascending_duration">Per durata (ordine crescente)</string>
+    <string name="sort_timer_name">Per nome</string>
+    <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
+    <string name="default_time_to_add_to_timer_4_minutes">4 minuti</string>
+    <string name="default_time_to_add_to_timer_5_minutes">5 minuti</string>
+    <string name="default_time_to_add_to_timer_6_minutes">6 minuti</string>
+    <string name="default_time_to_add_to_timer_7_minutes">7 minuti</string>
+    <string name="default_time_to_add_to_timer_8_minutes">8 minuti</string>
+    <string name="default_time_to_add_to_timer_9_minutes">9 minuti</string>
+    <string name="default_time_to_add_to_timer_10_minutes">10 minuti</string>
+    <string name="default_time_to_add_to_timer_30_minutes">30 minuti</string>
+    <string name="bedtime_reminder_notification_1_hour">Un\'ora prima di andare a nanna</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICHE A SCHERMO INTERO;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_dialog_title">Esci</string>
+    <string name="first_launch_dialog_message">Vuoi davvero uscire dall\'applicazione?</string>
+    <string name="description_direction_both_clicked">Clicca a sinistra per rimandare o a destra per fermare</string>
+    <string name="permission_denied">Negate</string>
+    <string name="whats_new_dialog_message">Scopri le novità:\n\n%s</string>
+    <string name="features_title">Caratteristiche principali</string>
+    <string name="github_dialog_message">Visita la pagina del progetto su GitHub:\n\n%s</string>
+    <string name="license_dialog_message">Leggi la licenza:\n\n%s</string>
+    <string name="contributors_dialog_message">Visita la pagina GitHub di %1$s:\n\n%2$s</string>
+    <string name="default_time_to_add_to_timer_title">Tempo predefinito da aggiungere al timer</string>
+    <string name="wakeup">Alzati</string>
+    <string name="style_category_title">Stile</string>
+    <string name="transparent_background_for_expired_timer_title">Sfondo trasparente alla scadenza dei timer</string>
+    <string name="no_wakeup_alarm">Nessuna sveglia per alzarsi impostata</string>
+    <string name="no_bedtime_alarm">Non è stata impostata l\'ora di andare a nanna</string>
+    <string name="first_launch_main_feature_title">CARATTERISTICHE PRINCIPALI</string>
+    <string name="selected">Selezionato</string>
+    <string name="more_options">Altre opzioni</string>
+    <string name="delete_occasional_alarm_after_use_title">Rimuovi la sveglia una volta fermata</string>
+    <string name="alarm_inactive">Spenta</string>
+    <string name="alarm_alert_off_and_deleted_text">Sveglia spenta e rimossa</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Spegni e rimuovi</string>
+    <string name="system_theme">Sistema</string>
+    <string name="whats_new_title">Novità</string>
+    <string name="bedtime_notification_resume">Riprendi alle <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Riprendi ora</string>
+    <string name="bedtime_paused_notification_title">La modalità \"Ora di andare a nanna\" è in pausa</string>
+    <string name="occasional_alarm_alert_predismiss_title">Prossima sveglia occasionale</string>
+    <string name="settings_permission_message">Una o più autorizzazioni essenziali sono state negate. La mancata concessione di tali autorizzazioni può causare malfunzionamenti.</string>
+    <string name="light_theme">Chiaro</string>
+    <string name="dark_theme">Scuro</string>
+    <string name="orange_accent_color">Arancione</string>
+    <string name="pink_accent_color">Rosa</string>
+    <string name="red_accent_color">Rosso</string>
+    <string name="blue_gray_accent_color">Grigio Blu</string>
+    <string name="brown_accent_color">Marrone</string>
+    <string name="green_accent_color">Verde</string>
+    <string name="indigo_accent_color">Indaco</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="display_card_background_title">Mostra sfondo tessere</string>
+    <string name="settings_vibration_summary">Sono interessati solo alcuni pulsanti dell\'interfaccia (ad esempio, il pulsante di riproduzione/pausa del timer o gli interruttori)</string>
+    <string name="version_text">Versione <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
+    <string name="about_github_link">Vai su GitHub</string>
+    <string name="license">Licenza open-source</string>
+    <string name="gnu_gpl">Licenza pubblica generale GNU v3.0</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Scorri a destra o a sinistra per fermare</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Scorri a destra o a sinistra per fermare e rimuovere la sveglia</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Clicca a sinistra o a destra per fermare</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Clicca a sinistra o a destra per fermare e rimuovere la sveglia</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Clicca a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
+    <string name="vertical_digital_widget">Orologio digitale verticale</string>
+    <string name="material_you_vertical_digital_widget">Orologio digitale verticale Material You</string>
+    <string name="settings_permission_summary">Premi qui per visualizzare la pagina di gestione delle autorizzazioni.</string>
+    <string name="styles_and_colors_category_title">Stile e colori</string>
+    <string name="miscellaneous_category_title">Varie</string>
+    <string name="ringtone_category_title">Suoneria</string>
+    <string name="actions_category_title">Azioni</string>
+    <string name="standard_category_title">Predefinito</string>
+    <string name="interface_customization_settings">Interfaccia</string>
+    <string name="interface_customization_summary">Imposta lo stile e il colore applicati all\'applicazione</string>
+    <string name="title_theme">Tema</string>
+    <string name="title_accent_color">Colore accento</string>
+    <string name="material_you_category_title">Materiale You</string>
+    <string name="settings_tab_indicator_title">Mostra l\'indicatore di scheda nel menu di navigazione inferiore</string>
+    <string name="material_you_next_alarm_widget">Sveglia successiva Material You</string>
+    <string name="display_card_background_summary">Visualizza uno sfondo per alcuni elementi dell\'applicazione (sveglie, città, pulsante del timer, ecc.)</string>
+    <string name="display_background_border_title">Mostra bordi sfondo</string>
+    <string name="alarm_notification_reminder_title">Promemoria notifiche</string>
+    <string name="screensaver_italic_date_title">Data in corsivo</string>
+    <string name="timer_button_time_box_title">Minuti da aggiungere al timer</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="menu_bedtime">Nanna</string>
+    <string name="settings_fade_transitions_title">Abilita le transizioni in dissolvenza quando si passa da una schermata all\'altra</string>
+    <string name="digital_widget_city_name_custom_color_title">Colore personalizzato nome città</string>
+    <string name="next_alarm_widget_default_title_color">Usa il colore predefinito per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>
+    <string name="next_alarm_widget">Sveglia successiva</string>
+    <string name="backup_restore_dialog_message">Si desidera eseguire il salvataggio o il ripristino delle impostazioni da un file?</string>
+    <string name="backup_restore_backup_button_title">Salvataggio</string>
+    <string name="backup_restore_settings_title">Salvataggio e Ripristino</string>
+    <string name="backup_restore_settings_summary">Salva o ripristina le impostazioni, ad eccezione di sveglie, timer e suonerie</string>
+    <string name="backup_restore_restore_button_title">Ripristino</string>
+    <string name="backup_restore_toast_message_for_backup">Salvataggio completato</string>
+    <string name="sort_timer_descending_duration">Per durata (ordine decrescente)</string>
+    <string name="default_time_to_add_to_timer_1_hour">1 ora</string>
+    <string name="keep_timer_screen_on_title">Tieni lo schermo acceso se è visualizzato un timer</string>
+    <string name="screensaver_clock_dynamic_colors_title">Colori orologio dinamici</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Colore personalizzato per il titolo della sveglia</string>
+    <string name="next_alarm_widget_max_font_size_title">Dimensione massima caratteri del widget</string>
+    <string name="timer_shake_action_title">Scuoti il dispositivo per fermare la sveglia</string>
+    <string name="timer_flip_action_title">Ruota il dispositivo per fermare la sveglia</string>
+    <string name="auto_night_accent_color_title">Applica colore accento alla modalità notte</string>
+    <string name="night_accent_color_title">Colore accento per modalità notte</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Abilita la rimozione automatica delle sveglie occasionali per impostazione predefinita</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Questa impostazione può essere modificata per ogni sveglia nella visualizzazione dettagliata delle sveglie</string>
+    <string name="material_time_picker_style_title">Stile di selezione orario</string>
+    <string name="pulse_color">Colore impulsi</string>
+    <string name="alarm_clock_font_size">Dimensione caratteri della sveglia</string>
+    <string name="alarm_title_font_size">Dimensione carattere del titolo della sveglia</string>
+    <string name="auto_silence_5_seconds">5 secondi</string>
+    <string name="auto_silence_10_seconds">10 secondi</string>
+    <string name="auto_silence_20_seconds">20 secondi</string>
+    <string name="auto_silence_30_seconds">30 secondi</string>
+    <string name="snooze_duration_none">Nessuno</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Scorri a sinistra per fermare e rimuovere la sveglia</string>
+    <string name="description_direction_both_for_occasional_alarm">Scorri a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
+    <string name="sort_timer_manually">Manualmente (trascinandoli)</string>
 </resources>

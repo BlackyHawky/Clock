@@ -1,0 +1,11 @@
+**Correzione**
+ - Corrette le dimensioni dell'indicatore nel cerchio del cronometro;
+
+**Miglioramenti**
+ - Aggiunta la possibilità di cambiare il colore dell'accent;
+ - Aggiunta della possibilità di nascondere/visualizzare gli sfondi delle carte (non si applica alle impostazioni);
+ - Possibilità di nascondere/visualizzare i bordi dello sfondo (non si applica alle impostazioni);
+ - Aggiunta della possibilità di attivare/disattivare le vibrazioni ad alcuni elementi dell'interfaccia utente (sono interessati solo i dispositivi dotati di vibratore);
+ - Aggiunta delle vibrazioni agli interruttori delle impostazioni (riguarda solo i dispositivi dotati di vibratore);
+ - Eliminazione del controllo dei permessi essenziali all'apertura dell'app: ora, se i permessi essenziali non sono concessi, viene visualizzato un messaggio nella parte superiore delle impostazioni;
+ - Aggiornamento degli screenshot (principalmente per F-Droid) come discusso qui: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

@@ -1,0 +1,9 @@
+**Correzione**
+ - Aggiornamento dei widget digitali per Android13+;
+
+**Miglioramenti**
+ - I widget digitali sono personalizzabili:
+  - Il colore di tutti gli elementi può essere cambiato;
+  - La dimensione dei caratteri può essere modificata per l'orologio principale (possibile solo se non viene visualizzata alcuna città);
+  - Configurazione dei widget digitali alla pressione prolungata per Android 9+;
+ - Alcune traduzioni aggiornate;

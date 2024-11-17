@@ -1,0 +1,7 @@
+**Miglioramenti**
+ - Scegli lo stile predefinito per il selezionatore dell'ora;
+ - Aggiunta di una transizione di dissolvenza quando si sfogliano le impostazioni;
+ - Personalizzazione della visualizzazione dell'animazione della sveglia;
+ - Aggiungere un'azione "Niente" ai pulsanti del volume;
+ - Aggiornamento delle traduzioni;
+ - Per vedere tutti i miglioramenti, visitate: https://github.com/BlackyHawky/Clock/releases/tag/2.7

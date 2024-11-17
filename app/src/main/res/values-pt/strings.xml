@@ -13,7 +13,7 @@
     <string name="timer_sound" msgid="896163086604894735">"Som do timer"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Adicionar nova"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Remover"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Os alarmes e temporizadores que usam esse som reproduzirão o som padrão em vez dele."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Os alarmes e timers que usam esse som reproduzirão o som padrão em vez dele.</string>
     <string name="your_sounds" msgid="1672779351352629681">"Seus sons"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sons do dispositivo"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Não foi possível acessar o conteúdo de som."</string>
@@ -152,9 +152,9 @@
     <string name="change_setting_action" msgid="1224356633832430160">"Alterar"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"O dispositivo está configurado para silêncio total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botões de volume"</string>
-    <string name="button_action_snooze">Ativam soneca</string>
-    <string name="button_action_dismiss">Dispensam o alarme</string>
-    <string name="button_action_control_volume">Controlam volume</string>
+    <string name="button_action_snooze">Ativa soneca</string>
+    <string name="button_action_dismiss">Dispensa alarme</string>
+    <string name="button_action_control_volume">Controla volume</string>
     <string name="label_description" msgid="8736179296142915727">"Marcador"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Toque"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarme"</string>
@@ -332,7 +332,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Deslize para a esquerda para adiar"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Deslize para a esquerda para adiar ou para a direita para dispensar"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
-    <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibração do timer"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">Timer com vibração</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer pausado"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timers pausados"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">Toque para ver seus timers</string>
@@ -379,8 +379,8 @@
     <string name="more_options">Mais opções</string>
     <string name="analog_widget_material_you">Relógio analógico com Material You</string>
     <string name="material_you_digital_widget">Relógio digital com Material You</string>
-    <string name="display_background_border_summary">Mostra a borda do plano de fundo para elementos do app (alarmes, cidades, botão do temporizador, etc.)</string>
-    <string name="settings_vibration_summary">Apenas alguns botões da interface são afetados (ex: o botão play/pause ou os interruptores do temporizador)</string>
+    <string name="display_background_border_summary">Mostra a borda do plano de fundo para elementos do app (alarmes, cidades, botão do timer, etc.)</string>
+    <string name="settings_vibration_summary">Apenas alguns botões da interface são afetados (ex: o botão play/pause ou os interruptores do timer)</string>
     <string name="settings_vibration_title">Habilitar vibrações</string>
     <string name="title_accent_color">Cor do acento</string>
     <string name="duplicate">Duplicar</string>
@@ -388,10 +388,10 @@
     <string name="enable_alarm_snooze_actions_label">Habilitar ações do alarme soneca</string>
     <string name="alarm_label_box_title">Nome do Alarme</string>
     <string name="interface_customization_settings">Interface</string>
-    <string name="interface_customization_summary">Ajustar o estilo e cor aplicados para o app</string>
+    <string name="interface_customization_summary">Ajustar estilo e cor aplicados para o app</string>
     <string name="title_theme">Tema</string>
     <string name="display_card_background_title">Mostrar plano de fundo do card</string>
-    <string name="display_card_background_summary">Mostra um plano de fundo para alguns elementos do app (alarmes, cidades, botão do temporizador, etc.)</string>
+    <string name="display_card_background_summary">Mostra um plano de fundo para alguns elementos do app (alarmes, cidades, botão do timer, etc.)</string>
     <string name="display_background_border_title">Mostrar as bordas do plano de fundo</string>
     <string name="alarm_notification_reminder_title">Lembrete de notificação</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Habilitar vibrações quando criar alarmes</string>
@@ -420,7 +420,7 @@
     <string name="alarm_display_customization_title">Personalizar exibição de alarme</string>
     <string name="timer_label_box_title">Etiqueta de Timer</string>
     <string name="timer_button_time_box_title">Minutos para adicionar ao timer</string>
-    <string name="alarm_settings_summary">Defina o toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>
+    <string name="alarm_settings_summary">Definir toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>
     <string name="description_direction_both_clicked">Clique na esquerda para soneca ou direita para descartar</string>
     <string name="bedtime_service_desc">Processa ações de notificações de hora de dormir.</string>
     <string name="app_slogan">Relógio 100% FOSS, baseado em AOSP</string>
@@ -457,7 +457,7 @@
     <string name="sort_timer_name">Por nome</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuto</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>
-    <string name="timer_settings_summary">Defina o ringtone padrão, volume e classificação do timer</string>
+    <string name="timer_settings_summary">Definir toque padrão, volume e classificação do timer</string>
     <string name="sort_timer_ascending_duration">Por duração (ordem ascendente)</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minutos</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 minutos</string>
@@ -475,7 +475,7 @@
     <string name="screensaver_bold_digital_clock_title">Relógio digital em negrito</string>
     <string name="screensaver_italic_digital_clock_title">Relógio digital em itálico</string>
     <string name="screensaver_bold_date_title">Data em negrito</string>
-    <string name="screensaver_settings_summary">Defina o estilo, a cor e a fonte do protetor de tela</string>
+    <string name="screensaver_settings_summary">Definir estilo, cor e fonte do protetor de tela</string>
     <string name="screensaver_daydream_settings">Selecione/ative o protetor de tela</string>
     <string name="screensaver_daydream_settings_summary">Abre as configurações do protetor de tela do Android</string>
     <string name="screensaver_date_color_title">Cor da data</string>
@@ -508,7 +508,7 @@
     <string name="about_github_link">Veja no GitHub</string>
     <string name="vertical_digital_widget">Relógio digital vertical</string>
     <string name="material_you_vertical_digital_widget">Relógio digital vertical Material You</string>
-    <string name="standard_category_title">Standard</string>
+    <string name="standard_category_title">Padrão</string>
     <string name="material_you_category_title">Material You</string>
     <string name="settings_tab_indicator_title">Mostre o indicador de aba no menu de navegação inferior</string>
     <string name="license">Licença Open-source</string>
@@ -631,4 +631,13 @@
     <string name="denied_permission_label">Permissão negada</string>
     <string name="revoke_permission_dialog_message">Tem certeza de que deseja revogar essa permissão?</string>
     <string name="sort_timer_manually">Manualmente (arrastando)</string>
+    <string name="timer_volume_buttons_action_title">Reiniciar os timers expirados com os botões de volume</string>
+    <string name="sw_volume_up_action_title">Aumentar o volume</string>
+    <string name="sw_settings_summary">Definir ações para os botões de volume</string>
+    <string name="sw_long_press_volume_up_action_title">Aumentar o volume (após pressionamento longo)</string>
+    <string name="sw_volume_down_action_title">Diminuir o volume</string>
+    <string name="sw_long_press_volume_down_action_title">Diminuir o volume (após pressionamento longo)</string>
+    <string name="sw_start_pause_action">Iniciar / Pausar</string>
+    <string name="timer_buttons_action_summary">Funciona apenas na tela de bloqueio</string>
+    <string name="timer_power_button_action_title">Reinicie os timers expirados com o botão de liga/desliga</string>
 </resources>

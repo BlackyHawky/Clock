@@ -437,7 +437,7 @@
     <string name="notifications_dialog_text">Lisaks äratustele saad seda rakendust kasutada ka taimeri, stopperi ja uneajaga seotud toimingute jaoks.
 \n
 \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
-    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ►Äratuse seadistamine kindlaks kuupäevaks; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
     <string name="bedtime_reminder_notification_title">Sinu uneaeg algab <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
@@ -507,7 +507,7 @@
 \nEnamuse rakenduste jaoks see ongi sobilik, aga meie rakendus on mõeldud äratuste jaoks ning akukasutuse optimeerimine segab seda tööd. Näiteks sel puhul võib Android rakenduse töö suvalisel hetkel lõpetada ja sellega enam ei toimi ka ajastatud äratused.
 \n
 \nMeie soovitame, et sa selle rakenduse puhul ei kasuta akukasutuse optimeerimist.</string>
-    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Seadistuste varundamine ja taastamine; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
+    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n\n• Äratuse seadistamine kindlaks kuupäevaks;\n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Seadistuste varundamine ja taastamine; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
     <string name="FSN_permission_title">LUBA TÄISEKRAANITEAVITUSED</string>
     <string name="permission_requirement_title">Vajadus: </string>
     <string name="permission_denied">Keelatud</string>
@@ -645,4 +645,21 @@
     <string name="night_accent_color_title">Aktsentvärv öörežiimis</string>
     <string name="auto_night_accent_color_title">Kasuta aktsentvärve ka öörežiimis</string>
     <string name="sort_timer_manually">Käsitsi (lohistades)</string>
+    <string name="timer_volume_buttons_action_title">Lähtesta aegunud taimerid helivaljuse nuppudega</string>
+    <string name="timer_buttons_action_summary">Toimib vaid lukustusvaates</string>
+    <string name="timer_power_button_action_title">Lähtesta aegunud taimerid toitenupuga</string>
+    <string name="sw_long_press_volume_down_action_title">Heli vaiksemaks (pikk vajutus)</string>
+    <string name="sw_settings_summary">Seadista toimingud helivaljuse nuppudega</string>
+    <string name="sw_volume_up_action_title">Heli valjemaks</string>
+    <string name="sw_long_press_volume_up_action_title">Heli valjemaks (pikk vajutus)</string>
+    <string name="sw_volume_down_action_title">Heli vaiksemaks</string>
+    <string name="sw_start_pause_action">Käivita / peata</string>
+    <string name="schedule_alarm_title">Lisa äratus ajakavasse</string>
+    <string name="alarm_scheduled_for">Ajakavas: %s</string>
+    <string name="material_date_picker_style_title">Kuupäevavalija stiil</string>
+    <string name="material_date_picker_style_calendar">Kalender</string>
+    <string name="material_date_picker_style_text">Tekst</string>
+    <string name="black_accent_color">Must</string>
+    <string name="purple_accent_color">Purpurpunane</string>
+    <string name="yellow_accent_color">Kollane</string>
 </resources>
