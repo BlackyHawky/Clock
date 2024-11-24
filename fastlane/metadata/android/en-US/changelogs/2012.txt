@@ -1,0 +1,3 @@
+Due to a major bug caused by the "Set an alarm for a specific date" feature, this has been removed while waiting to find the solution.
+
+The other features of version 2.10 are retained and can be consulted here: https://github.com/BlackyHawky/Clock/releases/tag/2.10

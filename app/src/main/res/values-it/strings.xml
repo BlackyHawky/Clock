@@ -445,7 +445,7 @@
     <string name="description_direction_right_for_occasional_alarm">Scorri verso destra per fermare e rimuovere la sveglia</string>
     <string name="widget_next_alarm_default_color_title">Usa colore predefinito per la prossima sveglia</string>
     <string name="ignore_battery_optimizations_dialog_text">Per impostazione predefinita, il sistema Android configura tutte le app installate dall\'utente in modo che siano ottimizzate per risparmiare la durata della batteria. \n\nSebbene ciò sia accettabile per molte applicazioni, questa app è un\'applicazione per le sveglie e spesso causa problemi se configurata per ottimizzare la batteria. Una volta abilitata, il sistema Android può disattivare l\'app in qualsiasi momento e/o annullare le sveglie programmate, il che influisce negativamente sul funzionamento dell\'app. \n\nSi consiglia di escludere questa app dall\'ottimizzazione della batteria.</string>
-    <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Material design e colori dinamici; &lt;br&gt; &lt;br&gt; ► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Material design e colori dinamici; &lt;br&gt; &lt;br&gt;► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="denied_permission_label">Autorizzazione negata</string>
     <string name="sort_timer_title">Ordina timer</string>
     <string name="bedtime_notification_action_pause">Pausa per 30 min</string>
@@ -650,4 +650,8 @@
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Scorri a sinistra per fermare e rimuovere la sveglia</string>
     <string name="description_direction_both_for_occasional_alarm">Scorri a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
     <string name="sort_timer_manually">Manualmente (trascinandoli)</string>
+    <string name="black_accent_color">Nero</string>
+    <string name="purple_accent_color">Viola</string>
+    <string name="yellow_accent_color">Giallo</string>
+    <string name="day_accent_color_title">Colore accento per modalità giorno</string>
 </resources>

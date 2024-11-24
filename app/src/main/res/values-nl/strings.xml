@@ -404,7 +404,7 @@
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
     <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Wekkers inplannen voor een specifieke datum \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten; \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+;</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -474,7 +474,7 @@
     <string name="dialog_close">Sluiten</string>
     <string name="bedtime_notification_resume">Hervat op <xliff:g id="time">%1$s</xliff:g></string>
     <string name="bedtime_notification_resume_action">Nu hervatten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Wekkers inplannen voor een specifieke datum; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
@@ -649,4 +649,5 @@
     <string name="purple_accent_color">Paars</string>
     <string name="black_accent_color">Zwart</string>
     <string name="yellow_accent_color">Geel</string>
+    <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
 </resources>
