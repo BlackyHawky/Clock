@@ -25,7 +25,6 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_AUTO_SILENCE
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
@@ -275,7 +274,6 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_WEEK_START, prefs.getString(KEY_WEEK_START, String.valueOf(Calendar.getInstance().getFirstDayOfWeek())));
                     strings.put(KEY_ALARM_NOTIFICATION_REMINDER_TIME, prefs.getString(KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30"));
                     strings.put(KEY_MATERIAL_TIME_PICKER_STYLE, prefs.getString(KEY_MATERIAL_TIME_PICKER_STYLE, "analog"));
-                    strings.put(KEY_MATERIAL_DATE_PICKER_STYLE, prefs.getString(KEY_MATERIAL_DATE_PICKER_STYLE, "calendar"));
 
                     // Values from AlarmDisplayCustomizationActivity
                     strings.put(KEY_ALARM_CLOCK_STYLE, prefs.getString(KEY_ALARM_CLOCK_STYLE, "digital"));

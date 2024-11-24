@@ -73,7 +73,7 @@
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
         <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
-
+        <!-- Todo: This is currently not used but may be useful to resolve issue #4 -->
         <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
     </style>
 

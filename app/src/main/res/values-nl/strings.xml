@@ -646,12 +646,7 @@
     <string name="sw_long_press_volume_down_action_title">Volume omlaag (lang indrukken)</string>
     <string name="sw_start_pause_action">Start / Pauze</string>
     <string name="sw_volume_down_action_title">Volume omlaag</string>
-    <string name="alarm_scheduled_for">Gepland voor %s</string>
-    <string name="schedule_alarm_title">Wekker plannen</string>
     <string name="purple_accent_color">Paars</string>
     <string name="black_accent_color">Zwart</string>
-    <string name="material_date_picker_style_title">Stijl datumkiezer</string>
-    <string name="material_date_picker_style_calendar">Kalender</string>
-    <string name="material_date_picker_style_text">Tekst</string>
     <string name="yellow_accent_color">Geel</string>
 </resources>

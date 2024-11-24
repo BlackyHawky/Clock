@@ -290,10 +290,6 @@ final class SettingsModel {
         return SettingsDAO.getMaterialTimePickerStyle(mPrefs);
     }
 
-    String getMaterialDatePickerStyle() {
-        return SettingsDAO.getMaterialDatePickerStyle(mPrefs);
-    }
-
     ClockStyle getAlarmClockStyle() {
         return SettingsDAO.getAlarmClockStyle(mContext, mPrefs);
     }

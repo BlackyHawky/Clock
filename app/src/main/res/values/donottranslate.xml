@@ -53,7 +53,6 @@
     <string name="action_expand_implied">Expand Implied</string>
     <string name="action_collapse_implied">Collapse Implied</string>
     <string name="action_set_time">Set Time</string>
-    <string name="action_set_date">Set Date</string>
     <string name="action_set_label">Set Label</string>
     <string name="action_set_ringtone">Set Ringtone</string>
     <string name="action_toggle_vibrate">Toggle Vibrate</string>
@@ -351,17 +350,6 @@
     <string-array name="clock_style_values" translatable="false">
         <item>analog</item>
         <item>digital</item>
-    </string-array>
-
-    <!-- Entries listed in the ListPreference when invoking the date picker style preference. -->
-    <string-array name="material_date_picker_style_entries">
-        <item>@string/material_date_picker_style_calendar</item>
-        <item>@string/material_date_picker_style_text</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the material_date_picker_style_entries above. -->
-    <string-array name="material_date_picker_style_values" translatable="false">
-        <item>calendar</item>
-        <item>text</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when invoking the timer sort preference -->

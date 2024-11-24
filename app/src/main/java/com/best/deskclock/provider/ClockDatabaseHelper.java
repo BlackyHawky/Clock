@@ -64,18 +64,21 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_12 = 13;
 
+    /**
+     * Remove the ability to set an alarm on a specific date due to a bug if a day of the week is selected
+     * See: <a href="https://github.com/BlackyHawky/Clock/issues/136">here</a>
+     */
+    private static final int VERSION_13 = 14;
+
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_12);
+        super(context, DATABASE_NAME, null, VERSION_13);
     }
 
     private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
         db.execSQL("CREATE TABLE " + alarmsTableName + " (" +
                 ClockContract.AlarmsColumns._ID + " INTEGER PRIMARY KEY," +
-                ClockContract.AlarmsColumns.YEAR + " INTEGER NOT NULL, " +
-                ClockContract.AlarmsColumns.MONTH + " INTEGER NOT NULL, " +
-                ClockContract.AlarmsColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
@@ -222,8 +225,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 while (cursor != null && cursor.moveToNext()) {
                     final Alarm alarm = new Alarm(cursor);
                     // Save new version of alarm and create alarm instance for it
-                    db.insert(TEMP_ALARMS_TABLE_NAME, null,
-                            Alarm.createContentValues(alarm));
+                    db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
                     if (alarm.enabled) {
                         AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
                         db.insert(TEMP_INSTANCES_TABLE_NAME, null,
@@ -247,6 +249,52 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN day INTEGER NOT NULL DEFAULT 0;");
 
             db.execSQL("UPDATE " + ALARMS_TABLE_NAME + " SET year = " + year + ", month = " + month + ", day = " + day + ";");
+        }
+
+        if (oldVersion < VERSION_13) {
+            LogUtils.i("Removing year, month, and day columns from alarms table");
+            // Create a new temporary table without the year, month, and day columns
+            final String TEMP_ALARMS_TABLE_NAME = ALARMS_TABLE_NAME + "_temp";
+            final String TEMP_INSTANCES_TABLE_NAME = INSTANCES_TABLE_NAME + "_temp";
+            createAlarmsTable(db, TEMP_ALARMS_TABLE_NAME);
+            createInstanceTable(db, TEMP_INSTANCES_TABLE_NAME);
+            // List of columns from the old table to keep (without year, month, and day)
+            final String[] OLD_TABLE_COLUMNS = {
+                    ClockContract.AlarmsColumns._ID,
+                    ClockContract.AlarmsColumns.HOUR,
+                    ClockContract.AlarmsColumns.MINUTES,
+                    ClockContract.AlarmsColumns.DAYS_OF_WEEK,
+                    ClockContract.AlarmsColumns.ENABLED,
+                    ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
+                    ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS,
+                    ClockContract.AlarmsColumns.VIBRATE,
+                    ClockContract.AlarmsColumns.LABEL,
+                    ClockContract.AlarmsColumns.RINGTONE,
+                    ClockContract.AlarmsColumns.DELETE_AFTER_USE,
+                    ClockContract.AlarmsColumns.INCREASING_VOLUME
+            };
+
+            try (Cursor cursor = db.query(ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
+                    null, null, null, null, null)) {
+                final Calendar currentTime = Calendar.getInstance();
+                while (cursor != null && cursor.moveToNext()) {
+                    final Alarm alarm = new Alarm(cursor);
+                    // Save new version of alarm and create alarm instance for it
+                    db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
+                    if (alarm.enabled) {
+                        AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
+                        db.insert(TEMP_INSTANCES_TABLE_NAME, null,
+                                AlarmInstance.createContentValues(newInstance));
+                    }
+                }
+            }
+
+            // Delete the old tables
+            db.execSQL("DROP TABLE IF EXISTS " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
+            // Rename the temporary tables to the same name as the old tables
+            db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME + " RENAME TO " + ALARMS_TABLE_NAME + ";");
+            db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
         }
     }
 

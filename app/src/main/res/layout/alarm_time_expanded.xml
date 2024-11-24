@@ -109,70 +109,6 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/days_of_week_layout" />
 
-        <View
-            android:id="@+id/alarm_expanded_empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeat_days_alarm" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/schedule_alarm"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackground"
-            android:focusable="true"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_calendar_clock"
-            android:drawablePadding="10dp"
-            android:text="@string/schedule_alarm_title"
-            android:gravity="center_vertical"
-            app:drawableTint="?colorOnSurfaceVariant"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/alarm_expanded_empty_view" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/selected_date"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:background="?attr/selectableItemBackground"
-            android:focusable="true"
-            android:clickable="true"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            app:drawableTint="?colorOnSurfaceVariant"
-            app:layout_constraintTop_toBottomOf="@id/alarm_expanded_empty_view"
-            app:layout_constraintEnd_toStartOf="@+id/remove_date"
-            tools:text="01/01/2024" />
-
-        <ImageButton
-            android:id="@+id/add_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_circle"
-            android:scaleType="centerInside"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/alarm_expanded_empty_view"
-            app:layout_constraintBottom_toBottomOf="@+id/schedule_alarm"
-            tools:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/remove_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_remove"
-            android:scaleType="centerInside"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/alarm_expanded_empty_view"
-            app:layout_constraintBottom_toBottomOf="@+id/schedule_alarm"
-            tools:visibility="visible" />
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/choose_ringtone"
             android:layout_width="match_parent"
@@ -188,7 +124,7 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             app:drawableTint="?colorOnSurfaceVariant"
-            app:layout_constraintTop_toBottomOf="@id/schedule_alarm"
+            app:layout_constraintTop_toBottomOf="@id/repeat_days_alarm"
             tools:text="Standard (Hassium)" />
 
         <com.google.android.material.checkbox.MaterialCheckBox

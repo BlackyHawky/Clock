@@ -650,13 +650,8 @@
     <string name="sw_long_press_volume_down_action_title">Смањи јачину звука (после дугог притиска)</string>
     <string name="sw_long_press_volume_up_action_title">Појачај звук (након дугог притиска)</string>
     <string name="sw_volume_down_action_title">Смањи звук</string>
-    <string name="schedule_alarm_title">Закажи аларм</string>
     <string name="purple_accent_color">Љубичаста</string>
-    <string name="material_date_picker_style_text">Текст</string>
     <string name="black_accent_color">Црна</string>
-    <string name="material_date_picker_style_calendar">Календар</string>
-    <string name="material_date_picker_style_title">Стил бирача датума</string>
     <string name="yellow_accent_color">Жута</string>
-    <string name="alarm_scheduled_for">Заказан за %s</string>
     <string name="day_accent_color_title">Акцент боје за дневни режим</string>
 </resources>

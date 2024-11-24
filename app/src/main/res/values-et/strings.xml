@@ -654,11 +654,6 @@
     <string name="sw_long_press_volume_up_action_title">Heli valjemaks (pikk vajutus)</string>
     <string name="sw_volume_down_action_title">Heli vaiksemaks</string>
     <string name="sw_start_pause_action">Käivita / peata</string>
-    <string name="schedule_alarm_title">Lisa äratus ajakavasse</string>
-    <string name="alarm_scheduled_for">Ajakavas: %s</string>
-    <string name="material_date_picker_style_title">Kuupäevavalija stiil</string>
-    <string name="material_date_picker_style_calendar">Kalender</string>
-    <string name="material_date_picker_style_text">Tekst</string>
     <string name="black_accent_color">Must</string>
     <string name="purple_accent_color">Purpurpunane</string>
     <string name="yellow_accent_color">Kollane</string>

@@ -143,10 +143,6 @@ final class AlarmModel {
         return mSettingsModel.getMaterialTimePickerStyle();
     }
 
-    String getMaterialDatePickerStyle() {
-        return mSettingsModel.getMaterialDatePickerStyle();
-    }
-
     DataModel.ClockStyle getAlarmClockStyle() {
         return mSettingsModel.getAlarmClockStyle();
     }

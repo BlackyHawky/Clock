@@ -48,8 +48,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
-    public static final String KEY_MATERIAL_DATE_PICKER_STYLE = "key_material_date_picker_style";
-    public static final String MATERIAL_DATE_PICKER_CALENDAR_STYLE = "calendar";
     public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
 
     @Override
@@ -81,7 +79,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
         SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
         ListPreference mMaterialTimePickerStylePref;
-        ListPreference mMaterialDatePickerStylePref;
         Preference mAlarmDisplayCustomizationPref;
 
         @Override
@@ -104,7 +101,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
             mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
             mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
-            mMaterialDatePickerStylePref = findPreference(KEY_MATERIAL_DATE_PICKER_STYLE);
             mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
             setupPreferences();
@@ -134,8 +130,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
                      KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
-                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE,
-                     KEY_MATERIAL_DATE_PICKER_STYLE -> {
+                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -233,9 +228,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
             mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
-
-            mMaterialDatePickerStylePref.setOnPreferenceChangeListener(this);
-            mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
 
             mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
         }

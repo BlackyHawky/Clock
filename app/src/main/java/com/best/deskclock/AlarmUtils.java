@@ -86,19 +86,16 @@ public class AlarmUtils {
         final long remainder = delta % DateUtils.MINUTE_IN_MILLIS;
         delta += remainder == 0 ? 0 : (DateUtils.MINUTE_IN_MILLIS - remainder);
 
-        // Calculating the number of days
-        long totalDays = delta / (1000 * 60 * 60 * 24);
+        int hours = (int) delta / (1000 * 60 * 60);
+        final int minutes = (int) delta / (1000 * 60) % 60;
+        final int days = hours / 24;
+        hours = hours % 24;
 
-        // Calculating the remainder in hours and minutes after extracting the days
-        long remainingMillis = delta % (1000 * 60 * 60 * 24);
-        int hours = (int) (remainingMillis / (1000 * 60 * 60));
-        int minutes = (int) (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
-
-        String daySeq = Utils.getNumberFormattedQuantityString(context, R.plurals.days, (int) totalDays);
+        String daySeq = Utils.getNumberFormattedQuantityString(context, R.plurals.days, days);
         String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
         String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
 
-        final boolean showDays = totalDays > 0;
+        final boolean showDays = days > 0;
         final boolean showHours = hours > 0;
         final boolean showMinutes = minutes > 0;
 

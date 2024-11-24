@@ -11,8 +11,6 @@
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
-    <!-- Label title on the expanded alarm view to schedule alarm -->
-    <string name="schedule_alarm_title">Schedule alarm</string>
     <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
@@ -59,8 +57,6 @@
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
     <string name="alarm_today">Today</string>
-    <!-- Label shown when user has set a non-repeating alarm for a specific day -->
-    <string name="alarm_scheduled_for">Scheduled for %s</string>
     <!-- Button label on the alarm notification panel: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
     <!-- Button label on the alarm notification panel: Dismiss & Delete -->
@@ -335,12 +331,6 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
-    <!-- Setting title for changing the date picker style. -->
-    <string name="material_date_picker_style_title">Date picker style</string>
-    <!-- Setting title for changing the material date picker style to calendar. -->
-    <string name="material_date_picker_style_calendar">Calendar</string>
-    <!-- Setting title for changing the material date picker style to text. -->
-    <string name="material_date_picker_style_text">Text</string>
     <!-- Setting title for customizing the alarm display. -->
     <string name="alarm_display_customization_title">Customize alarm display</string>
     <!-- Setting title for customizing the alarm title color. -->
@@ -908,7 +898,6 @@
         • Flip and shake action to dismiss/postpone alarm;
         \n\n• Turn off/postpone the alarm with the power button or volume buttons;
         \n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off;
-        \n\n• Set alarms for a specific date;
         \n\n• Swipe to delete an alarm;
         \n\n• Duplicate alarms;
         \n\n• Customize alarm title;
@@ -1299,7 +1288,6 @@
         ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
         ► Customizable widgets; &lt;br&gt; &lt;br&gt;
         ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
-        ► Set alarms for a specific date; &lt;br&gt; &lt;br&gt;
         ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
         ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;
         ► Flip and shake action to dismiss/postpone alarm; &lt;br&gt; &lt;br&gt;

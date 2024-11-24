@@ -674,11 +674,6 @@
     <string name="sw_volume_up_action_title">Гучніше</string>
     <string name="sw_volume_down_action_title">Тихіше</string>
     <string name="sw_long_press_volume_down_action_title">Тихіше (тривале натискання)</string>
-    <string name="schedule_alarm_title">Запланувати будильник</string>
-    <string name="alarm_scheduled_for">Заплановано на %s</string>
-    <string name="material_date_picker_style_text">Текст</string>
-    <string name="material_date_picker_style_title">Стиль вікна зміни дати</string>
-    <string name="material_date_picker_style_calendar">Календар</string>
     <string name="black_accent_color">Чорний</string>
     <string name="purple_accent_color">Фіолетовий</string>
     <string name="yellow_accent_color">Жовтий</string>

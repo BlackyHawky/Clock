@@ -645,11 +645,6 @@
     <string name="sw_long_press_volume_up_action_title">音量调高（长按后）</string>
     <string name="sw_long_press_volume_down_action_title">音量调低（长按后）</string>
     <string name="sw_settings_summary">设置音量按钮的操作</string>
-    <string name="schedule_alarm_title">设置闹钟</string>
-    <string name="alarm_scheduled_for">为 %s 设置</string>
-    <string name="material_date_picker_style_calendar">日历</string>
-    <string name="material_date_picker_style_text">文本</string>
-    <string name="material_date_picker_style_title">日期选择器风格</string>
     <string name="black_accent_color">黑色</string>
     <string name="purple_accent_color">紫色</string>
     <string name="yellow_accent_color">黄色</string>
