@@ -114,6 +114,7 @@ import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUM
 import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION;
 import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_AUTO_SILENCE;
@@ -198,6 +199,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_TIMER_SHAKE_ACTION, prefs.getBoolean(KEY_TIMER_SHAKE_ACTION, false));
                     booleans.put(KEY_KEEP_TIMER_SCREEN_ON, prefs.getBoolean(KEY_KEEP_TIMER_SCREEN_ON, true));
                     booleans.put(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, false));
+                    booleans.put(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, prefs.getBoolean(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, true));
 
                     // Values from ScreensaverSettingsActivity
                     booleans.put(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, false));

@@ -58,6 +58,7 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
 import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_DEFAULT_ACTION;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_MANUALLY;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
@@ -465,6 +466,13 @@ final class SettingsDAO {
      */
     static boolean isTimerBackgroundTransparent(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, false);
+    }
+
+    /**
+     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
+     */
+    static boolean isWarningDisplayedBeforeDeletingTimer(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, false);
     }
 
     /**

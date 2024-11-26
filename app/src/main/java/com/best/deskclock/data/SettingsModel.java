@@ -250,6 +250,10 @@ final class SettingsModel {
         return SettingsDAO.isTimerBackgroundTransparent(mPrefs);
     }
 
+    boolean isWarningDisplayedBeforeDeletingTimer() {
+        return SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs);
+    }
+
     VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }

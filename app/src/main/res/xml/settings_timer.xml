@@ -135,6 +135,14 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:key="key_display_warning_before_deleting_timer"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_warning_before_deleting_timer_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

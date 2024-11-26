@@ -625,6 +625,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
+     */
+    public boolean isWarningDisplayedBeforeDeletingTimer() {
+        enforceMainLooper();
+        return mTimerModel.isWarningDisplayedBeforeDeletingTimer();
+    }
+
+    /**
      * @return the uri of the default ringtone from the settings to play for all alarms when no user selection exists
      */
     public Uri getDefaultAlarmRingtoneUriFromSettings() {

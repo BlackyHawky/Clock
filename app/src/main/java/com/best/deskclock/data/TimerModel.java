@@ -554,6 +554,13 @@ final class TimerModel {
         return mSettingsModel.isTimerBackgroundTransparent();
     }
 
+    /**
+     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
+     */
+    boolean isWarningDisplayedBeforeDeletingTimer() {
+        return mSettingsModel.isWarningDisplayedBeforeDeletingTimer();
+    }
+
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mPrefs);

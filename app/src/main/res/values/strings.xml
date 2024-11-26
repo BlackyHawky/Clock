@@ -1053,6 +1053,12 @@
     <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
+    <!-- Setting title to display a warning before deleting a timer -->
+    <string name="display_warning_before_deleting_timer_title">Display a warning before deleting a timer</string>
+    <!-- Warning dialog title before deleting a timer -->
+    <string name="warning_dialog_title">Delete timer</string>
+    <!-- Warning dialog message before deleting a timer -->
+    <string name="warning_dialog_message">Are you sure you want to delete the \"%s\" timer?</string>
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
