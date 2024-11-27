@@ -195,6 +195,10 @@ final class AlarmModel {
         return mSettingsModel.getAlarmTitleFontSize();
     }
 
+    public boolean isRingtoneTitleDisplayed() {
+        return mSettingsModel.isRingtoneTitleDisplayed();
+    }
+
     /**
      * This receiver is notified when shared preferences change. Cached information built on
      * preferences must be cleared.

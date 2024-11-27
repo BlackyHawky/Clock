@@ -839,6 +839,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if the ringtone title should be displayed on the lock screen when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public boolean isRingtoneTitleDisplayed() {
+        return mAlarmModel.isRingtoneTitleDisplayed();
+    }
+
+    /**
      * @param stopwatchListener to be notified when stopwatch changes or laps are added
      */
     public void addStopwatchListener(StopwatchListener stopwatchListener) {

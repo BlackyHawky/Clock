@@ -38,6 +38,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
     public static final String DEFAULT_ALARM_CLOCK_FONT_SIZE = "70";
     public static final String KEY_ALARM_TITLE_FONT_SIZE = "key_alarm_title_font_size";
     public static final String DEFAULT_ALARM_TITLE_FONT_SIZE = "26";
+    public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     @Override
@@ -64,6 +65,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
         ColorPreference mBackgroundAmoledColorPref;
         EditTextPreference mAlarmClockFontSizePref;
         EditTextPreference mAlarmTitleFontSizePref;
+        SwitchPreferenceCompat mDisplayRingtoneTitlePref;
         Preference mPreviewAlarmPref;
 
         @Override
@@ -79,6 +81,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
             mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
             mAlarmClockFontSizePref = findPreference(KEY_ALARM_CLOCK_FONT_SIZE);
             mAlarmTitleFontSizePref = findPreference(KEY_ALARM_TITLE_FONT_SIZE);
+            mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
             mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
             mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
@@ -121,6 +124,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
                     final EditTextPreference alarmFontSizePref = (EditTextPreference) pref;
                     alarmFontSizePref.setSummary(newValue.toString());
                 }
+
+                case KEY_DISPLAY_RINGTONE_TITLE -> Utils.setVibrationTime(requireContext(), 50);
             }
 
             return true;
@@ -172,6 +177,8 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
                 editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 editText.selectAll();
             });
+
+            mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 
             mPreviewAlarmPref.setOnPreferenceClickListener(this);
         }

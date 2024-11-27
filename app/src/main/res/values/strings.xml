@@ -347,6 +347,8 @@
     <string name="alarm_clock_font_size">Alarm clock font size</string>
     <!-- Setting title for customizing the alarm title font size. -->
     <string name="alarm_title_font_size">Alarm title font size</string>
+    <!-- Setting title to display the ringtone title -->
+    <string name="display_ringtone_title">Display ringtone title</string>
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
     <!-- Auto silence preference title -->

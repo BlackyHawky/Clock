@@ -16,6 +16,7 @@ import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_CRESCENDO;
@@ -190,6 +191,7 @@ public class BackupAndRestoreUtils {
 
                     // Values from AlarmDisplayCustomizationActivity
                     booleans.put(KEY_DISPLAY_ALARM_SECONDS_HAND, prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, true));
+                    booleans.put(KEY_DISPLAY_RINGTONE_TITLE, prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, false));
 
                     // Values from TimerSettingsActivity
                     booleans.put(KEY_TIMER_VIBRATE, prefs.getBoolean(KEY_TIMER_VIBRATE, false));

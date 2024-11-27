@@ -346,6 +346,10 @@ final class SettingsModel {
         return SettingsDAO.getAlarmTitleFontSize(mPrefs);
     }
 
+    public boolean isRingtoneTitleDisplayed() {
+        return SettingsDAO.isRingtoneTitleDisplayed(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUriFromSettings() {
         if (mDefaultAlarmSettingsRingtoneUri == null) {
             mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;

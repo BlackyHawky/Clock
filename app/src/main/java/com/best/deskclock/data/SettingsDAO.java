@@ -32,6 +32,7 @@ import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
@@ -779,6 +780,14 @@ final class SettingsDAO {
      */
     static String getAlarmTitleFontSize(SharedPreferences prefs) {
         return prefs.getString(KEY_ALARM_TITLE_FONT_SIZE, DEFAULT_ALARM_TITLE_FONT_SIZE);
+    }
+
+    /**
+     * @return {@code true} if the ringtone title should be displayed on the lock screen when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    static boolean isRingtoneTitleDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, false);
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {
