@@ -89,7 +89,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
 
-        view.findViewById(R.id.close).setOnClickListener(v -> {
+        view.findViewById(R.id.delete_timer).setOnClickListener(v -> {
             Utils.setVibrationTime(context, 10);
 
             final boolean isWarningDisplayedBeforeDeletingTimer =

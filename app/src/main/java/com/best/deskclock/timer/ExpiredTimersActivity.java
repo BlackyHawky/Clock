@@ -227,9 +227,9 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             DataModel.getDataModel().addCustomTimeToTimer(timer12);
         });
 
-        // Add logic to hide the 'X' and reset button
-        final View closeButton = timerItem.findViewById(R.id.close);
-        closeButton.setVisibility(View.GONE);
+        // Add logic to hide the 'X' and reset buttons
+        final View deleteButton = timerItem.findViewById(R.id.delete_timer);
+        deleteButton.setVisibility(View.GONE);
         final View resetButton = timerItem.findViewById(R.id.reset);
         resetButton.setVisibility(View.GONE);
 
