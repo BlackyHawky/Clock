@@ -19,6 +19,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.settings.ThemeController;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.LogUtils;
 
 import java.io.File;
 import java.util.Objects;

@@ -16,7 +16,7 @@ import android.content.Context;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
+import com.best.deskclock.utils.Utils;
 
 public class TimerStringFormatter {
 

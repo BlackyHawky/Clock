@@ -18,14 +18,14 @@ import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.LabelDialogFragment;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 

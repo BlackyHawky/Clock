@@ -6,8 +6,8 @@
 
 package com.best.deskclock;
 
-import static com.best.deskclock.AnimatorUtils.getAlphaAnimator;
-import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.best.deskclock.utils.AnimatorUtils.getAlphaAnimator;
+import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,6 +18,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.Utils;
 
 /**
  * This runnable chooses a random initial position for {@link #mSaverView} within

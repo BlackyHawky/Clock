@@ -12,6 +12,8 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import android.widget.TextView;
 
+import com.best.deskclock.utils.Utils;
+
 /**
  * A controller which will format a provided time in millis to display as a timer.
  */

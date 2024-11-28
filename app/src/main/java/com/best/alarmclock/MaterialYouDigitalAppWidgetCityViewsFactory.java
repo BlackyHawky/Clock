@@ -19,11 +19,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -173,10 +174,10 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
 
     private void update(RemoteViews rv, City city, int clockId, int labelId, int dayId) {
         rv.setCharSequence(clockId, "setFormat12Hour",
-                Utils.get12ModeFormat(mContext, 0.4f, false)
+                ClockUtils.get12ModeFormat(mContext, 0.4f, false)
         );
         rv.setCharSequence(clockId, "setFormat24Hour",
-                Utils.get24ModeFormat(mContext, false)
+                ClockUtils.get24ModeFormat(mContext, false)
         );
 
         final boolean is24HourFormat = DateFormat.is24HourFormat(mContext);

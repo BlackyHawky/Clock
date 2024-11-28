@@ -11,11 +11,11 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static com.best.deskclock.Utils.enforceMainLooper;
-import static com.best.deskclock.Utils.enforceNotMainLooper;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.utils.Utils.enforceMainLooper;
+import static com.best.deskclock.utils.Utils.enforceNotMainLooper;
 
 import android.app.Service;
 import android.content.ActivityNotFoundException;

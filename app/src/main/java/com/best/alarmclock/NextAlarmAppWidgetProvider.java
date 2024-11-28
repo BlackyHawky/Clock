@@ -46,11 +46,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -108,7 +109,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
                 : R.layout.next_alarm_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
-        if (Utils.isWidgetClickable(wm, widgetId)) {
+        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
             rv.setOnClickPendingIntent(R.id.nextAlarmWidget, pi);
@@ -116,8 +117,8 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // Apply color to the next alarm and the next alarm title.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final String nextAlarmTime = Utils.getNextAlarm(context);
-        final String nextAlarmTitle = Utils.getNextAlarmTitle(context);
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
+        final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final String nextAlarmText = context.getString(R.string.next_alarm_widget_text);
         final String noAlarmTitle = context.getString(R.string.next_alarm_widget_title_no_alarm);
         final boolean isDefaultTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor();
@@ -219,7 +220,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
                 inflater.inflate(R.layout.next_alarm_widget_sizer, null);
 
         // Configure the next alarm views to display the next alarm time or be gone.
-        final String nextAlarmTitle = Utils.getNextAlarmTitle(context);
+        final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final TextView nextAlarmTitleView = sizer.findViewById(R.id.nextAlarmTitle);
         final TextView nextAlarmText = sizer.findViewById(R.id.nextAlarmText);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);

@@ -40,12 +40,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.DeskClockFragment;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.StopwatchTextController;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
@@ -54,6 +51,9 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Objects;

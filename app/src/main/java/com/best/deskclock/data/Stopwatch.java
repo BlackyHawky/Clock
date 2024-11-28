@@ -6,11 +6,11 @@
 
 package com.best.deskclock.data;
 
-import static com.best.deskclock.Utils.now;
-import static com.best.deskclock.Utils.wallClock;
 import static com.best.deskclock.data.Stopwatch.State.PAUSED;
 import static com.best.deskclock.data.Stopwatch.State.RESET;
 import static com.best.deskclock.data.Stopwatch.State.RUNNING;
+import static com.best.deskclock.utils.Utils.now;
+import static com.best.deskclock.utils.Utils.wallClock;
 
 /**
  * A read-only domain object representing a stopwatch.

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.Utils;
 
 /**
  * A controller which will format a provided time in millis to display as a stopwatch.

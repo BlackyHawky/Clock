@@ -23,11 +23,11 @@ import android.os.IBinder;
 
 
 import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Arrays;
 import java.util.Objects;

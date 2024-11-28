@@ -6,7 +6,7 @@
 
 package com.best.deskclock.uidata;
 
-import static com.best.deskclock.Utils.enforceMainLooper;
+import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

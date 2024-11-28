@@ -35,13 +35,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.AlarmAlertWakeLock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.settings.TimerSettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

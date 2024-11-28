@@ -47,11 +47,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -113,7 +114,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         );
 
         // Tapping on the widget opens the app (if not on the lock screen).
-        if (Utils.isWidgetClickable(wm, widgetId)) {
+        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
             rv.setOnClickPendingIntent(R.id.verticalDigitalWidget, pi);
@@ -124,7 +125,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
         rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
 
-        final String nextAlarmTime = Utils.getNextAlarm(context);
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);

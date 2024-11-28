@@ -19,11 +19,11 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.LinkedList;

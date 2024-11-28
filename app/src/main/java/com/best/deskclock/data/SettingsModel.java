@@ -12,11 +12,11 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.utils.Utils;
 
 import java.util.TimeZone;
 

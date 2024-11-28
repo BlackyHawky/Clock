@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.utils;
 
 import android.animation.Animator;
 import android.animation.ArgbEvaluator;

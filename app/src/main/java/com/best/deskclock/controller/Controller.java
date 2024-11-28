@@ -6,7 +6,7 @@
 
 package com.best.deskclock.controller;
 
-import static com.best.deskclock.Utils.enforceMainLooper;
+import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.app.Activity;
 import android.content.Context;

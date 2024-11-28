@@ -23,6 +23,7 @@ import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.LogUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,12 +80,12 @@ public class DeskClockBackupAgent extends BackupAgent {
 
     @Override
     public void onBackup(ParcelFileDescriptor oldState, BackupDataOutput data,
-                         ParcelFileDescriptor newState) throws IOException {
+                         ParcelFileDescriptor newState) {
     }
 
     @Override
     public void onRestore(BackupDataInput data, int appVersionCode,
-                          ParcelFileDescriptor newState) throws IOException {
+                          ParcelFileDescriptor newState) {
     }
 
     @Override

@@ -6,12 +6,15 @@
 
 package com.best.alarmclock;
 
+import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
+import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import com.best.deskclock.Utils;
+import com.best.deskclock.utils.Utils;
 
 public final class WidgetUtils {
 
@@ -82,5 +85,13 @@ public final class WidgetUtils {
             return ratio;
         }
         return 1;
+    }
+
+    /**
+     * @return {@code true} iff the widget is being hosted in a container where tapping is allowed
+     */
+    public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
+        final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
+        return wo != null && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
     }
 }

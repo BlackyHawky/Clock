@@ -13,9 +13,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
+import android.util.ArraySet;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.ClockSettingsActivity;
 
@@ -151,7 +151,7 @@ final class CityModel {
         if (mUnselectedCities == null) {
             // Create a set of selections to identify the unselected cities.
             final List<City> selected = new ArrayList<>(getSelectedCities());
-            final Set<City> selectedSet = Utils.newArraySet(selected);
+            final Set<City> selectedSet = newArraySet(selected);
 
             final Collection<City> all = getCityMap().values();
             final List<City> unselected = new ArrayList<>(all.size() - selectedSet.size());
@@ -167,6 +167,15 @@ final class CityModel {
         }
 
         return mUnselectedCities;
+    }
+
+    /**
+     * {@link ArraySet} is @hide prior to {@link Build.VERSION_CODES#M}.
+     */
+    public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
+        final ArraySet<E> arraySet = new ArraySet<>(collection.size());
+        arraySet.addAll(collection);
+        return arraySet;
     }
 
     /**

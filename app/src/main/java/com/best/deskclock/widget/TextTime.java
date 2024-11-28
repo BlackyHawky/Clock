@@ -21,8 +21,8 @@ import android.util.AttributeSet;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.ClockUtils;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -77,8 +77,8 @@ public class TextTime extends AppCompatTextView {
     public TextTime(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        setFormat12Hour(Utils.get12ModeFormat(context, 0.45f, false));
-        setFormat24Hour(Utils.get24ModeFormat(context, false));
+        setFormat12Hour(ClockUtils.get12ModeFormat(context, 0.45f, false));
+        setFormat24Hour(ClockUtils.get24ModeFormat(context, false));
 
         chooseFormat();
     }

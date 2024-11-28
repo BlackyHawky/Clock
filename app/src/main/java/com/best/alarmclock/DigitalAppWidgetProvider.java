@@ -57,12 +57,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
@@ -141,11 +143,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 : R.layout.digital_widget
         );
 
-        rv.setCharSequence(R.id.clock, "setFormat12Hour", Utils.get12ModeFormat(context, 0.4f, false));
-        rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat(context, false));
+        rv.setCharSequence(R.id.clock, "setFormat12Hour",
+                ClockUtils.get12ModeFormat(context, 0.4f, false));
+        rv.setCharSequence(R.id.clock, "setFormat24Hour",
+                ClockUtils.get24ModeFormat(context, false));
 
         // Tapping on the widget opens the app (if not on the lock screen).
-        if (Utils.isWidgetClickable(wm, widgetId)) {
+        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
             rv.setOnClickPendingIntent(R.id.digitalWidget, pi);
@@ -156,7 +160,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
         rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
 
-        final String nextAlarmTime = Utils.getNextAlarm(context);
+        final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
@@ -246,7 +250,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setViewVisibility(R.id.worldCityList, VISIBLE);
 
             // Tapping on the widget opens the city selection activity (if not on the lock screen).
-            if (Utils.isWidgetClickable(wm, widgetId)) {
+            if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
                 final Intent selectCity = new Intent(context, CitySelectionActivity.class);
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, PendingIntent.FLAG_IMMUTABLE);
                 rv.setPendingIntentTemplate(R.id.worldCityList, pi);
@@ -382,8 +386,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static CharSequence getLongestTimeString(TextClock clock) {
         final CharSequence format = clock.is24HourModeEnabled()
-                ? Utils.get24ModeFormat(clock.getContext(), false)
-                : Utils.get12ModeFormat(clock.getContext(), 0.4f, false);
+                ? ClockUtils.get24ModeFormat(clock.getContext(), false)
+                : ClockUtils.get12ModeFormat(clock.getContext(), 0.4f, false);
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
@@ -519,7 +523,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         for (City city : selectedCities) {
             zones.add(city.getTimeZone());
         }
-        final Date nextDay = Utils.getNextDay(new Date(), zones);
+        final Date nextDay = ClockUtils.getNextDay(new Date(), zones);
 
         // Schedule the next day-change callback; at least one city is displayed.
         final PendingIntent pi =

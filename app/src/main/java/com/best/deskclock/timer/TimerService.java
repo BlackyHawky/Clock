@@ -15,11 +15,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Arrays;
 

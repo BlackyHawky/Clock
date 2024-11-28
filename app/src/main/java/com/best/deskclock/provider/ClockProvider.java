@@ -28,7 +28,7 @@ import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.LogUtils;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Map;
 import java.util.Objects;

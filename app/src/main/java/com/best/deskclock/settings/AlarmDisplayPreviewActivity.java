@@ -47,10 +47,11 @@ import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.best.deskclock.AnalogClock;
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CircleView;
 
 public class AlarmDisplayPreviewActivity extends AppCompatActivity
@@ -160,13 +161,13 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
         final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
-        Utils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
-        Utils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
+        ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
+        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
 
         titleView.setText(R.string.app_label);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
-        Utils.setTimeFormat(digitalClock, false);
+        ClockUtils.setTimeFormat(digitalClock, false);
         digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
 

@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.best.deskclock.utils.Utils;
+
 /**
  * This class adjusts the locations of child buttons and text of this view group by adjusting the
  * margins of each item. The left and right buttons are aligned with the bottom of the circle. The

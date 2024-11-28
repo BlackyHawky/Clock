@@ -18,6 +18,10 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ScreensaverUtils;
 
 public final class Screensaver extends DreamService {
 
@@ -35,7 +39,7 @@ public final class Screensaver extends DreamService {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
 
@@ -45,7 +49,7 @@ public final class Screensaver extends DreamService {
     private final BroadcastReceiver mAlarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Utils.refreshAlarm(Screensaver.this, mContentView);
+            AlarmUtils.refreshAlarm(Screensaver.this, mContentView);
         }
     };
 
@@ -70,7 +74,7 @@ public final class Screensaver extends DreamService {
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
 
-        Utils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
+        ScreensaverUtils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -92,8 +96,8 @@ public final class Screensaver extends DreamService {
             registerReceiver(mAlarmChangedReceiver, new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED));
         }
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        Utils.refreshAlarm(this, mContentView);
+        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        AlarmUtils.refreshAlarm(this, mContentView);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);

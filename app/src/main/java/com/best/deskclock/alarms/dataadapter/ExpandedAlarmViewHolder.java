@@ -29,16 +29,17 @@ import android.widget.TextView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.color.MaterialColors;
 

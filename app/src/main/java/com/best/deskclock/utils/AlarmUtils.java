@@ -4,18 +4,25 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.utils;
 
 import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
 
+import android.app.AlarmManager;
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
 
+import com.best.deskclock.R;
+import com.best.deskclock.Screensaver;
+import com.best.deskclock.ScreensaverActivity;
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.widget.toast.SnackbarManager;
@@ -29,6 +36,75 @@ import java.util.Locale;
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
+
+    /**
+     * @return The next alarm from {@link AlarmManager}
+     */
+    public static String getNextAlarm(Context context) {
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager.AlarmClockInfo info = getNextAlarmClock(am);
+        if (info != null) {
+            final long triggerTime = info.getTriggerTime();
+            final Calendar alarmTime = Calendar.getInstance();
+            alarmTime.setTimeInMillis(triggerTime);
+            return getFormattedTime(context, alarmTime);
+        }
+
+        return null;
+    }
+
+    private static AlarmManager.AlarmClockInfo getNextAlarmClock(AlarmManager am) {
+        return am.getNextAlarmClock();
+    }
+
+    /**
+     * @return The next alarm title
+     */
+    public static String getNextAlarmTitle(Context context) {
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance != null) {
+            return getAlarmTitle(context, instance);
+        }
+        return null;
+    }
+
+    /**
+     * Clock views can call this to refresh their alarm to the next upcoming value.
+     */
+    public static void refreshAlarm(Context context, View clock) {
+        final TextView nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
+        final TextView nextAlarmView = clock.findViewById(R.id.nextAlarm);
+        if (nextAlarmView == null) {
+            return;
+        }
+
+        final String alarm = getNextAlarm(context);
+        if (!TextUtils.isEmpty(alarm)) {
+            final String description = context.getString(R.string.next_alarm_description, alarm);
+            nextAlarmView.setText(alarm);
+            nextAlarmView.setContentDescription(description);
+            nextAlarmView.setVisibility(View.VISIBLE);
+            nextAlarmIconView.setVisibility(View.VISIBLE);
+            nextAlarmIconView.setContentDescription(description);
+        } else {
+            nextAlarmView.setVisibility(View.GONE);
+            nextAlarmIconView.setVisibility(View.GONE);
+        }
+    }
+
+    public static String getAlarmText(Context context, AlarmInstance instance,
+                                      boolean includeLabel) {
+        String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
+        return (instance.mLabel.isEmpty() || !includeLabel)
+                ? alarmTimeStr
+                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
+    }
+
+    public static String getAlarmTitle(Context context, AlarmInstance instance) {
+        return (instance.mLabel.isEmpty())
+                ? ""
+                : instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel;
+    }
 
     public static String getFormattedTime(Context context, Calendar time) {
         final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
@@ -53,20 +129,6 @@ public class AlarmUtils {
         final Calendar c = Calendar.getInstance();
         c.setTimeInMillis(timeInMillis);
         return getFormattedTime(context, c);
-    }
-
-    public static String getAlarmText(Context context, AlarmInstance instance,
-                                      boolean includeLabel) {
-        String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
-        return (instance.mLabel.isEmpty() || !includeLabel)
-                ? alarmTimeStr
-                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
-    }
-
-    public static String getAlarmTitle(Context context, AlarmInstance instance) {
-        return (instance.mLabel.isEmpty())
-                ? ""
-                : instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel;
     }
 
     /**

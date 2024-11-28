@@ -25,16 +25,15 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.AlarmClockFragment;
-import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.AsyncHandler;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -180,11 +179,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             final AlarmClockInfo info = new AlarmClockInfo(alarmTime, viewIntent);
-            Utils.updateNextAlarm(alarmManager, info, operation);
+            updateNextAlarm(alarmManager, info, operation);
         } else if (operation != null) {
             LogUtils.i("Canceling upcoming AlarmClockInfo");
             alarmManager.cancel(operation);
         }
+    }
+
+    private static void updateNextAlarm(AlarmManager am, AlarmClockInfo info, PendingIntent op) {
+        am.setAlarmClock(info, op);
     }
 
     /**

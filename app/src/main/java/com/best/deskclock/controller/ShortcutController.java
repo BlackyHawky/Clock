@@ -22,7 +22,6 @@ import androidx.annotation.StringRes;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.HandleApiCalls;
 import com.best.deskclock.HandleShortcuts;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.ScreensaverActivity;
 import com.best.deskclock.data.DataModel;
@@ -32,6 +31,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.events.ShortcutEventTracker;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Arrays;
 import java.util.Collections;

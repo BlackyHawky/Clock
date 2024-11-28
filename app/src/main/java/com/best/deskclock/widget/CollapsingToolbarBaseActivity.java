@@ -24,10 +24,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.AboutActivity;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;

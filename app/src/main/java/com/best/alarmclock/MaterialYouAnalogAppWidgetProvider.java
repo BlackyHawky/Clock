@@ -12,7 +12,6 @@ import android.widget.RemoteViews;
 
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 
 /**
@@ -49,7 +48,7 @@ public class MaterialYouAnalogAppWidgetProvider extends AppWidgetProvider {
             final RemoteViews widget = new RemoteViews(packageName, R.layout.analog_appwidget_material_you);
 
             // Tapping on the widget opens the app (if not on the lock screen).
-            if (Utils.isWidgetClickable(wm, widgetId)) {
+            if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
                 final Intent openApp = new Intent(context, DeskClock.class);
                 final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
                 widget.setOnClickPendingIntent(R.id.analogAppwidgetMaterialYou, pi);

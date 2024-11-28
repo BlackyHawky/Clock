@@ -6,7 +6,7 @@
 
 package com.best.deskclock.bedtime;
 
-import static com.best.deskclock.NotificationUtils.BEDTIME_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.BEDTIME_NOTIFICATION_CHANNEL_ID;
 
 import android.Manifest;
 import android.app.AlarmManager;
@@ -24,17 +24,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
-import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.bedtime.beddata.DataSaver;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Calendar;
 import java.util.Date;

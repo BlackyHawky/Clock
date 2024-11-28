@@ -26,6 +26,7 @@ import android.os.Parcelable;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.controller.Controller;
@@ -38,6 +39,9 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.timer.TimerFragment;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -123,7 +127,7 @@ public class HandleApiCalls extends Activity {
         if (instance.mAlarmState == FIRED_STATE || instance.mAlarmState == SNOOZE_STATE) {
             // Always dismiss alarms that are fired or snoozed.
             AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
-        } else if (Utils.isAlarmWithin24Hours(instance)) {
+        } else if (isAlarmWithin24Hours(instance)) {
             // Upcoming alarms are always predismissed.
             AlarmStateManager.setPreDismissState(context, instance);
         } else {
@@ -139,6 +143,12 @@ public class HandleApiCalls extends Activity {
         Controller.getController().notifyVoiceSuccess(activity, reason);
         LOGGER.i("Alarm dismissed: " + instance);
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
+    }
+
+    private static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
+        final Calendar nextAlarmTime = alarmInstance.getAlarmTime();
+        final long nextAlarmTimeMillis = nextAlarmTime.getTimeInMillis();
+        return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
     private static class DismissAlarmAsync {

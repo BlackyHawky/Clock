@@ -13,9 +13,9 @@ import androidx.preference.Preference;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.TimeZones;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.Objects;

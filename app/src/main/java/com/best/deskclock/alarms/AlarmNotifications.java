@@ -6,10 +6,10 @@
 
 package com.best.deskclock.alarms;
 
-import static com.best.deskclock.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
-import static com.best.deskclock.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
-import static com.best.deskclock.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
-import static com.best.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,14 +29,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.AlarmClockFragment;
-import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.LogUtils;
-import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.NotificationUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

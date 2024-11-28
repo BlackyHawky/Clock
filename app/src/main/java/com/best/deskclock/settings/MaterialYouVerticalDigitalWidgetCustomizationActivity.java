@@ -19,8 +19,8 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.alarmclock.MaterialYouVerticalDigitalAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
 

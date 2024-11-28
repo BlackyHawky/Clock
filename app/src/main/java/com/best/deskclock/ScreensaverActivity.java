@@ -25,6 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ScreensaverUtils;
 
 import java.util.Objects;
 
@@ -54,7 +58,7 @@ public class ScreensaverActivity extends AppCompatActivity {
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
                 case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED ->
-                        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
             }
         }
     };
@@ -63,7 +67,7 @@ public class ScreensaverActivity extends AppCompatActivity {
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
         }
     };
 
@@ -88,7 +92,7 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         mMainClockView = findViewById(R.id.main_clock);
 
-        Utils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
+        ScreensaverUtils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 
@@ -120,8 +124,8 @@ public class ScreensaverActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+        ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
 
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);

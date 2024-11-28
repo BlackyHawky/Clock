@@ -28,9 +28,9 @@ import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.ArraySet;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Collections;
 import java.util.List;

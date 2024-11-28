@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.AnimatorUtils;
 
 import java.util.List;
 

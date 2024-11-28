@@ -17,10 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.TextTime;
 
 import java.util.Calendar;

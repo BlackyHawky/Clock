@@ -16,11 +16,12 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.color.MaterialColors;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {

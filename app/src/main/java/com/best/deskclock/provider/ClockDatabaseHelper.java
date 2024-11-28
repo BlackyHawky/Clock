@@ -15,8 +15,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Calendar;
 
