@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.stopwatch;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -20,17 +20,17 @@ import java.util.List;
  * A container that frames a timer circle of some sort. The circle is allowed to grow naturally
  * according to its layout constraints up to the allowable size.
  */
-public class TimerCircleFrameLayout extends FrameLayout {
+public class StopwatchCircleFrameLayout extends FrameLayout {
 
-    public TimerCircleFrameLayout(Context context) {
+    public StopwatchCircleFrameLayout(Context context) {
         super(context);
     }
 
-    public TimerCircleFrameLayout(Context context, AttributeSet attrs) {
+    public StopwatchCircleFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TimerCircleFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StopwatchCircleFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.alarmclock;
+package com.best.alarmclock.materialyouwidgets;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
-public class DigitalAppWidgetCityService extends RemoteViewsService {
+public class MaterialYouDigitalAppWidgetCityService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent i) {
-        return new DigitalAppWidgetCityViewsFactory(getApplicationContext(), i);
+        return new MaterialYouDigitalAppWidgetCityViewsFactory(getApplicationContext(), i);
     }
 }

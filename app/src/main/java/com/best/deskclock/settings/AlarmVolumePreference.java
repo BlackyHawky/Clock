@@ -24,8 +24,8 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.RingtonePreviewKlaxon;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 
 public class AlarmVolumePreference extends SeekBarPreference {
 

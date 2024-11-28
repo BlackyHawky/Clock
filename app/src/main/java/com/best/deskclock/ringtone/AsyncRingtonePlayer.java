@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.ringtone;
 
 import static android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
 import static android.media.AudioManager.STREAM_ALARM;
@@ -22,6 +22,7 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
+import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 

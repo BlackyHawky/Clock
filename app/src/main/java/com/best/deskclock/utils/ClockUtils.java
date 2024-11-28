@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
-import com.best.deskclock.Screensaver;
-import com.best.deskclock.ScreensaverActivity;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.screensaver.Screensaver;
+import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uidata.UiDataModel;
 
 import java.text.SimpleDateFormat;

@@ -20,11 +20,11 @@ import android.widget.Toast;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Screensaver;
-import com.best.deskclock.ScreensaverActivity;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.screensaver.Screensaver;
+import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
 import com.google.android.material.snackbar.Snackbar;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.alarmclock;
+package com.best.alarmclock.standardwidgets;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;

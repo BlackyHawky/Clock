@@ -32,7 +32,6 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.timer.TimerService;

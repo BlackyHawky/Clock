@@ -42,7 +42,6 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
-import com.best.deskclock.StopwatchTextController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;

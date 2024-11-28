@@ -17,7 +17,7 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.VerticalDigitalAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.VerticalDigitalAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.Utils;

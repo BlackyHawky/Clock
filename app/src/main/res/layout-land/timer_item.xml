@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@id/timer_label" />
 
         <!-- Show circle for tablets. See CircleButtonsLayout.java -->
-        <com.best.deskclock.CircleButtonsLayout
+        <com.best.deskclock.timer.CircleButtonsLayout
             android:id="@+id/circle_container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </com.best.deskclock.CircleButtonsLayout>
+        </com.best.deskclock.timer.CircleButtonsLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/timer_add_time_button"

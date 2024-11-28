@@ -45,7 +45,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAdapter.OnItemClickedListener;
 import com.best.deskclock.R;
-import com.best.deskclock.RingtonePreviewKlaxon;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;

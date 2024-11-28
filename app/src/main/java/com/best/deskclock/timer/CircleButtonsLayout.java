@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.deskclock;
+package com.best.deskclock.timer;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.best.deskclock.R;
 import com.best.deskclock.utils.Utils;
 
 /**

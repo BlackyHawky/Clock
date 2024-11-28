@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.screensaver;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
@@ -17,6 +17,7 @@ import android.service.dreams.DreamService;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 
+import com.best.deskclock.R;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;

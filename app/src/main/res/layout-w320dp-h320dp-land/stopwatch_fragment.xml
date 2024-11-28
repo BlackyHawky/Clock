@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.92">
 
-        <com.best.deskclock.TimerCircleFrameLayout
+        <com.best.deskclock.stopwatch.StopwatchCircleFrameLayout
             android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 tools:ignore="InconsistentLayout" />
 
-        </com.best.deskclock.TimerCircleFrameLayout>
+        </com.best.deskclock.stopwatch.StopwatchCircleFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/laps_list"

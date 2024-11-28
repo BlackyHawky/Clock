@@ -10,9 +10,9 @@ import android.content.Context;
 import android.media.AudioAttributes;
 import android.os.Vibrator;
 
-import com.best.deskclock.AsyncRingtonePlayer;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 
 /**

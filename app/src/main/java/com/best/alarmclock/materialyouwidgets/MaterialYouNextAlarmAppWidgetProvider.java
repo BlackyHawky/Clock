@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
-package com.best.alarmclock;
+package com.best.alarmclock.materialyouwidgets;
 
 import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
@@ -16,8 +16,8 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 
 import static java.lang.Math.max;
@@ -34,7 +34,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -45,6 +44,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -74,9 +74,9 @@ import java.util.Locale;
  * any clipping. To do so it measures layouts offscreen using a range of font sizes in order to
  * choose optimal values.
  */
-public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
+public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("NextAlarmWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MaterialYouNextAlarmWidgetProvider");
 
     private static boolean sReceiversRegistered;
 
@@ -103,16 +103,13 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the next alarm.
         final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnNextAlarmWidget();
-        final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.next_alarm_widget_with_background
-                : R.layout.next_alarm_widget);
+        final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_next_alarm_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-            rv.setOnClickPendingIntent(R.id.nextAlarmWidget, pi);
+            rv.setOnClickPendingIntent(R.id.material_you_next_alarm_widget, pi);
         }
 
         // Apply color to the next alarm and the next alarm title.
@@ -121,58 +118,71 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final String nextAlarmText = context.getString(R.string.next_alarm_widget_text);
         final String noAlarmTitle = context.getString(R.string.next_alarm_widget_title_no_alarm);
-        final boolean isDefaultTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor();
-        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor();
-        final boolean isDefaultAlarmColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor();
-        final int customTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomTitleColor();
-        final int customAlarmTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmTitleColor();
-        final int customAlarmColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmColor();
+        final boolean isDefaultTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor();
+        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor();
+        final boolean isDefaultAlarmColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmColor();
+        final int customTitleColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomTitleColor();
+        final int customAlarmTitleColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomAlarmTitleColor();
+        final int customAlarmColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomAlarmColor();
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
             rv.setViewVisibility(R.id.nextAlarmTitle, GONE);
+            rv.setViewVisibility(R.id.nextAlarmTitleForCustomColor, GONE);
         } else {
-            rv.setViewVisibility(R.id.nextAlarmTitle, VISIBLE);
-            rv.setTextViewText(R.id.nextAlarmTitle, nextAlarmTitle);
-
             if (isDefaultAlarmTitleColor) {
-                rv.setTextColor(R.id.nextAlarmTitle, Color.WHITE);
+                rv.setViewVisibility(R.id.nextAlarmTitle, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmTitleForCustomColor, GONE);
+                rv.setTextViewText(R.id.nextAlarmTitle, nextAlarmTitle);
             } else {
-                rv.setTextColor(R.id.nextAlarmTitle, customAlarmTitleColor);
+                rv.setViewVisibility(R.id.nextAlarmTitle, GONE);
+                rv.setViewVisibility(R.id.nextAlarmTitleForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.nextAlarmTitleForCustomColor, nextAlarmTitle);
+                rv.setTextColor(R.id.nextAlarmTitleForCustomColor, customAlarmTitleColor);
             }
         }
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-            rv.setTextViewText(R.id.nextAlarmText, noAlarmTitle);
-
+            rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
             if (isDefaultTitleColor) {
-                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
+                rv.setViewVisibility(R.id.nextAlarmText, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmTextForCustomColor, GONE);
+                rv.setTextViewText(R.id.nextAlarmText, noAlarmTitle);
             } else {
-                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
+                rv.setViewVisibility(R.id.nextAlarmText, GONE);
+                rv.setViewVisibility(R.id.nextAlarmTextForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.nextAlarmTextForCustomColor, noAlarmTitle);
+                rv.setTextColor(R.id.nextAlarmTextForCustomColor, customTitleColor);
             }
         } else {
-            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
-            rv.setTextViewText(R.id.nextAlarmText, nextAlarmText);
-            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-
             if (isDefaultTitleColor) {
-                rv.setTextColor(R.id.nextAlarmText, Color.WHITE);
+                rv.setViewVisibility(R.id.nextAlarmText, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmTextForCustomColor, GONE);
+                rv.setTextViewText(R.id.nextAlarmText, nextAlarmText);
             } else {
-                rv.setTextColor(R.id.nextAlarmText, customTitleColor);
+                rv.setViewVisibility(R.id.nextAlarmText, GONE);
+                rv.setViewVisibility(R.id.nextAlarmTextForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.nextAlarmTextForCustomColor, nextAlarmText);
+                rv.setTextColor(R.id.nextAlarmTextForCustomColor, customTitleColor);
             }
 
             if (isDefaultAlarmColor) {
-                rv.setTextColor(R.id.nextAlarm, Color.WHITE);
+                rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
+                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
+                rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
             } else {
-                rv.setTextColor(R.id.nextAlarm, customAlarmColor);
+                rv.setViewVisibility(R.id.nextAlarm, GONE);
+                rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+                rv.setViewVisibility(R.id.nextAlarmForCustomColor, VISIBLE);
+                rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.nextAlarmForCustomColor, nextAlarmTime);
+                rv.setTextColor(R.id.nextAlarmForCustomColor, customAlarmColor);
             }
         }
-
-        // Apply the color to the digital widget background.
-        int backgroundColor = DataModel.getDataModel().getNextAlarmWidgetBackgroundColor();
-        rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
@@ -188,7 +198,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String widgetMaxFontSize =
-                DataModel.getDataModel().getNextAlarmWidgetMaxFontSize();
+                DataModel.getDataModel().getMaterialYouNextAlarmWidgetMaxFontSize();
         final int largestFontSizePx = Utils.toPixel(Integer.parseInt(widgetMaxFontSize), context);
 
         // Create a size template that describes the widget bounds.
@@ -206,6 +216,11 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
 
+        rv.setTextViewTextSize(R.id.nextAlarmTextForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setTextViewTextSize(R.id.nextAlarmTitleForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setImageViewBitmap(R.id.nextAlarmIconForCustomColor, sizes.mIconBitmap);
+        rv.setTextViewTextSize(R.id.nextAlarmForCustomColor, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+
         return rv;
     }
 
@@ -217,7 +232,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
-                inflater.inflate(R.layout.next_alarm_widget_sizer, null);
+                inflater.inflate(R.layout.material_you_next_alarm_widget_sizer, null);
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
@@ -225,55 +240,76 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmText = sizer.findViewById(R.id.nextAlarmText);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
-        final boolean isDefaultTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor();
-        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor();
-        final boolean isDefaultAlarmColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor();
-        final int customTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomTitleColor();
-        final int customAlarmTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmTitleColor();
-        final int customAlarmColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmColor();
+        final TextView nextAlarmTitleViewForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
+        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
+        final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
+        final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
+        final boolean isDefaultTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor();
+        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor();
+        final boolean isDefaultAlarmColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmColor();
+        final int customTitleColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomTitleColor();
+        final int customAlarmTitleColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomAlarmTitleColor();
+        final int customAlarmColor = DataModel.getDataModel().getMaterialYouNextAlarmWidgetCustomAlarmColor();
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
             nextAlarmTitleView.setVisibility(GONE);
+            nextAlarmTitleViewForCustomColor.setVisibility(GONE);
         } else {
-            nextAlarmTitleView.setVisibility(VISIBLE);
-            nextAlarmTitleView.setText(nextAlarmTitle);
-
             if (isDefaultAlarmTitleColor) {
-                nextAlarmTitleView.setTextColor(Color.WHITE);
+                nextAlarmTitleView.setVisibility(VISIBLE);
+                nextAlarmTitleViewForCustomColor.setVisibility(GONE);
+                nextAlarmTitleView.setText(nextAlarmTitle);
             } else {
-                nextAlarmTitleView.setTextColor(customAlarmTitleColor);
+                nextAlarmTitleView.setVisibility(GONE);
+                nextAlarmTitleViewForCustomColor.setVisibility(VISIBLE);
+                nextAlarmTitleView.setText(nextAlarmTitle);
+                nextAlarmTitleViewForCustomColor.setTextColor(customAlarmTitleColor);
             }
         }
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
-            nextAlarmText.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
-
+            nextAlarmForCustomColor.setVisibility(GONE);
+            nextAlarmIconForCustomColor.setVisibility(GONE);
             if (isDefaultTitleColor) {
-                nextAlarmText.setTextColor(Color.WHITE);
+                nextAlarmText.setVisibility(VISIBLE);
+                nextAlarmTextForCustomColor.setVisibility(GONE);
+                nextAlarmText.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
             } else {
-                nextAlarmText.setTextColor(customTitleColor);
+                nextAlarmText.setVisibility(GONE);
+                nextAlarmTextForCustomColor.setVisibility(VISIBLE);
+                nextAlarmTextForCustomColor.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
+                nextAlarmTextForCustomColor.setTextColor(customTitleColor);
             }
         } else {
-            nextAlarm.setVisibility(VISIBLE);
-            nextAlarmIcon.setVisibility(VISIBLE);
-            nextAlarm.setText(nextAlarmTime);
-            nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
-            nextAlarmText.setText(context.getString(R.string.next_alarm_widget_text));
-
             if (isDefaultTitleColor) {
-                nextAlarmText.setTextColor(Color.WHITE);
+                nextAlarmText.setVisibility(VISIBLE);
+                nextAlarmTextForCustomColor.setVisibility(GONE);
+                nextAlarmText.setText(context.getString(R.string.next_alarm_widget_text));
             } else {
-                nextAlarmText.setTextColor(customTitleColor);
+                nextAlarmText.setVisibility(GONE);
+                nextAlarmTextForCustomColor.setVisibility(VISIBLE);
+                nextAlarmTextForCustomColor.setText(context.getString(R.string.next_alarm_widget_text));
+                nextAlarmTextForCustomColor.setTextColor(customTitleColor);
             }
 
             if (isDefaultAlarmColor) {
-                nextAlarm.setTextColor(Color.WHITE);
-                nextAlarmIcon.setTextColor(Color.WHITE);
+                nextAlarm.setVisibility(VISIBLE);
+                nextAlarmIcon.setVisibility(VISIBLE);
+                nextAlarmForCustomColor.setVisibility(GONE);
+                nextAlarmIconForCustomColor.setVisibility(GONE);
+                nextAlarm.setText(nextAlarmTime);
+                nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             } else {
-                nextAlarm.setTextColor(customAlarmColor);
-                nextAlarmIcon.setTextColor(customAlarmColor);
+                nextAlarm.setVisibility(GONE);
+                nextAlarmIcon.setVisibility(GONE);
+                nextAlarmForCustomColor.setVisibility(VISIBLE);
+                nextAlarmIconForCustomColor.setVisibility(VISIBLE);
+                nextAlarmForCustomColor.setText(nextAlarmTime);
+                nextAlarmForCustomColor.setTextColor(customAlarmColor);
+                nextAlarmIconForCustomColor.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
+                nextAlarmIconForCustomColor.setTextColor(customAlarmColor);
             }
         }
 
@@ -321,9 +357,11 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmTitle = sizer.findViewById(R.id.nextAlarmTitle);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
-        // On some devices, the text shadow is cut off, so we have to add it to the end of the next alarm text.
-        // The result is that next alarm text and the icon are perfectly centered.
-        final int textShadowPadding = Utils.toPixel(3, sizer.getContext());
+
+        final TextView nextAlarmTextForCustomColor = sizer.findViewById(R.id.nextAlarmTextForCustomColor);
+        final TextView nextAlarmTitleForCustomColor = sizer.findViewById(R.id.nextAlarmTitleForCustomColor);
+        final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
+        final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
 
         // Adjust the font sizes.
         measuredSizes.setNextAlarmFontSizePx(nextAlarmFontSize);
@@ -331,9 +369,16 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         nextAlarmText.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarmTitle.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
-        nextAlarm.setPadding(0, 0, measuredSizes.mIconPaddingPx + textShadowPadding, 0);
+        nextAlarm.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
         nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+
+        nextAlarmTextForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmTitleForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarmForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+        nextAlarmIconForCustomColor.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+        nextAlarmIconForCustomColor.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
 
         // Measure and layout the sizer.
         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
@@ -351,6 +396,10 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
             measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+        }
+
+        if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
+            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIconForCustomColor);
         }
 
         return measuredSizes;
@@ -377,7 +426,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED:
+                case ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED:
                 case ACTION_NEXT_ALARM_LABEL_CHANGED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
@@ -409,7 +458,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
 
