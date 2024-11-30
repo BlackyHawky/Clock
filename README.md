@@ -21,7 +21,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 # Features
 * Flip and shake action to dismiss/postpone alarm;
 * Turn off/postpone the alarm with the power button or volume buttons;
-* For Snapdragon phones only, the alarm is triggered when the phone is switched off;
+* For some Snapdragon devices only, the alarm is triggered when they are switched off;
   * Unfortunately, this feature may not work on some devices despite the presence of the _“com.qualcomm.qti.poweroffalarm”_ system app. See the discussion [here](https://github.com/BlackyHawky/Clock/issues/88).
 * Swipe to delete an alarm;
 * Duplicate alarms;
