@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -18,6 +21,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -50,6 +54,10 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
     public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
 
+    private boolean mPreviewPlaying = false;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private Runnable mStopPreviewRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,72 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
+        }
+
+        // Stop ringtone preview before exiting activity
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                stopRingtonePreview();
+                finish();
+                final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+                if (isFadeTransitionsEnabled) {
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // If the ringtone is in progress, restart it from the beginning (guarantee a duration of 5000 ms)
+        if (mPreviewPlaying) {
+            startRingtonePreview();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop ringtone preview when activity is paused
+        stopRingtonePreview();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Stop ringtone preview when activity is stopped
+        stopRingtonePreview();
+    }
+
+    public void startRingtonePreview() {
+        if (!mPreviewPlaying) {
+            RingtonePreviewKlaxon.start(this, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
+            mPreviewPlaying = true;
+
+            // Cancel any previous shutdown delay
+            if (mStopPreviewRunnable != null) {
+                mHandler.removeCallbacks(mStopPreviewRunnable);
+            }
+
+            // Create a new Runnable to stop the ringtone after 5000 ms
+            mStopPreviewRunnable = this::stopRingtonePreview;
+
+            // Schedule ringtone to stop after 5000 ms
+            mHandler.postDelayed(mStopPreviewRunnable, 5000);
+        }
+    }
+
+    public void stopRingtonePreview() {
+        if (mPreviewPlaying) {
+            RingtonePreviewKlaxon.stop(this);
+            mPreviewPlaying = false;
+
+            // If a runnable was scheduled, cancel it.
+            if (mStopPreviewRunnable != null) {
+                mHandler.removeCallbacks(mStopPreviewRunnable);
+            }
         }
     }
 
