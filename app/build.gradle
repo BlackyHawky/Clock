@@ -8,12 +8,57 @@ android {
         applicationId "com.best.deskclock"
         minSdk 23
         targetSdk 34
-        versionCode 2012
-        versionName '2.10.1'
+        versionCode 2013
+        versionName '2.11'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+	def keystorePropertiesFile = rootProject.file("keystore.properties")
+	def keystoreProperties = new Properties()
+    if (keystorePropertiesFile.exists()) {
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile = file("$rootDir/keystore.jks")
+                storePassword = keystoreProperties["storePassword"]
+                keyAlias = keystoreProperties["keyAlias"]
+                keyPassword = keystoreProperties["keyPassword"]
+            } else {
+                println "Keystore properties file not found. No signing configuration will be applied."
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            manifestPlaceholders = [appName: "@string/app_label"]
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.findByName("release")
+            } else {
+                signingConfig null
+            }
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug  {
+            manifestPlaceholders = [appName: "@string/app_label_debug"]
+            versionNameSuffix "-debug"
+            applicationIdSuffix ".debug"
+        }
+    }
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def suffix = variant.buildType.versionNameSuffix ?:
+                    keystorePropertiesFile.exists() ? "-release" : "-unsigned"
+            output.outputFileName = "Clock_${defaultConfig.versionName}${suffix}.apk"
+        }
     }
 
     lintOptions {
@@ -25,24 +70,6 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    ext {
-        APP_NAME = "@string/app_label"
-        APP_NAME_DEBUG = "@string/app_label_debug"
-    }
-
-    buildTypes {
-        release {
-            debuggable false
-            manifestPlaceholders = [appName: APP_NAME]
-        }
-        debug  {
-            manifestPlaceholders = [appName: APP_NAME_DEBUG]
-            versionNameSuffix "-debug"
-            applicationIdSuffix ".debug"
-        }
-        archivesBaseName = "Clock_" + defaultConfig.versionName
-    }
-
     buildFeatures {
         buildConfig = true
     }
@@ -52,7 +79,7 @@ android {
         includeInBundle = false
     }
 
-    ndkVersion '27.0.12077973'
+    ndkVersion '27.2.12479018'
 
     namespace 'com.best.deskclock'
 }

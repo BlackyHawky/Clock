@@ -649,4 +649,8 @@
     <string name="purple_accent_color">紫色</string>
     <string name="yellow_accent_color">黄色</string>
     <string name="day_accent_color_title">日间模式的强调色</string>
+    <string name="display_ringtone_title">显示铃声标题</string>
+    <string name="warning_dialog_message">是否确定要删除“%s”定时器？</string>
+    <string name="display_warning_before_deleting_timer_title">删除定时器之前显示警告</string>
+    <string name="warning_dialog_title">删除定时器</string>
 </resources>

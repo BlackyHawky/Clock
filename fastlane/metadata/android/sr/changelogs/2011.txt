@@ -12,4 +12,4 @@
 - Ажурирај преводе
 - Побољшај код
 
-Да видиш сва побољшања, посетите: https://github.com/BlackyHawky/Clock/releases/tag/2.10
+Детаљи: https://github.com/BlackyHawky/Clock/releases/tag/2.10

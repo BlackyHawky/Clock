@@ -5,38 +5,38 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 --><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Uhr"</string>
-    <string name="default_label" msgid="5590025289805630372">"Wecker"</string>
+    <string name="default_label" msgid="5590025289805630372">Alarm</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrieren"</string>
     <string name="delete" msgid="5732434972457000541">"Löschen"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Standard-Weckton"</string>
-    <string name="alarm_sound" msgid="8754499591391638405">"Weckton"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Standard-Alarmton</string>
+    <string name="alarm_sound" msgid="8754499591391638405">Alarmton</string>
     <string name="timer_sound" msgid="896163086604894735">Timer-Ton</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Hinzufügen"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Entfernen"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Bei Weckrufen und Timern mit diesem Ton wird stattdessen der Standardton verwendet."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Bei Alarmen und Timern mit diesem Ton wird stattdessen der Standardton verwendet.</string>
     <string name="your_sounds" msgid="1672779351352629681">"Meine Töne"</string>
     <string name="device_sounds" msgid="1584894148222639823">"Gerätetöne"</string>
-    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Auf diesen Klingelton kann nicht zugegriffen werden."</string>
+    <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">Auf diesen Signalton kann nicht zugegriffen werden.</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer abgelaufen"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Morgen"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Heute"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ausschalten"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"Entgangener Weckruf"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">Entgangener Alarm</string>
     <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Schlummern"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="one">1 min</item>
         <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> min</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Wecker aus"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">Alarm ausgeschaltet</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Schlummern"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Schlummern für 1 Minute.</item>
         <item quantity="other">Schlummern für <xliff:g id="MINUTES">%d</xliff:g> Minuten.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Schlummern bis <xliff:g id="time">%s</xliff:g></string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Anstehender Weckruf"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Dein entgangener Weckruf wurde gelöscht</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Anstehender Alarm</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Der entgangene Alarm wurde gelöscht</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Nur noch weniger als eine Minute"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
@@ -48,14 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"Dem Timer wurde %1$s Minute hinzugefügt, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Noch"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Noch"</string>
-    <string name="alarm_confirmation_toast_1">"Der Wecker klingelt in weniger als einer Minute."</string>
-    <string name="alarm_confirmation_toast_2">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_3">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_5">"Der Wecker klingelt in <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_1">Alarm in weniger als einer Minute</string>
+    <string name="alarm_confirmation_toast_2">Alarm in <xliff:g id="DAYS">%1$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_3">Alarm in <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_4">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Alarm in <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Alarm in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Alarm in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Tagen</item>
         <item quantity="one">1 Tag</item>
@@ -143,12 +143,12 @@
     <string name="week_start_saturday">Samstag</string>
     <string name="week_start_sunday">Sonntag</string>
     <string name="week_start_monday">Montag</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Lautstärke für Wecker"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">Lautstärke für Alarm</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Lautlos"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Unbekannt"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"Wecker stummgeschaltet"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">Alarm stummgeschaltet</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Stummschaltung aufheben"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Standard-Weckton ist stumm"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Standard-Alarmton ist stumm</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Ändern"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Gerät ist im Modus \"Lautlos\""</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">Lautstärketasten</string>
@@ -157,12 +157,12 @@
     <string name="button_action_control_volume">Lautstärke regeln</string>
     <string name="button_action_nothing">Keine Aktion</string>
     <string name="label_description" msgid="8736179296142915727">"Name"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Klingelton"</string>
-    <string name="menu_alarm" msgid="4772010125376647519">"Wecker"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">Signalton</string>
+    <string name="menu_alarm" msgid="4772010125376647519">Alarm</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Uhr"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stoppuhr"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Weckruf hinzufügen"</string>
+    <string name="button_alarms" msgid="3907838219512538763">Alarm hinzufügen</string>
     <string name="button_cities" msgid="4555761857494501363">"Städte"</string>
     <string name="screensaver_settings_title" msgid="2930695838866189483">"Bildschirmschoner"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Zeitlich sortieren"</string>
@@ -212,7 +212,7 @@
     <string name="jocular_content_message_5">"L33t-Zeiten"</string>
     <string name="jocular_content_message_6">"Wahnsinnsgeschwindigkeit"</string>
     <string name="jocular_content_message_7">"Let\'s do the time warp again!"</string>
-    <string name="jocular_content_message_8">"Just a jump to the left."</string>
+    <string name="jocular_content_message_8">Just a jump to the left!</string>
     <string name="jocular_content_message_9">"Du hast es ganz schön eilig."</string>
     <string name="jocular_content_message_10">"Photonengeschwindigkeit"</string>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
@@ -315,8 +315,8 @@
         <item msgid="5911600083231840181">"Tonga"</item>
         <item msgid="5176858645450908751">"Jakarta"</item>
     </string-array>
-    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Neuer Wecker"</string>
-    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Neuen Weckruf erstellen"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">Neuer Alarm</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">Neuen Alarm erstellen</string>
     <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Neuer Timer"</string>
     <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Neuen Timer erstellen"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Starten"</string>
@@ -325,24 +325,24 @@
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Stoppuhr anhalten"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Bildschirmschoner"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Bildschirmschoner starten"</string>
-    <string name="alarm_settings" msgid="2947147071388290814">"Wecker"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">Alarm</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Verarbeitet Aktionen von Timer-Benachrichtigungen."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verarbeitet Aktionen von Stoppuhr-Benachrichtigungen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Angehalten"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Zum Schließen nach rechts wischen"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">Zum Ausschalten nach rechts wischen</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Zum Schlummern nach links wischen"</string>
     <string name="description_direction_both" msgid="1841309486023845685">Zum Schlummern nach links oder zum Ausschalten nach rechts wischen</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrationsalarm des Timers"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer pausiert"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> Timer pausiert"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">Tippen, um deine Timer abzurufen</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">Tippen, um Timer abzurufen</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> Timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Nächster Timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"Wecker maximieren"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Wecker minimieren"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">Alarm maximieren</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">Alarm minimieren</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Weckzeit gelöscht"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">Alarm gelöscht</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> vor</string>
     <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> zurück</string>
@@ -350,16 +350,16 @@
     <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> zurück</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">Morgen, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">Gestern, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>
-    <string name="next_alarm_description" msgid="2650244835760747046">Nächste Weckzeit: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
-    <string name="no_alarms" msgid="6429431324842022917">"Keine Wecker"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Nächster Alarm: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>
+    <string name="no_alarms" msgid="6429431324842022917">Kein Alarm eingerichtet</string>
     <string name="invalid_time" msgid="2782334750243998633">Ungültige Zeit: <xliff:g example="25" id="invalid_hour">%1$d</xliff:g>:<xliff:g example="63" id="invalid_minutes">%2$d</xliff:g> <xliff:g example="PM" id="invalid_ampm">%3$s</xliff:g></string>
-    <string name="no_alarm_at" msgid="8140632482969193119">Kein Weckruf um <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g> vorhanden</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Keine eingerichteten Weckrufe"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Kein Alarm um <xliff:g example="14" id="alarm_time_hour">%1$d</xliff:g>:<xliff:g example="23" id="alarm_time_minutes">%2$d</xliff:g> vorhanden</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">Keine eingerichteten Alarme</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Kein Name angegeben"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">Der Name ist in keinem Weckruf enthalten</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Für diese Zeit ist kein Weckruf eingerichtet</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">Weckruf um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> wurde verworfen</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">Weckzeit: <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">Der Name ist in keinem Alarm enthalten</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Für diese Zeit ist kein Alarm eingerichtet</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Alarm um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> wurde verworfen</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Alarm um <xliff:g example="14:20" id="alarm_time">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Timer erstellt"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="one">Timer ausgeschaltet</item>
@@ -368,53 +368,53 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ungültige Dauer für Timer"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Ungültiger Timer ausgewählt"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Keine abgelaufenen Timer"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Der Weckruf um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> kann noch nicht verworfen werden, da bis zum Auslösen noch mehr als 24 Stunden fehlen</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Der Alarm um <xliff:g example="14:20" id="alarm_time">%s</xliff:g> kann noch nicht verworfen werden, da bis zum Auslösen noch mehr als 24 Stunden fehlen</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Alarm schließen"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Zu schließenden Alarm auswählen"</string>
-    <string name="no_firing_alarms" msgid="4986161963178722289">"Keine aktiven Weckrufe"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">Für den Weckruf um <xliff:g id="ALARM_TIME">%s</xliff:g> wurde die Schlummerfunktion aktiviert. Der Wecker klingelt in 10 Minuten erneut</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">Keine aktiven Alarme</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Der Alarm um <xliff:g id="ALARM_TIME">%s</xliff:g> schlummert für 10 Minuten</string>
     <string name="flip_action_title">Aktion beim Umdrehen</string>
     <string name="shake_action_title">Aktion beim Schütteln</string>
     <string name="firing_alarms_timers_channel">Starten von Alarmen &amp; Timern</string>
-    <string name="alarm_missed_channel">Entgangene Weckrufe</string>
-    <string name="alarm_snooze_channel">Schlummernde Weckrufe</string>
-    <string name="alarm_upcoming_channel">Anstehende Weckrufe</string>
+    <string name="alarm_missed_channel">Entgangene Alarme</string>
+    <string name="alarm_snooze_channel">Schlummernde Alarme</string>
+    <string name="alarm_upcoming_channel">Anstehende Alarme</string>
     <string name="stopwatch_channel">Stoppuhr</string>
     <string name="timer_channel">Timer</string>
-    <string name="enable_alarm_snooze_actions_label">Schlummerfunktion für Wecker aktivieren</string>
+    <string name="enable_alarm_snooze_actions_label">Schlummerfunktion für Alarm aktivieren</string>
     <string name="selected">Ausgewählt</string>
-    <string name="alarm_label_box_title">Wecker-Name</string>
-    <string name="alarm_inactive">Abgeschaltet</string>
-    <string name="alarm_settings_summary">Standardklingelton, Lautstärke, Aktionen zum Ausschalten oder Schlummern von Weckern, erster Wochentag und Erinnerungsbenachrichtigungszeit einstellen</string>
-    <string name="description_direction_both_clicked">Zum Schlummern links oder zum Ausschalten rechts klicken</string>
-    <string name="alarm_created">Weckzeit eingestellt</string>
+    <string name="alarm_label_box_title">Alarm-Name</string>
+    <string name="alarm_inactive">Ausgeschaltet</string>
+    <string name="alarm_settings_summary">Standardsignalton, Lautstärke, Aktionen zum Ausschalten oder Schlummern von Alarmen, erster Wochentag und Benachrichtigung über anstehende Alarme einstellen</string>
+    <string name="description_direction_both_clicked">Zum Schlummern links oder zum Ausschalten rechts tippen</string>
+    <string name="alarm_created">Alarm eingestellt</string>
     <string name="first_launch_button_later">Später</string>
     <string name="first_launch_button_now">Jetzt</string>
     <string name="first_launch_important_info_title">WICHTIGE INFORMATION</string>
-    <string name="revoke_permission_dialog_message">Bist du sicher, dass du diese Berechtigung widerrufen willst?</string>
+    <string name="revoke_permission_dialog_message">Sind Sie sicher, dass Sie diese Berechtigung widerrufen wollen?</string>
     <string name="more_options">Mehr Optionen</string>
-    <string name="first_launch_dialog_message">Bist du sicher, dass du die App verlassen willst?</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wecker nach Ende des Klingeltons ausschalten</string>
-    <string name="display_card_background_summary">Hintergrund für einige Symbole der App anzeigen (Wecker, Städte, Timer-Taste, etc.)</string>
+    <string name="first_launch_dialog_message">Sind Sie sicher, dass Sie die App verlassen wollen?</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Alarm nach Ende des Signaltons ausschalten</string>
+    <string name="display_card_background_summary">Hintergrund für einige Elemente der App anzeigen (Alarme, Städte, Timer usw.)</string>
     <string name="power_button_title">Ein/Aus-Taste</string>
-    <string name="add_label">Name hinzufügen</string>
+    <string name="add_label">Name</string>
     <string name="duplicate">Duplizieren</string>
-    <string name="display_background_border_summary">Hintergrundrahmen für einige Symbole der App anzeigen (Wecker, Städte, Timer-Taste, usw.)</string>
-    <string name="swipe_action_title">Wischen zum Ausschalten oder Schlummern von Weckern</string>
-    <string name="analog_widget_material_you">Material You Analoguhr</string>
-    <string name="material_you_digital_widget">Material You Digitaluhr</string>
+    <string name="display_background_border_summary">Rahmen für einige Elemente der App anzeigen (Alarme, Städte, Timer usw.)</string>
+    <string name="swipe_action_title">Wischen zum Ausschalten oder Schlummern von Alarmen</string>
+    <string name="analog_widget_material_you">\'Material You\' Analoguhr</string>
+    <string name="material_you_digital_widget">\'Material You\' Digitaluhr</string>
     <string name="style_category_title">Stil</string>
     <string name="styles_and_colors_category_title">Stil und Farben</string>
     <string name="font_category_title">Schrift</string>
-    <string name="ringtone_category_title">Klingelton</string>
+    <string name="ringtone_category_title">Signalton</string>
     <string name="interface_customization_settings">Aussehen</string>
     <string name="interface_customization_summary">Einstellen des Stils und der in der App verwendeten Farben</string>
     <string name="title_accent_color">Akzentfarbe</string>
     <string name="display_card_background_title">Hintergründe anzeigen</string>
     <string name="display_background_border_title">Rahmen anzeigen</string>
-    <string name="alarm_notification_reminder_title">Benachrichtigungserinnerung</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">Vibrationen bei der Erstellung von Alarmen aktivieren</string>
-    <string name="auto_silence_at_the_end_of_the_ringtone">Ende des Klingeltons</string>
+    <string name="alarm_notification_reminder_title">Benachrichtigung über anstehende Alarme</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Vibrieren bei Alarmen standardmäßig aktivieren</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">Ende des Signaltons</string>
     <string name="timer_label_box_title">Timer-Name</string>
     <string name="timer_button_time_box_title">Minuten, die dem Timer hinzugefügt werden</string>
     <string name="timer_add_custom_time">+ %s</string>
@@ -423,19 +423,19 @@
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="license">Open-Source-Lizenz</string>
     <string name="dialog_close">Schließen</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Zum Schließen nach links wischen</string>
-    <string name="description_direction_both_for_non_repeatable_alarm">Zum Schließen nach links oder rechts wischen</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Schließen links oder rechts klicken</string>
-    <string name="timer_settings_summary">Standardklingelton. -lautstärke und Timersortierung festlegen</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Zum Ausschalten nach links wischen</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Zum Ausschalten nach links oder rechts wischen</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Ausschalten links oder rechts tippen</string>
+    <string name="timer_settings_summary">Standardsignalton, -lautstärke und Timersortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
     <string name="screensaver_daydream_settings_summary">Öffnet die Android-Einstellungen für den Bildschirmschoner</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische Uhrenfarben</string>
     <string name="clock_color_title">Farbe der Uhr</string>
-    <string name="screensaver_bold_date_title">Datum fett</string>
-    <string name="screensaver_italic_date_title">Datum kursiv</string>
-    <string name="screensaver_bold_next_alarm_title">Nächster Alarm fett</string>
+    <string name="screensaver_bold_date_title">Datum <b>fett</b></string>
+    <string name="screensaver_italic_date_title">Datum <i>kursiv</i></string>
+    <string name="screensaver_bold_next_alarm_title">Nächster Alarm <b>fett</b></string>
     <string name="preview_title">Vorschau</string>
     <string name="screensaver_preview_summary">Startet den Bildschirmschoner sofort</string>
     <string name="bedtime_reminder_notification_title">Die Bettzeit beginnt um <xliff:g id="bed_time">%1$s</xliff:g></string>
@@ -448,7 +448,7 @@
     <string name="sleeping_time">Zeit zum Schlafen: %1$s</string>
     <string name="no_bedtime_alarm">Keine Bettzeit aktiviert</string>
     <string name="first_launch_main_feature_title">HAUPTEIGENSCHAFTEN</string>
-    <string name="bedtime_notification_action_turn_off">Abstellen</string>
+    <string name="bedtime_notification_action_turn_off">Ausschalten</string>
     <string name="first_launch_main_feature_link">… und vieles mehr!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;VOLLBILD-BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Beenden</string>
@@ -475,21 +475,21 @@
 \nWährend dies für viele Apps akzeptabel ist, ist diese App eine Alarm-App und verursacht oft Probleme, wenn sie für die Optimierung des Akkus konfiguriert ist. Sobald diese Option aktiviert ist, kann das Android-System die App jederzeit beenden und/oder geplante Alarme abbrechen, was sich negativ auf den Betrieb der App auswirken würde.
 \n
 \nWir empfehlen, diese App von den Akku-Optimierungen auszuschließen.</string>
-    <string name="settings_permission_summary">Hier klicken, um die Seite zur Berechtigungsverwaltung anzuzeigen.</string>
+    <string name="settings_permission_summary">Hier tippen, um die Seite zur Berechtigungsverwaltung anzuzeigen.</string>
     <string name="credits">Dank an</string>
     <string name="settings_permission_message">Eine oder mehrere notwendige Berechtigungen fehlen. Sie nicht zu gewähren, kann zu Fehlfunktionen führen.</string>
     <string name="miscellaneous_category_title">Verschiedenes</string>
     <string name="actions_category_title">Aktionen</string>
     <string name="screensaver_date_color_title">Farbe des Datums</string>
-    <string name="screensaver_italic_next_alarm_title">Nächster Alarm kursiv</string>
+    <string name="screensaver_italic_next_alarm_title">Nächster Alarm <i>kursiv</i></string>
     <string name="FSN_permission_title">VOLLBILD-BENACHRICHTIGUNGEN AKTIVIEREN</string>
     <string name="screensaver_settings_summary">Einstellen von Stil, Farbe und Schriftart des Bildschirmschoners</string>
     <string name="digital_widget_city_clock_default_color_title">Standardfarbe für Uhr einer Stadt verwenden</string>
     <string name="digital_widget_city_name_default_color_title">Standardfarbe für Stadtnamen verwenden</string>
     <string name="digital_widget_city_name_custom_color_title">Benutzerdefinierte Farbe des Stadtnamens</string>
     <string name="digital_widget_message_summary">“Städte im Widget anzeigen“ muss deaktiviert sein, um auf diese Einstellung zugreifen zu können</string>
-    <string name="digital_widget_max_clock_font_size_title">Maximale Schriftgröße der Hauptuhr</string>
-    <string name="widget_max_clock_font_size_summary">Maximale Schriftgröße = </string>
+    <string name="digital_widget_max_clock_font_size_title">Schriftgröße der Hauptuhr</string>
+    <string name="widget_max_clock_font_size_summary">Maximal =</string>
     <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für Vollbild-Benachrichtigungen aktiviert sein</string>
     <string name="gnu_gpl">GNU General Public Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Clock“ basiert auf AOSP</string>
@@ -505,7 +505,7 @@
     <string name="title_theme">Thema</string>
     <string name="wakeup">Wecken</string>
     <string name="settings_vibration_title">Vibrationsfeedback aktivieren</string>
-    <string name="settings_vibration_summary">Nur einige Tasten der Benutzeroberfläche sind betroffen (z. B. die Taste für Start/Pause des Timers oder die Umschalt-Button)</string>
+    <string name="settings_vibration_summary">Nur einige Button der Benutzeroberfläche sind betroffen (z. B. der Button für Start/Pause des Timers oder die Umschalt-Button)</string>
     <string name="clock_settings_summary">Einstellen von Stil, Zeitzone und Ändern von Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>
     <string name="permission_requirement_title">Erfordernis: </string>
@@ -513,8 +513,8 @@
     <string name="bedtime_service_desc">Verarbeitet Aktionen von Bettzeit-Benachrichtigungen.</string>
     <string name="screensaver_next_alarm_color_title">Farbe des nächsten Alarms</string>
     <string name="screensaver_brightness_title">Helligkeit</string>
-    <string name="screensaver_bold_digital_clock_title">Digitaluhr fett</string>
-    <string name="screensaver_italic_digital_clock_title">Digitaluhr kursiv</string>
+    <string name="screensaver_bold_digital_clock_title">Digitaluhr <b>fett</b></string>
+    <string name="screensaver_italic_digital_clock_title">Digitaluhr <i>kursiv</i></string>
     <string name="bedtime_notification_title">Der Modus \"Bettzeit\" ist aktiviert</string>
     <string name="widget_background_title">Hintergrund anzeigen</string>
     <string name="background_color_title">Hintergrundfarbe</string>
@@ -523,57 +523,49 @@
     <string name="FSN_dialog_title">Vollbild-Benachrichtigungen</string>
     <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>
     <string name="bedtime_notification_resume">Fortsetzung am <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Abstellen/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="bedtime_notification_until">bis <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
-    <string name="about_dialog_message">• Kippen und Schütteln zum Abstellen/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-Telefonen: Der Alarm wird auch ausgelöst, wenn das Telefon ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Klingeltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit in vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Material You Design; \n \n• Dynamische Farben für Android 12+; \u0020</string>
+    <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-Telefonen: Der Alarm wird auch ausgelöst, wenn das Telefon ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Klingeltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit in vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Einstellungen sichern und wiederherstellen; \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
     <string name="bedtime_reminder_notification">Erinnerung</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
-    <string name="material_you_vertical_digital_widget">Senkrechte Material You Digitaluhr</string>
-    <string name="snooze_button_color">Farbe der Schlummer-Taste</string>
-    <string name="dismiss_button_color">Farbe der Stopp-Taste</string>
-    <string name="alarm_button_color">Farbe der Alarm-Taste</string>
+    <string name="material_you_vertical_digital_widget">Vertikale \'Material You\' Digitaluhr</string>
+    <string name="snooze_button_color">Farbe des Schlummer-Buttons</string>
+    <string name="dismiss_button_color">Farbe des Stopp-Buttons</string>
+    <string name="alarm_button_color">Farbe des Alarm-Buttons</string>
     <string name="pulse_color">Farbe des Impulses</string>
-    <string name="alarm_clock_font_size">Schriftgröße der Weckzeit</string>
-    <string name="alarm_title_font_size">Schriftgröße des Wecker-Namens</string>
+    <string name="alarm_clock_font_size">Schriftgröße der Alarm-Zeit</string>
+    <string name="alarm_title_font_size">Schriftgröße des Alarm-Namens</string>
     <string name="standard_category_title">Standard</string>
     <string name="material_you_category_title">Material You</string>
     <string name="settings_tab_indicator_title">Unten im Navigationsmenü aktives Tab-Symbol mit Hintergrund anzeigen</string>
     <string name="settings_fade_transitions_title">Einblenden von Übergängen beim Bildschirmwechsel</string>
-    <string name="vertical_digital_widget">Vertikale digitale Uhr</string>
-    <string name="sort_timer_title">Sortiere Timer</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Nutze die Standardfarbe für den Wecker Titel</string>
+    <string name="vertical_digital_widget">Vertikale Digitaluhr</string>
+    <string name="sort_timer_title">Sortierung der Timer</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Standardfarbe für Alarm-Namen verwenden</string>
     <string name="denied_permission_label">Zugriff verweigert</string>
-    <string name="alarm_title_color">Wecker Titelfarbe</string>
-    <string name="alarm_display_customization_title">Wecker Anzeige anpassen</string>
-    <string name="github_dialog_message">Besuche das Projekt auf GitHub:
-\n
-\n%s</string>
-    <string name="whats_new_dialog_message">Entdecke die Neuerungen:
-\n
-\n%s</string>
-    <string name="transparent_background_for_expired_timer_title">Durchsichtiger Hintergrund, wenn Timer ablaufen</string>
-    <string name="material_you_next_alarm_widget">Nächster Wecker Material You</string>
-    <string name="next_alarm_widget">Nächster Wecker</string>
-    <string name="next_alarm_widget_text">Nächster Wecker</string>
-    <string name="next_alarm_widget_title_no_alarm">Keine anstehenden Wecker</string>
-    <string name="license_dialog_message">Lizenz lesen:
-\n
-\n%s</string>
-    <string name="contributors_dialog_message">Besuche %1$s\'s GitHub Seite:
-\n
-\n%2$s</string>
-    <string name="digital_widget_default_minutes_color_title">Farbvorgabe für Minuten verwenden</string>
-    <string name="digital_widget_custom_minutes_color_title">Eigene Farbe für Minuten</string>
+    <string name="alarm_title_color">Farbe des Alarm-Namens</string>
+    <string name="alarm_display_customization_title">Anpassen der Alarmanzeige</string>
+    <string name="github_dialog_message">Besuchen Sie die GitHub-Seite des Projekts: \n \n%s</string>
+    <string name="whats_new_dialog_message">Entdecken Sie, was neu ist: \n \n%s</string>
+    <string name="transparent_background_for_expired_timer_title">Transparenter Hintergrund, wenn Timer ablaufen</string>
+    <string name="material_you_next_alarm_widget">\'Material You\' Nächster Alarm</string>
+    <string name="next_alarm_widget">Nächster Alarm</string>
+    <string name="next_alarm_widget_text">Nächster Alarm</string>
+    <string name="next_alarm_widget_title_no_alarm">Kein anstehender Alarm</string>
+    <string name="license_dialog_message">Lesen Sie die Lizenz: \n \n%s</string>
+    <string name="contributors_dialog_message">Besuchen Sie %1$s\'s GitHub Seite: \n \n%2$s</string>
+    <string name="digital_widget_default_minutes_color_title">Standardfarbe für Minuten verwenden</string>
+    <string name="digital_widget_custom_minutes_color_title">Benutzerdefinierte Farbe der Minuten</string>
     <string name="widgets_settings_summary">Stil, Farben und Schriftgröße für Widgets festlegen</string>
-    <string name="next_alarm_widget_custom_title_color">Eigene Farbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
-    <string name="digital_widget_custom_hours_color_title">Eigene Farbe für Stunden</string>
-    <string name="next_alarm_widget_default_title_color">Vorgabefarbe für \"nächster Alarm\" und \"kein kommender Alarm\"</string>
-    <string name="next_alarm_widget_custom_alarm_title_color">Eigene Ferbe für Alarm-Titel</string>
+    <string name="next_alarm_widget_custom_title_color">Benutzerdefinierte Farbe des \\\"Nächster Alarm\\\"- und \\\"Kein anstehender Alarm\\\"-Titels</string>
+    <string name="digital_widget_custom_hours_color_title">Benutzerdefinierte Farbe der Stunden</string>
+    <string name="next_alarm_widget_default_title_color">Standardfarbe für die Titel \"Nächster Alarm\" und \"Kein anstehender Alarm\" verwenden</string>
+    <string name="next_alarm_widget_custom_alarm_title_color">Benutzerdefinierte Farbe des Alarm-Namens</string>
     <string name="widgets_settings">Widgets</string>
     <string name="label_default">Standard</string>
     <string name="light_theme">Hell</string>
-    <string name="blue_gray_accent_color">Blau-grau</string>
+    <string name="blue_gray_accent_color">Grau-blau</string>
     <string name="brown_accent_color">Braun</string>
     <string name="green_accent_color">Grün</string>
     <string name="orange_accent_color">Orange</string>
@@ -581,14 +573,14 @@
     <string name="red_accent_color">Rot</string>
     <string name="dark_theme">Dunkel</string>
     <string name="system_theme">System</string>
-    <string name="alarm_notification_reminder_30_minutes">30 Minuten vor</string>
-    <string name="alarm_notification_reminder_1_hour">1 Stunde vor</string>
-    <string name="alarm_notification_reminder_2_hours">2 Stunden vor</string>
-    <string name="alarm_notification_reminder_4_hours">4 Stunden vor</string>
-    <string name="alarm_notification_reminder_6_hours">6 Stunden vor</string>
-    <string name="alarm_notification_reminder_8_hours">8 Stunden vor</string>
-    <string name="alarm_notification_reminder_10_hours">10 Stunden vor</string>
-    <string name="alarm_notification_reminder_12_hours">12 Stunden vor</string>
+    <string name="alarm_notification_reminder_30_minutes">30 Minuten vorher</string>
+    <string name="alarm_notification_reminder_1_hour">1 Stunde vorher</string>
+    <string name="alarm_notification_reminder_2_hours">2 Stunden vorher</string>
+    <string name="alarm_notification_reminder_4_hours">4 Stunden vorher</string>
+    <string name="alarm_notification_reminder_6_hours">6 Stunden vorher</string>
+    <string name="alarm_notification_reminder_8_hours">8 Stunden vorher</string>
+    <string name="alarm_notification_reminder_10_hours">10 Stunden vorher</string>
+    <string name="alarm_notification_reminder_12_hours">12 Stunden vorher</string>
     <string name="snooze_duration_none">Keine</string>
     <string name="sort_timer_ascending_duration">Nach Dauer (aufsteigend)</string>
     <string name="sort_timer_name">Nach Name</string>
@@ -605,5 +597,61 @@
     <string name="default_time_to_add_to_timer_1_hour">1 Stunde</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 Minuten</string>
     <string name="sort_timer_descending_duration">Nach Dauer (absteigend)</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 vor Schlafenszeit</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 Minuten vorher</string>
+    <string name="timer_flip_action_title">Das Gerät umdrehen, um den Timer zu stoppen</string>
+    <string name="occasional_alarm_deleted">Einmaliger Alarm gelöscht</string>
+    <string name="timer_shake_action_title">Das Gerät schütteln, um den Timer zu stoppen</string>
+    <string name="timer_volume_buttons_action_title">Abgelaufene Timer mit Lautstärketasten zurücksetzen</string>
+    <string name="timer_power_button_action_title">Abgelaufene Timer mit Ein/Aus-Taste zurücksetzen</string>
+    <string name="timer_buttons_action_summary">Funktioniert nur bei gesperrtem Bildschirm</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 Minuten vorher</string>
+    <string name="sw_settings_summary">Aktionen für Lautstärketasten festlegen</string>
+    <string name="sw_start_pause_action">Start / Pause</string>
+    <string name="sw_long_press_volume_down_action_title">Leiser-Taste (lange drücken)</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 Minuten vorher</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 Minuten vorher</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Ausschalten &amp; Löschen</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarm ausgeschaltet und gelöscht</string>
+    <string name="digital_widget_default_hours_color_title">Standardfarbe für Stunden verwenden</string>
+    <string name="next_alarm_widget_max_font_size_title">Schriftgröße des Widgets</string>
+    <string name="backup_restore_toast_message_for_restore">Wiederherstellung abgeschlossen</string>
+    <string name="black_accent_color">Schwarz</string>
+    <string name="sw_volume_up_action_title">Lauter-Taste</string>
+    <string name="sw_long_press_volume_up_action_title">Lauter-Taste (lange drücken)</string>
+    <string name="sw_volume_down_action_title">Leiser-Taste</string>
+    <string name="purple_accent_color">Violett</string>
+    <string name="yellow_accent_color">Gelb</string>
+    <string name="day_accent_color_title">Akzentfarbe für Tag-Modus</string>
+    <string name="indigo_accent_color">Indigo</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 Minuten vorher</string>
+    <string name="delete_occasional_alarm_after_use_title">Alarm löschen, sobald er beendet wurde</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Automatisches Löschen von Alarmen standardmäßig aktivieren</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Diese Einstellung kann für jeden Alarm in der erweiterten Alarmansicht geändert werden</string>
+    <string name="description_direction_right_for_occasional_alarm">Nach rechts wischen, um den Alarm auszuschalten und zu löschen</string>
+    <string name="description_direction_both_for_occasional_alarm">Zum Schlummern nach links oder zum Ausschalten und Löschen des Alarms nach rechts wischen</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Links tippen zum Schlummern oder rechts tippen zum Ausschalten und Löschen des Alarms</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Nach links oder rechts wischen, um den Alarm auszuschalten und zu löschen</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Links oder rechts tippen zum Ausschalten und Löschen des Alarms</string>
+    <string name="occasional_alarm_alert_predismiss_title">Anstehender einmaliger Alarm</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Nach links wischen, um den Alarm auszuschalten und zu löschen</string>
+    <string name="backup_restore_backup_button_title">Sichern</string>
+    <string name="backup_restore_restore_button_title">Wiederherstellen</string>
+    <string name="backup_restore_settings_title">Sichern &amp; Wiederherstellen</string>
+    <string name="backup_restore_settings_summary">Sichern oder Wiederherstellen von Einstellungen (mit Ausnahme von Alarmen, Timern und Signaltönen)</string>
+    <string name="backup_restore_dialog_message">Möchten Sie die Einstellungen sichern oder aus einer Datei wiederherstellen?</string>
+    <string name="backup_restore_toast_message_for_backup">Sicherung abgeschlossen</string>
+    <string name="seconds_hand_color_title">Farbe des Sekundenzeigers</string>
+    <string name="bedtime_reminder_notification_1_hour">1 Stunde vorher</string>
+    <string name="auto_night_accent_color_title">Akzentfarbe im Nacht-Modus anwenden</string>
+    <string name="night_accent_color_title">Akzentfarbe für Nacht-Modus</string>
+    <string name="auto_silence_5_seconds">5 Sekunden</string>
+    <string name="auto_silence_10_seconds">10 Sekunden</string>
+    <string name="auto_silence_20_seconds">20 Sekunden</string>
+    <string name="auto_silence_30_seconds">30 Sekunden</string>
+    <string name="display_warning_before_deleting_timer_title">Warnung vor dem Löschen eines Timers anzeigen</string>
+    <string name="warning_dialog_title">Timer löschen</string>
+    <string name="warning_dialog_message">Sind Sie sicher, dass Sie den Timer \"%s\" löschen wollen?</string>
+    <string name="sort_timer_manually">Manuell (durch Verschieben)</string>
+    <string name="display_ringtone_title">Name des Signaltons anzeigen</string>
 </resources>

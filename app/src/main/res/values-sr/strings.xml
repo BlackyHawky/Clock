@@ -654,4 +654,8 @@
     <string name="black_accent_color">Црна</string>
     <string name="yellow_accent_color">Жута</string>
     <string name="day_accent_color_title">Акцент боје за дневни режим</string>
+    <string name="warning_dialog_message">Да ли сте сигурни да желите да обришете \"%s\" тајмер?</string>
+    <string name="display_ringtone_title">Прикажи наслов мелодије</string>
+    <string name="display_warning_before_deleting_timer_title">Прикажи упозорење пре брисања тајмера</string>
+    <string name="warning_dialog_title">Обриши тајмер</string>
 </resources>

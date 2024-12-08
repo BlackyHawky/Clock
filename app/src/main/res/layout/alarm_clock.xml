@@ -14,12 +14,7 @@
         android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:descendantFocusability="beforeDescendants"
-        android:fadingEdgeLength="0dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        android:splitMotionEvents="false" />
+        android:clipToPadding="false" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/alarms_empty_view"

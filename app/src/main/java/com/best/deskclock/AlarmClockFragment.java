@@ -91,8 +91,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     // Views
     private ViewGroup mMainLayout;
-    private RecyclerView mRecyclerView;
-    private TextView mAlarmsEmptyView;
+    private AlarmRecyclerView mRecyclerView;
 
     // Data
     private Loader<?> mCursorLoader;
@@ -135,8 +134,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
         mContext = requireContext();
-
+        mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
+        TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
+        final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
+        assert noAlarmsIcon != null;
+        noAlarmsIcon.setTint(MaterialColors.getColor(
+                mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+        alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
+        alarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
+        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
+        mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
+        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
+        mItemAdapter = new ItemAdapter<>();
         mLayoutManager = new LinearLayoutManager(mContext) {
             @Override
             protected void calculateExtraLayoutSpace(@NonNull RecyclerView.State state,
@@ -148,6 +158,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
             }
         };
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Set a bottom padding to prevent alarm list from being hidden by the FAB
         final int bottomPadding = Utils.isTablet(mContext)
@@ -155,13 +166,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 : Utils.toPixel(95, mContext);
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);
 
-        mMainLayout = v.findViewById(R.id.main);
-        mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
-        mAlarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
-        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, mAlarmsEmptyView);
-        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
-
-        mItemAdapter = new ItemAdapter<>();
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
@@ -188,10 +192,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 mExpandedAlarmId = Alarm.INVALID_ID;
             }
         });
+
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
         mRecyclerView.addOnLayoutChangeListener(scrollPositionWatcher);
         mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
+
         final ItemAnimator itemAnimator = new ItemAnimator();
         itemAnimator.setChangeDuration(150L);
         itemAnimator.setMoveDuration(150L);
@@ -418,13 +424,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             if (noAlarms) {
                 // Ensure the drop shadow is hidden when no alarms exist.
                 setTabScrolledToTop(true);
-                final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
-                if (noAlarmsIcon != null) {
-                    noAlarmsIcon.setTint(MaterialColors.getColor(
-                            mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
-                }
-                mAlarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
-                mAlarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
             }
 
             // Expand the correct alarm.
