@@ -12,4 +12,4 @@
 
 Обратите пажњу: потребно је ресетуј подешавање "Обавештење подсетника"
 
-Да бисте видели сва побољшања, посетите: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+Детаљи: https://github.com/BlackyHawky/Clock/releases/tag/2.9

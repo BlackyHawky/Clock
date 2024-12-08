@@ -5,7 +5,10 @@ Caractéristiques :
 <ul>
   <li>L'action de retourner ou de secouer l'appareil permet d'arrêter ou de reporter l'alarme ;</li>
   <li>Désactiver ou reporter l'alarme à l'aide du bouton d'alimentation ou des boutons du volume ;</li>
-  <li>Pour les téléphones Snapdragon uniquement, l'alarme se déclenche lorsque le téléphone est éteint ;</li>
+  <li>Pour quelques appareils Snapdragon uniquement, l'alarme se déclenche lorsqu'ils sont éteints ;</li>
+    <ul>
+      <li>Malheureusement, cette fonctionnalité peut ne pas fonctionner sur certains appareils malgré la présence de l'application système <i>"com.qualcomm.qti.poweroffalarm"</i>.</li>
+    </ul>
   <li>Glisser pour supprimer une alarme ;</li>
   <li>Dupliquer les alarmes;</li>
   <li>Titre de l'alarme personnalisable ;</li>

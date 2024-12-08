@@ -658,4 +658,8 @@
     <string name="purple_accent_color">Purpurpunane</string>
     <string name="yellow_accent_color">Kollane</string>
     <string name="day_accent_color_title">Aktsentvärv päevaseks režiimiks</string>
+    <string name="display_ringtone_title">Näita helina nime</string>
+    <string name="display_warning_before_deleting_timer_title">Enne taimeri kustutamist näita hoiatust</string>
+    <string name="warning_dialog_title">Kustuta taimer</string>
+    <string name="warning_dialog_message">Kas sa oled kindel, et soovid kustutada „%s“ taimeri?</string>
 </resources>

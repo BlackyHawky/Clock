@@ -662,4 +662,8 @@
     <string name="purple_accent_color">Violet</string>
     <string name="yellow_accent_color">Jaune</string>
     <string name="day_accent_color_title">Couleur d\'accent pour le mode jour</string>
+    <string name="warning_dialog_title">Supprimer le minuteur</string>
+    <string name="warning_dialog_message">Etes-vous sûr de vouloir supprimer le minuteur \"%s\" ?</string>
+    <string name="display_warning_before_deleting_timer_title">Afficher un avertissement avant de supprimer un minuteur</string>
+    <string name="display_ringtone_title">Afficher le titre de la sonnerie</string>
 </resources>

@@ -391,7 +391,7 @@
     <string name="style_category_title">Stijl</string>
     <string name="font_category_title">Lettertype</string>
     <string name="title_accent_color">Accentkleur</string>
-    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
+    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc.)</string>
     <string name="title_dark_theme_mode">Donker themastijl</string>
     <string name="display_card_background_title">Kaartachtergronden tonen</string>
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de timer)</string>
@@ -650,4 +650,8 @@
     <string name="black_accent_color">Zwart</string>
     <string name="yellow_accent_color">Geel</string>
     <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
+    <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" timer wilt verwijderen?</string>
+    <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een timer</string>
+    <string name="display_ringtone_title">Naam van ringtoon weergeven</string>
+    <string name="warning_dialog_title">Timer verwijderen</string>
 </resources>

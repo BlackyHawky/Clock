@@ -1,0 +1,13 @@
+**Fixes**
+- Fix ringing preview stop in alarm settings
+
+**Improvements**
+- Add the ability to display a warning before deleting a timer
+- Replace `X` icon to bin icon for timers
+- Display the ringtone title when the alarm is triggered
+- Add IzzyOnDroid badge in Readme
+- Support for Reproducible Builds
+- Update translations
+- Improve code
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.11

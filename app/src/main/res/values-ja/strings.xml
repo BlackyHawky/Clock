@@ -375,4 +375,9 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
     <string name="flip_action_title">端末反転アクション</string>
     <string name="shake_action_title">端末を振った時の動作</string>
+    <string name="duplicate">重複</string>
+    <string name="selected">選択済み</string>
+    <string name="label_default">デフォルト</string>
+    <string name="alarm_label_box_title">ラベル</string>
+    <string name="more_options">その他のオプション</string>
 </resources>

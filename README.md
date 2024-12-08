@@ -41,6 +41,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Backup and restore settings;
 * Material design;
 * Dynamic colors for Android 12+;
+* Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).
 
 ## Common Issues
 * Problem encountered with bedtime mode as this is an experimental feature;
