@@ -900,6 +900,7 @@
         • Flip and shake action to dismiss/postpone alarm;
         \n\n• Turn off/postpone the alarm with the power button or volume buttons;
         \n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off;
+        \n\t\t Unfortunately, this feature may not work on some devices despite the presence of the <i>\"com.qualcomm.qti.poweroffalarm\"</i> system app.
         \n\n• Swipe to delete an alarm;
         \n\n• Duplicate alarms;
         \n\n• Customize alarm title;
