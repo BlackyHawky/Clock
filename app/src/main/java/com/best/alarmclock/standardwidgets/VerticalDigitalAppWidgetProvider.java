@@ -81,7 +81,7 @@ import java.util.Locale;
  */
 public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("VerticalDigitalWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("VertDgtlWdgtProv");
 
     private static boolean sReceiversRegistered;
 

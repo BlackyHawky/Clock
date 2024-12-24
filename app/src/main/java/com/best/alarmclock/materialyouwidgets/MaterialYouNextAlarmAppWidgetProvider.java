@@ -76,7 +76,7 @@ import java.util.Locale;
  */
 public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MaterialYouNextAlarmWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MYNextAlarmWdgtProv");
 
     private static boolean sReceiversRegistered;
 

@@ -40,7 +40,7 @@ import java.util.TimeZone;
  */
 public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MaterialYouDigitalWidgetViewsFactory");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("MYDgtlWdgtViewsFact");
 
     private final Intent mFillInIntent = new Intent();
 

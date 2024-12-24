@@ -98,7 +98,7 @@ import java.util.TimeZone;
  */
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DgtlWdgtProv");
 
     private static boolean sReceiversRegistered;
 
