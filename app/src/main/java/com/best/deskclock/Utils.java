@@ -965,8 +965,11 @@ public class Utils {
                 final Uri uri = ringtoneManager.getRingtoneUri(i);
                 try {
                     mediaPlayer.setDataSource(context, uri);
-                    duration = duration + mediaPlayer.getDuration();
-                } catch (IOException ignored) {}
+                    mediaPlayer.prepare();
+                } catch (IOException ignored) {
+                }
+                duration = duration + mediaPlayer.getDuration();
+                mediaPlayer.reset();
             }
         } else {
 
