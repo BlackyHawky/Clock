@@ -31,8 +31,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;

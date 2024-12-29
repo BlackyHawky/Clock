@@ -34,6 +34,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,11 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
@@ -125,10 +130,10 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame != null) {
             mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-            Utils.setClockIconTypeface(mClockFrame);
-            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
-            Utils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            Utils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
+            ClockUtils.setClockIconTypeface(mClockFrame);
+            ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
+            ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
         }
 
         // Schedule a runnable to update the date every quarter hour.
@@ -158,8 +163,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         // Resume can be invoked after changing the clock style or seconds display.
         if (mDigitalClock != null && mAnalogClock != null) {
-            Utils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            Utils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
+            ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
         }
 
         final View view = getView();
@@ -214,7 +219,7 @@ public final class ClockFragment extends DeskClockFragment {
      */
     private void refreshAlarm() {
         if (mClockFrame != null) {
-            Utils.refreshAlarm(getContext(), mClockFrame);
+            AlarmUtils.refreshAlarm(getContext(), mClockFrame);
         } else {
             mCityAdapter.refreshAlarm();
         }
@@ -388,8 +393,10 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(cityTimeZoneId);
-                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
-                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(mDigitalClock.getContext(), false));
+                    mDigitalClock.setFormat12Hour(
+                            ClockUtils.get12ModeFormat(mDigitalClock.getContext(), 0.3f, false));
+                    mDigitalClock.setFormat24Hour(
+                            ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
                 }
 
                 itemView.setBackground(Utils.cardBackground(context));
@@ -429,7 +436,7 @@ public final class ClockFragment extends DeskClockFragment {
                 final boolean displayDifference = hoursDifferent != 0 || displayMinutes;
 
                 mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
-                final String timeString = Utils.createHoursDifferentString(
+                final String timeString = createHoursDifferentString(
                         context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
                 mHoursAhead.setText(displayDayOfWeek
                         ? (context.getString(isAhead
@@ -448,6 +455,34 @@ public final class ClockFragment extends DeskClockFragment {
             }
         }
 
+        /**
+         * @param context          to obtain strings.
+         * @param displayMinutes   whether or not minutes should be included
+         * @param isAhead          {@code true} if the time should be marked 'ahead', else 'behind'
+         * @param hoursDifferent   the number of hours the time is ahead/behind
+         * @param minutesDifferent the number of minutes the time is ahead/behind
+         * @return String describing the hours/minutes ahead or behind
+         */
+        public static String createHoursDifferentString(Context context, boolean displayMinutes,
+                                                        boolean isAhead, int hoursDifferent, int minutesDifferent) {
+
+            String timeString;
+            if (displayMinutes && hoursDifferent != 0) {
+                // Both minutes and hours
+                final String hoursShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours_short, Math.abs(hoursDifferent));
+                final String minsShortQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes_short, Math.abs(minutesDifferent));
+                final @StringRes int stringType = isAhead ? R.string.world_hours_minutes_ahead : R.string.world_hours_minutes_behind;
+                timeString = context.getString(stringType, hoursShortQuantityString, minsShortQuantityString);
+            } else {
+                // Minutes alone or hours alone
+                final String hoursQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, Math.abs(hoursDifferent));
+                final String minutesQuantityString = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, Math.abs(minutesDifferent));
+                final @StringRes int stringType = isAhead ? R.string.world_time_ahead : R.string.world_time_behind;
+                timeString = context.getString(stringType, displayMinutes ? minutesQuantityString : hoursQuantityString);
+            }
+            return timeString;
+        }
+
         private static final class MainClockViewHolder extends RecyclerView.ViewHolder {
 
             private final TextClock mDigitalClock;
@@ -458,16 +493,16 @@ public final class ClockFragment extends DeskClockFragment {
 
                 mDigitalClock = itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = itemView.findViewById(R.id.analog_clock);
-                Utils.setClockIconTypeface(itemView);
+                ClockUtils.setClockIconTypeface(itemView);
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
                 DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
                 boolean displayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
-                Utils.refreshAlarm(context, itemView);
-                Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                Utils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);
-                Utils.setClockSecondsEnabled(clockStyle, mDigitalClock, mAnalogClock, displayClockSeconds);
+                AlarmUtils.refreshAlarm(context, itemView);
+                ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
+                ClockUtils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);
+                ClockUtils.setClockSecondsEnabled(clockStyle, mDigitalClock, mAnalogClock, displayClockSeconds);
             }
         }
     }

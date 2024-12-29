@@ -107,29 +107,7 @@ public final class ClockContract {
          * The content:// style URL for the alarms with instance tables, which is used to get the
          * next firing instance and the current state of an alarm.
          */
-        Uri ALARMS_WITH_INSTANCES_URI = Uri.parse("content://" + AUTHORITY
-                + "/alarms_with_instances");
-
-        /**
-         * Alarm year.
-         *
-         * <p>Type: INTEGER</p>
-         */
-        String YEAR = "year";
-
-        /**
-         * Alarm month in year.
-         *
-         * <p>Type: INTEGER</p>
-         */
-        String MONTH = "month";
-
-        /**
-         * Alarm day in month.
-         *
-         * <p>Type: INTEGER</p>
-         */
-        String DAY = "day";
+        Uri ALARMS_WITH_INSTANCES_URI = Uri.parse("content://" + AUTHORITY + "/alarms_with_instances");
 
         /**
          * Hour in 24-hour localtime 0 - 23.

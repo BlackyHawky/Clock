@@ -16,6 +16,7 @@ import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_CRESCENDO;
@@ -25,7 +26,6 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_AUTO_SILENCE
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
@@ -115,6 +115,7 @@ import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUM
 import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION;
 import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
+import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_AUTO_SILENCE;
@@ -190,6 +191,7 @@ public class BackupAndRestoreUtils {
 
                     // Values from AlarmDisplayCustomizationActivity
                     booleans.put(KEY_DISPLAY_ALARM_SECONDS_HAND, prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, true));
+                    booleans.put(KEY_DISPLAY_RINGTONE_TITLE, prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, false));
 
                     // Values from TimerSettingsActivity
                     booleans.put(KEY_TIMER_VIBRATE, prefs.getBoolean(KEY_TIMER_VIBRATE, false));
@@ -199,6 +201,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_TIMER_SHAKE_ACTION, prefs.getBoolean(KEY_TIMER_SHAKE_ACTION, false));
                     booleans.put(KEY_KEEP_TIMER_SCREEN_ON, prefs.getBoolean(KEY_KEEP_TIMER_SCREEN_ON, true));
                     booleans.put(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, false));
+                    booleans.put(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, prefs.getBoolean(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, true));
 
                     // Values from ScreensaverSettingsActivity
                     booleans.put(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, false));
@@ -275,7 +278,6 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_WEEK_START, prefs.getString(KEY_WEEK_START, String.valueOf(Calendar.getInstance().getFirstDayOfWeek())));
                     strings.put(KEY_ALARM_NOTIFICATION_REMINDER_TIME, prefs.getString(KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30"));
                     strings.put(KEY_MATERIAL_TIME_PICKER_STYLE, prefs.getString(KEY_MATERIAL_TIME_PICKER_STYLE, "analog"));
-                    strings.put(KEY_MATERIAL_DATE_PICKER_STYLE, prefs.getString(KEY_MATERIAL_DATE_PICKER_STYLE, "calendar"));
 
                     // Values from AlarmDisplayCustomizationActivity
                     strings.put(KEY_ALARM_CLOCK_STYLE, prefs.getString(KEY_ALARM_CLOCK_STYLE, "digital"));

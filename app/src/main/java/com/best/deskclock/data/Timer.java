@@ -8,8 +8,6 @@ package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.best.deskclock.Utils.now;
-import static com.best.deskclock.Utils.wallClock;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
@@ -18,6 +16,8 @@ import static com.best.deskclock.data.Timer.State.RUNNING;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
 import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_NAME;
+import static com.best.deskclock.utils.Utils.now;
+import static com.best.deskclock.utils.Utils.wallClock;
 
 import android.text.TextUtils;
 

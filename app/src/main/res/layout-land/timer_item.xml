@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/close"
+        app:layout_constraintTop_toBottomOf="@id/delete_timer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintWidth_min="220dp">
 
@@ -40,15 +40,15 @@
             app:drawableStartCompat="@drawable/ic_label"
             app:drawableTint="?colorOnSurfaceVariant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/close"
+            app:layout_constraintEnd_toStartOf="@id/delete_timer"
             app:layout_constraintTop_toTopOf="parent"
             tools:hint="@string/add_label" />
 
         <ImageButton
-            android:id="@+id/close"
+            android:id="@+id/delete_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/timer_delete"
             app:tint="?colorPrimary"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@id/timer_label" />
 
         <!-- Show circle for tablets. See CircleButtonsLayout.java -->
-        <com.best.deskclock.CircleButtonsLayout
+        <com.best.deskclock.timer.CircleButtonsLayout
             android:id="@+id/circle_container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </com.best.deskclock.CircleButtonsLayout>
+        </com.best.deskclock.timer.CircleButtonsLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/timer_add_time_button"

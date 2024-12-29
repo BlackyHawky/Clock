@@ -7,18 +7,22 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
@@ -48,9 +52,11 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
-    public static final String KEY_MATERIAL_DATE_PICKER_STYLE = "key_material_date_picker_style";
-    public static final String MATERIAL_DATE_PICKER_CALENDAR_STYLE = "calendar";
     public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
+
+    private boolean mPreviewPlaying = false;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private Runnable mStopPreviewRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,72 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
+        }
+
+        // Stop ringtone preview before exiting activity
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                stopRingtonePreview();
+                finish();
+                final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+                if (isFadeTransitionsEnabled) {
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // If the ringtone is in progress, restart it from the beginning (guarantee a duration of 5000 ms)
+        if (mPreviewPlaying) {
+            startRingtonePreview();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop ringtone preview when activity is paused
+        stopRingtonePreview();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Stop ringtone preview when activity is stopped
+        stopRingtonePreview();
+    }
+
+    public void startRingtonePreview() {
+        if (!mPreviewPlaying) {
+            RingtonePreviewKlaxon.start(this, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
+            mPreviewPlaying = true;
+
+            // Cancel any previous shutdown delay
+            if (mStopPreviewRunnable != null) {
+                mHandler.removeCallbacks(mStopPreviewRunnable);
+            }
+
+            // Create a new Runnable to stop the ringtone after 5000 ms
+            mStopPreviewRunnable = this::stopRingtonePreview;
+
+            // Schedule ringtone to stop after 5000 ms
+            mHandler.postDelayed(mStopPreviewRunnable, 5000);
+        }
+    }
+
+    public void stopRingtonePreview() {
+        if (mPreviewPlaying) {
+            RingtonePreviewKlaxon.stop(this);
+            mPreviewPlaying = false;
+
+            // If a runnable was scheduled, cancel it.
+            if (mStopPreviewRunnable != null) {
+                mHandler.removeCallbacks(mStopPreviewRunnable);
+            }
         }
     }
 
@@ -81,7 +153,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
         SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
         ListPreference mMaterialTimePickerStylePref;
-        ListPreference mMaterialDatePickerStylePref;
         Preference mAlarmDisplayCustomizationPref;
 
         @Override
@@ -104,7 +175,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
             mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
             mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
-            mMaterialDatePickerStylePref = findPreference(KEY_MATERIAL_DATE_PICKER_STYLE);
             mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
             setupPreferences();
@@ -134,8 +204,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
                      KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
-                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE,
-                     KEY_MATERIAL_DATE_PICKER_STYLE -> {
+                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
@@ -233,9 +302,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
             mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
-
-            mMaterialDatePickerStylePref.setOnPreferenceChangeListener(this);
-            mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
 
             mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
         }

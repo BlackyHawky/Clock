@@ -391,7 +391,7 @@
     <string name="style_category_title">Stijl</string>
     <string name="font_category_title">Lettertype</string>
     <string name="title_accent_color">Accentkleur</string>
-    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc,)</string>
+    <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, timerknoppen, etc.)</string>
     <string name="title_dark_theme_mode">Donker themastijl</string>
     <string name="display_card_background_title">Kaartachtergronden tonen</string>
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de timer)</string>
@@ -404,7 +404,7 @@
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
     <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aanknop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten; \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+;</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -474,14 +474,14 @@
     <string name="dialog_close">Sluiten</string>
     <string name="bedtime_notification_resume">Hervat op <xliff:g id="time">%1$s</xliff:g></string>
     <string name="bedtime_notification_resume_action">Nu hervatten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ► Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aanknop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
     <string name="FSN_permission_title">MELDINGEN OP VOLLEDIG SCHERM INSCHAKELEN</string>
     <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
     <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om meldingen op volledig scherm toe te staan</string>
-    <string name="power_button_title">Aanknop</string>
+    <string name="power_button_title">Aan/uit-knop</string>
     <string name="menu_bedtime">Bedtijd</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
@@ -639,4 +639,19 @@
     <string name="auto_silence_10_seconds">10 seconden</string>
     <string name="auto_silence_30_seconds">30 seconden</string>
     <string name="sort_timer_manually">Handmatig (door te slepen)</string>
+    <string name="timer_power_button_action_title">Verlopen timers op nul zetten met de aan/uit-knop</string>
+    <string name="sw_settings_summary">Actie voor volumeknoppen instellen</string>
+    <string name="sw_volume_up_action_title">Volume omhoog</string>
+    <string name="sw_long_press_volume_up_action_title">Volume omhoog (lang indrukken)</string>
+    <string name="sw_long_press_volume_down_action_title">Volume omlaag (lang indrukken)</string>
+    <string name="sw_start_pause_action">Start / Pauze</string>
+    <string name="sw_volume_down_action_title">Volume omlaag</string>
+    <string name="purple_accent_color">Paars</string>
+    <string name="black_accent_color">Zwart</string>
+    <string name="yellow_accent_color">Geel</string>
+    <string name="day_accent_color_title">Accentkleur voor dagmodus</string>
+    <string name="warning_dialog_message">Weet je zeker dat je de \"%s\" timer wilt verwijderen?</string>
+    <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een timer</string>
+    <string name="display_ringtone_title">Naam van ringtoon weergeven</string>
+    <string name="warning_dialog_title">Timer verwijderen</string>
 </resources>

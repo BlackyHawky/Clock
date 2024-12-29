@@ -7,7 +7,7 @@
 package com.best.deskclock.ringtone;
 
 import static android.media.AudioManager.STREAM_ALARM;
-import static com.best.deskclock.Utils.RINGTONE_SILENT;
+import static com.best.deskclock.utils.Utils.RINGTONE_SILENT;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -17,10 +17,10 @@ import android.net.Uri;
 import androidx.loader.content.AsyncTaskLoader;
 
 import com.best.deskclock.ItemAdapter;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.CustomRingtone;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;

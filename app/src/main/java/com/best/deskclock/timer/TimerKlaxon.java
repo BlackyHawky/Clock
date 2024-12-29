@@ -11,9 +11,9 @@ import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Vibrator;
 
-import com.best.deskclock.AsyncRingtonePlayer;
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.ringtone.AsyncRingtonePlayer;
+import com.best.deskclock.utils.LogUtils;
 
 /**
  * Manages playing the timer ringtone and vibrating the device.

@@ -22,11 +22,9 @@ import android.widget.TextView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.best.deskclock.CircleButtonsLayout;
 import com.best.deskclock.R;
-import com.best.deskclock.TimerTextController;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;

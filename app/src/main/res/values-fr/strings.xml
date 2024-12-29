@@ -111,7 +111,7 @@
     <string name="system_theme">Système</string>
     <string name="light_theme">Clair</string>
     <string name="dark_theme">Sombre</string>
-    <string name="title_accent_color">Couleur d\'accentuation</string>
+    <string name="title_accent_color">Couleur d\'accent</string>
     <string name="blue_gray_accent_color">Bleu Gris</string>
     <string name="brown_accent_color">Marron</string>
     <string name="green_accent_color">Vert</string>
@@ -646,10 +646,24 @@
     <string name="backup_restore_toast_message_for_restore">Restauration terminée</string>
     <string name="timer_flip_action_title">Retourner l\'appareil pour arrêter l\'alarme</string>
     <string name="timer_shake_action_title">Secouer l\'appareil pour arrêter l\'alarme</string>
-    <string name="auto_night_accent_color_title">Appliquer la couleur d\'accentuation au mode nuit</string>
-    <string name="night_accent_color_title">Couleur d\'accentuation pour le mode nuit</string>
+    <string name="auto_night_accent_color_title">Appliquer la couleur d\'accent au mode nuit</string>
+    <string name="night_accent_color_title">Couleur d\'accent pour le mode nuit</string>
     <string name="sort_timer_manually">Manuellement (par glissement)</string>
     <string name="timer_volume_buttons_action_title">Réinitialiser les minuteurs expirés avec les boutons du volume</string>
     <string name="timer_buttons_action_summary">Ne fonctionne que sur l\'écran de verrouillage</string>
     <string name="timer_power_button_action_title">Réinitialiser les minuteurs expirés avec le bouton d\'alimentation</string>
+    <string name="sw_settings_summary">Définit les actions pour les boutons du volume</string>
+    <string name="sw_volume_up_action_title">Volume haut</string>
+    <string name="sw_long_press_volume_up_action_title">Volume haut (après un appui-long)</string>
+    <string name="sw_long_press_volume_down_action_title">Volume bas (après un appui-long)</string>
+    <string name="sw_start_pause_action">Démarrer / Pause</string>
+    <string name="sw_volume_down_action_title">Volume bas</string>
+    <string name="black_accent_color">Noir</string>
+    <string name="purple_accent_color">Violet</string>
+    <string name="yellow_accent_color">Jaune</string>
+    <string name="day_accent_color_title">Couleur d\'accent pour le mode jour</string>
+    <string name="warning_dialog_title">Supprimer le minuteur</string>
+    <string name="warning_dialog_message">Etes-vous sûr de vouloir supprimer le minuteur \"%s\" ?</string>
+    <string name="display_warning_before_deleting_timer_title">Afficher un avertissement avant de supprimer un minuteur</string>
+    <string name="display_ringtone_title">Afficher le titre de la sonnerie</string>
 </resources>

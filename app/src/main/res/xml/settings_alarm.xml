@@ -167,16 +167,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <ListPreference
-            android:key="key_material_date_picker_style"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/material_date_picker_style_title"
-            android:entries="@array/material_date_picker_style_entries"
-            android:entryValues="@array/material_date_picker_style_values"
-            android:defaultValue="calendar"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
         <Preference
             android:key="key_alarm_display_customization"
             android:layout="@layout/settings_preference_layout"

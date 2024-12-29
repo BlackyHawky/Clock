@@ -304,7 +304,7 @@
         <!-- ============================================================== -->
 
         <activity
-            android:name="com.best.deskclock.ScreensaverActivity"
+            android:name="com.best.deskclock.screensaver.ScreensaverActivity"
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:theme="@style/Theme.DeskClock"
@@ -319,7 +319,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <service
-            android:name="com.best.deskclock.Screensaver"
+            android:name="com.best.deskclock.screensaver.Screensaver"
             android:exported="false"
             android:label="@string/app_label"
             android:permission="android.permission.BIND_DREAM_SERVICE">
@@ -340,7 +340,7 @@
 
         <!-- Analog clock -->
         <receiver
-            android:name="com.best.alarmclock.AnalogAppWidgetProvider"
+            android:name="com.best.alarmclock.standardwidgets.AnalogAppWidgetProvider"
             android:exported="true"
             android:label="@string/analog_widget">
             <intent-filter>
@@ -349,7 +349,7 @@
 
             <meta-data
                 android:name="android.appwidget.oldName"
-                android:value="com.best.deskclock.AnalogAppWidgetProvider" />
+                android:value="com.best.deskclock.standardwidgets.AnalogAppWidgetProvider" />
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/analog_appwidget" />
@@ -364,7 +364,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.DigitalAppWidgetProvider"
+            android:name="com.best.alarmclock.standardwidgets.DigitalAppWidgetProvider"
             android:exported="true"
             android:label="@string/digital_widget">
             <intent-filter>
@@ -385,7 +385,7 @@
         </receiver>
 
         <service
-            android:name="com.best.alarmclock.DigitalAppWidgetCityService"
+            android:name="com.best.alarmclock.standardwidgets.DigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Vertical digital clock -->
@@ -397,7 +397,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.VerticalDigitalAppWidgetProvider"
+            android:name="com.best.alarmclock.standardwidgets.VerticalDigitalAppWidgetProvider"
             android:exported="true"
             android:label="@string/vertical_digital_widget">
             <intent-filter>
@@ -424,7 +424,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.NextAlarmAppWidgetProvider"
+            android:name="com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider"
             android:exported="true"
             android:label="@string/next_alarm_widget">
             <intent-filter>
@@ -449,7 +449,7 @@
 
         <!-- Analog clock Material You -->
         <receiver
-            android:name="com.best.alarmclock.MaterialYouAnalogAppWidgetProvider"
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetProvider"
             android:exported="true"
             android:label="@string/analog_widget_material_you">
             <intent-filter>
@@ -458,7 +458,7 @@
 
             <meta-data
                 android:name="android.appwidget.oldName"
-                android:value="com.best.deskclock.AnalogAppWidgetMaterialYouProvider" />
+                android:value="com.best.deskclock.MaterialYouAnalogAppWidgetProvider" />
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/analog_appwidget_material_you" />
@@ -473,7 +473,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.MaterialYouDigitalAppWidgetProvider"
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider"
             android:exported="true"
             android:label="@string/material_you_digital_widget">
             <intent-filter>
@@ -494,7 +494,7 @@
         </receiver>
 
         <service
-            android:name="com.best.alarmclock.MaterialYouDigitalAppWidgetCityService"
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Vertical digital clock Material You -->
@@ -506,7 +506,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.MaterialYouVerticalDigitalAppWidgetProvider"
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider"
             android:exported="true"
             android:label="@string/material_you_vertical_digital_widget">
             <intent-filter>
@@ -533,7 +533,7 @@
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
-            android:name="com.best.alarmclock.MaterialYouNextAlarmAppWidgetProvider"
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider"
             android:exported="true"
             android:label="@string/material_you_next_alarm_widget">
             <intent-filter>

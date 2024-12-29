@@ -21,10 +21,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.color.MaterialColors;
 
 final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder>

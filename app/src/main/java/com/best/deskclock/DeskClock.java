@@ -10,9 +10,9 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
-import static com.best.deskclock.AnimatorUtils.getScaleAnimator;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -54,6 +54,7 @@ import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;

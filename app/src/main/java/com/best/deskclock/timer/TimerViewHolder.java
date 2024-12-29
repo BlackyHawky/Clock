@@ -7,16 +7,22 @@
 package com.best.deskclock.timer;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.Utils;
+
+import com.google.android.material.color.MaterialColors;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
@@ -83,9 +89,39 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         }
 
         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
-        view.findViewById(R.id.close).setOnClickListener(v -> {
-            DataModel.getDataModel().removeTimer(getTimer());
+
+        view.findViewById(R.id.delete_timer).setOnClickListener(v -> {
             Utils.setVibrationTime(context, 10);
+
+            final boolean isWarningDisplayedBeforeDeletingTimer =
+                    DataModel.getDataModel().isWarningDisplayedBeforeDeletingTimer();
+
+            if (isWarningDisplayedBeforeDeletingTimer) {
+                final Drawable drawable = AppCompatResources.getDrawable(context, R.drawable.ic_delete);
+                assert drawable != null;
+                drawable.setTint(MaterialColors.getColor(
+                        context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+                );
+                // Get the title of the timer if there is one; otherwise, get the total duration.
+                final String dialogMessage;
+                if (getTimer().getLabel().isEmpty()) {
+                    dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getTotalDuration());
+                } else {
+                    dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getLabel());
+                }
+
+                final AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setIcon(drawable)
+                        .setTitle(R.string.warning_dialog_title)
+                        .setMessage(dialogMessage)
+                        .setPositiveButton(android.R.string.yes, (dialog1, which) ->
+                                DataModel.getDataModel().removeTimer(getTimer()))
+                        .setNegativeButton(android.R.string.no, null)
+                        .create();
+                dialog.show();
+            } else {
+                DataModel.getDataModel().removeTimer(getTimer());
+            }
         });
     }
 

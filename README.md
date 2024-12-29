@@ -3,7 +3,8 @@
 Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 
 [<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)
-[<img src="/images/badge-f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
+[<img src="/images/badge_f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
+[<img src="/images/badge_izzy_on_droid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.best.deskclock/)
 
 ## Table of Contents
 
@@ -20,9 +21,8 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 # Features
 * Flip and shake action to dismiss/postpone alarm;
 * Turn off/postpone the alarm with the power button or volume buttons;
-* For Snapdragon phones only, the alarm is triggered when the phone is switched off;
+* For some Snapdragon devices only, the alarm is triggered when they are switched off;
   * Unfortunately, this feature may not work on some devices despite the presence of the _“com.qualcomm.qti.poweroffalarm”_ system app. See the discussion [here](https://github.com/BlackyHawky/Clock/issues/88).
-* Set alarms for a specific date;
 * Swipe to delete an alarm;
 * Duplicate alarms;
 * Customizable alarm title;
@@ -41,6 +41,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Backup and restore settings;
 * Material design;
 * Dynamic colors for Android 12+;
+* Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).
 
 ## Common Issues
 * Problem encountered with bedtime mode as this is an experimental feature;

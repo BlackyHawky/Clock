@@ -29,9 +29,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Objects;
 

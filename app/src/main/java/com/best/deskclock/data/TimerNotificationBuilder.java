@@ -10,8 +10,8 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.core.app.NotificationCompat.Action;
 import static androidx.core.app.NotificationCompat.Builder;
-import static com.best.deskclock.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
-import static com.best.deskclock.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.FIRING_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATION_CHANNEL_ID;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -27,14 +27,14 @@ import android.widget.RemoteViews;
 import androidx.annotation.DrawableRes;
 import androidx.core.app.NotificationCompat;
 
-import com.best.deskclock.AlarmUtils;
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.ExpiredTimersActivity;
 import com.best.deskclock.timer.TimerService;
+import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

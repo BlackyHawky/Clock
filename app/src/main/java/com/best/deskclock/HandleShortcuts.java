@@ -15,6 +15,7 @@ import android.os.Bundle;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.LogUtils;
 
 public class HandleShortcuts extends Activity {
 

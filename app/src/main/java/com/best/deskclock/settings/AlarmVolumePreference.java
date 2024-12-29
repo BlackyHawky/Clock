@@ -24,18 +24,17 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.RingtonePreviewKlaxon;
-import com.best.deskclock.data.DataModel;
 
 public class AlarmVolumePreference extends SeekBarPreference {
 
-    private static final long ALARM_PREVIEW_DURATION_MS = 5000;
-
+    private AlarmSettingsActivity mAlarmSettingsActivity;
     private SeekBar mSeekbar;
-    private boolean mPreviewPlaying;
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if (context instanceof AlarmSettingsActivity) {
+            mAlarmSettingsActivity = (AlarmSettingsActivity) context;
+        }
     }
 
     @Override
@@ -93,14 +92,9 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (!mPreviewPlaying) {
-                    // If we are not currently playing, start.
-                    RingtonePreviewKlaxon.start(seekBar.getContext(), DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
-                    mPreviewPlaying = true;
-                    seekBar.postDelayed(() -> {
-                        RingtonePreviewKlaxon.stop(seekBar.getContext());
-                        mPreviewPlaying = false;
-                    }, ALARM_PREVIEW_DURATION_MS);
+                if (mAlarmSettingsActivity != null) {
+                    // Start preview if not already running
+                    mAlarmSettingsActivity.startRingtonePreview();
                 }
             }
         });

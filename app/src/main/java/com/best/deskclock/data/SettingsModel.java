@@ -12,11 +12,11 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.utils.Utils;
 
 import java.util.TimeZone;
 
@@ -250,6 +250,10 @@ final class SettingsModel {
         return SettingsDAO.isTimerBackgroundTransparent(mPrefs);
     }
 
+    boolean isWarningDisplayedBeforeDeletingTimer() {
+        return SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs);
+    }
+
     VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
         return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
     }
@@ -288,10 +292,6 @@ final class SettingsModel {
 
     String getMaterialTimePickerStyle() {
         return SettingsDAO.getMaterialTimePickerStyle(mPrefs);
-    }
-
-    String getMaterialDatePickerStyle() {
-        return SettingsDAO.getMaterialDatePickerStyle(mPrefs);
     }
 
     ClockStyle getAlarmClockStyle() {
@@ -344,6 +344,10 @@ final class SettingsModel {
 
     public String getAlarmTitleFontSize() {
         return SettingsDAO.getAlarmTitleFontSize(mPrefs);
+    }
+
+    public boolean isRingtoneTitleDisplayed() {
+        return SettingsDAO.isRingtoneTitleDisplayed(mPrefs);
     }
 
     Uri getDefaultAlarmRingtoneUriFromSettings() {

@@ -17,11 +17,11 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.best.alarmclock.MaterialYouDigitalAppWidgetProvider;
+import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
 

@@ -20,11 +20,11 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.Utils;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;

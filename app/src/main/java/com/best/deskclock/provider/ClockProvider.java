@@ -28,7 +28,7 @@ import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.LogUtils;
+import com.best.deskclock.utils.LogUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -62,12 +62,6 @@ public class ClockProvider extends ContentProvider {
     static {
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns._ID,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns._ID);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.YEAR,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.YEAR);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MONTH,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.MONTH);
-        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.DAY,
-                ALARMS_TABLE_NAME + "." + AlarmsColumns.DAY);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.HOUR,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.HOUR);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.MINUTES,

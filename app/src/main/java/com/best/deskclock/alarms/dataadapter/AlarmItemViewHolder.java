@@ -11,7 +11,6 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMO
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -20,19 +19,17 @@ import android.widget.TextView;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.TextTime;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -158,26 +155,12 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         if (alarm.daysOfWeek.isRepeating()) {
             upcomingInstanceLabel.setVisibility(View.GONE);
         } else {
-            if (Alarm.isTomorrow(alarm, Calendar.getInstance()) && !alarm.isDateSpecified()) {
-                upcomingInstanceLabel.setText(context.getString(R.string.alarm_tomorrow));
-            } else if (alarm.isDateSpecified()) {
-                if (Alarm.isDateSpecifiedTomorrow(alarm.year, alarm.month, alarm.day)) {
-                    upcomingInstanceLabel.setText(context.getString(R.string.alarm_tomorrow));
-                } else {
-                    int year = alarm.year;
-                    int month = alarm.month;
-                    int dayOfMonth = alarm.day;
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(year, month, dayOfMonth);
-                    String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
-                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-                    String formattedDate = dateFormat.format(calendar.getTime());
-                    upcomingInstanceLabel.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
-                }
-            } else {
-                upcomingInstanceLabel.setText(context.getString(R.string.alarm_today));
-            }
+            final String labelText;
+            labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
+                    ? context.getString(R.string.alarm_tomorrow)
+                    : context.getString(R.string.alarm_today);
             upcomingInstanceLabel.setVisibility(View.VISIBLE);
+            upcomingInstanceLabel.setText(labelText);
             upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
         }
     }

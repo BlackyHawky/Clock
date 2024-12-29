@@ -1,0 +1,13 @@
+**Correzioni**
+- Corretto timer che continua ad andare se messo su meno di 5 secondi
+- Corretti colori widget di Material You che non seguivano il tema giorno/notte
+- Corrette impostazioni orologio non applicate bene su alcuni dispositivi.
+
+**Miglioramenti
+- Aggiunti 2 nuovi widget
+- Transizioni in dissolvenza disabilitate per impostazione predefinita
+
+- Per gli altri: https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+ **Nota:**
+A causa di modifiche ai widget, potresti doverli ricaricare

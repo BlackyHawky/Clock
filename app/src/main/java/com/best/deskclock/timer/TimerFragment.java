@@ -37,16 +37,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
 import java.util.List;

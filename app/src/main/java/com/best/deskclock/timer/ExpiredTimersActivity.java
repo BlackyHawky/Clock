@@ -30,12 +30,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
+import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.List;
 
@@ -227,9 +227,9 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             DataModel.getDataModel().addCustomTimeToTimer(timer12);
         });
 
-        // Add logic to hide the 'X' and reset button
-        final View closeButton = timerItem.findViewById(R.id.close);
-        closeButton.setVisibility(View.GONE);
+        // Add logic to hide the 'X' and reset buttons
+        final View deleteButton = timerItem.findViewById(R.id.delete_timer);
+        deleteButton.setVisibility(View.GONE);
         final View resetButton = timerItem.findViewById(R.id.reset);
         resetButton.setVisibility(View.GONE);
 

@@ -143,10 +143,6 @@ final class AlarmModel {
         return mSettingsModel.getMaterialTimePickerStyle();
     }
 
-    String getMaterialDatePickerStyle() {
-        return mSettingsModel.getMaterialDatePickerStyle();
-    }
-
     DataModel.ClockStyle getAlarmClockStyle() {
         return mSettingsModel.getAlarmClockStyle();
     }
@@ -197,6 +193,10 @@ final class AlarmModel {
 
     public String getAlarmTitleFontSize() {
         return mSettingsModel.getAlarmTitleFontSize();
+    }
+
+    public boolean isRingtoneTitleDisplayed() {
+        return mSettingsModel.isRingtoneTitleDisplayed();
     }
 
     /**

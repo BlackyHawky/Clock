@@ -17,10 +17,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
+import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.List;

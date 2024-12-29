@@ -15,9 +15,9 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
@@ -41,6 +41,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER =
             "key_transparent_background_for_expired_timer";
+    public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER =
+            "key_display_warning_before_deleting_timer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         SwitchPreferenceCompat mTimerShakeActionPref;
         SwitchPreferenceCompat mKeepTimerScreenOnPref;
         SwitchPreferenceCompat mTransparentBackgroundPref;
+        SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
             mKeepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
             mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
+            mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
 
             setupPreferences();
         }
@@ -125,7 +129,8 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
 
                 case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
                      KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_KEEP_TIMER_SCREEN_ON,
-                     KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER ->
+                     KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
+                     KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
                         Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -192,6 +197,11 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mTransparentBackgroundPref.setChecked(DataModel.getDataModel().isTimerBackgroundTransparent());
             mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
+
+            mDisplayWarningBeforeDeletingTimerPref.setChecked(
+                    DataModel.getDataModel().isWarningDisplayedBeforeDeletingTimer()
+            );
+            mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
         }
     }
 }

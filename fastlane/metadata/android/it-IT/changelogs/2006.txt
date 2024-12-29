@@ -1,0 +1,12 @@
+**Correzioni**
+ - Corretta visualizzazione widget digitali;
+ - Solo per i telefoni in modalità orizzontale, il titolo del timer può essere reinserito;
+
+**Miglioramenti**
+ - Migliorato avvio app;
+ - Disattiva o rimanda le sveglie scorrendo o toccando;
+ - Aggiunto selettore colori per salvaschermo e widget digitali;
+ - Lista completa su: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+ **Nota:**
+ A causa di una modifica alle impostazioni, bisogna reimpostare la modalità "tema scuro".

@@ -16,8 +16,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.color.MaterialColors;
 
 /**

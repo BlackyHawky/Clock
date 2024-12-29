@@ -11,11 +11,11 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static com.best.deskclock.Utils.enforceMainLooper;
-import static com.best.deskclock.Utils.enforceNotMainLooper;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.utils.Utils.enforceMainLooper;
+import static com.best.deskclock.utils.Utils.enforceNotMainLooper;
 
 import android.app.Service;
 import android.content.ActivityNotFoundException;
@@ -32,7 +32,6 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.best.deskclock.Predicate;
 import com.best.deskclock.R;
 import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.timer.TimerService;
@@ -625,6 +624,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
+     */
+    public boolean isWarningDisplayedBeforeDeletingTimer() {
+        enforceMainLooper();
+        return mTimerModel.isWarningDisplayedBeforeDeletingTimer();
+    }
+
+    /**
      * @return the uri of the default ringtone from the settings to play for all alarms when no user selection exists
      */
     public Uri getDefaultAlarmRingtoneUriFromSettings() {
@@ -740,13 +747,6 @@ public final class DataModel {
     }
 
     /**
-     * @return the date picker style.
-     */
-    public String getMaterialDatePickerStyle() {
-        return mAlarmModel.getMaterialDatePickerStyle();
-    }
-
-    /**
      * @return a value indicating whether analog or digital clocks are displayed on the alarm.
      */
     public ClockStyle getAlarmClockStyle() {
@@ -835,6 +835,14 @@ public final class DataModel {
      */
     public String getAlarmTitleFontSize() {
         return mAlarmModel.getAlarmTitleFontSize();
+    }
+
+    /**
+     * @return {@code true} if the ringtone title should be displayed on the lock screen when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public boolean isRingtoneTitleDisplayed() {
+        return mAlarmModel.isRingtoneTitleDisplayed();
     }
 
     /**

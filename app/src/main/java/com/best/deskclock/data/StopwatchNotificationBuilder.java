@@ -8,7 +8,7 @@ package com.best.deskclock.data;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
+import static com.best.deskclock.utils.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -25,11 +25,11 @@ import androidx.core.app.NotificationCompat.Action;
 import androidx.core.app.NotificationCompat.Builder;
 
 import com.best.deskclock.DeskClock;
-import com.best.deskclock.NotificationUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
+import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,11 @@
+**Correzioni**
+ - Corretto colore minuti timer per il francese;
+ - Corretto "Scuoti per rinviare" in Android 14+;
+
+**Miglioramenti**
+ - Aggiornato Readme per Weblate e traduzioni;
+ - Le prossime sveglie sono sempre mostrate, anche se disattivate;
+ - Timer ridotto quando fermato (sui telefoni in modo verticale);
+ - Avvio/pausa timer cliccando su tempo rimanente;
+ - Alcune traduzioni aggiornate;
+ - Schermate aggiornate: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

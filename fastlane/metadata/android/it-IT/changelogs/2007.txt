@@ -1,0 +1,10 @@
+**Correzioni**
+ - Correzione del riepilogo "Aumenta gradualmente il volume" per il timer
+
+**Miglioramenti
+ - Rimosse le autorizzazioni non necessarie;
+ - Migliorate le sveglie e il timer;
+ - Per vedere tutti i miglioramenti, visitare: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+ **Nota
+ A causa di una modifica del database, è necessario reinstallare l'applicazione.

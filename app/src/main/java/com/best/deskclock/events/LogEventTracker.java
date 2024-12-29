@@ -10,7 +10,7 @@ import android.content.Context;
 
 import androidx.annotation.StringRes;
 
-import com.best.deskclock.LogUtils;
+import com.best.deskclock.utils.LogUtils;
 
 public final class LogEventTracker implements EventTracker {
 

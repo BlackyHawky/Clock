@@ -29,11 +29,12 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.FabContainer;
-import com.best.deskclock.FormattedTextUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.Utils;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 

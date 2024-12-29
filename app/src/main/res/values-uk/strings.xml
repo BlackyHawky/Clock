@@ -667,4 +667,19 @@
     <string name="sort_timer_manually">Уручну (перетягуванням)</string>
     <string name="timer_buttons_action_summary">Працює лише на екрані блокування</string>
     <string name="timer_volume_buttons_action_title">Скидати використані таймери за допомогою кнопок гучності</string>
+    <string name="timer_power_button_action_title">Скидати використані таймери за допомогою кнопки живлення</string>
+    <string name="sw_settings_summary">Дії для кнопок гучності</string>
+    <string name="sw_start_pause_action">Почати / Призупинити</string>
+    <string name="sw_long_press_volume_up_action_title">Гучніше (тривале натискання)</string>
+    <string name="sw_volume_up_action_title">Гучніше</string>
+    <string name="sw_volume_down_action_title">Тихіше</string>
+    <string name="sw_long_press_volume_down_action_title">Тихіше (тривале натискання)</string>
+    <string name="black_accent_color">Чорний</string>
+    <string name="purple_accent_color">Фіолетовий</string>
+    <string name="yellow_accent_color">Жовтий</string>
+    <string name="day_accent_color_title">Акцентний колір для денного режиму</string>
+    <string name="warning_dialog_message">Ви дійсно хочете видалити таймер «%s»?</string>
+    <string name="display_warning_before_deleting_timer_title">Показувати попередження при видаленні таймера</string>
+    <string name="warning_dialog_title">Видалення таймера</string>
+    <string name="display_ringtone_title">Показувати назву мелодії сигналу</string>
 </resources>

@@ -1,0 +1,15 @@
+**Correzioni**
+- indicatore scheda
+- lancetta dei secondi nella scheda Orologio
+- errore salvaschermo se avviato da impostazioni dispositivo.
+
+**Miglioramenti**
+- Salvataggio e ripristino impostazioni
+- Ordinamento timer e nuove impostazioni
+- Colori accento separati per le modalità giorno e notte
+- Aggiornato colore accento notturno
+- Aggiornate traduzioni
+
+Altro su: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Nota: è necessario reimpostare l'impostazione "Promemoria notifiche"

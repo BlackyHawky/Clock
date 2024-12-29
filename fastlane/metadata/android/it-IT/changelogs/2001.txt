@@ -1,0 +1,40 @@
+**Correzioni:**
+* Corretta l'attivazione delle sveglie per Android 14;
+* Corrette le notifiche di cronometro e timer;
+* Corretta la chiusura forzata per l'ora di andare a dormire quando non è impostata alcuna sveglia o quando il dispositivo viene ruotato;
+* Correzione di alcuni malfunzionamenti per la modalità Riposo;
+* Corretto l'avvio dello screensaver per Android 13+;
+* Corretta la visualizzazione e l'aggiornamento del widget digitale per Android 12+;
+* Corretta l'impostazione del volume della sveglia nelle impostazioni;
+* Corretto il colore dello sfondo della barra di navigazione inferiore (i tablet sono stati i più impattati);
+
+**Miglioramenti
+* Implementazione del Material Design (interruttori, selezione dell'ora, icone arrotondate, sfondo delle schede...);
+* Aggiunta dei colori dinamici;
+* Aggiunta la modalità AMOLED per il tema scuro;
+* Aggiunta di una nuova gestione dei permessi;
+* Aggiunta di un'icona monocromatica;
+* Aggiunta di una barra degli strumenti collassabile;
+* Aggiunti widget analogici e digitali di Material You;
+* Aggiunta la modalità "Riposo" (da @Nilsu11);
+* Sostituzione delle icone con altre più arrotondate;
+* Quando l'applicazione viene lanciata per la prima volta, viene inclusa una presentazione delle caratteristiche principali e la possibilità di gestire i permessi;
+* Aggiunta la verifica che i permessi essenziali siano concessi all'avvio dell'applicazione per assicurarne il corretto funzionamento;
+* Consentita l'installazione della versione di debug insieme alla versione di rilascio;
+* Impostazione della suoneria predefinita per le sveglie nelle impostazioni;
+* Aggiunte opzioni di visualizzazione del salvaschermo;
+* Attivazione del salvaschermo con una pressione prolungata sull'orologio;
+* Riduzione dell'animazione del salvaschermo a 30 secondi;
+* I menù sono visualizzati da icone;
+* Aggiornato l'aspetto delle impostazioni;
+* Aggiunta la sezione "Informazioni" nelle impostazioni;
+* Animata l'icona dell'ora di andare a dormire;
+* Visualizza automaticamente la tastiera quando si modifica una sveglia;
+* Aggiunta un'icona di cancellazione e il testo "Elimina" quando si scorre per eliminare una sveglia;
+* Aggiunto un pulsante per duplicare una sveglia (ad eccezione della sveglia per andare a dormire, che è inutile);
+* La vibrazione non si attiva quando viene creato una sveglia e sulle sveglie create inizialmente;
+* Aumentata la durata della vibrazione quando si attiva una sveglia;
+* Consentita la visualizzazione dell'orologio analogico nella vista di attivazione della sveglia;
+* Aggiornato il codice relativo ai fragments per utilizzare AndroidX;
+* Aggiornate le intestazioni delle licenze;
+* Eliminati i file e il codice non necessari;

@@ -25,8 +25,9 @@
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
         <item quantity="one">1 min</item>
+        <item quantity="many"><xliff:g example="7" id="number">%d</xliff:g> minutos</item>
+        <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutos</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma desactivada"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
@@ -406,4 +407,8 @@
     <string name="next_alarm_widget">Próxima alarma</string>
     <string name="settings_permission_summary">Pulse aquí para mostrar la pagina de gestión de permisos.</string>
     <string name="label_default">Por defecto</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Cancelar alarma cuando el tono termine</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Descartar y Borrar</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarma apagada y borrada</string>
+    <string name="delete_occasional_alarm_after_use_title">Borrar alarma cuando apague</string>
 </resources>

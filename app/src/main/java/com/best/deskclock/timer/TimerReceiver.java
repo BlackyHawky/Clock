@@ -10,9 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.best.deskclock.LogUtils;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
+import com.best.deskclock.utils.LogUtils;
 
 /**
  * This broadcast receiver exists to handle timer expiry scheduled in 4.2.1 and prior. It must exist

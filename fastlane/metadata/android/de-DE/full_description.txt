@@ -1,26 +1,29 @@
-Uhr ist eine die Privatsphäre schützende Uhr, die auf AOSP basiert.
-Die erwendet nicht die Internet-Nerevhtigung, läuft also zu 100% lokal.
+"Clock" ist eine datenschutzbewusste Open-Source-Uhr, die auf AOSP basiert.
+Sie verwendet keine Internet-Berechtigung und ist daher zu 100% offline.
 
 Merkmale:
 <ul>
-  <li>Schüttle oder drehe das Gerät, um einen Alarm zu beenden oder zu schlummern;</li>
-  <li>Beende oder schlummere einen Alarm mit Einschalt- oder Lautstärketasten;</li>
-  <li>Auf Telefonen mit Snapdragon-SoC wird der Alarm auch aktiviert, wenn das Gerät ausgeschaltet ist;</li>
-  <li>Wische, um einen Alarm zu löschen;</li>
-  <li>Dupliziere Alarme;</li>
-  <li>Anpassbarer Titel für Alarme;</li>
-  <li>Anpassbarer Klingelton;</li>
+  <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms;</li>
+  <li>Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten;</li>
+  <li>Nur bei einigen Snapdragon-Geräten: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
+    <ul>
+      <li>Leider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>"com.qualcomm.qti.poweroffalarm"</i> vorhanden ist.</li>
+    </ul>
+  <li>Wischen, um einen Alarm zu beenden;</li>
+  <li>Möglichkeit, Alarme zu duplizieren;</li>
+  <li>Alarm-Titel erstellen und ändern;</li>
+  <li>Individuell anpassbare Signaltöne;</li>
   <li>Helles, dunkles oder System-Thema;</li>
-  <li>AMOLED Modus für dunklen Anzeigemodus;</li>
+  <li>AMOLED-Modus für dunkles Thema;</li>
   <li>Anpassbare Oberfläche;</li>
-  <li>Digitale oder analoge Uhr;</li>
-  <li>Auf Reisen Heimat-Zeitzone anzeigen;</li>
-  <li>Namen von Städten rund um die Welt anzeigen;</li>
-  <li>Countdown, Wecker und Schlafmodus <i>(experimentell)</i> verfügbar;</li>
-  <li>Möglichkeit, die Stoppuhr mit Adressbuch-Kontakten zu teilen;</li>
-  <li>Anpassbare Bildschirmschoner;</li>
+  <li>Digitaler oder analoger Uhrenstil;</li>
+  <li>Anzeige der Heimatzeit auf Reisen;</li>
+  <li>Anzeige der Uhrzeit von vielen Städten der Welt;</li>
+  <li>Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten;</li>
+  <li>Möglichkeit, die Stoppuhr-Zeiten mit Adressbuch-Kontakten zu teilen;</li>
+  <li>Anpassbarer Bildschirmschoner;</li>
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
-  <li>Material design;</li>
+  <li>Material You Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

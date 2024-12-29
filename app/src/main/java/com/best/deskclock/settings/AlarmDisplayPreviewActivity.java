@@ -6,6 +6,8 @@
 
 package com.best.deskclock.settings;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 
 import android.animation.Animator;
@@ -22,6 +24,10 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
@@ -36,14 +42,16 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.best.deskclock.AnalogClock;
-import com.best.deskclock.AnimatorUtils;
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CircleView;
 
 public class AlarmDisplayPreviewActivity extends AppCompatActivity
@@ -67,6 +75,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
     private TextView mAlertInfoView;
+    private TextView mRingtoneTitle;
     private ViewGroup mContentView;
     private ImageView mAlarmButton;
     private ImageView mSnoozeButton;
@@ -119,6 +128,12 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mSnoozeButton = mContentView.findViewById(R.id.snooze);
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
+        mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
+
+        boolean isRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
+        if (isRingtoneTitleDisplayed) {
+            displayRingtoneTitle();
+        }
 
         mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
                 mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
@@ -146,13 +161,13 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
         final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
-        Utils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
-        Utils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
+        ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
+        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
 
         titleView.setText(R.string.app_label);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
         titleView.setTextColor(mAlarmTitleColor);
-        Utils.setTimeFormat(digitalClock, false);
+        ClockUtils.setTimeFormat(digitalClock, false);
         digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
 
@@ -272,7 +287,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
                     // Animate back to the initial state.
                     AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
                 } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
-                    // User touched the alarm button, hint the alarm action.
+                    // The alarm action hint is displayed after the user touches the alarm button.
                     hintAlarmAction();
                 }
 
@@ -331,6 +346,20 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     }
 
     /**
+     * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
+     */
+    private void displayRingtoneTitle() {
+        final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
+        final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        assert musicIcon != null;
+        musicIcon.setTint(mAlarmTitleColor);
+        mRingtoneTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(musicIcon, null, null, null);
+        mRingtoneTitle.setText(ringtone.getTitle(this));
+        mRingtoneTitle.setTextColor(mAlarmTitleColor);
+    }
+
+    /**
      * Perform snooze animation.
      */
     private void snooze() {
@@ -382,8 +411,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             public void onAnimationStart(Animator animator) {
                 mHintView.setText(hintResId);
                 mHintView.setTextColor(mAlarmTitleColor);
-                if (mHintView.getVisibility() != View.VISIBLE) {
-                    mHintView.setVisibility(View.VISIBLE);
+                if (mHintView.getVisibility() != VISIBLE) {
+                    mRingtoneTitle.setVisibility(GONE);
+                    mHintView.setVisibility(VISIBLE);
 
                     ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
                 }

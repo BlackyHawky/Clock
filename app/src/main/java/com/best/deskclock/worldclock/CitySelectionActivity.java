@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.ArraySet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -34,7 +35,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuProvider;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -359,7 +359,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                             }
                             case UTC_OFFSET -> {
-                                holder.index.setText(Utils.getGMTHourOffset(timeZone, false));
+                                holder.index.setText(getGMTHourOffset(timeZone, false));
                                 holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                             }
                         }
@@ -428,7 +428,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                             case NAME -> sections.add(city.getIndexString());
                             case UTC_OFFSET -> {
                                 final TimeZone timezone = city.getTimeZone();
-                                sections.add(Utils.getGMTHourOffset(timezone, false));
+                                sections.add(getGMTHourOffset(timezone, false));
                             }
                         }
                         positions.add(position);
@@ -460,6 +460,24 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             }
 
             return mSectionHeaderPositions.length - 1;
+        }
+
+        /**
+         * Returns string denoting the timezone hour offset (e.g. GMT -8:00)
+         *
+         * @param useShortForm Whether to return a short form of the header that rounds to the
+         *                     nearest hour and excludes the "GMT" prefix
+         */
+        public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm) {
+            final int gmtOffset = timezone.getRawOffset();
+            final long hour = gmtOffset / DateUtils.HOUR_IN_MILLIS;
+            final long min = (Math.abs(gmtOffset) % DateUtils.HOUR_IN_MILLIS) / DateUtils.MINUTE_IN_MILLIS;
+
+            if (useShortForm) {
+                return String.format(Locale.ENGLISH, "%+d", hour);
+            } else {
+                return String.format(Locale.ENGLISH, "GMT %+d:%02d", hour, min);
+            }
         }
 
         /**

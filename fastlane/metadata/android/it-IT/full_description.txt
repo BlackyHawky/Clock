@@ -1,0 +1,26 @@
+Orologio open-source attento alla privacy, basato su AOSP.
+Non utilizza i permessi internet e quindi è al 100% offline. 
+
+Caratteristiche:
+<ul>
+  <li>Ruota o scuoti per disattivare/posticipare la sveglia;</li>
+  <li>Spegni/posticipa la sveglia con il tasto di accensione o i tasti del volume;</li>
+  <li>Solo per i telefoni Snapdragon, la sveglia si attiva anche quando il telefono è spento;</li>
+  <li>Scorri per eliminare una sveglia;</li>
+  <li>Duplicazione delle sveglie;</li>
+  <li>Titolo sveglia personalizzabile;</li>
+  <li>Suoneria personalizzabile;</li>
+  <li>Tema chiaro, scuro o come da sistema;</li>
+  <li>Modalità AMOLED per il tema scuro;</li>
+  <li>Interfaccia personalizzabile;</li>
+  <li>Orologio in stile analogico o digitale;</li>
+  <li>Mostra l'orario di casa mentre viaggi;</li>
+  <li>Mostra l'orario in varie città del mondo;</li>
+  <li>Timer, cronometro e orario di riposo <i>(sperimentale)</i> inclusi;</li>
+  <li>Possibilità di condividere il cronometro con i propri contatti;</li>
+  <li>Salvaschermo personalizzabile;</li>
+  <li>Widget Moderni;</li>
+  <li>Widget personalizzabile;</li>
+  <li>Material design;</li>
+  <li>Colori dinamici per Android 12+;</li>
+</ul>

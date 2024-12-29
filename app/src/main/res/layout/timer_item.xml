@@ -31,15 +31,15 @@
         app:drawableStartCompat="@drawable/ic_label"
         app:drawableTint="?colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/close"
+        app:layout_constraintEnd_toStartOf="@id/delete_timer"
         app:layout_constraintTop_toTopOf="parent"
         tools:hint="@string/add_label" />
 
     <ImageButton
-        android:id="@+id/close"
+        android:id="@+id/delete_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_close"
+        android:src="@drawable/ic_delete"
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/timer_delete"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@id/timer_label"
         app:layout_constraintBottom_toBottomOf="@id/timer_label"/>
 
-    <com.best.deskclock.CircleButtonsLayout
+    <com.best.deskclock.timer.CircleButtonsLayout
         android:id="@+id/circle_container"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.best.deskclock.CircleButtonsLayout>
+    </com.best.deskclock.timer.CircleButtonsLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_total_duration"

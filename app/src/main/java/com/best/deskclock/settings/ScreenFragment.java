@@ -20,8 +20,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import com.best.deskclock.R;
-import com.best.deskclock.Utils;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Objects;
 
