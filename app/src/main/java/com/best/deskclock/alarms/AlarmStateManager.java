@@ -209,6 +209,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (alarm.deleteAfterUse) {
                 LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
+                Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted), Toast.LENGTH_LONG).show();
             } else {
                 LogUtils.i("Disabling parent alarm: " + alarm.id);
                 alarm.enabled = false;
@@ -419,19 +420,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
-        Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-        if (alarm == null) {
-            LogUtils.e("Parent has been deleted with instance: " + instance);
-            return;
-        }
-
-        // If the "Delete alarm once dismissed" button is ticked in the expanded alarm view, just delete the alarm and nothing else.
-        if (alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()) {
-            Alarm.deleteAlarm(context.getContentResolver(), alarm.id);
-            Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted), Toast.LENGTH_LONG).show();
-            return;
-        }
-
         // If alarm silence has been set to "At the end of the ringtone",
         // we don't want it to be seen as missed but snoozed.
         // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
@@ -440,7 +428,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // However, the alarm must be repeatable and the alarm activation button must remain enabled.
         // This is also true if no day of the week is selected.
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
-        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds || !alarm.daysOfWeek.isRepeating()) {
+        if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
             setSnoozeState(context, instance, true);
             return;
         }
@@ -711,7 +699,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 // remove it and schedule the new appropriate instance.
                 AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
             } else {
-                registerInstance(context, instance, false /* updateNextAlarm */);
+                registerInstance(context, instance, false);
             }
         }
 
