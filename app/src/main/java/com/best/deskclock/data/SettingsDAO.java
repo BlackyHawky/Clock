@@ -44,6 +44,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_AUTO_SILENCE
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
@@ -752,6 +753,15 @@ final class SettingsDAO {
     static boolean areAlarmVibrationsEnabledByDefault(SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return pref.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false);
+    }
+
+    /**
+     * @return {@code true} if vibrations are enabled to indicate whether the alarm is snoozed or dismissed.
+     * {@code false} otherwise.
+     */
+    static boolean areSnoozedOrDismissedAlarmVibrationsEnabled(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, false);
     }
 
     /**

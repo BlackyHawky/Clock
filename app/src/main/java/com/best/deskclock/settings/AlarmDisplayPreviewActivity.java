@@ -18,6 +18,7 @@ import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -28,10 +29,12 @@ import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +43,6 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
@@ -86,12 +88,17 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private ValueAnimator mDismissAnimator;
     private ValueAnimator mPulseAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
+    private Vibrator mVibrator;
+    private boolean mAreSnoozedOrDismissedAlarmVibrationsEnabled;
     private boolean mIsFadeTransitionsEnabled;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mAreSnoozedOrDismissedAlarmVibrationsEnabled = DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (!Utils.isLandscape(getApplicationContext())) {
@@ -205,20 +212,6 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         super.onResume();
 
         resetAnimations();
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(@NonNull KeyEvent keyEvent) {
-        final int keyCode = keyEvent.getKeyCode();
-        switch (keyCode) {
-            // Volume keys and camera keys dismiss the alarm.
-            case KeyEvent.KEYCODE_VOLUME_UP:
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-            case KeyEvent.KEYCODE_VOLUME_MUTE:
-            case KeyEvent.KEYCODE_HEADSETHOOK:
-            case KeyEvent.KEYCODE_CAMERA:
-        }
-        return super.dispatchKeyEvent(keyEvent);
     }
 
     @Override
@@ -363,6 +356,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
      * Perform snooze animation.
      */
     private void snooze() {
+        if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
+            performDoubleVibration();
+        }
         setAnimatedFractions(1.0f, 0.0f);
 
         final String infoText = getResources().getQuantityString(
@@ -374,8 +370,35 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
      * Perform dismiss animation.
      */
     private void dismiss() {
+        if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
+            performSingleVibration();
+        }
         setAnimatedFractions(0.0f, 1.0f);
         getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null).start();
+    }
+
+    /**
+     * Perform single vibration if alarm is dismissed.
+     */
+    private void performSingleVibration() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mVibrator.vibrate(VibrationEffect.createWaveform(
+                    new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            mVibrator.vibrate(new long[]{700, 500}, -1);
+        }
+    }
+
+    /**
+     * Perform double vibration if alarm is snoozed.
+     */
+    private void performDoubleVibration() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mVibrator.vibrate(VibrationEffect.createWaveform(
+                    new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
+        }
     }
 
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {

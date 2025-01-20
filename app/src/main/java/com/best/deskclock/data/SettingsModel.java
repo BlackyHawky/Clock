@@ -286,6 +286,10 @@ final class SettingsModel {
         return SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs);
     }
 
+    boolean areSnoozedOrDismissedAlarmVibrationsEnabled() {
+        return SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
+    }
+
     boolean isOccasionalAlarmDeletedByDefault() {
         return SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
     }

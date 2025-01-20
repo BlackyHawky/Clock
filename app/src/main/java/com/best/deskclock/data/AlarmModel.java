@@ -135,6 +135,10 @@ final class AlarmModel {
         return mSettingsModel.areAlarmVibrationsEnabledByDefault();
     }
 
+    boolean areSnoozedOrDismissedAlarmVibrationsEnabled() {
+        return mSettingsModel.areSnoozedOrDismissedAlarmVibrationsEnabled();
+    }
+
     boolean isOccasionalAlarmDeletedByDefault() {
         return mSettingsModel.isOccasionalAlarmDeletedByDefault();
     }

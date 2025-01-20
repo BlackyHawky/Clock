@@ -325,6 +325,10 @@
     <string name="alarm_notification_reminder_12_hours">12 hours before</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Enable vibrations when alarm is snoozed or dismissed</string>
+    <!-- Setting summary about vibrations when alarm is snoozed or dismissed -->
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
     <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
     <!-- Setting summary about the button for deleting single alarms in the expanded alarm view -->

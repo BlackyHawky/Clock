@@ -46,8 +46,7 @@ import java.util.Objects;
  * be activated. If a major time change has occurred (ie. TIMEZONE_CHANGE, TIMESET_CHANGE),
  * then you must also re-register instances to fix their states.
  * <p>
- * Please see {@link #registerInstance) for special transitions when major time changes
- * occur.
+ * Please see {@link #registerInstance) for special transitions when major time changes occur.
  * <p>
  * Following states:
  * <p>
@@ -366,20 +365,27 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setSnoozeState(final Context context, AlarmInstance instance, boolean showToast) {
-        // Stop alarm if this instance is firing it
-        AlarmService.stopAlarm(context, instance);
-
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         Calendar newAlarmTime = Calendar.getInstance();
         // If snooze duration has been set to "None" or if "Enable alarm snooze actions"
         // is not enabled in the expanded alarm view, simply dismiss the alarm.
-        // Otherwise, calculate the new snooze alarm time.
         if (snoozeMinutes == -1 || !instance.mAlarmSnoozeActions) {
             deleteInstanceAndUpdateParent(context, instance);
             return;
-        } else {
-            newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
         }
+
+        final boolean areSnoozedOrDismissedAlarmVibrationsEnabled =
+                DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
+        // Stop alarm if this instance is firing it; a double vibration will be performed if enabled in settings
+        // to indicate that the alarm is correctly snoozed.
+        if (areSnoozedOrDismissedAlarmVibrationsEnabled) {
+            AlarmService.stopAlarmWithDoubleVibration(context, instance);
+        } else {
+            AlarmService.stopAlarm(context, instance);
+        }
+
+        // Calculate the new snooze alarm time
+        newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
 
         // Update alarm state and new alarm time in db.
         LogUtils.i("Setting snoozed state to instance " + instance.mId + " for "
@@ -417,21 +423,21 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void setMissedState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting missed state to instance " + instance.mId);
-        // Stop alarm if this instance is firing it
-        AlarmService.stopAlarm(context, instance);
 
         // If alarm silence has been set to "At the end of the ringtone",
         // we don't want it to be seen as missed but snoozed.
         // Indeed, we can assume that it's the user's wish to listen to the ringtone until the end
         // and nothing else; so there's no need to tell him that the alarm has been missed.
         // See https://github.com/BlackyHawky/Clock/issues/40
-        // However, the alarm must be repeatable and the alarm activation button must remain enabled.
-        // This is also true if no day of the week is selected.
+        // However, the alarm must be repeatable.
         final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
         if (timeoutMinutes == -2 || instance.mDismissAlarmWhenRingtoneEnds) {
             setSnoozeState(context, instance, true);
             return;
         }
+
+        // Stop alarm if this instance is firing it
+        AlarmService.stopAlarm(context, instance);
 
         // Check parent if it needs to reschedule, disable or delete itself
         if (instance.mAlarmId != null) {
@@ -462,7 +468,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void setPreDismissState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting predismissed state to instance " + instance.mId);
 
-        // Update alarm in db
+        final boolean areSnoozedOrDismissedAlarmVibrationsEnabled =
+                DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
+        // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
+        // to indicate that the alarm is correctly dismissed.
+        if (areSnoozedOrDismissedAlarmVibrationsEnabled) {
+            AlarmService.stopAlarmWithSingleVibration(context, instance);
+        }
+
+        // Update alarm in database
         final ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.PREDISMISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
@@ -502,6 +516,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void deleteInstanceAndUpdateParent(Context context, AlarmInstance instance) {
         LogUtils.i("Deleting instance " + instance.mId + " and updating parent alarm.");
 
+        final boolean areSnoozedOrDismissedAlarmVibrationsEnabled =
+                DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
+        // Stop alarm if this instance is firing it; a single vibration will be performed if enabled in settings
+        // to indicate that the alarm is correctly dismissed.
+        if (areSnoozedOrDismissedAlarmVibrationsEnabled) {
+            AlarmService.stopAlarmWithSingleVibration(context, instance);
+        } else {
+            // Stop alarm if this instance is firing it
+            AlarmService.stopAlarm(context, instance);
+        }
+
         // Remove all other timers and notifications associated to it
         unregisterInstance(context, instance);
 
@@ -526,8 +551,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void unregisterInstance(Context context, AlarmInstance instance) {
         LogUtils.i("Unregistering instance " + instance.mId);
-        // Stop alarm if this instance is firing it
-        AlarmService.stopAlarm(context, instance);
         AlarmNotifications.clearNotification(context, instance);
         cancelScheduledInstanceStateChange(context, instance);
         setDismissState(context, instance);
@@ -584,8 +607,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (currentTime.before(alarmTime)) {
                 if (instance.mAlarmId == null) {
                     LogUtils.i("Cannot restore missed instance for one-time alarm");
-                    // This instance parent got deleted (ie. deleteAfterUse), so
-                    // we should not re-activate it.-
+                    // This instance parent got deleted (ie. deleteAfterUse), so we should not re-activate it.
                     deleteInstanceAndUpdateParent(context, instance);
                     return;
                 }
@@ -614,8 +636,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             deleteInstanceAndUpdateParent(context, instance);
         } else if (currentTime.after(alarmTime)) {
             // There is a chance that the TIME_SET occurred right when the alarm should go off, so
-            // we need to add a check to see if we should fire the alarm instead of marking it
-            // missed.
+            // we need to add a check to see if we should fire the alarm instead of marking it missed.
             Calendar alarmBuffer = Calendar.getInstance();
             alarmBuffer.setTime(alarmTime.getTime());
             alarmBuffer.add(Calendar.SECOND, ALARM_FIRE_BUFFER);
@@ -671,9 +692,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final ContentResolver contentResolver = context.getContentResolver();
         final Calendar currentTime = getCurrentTime();
 
-        // Sort the instances in reverse chronological order so that later instances are fixed or
-        // deleted before re-scheduling prior instances (which may re-create or update the later
-        // instances).
+        // Sort the instances in reverse chronological order so that later instances are fixed or deleted
+        // before re-scheduling prior instances (which may re-create or update the later instances).
         final List<AlarmInstance> instances = AlarmInstance.getInstances(contentResolver, null);
         Collections.sort(instances, (lhs, rhs) -> rhs.getAlarmTime().compareTo(lhs.getAlarmTime()));
 
@@ -771,8 +791,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
             AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(), AlarmInstance.getId(uri));
 
             if (instance == null) {
-                LogUtils.e("Null alarminstance for SHOW_AND_DISMISS");
-                // dismiss the notification
+                LogUtils.e("Null AlarmInstance for SHOW_AND_DISMISS");
+                // Dismiss the notification
                 final int id = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
                 if (id != -1) {
                     NotificationManagerCompat.from(context).cancel(id);

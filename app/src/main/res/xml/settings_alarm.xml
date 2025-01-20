@@ -149,6 +149,15 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
+            android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_delete_occasional_alarm_by_default"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"

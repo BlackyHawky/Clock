@@ -49,6 +49,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
+    public static final String KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = "key_enable_snoozed_or_dismissed_alarm_vibrations";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
@@ -151,6 +152,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         ListPreference mWeekStartPref;
         ListPreference mAlarmNotificationReminderTimePref;
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
+        SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
         SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
         ListPreference mMaterialTimePickerStylePref;
         Preference mAlarmDisplayCustomizationPref;
@@ -173,6 +175,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mWeekStartPref = findPreference(KEY_WEEK_START);
             mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
             mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
+            mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
             mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
             mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
             mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
@@ -199,7 +202,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 }
 
                 case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
-                     KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
+                     KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT,
+                     KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
                         Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
@@ -241,9 +245,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupPreferences() {
-            final boolean hasVibrator = ((Vibrator) mEnableAlarmVibrationsByDefaultPref.getContext()
-                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
+            mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(hasVibrator);
 
             SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
             if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
@@ -296,6 +300,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mEnableAlarmVibrationsByDefaultPref.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
             mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
+
+            mEnableSnoozedOrDismissedAlarmVibrationsPref.setChecked(DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled());
+            mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
             mDeleteOccasionalAlarmByDefaultPref.setChecked(DataModel.getDataModel().isOccasionalAlarmDeletedByDefault());
             mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);

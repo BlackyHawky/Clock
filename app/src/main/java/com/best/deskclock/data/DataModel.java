@@ -733,6 +733,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if vibrations are enabled to indicate whether the alarm is snoozed or dismissed.
+     * {@code false} otherwise.
+     */
+    public boolean areSnoozedOrDismissedAlarmVibrationsEnabled() {
+        return mAlarmModel.areSnoozedOrDismissedAlarmVibrationsEnabled();
+    }
+
+    /**
      * @return {@code true} if occasional alarm should be deleted by default. {@code false} otherwise.
      */
     public boolean isOccasionalAlarmDeletedByDefault() {
