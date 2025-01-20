@@ -49,13 +49,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"Noch"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Noch"</string>
     <string name="alarm_confirmation_toast_1">Alarm in weniger als einer Minute</string>
-    <string name="alarm_confirmation_toast_2">Alarm in <xliff:g id="DAYS">%1$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_3">Alarm in <xliff:g id="HOURS">%2$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_4">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_5">Alarm in <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_6">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_7">Alarm in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_8">Alarm in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_2">Alarm in <xliff:g id="DAYS">%1$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_3">Alarm in <xliff:g id="HOURS">%2$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_4">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_5">Alarm in <xliff:g id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_6">Alarm in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_7">Alarm in <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_8">Alarm in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g></string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Tagen</item>
         <item quantity="one">1 Tag</item>
@@ -205,7 +205,7 @@
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
     <skip/>
-    <string name="jocular_content_message_1">"Du bist teuflisch schnell."</string>
+    <string name="jocular_content_message_1">Du bist teuflisch schnell!</string>
     <string name="jocular_content_message_2">"Ernte die Früchte deiner Arbeit!"</string>
     <string name="jocular_content_message_3">"Du bist ja schneller als ein Roboter!"</string>
     <string name="jocular_content_message_4">"Puh!"</string>
@@ -213,7 +213,7 @@
     <string name="jocular_content_message_6">"Wahnsinnsgeschwindigkeit"</string>
     <string name="jocular_content_message_7">"Let\'s do the time warp again!"</string>
     <string name="jocular_content_message_8">Just a jump to the left!</string>
-    <string name="jocular_content_message_9">"Du hast es ganz schön eilig."</string>
+    <string name="jocular_content_message_9">Du hast es ganz schön eilig!</string>
     <string name="jocular_content_message_10">"Photonengeschwindigkeit"</string>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Städte"</string>
@@ -408,7 +408,7 @@
     <string name="font_category_title">Schrift</string>
     <string name="ringtone_category_title">Signalton</string>
     <string name="interface_customization_settings">Aussehen</string>
-    <string name="interface_customization_summary">Einstellen des Stils und der in der App verwendeten Farben</string>
+    <string name="interface_customization_summary">Einstellen des Stils und der in der App verwendeten Farben und Effekte</string>
     <string name="title_accent_color">Akzentfarbe</string>
     <string name="display_card_background_title">Hintergründe anzeigen</string>
     <string name="display_background_border_title">Rahmen anzeigen</string>
@@ -418,15 +418,15 @@
     <string name="timer_label_box_title">Timer-Name</string>
     <string name="timer_button_time_box_title">Minuten, die dem Timer hinzugefügt werden</string>
     <string name="timer_add_custom_time">+ %s</string>
-    <string name="whats_new_title">Was ist neu</string>
-    <string name="features_title">Haupteigenschaften</string>
+    <string name="whats_new_title">Was ist neu?</string>
+    <string name="features_title">Hauptmerkmale</string>
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="license">Open-Source-Lizenz</string>
     <string name="dialog_close">Schließen</string>
     <string name="description_direction_left_for_non_repeatable_alarm">Zum Ausschalten nach links wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Zum Ausschalten nach links oder rechts wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Ausschalten links oder rechts tippen</string>
-    <string name="timer_settings_summary">Standardsignalton, -lautstärke und Timersortierung festlegen</string>
+    <string name="timer_settings_summary">Standardsignalton, -lautstärke und Timer-Sortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
@@ -447,10 +447,10 @@
     <string name="new_bedtime_alarm">Weckalarm erstellt</string>
     <string name="sleeping_time">Zeit zum Schlafen: %1$s</string>
     <string name="no_bedtime_alarm">Keine Bettzeit aktiviert</string>
-    <string name="first_launch_main_feature_title">HAUPTEIGENSCHAFTEN</string>
+    <string name="first_launch_main_feature_title">HAUPTMERKMALE</string>
     <string name="bedtime_notification_action_turn_off">Ausschalten</string>
     <string name="first_launch_main_feature_link">… und vieles mehr!</string>
-    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;VOLLBILD-BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
+    <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;VOLLBILD-&amp;#8203;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Beenden</string>
     <string name="digital_widget_clock_custom_color_title">Benutzerdefinierte Farbe der Hauptuhr</string>
     <string name="digital_widget_date_default_color_title">Standardfarbe für Datum verwenden</string>
@@ -482,8 +482,8 @@
     <string name="actions_category_title">Aktionen</string>
     <string name="screensaver_date_color_title">Farbe des Datums</string>
     <string name="screensaver_italic_next_alarm_title">Nächster Alarm <i>kursiv</i></string>
-    <string name="FSN_permission_title">VOLLBILD-BENACHRICHTIGUNGEN AKTIVIEREN</string>
-    <string name="screensaver_settings_summary">Einstellen von Stil, Farbe und Schriftart des Bildschirmschoners</string>
+    <string name="FSN_permission_title">VOLLBILD-​BENACHRICHTIGUNGEN AKTIVIEREN</string>
+    <string name="screensaver_settings_summary">Einstellen von Stil, Farben und Schriftarten des Bildschirmschoners</string>
     <string name="digital_widget_city_clock_default_color_title">Standardfarbe für Uhr einer Stadt verwenden</string>
     <string name="digital_widget_city_name_default_color_title">Standardfarbe für Stadtnamen verwenden</string>
     <string name="digital_widget_city_name_custom_color_title">Benutzerdefinierte Farbe des Stadtnamens</string>
@@ -520,13 +520,13 @@
     <string name="background_color_title">Hintergrundfarbe</string>
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
-    <string name="FSN_dialog_title">Vollbild-Benachrichtigungen</string>
+    <string name="FSN_dialog_title">Vollbild-​Benachrichtigungen</string>
     <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>
     <string name="bedtime_notification_resume">Fortsetzung am <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Verschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="bedtime_notification_until">bis <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
-    <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-Telefonen: Der Alarm wird auch ausgelöst, wenn das Telefon ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Klingeltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit in vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Einstellungen sichern und wiederherstellen; \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
+    <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-​Smartphones: Der Alarm wird auch ausgelöst, wenn das Gerät ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Signaltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit von vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-​Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-​Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Einstellungen sichern und wiederherstellen; \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
     <string name="bedtime_reminder_notification">Erinnerung</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
     <string name="material_you_vertical_digital_widget">Vertikale \'Material You\' Digitaluhr</string>
@@ -554,11 +554,11 @@
     <string name="next_alarm_widget_text">Nächster Alarm</string>
     <string name="next_alarm_widget_title_no_alarm">Kein anstehender Alarm</string>
     <string name="license_dialog_message">Lesen Sie die Lizenz: \n \n%s</string>
-    <string name="contributors_dialog_message">Besuchen Sie %1$s\'s GitHub Seite: \n \n%2$s</string>
+    <string name="contributors_dialog_message">Besuchen Sie %1$s\'s GitHub-Seite: \n \n%2$s</string>
     <string name="digital_widget_default_minutes_color_title">Standardfarbe für Minuten verwenden</string>
     <string name="digital_widget_custom_minutes_color_title">Benutzerdefinierte Farbe der Minuten</string>
     <string name="widgets_settings_summary">Stil, Farben und Schriftgröße für Widgets festlegen</string>
-    <string name="next_alarm_widget_custom_title_color">Benutzerdefinierte Farbe des \\\"Nächster Alarm\\\"- und \\\"Kein anstehender Alarm\\\"-Titels</string>
+    <string name="next_alarm_widget_custom_title_color">Benutzerdefinierte Farbe des \"Nächster Alarm\"- und \"Kein anstehender Alarm\"-Titels</string>
     <string name="digital_widget_custom_hours_color_title">Benutzerdefinierte Farbe der Stunden</string>
     <string name="next_alarm_widget_default_title_color">Standardfarbe für die Titel \"Nächster Alarm\" und \"Kein anstehender Alarm\" verwenden</string>
     <string name="next_alarm_widget_custom_alarm_title_color">Benutzerdefinierte Farbe des Alarm-Namens</string>

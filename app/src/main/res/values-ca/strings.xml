@@ -8,36 +8,37 @@
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
     <string name="delete" msgid="5732434972457000541">"Suprimeix"</string>
-    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"So d\'alarma predeterminat"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">So d\'alarma per defecte</string>
     <string name="alarm_sound" msgid="8754499591391638405">"So de l\'alarma"</string>
     <string name="timer_sound" msgid="896163086604894735">"So del temporitzador"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Afegeix-ne un"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Suprimeix"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"A partir d\'ara, les alarmes i els temporitzadors que feien servir aquest so faran servir el predeterminat."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Els teus sons"</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">Les alarmes i temporitzadors que utilitzaven aquest so, ara faran servir el predeterminat.</string>
+    <string name="your_sounds" msgid="1672779351352629681">Sons personalitzats</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sons del dispositiu"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"No es pot accedir al contingut de so."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporitzador finalitzat"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demà"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Avui"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ignora"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Descarta</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perduda"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Posposada"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">Ajornada</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
         <item quantity="one">1 min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma apagada"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posposa"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">Ajorna</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other">S\'ha posposat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
-        <item quantity="one">S\'ha posposat 1 minut.</item>
+        <item quantity="one">S\'ha ajornat 1 minut.</item>
+        <item quantity="many"/>
+        <item quantity="other">S\'ha ajornat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Es posposarà fins a les <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Pròxima alarma"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"L\'alarma desatesa s\'ha suprimit"</string>
-    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Queda menys d\'un minut"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">S\'ajorna fins a les <xliff:g id="TIME">%s</xliff:g></string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">Propera alarma</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">S\'ha suprimit l\'alarma desatesa</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">Resta menys d\'un minut</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Temps restant: <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
@@ -139,7 +140,7 @@
     <string name="snooze_duration_28_minutes">28 minuts</string>
     <string name="snooze_duration_29_minutes">29 minuts</string>
     <string name="snooze_duration_30_minutes">30 minuts</string>
-    <string name="week_start_title" msgid="4268917518596832096">"La setmana comença"</string>
+    <string name="week_start_title" msgid="4268917518596832096">La setmana comença el</string>
     <string name="week_start_saturday">Dissabte</string>
     <string name="week_start_sunday">Diumenge</string>
     <string name="week_start_monday">Dilluns</string>
@@ -147,13 +148,13 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silenci"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Desconegut"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"S\'ha silenciat el volum de l\'alarma"</string>
-    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Deixa de silenciar"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"El so d\'alarma predeterminat està en silenci"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">No silenciïs</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">El so per defecte de l\'alarma està silenciat</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Canvia"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"El dispositiu està configurat en silenci total"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botons de volum"</string>
-    <string name="button_action_snooze">Posposa</string>
-    <string name="button_action_dismiss">Ignora</string>
+    <string name="button_action_snooze">Ajorna</string>
+    <string name="button_action_dismiss">Descarta</string>
     <string name="button_action_control_volume">Controla el volum</string>
     <string name="button_action_nothing">Res</string>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
@@ -381,4 +382,94 @@
     <string name="alarm_upcoming_channel">Properes alarmes</string>
     <string name="stopwatch_channel">Cronòmetre</string>
     <string name="timer_channel">Temporitzador</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Descarta i suprimeix</string>
+    <string name="label_default">Per defecte</string>
+    <string name="duplicate">Duplica</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Atura en finalitzar el to d\'alarma</string>
+    <string name="enable_alarm_snooze_actions_label">Habilita l\'ajornament de l\'alarma</string>
+    <string name="alarm_label_box_title">Etiqueta d\'alarma</string>
+    <string name="delete_occasional_alarm_after_use_title">Suprimeix l\'alarma en aturar-la</string>
+    <string name="selected">Seleccionat</string>
+    <string name="more_options">Més opcions</string>
+    <string name="alarm_inactive">Desactivada</string>
+    <string name="alarm_alert_off_and_deleted_text">Alarma apagada i suprimida</string>
+    <string name="settings_permission_message">No s\'han autoritzat un o més permisos essencials. Això pot donar un comportament erroni.</string>
+    <string name="style_category_title">Aparença</string>
+    <string name="system_theme">Sistema</string>
+    <string name="light_theme">Clar</string>
+    <string name="dark_theme">Fosc</string>
+    <string name="blue_gray_accent_color">Blau cendra</string>
+    <string name="green_accent_color">Verd</string>
+    <string name="indigo_accent_color">Indi</string>
+    <string name="orange_accent_color">Taronja</string>
+    <string name="brown_accent_color">Marró</string>
+    <string name="purple_accent_color">Porpra</string>
+    <string name="day_accent_color_title">Color destacat del mode diürn</string>
+    <string name="analog_widget_material_you">Rellotge analògic Material You</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="title_dark_theme_mode">Tema fosc</string>
+    <string name="font_category_title">Font</string>
+    <string name="miscellaneous_category_title">Miscel·lània</string>
+    <string name="ringtone_category_title">To de trucada</string>
+    <string name="actions_category_title">Accions</string>
+    <string name="interface_customization_settings">Interfície</string>
+    <string name="interface_customization_summary">Trieu l\'aparença i color per a l\'aplicació</string>
+    <string name="title_theme">Tema</string>
+    <string name="title_accent_color">Color destacat</string>
+    <string name="vertical_digital_widget">Rellotge digital vertical</string>
+    <string name="material_you_digital_widget">Rellotge digital Material You</string>
+    <string name="settings_permission_summary">Toqueu aquí per a l\'administració de permisos.</string>
+    <string name="styles_and_colors_category_title">Aparença i colors</string>
+    <string name="standard_category_title">Estàndard</string>
+    <string name="occasional_alarm_alert_predismiss_title">Propera alarma ocasional</string>
+    <string name="material_you_next_alarm_widget">Propera alarma Material You</string>
+    <string name="next_alarm_widget">Propera alarma</string>
+    <string name="material_you_vertical_digital_widget">Rellotge digital Material You</string>
+    <string name="black_accent_color">Negre</string>
+    <string name="yellow_accent_color">Groc</string>
+    <string name="auto_night_accent_color_title">Aplica el color destacat al mode nocturn</string>
+    <string name="night_accent_color_title">Color destacat del mode nocturn</string>
+    <string name="pink_accent_color">Rosa</string>
+    <string name="red_accent_color">Vermell</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="alarm_notification_reminder_6_hours">6 hores abans</string>
+    <string name="alarm_notification_reminder_8_hours">8 hores abans</string>
+    <string name="alarm_notification_reminder_10_hours">10 hores abans</string>
+    <string name="alarm_notification_reminder_12_hours">12 hores abans</string>
+    <string name="snooze_duration_none">Mai</string>
+    <string name="swipe_action_title">Llisca per a descartar o ajornar les alarmes</string>
+    <string name="add_label">Afegeix una etiqueta</string>
+    <string name="alarm_title_font_size">Mida de la font del títol de l\'alarma</string>
+    <string name="alarm_clock_font_size">Mida de la font del rellotge d\'alarma</string>
+    <string name="display_ringtone_title">Mostra el nom del so</string>
+    <string name="auto_silence_5_seconds">5 segons</string>
+    <string name="material_time_picker_style_title">Estil del selector horari</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">En finalitzar el so d\'alarma</string>
+    <string name="display_card_background_title">Mostra el fons</string>
+    <string name="auto_silence_10_seconds">10 segons</string>
+    <string name="auto_silence_20_seconds">20 segons</string>
+    <string name="auto_silence_30_seconds">30 segons</string>
+    <string name="display_card_background_summary">Mostra el fons de la targeta en alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
+    <string name="alarm_notification_reminder_2_hours">2 hores abans</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">Habilita la vibració en crear alarmes</string>
+    <string name="alarm_display_customization_title">Personalització de l\'alarma</string>
+    <string name="alarm_title_color">Color del títol de l\'alarma</string>
+    <string name="snooze_button_color">Color del botó Posposa</string>
+    <string name="settings_vibration_title">Habilita la vibració</string>
+    <string name="display_background_border_summary">Mostra una vora a la targeta d\'alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
+    <string name="display_background_border_title">Mostra la vora</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Aquesta opció es pot personalitzar al panell d\'opcions de cada alarma</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">Habilita la supressió per defecte d\'alarmes ocasionals</string>
+    <string name="settings_fade_transitions_title">Habilita una transició d\'esvaïment a les opcions de configuració</string>
+    <string name="alarm_notification_reminder_4_hours">4 hores abans</string>
+    <string name="settings_tab_indicator_title">Mostra l\'indicador de pestanya activa al menú inferior</string>
+    <string name="power_button_title">Botó d\'engegada</string>
+    <string name="menu_bedtime">Fer nones</string>
+    <string name="settings_vibration_summary">Resposta hàptica en alguns botons (p. ex. als lliscadors o en iniciar/pausar el temporitzador)</string>
+    <string name="alarm_notification_reminder_title">Recordatori de notificació</string>
+    <string name="alarm_notification_reminder_30_minutes">30 minuts abans</string>
+    <string name="alarm_notification_reminder_1_hour">1 hora abans</string>
+    <string name="dismiss_button_color">Color del botó Descarta</string>
+    <string name="alarm_button_color">Color del botó Alarma</string>
+    <string name="pulse_color">Color del batec</string>
 </resources>

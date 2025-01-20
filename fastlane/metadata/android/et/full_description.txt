@@ -5,7 +5,10 @@ Funktsionaalsused:
 <ul>
   <li>Pööramise ja raputamisega saad äratuse katkestada või edasi lükata;</li>
   <li>Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata;</li>
-  <li>Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud;</li>
+  <li>Mõnedes Snapdragoni-põhistes telefonides äratus käivitub ka siis, kui telefon on väljalülitatud;</li>
+    <ul>
+      <li>Kahjuks see funktsionaalsus ei pruugi mõnedes nutiseadmetes toimida ka siis, kui olemas on süsteemirakendus <i>"com.qualcomm.qti.poweroffalarm"</i> .</li>
+    </ul>
   <li>Viipamisega saad äratuse kustutada;</li>
   <li>Äratusest saad teha koopiaid;</li>
   <li>Äratuse nime saad kohendada;</li>

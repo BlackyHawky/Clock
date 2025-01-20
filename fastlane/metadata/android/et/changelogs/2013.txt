@@ -1,0 +1,13 @@
+**Parandused**
+- Parandasime helina eelvaate peatamise seadistustes
+
+**Täiendused**
+- Lisasime hoiatuse võimaluse enne taimeri kustutamist
+- Asendasime taimerites `X` ikooni korvi ikooniga
+- Äratuse käivitumisel kuvame helina nime
+- Lisasime juhendisse IzzyOnDroidi sildi
+- Korratava kompileerimise tugi
+- Uuendasime tõlkeid
+- Üldine koodi kohendus
+
+Kogu täienduste loend: https://github.com/BlackyHawky/Clock/releases/tag/2.11

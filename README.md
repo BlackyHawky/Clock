@@ -94,6 +94,8 @@ Clock is a complex application, when contributing, you must take a step back and
   If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle Clock follows**.
 
+Please leave dependency upgrades to the maintainers, unless it's an actual security issue.
+
 # License
 
 Clock is licensed under GNU General Public License v3.0.

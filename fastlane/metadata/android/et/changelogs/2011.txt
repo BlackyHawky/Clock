@@ -1,0 +1,15 @@
+**Parandused**
+- Lohistamise vead rõhtvaates
+- Sekundiseieri värvid kellavaates
+
+**Täiendused**
+- Äratuse määramine kindlaks kuupäevaks
+- Kohendatav kuupäevavalija välimus
+- Must, purpurne ja kollane kujundus
+- Taimeri lähtestamine helivaljuse ja toitenuppudega
+- Lisasime stopperivaates toimingus helivaljuse nuppudele
+- Optimeerisime ja uuendasime vektorgraafikafaile
+- Uuendasime tõlkeid
+- Üldised parandused koodis
+
+Kõik muudatused: https://github.com/BlackyHawky/Clock/releases/tag/2.10

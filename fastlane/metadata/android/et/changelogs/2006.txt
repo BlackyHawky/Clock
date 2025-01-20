@@ -1,0 +1,12 @@
+**Parandused**
+ - Digividinate kuvamine mõnes Androidi versioonis;
+ - Taimeri nime saab uuesti sisestada (vaid) rõhtvaates telefonides;
+
+**Täiendused**
+ - Rakendus avaneb kiiremini;
+ - Äratuste sulgemine või uinutamine viibates ja puudutades;
+ - Värvivalija ekraanisäästja ja digividinate seadistustes;
+ - Kogu muudatuste logi: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+ **Märkus:**
+ Seadistuste muudatuste tõttu pead „Tumeda kujunduse“ seadistused uuesti määrama.
