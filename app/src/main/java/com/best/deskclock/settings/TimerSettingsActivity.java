@@ -152,8 +152,7 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void setupPreferences() {
-            final boolean hasVibrator = ((Vibrator) mTimerVibratePref.getContext()
-                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
             mTimerVibratePref.setVisible(hasVibrator);
 
             SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);

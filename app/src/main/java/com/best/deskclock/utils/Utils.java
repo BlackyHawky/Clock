@@ -53,7 +53,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Looper;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -262,8 +264,12 @@ public class Utils {
     public static void setVibrationTime(Context context, long milliseconds) {
         final boolean isVibrationsEnabled = DataModel.getDataModel().isVibrationsEnabled();
         final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        if (vibrator.hasVibrator() && isVibrationsEnabled) {
-            vibrator.vibrate(milliseconds);
+        if (isVibrationsEnabled) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(milliseconds);
+            }
         }
     }
 

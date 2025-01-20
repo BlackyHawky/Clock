@@ -261,6 +261,7 @@ public final class TimerFragment extends DeskClockFragment {
                 mCreateTimerView.reset();
                 animateToView(mTimersView, false);
                 left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
+                Utils.setVibrationTime(mContext, 10);
             });
         }
     }
@@ -282,6 +283,7 @@ public final class TimerFragment extends DeskClockFragment {
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+                Utils.setVibrationTime(mContext, 50);
             } finally {
                 mCreatingTimer = false;
             }

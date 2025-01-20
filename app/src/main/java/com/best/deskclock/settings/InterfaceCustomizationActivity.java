@@ -206,7 +206,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         }
 
         private void setupPreferences() {
-            final Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+            final Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
             mVibrationPref.setVisible(vibrator.hasVibrator());
 
             mAutoNightAccentColorPref.setChecked(DataModel.getDataModel().isAutoNightAccentColorEnabled());
