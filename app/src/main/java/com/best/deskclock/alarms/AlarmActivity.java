@@ -46,7 +46,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -126,6 +130,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private ValueAnimator mAlarmAnimator;
     private ValueAnimator mSnoozeAnimator;
     private ValueAnimator mDismissAnimator;
+
+    private RadioGroup mSnoozeOptions;
+    private EditText mCustomSnoozeTime;
+    private Button mConfirmCustomSnoozeTime;
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -250,6 +258,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
         mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
+
+        mSnoozeOptions = findViewById(R.id.snooze_options);
+        mCustomSnoozeTime = findViewById(R.id.custom_snooze_time);
+        mConfirmCustomSnoozeTime = findViewById(R.id.confirm_custom_snooze_time);
 
         boolean isRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
         if (isRingtoneTitleDisplayed) {
@@ -425,6 +437,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 dismiss();
             } else if (view == mAlarmButton) {
                 hintAlarmAction();
+            } else if (view == mConfirmCustomSnoozeTime) {
+                onCustomSnoozeTimeEntered();
             }
             return;
         }
@@ -435,6 +449,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             hintDismiss();
         } else if (view == mAlarmButton) {
             hintAlarmAction();
+        } else if (view == mConfirmCustomSnoozeTime) {
+            onCustomSnoozeTimeEntered();
         }
     }
 
@@ -709,6 +725,15 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    private void onCustomSnoozeTimeEntered() {
+        String customSnoozeTimeText = mCustomSnoozeTime.getText().toString();
+        if (!customSnoozeTimeText.isEmpty()) {
+            int customSnoozeTime = Integer.parseInt(customSnoozeTimeText);
+            mSnoozeMinutes = customSnoozeTime;
+            snooze();
+        }
     }
 
     /**
