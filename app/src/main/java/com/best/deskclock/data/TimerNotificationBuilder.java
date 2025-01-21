@@ -304,6 +304,14 @@ class TimerNotificationBuilder {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
         }
+
+        // Stop and reset the timer if user clears notification.
+        Intent dismissIntent = new Intent(context, TimerService.class);
+            dismissIntent.setAction(TimerService.ACTION_RESET_EXPIRED_TIMERS);
+            dismissIntent.putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
+            PendingIntent deletePendingIntent = Utils.pendingServiceIntent(context, dismissIntent);
+            notification.setDeleteIntent(deletePendingIntent);
+
         return notification.build();
     }
 

@@ -431,6 +431,8 @@ public final class AlarmNotifications {
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
                 ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
+        // Stop alarm if user clears notification.
+        notification.setDeleteIntent(dismissPendingIntent);
 
         // Setup Content Action
         Intent contentIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);
