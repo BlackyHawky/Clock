@@ -91,6 +91,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private Vibrator mVibrator;
     private boolean mAreSnoozedOrDismissedAlarmVibrationsEnabled;
     private boolean mIsFadeTransitionsEnabled;
+    private boolean mIsRingtoneTitleDisplayed;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -137,9 +138,10 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mHintView = mContentView.findViewById(R.id.hint);
         mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
 
-        boolean isRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
-        if (isRingtoneTitleDisplayed) {
+        mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
+        if (mIsRingtoneTitleDisplayed) {
             displayRingtoneTitle();
+            mContentView.setOnClickListener(this);
         }
 
         mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
@@ -222,6 +224,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             hintDismiss();
         } else if (view == mAlarmButton) {
             hintAlarmAction();
+        } else if (view == mContentView && mIsRingtoneTitleDisplayed) {
+            mHintView.setVisibility(GONE);
+            mRingtoneTitle.setVisibility(VISIBLE);
         }
     }
 

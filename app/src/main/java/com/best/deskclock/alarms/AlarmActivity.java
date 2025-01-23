@@ -109,6 +109,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private int mSnoozeMinutes;
     private boolean isSwipeActionEnabled;
     private boolean mReceiverRegistered;
+    private boolean mIsRingtoneTitleDisplayed;
     /**
      * Whether the AlarmService is currently bound
      */
@@ -251,9 +252,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mHintView = mContentView.findViewById(R.id.hint);
         mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
 
-        boolean isRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
-        if (isRingtoneTitleDisplayed) {
+        mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
+        if (mIsRingtoneTitleDisplayed) {
             displayRingtoneTitle();
+            mContentView.setOnClickListener(this);
         }
 
         mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
@@ -435,6 +437,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             hintDismiss();
         } else if (view == mAlarmButton) {
             hintAlarmAction();
+        } else if (view == mContentView && mIsRingtoneTitleDisplayed) {
+            mHintView.setVisibility(GONE);
+            mRingtoneTitle.setVisibility(VISIBLE);
         }
     }
 
