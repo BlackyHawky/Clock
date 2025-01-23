@@ -335,6 +335,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return label.isEmpty() ? context.getString(R.string.default_label) : label;
     }
 
+    /**
+     * Whether the alarm is in a state to show preemptive dismiss. Valid states are
+     * SNOOZE_STATE or NOTIFICATION_STATE.
+     */
+    public boolean canPreemptivelyDismiss() {
+        return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+    }
+
     public void writeToParcel(Parcel p, int flags) {
         p.writeLong(id);
         p.writeInt(enabled ? 1 : 0);

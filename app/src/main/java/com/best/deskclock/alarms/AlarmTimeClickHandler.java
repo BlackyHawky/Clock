@@ -23,6 +23,7 @@ import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
@@ -130,6 +131,14 @@ public final class AlarmTimeClickHandler {
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
         Utils.setVibrationTime(mContext, 10);
+    }
+
+    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
+        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
+                AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
+        mContext.startService(dismissIntent);
+        mAlarmUpdateHandler.showPredismissToast(alarmInstance);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     public void onDeleteClicked(AlarmItemHolder itemHolder) {

@@ -17,10 +17,10 @@
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_card_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
-        android:paddingBottom="10dp">
+        android:paddingHorizontal="12dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/edit_label"
@@ -97,6 +97,24 @@
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/days_of_week_layout" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/preemptive_dismiss_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="@null"
+            android:paddingEnd="10dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="?colorAccent"
+            app:drawableStartCompat="@drawable/ic_alarm_off"
+            app:drawableTint="?colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/days_of_week_layout"
+            tools:text="@string/alarm_alert_dismiss_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

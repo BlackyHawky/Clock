@@ -19,8 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
-        android:paddingBottom="10dp">
+        android:paddingHorizontal="12dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/edit_label"
@@ -183,6 +182,24 @@
             tools:ignore="RtlSymmetry"
             tools:checked="true" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/preemptive_dismiss_button"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="@null"
+            android:paddingEnd="10dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="?colorAccent"
+            app:drawableStartCompat="@drawable/ic_alarm_off"
+            app:drawableTint="?colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use"
+            tools:text="@string/alarm_alert_dismiss_text" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/delete"
             android:layout_width="wrap_content"
@@ -210,7 +227,7 @@
             app:chipBackgroundColor="?colorPrimary"
             app:chipStrokeWidth="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/delete_occasional_alarm_after_use" />
+            app:layout_constraintTop_toBottomOf="@id/preemptive_dismiss_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

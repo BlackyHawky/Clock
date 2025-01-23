@@ -311,7 +311,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.i("Setting high notification state to instance " + instance.mId);
+        LogUtils.i("Setting notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();

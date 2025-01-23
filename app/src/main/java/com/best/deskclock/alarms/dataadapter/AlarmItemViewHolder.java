@@ -16,6 +16,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
@@ -24,8 +26,11 @@ import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.TextTime;
+
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
 
@@ -46,6 +51,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final TextView daysOfWeek;
     private final TextView upcomingInstanceLabel;
     public final ImageView arrow;
+    private final TextView preemptiveDismissButton;
+    private final ConstraintLayout constraintLayout;
 
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
@@ -57,6 +64,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
         arrow = itemView.findViewById(R.id.arrow);
+        preemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
+        constraintLayout = itemView.findViewById(R.id.item_card_constraint_layout);
 
         final MaterialCardView itemCardView = itemView.findViewById(R.id.item_card_view);
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
@@ -87,17 +96,26 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                 getItemHolder().getAlarmTimeClickHandler().setAlarmEnabled(getItemHolder().item, checked));
 
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
+
+        preemptiveDismissButton.setOnClickListener(v -> {
+            final AlarmInstance alarmInstance = getItemHolder().getAlarmInstance();
+            if (alarmInstance != null) {
+                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
+            }
+        });
     }
 
     @Override
     protected void onBindItemView(final AlarmItemHolder itemHolder) {
         final Alarm alarm = itemHolder.item;
+        final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
         bindOnOffSwitch(alarm);
         bindClock(alarm);
         bindRepeatText(context, alarm);
         bindUpcomingInstance(context, alarm);
+        bindPreemptiveDismissButton(context, alarm, alarmInstance);
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
@@ -162,6 +180,28 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             upcomingInstanceLabel.setVisibility(View.VISIBLE);
             upcomingInstanceLabel.setText(labelText);
             upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
+        }
+    }
+
+    protected void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
+        final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
+        if (canBind) {
+            preemptiveDismissButton.setVisibility(View.VISIBLE);
+            final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
+                    ? context.getString(R.string.alarm_alert_snooze_until,
+                    AlarmUtils.getAlarmText(context, alarmInstance, false))
+                    : context.getString(R.string.alarm_alert_dismiss_text);
+            preemptiveDismissButton.setText(dismissText);
+            if (!getItemHolder().isExpanded()) {
+                constraintLayout.setPadding(constraintLayout.getPaddingLeft(), constraintLayout.getPaddingTop(),
+                        constraintLayout.getPaddingRight(), 0);
+            }
+        } else {
+            preemptiveDismissButton.setVisibility(View.GONE);
+            if (!getItemHolder().isExpanded()) {
+                constraintLayout.setPadding(constraintLayout.getPaddingLeft(), constraintLayout.getPaddingTop(),
+                        constraintLayout.getPaddingRight(), Utils.toPixel(8, itemView.getContext()));
+            }
         }
     }
 

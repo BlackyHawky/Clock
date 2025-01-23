@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -188,6 +189,17 @@ public final class AlarmUpdateHandler {
                 }
             });
         });
+    }
+
+    /**
+     * Show a toast when an alarm is predismissed.
+     *
+     * @param instance Instance being predismissed.
+     */
+    public void showPredismissToast(AlarmInstance instance) {
+        final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
+        final String text = mAppContext.getString(R.string.alarm_is_dismissed, time);
+        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
     }
 
     /**
