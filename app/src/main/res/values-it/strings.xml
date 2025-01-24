@@ -401,6 +401,7 @@
     <string name="screensaver_italic_digital_clock_title">Orologio digitale in corsivo</string>
     <string name="digital_widget_custom_minutes_color_title">Colore dei minuti personalizzato</string>
     <string name="timer_volume_buttons_action_title">Azzera i timer scaduti con i pulsanti del volume</string>
+    <string name="bedtime_notification_title">È attiva la modalità \"Ora di andare a nanna\"</string>
     <string name="first_launch_version">Versione %s</string>
     <string name="widgets_settings">Widget</string>
     <string name="digital_widget_date_default_color_title">Usa colore predefinito per la data</string>
@@ -415,6 +416,13 @@
     <string name="screensaver_bold_date_title">Data in grassetto</string>
     <string name="screensaver_bold_next_alarm_title">Prossima sveglia in grassetto</string>
     <string name="occasional_alarm_deleted">Sveglia occasionale rimossa</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 minuti prima di andare a nanna</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 minuti prima di andare a nanna</string>
+    <string name="bedtime_channel">Ora di andare a nanna</string>
+    <string name="bedtime_reminder_notification_text">L\'ora del risveglio è alle <xliff:g id="wake_time">%1$s</xliff:g> dopo <xliff:g id="sleep_time">%2$s</xliff:g> ore di sonno.</string>
+    <string name="wakeup_alarm_label_visible">Sveglia per alzarsi</string>
     <string name="first_launch_button_later">Dopo</string>
     <string name="first_launch_button_now">Adesso</string>
     <string name="first_launch_main_feature_link">… ed altro ancora!</string>
@@ -429,6 +437,7 @@
     <string name="notifications_permission_title">ABILITA NOTIFICHE</string>
     <string name="backup_restore_toast_message_for_restore">Ripristino completato</string>
     <string name="alarm_settings_summary">Imposta la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 minuti prima di andare a nanna</string>
     <string name="analog_widget_material_you">Orologio analogico Material You</string>
     <string name="material_you_digital_widget">Orologio digitale Material You</string>
     <string name="alarm_notification_reminder_12_hours">12 ore prima</string>
@@ -439,6 +448,9 @@
     <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Material design e colori dinamici; &lt;br&gt; &lt;br&gt;► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="denied_permission_label">Autorizzazione negata</string>
     <string name="sort_timer_title">Ordina timer</string>
+    <string name="bedtime_notification_action_pause">Pausa per 30 min</string>
+    <string name="bedtime_notification_action_turn_off">Disattiva</string>
+    <string name="bedtime_notification_until">fino alle <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="widget_background_title">Mostra sfondo</string>
     <string name="digital_widget_city_title">Mostra città nel widget</string>
     <string name="digital_widget_clock_default_color_title">Usa colore predefinito per l\'orologio principale</string>
@@ -464,6 +476,8 @@
     <string name="seconds_hand_color_title">Colore lancetta dei secondi</string>
     <string name="screensaver_daydream_settings">Seleziona/abilita salvaschermo</string>
     <string name="screensaver_daydream_settings_summary">Apre le impostazioni principali del salvaschermo di Android</string>
+    <string name="bedtime_reminder_notification_title">L\'ora di andare a nanna è alle <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification">Notifica di promemoria</string>
     <string name="first_launch_important_info_title">INFORMAZIONE IMPORTANTE</string>
     <string name="background_color_title">Colore sfondo</string>
     <string name="digital_widget_message_summary">Per accedere a questa impostazione è necessario disabilitare la funzione Mostra città sul widget</string>
@@ -501,9 +515,12 @@
     <string name="alarm_created">Sveglia creata</string>
     <string name="timer_label_box_title">Etichetta Timer</string>
     <string name="contributors">Collaboratori</string>
+    <string name="bedtime_service_desc">Elabora le azioni delle notifiche per la nanna.</string>
     <string name="timer_settings_summary">Imposta la suoneria predefinita, il volume e l\'ordine dei timer</string>
     <string name="preview_title">Anteprima</string>
     <string name="screensaver_preview_summary">Avvia subito il salvaschermo</string>
+    <string name="new_bedtime_alarm">Sveglia per alzarsi creata</string>
+    <string name="sleeping_time">Durata del sonno: %1$s</string>
     <string name="permission_status_title">Stato:</string>
     <string name="swipe_action_title">Scorri per fermare o rimandare la sveglia</string>
     <string name="label_default">Predefinita</string>
@@ -525,6 +542,7 @@
     <string name="default_time_to_add_to_timer_9_minutes">9 minuti</string>
     <string name="default_time_to_add_to_timer_10_minutes">10 minuti</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minuti</string>
+    <string name="bedtime_reminder_notification_1_hour">Un\'ora prima di andare a nanna</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICHE A SCHERMO INTERO;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Esci</string>
     <string name="first_launch_dialog_message">Vuoi davvero uscire dall\'applicazione?</string>
@@ -536,16 +554,23 @@
     <string name="license_dialog_message">Leggi la licenza:\n\n%s</string>
     <string name="contributors_dialog_message">Visita la pagina GitHub di %1$s:\n\n%2$s</string>
     <string name="default_time_to_add_to_timer_title">Tempo predefinito da aggiungere al timer</string>
+    <string name="wakeup">Alzati</string>
     <string name="style_category_title">Stile</string>
     <string name="transparent_background_for_expired_timer_title">Sfondo trasparente alla scadenza dei timer</string>
+    <string name="no_wakeup_alarm">Nessuna sveglia per alzarsi impostata</string>
+    <string name="no_bedtime_alarm">Non è stata impostata l\'ora di andare a nanna</string>
     <string name="first_launch_main_feature_title">CARATTERISTICHE PRINCIPALI</string>
     <string name="selected">Selezionato</string>
     <string name="more_options">Altre opzioni</string>
     <string name="delete_occasional_alarm_after_use_title">Rimuovi la sveglia una volta fermata</string>
+    <string name="alarm_inactive">Spenta</string>
     <string name="alarm_alert_off_and_deleted_text">Sveglia spenta e rimossa</string>
     <string name="alarm_alert_dismiss_and_delete_text">Spegni e rimuovi</string>
     <string name="system_theme">Sistema</string>
     <string name="whats_new_title">Novità</string>
+    <string name="bedtime_notification_resume">Riprendi alle <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Riprendi ora</string>
+    <string name="bedtime_paused_notification_title">La modalità \"Ora di andare a nanna\" è in pausa</string>
     <string name="occasional_alarm_alert_predismiss_title">Prossima sveglia occasionale</string>
     <string name="settings_permission_message">Una o più autorizzazioni essenziali sono state negate. La mancata concessione di tali autorizzazioni può causare malfunzionamenti.</string>
     <string name="light_theme">Chiaro</string>
@@ -590,6 +615,7 @@
     <string name="screensaver_italic_date_title">Data in corsivo</string>
     <string name="timer_button_time_box_title">Minuti da aggiungere al timer</string>
     <string name="timer_add_custom_time">+ %s</string>
+    <string name="menu_bedtime">Nanna</string>
     <string name="settings_fade_transitions_title">Abilita le transizioni in dissolvenza quando si passa da una schermata all\'altra</string>
     <string name="digital_widget_city_name_custom_color_title">Colore personalizzato nome città</string>
     <string name="next_alarm_widget_default_title_color">Usa il colore predefinito per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>

@@ -469,4 +469,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 '}';
     }
 
+    public static Alarm getAlarmByLabel(ContentResolver cr, String label) {
+        List<Alarm> alarms = Alarm.getAlarms(cr, LABEL + "=?", label);
+        if (!alarms.isEmpty()) {
+            return alarms.get(0);
+        } else {
+            // Alarm with the given label not found
+            return null;
+        }
+    }
+
 }

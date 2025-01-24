@@ -294,6 +294,15 @@
             android:directBootAware="true"
             android:foregroundServiceType="systemExempted" />
 
+        <!-- ============================================================== -->
+        <!-- Bedtime components. -->
+        <!-- ============================================================== -->
+        <service
+            android:name="com.best.deskclock.bedtime.BedtimeService"
+            android:description="@string/bedtime_service_desc"
+            android:directBootAware="true"
+            android:foregroundServiceType="systemExempted" />
+
 
         <!-- ============================================================== -->
         <!-- Screen saver components.                                       -->

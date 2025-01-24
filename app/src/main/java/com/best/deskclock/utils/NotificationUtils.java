@@ -6,6 +6,7 @@
 
 package com.best.deskclock.utils;
 
+import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_DEFAULT;
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_HIGH;
 import static androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW;
 
@@ -51,7 +52,10 @@ public class NotificationUtils {
      * Notification channel containing all stopwatch notifications.
      */
     public static final String STOPWATCH_NOTIFICATION_CHANNEL_ID = "stopwatchNotification";
-
+    /**
+     * Notification channel containing all bedtime notifications.
+     */
+    public static final String BEDTIME_NOTIFICATION_CHANNEL_ID = "bedtimeNotification";
     private static final String TAG = NotificationUtils.class.getSimpleName();
     /**
      * Values used to bitmask certain channel defaults
@@ -87,6 +91,10 @@ public class NotificationUtils {
         CHANNEL_PROPS.put(TIMER_MODEL_NOTIFICATION_CHANNEL_ID, new int[]{
                 R.string.timer_channel,
                 IMPORTANCE_LOW
+        });
+        CHANNEL_PROPS.put(BEDTIME_NOTIFICATION_CHANNEL_ID, new int[]{
+                R.string.bedtime_channel,
+                IMPORTANCE_DEFAULT
         });
     }
 

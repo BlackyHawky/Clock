@@ -375,9 +375,12 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘已延後 10 分鐘"</string>
     <string name="flip_action_title">裝置翻轉動作</string>
     <string name="shake_action_title">裝置搖動動作</string>
+    <string name="menu_bedtime">就寢時間</string>
     <string name="about_title">關於</string>
+    <string name="bedtime_channel">就寢時間</string>
     <string name="style_category_title">樣式</string>
     <string name="screensaver_daydream_settings">選擇／啟用螢幕保護程式</string>
+    <string name="bedtime_notification_action_turn_off">關閉</string>
     <string name="contributors">貢獻者</string>
     <string name="permission_requirement_title">要求： </string>
     <string name="title_theme">主題</string>
@@ -388,7 +391,10 @@
     <string name="duplicate">重複</string>
     <string name="selected">已選取</string>
     <string name="more_options">更多選項</string>
+    <string name="alarm_inactive">已關閉</string>
     <string name="version">版本</string>
+    <string name="bedtime_reminder_notification">提醒通知</string>
+    <string name="wakeup">喚醒</string>
     <string name="permission_denied">已拒絕</string>
     <string name="power_button_title">電源按鈕</string>
     <string name="add_label">增加標籤</string>

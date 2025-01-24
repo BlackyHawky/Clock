@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bedtime_bottom_sheet">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:id="@+id/drag_handle"
+            android:layout_width="60dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="12dp"
+            android:foreground="?colorOutline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@null" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/wakeup_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/wakeup"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:drawableStart="@drawable/ic_tab_wakeup"
+            android:drawablePadding="8dp"
+            app:drawableTint="?colorOnSurfaceVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
+
+        <com.best.deskclock.widget.TextTime
+            android:id="@+id/wakeup_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wakeup_label"
+            tools:text="08:30" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/toggle_switch_wakeup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/wakeup_time"
+            app:layout_constraintBottom_toBottomOf="@+id/wakeup_time" />
+
+        <LinearLayout
+            android:id="@+id/repeat_days_bedtime"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="22dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:focusable="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wakeup_time" />
+
+        <View
+            android:id="@+id/bedtime_preference_hairline"
+            android:background="?colorOutline"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeat_days_bedtime" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/choose_ringtone_bedtime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingHorizontal="22dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_ringtone"
+            android:drawablePadding="10dp"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            app:drawableTint="?colorOnSurfaceVariant"
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_preference_hairline"
+            tools:text="Standard (Hassium)" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/dismiss_bedtime_alarm_when_ringtone_ends_onoff"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingHorizontal="22dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_ringtone_off"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/dismiss_alarm_ringtone_when_ringtone_ends_label"
+            app:layout_constraintTop_toBottomOf="@id/choose_ringtone_bedtime"
+            tools:ignore="RtlSymmetry"
+            tools:checked="false" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/bedtime_alarm_snooze_actions_onoff"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="22dp"
+            android:layout_height="48dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_repeat"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/enable_alarm_snooze_actions_label"
+            app:layout_constraintTop_toBottomOf="@id/dismiss_bedtime_alarm_when_ringtone_ends_onoff"
+            tools:ignore="RtlSymmetry"
+            tools:checked="true" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/vibrate_onoff_wakeup"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingHorizontal="22dp"
+            android:background="?selectableItemBackground"
+            android:button="@null"
+            android:drawableStart="@drawable/ic_vibrate"
+            android:drawableEnd="@drawable/ic_selector_checkbox"
+            android:drawablePadding="10dp"
+            android:text="@string/alarm_vibrate"
+            app:layout_constraintTop_toBottomOf="@+id/bedtime_alarm_snooze_actions_onoff"
+            tools:checked="true" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/no_wakeup_alarm_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_wakeup_alarm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/choose_ringtone_bedtime"
+            app:layout_constraintBottom_toBottomOf="@+id/vibrate_onoff_wakeup" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

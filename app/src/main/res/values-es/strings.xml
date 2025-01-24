@@ -386,6 +386,7 @@
     <string name="duplicate">Duplicar</string>
     <string name="selected">Seleccionado</string>
     <string name="more_options">Mas opciones</string>
+    <string name="alarm_inactive">Apagado</string>
     <string name="vertical_digital_widget">Reloj digital vertical</string>
     <string name="standard_category_title">Estandar</string>
     <string name="interface_customization_summary">Estilo y color aplicados a la aplicación</string>
@@ -493,8 +494,11 @@
     <string name="backup_restore_toast_message_for_backup">Copia de seguridad completada</string>
     <string name="backup_restore_toast_message_for_restore">Restauración completada</string>
     <string name="alarm_upcoming_channel">Alarmas próximas</string>
+    <string name="no_wakeup_alarm">No hay alarma para despertar configurada</string>
     <string name="alarm_missed_channel">Alarmas perdidas</string>
     <string name="stopwatch_channel">Cronómetro</string>
+    <string name="no_bedtime_alarm">No hay hora de dormir configurada</string>
+    <string name="bedtime_channel">Hora de dormir</string>
     <string name="alarm_snooze_channel">Alarmas pospuestas</string>
     <string name="timer_channel">Temporizador</string>
     <string name="material_you_digital_widget">Reloj digital Material You</string>

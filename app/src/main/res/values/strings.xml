@@ -53,6 +53,8 @@
     <string name="custom_ringtone_lost_permissions">The sound content cannot be accessed.</string>
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
+    <!-- Label shown when alarm is inactive -->
+    <string name="alarm_inactive">Turned off</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
@@ -522,6 +524,8 @@
     <string name="menu_clock">Clock</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
+    <!-- Describes the purpose of the tab button which which switches the activity to the Bedtime page -->
+    <string name="menu_bedtime">Bedtime</string>
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
     <string name="button_alarms">Add alarm</string>
@@ -914,7 +918,7 @@
         \n\n• Digital or analog clock style;
         \n\n• Display home time when traveling;
         \n\n• Display the time in many cities around the world;
-        \n\n• Timer and stopwatch included;
+        \n\n• Timer, stopwatch and bedtime <i>(experimental)</i> included;
         \n\n• Possibility of sharing your stopwatch with your contacts;
         \n\n• Customizable screensaver;
         \n\n• Modern widgets;
@@ -963,6 +967,8 @@
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
     <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
+    <!-- Describes the service that processes actions originating from bedtime notifications. -->
+    <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
     <!-- Text instruction to dismiss alarm on alarm lock screen. The dismiss button will still
@@ -1244,7 +1250,37 @@
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
+    <!-- Bedtime button to create an alarm -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
+    <string name="wakeup">Wake Up</string>
+    <string name="bedtime_reminder_notification">Reminder Notification</string>
+    <!-- Setting title for changing the bedtime reminder notification to 10 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_10_minutes">10 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 15 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_15_minutes">15 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 20 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_20_minutes">20 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 30 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_30_minutes">30 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 45 minutes before bedtime. -->
+    <string name="bedtime_reminder_notification_45_minutes">45 minutes before bedtime</string>
+    <!-- Setting title for changing the bedtime reminder notification to 1 hour before bedtime. -->
+    <string name="bedtime_reminder_notification_1_hour">1 hour before bedtime</string>
+    <!-- Bedtime -->
+    <string name="bedtime_reminder_notification_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
+    <string name="bedtime_notification_title">\"Bedtime\" mode is on</string>
+    <string name="bedtime_notification_action_pause">Pause for 30 min</string>
+    <string name="bedtime_notification_action_turn_off">Turn off</string>
+    <string name="bedtime_notification_until">until <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="bedtime_paused_notification_title">\"Bedtime\" mode is paused</string>
+    <string name="bedtime_notification_resume">Resume on <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Resume now</string>
+    <string name="wakeup_alarm_label_visible">Wake-up alarm</string>
+    <string name="new_bedtime_alarm">Wake-up alarm created</string>
+    <string name="sleeping_time">Sleeping time: %1$s</string>
+    <string name="no_bedtime_alarm">No bedtime set</string>
+    <string name="no_wakeup_alarm">No wake-up alarm set</string>
     <!-- Setting title for the flip action setting. -->
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
@@ -1256,6 +1292,7 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
+    <string name="bedtime_channel">Bedtime</string>
     <!--
     First launch
     -->
@@ -1371,7 +1408,7 @@
     <!-- Notifications Permission -->
     <string name="notifications_permission_title">ENABLE NOTIFICATIONS</string>
     <string name="notifications_dialog_title">Notifications</string>
-    <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer and a stopwatch mode.
+    <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer, stopwatch, and bedtime mode.
         \n\nIn order for notifications to appear correctly for all modules and especially for the alarm to be triggered, we recommend activating notifications for this application.</string>
     <!-- Full screen notifications permission -->
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>

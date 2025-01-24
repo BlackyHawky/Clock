@@ -42,6 +42,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 
+import com.best.deskclock.bedtime.BedtimeService;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
@@ -62,7 +63,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 /**
  * The main activity of the application which displays 5 different tabs contains alarms, world
- * clocks, timers and stopwatch.
+ * clocks, timers, stopwatch and bedtime.
  */
 public class DeskClock extends AppCompatActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
@@ -116,6 +117,8 @@ public class DeskClock extends AppCompatActivity
             tab = UiDataModel.Tab.TIMERS;
         } else if (itemId == R.id.page_stopwatch) {
             tab = UiDataModel.Tab.STOPWATCH;
+        } else if (itemId == R.id.page_bedtime) {
+            tab = UiDataModel.Tab.BEDTIME;
         }
 
         if (tab != null) {
@@ -517,6 +520,10 @@ public class DeskClock extends AppCompatActivity
                         Events.sendStopwatchEvent(R.string.action_show, label);
                         UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.STOPWATCH);
                     }
+                    case BedtimeService.ACTION_SHOW_BEDTIME -> {
+                        Events.sendBedtimeEvent(R.string.action_show, label);
+                        UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.BEDTIME);
+                    }
                 }
             }
         }
@@ -724,6 +731,7 @@ public class DeskClock extends AppCompatActivity
                     case CLOCKS -> Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);
                     case TIMERS -> Events.sendTimerEvent(R.string.action_show, R.string.label_deskclock);
                     case STOPWATCH -> Events.sendStopwatchEvent(R.string.action_show, R.string.label_deskclock);
+                    case BEDTIME -> Events.sendBedtimeEvent(R.string.action_show, R.string.label_deskclock);
                 }
             }
 

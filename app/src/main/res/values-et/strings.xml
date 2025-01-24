@@ -385,6 +385,7 @@
     <string name="duplicate">Tee koopia</string>
     <string name="selected">Valitud</string>
     <string name="more_options">Rohkem valikuid</string>
+    <string name="alarm_inactive">Väljalülitatud</string>
     <string name="material_you_digital_widget">Material You kujunduses digikell</string>
     <string name="analog_widget_material_you">Material You kujunduses analoogkell</string>
     <string name="settings_permission_message">Üks või enam olulist õigust on puudu. Kui vajalikud õigused jäävadki puudu, siis rakendus ei pruugi korralikult toimida.</string>
@@ -438,6 +439,7 @@
 \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
+    <string name="bedtime_reminder_notification_title">Sinu uneaeg algab <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="keep_timer_screen_on_title">Taimeri kuvamisel ära lülita ekraani välja</string>
     <string name="description_direction_both_clicked">Edasilükkamiseks klõpsi vasakule ja loobumiseks paremale</string>
@@ -450,9 +452,15 @@
     <string name="screensaver_date_color_title">Kuupäeva värv</string>
     <string name="screensaver_bold_next_alarm_title">Kuva järgmine äratus paksus kirjas</string>
     <string name="screensaver_italic_next_alarm_title">Kuva järgmine äratus kaldkirjas</string>
+    <string name="bedtime_notification_action_turn_off">Lülita välja</string>
+    <string name="no_bedtime_alarm">Magamamineku aeg on määramata</string>
+    <string name="new_bedtime_alarm">Ülesärkamiseks mõeldud äratus on loodud</string>
+    <string name="wakeup_alarm_label_visible">Ülesärkamiseks mõeldud äratus</string>
+    <string name="no_wakeup_alarm">Ülesärkamiseks mõeldud äratusi pole seadistatud</string>
     <string name="widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
     <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste kasutamiseks</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
+    <string name="menu_bedtime">Magamamineku aeg</string>
     <string name="screensaver_next_alarm_color_title">Järgmise äratuse värv</string>
     <string name="timer_settings_summary">Määra taimeritele vaikimisi helin, valjus ja järjestus</string>
     <string name="screensaver_settings_summary">Seadista ekraanisäästja stiili, värvi ja kirjatüüpi</string>
@@ -462,12 +470,24 @@
     <string name="screensaver_bold_date_title">Kuupäev paksus kirjas</string>
     <string name="screensaver_italic_date_title">Kuupäev kaldkirjas</string>
     <string name="preview_title">Eelvaade</string>
+    <string name="bedtime_notification_until">kuni <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_main_feature_link">… ja palju muud huvitavat!</string>
+    <string name="bedtime_reminder_notification_text">Sinu magamisaeg lõppeb kell <xliff:g id="wake_time">%1$s</xliff:g> peale und kestusega <xliff:g id="sleep_time">%2$s</xliff:g>.</string>
+    <string name="bedtime_notification_title">„Magamamineku aja“ režiim on kasutusel</string>
+    <string name="bedtime_notification_action_pause">Peata kolmekümneks minutiks</string>
+    <string name="bedtime_notification_resume_action">Jätka kohe</string>
     <string name="first_launch_version">Versioon %s</string>
     <string name="first_launch_main_feature_title">PÕHIFUNKTSIONAALSUSED</string>
     <string name="widget_background_title">Vidina taust</string>
+    <string name="sleeping_time">Uneaeg: %1$s</string>
+    <string name="bedtime_reminder_notification">Meeldetuletuse teavitus</string>
+    <string name="wakeup">Äratushelin</string>
+    <string name="bedtime_channel">Magamamineku aeg</string>
     <string name="first_launch_important_info_title">OLULINE TEAVE</string>
+    <string name="bedtime_service_desc">Töötle magamamineku aeja teavituste tegevusi.</string>
     <string name="screensaver_preview_summary">Käivitab ekraanisäästja koheselt</string>
+    <string name="bedtime_paused_notification_title">„Magamamineku aja“ režiim on peatatud</string>
+    <string name="bedtime_notification_resume">Jätka <xliff:g id="time">%1$s</xliff:g></string>
     <string name="first_launch_button_now">Nüüd</string>
     <string name="first_launch_button_later">Hiljem</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;TÄISEKRAANITEAVITUSED;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -577,6 +597,9 @@
     <string name="default_time_to_add_to_timer_10_minutes">10 minutit</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minutit</string>
     <string name="default_time_to_add_to_timer_1_hour">1 tund</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 minutit enne magamaminekut</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 minutit enne magamaminekut</string>
+    <string name="bedtime_reminder_notification_1_hour">1 tund enne magamaminekut</string>
     <string name="denied_permission_label">Õigused puuduvad</string>
     <string name="sort_timer_descending_duration">Kestuse alusel (kahanevalt)</string>
     <string name="system_theme">Süsteemi kujundus</string>
@@ -590,6 +613,9 @@
     <string name="alarm_notification_reminder_10_hours">10 tundi varem</string>
     <string name="alarm_notification_reminder_12_hours">12 tundi varem</string>
     <string name="sort_timer_ascending_duration">Kestuse alusel (kasvavalt)</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 minutit enne magamaminekut</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 minutit enne magamaminekut</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 minutit enne magamaminekut</string>
     <string name="auto_silence_10_seconds">10 sekundit</string>
     <string name="auto_silence_20_seconds">20 sekundit</string>
     <string name="auto_silence_30_seconds">30 sekundit</string>

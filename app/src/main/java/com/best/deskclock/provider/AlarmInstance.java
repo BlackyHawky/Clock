@@ -6,6 +6,8 @@
 
 package com.best.deskclock.provider;
 
+import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -345,7 +347,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     public String getLabelOrDefault(Context context) {
-        return mLabel.isEmpty() ? context.getString(R.string.default_label) : mLabel;
+        return mLabel.isEmpty()
+                ? context.getString(R.string.default_label)
+                : mLabel.equals(BEDTIME_LABEL)
+                    ? context.getString(R.string.wakeup_alarm_label_visible)
+                    : mLabel;
     }
 
     /**

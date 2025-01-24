@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/ic_tab_bedtime_static"
+        android:state_focused="true" />
+
+    <item
+        android:id="@+id/on"
+        android:drawable="@drawable/ic_tab_bedtime_static"
+        android:state_selected="true" />
+
+    <item
+        android:id="@+id/off"
+        android:drawable="@drawable/ic_tab_bedtime_static" />
+
+    <transition
+        android:fromId="@id/off"
+        android:toId="@id/on">
+
+        <animated-vector android:drawable="@drawable/ic_bedtime_for_anim">
+            <target
+                android:name="head"
+                android:animation="@animator/ic_bedtime_animation_button" />
+        </animated-vector>
+
+    </transition>
+
+</animated-selector>

@@ -26,6 +26,7 @@
     <string name="device_sounds" msgid="1584894148222639823">"Sons de l\'appareil"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Impossible d\'accéder au contenu sonore."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Minuteur arrivé à expiration"</string>
+    <string name="alarm_inactive">Désactivée</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
@@ -223,6 +224,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horloge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronomètre"</string>
+    <string name="menu_bedtime">Coucher</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ajouter une alarme"</string>
     <string name="button_cities" msgid="4555761857494501363">"Villes"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Trier par heure"</string>
@@ -407,6 +409,7 @@
     <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
+    <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Glisser vers la droite pour arrêter"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glisser vers la gauche pour répéter"</string>
@@ -438,6 +441,28 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="wakeup">Réveil</string>
+    <string name="bedtime_reminder_notification">Notification de rappel</string>
+    <string name="bedtime_reminder_notification_10_minutes">10 minutes avant le coucher</string>
+    <string name="bedtime_reminder_notification_15_minutes">15 minutes avant le coucher</string>
+    <string name="bedtime_reminder_notification_20_minutes">20 minutes avant le coucher</string>
+    <string name="bedtime_reminder_notification_30_minutes">30 minutes avant le coucher</string>
+    <string name="bedtime_reminder_notification_45_minutes">45 minutes avant le coucher</string>
+    <string name="bedtime_reminder_notification_1_hour">1 heure avant le coucher</string>
+    <string name="bedtime_reminder_notification_title">L\'heure du coucher commence à <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_reminder_notification_text">L\'heure du coucher s\'arrête à <xliff:g id="wake_time">%1$s</xliff:g> après <xliff:g id="sleep_time">%2$s</xliff:g> de sommeil.</string>
+    <string name="bedtime_notification_title">Le mode \"Heure du coucher\" est activé</string>
+    <string name="bedtime_notification_action_pause">Pause de 30 minutes</string>
+    <string name="bedtime_notification_action_turn_off">Désactiver</string>
+    <string name="bedtime_notification_until">jusqu\'à <xliff:g id="wake_time">%s</xliff:g></string>
+    <string name="bedtime_paused_notification_title">Le mode \"Heure du coucher\" est en pause</string>
+    <string name="bedtime_notification_resume">Reprise le <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume_action">Reprendre maintenant</string>
+    <string name="wakeup_alarm_label_visible">Alarme de réveil</string>
+    <string name="new_bedtime_alarm">Alarme de réveil créée</string>
+    <string name="sleeping_time">Temps de sommeil : %1$s</string>
+    <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
+    <string name="no_wakeup_alarm">Aucun réveil défini</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Définit le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
@@ -555,6 +580,7 @@
     <string name="FSN_permission_title">ACTIVER LES NOTIFICATIONS EN PLEIN ÉCRAN</string>
     <string name="FSN_dialog_title">Notifications en Plein Écran</string>
     <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation Notifications Plein Écran soit activée.</string>
+    <string name="bedtime_channel">Coucher</string>
     <string name="alarm_clock_font_size">Taille de la police de l\'horloge</string>
     <string name="alarm_title_font_size">Taille de la police du titre de l\'alarme</string>
     <string name="github_dialog_message">Visiter la page GitHub du projet :

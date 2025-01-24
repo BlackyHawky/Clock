@@ -22,6 +22,7 @@ import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
+import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
@@ -119,6 +120,15 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
+        if (alarm.equals(Alarm.getAlarmByLabel(context.getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
+            editLabel.setOnClickListener(null);
+            editLabel.setBackgroundColor(Color.TRANSPARENT);
+            editLabel.setText(context.getString(R.string.wakeup_alarm_label_visible));
+            editLabel.setTypeface(Typeface.DEFAULT_BOLD);
+            editLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
+            return;
+        }
+
         if (alarm.label.isEmpty()) {
             editLabel.setText(context.getString(R.string.add_label));
             editLabel.setTypeface(Typeface.DEFAULT);

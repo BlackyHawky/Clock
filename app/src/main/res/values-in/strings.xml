@@ -385,6 +385,7 @@
     <string name="more_options">Lebih banyak pilihan</string>
     <string name="selected">Dipilih</string>
     <string name="delete_occasional_alarm_after_use_title">Hapus alarm setelah dimatikan</string>
+    <string name="alarm_inactive">Matikan</string>
     <string name="alarm_alert_dismiss_and_delete_text">Tutup &amp; Hapus</string>
     <string name="alarm_alert_off_and_deleted_text">Alarm mati dan dihapus</string>
     <string name="vertical_digital_widget">Jam digital vertikal</string>

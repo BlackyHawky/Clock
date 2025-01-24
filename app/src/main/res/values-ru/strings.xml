@@ -407,6 +407,9 @@
     <string name="auto_silence_at_the_end_of_the_ringtone">Конец рингтона</string>
     <string name="screensaver_brightness_title">Яркость</string>
     <string name="preview_title">Предпросмотр</string>
+    <string name="bedtime_notification_action_pause">Пауза на 30 минут</string>
+    <string name="bedtime_notification_action_turn_off">Выключение</string>
+    <string name="bedtime_notification_resume_action">Возобновить сейчас</string>
     <string name="widget_background_title">Отображать задний фон</string>
     <string name="background_color_title">Цвет заднего фона</string>
     <string name="digital_widget_city_clock_default_color_title">Использовать цвет по умолчанию для городских часов</string>
@@ -415,6 +418,8 @@
     <string name="permission_management_summary">Показывать разрешения необходимые для правильной работы приложения</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИРОВАТЬ ОПТИМИЗАЦИИ БАТАРЕИ</string>
     <string name="permission_management_settings">Управление разрешениями</string>
+    <string name="alarm_inactive">Выключен</string>
+    <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="FSN_dialog_text">С Android 14, чтобы позволить будильнику сработать с выключенным экраном, необходимо, чтобы разрешение Полноэкранных Уведомлений было включено</string>
     <string name="style_category_title">Стиль</string>
     <string name="alarm_settings_summary">Выбрать стандартный рингтон, звук, действия для отключения или откладывания будильников, первый день недели и время напоминания в уведомлениях</string>
@@ -428,6 +433,7 @@
     <string name="keep_timer_screen_on_title">Оставлять экран включённым, если таймер отображается на экране</string>
     <string name="screensaver_next_alarm_color_title">Следующий цвет будильника</string>
     <string name="alarm_created">Будильник создан</string>
+    <string name="sleeping_time">Время сна: %1$s</string>
     <string name="first_launch_important_info_message">Чтобы убедиться в правильной работе приложения, &lt;b&gt;некоторые настройки вашего девайса должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android вашего девайса, некоторые из этих настроек уже оптимизированы (такие как уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>
     <string name="first_launch_dialog_message">Вы уверены, что вы хотите покинуть приложение?</string>
     <string name="digital_widget_city_title">Отображать города на виджете</string>
@@ -484,18 +490,28 @@
     <string name="credits">Благодарность</string>
     <string name="screensaver_daydream_settings_summary">Открывает настройки заставки Андроид</string>
     <string name="screensaver_italic_next_alarm_title">Курсивный шрифт будильника</string>
+    <string name="bedtime_notification_title">Режим \"Пора спать\" включён</string>
+    <string name="bedtime_reminder_notification_title">Режим \"Пора спать\" начинается в <xliff:g id="bed_time">%1$s</xliff:g></string>
+    <string name="bedtime_notification_resume">Возобновить в <xliff:g id="time">%1$s</xliff:g></string>
+    <string name="wakeup_alarm_label_visible">Будильник \"Пора вставать\"</string>
+    <string name="bedtime_paused_notification_title">Режим \"Пора спать\" приостановлен</string>
+    <string name="no_bedtime_alarm">Нет напоминания \"Пора спать\"</string>
+    <string name="no_wakeup_alarm">Нет будильника \"Пора вставать\"</string>
     <string name="digital_widget_city_clock_custom_color_title">Пользовательский цвет городских часов</string>
     <string name="digital_widget_city_name_custom_color_title">Пользовательский цвет названия города</string>
     <string name="revoke_permission_dialog_message">Вы уверены что хотите отозвать это разрешение?</string>
     <string name="notifications_dialog_text">В дополнение к настройке будильников, это приложение также имеет функции таймера, секундомера и режим \"Пора спать\".
 \n
 \nЧтобы уведомления отображались правильно для всех функций и особенно правильного срабатывания будильника, мы рекомендуем включить уведомления для этого приложения.</string>
+    <string name="bedtime_service_desc">Обрабатывает действия уведомлений режима \"Пора спать\".</string>
     <string name="display_card_background_title">Отображать фон карточек</string>
     <string name="display_background_border_title">Отображать границы фона</string>
     <string name="power_button_title">Кнопка питания</string>
     <string name="interface_customization_summary">Установите стиль и цвет, применяемые к приложению</string>
     <string name="add_label">Добавить описание</string>
     <string name="material_time_picker_style_title">Стиль выбора времени</string>
+    <string name="menu_bedtime">Пора спать</string>
+    <string name="wakeup">Проснуться</string>
     <string name="about_dialog_message">• Щелчок и встряхивание для отключения / отсрочки будильника; \n \n• Выключение / отсрочка будильника с помощью кнопки питания или кнопок регулировки громкости; \n \n• Только для телефонов Snapdragon будильник срабатывает при выключении телефона; \n \n• Проведите пальцем, чтобы удалить будильник; \n \n• Дубликаты будильников; \n \n• Настройте название будильника; \n \n• Настраиваемый рингтон; \n \n• Светлая, темная или системная тема; \n \n• Режим AMOLED для темной темы; \n \n• Стиль цифровых или аналоговых часов; \n \n• Отображение домашнего времени во время путешествия; \n \n• Отображение времени во многих городах мира; \n \n• Включены таймер, секундомер и время отхода ко сну <i>((экспериментальный вариант)</i> ; \n \n• Возможность поделиться секундомером со своими контактами; \n \n• Настраиваемая заставка; \n \n• Современные виджеты; \n \n• Настраиваемые виджеты; \n \n• Дизайн материалов; \n \n• Динамические цвета для Android 12+; \u0020</string>
     <string name="screensaver_italic_date_title">Курсивный шрифт даты</string>
     <string name="first_launch_main_feature_message">► Светлая, тёмная или системная темы; &lt;br&gt; &lt;br&gt; ► Настраиваемая заставка-скринсейвер; &lt;br&gt; &lt;br&gt; ► Настраиваемые виджеты; &lt;br&gt; &lt;br&gt; ► Material дизайн и динамические цвета; &lt;br&gt; &lt;br&gt; ► Смахнуть чтобы удалить будильник; &lt;br&gt; &lt;br&gt; ► Дублирование будильника; &lt;br&gt; &lt;br&gt; ► Перевернуть или встряхнуть устройство чтобы выключить/отложить будильник; &lt;br&gt; &lt;br&gt; ► Выключить/отложить будильник нажав на кнопки питания или громкости; &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -508,6 +524,8 @@
     <string name="screensaver_italic_digital_clock_title">Курсивный шрифт часов</string>
     <string name="screensaver_bold_date_title">Жирный шрифт даты</string>
     <string name="screensaver_bold_next_alarm_title">Жирный шрифт будильника</string>
+    <string name="bedtime_reminder_notification_text">Режим \"Пора спать\" заканчивается в <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
+    <string name="new_bedtime_alarm">Будильник задан</string>
     <string name="digital_widget_clock_custom_color_title">Пользовательский цвет основных часов</string>
     <string name="digital_widget_date_custom_color_title">Пользовательский цвет даты</string>
     <string name="widget_next_alarm_custom_color_title">Следующий настраиваемый цвет будильника</string>
@@ -516,11 +534,13 @@
 \nИ хотя это приемлимо для многих приложений, это приложение — будильник и часто может работать неправильно если оно настроено на оптимизацию заряда батареи. Когда включена оптимизация, While this is acceptable for many apps, this app is an alarm app and often causes issues if configured to optimize battery. Once enabled, the Android system can kill the app at any time and/or cancel alarms it has scheduled, which would adversely affect the app\'s operation.
 \n
 \nWe recommend whitelisting this app from battery optimizations.</string>
+    <string name="bedtime_channel">Пора спать</string>
     <string name="permission_dialog_revoke_title">Отозвать доступ</string>
     <string name="permission_requirement_title">Требование: </string>
     <string name="display_card_background_summary">Отображать фон для некоторых элементов приложения (будильники, города, таймер и т. д.)</string>
     <string name="screensaver_preview_summary">Запустить заставку сейчас</string>
     <string name="screensaver_daydream_settings">Выбрать/включить заставку</string>
+    <string name="bedtime_reminder_notification">Напоминающее уведомление</string>
     <string name="screensaver_settings_summary">Установите стиль, цвет и шрифт заставки</string>
     <string name="display_background_border_summary">Отображать границы фона для некоторых элементов приложения (будильники, города, таймеры и т. д.)</string>
     <string name="alarm_label_box_title">Аварийная метка</string>

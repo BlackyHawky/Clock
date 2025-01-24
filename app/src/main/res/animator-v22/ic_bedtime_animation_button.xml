@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="300"
+    android:interpolator="@anim/ic_bedtime_button_translatex_interpolator"
+    android:pathData="M 12,12 c 0,0.17 0,1 0,-5 l 0,5 "
+    android:propertyXName="translateX"
+    android:propertyYName="translateY" />

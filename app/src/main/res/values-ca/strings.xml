@@ -391,6 +391,7 @@
     <string name="delete_occasional_alarm_after_use_title">Suprimeix l\'alarma en aturar-la</string>
     <string name="selected">Seleccionat</string>
     <string name="more_options">Més opcions</string>
+    <string name="alarm_inactive">Desactivada</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma apagada i suprimida</string>
     <string name="settings_permission_message">No s\'han autoritzat un o més permisos essencials. Això pot donar un comportament erroni.</string>
     <string name="style_category_title">Aparença</string>
@@ -463,6 +464,7 @@
     <string name="alarm_notification_reminder_4_hours">4 hores abans</string>
     <string name="settings_tab_indicator_title">Mostra l\'indicador de pestanya activa al menú inferior</string>
     <string name="power_button_title">Botó d\'engegada</string>
+    <string name="menu_bedtime">Fer nones</string>
     <string name="settings_vibration_summary">Resposta hàptica en alguns botons (p. ex. als lliscadors o en iniciar/pausar el temporitzador)</string>
     <string name="alarm_notification_reminder_title">Recordatori de notificació</string>
     <string name="alarm_notification_reminder_30_minutes">30 minuts abans</string>
