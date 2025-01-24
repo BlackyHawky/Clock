@@ -3,7 +3,7 @@
  * Inspired by Heliboard (https://github.com/Helium314/HeliBoard/blob/main/app/src/main/java/helium314/keyboard/latin/settings/AdvancedSettingsFragment.kt)
  */
 
-package com.best.deskclock.settings;
+package com.best.deskclock.utils;
 
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_COLOR;

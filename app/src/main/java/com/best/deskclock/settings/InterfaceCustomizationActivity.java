@@ -2,7 +2,7 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.ThemeController.Setting.CHANGED;
+import static com.best.deskclock.controller.ThemeController.Setting.CHANGED;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;

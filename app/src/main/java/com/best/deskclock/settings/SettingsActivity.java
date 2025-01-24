@@ -9,11 +9,11 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.controller.ThemeController.Setting.CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
-import static com.best.deskclock.settings.ThemeController.Setting.CHANGED;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,7 +38,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.io.FileNotFoundException;
