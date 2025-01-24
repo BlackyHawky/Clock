@@ -637,7 +637,7 @@
     <string name="auto_night_accent_color_title">Applica colore accento alla modalità notte</string>
     <string name="night_accent_color_title">Colore accento per modalità notte</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Abilita la rimozione automatica delle sveglie occasionali per impostazione predefinita</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Questa impostazione può essere modificata per ogni sveglia nella visualizzazione dettagliata delle sveglie</string>
+    <string name="alarm_settings_general_summary">Questa impostazione può essere modificata per ogni sveglia nella visualizzazione dettagliata delle sveglie</string>
     <string name="material_time_picker_style_title">Stile di selezione orario</string>
     <string name="pulse_color">Colore impulsi</string>
     <string name="alarm_clock_font_size">Dimensione caratteri della sveglia</string>

@@ -648,7 +648,7 @@
     <string name="description_direction_both_clicked_for_occasional_alarm">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Проведіть пальцем ліворуч або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Увімкнути за замовчуванням автоматичне видалення нерегулярних будильників</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
+    <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Натисніть ліворуч або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="delete_occasional_alarm_after_use_title">Видалити будильник після вимкнення</string>
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>

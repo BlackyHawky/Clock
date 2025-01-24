@@ -627,7 +627,7 @@
     <string name="bedtime_reminder_notification_15_minutes">15 Minuten vorher</string>
     <string name="delete_occasional_alarm_after_use_title">Alarm löschen, sobald er beendet wurde</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Automatisches Löschen von Alarmen standardmäßig aktivieren</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Diese Einstellung kann für jeden Alarm in der erweiterten Alarmansicht geändert werden</string>
+    <string name="alarm_settings_general_summary">Diese Einstellung kann für jeden Alarm in der erweiterten Alarmansicht geändert werden</string>
     <string name="description_direction_right_for_occasional_alarm">Nach rechts wischen, um den Alarm auszuschalten und zu löschen</string>
     <string name="description_direction_both_for_occasional_alarm">Zum Schlummern nach links oder zum Ausschalten und Löschen des Alarms nach rechts wischen</string>
     <string name="description_direction_both_clicked_for_occasional_alarm">Links tippen zum Schlummern oder rechts tippen zum Ausschalten und Löschen des Alarms</string>

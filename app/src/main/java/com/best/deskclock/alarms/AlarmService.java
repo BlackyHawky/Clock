@@ -121,7 +121,6 @@ public class AlarmService extends Service {
     private boolean mFlashState = false;
     private Handler mHandler;
     private Runnable mFlashRunnable;
-    private boolean mShouldTurnOnBackFlashForTriggeredAlarm;
 
     private AlarmInstance mCurrentAlarm = null;
 
@@ -296,42 +295,21 @@ public class AlarmService extends Service {
 
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        mShouldTurnOnBackFlashForTriggeredAlarm = DataModel.getDataModel().shouldTurnOnBackFlashForTriggeredAlarm();
 
-        if (mShouldTurnOnBackFlashForTriggeredAlarm) {
-            try {
-                // Get rear camera ID
-                for (String id : mCameraManager.getCameraIdList()) {
-                    CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(id);
-                    Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                    // Check if it is the rear camera
-                    if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
-                        mCameraId = id;
-                        break;
-                    }
-                }
+        getBackCameraId();
 
-                if (mCameraId == null) {
-                    LogUtils.e("mCameraId is null");
-                }
-            } catch (CameraAccessException e) {
-                LogUtils.e("AlarmService.onCreate - Failed to access the flash unit", e);
+        mHandler = new Handler(Looper.getMainLooper());
+        mFlashRunnable = new Runnable() {
+            @Override
+            public void run() {
+                // Toggle flash state
+                mFlashState = !mFlashState;
+                toggleFlash(mFlashState);
+
+                // Repeat action after 500ms
+                mHandler.postDelayed(this, 500);
             }
-
-            mHandler = new Handler(Looper.getMainLooper());
-
-            mFlashRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    // Toggle flash state
-                    mFlashState = !mFlashState;
-                    toggleFlash(mFlashState);
-
-                    // Repeat action after 500ms
-                    mHandler.postDelayed(this, 500);
-                }
-            };
-        }
+        };
     }
 
     @Override
@@ -365,9 +343,6 @@ public class AlarmService extends Service {
                         break;
                     }
                     startAlarm(instance);
-                    if (mShouldTurnOnBackFlashForTriggeredAlarm) {
-                        mHandler.post(mFlashRunnable);
-                    }
                 }
             }
             case STOP_ALARM_ACTION -> {
@@ -410,10 +385,8 @@ public class AlarmService extends Service {
             stopCurrentAlarm();
         }
 
-        if (mShouldTurnOnBackFlashForTriggeredAlarm) {
-            mHandler.removeCallbacks(mFlashRunnable);
-            toggleFlash(false);
-        }
+        mHandler.removeCallbacks(mFlashRunnable);
+        toggleFlash(false);
 
         if (mIsRegistered) {
             unregisterReceiver(mActionsReceiver);
@@ -433,6 +406,9 @@ public class AlarmService extends Service {
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
         AlarmKlaxon.start(this, mCurrentAlarm);
+        if (mCurrentAlarm.mFlash) {
+            mHandler.post(mFlashRunnable);
+        }
         sendBroadcast(new Intent(ALARM_ALERT_ACTION));
         attachListeners();
     }
@@ -506,6 +482,26 @@ public class AlarmService extends Service {
         mCurrentAlarm = null;
         detachListeners();
         AlarmAlertWakeLock.releaseCpuLock();
+    }
+
+    private void getBackCameraId() {
+        try {
+            for (String id : mCameraManager.getCameraIdList()) {
+                CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(id);
+                Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                // Check if it is the rear camera
+                if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                    mCameraId = id;
+                    break;
+                }
+            }
+
+            if (mCameraId == null) {
+                LogUtils.e("mCameraId is null");
+            }
+        } catch (CameraAccessException e) {
+            LogUtils.e("AlarmService.onCreate - Failed to access the flash unit", e);
+        }
     }
 
     private void toggleFlash(boolean state) {

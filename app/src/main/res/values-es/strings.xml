@@ -478,7 +478,7 @@
     <string name="FSN_dialog_text">Desde Android 14, para que la alarma se active cuando la pantalla está apagada, es imprescindible que el permiso de Notificaciones de Pantalla Completa esté activado</string>
     <string name="dialog_close">Cerrar</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activar borrado automático de alarmas ocasionales por defecto</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Este ajuste puede ser cambiado para cada alarma en la vista ampliada de la alarma</string>
+    <string name="alarm_settings_general_summary">Este ajuste puede ser cambiado para cada alarma en la vista ampliada de la alarma</string>
     <string name="digital_widget_default_hours_color_title">Utilizar el color por defecto para las horas</string>
     <string name="snooze_button_color">Color del botón de posponer</string>
     <string name="digital_widget_max_clock_font_size_title">Tamaño máximo de fuente del reloj principal</string>

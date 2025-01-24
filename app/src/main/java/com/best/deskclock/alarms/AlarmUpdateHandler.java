@@ -138,11 +138,12 @@ public final class AlarmUpdateHandler {
                     final AlarmInstance newInstance = new AlarmInstance(instance);
                     // Copy over minor change data to the instance; we don't know
                     // exactly which minor field changed, so just copy them all.
+                    newInstance.mLabel = alarm.label;
                     newInstance.mDismissAlarmWhenRingtoneEnds = alarm.dismissAlarmWhenRingtoneEnds;
                     newInstance.mAlarmSnoozeActions = alarm.alarmSnoozeActions;
                     newInstance.mVibrate = alarm.vibrate;
+                    newInstance.mFlash = alarm.flash;
                     newInstance.mRingtone = alarm.alert;
-                    newInstance.mLabel = alarm.label;
                     // Since we copied the mId of the old instance and the mId is used
                     // as the primary key in the AlarmInstance table, this will replace
                     // the existing instance.
@@ -212,12 +213,11 @@ public final class AlarmUpdateHandler {
 
     private void showUndoBar() {
         final Alarm deletedAlarm = mDeletedAlarm;
-        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
-                        mAppContext.getString(R.string.alarm_deleted), Snackbar.LENGTH_LONG)
-                .setAction(R.string.alarm_undo, v -> {
-                    mDeletedAlarm = null;
-                    asyncAddAlarm(deletedAlarm);
-                });
+        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, mAppContext.getString(R.string.alarm_deleted),
+                        Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
+                            mDeletedAlarm = null;
+                            asyncAddAlarm(deletedAlarm);
+                        });
         SnackbarManager.show(snackbar);
     }
 

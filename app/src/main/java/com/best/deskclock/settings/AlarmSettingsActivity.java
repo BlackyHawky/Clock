@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,7 +22,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
-import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -268,7 +265,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 mShakeActionPref.setOnPreferenceChangeListener(this);
             }
 
-            mTurnOnBackFlashForTriggeredAlarmPref.setVisible(hasBackFlash());
+            mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
         }
 
         private void refresh() {
@@ -334,24 +331,6 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                         R.plurals.auto_silence_summary, i));
             }
-        }
-
-        private boolean hasBackFlash() {
-            CameraManager cameraManager = (CameraManager) requireActivity().getSystemService(Context.CAMERA_SERVICE);
-            try {
-                for (String cameraId : cameraManager.getCameraIdList()) {
-                    CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
-                    Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                    Boolean hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
-
-                    if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK && hasFlash != null && hasFlash) {
-                        return true;
-                    }
-                }
-            } catch (CameraAccessException e) {
-                LogUtils.e("AlarmSettingsActivity - Failed to access the flash unit", e);
-            }
-            return false;
         }
     }
 }

@@ -626,7 +626,7 @@
     <string name="auto_silence_30_seconds">30 secondes</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Glisser vers la gauche pour arrêter et supprimer l\'alarme</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activer par défaut la suppression automatique des alarmes occasionnelles</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
+    <string name="alarm_settings_general_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
     <string name="description_direction_right_for_occasional_alarm">Glisser vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="delete_occasional_alarm_after_use_title">Supprimer l\'alarme une fois arrêtée</string>
     <string name="alarm_alert_dismiss_and_delete_text">Quitter &amp; Supprimer</string>

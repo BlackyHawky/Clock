@@ -428,7 +428,7 @@
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
     <string name="snooze_button_color">Kolor przycisku drzemki</string>
     <string name="alarm_title_color">Kolor tytułu alarmu</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
+    <string name="alarm_settings_general_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
     <string name="auto_silence_5_seconds">5 sekund</string>
     <string name="version">Wersja</string>
     <string name="features_title">Główne funkcje</string>

@@ -499,7 +499,7 @@
     <string name="light_theme">Claro</string>
     <string name="dark_theme">Escuro</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Habilitar exclusão automática de alarmes ocasionais por padrão</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Essa configuração pode ser alterada para cada alarme na exibição de alarme expandida</string>
+    <string name="alarm_settings_general_summary">Essa configuração pode ser alterada para cada alarme na exibição de alarme expandida</string>
     <string name="auto_silence_20_seconds">20 segundos</string>
     <string name="auto_silence_30_seconds">30 segundos</string>
     <string name="snooze_duration_none">Nenhum</string>

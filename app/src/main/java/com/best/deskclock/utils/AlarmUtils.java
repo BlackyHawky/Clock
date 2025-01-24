@@ -10,6 +10,9 @@ import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -181,5 +184,26 @@ public class AlarmUtils {
                 snackbarAnchor.getContext(), alarmTimeDelta);
         SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
         snackbarAnchor.announceForAccessibility(text);
+    }
+
+    /**
+     * @return {@code true} if the device has a back flash. {@code false} otherwise.
+     */
+    public static boolean hasBackFlash(Context context) {
+        CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            for (String cameraId : cameraManager.getCameraIdList()) {
+                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
+                Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                Boolean hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+
+                if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK && hasFlash != null && hasFlash) {
+                    return true;
+                }
+            }
+        } catch (CameraAccessException e) {
+            LogUtils.e("AlarmUtils - Failed to access the flash unit", e);
+        }
+        return false;
     }
 }

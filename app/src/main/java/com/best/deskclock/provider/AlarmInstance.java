@@ -51,6 +51,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             ALARM_SNOOZE_ACTIONS,
             VIBRATE,
+            FLASH,
             RINGTONE,
             ALARM_ID,
             ALARM_STATE,
@@ -71,10 +72,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 7;
     private static final int ALARM_SNOOZE_ACTIONS_INDEX = 8;
     private static final int VIBRATE_INDEX = 9;
-    private static final int RINGTONE_INDEX = 10;
-    private static final int ALARM_ID_INDEX = 11;
-    private static final int ALARM_STATE_INDEX = 12;
-    private static final int INCREASING_VOLUME_INDEX = 13;
+    private static final int FLASH_INDEX = 10;
+    private static final int RINGTONE_INDEX = 11;
+    private static final int ALARM_ID_INDEX = 12;
+    private static final int ALARM_STATE_INDEX = 13;
+    private static final int INCREASING_VOLUME_INDEX = 14;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
     // Public fields
@@ -88,6 +90,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public boolean mDismissAlarmWhenRingtoneEnds;
     public boolean mAlarmSnoozeActions;
     public boolean mVibrate;
+    public boolean mFlash;
     public Uri mRingtone;
     public Long mAlarmId;
     public int mAlarmState;
@@ -105,6 +108,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mDismissAlarmWhenRingtoneEnds = false;
         mAlarmSnoozeActions = true;
         mVibrate = false;
+        mFlash = false;
         mRingtone = null;
         mAlarmState = SILENT_STATE;
         mIncreasingVolume = false;
@@ -121,6 +125,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         this.mDismissAlarmWhenRingtoneEnds = instance.mDismissAlarmWhenRingtoneEnds;
         this.mAlarmSnoozeActions = instance.mAlarmSnoozeActions;
         this.mVibrate = instance.mVibrate;
+        this.mFlash = instance.mFlash;
         this.mRingtone = instance.mRingtone;
         this.mAlarmId = instance.mAlarmId;
         this.mAlarmState = instance.mAlarmState;
@@ -139,6 +144,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mDismissAlarmWhenRingtoneEnds = c.getInt(Alarm.INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mAlarmSnoozeActions = c.getInt(Alarm.INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
+            mFlash = c.getInt(Alarm.INSTANCE_FLASH_INDEX) == 1;
         } else {
             mId = c.getLong(ID_INDEX);
             mYear = c.getInt(YEAR_INDEX);
@@ -150,6 +156,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             mDismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
             mAlarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
             mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+            mFlash = c.getInt(FLASH_INDEX) == 1;
         }
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null
@@ -181,6 +188,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, instance.mDismissAlarmWhenRingtoneEnds ? 1 : 0);
         values.put(ALARM_SNOOZE_ACTIONS, instance.mAlarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, instance.mVibrate ? 1 : 0);
+        values.put(FLASH, instance.mFlash ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
             // to pick up on changes to the default alarm
@@ -443,6 +451,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mDismissAlarmWhenRingtoneEnds=" + mDismissAlarmWhenRingtoneEnds +
                 ", mAlarmSnoozeActions=" + mAlarmSnoozeActions +
                 ", mVibrate=" + mVibrate +
+                ", mFlash=" + mFlash +
                 ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +
                 ", mAlarmState=" + mAlarmState +

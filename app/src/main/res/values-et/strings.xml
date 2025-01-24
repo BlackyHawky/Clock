@@ -622,7 +622,7 @@
     <string name="auto_silence_5_seconds">5 sekundit</string>
     <string name="alarm_alert_dismiss_and_delete_text">Loobu ja kustuta</string>
     <string name="alarm_alert_off_and_deleted_text">Loobusid äratusest ja kustutasid ta</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Seda seadistust saad iga äratuse puhul muuta äratuse laiendatud vaates</string>
+    <string name="alarm_settings_general_summary">Seda seadistust saad iga äratuse puhul muuta äratuse laiendatud vaates</string>
     <string name="description_direction_right_for_occasional_alarm">Viipa paremale äratuse kustutamiseks peale loobumist</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Viipa vasakule äratuse kustutamiseks peale loobumist</string>
     <string name="description_direction_both_for_occasional_alarm">Edasilükkamiseks viipa vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>

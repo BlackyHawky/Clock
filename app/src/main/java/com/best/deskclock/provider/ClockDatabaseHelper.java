@@ -70,10 +70,15 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_13 = 14;
 
+    /**
+     * Add the ability to turn on flash when alarm is triggered
+     */
+    private static final int VERSION_14 = 15;
+
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_13);
+        super(context, DATABASE_NAME, null, VERSION_14);
     }
 
     private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
@@ -86,6 +91,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
                 ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
@@ -104,6 +110,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.ALARM_SNOOZE_ACTIONS + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.VIBRATE + " INTEGER NOT NULL, " +
+                ClockContract.InstancesColumns.FLASH + " INTEGER NOT NULL, " +
                 ClockContract.InstancesColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.InstancesColumns.RINGTONE + " TEXT, " +
                 ClockContract.InstancesColumns.ALARM_STATE + " INTEGER NOT NULL, " +
@@ -295,6 +302,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             // Rename the temporary tables to the same name as the old tables
             db.execSQL("ALTER TABLE " + TEMP_ALARMS_TABLE_NAME + " RENAME TO " + ALARMS_TABLE_NAME + ";");
             db.execSQL("ALTER TABLE " + TEMP_INSTANCES_TABLE_NAME + " RENAME TO " + INSTANCES_TABLE_NAME + ";");
+        }
+
+        if (oldVersion < VERSION_14) {
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN flash" + " INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN flash" + " INTEGER NOT NULL DEFAULT 0;");
         }
     }
 

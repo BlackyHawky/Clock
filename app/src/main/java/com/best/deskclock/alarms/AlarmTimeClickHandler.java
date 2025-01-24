@@ -108,6 +108,16 @@ public final class AlarmTimeClickHandler {
         }
     }
 
+    public void setAlarmFlashEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.flash) {
+            alarm.flash = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_flash, R.string.label_deskclock);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+            LOGGER.d("Updating flash state to " + newState);
+            Utils.setVibrationTime(mContext, 50);
+        }
+    }
+
     public void deleteOccasionalAlarmAfterUse(Alarm alarm, boolean newState) {
         if (newState != alarm.deleteAfterUse) {
             alarm.deleteAfterUse = newState;
@@ -207,12 +217,14 @@ public final class AlarmTimeClickHandler {
             final Alarm alarm = new Alarm();
             final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
             final boolean isOccasionalAlarmDeletedByDefault = DataModel.getDataModel().isOccasionalAlarmDeletedByDefault();
+            final boolean shouldTurnOnBackFlashForTriggeredAlarm = DataModel.getDataModel().shouldTurnOnBackFlashForTriggeredAlarm();
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.alarmSnoozeActions = true;
             alarm.vibrate = areAlarmVibrationsEnabledByDefault;
+            alarm.flash = shouldTurnOnBackFlashForTriggeredAlarm;
             alarm.deleteAfterUse = isOccasionalAlarmDeletedByDefault;
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {

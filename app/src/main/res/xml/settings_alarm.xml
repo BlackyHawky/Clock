@@ -161,6 +161,7 @@
             android:key="key_turn_on_back_flash_for_triggered_alarm"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/turn_on_back_flash_for_triggered_alarm_title"
+            android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
@@ -169,7 +170,7 @@
             android:key="key_enable_delete_occasional_alarm_by_default"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
-            android:summary="@string/enable_delete_occasional_alarm_by_default_setting_summary"
+            android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

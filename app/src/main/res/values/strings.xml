@@ -11,6 +11,8 @@
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
+    <!-- Setting labels on Set alarm screen: Flash on or off -->
+    <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
@@ -333,10 +335,10 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
     <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
-    <!-- Setting summary about the button for deleting single alarms in the expanded alarm view -->
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
+    <!-- Setting summary to indicate that this setting can be changed for each alarm -->
+    <string name="alarm_settings_general_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for customizing the alarm display. -->
     <string name="alarm_display_customization_title">Customize alarm display</string>
     <!-- Setting title for customizing the alarm title color. -->

@@ -11,7 +11,6 @@ import static com.best.deskclock.provider.ClockContract.InstancesColumns;
 import static com.best.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
 import static com.best.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
 
-import android.annotation.TargetApi;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -76,6 +75,8 @@ public class ClockProvider extends ContentProvider {
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.VIBRATE);
+        sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH,
+                ALARMS_TABLE_NAME + "." + AlarmsColumns.FLASH);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns.LABEL);
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns.RINGTONE,
@@ -107,6 +108,8 @@ public class ClockProvider extends ContentProvider {
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.ALARM_SNOOZE_ACTIONS);
         sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE,
                 INSTANCES_TABLE_NAME + "." + InstancesColumns.VIBRATE);
+        sAlarmsWithInstancesProjection.put(INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH,
+                INSTANCES_TABLE_NAME + "." + InstancesColumns.FLASH);
     }
 
     static {
@@ -123,7 +126,6 @@ public class ClockProvider extends ContentProvider {
     }
 
     @Override
-    @TargetApi(Build.VERSION_CODES.N)
     public boolean onCreate() {
         final Context context = getContext();
         final Context storageContext;

@@ -458,7 +458,7 @@
     <string name="settings_vibration_title">Habilita la vibració</string>
     <string name="display_background_border_summary">Mostra una vora a la targeta d\'alguns elements de l\'aplicació (alarmes, ciutats, botons, etc.)</string>
     <string name="display_background_border_title">Mostra la vora</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Aquesta opció es pot personalitzar al panell d\'opcions de cada alarma</string>
+    <string name="alarm_settings_general_summary">Aquesta opció es pot personalitzar al panell d\'opcions de cada alarma</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Habilita la supressió per defecte d\'alarmes ocasionals</string>
     <string name="settings_fade_transitions_title">Habilita una transició d\'esvaïment a les opcions de configuració</string>
     <string name="alarm_notification_reminder_4_hours">4 hores abans</string>

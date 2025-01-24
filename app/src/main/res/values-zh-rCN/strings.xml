@@ -622,7 +622,7 @@
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">向左滑动以关闭并删除闹钟</string>
     <string name="occasional_alarm_alert_predismiss_title">预定的临时闹钟</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">默认启用自动删除临时闹钟</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
+    <string name="alarm_settings_general_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
     <string name="occasional_alarm_deleted">临时闹钟已删除</string>
     <string name="backup_restore_settings_title">备份和还原</string>
     <string name="backup_restore_settings_summary">备份或还原设置，闹钟、定时器和铃声除外</string>
