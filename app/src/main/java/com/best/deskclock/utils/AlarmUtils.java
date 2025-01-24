@@ -6,8 +6,6 @@
 
 package com.best.deskclock.utils;
 
-import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
-
 import android.app.AlarmManager;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
@@ -66,7 +64,7 @@ public class AlarmUtils {
     public static String getNextAlarmTitle(Context context) {
         AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
         if (instance != null) {
-            return getAlarmTitle(context, instance);
+            return instance.mLabel.isEmpty() ? "" : instance.mLabel;
         }
         return null;
     }
@@ -100,13 +98,7 @@ public class AlarmUtils {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
-                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
-    }
-
-    public static String getAlarmTitle(Context context, AlarmInstance instance) {
-        return (instance.mLabel.isEmpty())
-                ? ""
-                : instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel;
+                : alarmTimeStr + " - " + instance.mLabel;
     }
 
     public static String getFormattedTime(Context context, Calendar time) {

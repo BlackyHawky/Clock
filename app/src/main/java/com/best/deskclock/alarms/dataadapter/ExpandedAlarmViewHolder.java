@@ -8,7 +8,6 @@ package com.best.deskclock.alarms.dataadapter;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.animation.Animator;
@@ -32,7 +31,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
-import com.best.deskclock.bedtime.BedtimeFragment;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -171,7 +169,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindFlash(alarm);
         bindDeleteOccasionalAlarmAfterUse(alarm);
-        bindDuplicateButton();
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
@@ -248,15 +245,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         } else {
             deleteOccasionalAlarmAfterUse.setVisibility(VISIBLE);
             deleteOccasionalAlarmAfterUse.setChecked(alarm.deleteAfterUse);
-        }
-    }
-
-    private void bindDuplicateButton() {
-        if (getItemHolder().item.equals(
-                Alarm.getAlarmByLabel(itemView.getContext().getContentResolver(), BedtimeFragment.BEDTIME_LABEL))) {
-            duplicate.setVisibility(INVISIBLE);
-        } else {
-            duplicate.setVisibility(VISIBLE);
         }
     }
 

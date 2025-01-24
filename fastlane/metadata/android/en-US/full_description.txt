@@ -19,7 +19,7 @@ Features:
   <li>Digital or analog clock style;</li>
   <li>Display home time when traveling;</li>
   <li>Display the time in many cities around the world;</li>
-  <li>Timer, stopwatch and bedtime <i>(experimental)</i> included;</li>
+  <li>Timer and stopwatch included;</li>
   <li>Possibility of sharing your stopwatch with your contacts;</li>
   <li>Customizable screensaver;</li>
   <li>Modern widgets;</li>

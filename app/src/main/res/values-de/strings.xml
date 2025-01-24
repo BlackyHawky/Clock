@@ -384,7 +384,6 @@
     <string name="enable_alarm_snooze_actions_label">Schlummerfunktion für Alarm aktivieren</string>
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Alarm-Name</string>
-    <string name="alarm_inactive">Ausgeschaltet</string>
     <string name="alarm_settings_summary">Standardsignalton, Lautstärke, Aktionen zum Ausschalten oder Schlummern von Alarmen, erster Wochentag und Benachrichtigung über anstehende Alarme einstellen</string>
     <string name="description_direction_both_clicked">Zum Schlummern links oder zum Ausschalten rechts tippen</string>
     <string name="alarm_created">Alarm eingestellt</string>
@@ -438,17 +437,8 @@
     <string name="screensaver_bold_next_alarm_title">Nächster Alarm <b>fett</b></string>
     <string name="preview_title">Vorschau</string>
     <string name="screensaver_preview_summary">Startet den Bildschirmschoner sofort</string>
-    <string name="bedtime_reminder_notification_title">Die Bettzeit beginnt um <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="no_wakeup_alarm">Kein Weckalarm aktiviert</string>
     <string name="first_launch_version">Version %s</string>
-    <string name="bedtime_notification_action_pause">Für 30 Min. pausieren</string>
-    <string name="bedtime_paused_notification_title">Der Modus \"Bettzeit\" ist unterbrochen</string>
-    <string name="wakeup_alarm_label_visible">Weckalarm</string>
-    <string name="new_bedtime_alarm">Weckalarm erstellt</string>
-    <string name="sleeping_time">Zeit zum Schlafen: %1$s</string>
-    <string name="no_bedtime_alarm">Keine Bettzeit aktiviert</string>
     <string name="first_launch_main_feature_title">HAUPTMERKMALE</string>
-    <string name="bedtime_notification_action_turn_off">Ausschalten</string>
     <string name="first_launch_main_feature_link">… und vieles mehr!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;VOLLBILD-&amp;#8203;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Beenden</string>
@@ -467,7 +457,6 @@
     <string name="ignore_battery_optimizations_dialog_title">Akku-Optimierungen</string>
     <string name="notifications_permission_title">BENACHRICHTIGUNGEN AKTIVIEREN</string>
     <string name="notifications_dialog_title">Benachrichtigungen</string>
-    <string name="bedtime_channel">Bettzeit</string>
     <string name="contributors">Mitwirkende</string>
     <string name="permission_dialog_revoke_title">Berechtigung aufheben</string>
     <string name="ignore_battery_optimizations_dialog_text">Standardmäßig konfiguriert das Android-System alle vom Benutzer installierten Apps so, dass sie optimiert werden, um den Akku zu schonen.
@@ -500,34 +489,25 @@
     <string name="title_dark_theme_mode">Dunkel-Modus</string>
     <string name="version">Version</string>
     <string name="permission_granted">Gewährt</string>
-    <string name="bedtime_notification_resume_action">Jetzt fortsetzen</string>
     <string name="permission_denied">Verweigert</string>
     <string name="title_theme">Thema</string>
-    <string name="wakeup">Wecken</string>
     <string name="settings_vibration_title">Vibrationsfeedback aktivieren</string>
     <string name="settings_vibration_summary">Nur einige Button der Benutzeroberfläche sind betroffen (z. B. der Button für Start/Pause des Timers oder die Umschalt-Button)</string>
     <string name="clock_settings_summary">Einstellen von Stil, Zeitzone und Ändern von Datum und Uhrzeit des Geräts</string>
     <string name="about_title">Über</string>
     <string name="permission_requirement_title">Erfordernis: </string>
-    <string name="menu_bedtime">Bettzeit</string>
-    <string name="bedtime_service_desc">Verarbeitet Aktionen von Bettzeit-Benachrichtigungen.</string>
     <string name="screensaver_next_alarm_color_title">Farbe des nächsten Alarms</string>
     <string name="screensaver_brightness_title">Helligkeit</string>
     <string name="screensaver_bold_digital_clock_title">Digitaluhr <b>fett</b></string>
     <string name="screensaver_italic_digital_clock_title">Digitaluhr <i>kursiv</i></string>
-    <string name="bedtime_notification_title">Der Modus \"Bettzeit\" ist aktiviert</string>
     <string name="widget_background_title">Hintergrund anzeigen</string>
     <string name="background_color_title">Hintergrundfarbe</string>
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
     <string name="FSN_dialog_title">Vollbild-​Benachrichtigungen</string>
-    <string name="bedtime_reminder_notification_text">Ihre Bettzeit endet um <xliff:g id="wake_time">%1$s</xliff:g> nach <xliff:g id="sleep_time">%2$s</xliff:g> Schlaf.</string>
-    <string name="bedtime_notification_resume">Fortsetzung am <xliff:g id="time">%1$s</xliff:g></string>
     <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="bedtime_notification_until">bis <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
     <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-​Smartphones: Der Alarm wird auch ausgelöst, wenn das Gerät ausgeschaltet ist; \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Signaltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit von vielen Städten der Welt; \n \n• Timer, Stoppuhr und Bettzeit-​Modus <i>(experimentell)</i> enthalten; \n \n• Möglichkeit, die Stoppuhr-​Zeiten mit eigenen Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n \n• Einstellungen sichern und wiederherstellen; \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
-    <string name="bedtime_reminder_notification">Erinnerung</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
     <string name="material_you_vertical_digital_widget">Vertikale \'Material You\' Digitaluhr</string>
     <string name="snooze_button_color">Farbe des Schlummer-Buttons</string>
@@ -597,19 +577,15 @@
     <string name="default_time_to_add_to_timer_1_hour">1 Stunde</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 Minuten</string>
     <string name="sort_timer_descending_duration">Nach Dauer (absteigend)</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 Minuten vorher</string>
     <string name="timer_flip_action_title">Das Gerät umdrehen, um den Timer zu stoppen</string>
     <string name="occasional_alarm_deleted">Einmaliger Alarm gelöscht</string>
     <string name="timer_shake_action_title">Das Gerät schütteln, um den Timer zu stoppen</string>
     <string name="timer_volume_buttons_action_title">Abgelaufene Timer mit Lautstärketasten zurücksetzen</string>
     <string name="timer_power_button_action_title">Abgelaufene Timer mit Ein/Aus-Taste zurücksetzen</string>
     <string name="timer_buttons_action_summary">Funktioniert nur bei gesperrtem Bildschirm</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 Minuten vorher</string>
     <string name="sw_settings_summary">Aktionen für Lautstärketasten festlegen</string>
     <string name="sw_start_pause_action">Start / Pause</string>
     <string name="sw_long_press_volume_down_action_title">Leiser-Taste (lange drücken)</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 Minuten vorher</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 Minuten vorher</string>
     <string name="alarm_alert_dismiss_and_delete_text">Ausschalten &amp; Löschen</string>
     <string name="alarm_alert_off_and_deleted_text">Alarm ausgeschaltet und gelöscht</string>
     <string name="digital_widget_default_hours_color_title">Standardfarbe für Stunden verwenden</string>
@@ -624,7 +600,6 @@
     <string name="day_accent_color_title">Akzentfarbe für Tag-Modus</string>
     <string name="indigo_accent_color">Indigo</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 Minuten vorher</string>
     <string name="delete_occasional_alarm_after_use_title">Alarm löschen, sobald er beendet wurde</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Automatisches Löschen von Alarmen standardmäßig aktivieren</string>
     <string name="alarm_settings_general_summary">Diese Einstellung kann für jeden Alarm in der erweiterten Alarmansicht geändert werden</string>
@@ -642,7 +617,6 @@
     <string name="backup_restore_dialog_message">Möchten Sie die Einstellungen sichern oder aus einer Datei wiederherstellen?</string>
     <string name="backup_restore_toast_message_for_backup">Sicherung abgeschlossen</string>
     <string name="seconds_hand_color_title">Farbe des Sekundenzeigers</string>
-    <string name="bedtime_reminder_notification_1_hour">1 Stunde vorher</string>
     <string name="auto_night_accent_color_title">Akzentfarbe im Nacht-Modus anwenden</string>
     <string name="night_accent_color_title">Akzentfarbe für Nacht-Modus</string>
     <string name="auto_silence_5_seconds">5 Sekunden</string>

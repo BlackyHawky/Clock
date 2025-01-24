@@ -429,7 +429,6 @@
     <string name="settings_permission_message">Jedno nebo více základních oprávnění zamítnuto. Jejich neudělení může vést k poruchám.</string>
     <string name="interface_customization_summary">Nastavení stylu a barvy použité na aplikaci</string>
     <string name="delete_occasional_alarm_after_use_title">Vymazat alarm po zrušení</string>
-    <string name="alarm_inactive">Vypnuto</string>
     <string name="system_theme">Systém</string>
     <string name="blue_gray_accent_color">Modrošedá</string>
     <string name="brown_accent_color">Hnědá</string>

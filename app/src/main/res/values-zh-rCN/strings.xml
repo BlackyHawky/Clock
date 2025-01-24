@@ -373,7 +373,6 @@
     <string name="stopwatch_channel">秒表</string>
     <string name="timer_channel">定时器</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">铃声结束</string>
-    <string name="menu_bedtime">就寝时间</string>
     <string name="digital_widget_clock_custom_color_title">主时钟自定义颜色</string>
     <string name="permission_requirement_title">必要： </string>
     <string name="permission_highly_recommended">强烈推荐</string>
@@ -388,7 +387,6 @@
     <string name="more_options">更多选项</string>
     <string name="about_title">关于</string>
     <string name="version">版本</string>
-    <string name="bedtime_channel">就寝时间</string>
     <string name="material_you_digital_widget">数字时钟 Material You</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">创建闹钟时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
@@ -409,7 +407,6 @@
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
     <string name="about_dialog_message">• 翻转和摇动操作可关闭/推迟闹钟；\n\n• 使用电源按钮或音量按钮关闭/推迟闹钟；\n\n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟；\n\n• 滑动以删除闹钟；\n\n• 重复闹钟；\n\n• 自定义闹钟标题；\n\n• 可自定义铃声；\n\n• 浅色、深色或系统主题；\n\n• 深色主题的 AMOLED 模式；\n\n• 数字或指针时钟风格；\n\n• 旅行时显示家乡时间；\n\n• 显示世界各地许多城市的时间；\n\n• 包括定时器、秒表和就寝时间<i>（实验性）</i>；\n\n• 可以与联系人共享秒表；\n\n• 可自定义的屏幕保护程序；\n\n• 现代微件；\n\n• 可自定义的微件；\n\n• 备份和还原设置；\n\n• Material 设计；\n\n• 适用于 Android 12+ 的动态色彩；</string>
-    <string name="bedtime_reminder_notification_text">您的就寝时间将于 <xliff:g id="sleep_time">%2$s</xliff:g> 睡眠后 <xliff:g id="wake_time">%1$s</xliff:g> 停止。</string>
     <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► Material 设计和动态色彩；&lt;br&gt; &lt;br&gt; ► 滑动以删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇动操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
@@ -427,7 +424,6 @@
     <string name="digital_widget_city_title">在微件上显示城市</string>
     <string name="digital_widget_city_clock_custom_color_title">城市时钟自定义颜色</string>
     <string name="digital_widget_city_name_custom_color_title">城市名称自定义颜色</string>
-    <string name="bedtime_notification_until">直到 <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="permission_management_summary">显示应用程序正常工作所需的权限</string>
     <string name="swipe_action_title">滑动以关闭或暂停闹钟</string>
     <string name="power_button_title">电源按钮</string>
@@ -441,7 +437,6 @@
     <string name="contributors">贡献者</string>
     <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
-    <string name="bedtime_service_desc">处理来自就寝时间通知的操作。</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑动以关闭</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">单击左键或右键以关闭</string>
     <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
@@ -462,20 +457,6 @@
     <string name="screensaver_next_alarm_color_title">下次闹钟颜色</string>
     <string name="screensaver_bold_next_alarm_title">粗体下次闹钟</string>
     <string name="screensaver_italic_next_alarm_title">斜体下次闹钟</string>
-    <string name="wakeup">唤醒</string>
-    <string name="bedtime_reminder_notification">提醒通知</string>
-    <string name="bedtime_reminder_notification_title">您的就寝时间开始于 <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_title">“就寝时间”模式已打开</string>
-    <string name="bedtime_notification_action_pause">暂停 30 分钟</string>
-    <string name="bedtime_notification_action_turn_off">关掉</string>
-    <string name="bedtime_paused_notification_title">“就寝时间”模式已暂停</string>
-    <string name="bedtime_notification_resume">在 <xliff:g id="time">%1$s</xliff:g> 继续</string>
-    <string name="bedtime_notification_resume_action">现在继续</string>
-    <string name="wakeup_alarm_label_visible">唤醒闹钟</string>
-    <string name="new_bedtime_alarm">唤醒闹钟已创建</string>
-    <string name="sleeping_time">睡眠时间：%1$s</string>
-    <string name="no_bedtime_alarm">没有设置就寝时间</string>
-    <string name="no_wakeup_alarm">没有设置唤醒闹钟</string>
     <string name="first_launch_version">版本 %s</string>
     <string name="first_launch_important_info_title">重要信息</string>
     <string name="first_launch_dialog_title">退出</string>
@@ -495,7 +476,6 @@
     <string name="widget_next_alarm_custom_color_title">下次闹钟自定义颜色</string>
     <string name="enable_alarm_snooze_actions_label">启用闹钟暂停操作</string>
     <string name="alarm_label_box_title">闹钟标签</string>
-    <string name="alarm_inactive">已关闭</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">铃声结束时关闭闹钟</string>
     <string name="settings_permission_summary">单击此处显示权限管理页面。</string>
     <string name="style_category_title">风格</string>
@@ -599,12 +579,6 @@
     <string name="default_time_to_add_to_timer_10_minutes">10 分钟</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 分钟</string>
     <string name="default_time_to_add_to_timer_1_hour">1 小时</string>
-    <string name="bedtime_reminder_notification_10_minutes">睡前 10 分钟</string>
-    <string name="bedtime_reminder_notification_15_minutes">睡前 15 分钟</string>
-    <string name="bedtime_reminder_notification_20_minutes">睡前 20 分钟</string>
-    <string name="bedtime_reminder_notification_30_minutes">睡前 30 分钟</string>
-    <string name="bedtime_reminder_notification_1_hour">睡前 1 小时</string>
-    <string name="bedtime_reminder_notification_45_minutes">睡前 45 分钟</string>
     <string name="snooze_duration_none">无</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 分钟</string>
     <string name="auto_silence_10_seconds">10 秒</string>

@@ -374,7 +374,6 @@
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarme <xliff:g id="ALARM_TIME">%s</xliff:g> adiado por 10 minutos"</string>
     <string name="title_dark_theme_mode">Tema AMOLED</string>
     <string name="power_button_title">Botão de ligar</string>
-    <string name="alarm_inactive">Desligado</string>
     <string name="selected">Selecionado</string>
     <string name="more_options">Mais opções</string>
     <string name="analog_widget_material_you">Relógio analógico com Material You</string>
@@ -403,7 +402,6 @@
     <string name="miscellaneous_category_title">Variadas</string>
     <string name="ringtone_category_title">Toque</string>
     <string name="actions_category_title">Ações</string>
-    <string name="menu_bedtime">Hora de dormir</string>
     <string name="settings_permission_message">Uma ou mais permissões essenciais foram recusadas. Não as permitindo pode levar à mal funcionamento.</string>
     <string name="settings_permission_summary">Toque aqui para mostrar a Página de gerenciamento de permissões.</string>
     <string name="material_time_picker_style_title">Estilo do seletor de horário</string>
@@ -422,7 +420,6 @@
     <string name="timer_button_time_box_title">Minutos para adicionar ao timer</string>
     <string name="alarm_settings_summary">Definir toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>
     <string name="description_direction_both_clicked">Clique na esquerda para soneca ou direita para descartar</string>
-    <string name="bedtime_service_desc">Processa ações de notificações de hora de dormir.</string>
     <string name="app_slogan">Relógio 100% FOSS, baseado em AOSP</string>
     <string name="orange_accent_color">Laranja</string>
     <string name="indigo_accent_color">Índigo</string>
@@ -533,8 +530,6 @@
     <string name="first_launch_button_now">Agora</string>
     <string name="widget_next_alarm_custom_color_title">Cor personalizada para próximo alarme</string>
     <string name="widget_max_clock_font_size_summary">Tamanho máximo da fonte =</string>
-    <string name="new_bedtime_alarm">Alarme de acordar criado</string>
-    <string name="sleeping_time">Tempo de sono: %1$s</string>
     <string name="digital_widget_city_name_custom_color_title">Cor personalizada para o nome da cidade</string>
     <string name="digital_widget_max_clock_font_size_title">Tamanho máximo da fonte do relógio principal</string>
     <string name="digital_widget_message_summary">Mostrar cidades no widget deve estar desativado para acessar essa configuração</string>
@@ -542,16 +537,7 @@
     <string name="background_color_title">Cor do plano de fundo</string>
     <string name="digital_widget_city_title">Mostrar cidades no widget</string>
     <string name="digital_widget_clock_default_color_title">Use as cores padrão para o relógio principal</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 minutos antes da hora de dormir</string>
-    <string name="bedtime_reminder_notification_1_hour">1 hora antes da hora de dormir</string>
-    <string name="bedtime_paused_notification_title">Modo \"Hora de dormir\" está pausado</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 minutos antes da hora de dormir</string>
-    <string name="bedtime_notification_resume_action">Retomar agora</string>
-    <string name="wakeup_alarm_label_visible">Alarme de acordar</string>
-    <string name="no_bedtime_alarm">Não há hora de dormir definida</string>
-    <string name="bedtime_notification_resume">Retomar em <xliff:g id="time">%1$s</xliff:g></string>
     <string name="shake_action_title">Ação de chacoalhar o dispositivo</string>
-    <string name="no_wakeup_alarm">Não há alarme de acordar definido</string>
     <string name="alarm_snooze_channel">Alarmes com soneca</string>
     <string name="stopwatch_channel">Cronômetro</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICAÇÕES DE TELA CHEIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -566,14 +552,7 @@
     <string name="digital_widget_city_clock_default_color_title">Usar a cor padrão para o relógio da cidade</string>
     <string name="flip_action_title">Ação de virar o dispositivo</string>
     <string name="first_launch_main_feature_link">… e muito mais!</string>
-    <string name="bedtime_channel">Hora de dormir</string>
     <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para deletar um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
-    <string name="bedtime_reminder_notification_text">Sua hora de dormir termina em <xliff:g id="wake_time">%1$s</xliff:g> depois <xliff:g id="sleep_time">%2$s</xliff:g> de dormir.</string>
-    <string name="bedtime_notification_title">Modo \"Hora de dormir\" está ligado</string>
-    <string name="bedtime_notification_action_pause">Pause por 30 min</string>
-    <string name="bedtime_reminder_notification_title">Sua hora de dormir começa em <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_action_turn_off">Desligar</string>
-    <string name="bedtime_notification_until">até <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="digital_widget_city_clock_custom_color_title">Cor personalizada do relógio da cidade</string>
     <string name="digital_widget_custom_minutes_color_title">Cor dos minutos personalizada</string>
     <string name="digital_widget_date_default_color_title">Usar a cor padrão para a data</string>
@@ -581,9 +560,6 @@
     <string name="digital_widget_city_name_default_color_title">Usar a cor padrão para o nome da cidade</string>
     <string name="alarm_upcoming_channel">Próximos alarmes</string>
     <string name="next_alarm_widget_default_title_color">Usar a cor padrão para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 minutos antes da hora de dormir</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 minutos antes da hora de dormir</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 minutos antes da hora de dormir</string>
     <string name="timer_channel">Timer</string>
     <string name="first_launch_version">Versão %s</string>
     <string name="first_launch_main_feature_title">PRINCIPAIS RECURSOS</string>
@@ -603,7 +579,6 @@
     <string name="permission_management_summary">Mostrar as permissões necessárias para que o aplicativo funcione corretamente</string>
     <string name="next_alarm_widget_default_alarm_title_color">Usar a cor padrão para o título do alarme</string>
     <string name="next_alarm_widget_custom_title_color">Cor personalizada para os títulos “Próximo alarme” e “Sem próximo alarme”</string>
-    <string name="wakeup">Acordar</string>
     <string name="notifications_permission_title">PERMITIR NOTIFICAÇÕES</string>
     <string name="FSN_permission_title">ATIVAR NOTIFICAÇÕES EM TELA CHEIA</string>
     <string name="FSN_dialog_title">Notificações em tela cheia</string>
@@ -611,7 +586,6 @@
     <string name="FSN_dialog_text">Desde o Android 14, para que o alarme seja acionado quando a tela estiver desligada, é imperativo que a permissão Notificações em tela cheia esteja ativada</string>
     <string name="ignore_battery_optimizations_dialog_text">Por padrão, o sistema Android configura todos os aplicativos instalados pelo usuário para serem otimizados para economizar a bateria. \n\nEmbora isso seja aceitável para muitos aplicativos, esse aplicativo é um aplicativo de alarme e geralmente causa problemas se for configurado para otimizar a bateria. Uma vez ativado, o sistema Android pode encerrar o aplicativo a qualquer momento e/ou cancelar os alarmes programados, o que afetaria negativamente a operação do aplicativo. \n\nRecomendamos colocar esse aplicativo na lista de permissões de otimizações de bateria.</string>
     <string name="notifications_dialog_title">Notificações</string>
-    <string name="bedtime_reminder_notification">Notificação de lembrete</string>
     <string name="permission_granted">Concedido</string>
     <string name="permission_denied">Negado</string>
     <string name="permission_management_settings">Gerenciamento de permissões</string>

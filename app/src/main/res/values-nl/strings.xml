@@ -377,7 +377,6 @@
     <string name="shake_action_title">Actie bij apparaat schudden</string>
     <string name="title_theme">Thema</string>
     <string name="selected">Geselecteerd</string>
-    <string name="alarm_inactive">Staat uit</string>
     <string name="material_you_digital_widget">Digitale klok Material You</string>
     <string name="display_background_border_title">Achtergrondranden tonen</string>
     <string name="display_background_border_summary">Gebruikt een achtergrondrand voor sommige elementen (wekkers, steden, timerknoppen etc.)</string>
@@ -395,15 +394,10 @@
     <string name="title_dark_theme_mode">Donker themastijl</string>
     <string name="display_card_background_title">Kaartachtergronden tonen</string>
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de timer)</string>
-    <string name="new_bedtime_alarm">Wekalarm aangemaakt</string>
-    <string name="sleeping_time">Slaaptijd: %1$s</string>
-    <string name="no_bedtime_alarm">Geen bedtijd ingesteld</string>
-    <string name="no_wakeup_alarm">Geen wekalarm ingesteld</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
-    <string name="bedtime_service_desc">Verwerkt acties van bedtijdmeldingen.</string>
     <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
@@ -417,13 +411,6 @@
     <string name="preview_title">Voorvertoning</string>
     <string name="screensaver_preview_summary">Start de screensaver meteen</string>
     <string name="alarm_created">Wekker aangemaakt</string>
-    <string name="bedtime_paused_notification_title">De modus \"Bedtijd\" is gepauzeerd</string>
-    <string name="bedtime_reminder_notification">Herinneringsmelding</string>
-    <string name="bedtime_reminder_notification_text">Je bedtijd stopt om <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> slaaptijd.</string>
-    <string name="bedtime_notification_title">De modus \"Bedtijd\" staat aan</string>
-    <string name="bedtime_notification_action_pause">Pauzeer voor 30 min.</string>
-    <string name="bedtime_notification_action_turn_off">Uitzetten</string>
-    <string name="bedtime_notification_until">tot <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="alarm_missed_channel">Gemiste wekkers</string>
     <string name="alarm_snooze_channel">Gesnoozede wekkers</string>
     <string name="alarm_upcoming_channel">Volgende wekkers</string>
@@ -457,12 +444,8 @@
     <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een timer, stopwatch en bedtijdmodus.
 \n
 \nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app te aan te zetten.</string>
-    <string name="bedtime_channel">Bedtijd</string>
     <string name="screensaver_brightness_title">Helderheid</string>
     <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
-    <string name="wakeup">Wakker worden</string>
-    <string name="bedtime_reminder_notification_title">Je bedtijd start om <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="wakeup_alarm_label_visible">Wekalarm</string>
     <string name="add_label">Label toevoegen</string>
     <string name="app_slogan">100% FOSS Klok, gebaseerd op AOSP</string>
     <string name="version">Versie</string>
@@ -472,8 +455,6 @@
     <string name="about_github_link">Bekijk op GitHub</string>
     <string name="license">Open-source licentie</string>
     <string name="dialog_close">Sluiten</string>
-    <string name="bedtime_notification_resume">Hervat op <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_resume_action">Nu hervatten</string>
     <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
@@ -482,7 +463,6 @@
     <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
     <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om meldingen op volledig scherm toe te staan</string>
     <string name="power_button_title">Aan/uit-knop</string>
-    <string name="menu_bedtime">Bedtijd</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie stijl</string>
@@ -539,18 +519,12 @@
     <string name="alarm_notification_reminder_6_hours">6 uur van te voren</string>
     <string name="alarm_notification_reminder_10_hours">10 uur van te voren</string>
     <string name="alarm_notification_reminder_12_hours">12 uur van te voren</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 minuten voor bedtijd</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 minuten voor bedtijd</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 minuten voor betijd</string>
-    <string name="bedtime_reminder_notification_1_hour">1 uur voor betijd</string>
     <string name="backup_restore_dialog_message">Wil je een back-up maken, of instellingen herstellen uit een bestand?</string>
     <string name="backup_restore_backup_button_title">Back-up</string>
     <string name="backup_restore_restore_button_title">Herstel</string>
     <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
     <string name="snooze_button_color">Kleur snoozeknop</string>
     <string name="auto_silence_20_seconds">20 seconden</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 minuten voor bedtijd</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 minuten voor betijd</string>
     <string name="digital_widget_custom_minutes_color_title">Aangepaste kleuren voor minuten</string>
     <string name="next_alarm_widget_default_title_color">Standaardkleur voor \"Volgende wekker\" en \"Geen volgende wekker\" titels</string>
     <string name="denied_permission_label">Toestemming geweigerd</string>

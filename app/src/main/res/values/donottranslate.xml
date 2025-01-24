@@ -28,7 +28,6 @@
     <string name="category_clock">Clock</string>
     <string name="category_timer">Timer</string>
     <string name="category_stopwatch">Stopwatch</string>
-    <string name="category_bedtime">Bedtime</string>
     <string name="category_screensaver">Screensaver</string>
     <string name="category_analog_widget">Analog Widget</string>
     <string name="category_digital_widget">Digital Widget</string>
@@ -399,28 +398,6 @@
         <item>10</item>
         <item>30</item>
         <item>60</item>
-    </string-array>
-
-    <!-- Entries listed in the ListPreference when invoking the bedtime duration preference -->
-    <string-array name="array_reminder_notification">
-        <item>@string/bedtime_reminder_notification_10_minutes</item>
-        <item>@string/bedtime_reminder_notification_15_minutes</item>
-        <item>@string/bedtime_reminder_notification_20_minutes</item>
-        <item>@string/bedtime_reminder_notification_30_minutes</item>
-        <item>@string/bedtime_reminder_notification_45_minutes</item>
-        <item>@string/bedtime_reminder_notification_1_hour</item>
-        <item>@string/label_off</item>
-    </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match
-         the snooze_duration_entries above. -->
-    <string-array name="array_reminder_notification_values" translatable="false">
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>30</item>
-        <item>45</item>
-        <item>60</item>
-        <item>-1</item>
     </string-array>
 
     <!-- Jocular content that user may append when sharing the lap times -->

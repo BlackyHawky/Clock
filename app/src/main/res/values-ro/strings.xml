@@ -396,7 +396,6 @@
     <string name="permission_dialog_close_button">Închidere</string>
     <string name="selected">Selectat</string>
     <string name="more_options">Mai multe opțiuni</string>
-    <string name="alarm_inactive">Oprit</string>
     <string name="settings_permission_summary">Clic aici pentru a afișa pagina de gestionare a permisiunilor.</string>
     <string name="material_you_digital_widget">Ceas digital Material You</string>
     <string name="title_dark_theme_mode">Modul temă întunecată</string>
@@ -406,7 +405,6 @@
     <string name="settings_vibration_summary">Numai unele butoane ale interfeței sunt afectate (de exemplu: butonul de redare/pauză sau comutatoare cu temporizator)</string>
     <string name="power_button_title">Butonul de pornire</string>
     <string name="add_label">Adaugă o etichetă</string>
-    <string name="menu_bedtime">Ora de culcare</string>
     <string name="about_title">Despre</string>
     <string name="app_slogan">Ceas 100% FOSS, bazat pe AOSP</string>
     <string name="version">Versiune</string>
@@ -420,7 +418,6 @@
     <string name="credits">Autori</string>
     <string name="dialog_close">Închidere</string>
     <string name="permission_status_title">Stare: </string>
-    <string name="bedtime_service_desc">Procesează acțiunile din notificările de la culcare.</string>
     <string name="screensaver_settings_summary">Deschide setările screensaver-ului</string>
     <string name="screensaver_daydream_settings">Selectează/activează screensaver-ul</string>
     <string name="screensaver_daydream_settings_summary">Deschide setările principale de screensaver Android</string>
@@ -438,21 +435,6 @@
     <string name="permission_management_summary">Afișează permisiunile necesare pentru ca aplicația să funcționeze corect</string>
     <string name="permission_requirement_title">Cerință: </string>
     <string name="permission_highly_recommended">Foarte recomandat</string>
-    <string name="wakeup">Trezire</string>
-    <string name="bedtime_reminder_notification">Notificare de memento</string>
-    <string name="bedtime_reminder_notification_title">Ora de culcare începe la <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_title">Modul „Ora de culcare” este activat</string>
-    <string name="bedtime_notification_action_pause">Pauză 30 de min</string>
-    <string name="bedtime_notification_action_turn_off">Oprește</string>
-    <string name="bedtime_notification_until">până la <xliff:g id="wake_time">%s</xliff:g></string>
-    <string name="bedtime_paused_notification_title">Modul „Ora de culcare” este întrerupt</string>
-    <string name="bedtime_notification_resume">Se reia la <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_resume_action">Reia acum</string>
-    <string name="wakeup_alarm_label_visible">Alarma de trezire</string>
-    <string name="new_bedtime_alarm">S-a creat alarma de trezire</string>
-    <string name="sleeping_time">Timpul de somn: %1$s</string>
-    <string name="no_bedtime_alarm">Nu s-a setat ora de culcare</string>
-    <string name="no_wakeup_alarm">Nicio alarmă de trezire setată</string>
     <string name="first_launch_version">Versiune %s</string>
     <string name="first_launch_button_now">Acum</string>
     <string name="first_launch_button_later">Mai târziu</string>
@@ -484,8 +466,6 @@
     <string name="about_dialog_message">• Acțiune de întoarcere și agitare pentru a anula/amâna alarma; \n \n• Oprește/amână alarma cu butonul de pornire sau butoanele de volum; \n \n• Numai pentru telefoanele Snapdragon, alarma este declanșată când telefonul este oprit; \n \n• Glisează pentru a șterge o alarmă; \n \n• Alarme duplicate; \n \n• Personalizează titlul alarmei; \n \n• Ton de apel personalizabil; \n \n• Temă luminoasă, întunecată sau de sistem; \n \n• Modul AMOLED pentru tema întunecată; \n \n• Stil de ceas digital sau analog; \n \n• Afișează ora acasă când călătorești; \n \n• Afișează ora din multe orașe din întreaga lume; \n \n• Cronometru, cronometru și ora de culcare <i>(experimentală)</i> incluse; \n \n• Posibilitatea de a partaja cronometrul cu persoanele de contact; \n \n• Screensaver personalizabil; \n \n• Widgeturi moderne; \n \n• Widgeturi personalizabil; \n \n• Design material; \n \n• Culori dinamice pentru Android 12+; \u0020</string>
     <string name="title_theme">Temă</string>
     <string name="display_card_background_title">Afișează fundalurile cardului</string>
-    <string name="bedtime_reminder_notification_text">Ora de culcare se sfârșește la <xliff:g id="wake_time">%1$s</xliff:g> după <xliff:g id="sleep_time">%2$s</xliff:g> de somn.</string>
-    <string name="bedtime_channel">Ora de culcare</string>
     <string name="first_launch_main_feature_message">► Temă deschisă, întunecată sau de sistem; &lt;br&gt; &lt;br&gt; ► Screensaver personalizabil; &lt;br&gt; &lt;br&gt; ► Widgeturi personalizabil; &lt;br&gt; &lt;br&gt; ► Design material și culori dinamice; &lt;br&gt; &lt;br&gt; ► Glisează pentru a șterge o alarmă; &lt;br&gt; &lt;br&gt; ► Dublează o alarmă; &lt;br&gt; &lt;br&gt; ► Acțiune de întoarcere și agitare pentru a anula/amâna alarma; &lt;br&gt; &lt;br&gt; ► Oprește/amână alarma cu butonul de pornire sau butoanele de volum;&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Pentru a te asigura că aplicația funcționează corect, &lt;b&gt;unele dintre setările dispozitivului trebuie să fie modificate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NU DERANJA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt; b&gt;OPTIMIZAREA BATERIEI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICĂRI;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;În funcție de versiunea Android a dispozitivului, unele dintre aceste setări sunt deja optimizate (de exemplu, notificările).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Le poți modifica acum sau mai târziu în setările de gestionare a permisiunilor:</string>
     <string name="permission_dialog_revoke_title">Revocă accesul</string>

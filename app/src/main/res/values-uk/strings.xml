@@ -397,11 +397,9 @@
     <string name="version">Версія</string>
     <string name="about_title">Про додаток</string>
     <string name="analog_widget_material_you">Аналог. годинник Material You</string>
-    <string name="menu_bedtime">Час сну</string>
     <string name="title_theme">Тема</string>
     <string name="title_accent_color">Акцентний колір</string>
     <string name="settings_vibration_title">Увімкнути вібрацію</string>
-    <string name="alarm_inactive">Вимкнено</string>
     <string name="material_you_digital_widget">Цифровий годинник Material You</string>
     <string name="interface_customization_settings">Інтерфейс</string>
     <string name="style_category_title">Стиль</string>
@@ -412,15 +410,8 @@
     <string name="dialog_close">Закрити</string>
     <string name="whats_new_title">Що нового</string>
     <string name="first_launch_button_now">Зараз</string>
-    <string name="bedtime_notification_action_pause">Призупинити на 30 хв</string>
-    <string name="bedtime_channel">Час сну</string>
     <string name="screensaver_brightness_title">Яскравість</string>
     <string name="preview_title">Попередній перегляд</string>
-    <string name="bedtime_notification_title">Режим «Час сну» ввімкнено</string>
-    <string name="bedtime_notification_action_turn_off">Вимкнути</string>
-    <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>
-    <string name="bedtime_paused_notification_title">Режим «Час сну» призупинено</string>
-    <string name="no_bedtime_alarm">Час сну не встановлено</string>
     <string name="stopwatch_channel">Секундомір</string>
     <string name="timer_channel">Таймер</string>
     <string name="first_launch_version">Версія %s</string>
@@ -444,7 +435,6 @@
     <string name="screensaver_preview_summary">Запускає заставку негайно</string>
     <string name="display_card_background_title">Фон карток</string>
     <string name="features_title">Основні функції</string>
-    <string name="bedtime_service_desc">Обробляє дії зі сповіщень режиму «Час сну».</string>
     <string name="clock_settings_summary">Стиль, часовий пояс, зміна дати і часу на пристрої</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамічні кольори годинника</string>
     <string name="clock_color_title">Колір годинника</string>
@@ -478,7 +468,6 @@
     <string name="notifications_dialog_text">Окрім встановлення будильників, цей додаток також має таймер, секундомір і режим «Час сну».
 \n
 \nЩоб сповіщення коректно відображалися для всіх модулів, а особливо щоб спрацьовував будильник, рекомендуємо активувати сповіщення для цього додатка.</string>
-    <string name="bedtime_notification_resume">Відновити о <xliff:g id="time">%1$s</xliff:g></string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
     <string name="widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
@@ -495,11 +484,9 @@
     <string name="screensaver_italic_date_title">Дата курсивом</string>
     <string name="screensaver_bold_next_alarm_title">Наступний будильник жирним</string>
     <string name="screensaver_italic_next_alarm_title">Наступний будильник курсивом</string>
-    <string name="bedtime_reminder_notification_text">Ваш час сну закінчується о <xliff:g id="wake_time">%1$s</xliff:g> після <xliff:g id="sleep_time">%2$s</xliff:g> сну.</string>
     <string name="permission_highly_recommended">Настійно рекомендується</string>
     <string name="interface_customization_summary">Налаштування стилю і кольору додатка</string>
     <string name="timer_settings_summary">Сигнал за замовчуванням, гучність і сортування для таймерів</string>
-    <string name="sleeping_time">Тривалість сну: %1$s</string>
     <string name="revoke_permission_dialog_message">Ви впевнені, що хочете відкликати цей дозвіл?</string>
     <string name="swipe_action_title">Жести, щоб вимкнути або відкласти будильник</string>
     <string name="screensaver_daydream_settings">Вибрати/ввімкнути заставку</string>
@@ -509,10 +496,7 @@
     <string name="first_launch_important_info_message">Щоб додаток працював належним чином, необхідно &lt;b&gt;змінити деякі налаштування Вашого пристрою:&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Оптимізація заряду акумулятора;&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Сповіщення;&lt;/b&gt;&lt;br&gt;&lt;br&gt; %s • &lt;b&gt;Сховище &lt;i&gt;(необов\'язково).&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Залежно від версії Android Вашого пристрою, деякі з цих налаштувань (наприклад, Сповіщення) можуть бути вже оптимізовані.&lt;/i&gt;&lt;br&gt;&lt;br&gt;Ви можете змінити їх зараз або пізніше в налаштуваннях управління дозволами:</string>
     <string name="ignore_battery_optimizations_title">Ігнорувати оптимізацію заряду</string>
     <string name="ignore_battery_optimizations_dialog_title">Оптимізація заряду акумулятора</string>
-    <string name="wakeup">Пробудження</string>
     <string name="screensaver_bold_date_title">Дата жирним</string>
-    <string name="bedtime_reminder_notification">Нагадування за</string>
-    <string name="bedtime_reminder_notification_title">Ваш час сну починається о <xliff:g id="bed_time">%1$s</xliff:g></string>
     <string name="settings_vibration_summary">Впливає лише на деякі кнопки (напр., запуск/пауза таймера або перемикачі)</string>
     <string name="alarm_label_box_title">Мітка будильника</string>
     <string name="enable_alarm_snooze_actions_label">Увімкнути дії відкладення будильника</string>
@@ -525,10 +509,6 @@
     <string name="alarm_settings_summary">Сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
     <string name="description_direction_left_for_non_repeatable_alarm">Щоб вимкнути, проведіть пальцем ліворуч</string>
     <string name="description_direction_both_clicked">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути</string>
-    <string name="bedtime_notification_resume_action">Відновити зараз</string>
-    <string name="wakeup_alarm_label_visible">Будильник</string>
-    <string name="new_bedtime_alarm">Будильник створено</string>
-    <string name="no_wakeup_alarm">Будильник не встановлено</string>
     <string name="flip_action_title">Дія перевертання пристрою</string>
     <string name="firing_alarms_timers_channel">Сигнали і таймери</string>
     <string name="alarm_missed_channel">Пропущені сигнали</string>
@@ -629,12 +609,6 @@
     <string name="sort_timer_descending_duration">За тривалістю (спадання)</string>
     <string name="sort_timer_name">За назвою</string>
     <string name="default_time_to_add_to_timer_1_hour">1 година</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 хвилин до сну</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 хвилин до сну</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 хвилин до сну</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 хвилин до сну</string>
-    <string name="bedtime_reminder_notification_1_hour">1 годину до сну</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 хвилин до сну</string>
     <string name="default_time_to_add_to_timer_1_minute">1 хвилина</string>
     <string name="auto_silence_10_seconds">10 секунд</string>
     <string name="auto_silence_20_seconds">20 секунд</string>

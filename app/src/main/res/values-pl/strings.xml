@@ -408,7 +408,6 @@
     <string name="sw_long_press_volume_down_action_title">Zmniejszenie głośności (po długim naciśnięciu)</string>
     <string name="denied_permission_label">Odmowa udzielenia zezwolenia</string>
     <string name="sort_timer_title">Sortuj minutniki</string>
-    <string name="wakeup">Pobudka</string>
     <string name="about_github_link">Wyświetl na GitHub</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="timer_buttons_action_summary">Działa tylko na ekranie blokady</string>
@@ -422,7 +421,6 @@
     <string name="timer_channel">Minutnik</string>
     <string name="timer_power_button_action_title">Resetowanie wygasłych minutników za pomocą przycisku zasilania</string>
     <string name="alarm_created">Alarm utworzony</string>
-    <string name="bedtime_service_desc">Przetwarza działania z powiadomień pory snu.</string>
     <string name="keep_timer_screen_on_title">Ekran pozostaje włączony, jeśli wyświetlany jest licznik czasu</string>
     <string name="transparent_background_for_expired_timer_title">Przezroczyste tło po wygaśnięciu minutników</string>
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
@@ -450,7 +448,6 @@
     <string name="snooze_duration_none">Brak</string>
     <string name="dialog_close">Zamknij</string>
     <string name="contributors">Współtwórcy</string>
-    <string name="bedtime_reminder_notification">Przypomnienie o powiadomieniu</string>
     <string name="notifications_permission_title">WŁĄCZ POWIADOMIENIA</string>
     <string name="FSN_permission_title">WŁĄCZ POWIADOMIENIA PEŁNOEKRANOWE</string>
     <string name="purple_accent_color">Fioletowy</string>
@@ -486,21 +483,8 @@
     <string name="dismiss_button_color">Kolor przycisku Odrzuć</string>
     <string name="alarm_button_color">Kolor przycisku alarmu</string>
     <string name="power_button_title">Przycisk zasilania</string>
-    <string name="bedtime_reminder_notification_title">Twoja pora snu zaczyna się o godzinie &lt;xliff:g id=„bed_time”&gt;%1$s&lt;/xliff:g&gt;.</string>
-    <string name="sleeping_time">Czas drzemki: %1$s</string>
-    <string name="wakeup_alarm_label_visible">Alarm budzenia</string>
-    <string name="new_bedtime_alarm">Utworzony budzik</string>
-    <string name="bedtime_channel">Pora snu</string>
     <string name="FSN_dialog_title">Powiadomienia pełnoekranowe</string>
     <string name="license">Licencja Open-source</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 minut przed porą snu</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 minut przed porą snu</string>
-    <string name="bedtime_reminder_notification_1_hour">1 godzina przed porą snu</string>
-    <string name="bedtime_notification_action_turn_off">Wyłącz</string>
-    <string name="bedtime_notification_until">do <xliff:g id="wake_time">%s</xliff:g></string>
-    <string name="bedtime_paused_notification_title">Tryb „Pora snu” jest wstrzymany</string>
-    <string name="bedtime_notification_resume">Wznowienie <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_reminder_notification_30_minutes">30 minut przed porą snu</string>
     <string name="label_default">Domyślne</string>
     <string name="duplicate">Duplikuj</string>
     <string name="interface_customization_settings">Interfejs</string>
@@ -510,7 +494,6 @@
     <string name="light_theme">Jasny</string>
     <string name="dark_theme">Ciemny</string>
     <string name="blue_gray_accent_color">Niebiesko-szary</string>
-    <string name="menu_bedtime">Pora snu</string>
     <string name="about_title">O</string>
     <string name="sort_timer_name">Według nazwy</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
@@ -527,9 +510,6 @@
     <string name="default_time_to_add_to_timer_7_minutes">7 minut</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 minut</string>
     <string name="default_time_to_add_to_timer_9_minutes">9 minut</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 minut przed porą snu</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 minut przed porą snu</string>
-    <string name="bedtime_notification_title">Tryb „Pora snu” jest włączony</string>
     <string name="next_alarm_widget_default_title_color">Użyj domyślnego koloru dla tytułów „Następny alarm” i „Brak nadchodzącego alarmu”</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">Po zakończeniu dzwonka</string>
     <string name="clock_settings_summary">Ustawianie stylu, strefy czasowej oraz zmiana daty i godziny urządzenia</string>
@@ -543,10 +523,8 @@
     <string name="first_launch_main_feature_title">GŁÓWNE FUNKCJE</string>
     <string name="first_launch_button_now">teraz</string>
     <string name="more_options">Więcej opcji</string>
-    <string name="alarm_inactive">Wyłączony</string>
     <string name="material_time_picker_style_title">Styl selektora czasu</string>
     <string name="screensaver_date_color_title">Kolor daty</string>
-    <string name="bedtime_reminder_notification_text">Twoja pora snu zatrzymuje się na &lt;xliff:g id=„wake_time”&gt;%1$s&lt;/xliff:g&gt; po &lt;xliff:g id=„sleep_time”&gt;%2$s&lt;/xliff:g&gt; snu.</string>
     <string name="github_dialog_message">Odwiedź stronę projektu na GitHub:\n\n%s</string>
     <string name="license_dialog_message">Czytaj licencję:\n\n%s</string>
     <string name="whats_new_dialog_message">Odkryj co nowego:\n\n%s</string>
@@ -573,13 +551,9 @@
     <string name="enable_alarm_snooze_actions_label">Włącz drzemkę</string>
     <string name="alarm_label_box_title">Etykieta alarmu</string>
     <string name="style_category_title">Styl</string>
-    <string name="bedtime_notification_action_pause">Zatrzymaj na 30 min</string>
     <string name="ignore_battery_optimizations_dialog_title">Optymalizacja baterii</string>
     <string name="permission_dialog_close_button">Zamknij</string>
     <string name="delete_occasional_alarm_after_use_title">Usuń alarm po odrzuceniu</string>
-    <string name="no_bedtime_alarm">Brak ustawionej pory snu</string>
-    <string name="no_wakeup_alarm">Nie ustawiono alarmu budzenia</string>
-    <string name="bedtime_notification_resume_action">Wznów teraz</string>
     <string name="digital_widget_default_hours_color_title">Użyj domyślnego koloru dla godzin</string>
     <string name="digital_widget_custom_hours_color_title">Niestandardowy kolor godzin</string>
     <string name="digital_widget_default_minutes_color_title">Użyj domyślnego koloru dla minut</string>

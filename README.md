@@ -32,7 +32,7 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Digital or analog clock style;
 * Display home time when traveling;
 * Display the time in many cities around the world;
-* Timer, stopwatch and bedtime _(experimental)_ included;
+* Timer and stopwatch included;
 * Possibility of sharing your stopwatch with your contacts;
 * Customizable interface;
 * Customizable screensaver;
@@ -44,8 +44,6 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).
 
 ## Common Issues
-* Problem encountered with bedtime mode as this is an experimental feature;
-* Maybe other things, but nothing about the alarm's functionality.
 
 ⚠ _<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_ ⚠
 

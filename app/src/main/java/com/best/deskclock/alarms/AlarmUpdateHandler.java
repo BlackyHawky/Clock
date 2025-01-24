@@ -81,38 +81,6 @@ public final class AlarmUpdateHandler {
     }
 
     /**
-     * Adds a new alarm on the background for the bedtime.
-     *
-     * @param alarm The bedtime alarm to be added.
-     */
-    public void asyncAddAlarmForBedtime(final Alarm alarm) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
-            AlarmInstance instance = null;
-            if (alarm != null) {
-                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
-                ContentResolver cr = mAppContext.getContentResolver();
-
-                // Add alarm to db
-                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
-
-                // Create and add instance to db
-                if (newAlarm.enabled) {
-                    instance = setupAlarmInstance(newAlarm);
-                }
-            }
-
-            final AlarmInstance finalInstance = instance;
-            handler.post(() -> {
-                if (finalInstance != null) {
-                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
-                }
-            });
-        });
-    }
-
-    /**
      * Modifies an alarm on the background, and optionally show a toast when done.
      *
      * @param alarm       The alarm to be modified.
