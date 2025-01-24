@@ -741,6 +741,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if the back flash should turn on when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    public boolean shouldTurnOnBackFlashForTriggeredAlarm() {
+        return mAlarmModel.shouldTurnOnBackFlashForTriggeredAlarm();
+    }
+
+    /**
      * @return {@code true} if occasional alarm should be deleted by default. {@code false} otherwise.
      */
     public boolean isOccasionalAlarmDeletedByDefault() {

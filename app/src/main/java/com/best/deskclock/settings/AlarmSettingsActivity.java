@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +25,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -50,6 +54,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
     public static final String KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = "key_enable_snoozed_or_dismissed_alarm_vibrations";
+    public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
     public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
     public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
     public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
@@ -153,6 +158,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         ListPreference mAlarmNotificationReminderTimePref;
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
         SwitchPreferenceCompat mEnableSnoozedOrDismissedAlarmVibrationsPref;
+        SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
         SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
         ListPreference mMaterialTimePickerStylePref;
         Preference mAlarmDisplayCustomizationPref;
@@ -176,6 +182,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
             mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
             mEnableSnoozedOrDismissedAlarmVibrationsPref = findPreference(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS);
+            mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
             mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
             mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
             mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
@@ -201,9 +208,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     updateAutoSnoozeSummary((ListPreference) pref, delay);
                 }
 
-                case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT,
-                     KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT,
-                     KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS ->
+                case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
+                     KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                         Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
@@ -261,6 +267,8 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 mShakeActionPref.setSummary(mShakeActionPref.getEntry());
                 mShakeActionPref.setOnPreferenceChangeListener(this);
             }
+
+            mTurnOnBackFlashForTriggeredAlarmPref.setVisible(hasBackFlash());
         }
 
         private void refresh() {
@@ -304,6 +312,9 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mEnableSnoozedOrDismissedAlarmVibrationsPref.setChecked(DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled());
             mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
+            mTurnOnBackFlashForTriggeredAlarmPref.setChecked(DataModel.getDataModel().shouldTurnOnBackFlashForTriggeredAlarm());
+            mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
+
             mDeleteOccasionalAlarmByDefaultPref.setChecked(DataModel.getDataModel().isOccasionalAlarmDeletedByDefault());
             mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
 
@@ -323,6 +334,24 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(requireActivity(),
                         R.plurals.auto_silence_summary, i));
             }
+        }
+
+        private boolean hasBackFlash() {
+            CameraManager cameraManager = (CameraManager) requireActivity().getSystemService(Context.CAMERA_SERVICE);
+            try {
+                for (String cameraId : cameraManager.getCameraIdList()) {
+                    CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
+                    Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                    Boolean hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+
+                    if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK && hasFlash != null && hasFlash) {
+                        return true;
+                    }
+                }
+            } catch (CameraAccessException e) {
+                LogUtils.e("AlarmSettingsActivity - Failed to access the flash unit", e);
+            }
+            return false;
         }
     }
 }

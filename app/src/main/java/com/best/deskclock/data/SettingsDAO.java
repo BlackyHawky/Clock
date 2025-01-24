@@ -50,6 +50,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIM
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_WEEK_START;
 import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
@@ -762,6 +763,15 @@ final class SettingsDAO {
     static boolean areSnoozedOrDismissedAlarmVibrationsEnabled(SharedPreferences pref) {
         // Default value must match the one in res/xml/settings_alarm.xml
         return pref.getBoolean(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, false);
+    }
+
+    /**
+     * @return {@code true} if the back flash should turn on when the alarm is triggered.
+     * {@code false} otherwise.
+     */
+    static boolean shouldTurnOnBackFlashForTriggeredAlarm(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, false);
     }
 
     /**

@@ -139,6 +139,10 @@ final class AlarmModel {
         return mSettingsModel.areSnoozedOrDismissedAlarmVibrationsEnabled();
     }
 
+    boolean shouldTurnOnBackFlashForTriggeredAlarm() {
+        return mSettingsModel.shouldTurnOnBackFlashForTriggeredAlarm();
+    }
+
     boolean isOccasionalAlarmDeletedByDefault() {
         return mSettingsModel.isOccasionalAlarmDeletedByDefault();
     }

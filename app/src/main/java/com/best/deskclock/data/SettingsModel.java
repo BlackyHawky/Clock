@@ -290,6 +290,10 @@ final class SettingsModel {
         return SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
     }
 
+    boolean shouldTurnOnBackFlashForTriggeredAlarm() {
+        return SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs);
+    }
+
     boolean isOccasionalAlarmDeletedByDefault() {
         return SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs);
     }

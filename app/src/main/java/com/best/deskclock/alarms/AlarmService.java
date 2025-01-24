@@ -17,9 +17,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
@@ -111,6 +116,12 @@ public class AlarmService extends Service {
     private boolean mIsRegistered = false;
 
     private Vibrator mVibrator;
+    private CameraManager mCameraManager;
+    private String mCameraId;
+    private boolean mFlashState = false;
+    private Handler mHandler;
+    private Runnable mFlashRunnable;
+    private boolean mShouldTurnOnBackFlashForTriggeredAlarm;
 
     private AlarmInstance mCurrentAlarm = null;
 
@@ -268,8 +279,6 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
@@ -284,6 +293,45 @@ public class AlarmService extends Service {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mFlipAction = DataModel.getDataModel().getFlipAction();
         mShakeAction = DataModel.getDataModel().getShakeAction();
+
+        mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        mShouldTurnOnBackFlashForTriggeredAlarm = DataModel.getDataModel().shouldTurnOnBackFlashForTriggeredAlarm();
+
+        if (mShouldTurnOnBackFlashForTriggeredAlarm) {
+            try {
+                // Get rear camera ID
+                for (String id : mCameraManager.getCameraIdList()) {
+                    CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(id);
+                    Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                    // Check if it is the rear camera
+                    if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        mCameraId = id;
+                        break;
+                    }
+                }
+
+                if (mCameraId == null) {
+                    LogUtils.e("mCameraId is null");
+                }
+            } catch (CameraAccessException e) {
+                LogUtils.e("AlarmService.onCreate - Failed to access the flash unit", e);
+            }
+
+            mHandler = new Handler(Looper.getMainLooper());
+
+            mFlashRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    // Toggle flash state
+                    mFlashState = !mFlashState;
+                    toggleFlash(mFlashState);
+
+                    // Repeat action after 500ms
+                    mHandler.postDelayed(this, 500);
+                }
+            };
+        }
     }
 
     @Override
@@ -317,6 +365,9 @@ public class AlarmService extends Service {
                         break;
                     }
                     startAlarm(instance);
+                    if (mShouldTurnOnBackFlashForTriggeredAlarm) {
+                        mHandler.post(mFlashRunnable);
+                    }
                 }
             }
             case STOP_ALARM_ACTION -> {
@@ -357,6 +408,11 @@ public class AlarmService extends Service {
         super.onDestroy();
         if (mCurrentAlarm != null) {
             stopCurrentAlarm();
+        }
+
+        if (mShouldTurnOnBackFlashForTriggeredAlarm) {
+            mHandler.removeCallbacks(mFlashRunnable);
+            toggleFlash(false);
         }
 
         if (mIsRegistered) {
@@ -450,6 +506,16 @@ public class AlarmService extends Service {
         mCurrentAlarm = null;
         detachListeners();
         AlarmAlertWakeLock.releaseCpuLock();
+    }
+
+    private void toggleFlash(boolean state) {
+        try {
+            if (mCameraId != null) {
+                mCameraManager.setTorchMode(mCameraId, state);
+            }
+        } catch (CameraAccessException e) {
+            LogUtils.e("AlarmService.toggleFlash - Failed to access the flash unit", e);
+        }
     }
 
     /**

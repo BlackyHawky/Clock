@@ -158,6 +158,14 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_turn_on_back_flash_for_triggered_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/turn_on_back_flash_for_triggered_alarm_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_delete_occasional_alarm_by_default"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"

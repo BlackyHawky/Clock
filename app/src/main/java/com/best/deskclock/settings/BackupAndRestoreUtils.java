@@ -31,6 +31,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIM
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_WEEK_START;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_AUTO_HOME_CLOCK;
@@ -189,6 +190,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_SWIPE_ACTION, prefs.getBoolean(KEY_SWIPE_ACTION, true));
                     booleans.put(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, prefs.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false));
                     booleans.put(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, prefs.getBoolean(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, false));
+                    booleans.put(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, prefs.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, false));
                     booleans.put(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, prefs.getBoolean(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, false));
 
                     // Values from AlarmDisplayCustomizationActivity
