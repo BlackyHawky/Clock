@@ -887,6 +887,10 @@
     <string name="about_github_link">View on GitHub</string>
     <!-- Github dialog message in about screen -->
     <string name="github_dialog_message">Visit the project GitHub page:\n\n%s</string>
+    <!-- Translate link for about screen -->
+    <string name="about_translate_link">Translate on Codeberg</string>
+    <!-- Translate dialog message in about screen -->
+    <string name="translate_dialog_message">Visit the Codeberg page:\n\n%s</string>
     <!-- License for about screen -->
     <string name="license">Open-source license</string>
     <!-- License dialog message in about screen -->

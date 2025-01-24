@@ -26,6 +26,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ABOUT_WHATS_NEW = "key_about_whats_new";
     public static final String KEY_ABOUT_FEATURES = "key_about_features";
     public static final String KEY_ABOUT_VIEW_ON_GITHUB = "key_about_view_on_github";
+    public static final String KEY_ABOUT_TRANSLATE = "key_about_translate";
     public static final String KEY_ABOUT_READ_LICENCE = "key_about_read_licence";
     public static final String KEY_ABOUT_BLACKYHAWKY = "key_about_blackyhawky";
     public static final String KEY_ABOUT_QW123WH = "key_about_qw123wh";
@@ -51,6 +52,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
         Preference mWhatsNewPreference;
         Preference mAboutFeatures;
         Preference mViewOnGitHub;
+        Preference mTranslate;
         Preference mReadLicence;
         Preference mContributor1;
         Preference mContributor2;
@@ -68,6 +70,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
             mWhatsNewPreference = findPreference(KEY_ABOUT_WHATS_NEW);
             mAboutFeatures = findPreference(KEY_ABOUT_FEATURES);
             mViewOnGitHub = findPreference(KEY_ABOUT_VIEW_ON_GITHUB);
+            mTranslate = findPreference(KEY_ABOUT_TRANSLATE);
             mReadLicence = findPreference(KEY_ABOUT_READ_LICENCE);
             mContributor1 = findPreference(KEY_ABOUT_BLACKYHAWKY);
             mContributor2 = findPreference(KEY_ABOUT_QW123WH);
@@ -119,6 +122,19 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
                             .setIcon(R.drawable.ic_about_github)
                             .setTitle(R.string.about_github_link)
                             .setMessage(requireContext().getString(R.string.github_dialog_message, link))
+                            .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .create();
+                    builder.show();
+                }
+
+                case KEY_ABOUT_TRANSLATE -> {
+                    final String link = "https://translate.codeberg.org/projects/clock";
+                    final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    final AlertDialog builder = new AlertDialog.Builder(requireContext())
+                            .setIcon(R.drawable.ic_about_translate)
+                            .setTitle(R.string.about_translate_link)
+                            .setMessage(requireContext().getString(R.string.translate_dialog_message, link))
                             .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
                             .setNegativeButton(android.R.string.cancel, null)
                             .create();
@@ -232,6 +248,7 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
             mWhatsNewPreference.setOnPreferenceClickListener(this);
             mAboutFeatures.setOnPreferenceClickListener(this);
             mViewOnGitHub.setOnPreferenceClickListener(this);
+            mTranslate.setOnPreferenceClickListener(this);
             mReadLicence.setOnPreferenceClickListener(this);
             mContributor1.setOnPreferenceClickListener(this);
             mContributor2.setOnPreferenceClickListener(this);

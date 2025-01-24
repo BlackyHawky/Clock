@@ -47,6 +47,14 @@
     </Preference>
 
     <Preference
+        android:key="key_about_translate"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/about_translate_link"
+        android:icon="@drawable/ic_about_translate"
+        app:singleLineTitle="false">
+    </Preference>
+
+    <Preference
         android:key="key_about_read_licence"
         android:layout="@layout/settings_preference_layout"
         android:title="@string/license"
