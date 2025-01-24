@@ -636,4 +636,11 @@
     <string name="digital_widget_city_clock_default_color_title">Użyj domyślnego koloru dla zegara miejskiego</string>
     <string name="digital_widget_city_clock_custom_color_title">Niestandardowy kolor zegara miejskiego</string>
     <string name="digital_widget_city_name_default_color_title">Użyj domyślnego koloru dla nazwy miasta</string>
+    <string name="credits">Uznania</string>
+    <string name="pulse_color">Kolor impulsu</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Włącz wibracje, gdy alarm jest uśpiony lub odrzucony</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Podwójna wibracja, gdy alarm jest uśpiony i pojedyncza wibracja, gdy alarm jest odrzucony</string>
+    <string name="contributors_dialog_message">Odwiedź stronę %1$s w serwisie GitHub:\n\n%2$s</string>
+    <string name="timer_button_time_box_title">Minuty do dodania do minutnika</string>
 </resources>

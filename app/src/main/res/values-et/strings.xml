@@ -49,13 +49,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"on jäänud"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"on jäänud"</string>
     <string name="alarm_confirmation_toast_1">"Äratuseni on jäänud vähem kui 1 minut."</string>
-    <string name="alarm_confirmation_toast_2">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_3">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_5">"Äratuseni on jäänud <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"Äratuseni on jäänud <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"Selle äratuseni on <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_2">Äratuseni on jäänud<xliff:g id="DAYS">%1$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_3">Äratuseni on jäänud <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_4">Äratuseni on jäänud<xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="HOURS">%2$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Äratuseni on jäänud<xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Äratuseni on jäänud<xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Äratuseni on jäänud<xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Selle äratuseni on<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> päeva</item>
         <item quantity="one">1 päev</item>
@@ -636,4 +636,8 @@
     <string name="display_warning_before_deleting_timer_title">Enne taimeri kustutamist näita hoiatust</string>
     <string name="warning_dialog_title">Kustuta taimer</string>
     <string name="warning_dialog_message">Kas sa oled kindel, et soovid kustutada „%s“ taimeri?</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Kasuta värinat, kui äratus on edasilükatud või katkestatud</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Kasuta topeltvärinat, kui äratus on edasilükatud või ühekordset värinat, kui äratus on katkestatud</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Äratuse käivitumisel lülita tagumine välklamp sisse</string>
+    <string name="alarm_flash">Välklamp</string>
 </resources>
