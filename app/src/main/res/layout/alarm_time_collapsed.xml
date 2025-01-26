@@ -51,13 +51,13 @@
             android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/expand_alarm"
             android:src="@drawable/ic_caret_down"
             android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edit_label"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_label" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/days_of_week_layout"

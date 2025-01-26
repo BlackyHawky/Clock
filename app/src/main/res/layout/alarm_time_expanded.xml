@@ -24,13 +24,13 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/edit_label"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:minHeight="48dp"
+            android:paddingVertical="10dp"
             android:background="?attr/selectableItemBackground"
             android:drawablePadding="8dp"
-            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:singleLine="true"
             android:textSize="16sp"
             app:drawableStartCompat="@drawable/ic_label"
             app:drawableTint="?colorOnSurfaceVariant"
@@ -43,13 +43,13 @@
             android:id="@+id/arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/collapse_alarm"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_caret_up"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edit_label"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_label" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             layout="@layout/alarm_time_summary"
