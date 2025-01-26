@@ -38,12 +38,15 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Customizable screensaver;
 * Modern widgets;
 * Customizable widgets;
+* Support for tiles in quick settings (for Android 7+);
 * Backup and restore settings;
 * Material design;
 * Dynamic colors for Android 12+;
 * Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).
 
 ## Common Issues
+
+Issues may occur on specific devices due to the limited number of devices to test the application.
 
 ⚠ _<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_ ⚠
 
