@@ -277,8 +277,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static Alarm getAlarm(ContentResolver cr, long alarmId) {
         try (Cursor cursor = cr.query(getContentUri(alarmId), QUERY_COLUMNS, null, null, null)) {
-            assert cursor != null;
-            if (cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToFirst()) {
                 return new Alarm(cursor);
             }
         }

@@ -350,8 +350,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
         final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        assert musicIcon != null;
-        musicIcon.setTint(mAlarmTitleColor);
+        if (musicIcon != null) {
+            musicIcon.setTint(mAlarmTitleColor);
+        }
         mRingtoneTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(musicIcon, null, null, null);
         mRingtoneTitle.setText(ringtone.getTitle(this));
         mRingtoneTitle.setTextColor(mAlarmTitleColor);

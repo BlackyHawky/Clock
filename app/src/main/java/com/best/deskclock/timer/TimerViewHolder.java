@@ -98,10 +98,10 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
             if (isWarningDisplayedBeforeDeletingTimer) {
                 final Drawable drawable = AppCompatResources.getDrawable(context, R.drawable.ic_delete);
-                assert drawable != null;
-                drawable.setTint(MaterialColors.getColor(
-                        context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
-                );
+                if (drawable != null) {
+                    drawable.setTint(MaterialColors.getColor(
+                            context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+                }
                 // Get the title of the timer if there is one; otherwise, get the total duration.
                 final String dialogMessage;
                 if (getTimer().getLabel().isEmpty()) {

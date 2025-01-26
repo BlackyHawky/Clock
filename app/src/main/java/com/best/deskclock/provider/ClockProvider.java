@@ -133,10 +133,14 @@ public class ClockProvider extends ContentProvider {
             // All N devices have split storage areas, but we may need to
             // migrate existing database into the new device encrypted
             // storage area, which is where our data lives from now on.
-            assert context != null;
-            storageContext = context.createDeviceProtectedStorageContext();
-            if (!storageContext.moveDatabaseFrom(context, ClockDatabaseHelper.DATABASE_NAME)) {
-                LogUtils.wtf("Failed to migrate database: %s", ClockDatabaseHelper.DATABASE_NAME);
+            if (context != null) {
+                storageContext = context.createDeviceProtectedStorageContext();
+                if (!storageContext.moveDatabaseFrom(context, ClockDatabaseHelper.DATABASE_NAME)) {
+                    LogUtils.wtf("Failed to migrate database: %s", ClockDatabaseHelper.DATABASE_NAME);
+                }
+            } else {
+                LogUtils.wtf("Context is null, cannot create device protected storage context.");
+                return false;
             }
         } else {
             storageContext = context;

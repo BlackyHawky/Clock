@@ -666,8 +666,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        assert iconRingtone != null;
-        iconRingtone.setTint(mAlarmTitleColor);
+        if (iconRingtone != null) {
+            iconRingtone.setTint(mAlarmTitleColor);
+        }
         mRingtoneTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
     }
 
@@ -747,12 +748,17 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * @return {@code true} if the "Delete alarm once dismissed" button is ticked or if no day of the week is selected;
+     * @return {@code true} if the "Delete alarm once dismissed" button is ticked;
      * {@code false} otherwise.
      */
     private boolean isOccasionalAlarmDeletedAfterUse() {
         final Alarm alarm = Alarm.getAlarm(getContentResolver(), mAlarmInstance.mAlarmId);
-        assert alarm != null;
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", mAlarmInstance.mAlarmId);
+            return false;
+        }
+
         if (alarm.daysOfWeek.isRepeating()) {
             return false;
         }

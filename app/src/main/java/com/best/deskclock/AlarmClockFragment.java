@@ -139,9 +139,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
         final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
-        assert noAlarmsIcon != null;
-        noAlarmsIcon.setTint(MaterialColors.getColor(
-                mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+        if (noAlarmsIcon != null) {
+            noAlarmsIcon.setTint(MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+        }
         alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
         alarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);

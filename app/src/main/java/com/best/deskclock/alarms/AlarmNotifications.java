@@ -86,9 +86,13 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
 
         final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-        assert alarm != null;
-
         final String contentTitle;
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
+            return;
+        }
+
         if (!alarm.daysOfWeek.isRepeating()) {
             if (alarm.deleteAfterUse) {
                 contentTitle = context.getString(R.string.occasional_alarm_alert_predismiss_title);
@@ -412,7 +416,11 @@ public final class AlarmNotifications {
         // Setup Dismiss Action
         final String dismissActionTitle;
         final Alarm alarm = Alarm.getAlarm(service.getContentResolver(), instance.mAlarmId);
-        assert alarm != null;
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
+            return;
+        }
 
         // Setup up dismiss action
         if (!alarm.daysOfWeek.isRepeating()) {
