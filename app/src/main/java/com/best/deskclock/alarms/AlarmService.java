@@ -33,6 +33,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 
 import java.util.Arrays;
@@ -386,7 +387,9 @@ public class AlarmService extends Service {
         }
 
         mHandler.removeCallbacks(mFlashRunnable);
-        toggleFlash(false);
+        if (AlarmUtils.hasBackFlash(this)) {
+            toggleFlash(false);
+        }
 
         if (mIsRegistered) {
             unregisterReceiver(mActionsReceiver);
@@ -506,7 +509,7 @@ public class AlarmService extends Service {
 
     private void toggleFlash(boolean state) {
         try {
-            if (mCameraId != null) {
+            if (AlarmUtils.hasBackFlash(this) && mCameraId != null) {
                 mCameraManager.setTorchMode(mCameraId, state);
             }
         } catch (CameraAccessException e) {
