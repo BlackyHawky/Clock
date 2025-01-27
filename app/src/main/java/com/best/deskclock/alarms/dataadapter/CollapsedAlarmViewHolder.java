@@ -20,8 +20,6 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.AnimatorUtils;
 
-import java.util.List;
-
 /**
  * A ViewHolder containing views for an alarm item in collapsed stated.
  */
@@ -49,13 +47,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     @Override
     protected void onBindItemView(AlarmItemHolder itemHolder) {
         super.onBindItemView(itemHolder);
-    }
-
-    @Override
-    public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
-                                    int fromBottom, long duration) {
-        /* There are no possible partial animations for collapsed view holders. */
-        return null;
     }
 
     @Override

@@ -253,13 +253,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     @Override
-    public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
-                                    int fromBottom, long duration) {
-        /* There are no possible partial animations for expanded view holders. */
-        return null;
-    }
-
-    @Override
     public Animator onAnimateChange(final ViewHolder oldHolder, ViewHolder newHolder, long duration) {
         if (!(oldHolder instanceof AlarmItemViewHolder) || !(newHolder instanceof AlarmItemViewHolder)) {
             return null;
