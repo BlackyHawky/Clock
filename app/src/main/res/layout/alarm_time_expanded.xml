@@ -74,21 +74,10 @@
                 android:gravity="center_vertical"
                 android:ellipsize="none"
                 android:focusable="true"
-                android:paddingStart="4dp"
+                android:paddingStart="2dp"
                 android:singleLine="true"
                 tools:ignore="RtlSymmetry"
                 tools:text="Mo.,Tue.,Wed." />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/upcoming_instance_label"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:ellipsize="none"
-                android:focusable="true"
-                android:paddingStart="4dp"
-                android:singleLine="true"
-                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
 

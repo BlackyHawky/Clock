@@ -48,7 +48,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final TextTime clock;
     public final CompoundButton onOff;
     public final TextView daysOfWeek;
-    private final TextView upcomingInstanceLabel;
     public final ImageView arrow;
     private final TextView preemptiveDismissButton;
     private final ConstraintLayout constraintLayout;
@@ -61,7 +60,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         clock = itemView.findViewById(R.id.digital_clock);
         onOff = itemView.findViewById(R.id.onoff);
         daysOfWeek = itemView.findViewById(R.id.days_of_week);
-        upcomingInstanceLabel = itemView.findViewById(R.id.upcoming_instance_label);
         arrow = itemView.findViewById(R.id.arrow);
         preemptiveDismissButton = itemView.findViewById(R.id.preemptive_dismiss_button);
         constraintLayout = itemView.findViewById(R.id.item_card_constraint_layout);
@@ -113,7 +111,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         bindOnOffSwitch(alarm);
         bindClock(alarm);
         bindRepeatText(context, alarm);
-        bindUpcomingInstance(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
@@ -150,27 +147,15 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
             final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
             final String contentDescription = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
-            daysOfWeek.setVisibility(View.VISIBLE);
             daysOfWeek.setText(daysOfWeekText);
-            daysOfWeek.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
             daysOfWeek.setContentDescription(contentDescription);
         } else {
-            daysOfWeek.setVisibility(View.GONE);
+            final String labelText = Alarm.isTomorrow(alarm, Calendar.getInstance()) ?
+                    context.getString(R.string.alarm_tomorrow) :
+                    context.getString(R.string.alarm_today);
+            daysOfWeek.setText(labelText);
         }
-    }
-
-    private void bindUpcomingInstance(Context context, Alarm alarm) {
-        if (alarm.daysOfWeek.isRepeating()) {
-            upcomingInstanceLabel.setVisibility(View.GONE);
-        } else {
-            final String labelText;
-            labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                    ? context.getString(R.string.alarm_tomorrow)
-                    : context.getString(R.string.alarm_today);
-            upcomingInstanceLabel.setVisibility(View.VISIBLE);
-            upcomingInstanceLabel.setText(labelText);
-            upcomingInstanceLabel.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-        }
+        daysOfWeek.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
     }
 
     protected void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
