@@ -2,6 +2,8 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
 
     public static final String KEY_CLOCK_STYLE = "key_clock_style";
     public static final String KEY_CLOCK_DISPLAY_SECONDS = "key_display_clock_seconds";
+    public static final String KEY_DISPLAY_UPCOMING_ALARM = "key_display_upcoming_alarm";
     public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
     public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
     public static final String KEY_DATE_TIME = "key_date_time";
@@ -46,6 +49,7 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
 
         ListPreference mClockStylePref;
         SwitchPreferenceCompat mClockDisplaySecondsPref;
+        SwitchPreferenceCompat mDisplayUpcomingAlarmPref;
         SwitchPreferenceCompat mAutoHomeClockPref;
         ListPreference mHomeTimeZonePref;
         Preference mDateTimePref;
@@ -58,6 +62,7 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mClockStylePref = findPreference(KEY_CLOCK_STYLE);
             mClockDisplaySecondsPref = findPreference(KEY_CLOCK_DISPLAY_SECONDS);
+            mDisplayUpcomingAlarmPref = findPreference(KEY_DISPLAY_UPCOMING_ALARM);
             mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
             mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
             mDateTimePref = findPreference(KEY_DATE_TIME);
@@ -84,6 +89,11 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_CLOCK_DISPLAY_SECONDS -> {
                     DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
                     Utils.setVibrationTime(requireContext(), 50);
+                }
+
+                case KEY_DISPLAY_UPCOMING_ALARM -> {
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED));
                 }
 
                 case KEY_AUTO_HOME_CLOCK -> {
@@ -130,6 +140,9 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
             mClockStylePref.setOnPreferenceChangeListener(this);
 
             mClockDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+            mDisplayUpcomingAlarmPref.setChecked(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            mDisplayUpcomingAlarmPref.setOnPreferenceChangeListener(this);
 
             mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 

@@ -17,6 +17,7 @@ import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 
 import static java.lang.Math.max;
@@ -122,7 +123,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor();
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -292,7 +293,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor();
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
@@ -451,6 +452,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
+                case ACTION_UPCOMING_ALARM_DISPLAY_CHANGED:
                 case ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
@@ -482,6 +484,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED);
         intentFilter.addAction(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
 

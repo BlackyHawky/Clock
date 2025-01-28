@@ -70,10 +70,17 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ListPreference mClockStyle;
         String[] mClockStyleValues;
         String mDigitalClock;
+        SeekBarPreference mScreensaverBrightness;
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
         SwitchPreferenceCompat mClockDynamicColorPref;
         SwitchPreferenceCompat mItalicDigitalClockPref;
+        SwitchPreferenceCompat mBoldDatePref;
+        SwitchPreferenceCompat mItalicDatePref;
+        SwitchPreferenceCompat mBoldNextAlarmPref;
+        SwitchPreferenceCompat mItalicNextAlarmPref;
+        Preference mScreensaverPreview;
+        Preference mScreensaverMainSettings;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +94,15 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
             mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
             mNextAlarmColorPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER);
+            mScreensaverBrightness = findPreference(KEY_SCREENSAVER_BRIGHTNESS);
             mBoldDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
             mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
+            mBoldDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_BOLD);
+            mItalicDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_ITALIC);
+            mBoldNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD);
+            mItalicNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC);
+            mScreensaverPreview = findPreference(KEY_SCREENSAVER_PREVIEW);
+            mScreensaverMainSettings = findPreference(KEY_SCREENSAVER_DAYDREAM_SETTINGS);
 
             mClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
             mDigitalClock = mClockStyleValues[1];
@@ -180,24 +194,30 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mBoldDigitalClockPref.setVisible(screensaverClockIndex == 1);
             mItalicDigitalClockPref.setVisible(screensaverClockIndex == 1);
 
+            mBoldNextAlarmPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            if (!mBoldNextAlarmPref.isEnabled()) {
+                mBoldNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+            }
+
+            mItalicNextAlarmPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            if (!mItalicNextAlarmPref.isEnabled()) {
+                mItalicNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+            }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 mClockDynamicColorPref.setVisible(true);
                 mClockDynamicColorPref.setChecked(DataModel.getDataModel().areScreensaverClockDynamicColors());
                 mClockColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mDateColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mNextAlarmColorPref.setVisible(!mClockDynamicColorPref.isChecked());
+                mNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+                if (!mNextAlarmColorPref.isEnabled()) {
+                    mNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+                }
             }
         }
 
         private void refresh() {
-            final SeekBarPreference screensaverBrightness = findPreference(KEY_SCREENSAVER_BRIGHTNESS);
-            final SwitchPreferenceCompat boldDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_BOLD);
-            final SwitchPreferenceCompat italicDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_ITALIC);
-            final SwitchPreferenceCompat boldNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD);
-            final SwitchPreferenceCompat italicNextAlarmPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC);
-            final Preference screensaverPreview = findPreference(KEY_SCREENSAVER_PREVIEW);
-            final Preference screensaverMainSettings = findPreference(KEY_SCREENSAVER_DAYDREAM_SETTINGS);
-
             final int index = mClockStyle.findIndexOfValue(DataModel.getDataModel()
                     .getScreensaverClockStyle().toString().toLowerCase());
             mClockStyle.setValueIndex(index);
@@ -207,13 +227,11 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockDynamicColorPref.setChecked(DataModel.getDataModel().areScreensaverClockDynamicColors());
             mClockDynamicColorPref.setOnPreferenceChangeListener(this);
 
-            if (screensaverBrightness != null) {
-                final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
-                screensaverBrightness.setValue(brightnessPercentage);
-                screensaverBrightness.setSummary(brightnessPercentage + "%");
-                screensaverBrightness.setOnPreferenceChangeListener(this);
-                screensaverBrightness.setUpdatesContinuously(true);
-            }
+            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+            mScreensaverBrightness.setValue(brightnessPercentage);
+            mScreensaverBrightness.setSummary(brightnessPercentage + "%");
+            mScreensaverBrightness.setOnPreferenceChangeListener(this);
+            mScreensaverBrightness.setUpdatesContinuously(true);
 
             mDisplaySecondsPref.setChecked(DataModel.getDataModel().areScreensaverClockSecondsDisplayed());
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
@@ -224,33 +242,21 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mItalicDigitalClockPref.setChecked(DataModel.getDataModel().isScreensaverDigitalClockInItalic());
             mItalicDigitalClockPref.setOnPreferenceChangeListener(this);
 
-            if (boldDatePref != null) {
-                boldDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInBold());
-                boldDatePref.setOnPreferenceChangeListener(this);
-            }
+            mBoldDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInBold());
+            mBoldDatePref.setOnPreferenceChangeListener(this);
 
-            if (italicDatePref != null) {
-                italicDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInItalic());
-                italicDatePref.setOnPreferenceChangeListener(this);
-            }
+            mItalicDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInItalic());
+            mItalicDatePref.setOnPreferenceChangeListener(this);
 
-            if (boldNextAlarmPref != null) {
-                boldNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInBold());
-                boldNextAlarmPref.setOnPreferenceChangeListener(this);
-            }
+            mBoldNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInBold());
+            mBoldNextAlarmPref.setOnPreferenceChangeListener(this);
 
-            if (italicNextAlarmPref != null) {
-                italicNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInItalic());
-                italicNextAlarmPref.setOnPreferenceChangeListener(this);
-            }
+            mItalicNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInItalic());
+            mItalicNextAlarmPref.setOnPreferenceChangeListener(this);
 
-            if (screensaverPreview != null) {
-                screensaverPreview.setOnPreferenceClickListener(this);
-            }
+            mScreensaverPreview.setOnPreferenceClickListener(this);
 
-            if (screensaverMainSettings != null) {
-                screensaverMainSettings.setOnPreferenceClickListener(this);
-            }
+            mScreensaverMainSettings.setOnPreferenceClickListener(this);
         }
     }
 }

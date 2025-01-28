@@ -125,6 +125,10 @@ final class SettingsModel {
         SettingsDAO.setDisplayClockSeconds(mPrefs, shouldDisplaySeconds);
     }
 
+    public boolean isUpcomingAlarmDisplayed() {
+        return SettingsDAO.isUpcomingAlarmDisplayed(mPrefs);
+    }
+
     ClockStyle getScreensaverClockStyle() {
         return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
     }

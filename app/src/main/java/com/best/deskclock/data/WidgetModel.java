@@ -24,6 +24,7 @@ public final class WidgetModel {
 
     // For digital and Material You digital widgets
     public static final String ACTION_WORLD_CITIES_CHANGED = "com.best.alarmclock.WORLD_CITIES_CHANGED";
+    public static final String ACTION_UPCOMING_ALARM_DISPLAY_CHANGED = "com.best.alarmclock.UPCOMING_ALARM_DISPLAY_CHANGED";
 
     // For standard widgets
     public static final String ACTION_DIGITAL_WIDGET_CUSTOMIZED = "com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED";

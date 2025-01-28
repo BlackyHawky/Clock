@@ -1278,6 +1278,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if the upcoming alarm should be displayed next to the date.
+     * {@code false} otherwise.
+     */
+    public boolean isUpcomingAlarmDisplayed() {
+        return mSettingsModel.isUpcomingAlarmDisplayed();
+    }
+
+    /**
      * @return {@code true} if the users wants to automatically show a clock for their home timezone
      * when they have travelled outside of that timezone
      */

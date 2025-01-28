@@ -369,6 +369,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
+                <action android:name="com.best.alarmclock.UPCOMING_ALARM_DISPLAY_CHANGED" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
                 <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
@@ -400,6 +401,7 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="com.best.alarmclock.UPCOMING_ALARM_DISPLAY_CHANGED" />
                 <action android:name="com.best.alarmclock.VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
@@ -475,6 +477,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
+                <action android:name="com.best.alarmclock.UPCOMING_ALARM_DISPLAY_CHANGED" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
                 <action android:name="com.best.alarmclock.MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
@@ -506,6 +509,7 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="com.best.alarmclock.UPCOMING_ALARM_DISPLAY_CHANGED" />
                 <action android:name="com.best.alarmclock.MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>

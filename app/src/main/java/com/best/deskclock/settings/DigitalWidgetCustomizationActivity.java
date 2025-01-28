@@ -169,13 +169,11 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                         mDigitalWidgetMaxClockFontSizePref.setEnabled(areCitiesDisplayed);
                         if (!areCitiesDisplayed) {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                    requireContext().getString(R.string.digital_widget_message_summary)
-                            );
+                                    requireContext().getString(R.string.digital_widget_message_summary));
                         } else {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
                                     requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                            + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
-                            );
+                                            + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize());
                         }
                     }
                     Utils.setVibrationTime(requireContext(), 50);
@@ -236,8 +234,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                    + newValue.toString()
-                    );
+                                    + newValue.toString());
                     requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
@@ -313,8 +310,14 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             mDefaultDateColorPref.setChecked(DataModel.getDataModel().isDigitalWidgetDefaultDateColor());
             mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-            mDefaultNextAlarmColorPref.setChecked(DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor());
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            mDefaultNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            if (mDefaultNextAlarmColorPref.isEnabled()) {
+                mDefaultNextAlarmColorPref.setChecked(DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor());
+                mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            } else {
+                mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+                mCustomNextAlarmColorPref.setVisible(false);
+            }
         }
 
         private void refresh() {

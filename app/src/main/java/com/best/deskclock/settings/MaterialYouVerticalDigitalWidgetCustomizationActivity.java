@@ -158,8 +158,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                    + newValue.toString()
-                    );
+                                    + newValue.toString());
                     requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
@@ -183,8 +182,7 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
         private void setupPreferences() {
             mDigitalWidgetMaxClockFontSizePref.setSummary(
                     requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                            + DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetMaxClockFontSize()
-            );
+                            + DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetMaxClockFontSize());
 
             mDefaultHoursColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultHoursColor());
             mCustomHoursColorPref.setVisible(!mDefaultHoursColorPref.isChecked());
@@ -195,10 +193,15 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
             mDefaultDateColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor());
             mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-            mDefaultNextAlarmColorPref.setChecked(
-                    DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor()
-            );
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            mDefaultNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            if (mDefaultNextAlarmColorPref.isEnabled()) {
+                mDefaultNextAlarmColorPref.setChecked(
+                        DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor());
+                mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            } else {
+                mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+                mCustomNextAlarmColorPref.setVisible(false);
+            }
         }
 
         private void refresh() {

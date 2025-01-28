@@ -80,16 +80,16 @@ public class AlarmUtils {
         }
 
         final String alarm = getNextAlarm(context);
-        if (!TextUtils.isEmpty(alarm)) {
+        if (TextUtils.isEmpty(alarm) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+            nextAlarmView.setVisibility(View.GONE);
+            nextAlarmIconView.setVisibility(View.GONE);
+        } else {
             final String description = context.getString(R.string.next_alarm_description, alarm);
             nextAlarmView.setText(alarm);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
-        } else {
-            nextAlarmView.setVisibility(View.GONE);
-            nextAlarmIconView.setVisibility(View.GONE);
         }
     }
 

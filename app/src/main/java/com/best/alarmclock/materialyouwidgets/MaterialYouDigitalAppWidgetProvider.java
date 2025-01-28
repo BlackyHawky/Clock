@@ -19,6 +19,7 @@ import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_CHANGED;
 
@@ -149,7 +150,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -325,7 +326,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
@@ -508,6 +509,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
+                case ACTION_UPCOMING_ALARM_DISPLAY_CHANGED:
                 case ACTION_WORLD_CITIES_CHANGED:
                 case ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
@@ -545,6 +547,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
+        intentFilter.addAction(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED);
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
         intentFilter.addAction(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);

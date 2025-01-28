@@ -62,6 +62,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.VOLUME_BEHAVIOR_
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_STYLE;
+import static com.best.deskclock.settings.ClockSettingsActivity.KEY_DISPLAY_UPCOMING_ALARM;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_HOME_TIME_ZONE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_NIGHT_ACCENT_COLOR;
@@ -339,6 +340,15 @@ final class SettingsDAO {
             final boolean isAnalog = getClockStyle(context, prefs) == ClockStyle.ANALOG;
             setDisplayClockSeconds(prefs, isAnalog);
         }
+    }
+
+    /**
+     * @return {@code true} if the upcoming alarm should be displayed next to the date.
+     * {@code false} otherwise.
+     */
+    static boolean isUpcomingAlarmDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_clock.xml
+        return prefs.getBoolean(KEY_DISPLAY_UPCOMING_ALARM, true);
     }
 
     /**

@@ -154,13 +154,11 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
                         mDigitalWidgetMaxClockFontSizePref.setEnabled(areCitiesDisplayed);
                         if (!areCitiesDisplayed) {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                    requireContext().getString(R.string.digital_widget_message_summary)
-                            );
+                                    requireContext().getString(R.string.digital_widget_message_summary));
                         } else {
                             mDigitalWidgetMaxClockFontSizePref.setSummary(
                                     requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                            + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
-                            );
+                                            + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize());
                         }
                     }
                     Utils.setVibrationTime(requireContext(), 50);
@@ -221,8 +219,7 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
                     final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
                     digitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                    + newValue.toString()
-                    );
+                                    + newValue.toString());
                     requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
                 }
 
@@ -258,39 +255,32 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
             );
             if (mShowCitiesOnDigitalWidgetPref.isShown()) {
                 mDefaultCityClockColorPref.setChecked(
-                        DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityClockColor()
-                );
+                        DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityClockColor());
                 mDefaultCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
                 mCustomCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
-                        && !mDefaultCityClockColorPref.isChecked()
-                );
+                        && !mDefaultCityClockColorPref.isChecked());
 
                 mDefaultCityNameColorPref.setChecked(
-                        DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityNameColor()
-                );
+                        DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityNameColor());
                 mDefaultCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
                 mCustomCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
-                        && !mDefaultCityNameColorPref.isChecked()
-                );
+                        && !mDefaultCityNameColorPref.isChecked());
 
                 if (mShowCitiesOnDigitalWidgetPref.isChecked()) {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.digital_widget_message_summary)
-                    );
+                            requireContext().getString(R.string.digital_widget_message_summary));
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                    + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
-                    );
+                                    + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize());
                 }
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                 mDigitalWidgetMaxClockFontSizePref.setSummary(
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize()
-                );
+                                + DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize());
             }
 
             mDefaultClockColorPref.setChecked(DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultClockColor());
@@ -299,10 +289,15 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
             mDefaultDateColorPref.setChecked(DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultDateColor());
             mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-            mDefaultNextAlarmColorPref.setChecked(
-                    DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor()
-            );
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            mDefaultNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            if (mDefaultNextAlarmColorPref.isEnabled()) {
+                mDefaultNextAlarmColorPref.setChecked(
+                        DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor());
+                mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
+            } else {
+                mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
+                mCustomNextAlarmColorPref.setVisible(false);
+            }
         }
 
         private void refresh() {

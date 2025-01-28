@@ -37,6 +37,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_WEEK_START;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_STYLE;
+import static com.best.deskclock.settings.ClockSettingsActivity.KEY_DISPLAY_UPCOMING_ALARM;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_HOME_TIME_ZONE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
@@ -184,6 +185,7 @@ public class BackupAndRestoreUtils {
 
                     // Values from ClockSettingsActivity
                     booleans.put(KEY_CLOCK_DISPLAY_SECONDS, prefs.getBoolean(KEY_CLOCK_DISPLAY_SECONDS, false));
+                    booleans.put(KEY_DISPLAY_UPCOMING_ALARM, prefs.getBoolean(KEY_DISPLAY_UPCOMING_ALARM, true));
                     booleans.put(KEY_AUTO_HOME_CLOCK, prefs.getBoolean(KEY_AUTO_HOME_CLOCK, true));
 
                     // Values from AlarmSettingsActivity
