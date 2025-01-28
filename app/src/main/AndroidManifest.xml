@@ -48,7 +48,6 @@
 
         <activity
             android:name="com.best.deskclock.FirstLaunch"
-            android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/Theme.DeskClock">
         </activity>
@@ -316,7 +315,7 @@
 
         <service
             android:name="com.best.deskclock.screensaver.Screensaver"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/app_label"
             android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>
@@ -356,7 +355,6 @@
             android:name="com.best.deskclock.settings.DigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/digital_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
@@ -389,7 +387,6 @@
             android:name="com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/vertical_digital_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
@@ -416,7 +413,6 @@
             android:name="com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/next_alarm_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
@@ -465,7 +461,6 @@
             android:name="com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/material_you_digital_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
@@ -498,7 +493,6 @@
             android:name="com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/material_you_vertical_digital_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
@@ -525,7 +519,6 @@
             android:name="com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity"
             android:excludeFromRecents="true"
             android:label="@string/material_you_next_alarm_widget"
-            android:exported="true"
             android:theme="@style/Theme.DeskClock" />
 
         <receiver
