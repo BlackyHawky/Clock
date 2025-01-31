@@ -8,11 +8,14 @@ package com.best.deskclock.alarms.dataadapter;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -30,7 +33,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
-import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
@@ -50,16 +52,16 @@ import java.util.List;
 public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
-    public final LinearLayout repeatDays;
-    public final CheckBox dismissAlarmWhenRingtoneEnds;
-    public final CheckBox alarmSnoozeActions;
-    public final CheckBox vibrate;
-    public final CheckBox flash;
-    public final CheckBox deleteOccasionalAlarmAfterUse;
-    public final TextView ringtone;
-    public final Chip delete;
-    public final Chip duplicate;
+    private final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
+    private final TextView ringtone;
+    private final CheckBox dismissAlarmWhenRingtoneEnds;
+    private final CheckBox alarmSnoozeActions;
+    private final CheckBox vibrate;
+    private final CheckBox flash;
+    private final CheckBox deleteOccasionalAlarmAfterUse;
+    private final Chip delete;
+    private final Chip duplicate;
 
     private final boolean mHasVibrator;
     private final boolean mHasFlash;
@@ -70,15 +72,15 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         mHasVibrator = hasVibrator;
         mHasFlash = hasFlash;
 
-        repeatDays = itemView.findViewById(R.id.repeat_days_alarm);
+        repeatDays = itemView.findViewById(R.id.repeat_days);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
-        delete = itemView.findViewById(R.id.delete);
-        duplicate = itemView.findViewById(R.id.duplicate);
         dismissAlarmWhenRingtoneEnds = itemView.findViewById(R.id.dismiss_alarm_when_ringtone_ends_onoff);
         alarmSnoozeActions = itemView.findViewById(R.id.alarm_snooze_actions_onoff);
         vibrate = itemView.findViewById(R.id.vibrate_onoff);
         flash = itemView.findViewById(R.id.flash_onoff);
         deleteOccasionalAlarmAfterUse = itemView.findViewById(R.id.delete_occasional_alarm_after_use);
+        delete = itemView.findViewById(R.id.delete);
+        duplicate = itemView.findViewById(R.id.duplicate);
 
         final Context context = itemView.getContext();
 
@@ -106,6 +108,19 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             getItemHolder().collapse();
         });
 
+        // Day buttons handler
+        for (int i = 0; i < dayButtons.length; i++) {
+            final int buttonIndex = i;
+            dayButtons[i].setOnClickListener(view -> {
+                final boolean isChecked = ((CompoundButton) view).isChecked();
+                getAlarmTimeClickHandler().setDayOfWeekEnabled(getItemHolder().item,
+                        isChecked, buttonIndex);
+            });
+        }
+
+        // Ringtone editor handler
+        ringtone.setOnClickListener(v -> getAlarmTimeClickHandler().onRingtoneClicked(context, getItemHolder().item));
+
         // Dismiss alarm when ringtone ends checkbox handler
         dismissAlarmWhenRingtoneEnds.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setDismissAlarmWhenRingtoneEndsEnabled(
@@ -113,9 +128,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         );
 
         // Alarm snooze actions checkbox handler
-        alarmSnoozeActions.setOnClickListener(v ->
-                getAlarmTimeClickHandler().setAlarmSnoozeActionsEnabled(
-                        getItemHolder().item, ((CheckBox) v).isChecked())
+        alarmSnoozeActions.setOnClickListener(v -> getAlarmTimeClickHandler().setAlarmSnoozeActionsEnabled(
+                getItemHolder().item, ((CheckBox) v).isChecked())
         );
 
         // Vibrator checkbox handler
@@ -126,11 +140,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         flash.setOnClickListener(v ->
                 getAlarmTimeClickHandler().setAlarmFlashEnabled(getItemHolder().item, ((CheckBox) v).isChecked()));
 
+        // Delete Occasional Alarm After Use checkbox handler
         deleteOccasionalAlarmAfterUse.setOnClickListener(v ->
                 getAlarmTimeClickHandler().deleteOccasionalAlarmAfterUse(getItemHolder().item, ((CheckBox) v).isChecked()));
-
-        // Ringtone editor handler
-        ringtone.setOnClickListener(view -> getAlarmTimeClickHandler().onRingtoneClicked(context, getItemHolder().item));
 
         // Delete alarm handler
         delete.setOnClickListener(v -> {
@@ -143,15 +155,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             getAlarmTimeClickHandler().onDuplicateClicked(getItemHolder());
             v.announceForAccessibility(context.getString(R.string.alarm_created));
         });
-
-        // Day buttons handler
-        for (int i = 0; i < dayButtons.length; i++) {
-            final int buttonIndex = i;
-            dayButtons[i].setOnClickListener(view -> {
-                final boolean isChecked = ((CompoundButton) view).isChecked();
-                getAlarmTimeClickHandler().setDayOfWeekEnabled(getItemHolder().item, isChecked, buttonIndex);
-            });
-        }
 
         itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
@@ -169,6 +172,26 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindFlash(alarm);
         bindDeleteOccasionalAlarmAfterUse(alarm);
+
+        // If this view is bound without coming from a CollapsedAlarmViewHolder (e.g.
+        // when calling expand() before this alarm was visible in it's collapsed state),
+        // the animation listeners won't do the showing and therefore lead to unwanted
+        // half-visible state
+        arrow.setVisibility(VISIBLE);
+        editLabel.setVisibility(VISIBLE);
+        clock.setVisibility(VISIBLE);
+        onOff.setVisibility(VISIBLE);
+        daysOfWeek.setVisibility(VISIBLE);
+        repeatDays.setAlpha(1f);
+        ringtone.setAlpha(1f);
+        dismissAlarmWhenRingtoneEnds.setAlpha(1f);
+        alarmSnoozeActions.setAlpha(1f);
+        preemptiveDismissButton.setAlpha(1f);
+        vibrate.setAlpha(1f);
+        flash.setAlpha(1f);
+        deleteOccasionalAlarmAfterUse.setAlpha(1f);
+        delete.setAlpha(1f);
+        duplicate.setAlpha(1f);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
@@ -248,10 +271,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
-    private AlarmTimeClickHandler getAlarmTimeClickHandler() {
-        return getItemHolder().getAlarmTimeClickHandler();
-    }
-
     @Override
     public Animator onAnimateChange(final ViewHolder oldHolder, ViewHolder newHolder, long duration) {
         if (!(oldHolder instanceof AlarmItemViewHolder) || !(newHolder instanceof AlarmItemViewHolder)) {
@@ -259,15 +278,25 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isExpanding = this == newHolder;
+        AnimatorUtils.setBackgroundAlpha(itemView, isExpanding ? 0 : 255);
+        setChangingViewsAlpha(isExpanding ? 0f : annotationsAlpha);
 
         final Animator changeAnimatorSet = isExpanding
                 ? createExpandingAnimator((AlarmItemViewHolder) oldHolder, duration)
                 : createCollapsingAnimator((AlarmItemViewHolder) newHolder, duration);
-
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animator) {
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                AnimatorUtils.setBackgroundAlpha(itemView, 255);
+                arrow.setTranslationY(0f);
+                setChangingViewsAlpha(annotationsAlpha);
                 arrow.jumpDrawablesToCurrentState();
+                arrow.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
+                editLabel.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
+                clock.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
+                onOff.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
+                daysOfWeek.setVisibility(isExpanding ? VISIBLE : INVISIBLE);
             }
         });
 
@@ -275,31 +304,241 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder newHolder, long duration) {
-        final View oldView = itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newHolder.itemView).setDuration(duration);
-        boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(itemView,
+                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 255, 0));
+        backgroundAnimator.setDuration(duration);
+
+        final Animator boundsAnimator = getBoundsAnimator(itemView, newHolder.itemView, duration);
+        final Animator editLabelAnimator = getBoundsAnimator(editLabel, newHolder.editLabel, duration);
+        final Animator switchAnimator = getBoundsAnimator(onOff, newHolder.onOff, duration);
+        final Animator clockAnimator = getBoundsAnimator(clock, newHolder.clock, duration);
+        final Animator ellipseAnimator = getBoundsAnimator(daysOfWeek, newHolder.daysOfWeek, duration);
+
+        final long shortDuration = (long) (duration * ANIM_SHORT_DURATION_MULTIPLIER);
+        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator dismissAlarmWhenRingtoneEndsAnimation = ObjectAnimator.ofFloat(
+                dismissAlarmWhenRingtoneEnds, View.ALPHA, 0f).setDuration(shortDuration);
+        final Animator alarmSnoozeActionsAnimation = ObjectAnimator.ofFloat(alarmSnoozeActions, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator flashAnimation = ObjectAnimator.ofFloat(flash, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
+                deleteOccasionalAlarmAfterUse, View.ALPHA, 0f).setDuration(shortDuration);
+        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
+                View.ALPHA, 0f).setDuration(shortDuration);
+        final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator duplicateAnimation = ObjectAnimator.ofFloat(duplicate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
+        // Set the staggered delays; use the first portion (duration * (1 - 1/4 - 1/6)) of the time,
+        // so that the final animation, with a duration of 1/4 the total duration, finishes exactly
+        // before the collapsed holder begins expanding.
+        long startDelay = 0L;
+        final int numberOfItems = countNumberOfItems();
+        final long delayIncrement = (long) (duration * ANIM_LONG_DELAY_INCREMENT_MULTIPLIER) / (numberOfItems - 1);
+        final boolean vibrateVisible = vibrate.getVisibility() == VISIBLE;
+        final boolean flashVisible = flash.getVisibility() == VISIBLE;
+        final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
+        final boolean dismissAlarmWhenRingtoneEndsVisible = dismissAlarmWhenRingtoneEnds.getVisibility() == VISIBLE;
+        final boolean alarmSnoozeActionsVisible = alarmSnoozeActions.getVisibility() == VISIBLE;
+        final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
+
+        duplicateAnimation.setStartDelay(startDelay);
+        deleteAnimation.setStartDelay(startDelay);
+        if (preemptiveDismissButtonVisible) {
+            startDelay += delayIncrement;
+            dismissAnimation.setStartDelay(startDelay);
+        }
+        if (deleteOccasionalAlarmAfterUseVisible) {
+            startDelay += delayIncrement;
+            deleteOccasionalAlarmAfterUseAnimation.setStartDelay(startDelay);
+        }
+        if (flashVisible) {
+            startDelay += delayIncrement;
+            flashAnimation.setStartDelay(startDelay);
+        }
+        if (vibrateVisible) {
+            startDelay += delayIncrement;
+            vibrateAnimation.setStartDelay(startDelay);
+        }
+        if (alarmSnoozeActionsVisible) {
+            startDelay += delayIncrement;
+            alarmSnoozeActionsAnimation.setStartDelay(startDelay);
+        }
+        if (dismissAlarmWhenRingtoneEndsVisible) {
+            startDelay += delayIncrement;
+            dismissAlarmWhenRingtoneEndsAnimation.setStartDelay(startDelay);
+        }
+        ringtoneAnimation.setStartDelay(startDelay);
+        repeatDaysAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(boundsAnimator);
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, editLabelAnimator, repeatDaysAnimation,
+                flashAnimation, dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
+                vibrateAnimation, ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
+                alarmSnoozeActionsAnimation, switchAnimator, clockAnimator, ellipseAnimator);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                newHolder.editLabel.setVisibility(INVISIBLE);
+                newHolder.clock.setVisibility(INVISIBLE);
+                newHolder.onOff.setVisibility(INVISIBLE);
+                newHolder.arrow.setVisibility(INVISIBLE);
+                newHolder.daysOfWeek.setVisibility(INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                newHolder.editLabel.setVisibility(VISIBLE);
+                newHolder.clock.setVisibility(VISIBLE);
+                newHolder.onOff.setVisibility(VISIBLE);
+                newHolder.arrow.setVisibility(VISIBLE);
+                newHolder.daysOfWeek.setVisibility(VISIBLE);
+            }
+        });
+
         return animatorSet;
     }
 
     private Animator createExpandingAnimator(AlarmItemViewHolder oldHolder, long duration) {
+        editLabel.setVisibility(INVISIBLE);
+        arrow.setVisibility(INVISIBLE);
+        clock.setVisibility(INVISIBLE);
+        onOff.setVisibility(INVISIBLE);
+        daysOfWeek.setVisibility(INVISIBLE);
+        ringtone.setAlpha(0f);
+        preemptiveDismissButton.setAlpha(0f);
+        dismissAlarmWhenRingtoneEnds.setAlpha(0f);
+        alarmSnoozeActions.setAlpha(0f);
+        vibrate.setAlpha(0f);
+        flash.setAlpha(0f);
+        deleteOccasionalAlarmAfterUse.setAlpha(0f);
+        delete.setAlpha(0f);
+        duplicate.setAlpha(0f);
+        setChangingViewsAlpha(0f);
+
         final View newView = itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldHolder.itemView, newView).setDuration(duration);
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldHolder.itemView, newView);
+        boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(boundsAnimator);
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(newView,
+                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255));
+        backgroundAnimator.setDuration(duration);
 
+        final long longDuration = (long) (duration * ANIM_LONG_DURATION_MULTIPLIER);
+        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator dismissAlarmWhenRingtoneEndsAnimation = ObjectAnimator.ofFloat(
+                dismissAlarmWhenRingtoneEnds, View.ALPHA, 1f).setDuration(longDuration);
+        final Animator alarmSnoozeActionsAnimation = ObjectAnimator.ofFloat(
+                alarmSnoozeActions, View.ALPHA, 1f).setDuration(longDuration);
+        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
+                deleteOccasionalAlarmAfterUse, View.ALPHA, 1f).setDuration(longDuration);
+        final Animator flashAnimation = ObjectAnimator.ofFloat(flash, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator duplicateAnimation = ObjectAnimator.ofFloat(duplicate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f)
+                .setDuration(duration);
+        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        // Set the stagger delays; delay the first by the amount of time it takes for the collapse
+        // to complete, then stagger the expansion with the remaining time.
+        long startDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
+        final int numberOfItems = countNumberOfItems();
+        final long delayIncrement = (long) (duration * ANIM_SHORT_DELAY_INCREMENT_MULTIPLIER) / (numberOfItems - 1);
+        final boolean vibrateVisible = vibrate.getVisibility() == VISIBLE;
+        final boolean flashVisible = flash.getVisibility() == VISIBLE;
+        final boolean deleteOccasionalAlarmAfterUseVisible = deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE;
+        final boolean dismissAlarmWhenRingtoneEndsVisible = dismissAlarmWhenRingtoneEnds.getVisibility() == VISIBLE;
+        final boolean alarmSnoozeActionsVisible = alarmSnoozeActions.getVisibility() == VISIBLE;
+        final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
+
+        repeatDaysAnimation.setStartDelay(startDelay);
+        ringtoneAnimation.setStartDelay(startDelay);
+        if (dismissAlarmWhenRingtoneEndsVisible) {
+            dismissAlarmWhenRingtoneEndsAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        if (alarmSnoozeActionsVisible) {
+            alarmSnoozeActionsAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        if (vibrateVisible) {
+            vibrateAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        if (flashVisible) {
+            flashAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        if (deleteOccasionalAlarmAfterUseVisible) {
+            deleteOccasionalAlarmAfterUseAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        if (preemptiveDismissButtonVisible) {
+            dismissAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        deleteAnimation.setStartDelay(startDelay);
+        duplicateAnimation.setStartDelay(startDelay);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation, flashAnimation,
+                dismissAlarmWhenRingtoneEndsAnimation, vibrateAnimation, deleteOccasionalAlarmAfterUseAnimation,
+                ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
+                alarmSnoozeActionsAnimation, arrowAnimation);
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animator) {
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
                 AnimatorUtils.startDrawableAnimation(arrow);
             }
         });
 
         return animatorSet;
+    }
+
+    private int countNumberOfItems() {
+        // Always between 4 and 10 items.
+        int numberOfItems = 4;
+
+        if (preemptiveDismissButton.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        if (dismissAlarmWhenRingtoneEnds.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        if (alarmSnoozeActions.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        if (vibrate.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        if (flash.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        if (deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE) {
+            numberOfItems++;
+        }
+        return numberOfItems;
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {

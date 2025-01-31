@@ -1,111 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2015 The Android Open Source Project
+    Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<com.google.android.material.card.MaterialCardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="4dp"
-    app:strokeWidth="0dp">
+    android:elevation="0dp"
+    android:importantForAccessibility="no"
+    tools:background="@drawable/alarm_background_for_preview">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_card_constraint_layout"
-        android:layout_width="match_parent"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/edit_label"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_label"
+        android:drawablePadding="8dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textSize="16sp"
+        app:drawableTint="?colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        tools:hint="@string/add_label" />
+
+    <ImageButton
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp">
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/expand_alarm"
+        android:src="@drawable/ic_caret_down"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/edit_label"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:drawablePadding="8dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_label"
-            app:drawableTint="?colorOnSurfaceVariant"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/arrow"
-            tools:hint="@string/add_label" />
+    <com.best.deskclock.widget.TextTime
+        android:id="@+id/digital_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="38sp"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_label"
+        tools:text="08:30" />
 
-        <include
-            layout="@layout/alarm_time_summary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_label" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/days_of_week"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="@android:color/transparent"
+        android:ellipsize="none"
+        android:maxLines="1"
+        android:paddingHorizontal="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/onoff"
+        app:layout_constraintTop_toBottomOf="@id/digital_clock"
+        tools:text="Mo.,Tue.,Wed." />
 
-        <ImageButton
-            android:id="@+id/arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/expand_alarm"
-            android:src="@drawable/ic_caret_down"
-            android:scaleType="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!-- Allow to add bottom padding if dismiss button is not displayed. -->
+    <View
+        android:id="@+id/bottom_padding_view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/days_of_week"
+        tools:visibility="gone" />
 
-        <LinearLayout
-            android:id="@+id/days_of_week_layout"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/onoff"
-            app:layout_constraintTop_toBottomOf="@id/digital_clock">
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/onoff"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/days_of_week" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/days_of_week"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:ellipsize="none"
-                android:focusable="true"
-                android:paddingStart="2dp"
-                android:singleLine="true"
-                tools:ignore="RtlSymmetry"
-                tools:text="Mo.,Tue.,Wed." />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/preemptive_dismiss_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableStart="@drawable/ic_alarm_off"
+        android:paddingStart="@null"
+        android:paddingEnd="10dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="?colorAccent"
+        app:drawableTint="?colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/days_of_week"
+        tools:text="@string/alarm_alert_dismiss_text" />
 
-        </LinearLayout>
-
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/onoff"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/days_of_week_layout" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/preemptive_dismiss_button"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="@null"
-            android:paddingEnd="10dp"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textStyle="bold"
-            android:textColor="?colorAccent"
-            app:drawableStartCompat="@drawable/ic_alarm_off"
-            app:drawableTint="?colorAccent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/days_of_week_layout"
-            tools:text="@string/alarm_alert_dismiss_text" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

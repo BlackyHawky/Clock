@@ -174,7 +174,7 @@ public class Utils {
         if (isCardBackgroundDisplayed) {
             gradientDrawable.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
-            gradientDrawable.setColor(Color.TRANSPARENT);
+            gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
         }
 
         final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
