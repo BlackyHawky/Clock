@@ -162,23 +162,25 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mSnoozeButton.setColorFilter(snoozeButtonColor);
         mSnoozeButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
 
-        final TextView titleView = mContentView.findViewById(R.id.title);
+        final TextView titleView = mContentView.findViewById(R.id.alarm_title);
+        titleView.setText(R.string.app_label);
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        titleView.setTextColor(mAlarmTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+        titleView.setSelected(true);
+
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
-        final CircleView pulseView = mContentView.findViewById(R.id.pulse);
-        pulseView.setFillColor(pulseColor);
-
         final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
         final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
         ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
-
-        titleView.setText(R.string.app_label);
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        titleView.setTextColor(mAlarmTitleColor);
         ClockUtils.setTimeFormat(digitalClock, false);
         digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
+
+        final CircleView pulseView = mContentView.findViewById(R.id.pulse);
+        pulseView.setFillColor(pulseColor);
 
         mAlarmButton.setOnTouchListener(this);
         mSnoozeButton.setOnClickListener(this);

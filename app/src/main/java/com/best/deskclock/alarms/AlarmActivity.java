@@ -280,23 +280,25 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         );
         mSnoozeButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
 
-        final TextView titleView = mContentView.findViewById(R.id.title);
+        final TextView titleView = mContentView.findViewById(R.id.alarm_title);
+        titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        titleView.setTextColor(mAlarmTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+        titleView.setSelected(true);
+
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
-        final CircleView pulseView = mContentView.findViewById(R.id.pulse);
-        pulseView.setFillColor(pulseColor);
-
         final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
         final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
         ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
-
-        titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-        titleView.setTextColor(mAlarmTitleColor);
         ClockUtils.setTimeFormat(digitalClock, false);
         digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
+
+        final CircleView pulseView = mContentView.findViewById(R.id.pulse);
+        pulseView.setFillColor(pulseColor);
 
         isSwipeActionEnabled = DataModel.getDataModel().isSwipeActionEnabled();
         if (isSwipeActionEnabled) {

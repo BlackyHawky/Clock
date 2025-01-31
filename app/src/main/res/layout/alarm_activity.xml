@@ -21,18 +21,32 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/alarm_vertical_start_guide"
             android:orientation="vertical"
-            android:id="@+id/vertical_start_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/snooze_vertical_guide"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintGuide_percent="0.25" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dismiss_vertical_guide"
             android:orientation="vertical"
-            android:id="@+id/vertical_end_guide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/alarm_vertical_end_guide"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.95" />
 
         <FrameLayout
             android:id="@+id/clock_layout"
@@ -65,12 +79,20 @@
         </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:id="@+id/alarm_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:gravity="center_horizontal"
             android:paddingVertical="20dp"
             android:textStyle="bold"
+            android:singleLine="true"
+            android:focusable="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            app:layout_constraintStart_toStartOf="@+id/alarm_vertical_start_guide"
+            app:layout_constraintEnd_toEndOf="@+id/alarm_vertical_end_guide"
             app:layout_constraintTop_toBottomOf="@+id/clock_layout"
             tools:text="Test alarm"
             tools:textSize="26sp" />
@@ -83,7 +105,7 @@
             android:layerType="hardware"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:radius="128dp"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
@@ -96,8 +118,8 @@
             android:paddingVertical="12dp"
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_snooze_text"
-            app:layout_constraintEnd_toStartOf="@+id/vertical_start_guide"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toStartOf="@+id/snooze_vertical_guide"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_title"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
 
@@ -109,8 +131,8 @@
             android:paddingVertical="12dp"
             android:paddingHorizontal="12dp"
             android:contentDescription="@string/alarm_alert_dismiss_text"
-            app:layout_constraintStart_toEndOf="@+id/vertical_end_guide"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintStart_toEndOf="@+id/dismiss_vertical_guide"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_title"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:fillColor="@color/md_theme_onSurfaceVariant" />
 
@@ -121,7 +143,7 @@
             android:contentDescription="@string/description_direction_both"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_title"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
