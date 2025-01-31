@@ -33,7 +33,6 @@
             android:background="?attr/selectableItemBackground"
             android:drawablePadding="8dp"
             android:textSize="16sp"
-            android:textStyle="bold"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
