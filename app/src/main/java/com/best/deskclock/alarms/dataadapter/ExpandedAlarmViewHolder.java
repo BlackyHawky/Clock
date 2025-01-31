@@ -510,6 +510,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 AnimatorUtils.startDrawableAnimation(arrow);
+                // Allow text scrolling (all other attributes are indicated in the "alarm_time_expanded.xml" file)
+                ringtone.setSelected(true);
             }
         });
 

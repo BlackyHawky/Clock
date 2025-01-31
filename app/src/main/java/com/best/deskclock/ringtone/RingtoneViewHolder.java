@@ -55,6 +55,8 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
         mNameView.setText(itemHolder.getName());
+        // Allow text scrolling (all other attributes are indicated in the "ringtone_item_sound.xml" file)
+        mNameView.setSelected(true);
         final Context context = itemView.getContext();
         final boolean opaque = itemHolder.isSelected() || !itemHolder.hasPermissions();
         mNameView.setAlpha(opaque ? 1f : .63f);

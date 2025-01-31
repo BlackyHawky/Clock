@@ -47,6 +47,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -123,7 +124,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     private ImageView mSnoozeButton;
     private ImageView mDismissButton;
     private TextView mHintView;
+    private LinearLayout mRingtoneLayout;
     private TextView mRingtoneTitle;
+    private ImageView mRingtoneIcon;
+
     private ValueAnimator mAlarmAnimator;
     private ValueAnimator mSnoozeAnimator;
     private ValueAnimator mDismissAnimator;
@@ -250,10 +254,12 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mSnoozeButton = mContentView.findViewById(R.id.snooze);
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
-        mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
 
         mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
         if (mIsRingtoneTitleDisplayed) {
+            mRingtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
+            mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
+            mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
             mContentView.setOnClickListener(this);
         }
@@ -439,9 +445,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             hintDismiss();
         } else if (view == mAlarmButton) {
             hintAlarmAction();
-        } else if (view == mContentView && mIsRingtoneTitleDisplayed) {
+        } else if (view == mContentView && mIsRingtoneTitleDisplayed && mHintView.getVisibility() != GONE) {
             mHintView.setVisibility(GONE);
-            mRingtoneTitle.setVisibility(VISIBLE);
+            mRingtoneLayout.setVisibility(VISIBLE);
+            ObjectAnimator.ofFloat(mRingtoneLayout, View.ALPHA, 0f, 1f).start();
         }
     }
 
@@ -660,18 +667,20 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
      * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
      */
     private void displayRingtoneTitle() {
-        final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
-        mRingtoneTitle.setText(title);
-        mRingtoneTitle.setTextColor(mAlarmTitleColor);
-
         final boolean silent = Utils.RINGTONE_SILENT.equals(mAlarmInstance.mRingtone);
+        final String title = DataModel.getDataModel().getRingtoneTitle(mAlarmInstance.mRingtone);
         final Drawable iconRingtone = silent
                 ? AppCompatResources.getDrawable(this, R.drawable.ic_ringtone_silent)
                 : AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+
         if (iconRingtone != null) {
             iconRingtone.setTint(mAlarmTitleColor);
         }
-        mRingtoneTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconRingtone, null, null, null);
+        mRingtoneIcon.setImageDrawable(iconRingtone);
+        mRingtoneTitle.setText(title);
+        mRingtoneTitle.setTextColor(mAlarmTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+        mRingtoneTitle.setSelected(true);
     }
 
     /**
@@ -820,10 +829,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 mHintView.setText(hintResId);
                 mHintView.setTextColor(mAlarmTitleColor);
                 if (mHintView.getVisibility() != VISIBLE) {
-                    mRingtoneTitle.setVisibility(GONE);
+                    mRingtoneLayout.setVisibility(GONE);
                     mHintView.setVisibility(VISIBLE);
 
-                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
+                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0f, 1f).start();
                 }
             }
         });

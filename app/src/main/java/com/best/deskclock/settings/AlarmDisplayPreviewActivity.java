@@ -39,6 +39,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -77,7 +78,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
     private TextView mAlertInfoView;
+    private LinearLayout mRingtoneLayout;
     private TextView mRingtoneTitle;
+    private ImageView mRingtoneIcon;
     private ViewGroup mContentView;
     private ImageView mAlarmButton;
     private ImageView mSnoozeButton;
@@ -136,10 +139,12 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mSnoozeButton = mContentView.findViewById(R.id.snooze);
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
-        mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
 
         mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
         if (mIsRingtoneTitleDisplayed) {
+            mRingtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
+            mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
+            mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
             mContentView.setOnClickListener(this);
         }
@@ -226,9 +231,10 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             hintDismiss();
         } else if (view == mAlarmButton) {
             hintAlarmAction();
-        } else if (view == mContentView && mIsRingtoneTitleDisplayed) {
+        } else if (view == mContentView && mIsRingtoneTitleDisplayed && mHintView.getVisibility() != GONE) {
             mHintView.setVisibility(GONE);
-            mRingtoneTitle.setVisibility(VISIBLE);
+            mRingtoneLayout.setVisibility(VISIBLE);
+            ObjectAnimator.ofFloat(mRingtoneLayout, View.ALPHA, 0f, 1f).start();
         }
     }
 
@@ -355,9 +361,11 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         if (musicIcon != null) {
             musicIcon.setTint(mAlarmTitleColor);
         }
-        mRingtoneTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(musicIcon, null, null, null);
+        mRingtoneIcon.setImageDrawable(musicIcon);
         mRingtoneTitle.setText(ringtone.getTitle(this));
         mRingtoneTitle.setTextColor(mAlarmTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+        mRingtoneTitle.setSelected(true);
     }
 
     /**
@@ -443,10 +451,10 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
                 mHintView.setText(hintResId);
                 mHintView.setTextColor(mAlarmTitleColor);
                 if (mHintView.getVisibility() != VISIBLE) {
-                    mRingtoneTitle.setVisibility(GONE);
+                    mRingtoneLayout.setVisibility(GONE);
                     mHintView.setVisibility(VISIBLE);
 
-                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
+                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0f, 1f).start();
                 }
             }
         });
