@@ -11,6 +11,7 @@ import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
+import static android.media.AudioManager.STREAM_ALARM;
 
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
@@ -52,6 +53,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
@@ -371,22 +373,57 @@ public class Utils {
      * @return the duration of the ringtone
      */
     public static int getRingtoneDuration(Context context, Uri ringtoneUri) {
-        // Using the MediaMetadataRetriever method causes a bug when using the default ringtone:
+        // Using the MediaMetadataRetriever class causes a bug when using the default ringtone:
         // the ringtone stops before the end of the melody.
         // So, we'll use the MediaPlayer class to obtain the ringtone duration.
         // Bug found with debug version on Huawei (Android 12) and Samsung (Android 14) devices.
 
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        /* MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         try {
-            mediaPlayer.setDataSource(context, ringtoneUri);
-            mediaPlayer.prepare();
-            return mediaPlayer.getDuration();
-        } catch (IOException e) {
-            LogUtils.e("Error while preparing MediaPlayer", e);
-            return 0;
-        } finally {
-            mediaPlayer.release();
+            mmr.setDataSource(context, mRingtone);
+            String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            assert durationStr != null;
+            int milliSecond = Integer.parseInt(durationStr);
+            calendar.add(Calendar.MILLISECOND, milliSecond);
+            mmr.close();
+        } catch (Exception e) {
+            LogUtils.e("Could not get ringtone duration");
+        }*/
+
+        int duration = 0;
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        if (ringtoneUri.toString().equals("random")) {
+            // get the whole list if multiple alarms should be played
+            RingtoneManager ringtoneManager = new RingtoneManager(context);
+            ringtoneManager.setType(STREAM_ALARM);
+            int systemRingtoneCount = ringtoneManager.getCursor().getCount();
+            for (int i = 0; i < systemRingtoneCount; i++) {
+                final Uri uri = ringtoneManager.getRingtoneUri(i);
+                try {
+                    mediaPlayer.setDataSource(context, uri);
+                    mediaPlayer.prepare();
+                } catch (IOException ignored) {
+                }
+                duration = duration + mediaPlayer.getDuration();
+                mediaPlayer.reset();
+            }
+        } else {
+
+            try {
+                mediaPlayer.setDataSource(context, ringtoneUri);
+            } catch (IOException ignored) {
+            }
+
+            try {
+                mediaPlayer.prepare();
+            } catch (IOException ignored) {
+            }
+
+            duration = mediaPlayer.getDuration();
         }
+
+        return duration;
     }
 
     /**
