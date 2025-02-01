@@ -169,7 +169,7 @@ public class Utils {
     public static Drawable cardBackground (Context context) {
         final String darkMode = DataModel.getDataModel().getDarkMode();
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final int radius = toPixel(12, context);
+        final int radius = toPixel(18, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
 
         gradientDrawable.setCornerRadius(radius);

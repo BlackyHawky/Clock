@@ -212,12 +212,10 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                 getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
         // Store the timer id as a tag on the view so it can be located on delete.
         timerItem.setId(timerId);
-        timerItem.setBackground(Utils.cardBackground(timerItem.getContext()));
         mExpiredTimersView.addView(timerItem);
 
         // Hide the label hint for expired timers.
         final TextView labelView = timerItem.findViewById(R.id.timer_label);
-        labelView.setHint(null);
         labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? View.GONE : View.VISIBLE);
 
         // Add logic to the "Add Minute Or Hour" button.

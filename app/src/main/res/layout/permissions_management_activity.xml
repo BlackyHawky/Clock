@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            app:cardCornerRadius="18dp"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,6 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            app:cardCornerRadius="18dp"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -211,6 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:visibility="gone"
+            app:cardCornerRadius="18dp"
             app:strokeWidth="0dp"
             tools:visibility="visible">
 

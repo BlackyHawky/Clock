@@ -12,7 +12,8 @@
     android:paddingHorizontal="24dp"
     android:paddingVertical="12dp"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    tools:background="@drawable/card_background_for_preview">
 
         <include
             layout="@layout/world_clock_city_container"

@@ -34,9 +34,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         final Context context = view.getContext();
-
-        view.setBackground(Utils.cardBackground(context));
-
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;
 

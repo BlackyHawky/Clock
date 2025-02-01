@@ -90,6 +90,9 @@ public class TimerItem extends ConstraintLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
+        setBackground(Utils.cardBackground(getContext()));
+
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
         mAddTimeButton = findViewById(R.id.timer_add_time_button);
