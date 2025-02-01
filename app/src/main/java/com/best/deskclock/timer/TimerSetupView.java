@@ -33,6 +33,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.FormattedTextUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.button.MaterialButton;
@@ -83,10 +84,10 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        final int marginButtonLeft = Utils.toPixel( 10, getContext());
-        final int marginButtonRight = Utils.toPixel(10, getContext());
-        final int marginButtonTop = Utils.toPixel(10, getContext());
-        final int marginButtonBottom = Utils.toPixel(10, getContext());
+        final int marginButtonLeft = ThemeUtils.convertDpToPixels( 10, getContext());
+        final int marginButtonRight = ThemeUtils.convertDpToPixels(10, getContext());
+        final int marginButtonTop = ThemeUtils.convertDpToPixels(10, getContext());
+        final int marginButtonBottom = ThemeUtils.convertDpToPixels(10, getContext());
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
         final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
         final String darkMode = DataModel.getDataModel().getDarkMode();
@@ -109,25 +110,22 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         for (final MaterialButton digitButton : mDigitButton) {
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK))
-                );
-            } else if (Utils.isNight(getContext().getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
+            } else if (ThemeUtils.isNight(getContext().getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             } else {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK))
-                );
+                        MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK)));
                 digitButton.setStateListAnimator(null);
             }
 
             if (isCardBorderDisplayed) {
-                digitButton.setStrokeWidth(Utils.toPixel(2, getContext()));
+                digitButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
                 digitButton.setStrokeColor(ColorStateList.valueOf(
-                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK))
-                );
+                        MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)));
             }
 
-            if (Utils.isTablet(getContext())) {
+            if (ThemeUtils.isTablet(getContext())) {
                 final ConstraintLayout.LayoutParams digitButtonParams = (ConstraintLayout.LayoutParams) digitButton.getLayoutParams();
                 digitButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
                 digitButton.setLayoutParams(digitButtonParams);
@@ -138,41 +136,35 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         MaterialButton doubleZeroButton = findViewById(R.id.timer_setup_digit_00);
         if (isCardBackgroundDisplayed) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK))
-            );
+                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK))
-            );
-        } else if (Utils.isNight(getContext().getResources()) && darkMode.equals((KEY_AMOLED_DARK_MODE))) {
+                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
+        } else if (ThemeUtils.isNight(getContext().getResources()) && darkMode.equals((KEY_AMOLED_DARK_MODE))) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
         } else {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK))
-            );
+                    MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK)));
             doubleZeroButton.setStateListAnimator(null);
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK))
-            );
+                    MaterialColors.getColor(getContext(), android.R.attr.colorBackground, Color.BLACK)));
             mDeleteButton.setStateListAnimator(null);
         }
 
         if (isCardBorderDisplayed) {
-            doubleZeroButton.setStrokeWidth(Utils.toPixel(2, getContext()));
+            doubleZeroButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
             doubleZeroButton.setStrokeColor(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK))
-            );
-            mDeleteButton.setStrokeWidth(Utils.toPixel(2, getContext()));
+                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
+            mDeleteButton.setStrokeWidth(ThemeUtils.convertDpToPixels(2, getContext()));
             mDeleteButton.setStrokeColor(ColorStateList.valueOf(
-                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK))
-            );
+                    MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK)));
         }
         doubleZeroButton.setOnClickListener(this);
 
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 
-        if (Utils.isTablet(getContext())) {
+        if (ThemeUtils.isTablet(getContext())) {
             final ConstraintLayout.LayoutParams doubleZeroButtonParams = (ConstraintLayout.LayoutParams) doubleZeroButton.getLayoutParams();
             doubleZeroButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             doubleZeroButton.setLayoutParams(doubleZeroButtonParams);
@@ -181,9 +173,9 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             mDeleteButton.setLayoutParams(deleteButtonParams);
             // In landscape mode, we don't want buttons to take up the full height of the screen.
-            if (Utils.isLandscape(getContext())) {
+            if (ThemeUtils.isLandscape(getContext())) {
                 final View tabletDigits = findViewById(R.id.timer_setup_digits);
-                tabletDigits.getLayoutParams().height = Utils.toPixel(450, getContext());
+                tabletDigits.getLayoutParams().height = ThemeUtils.convertDpToPixels(450, getContext());
             }
         }
 

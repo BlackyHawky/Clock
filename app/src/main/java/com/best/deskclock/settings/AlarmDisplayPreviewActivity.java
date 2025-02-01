@@ -54,7 +54,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CircleView;
 
 public class AlarmDisplayPreviewActivity extends AppCompatActivity
@@ -105,7 +105,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!Utils.isLandscape(getApplicationContext())) {
+        if (ThemeUtils.isPortrait(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -113,7 +113,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         hideNavigationBar();
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
                 ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
                 : DataModel.getDataModel().getAlarmBackgroundColor();
@@ -149,19 +149,19 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             mContentView.setOnClickListener(this);
         }
 
-        mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+        mAlarmButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
         );
         mAlarmButton.setColorFilter(alarmButtonColor);
 
-        mDismissButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+        mDismissButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
         );
         mDismissButton.setColorFilter(dismissButtonColor);
         mDismissButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
 
         mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
-        mSnoozeButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+        mSnoozeButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
         mSnoozeButton.setColorFilter(snoozeButtonColor);

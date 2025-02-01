@@ -33,7 +33,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.TextTime;
 import com.google.android.material.color.MaterialColors;
 
@@ -82,7 +82,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         int rippleColor = MaterialColors.getColor(context,
                 com.google.android.material.R.attr.colorControlHighlight, Color.BLACK);
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
-                Utils.cardBackground(context), null);
+                ThemeUtils.cardBackground(context), null);
         itemView.setBackground(rippleDrawable);
 
         // Edit label handler

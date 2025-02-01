@@ -64,12 +64,12 @@ public class ClockUtils {
                 final Context context = analogClock.getContext();
                 // Optimally adjusts the height and the width of the analog clock when displayed
                 // on a tablet or phone in portrait or landscape mode
-                if (Utils.isTablet(context) || Utils.isLandscape(context)) {
+                if (ThemeUtils.isTablet(context) || ThemeUtils.isLandscape(context)) {
                     analogClock.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     analogClock.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 } else {
-                    analogClock.getLayoutParams().height = Utils.toPixel(240, context);
-                    analogClock.getLayoutParams().width = Utils.toPixel(240, context);
+                    analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(240, context);
+                    analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(240, context);
                 }
 
                 analogClock.setVisibility(View.VISIBLE);

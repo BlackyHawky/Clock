@@ -54,7 +54,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Locale;
 
@@ -151,7 +151,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String maxClockFontSize = DataModel.getDataModel().getVerticalDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(Integer.parseInt(maxClockFontSize), context);
+        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(maxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -301,7 +301,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         // On some devices, the text shadow is cut off, so we have to add it to the end of the next alarm text.
         // The result is that next alarm text and the icon are perfectly centered.
-        final int textShadowPadding = Utils.toPixel(3, sizer.getContext());
+        final int textShadowPadding = ThemeUtils.convertDpToPixels(3, sizer.getContext());
 
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSize);
@@ -334,7 +334,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         return measuredSizes;

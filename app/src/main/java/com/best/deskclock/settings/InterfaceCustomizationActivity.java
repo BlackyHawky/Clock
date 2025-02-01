@@ -17,6 +17,7 @@ import androidx.preference.TwoStatePreference;
 import com.best.deskclock.R;
 import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -141,7 +142,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     final ListPreference amoledPref = (ListPreference) pref;
                     final int darkModeIndex = amoledPref.findIndexOfValue((String) newValue);
                     amoledPref.setSummary(amoledPref.getEntries()[darkModeIndex]);
-                    if (Utils.isNight(requireActivity().getResources())) {
+                    if (ThemeUtils.isNight(requireActivity().getResources())) {
                         ThemeController.setNewSetting(CHANGED);
                     }
                 }
@@ -162,7 +163,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     final ListPreference nightAccentColorPref = (ListPreference) pref;
                     final int index = nightAccentColorPref.findIndexOfValue((String) newValue);
                     nightAccentColorPref.setSummary(nightAccentColorPref.getEntries()[index]);
-                    if (Utils.isNight(requireContext().getResources())) {
+                    if (ThemeUtils.isNight(requireContext().getResources())) {
                         ThemeController.setNewSetting(CHANGED);
                     }
                 }

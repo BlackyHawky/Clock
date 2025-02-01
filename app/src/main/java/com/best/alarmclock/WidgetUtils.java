@@ -14,7 +14,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 public final class WidgetUtils {
 
@@ -39,7 +39,7 @@ public final class WidgetUtils {
             }
             final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            final int minDigitalWidgetWidth = Utils.toPixel(Utils.isTablet(context) ? 300 : 206, context);
+            final int minDigitalWidgetWidth = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 300 : 206, context);
             float ratio = (density * minWidth) / minDigitalWidgetWidth;
             ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
             ratio *= .83f;
@@ -49,7 +49,7 @@ public final class WidgetUtils {
             }
 
             ratio = Math.min(ratio, 1.6f);
-            if (Utils.isPortrait(context)) {
+            if (ThemeUtils.isPortrait(context)) {
                 ratio = Math.max(ratio, .71f);
             } else {
                 ratio = Math.max(ratio, .45f);
@@ -77,9 +77,9 @@ public final class WidgetUtils {
             }
             final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            final int minDigitalWidgetHeight = Utils.toPixel(Utils.isTablet(context) ? 170 : 129, context);
+            final int minDigitalWidgetHeight = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 170 : 129, context);
             float ratio = density * minHeight / minDigitalWidgetHeight;
-            if (Utils.isPortrait(context)) {
+            if (ThemeUtils.isPortrait(context)) {
                 return ratio * 1.75f;
             }
             return ratio;

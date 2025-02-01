@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 /**
  * This class adjusts the locations of child buttons and text of this view group by adjusting the
@@ -40,8 +40,8 @@ public class CircleButtonsLayout extends FrameLayout {
     protected void remeasureViews() {
         View circleView = findViewById(R.id.timer_time);
 
-        if (Utils.isLandscape(getContext())) {
-            circleView.setVisibility(Utils.isTablet(getContext()) ? VISIBLE : GONE);
+        if (ThemeUtils.isLandscape(getContext())) {
+            circleView.setVisibility(ThemeUtils.isTablet(getContext()) ? VISIBLE : GONE);
         }
 
         // Todo : this part of code seems unnecessary. Is it?

@@ -68,6 +68,7 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CircleView;
 
@@ -218,7 +219,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!Utils.isLandscape(getApplicationContext())) {
+        if (ThemeUtils.isPortrait(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -230,7 +231,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.alarm_activity);
 
         final String darkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = Utils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
                 ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
                 : DataModel.getDataModel().getAlarmBackgroundColor();
@@ -264,12 +265,12 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             mContentView.setOnClickListener(this);
         }
 
-        mAlarmButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+        mAlarmButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
         );
         mAlarmButton.setColorFilter(alarmButtonColor);
 
-        mDismissButton.setImageDrawable(Utils.toScaledBitmapDrawable(
+        mDismissButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
         );
         mDismissButton.setColorFilter(dismissButtonColor);
@@ -277,8 +278,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         mSnoozeButton.setImageDrawable(mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
-                ? Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_alarm_off, 2f)
-                : Utils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
+                ? ThemeUtils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_alarm_off, 2f)
+                : ThemeUtils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
         mSnoozeButton.setColorFilter(mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
                 ? dismissButtonColor

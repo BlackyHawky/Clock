@@ -35,7 +35,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -86,7 +86,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyThemeAndAccentColor(this);
+        ThemeUtils.applyThemeAndAccentColor(this);
 
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
@@ -129,7 +129,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!Utils.isLandscape(getApplicationContext())) {
+        if (ThemeUtils.isPortrait(getApplicationContext())) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 

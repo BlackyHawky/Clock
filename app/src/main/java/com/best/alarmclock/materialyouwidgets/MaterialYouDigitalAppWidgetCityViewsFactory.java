@@ -25,7 +25,7 @@ import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,11 +60,11 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
 
         m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
+                ThemeUtils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
         m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
+                ThemeUtils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
         mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
+                ThemeUtils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override

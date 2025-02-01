@@ -15,6 +15,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
@@ -185,7 +186,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
 
         private void setupPreferences() {
             final String getDarkMode = DataModel.getDataModel().getDarkMode();
-            final boolean isAmoledMode = Utils.isNight(requireContext().getResources())
+            final boolean isAmoledMode = ThemeUtils.isNight(requireContext().getResources())
                     && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
             mBackgroundAmoledColorPref.setVisible(isAmoledMode);
             mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());

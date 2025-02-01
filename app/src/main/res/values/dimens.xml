@@ -8,7 +8,11 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
+    <bool name="isTablet">false</bool>
+
     <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
     <dimen name="timer_time_text_size">32sp</dimen>
+
+    <item type="fraction" name="timer_setup_time_bottom_percent">0.25</item>
 </resources>

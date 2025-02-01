@@ -27,7 +27,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.settings.AboutActivity;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -47,7 +47,7 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyThemeAndAccentColor(this);
+        ThemeUtils.applyThemeAndAccentColor(this);
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
@@ -56,7 +56,7 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
         if (mCollapsingToolbarLayout == null) {
             return;
         }
-        if (Utils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
             mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));
         }

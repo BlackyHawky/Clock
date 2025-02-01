@@ -61,7 +61,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
@@ -189,7 +189,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String maxClockFontSize = DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(
+        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(
                 !selectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
                     : Integer.parseInt(maxClockFontSize), context);
@@ -255,7 +255,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             rv.setTextColor(R.id.dateForCustomColor, customDateColor);
         }
 
-        final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
+        final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
             // Insufficient space; hide the world city list.
             rv.setViewVisibility(R.id.worldCityList, GONE);
@@ -440,11 +440,11 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIconForCustomColor);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIconForCustomColor);
         }
 
         return measuredSizes;

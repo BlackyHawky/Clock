@@ -20,6 +20,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
@@ -78,7 +79,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         // If we click on the circular container when the phones (only) are in landscape mode,
         // indicating a title for the timers is not possible so in this case we click on the time text.
-        if (!Utils.isTablet(context) && Utils.isLandscape(context)) {
+        if (!ThemeUtils.isTablet(context) && ThemeUtils.isLandscape(context)) {
             view.findViewById(R.id.timer_time_text).setOnClickListener(mPlayPauseListener);
         } else {
             view.findViewById(R.id.circle_container).setOnClickListener(mPlayPauseListener);

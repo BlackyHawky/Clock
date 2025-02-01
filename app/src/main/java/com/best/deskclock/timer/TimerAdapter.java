@@ -24,7 +24,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.R;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -193,10 +193,10 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // Allow dragging only if timers are sorted manually
             if (timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
-                if (Utils.isTablet(context)) {
+                if (ThemeUtils.isTablet(context)) {
                     dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
                 } else {
-                    if (Utils.isLandscape(context)) {
+                    if (ThemeUtils.isLandscape(context)) {
                         dragFlags = ItemTouchHelper.START | ItemTouchHelper.END;
                     } else {
                         dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;

@@ -33,7 +33,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Objects;
 
@@ -147,7 +147,7 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = Utils.toPixel(21, requireContext());
+        final int padding = ThemeUtils.convertDpToPixels(21, requireContext());
         dialog.setView(mLabelBox, padding, 0, padding, 0);
 
         final Window alertDialogWindow = dialog.getWindow();

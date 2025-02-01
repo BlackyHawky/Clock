@@ -46,6 +46,7 @@ import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
@@ -106,7 +107,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         mDisplayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
 
-        mIsPortrait = Utils.isPortrait(mContext);
+        mIsPortrait = ThemeUtils.isPortrait(mContext);
 
         mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
 
@@ -383,8 +384,10 @@ public final class ClockFragment extends DeskClockFragment {
                 final String cityTimeZoneId = city.getTimeZone().getID();
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    mAnalogClock.getLayoutParams().height = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
-                    mAnalogClock.getLayoutParams().width = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(
+                            ThemeUtils.isTablet(context) ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(
+                            ThemeUtils.isTablet(context) ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
@@ -399,17 +402,16 @@ public final class ClockFragment extends DeskClockFragment {
                             ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
                 }
 
-                itemView.setBackground(Utils.cardBackground(context));
+                itemView.setBackground(ThemeUtils.cardBackground(context));
 
                 // Supply margins dynamically.
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                final int marginLeft = Utils.toPixel(10, context);
-                final int marginRight = Utils.toPixel(10, context);
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                final int marginLeft = ThemeUtils.convertDpToPixels(10, context);
+                final int marginRight = ThemeUtils.convertDpToPixels(10, context);
                 final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
-                        ? Utils.toPixel(8, context)
-                        : Utils.toPixel(0, context);
+                        ? ThemeUtils.convertDpToPixels(8, context)
+                        : ThemeUtils.convertDpToPixels(0, context);
                 params.setMargins(marginLeft, 0, marginRight, marginBottom);
                 itemView.setLayoutParams(params);
 

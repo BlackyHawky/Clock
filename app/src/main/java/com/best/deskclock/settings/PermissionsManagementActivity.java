@@ -32,7 +32,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
@@ -100,12 +100,12 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         if (isCardBorderDisplayed) {
-            mIgnoreBatteryOptimizationsView.setStrokeWidth(Utils.toPixel(2, this));
+            mIgnoreBatteryOptimizationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, this));
             mIgnoreBatteryOptimizationsView.setStrokeColor(
                     MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
             );
 
-            mNotificationView.setStrokeWidth(Utils.toPixel(2, this));
+            mNotificationView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, this));
             mNotificationView.setStrokeColor(
                     MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
             );
@@ -127,17 +127,15 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             if (isCardBackgroundDisplayed) {
                 mFullScreenNotificationsView.setCardBackgroundColor(
-                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
-                );
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK));
             } else {
                 mFullScreenNotificationsView.setCardBackgroundColor(Color.TRANSPARENT);
             }
 
             if (isCardBorderDisplayed) {
-                mFullScreenNotificationsView.setStrokeWidth(Utils.toPixel(2, this));
+                mFullScreenNotificationsView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, this));
                 mFullScreenNotificationsView.setStrokeColor(
-                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK)
-                );
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, Color.BLACK));
             }
 
         }

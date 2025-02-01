@@ -20,7 +20,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.TextTime;
 
 import java.util.Calendar;
@@ -48,7 +48,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         LayoutInflater inflater = LayoutInflater.from(context);
         View row = inflater.inflate(R.layout.alarm_row, parent, false);
 
-        int alarmRowMarginBottom = Utils.toPixel(Utils.isTablet(context) ? 64 : 8, context);
+        int alarmRowMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 64 : 8, context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );

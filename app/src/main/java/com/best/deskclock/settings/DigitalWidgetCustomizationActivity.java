@@ -269,39 +269,32 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
             mShowCitiesOnDigitalWidgetPref.setChecked(DataModel.getDataModel().areWorldCitiesDisplayedOnDigitalWidget());
             if (mShowCitiesOnDigitalWidgetPref.isShown()) {
                 mDefaultCityClockColorPref.setChecked(
-                        DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor()
-                );
+                        DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor());
                 mDefaultCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
                 mCustomCityClockColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
-                        && !mDefaultCityClockColorPref.isChecked()
-                );
+                        && !mDefaultCityClockColorPref.isChecked());
 
                 mDefaultCityNameColorPref.setChecked(
-                        DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor()
-                );
+                        DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor());
                 mDefaultCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked());
                 mCustomCityNameColorPref.setVisible(mShowCitiesOnDigitalWidgetPref.isChecked()
-                        && !mDefaultCityNameColorPref.isChecked()
-                );
+                        && !mDefaultCityNameColorPref.isChecked());
 
                 if (mShowCitiesOnDigitalWidgetPref.isChecked()) {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
-                            requireContext().getString(R.string.digital_widget_message_summary)
-                    );
+                            requireContext().getString(R.string.digital_widget_message_summary));
                 } else {
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                     mDigitalWidgetMaxClockFontSizePref.setSummary(
                             requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                    + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
-                    );
+                                    + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize());
                 }
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
                 mDigitalWidgetMaxClockFontSizePref.setSummary(
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize()
-                );
+                                + DataModel.getDataModel().getDigitalWidgetMaxClockFontSize());
             }
 
             mDefaultClockColorPref.setChecked(DataModel.getDataModel().isDigitalWidgetDefaultClockColor());

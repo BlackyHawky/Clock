@@ -46,7 +46,7 @@ import com.best.deskclock.alarms.AlarmActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
@@ -158,7 +158,7 @@ public class AnalogClock extends FrameLayout {
                     default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
                 }
             } else {
-                if (Utils.isNight(context.getResources())) {
+                if (ThemeUtils.isNight(context.getResources())) {
                     switch (nightAccentColor) {
                         case BLACK_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
                         case BLUE_GRAY_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));

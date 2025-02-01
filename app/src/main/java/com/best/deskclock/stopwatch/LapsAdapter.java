@@ -24,6 +24,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.text.DecimalFormatSymbols;
@@ -360,9 +361,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         LapItemHolder(View itemView) {
             super(itemView);
 
-            final int padding = Utils.isTablet(itemView.getContext())
-                    ? Utils.toPixel(8, itemView.getContext())
-                    : Utils.toPixel(4, itemView.getContext());
+            final int padding = ThemeUtils.isTablet(itemView.getContext())
+                    ? ThemeUtils.convertDpToPixels(8, itemView.getContext())
+                    : ThemeUtils.convertDpToPixels(4, itemView.getContext());
             itemView.setPadding(0, padding, 0, padding);
 
             lapNumber = itemView.findViewById(R.id.lap_number);

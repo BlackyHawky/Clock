@@ -51,7 +51,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Locale;
 
@@ -199,7 +199,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final String widgetMaxFontSize =
                 DataModel.getDataModel().getMaterialYouNextAlarmWidgetMaxFontSize();
-        final int largestFontSizePx = Utils.toPixel(Integer.parseInt(widgetMaxFontSize), context);
+        final int largestFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(widgetMaxFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestFontSizePx);
@@ -395,11 +395,11 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIconForCustomColor);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIconForCustomColor);
         }
 
         return measuredSizes;

@@ -51,6 +51,7 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.toast.SnackbarManager;
@@ -138,13 +139,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
-        final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
+        final Drawable noAlarmsIcon = ThemeUtils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
         if (noAlarmsIcon != null) {
             noAlarmsIcon.setTint(MaterialColors.getColor(
                     mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
         }
         alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
-        alarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
+        alarmsEmptyView.setCompoundDrawablePadding(ThemeUtils.convertDpToPixels(30, mContext));
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
@@ -163,9 +164,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Set a bottom padding to prevent alarm list from being hidden by the FAB
-        final int bottomPadding = Utils.isTablet(mContext)
-                ? Utils.toPixel(110, mContext)
-                : Utils.toPixel(95, mContext);
+        final int bottomPadding = ThemeUtils.isTablet(mContext)
+                ? ThemeUtils.convertDpToPixels(110, mContext)
+                : ThemeUtils.convertDpToPixels(95, mContext);
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);
 
         mItemAdapter.setHasStableIds();
@@ -236,12 +237,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                             viewHolder.itemView.getLeft() + (int) dX,
                             viewHolder.itemView.getBottom()
                     );
-                    background.setCornerRadius(Utils.toPixel(12, mContext));
+                    background.setCornerRadius(ThemeUtils.convertDpToPixels(12, mContext));
                     background.draw(c);
 
                     // Delete icon
                     int deleteIconSize = 0;
-                    int deleteIconHorizontalMargin = Utils.toPixel(16, mContext);
+                    int deleteIconHorizontalMargin = ThemeUtils.convertDpToPixels(16, mContext);
 
                     if (dX > deleteIconHorizontalMargin) {
                         Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);

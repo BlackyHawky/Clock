@@ -46,6 +46,7 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
@@ -115,12 +116,12 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
         // Set a bottom padding to prevent the reset button from being hidden by the FAB
         final int bottomPadding;
-        if (Utils.isTablet(requireContext())) {
-            bottomPadding = Utils.toPixel(110, requireContext());
+        if (ThemeUtils.isTablet(requireContext())) {
+            bottomPadding = ThemeUtils.convertDpToPixels(110, requireContext());
         } else {
-            bottomPadding = Utils.isPortrait(requireContext())
-                    ? Utils.toPixel(95, requireContext())
-                    : Utils.toPixel(80, requireContext());
+            bottomPadding = ThemeUtils.isPortrait(requireContext())
+                    ? ThemeUtils.convertDpToPixels(95, requireContext())
+                    : ThemeUtils.convertDpToPixels(80, requireContext());
         }
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);
         mRecyclerView.setClipToPadding(false);
@@ -452,12 +453,12 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (Utils.isTablet(context)) {
-            int columnCount = Utils.isLandscape(context) ? 3 : 2;
+        if (ThemeUtils.isTablet(context)) {
+            int columnCount = ThemeUtils.isLandscape(context) ? 3 : 2;
             return new GridLayoutManager(context, columnCount);
         }
 
-        return new LinearLayoutManager(context, Utils.isLandscape(context)
+        return new LinearLayoutManager(context, ThemeUtils.isLandscape(context)
                 ? LinearLayoutManager.HORIZONTAL
                 : LinearLayoutManager.VERTICAL, false);
     }

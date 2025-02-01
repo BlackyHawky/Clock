@@ -24,7 +24,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
@@ -91,7 +91,7 @@ public class TimerItem extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setBackground(Utils.cardBackground(getContext()));
+        setBackground(ThemeUtils.cardBackground(getContext()));
 
         mLabelView = findViewById(R.id.timer_label);
         mResetButton = findViewById(R.id.reset);
@@ -111,28 +111,28 @@ public class TimerItem extends ConstraintLayout {
         mCircleContainer = findViewById(R.id.circle_container);
         // Necessary to avoid the null pointer exception,
         // as only the timer_item layout for portrait mode has these attributes
-        if (!Utils.isTablet(getContext()) && !Utils.isLandscape(getContext())) {
+        if (!ThemeUtils.isTablet(getContext()) && ThemeUtils.isPortrait(getContext())) {
             mTimerTotalDurationText = findViewById(R.id.timer_total_duration);
         }
 
         // The size of the Play/Pause and add time buttons are reduced for phones in landscape mode
         // due to the size of the timers unlike tablets
-        if (!Utils.isTablet(getContext()) && Utils.isLandscape(getContext())) {
+        if (!ThemeUtils.isTablet(getContext()) && ThemeUtils.isLandscape(getContext())) {
             mAddTimeButton.setIncludeFontPadding(false);
             mAddTimeButton.setMinHeight(0);
             mAddTimeButton.setMinimumHeight(0);
             mAddTimeButton.setMinWidth(0);
             mAddTimeButton.setMinimumWidth(0);
-            mAddTimeButton.setPadding(Utils.toPixel(10, getContext()), mAddTimeButton.getPaddingTop(),
-                    Utils.toPixel(10, getContext()), mAddTimeButton.getPaddingBottom());
+            mAddTimeButton.setPadding(ThemeUtils.convertDpToPixels(10, getContext()), mAddTimeButton.getPaddingTop(),
+                    ThemeUtils.convertDpToPixels(10, getContext()), mAddTimeButton.getPaddingBottom());
 
             mPlayPauseButton.setIncludeFontPadding(false);
             mPlayPauseButton.setMinHeight(0);
             mPlayPauseButton.setMinimumHeight(0);
             mPlayPauseButton.setMinWidth(0);
             mPlayPauseButton.setMinimumWidth(0);
-            mPlayPauseButton.setPadding(Utils.toPixel(20, getContext()), mPlayPauseButton.getPaddingTop(),
-                    Utils.toPixel(20, getContext()), mPlayPauseButton.getPaddingBottom());
+            mPlayPauseButton.setPadding(ThemeUtils.convertDpToPixels(20, getContext()), mPlayPauseButton.getPaddingTop(),
+                    ThemeUtils.convertDpToPixels(20, getContext()), mPlayPauseButton.getPaddingBottom());
         }
     }
 
@@ -143,7 +143,7 @@ public class TimerItem extends ConstraintLayout {
         // Update the time.
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
-        if (!Utils.isTablet(getContext()) && !Utils.isLandscape(getContext())) {
+        if (!ThemeUtils.isTablet(getContext()) && ThemeUtils.isPortrait(getContext())) {
             mTimerTotalDurationText.setText(timer.getTotalDuration());
         }
 
@@ -196,9 +196,9 @@ public class TimerItem extends ConstraintLayout {
             mAddTimeButton.setVisibility(View.VISIBLE);
             mLastState = timer.getState();
 
-            if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
+            if (!ThemeUtils.isTablet(context) && ThemeUtils.isPortrait(context)) {
                 final ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mPlayPauseButton.getLayoutParams();
-                params.topMargin = Utils.toPixel(timer.getState().equals(Timer.State.RESET) ? 10 : 0, context);
+                params.topMargin = ThemeUtils.convertDpToPixels(timer.getState().equals(Timer.State.RESET) ? 10 : 0, context);
                 mPlayPauseButton.setLayoutParams(params);
             }
 
@@ -208,21 +208,21 @@ public class TimerItem extends ConstraintLayout {
                     mResetButton.setContentDescription(null);
                     mAddTimeButton.setVisibility(View.INVISIBLE);
                     mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_play));
-                    if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
+                    if (!ThemeUtils.isTablet(context) && ThemeUtils.isPortrait(context)) {
                         mCircleContainer.setVisibility(GONE);
                         mTimerTotalDurationText.setVisibility(VISIBLE);
                     }
                 }
                 case PAUSED -> {
                     mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_play));
-                    if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
+                    if (!ThemeUtils.isTablet(context) && ThemeUtils.isPortrait(context)) {
                         mCircleContainer.setVisibility(VISIBLE);
                         mTimerTotalDurationText.setVisibility(GONE);
                     }
                 }
                 case RUNNING -> {
                     mPlayPauseButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.ic_fab_pause));
-                    if (!Utils.isTablet(context) && !Utils.isLandscape(context)) {
+                    if (!ThemeUtils.isTablet(context) && ThemeUtils.isPortrait(context)) {
                         mCircleContainer.setVisibility(VISIBLE);
                         mTimerTotalDurationText.setVisibility(GONE);
                     }

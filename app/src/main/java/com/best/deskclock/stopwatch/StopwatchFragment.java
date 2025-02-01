@@ -52,6 +52,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
@@ -158,7 +159,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (Utils.isLandscape(mContext)) {
+        if (ThemeUtils.isLandscape(mContext)) {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
@@ -468,10 +469,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (Utils.isPortrait(mContext)) {
+        if (ThemeUtils.isPortrait(mContext)) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = lapsVisible ? 0 : Utils.toPixel(80, mContext);
+            final int bottom = lapsVisible ? 0 : ThemeUtils.convertDpToPixels(80, mContext);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();

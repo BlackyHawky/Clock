@@ -21,7 +21,7 @@ import androidx.preference.PreferenceScreen;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Objects;
 
@@ -38,8 +38,8 @@ public class ScreenFragment extends PreferenceFragmentCompat {
     @Override
     public void onResume() {
         super.onResume();
-        int bottomPadding = Utils.toPixel(20, requireContext());
-        int topPadding = Utils.toPixel(10, requireContext());
+        int bottomPadding = ThemeUtils.convertDpToPixels(20, requireContext());
+        int topPadding = ThemeUtils.convertDpToPixels(10, requireContext());
         getListView().setPadding(0, topPadding, 0, bottomPadding);
     }
 

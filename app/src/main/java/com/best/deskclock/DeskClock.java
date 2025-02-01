@@ -53,7 +53,7 @@ import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
@@ -61,7 +61,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 
 /**
- * The main activity of the application which displays 5 different tabs contains alarms, world
+ * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and stopwatch.
  */
 public class DeskClock extends AppCompatActivity
@@ -212,7 +212,7 @@ public class DeskClock extends AppCompatActivity
 
         isFirstLaunch();
 
-        Utils.applyThemeAndAccentColor(this);
+        ThemeUtils.applyThemeAndAccentColor(this);
 
         setContentView(R.layout.desk_clock);
 
@@ -222,23 +222,23 @@ public class DeskClock extends AppCompatActivity
 
         // Configure the buttons shared by the tabs.
         final Context context = getApplicationContext();
-        final int fabSize = Utils.isTablet(context) ? 90 : Utils.isPortrait(context) ? 75 : 60;
-        final int leftOrRightButtonSize = Utils.isTablet(context) ? 70 : Utils.isPortrait(context) ? 55 : 50;
+        final int fabSize = ThemeUtils.isTablet(context) ? 90 : ThemeUtils.isPortrait(context) ? 75 : 60;
+        final int leftOrRightButtonSize = ThemeUtils.isTablet(context) ? 70 : ThemeUtils.isPortrait(context) ? 55 : 50;
 
         mFab = findViewById(R.id.fab);
-        mFab.getLayoutParams().height = Utils.toPixel(fabSize, context);
-        mFab.getLayoutParams().width = Utils.toPixel(fabSize, context);
+        mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, context);
+        mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, context);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
 
         mLeftButton = findViewById(R.id.left_button);
-        mLeftButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
-        mLeftButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
+        mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
+        mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
 
         mRightButton = findViewById(R.id.right_button);
-        mRightButton.getLayoutParams().height = Utils.toPixel(leftOrRightButtonSize, context);
-        mRightButton.getLayoutParams().width = Utils.toPixel(leftOrRightButtonSize, context);
+        mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
+        mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
 
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
@@ -320,37 +320,32 @@ public class DeskClock extends AppCompatActivity
         mBottomNavigation.setItemActiveIndicatorEnabled(isTabIndicatorDisplayed);
 
         if (!isTabIndicatorDisplayed) {
-            final int bottomNavigationMenuPadding = Utils.toPixel(4, context);
+            final int bottomNavigationMenuPadding = ThemeUtils.convertDpToPixels(4, context);
             mBottomNavigation.setPadding(0, bottomNavigationMenuPadding, 0, bottomNavigationMenuPadding);
         }
 
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                new int[]{primaryColor, primaryColor, onBackgroundColor})
-        );
-        if (Utils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                new int[]{primaryColor, primaryColor, onBackgroundColor}));
+        if (ThemeUtils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, Color.WHITE})
-            );
+                    new int[]{primaryColor, primaryColor, Color.WHITE}));
         } else {
             final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
             if (isCardBackgroundDisplayed) {
                 mBottomNavigation.setBackgroundColor(surfaceColor);
                 this.getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK)
-                );
+                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK));
             } else {
                 mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
                 this.getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK)
-                );
+                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
             }
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
-                    new int[]{primaryColor, primaryColor, onBackgroundColor})
-            );
+                    new int[]{primaryColor, primaryColor, onBackgroundColor}));
         }
 
         // Honor changes to the selected tab from outside entities.
