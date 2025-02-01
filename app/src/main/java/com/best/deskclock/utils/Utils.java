@@ -167,14 +167,21 @@ public class Utils {
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {
+        final String darkMode = DataModel.getDataModel().getDarkMode();
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
         final int radius = toPixel(12, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
+
         gradientDrawable.setCornerRadius(radius);
+
         if (isCardBackgroundDisplayed) {
             gradientDrawable.setColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
-            gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
+            if (isNight(context.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                gradientDrawable.setColor(Color.BLACK);
+            } else {
+                gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
+            }
         }
 
         final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
