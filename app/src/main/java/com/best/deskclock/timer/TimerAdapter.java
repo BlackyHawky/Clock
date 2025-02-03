@@ -11,6 +11,8 @@ import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_M
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,9 @@ import java.util.Objects;
  */
 public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TimerListener {
 
+    private final int SINGLE_TIMER = R.layout.timer_single_item;
+    private final int MULTIPLE_TIMERS = R.layout.timer_item;
+
     /** Maps each timer id to the corresponding {@link TimerViewHolder} that draws it. */
     private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
     private final TimerClickHandler mTimerClickHandler;
@@ -52,12 +57,28 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return getTimers().size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        int orientation = Resources.getSystem().getConfiguration().orientation;
+
+        if (mTimers.size() == 1 && orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return SINGLE_TIMER;
+        } else {
+            return MULTIPLE_TIMERS;
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View view = inflater.inflate(R.layout.timer_item, parent, false);
+        View view;
+        if (viewType == SINGLE_TIMER) {
+            view = inflater.inflate(R.layout.timer_single_item, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.timer_item, parent, false);
+        }
         return new TimerViewHolder(view, mTimerClickHandler);
     }
 

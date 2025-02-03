@@ -69,6 +69,9 @@ public final class TimerFragment extends DeskClockFragment {
     private TimerAdapter mAdapter;
     private View mTimersView;
     private View mCurrentView;
+    private ItemTouchHelper mItemTouchHelper;
+    private boolean mIsTablet;
+    private boolean mIsLandscape;
     List<Timer> mTimersList;
 
     /**
@@ -111,12 +114,14 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
+        mIsTablet = ThemeUtils.isTablet(requireContext());
+        mIsLandscape = ThemeUtils.isLandscape(requireContext());
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
         // Set a bottom padding to prevent the reset button from being hidden by the FAB
         final int bottomPadding;
-        if (ThemeUtils.isTablet(requireContext())) {
+        if (mIsTablet) {
             bottomPadding = ThemeUtils.convertDpToPixels(110, requireContext());
         } else {
             bottomPadding = ThemeUtils.isPortrait(requireContext())
@@ -133,9 +138,8 @@ public final class TimerFragment extends DeskClockFragment {
 
         mAdapter.loadTimerList(mContext);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new TimerAdapter.TimerItemTouchHelper(mAdapter.getTimers(), mAdapter));
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter.getTimers(), mAdapter));
+        handleItemTouchHelper();
 
         // If timer setup state is present, retrieve it to be later honored.
         if (savedInstanceState != null) {
@@ -453,14 +457,26 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (ThemeUtils.isTablet(context)) {
-            int columnCount = ThemeUtils.isLandscape(context) ? 3 : 2;
-            return new GridLayoutManager(context, columnCount);
+        if (mIsTablet) {
+            int columnCount = mIsLandscape ? 3 : (mTimersList.size() > 1 ? 2 : 1);
+            if (columnCount > 1) {
+                return new GridLayoutManager(context, columnCount);
+            } else {
+                return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            }
         }
 
-        return new LinearLayoutManager(context, ThemeUtils.isLandscape(context)
+        return new LinearLayoutManager(context, mIsLandscape
                 ? LinearLayoutManager.HORIZONTAL
                 : LinearLayoutManager.VERTICAL, false);
+    }
+
+    private void handleItemTouchHelper() {
+        if (mTimersList.size() > 1) {
+            mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        } else {
+            mItemTouchHelper.attachToRecyclerView(null);
+        }
     }
 
     private void adjustWakeLock() {
@@ -507,6 +523,14 @@ public final class TimerFragment extends DeskClockFragment {
             if (!mCreatingTimer) {
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
+
+            // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
+            if (mIsTablet) {
+                mRecyclerView.setLayoutManager(getLayoutManager(context));
+            }
+
+            // Required to attach the ItemTouchHelper when there is more than one timer.
+            handleItemTouchHelper();
         }
 
         @Override
@@ -520,12 +544,19 @@ public final class TimerFragment extends DeskClockFragment {
 
         @Override
         public void timerRemoved(Timer timer) {
-
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
                 animateToView(mCreateTimerView, false);
             }
+
+            // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
+            if (mIsTablet) {
+                mRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
+            }
+
+            // Required to detach the ItemTouchHelper when there is only one timer left.
+            handleItemTouchHelper();
         }
     }
 }

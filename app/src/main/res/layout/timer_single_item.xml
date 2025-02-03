@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2015 The Android Open Source Project
-    modified
-    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+    SPDX-License-Identifier: GPL-3.0-only
 -->
 
 <!-- This TimerItem includes the circle because ample space exists. -->
@@ -11,10 +9,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="10dp"
     tools:background="@drawable/card_background_for_preview">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/circle_container_end_guide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.70" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_button_end_guide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_button_start_guide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/timer_label"
@@ -53,14 +72,15 @@
     <FrameLayout
         android:id="@+id/circle_container"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:focusable="true"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timer_label">
+        app:layout_constraintTop_toBottomOf="@id/timer_label"
+        app:layout_constraintBottom_toTopOf="@+id/circle_container_end_guide">
 
         <com.best.deskclock.timer.TimerCircleView
             android:id="@+id/timer_time"
@@ -76,39 +96,26 @@
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:includeFontPadding="false"
-            android:textSize="70sp"
+            android:textSize="120sp"
             tools:text="01:23" />
 
     </FrameLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/timer_total_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:includeFontPadding="false"
-        android:drawablePadding="8dp"
-        android:visibility="gone"
-        app:drawableStartCompat="@drawable/ic_hourglass_top"
-        app:drawableTint="?colorOnSurfaceVariant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/play_pause"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="InconsistentLayout" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timer_add_time_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         android:maxLines="1"
         android:textStyle="bold"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintHeight_max="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/circle_container"
+        app:layout_constraintEnd_toStartOf="@+id/left_button_end_guide"
+        app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="+ 1:00" />
 
@@ -128,16 +135,21 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/play_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         android:contentDescription="@string/timer_start"
         android:scaleType="centerInside"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:layout_constraintWidth_max="320dp"
+        app:layout_constraintHeight_max="100dp"
+        app:layout_constraintStart_toEndOf="@+id/right_button_start_guide"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/circle_container"
+        app:layout_constraintTop_toBottomOf="@+id/circle_container_end_guide"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:icon="@drawable/ic_fab_play" />
 
