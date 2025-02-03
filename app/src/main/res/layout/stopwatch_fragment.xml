@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="@id/left_guideline"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintHeight_max="320dp">
+        app:layout_constraintHeight_max="550dp">
 
         <!-- Sufficient space exists to include the bounding stopwatch circle. -->
         <include
@@ -57,8 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="InconsistentLayout" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
