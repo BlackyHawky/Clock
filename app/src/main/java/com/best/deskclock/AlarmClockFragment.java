@@ -164,7 +164,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Set a bottom padding to prevent alarm list from being hidden by the FAB
-        final int bottomPadding = ThemeUtils.isTablet(mContext)
+        final int bottomPadding = ThemeUtils.isTablet()
                 ? ThemeUtils.convertDpToPixels(110, mContext)
                 : ThemeUtils.convertDpToPixels(95, mContext);
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);

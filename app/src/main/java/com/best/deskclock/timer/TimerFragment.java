@@ -114,8 +114,8 @@ public final class TimerFragment extends DeskClockFragment {
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
-        mIsTablet = ThemeUtils.isTablet(requireContext());
-        mIsLandscape = ThemeUtils.isLandscape(requireContext());
+        mIsTablet = ThemeUtils.isTablet();
+        mIsLandscape = ThemeUtils.isLandscape();
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
@@ -124,9 +124,9 @@ public final class TimerFragment extends DeskClockFragment {
         if (mIsTablet) {
             bottomPadding = ThemeUtils.convertDpToPixels(110, requireContext());
         } else {
-            bottomPadding = ThemeUtils.isPortrait(requireContext())
-                    ? ThemeUtils.convertDpToPixels(95, requireContext())
-                    : ThemeUtils.convertDpToPixels(80, requireContext());
+            bottomPadding = mIsLandscape
+                    ? ThemeUtils.convertDpToPixels(80, requireContext())
+                    : ThemeUtils.convertDpToPixels(95, requireContext());
         }
         mRecyclerView.setPadding(0, 0, 0, bottomPadding);
         mRecyclerView.setClipToPadding(false);

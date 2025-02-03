@@ -56,7 +56,7 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
         if (mCollapsingToolbarLayout == null) {
             return;
         }
-        if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight() && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
             mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));
         }

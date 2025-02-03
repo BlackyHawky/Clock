@@ -97,7 +97,7 @@ public class ThemeUtils {
                 case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
             }
         } else {
-            if (isNight(activity.getResources())) {
+            if (isNight()) {
                 switch (nightAccentColor) {
                     case BLACK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
                     case BLUE_GRAY_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
@@ -127,7 +127,7 @@ public class ThemeUtils {
         }
 
         if (activity instanceof CollapsingToolbarBaseActivity) {
-            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             } else {
@@ -135,7 +135,7 @@ public class ThemeUtils {
                         MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
             }
         } else {
-            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
@@ -144,34 +144,30 @@ public class ThemeUtils {
 
     /**
      * @return {@code true} if the device is in dark mode.
-     * @param res Access application resources.
      */
-    public static boolean isNight(final Resources res) {
-        return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    public static boolean isNight() {
+        return (Resources.getSystem().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
     /**
-     * @param context from which to query the current device configuration
      * @return {@code true} if the device is currently in portrait or reverse portrait orientation
      */
-    public static boolean isPortrait(Context context) {
-        return context.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT;
+    public static boolean isPortrait() {
+        return Resources.getSystem().getConfiguration().orientation == ORIENTATION_PORTRAIT;
     }
 
     /**
-     * @param context from which to query the current device configuration
      * @return {@code true} if the device is currently in landscape or reverse landscape orientation
      */
-    public static boolean isLandscape(Context context) {
-        return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    public static boolean isLandscape() {
+        return Resources.getSystem().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     }
 
     /**
-     * @param context from which to query the current device
-     * @return {@code true} if the device is a tablet
+     * @return {@code true} if the device is a tablet. {@code false} otherwise
      */
-    public static boolean isTablet(Context context) {
-        return context.getResources().getBoolean(R.bool.isTablet);
+    public static boolean isTablet() {
+        return Resources.getSystem().getConfiguration().smallestScreenWidthDp >= 600;
     }
 
     /**
@@ -189,7 +185,7 @@ public class ThemeUtils {
             gradientDrawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
-            if (isNight(context.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 gradientDrawable.setColor(Color.BLACK);
             } else {
                 gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));

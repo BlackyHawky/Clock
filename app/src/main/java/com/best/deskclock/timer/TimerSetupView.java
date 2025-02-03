@@ -91,6 +91,8 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
         final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
         final String darkMode = DataModel.getDataModel().getDarkMode();
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isNight = ThemeUtils.isNight();
 
         mTimeView = findViewById(R.id.timer_setup_time);
         mDeleteButton = findViewById(R.id.timer_setup_delete);
@@ -111,7 +113,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
-            } else if (ThemeUtils.isNight(getContext().getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            } else if (isNight && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             } else {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
@@ -125,7 +127,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK)));
             }
 
-            if (ThemeUtils.isTablet(getContext())) {
+            if (isTablet) {
                 final ConstraintLayout.LayoutParams digitButtonParams = (ConstraintLayout.LayoutParams) digitButton.getLayoutParams();
                 digitButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
                 digitButton.setLayoutParams(digitButtonParams);
@@ -139,7 +141,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
-        } else if (ThemeUtils.isNight(getContext().getResources()) && darkMode.equals((KEY_AMOLED_DARK_MODE))) {
+        } else if (isNight && darkMode.equals((KEY_AMOLED_DARK_MODE))) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
         } else {
@@ -164,7 +166,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         mDeleteButton.setOnClickListener(this);
         mDeleteButton.setOnLongClickListener(this);
 
-        if (ThemeUtils.isTablet(getContext())) {
+        if (isTablet) {
             final ConstraintLayout.LayoutParams doubleZeroButtonParams = (ConstraintLayout.LayoutParams) doubleZeroButton.getLayoutParams();
             doubleZeroButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             doubleZeroButton.setLayoutParams(doubleZeroButtonParams);
@@ -173,7 +175,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             deleteButtonParams.setMargins(marginButtonLeft, marginButtonTop, marginButtonRight, marginButtonBottom);
             mDeleteButton.setLayoutParams(deleteButtonParams);
             // In landscape mode, we don't want buttons to take up the full height of the screen.
-            if (ThemeUtils.isLandscape(getContext())) {
+            if (ThemeUtils.isLandscape()) {
                 final View tabletDigits = findViewById(R.id.timer_setup_digits);
                 tabletDigits.getLayoutParams().height = ThemeUtils.convertDpToPixels(450, getContext());
             }

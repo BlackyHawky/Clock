@@ -97,9 +97,9 @@ public class TimerItem extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mIsTablet = ThemeUtils.isTablet(getContext());
-        mIsPortrait = ThemeUtils.isPortrait(getContext());
-        mIsLandscape = ThemeUtils.isLandscape(getContext());
+        mIsTablet = ThemeUtils.isTablet();
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsLandscape = ThemeUtils.isLandscape();
 
         // To avoid creating a layout specifically for tablets, adjust the layout width and height here
         if (mIsTablet && mIsLandscape) {

@@ -79,7 +79,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         // If we click on the circular container when the phones (only) are in landscape mode,
         // indicating a title for the timers is not possible so in this case we click on the time text.
-        if (!ThemeUtils.isTablet(context) && ThemeUtils.isLandscape(context)) {
+        if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
             view.findViewById(R.id.timer_time_text).setOnClickListener(mPlayPauseListener);
         } else {
             view.findViewById(R.id.circle_container).setOnClickListener(mPlayPauseListener);

@@ -126,6 +126,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
 
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
+            final boolean isNight = ThemeUtils.isNight();
             switch (pref.getKey()) {
                 case KEY_THEME -> {
                     final ListPreference themePref = (ListPreference) pref;
@@ -138,11 +139,11 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     }
                 }
 
-                case KEY_DARK_MODE -> {
-                    final ListPreference amoledPref = (ListPreference) pref;
-                    final int darkModeIndex = amoledPref.findIndexOfValue((String) newValue);
-                    amoledPref.setSummary(amoledPref.getEntries()[darkModeIndex]);
-                    if (ThemeUtils.isNight(requireActivity().getResources())) {
+                case KEY_DARK_MODE, KEY_NIGHT_ACCENT_COLOR -> {
+                    final ListPreference listPreference = (ListPreference) pref;
+                    final int darkModeIndex = listPreference.findIndexOfValue((String) newValue);
+                    listPreference.setSummary(listPreference.getEntries()[darkModeIndex]);
+                    if (isNight) {
                         ThemeController.setNewSetting(CHANGED);
                     }
                 }
@@ -157,15 +158,6 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 case KEY_AUTO_NIGHT_ACCENT_COLOR -> {
                     ThemeController.setNewSettingWithDelay(CHANGED);
                     Utils.setVibrationTime(requireContext(), 50);
-                }
-
-                case KEY_NIGHT_ACCENT_COLOR -> {
-                    final ListPreference nightAccentColorPref = (ListPreference) pref;
-                    final int index = nightAccentColorPref.findIndexOfValue((String) newValue);
-                    nightAccentColorPref.setSummary(nightAccentColorPref.getEntries()[index]);
-                    if (ThemeUtils.isNight(requireContext().getResources())) {
-                        ThemeController.setNewSetting(CHANGED);
-                    }
                 }
 
                 case KEY_CARD_BACKGROUND -> {

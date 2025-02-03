@@ -31,8 +31,9 @@ public class ScreensaverUtils {
         switch (screensaverClockStyle) {
             case ANALOG -> {
                 final Context context = analogClock.getContext();
-                analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 300 : 220, context);
-                analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 300 : 220, context);
+                final boolean isTablet = ThemeUtils.isTablet();
+                analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(isTablet ? 300 : 220, context);
+                analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(isTablet ? 300 : 220, context);
                 digitalClock.setVisibility(View.GONE);
                 analogClock.setVisibility(View.VISIBLE);
                 return;
@@ -188,26 +189,28 @@ public class ScreensaverUtils {
      */
     public static void setScreensaverMarginsAndClockStyle(final Context context, final View clock) {
         final View mainClockView = clock.findViewById(R.id.main_clock);
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isLandscape = ThemeUtils.isLandscape();
 
         // Margins
-        final int mainClockMarginLeft = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 20 : 16, context);
-        final int mainClockMarginRight = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 20 : 16, context);
-        final int mainClockMarginTop = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context)
-                ? ThemeUtils.isLandscape(context) ? 32 : 48
-                : ThemeUtils.isLandscape(context) ? 16 : 24, context);
-        final int mainClockMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 20 : 16, context);
+        final int mainClockMarginLeft = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
+        final int mainClockMarginRight = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
+        final int mainClockMarginTop = ThemeUtils.convertDpToPixels(isTablet
+                ? isLandscape ? 32 : 48
+                : isLandscape ? 16 : 24, context);
+        final int mainClockMarginBottom = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
         final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
         mainClockView.setLayoutParams(paramsForMainClock);
 
-        final int digitalClockMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? -18 : -8, context);
+        final int digitalClockMarginBottom = ThemeUtils.convertDpToPixels(isTablet ? -18 : -8, context);
         final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
         mainClockView.setLayoutParams(paramsForDigitalClock);
 
-        final int analogClockMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isLandscape(context)
+        final int analogClockMarginBottom = ThemeUtils.convertDpToPixels(isLandscape
                 ? 5
-                : ThemeUtils.isTablet(context) ? 18 : 14, context);
+                : isTablet ? 18 : 14, context);
         final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
         mainClockView.setLayoutParams(paramsForAnalogClock);

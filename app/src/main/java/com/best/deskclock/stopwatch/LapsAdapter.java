@@ -361,7 +361,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         LapItemHolder(View itemView) {
             super(itemView);
 
-            final int padding = ThemeUtils.isTablet(itemView.getContext())
+            final int padding = ThemeUtils.isTablet()
                     ? ThemeUtils.convertDpToPixels(8, itemView.getContext())
                     : ThemeUtils.convertDpToPixels(4, itemView.getContext());
             itemView.setPadding(0, padding, 0, padding);

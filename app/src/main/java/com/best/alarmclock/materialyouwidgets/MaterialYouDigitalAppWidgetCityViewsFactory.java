@@ -58,13 +58,14 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
     public MaterialYouDigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
+        final boolean isTablet = ThemeUtils.isTablet();
 
         m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                ThemeUtils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
+                isTablet ? 52 : 32, context.getResources().getDisplayMetrics());
         m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                ThemeUtils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
+                isTablet ? 65 : 40, context.getResources().getDisplayMetrics());
         mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                ThemeUtils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
+                isTablet ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override

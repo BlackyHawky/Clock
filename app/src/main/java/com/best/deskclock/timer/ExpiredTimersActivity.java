@@ -129,7 +129,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait(getApplicationContext())) {
+        if (ThemeUtils.isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 

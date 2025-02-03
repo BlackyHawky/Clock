@@ -141,8 +141,9 @@ public final class StopwatchFragment extends DeskClockFragment {
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
     private String mVolumeDownActionAfterLongPress;
-    private boolean isVolumeUpLongPressed;
-    private boolean isVolumeDownLongPressed;
+    private boolean mIsVolumeUpLongPressed;
+    private boolean mIsVolumeDownLongPressed;
+    private boolean mIsLandscape;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -150,6 +151,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsLayoutManager = new LinearLayoutManager(getContext());
 
         mContext = requireContext();
+        mIsLandscape = ThemeUtils.isLandscape();
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -159,7 +161,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (ThemeUtils.isLandscape(mContext)) {
+        if (mIsLandscape) {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
@@ -206,7 +208,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                             && mVolumeUpActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
                         return false;
                     }
-                    isVolumeUpLongPressed = event.getRepeatCount() >= 2;
+                    mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
                     return true;
 
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
@@ -214,7 +216,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                             && mVolumeDownActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
                         return false;
                     }
-                    isVolumeDownLongPressed = event.getRepeatCount() >= 2;
+                    mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
                     return true;
             }
         }
@@ -226,14 +228,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                if (isVolumeUpLongPressed) {
+                if (mIsVolumeUpLongPressed) {
                     getVolumeUpActionAfterLongPress();
                 } else {
                     getVolumeUpAction();
                 }
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                if (isVolumeDownLongPressed) {
+                if (mIsVolumeDownLongPressed) {
                     getVolumeDownActionAfterLongPress();
                 } else {
                     getVolumeDownAction();
@@ -469,7 +471,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (ThemeUtils.isPortrait(mContext)) {
+        if (!mIsLandscape) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
             final int bottom = lapsVisible ? 0 : ThemeUtils.convertDpToPixels(80, mContext);

@@ -48,7 +48,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         LayoutInflater inflater = LayoutInflater.from(context);
         View row = inflater.inflate(R.layout.alarm_row, parent, false);
 
-        int alarmRowMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet(context) ? 64 : 8, context);
+        int alarmRowMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 64 : 8, context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );

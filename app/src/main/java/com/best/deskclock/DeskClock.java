@@ -222,8 +222,10 @@ public class DeskClock extends AppCompatActivity
 
         // Configure the buttons shared by the tabs.
         final Context context = getApplicationContext();
-        final int fabSize = ThemeUtils.isTablet(context) ? 90 : ThemeUtils.isPortrait(context) ? 75 : 60;
-        final int leftOrRightButtonSize = ThemeUtils.isTablet(context) ? 70 : ThemeUtils.isPortrait(context) ? 55 : 50;
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isPortrait = ThemeUtils.isPortrait();
+        final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
+        final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
         mFab = findViewById(R.id.fab);
         mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, context);
@@ -327,7 +329,7 @@ public class DeskClock extends AppCompatActivity
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, onBackgroundColor}));
-        if (ThemeUtils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},

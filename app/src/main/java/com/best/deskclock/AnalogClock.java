@@ -158,7 +158,7 @@ public class AnalogClock extends FrameLayout {
                     default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
                 }
             } else {
-                if (ThemeUtils.isNight(context.getResources())) {
+                if (ThemeUtils.isNight()) {
                     switch (nightAccentColor) {
                         case BLACK_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
                         case BLUE_GRAY_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));

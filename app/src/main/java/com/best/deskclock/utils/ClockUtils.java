@@ -64,7 +64,7 @@ public class ClockUtils {
                 final Context context = analogClock.getContext();
                 // Optimally adjusts the height and the width of the analog clock when displayed
                 // on a tablet or phone in portrait or landscape mode
-                if (ThemeUtils.isTablet(context) || ThemeUtils.isLandscape(context)) {
+                if (ThemeUtils.isTablet() || ThemeUtils.isLandscape()) {
                     analogClock.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     analogClock.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 } else {

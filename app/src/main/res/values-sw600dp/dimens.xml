@@ -8,8 +8,6 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <bool name="isTablet">true</bool>
-
     <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="timer_time_text_size">70sp</dimen>
 </resources>

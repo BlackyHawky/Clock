@@ -57,23 +57,25 @@ public class StopwatchCircleFrameLayout extends FrameLayout {
         // Fetch the absolute maximum circle size allowed.
         final List<Lap> laps = DataModel.getDataModel().getLaps();
         final int maxSize;
-        if (ThemeUtils.isTablet(getContext())) {
+        final int densityDpi = getResources().getDisplayMetrics().densityDpi;
+
+        if (ThemeUtils.isTablet()) {
             if (laps.isEmpty()) {
-                if (getResources().getDisplayMetrics().densityDpi <= 213) {
+                if (densityDpi <= 213) {
                     maxSize = ThemeUtils.convertDpToPixels(360, getContext());
-                } else if (getResources().getDisplayMetrics().densityDpi <= 240) {
+                } else if (densityDpi <= 240) {
                     maxSize = ThemeUtils.convertDpToPixels(300, getContext());
-                } else if (getResources().getDisplayMetrics().densityDpi <= 280) {
+                } else if (densityDpi <= 280) {
                     maxSize = ThemeUtils.convertDpToPixels(240, getContext());
                 } else {
                     maxSize = ThemeUtils.convertDpToPixels(200, getContext());
                 }
             } else {
-                if (getResources().getDisplayMetrics().densityDpi <= 213) {
+                if (densityDpi <= 213) {
                     maxSize = ThemeUtils.convertDpToPixels(420, getContext());
-                } else if (getResources().getDisplayMetrics().densityDpi <= 240) {
+                } else if (densityDpi <= 240) {
                     maxSize = ThemeUtils.convertDpToPixels(360, getContext());
-                } else if (getResources().getDisplayMetrics().densityDpi <= 280) {
+                } else if (densityDpi <= 280) {
                     maxSize = ThemeUtils.convertDpToPixels(300, getContext());
                 } else {
                     maxSize = ThemeUtils.convertDpToPixels(240, getContext());
