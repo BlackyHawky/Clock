@@ -162,6 +162,10 @@ public class TimerItem extends ConstraintLayout {
         // Update the time.
         mTimerTextController.setTimeString(timer.getRemainingTime());
 
+        if (isPortraitPhoneWithMultipleTimers() && mTimerTotalDurationText != null) {
+            mTimerTotalDurationText.setText(timer.getTotalDuration());
+        }
+
         // Update the label if it changed.
         final String label = timer.getLabel();
         if (label.isEmpty()) {
@@ -229,7 +233,6 @@ public class TimerItem extends ConstraintLayout {
                     if (isPortraitPhoneWithMultipleTimers()) {
                         mCircleContainer.setVisibility(GONE);
                         mTimerTotalDurationText.setVisibility(VISIBLE);
-                        mTimerTotalDurationText.setText(timer.getTotalDuration());
                     }
                 }
 
