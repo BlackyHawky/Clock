@@ -457,13 +457,8 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (mIsTablet) {
-            int columnCount = mIsLandscape ? 3 : (mTimersList.size() > 1 ? 2 : 1);
-            if (columnCount > 1) {
-                return new GridLayoutManager(context, columnCount);
-            } else {
-                return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-            }
+        if (mIsTablet && mTimersList.size() > 1) {
+            return new GridLayoutManager(context, mIsLandscape ? 3 : 2);
         }
 
         return new LinearLayoutManager(context, mIsLandscape

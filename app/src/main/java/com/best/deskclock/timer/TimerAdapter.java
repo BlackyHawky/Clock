@@ -11,8 +11,6 @@ import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_M
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,10 +57,8 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        int orientation = Resources.getSystem().getConfiguration().orientation;
-
-        if (mTimers.size() == 1 && orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return SINGLE_TIMER;
+        if (mTimers.size() == 1) {
+            return (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) ? SINGLE_TIMER : MULTIPLE_TIMERS;
         } else {
             return MULTIPLE_TIMERS;
         }
