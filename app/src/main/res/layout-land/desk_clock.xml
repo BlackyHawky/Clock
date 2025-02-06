@@ -26,9 +26,9 @@
             android:saveEnabled="false" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:baselineAligned="false"
             app:layout_behavior="com.best.deskclock.widget.toast.SnackbarSlidingBehavior">
 
@@ -40,32 +40,32 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/fab"
-                app:layout_constraintBottom_toBottomOf="@+id/fab"
-                app:layout_constraintTop_toTopOf="@+id/fab"
-                app:layout_constraintHorizontal_bias="0.6"
-                tools:layout_width="55dp"
-                tools:layout_height="55dp"
+                app:layout_constraintStart_toStartOf="@+id/fab"
+                app:layout_constraintEnd_toEndOf="@+id/fab"
+                app:layout_constraintTop_toBottomOf="@+id/fab"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:layout_width="50dp"
+                tools:layout_height="50dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_reset"
-                tools:fabCustomSize="55dp" />
+                tools:fabCustomSize="50dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 style="@style/FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="14dp"
                 android:contentDescription="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_width="75dp"
-                tools:layout_height="75dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_width="60dp"
+                tools:layout_height="60dp"
                 tools:src="@drawable/ic_fab_play"
-                tools:fabCustomSize="75dp" />
+                tools:fabCustomSize="60dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/right_button"
@@ -74,16 +74,16 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@id/fab"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/fab"
-                app:layout_constraintBottom_toBottomOf="@id/fab"
-                app:layout_constraintHorizontal_bias="0.4"
-                tools:layout_width="55dp"
-                tools:layout_height="55dp"
+                app:layout_constraintStart_toStartOf="@+id/fab"
+                app:layout_constraintEnd_toEndOf="@+id/fab"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/fab"
+                app:layout_constraintVertical_bias="0.5"
+                tools:layout_width="50dp"
+                tools:layout_height="50dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_share"
-                tools:fabCustomSize="55dp" />
+                tools:fabCustomSize="50dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -92,7 +92,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="72dp"
         app:menu="@menu/bottom_navigation_menu"
         app:labelVisibilityMode="labeled"
         tools:background="@color/md_theme_surface" />

@@ -96,7 +96,7 @@
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:includeFontPadding="false"
-            android:textSize="120sp"
+            android:textSize="70sp"
             tools:text="01:23" />
 
     </FrameLayout>

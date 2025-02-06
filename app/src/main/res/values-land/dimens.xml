@@ -9,6 +9,4 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="analog_clock_size">168dp</dimen>
-
-    <item type="fraction" name="timer_setup_time_bottom_percent">0.75</item>
 </resources>

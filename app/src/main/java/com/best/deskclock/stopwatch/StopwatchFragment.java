@@ -152,6 +152,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         mContext = requireContext();
         mIsLandscape = ThemeUtils.isLandscape();
+        final boolean isTablet = ThemeUtils.isTablet();
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -175,6 +176,13 @@ public final class StopwatchFragment extends DeskClockFragment {
         mHundredthsTimeText = v.findViewById(R.id.stopwatch_hundredths_text);
         mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
         mStopwatchWrapper = v.findViewById(R.id.stopwatch_time_wrapper);
+        // Set a bottom padding for tablets in landscape mode to center correctly the stopwatch
+        // between the FAB and the top of the screen.
+        // A bottom padding is also set for the laps list to prevent it from being hidden by the FAB.
+        if (isTablet && mIsLandscape) {
+            mLapsList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(110, mContext));
+            mStopwatchWrapper.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+        }
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
@@ -474,7 +482,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (!mIsLandscape) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = lapsVisible ? 0 : ThemeUtils.convertDpToPixels(80, mContext);
+            final int bottom = ThemeUtils.convertDpToPixels(lapsVisible ? 0 : 80, mContext);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();

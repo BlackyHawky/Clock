@@ -82,6 +82,7 @@
 
     </FrameLayout>
 
+    <!-- Buttons size is set programmatically in the TimerItem.java file. -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timer_add_time_button"
         android:layout_width="wrap_content"

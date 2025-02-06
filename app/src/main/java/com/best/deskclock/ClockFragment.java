@@ -77,6 +77,8 @@ public final class ClockFragment extends DeskClockFragment {
     private Context mContext;
 
     public static boolean mIsPortrait;
+    public static boolean mIsLandscape;
+    public static boolean mIsTablet;
     public static boolean mShowHomeClock;
 
     /**
@@ -102,15 +104,12 @@ public final class ClockFragment extends DeskClockFragment {
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
 
         mContext = requireContext();
-
         mClockStyle = DataModel.getDataModel().getClockStyle();
-
         mDisplayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
-
         mIsPortrait = ThemeUtils.isPortrait();
-
+        mIsLandscape = ThemeUtils.isLandscape();
+        mIsTablet = ThemeUtils.isTablet();
         mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
-
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
@@ -123,6 +122,14 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
         mCityList.setOnTouchListener(new CityListOnLongClickListener(mContext));
+        // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
+        // the city list from being hidden by the FAB (e.g. when scrolling down).
+        // Why is it not a round number like in the other fragments??
+        // In any case, the alignment is not perfect but is very correct when compared with
+        // the alarm cards for example.
+        mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
+                mIsTablet && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
+
         fragmentView.setOnLongClickListener(new StartScreenSaverListener());
 
         // On tablet landscape, the clock frame will be a distinct view.
@@ -382,12 +389,14 @@ public final class ClockFragment extends DeskClockFragment {
 
             private void bind(Context context, City city) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
-                boolean isTablet = ThemeUtils.isTablet();
+                final boolean isPhoneInLandscapeMode = !mIsTablet && mIsLandscape;
+
+                itemView.setBackground(ThemeUtils.cardBackground(context));
 
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(isTablet ? 150 : 80, context);
-                    mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(isTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
@@ -402,17 +411,15 @@ public final class ClockFragment extends DeskClockFragment {
                             ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
                 }
 
-                itemView.setBackground(ThemeUtils.cardBackground(context));
-
-                // Supply margins dynamically.
+                // Due to the ViewPager and the location of FAB, set margins to prevent
+                // the city list from being hidden by the FAB (e.g. when scrolling down).
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                final int marginLeft = ThemeUtils.convertDpToPixels(10, context);
-                final int marginRight = ThemeUtils.convertDpToPixels(10, context);
-                final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
-                        ? ThemeUtils.convertDpToPixels(8, context)
-                        : ThemeUtils.convertDpToPixels(0, context);
-                params.setMargins(marginLeft, 0, marginRight, marginBottom);
+                final int leftMargin = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 0 : 10, context);
+                final int rightMargin =  ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 90 : 10, context);
+                final int bottomMargin = ThemeUtils.convertDpToPixels(
+                        DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock ? 8 : 0, context);
+                params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
                 itemView.setLayoutParams(params);
 
                 // Bind the city name.
@@ -446,7 +453,8 @@ public final class ClockFragment extends DeskClockFragment {
                             : R.string.world_hours_yesterday, timeString))
                         : timeString);
 
-                if (!mIsPortrait) {
+                // If the device is in landscape mode, center the city name and time offset.
+                if (mIsLandscape) {
                     LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     mName.setLayoutParams(textViewLayoutParams);

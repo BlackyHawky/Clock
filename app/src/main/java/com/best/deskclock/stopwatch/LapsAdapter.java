@@ -361,9 +361,11 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         LapItemHolder(View itemView) {
             super(itemView);
 
-            final int padding = ThemeUtils.isTablet()
-                    ? ThemeUtils.convertDpToPixels(8, itemView.getContext())
-                    : ThemeUtils.convertDpToPixels(4, itemView.getContext());
+            final Context context = itemView.getContext();
+            boolean isTablet = ThemeUtils.isTablet();
+
+            // Set top and bottom padding between each item
+            final int padding =  ThemeUtils.convertDpToPixels(isTablet ? 8 : 4, context);
             itemView.setPadding(0, padding, 0, padding);
 
             lapNumber = itemView.findViewById(R.id.lap_number);
@@ -375,6 +377,11 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
             accumulatedTime = itemView.findViewById(R.id.lap_total);
             accumulatedTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            // Due to the ViewPager and the location of FAB, set a right padding for phones
+            // in landscape mode to prevent the laps from being hidden by the FAB.
+            if (!isTablet && ThemeUtils.isLandscape()) {
+                accumulatedTime.setPadding(0, 0, ThemeUtils.convertDpToPixels(85, context), 0);
+            }
         }
     }
 }

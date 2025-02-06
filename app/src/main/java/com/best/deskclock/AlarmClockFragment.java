@@ -139,6 +139,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isPhoneInLandscapeMode = !isTablet && ThemeUtils.isLandscape();
         final Drawable noAlarmsIcon = ThemeUtils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
         if (noAlarmsIcon != null) {
             noAlarmsIcon.setTint(MaterialColors.getColor(
@@ -146,6 +148,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         }
         alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
         alarmsEmptyView.setCompoundDrawablePadding(ThemeUtils.convertDpToPixels(30, mContext));
+        // Set a bottom padding for phones in portrait mode and tablets to center correctly
+        // the alarms empty view between the FAB and the top of the screen
+        if (!isPhoneInLandscapeMode) {
+            alarmsEmptyView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+        }
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
@@ -163,11 +170,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         };
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-        // Set a bottom padding to prevent alarm list from being hidden by the FAB
-        final int bottomPadding = ThemeUtils.isTablet()
-                ? ThemeUtils.convertDpToPixels(110, mContext)
-                : ThemeUtils.convertDpToPixels(95, mContext);
-        mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+        // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
+        // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
+        final int rightPadding = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 85 : 0, mContext);
+        final int bottomPadding = ThemeUtils.convertDpToPixels(isTablet ? 110 : isPhoneInLandscapeMode ? 5 : 95, mContext);
+        mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
 
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),

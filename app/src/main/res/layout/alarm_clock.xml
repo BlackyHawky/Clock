@@ -10,6 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Due to the ViewPager and the location of FAB, paddings are set
+         in the AlarmClockFragment.java file. -->
     <com.best.deskclock.AlarmRecyclerView
         android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
@@ -23,7 +25,6 @@
         android:layout_gravity="center"
         android:contentDescription="@string/no_alarms"
         android:gravity="center_horizontal"
-        android:paddingBottom="80dp"
         android:text="@string/no_alarms"
         android:textSize="30sp"
         android:visibility="gone" />

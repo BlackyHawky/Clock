@@ -45,11 +45,11 @@
                 app:layout_constraintBottom_toBottomOf="@+id/fab"
                 app:layout_constraintTop_toTopOf="@+id/fab"
                 app:layout_constraintHorizontal_bias="0.6"
-                tools:layout_width="55dp"
-                tools:layout_height="55dp"
+                tools:layout_width="70dp"
+                tools:layout_height="70dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_reset"
-                tools:fabCustomSize="55dp" />
+                tools:fabCustomSize="70dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
@@ -62,10 +62,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_width="75dp"
-                tools:layout_height="75dp"
+                tools:layout_width="90dp"
+                tools:layout_height="90dp"
                 tools:src="@drawable/ic_fab_play"
-                tools:fabCustomSize="75dp" />
+                tools:fabCustomSize="90dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/right_button"
@@ -79,11 +79,11 @@
                 app:layout_constraintTop_toTopOf="@id/fab"
                 app:layout_constraintBottom_toBottomOf="@id/fab"
                 app:layout_constraintHorizontal_bias="0.4"
-                tools:layout_width="55dp"
-                tools:layout_height="55dp"
+                tools:layout_width="70dp"
+                tools:layout_height="70dp"
                 tools:visibility="visible"
                 tools:src="@drawable/ic_share"
-                tools:fabCustomSize="55dp" />
+                tools:fabCustomSize="70dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
