@@ -719,6 +719,13 @@ public final class DataModel {
     }
 
     /**
+     * @return the shake intensity value.
+     */
+    public int getShakeIntensity() {
+        return mAlarmModel.getShakeIntensity();
+    }
+
+    /**
      * @return the number of minutes before the upcoming alarm notification appears
      */
     public int getAlarmNotificationReminderTime() {

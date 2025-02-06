@@ -228,7 +228,6 @@ public class AlarmService extends Service {
 
     private int mShakeAction;
     private final SensorEventListener mShakeListener = new SensorEventListener() {
-        private static final float SENSITIVITY = 16;
         private static final int BUFFER = 5;
         private final float[] gravity = new float[3];
         private float average = 0;
@@ -249,11 +248,13 @@ public class AlarmService extends Service {
             float y = event.values[1] - gravity[1];
             float z = event.values[2] - gravity[2];
 
+            float sensitivity = DataModel.getDataModel().getShakeIntensity();
+
             if (fill <= BUFFER) {
                 average += Math.abs(x) + Math.abs(y) + Math.abs(z);
                 fill++;
             } else {
-                if (average / BUFFER >= SENSITIVITY) {
+                if (average / BUFFER >= sensitivity) {
                     handleAction(mShakeAction);
                 }
                 average = 0;

@@ -8,6 +8,7 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.AboutActivity.KEY_ABOUT_TITLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_BRIGHTNESS;
 
 import android.os.Build;
@@ -64,7 +65,8 @@ public class ScreenFragment extends PreferenceFragmentCompat {
                 final int subPrefCount = ((PreferenceCategory) pref).getPreferenceCount();
                 for (int j = 0; j < subPrefCount; j++) {
                     if (Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_ALARM_VOLUME_SETTING)
-                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SCREENSAVER_BRIGHTNESS)) {
+                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SCREENSAVER_BRIGHTNESS)
+                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SHAKE_INTENSITY)) {
                         if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
                             ((PreferenceCategory) pref).getPreference(j)
                                     .setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);

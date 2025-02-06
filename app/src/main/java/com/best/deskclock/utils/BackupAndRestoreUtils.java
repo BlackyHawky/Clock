@@ -30,6 +30,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_VOLUME_BUTTONS;
@@ -326,6 +327,9 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, prefs.getString(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, "70"));
 
                 } else if (entry.getValue() instanceof Integer) {
+                    // Values from AlarmSettingsActivity
+                    ints.put(KEY_SHAKE_INTENSITY, prefs.getInt(KEY_SHAKE_INTENSITY, 16));
+
                     // Values from AlarmDisplayCustomizationActivity
                     ints.put(KEY_ALARM_BACKGROUND_COLOR, prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.parseColor("#FF191C1E")));
                     ints.put(KEY_ALARM_BACKGROUND_AMOLED_COLOR, prefs.getInt(KEY_ALARM_BACKGROUND_AMOLED_COLOR, Color.parseColor("#FF000000")));

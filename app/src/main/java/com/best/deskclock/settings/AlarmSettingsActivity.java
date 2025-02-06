@@ -15,6 +15,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -47,6 +48,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String POWER_BEHAVIOR_DISMISS = "2";
     public static final String KEY_FLIP_ACTION = "key_flip_action";
     public static final String KEY_SHAKE_ACTION = "key_shake_action";
+    public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";
     public static final String KEY_WEEK_START = "key_week_start";
     public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
     public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
@@ -151,6 +153,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
         ListPreference mPowerButtonPref;
         ListPreference mFlipActionPref;
         ListPreference mShakeActionPref;
+        SeekBarPreference mShakeIntensityPref;
         ListPreference mWeekStartPref;
         ListPreference mAlarmNotificationReminderTimePref;
         SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
@@ -175,6 +178,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
             mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
             mFlipActionPref = findPreference(KEY_FLIP_ACTION);
             mShakeActionPref = findPreference(KEY_SHAKE_ACTION);
+            mShakeIntensityPref = findPreference(KEY_SHAKE_INTENSITY);
             mWeekStartPref = findPreference(KEY_WEEK_START);
             mAlarmNotificationReminderTimePref = findPreference(KEY_ALARM_NOTIFICATION_REMINDER_TIME);
             mEnableAlarmVibrationsByDefaultPref = findPreference(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT);
@@ -210,11 +214,19 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                         Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
-                     KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_SHAKE_ACTION,
-                     KEY_ALARM_NOTIFICATION_REMINDER_TIME, KEY_MATERIAL_TIME_PICKER_STYLE -> {
+                     KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_ALARM_NOTIFICATION_REMINDER_TIME,
+                     KEY_MATERIAL_TIME_PICKER_STYLE -> {
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
+                }
+
+                case KEY_SHAKE_ACTION -> {
+                    final ListPreference shakeActionPref = (ListPreference) pref;
+                    final int index = shakeActionPref.findIndexOfValue((String) newValue);
+                    shakeActionPref.setSummary(shakeActionPref.getEntries()[index]);
+                    // index == 2 --> Nothing
+                    mShakeIntensityPref.setVisible(index != 2);
                 }
 
                 case KEY_WEEK_START -> {
@@ -223,6 +235,15 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                     preference.setSummary(preference.getEntries()[index]);
                     // Set result so DeskClock knows to refresh itself
                     requireActivity().setResult(RESULT_OK);
+                }
+
+                case KEY_SHAKE_INTENSITY -> {
+                    final int progress = (int) newValue;
+                    if (progress == 16) {
+                        mShakeIntensityPref.setSummary(String.valueOf(1));
+                    } else {
+                        mShakeIntensityPref.setSummary(String.valueOf(progress - 15));
+                    }
                 }
             }
 
@@ -263,6 +284,16 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 mFlipActionPref.setOnPreferenceChangeListener(this);
                 mShakeActionPref.setSummary(mShakeActionPref.getEntry());
                 mShakeActionPref.setOnPreferenceChangeListener(this);
+
+                // shakeActionIndex == 2 --> Nothing
+                final int shakeActionIndex = mShakeActionPref.findIndexOfValue(
+                        String.valueOf(DataModel.getDataModel().getShakeAction()));
+                mShakeIntensityPref.setVisible(shakeActionIndex != 2);
+                mShakeIntensityPref.setMin(16);
+                if (mShakeIntensityPref.getMin() == 16) {
+                    mShakeIntensityPref.setSummary(String.valueOf(1));
+                }
+
             }
 
             mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
@@ -290,6 +321,12 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             mPowerButtonPref.setOnPreferenceChangeListener(this);
             mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
+
+            final int intensity = DataModel.getDataModel().getShakeIntensity();
+            mShakeIntensityPref.setValue(intensity);
+            mShakeIntensityPref.setSummary(String.valueOf(intensity - 15));
+            mShakeIntensityPref.setOnPreferenceChangeListener(this);
+            mShakeIntensityPref.setUpdatesContinuously(true);
 
             // Set the default first day of the week programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();

@@ -127,6 +127,10 @@ final class AlarmModel {
         return mSettingsModel.getShakeAction();
     }
 
+    int getShakeIntensity() {
+        return mSettingsModel.getShakeIntensity();
+    }
+
     int getAlarmNotificationReminderTime() {
         return mSettingsModel.getAlarmNotificationReminderTime();
     }

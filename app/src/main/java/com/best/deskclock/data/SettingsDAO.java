@@ -49,6 +49,7 @@ import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_VOLUME_BUTTONS;
@@ -737,16 +738,30 @@ final class SettingsDAO {
         return new TimeZones(tzIds, tzNames);
     }
 
+    /**
+     * @return the action to be performed after flipping the device.
+     */
     static int getFlipAction(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(KEY_FLIP_ACTION, "0");
         return Integer.parseInt(string);
     }
 
+    /**
+     * @return the action to be performed after shaking the device.
+     */
     static int getShakeAction(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm.xml
         final String string = prefs.getString(KEY_SHAKE_ACTION, "0");
         return Integer.parseInt(string);
+    }
+
+    /**
+     * @return the shake intensity value.
+     */
+    static int getShakeIntensity(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_alarm.xml
+        return pref.getInt(KEY_SHAKE_INTENSITY, 16);
     }
 
     /**

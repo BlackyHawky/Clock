@@ -1260,6 +1260,8 @@
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
     <string name="shake_action_title">Device shake action</string>
+    <!-- Setting title for the shake intensity setting. -->
+    <string name="shake_intensity_title">Shake intensity</string>
     <!-- Strings for notification channel. -->
     <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
     <string name="alarm_missed_channel">Missed alarms</string>

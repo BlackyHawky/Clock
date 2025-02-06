@@ -282,6 +282,10 @@ final class SettingsModel {
         return SettingsDAO.getShakeAction(mPrefs);
     }
 
+    public int getShakeIntensity() {
+        return SettingsDAO.getShakeIntensity(mPrefs);
+    }
+
     int getAlarmNotificationReminderTime() {
         return SettingsDAO.getAlarmNotificationReminderTime(mPrefs);
     }
