@@ -22,10 +22,8 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,8 +39,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.events.Events;
-import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -121,7 +117,6 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setAdapter(mCityAdapter);
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
-        mCityList.setOnTouchListener(new CityListOnLongClickListener(mContext));
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
         // Why is it not a round number like in the other fragments??
@@ -129,8 +124,6 @@ public final class ClockFragment extends DeskClockFragment {
         // the alarm cards for example.
         mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
                 mIsTablet && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
-
-        fragmentView.setOnLongClickListener(new StartScreenSaverListener());
 
         // On tablet landscape, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
@@ -230,51 +223,6 @@ public final class ClockFragment extends DeskClockFragment {
             AlarmUtils.refreshAlarm(getContext(), mClockFrame);
         } else {
             mCityAdapter.refreshAlarm();
-        }
-    }
-
-    /**
-     * Long pressing over the main clock starts the screen saver.
-     */
-    private final class StartScreenSaverListener implements View.OnLongClickListener {
-
-        @Override
-        public boolean onLongClick(View view) {
-            startActivity(new Intent(getActivity(), ScreensaverActivity.class)
-                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
-            return true;
-        }
-    }
-
-    /**
-     * Long pressing over the city list starts the screen saver.
-     */
-    private final class CityListOnLongClickListener extends GestureDetector.SimpleOnGestureListener
-            implements View.OnTouchListener {
-
-        private final GestureDetector mGestureDetector;
-
-        private CityListOnLongClickListener(Context context) {
-            mGestureDetector = new GestureDetector(context, this);
-        }
-
-        @Override
-        public void onLongPress(@NonNull MotionEvent e) {
-            final View view = getView();
-            if (view != null) {
-                view.performLongClick();
-            }
-        }
-
-        @Override
-        public boolean onDown(@NonNull MotionEvent e) {
-            return true;
-        }
-
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return mGestureDetector.onTouchEvent(event);
         }
     }
 
