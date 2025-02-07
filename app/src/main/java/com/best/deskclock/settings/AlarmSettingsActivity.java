@@ -240,7 +240,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_SHAKE_INTENSITY -> {
                     final int progress = (int) newValue;
                     if (progress == 16) {
-                        mShakeIntensityPref.setSummary(String.valueOf(1));
+                        mShakeIntensityPref.setSummary(R.string.label_default);
                     } else {
                         mShakeIntensityPref.setSummary(String.valueOf(progress - 15));
                     }
@@ -291,7 +291,7 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
                 mShakeIntensityPref.setVisible(shakeActionIndex != 2);
                 mShakeIntensityPref.setMin(16);
                 if (mShakeIntensityPref.getMin() == 16) {
-                    mShakeIntensityPref.setSummary(String.valueOf(1));
+                    mShakeIntensityPref.setSummary(R.string.label_default);
                 }
 
             }
@@ -324,7 +324,11 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
 
             final int intensity = DataModel.getDataModel().getShakeIntensity();
             mShakeIntensityPref.setValue(intensity);
-            mShakeIntensityPref.setSummary(String.valueOf(intensity - 15));
+            if (intensity == 16) {
+                mShakeIntensityPref.setSummary(R.string.label_default);
+            } else {
+                mShakeIntensityPref.setSummary(String.valueOf(intensity - 15));
+            }
             mShakeIntensityPref.setOnPreferenceChangeListener(this);
             mShakeIntensityPref.setUpdatesContinuously(true);
 
