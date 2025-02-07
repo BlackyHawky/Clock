@@ -2,9 +2,10 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.controller.ThemeController.Setting.CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 
@@ -63,9 +64,16 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String YELLOW_NIGHT_ACCENT_COLOR = "10";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
+    public static final String KEY_CUSTOM_LANGUAGE_CODE = "key_custom_language_code";
+    public static final String KEY_SYSTEM_LANGUAGE_CODE = "system_language_code";
     public static final String KEY_VIBRATIONS = "key_vibrations";
     public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
     public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
+
+    @Override
+    protected String getActivityTitle() {
+        return getString(R.string.interface_customization_settings);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +96,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
         ListPreference mNightAccentColorPref;
         SwitchPreferenceCompat mCardBackgroundPref;
         SwitchPreferenceCompat mCardBorderPref;
+        ListPreference mCustomLanguageCodePref;
         SwitchPreferenceCompat mVibrationPref;
         SwitchPreferenceCompat mTabIndicatorPref;
         SwitchPreferenceCompat mFadeTransitionsPref;
@@ -105,6 +114,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mNightAccentColorPref = findPreference(KEY_NIGHT_ACCENT_COLOR);
             mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
             mCardBorderPref = findPreference(KEY_CARD_BORDER);
+            mCustomLanguageCodePref = findPreference(KEY_CUSTOM_LANGUAGE_CODE);
             mVibrationPref = findPreference(KEY_VIBRATIONS);
             mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
             mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
@@ -115,6 +125,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             if (mNightAccentColorPref.isShown()) {
                 sortListPreference(mNightAccentColorPref);
             }
+            sortListPreference(mCustomLanguageCodePref);
         }
 
         @Override
@@ -144,7 +155,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     final int darkModeIndex = listPreference.findIndexOfValue((String) newValue);
                     listPreference.setSummary(listPreference.getEntries()[darkModeIndex]);
                     if (isNight) {
-                        ThemeController.setNewSetting(CHANGED);
+                        ThemeController.setNewSetting();
                     }
                 }
 
@@ -152,26 +163,34 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                     final ListPreference accentColorPref = (ListPreference) pref;
                     final int index = accentColorPref.findIndexOfValue((String) newValue);
                     accentColorPref.setSummary(accentColorPref.getEntries()[index]);
-                    ThemeController.setNewSetting(CHANGED);
+                    ThemeController.setNewSetting();
                 }
 
                 case KEY_AUTO_NIGHT_ACCENT_COLOR -> {
-                    ThemeController.setNewSettingWithDelay(CHANGED);
+                    ThemeController.setNewSettingWithDelay();
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
                 case KEY_CARD_BACKGROUND -> {
                     final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
                     cardBackgroundPref.setChecked(DataModel.getDataModel().isCardBackgroundDisplayed());
-                    ThemeController.setNewSettingWithDelay(CHANGED);
+                    ThemeController.setNewSettingWithDelay();
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
                 case KEY_CARD_BORDER -> {
                     final TwoStatePreference cardBorderPref = (TwoStatePreference) pref;
                     cardBorderPref.setChecked(DataModel.getDataModel().isCardBorderDisplayed());
-                    ThemeController.setNewSettingWithDelay(CHANGED);
+                    ThemeController.setNewSettingWithDelay();
                     Utils.setVibrationTime(requireContext(), 50);
+                }
+
+                case KEY_CUSTOM_LANGUAGE_CODE -> {
+                    final ListPreference listPreference = (ListPreference) pref;
+                    final int index = listPreference.findIndexOfValue((String) newValue);
+                    listPreference.setSummary(listPreference.getEntries()[index]);
+                    requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                    ThemeController.setNewSetting();
                 }
 
                 case KEY_VIBRATIONS -> {
@@ -183,7 +202,6 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 case KEY_TAB_INDICATOR -> {
                     final TwoStatePreference tabIndicatorPref = (TwoStatePreference) pref;
                     tabIndicatorPref.setChecked(DataModel.getDataModel().isTabIndicatorDisplayed());
-                    ThemeController.setNewSettingWithDelay(CHANGED);
                     Utils.setVibrationTime(requireContext(), 50);
                     requireActivity().setResult(RESULT_OK);
                 }
@@ -191,7 +209,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
                 case KEY_FADE_TRANSITIONS -> {
                     final TwoStatePreference fadeTransitionsPref = (TwoStatePreference) pref;
                     fadeTransitionsPref.setChecked(DataModel.getDataModel().isFadeTransitionsEnabled());
-                    ThemeController.setNewSettingWithDelay(CHANGED);
+                    ThemeController.setNewSettingWithDelay();
                     Utils.setVibrationTime(requireContext(), 50);
                 }
             }
@@ -233,6 +251,9 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
             mCardBackgroundPref.setOnPreferenceChangeListener(this);
 
             mCardBorderPref.setOnPreferenceChangeListener(this);
+
+            mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntry());
+            mCustomLanguageCodePref.setOnPreferenceChangeListener(this);
 
             mVibrationPref.setOnPreferenceChangeListener(this);
 

@@ -71,10 +71,12 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACC
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BORDER;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_FADE_TRANSITIONS;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_SYSTEM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_TAB_INDICATOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_VIBRATIONS;
@@ -130,6 +132,7 @@ import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.data.DataModel.ClockStyle;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -290,6 +293,14 @@ final class SettingsDAO {
     static boolean isCardBorderDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
         return prefs.getBoolean(KEY_CARD_BORDER, false);
+    }
+
+    /**
+     * @return the custom language code.
+     */
+    static String getCustomLanguageCode(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, KEY_SYSTEM_LANGUAGE_CODE);
     }
 
     /**
@@ -705,7 +716,8 @@ final class SettingsDAO {
      */
     static TimeZones getTimeZones(Context context, long currentTime) {
         final Locale locale = Locale.getDefault();
-        final Resources resources = context.getResources();
+        final Context localizedContext = Utils.getLocalizedContext(context);
+        final Resources resources = localizedContext.getResources();
         final String[] timeZoneIds = resources.getStringArray(R.array.timezone_values);
         final String[] timeZoneNames = resources.getStringArray(R.array.timezone_labels);
 

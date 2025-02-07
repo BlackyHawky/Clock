@@ -16,6 +16,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
@@ -52,6 +53,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
 
@@ -101,6 +103,8 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
 
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
         // Create a remote view for the next alarm.
         final String packageName = context.getPackageName();
         final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_next_alarm_widget);
@@ -116,8 +120,8 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         // The default color is defined in the xml files to match the device's day/night theme.
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
-        final String nextAlarmText = context.getString(R.string.next_alarm_widget_text);
-        final String noAlarmTitle = context.getString(R.string.next_alarm_widget_title_no_alarm);
+        final String nextAlarmText = localizedContext.getString(R.string.next_alarm_widget_text);
+        final String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
         final boolean isDefaultTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor();
         final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor();
         final boolean isDefaultAlarmColor = DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmColor();
@@ -234,6 +238,8 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         @SuppressLint("InflateParams") final View sizer =
                 inflater.inflate(R.layout.material_you_next_alarm_widget_sizer, null);
 
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
         final TextView nextAlarmTitleView = sizer.findViewById(R.id.nextAlarmTitle);
@@ -275,22 +281,22 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
             if (isDefaultTitleColor) {
                 nextAlarmText.setVisibility(VISIBLE);
                 nextAlarmTextForCustomColor.setVisibility(GONE);
-                nextAlarmText.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
+                nextAlarmText.setText(localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
             } else {
                 nextAlarmText.setVisibility(GONE);
                 nextAlarmTextForCustomColor.setVisibility(VISIBLE);
-                nextAlarmTextForCustomColor.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
+                nextAlarmTextForCustomColor.setText(localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
                 nextAlarmTextForCustomColor.setTextColor(customTitleColor);
             }
         } else {
             if (isDefaultTitleColor) {
                 nextAlarmText.setVisibility(VISIBLE);
                 nextAlarmTextForCustomColor.setVisibility(GONE);
-                nextAlarmText.setText(context.getString(R.string.next_alarm_widget_text));
+                nextAlarmText.setText(localizedContext.getString(R.string.next_alarm_widget_text));
             } else {
                 nextAlarmText.setVisibility(GONE);
                 nextAlarmTextForCustomColor.setVisibility(VISIBLE);
-                nextAlarmTextForCustomColor.setText(context.getString(R.string.next_alarm_widget_text));
+                nextAlarmTextForCustomColor.setText(localizedContext.getString(R.string.next_alarm_widget_text));
                 nextAlarmTextForCustomColor.setTextColor(customTitleColor);
             }
 
@@ -426,6 +432,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
+                case ACTION_LANGUAGE_CODE_CHANGED:
                 case ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED:
                 case ACTION_NEXT_ALARM_LABEL_CHANGED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
@@ -458,6 +465,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         intentFilter.addAction(ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);

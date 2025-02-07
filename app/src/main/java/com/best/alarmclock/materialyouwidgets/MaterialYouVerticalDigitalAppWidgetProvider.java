@@ -16,6 +16,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
@@ -55,6 +56,8 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -213,20 +216,17 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         // Apply the custom color to the date.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final CharSequence dateFormat = getDateFormat(context);
         final boolean isDefaultDateColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor();
         final int customDateColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomDateColor();
 
         if (isDefaultDateColor) {
             rv.setViewVisibility(R.id.date, VISIBLE);
             rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-            rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-            rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+            rv.setTextViewText(R.id.date, getDateFormat(context));
         } else {
             rv.setViewVisibility(R.id.date, GONE);
             rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
-            rv.setCharSequence(R.id.dateForCustomColor, "setFormat12Hour", dateFormat);
-            rv.setCharSequence(R.id.dateForCustomColor, "setFormat24Hour", dateFormat);
+            rv.setTextViewText(R.id.dateForCustomColor, getDateFormat(context));
             rv.setTextColor(R.id.dateForCustomColor, customDateColor);
         }
 
@@ -268,21 +268,18 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         }
 
         // Configure the date to display the current date string.
-        final CharSequence dateFormat = getDateFormat(context);
-        final TextClock date = sizer.findViewById(R.id.date);
-        final TextClock dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
+        final TextView date = sizer.findViewById(R.id.date);
+        final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
         final boolean isDefaultDateColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor();
 
         if (isDefaultDateColor) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setFormat12Hour(dateFormat);
-            date.setFormat24Hour(dateFormat);
+            date.setText(getDateFormat(context));
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setFormat12Hour(dateFormat);
-            dateForCustomColor.setFormat24Hour(dateFormat);
+            dateForCustomColor.setText(getDateFormat(context));
         }
 
         // Configure the next alarm views to display the next alarm time or be gone.
@@ -357,12 +354,12 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final Sizes measuredSizes = template.newSize();
 
         // Configure the clock to display the widest time string.
-        final TextClock date = sizer.findViewById(R.id.date);
+        final TextView date = sizer.findViewById(R.id.date);
         final TextClock hours = sizer.findViewById(R.id.clockHours);
         final TextClock minutes = sizer.findViewById(R.id.clockMinutes);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
-        final TextClock dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
+        final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
         final TextClock hoursForCustomColor = sizer.findViewById(R.id.clockHoursForCustomColor);
         final TextClock minutesForCustomColor = sizer.findViewById(R.id.clockMinutesForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
@@ -426,9 +423,12 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
      * @return the locale-specific date pattern
      */
     private static String getDateFormat(Context context) {
-        final Locale locale = Locale.getDefault();
+        Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        return DateFormat.getBestDateTimePattern(locale, skeleton);
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+
+        return simpleDateFormat.format(new Date());
     }
 
     @Override
@@ -452,6 +452,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
+                case ACTION_LANGUAGE_CODE_CHANGED:
                 case ACTION_UPCOMING_ALARM_DISPLAY_CHANGED:
                 case ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
@@ -484,6 +485,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         intentFilter.addAction(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED);
         intentFilter.addAction(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);

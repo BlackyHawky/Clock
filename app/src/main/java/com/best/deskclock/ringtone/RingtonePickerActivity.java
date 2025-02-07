@@ -195,6 +195,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.alarm_sound);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

@@ -3,10 +3,10 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:title="@string/interface_customization_settings">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
@@ -95,6 +95,16 @@
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="key_custom_language_code"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_language_title"
+            android:defaultValue="system_language_code"
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="key_vibrations"

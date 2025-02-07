@@ -65,6 +65,11 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_FONT_SIZE = "80";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.digital_widget);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

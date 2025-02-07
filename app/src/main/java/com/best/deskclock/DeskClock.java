@@ -212,8 +212,6 @@ public class DeskClock extends AppCompatActivity
 
         isFirstLaunch();
 
-        ThemeUtils.applyThemeAndAccentColor(this);
-
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);

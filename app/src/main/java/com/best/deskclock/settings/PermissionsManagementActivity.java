@@ -54,6 +54,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     private static final String PERMISSION_POWER_OFF_ALARM = "org.codeaurora.permission.POWER_OFF_ALARM";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.permission_management_settings);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

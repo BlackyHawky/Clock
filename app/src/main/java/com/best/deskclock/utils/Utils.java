@@ -9,11 +9,15 @@ package com.best.deskclock.utils;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_SYSTEM_LANGUAGE_CODE;
+
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +34,7 @@ import com.best.deskclock.data.DataModel;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Utils {
 
@@ -122,6 +127,41 @@ public class Utils {
             return context.getString(R.string.minutes_seconds, minutes, seconds);
         }
         return context.getString(R.string.seconds, seconds);
+    }
+
+    /**
+     * Applies the specified locale to the given context by setting the locale
+     * to the resources' configuration. If the custom language is set to the system language,
+     * the system's locale is applied. Otherwise, a new locale is created using the custom language.
+     * <p>
+     * This method sets the default locale for the application and updates the configuration
+     * of the context to reflect the locale change.
+     *
+     * @param context The context in which the locale should be applied.
+     * @param customLanguageCode The custom language code (e.g., "en", "fr")
+     *                           or a special keyword for the system language.
+     */
+    public static void applySpecificLocale(Context context, String customLanguageCode) {
+        Locale locale = KEY_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)
+                ? Resources.getSystem().getConfiguration().locale
+                : new Locale(customLanguageCode);
+
+        Locale.setDefault(locale);
+
+        Configuration config = context.getResources().getConfiguration();
+        config.setLocale(locale);
+    }
+
+    /**
+     * Apply a custom locale and return a localized context.
+     *
+     * @param context the context in which the locale is to be applied.
+     * @return a localized context based on the custom language.
+     */
+    public static Context getLocalizedContext(Context context) {
+        String customLanguageCode = DataModel.getDataModel().getCustomLanguageCode();
+        applySpecificLocale(context, customLanguageCode);
+        return context.createConfigurationContext(context.getResources().getConfiguration());
     }
 
     /**

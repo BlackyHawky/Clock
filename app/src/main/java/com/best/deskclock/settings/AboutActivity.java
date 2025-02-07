@@ -36,6 +36,11 @@ public final class AboutActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_ABOUT_CRDROID = "key_about_crdroid";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.about_title);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

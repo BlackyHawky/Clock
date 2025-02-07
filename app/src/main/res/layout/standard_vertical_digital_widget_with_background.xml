@@ -28,7 +28,7 @@
 
         <!-- A horizontal padding is added because on some devices
         the text shadow is cut off. -->
-        <TextClock
+        <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

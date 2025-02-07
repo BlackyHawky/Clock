@@ -9,7 +9,7 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.controller.ThemeController.Setting.CHANGED;
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
@@ -66,6 +66,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
     public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
     public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
+
+    @Override
+    protected String getActivityTitle() {
+        return getString(R.string.settings);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,8 +170,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             case DARK_THEME ->
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         }
+                        // Required to update widgets after a restore.
                         requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
-                        ThemeController.setNewSetting(CHANGED);
+                        // Required to update Locale after a restore.
+                        requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                        ThemeController.setNewSetting();
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),
                                 Toast.LENGTH_SHORT)

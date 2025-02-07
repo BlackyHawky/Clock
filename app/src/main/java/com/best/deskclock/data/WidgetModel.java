@@ -20,6 +20,7 @@ public final class WidgetModel {
 
     // For all widgets
     public static final String ACTION_NEXT_ALARM_LABEL_CHANGED = "com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED";
+    public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.alarmclock.LANGUAGE_CODE_CHANGED";
     public static final String ACTION_UPDATE_WIDGETS_AFTER_RESTORE = "com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE";
 
     // For digital and Material You digital widgets

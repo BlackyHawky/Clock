@@ -1134,6 +1134,13 @@ public final class DataModel {
     }
 
     /**
+     * @return the custom language code.
+     */
+    public String getCustomLanguageCode() {
+        return mSettingsModel.getCustomLanguageCode();
+    }
+
+    /**
      * @return whether or not the vibrations are enabled for the buttons.
      */
     public boolean isVibrationsEnabled() {

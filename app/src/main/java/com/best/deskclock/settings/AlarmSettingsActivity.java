@@ -64,6 +64,11 @@ public class AlarmSettingsActivity extends CollapsingToolbarBaseActivity {
     private Runnable mStopPreviewRunnable;
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.alarm_settings);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

@@ -430,4 +430,35 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
+    <!-- Entries listed in the ListPreference when selecting the language. -->
+    <string-array name="language_entries">
+        <item>@string/settings_language_system</item>
+        <item>@string/settings_language_english</item>
+        <item>@string/settings_language_french</item>
+        <item>@string/settings_language_german</item>
+        <item>@string/settings_language_chinese</item>
+        <item>@string/settings_language_estonian</item>
+        <item>@string/settings_language_italian</item>
+        <item>@string/settings_language_polish</item>
+        <item>@string/settings_language_portuguese</item>
+        <item>@string/settings_language_serbian</item>
+        <item>@string/settings_language_spanish</item>
+        <item>@string/settings_language_ukrainian</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <string-array name="language_values" translatable="false">
+        <item>system_language_code</item>
+        <item>en</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>zh</item>
+        <item>et</item>
+        <item>it</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>sr</item>
+        <item>es</item>
+        <item>uk</item>
+    </string-array>
 </resources>

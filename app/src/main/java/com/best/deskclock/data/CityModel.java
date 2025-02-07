@@ -6,6 +6,9 @@
 
 package com.best.deskclock.data;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -85,15 +88,18 @@ final class CityModel {
      */
     private City mHomeCity;
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     CityModel(Context context, SharedPreferences prefs, SettingsModel settingsModel) {
         mContext = context;
         mPrefs = prefs;
         mSettingsModel = settingsModel;
 
         // Clear caches affected by locale when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+        localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
         }

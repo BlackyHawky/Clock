@@ -78,9 +78,10 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
      */
     private SearchMenuItemController mSearchMenuItemController;
 
-    /**
-     * The controller that shows the drop shadow when content is not scrolled to the top.
-     */
+    @Override
+    protected String getActivityTitle() {
+        return getString(R.string.cities_activity_title);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,6 +30,11 @@ public class WidgetsSettingsActivity extends CollapsingToolbarBaseActivity {
             "key_material_you_next_alarm_widget_customization";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.widgets_settings);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

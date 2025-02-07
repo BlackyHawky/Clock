@@ -43,6 +43,11 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.alarm_display_customization_title);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

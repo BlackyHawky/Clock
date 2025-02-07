@@ -45,6 +45,11 @@ public class TimerSettingsActivity extends CollapsingToolbarBaseActivity {
             "key_display_warning_before_deleting_timer";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.timer_settings);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

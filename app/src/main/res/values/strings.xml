@@ -295,6 +295,32 @@
     <string name="display_background_border_title">Display background borders</string>
     <!-- Setting summary about background border display. -->
     <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
+    <!-- Setting title to choose the language. -->
+    <string name="settings_language_title">Language</string>
+    <!-- Setting title for changing the language to system. -->
+    <string name="settings_language_system">System language</string>
+    <!-- Setting title for changing the language to English. -->
+    <string name="settings_language_english">English</string>
+    <!-- Setting title for changing the language to French. -->
+    <string name="settings_language_french">French</string>
+    <!-- Setting title for changing the language to German. -->
+    <string name="settings_language_german">German</string>
+    <!-- Setting title for changing the language to Chinese. -->
+    <string name="settings_language_chinese">Chinese</string>
+    <!-- Setting title for changing the language to Estonian. -->
+    <string name="settings_language_estonian">Estonian</string>
+    <!-- Setting title for changing the language to Italian. -->
+    <string name="settings_language_italian">Italian</string>
+    <!-- Setting title for changing the language to Polish. -->
+    <string name="settings_language_polish">Polish</string>
+    <!-- Setting title for changing the language to Portuguese. -->
+    <string name="settings_language_portuguese">Portuguese</string>
+    <!-- Setting title for changing the language to Serbian. -->
+    <string name="settings_language_serbian">Serbian</string>
+    <!-- Setting title for changing the language to Spanish. -->
+    <string name="settings_language_spanish">Spanish</string>
+    <!-- Setting title for changing the language to Ukrainian. -->
+    <string name="settings_language_ukrainian">Ukrainian</string>
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->

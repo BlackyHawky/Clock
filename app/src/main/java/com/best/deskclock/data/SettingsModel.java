@@ -105,6 +105,10 @@ final class SettingsModel {
         return SettingsDAO.isCardBorderDisplayed(mPrefs);
     }
 
+    String getCustomLanguageCode() {
+        return SettingsDAO.getCustomLanguageCode(mPrefs);
+    }
+
     public boolean isVibrationsEnabled() {
         return SettingsDAO.isVibrationsEnabled(mPrefs);
     }

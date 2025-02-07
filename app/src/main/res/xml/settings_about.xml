@@ -3,10 +3,10 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/about_title">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <Preference
         android:key="key_about_title"

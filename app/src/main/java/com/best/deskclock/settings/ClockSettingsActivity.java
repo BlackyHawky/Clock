@@ -33,6 +33,11 @@ public class ClockSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_DATE_TIME = "key_date_time";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.clock_settings);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

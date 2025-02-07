@@ -16,6 +16,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.data.WidgetModel.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
@@ -56,6 +57,8 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -123,9 +126,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        final CharSequence dateFormat = getDateFormat(context);
-        rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-        rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+        rv.setTextViewText(R.id.date, getDateFormat(context));
 
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
@@ -227,10 +228,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                 inflater.inflate(R.layout.standard_vertical_digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
-        final CharSequence dateFormat = getDateFormat(context);
-        final TextClock date = sizer.findViewById(R.id.date);
-        date.setFormat12Hour(dateFormat);
-        date.setFormat24Hour(dateFormat);
+        final TextView date = sizer.findViewById(R.id.date);
+        date.setText(getDateFormat(context));
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
@@ -294,7 +293,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final Sizes measuredSizes = template.newSize();
 
         // Configure the clock to display the widest time string.
-        final TextClock date = sizer.findViewById(R.id.date);
+        final TextView date = sizer.findViewById(R.id.date);
         final TextClock hours = sizer.findViewById(R.id.clockHours);
         final TextClock minutes = sizer.findViewById(R.id.clockMinutes);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
@@ -344,9 +343,12 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
      * @return the locale-specific date pattern
      */
     private static String getDateFormat(Context context) {
-        final Locale locale = Locale.getDefault();
+        Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        return DateFormat.getBestDateTimePattern(locale, skeleton);
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+
+        return simpleDateFormat.format(new Date());
     }
 
     @Override
@@ -370,6 +372,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
+                case ACTION_LANGUAGE_CODE_CHANGED:
                 case ACTION_UPCOMING_ALARM_DISPLAY_CHANGED:
                 case ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
@@ -402,6 +405,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         if (sReceiversRegistered) return;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         intentFilter.addAction(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED);
         intentFilter.addAction(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
         intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);

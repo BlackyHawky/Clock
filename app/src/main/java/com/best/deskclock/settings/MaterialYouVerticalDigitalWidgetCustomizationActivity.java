@@ -49,6 +49,11 @@ public class MaterialYouVerticalDigitalWidgetCustomizationActivity extends Colla
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.material_you_vertical_digital_widget);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

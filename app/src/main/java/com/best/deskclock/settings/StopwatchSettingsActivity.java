@@ -26,6 +26,11 @@ public class StopwatchSettingsActivity extends CollapsingToolbarBaseActivity {
     public static final String KEY_SW_ACTION_SHARE = "4";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.stopwatch_channel);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

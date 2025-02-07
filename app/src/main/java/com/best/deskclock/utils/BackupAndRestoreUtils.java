@@ -59,6 +59,7 @@ import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACC
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BORDER;
+import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_FADE_TRANSITIONS;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_NIGHT_ACCENT_COLOR;
@@ -265,6 +266,7 @@ public class BackupAndRestoreUtils {
 
                 } else if (entry.getValue() instanceof String) {
                     // Values from InterfaceCustomizationActivity
+                    strings.put(KEY_CUSTOM_LANGUAGE_CODE, prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, "system_language_code"));
                     strings.put(KEY_THEME, prefs.getString(KEY_THEME, "0"));
                     strings.put(KEY_DARK_MODE, prefs.getString(KEY_DARK_MODE, "0"));
                     strings.put(KEY_ACCENT_COLOR, prefs.getString(KEY_ACCENT_COLOR, "0"));

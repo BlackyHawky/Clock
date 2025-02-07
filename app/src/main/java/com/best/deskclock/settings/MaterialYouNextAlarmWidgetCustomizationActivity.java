@@ -45,6 +45,11 @@ public class MaterialYouNextAlarmWidgetCustomizationActivity extends CollapsingT
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.material_you_next_alarm_widget);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

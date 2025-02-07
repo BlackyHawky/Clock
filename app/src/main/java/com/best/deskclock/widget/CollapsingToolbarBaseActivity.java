@@ -36,18 +36,28 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
  * A base Activity that has a collapsing toolbar layout is used for the activities intending to
  * enable the collapsing toolbar function.
  */
-public class CollapsingToolbarBaseActivity extends AppCompatActivity {
+public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
     @Nullable
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
+
     @Nullable
     private AppBarLayout mAppBarLayout;
+
+    /**
+     * This method should be implemented by subclasses of CollapsingToolbarBaseActivity
+     * to provide the title for the activity's collapsing toolbar.
+     * <p>
+     * The title returned by this method will be displayed in the collapsing toolbar layout
+     * and will be correctly translated when changing the language in settings.
+     *
+     * @return The title of the activity to be displayed in the collapsing toolbar.
+     */
+    protected abstract String getActivityTitle();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ThemeUtils.applyThemeAndAccentColor(this);
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
@@ -78,6 +88,14 @@ public class CollapsingToolbarBaseActivity extends AppCompatActivity {
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mCollapsingToolbarLayout != null) {
+            mCollapsingToolbarLayout.setTitle(getActivityTitle());
         }
     }
 
