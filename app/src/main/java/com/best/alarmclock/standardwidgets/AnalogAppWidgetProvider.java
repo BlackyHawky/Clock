@@ -50,7 +50,7 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
 
         for (int widgetId : widgetIds) {
             final String packageName = context.getPackageName();
-            final RemoteViews widget = new RemoteViews(packageName, R.layout.analog_appwidget);
+            final RemoteViews widget = new RemoteViews(packageName, R.layout.standard_analog_appwidget);
 
             // Tapping on the widget opens the app (if not on the lock screen).
             if (WidgetUtils.isWidgetClickable(wm, widgetId)) {

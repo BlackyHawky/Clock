@@ -62,6 +62,10 @@ public final class WidgetModel {
     // ** DIGITAL WIDGET **
     // ********************
 
+    public boolean areSecondsDisplayedOnDigitalWidget() {
+        return WidgetDAO.areSecondsDisplayedOnDigitalWidget(mPrefs);
+    }
+
     public boolean isBackgroundDisplayedOnDigitalWidget() {
         return WidgetDAO.isBackgroundDisplayedOnDigitalWidget(mPrefs);
     }
@@ -209,6 +213,10 @@ public final class WidgetModel {
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
+
+    public boolean areSecondsDisplayedOnMaterialYouDigitalWidget() {
+        return WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(mPrefs);
+    }
 
     public boolean areWorldCitiesDisplayedOnMaterialYouDigitalWidget() {
         return WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(mPrefs);

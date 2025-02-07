@@ -1377,6 +1377,13 @@ public final class DataModel {
     // ********************
 
     /**
+     * @return {@code true} if the seconds are displayed on the digital widget; {@code false} otherwise.
+     */
+    public boolean areSecondsDisplayedOnDigitalWidget() {
+        return mWidgetModel.areSecondsDisplayedOnDigitalWidget();
+    }
+
+    /**
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
      */
     public boolean isBackgroundDisplayedOnDigitalWidget() {
@@ -1635,6 +1642,14 @@ public final class DataModel {
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
+
+    /**
+     * @return {@code true} if the seconds are displayed on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    public boolean areSecondsDisplayedOnMaterialYouDigitalWidget() {
+        return mWidgetModel.areSecondsDisplayedOnMaterialYouDigitalWidget();
+    }
 
     /**
      * @return {@code true} if the cities are displayed on the Material You digital widget;

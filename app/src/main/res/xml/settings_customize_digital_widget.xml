@@ -14,6 +14,14 @@
         app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
+            android:key="key_digital_widget_display_seconds"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_clock_seconds_pref"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_digital_widget_display_background"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/widget_background_title"

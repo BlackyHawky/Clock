@@ -82,7 +82,7 @@ import java.util.Locale;
  */
 public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("VertDgtlWdgtProv");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdVertDgtlWdgtProv");
 
     private static boolean sReceiversRegistered;
 
@@ -111,8 +111,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final String packageName = context.getPackageName();
         final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnVerticalDigitalWidget();
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.vertical_digital_widget_with_background
-                : R.layout.vertical_digital_widget
+                ? R.layout.standard_vertical_digital_widget_with_background
+                : R.layout.standard_vertical_digital_widget
         );
 
         // Tapping on the widget opens the app (if not on the lock screen).
@@ -224,7 +224,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
-                inflater.inflate(R.layout.vertical_digital_widget_sizer, null);
+                inflater.inflate(R.layout.standard_vertical_digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);

@@ -52,6 +52,7 @@ import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACCENT_COLOR;
@@ -221,6 +222,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, false));
 
                     // Values from DigitalWidgetCustomizationActivity
+                    booleans.put(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, false));
                     booleans.put(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false));
                     booleans.put(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, prefs.getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true));
                     booleans.put(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true));

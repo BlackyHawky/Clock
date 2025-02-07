@@ -99,7 +99,7 @@ import java.util.TimeZone;
  */
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DgtlWdgtProv");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdDgtlWdgtProv");
 
     private static boolean sReceiversRegistered;
 
@@ -141,14 +141,16 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final String packageName = context.getPackageName();
         final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget();
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.digital_widget_with_background
-                : R.layout.digital_widget
+                ? R.layout.standard_digital_widget_with_background
+                : R.layout.standard_digital_widget
         );
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour",
-                ClockUtils.get12ModeFormat(context, 0.4f, false));
+                ClockUtils.get12ModeFormat(context, 0.4f,
+                        DataModel.getDataModel().areSecondsDisplayedOnDigitalWidget()));
         rv.setCharSequence(R.id.clock, "setFormat24Hour",
-                ClockUtils.get24ModeFormat(context, false));
+                ClockUtils.get24ModeFormat(context,
+                        DataModel.getDataModel().areSecondsDisplayedOnDigitalWidget()));
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -273,7 +275,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams") final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null);
+        @SuppressLint("InflateParams")
+        final View sizer = inflater.inflate(R.layout.standard_digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -388,8 +391,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static CharSequence getLongestTimeString(TextClock clock) {
         final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(clock.getContext(), false)
-                : ClockUtils.get12ModeFormat(clock.getContext(), 0.4f, false);
+                ? ClockUtils.get24ModeFormat(
+                        clock.getContext(), DataModel.getDataModel().areSecondsDisplayedOnDigitalWidget())
+                : ClockUtils.get12ModeFormat(
+                        clock.getContext(), 0.4f, DataModel.getDataModel().areSecondsDisplayedOnDigitalWidget());
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);

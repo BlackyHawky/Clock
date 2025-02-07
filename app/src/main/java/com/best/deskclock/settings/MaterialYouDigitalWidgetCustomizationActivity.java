@@ -32,6 +32,8 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
 
     private static final String PREFS_FRAGMENT_TAG = "material_you_digital_widget_customization_fragment";
 
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED =
+            "key_material_you_digital_widget_seconds_displayed";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
             "key_material_you_digital_widget_world_cities_displayed";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR =
@@ -80,6 +82,7 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
         ColorPreference mCustomCityClockColorPref;
         ColorPreference mCustomCityNameColorPref;
         EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+        SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
         SwitchPreferenceCompat mDefaultClockColorPref;
         SwitchPreferenceCompat mDefaultDateColorPref;
@@ -93,6 +96,7 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
 
             addPreferencesFromResource(R.xml.settings_customize_material_you_digital_widget);
 
+            mDisplaySecondsPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED);
             mShowCitiesOnDigitalWidgetPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
             mDefaultClockColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR);
             mCustomClockColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR);
@@ -130,6 +134,11 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
+                case KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED -> {
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
+                }
+
                 case KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
                     if (mShowCitiesOnDigitalWidgetPref.getSharedPreferences() != null
                             && mDefaultCityClockColorPref.getSharedPreferences() != null
@@ -301,6 +310,9 @@ public class MaterialYouDigitalWidgetCustomizationActivity extends CollapsingToo
         }
 
         private void refresh() {
+            mDisplaySecondsPref.setChecked(DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget());
+            mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
             mShowCitiesOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
             mDefaultClockColorPref.setOnPreferenceChangeListener(this);

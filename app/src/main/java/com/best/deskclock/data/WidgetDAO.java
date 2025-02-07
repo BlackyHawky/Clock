@@ -19,6 +19,7 @@ import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
@@ -33,6 +34,7 @@ import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationA
 import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_FONT_SIZE;
 import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED;
 import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
@@ -111,6 +113,13 @@ final class WidgetDAO {
     // ********************
     // ** DIGITAL WIDGET **
     // ********************
+
+    /**
+     * @return {@code true} if the seconds are displayed on the digital widget; {@code false} otherwise.
+     */
+    static boolean areSecondsDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, false);
+    }
 
     /**
      * @return {@code true} if the background is displayed on the digital widget; {@code false} otherwise.
@@ -375,6 +384,14 @@ final class WidgetDAO {
     // *********************************
     // ** MATERIAL YOU DIGITAL WIDGET **
     // *********************************
+
+    /**
+     * @return {@code true} if the seconds are displayed on the Material You digital widget;
+     * {@code false} otherwise.
+     */
+    static boolean areSecondsDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED, false);
+    }
 
     /**
      * @return {@code true} if the cities are displayed on the Material You digital widget;

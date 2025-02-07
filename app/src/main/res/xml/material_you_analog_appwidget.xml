@@ -4,7 +4,7 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/analog_appwidget_material_you"
+    android:initialLayout="@layout/material_you_analog_appwidget"
     android:minWidth="72dp"
     android:minHeight="72dp"
     android:minResizeWidth="24dp"

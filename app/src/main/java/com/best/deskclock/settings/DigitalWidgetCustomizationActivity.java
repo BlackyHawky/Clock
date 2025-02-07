@@ -32,6 +32,8 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
 
     private static final String PREFS_FRAGMENT_TAG = "digital_widget_customization_fragment";
 
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS =
+            "key_digital_widget_display_seconds";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
             "key_digital_widget_display_background";
     public static final String KEY_DIGITAL_WIDGET_BACKGROUND_COLOR =
@@ -85,6 +87,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         ColorPreference mCustomCityClockColorPref;
         ColorPreference mCustomCityNameColorPref;
         EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+        SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
         SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
         SwitchPreferenceCompat mDefaultClockColorPref;
@@ -99,6 +102,7 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
 
             addPreferencesFromResource(R.xml.settings_customize_digital_widget);
 
+            mDisplaySecondsPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS);
             mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
             mBackgroundColorPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR);
             mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -138,6 +142,11 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
+                case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS -> {
+                    Utils.setVibrationTime(requireContext(), 50);
+                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
+                }
+
                 case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                     if (mShowBackgroundOnDigitalWidgetPref.getSharedPreferences() != null) {
                         final boolean isNotBackgroundDisplayed = mShowBackgroundOnDigitalWidgetPref.getSharedPreferences()
@@ -314,6 +323,9 @@ public class DigitalWidgetCustomizationActivity extends CollapsingToolbarBaseAct
         }
 
         private void refresh() {
+            mDisplaySecondsPref.setChecked(DataModel.getDataModel().areSecondsDisplayedOnDigitalWidget());
+            mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
             mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
             mBackgroundColorPref.setOnPreferenceChangeListener(this);

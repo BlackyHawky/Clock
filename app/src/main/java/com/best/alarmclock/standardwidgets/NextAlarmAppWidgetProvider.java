@@ -77,7 +77,7 @@ import java.util.Locale;
  */
 public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("NextAlarmWdgtProv");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdNextAlarmWdgtProv");
 
     private static boolean sReceiversRegistered;
 
@@ -106,8 +106,8 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final String packageName = context.getPackageName();
         final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnNextAlarmWidget();
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.next_alarm_widget_with_background
-                : R.layout.next_alarm_widget);
+                ? R.layout.standard_next_alarm_widget_with_background
+                : R.layout.standard_next_alarm_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -218,7 +218,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
-                inflater.inflate(R.layout.next_alarm_widget_sizer, null);
+                inflater.inflate(R.layout.standard_next_alarm_widget_sizer, null);
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);

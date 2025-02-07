@@ -6,7 +6,7 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/analog_appwidget"
+    android:initialLayout="@layout/standard_analog_appwidget"
     android:minWidth="72dp"
     android:minHeight="72dp"
     android:minResizeWidth="48dp"

@@ -347,7 +347,7 @@
                 android:value="com.best.deskclock.standardwidgets.AnalogAppWidgetProvider" />
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/analog_appwidget" />
+                android:resource="@xml/standard_analog_appwidget" />
         </receiver>
 
         <!-- Digital clock -->
@@ -376,7 +376,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/digital_appwidget" />
+                android:resource="@xml/standard_digital_appwidget" />
         </receiver>
 
         <service
@@ -407,7 +407,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/vertical_digital_appwidget" />
+                android:resource="@xml/standard_vertical_digital_appwidget" />
         </receiver>
 
         <!-- Next alarm -->
@@ -434,7 +434,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/next_alarm_appwidget" />
+                android:resource="@xml/standard_next_alarm_appwidget" />
         </receiver>
 
         <!-- ============================================================== -->
@@ -455,7 +455,7 @@
                 android:value="com.best.deskclock.MaterialYouAnalogAppWidgetProvider" />
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/analog_appwidget_material_you" />
+                android:resource="@xml/material_you_analog_appwidget" />
         </receiver>
 
         <!-- Digital clock Material You -->
@@ -484,7 +484,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/digital_appwidget_material_you" />
+                android:resource="@xml/material_you_digital_appwidget" />
         </receiver>
 
         <service

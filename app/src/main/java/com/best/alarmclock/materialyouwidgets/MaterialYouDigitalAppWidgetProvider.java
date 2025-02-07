@@ -15,6 +15,7 @@ import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
@@ -151,10 +152,10 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
         if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
-            rv.setViewVisibility(R.id.nextAlarm, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
-            rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
-            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
+            rv.setViewVisibility(R.id.nextAlarm, INVISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, INVISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmForCustomColor, INVISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, INVISIBLE);
         } else {
             if (isDefaultNextAlarmColor) {
                 rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
@@ -222,17 +223,19 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         if (isDefaultClockColor) {
             rv.setViewVisibility(R.id.clock, VISIBLE);
             rv.setViewVisibility(R.id.clockForCustomColor, GONE);
-            rv.setCharSequence(R.id.clock, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, 0.4f, false));
-            rv.setCharSequence(R.id.clock, "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(context, false));
+            rv.setCharSequence(R.id.clock, "setFormat12Hour", ClockUtils.get12ModeFormat(
+                    context, 0.4f, DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
+            rv.setCharSequence(R.id.clock, "setFormat24Hour", ClockUtils.get24ModeFormat(
+                    context, DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
         } else {
             rv.setViewVisibility(R.id.clock, GONE);
             rv.setViewVisibility(R.id.clockForCustomColor, VISIBLE);
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat12Hour",
-                    ClockUtils.get12ModeFormat(context, 0.4f, false));
+                    ClockUtils.get12ModeFormat(context, 0.4f,
+                            DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat24Hour",
-                    ClockUtils.get24ModeFormat(context, false));
+                    ClockUtils.get24ModeFormat(context,
+                            DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
             rv.setTextColor(R.id.clockForCustomColor, customClockColor);
         }
 
@@ -327,10 +330,10 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
 
         if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
-            nextAlarm.setVisibility(GONE);
-            nextAlarmIcon.setVisibility(GONE);
-            nextAlarmForCustomColor.setVisibility(GONE);
-            nextAlarmIconForCustomColor.setVisibility(GONE);
+            nextAlarm.setVisibility(INVISIBLE);
+            nextAlarmIcon.setVisibility(INVISIBLE);
+            nextAlarmForCustomColor.setVisibility(INVISIBLE);
+            nextAlarmIconForCustomColor.setVisibility(INVISIBLE);
         } else {
             if (isDefaultNextAlarmColor) {
                 nextAlarm.setText(nextAlarmTime);
@@ -455,8 +458,11 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static CharSequence getLongestTimeString(TextClock clock) {
         final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(clock.getContext(), false)
-                : ClockUtils.get12ModeFormat(clock.getContext(), 0.4f, false);
+                ? ClockUtils.get24ModeFormat(
+                        clock.getContext(), DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget())
+                : ClockUtils.get12ModeFormat(
+                        clock.getContext(), 0.4f,
+                        DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget());
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
