@@ -97,7 +97,7 @@ public class ThemeUtils {
                 case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
             }
         } else {
-            if (isNight()) {
+            if (isNight(activity.getResources())) {
                 switch (nightAccentColor) {
                     case BLACK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
                     case BLUE_GRAY_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
@@ -127,7 +127,7 @@ public class ThemeUtils {
         }
 
         if (activity instanceof CollapsingToolbarBaseActivity) {
-            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             } else {
@@ -135,7 +135,7 @@ public class ThemeUtils {
                         MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
             }
         } else {
-            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
@@ -145,8 +145,8 @@ public class ThemeUtils {
     /**
      * @return {@code true} if the device is in dark mode.
      */
-    public static boolean isNight() {
-        return (Resources.getSystem().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    public static boolean isNight(final Resources res) {
+        return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
     /**
@@ -185,7 +185,7 @@ public class ThemeUtils {
             gradientDrawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
-            if (isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(context.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
                 gradientDrawable.setColor(Color.BLACK);
             } else {
                 gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));

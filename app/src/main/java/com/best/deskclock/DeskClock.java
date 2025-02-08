@@ -329,7 +329,7 @@ public class DeskClock extends AppCompatActivity
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, onBackgroundColor}));
-        if (ThemeUtils.isNight() && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},

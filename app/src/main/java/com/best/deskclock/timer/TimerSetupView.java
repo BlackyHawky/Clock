@@ -92,7 +92,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
         final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
         final String darkMode = DataModel.getDataModel().getDarkMode();
         final boolean isTablet = ThemeUtils.isTablet();
-        final boolean isNight = ThemeUtils.isNight();
+        final boolean isNight = ThemeUtils.isNight(getResources());
 
         mTimeView = findViewById(R.id.timer_setup_time);
         mDeleteButton = findViewById(R.id.timer_setup_delete);

@@ -126,7 +126,7 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
 
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
-            final boolean isNight = ThemeUtils.isNight();
+            final boolean isNight = ThemeUtils.isNight(requireActivity().getResources());
             switch (pref.getKey()) {
                 case KEY_THEME -> {
                     final ListPreference themePref = (ListPreference) pref;

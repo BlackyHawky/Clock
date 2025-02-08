@@ -186,7 +186,7 @@ public class AlarmDisplayCustomizationActivity extends CollapsingToolbarBaseActi
 
         private void setupPreferences() {
             final String getDarkMode = DataModel.getDataModel().getDarkMode();
-            final boolean isAmoledMode = ThemeUtils.isNight() && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+            final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
             mBackgroundAmoledColorPref.setVisible(isAmoledMode);
             mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());
 
