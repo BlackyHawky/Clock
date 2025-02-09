@@ -434,10 +434,10 @@
     <!-- Entries listed in the ListPreference when selecting the language. -->
     <string-array name="language_entries">
         <item>@string/settings_language_system</item>
-        <item>@string/settings_language_english</item>
+        <item>@string/settings_language_english_us</item>
         <item>@string/settings_language_french</item>
         <item>@string/settings_language_german</item>
-        <item>@string/settings_language_chinese</item>
+        <item>@string/settings_language_chinese_simplified_cn</item>
         <item>@string/settings_language_estonian</item>
         <item>@string/settings_language_italian</item>
         <item>@string/settings_language_polish</item>
@@ -449,10 +449,10 @@
     <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
     <string-array name="language_values" translatable="false">
         <item>system_language_code</item>
-        <item>en</item>
+        <item>en_US</item>
         <item>fr</item>
         <item>de</item>
-        <item>zh</item>
+        <item>zh_CN</item>
         <item>et</item>
         <item>it</item>
         <item>pl</item>

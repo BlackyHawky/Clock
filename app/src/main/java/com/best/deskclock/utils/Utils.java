@@ -142,9 +142,18 @@ public class Utils {
      *                           or a special keyword for the system language.
      */
     public static void applySpecificLocale(Context context, String customLanguageCode) {
-        Locale locale = KEY_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)
-                ? Resources.getSystem().getConfiguration().locale
-                : new Locale(customLanguageCode);
+        Locale locale;
+
+        if (KEY_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)) {
+            locale = Resources.getSystem().getConfiguration().locale;
+        } else {
+            String[] parts = customLanguageCode.split("_");
+            if (parts.length == 2) {
+                locale = new Locale(parts[0], parts[1]);
+            } else {
+                locale = new Locale(customLanguageCode);
+            }
+        }
 
         Locale.setDefault(locale);
 

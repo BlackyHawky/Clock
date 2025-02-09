@@ -297,16 +297,16 @@
     <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
     <!-- Setting title to choose the language. -->
     <string name="settings_language_title">Language</string>
-    <!-- Setting title for changing the language to system. -->
+    <!-- Setting title for changing the language to system language. -->
     <string name="settings_language_system">System language</string>
-    <!-- Setting title for changing the language to English. -->
-    <string name="settings_language_english">English</string>
+    <!-- Setting title for changing the language to English (US). -->
+    <string name="settings_language_english_us">English (US)</string>
     <!-- Setting title for changing the language to French. -->
     <string name="settings_language_french">French</string>
     <!-- Setting title for changing the language to German. -->
     <string name="settings_language_german">German</string>
-    <!-- Setting title for changing the language to Chinese. -->
-    <string name="settings_language_chinese">Chinese</string>
+    <!-- Setting title for changing the language to Chinese (simplified, PRC). -->
+    <string name="settings_language_chinese_simplified_cn">Chinese (simplified, PRC)</string>
     <!-- Setting title for changing the language to Estonian. -->
     <string name="settings_language_estonian">Estonian</string>
     <!-- Setting title for changing the language to Italian. -->
