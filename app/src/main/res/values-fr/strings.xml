@@ -651,10 +651,8 @@
     <string name="warning_upcoming_alarm_setting_off">\"Afficher la prochaine alarme à côté de la date\" dans les paramètres Horloge doit être activé pour accéder à ce réglage</string>
     <string name="shake_intensity_title">Intensité des secousses</string>
     <string name="settings_language_french">Français</string>
-    <string name="settings_language_english">Anglais</string>
     <string name="settings_language_system">Langue du système</string>
     <string name="settings_language_german">Allemand</string>
-    <string name="settings_language_chinese">Chinois</string>
     <string name="settings_language_estonian">Estonien</string>
     <string name="settings_language_italian">Italien</string>
     <string name="settings_language_polish">Polonais</string>
