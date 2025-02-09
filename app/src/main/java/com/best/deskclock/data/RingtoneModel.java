@@ -31,6 +31,7 @@ import android.util.ArraySet;
 import com.best.deskclock.R;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -161,9 +162,11 @@ final class RingtoneModel {
     }
 
     String getRingtoneTitle(Uri uri) {
+        final Context localizedContext = Utils.getLocalizedContext(mContext);
+
         // Special case: no ringtone has a title of "Silent".
         if (Alarm.NO_RINGTONE_URI.equals(uri)) {
-            return mContext.getString(R.string.silent_ringtone_title);
+            return localizedContext.getString(R.string.silent_ringtone_title);
         }
 
         // If the ringtone is custom, it has its own title.
@@ -180,7 +183,7 @@ final class RingtoneModel {
             final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
             if (ringtone == null) {
                 LogUtils.e("No ringtone for uri: %s", uri);
-                return mContext.getString(R.string.unknown_ringtone_title);
+                return localizedContext.getString(R.string.unknown_ringtone_title);
             }
 
             // Cache the title for later use.
