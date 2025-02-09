@@ -24,6 +24,8 @@ Funktsionaalsused:
   <li>Kohandatav ekraanisäästja;</li>
   <li>Moodsad vidinad;</li>
   <li>Kohandatavad vidinad;</li>
+  <li>Paanide tugi kiirseadistustes (alates Androidi versioonist 7);</li>
+  <li>Seadistuste varundamine ja taastamine;</li>
   <li>Material design;</li>
   <li>Dünaamilised värvid Android 12+ puhul;</li>
 </ul>

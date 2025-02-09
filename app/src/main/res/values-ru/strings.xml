@@ -487,9 +487,7 @@
     <string name="digital_widget_city_clock_custom_color_title">Пользовательский цвет городских часов</string>
     <string name="digital_widget_city_name_custom_color_title">Пользовательский цвет названия города</string>
     <string name="revoke_permission_dialog_message">Вы уверены что хотите отозвать это разрешение?</string>
-    <string name="notifications_dialog_text">В дополнение к настройке будильников, это приложение также имеет функции таймера, секундомера и режим \"Пора спать\".
-\n
-\nЧтобы уведомления отображались правильно для всех функций и особенно правильного срабатывания будильника, мы рекомендуем включить уведомления для этого приложения.</string>
+    <string name="notifications_dialog_text">В дополнение к настройке будильников, это приложение также имеет функции таймера, секундомера и режим \"Пора спать\". \n \nЧтобы уведомления отображались правильно для всех функций и особенно правильного срабатывания будильника, мы рекомендуем включить уведомления для этого приложения.</string>
     <string name="display_card_background_title">Отображать фон карточек</string>
     <string name="display_background_border_title">Отображать границы фона</string>
     <string name="power_button_title">Кнопка питания</string>

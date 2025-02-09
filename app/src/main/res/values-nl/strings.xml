@@ -49,13 +49,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"resterend"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"resterend"</string>
     <string name="alarm_confirmation_toast_1">"Wekker gaat over minder dan 1 minuut."</string>
-    <string name="alarm_confirmation_toast_2">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_2">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g></string>
     <string name="alarm_confirmation_toast_3">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_5">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"Wekker gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_4">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_5">Wekker gaat over <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_6">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_7">Wekker gaat over <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
+    <string name="alarm_confirmation_toast_8">Wekker gaat over <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>, en <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g></string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagen</item>
         <item quantity="one">1 dag</item>
@@ -398,7 +398,7 @@
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -441,9 +441,7 @@
 \nHoewel dit aanvaardbaar is voor de meeste apps, kan dit voor problemen zorgen bij een wekker-app zoals deze. Als batterijoptimalisatie aan staat kan Android de app elk moment sluiten en geplande wekkers annuleren, wat de werking van de app negatief zou beïnvloeden.
 \n
 \nWe raden aan deze app op de witte lijst te zetten van batterijoptimalisaties.</string>
-    <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een timer, stopwatch en bedtijdmodus.
-\n
-\nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app te aan te zetten.</string>
+    <string name="notifications_dialog_text">Naast het instellen van wekkers beschikt deze app ook over een timer, stopwatch en bedtijdmodus. \n \nOm ervoor te zorgen dat meldingen correct verschijnen voor alle functies en vooral zodat de wekker kan activeren, raden we aan om meldingen voor deze app te aan te zetten.</string>
     <string name="screensaver_brightness_title">Helderheid</string>
     <string name="screensaver_bold_next_alarm_title">Dikgedrukte volgende wekker</string>
     <string name="add_label">Label toevoegen</string>
@@ -455,7 +453,7 @@
     <string name="about_github_link">Bekijk op GitHub</string>
     <string name="license">Open-source licentie</string>
     <string name="dialog_close">Sluiten</string>
-    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Licht, donker of systeemthema; &lt;br&gt; &lt;br&gt; ► Aanpasbare screensaver; &lt;br&gt; &lt;br&gt;► Aanpasbare widgets; &lt;br&gt; &lt;br&gt; ►Ondersteuning voor tegels in de snelle instellingen (Android 7+)&lt;br&gt; &lt;br&gt;►Backup en herstel instellingen&lt;br&gt; &lt;br&gt; ► Material design en dynamische kleuren; &lt;br&gt; &lt;br&gt; ►Veeg om wekker te verwijderen; &lt;br&gt; &lt;br&gt; ► Wekker dupliceren; &lt;br&gt; &lt;br&gt; ► Omdraaien en schudden om wekker uit te zetten/stellen; &lt;br&gt; &lt;br&gt; ► Wekker uitzetten/stellen met de aan/uit-knop of volume knoppen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="firing_alarms_timers_channel">Wekkers en timers activeren</string>
     <string name="first_launch_main_feature_link">… en veel meer!</string>
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
@@ -469,7 +467,7 @@
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, snooze-acties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="description_direction_left_for_non_repeatable_alarm">Naar links vegen om te negeren</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
-    <string name="digital_widget_message_summary">Steden op widget tonen moet uitgeschakeld zijn voor deze optie</string>
+    <string name="digital_widget_message_summary">\"Toon steden op widget\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Snooze-acties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als wekkergeluid eindigt</string>
@@ -492,7 +490,7 @@
     <string name="keep_timer_screen_on_title">Scherm aanhouden als timer getoond wordt</string>
     <string name="widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
-    <string name="digital_widget_city_title">Steden op widget tonen</string>
+    <string name="digital_widget_city_title">Toon steden op widget</string>
     <string name="digital_widget_clock_default_color_title">Standaardkleur voor klok</string>
     <string name="digital_widget_date_default_color_title">Standaardkleur voor datum</string>
     <string name="widget_next_alarm_custom_color_title">Volgende wekker kleur aanpassen</string>
@@ -628,4 +626,13 @@
     <string name="display_warning_before_deleting_timer_title">Waarschuwing weergeven voor het verwijderen van een timer</string>
     <string name="display_ringtone_title">Naam van ringtoon weergeven</string>
     <string name="warning_dialog_title">Timer verwijderen</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Trillen inschakelen als wekker wordt gesnoozed of uitgezet</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Dubbel trillen als wekker wordt gesnoozed en één keer trillen als wekker wordt uitgezet</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Zaklamp aanzetten als wekker gaat</string>
+    <string name="alarm_flash">Zaklamp</string>
+    <string name="about_translate_link">Vertaal op Codeberg</string>
+    <string name="translate_dialog_message">Bezoek de Codeberg-pagina:\n\n%s</string>
+    <string name="warning_upcoming_alarm_setting_off">\"Toon aankomende wekker naast de datum\" in de Klok-instellingen moet hiervoor worden ingeschakeld</string>
+    <string name="display_upcoming_alarm_summary">Door deze instelling uit te schakelen wordt de aankomende wekker in de tab Klok, Screensaver en Widgets verborgen. Dit voorkomt dat wekkers van andere apps worden getoond.</string>
+    <string name="display_upcoming_alarm_title">Toon aankomende wekker naast de datum</string>
 </resources>

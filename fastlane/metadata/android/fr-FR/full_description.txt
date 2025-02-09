@@ -24,6 +24,8 @@ Caractéristiques :
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>
   <li>Widgets personnalisables ;</li>
+  <li>Prise en charge des tuiles dans les paramètres rapides (pour Android 7+) ;</li>
+  <li>Sauvegarder et restaurer les paramètres ;</li>
   <li>Design material ;</li>
   <li>Couleurs dynamiques pour Android 12+ ;</li>
 </ul>

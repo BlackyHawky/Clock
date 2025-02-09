@@ -49,13 +49,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"jäljellä"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"jäljellä"</string>
     <string name="alarm_confirmation_toast_1">"Herätykseen on aikaa alle minuutti."</string>
-    <string name="alarm_confirmation_toast_2">"Herätykseen on aikaa <xliff:g id="DAYS">%1$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_3">"Herätykseen on aikaa <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"Herätykseen on aikaa <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_5">"Herätykseen on aikaa <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"Herätykseen on aikaa <xliff:g id="DAYS">%1$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"Herätykseen on aikaa <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"Herätykseen on aikaa <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ja <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_2">Hälytys asetettu <xliff:g example="2 päivän" id="DAYS">%1$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_3">Hälytys asetettu <xliff:g example="2 tunnin" id="HOURS">%2$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_4">Hälytys asetettu <xliff:g example="2 päivän" id="DAYS">%1$s</xliff:g> ja <xliff:g example="2 tunnin" id="HOURS">%2$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_5">Hälytys asetettu <xliff:g example="2 minuutin" id="MINUTES">%3$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_6">Hälytys asetettu <xliff:g example="2 päivän" id="DAYS">%1$s</xliff:g> ja <xliff:g example="2 minuutin" id="MINUTES">%3$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_7">Hälytys asetettu <xliff:g example="2 tunnin" id="HOURS">%2$s</xliff:g> ja <xliff:g example="2 minuutin" id="MINUTES">%3$s</xliff:g> ajaksi tästä hetkestä.</string>
+    <string name="alarm_confirmation_toast_8">Hälytys asetettu <xliff:g example="2 päivän" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 tunnin" id="HOURS">%2$s</xliff:g>, ja <xliff:g example="2 minuutin" id="MINUTES">%3$s</xliff:g> ajaksi tästä hetkestä.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> päivää</item>
         <item quantity="one">1 päivä</item>
@@ -139,7 +139,7 @@
     <string name="snooze_duration_28_minutes">28 minuuttia</string>
     <string name="snooze_duration_29_minutes">29 minuuttia</string>
     <string name="snooze_duration_30_minutes">30 minuuttia</string>
-    <string name="week_start_title" msgid="4268917518596832096">"Viikon aloituspäivä:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">Viikon aloituspäivä</string>
     <string name="week_start_saturday">lauantai</string>
     <string name="week_start_sunday">sunnuntai</string>
     <string name="week_start_monday">maanantai</string>
@@ -148,7 +148,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tuntematon"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Herätyksen ääni mykistetty"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Poista mykistys"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Herätyksen oletussoittoääni on äänetön."</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">Hälytyksen oletussoittoääni on äänetön</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Vaihda"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Täydellinen hiljaisuus on käytössä"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Äänenvoimakkuuspainikkeet"</string>
@@ -193,7 +193,7 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"Pysäytä kaikki ajastimet"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Nollaa"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Peruuta"</string>
-    <string name="timer_canceled" msgid="7327923392567128060">"Ajastimen asetus peruutettiin."</string>
+    <string name="timer_canceled" msgid="7327923392567128060">Ajastin peruutettiin</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Aika loppui"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ajastinta umpeutui"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta ohitettu"</string>
@@ -331,12 +331,12 @@
     <string name="swn_paused" msgid="6364358842808263589">"Pysäytetty"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Ohita pyyhkäisemällä oikealle"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Torkuta pyyhkäisemällä vasemmalle"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Torkuta pyyhkäisemällä vasemmalle tai sulje pyyhkäisemällä oikealle."</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Torkuta pyyhkäisemällä vasemmalle tai sulje pyyhkäisemällä oikealle</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ajastimet"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Ajastimen värinä"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Ajastin keskeytetty"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta keskeytetty"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Näytä ajastimet koskettamalla."</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">Näytä ajastimesi koskettamalla</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Seuraava ajastin: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Laajenna hälytys"</string>
@@ -355,12 +355,12 @@
     <string name="invalid_time" msgid="2782334750243998633">"Virheellinen aika <xliff:g id="INVALID_HOUR">%1$d</xliff:g>.<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Kello <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>.<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> ei ole hälytystä."</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Ei ajastettuja hälytyksiä"</string>
-    <string name="no_label_specified" msgid="2008482054428460626">"Tunnistetta ei ole määritetty."</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Yksikään herätys ei sisällä tunnistetta."</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Kyseisenä ajankohtana ei ole hälytystä."</string>
+    <string name="no_label_specified" msgid="2008482054428460626">Nimiötä ei ole määritetty</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">Yksikään hälytys ei sisällä nimiötä</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Ei ajastettua hälytystä tälle ajalle</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> herätys ohitettiin."</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Herätysajaksi on asetettu <xliff:g id="ALARM_TIME">%s</xliff:g>."</string>
-    <string name="timer_created" msgid="4381027137335885547">"Ajastin on luotu."</string>
+    <string name="timer_created" msgid="4381027137335885547">Ajastin on luotu</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ajastinta hylätty</item>
         <item quantity="one">Ajastin hylätty</item>
@@ -370,7 +370,7 @@
     <string name="no_expired_timers" msgid="4624192298397846876">"Ei vanhentuneita ajastimia"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Hälytystä (<xliff:g id="ALARM_TIME">%s</xliff:g>) ei voi hylätä vielä, sillä siihen on yli 24 tuntia aikaa."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ohita herätys"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Valitse hylättävä hälytys."</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Valitse hylättävä hälytys</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Ei soivia hälytyksiä"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> herätys torkutettu 10 minuutin päähän."</string>
     <string name="flip_action_title">Laitteen kääntö</string>

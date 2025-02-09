@@ -55,11 +55,11 @@
     <string name="alarm_confirmation_toast_1">Alarm włączy się za mniej niż 1 minutę.</string>
     <string name="alarm_confirmation_toast_2">Alarm ustawiono na <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_3">Alarm ustawiono na <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> od teraz.</string>
-    <string name="alarm_confirmation_toast_4">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>"</string>
-    <string name="alarm_confirmation_toast_5">"Alarm włączy się za <xliff:g id="MINUTES">%3$s</xliff:g>"</string>
-    <string name="alarm_confirmation_toast_6">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</string>
-    <string name="alarm_confirmation_toast_7">"Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</string>
-    <string name="alarm_confirmation_toast_8">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</string>
+    <string name="alarm_confirmation_toast_4">Alarm włączy się za <xliff:g example="2 dni" id="DAYS">%1$s</xliff:g> i <xliff:g example="2 hours" id="HOURS">%2$s </xliff:g> od teraz.</string>
+    <string name="alarm_confirmation_toast_5">Alarm włączy się za<xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Alarm włączy się za<xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Alarm włączy się za<xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Alarm włączy się za<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
@@ -436,13 +436,13 @@
     <string name="sw_settings_summary">Ustaw akcje dla przycisków głośności</string>
     <string name="settings_vibration_title">Włącz wibracje</string>
     <string name="screensaver_settings_summary">Ustaw styl, kolor i czcionkę wygaszacza ekranu</string>
-    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Dostosowywalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Dostosowywalne widżety; &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Konfigurowalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Konfigurowalne widżety; &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Etykieta minutnika</string>
     <string name="app_slogan">Zegar w 100% FOSS, oparty na AOSP</string>
     <string name="screensaver_preview_summary">Uruchamia wygaszacz ekranu</string>
     <string name="firing_alarms_timers_channel">Uruchamianie alarmów i minutników</string>
     <string name="digital_widget_city_name_custom_color_title">Niestandardowy kolor nazwy miasta</string>
-    <string name="notifications_dialog_text">Oprócz ustawiania alarmów, aplikacja ta posiada również minutnik, stoper i tryb pory snu. \n\nAby powiadomienia były wyświetlane poprawnie dla wszystkich modułów, a zwłaszcza aby alarm był uruchamiany, zalecamy aktywowanie powiadomień dla tej aplikacji.</string>
+    <string name="notifications_dialog_text">Oprócz ustawiania alarmów, aplikacja ta posiada również minutnik i stoper. \n\nAby powiadomienia były wyświetlane poprawnie dla wszystkich modułów, a zwłaszcza aby alarm był uruchamiany, zalecamy aktywowanie powiadomień dla tej aplikacji.</string>
     <string name="backup_restore_settings_summary">Tworzenie kopii zapasowych lub przywracanie ustawień z wyjątkiem alarmów, timerów i dzwonków</string>
     <string name="ignore_battery_optimizations_dialog_text">Domyślnie system Android konfiguruje wszystkie aplikacje zainstalowane przez użytkownika tak, aby były zoptymalizowane pod kątem oszczędzania baterii. \n\nChociaż jest to akceptowalne dla wielu aplikacji, ta aplikacja jest aplikacją alarmową i często powoduje problemy, jeśli jest skonfigurowana do optymalizacji baterii. Po jej włączeniu system Android może w dowolnym momencie wyłączyć aplikację i/lub anulować zaplanowane przez nią alarmy, co negatywnie wpłynie na jej działanie. \n\nZalecamy wyłączenie tej aplikacji z optymalizacji baterii.</string>
     <string name="snooze_duration_none">Brak</string>
@@ -643,4 +643,12 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Podwójna wibracja, gdy alarm jest uśpiony i pojedyncza wibracja, gdy alarm jest odrzucony</string>
     <string name="contributors_dialog_message">Odwiedź stronę %1$s w serwisie GitHub:\n\n%2$s</string>
     <string name="timer_button_time_box_title">Minuty do dodania do minutnika</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Włącz tylną lampę błyskową po uruchomieniu alarmu</string>
+    <string name="alarm_flash">Lampa błyskowa</string>
+    <string name="translate_dialog_message">Odwiedź stronę Codeberg:\n\n%s</string>
+    <string name="about_translate_link">Przetłumacz na Codeberg</string>
+    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off; \n\n\t\tUnfortunately, this feature may not work on some devices despite the presence of the <i>\"com.qualcomm.qti.poweroffalarm\"</i> system app. \n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Konfigurowalny dzwonek;\n\n• Motyw jasny, ciemny lub systemowy;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Zegar cyfrowy lub analogowy;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• Minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Konfigurowalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowej i przywracanie ustawień;\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
+    <string name="display_upcoming_alarm_title">Wyświetl nadchodzący alarm obok daty</string>
+    <string name="display_upcoming_alarm_summary">Wyłączenie tego ustawienia ukrywa nadchodzący alarm w zakładce Zegar, wygaszaczu ekranu i widżetach. Zapobiega to wyświetlaniu alarmów z innych aplikacji.</string>
+    <string name="warning_upcoming_alarm_setting_off">Aby uzyskać dostęp do tego ustawienia, należy włączyć opcję „Wyświetlaj nadchodzący alarm obok daty” w ustawieniach zegara</string>
 </resources>

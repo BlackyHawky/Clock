@@ -447,7 +447,7 @@
     <string name="permission_requirement_title">Necessarie:</string>
     <string name="permission_management_summary">Mostra le autorizzazioni necessarie per il corretto funzionamento dell\'applicazione</string>
     <string name="permission_management_settings">Gestione autorizzazioni</string>
-    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.; \n\n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro e ora di andare a nanna <i>(sperimentale)</i> inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
+    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.; \n\n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro e ora di andare a nanna <i>(sperimentale)</i> inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
     <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
@@ -628,4 +628,6 @@
     <string name="purple_accent_color">Viola</string>
     <string name="yellow_accent_color">Giallo</string>
     <string name="day_accent_color_title">Colore accento per modalità giorno</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Abilita vibrazione quando la sveglia è rimandata o spenta</string>
+    <string name="alarm_flash">Flash</string>
 </resources>

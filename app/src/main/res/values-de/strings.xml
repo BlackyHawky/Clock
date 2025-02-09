@@ -483,9 +483,7 @@
     <string name="gnu_gpl">GNU General Public Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Clock“ basiert auf AOSP</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="notifications_dialog_text">Neben dem Einstellen von Alarmen verfügt diese App auch über einen Timer, eine Stoppuhr und einen Bettzeit-Modus.
-\n
-\nDamit die Benachrichtigungen für alle Module korrekt angezeigt werden und insbesondere der Alarm ausgelöst wird, empfehlen wir, die Benachrichtigungen für diese Anwendung zu aktivieren.</string>
+    <string name="notifications_dialog_text">Neben dem Einstellen von Alarmen verfügt diese App auch über einen Timer, eine Stoppuhr und einen Bettzeit-Modus. \n \nDamit die Benachrichtigungen für alle Module korrekt angezeigt werden und insbesondere der Alarm ausgelöst wird, empfehlen wir, die Benachrichtigungen für diese Anwendung zu aktivieren.</string>
     <string name="title_dark_theme_mode">Dunkel-Modus</string>
     <string name="version">Version</string>
     <string name="permission_granted">Gewährt</string>

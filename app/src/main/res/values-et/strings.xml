@@ -433,10 +433,8 @@
     <string name="alarm_created">Äratus on loodud</string>
     <string name="widget_next_alarm_custom_color_title">Sinu valitud värv järgmise äratuse jaoks</string>
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
-    <string name="notifications_dialog_text">Lisaks äratustele saad seda rakendust kasutada ka taimeri, stopperi ja uneajaga seotud toimingute jaoks.
-\n
-\nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
-    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud välimus; &lt;br&gt; &lt;br&gt; ► KOhandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
+    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Seadistuste varundamine ja taastamine; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="keep_timer_screen_on_title">Taimeri kuvamisel ära lülita ekraani välja</string>
@@ -487,7 +485,7 @@
 \nEnamuse rakenduste jaoks see ongi sobilik, aga meie rakendus on mõeldud äratuste jaoks ning akukasutuse optimeerimine segab seda tööd. Näiteks sel puhul võib Android rakenduse töö suvalisel hetkel lõpetada ja sellega enam ei toimi ka ajastatud äratused.
 \n
 \nMeie soovitame, et sa selle rakenduse puhul ei kasuta akukasutuse optimeerimist.</string>
-    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n \t\tKahjuks see funktsionaalsus ei toimi kõikidel juhtudel isegi siis, kui süsteemne rakendus <i>\"com.qualcomm.qti.poweroffalarm\"</i> on olemas. \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Seadistuste varundamine ja taastamine; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
+    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n \t\tKahjuks see funktsionaalsus ei toimi kõikidel juhtudel isegi siis, kui süsteemne rakendus <i>\"com.qualcomm.qti.poweroffalarm\"</i> on olemas. \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on taimer ja stopper; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Paanide tugi kiirseadistustes (alates Androidi versioonist 7); \n\n• Seadistuste varundamine ja taastamine; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
     <string name="FSN_permission_title">LUBA TÄISEKRAANITEAVITUSED</string>
     <string name="permission_requirement_title">Vajadus: </string>
     <string name="permission_denied">Keelatud</string>
@@ -507,7 +505,7 @@
     <string name="digital_widget_city_name_default_color_title">Kasuta linnade nime jaoks vaikimisi värvi</string>
     <string name="digital_widget_city_name_custom_color_title">Vali linnade nime jaoks oma värv</string>
     <string name="permission_granted">Lubatud</string>
-    <string name="digital_widget_message_summary">Selle seadistuse jaoks peab linnade vidin olema välja lülitatud</string>
+    <string name="digital_widget_message_summary">Selle seadistuse jaoks peab „Näita vidinas linnu“ olema välja lülitatud</string>
     <string name="notifications_dialog_title">Teavitused</string>
     <string name="alarm_display_customization_title">Kohenda äratuse vaadet</string>
     <string name="snooze_button_color">Uinu-nupu värv</string>
@@ -640,4 +638,10 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Kasuta topeltvärinat, kui äratus on edasilükatud või ühekordset värinat, kui äratus on katkestatud</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Äratuse käivitumisel lülita tagumine välklamp sisse</string>
     <string name="alarm_flash">Välklamp</string>
+    <string name="translate_dialog_message">Vaata meie lehte Codebergis:\n\n%s</string>
+    <string name="about_translate_link">Tõlgi Codebergis</string>
+    <string name="display_upcoming_alarm_title">Näita järgmist äratust kuupäeva kõrval</string>
+    <string name="warning_upcoming_alarm_setting_off">Ligipääsuks sellele eelistusele peab valik „Näita järgmist äratust kuupäeva kõrval“ olema kasutusel</string>
+    <string name="display_upcoming_alarm_summary">Selle eelistuse väljalülitamine peidab järgmise äratuse Kella vahekaardilt, ekraanisäästja vaatest ja vidinatest. Samuti ei näidata teistest rakendustest loodud äratusi.</string>
+    <string name="shake_intensity_title">Raputamise tugevus</string>
 </resources>
