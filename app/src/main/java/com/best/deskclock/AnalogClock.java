@@ -9,25 +9,15 @@ package com.best.deskclock;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_NIGHT_ACCENT_COLOR;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -143,53 +133,33 @@ public class AnalogClock extends FrameLayout {
             final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
             final String accentColor = DataModel.getDataModel().getAccentColor();
             final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
-            if (isAutoNightAccentColorEnabled) {
-                switch (accentColor) {
-                    case BLACK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
-                    case BLUE_GRAY_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));
-                    case BROWN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.brownColorPrimary));
-                    case GREEN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.greenColorPrimary));
-                    case INDIGO_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.indigoColorPrimary));
-                    case ORANGE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.orangeColorPrimary));
-                    case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
-                    case PURPLE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
-                    case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
-                    case YELLOW_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
-                    default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
-                }
-            } else {
-                if (ThemeUtils.isNight(getResources())) {
-                    switch (nightAccentColor) {
-                        case BLACK_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
-                        case BLUE_GRAY_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));
-                        case BROWN_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.brownColorPrimary));
-                        case GREEN_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.greenColorPrimary));
-                        case INDIGO_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.indigoColorPrimary));
-                        case ORANGE_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.orangeColorPrimary));
-                        case PINK_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
-                        case PURPLE_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
-                        case RED_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
-                        case YELLOW_NIGHT_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
-                        default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
-                    }
-                } else {
-                    switch (accentColor) {
-                        case BLACK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blackColorPrimary));
-                        case BLUE_GRAY_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.blueGrayColorPrimary));
-                        case BROWN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.brownColorPrimary));
-                        case GREEN_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.greenColorPrimary));
-                        case INDIGO_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.indigoColorPrimary));
-                        case ORANGE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.orangeColorPrimary));
-                        case PINK_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.pinkColorPrimary));
-                        case PURPLE_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.purpleColorPrimary));
-                        case RED_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.redColorPrimary));
-                        case YELLOW_ACCENT_COLOR -> mSecondHand.setColorFilter(context.getColor(R.color.yellowColorPrimary));
-                        default -> mSecondHand.setColorFilter(context.getColor(R.color.md_theme_primary));
-                    }
-                }
-            }
+            int color = getAccentColor(context, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
+            mSecondHand.setColorFilter(color);
         }
+
         addView(mSecondHand);
+    }
+
+    private int getAccentColor(Context context, boolean isAutoNightAccentColorEnabled,
+                               String accentColor, String nightAccentColor) {
+
+        String colorKey = isAutoNightAccentColorEnabled
+                ? accentColor
+                : (ThemeUtils.isNight(context.getResources()) ? nightAccentColor : accentColor);
+
+        return switch (colorKey) {
+            case BLACK_ACCENT_COLOR -> context.getColor(R.color.blackColorPrimary);
+            case BLUE_GRAY_ACCENT_COLOR -> context.getColor(R.color.blueGrayColorPrimary);
+            case BROWN_ACCENT_COLOR -> context.getColor(R.color.brownColorPrimary);
+            case GREEN_ACCENT_COLOR -> context.getColor(R.color.greenColorPrimary);
+            case INDIGO_ACCENT_COLOR -> context.getColor(R.color.indigoColorPrimary);
+            case ORANGE_ACCENT_COLOR -> context.getColor(R.color.orangeColorPrimary);
+            case PINK_ACCENT_COLOR -> context.getColor(R.color.pinkColorPrimary);
+            case PURPLE_ACCENT_COLOR -> context.getColor(R.color.purpleColorPrimary);
+            case RED_ACCENT_COLOR -> context.getColor(R.color.redColorPrimary);
+            case YELLOW_ACCENT_COLOR -> context.getColor(R.color.yellowColorPrimary);
+            default -> context.getColor(R.color.md_theme_primary);
+        };
     }
 
     @Override

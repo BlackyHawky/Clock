@@ -3,30 +3,20 @@
 package com.best.deskclock.controller;
 
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_NIGHT_ACCENT_COLOR;
 
 import android.app.Activity;
 import android.app.Application;
@@ -164,76 +154,64 @@ public class ThemeController {
             final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
             final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
 
-            if (darkMode.equals(KEY_DEFAULT_DARK_MODE)) {
-                switch (theme) {
-                    case SYSTEM_THEME ->
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    case LIGHT_THEME ->
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    case DARK_THEME ->
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-            } else if (darkMode.equals(KEY_AMOLED_DARK_MODE)
-                    && !theme.equals(SYSTEM_THEME) || !theme.equals(LIGHT_THEME)) {
-                activity.setTheme(R.style.AmoledTheme);
-            }
+            applyDarkMode(activity, theme, darkMode);
 
-            if (isAutoNightAccentColorEnabled) {
-                switch (accentColor) {
-                    case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
-                    case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
-                    case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
-                    case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
-                    case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
-                    case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
-                    case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
-                    case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
-                    case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
-                    case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
-                }
-            } else {
-                if (ThemeUtils.isNight(activity.getResources())) {
-                    switch (nightAccentColor) {
-                        case BLACK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
-                        case BLUE_GRAY_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
-                        case BROWN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
-                        case GREEN_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
-                        case INDIGO_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
-                        case ORANGE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
-                        case PINK_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
-                        case PURPLE_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
-                        case RED_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
-                        case YELLOW_NIGHT_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
-                    }
-                } else {
-                    switch (accentColor) {
-                        case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
-                        case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
-                        case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
-                        case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
-                        case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
-                        case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
-                        case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
-                        case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
-                        case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
-                        case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
-                    }
-                }
-            }
+            applyAccentColor(activity, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
 
             if (activity instanceof CollapsingToolbarBaseActivity) {
-                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
-                    activity.getWindow().setNavigationBarColor(Color.BLACK);
-                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-                } else {
-                    activity.getWindow().setNavigationBarColor(
-                            MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
-                }
+                applyNavigationBarColorForCollapsingToolbar(activity, darkMode);
             } else {
-                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
-                    activity.getWindow().setNavigationBarColor(Color.BLACK);
-                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+                applyNavigationBarColorForRegularActivity(activity, darkMode);
+            }
+        }
+
+        private void applyDarkMode(Activity activity, String theme, String darkMode) {
+            if (darkMode.equals(KEY_DEFAULT_DARK_MODE)) {
+                switch (theme) {
+                    case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    case DARK_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
+            } else if (darkMode.equals(KEY_AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
+                activity.setTheme(R.style.AmoledTheme);
+            }
+        }
+
+        private void applyAccentColor(Activity activity, boolean isAutoNightAccentColorEnabled,
+                                      String accentColor, String nightAccentColor) {
+
+            String color = isAutoNightAccentColorEnabled
+                    ? accentColor
+                    : (ThemeUtils.isNight(activity.getResources()) ? nightAccentColor : accentColor);
+
+            switch (color) {
+                case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
+                case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
+                case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
+                case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
+                case INDIGO_ACCENT_COLOR -> activity.setTheme(R.style.IndigoAccentColor);
+                case ORANGE_ACCENT_COLOR -> activity.setTheme(R.style.OrangeAccentColor);
+                case PINK_ACCENT_COLOR -> activity.setTheme(R.style.PinkAccentColor);
+                case PURPLE_ACCENT_COLOR -> activity.setTheme(R.style.PurpleAccentColor);
+                case RED_ACCENT_COLOR -> activity.setTheme(R.style.RedAccentColor);
+                case YELLOW_ACCENT_COLOR -> activity.setTheme(R.style.YellowAccentColor);
+            }
+        }
+
+        private void applyNavigationBarColorForCollapsingToolbar(Activity activity, String darkMode) {
+            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+            } else {
+                activity.getWindow().setNavigationBarColor(
+                        MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
+            }
+        }
+
+        private void applyNavigationBarColorForRegularActivity(Activity activity, String darkMode) {
+            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+                activity.getWindow().setNavigationBarColor(Color.BLACK);
+                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }
         }
 

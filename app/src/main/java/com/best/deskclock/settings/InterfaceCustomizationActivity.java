@@ -38,7 +38,6 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String KEY_DEFAULT_DARK_MODE = "0";
     public static final String KEY_AMOLED_DARK_MODE = "1";
     public static final String KEY_ACCENT_COLOR = "key_accent_color";
-    public static final String DEFAULT_ACCENT_COLOR = "0";
     public static final String BLUE_GRAY_ACCENT_COLOR = "1";
     public static final String BROWN_ACCENT_COLOR = "2";
     public static final String GREEN_ACCENT_COLOR = "3";
@@ -51,17 +50,6 @@ public class InterfaceCustomizationActivity extends CollapsingToolbarBaseActivit
     public static final String YELLOW_ACCENT_COLOR = "10";
     public static final String KEY_AUTO_NIGHT_ACCENT_COLOR = "key_auto_night_accent_color";
     public static final String KEY_NIGHT_ACCENT_COLOR = "key_night_accent_color";
-    public static final String DEFAULT_NIGHT_ACCENT_COLOR = "0";
-    public static final String BLUE_GRAY_NIGHT_ACCENT_COLOR = "1";
-    public static final String BROWN_NIGHT_ACCENT_COLOR = "2";
-    public static final String GREEN_NIGHT_ACCENT_COLOR = "3";
-    public static final String INDIGO_NIGHT_ACCENT_COLOR = "4";
-    public static final String ORANGE_NIGHT_ACCENT_COLOR = "5";
-    public static final String PINK_NIGHT_ACCENT_COLOR = "6";
-    public static final String RED_NIGHT_ACCENT_COLOR = "7";
-    public static final String BLACK_NIGHT_ACCENT_COLOR = "8";
-    public static final String PURPLE_NIGHT_ACCENT_COLOR = "9";
-    public static final String YELLOW_NIGHT_ACCENT_COLOR = "10";
     public static final String KEY_CARD_BACKGROUND = "key_card_background";
     public static final String KEY_CARD_BORDER = "key_card_border";
     public static final String KEY_CUSTOM_LANGUAGE_CODE = "key_custom_language_code";

@@ -65,8 +65,6 @@ import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_DISPLA
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_DISPLAY_UPCOMING_ALARM;
 import static com.best.deskclock.settings.ClockSettingsActivity.KEY_HOME_TIME_ZONE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DEFAULT_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BACKGROUND;
@@ -252,7 +250,7 @@ final class SettingsDAO {
      */
     static String getAccentColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
-        return prefs.getString(KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR);
+        return prefs.getString(KEY_ACCENT_COLOR, "0");
     }
 
     /**
@@ -268,7 +266,7 @@ final class SettingsDAO {
      */
     static String getNightAccentColor(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
-        return prefs.getString(KEY_NIGHT_ACCENT_COLOR, DEFAULT_NIGHT_ACCENT_COLOR);
+        return prefs.getString(KEY_NIGHT_ACCENT_COLOR, "0");
     }
 
     /**
