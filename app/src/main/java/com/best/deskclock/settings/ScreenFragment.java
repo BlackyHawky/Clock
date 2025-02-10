@@ -13,12 +13,15 @@ import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREEN
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -29,19 +32,22 @@ import java.util.Objects;
 public class ScreenFragment extends PreferenceFragmentCompat {
 
     @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView listView = getListView();
+        int bottomPadding = ThemeUtils.convertDpToPixels(20, requireContext());
+        int topPadding = ThemeUtils.convertDpToPixels(10, requireContext());
+        listView.setPadding(0, topPadding, 0, bottomPadding);
+        listView.setVerticalScrollBarEnabled(false);
+    }
+
+    @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             getPreferenceManager().setStorageDeviceProtected();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        int bottomPadding = ThemeUtils.convertDpToPixels(20, requireContext());
-        int topPadding = ThemeUtils.convertDpToPixels(10, requireContext());
-        getListView().setPadding(0, topPadding, 0, bottomPadding);
     }
 
     @Override
