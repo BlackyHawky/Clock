@@ -59,7 +59,7 @@ final class FormattedStringModel {
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
         localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
         }
