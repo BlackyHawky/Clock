@@ -34,6 +34,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -214,7 +215,17 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 new AlertDialog.Builder(requireContext())
                         .setTitle(R.string.permission_dialog_revoke_title)
                         .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            startActivity(intent);
+                            sendPermissionResult();
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.notifications_dialog_title)
+                        .setMessage(R.string.notifications_dialog_text)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                             startActivity(intent);
                             sendPermissionResult();
                         })
@@ -222,13 +233,13 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                         .show();
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    int codeForPostNotification = 0;
-                    requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, codeForPostNotification);
+                    requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, 0);
                 } else {
                     startActivity(intent);
                 }
-                sendPermissionResult();
             }
+
+            sendPermissionResult();
         }
 
         /**
@@ -319,7 +330,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * @return {@code true} when Notifications permission is granted; {@code false} otherwise
          */
         public static boolean areNotificationsEnabled(Context context) {
-            return NotificationManagerCompat.from(context).areNotificationsEnabled();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                return ContextCompat.checkSelfPermission(context, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+            } else {
+                return NotificationManagerCompat.from(context).areNotificationsEnabled();
+            }
         }
 
         /**
