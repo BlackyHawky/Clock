@@ -2,7 +2,10 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -19,6 +22,8 @@ import com.best.deskclock.settings.PermissionsManagementActivity;
 
 public class FirstLaunch extends AppCompatActivity {
 
+    public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
+
     TextView mAppTitle;
     TextView mAppVersion;
     TextView mMainFeaturesText;
@@ -29,6 +34,8 @@ public class FirstLaunch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
 
         setContentView(R.layout.first_launch_activity);
 
@@ -48,14 +55,14 @@ public class FirstLaunch extends AppCompatActivity {
         setupImportantInfoMessage();
 
         mNowButton.setOnClickListener(v -> {
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+            sharedPreferences.edit().putBoolean(KEY_IS_FIRST_LAUNCH, false).apply();
             finish();
             startActivity(new Intent(this, DeskClock.class));
             startActivity(new Intent(this, PermissionsManagementActivity.class));
         });
 
         mLaterButton.setOnClickListener(v -> {
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
+            sharedPreferences.edit().putBoolean(KEY_IS_FIRST_LAUNCH, false).apply();
             finish();
             startActivity(new Intent(this, DeskClock.class));
         });

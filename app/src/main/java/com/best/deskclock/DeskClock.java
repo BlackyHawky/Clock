@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
@@ -22,6 +23,7 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -70,6 +72,8 @@ public class DeskClock extends AppCompatActivity
 
     public static final int REQUEST_CHANGE_SETTINGS = 10;
     public static final int REQUEST_CHANGE_PERMISSIONS = 20;
+
+    SharedPreferences mPrefs;
 
     /**
      * Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing.
@@ -211,9 +215,9 @@ public class DeskClock extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        isFirstLaunch();
+        mPrefs = getDefaultSharedPreferences(this);
 
-        setContentView(R.layout.desk_clock);
+        isFirstLaunch();
 
         mSnackbarAnchor = findViewById(R.id.content);
 
@@ -489,10 +493,12 @@ public class DeskClock extends AppCompatActivity
      * Check if this is the first time the application has been launched.
      */
     private void isFirstLaunch() {
-        final boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        final boolean isFirstRun = mPrefs.getBoolean(FirstLaunch.KEY_IS_FIRST_LAUNCH, true);
         if (isFirstRun) {
             startActivity(new Intent(this, FirstLaunch.class));
             finish();
+        } else {
+            setContentView(R.layout.desk_clock);
         }
     }
 
