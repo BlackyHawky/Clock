@@ -15,5 +15,5 @@
     android:updatePeriodMillis="0"
     android:widgetCategory="keyguard|home_screen"
     android:widgetFeatures="configuration_optional|reconfigurable"
-    android:configure="com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity"
+    android:configure="com.best.alarmclock.WidgetConfiguration$MaterialYouNextAlarmWidgetConfiguration"
     tools:targetApi="p" />

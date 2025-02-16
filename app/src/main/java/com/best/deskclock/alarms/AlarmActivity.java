@@ -10,7 +10,7 @@ import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GEN
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;

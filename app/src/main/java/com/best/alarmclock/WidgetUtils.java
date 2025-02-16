@@ -16,12 +16,28 @@ import android.os.Bundle;
 
 import com.best.deskclock.utils.ThemeUtils;
 
-public final class WidgetUtils {
+public class WidgetUtils {
 
-    private WidgetUtils() {
+    /**
+     * Static variable to know if the fragment displayed comes from the widget or from the settings.
+     * <p>
+     * When the user presses the back button, it lets you know whether the activity should stop
+     * or whether to return to the settings page.
+     */
+    public static boolean isLaunchedFromWidget = false;
+
+    /**
+     * Method to reset the flag if necessary.
+     * <p>
+     * Must be called in the onStop() method in every file that handles widgets fragments.
+     */
+    public static void resetLaunchFlag() {
+        isLaunchedFromWidget = false;
     }
 
-    // Calculate the scale factor of the fonts in the widget
+    /**
+     * Calculate the scale factor of the fonts in the widget
+     */
     public static float getScaleRatio(Context context, Bundle options, int id, int cityCount) {
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
@@ -59,7 +75,9 @@ public final class WidgetUtils {
         return 1f;
     }
 
-    // Calculate the scale factor of the fonts in the list of  the widget using the widget height
+    /**
+     * Calculate the scale factor of the fonts in the list of  the widget using the widget height
+     */
     private static float getHeightScaleRatio(Context context, Bundle options, int id) {
         if (options == null) {
             AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
@@ -88,10 +106,11 @@ public final class WidgetUtils {
     }
 
     /**
-     * @return {@code true} iff the widget is being hosted in a container where tapping is allowed
+     * @return {@code true} if the widget is being hosted in a container where tapping is allowed
      */
     public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
         final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
         return wo != null && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
     }
+
 }

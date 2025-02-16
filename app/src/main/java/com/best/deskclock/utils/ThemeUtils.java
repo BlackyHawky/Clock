@@ -10,7 +10,7 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
 
 import android.content.Context;
 import android.content.res.Configuration;

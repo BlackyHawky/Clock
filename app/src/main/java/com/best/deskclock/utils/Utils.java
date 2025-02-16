@@ -9,7 +9,7 @@ package com.best.deskclock.utils;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_SYSTEM_LANGUAGE_CODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_SYSTEM_LANGUAGE_CODE;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;

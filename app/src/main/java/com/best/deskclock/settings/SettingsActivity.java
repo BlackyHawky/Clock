@@ -6,14 +6,13 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_PERMISSIONS;
-import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
+import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,9 +26,9 @@ import android.text.SpannableStringBuilder;
 import android.text.format.DateFormat;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -41,6 +40,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
+import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.io.FileNotFoundException;
@@ -54,22 +54,10 @@ import java.util.Date;
  */
 public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
-    public static final String PREFS_FRAGMENT_TAG = "settings_prefs_fragment";
-
-    public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
-    public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
-    public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
-    public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
-    public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
-    public static final String KEY_STOPWATCH_SETTINGS = "key_stopwatch_settings";
-    public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
-    public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
-    public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
-    public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
-
     @Override
     protected String getActivityTitle() {
-        return getString(R.string.settings);
+        // Already defined in the fragment.
+        return null;
     }
 
     @Override
@@ -78,13 +66,26 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
+                    .replace(R.id.content_frame, new SettingsFragment())
                     .disallowAddToBackStack()
                     .commit();
         }
     }
 
-    public static class PrefsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
+    public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
+
+        private int mRecyclerViewPosition = -1;
+
+        public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
+        public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
+        public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
+        public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
+        public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
+        public static final String KEY_STOPWATCH_SETTINGS = "key_stopwatch_settings";
+        public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
+        public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
+        public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
+        public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
 
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
@@ -96,30 +97,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         Preference mPermissionsManagement;
         Preference mPermissionMessage;
         Preference mBackupRestorePref;
-
-        /**
-         * Callback for getting the result from the settings sub-activities.
-         */
-        private final ActivityResultLauncher<Intent> getActivity = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                    if (result.getResultCode() != RESULT_OK) {
-                        return;
-                    }
-
-                    requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-                });
-
-        /**
-         * Callback for getting the result from the Permission Management activity.
-         */
-        private final ActivityResultLauncher<Intent> getPermissionManagementActivity = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), (result) -> {
-                    if (result.getResultCode() != REQUEST_CHANGE_PERMISSIONS) {
-                        return;
-                    }
-
-                    requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
-                });
 
         /**
          * Callback for getting the backup result.
@@ -185,6 +162,11 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 });
 
         @Override
+        protected String getFragmentTitle() {
+            return getString(R.string.settings);
+        }
+
+        @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
@@ -202,73 +184,58 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mBackupRestorePref = findPreference(KEY_BACKUP_RESTORE_PREFERENCES);
 
             hidePreferences();
+
+            requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    requireActivity().finish();
+                    if (DataModel.getDataModel().isFadeTransitionsEnabled()) {
+                        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+            });
         }
 
         @Override
         public void onResume() {
             super.onResume();
 
+            if (mRecyclerViewPosition != -1) {
+                mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
+                mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
+            }
             refresh();
         }
 
         @Override
-        public boolean onPreferenceClick(@NonNull Preference pref) {
-            final Context context = getActivity();
-            if (context == null) {
-                return false;
+        public void onPause() {
+            super.onPause();
+
+            if (mLinearLayoutManager != null) {
+                mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
             }
+        }
 
+        @Override
+        public boolean onPreferenceClick(@NonNull Preference pref) {
             switch (pref.getKey()) {
-                case KEY_INTERFACE_CUSTOMIZATION -> {
-                    final Intent interfaceCustomizationIntent =
-                            new Intent(context, InterfaceCustomizationActivity.class);
-                    getActivity.launch(interfaceCustomizationIntent);
-                    return true;
-                }
+                case KEY_INTERFACE_CUSTOMIZATION -> animateAndShowFragment(new InterfaceCustomizationFragment());
 
-                case KEY_CLOCK_SETTINGS -> {
-                    final Intent clockSettingsIntent = new Intent(context, ClockSettingsActivity.class);
-                    getActivity.launch(clockSettingsIntent);
-                    return true;
-                }
+                case KEY_CLOCK_SETTINGS -> animateAndShowFragment(new ClockSettingsFragment());
 
-                case KEY_ALARM_SETTINGS -> {
-                    final Intent alarmSettingsIntent = new Intent(context, AlarmSettingsActivity.class);
-                    getActivity.launch(alarmSettingsIntent);
-                    return true;
-                }
+                case KEY_ALARM_SETTINGS -> animateAndShowFragment(new AlarmSettingsFragment());
 
-                case KEY_TIMER_SETTINGS -> {
-                    final Intent timerSettingsIntent = new Intent(context, TimerSettingsActivity.class);
-                    getActivity.launch(timerSettingsIntent);
-                    return true;
-                }
+                case KEY_TIMER_SETTINGS -> animateAndShowFragment(new TimerSettingsFragment());
 
-                case KEY_STOPWATCH_SETTINGS -> {
-                    final Intent stopwatchSettingsIntent = new Intent(context, StopwatchSettingsActivity.class);
-                    getActivity.launch(stopwatchSettingsIntent);
-                    return true;
-                }
+                case KEY_STOPWATCH_SETTINGS -> animateAndShowFragment(new StopwatchSettingsFragment());
 
-                case KEY_SCREENSAVER_SETTINGS -> {
-                    final Intent screensaverSettingsIntent =
-                            new Intent(context, ScreensaverSettingsActivity.class);
-                    startActivity(screensaverSettingsIntent);
-                    return true;
-                }
+                case KEY_SCREENSAVER_SETTINGS ->
+                    animateAndShowFragment(new ScreensaverSettingsActivity.ScreensaverSettingsFragment());
 
-                case KEY_WIDGETS_SETTINGS -> {
-                    final Intent widgetsSettingsIntent = new Intent(context, WidgetsSettingsActivity.class);
-                    startActivity(widgetsSettingsIntent);
-                    return true;
-                }
+                case KEY_WIDGETS_SETTINGS -> animateAndShowFragment(new WidgetSettingsFragment());
 
-                case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT -> {
-                    final Intent permissionsManagementIntent =
-                            new Intent(context, PermissionsManagementActivity.class);
-                    getPermissionManagementActivity.launch(permissionsManagementIntent);
-                    return true;
-                }
+                case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
+                    animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
                 case KEY_BACKUP_RESTORE_PREFERENCES -> {
                     final AlertDialog builder = new AlertDialog.Builder(requireContext())
@@ -293,23 +260,18 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             })
                             .create();
                     builder.show();
-                    return true;
                 }
             }
 
-            return false;
+            return true;
         }
 
         private void hidePreferences() {
-            mPermissionMessage.setVisible(
-                        PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
-            );
+            mPermissionMessage.setVisible(areEssentialPermissionsNotGranted(requireContext()));
         }
 
         private void refresh() {
-            mPermissionMessage.setVisible(
-                    PermissionsManagementActivity.areEssentialPermissionsNotGranted(requireContext())
-            );
+            mPermissionMessage.setVisible(areEssentialPermissionsNotGranted(requireContext()));
             if (mPermissionMessage.isShown()) {
                 final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
                 final String messagePermission = requireContext().getString(R.string.settings_permission_message);
@@ -349,7 +311,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
                 BackupAndRestoreUtils.settingsToJsonStream(sharedPreferences.getAll(), outputStream, sharedPreferences, context);
             } catch (IOException e) {
-                Log.w(PREFS_FRAGMENT_TAG, "error during backup");
+                LogUtils.wtf("error during backup");
             }
         }
 
@@ -360,4 +322,5 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             BackupAndRestoreUtils.readJsonLines(inputStream, sharedPreferences);
         }
     }
+
 }

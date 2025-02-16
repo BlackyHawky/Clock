@@ -2,21 +2,21 @@
 
 package com.best.deskclock.controller;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.INDIGO_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.YELLOW_ACCENT_COLOR;
 
 import android.app.Activity;
 import android.app.Application;

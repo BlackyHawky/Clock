@@ -8,7 +8,7 @@ package com.best.deskclock.timer;
 
 import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

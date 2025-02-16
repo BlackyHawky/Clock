@@ -6,7 +6,7 @@
 
 package com.best.deskclock.alarms;
 
-import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
+import static com.best.deskclock.settings.AlarmSettingsFragment.MATERIAL_TIME_PICKER_ANALOG_STYLE;
 
 import android.content.Context;
 import android.content.Intent;

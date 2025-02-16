@@ -6,9 +6,9 @@
 
 package com.best.deskclock.settings;
 
-import android.os.Build;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
@@ -31,27 +31,10 @@ import com.rarepebble.colorpicker.ColorPreference;
  */
 public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActivity {
 
-    private static final String PREFS_FRAGMENT_TAG = "screensaver_prefs_fragment";
-
-    public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";
-    public static final String KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS = "key_display_screensaver_clock_seconds";
-    public static final String KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS = "key_screensaver_clock_dynamic_colors";
-    public static final String KEY_SCREENSAVER_CLOCK_COLOR_PICKER = "key_screensaver_clock_color_picker";
-    public static final String KEY_SCREENSAVER_DATE_COLOR_PICKER = "key_screensaver_date_color_picker";
-    public static final String KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER = "key_screensaver_next_alarm_color_picker";
-    public static final String KEY_SCREENSAVER_BRIGHTNESS = "key_screensaver_brightness";
-    public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = "key_screensaver_digital_clock_in_bold";
-    public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = "key_screensaver_digital_clock_in_italic";
-    public static final String KEY_SCREENSAVER_DATE_IN_BOLD = "key_screensaver_date_in_bold";
-    public static final String KEY_SCREENSAVER_DATE_IN_ITALIC = "key_screensaver_date_in_italic";
-    public static final String KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD = "key_screensaver_next_alarm_in_bold";
-    public static final String KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC = "key_screensaver_next_alarm_in_italic";
-    public static final String KEY_SCREENSAVER_PREVIEW = "key_screensaver_preview";
-    public static final String KEY_SCREENSAVER_DAYDREAM_SETTINGS = "key_screensaver_daydream_settings";
-
     @Override
     protected String getActivityTitle() {
-        return getString(R.string.screensaver_settings_title);
+        // Already defined in the fragment.
+        return null;
     }
 
     @Override
@@ -60,14 +43,32 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, new PrefsFragment(), PREFS_FRAGMENT_TAG)
+                    .replace(R.id.content_frame, new ScreensaverSettingsFragment())
                     .disallowAddToBackStack()
                     .commit();
         }
     }
 
-    public static class PrefsFragment extends ScreenFragment
+    public static class ScreensaverSettingsFragment extends ScreenFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+        private int mRecyclerViewPosition = -1;
+
+        public static final String KEY_SCREENSAVER_CLOCK_STYLE = "key_screensaver_clock_style";
+        public static final String KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS = "key_display_screensaver_clock_seconds";
+        public static final String KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS = "key_screensaver_clock_dynamic_colors";
+        public static final String KEY_SCREENSAVER_CLOCK_COLOR_PICKER = "key_screensaver_clock_color_picker";
+        public static final String KEY_SCREENSAVER_DATE_COLOR_PICKER = "key_screensaver_date_color_picker";
+        public static final String KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER = "key_screensaver_next_alarm_color_picker";
+        public static final String KEY_SCREENSAVER_BRIGHTNESS = "key_screensaver_brightness";
+        public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = "key_screensaver_digital_clock_in_bold";
+        public static final String KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = "key_screensaver_digital_clock_in_italic";
+        public static final String KEY_SCREENSAVER_DATE_IN_BOLD = "key_screensaver_date_in_bold";
+        public static final String KEY_SCREENSAVER_DATE_IN_ITALIC = "key_screensaver_date_in_italic";
+        public static final String KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD = "key_screensaver_next_alarm_in_bold";
+        public static final String KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC = "key_screensaver_next_alarm_in_italic";
+        public static final String KEY_SCREENSAVER_PREVIEW = "key_screensaver_preview";
+        public static final String KEY_SCREENSAVER_DAYDREAM_SETTINGS = "key_screensaver_daydream_settings";
 
         ColorPreference mClockColorPref;
         ColorPreference mDateColorPref;
@@ -86,6 +87,11 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         SwitchPreferenceCompat mItalicNextAlarmPref;
         Preference mScreensaverPreview;
         Preference mScreensaverMainSettings;
+
+        @Override
+        protected String getFragmentTitle() {
+            return getString(R.string.screensaver_settings_title);
+        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +125,20 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         public void onResume() {
             super.onResume();
 
+            if (mRecyclerViewPosition != -1) {
+                mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
+                mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
+            }
             refresh();
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+
+            if (mLinearLayoutManager != null) {
+                mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+            }
         }
 
         @Override
@@ -156,9 +175,12 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                 }
 
-                case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
-                     KEY_SCREENSAVER_DATE_IN_BOLD, KEY_SCREENSAVER_DATE_IN_ITALIC, KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD,
-                     KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC -> Utils.setVibrationTime(requireContext(), 50);
+                case KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD,
+                     KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC,
+                     KEY_SCREENSAVER_DATE_IN_BOLD, KEY_SCREENSAVER_DATE_IN_ITALIC,
+                     KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD,
+                     KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC ->
+                        Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
                     if (mClockDynamicColorPref.getSharedPreferences() != null
@@ -263,5 +285,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             mScreensaverMainSettings.setOnPreferenceClickListener(this);
         }
+
     }
+    
 }

@@ -11,9 +11,10 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.SYSTEM_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 import static com.best.deskclock.utils.Utils.enforceNotMainLooper;
 
@@ -33,7 +34,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.best.deskclock.R;
-import com.best.deskclock.settings.InterfaceCustomizationActivity;
 import com.best.deskclock.timer.TimerService;
 
 import java.util.ArrayList;
@@ -120,7 +120,7 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
-            final String themeValue = prefs.getString(InterfaceCustomizationActivity.KEY_THEME, SYSTEM_THEME);
+            final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
             switch (themeValue) {
                 case SYSTEM_THEME ->
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);

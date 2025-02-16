@@ -20,7 +20,7 @@ import android.util.ArraySet;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
-import com.best.deskclock.settings.ClockSettingsActivity;
+import com.best.deskclock.settings.ClockSettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -291,9 +291,9 @@ final class CityModel {
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             if (key != null) {
                 switch (key) {
-                    case ClockSettingsActivity.KEY_HOME_TIME_ZONE:
+                    case ClockSettingsFragment.KEY_HOME_TIME_ZONE:
                         mHomeCity = null;
-                    case ClockSettingsActivity.KEY_AUTO_HOME_CLOCK:
+                    case ClockSettingsFragment.KEY_AUTO_HOME_CLOCK:
                         fireCitiesChanged();
                         break;
                 }

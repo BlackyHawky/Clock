@@ -5,144 +5,144 @@
 
 package com.best.deskclock.utils;
 
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_BUTTON_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_CLOCK_STYLE;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_SECONDS_HAND_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_ALARM_TITLE_FONT_SIZE;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISMISS_BUTTON_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_ALARM_SECONDS_HAND;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_DISPLAY_RINGTONE_TITLE;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_PULSE_COLOR;
-import static com.best.deskclock.settings.AlarmDisplayCustomizationActivity.KEY_SNOOZE_BUTTON_COLOR;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_CRESCENDO;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_SNOOZE;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_AUTO_SILENCE;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_FLIP_ACTION;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_MATERIAL_TIME_PICKER_STYLE;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_POWER_BUTTON;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_ACTION;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_SWIPE_ACTION;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_VOLUME_BUTTONS;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_WEEK_START;
-import static com.best.deskclock.settings.ClockSettingsActivity.KEY_AUTO_HOME_CLOCK;
-import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_DISPLAY_SECONDS;
-import static com.best.deskclock.settings.ClockSettingsActivity.KEY_CLOCK_STYLE;
-import static com.best.deskclock.settings.ClockSettingsActivity.KEY_DISPLAY_UPCOMING_ALARM;
-import static com.best.deskclock.settings.ClockSettingsActivity.KEY_HOME_TIME_ZONE;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.DigitalWidgetCustomizationActivity.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AUTO_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BACKGROUND;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CARD_BORDER;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_CUSTOM_LANGUAGE_CODE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_DARK_MODE;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_FADE_TRANSITIONS;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_NIGHT_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_TAB_INDICATOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_VIBRATIONS;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.MaterialYouDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
-import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetCustomizationActivity.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetCustomizationActivity.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.NextAlarmWidgetCustomizationActivity.KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_BRIGHTNESS;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_CLOCK_STYLE;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_COLOR_PICKER;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_IN_BOLD;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DATE_IN_ITALIC;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_KEEP_TIMER_SCREEN_ON;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_AUTO_SILENCE;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_CRESCENDO;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_FLIP_ACTION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_POWER_BUTTON_ACTION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_SHAKE_ACTION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_VIBRATE;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TIMER_VOLUME_BUTTONS_ACTION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.VerticalDigitalWidgetCustomizationActivity.KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_BUTTON_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_CLOCK_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_CLOCK_STYLE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_SECONDS_HAND_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_ALARM_TITLE_FONT_SIZE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_DISMISS_BUTTON_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_DISPLAY_RINGTONE_TITLE;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_PULSE_COLOR;
+import static com.best.deskclock.settings.AlarmDisplayCustomizationFragment.KEY_SNOOZE_BUTTON_COLOR;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ALARM_CRESCENDO;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ALARM_SNOOZE;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_AUTO_SILENCE;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_FLIP_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_MATERIAL_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_POWER_BUTTON;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_SHAKE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_SWIPE_ACTION;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_VOLUME_BUTTONS;
+import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_WEEK_START;
+import static com.best.deskclock.settings.ClockSettingsFragment.KEY_AUTO_HOME_CLOCK;
+import static com.best.deskclock.settings.ClockSettingsFragment.KEY_CLOCK_DISPLAY_SECONDS;
+import static com.best.deskclock.settings.ClockSettingsFragment.KEY_CLOCK_STYLE;
+import static com.best.deskclock.settings.ClockSettingsFragment.KEY_DISPLAY_UPCOMING_ALARM;
+import static com.best.deskclock.settings.ClockSettingsFragment.KEY_HOME_TIME_ZONE;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.DigitalWidgetSettingsFragment.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AUTO_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_CARD_BACKGROUND;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_CARD_BORDER;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_CUSTOM_LANGUAGE_CODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_FADE_TRANSITIONS;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_TAB_INDICATOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_THEME;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_VIBRATIONS;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
+import static com.best.deskclock.settings.MaterialYouNextAlarmWidgetSettingsFragment.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.MaterialYouVerticalDigitalWidgetSettingsFragment.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.NextAlarmWidgetSettingsFragment.KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_CLOCK_STYLE;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_DATE_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_DATE_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_DATE_IN_ITALIC;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD;
+import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_VOLUME_DOWN_ACTION;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_VOLUME_UP_ACTION;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_KEEP_TIMER_SCREEN_ON;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_AUTO_SILENCE;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_CRESCENDO;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_FLIP_ACTION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_POWER_BUTTON_ACTION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_SHAKE_ACTION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_VIBRATE;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_VOLUME_BUTTONS_ACTION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.VerticalDigitalWidgetSettingsFragment.KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -178,7 +178,7 @@ public class BackupAndRestoreUtils {
         for (Map.Entry<String, ?> entry : settings.entrySet()) {
             if (entry.getKey() != null) {
                 if (entry.getValue() instanceof Boolean) {
-                    // Values from InterfaceCustomizationActivity
+                    // Values from InterfaceCustomizationFragment
                     booleans.put(KEY_AUTO_NIGHT_ACCENT_COLOR, prefs.getBoolean(KEY_AUTO_NIGHT_ACCENT_COLOR, true));
                     booleans.put(KEY_CARD_BACKGROUND, prefs.getBoolean(KEY_CARD_BACKGROUND, true));
                     booleans.put(KEY_CARD_BORDER, prefs.getBoolean(KEY_CARD_BORDER, false));
@@ -186,23 +186,23 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_TAB_INDICATOR, prefs.getBoolean(KEY_TAB_INDICATOR, true));
                     booleans.put(KEY_FADE_TRANSITIONS, prefs.getBoolean(KEY_FADE_TRANSITIONS, false));
 
-                    // Values from ClockSettingsActivity
+                    // Values from ClockSettingsFragment
                     booleans.put(KEY_CLOCK_DISPLAY_SECONDS, prefs.getBoolean(KEY_CLOCK_DISPLAY_SECONDS, false));
                     booleans.put(KEY_DISPLAY_UPCOMING_ALARM, prefs.getBoolean(KEY_DISPLAY_UPCOMING_ALARM, true));
                     booleans.put(KEY_AUTO_HOME_CLOCK, prefs.getBoolean(KEY_AUTO_HOME_CLOCK, true));
 
-                    // Values from AlarmSettingsActivity
+                    // Values from AlarmSettingsFragment
                     booleans.put(KEY_SWIPE_ACTION, prefs.getBoolean(KEY_SWIPE_ACTION, true));
                     booleans.put(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, prefs.getBoolean(KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, false));
                     booleans.put(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, prefs.getBoolean(KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS, false));
                     booleans.put(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, prefs.getBoolean(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, false));
                     booleans.put(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, prefs.getBoolean(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT, false));
 
-                    // Values from AlarmDisplayCustomizationActivity
+                    // Values from AlarmDisplayCustomizationFragment
                     booleans.put(KEY_DISPLAY_ALARM_SECONDS_HAND, prefs.getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, true));
                     booleans.put(KEY_DISPLAY_RINGTONE_TITLE, prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, false));
 
-                    // Values from TimerSettingsActivity
+                    // Values from TimerSettingsFragment
                     booleans.put(KEY_TIMER_VIBRATE, prefs.getBoolean(KEY_TIMER_VIBRATE, false));
                     booleans.put(KEY_TIMER_VOLUME_BUTTONS_ACTION, prefs.getBoolean(KEY_TIMER_VOLUME_BUTTONS_ACTION, false));
                     booleans.put(KEY_TIMER_POWER_BUTTON_ACTION, prefs.getBoolean(KEY_TIMER_POWER_BUTTON_ACTION, false));
@@ -212,7 +212,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, prefs.getBoolean(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, false));
                     booleans.put(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, prefs.getBoolean(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER, true));
 
-                    // Values from ScreensaverSettingsActivity
+                    // Values from ScreensaverSettingsFragment
                     booleans.put(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, prefs.getBoolean(KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS, false));
                     booleans.put(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS, prefs.getBoolean(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS, false));
                     booleans.put(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, prefs.getBoolean(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD, false));
@@ -222,7 +222,7 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_BOLD, true));
                     booleans.put(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, prefs.getBoolean(KEY_SCREENSAVER_NEXT_ALARM_IN_ITALIC, false));
 
-                    // Values from DigitalWidgetCustomizationActivity
+                    // Values from DigitalWidgetSettingsFragment
                     booleans.put(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS, false));
                     booleans.put(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false));
                     booleans.put(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, prefs.getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true));
@@ -232,20 +232,20 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true));
                     booleans.put(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, prefs.getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true));
 
-                    // Values from VerticalDigitalWidgetCustomizationActivity
+                    // Values from VerticalDigitalWidgetSettingsFragment
                     booleans.put(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND, prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false));
                     booleans.put(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, true));
                     booleans.put(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, true));
                     booleans.put(KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, true));
                     booleans.put(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true));
 
-                    // Values from NextAlarmWidgetCustomizationActivity
+                    // Values from NextAlarmWidgetSettingsFragment
                     booleans.put(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, false));
                     booleans.put(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true));
                     booleans.put(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true));
                     booleans.put(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, prefs.getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true));
 
-                    // Values from MaterialYouDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouDigitalWidgetSettingsFragment
                     booleans.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true));
                     booleans.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true));
@@ -253,30 +253,30 @@ public class BackupAndRestoreUtils {
                     booleans.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true));
 
-                    // Values from MaterialYouVerticalDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouVerticalDigitalWidgetSettingsFragment
                     booleans.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true));
 
-                    // Values from MaterialYouNextAlarmWidgetCustomizationActivity
+                    // Values from MaterialYouNextAlarmWidgetSettingsFragment
                     booleans.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true));
                     booleans.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, prefs.getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true));
 
                 } else if (entry.getValue() instanceof String) {
-                    // Values from InterfaceCustomizationActivity
+                    // Values from InterfaceCustomizationFragment
                     strings.put(KEY_CUSTOM_LANGUAGE_CODE, prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, "system_language_code"));
                     strings.put(KEY_THEME, prefs.getString(KEY_THEME, "0"));
                     strings.put(KEY_DARK_MODE, prefs.getString(KEY_DARK_MODE, "0"));
                     strings.put(KEY_ACCENT_COLOR, prefs.getString(KEY_ACCENT_COLOR, "0"));
                     strings.put(KEY_NIGHT_ACCENT_COLOR, prefs.getString(KEY_NIGHT_ACCENT_COLOR, "0"));
 
-                    // Values from ClockSettingsActivity
+                    // Values from ClockSettingsFragment
                     strings.put(KEY_CLOCK_STYLE, prefs.getString(KEY_CLOCK_STYLE, "digital"));
                     strings.put(KEY_HOME_TIME_ZONE, prefs.getString(KEY_HOME_TIME_ZONE, null));
 
-                    // Values from AlarmSettingsActivity
+                    // Values from AlarmSettingsFragment
                     // Todo: possible to backup the alarm ringtone?
                     //strings.put(KEY_DEFAULT_ALARM_RINGTONE, prefs.getString(KEY_DEFAULT_ALARM_RINGTONE, null));
                     strings.put(KEY_AUTO_SILENCE, prefs.getString(KEY_AUTO_SILENCE, "10"));
@@ -290,12 +290,12 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_ALARM_NOTIFICATION_REMINDER_TIME, prefs.getString(KEY_ALARM_NOTIFICATION_REMINDER_TIME, "30"));
                     strings.put(KEY_MATERIAL_TIME_PICKER_STYLE, prefs.getString(KEY_MATERIAL_TIME_PICKER_STYLE, "analog"));
 
-                    // Values from AlarmDisplayCustomizationActivity
+                    // Values from AlarmDisplayCustomizationFragment
                     strings.put(KEY_ALARM_CLOCK_STYLE, prefs.getString(KEY_ALARM_CLOCK_STYLE, "digital"));
                     strings.put(KEY_ALARM_CLOCK_FONT_SIZE, prefs.getString(KEY_ALARM_CLOCK_FONT_SIZE, "70"));
                     strings.put(KEY_ALARM_TITLE_FONT_SIZE, prefs.getString(KEY_ALARM_TITLE_FONT_SIZE, "26"));
 
-                    // Values from TimerSettingsActivity
+                    // Values from TimerSettingsFragment
                     // Todo: possible to backup the timer ringtone?
                     //strings.put(KEY_DEFAULT_ALARM_RINGTONE, prefs.getString(KEY_DEFAULT_ALARM_RINGTONE, null));
                     strings.put(KEY_TIMER_AUTO_SILENCE, prefs.getString(KEY_TIMER_AUTO_SILENCE, "30"));
@@ -303,38 +303,38 @@ public class BackupAndRestoreUtils {
                     strings.put(KEY_SORT_TIMER, prefs.getString(KEY_SORT_TIMER, "0"));
                     strings.put(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, prefs.getString(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, "1"));
 
-                    // Values from StopwatchSettingsActivity
+                    // Values from StopwatchSettingsFragment
                     strings.put(KEY_SW_VOLUME_UP_ACTION, prefs.getString(KEY_SW_VOLUME_UP_ACTION, "0"));
                     strings.put(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, prefs.getString(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS, "0"));
                     strings.put(KEY_SW_VOLUME_DOWN_ACTION, prefs.getString(KEY_SW_VOLUME_DOWN_ACTION, "0"));
                     strings.put(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, prefs.getString(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS, "0"));
 
-                    // Values from ScreensaverSettingsActivity
+                    // Values from ScreensaverSettingsFragment
                     strings.put(KEY_SCREENSAVER_CLOCK_STYLE, prefs.getString(KEY_SCREENSAVER_CLOCK_STYLE, "digital"));
 
-                    // Values from DigitalWidgetCustomizationActivity
+                    // Values from DigitalWidgetSettingsFragment
                     strings.put(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, prefs.getString(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "80"));
 
-                    // Values from VerticalDigitalWidgetCustomizationActivity
+                    // Values from VerticalDigitalWidgetSettingsFragment
                     strings.put(KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, prefs.getString(KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "70"));
 
-                    // Values from NextAlarmWidgetCustomizationActivity
+                    // Values from NextAlarmWidgetSettingsFragment
                     strings.put(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, prefs.getString(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, "70"));
 
-                    // Values from MaterialYouDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouDigitalWidgetSettingsFragment
                     strings.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, prefs.getString(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "80"));
 
-                    // Values from MaterialYouVerticalDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouVerticalDigitalWidgetSettingsFragment
                     strings.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, prefs.getString(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, "70"));
 
-                    // Values from MaterialYouNextAlarmWidgetCustomizationActivity
+                    // Values from MaterialYouNextAlarmWidgetSettingsFragment
                     strings.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, prefs.getString(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, "70"));
 
                 } else if (entry.getValue() instanceof Integer) {
-                    // Values from AlarmSettingsActivity
+                    // Values from AlarmSettingsFragment
                     ints.put(KEY_SHAKE_INTENSITY, prefs.getInt(KEY_SHAKE_INTENSITY, 16));
 
-                    // Values from AlarmDisplayCustomizationActivity
+                    // Values from AlarmDisplayCustomizationFragment
                     ints.put(KEY_ALARM_BACKGROUND_COLOR, prefs.getInt(KEY_ALARM_BACKGROUND_COLOR, Color.parseColor("#FF191C1E")));
                     ints.put(KEY_ALARM_BACKGROUND_AMOLED_COLOR, prefs.getInt(KEY_ALARM_BACKGROUND_AMOLED_COLOR, Color.parseColor("#FF000000")));
                     ints.put(KEY_ALARM_CLOCK_COLOR, prefs.getInt(KEY_ALARM_CLOCK_COLOR, Color.parseColor("#FF8A9297")));
@@ -345,13 +345,13 @@ public class BackupAndRestoreUtils {
                     ints.put(KEY_ALARM_BUTTON_COLOR, prefs.getInt(KEY_ALARM_BUTTON_COLOR, Color.parseColor("#FF8A9297")));
                     ints.put(KEY_PULSE_COLOR, prefs.getInt(KEY_PULSE_COLOR, Color.parseColor("#FFC0C7CD")));
 
-                    // Values from ScreensaverSettingsActivity
+                    // Values from ScreensaverSettingsFragment
                     ints.put(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_CLOCK_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_DATE_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_DATE_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, prefs.getInt(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_SCREENSAVER_BRIGHTNESS, prefs.getInt(KEY_SCREENSAVER_BRIGHTNESS, 40));
 
-                    // Values from DigitalWidgetCustomizationActivity
+                    // Values from DigitalWidgetSettingsFragment
                     ints.put(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, prefs.getInt(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000")));
                     ints.put(KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR, prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF")));
@@ -359,33 +359,33 @@ public class BackupAndRestoreUtils {
                     ints.put(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, prefs.getInt(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, Color.parseColor("#FFFFFF")));
 
-                    // Values from VerticalDigitalWidgetCustomizationActivity
+                    // Values from VerticalDigitalWidgetSettingsFragment
                     ints.put(KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR, prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000")));
                     ints.put(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR, prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF")));
 
-                    // Values from NextAlarmWidgetCustomizationActivity
+                    // Values from NextAlarmWidgetSettingsFragment
                     ints.put(KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR, prefs.getInt(KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR, Color.parseColor("#70000000")));
                     ints.put(KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR, prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR, prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, prefs.getInt(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, Color.parseColor("#FFFFFF")));
 
-                    // Values from MaterialYouDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouDigitalWidgetSettingsFragment
                     ints.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR, prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR, Color.parseColor("#FFFFFF")));
 
-                    // Values from MaterialYouVerticalDigitalWidgetCustomizationActivity
+                    // Values from MaterialYouVerticalDigitalWidgetSettingsFragment
                     ints.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR, prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR, Color.parseColor("#FFFFFF")));
 
-                    // Values from MaterialYouNextAlarmWidgetCustomizationActivity
+                    // Values from MaterialYouNextAlarmWidgetSettingsFragment
                     ints.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR, prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR, prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR, Color.parseColor("#FFFFFF")));
                     ints.put(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR, Color.parseColor("#FFFFFF")));

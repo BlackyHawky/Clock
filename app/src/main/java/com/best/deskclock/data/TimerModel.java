@@ -10,6 +10,7 @@ import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_RINGTONE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -37,7 +38,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.settings.TimerSettingsActivity;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.LogUtils;
@@ -955,7 +955,7 @@ final class TimerModel {
     private final class PreferenceListener implements OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (TimerSettingsActivity.KEY_TIMER_RINGTONE.equals(key)) {
+            if (KEY_TIMER_RINGTONE.equals(key)) {
                 mTimerRingtoneUri = null;
                 mTimerRingtoneTitle = null;
             }

@@ -13,9 +13,9 @@ import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.data.Timer.State.RUNNING;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_BY_NAME;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_NAME;
 import static com.best.deskclock.utils.Utils.now;
 import static com.best.deskclock.utils.Utils.wallClock;
 

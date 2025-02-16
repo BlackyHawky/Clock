@@ -7,7 +7,7 @@
 package com.best.deskclock.timer;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_MANUALLY;
+import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_MANUALLY;
 
 import android.content.Context;
 import android.content.SharedPreferences;

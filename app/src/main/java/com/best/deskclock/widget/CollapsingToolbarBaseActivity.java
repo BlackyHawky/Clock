@@ -6,13 +6,10 @@
 
 package com.best.deskclock.widget;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,10 +22,9 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.ringtone.RingtonePickerActivity;
-import com.best.deskclock.settings.AboutActivity;
+import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.utils.ThemeUtils;
-import com.best.deskclock.worldclock.CitySelectionActivity;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -43,6 +39,8 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
     @Nullable
     private AppBarLayout mAppBarLayout;
+
+    private boolean mIsFadeTransitionEnabled;
 
     /**
      * This method should be implemented by subclasses of CollapsingToolbarBaseActivity
@@ -61,6 +59,8 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
+        mIsFadeTransitionEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         if (mCollapsingToolbarLayout == null) {
@@ -77,15 +77,19 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
 
-        final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
-        if (isFadeTransitionsEnabled) {
+        if (mIsFadeTransitionEnabled) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
 
+        // Exclude SettingsActivity as this is handled in SettingsFragment.
+        if (!(this instanceof SettingsActivity)) {
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
                     finish();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    if (mIsFadeTransitionEnabled) {
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
                 }
             });
         }
@@ -97,30 +101,6 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
         if (mCollapsingToolbarLayout != null) {
             mCollapsingToolbarLayout.setTitle(getActivityTitle());
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!(this instanceof RingtonePickerActivity || this instanceof CitySelectionActivity
-                || this instanceof AboutActivity)) {
-
-            menu.add(0, Menu.NONE, 0, R.string.about_title)
-                    .setIcon(R.drawable.ic_about).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            final Intent settingIntent = new Intent(getApplicationContext(), AboutActivity.class);
-            startActivity(settingIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

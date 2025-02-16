@@ -11,7 +11,8 @@ import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
@@ -404,7 +405,7 @@ public class DeskClock extends AppCompatActivity
         menu.add(0, Menu.NONE, 1, R.string.settings)
                 .setIcon(R.drawable.ic_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        if (PermissionsManagementActivity.areEssentialPermissionsNotGranted(this)) {
+        if (areEssentialPermissionsNotGranted(this)) {
             final Drawable warningIcon = AppCompatResources.getDrawable(this, R.drawable.ic_error);
             if (warningIcon != null) {
                 warningIcon.setColorFilter(this.getColor(R.color.colorAlert), PorterDuff.Mode.SRC_IN);
@@ -418,13 +419,13 @@ public class DeskClock extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == 0) {
-            final Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            final Intent settingIntent = new Intent(this, SettingsActivity.class);
             getSettingsActivity.launch(settingIntent);
             return true;
         }
 
         if (item.getItemId() == 1) {
-            final Intent permissionManagementIntent = new Intent(getApplicationContext(), PermissionsManagementActivity.class);
+            final Intent permissionManagementIntent = new Intent(this, PermissionsManagementActivity.class);
             getPermissionManagementActivity.launch(permissionManagementIntent);
             return true;
         }

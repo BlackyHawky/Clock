@@ -11,11 +11,11 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_LAP;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_RESET;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_SHARE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_START_PAUSE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_DEFAULT_ACTION;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_LAP;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_RESET;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_SHARE;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_START_PAUSE;
+import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_DEFAULT_ACTION;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.app.Activity;

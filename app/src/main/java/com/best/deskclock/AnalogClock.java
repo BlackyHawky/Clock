@@ -8,16 +8,16 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationActivity.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.INDIGO_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.InterfaceCustomizationFragment.YELLOW_ACCENT_COLOR;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -114,7 +114,7 @@
             app:singleLineTitle="false" />
 
         <!-- To be more user-friendly, the default value 16 will be written as 1 and the
-             maximum value 55 will be written as 40. See the AlarmSettingsActivity file. -->
+             maximum value 55 will be written as 40. See the AlarmSettingsFragment file. -->
         <SeekBarPreference
             android:key="key_shake_intensity"
             android:layout="@layout/settings_preference_seekbar_layout"
