@@ -10,7 +10,7 @@ import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GEN
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;
@@ -231,7 +231,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.alarm_activity);
 
         final String darkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
                 ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
                 : DataModel.getDataModel().getAlarmBackgroundColor();

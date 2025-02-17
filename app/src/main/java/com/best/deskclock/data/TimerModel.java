@@ -8,9 +8,10 @@ package com.best.deskclock.data;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
+
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.RESET;
-import static com.best.deskclock.settings.TimerSettingsFragment.KEY_TIMER_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

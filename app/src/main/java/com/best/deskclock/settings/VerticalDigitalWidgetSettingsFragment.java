@@ -5,6 +5,17 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static com.best.deskclock.data.WidgetModel.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -30,30 +41,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
-            "key_vertical_digital_widget_display_background";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR =
-            "key_vertical_digital_widget_background_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR =
-            "key_vertical_digital_widget_default_hours_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR =
-            "key_vertical_digital_widget_custom_hours_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR =
-            "key_vertical_digital_widget_default_minutes_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR =
-            "key_vertical_digital_widget_custom_minutes_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR =
-            "key_vertical_digital_widget_default_date_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR =
-            "key_vertical_digital_widget_custom_date_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR =
-            "key_vertical_digital_widget_default_next_alarm_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR =
-            "key_vertical_digital_widget_custom_next_alarm_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
-            "key_vertical_digital_widget_max_clock_font_size";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     ColorPreference mBackgroundColorPref;
     ColorPreference mCustomHoursColorPref;

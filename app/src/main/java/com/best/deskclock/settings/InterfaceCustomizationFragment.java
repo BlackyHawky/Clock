@@ -4,6 +4,17 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,34 +41,6 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_THEME = "key_theme";
-    public static final String SYSTEM_THEME = "0";
-    public static final String LIGHT_THEME = "1";
-    public static final String DARK_THEME = "2";
-    public static final String KEY_DARK_MODE = "key_dark_mode";
-    public static final String KEY_DEFAULT_DARK_MODE = "0";
-    public static final String KEY_AMOLED_DARK_MODE = "1";
-    public static final String KEY_ACCENT_COLOR = "key_accent_color";
-    public static final String BLUE_GRAY_ACCENT_COLOR = "1";
-    public static final String BROWN_ACCENT_COLOR = "2";
-    public static final String GREEN_ACCENT_COLOR = "3";
-    public static final String INDIGO_ACCENT_COLOR = "4";
-    public static final String ORANGE_ACCENT_COLOR = "5";
-    public static final String PINK_ACCENT_COLOR = "6";
-    public static final String RED_ACCENT_COLOR = "7";
-    public static final String BLACK_ACCENT_COLOR = "8";
-    public static final String PURPLE_ACCENT_COLOR = "9";
-    public static final String YELLOW_ACCENT_COLOR = "10";
-    public static final String KEY_AUTO_NIGHT_ACCENT_COLOR = "key_auto_night_accent_color";
-    public static final String KEY_NIGHT_ACCENT_COLOR = "key_night_accent_color";
-    public static final String KEY_CARD_BACKGROUND = "key_card_background";
-    public static final String KEY_CARD_BORDER = "key_card_border";
-    public static final String KEY_CUSTOM_LANGUAGE_CODE = "key_custom_language_code";
-    public static final String KEY_SYSTEM_LANGUAGE_CODE = "system_language_code";
-    public static final String KEY_VIBRATIONS = "key_vibrations";
-    public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
-    public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
 
     ListPreference mThemePref;
     ListPreference mDarkModePref;

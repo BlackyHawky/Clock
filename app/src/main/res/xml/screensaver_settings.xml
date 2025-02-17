@@ -19,7 +19,7 @@
             android:key="key_screensaver_clock_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
-            android:defaultValue="@string/default_clock_style"
+            android:defaultValue="digital"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             app:iconSpaceReserved="false"

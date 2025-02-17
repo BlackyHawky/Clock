@@ -2,6 +2,13 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,19 +18,6 @@ import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.R;
 
 public class WidgetSettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
-
-    public static final String KEY_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_digital_widget_customization";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_vertical_digital_widget_customization";
-    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOMIZATION =
-            "key_next_alarm_widget_customization";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_material_you_digital_widget_customization";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION =
-            "key_material_you_vertical_digital_widget_customization";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION =
-            "key_material_you_next_alarm_widget_customization";
 
     Preference mDigitalWidgetCustomizationPref;
     Preference mVerticalDigitalWidgetCustomizationPref;

@@ -8,14 +8,15 @@ package com.best.deskclock.data;
 
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
+
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
 import static com.best.deskclock.data.Timer.State.RESET;
 import static com.best.deskclock.data.Timer.State.RUNNING;
-import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_ASCENDING_DURATION;
-import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_DESCENDING_DURATION;
-import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_BY_NAME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_TIMER_BY_ASCENDING_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_TIMER_BY_DESCENDING_DURATION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_TIMER_BY_NAME;
 import static com.best.deskclock.utils.Utils.now;
 import static com.best.deskclock.utils.Utils.wallClock;
 
@@ -67,9 +68,9 @@ public final class Timer {
 
                 if (state == RESET) {
                     switch (timerSortingPreference) {
-                        case KEY_SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
-                        case KEY_SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
-                        case KEY_SORT_TIMER_BY_NAME -> sorting =
+                        case SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
+                        case SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
+                        case SORT_TIMER_BY_NAME -> sorting =
                                 CharSequence.compare(timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
                     }
                 } else {

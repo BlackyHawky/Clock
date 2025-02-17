@@ -11,11 +11,12 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_LAP;
-import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_RESET;
-import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_SHARE;
-import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_ACTION_START_PAUSE;
-import static com.best.deskclock.settings.StopwatchSettingsFragment.KEY_SW_DEFAULT_ACTION;
+
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHARE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.app.Activity;
@@ -212,16 +213,16 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_UP:
-                    if (mVolumeUpAction.equals(KEY_SW_DEFAULT_ACTION)
-                            && mVolumeUpActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION)
+                            && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
                     mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
                     return true;
 
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    if (mVolumeDownAction.equals(KEY_SW_DEFAULT_ACTION)
-                            && mVolumeDownActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION)
+                            && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
                     mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
@@ -614,24 +615,24 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private void getVolumeButtonsActions(String volumeAction) {
         switch (volumeAction) {
-            case KEY_SW_ACTION_START_PAUSE -> {
+            case SW_ACTION_START_PAUSE -> {
                 if (getStopwatch().isReset() || getStopwatch().isPaused()) {
                     doStart();
                 } else {
                     doPause();
                 }
             }
-            case KEY_SW_ACTION_RESET -> {
+            case SW_ACTION_RESET -> {
                 if (getStopwatch().isRunning() || getStopwatch().isPaused()) {
                     doReset();
                 }
             }
-            case KEY_SW_ACTION_LAP -> {
+            case SW_ACTION_LAP -> {
                 if (getStopwatch().isRunning()) {
                     doAddLap();
                 }
             }
-            case KEY_SW_ACTION_SHARE -> {
+            case SW_ACTION_SHARE -> {
                 if (getStopwatch().isRunning()) {
                     doPause();
                     doShare();

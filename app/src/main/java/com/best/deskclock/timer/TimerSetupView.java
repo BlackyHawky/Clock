@@ -8,7 +8,7 @@ package com.best.deskclock.timer;
 
 import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -113,7 +113,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
             if (isCardBackgroundDisplayed) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
                         MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK)));
-            } else if (isNight && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            } else if (isNight && darkMode.equals(AMOLED_DARK_MODE)) {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             } else {
                 digitButton.setBackgroundTintList(ColorStateList.valueOf(
@@ -141,7 +141,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(
                     MaterialColors.getColor(getContext(), com.google.android.material.R.attr.colorPrimaryContainer, Color.BLACK)));
-        } else if (isNight && darkMode.equals((KEY_AMOLED_DARK_MODE))) {
+        } else if (isNight && darkMode.equals((AMOLED_DARK_MODE))) {
             doubleZeroButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
             mDeleteButton.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
         } else {

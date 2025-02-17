@@ -5,6 +5,19 @@ package com.best.deskclock.settings;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_TIMER_SCREEN_ON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FLIP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_POWER_BUTTON_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VIBRATE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VOLUME_BUTTONS_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -27,26 +40,6 @@ public class TimerSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_TIMER_RINGTONE = "key_timer_ringtone";
-    public static final String KEY_TIMER_AUTO_SILENCE = "key_timer_auto_silence";
-    public static final String KEY_TIMER_CRESCENDO = "key_timer_crescendo_duration";
-    public static final String KEY_TIMER_VIBRATE = "key_timer_vibrate";
-    public static final String KEY_TIMER_VOLUME_BUTTONS_ACTION = "key_timer_volume_buttons_action";
-    public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";
-    public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
-    public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
-    public static final String KEY_SORT_TIMER = "key_sort_timer";
-    public static final String KEY_SORT_TIMER_MANUALLY = "0";
-    public static final String KEY_SORT_TIMER_BY_ASCENDING_DURATION = "1";
-    public static final String KEY_SORT_TIMER_BY_DESCENDING_DURATION = "2";
-    public static final String KEY_SORT_TIMER_BY_NAME = "3";
-    public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
-    public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
-    public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER =
-            "key_transparent_background_for_expired_timer";
-    public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER =
-            "key_display_warning_before_deleting_timer";
 
     ListPreference mTimerAutoSilencePref;
     ListPreference mTimerCrescendoPref;
@@ -75,7 +68,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
         mTimerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
         mTimerAutoSilencePref = findPreference(KEY_TIMER_AUTO_SILENCE);
-        mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO);
+        mTimerCrescendoPref = findPreference(KEY_TIMER_CRESCENDO_DURATION);
         mTimerVibratePref = findPreference(KEY_TIMER_VIBRATE);
         mTimerVolumeButtonsActionPref = findPreference(KEY_TIMER_VOLUME_BUTTONS_ACTION);
         mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
@@ -115,7 +108,7 @@ public class TimerSettingsFragment extends ScreenFragment
         switch (pref.getKey()) {
             case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
-            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
+            case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);

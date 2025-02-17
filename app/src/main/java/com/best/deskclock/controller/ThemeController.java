@@ -2,21 +2,21 @@
 
 package com.best.deskclock.controller;
 
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLACK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.BLUE_GRAY_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.BROWN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.GREEN_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.INDIGO_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_DEFAULT_DARK_MODE;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.ORANGE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.PINK_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.PURPLE_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.RED_ACCENT_COLOR;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.YELLOW_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.INDIGO_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.ORANGE_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.PINK_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.PURPLE_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.RED_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT_COLOR;
 
 import android.app.Activity;
 import android.app.Application;
@@ -166,13 +166,13 @@ public class ThemeController {
         }
 
         private void applyDarkMode(Activity activity, String theme, String darkMode) {
-            if (darkMode.equals(KEY_DEFAULT_DARK_MODE)) {
+            if (darkMode.equals(DEFAULT_DARK_MODE)) {
                 switch (theme) {
                     case SYSTEM_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     case LIGHT_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     case DARK_THEME -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
-            } else if (darkMode.equals(KEY_AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
+            } else if (darkMode.equals(AMOLED_DARK_MODE) && !theme.equals(SYSTEM_THEME) && !theme.equals(LIGHT_THEME)) {
                 activity.setTheme(R.style.AmoledTheme);
             }
         }
@@ -199,7 +199,7 @@ public class ThemeController {
         }
 
         private void applyNavigationBarColorForCollapsingToolbar(Activity activity, String darkMode) {
-            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             } else {
@@ -209,7 +209,7 @@ public class ThemeController {
         }
 
         private void applyNavigationBarColorForRegularActivity(Activity activity, String darkMode) {
-            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
             }

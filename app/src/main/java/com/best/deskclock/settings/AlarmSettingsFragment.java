@@ -5,6 +5,25 @@ package com.best.deskclock.settings;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CRESCENDO_DURATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_NOTIFICATION_REMINDER_TIME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SNOOZE_DURATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_SILENCE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SWIPE_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -29,34 +48,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_DEFAULT_ALARM_RINGTONE = "key_default_alarm_ringtone";
-    public static final String KEY_AUTO_SILENCE = "key_auto_silence";
-    public static final String KEY_ALARM_SNOOZE = "key_snooze_duration";
-    public static final String KEY_ALARM_VOLUME_SETTING = "key_volume_setting";
-    public static final String KEY_ALARM_CRESCENDO = "key_alarm_crescendo_duration";
-    public static final String KEY_SWIPE_ACTION = "key_swipe_action";
-    public static final String KEY_VOLUME_BUTTONS = "key_volume_button_setting";
-    public static final String DEFAULT_VOLUME_BEHAVIOR = "-1";
-    public static final String VOLUME_BEHAVIOR_CHANGE_VOLUME = "0";
-    public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
-    public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_POWER_BUTTON = "key_power_button";
-    public static final String DEFAULT_POWER_BEHAVIOR = "0";
-    public static final String POWER_BEHAVIOR_SNOOZE = "1";
-    public static final String POWER_BEHAVIOR_DISMISS = "2";
-    public static final String KEY_FLIP_ACTION = "key_flip_action";
-    public static final String KEY_SHAKE_ACTION = "key_shake_action";
-    public static final String KEY_SHAKE_INTENSITY = "key_shake_intensity";
-    public static final String KEY_WEEK_START = "key_week_start";
-    public static final String KEY_ALARM_NOTIFICATION_REMINDER_TIME = "key_alarm_notification_reminder_time";
-    public static final String KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT = "key_enable_alarm_vibrations_by_default";
-    public static final String KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS = "key_enable_snoozed_or_dismissed_alarm_vibrations";
-    public static final String KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM = "key_turn_on_back_flash_for_triggered_alarm";
-    public static final String KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = "key_enable_delete_occasional_alarm_by_default";
-    public static final String KEY_MATERIAL_TIME_PICKER_STYLE = "key_material_time_picker_style";
-    public static final String MATERIAL_TIME_PICKER_ANALOG_STYLE = "analog";
-    public static final String KEY_ALARM_DISPLAY_CUSTOMIZATION = "key_alarm_display_customization";
 
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
@@ -91,9 +82,9 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmRingtonePref = findPreference(KEY_DEFAULT_ALARM_RINGTONE);
         mAutoSilencePref = findPreference(KEY_AUTO_SILENCE);
-        mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE);
+        mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mAlarmVolumePreference = findPreference(KEY_ALARM_VOLUME_SETTING);
-        mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO);
+        mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
         mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
@@ -154,7 +145,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                     Utils.setVibrationTime(requireContext(), 50);
 
-            case KEY_ALARM_SNOOZE, KEY_ALARM_CRESCENDO, KEY_VOLUME_BUTTONS,
+            case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
                  KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_ALARM_NOTIFICATION_REMINDER_TIME,
                  KEY_MATERIAL_TIME_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;

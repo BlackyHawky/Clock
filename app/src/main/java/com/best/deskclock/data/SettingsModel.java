@@ -50,7 +50,7 @@ final class SettingsModel {
         mTimeModel = timeModel;
 
         // Set the user's default display seconds preference if one has not yet been chosen.
-        SettingsDAO.setDefaultDisplayClockSeconds(mContext, prefs);
+        SettingsDAO.setDefaultDisplayClockSeconds(prefs);
     }
 
     int getGlobalIntentId() {
@@ -74,7 +74,7 @@ final class SettingsModel {
     }
 
     ClockStyle getClockStyle() {
-        return SettingsDAO.getClockStyle(mContext, mPrefs);
+        return SettingsDAO.getClockStyle(mPrefs);
     }
 
     String getTheme() {
@@ -134,7 +134,7 @@ final class SettingsModel {
     }
 
     ClockStyle getScreensaverClockStyle() {
-        return SettingsDAO.getScreensaverClockStyle(mContext, mPrefs);
+        return SettingsDAO.getScreensaverClockStyle(mPrefs);
     }
 
     public boolean areScreensaverClockDynamicColors() {
@@ -315,7 +315,7 @@ final class SettingsModel {
     }
 
     ClockStyle getAlarmClockStyle() {
-        return SettingsDAO.getAlarmClockStyle(mContext, mPrefs);
+        return SettingsDAO.getAlarmClockStyle(mPrefs);
     }
 
     boolean isAlarmSecondsHandDisplayed() {

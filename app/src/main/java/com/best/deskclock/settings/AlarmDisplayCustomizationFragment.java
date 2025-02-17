@@ -2,7 +2,16 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECONDS_HAND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECONDS_HAND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,24 +34,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_ALARM_CLOCK_STYLE = "key_alarm_clock_style";
-    public static final String KEY_DISPLAY_ALARM_SECONDS_HAND = "key_display_alarm_seconds_hand";
-    public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
-    public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
-    public static final String KEY_ALARM_CLOCK_COLOR = "key_alarm_clock_color";
-    public static final String KEY_ALARM_SECONDS_HAND_COLOR = "key_alarm_seconds_hand_color";
-    public static final String KEY_ALARM_TITLE_COLOR = "key_alarm_title_color";
-    public static final String KEY_SNOOZE_BUTTON_COLOR = "key_snooze_button_color";
-    public static final String KEY_DISMISS_BUTTON_COLOR = "key_dismiss_button_color";
-    public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
-    public static final String KEY_PULSE_COLOR = "key_pulse_color";
-    public static final String KEY_ALARM_CLOCK_FONT_SIZE = "key_alarm_clock_font_size";
-    public static final String DEFAULT_ALARM_CLOCK_FONT_SIZE = "70";
-    public static final String KEY_ALARM_TITLE_FONT_SIZE = "key_alarm_title_font_size";
-    public static final String DEFAULT_ALARM_TITLE_FONT_SIZE = "26";
-    public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
-    public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     ListPreference mAlarmClockStyle;
     String[] mAlarmClockStyleValues;
@@ -191,7 +182,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
     private void setupPreferences() {
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         mBackgroundAmoledColorPref.setVisible(isAmoledMode);
         mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());
 

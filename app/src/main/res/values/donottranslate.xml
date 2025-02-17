@@ -18,8 +18,6 @@
     <string name="abbrev_wday_month_day_no_year">EEEMMMd</string>
     <!-- Format for describing the date, for accessibility. -->
     <string name="full_wday_month_day_no_year">EEEEMMMMd</string>
-    <!-- Default clock style. -->
-    <string name="default_clock_style">digital</string>
     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
     <string name="clock_emoji">A</string>
 

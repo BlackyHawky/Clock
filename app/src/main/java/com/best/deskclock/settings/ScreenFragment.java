@@ -6,10 +6,10 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.AboutFragment.KEY_ABOUT_TITLE;
-import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_ALARM_VOLUME_SETTING;
-import static com.best.deskclock.settings.AlarmSettingsFragment.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.ScreensaverSettingsFragment.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 
 import android.os.Build;
 import android.os.Bundle;

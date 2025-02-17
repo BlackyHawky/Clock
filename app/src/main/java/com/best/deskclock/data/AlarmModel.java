@@ -12,7 +12,7 @@ import android.net.Uri;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.settings.AlarmSettingsFragment;
+import com.best.deskclock.settings.PreferencesKeys;
 
 /**
  * All alarm data will eventually be accessed via this model.
@@ -218,7 +218,7 @@ final class AlarmModel {
     private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (AlarmSettingsFragment.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
+            if (PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
                 mAlarmRingtoneUriFromSettings = null;
                 mAlarmRingtoneTitle = null;
             }

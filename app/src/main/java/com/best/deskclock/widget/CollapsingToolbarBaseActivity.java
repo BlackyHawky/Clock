@@ -6,7 +6,7 @@
 
 package com.best.deskclock.widget;
 
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,7 +66,7 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
         if (mCollapsingToolbarLayout == null) {
             return;
         }
-        if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE)) {
             mCollapsingToolbarLayout.setBackgroundColor(getColor(android.R.color.black));
             mCollapsingToolbarLayout.setContentScrimColor(getColor(android.R.color.black));
         }

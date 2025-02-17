@@ -11,10 +11,11 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
+
+import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 import static com.best.deskclock.utils.Utils.enforceMainLooper;
 import static com.best.deskclock.utils.Utils.enforceNotMainLooper;
 

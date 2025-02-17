@@ -2,6 +2,20 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_BLACKYHAWKY;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_CRDROID;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_FEATURES;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_LINEAGEOS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_NILSU11;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_ODMFL;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_QW123WH;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_READ_LICENCE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TRANSLATE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VERSION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_VIEW_ON_GITHUB;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_WHATS_NEW;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,20 +28,6 @@ import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 
 public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
-
-    public static final String KEY_ABOUT_TITLE = "key_about_title";
-    public static final String KEY_ABOUT_VERSION = "key_about_version";
-    public static final String KEY_ABOUT_WHATS_NEW = "key_about_whats_new";
-    public static final String KEY_ABOUT_FEATURES = "key_about_features";
-    public static final String KEY_ABOUT_VIEW_ON_GITHUB = "key_about_view_on_github";
-    public static final String KEY_ABOUT_TRANSLATE = "key_about_translate";
-    public static final String KEY_ABOUT_READ_LICENCE = "key_about_read_licence";
-    public static final String KEY_ABOUT_BLACKYHAWKY = "key_about_blackyhawky";
-    public static final String KEY_ABOUT_QW123WH = "key_about_qw123wh";
-    public static final String KEY_ABOUT_ODMFL = "key_about_odmfl";
-    public static final String KEY_ABOUT_NILSU11 = "key_about_nilsu11";
-    public static final String KEY_ABOUT_LINEAGEOS = "key_about_lineageos";
-    public static final String KEY_ABOUT_CRDROID = "key_about_crdroid";
 
     Preference mWhatsNewPreference;
     Preference mAboutFeatures;

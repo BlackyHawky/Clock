@@ -9,10 +9,20 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.DARK_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.LIGHT_THEME;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.SYSTEM_THEME;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SYSTEM_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_BACKUP_RESTORE_PREFERENCES;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_INTERFACE_CUSTOMIZATION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_PERMISSIONS_MANAGEMENT;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_PERMISSION_MESSAGE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_STOPWATCH_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
 
 import android.content.Context;
 import android.content.Intent;
@@ -75,17 +85,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
 
         private int mRecyclerViewPosition = -1;
-
-        public static final String KEY_PERMISSION_MESSAGE = "key_permission_message";
-        public static final String KEY_INTERFACE_CUSTOMIZATION = "key_interface_customization";
-        public static final String KEY_CLOCK_SETTINGS = "key_clock_settings";
-        public static final String KEY_ALARM_SETTINGS = "key_alarm_settings";
-        public static final String KEY_TIMER_SETTINGS = "key_timer_settings";
-        public static final String KEY_STOPWATCH_SETTINGS = "key_stopwatch_settings";
-        public static final String KEY_SCREENSAVER_SETTINGS = "key_screensaver_settings";
-        public static final String KEY_WIDGETS_SETTINGS = "key_widgets_settings";
-        public static final String KEY_PERMISSIONS_MANAGEMENT = "key_permissions_management";
-        public static final String KEY_BACKUP_RESTORE_PREFERENCES = "key_backup_restore_preferences";
 
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
@@ -311,7 +310,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
                 BackupAndRestoreUtils.settingsToJsonStream(sharedPreferences.getAll(), outputStream, sharedPreferences, context);
             } catch (IOException e) {
-                LogUtils.wtf("error during backup");
+                LogUtils.wtf("Error during backup");
             }
         }
 

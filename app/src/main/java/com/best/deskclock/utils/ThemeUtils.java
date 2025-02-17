@@ -10,7 +10,7 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -75,7 +75,7 @@ public class ThemeUtils {
             gradientDrawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
-            if (isNight(context.getResources()) && darkMode.equals(KEY_AMOLED_DARK_MODE)) {
+            if (isNight(context.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 gradientDrawable.setColor(Color.BLACK);
             } else {
                 gradientDrawable.setColor(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));

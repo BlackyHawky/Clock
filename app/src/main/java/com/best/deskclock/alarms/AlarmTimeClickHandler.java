@@ -6,7 +6,7 @@
 
 package com.best.deskclock.alarms;
 
-import static com.best.deskclock.settings.AlarmSettingsFragment.MATERIAL_TIME_PICKER_ANALOG_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 
 import android.content.Context;
 import android.content.Intent;
@@ -181,7 +181,7 @@ public final class AlarmTimeClickHandler {
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)

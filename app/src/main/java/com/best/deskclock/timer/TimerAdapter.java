@@ -7,7 +7,7 @@
 package com.best.deskclock.timer;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.TimerSettingsFragment.KEY_SORT_TIMER_MANUALLY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -120,7 +120,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public List<Timer> getTimers() {
         List<Timer> timers = DataModel.getDataModel().getTimers();
         String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
-        if (!timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
+        if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
             Collections.sort(timers, Timer.TIMER_STATE_COMPARATOR);
         }
         return mTimers;
@@ -208,7 +208,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
 
             // Allow dragging only if timers are sorted manually
-            if (timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
+            if (timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
                 if (ThemeUtils.isTablet()) {
                     dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
                 } else {

@@ -4,6 +4,12 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DISPLAY_SECONDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_UPCOMING_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,13 +31,6 @@ public class ClockSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_CLOCK_STYLE = "key_clock_style";
-    public static final String KEY_CLOCK_DISPLAY_SECONDS = "key_display_clock_seconds";
-    public static final String KEY_DISPLAY_UPCOMING_ALARM = "key_display_upcoming_alarm";
-    public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
-    public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
-    public static final String KEY_DATE_TIME = "key_date_time";
 
     ListPreference mClockStylePref;
     SwitchPreferenceCompat mClockDisplaySecondsPref;

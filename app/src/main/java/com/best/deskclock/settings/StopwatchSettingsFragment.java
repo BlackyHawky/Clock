@@ -3,6 +3,10 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS;
 
 import android.os.Bundle;
 
@@ -15,16 +19,6 @@ public class StopwatchSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_SW_VOLUME_UP_ACTION = "key_sw_volume_up_action";
-    public static final String KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS = "key_sw_volume_up_action_after_long_press";
-    public static final String KEY_SW_VOLUME_DOWN_ACTION = "key_sw_volume_down_action";
-    public static final String KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS = "key_sw_volume_down_action_after_long_press";
-    public static final String KEY_SW_DEFAULT_ACTION = "0";
-    public static final String KEY_SW_ACTION_START_PAUSE = "1";
-    public static final String KEY_SW_ACTION_RESET = "2";
-    public static final String KEY_SW_ACTION_LAP = "3";
-    public static final String KEY_SW_ACTION_SHARE = "4";
 
     ListPreference mVolumeUpActionPref;
     ListPreference mVolumeUpActionAfterLongPressPref;

@@ -8,7 +8,8 @@ package com.best.deskclock.settings;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.settings.InterfaceCustomizationFragment.KEY_AMOLED_DARK_MODE;
+
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -113,7 +114,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         hideNavigationBar();
 
         final String getDarkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(KEY_AMOLED_DARK_MODE);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
                 ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
                 : DataModel.getDataModel().getAlarmBackgroundColor();

@@ -5,6 +5,15 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -29,26 +38,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND =
-            "key_next_alarm_widget_display_background";
-    public static final String KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR =
-            "key_next_alarm_widget_background_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR =
-            "key_next_alarm_widget_default_title_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR =
-            "key_next_alarm_widget_custom_title_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR =
-            "key_next_alarm_widget_default_alarm_title_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR =
-            "key_next_alarm_widget_custom_alarm_title_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR =
-            "key_next_alarm_widget_default_alarm_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR =
-            "key_next_alarm_widget_custom_alarm_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE =
-            "key_next_alarm_widget_max_font_size";
-    public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_FONT_SIZE = "70";
 
     ColorPreference mBackgroundColorPref;
     ColorPreference mCustomTitleColorPref;

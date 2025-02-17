@@ -5,6 +5,21 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -32,38 +47,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
     private int mRecyclerViewPosition = -1;
-
-    public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS =
-            "key_digital_widget_display_seconds";
-    public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND =
-            "key_digital_widget_display_background";
-    public static final String KEY_DIGITAL_WIDGET_BACKGROUND_COLOR =
-            "key_digital_widget_background_color";
-    public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
-            "key_digital_widget_world_cities_displayed";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR =
-            "key_digital_widget_default_clock_color";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR =
-            "key_digital_widget_custom_clock_color";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR =
-            "key_digital_widget_default_date_color";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR =
-            "key_digital_widget_custom_date_color";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR =
-            "key_digital_widget_default_next_alarm_color";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR =
-            "key_digital_widget_custom_next_alarm_color";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR =
-            "key_digital_widget_default_city_clock_color";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR =
-            "key_digital_widget_custom_city_clock_color";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR =
-            "key_digital_widget_default_city_name_color";
-    public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR =
-            "key_digital_widget_custom_city_name_color";
-    public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
-            "key_digital_widget_max_clock_font_size";
-    public static final String KEY_DIGITAL_WIDGET_DEFAULT_FONT_SIZE = "80";
 
     ColorPreference mBackgroundColorPref;
     ColorPreference mCustomClockColorPref;
