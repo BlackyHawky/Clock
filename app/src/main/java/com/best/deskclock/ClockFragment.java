@@ -10,6 +10,7 @@ import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
@@ -19,6 +20,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -39,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -72,6 +75,7 @@ public final class ClockFragment extends DeskClockFragment {
     private String mDateFormatForAccessibility;
     private Context mContext;
 
+    public static SharedPreferences mPrefs;
     public static boolean mIsPortrait;
     public static boolean mIsLandscape;
     public static boolean mIsTablet;
@@ -100,12 +104,13 @@ public final class ClockFragment extends DeskClockFragment {
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
 
         mContext = requireContext();
-        mClockStyle = DataModel.getDataModel().getClockStyle();
-        mDisplayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
+        mDisplayClockSeconds = SettingsDAO.getDisplayClockSeconds(mPrefs);
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsTablet = ThemeUtils.isTablet();
-        mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
+        mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
@@ -342,7 +347,7 @@ public final class ClockFragment extends DeskClockFragment {
                 itemView.setBackground(ThemeUtils.cardBackground(context));
 
                 // Configure the digital clock or analog clock depending on the user preference.
-                if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
+                if (SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG) {
                     mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
@@ -455,8 +460,8 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
-                DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
-                boolean displayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
+                DataModel.ClockStyle clockStyle = SettingsDAO.getClockStyle(mPrefs);
+                boolean displayClockSeconds = SettingsDAO.getDisplayClockSeconds(mPrefs);
                 AlarmUtils.refreshAlarm(context, itemView);
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 ClockUtils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);

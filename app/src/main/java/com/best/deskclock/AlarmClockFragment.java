@@ -6,11 +6,13 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -45,7 +47,7 @@ import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.best.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -87,6 +89,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private static final String ARG_MINUTE = TAG + "_minute";
 
     private Context mContext;
+    private SharedPreferences mPrefs;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -120,6 +123,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+
+        mPrefs = getDefaultSharedPreferences(requireContext());
+
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
@@ -523,7 +529,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(mPrefs);
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)

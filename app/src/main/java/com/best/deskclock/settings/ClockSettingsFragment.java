@@ -2,8 +2,8 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.alarmclock.WidgetUtils.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
@@ -23,7 +23,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.TimeZones;
 import com.best.deskclock.utils.Utils;
 
@@ -90,7 +90,7 @@ public class ClockSettingsFragment extends ScreenFragment
             }
 
             case KEY_CLOCK_DISPLAY_SECONDS -> {
-                DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
+                SettingsDAO.setDisplayClockSeconds(mPrefs, (boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -132,7 +132,7 @@ public class ClockSettingsFragment extends ScreenFragment
      * Reconstruct the timezone list.
      */
     private void loadTimeZoneList() {
-        final TimeZones timezones = DataModel.getDataModel().getTimeZones();
+        final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis());
         mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
         mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
         mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
@@ -144,7 +144,7 @@ public class ClockSettingsFragment extends ScreenFragment
 
         mClockDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-        mDisplayUpcomingAlarmPref.setChecked(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+        mDisplayUpcomingAlarmPref.setChecked(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
         mDisplayUpcomingAlarmPref.setOnPreferenceChangeListener(this);
 
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);

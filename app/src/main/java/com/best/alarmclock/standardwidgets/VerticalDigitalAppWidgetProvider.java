@@ -16,10 +16,11 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
-import static com.best.deskclock.data.WidgetModel.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.alarmclock.WidgetUtils.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -33,6 +34,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -51,7 +53,8 @@ import androidx.annotation.NonNull;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -111,8 +114,9 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
                                               Bundle options, boolean portrait) {
 
         // Create a remote view for the digital clock.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnVerticalDigitalWidget();
+        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(prefs);
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
                 ? R.layout.standard_vertical_digital_widget_with_background
                 : R.layout.standard_vertical_digital_widget
@@ -129,7 +133,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewText(R.id.date, getDateFormat(context));
 
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
         } else {
@@ -151,7 +155,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = DataModel.getDataModel().getVerticalDigitalWidgetMaxClockFontSize();
+        final String maxClockFontSize = WidgetDAO.getVerticalDigitalWidgetMaxClockFontSize(prefs);
         final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(maxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
@@ -171,47 +175,39 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clockMinutes, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the hours.
-        final boolean isDefaultHoursColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultHoursColor();
-        final int customHoursColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomHoursColor();
-
-        if (isDefaultHoursColor) {
+        final int customHoursColor = WidgetDAO.getVerticalDigitalWidgetCustomHoursColor(prefs);
+        if (WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(prefs)) {
             rv.setTextColor(R.id.clockHours, Color.WHITE);
         } else {
             rv.setTextColor(R.id.clockHours, customHoursColor);
         }
 
         // Apply the color to the minutes.
-        final boolean isDefaultMinutesColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultMinutesColor();
-        final int customMinutesColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomMinutesColor();
-
-        if (isDefaultMinutesColor) {
+        final int customMinutesColor = WidgetDAO.getVerticalDigitalWidgetCustomMinutesColor(prefs);
+        if (WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(prefs)) {
             rv.setTextColor(R.id.clockMinutes, Color.WHITE);
         } else {
             rv.setTextColor(R.id.clockMinutes, customMinutesColor);
         }
 
         // Apply the color to the date.
-        final boolean isDefaultDateColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultDateColor();
-        final int customDateColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomDateColor();
-
-        if (isDefaultDateColor) {
+        final int customDateColor = WidgetDAO.getVerticalDigitalWidgetCustomDateColor(prefs);
+        if (WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(prefs)) {
             rv.setTextColor(R.id.date, Color.WHITE);
         } else {
             rv.setTextColor(R.id.date, customDateColor);
         }
 
         // Apply the color to the next alarm.
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
-
-        if (isDefaultNextAlarmColor) {
+        final int customNextAlarmColor = WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs);
+        if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
             rv.setTextColor(R.id.nextAlarm, Color.WHITE);
         } else {
             rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = DataModel.getDataModel().getVerticalDigitalWidgetBackgroundColor();
+        int backgroundColor = WidgetDAO.getVerticalDigitalWidgetBackgroundColor(prefs);
         rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         return rv;
@@ -222,6 +218,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
      * the optimal sizes that fit within the widget bounds are located.
      */
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
@@ -234,7 +231,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
         // Configure the next alarm views to display the next alarm time or be gone.
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
-        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
         } else {
@@ -243,10 +240,8 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the color to the next alarm icon.
-            final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isVerticalDigitalWidgetDefaultNextAlarmColor();
-            final int customNextAlarmColor = DataModel.getDataModel().getVerticalDigitalWidgetCustomNextAlarmColor();
-
-            if (isDefaultNextAlarmColor) {
+            final int customNextAlarmColor = WidgetDAO.getVerticalDigitalWidgetCustomNextAlarmColor(prefs);
+            if (WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
                 nextAlarmIcon.setTextColor(customNextAlarmColor);
@@ -382,8 +377,7 @@ public class VerticalDigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
     }
 
     /**

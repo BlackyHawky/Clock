@@ -13,7 +13,6 @@ import android.widget.RemoteViews;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 
 /**
  * Simple widget to show the Material You analog clock.
@@ -33,8 +32,7 @@ public class MaterialYouAnalogAppWidgetProvider extends AppWidgetProvider {
         final ComponentName provider = new ComponentName(context, getClass());
         final int widgetCount = wm.getAppWidgetIds(provider).length;
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetCount, R.string.category_analog_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetCount, R.string.category_analog_widget);
     }
 
     /**

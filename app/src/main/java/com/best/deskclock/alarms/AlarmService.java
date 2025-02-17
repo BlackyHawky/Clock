@@ -6,6 +6,8 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -13,6 +15,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,7 +33,7 @@ import android.os.Vibrator;
 
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
@@ -116,6 +119,7 @@ public class AlarmService extends Service {
      */
     private boolean mIsRegistered = false;
 
+    private SharedPreferences mPrefs;
     private Vibrator mVibrator;
     private CameraManager mCameraManager;
     private String mCameraId;
@@ -248,7 +252,7 @@ public class AlarmService extends Service {
             float y = event.values[1] - gravity[1];
             float z = event.values[2] - gravity[2];
 
-            float sensitivity = DataModel.getDataModel().getShakeIntensity();
+            float sensitivity = SettingsDAO.getShakeIntensity(mPrefs);
 
             if (fill <= BUFFER) {
                 average += Math.abs(x) + Math.abs(y) + Math.abs(z);
@@ -280,6 +284,7 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        mPrefs = getDefaultSharedPreferences(this);
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
@@ -292,8 +297,8 @@ public class AlarmService extends Service {
 
         // Setup for flip and shake actions
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mFlipAction = DataModel.getDataModel().getFlipAction();
-        mShakeAction = DataModel.getDataModel().getShakeAction();
+        mFlipAction = SettingsDAO.getFlipAction(mPrefs);
+        mShakeAction = SettingsDAO.getShakeAction(mPrefs);
 
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);

@@ -37,7 +37,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.card.MaterialCardView;
@@ -121,8 +121,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mNotificationStatus = rootView.findViewById(R.id.notification_status_text);
 
-            final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-            final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+            final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+            final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
 
             updateCardViews(isCardBackgroundDisplayed, isCardBorderDisplayed);
 

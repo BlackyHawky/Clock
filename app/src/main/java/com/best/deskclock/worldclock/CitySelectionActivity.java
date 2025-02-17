@@ -8,6 +8,8 @@ package com.best.deskclock.worldclock;
 
 import static android.view.Menu.NONE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
@@ -37,6 +39,7 @@ import androidx.core.view.MenuProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.ArrayList;
@@ -166,7 +169,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
     }
 
     private int getMenuTitle() {
-        if (DataModel.getDataModel().getCitySort() == DataModel.CitySort.NAME) {
+        if (SettingsDAO.getCitySort(getDefaultSharedPreferences(this)) == DataModel.CitySort.NAME) {
             return R.string.menu_item_sort_by_gmt_offset;
         } else {
             return R.string.menu_item_sort_by_name;
@@ -548,7 +551,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         private DataModel.CitySort getCitySort() {
-            return DataModel.getDataModel().getCitySort();
+            return SettingsDAO.getCitySort(getDefaultSharedPreferences(mContext));
         }
 
         private Comparator<City> getCitySortComparator() {

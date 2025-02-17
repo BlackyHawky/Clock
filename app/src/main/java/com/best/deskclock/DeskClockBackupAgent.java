@@ -6,6 +6,8 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.backup.BackupAgent;
@@ -14,13 +16,14 @@ import android.app.backup.BackupDataOutput;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
@@ -41,8 +44,9 @@ public class DeskClockBackupAgent extends BackupAgent {
      * @return {@code true} if restore data was processed; {@code false} otherwise.
      */
     public static boolean processRestoredData(Context context) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // If data was not recently restored, there is nothing to do.
-        if (!DataModel.getDataModel().isRestoreBackupFinished()) {
+        if (!SettingsDAO.isRestoreBackupFinished(prefs)) {
             return false;
         }
 
@@ -72,7 +76,7 @@ public class DeskClockBackupAgent extends BackupAgent {
         }
 
         // Remove the preference to avoid executing this logic multiple times.
-        DataModel.getDataModel().setRestoreBackupFinished(false);
+        SettingsDAO.setRestoreBackupFinished(prefs, false);
 
         LOGGER.i("processRestoredData() completed");
         return true;
@@ -118,7 +122,7 @@ public class DeskClockBackupAgent extends BackupAgent {
         // the device-encrypted storage area
 
         // Indicate a data restore has been completed.
-        DataModel.getDataModel().setRestoreBackupFinished(true);
+        SettingsDAO.setRestoreBackupFinished(getDefaultSharedPreferences(this), true);
 
         // Create an Intent to send into DeskClock indicating restore is complete.
         final PendingIntent restoreIntent = PendingIntent.getBroadcast(this, 0,

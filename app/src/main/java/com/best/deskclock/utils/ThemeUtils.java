@@ -10,9 +10,11 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,7 +29,7 @@ import android.view.View;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.google.android.material.color.MaterialColors;
 
 public class ThemeUtils {
@@ -64,14 +66,14 @@ public class ThemeUtils {
      * Convenience method for creating card background.
      */
     public static Drawable cardBackground (Context context) {
-        final String darkMode = DataModel.getDataModel().getDarkMode();
-        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final String darkMode = SettingsDAO.getDarkMode(prefs);
         final int radius = convertDpToPixels(18, context);
         final GradientDrawable gradientDrawable = new GradientDrawable();
 
         gradientDrawable.setCornerRadius(radius);
 
-        if (isCardBackgroundDisplayed) {
+        if (SettingsDAO.isCardBackgroundDisplayed(prefs)) {
             gradientDrawable.setColor(MaterialColors.getColor(
                     context, com.google.android.material.R.attr.colorSurface, Color.BLACK));
         } else {
@@ -82,8 +84,7 @@ public class ThemeUtils {
             }
         }
 
-        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
-        if (isCardBorderDisplayed) {
+        if (SettingsDAO.isCardBorderDisplayed(prefs)) {
             gradientDrawable.setShape(GradientDrawable.RECTANGLE);
             gradientDrawable.setStroke(convertDpToPixels(2, context),
                     MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK)

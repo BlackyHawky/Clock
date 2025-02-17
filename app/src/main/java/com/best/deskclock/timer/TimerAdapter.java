@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.R;
@@ -44,8 +45,12 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
     private final TimerClickHandler mTimerClickHandler;
     private final List<Timer> mTimers;
+    private final Context mContext;
+    private final SharedPreferences mPrefs;
 
-    public TimerAdapter(List<Timer> timers, TimerClickHandler timerClickHandler) {
+    public TimerAdapter(Context context, SharedPreferences sharedPreferences, List<Timer> timers, TimerClickHandler timerClickHandler) {
+        mContext = context;
+        mPrefs = sharedPreferences;
         mTimers = timers;
         mTimerClickHandler = timerClickHandler;
     }
@@ -119,9 +124,9 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public List<Timer> getTimers() {
         List<Timer> timers = DataModel.getDataModel().getTimers();
-        String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
+        String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mPrefs);
         if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
-            Collections.sort(timers, Timer.TIMER_STATE_COMPARATOR);
+            Collections.sort(timers, Timer.createTimerStateComparator(mContext));
         }
         return mTimers;
     }
@@ -205,7 +210,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         @Override
         public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
             final int dragFlags;
-            String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
+            String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mAdapter.mPrefs);
 
             // Allow dragging only if timers are sorted manually
             if (timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {

@@ -6,8 +6,11 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.app.AlarmManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
@@ -22,7 +25,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
@@ -80,7 +83,7 @@ public class AlarmUtils {
         }
 
         final String alarm = getNextAlarm(context);
-        if (TextUtils.isEmpty(alarm) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+        if (TextUtils.isEmpty(alarm) || !SettingsDAO.isUpcomingAlarmDisplayed(getDefaultSharedPreferences(context))) {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         } else {
@@ -93,8 +96,7 @@ public class AlarmUtils {
         }
     }
 
-    public static String getAlarmText(Context context, AlarmInstance instance,
-                                      boolean includeLabel) {
+    public static String getAlarmText(Context context, AlarmInstance instance, boolean includeLabel) {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
@@ -105,15 +107,14 @@ public class AlarmUtils {
         final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            final SharedPreferences prefs = getDefaultSharedPreferences(context);
             // Add a "Thin Space" (\u2009) at the end of the next alarm to prevent its display from being cut off on some devices.
             // (The display of the next alarm is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
-            final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
-            if (isScreensaverDateInItalic) {
+            if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
                 // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
                 // alarm icon and next alarm only when the date is in italics.
                 pattern = "\u2009" + DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
-            } else if (isScreensaverNextAlarmInItalic) {
+            } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
                 pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
             }
         }

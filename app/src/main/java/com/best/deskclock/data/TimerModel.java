@@ -70,11 +70,6 @@ final class TimerModel {
     private final AlarmManager mAlarmManager;
 
     /**
-     * The model from which settings are fetched.
-     */
-    private final SettingsModel mSettingsModel;
-
-    /**
      * The model from which notification data are fetched.
      */
     private final NotificationModel mNotificationModel;
@@ -121,6 +116,11 @@ final class TimerModel {
     private final Set<Integer> mRingingIds = new ArraySet<>();
 
     /**
+     * The uri of the default ringtone to use for timers until the user explicitly chooses one.
+     */
+    private Uri mDefaultTimerRingtoneUri;
+
+    /**
      * The uri of the ringtone to play for timers.
      */
     private Uri mTimerRingtoneUri;
@@ -152,11 +152,11 @@ final class TimerModel {
      */
     private Service mService;
 
-    TimerModel(Context context, SharedPreferences prefs, SettingsModel settingsModel,
-               RingtoneModel ringtoneModel, NotificationModel notificationModel) {
+    TimerModel(Context context, SharedPreferences prefs, RingtoneModel ringtoneModel,
+               NotificationModel notificationModel) {
+
         mContext = context;
         mPrefs = prefs;
-        mSettingsModel = settingsModel;
         mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
@@ -418,7 +418,11 @@ final class TimerModel {
      * @return the uri of the default ringtone to play for all timers when no user selection exists
      */
     Uri getDefaultTimerRingtoneUri() {
-        return mSettingsModel.getDefaultTimerRingtoneUri();
+        if (mDefaultTimerRingtoneUri == null) {
+            mDefaultTimerRingtoneUri = Utils.getResourceUri(mContext, R.raw.timer_expire);
+        }
+
+        return mDefaultTimerRingtoneUri;
     }
 
     /**
@@ -433,7 +437,7 @@ final class TimerModel {
      */
     Uri getTimerRingtoneUri() {
         if (mTimerRingtoneUri == null) {
-            mTimerRingtoneUri = mSettingsModel.getTimerRingtoneUri();
+            mTimerRingtoneUri = SettingsDAO.getTimerRingtoneUri(mPrefs, getDefaultTimerRingtoneUri());
         }
 
         return mTimerRingtoneUri;
@@ -443,7 +447,7 @@ final class TimerModel {
      * @param uri the uri of the ringtone to play for all timers
      */
     void setTimerRingtoneUri(Uri uri) {
-        mSettingsModel.setTimerRingtoneUri(uri);
+        SettingsDAO.setTimerRingtoneUri(mPrefs, uri);
     }
 
     /**
@@ -474,92 +478,7 @@ final class TimerModel {
      * @return the duration for which a timer can ring before expiring and being reset
      */
     long getTimerAutoSilenceDuration() {
-        return mSettingsModel.getTimerAutoSilenceDuration();
-    }
-
-    /**
-     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
-     * {@code 0} implies no crescendo should be applied
-     */
-    long getTimerCrescendoDuration() {
-        return mSettingsModel.getTimerCrescendoDuration();
-    }
-
-    /**
-     * @return {@code true} if the device vibrates when timers expire. {@code false} otherwise.
-     */
-    boolean getTimerVibrate() {
-        return mSettingsModel.getTimerVibrate();
-    }
-
-    /**
-     * @return whether the expired timer is reset with the volume buttons. {@code false} otherwise.
-     */
-    boolean isExpiredTimerResetWithVolumeButtons() {
-        return mSettingsModel.isExpiredTimerResetWithVolumeButtons();
-    }
-
-    /**
-     * @return whether the expired timer is reset with the power button. {@code false} otherwise.
-     */
-    boolean isExpiredTimerResetWithPowerButton() {
-        return mSettingsModel.isExpiredTimerResetWithPowerButton();
-    }
-
-    /**
-     * @return whether flip action for timers is enabled. {@code false} otherwise.
-     */
-    boolean isFlipActionForTimersEnabled() {
-        return mSettingsModel.isFlipActionForTimersEnabled();
-    }
-
-    /**
-     * @return whether shake action for timers is enabled. {@code false} otherwise.
-     */
-    boolean isShakeActionForTimersEnabled() {
-        return mSettingsModel.isShakeActionForTimersEnabled();
-    }
-
-    /**
-     * @param enabled {@code true} if the device should vibrate when timers expire
-     */
-    void setTimerVibrate(boolean enabled) {
-        mSettingsModel.setTimerVibrate(enabled);
-    }
-
-    /**
-     * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
-     */
-    String getTimerSortingPreference() {
-        return mSettingsModel.getTimerSortingPreference();
-    }
-
-    /**
-     * @return the default minutes or hour to add to timer when the "Add Minute Or Hour" button is clicked.
-     */
-    int getDefaultTimeToAddToTimer() {
-        return mSettingsModel.getDefaultTimeToAddToTimer();
-    }
-
-    /**
-     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
-     */
-    boolean shouldTimerDisplayRemainOn() {
-        return mSettingsModel.shouldTimerDisplayRemainOn();
-    }
-
-    /**
-     * @return {@code true} if the timer background must be transparent. {@code false} otherwise.
-     */
-    boolean isTimerBackgroundTransparent() {
-        return mSettingsModel.isTimerBackgroundTransparent();
-    }
-
-    /**
-     * @return {@code true} if a warning is displayed before deleting a timer. {@code false} otherwise.
-     */
-    boolean isWarningDisplayedBeforeDeletingTimer() {
-        return mSettingsModel.isWarningDisplayedBeforeDeletingTimer();
+        return SettingsDAO.getTimerAutoSilenceDuration(mPrefs);
     }
 
     private List<Timer> getMutableTimers() {
@@ -579,7 +498,7 @@ final class TimerModel {
                     mExpiredTimers.add(timer);
                 }
             }
-            Collections.sort(mExpiredTimers, Timer.TIMER_STATE_COMPARATOR);
+            Collections.sort(mExpiredTimers, Timer.createTimerStateComparator(mContext));
         }
 
         return mExpiredTimers;
@@ -594,7 +513,7 @@ final class TimerModel {
                     mMissedTimers.add(timer);
                 }
             }
-            Collections.sort(mMissedTimers, Timer.TIMER_STATE_COMPARATOR);
+            Collections.sort(mMissedTimers, Timer.createTimerStateComparator(mContext));
         }
 
         return mMissedTimers;
@@ -864,7 +783,7 @@ final class TimerModel {
         }
 
         // Sort the unexpired timers to locate the next one scheduled to expire.
-        Collections.sort(unexpired, Timer.TIMER_STATE_COMPARATOR);
+        Collections.sort(unexpired, Timer.createTimerStateComparator(mContext));
 
         // Otherwise build and post a notification reflecting the latest unexpired timers.
         final Notification notification =

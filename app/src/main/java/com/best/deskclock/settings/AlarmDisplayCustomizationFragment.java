@@ -25,7 +25,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPreference;
@@ -102,7 +102,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockIndex]);
                 mAlarmClockFontSizePref.setVisible(!newValue.equals(mAnalogClock));
                 mDisplaySecondsPref.setVisible(newValue.equals(mAnalogClock));
-                mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
+                mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
                 mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock)
                         && mDisplaySecondsPref.isChecked()
                 );
@@ -144,7 +144,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         if (pref.getKey().equals(KEY_PREVIEW_ALARM)) {
             startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
-            final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+            final boolean isFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
             if (isFadeTransitionsEnabled) {
                 requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
@@ -154,13 +154,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     private void refresh() {
-        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(DataModel.getDataModel()
-                .getAlarmClockStyle().toString().toLowerCase());
+        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(
+                SettingsDAO.getAlarmClockStyle(mPrefs).toString().toLowerCase());
         mAlarmClockStyle.setValueIndex(clockStyleIndex);
         mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockStyleIndex]);
         mAlarmClockStyle.setOnPreferenceChangeListener(this);
 
-        mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
+        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
         mAlarmClockFontSizePref.setOnPreferenceChangeListener(this);
@@ -181,21 +181,21 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         mBackgroundAmoledColorPref.setVisible(isAmoledMode);
         mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());
 
-        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(DataModel.getDataModel()
-                .getAlarmClockStyle().toString().toLowerCase());
+        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(
+                SettingsDAO.getAlarmClockStyle(mPrefs).toString().toLowerCase());
         // clockStyleIndex == 0 --> analog
         // clockStyleIndex == 1 --> digital
         mDisplaySecondsPref.setVisible(clockStyleIndex == 0);
-        mDisplaySecondsPref.setChecked(DataModel.getDataModel().isAlarmSecondsHandDisplayed());
+        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
         mAlarmClockFontSizePref.setVisible(clockStyleIndex == 1);
-        mAlarmClockFontSizePref.setSummary(DataModel.getDataModel().getAlarmClockFontSize());
-        mAlarmTitleFontSizePref.setSummary(DataModel.getDataModel().getAlarmTitleFontSize());
+        mAlarmClockFontSizePref.setSummary(SettingsDAO.getAlarmClockFontSize(mPrefs));
+        mAlarmTitleFontSizePref.setSummary(SettingsDAO.getAlarmTitleFontSize(mPrefs));
     }
 
 }

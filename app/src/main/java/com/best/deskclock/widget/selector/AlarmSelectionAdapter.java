@@ -6,6 +6,8 @@
 
 package com.best.deskclock.widget.selector;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.ThemeUtils;
@@ -100,7 +102,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
                         context.getResources().getString(R.string.alarm_tomorrow) :
                         context.getResources().getString(R.string.alarm_today);
             } else {
-                final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+                final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
                 daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
             }
 

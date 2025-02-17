@@ -6,7 +6,8 @@
 
 package com.best.deskclock.data;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -39,11 +40,6 @@ final class CityModel {
     private final Context mContext;
 
     private final SharedPreferences mPrefs;
-
-    /**
-     * The model from which settings are fetched.
-     */
-    private final SettingsModel mSettingsModel;
 
     /**
      * Retain a hard reference to the shared preference observer to prevent it from being garbage
@@ -89,10 +85,9 @@ final class CityModel {
     private City mHomeCity;
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    CityModel(Context context, SharedPreferences prefs, SettingsModel settingsModel) {
+    CityModel(Context context, SharedPreferences prefs) {
         mContext = context;
         mPrefs = prefs;
-        mSettingsModel = settingsModel;
 
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter();
@@ -143,7 +138,7 @@ final class CityModel {
     City getHomeCity() {
         if (mHomeCity == null) {
             final String name = mContext.getString(R.string.home_label);
-            final TimeZone timeZone = mSettingsModel.getHomeTimeZone();
+            final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
             mHomeCity = new City(null, -1, null, name, name, timeZone);
         }
 
@@ -216,7 +211,7 @@ final class CityModel {
      * @return a comparator used to locate index positions
      */
     Comparator<City> getCityIndexComparator() {
-        final CitySort citySort = mSettingsModel.getCitySort();
+        final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
             return new City.NameIndexComparator();
         } else if (citySort == CitySort.UTC_OFFSET) {
@@ -226,17 +221,10 @@ final class CityModel {
     }
 
     /**
-     * @return the order in which cities are sorted
-     */
-    CitySort getCitySort() {
-        return mSettingsModel.getCitySort();
-    }
-
-    /**
      * Adjust the order in which cities are sorted.
      */
     void toggleCitySort() {
-        mSettingsModel.toggleCitySort();
+        SettingsDAO.toggleCitySort(mPrefs);
 
         // Clear caches affected by this update.
         mAllCities = null;
@@ -252,7 +240,7 @@ final class CityModel {
     }
 
     private Comparator<City> getCitySortComparator() {
-        final CitySort citySort = mSettingsModel.getCitySort();
+        final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
             return new City.NameComparator();
         } else if (citySort == CitySort.UTC_OFFSET) {
@@ -262,7 +250,7 @@ final class CityModel {
     }
 
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(WidgetModel.ACTION_WORLD_CITIES_CHANGED));
+        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
         for (CityListener cityListener : mCityListeners) {
             cityListener.citiesChanged();
         }

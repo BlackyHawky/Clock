@@ -33,6 +33,7 @@ import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.Utils;
 
@@ -116,7 +117,7 @@ public class TimerSettingsFragment extends ScreenFragment
 
             case KEY_TIMER_VIBRATE -> {
                 final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
-                DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
+                SettingsDAO.setTimerVibrate(mPrefs, timerVibratePref.isChecked());
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -163,9 +164,9 @@ public class TimerSettingsFragment extends ScreenFragment
             mTimerFlipActionPref.setVisible(false);
             mTimerShakeActionPref.setVisible(false);
         } else {
-            mTimerFlipActionPref.setChecked(DataModel.getDataModel().isFlipActionForTimersEnabled());
+            mTimerFlipActionPref.setChecked(SettingsDAO.isFlipActionForTimersEnabled(mPrefs));
             mTimerFlipActionPref.setOnPreferenceChangeListener(this);
-            mTimerShakeActionPref.setChecked(DataModel.getDataModel().isShakeActionForTimersEnabled());
+            mTimerShakeActionPref.setChecked(SettingsDAO.isShakeActionForTimersEnabled(mPrefs));
             mTimerShakeActionPref.setOnPreferenceChangeListener(this);
         }
     }
@@ -192,15 +193,13 @@ public class TimerSettingsFragment extends ScreenFragment
         mDefaultMinutesToAddToTimerPref.setOnPreferenceChangeListener(this);
         mDefaultMinutesToAddToTimerPref.setSummary(mDefaultMinutesToAddToTimerPref.getEntry());
 
-        mKeepTimerScreenOnPref.setChecked(DataModel.getDataModel().shouldTimerDisplayRemainOn());
+        mKeepTimerScreenOnPref.setChecked(SettingsDAO.shouldTimerDisplayRemainOn(mPrefs));
         mKeepTimerScreenOnPref.setOnPreferenceChangeListener(this);
 
-        mTransparentBackgroundPref.setChecked(DataModel.getDataModel().isTimerBackgroundTransparent());
+        mTransparentBackgroundPref.setChecked(SettingsDAO.isTimerBackgroundTransparent(mPrefs));
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 
-        mDisplayWarningBeforeDeletingTimerPref.setChecked(
-                DataModel.getDataModel().isWarningDisplayedBeforeDeletingTimer()
-        );
+        mDisplayWarningBeforeDeletingTimerPref.setChecked(SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs));
         mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
     }
 

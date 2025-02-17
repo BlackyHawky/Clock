@@ -35,7 +35,7 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.utils.Utils;
@@ -169,8 +169,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 case KEY_SCREENSAVER_CLOCK_STYLE -> {
                     final int clockIndex = mClockStyle.findIndexOfValue((String) newValue);
                     mClockStyle.setSummary(mClockStyle.getEntries()[clockIndex]);
-                    mDisplaySecondsPref.setChecked(DataModel.getDataModel().areScreensaverClockSecondsDisplayed());
-                    mClockDynamicColorPref.setChecked(DataModel.getDataModel().areScreensaverClockDynamicColors());
+                    mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
+                    mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
                     mBoldDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                     mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                 }
@@ -214,30 +214,30 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         private void setupPreferences() {
-            final int screensaverClockIndex = mClockStyle.findIndexOfValue(DataModel.getDataModel()
-                    .getScreensaverClockStyle().toString().toLowerCase());
-            mDisplaySecondsPref.setChecked(DataModel.getDataModel().areScreensaverClockSecondsDisplayed());
+            final int screensaverClockIndex = mClockStyle.findIndexOfValue(
+                    SettingsDAO.getScreensaverClockStyle(mPrefs).toString().toLowerCase());
+            mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
             // screensaverClockIndex == 1 --> digital
             mBoldDigitalClockPref.setVisible(screensaverClockIndex == 1);
             mItalicDigitalClockPref.setVisible(screensaverClockIndex == 1);
 
-            mBoldNextAlarmPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            mBoldNextAlarmPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
             if (!mBoldNextAlarmPref.isEnabled()) {
                 mBoldNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
             }
 
-            mItalicNextAlarmPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+            mItalicNextAlarmPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
             if (!mItalicNextAlarmPref.isEnabled()) {
                 mItalicNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 mClockDynamicColorPref.setVisible(true);
-                mClockDynamicColorPref.setChecked(DataModel.getDataModel().areScreensaverClockDynamicColors());
+                mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
                 mClockColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mDateColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mNextAlarmColorPref.setVisible(!mClockDynamicColorPref.isChecked());
-                mNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+                mNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
                 if (!mNextAlarmColorPref.isEnabled()) {
                     mNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
                 }
@@ -245,40 +245,40 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         }
 
         private void refresh() {
-            final int index = mClockStyle.findIndexOfValue(DataModel.getDataModel()
-                    .getScreensaverClockStyle().toString().toLowerCase());
+            final int index = mClockStyle.findIndexOfValue(
+                    SettingsDAO.getScreensaverClockStyle(mPrefs).toString().toLowerCase());
             mClockStyle.setValueIndex(index);
             mClockStyle.setSummary(mClockStyle.getEntries()[index]);
             mClockStyle.setOnPreferenceChangeListener(this);
 
-            mClockDynamicColorPref.setChecked(DataModel.getDataModel().areScreensaverClockDynamicColors());
+            mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
             mClockDynamicColorPref.setOnPreferenceChangeListener(this);
 
-            final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+            final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(mPrefs);
             mScreensaverBrightness.setValue(brightnessPercentage);
             mScreensaverBrightness.setSummary(brightnessPercentage + "%");
             mScreensaverBrightness.setOnPreferenceChangeListener(this);
             mScreensaverBrightness.setUpdatesContinuously(true);
 
-            mDisplaySecondsPref.setChecked(DataModel.getDataModel().areScreensaverClockSecondsDisplayed());
+            mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-            mBoldDigitalClockPref.setChecked(DataModel.getDataModel().isScreensaverDigitalClockInBold());
+            mBoldDigitalClockPref.setChecked(SettingsDAO.isScreensaverDigitalClockInBold(mPrefs));
             mBoldDigitalClockPref.setOnPreferenceChangeListener(this);
 
-            mItalicDigitalClockPref.setChecked(DataModel.getDataModel().isScreensaverDigitalClockInItalic());
+            mItalicDigitalClockPref.setChecked(SettingsDAO.isScreensaverDigitalClockInItalic(mPrefs));
             mItalicDigitalClockPref.setOnPreferenceChangeListener(this);
 
-            mBoldDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInBold());
+            mBoldDatePref.setChecked(SettingsDAO.isScreensaverDateInBold(mPrefs));
             mBoldDatePref.setOnPreferenceChangeListener(this);
 
-            mItalicDatePref.setChecked(DataModel.getDataModel().isScreensaverDateInItalic());
+            mItalicDatePref.setChecked(SettingsDAO.isScreensaverDateInItalic(mPrefs));
             mItalicDatePref.setOnPreferenceChangeListener(this);
 
-            mBoldNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInBold());
+            mBoldNextAlarmPref.setChecked(SettingsDAO.isScreensaverNextAlarmInBold(mPrefs));
             mBoldNextAlarmPref.setOnPreferenceChangeListener(this);
 
-            mItalicNextAlarmPref.setChecked(DataModel.getDataModel().isScreensaverNextAlarmInItalic());
+            mItalicNextAlarmPref.setChecked(SettingsDAO.isScreensaverNextAlarmInItalic(mPrefs));
             mItalicNextAlarmPref.setOnPreferenceChangeListener(this);
 
             mScreensaverPreview.setOnPreferenceClickListener(this);

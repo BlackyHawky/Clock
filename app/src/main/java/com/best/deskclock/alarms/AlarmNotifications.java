@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
@@ -31,7 +32,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
@@ -403,7 +404,7 @@ public final class AlarmNotifications {
 
         // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
         // or if "Enable alarm snooze actions" is enabled in the expanded alarm view
-        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        final int snoozeMinutes = SettingsDAO.getSnoozeLength(getDefaultSharedPreferences(service));
         if (instance.mAlarmSnoozeActions && snoozeMinutes != -1) {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
                     AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);

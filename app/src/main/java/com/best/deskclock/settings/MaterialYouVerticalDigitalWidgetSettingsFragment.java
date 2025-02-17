@@ -4,7 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR;
@@ -29,7 +29,8 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPreference;
 
@@ -182,21 +183,20 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
     private void setupPreferences() {
         mDigitalWidgetMaxClockFontSizePref.setSummary(
                 requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                        + DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetMaxClockFontSize());
+                        + WidgetDAO.getMaterialYouVerticalDigitalWidgetMaxClockFontSize(mPrefs));
 
-        mDefaultHoursColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultHoursColor());
+        mDefaultHoursColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(mPrefs));
         mCustomHoursColorPref.setVisible(!mDefaultHoursColorPref.isChecked());
 
-        mDefaultMinutesColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultMinutesColor());
+        mDefaultMinutesColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
         mCustomMinutesColorPref.setVisible(!mDefaultMinutesColorPref.isChecked());
 
-        mDefaultDateColorPref.setChecked(DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor());
+        mDefaultDateColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-        mDefaultNextAlarmColorPref.setEnabled(DataModel.getDataModel().isUpcomingAlarmDisplayed());
+        mDefaultNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
         if (mDefaultNextAlarmColorPref.isEnabled()) {
-            mDefaultNextAlarmColorPref.setChecked(
-                    DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor());
+            mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
             mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
         } else {
             mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);

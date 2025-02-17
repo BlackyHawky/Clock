@@ -11,12 +11,15 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
@@ -34,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
@@ -52,6 +56,7 @@ import java.util.List;
 public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
+    private final SharedPreferences mPrefs;
     private final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
     private final TextView ringtone;
@@ -69,6 +74,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private ExpandedAlarmViewHolder(View itemView, boolean hasVibrator, boolean hasFlash) {
         super(itemView);
 
+        final Context context = itemView.getContext();
+        mPrefs = getDefaultSharedPreferences(context);
         mHasVibrator = hasVibrator;
         mHasFlash = hasFlash;
 
@@ -82,11 +89,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete = itemView.findViewById(R.id.delete);
         duplicate = itemView.findViewById(R.id.duplicate);
 
-        final Context context = itemView.getContext();
-
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
-        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
+        final List<Integer> weekdays = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays();
         for (int i = 0; i < 7; i++) {
             final View dayButtonFrame = inflater.inflate(R.layout.day_button, repeatDays, false);
             final CompoundButton dayButton = dayButtonFrame.findViewById(R.id.day_button_box);
@@ -195,7 +200,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
-        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
+        final List<Integer> weekdays = SettingsDAO.getWeekdayOrder(mPrefs).getCalendarDays();
         for (int i = 0; i < weekdays.size(); i++) {
             final CompoundButton dayButton = dayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
@@ -225,7 +230,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindDismissAlarmWhenRingtoneEnds(Alarm alarm) {
-        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        final int timeoutMinutes = SettingsDAO.getAlarmTimeout(mPrefs);
         if (timeoutMinutes == -2) {
             dismissAlarmWhenRingtoneEnds.setVisibility(GONE);
         } else {
@@ -235,7 +240,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindAlarmSnoozeActions(Alarm alarm) {
-        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        final int snoozeMinutes = SettingsDAO.getSnoozeLength(mPrefs);
         if (snoozeMinutes == -1) {
             alarmSnoozeActions.setVisibility(GONE);
         } else {

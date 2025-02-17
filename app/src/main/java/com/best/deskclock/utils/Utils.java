@@ -9,6 +9,7 @@ package com.best.deskclock.utils;
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SYSTEM_LANGUAGE_CODE;
 
 import android.annotation.SuppressLint;
@@ -31,6 +32,7 @@ import androidx.annotation.AnyRes;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -168,7 +170,7 @@ public class Utils {
      * @return a localized context based on the custom language.
      */
     public static Context getLocalizedContext(Context context) {
-        String customLanguageCode = DataModel.getDataModel().getCustomLanguageCode();
+        String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(context));
         applySpecificLocale(context, customLanguageCode);
         return context.createConfigurationContext(context.getResources().getConfiguration());
     }
@@ -180,7 +182,7 @@ public class Utils {
      * @param milliseconds Hours to display (if any)
      */
     public static void setVibrationTime(Context context, long milliseconds) {
-        final boolean isVibrationsEnabled = DataModel.getDataModel().isVibrationsEnabled();
+        final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(context));
         final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         if (isVibrationsEnabled) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

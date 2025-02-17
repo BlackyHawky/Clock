@@ -6,6 +6,8 @@
 
 package com.best.deskclock.provider;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -19,7 +21,7 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -378,9 +380,9 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *
      * @return the time
      */
-    public Calendar getNotificationTime() {
+    public Calendar getNotificationTime(Context context) {
         Calendar calendar = getAlarmTime();
-        int getAlarmNotificationReminderTime = DataModel.getDataModel().getAlarmNotificationReminderTime();
+        int getAlarmNotificationReminderTime = SettingsDAO.getAlarmNotificationReminderTime(getDefaultSharedPreferences(context));
         calendar.add(Calendar.MINUTE, -getAlarmNotificationReminderTime);
         return calendar;
     }
@@ -402,7 +404,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time when alarm should be silence, or null if never
      */
     public Calendar getTimeout(Context context) {
-        final int timeoutMinutes = DataModel.getDataModel().getAlarmTimeout();
+        final int timeoutMinutes = SettingsDAO.getAlarmTimeout(getDefaultSharedPreferences(context));
         Calendar calendar = getAlarmTime();
 
         // Alarm silence has been set to "Never"

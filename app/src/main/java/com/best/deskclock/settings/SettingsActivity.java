@@ -6,9 +6,8 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
@@ -26,7 +25,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,7 +46,7 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.controller.ThemeController;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -137,7 +135,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     try {
                         restorePreferences(requireContext(), uri);
                         // This is to ensure that the interface theme loads correctly after the restore.
-                        String getTheme = DataModel.getDataModel().getTheme();
+                        String getTheme = SettingsDAO.getTheme(mPrefs);
                         switch (getTheme) {
                             case SYSTEM_THEME ->
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
@@ -188,7 +186,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 @Override
                 public void handleOnBackPressed() {
                     requireActivity().finish();
-                    if (DataModel.getDataModel().isFadeTransitionsEnabled()) {
+                    if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                         requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
@@ -305,10 +303,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         }
 
         private void backupPreferences(Context context, Uri uri) {
-            SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
-
             try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
-                BackupAndRestoreUtils.settingsToJsonStream(sharedPreferences.getAll(), outputStream, sharedPreferences, context);
+                BackupAndRestoreUtils.settingsToJsonStream(mPrefs.getAll(), outputStream, mPrefs, context);
             } catch (IOException e) {
                 LogUtils.wtf("Error during backup");
             }
@@ -316,9 +312,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void restorePreferences(Context context, Uri uri) throws FileNotFoundException {
             InputStream inputStream = context.getContentResolver().openInputStream(uri);
-            SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
-
-            BackupAndRestoreUtils.readJsonLines(inputStream, sharedPreferences);
+            BackupAndRestoreUtils.readJsonLines(inputStream, mPrefs);
         }
     }
 

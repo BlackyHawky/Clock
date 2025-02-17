@@ -2,7 +2,10 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 
 public class ScreensaverUtils {
 
@@ -26,11 +30,10 @@ public class ScreensaverUtils {
      * @param digitalClock if the view concerned is the digital clock
      * @param analogClock  if the view concerned is the analog clock
      */
-    public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
-        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+    public static void setScreensaverClockStyle(Context context, View digitalClock, View analogClock) {
+        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(getDefaultSharedPreferences(context));
         switch (screensaverClockStyle) {
             case ANALOG -> {
-                final Context context = analogClock.getContext();
                 final boolean isTablet = ThemeUtils.isTablet();
                 analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(isTablet ? 300 : 220, context);
                 analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(isTablet ? 300 : 220, context);
@@ -67,9 +70,10 @@ public class ScreensaverUtils {
      * @param color the color selected in the screensaver color picker
      */
     public static String getScreensaverColorFilter(Context context, int color) {
-        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
-        if (areScreensaverClockDynamicColors()) {
+        if (SettingsDAO.areScreensaverClockDynamicColors(prefs)) {
             color = context.getColor(R.color.md_theme_inversePrimary);
         }
 
@@ -82,10 +86,6 @@ public class ScreensaverUtils {
         return colorFilter;
     }
 
-    public static boolean areScreensaverClockDynamicColors() {
-        return DataModel.getDataModel().areScreensaverClockDynamicColors();
-    }
-
     /**
      * For screensaver, configure the clock that is visible to display seconds. The clock that is not visible never
      * displays seconds to avoid it scheduling unnecessary ticking runnable.
@@ -93,9 +93,10 @@ public class ScreensaverUtils {
      * @param digitalClock if the view concerned is the digital clock
      * @param analogClock  if the view concerned is the analog clock
      */
-    public static void setScreensaverClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
-        final boolean areScreensaverClockSecondsDisplayed = DataModel.getDataModel().areScreensaverClockSecondsDisplayed();
-        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+    public static void setScreensaverClockSecondsEnabled(Context context, TextClock digitalClock, AnalogClock analogClock) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean areScreensaverClockSecondsDisplayed = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
+        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         switch (screensaverClockStyle) {
             case ANALOG -> {
                 setScreensaverTimeFormat(digitalClock, false);
@@ -119,17 +120,13 @@ public class ScreensaverUtils {
      * @param includeSeconds          whether seconds are displayed or not
      */
     public static void setScreensaverTimeFormat(TextClock screensaverDigitalClock, boolean includeSeconds) {
-        final boolean isScreensaverDigitalClockInBold = DataModel.getDataModel().isScreensaverDigitalClockInBold();
-        final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
+        final Context context = screensaverDigitalClock.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean isScreensaverDigitalClockInBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
+        final boolean isScreensaverDigitalClockInItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
 
-        if (screensaverDigitalClock == null) {
-            return;
-        }
-
-        screensaverDigitalClock.setFormat12Hour(
-                ClockUtils.get12ModeFormat(screensaverDigitalClock.getContext(), 0.4f, includeSeconds));
-        screensaverDigitalClock.setFormat24Hour(
-                ClockUtils.get24ModeFormat(screensaverDigitalClock.getContext(), includeSeconds));
+        screensaverDigitalClock.setFormat12Hour(ClockUtils.get12ModeFormat(context, 0.4f, includeSeconds));
+        screensaverDigitalClock.setFormat24Hour(ClockUtils.get24ModeFormat(context, includeSeconds));
 
         if (isScreensaverDigitalClockInBold && isScreensaverDigitalClockInItalic) {
             screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -147,9 +144,10 @@ public class ScreensaverUtils {
      *
      * @param date Date to format
      */
-    public static void setScreensaverDateFormat(TextView date) {
-        final boolean isScreensaverDateInBold = DataModel.getDataModel().isScreensaverDateInBold();
-        final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
+    public static void setScreensaverDateFormat(Context context, TextView date) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean isScreensaverDateInBold = SettingsDAO.isScreensaverDateInBold(prefs);
+        final boolean isScreensaverDateInItalic = SettingsDAO.isScreensaverDateInItalic(prefs);
 
         if (isScreensaverDateInBold && isScreensaverDateInItalic) {
             date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -168,16 +166,14 @@ public class ScreensaverUtils {
      * @param nextAlarm Next alarm to format
      */
     public static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
-        final boolean isScreensaverNextAlarmInBold = DataModel.getDataModel().isScreensaverNextAlarmInBold();
-        final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
-        if (nextAlarm == null) {
-            return;
-        }
-        if (isScreensaverNextAlarmInBold && isScreensaverNextAlarmInItalic) {
+        final Context context = nextAlarm.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        if (SettingsDAO.isScreensaverNextAlarmInBold(prefs) && SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (isScreensaverNextAlarmInBold) {
+        } else if (SettingsDAO.isScreensaverNextAlarmInBold(prefs)) {
             nextAlarm.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (isScreensaverNextAlarmInItalic) {
+        } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         } else {
             nextAlarm.setTypeface(Typeface.DEFAULT);
@@ -188,6 +184,7 @@ public class ScreensaverUtils {
      * For screensaver, set the margins and the style of the clock.
      */
     public static void setScreensaverMarginsAndClockStyle(final Context context, final View clock) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final View mainClockView = clock.findViewById(R.id.main_clock);
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isLandscape = ThemeUtils.isLandscape();
@@ -221,18 +218,18 @@ public class ScreensaverUtils {
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
-        final int screenSaverClockColorPicker = DataModel.getDataModel().getScreensaverClockColorPicker();
-        final int screensaverDateColorPicker = DataModel.getDataModel().getScreensaverDateColorPicker();
-        final int screensaverNextAlarmColorPicker = DataModel.getDataModel().getScreensaverNextAlarmColorPicker();
+        final int screenSaverClockColorPicker = SettingsDAO.getScreensaverClockColorPicker(prefs);
+        final int screensaverDateColorPicker = SettingsDAO.getScreensaverDateColorPicker(prefs);
+        final int screensaverNextAlarmColorPicker = SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
 
-        setScreensaverClockStyle(textClock, analogClock);
+        setScreensaverClockStyle(context, textClock, analogClock);
         dimScreensaverView(context, textClock, screenSaverClockColorPicker);
         dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
         dimScreensaverView(context, date, screensaverDateColorPicker);
         dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
         dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
-        setScreensaverClockSecondsEnabled(textClock, analogClock);
-        setScreensaverDateFormat(date);
+        setScreensaverClockSecondsEnabled(context, textClock, analogClock);
+        setScreensaverDateFormat(context, date);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(nextAlarm);
     }

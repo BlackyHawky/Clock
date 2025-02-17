@@ -6,9 +6,12 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,6 +20,7 @@ import android.os.IBinder;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.utils.LogUtils;
@@ -119,10 +123,11 @@ public final class TimerService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
         // Set up for flip and shake actions
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mIsFlipActionEnabled = DataModel.getDataModel().isFlipActionForTimersEnabled();
-        mIsShakeActionEnabled = DataModel.getDataModel().isShakeActionForTimersEnabled();
+        mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(prefs);
+        mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(prefs);
     }
 
     @Override

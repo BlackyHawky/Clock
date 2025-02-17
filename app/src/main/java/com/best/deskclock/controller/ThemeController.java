@@ -2,6 +2,7 @@
 
 package com.best.deskclock.controller;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
@@ -20,6 +21,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.YELLOW_ACCENT
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +34,7 @@ import androidx.collection.ArrayMap;
 import androidx.core.app.ActivityCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -138,7 +140,7 @@ public class ThemeController {
          * with the new locale settings.
          */
         private void setLocale(Activity activity) {
-            String customLanguageCode = DataModel.getDataModel().getCustomLanguageCode();
+            String customLanguageCode = SettingsDAO.getCustomLanguageCode(getDefaultSharedPreferences(activity));
             Utils.applySpecificLocale(activity, customLanguageCode);
             activity.getResources().updateConfiguration(
                     activity.getResources().getConfiguration(), activity.getResources().getDisplayMetrics());
@@ -148,11 +150,12 @@ public class ThemeController {
          * Apply the theme and the accent color to the activities.
          */
         private void applyThemeAndAccentColor(final Activity activity) {
-            final String theme = DataModel.getDataModel().getTheme();
-            final String darkMode = DataModel.getDataModel().getDarkMode();
-            final String accentColor = DataModel.getDataModel().getAccentColor();
-            final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
-            final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
+            final SharedPreferences prefs = getDefaultSharedPreferences(activity);
+            final String theme = SettingsDAO.getTheme(prefs);
+            final String darkMode = SettingsDAO.getDarkMode(prefs);
+            final String accentColor = SettingsDAO.getAccentColor(prefs);
+            final boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(prefs);
+            final String nightAccentColor = SettingsDAO.getNightAccentColor(prefs);
 
             applyDarkMode(activity, theme, darkMode);
 

@@ -6,11 +6,13 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.FabContainer.FAB_REQUEST_FOCUS;
 import static com.best.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.BidiFormatter;
@@ -30,7 +32,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.best.deskclock.FabContainer;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.FormattedTextUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -84,13 +86,14 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        final SharedPreferences prefs = getDefaultSharedPreferences(getContext());
         final int marginButtonLeft = ThemeUtils.convertDpToPixels( 10, getContext());
         final int marginButtonRight = ThemeUtils.convertDpToPixels(10, getContext());
         final int marginButtonTop = ThemeUtils.convertDpToPixels(10, getContext());
         final int marginButtonBottom = ThemeUtils.convertDpToPixels(10, getContext());
-        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
-        final String darkMode = DataModel.getDataModel().getDarkMode();
+        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(prefs);
+        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(prefs);
+        final String darkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isNight = ThemeUtils.isNight(getResources());
 

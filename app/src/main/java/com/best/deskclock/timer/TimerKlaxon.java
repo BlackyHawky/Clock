@@ -6,7 +6,10 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +18,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 
@@ -41,6 +45,7 @@ public abstract class TimerKlaxon {
     }
 
     public static void start(Context context) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Make sure we are stopped before starting
         stop(context);
         LogUtils.i("TimerKlaxon.start()");
@@ -51,11 +56,11 @@ public abstract class TimerKlaxon {
             LogUtils.i("Playing silent ringtone for timer");
         } else {
             final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
-            final long crescendoDuration = DataModel.getDataModel().getTimerCrescendoDuration();
+            final long crescendoDuration = SettingsDAO.getTimerCrescendoDuration(prefs);
             getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
         }
 
-        if (DataModel.getDataModel().getTimerVibrate()) {
+        if (SettingsDAO.getTimerVibrate(prefs)) {
             final Vibrator vibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)

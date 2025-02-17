@@ -9,6 +9,8 @@ package com.best.deskclock.alarms.dataadapter;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -27,7 +29,7 @@ import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.ItemAnimator;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -143,7 +145,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     protected void bindRepeatText(Context context, Alarm alarm) {
         if (alarm.daysOfWeek.isRepeating()) {
-            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
             final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
             daysOfWeek.setText(daysOfWeekText);
 

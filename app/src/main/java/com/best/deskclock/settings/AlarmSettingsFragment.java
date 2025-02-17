@@ -39,6 +39,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.AlarmUtils;
@@ -217,8 +218,7 @@ public class AlarmSettingsFragment extends ScreenFragment
             mShakeActionPref.setOnPreferenceChangeListener(this);
 
             // shakeActionIndex == 2 --> Nothing
-            final int shakeActionIndex = mShakeActionPref.findIndexOfValue(
-                    String.valueOf(DataModel.getDataModel().getShakeAction()));
+            final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(mPrefs)));
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
             mShakeIntensityPref.setMin(16);
             if (mShakeIntensityPref.getMin() == 16) {
@@ -244,7 +244,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
         mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
 
-        mSwipeActionPref.setChecked(DataModel.getDataModel().isSwipeActionEnabled());
+        mSwipeActionPref.setChecked(SettingsDAO.isSwipeActionEnabled(mPrefs));
         mSwipeActionPref.setOnPreferenceChangeListener(this);
 
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
@@ -253,7 +253,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
 
-        final int intensity = DataModel.getDataModel().getShakeIntensity();
+        final int intensity = SettingsDAO.getShakeIntensity(mPrefs);
         mShakeIntensityPref.setValue(intensity);
         if (intensity == 16) {
             mShakeIntensityPref.setSummary(R.string.label_default);
@@ -264,7 +264,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mShakeIntensityPref.setUpdatesContinuously(true);
 
         // Set the default first day of the week programmatically
-        final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+        final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
         final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
         final String value = String.valueOf(firstDay);
         final int index = mWeekStartPref.findIndexOfValue(value);
@@ -275,16 +275,16 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
 
-        mEnableAlarmVibrationsByDefaultPref.setChecked(DataModel.getDataModel().areAlarmVibrationsEnabledByDefault());
+        mEnableAlarmVibrationsByDefaultPref.setChecked(SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs));
         mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
 
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setChecked(DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled());
+        mEnableSnoozedOrDismissedAlarmVibrationsPref.setChecked(SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs));
         mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
-        mTurnOnBackFlashForTriggeredAlarmPref.setChecked(DataModel.getDataModel().shouldTurnOnBackFlashForTriggeredAlarm());
+        mTurnOnBackFlashForTriggeredAlarmPref.setChecked(SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
-        mDeleteOccasionalAlarmByDefaultPref.setChecked(DataModel.getDataModel().isOccasionalAlarmDeletedByDefault());
+        mDeleteOccasionalAlarmByDefaultPref.setChecked(SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs));
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
 
         mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);

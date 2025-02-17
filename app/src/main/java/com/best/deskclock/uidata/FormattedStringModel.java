@@ -6,7 +6,7 @@
 
 package com.best.deskclock.uidata;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
 import static java.util.Calendar.JULY;
 
 import android.annotation.SuppressLint;

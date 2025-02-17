@@ -6,11 +6,13 @@
 
 package com.best.deskclock.settings;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,7 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -40,6 +42,7 @@ import java.util.Objects;
 
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
+    SharedPreferences mPrefs;
     AppBarLayout mAppBarLayout;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     RecyclerView mRecyclerView;
@@ -63,6 +66,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
             getPreferenceManager().setStorageDeviceProtected();
         }
 
+        mPrefs = getDefaultSharedPreferences(requireContext());
+
         setHasOptionsMenu(true);
     }
 
@@ -81,7 +86,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
             if (existingFragment == null) {
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                if (DataModel.getDataModel().isFadeTransitionsEnabled()) {
+                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
                     fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                             R.anim.fade_in, R.anim.fade_out);
                 } else {
@@ -134,8 +139,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
         super.setPreferenceScreen(preferenceScreen);
 
-        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
 
         if (preferenceScreen == null) return;
         int count = preferenceScreen.getPreferenceCount();
@@ -195,14 +200,13 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     /**
      * Initiates a fragment transaction with custom animations to replace the current fragment.
      * The new fragment is added to the back stack, allowing for back navigation, and custom
-     * slide-in and slide-out animations are applied to transition between fragments.
+     * slide-in/slide-out or fade_in/fade-out animations are applied to transition between fragments.
      *
      * @param fragment The new fragment to be displayed.
      */
     protected void animateAndShowFragment(Fragment fragment) {
-        final boolean isFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (isFadeTransitionsEnabled) {
+        if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                     R.anim.fade_in, R.anim.fade_out);
         } else {

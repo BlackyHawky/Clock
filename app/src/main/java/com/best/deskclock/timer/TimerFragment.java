@@ -12,6 +12,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.animation.Animator;
@@ -20,6 +21,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.KeyEvent;
@@ -41,6 +43,7 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
@@ -62,6 +65,7 @@ public final class TimerFragment extends DeskClockFragment {
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
+    private SharedPreferences mPrefs;
     private Context mContext;
     private RecyclerView mRecyclerView;
     private Serializable mTimerSetupState;
@@ -108,9 +112,10 @@ public final class TimerFragment extends DeskClockFragment {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
         mContext = requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
         TimerClickHandler timerClickHandler = new TimerClickHandler(this);
         mTimersList = DataModel.getDataModel().getTimers();
-        mAdapter = new TimerAdapter(mTimersList, timerClickHandler);
+        mAdapter = new TimerAdapter(mContext, mPrefs, mTimersList, timerClickHandler);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
@@ -275,7 +280,7 @@ public final class TimerFragment extends DeskClockFragment {
             try {
                 // Create the new timer.
                 final long timerLength = mCreateTimerView.getTimeInMillis();
-                String defaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
+                String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
                 final Timer timer = DataModel.getDataModel().addTimer(timerLength, "",
                         defaultTimeToAddToTimer, false);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
@@ -470,8 +475,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private void adjustWakeLock() {
-        final boolean shouldTimerDisplayRemainOn = DataModel.getDataModel().shouldTimerDisplayRemainOn();
-        if (shouldTimerDisplayRemainOn) {
+        if (SettingsDAO.shouldTimerDisplayRemainOn(mPrefs)) {
             requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             releaseWakeLock();

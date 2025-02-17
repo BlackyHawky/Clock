@@ -4,7 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED;
+import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
@@ -27,7 +27,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPreference;
 
@@ -166,16 +166,16 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mNextAlarmWidgetMaxFontSizePref.setSummary(
                 requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                        + DataModel.getDataModel().getMaterialYouNextAlarmWidgetMaxFontSize()
+                        + WidgetDAO.getMaterialYouNextAlarmWidgetMaxFontSize(mPrefs)
         );
 
-        mDefaultTitleColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultTitleColor());
+        mDefaultTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs));
         mCustomTitleColorPref.setVisible(!mDefaultTitleColorPref.isChecked());
 
-        mDefaultAlarmTitleColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor());
+        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
         mCustomAlarmTitleColorPref.setVisible(!mDefaultAlarmTitleColorPref.isChecked());
 
-        mDefaultAlarmColorPref.setChecked(DataModel.getDataModel().isMaterialYouNextAlarmWidgetDefaultAlarmColor());
+        mDefaultAlarmColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmColor(mPrefs));
         mCustomAlarmColorPref.setVisible(!mDefaultAlarmColorPref.isChecked());
     }
 

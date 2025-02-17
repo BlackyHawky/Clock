@@ -9,6 +9,7 @@ package com.best.deskclock.settings;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.animation.Animator;
@@ -20,6 +21,7 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -53,6 +55,7 @@ import androidx.core.view.animation.PathInterpolatorCompat;
 import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -102,8 +105,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final SharedPreferences prefs = getDefaultSharedPreferences(this);
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        mAreSnoozedOrDismissedAlarmVibrationsEnabled = DataModel.getDataModel().areSnoozedOrDismissedAlarmVibrationsEnabled();
+        mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(prefs);
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (ThemeUtils.isPortrait()) {
@@ -113,19 +117,19 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         // Hide navigation bar to minimize accidental tap on Home key
         hideNavigationBar();
 
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        final String getDarkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-                ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
-                : DataModel.getDataModel().getAlarmBackgroundColor();
-        int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
-        float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
-        mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());
-        mAlarmTitleColor = DataModel.getDataModel().getAlarmTitleColor();
-        int snoozeButtonColor = DataModel.getDataModel().getSnoozeButtonColor();
-        int dismissButtonColor = DataModel.getDataModel().getDismissButtonColor();
-        int alarmButtonColor = DataModel.getDataModel().getAlarmButtonColor();
-        int pulseColor = DataModel.getDataModel().getPulseColor();
+                ? SettingsDAO.getAlarmBackgroundAmoledColor(prefs)
+                : SettingsDAO.getAlarmBackgroundColor(prefs);
+        int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
+        float alarmClockFontSize = Float.parseFloat(SettingsDAO.getAlarmClockFontSize(prefs));
+        mAlarmTitleFontSize = Float.parseFloat(SettingsDAO.getAlarmTitleFontSize(prefs));
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(prefs);
+        int snoozeButtonColor = SettingsDAO.getSnoozeButtonColor(prefs);
+        int dismissButtonColor = SettingsDAO.getDismissButtonColor(prefs);
+        int alarmButtonColor = SettingsDAO.getAlarmButtonColor(prefs);
+        int pulseColor = SettingsDAO.getPulseColor(prefs);
 
         setContentView(R.layout.alarm_activity);
 
@@ -141,7 +145,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
 
-        mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
+        mIsRingtoneTitleDisplayed = SettingsDAO.isRingtoneTitleDisplayed(prefs);
         if (mIsRingtoneTitleDisplayed) {
             mRingtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
             mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
@@ -161,7 +165,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mDismissButton.setColorFilter(dismissButtonColor);
         mDismissButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
 
-        mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        mSnoozeMinutes = SettingsDAO.getSnoozeLength(prefs);
         mSnoozeButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
                 mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
         );
@@ -177,8 +181,8 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
-        final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
-        final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
+        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(prefs);
+        final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(prefs);
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
         ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
         ClockUtils.setTimeFormat(digitalClock, false);
@@ -204,7 +208,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mPulseAnimator.start();
 
-        mIsFadeTransitionsEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+        mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
         if (mIsFadeTransitionsEnabled) {
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override

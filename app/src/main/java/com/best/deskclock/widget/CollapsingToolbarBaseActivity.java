@@ -6,8 +6,10 @@
 
 package com.best.deskclock.widget;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -59,9 +61,11 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
-        mIsFadeTransitionEnabled = DataModel.getDataModel().isFadeTransitionsEnabled();
+        final SharedPreferences prefs = getDefaultSharedPreferences(this);
 
-        final String getDarkMode = DataModel.getDataModel().getDarkMode();
+        mIsFadeTransitionEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+
+        final String getDarkMode = SettingsDAO.getDarkMode(prefs);
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         if (mCollapsingToolbarLayout == null) {
             return;

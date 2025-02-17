@@ -9,6 +9,7 @@ package com.best.deskclock.data;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.data.Timer.State.EXPIRED;
 import static com.best.deskclock.data.Timer.State.MISSED;
 import static com.best.deskclock.data.Timer.State.PAUSED;
@@ -20,6 +21,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.SORT_TIMER_BY
 import static com.best.deskclock.utils.Utils.now;
 import static com.best.deskclock.utils.Utils.wallClock;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.Arrays;
@@ -52,35 +54,38 @@ public final class Timer {
      *
      * For reset timers, sorting is based on the setting selected in timer settings.
      */
-    public static final Comparator<Timer> TIMER_STATE_COMPARATOR = new Comparator<>() {
+    public static Comparator<Timer> createTimerStateComparator(final Context context) {
+        return new Comparator<>() {
+            private final List<State> sortingStatus = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED, RESET);
 
-        private final List<State> sortingStatus = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED, RESET);
+            @Override
+            public int compare(Timer timer1, Timer timer2) {
+                final int stateIndex1 = sortingStatus.indexOf(timer1.getState());
+                final int stateIndex2 = sortingStatus.indexOf(timer2.getState());
+                int sorting = Integer.compare(stateIndex1, stateIndex2);
 
-        @Override
-        public int compare(Timer timer1, Timer timer2) {
-            final int stateIndex1 = sortingStatus.indexOf(timer1.getState());
-            final int stateIndex2 = sortingStatus.indexOf(timer2.getState());
-            int sorting = Integer.compare(stateIndex1, stateIndex2);
+                if (sorting == 0) {
+                    final State state = timer1.getState();
+                    final String timerSortingPreference = SettingsDAO.getTimerSortingPreference(getDefaultSharedPreferences(context));
 
-            if (sorting == 0) {
-                final State state = timer1.getState();
-                final String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
-
-                if (state == RESET) {
-                    switch (timerSortingPreference) {
-                        case SORT_TIMER_BY_ASCENDING_DURATION -> sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
-                        case SORT_TIMER_BY_DESCENDING_DURATION -> sorting = Long.compare(timer2.getLength(), timer1.getLength());
-                        case SORT_TIMER_BY_NAME -> sorting =
-                                CharSequence.compare(timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
+                    if (state == RESET) {
+                        switch (timerSortingPreference) {
+                            case SORT_TIMER_BY_ASCENDING_DURATION ->
+                                    sorting = Long.compare(-timer2.getLength(), -timer1.getLength());
+                            case SORT_TIMER_BY_DESCENDING_DURATION ->
+                                    sorting = Long.compare(timer2.getLength(), timer1.getLength());
+                            case SORT_TIMER_BY_NAME -> sorting =
+                                    CharSequence.compare(timer1.getLabel().toLowerCase(Locale.ROOT), timer2.getLabel().toLowerCase(Locale.ROOT));
+                        }
+                    } else {
+                        sorting = Long.compare(timer1.getRemainingTime(), timer2.getRemainingTime());
                     }
-                } else {
-                    sorting = Long.compare(timer1.getRemainingTime(), timer2.getRemainingTime());
                 }
-            }
 
-            return sorting;
-        }
-    };
+                return sorting;
+            }
+        };
+    }
 
     /**
      * A unique identifier for the timer.

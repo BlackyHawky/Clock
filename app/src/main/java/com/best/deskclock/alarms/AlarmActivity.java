@@ -10,6 +10,7 @@ import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GEN
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
@@ -27,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -62,6 +64,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.PowerButtonBehavior;
 import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
@@ -181,6 +184,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences prefs = getDefaultSharedPreferences(this);
+
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -207,10 +212,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
-        mVolumeBehavior = DataModel.getDataModel().getAlarmVolumeButtonBehavior();
+        mVolumeBehavior = SettingsDAO.getAlarmVolumeButtonBehavior(prefs);
 
         // Get the power button behavior setting
-        mPowerBehavior = DataModel.getDataModel().getAlarmPowerButtonBehavior();
+        mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(prefs);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -230,19 +235,19 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.alarm_activity);
 
-        final String darkMode = DataModel.getDataModel().getDarkMode();
+        final String darkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
-                ? DataModel.getDataModel().getAlarmBackgroundAmoledColor()
-                : DataModel.getDataModel().getAlarmBackgroundColor();
-        int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
-        float alarmClockFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmClockFontSize());
-        mAlarmTitleFontSize = Float.parseFloat(DataModel.getDataModel().getAlarmTitleFontSize());
-        mAlarmTitleColor = DataModel.getDataModel().getAlarmTitleColor();
-        int snoozeButtonColor = DataModel.getDataModel().getSnoozeButtonColor();
-        int dismissButtonColor = DataModel.getDataModel().getDismissButtonColor();
-        int alarmButtonColor = DataModel.getDataModel().getAlarmButtonColor();
-        int pulseColor = DataModel.getDataModel().getPulseColor();
+                ? SettingsDAO.getAlarmBackgroundAmoledColor(prefs)
+                : SettingsDAO.getAlarmBackgroundColor(prefs);
+        int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
+        float alarmClockFontSize = Float.parseFloat(SettingsDAO.getAlarmClockFontSize(prefs));
+        mAlarmTitleFontSize = Float.parseFloat(SettingsDAO.getAlarmTitleFontSize(prefs));
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(prefs);
+        int snoozeButtonColor = SettingsDAO.getSnoozeButtonColor(prefs);
+        int dismissButtonColor = SettingsDAO.getDismissButtonColor(prefs);
+        int alarmButtonColor = SettingsDAO.getAlarmButtonColor(prefs);
+        int pulseColor = SettingsDAO.getPulseColor(prefs);
 
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
 
@@ -256,7 +261,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mDismissButton = mContentView.findViewById(R.id.dismiss);
         mHintView = mContentView.findViewById(R.id.hint);
 
-        mIsRingtoneTitleDisplayed = DataModel.getDataModel().isRingtoneTitleDisplayed();
+        mIsRingtoneTitleDisplayed = SettingsDAO.isRingtoneTitleDisplayed(prefs);
         if (mIsRingtoneTitleDisplayed) {
             mRingtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
             mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
@@ -276,7 +281,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         mDismissButton.setColorFilter(dismissButtonColor);
         mDismissButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
 
-        mSnoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        mSnoozeMinutes = SettingsDAO.getSnoozeLength(prefs);
         mSnoozeButton.setImageDrawable(mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
                 ? ThemeUtils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_alarm_off, 2f)
                 : ThemeUtils.toScaledBitmapDrawable(mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
@@ -296,8 +301,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         final AnalogClock analogClock = findViewById(R.id.analog_clock);
         final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
-        final DataModel.ClockStyle alarmClockStyle = DataModel.getDataModel().getAlarmClockStyle();
-        final boolean isAlarmSecondsHandDisplayed = DataModel.getDataModel().isAlarmSecondsHandDisplayed();
+        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(prefs);
+        final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(prefs);
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
         ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
         ClockUtils.setTimeFormat(digitalClock, false);
@@ -307,7 +312,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);
         pulseView.setFillColor(pulseColor);
 
-        isSwipeActionEnabled = DataModel.getDataModel().isSwipeActionEnabled();
+        isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(prefs);
         if (isSwipeActionEnabled) {
             mAlarmButton.setOnTouchListener(this);
         } else {

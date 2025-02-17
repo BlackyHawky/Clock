@@ -4,7 +4,7 @@ package com.best.deskclock.settings;
 
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
+import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
@@ -29,7 +29,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPreference;
 
@@ -181,21 +181,20 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        mShowBackgroundOnNextAlarmWidgetPref.setChecked(DataModel.getDataModel().isBackgroundDisplayedOnNextAlarmWidget());
+        mShowBackgroundOnNextAlarmWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs));
         mBackgroundColorPref.setVisible(mShowBackgroundOnNextAlarmWidgetPref.isChecked());
 
         mNextAlarmWidgetMaxFontSizePref.setSummary(
                 requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                        + DataModel.getDataModel().getNextAlarmWidgetMaxFontSize()
-        );
+                        + WidgetDAO.getNextAlarmWidgetMaxFontSize(mPrefs));
 
-        mDefaultTitleColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor());
+        mDefaultTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs));
         mCustomTitleColorPref.setVisible(!mDefaultTitleColorPref.isChecked());
 
-        mDefaultAlarmTitleColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor());
+        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
         mCustomAlarmTitleColorPref.setVisible(!mDefaultAlarmTitleColorPref.isChecked());
 
-        mDefaultAlarmColorPref.setChecked(DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor());
+        mDefaultAlarmColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(mPrefs));
         mCustomAlarmColorPref.setVisible(!mDefaultAlarmColorPref.isChecked());
     }
 

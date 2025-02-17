@@ -10,8 +10,8 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
 import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
+import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
@@ -48,6 +48,7 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.DataModel.SilentSetting;
 import com.best.deskclock.data.OnSilentSettingsListener;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.settings.PermissionsManagementActivity;
@@ -311,14 +312,14 @@ public class DeskClock extends AppCompatActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Mirror changes made to the selected tab into UiDataModel.
-        final String darkMode = DataModel.getDataModel().getDarkMode();
+        final String darkMode = SettingsDAO.getDarkMode(mPrefs);
         final int primaryColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
-        final boolean isTabIndicatorDisplayed = DataModel.getDataModel().isTabIndicatorDisplayed();
+        final boolean isTabIndicatorDisplayed = SettingsDAO.isTabIndicatorDisplayed(mPrefs);
 
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
@@ -338,7 +339,7 @@ public class DeskClock extends AppCompatActivity
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                     new int[]{primaryColor, primaryColor, Color.WHITE}));
         } else {
-            final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
+            final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
             if (isCardBackgroundDisplayed) {
                 mBottomNavigation.setBackgroundColor(surfaceColor);
                 this.getWindow().setNavigationBarColor(

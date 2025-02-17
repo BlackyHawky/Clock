@@ -6,6 +6,8 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.os.Build;
@@ -13,7 +15,7 @@ import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
@@ -46,7 +48,7 @@ final class AlarmKlaxon {
         LogUtils.v("AlarmKlaxon.start()");
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
-            final long crescendoDuration = DataModel.getDataModel().getAlarmCrescendoDuration();
+            final long crescendoDuration = SettingsDAO.getAlarmCrescendoDuration(getDefaultSharedPreferences(context));
             getAsyncRingtonePlayer(context).play(instance.mRingtone, crescendoDuration);
         }
 

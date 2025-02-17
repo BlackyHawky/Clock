@@ -19,11 +19,12 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
-import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED;
+import static com.best.alarmclock.WidgetUtils.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -38,6 +39,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -59,6 +61,8 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
@@ -137,6 +141,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
                                               Bundle options, boolean portrait) {
 
         // Create a remote view for the digital clock.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String packageName = context.getPackageName();
         final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_digital_widget);
 
@@ -150,16 +155,15 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         // Apply the color to the next alarm.
         // The default color is defined in the xml files to match the device's day/night theme.
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
+        final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
-        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
             rv.setViewVisibility(R.id.nextAlarm, INVISIBLE);
             rv.setViewVisibility(R.id.nextAlarmIcon, INVISIBLE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, INVISIBLE);
             rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, INVISIBLE);
         } else {
-            if (isDefaultNextAlarmColor) {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
                 rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
                 rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -180,9 +184,9 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Fetch the widget size selected by the user.
-        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnMaterialYouDigitalWidget();
+        final boolean areWorldCitiesDisplayed = WidgetDAO.areWorldCitiesDisplayedOnMaterialYouDigitalWidget(prefs);
         List<City> selectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
-        final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, prefs);
         final Resources resources = context.getResources();
         final float density = resources.getDisplayMetrics().density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
@@ -191,7 +195,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = DataModel.getDataModel().getMaterialYouDigitalWidgetMaxClockFontSize();
+        final String maxClockFontSize = WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(prefs);
         final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(
                 !selectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
@@ -219,34 +223,30 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Apply the custom color to the clock.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final boolean isDefaultClockColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultClockColor();
-        final int customClockColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomClockColor();
-
-        if (isDefaultClockColor) {
+        final int customClockColor = WidgetDAO.getMaterialYouDigitalWidgetCustomClockColor(prefs);
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
             rv.setViewVisibility(R.id.clock, VISIBLE);
             rv.setViewVisibility(R.id.clockForCustomColor, GONE);
             rv.setCharSequence(R.id.clock, "setFormat12Hour", ClockUtils.get12ModeFormat(
-                    context, 0.4f, DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
+                    context, 0.4f, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
             rv.setCharSequence(R.id.clock, "setFormat24Hour", ClockUtils.get24ModeFormat(
-                    context, DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
+                    context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
         } else {
             rv.setViewVisibility(R.id.clock, GONE);
             rv.setViewVisibility(R.id.clockForCustomColor, VISIBLE);
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat12Hour",
                     ClockUtils.get12ModeFormat(context, 0.4f,
-                            DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
             rv.setCharSequence(R.id.clockForCustomColor, "setFormat24Hour",
                     ClockUtils.get24ModeFormat(context,
-                            DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget()));
+                            WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs)));
             rv.setTextColor(R.id.clockForCustomColor, customClockColor);
         }
 
         // Apply the custom color to the date.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final boolean isDateDefaultDateColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultDateColor();
-        final int customDateColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomDateColor();
-
-        if (isDateDefaultDateColor) {
+        final int customDateColor = WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(prefs);
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(R.id.date, VISIBLE);
             rv.setViewVisibility(R.id.dateForCustomColor, GONE);
             rv.setTextViewText(R.id.date, getDateFormat(context));
@@ -285,6 +285,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
      * the optimal sizes that fit within the widget bounds are located.
      */
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
@@ -292,9 +293,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         final TextClock clock = sizer.findViewById(R.id.clock);
         final TextClock clockForCustomColor = sizer.findViewById(R.id.clockForCustomColor);
-        final boolean isDefaultClockColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultClockColor();
-
-        if (isDefaultClockColor) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
             clock.setVisibility(VISIBLE);
             clockForCustomColor.setVisibility(GONE);
         } else {
@@ -305,9 +304,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         // Configure the date to display the current date string.
         final TextView date = sizer.findViewById(R.id.date);
         final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
-        final boolean isDefaultDateColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultDateColor();
-
-        if (isDefaultDateColor) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
             date.setText(getDateFormat(context));
@@ -322,16 +319,15 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomNextAlarmColor();
+        final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
-        if (TextUtils.isEmpty(nextAlarmTime) || !DataModel.getDataModel().isUpcomingAlarmDisplayed()) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
             nextAlarm.setVisibility(INVISIBLE);
             nextAlarmIcon.setVisibility(INVISIBLE);
             nextAlarmForCustomColor.setVisibility(INVISIBLE);
             nextAlarmIconForCustomColor.setVisibility(INVISIBLE);
         } else {
-            if (isDefaultNextAlarmColor) {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarm.setText(nextAlarmTime);
                 nextAlarm.setVisibility(VISIBLE);
                 nextAlarmIcon.setVisibility(VISIBLE);
@@ -453,12 +449,11 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
      * @return "11:59" or "23:59" in the current locale
      */
     private static CharSequence getLongestTimeString(TextClock clock) {
+        final Context context = clock.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(
-                        clock.getContext(), DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget())
-                : ClockUtils.get12ModeFormat(
-                        clock.getContext(), 0.4f,
-                        DataModel.getDataModel().areSecondsDisplayedOnMaterialYouDigitalWidget());
+                ? ClockUtils.get24ModeFormat(context, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs))
+                : ClockUtils.get12ModeFormat(context, 0.4f, WidgetDAO.areSecondsDisplayedOnMaterialYouDigitalWidget(prefs));
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
@@ -525,8 +520,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
             }
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
 
         if (widgetIds.length > 0) {
             updateDayChangeCallback(context);
@@ -585,7 +579,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
     private void updateDayChangeCallback(Context context) {
         final DataModel dm = DataModel.getDataModel();
         final List<City> selectedCities = dm.getSelectedCities();
-        final boolean showHomeClock = dm.getShowHomeClock();
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, getDefaultSharedPreferences(context));
         if (selectedCities.isEmpty() && !showHomeClock) {
             // Remove the existing day-change callback.
             removeDayChangeCallback(context);

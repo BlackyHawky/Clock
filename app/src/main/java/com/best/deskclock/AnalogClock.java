@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
@@ -23,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
@@ -33,7 +35,7 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.best.deskclock.alarms.AlarmActivity;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.utils.ThemeUtils;
@@ -92,8 +94,9 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
-        final int alarmClockColor = DataModel.getDataModel().getAlarmClockColor();
-        final int alarmSecondsHandColor = DataModel.getDataModel().getAlarmSecondsHandColor();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
+        final int alarmSecondsHandColor = SettingsDAO.getAlarmSecondsHandColor(prefs, context);
         final int clockColor = context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity
                 ? alarmClockColor
                 : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
@@ -130,9 +133,9 @@ public class AnalogClock extends FrameLayout {
         if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
             mSecondHand.setColorFilter(alarmSecondsHandColor);
         } else if (!(context instanceof ScreensaverActivity)) {
-            final boolean isAutoNightAccentColorEnabled = DataModel.getDataModel().isAutoNightAccentColorEnabled();
-            final String accentColor = DataModel.getDataModel().getAccentColor();
-            final String nightAccentColor = DataModel.getDataModel().getNightAccentColor();
+            final boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(prefs);
+            final String accentColor = SettingsDAO.getAccentColor(prefs);
+            final String nightAccentColor = SettingsDAO.getNightAccentColor(prefs);
             int color = getAccentColor(context, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
             mSecondHand.setColorFilter(color);
         }

@@ -6,6 +6,8 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
@@ -91,10 +94,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.delete_timer).setOnClickListener(v -> {
             Utils.setVibrationTime(context, 10);
 
-            final boolean isWarningDisplayedBeforeDeletingTimer =
-                    DataModel.getDataModel().isWarningDisplayedBeforeDeletingTimer();
-
-            if (isWarningDisplayedBeforeDeletingTimer) {
+            if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(getDefaultSharedPreferences(context))) {
                 final Drawable drawable = AppCompatResources.getDrawable(context, R.drawable.ic_delete);
                 if (drawable != null) {
                     drawable.setTint(MaterialColors.getColor(

@@ -12,6 +12,7 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
@@ -23,6 +24,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
@@ -152,6 +155,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsLayoutManager = new LinearLayoutManager(getContext());
 
         mContext = requireContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         mIsLandscape = ThemeUtils.isLandscape();
         final boolean isTablet = ThemeUtils.isTablet();
 
@@ -200,10 +204,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
 
-        mVolumeUpAction = DataModel.getDataModel().getVolumeUpActionForStopwatch();
-        mVolumeUpActionAfterLongPress = DataModel.getDataModel().getVolumeUpActionAfterLongPressForStopwatch();
-        mVolumeDownAction = DataModel.getDataModel().getVolumeDownActionForStopwatch();
-        mVolumeDownActionAfterLongPress = DataModel.getDataModel().getVolumeDownActionAfterLongPressForStopwatch();
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(prefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(prefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
 
         return v;
     }
