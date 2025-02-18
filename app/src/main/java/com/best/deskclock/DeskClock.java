@@ -21,7 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -218,33 +217,36 @@ public class DeskClock extends AppCompatActivity
 
         mPrefs = getDefaultSharedPreferences(this);
 
-        isFirstLaunch();
+        if (isFirstLaunch()) {
+            return;
+        }
+
+        setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);
 
         showTabFromNotifications();
 
         // Configure the buttons shared by the tabs.
-        final Context context = getApplicationContext();
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isPortrait = ThemeUtils.isPortrait();
         final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
         final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
         mFab = findViewById(R.id.fab);
-        mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, context);
-        mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, context);
+        mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, this);
+        mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
 
         mLeftButton = findViewById(R.id.left_button);
-        mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
-        mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
+        mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
+        mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
 
         mRightButton = findViewById(R.id.right_button);
-        mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
-        mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, context);
+        mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
+        mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
 
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
@@ -326,7 +328,7 @@ public class DeskClock extends AppCompatActivity
         mBottomNavigation.setItemActiveIndicatorEnabled(isTabIndicatorDisplayed);
 
         if (!isTabIndicatorDisplayed) {
-            final int bottomNavigationMenuPadding = ThemeUtils.convertDpToPixels(4, context);
+            final int bottomNavigationMenuPadding = ThemeUtils.convertDpToPixels(4, this);
             mBottomNavigation.setPadding(0, bottomNavigationMenuPadding, 0, bottomNavigationMenuPadding);
         }
 
@@ -493,14 +495,14 @@ public class DeskClock extends AppCompatActivity
     /**
      * Check if this is the first time the application has been launched.
      */
-    private void isFirstLaunch() {
+    private boolean isFirstLaunch() {
         final boolean isFirstRun = mPrefs.getBoolean(FirstLaunch.KEY_IS_FIRST_LAUNCH, true);
         if (isFirstRun) {
             startActivity(new Intent(this, FirstLaunch.class));
             finish();
-        } else {
-            setContentView(R.layout.desk_clock);
+            return true;
         }
+        return false;
     }
 
     /**
