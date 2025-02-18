@@ -16,6 +16,8 @@ import androidx.annotation.StringRes;
 
 import com.best.deskclock.events.EventTracker;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Interactions with Android framework components responsible for part of the user experience are
  * handled via this singleton.
@@ -24,7 +26,7 @@ public final class Controller {
 
     private static final Controller sController = new Controller();
 
-    private Context mContext;
+    private WeakReference<Context> mContext;
 
     /**
      * The controller that dispatches app events to event trackers.
@@ -49,12 +51,12 @@ public final class Controller {
     }
 
     public void setContext(Context context) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
+        if (mContext == null || mContext.get() != context) {
+            mContext = new WeakReference<>(context.getApplicationContext());
             mEventController = new EventController();
             mVoiceController = new VoiceController();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                mShortcutController = new ShortcutController(mContext);
+                mShortcutController = new ShortcutController(mContext.get());
             }
         }
     }

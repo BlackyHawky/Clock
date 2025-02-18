@@ -20,6 +20,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.stopwatch.StopwatchFragment;
 import com.best.deskclock.timer.TimerFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
 
 /**
@@ -31,15 +32,19 @@ public final class UiDataModel {
      * The single instance of this data model that exists for the life of the application.
      */
     private static final UiDataModel sUiDataModel = new UiDataModel();
-    private Context mContext;
+
+    private WeakReference<Context> mContext;
+
     /**
      * The model from which tab data are fetched.
      */
     private TabModel mTabModel;
+
     /**
      * The model from which formatted strings are fetched.
      */
     private FormattedStringModel mFormattedStringModel;
+
     /**
      * The model from which timed callbacks originate.
      */
@@ -56,11 +61,11 @@ public final class UiDataModel {
      * The context may be set precisely once during the application life.
      */
     public void init(Context context, SharedPreferences prefs) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
+        if (mContext == null || mContext.get() != context) {
+            mContext = new WeakReference<>(context.getApplicationContext());
 
-            mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
-            mFormattedStringModel = new FormattedStringModel(mContext);
+            mPeriodicCallbackModel = new PeriodicCallbackModel(mContext.get());
+            mFormattedStringModel = new FormattedStringModel(mContext.get());
             mTabModel = new TabModel(prefs);
         }
     }
@@ -71,7 +76,7 @@ public final class UiDataModel {
      * @return a special font containing a glyph that draws an alarm clock
      */
     public Typeface getAlarmIconTypeface() {
-        return Typeface.createFromAsset(mContext.getAssets(), "fonts/clock.ttf");
+        return Typeface.createFromAsset(mContext.get().getAssets(), "fonts/clock.ttf");
     }
 
     /**
@@ -149,7 +154,7 @@ public final class UiDataModel {
      */
     public long getShortAnimationDuration() {
         enforceMainLooper();
-        return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
+        return mContext.get().getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
 
     /**
@@ -157,7 +162,7 @@ public final class UiDataModel {
      */
     public long getMediumAnimationDuration() {
         enforceMainLooper();
-        return mContext.getResources().getInteger(android.R.integer.config_mediumAnimTime);
+        return mContext.get().getResources().getInteger(android.R.integer.config_mediumAnimTime);
     }
 
     /**
@@ -231,9 +236,9 @@ public final class UiDataModel {
      */
     public String getShortcutId(@StringRes int category, @StringRes int action) {
         if (category == R.string.category_stopwatch) {
-            return mContext.getString(category);
+            return mContext.get().getString(category);
         }
-        return mContext.getString(category) + "_" + mContext.getString(action);
+        return mContext.get().getString(category) + "_" + mContext.get().getString(action);
     }
 
     //

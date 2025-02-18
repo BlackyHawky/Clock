@@ -39,6 +39,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.best.deskclock.R;
 import com.best.deskclock.timer.TimerService;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -57,7 +58,7 @@ public final class DataModel {
 
     private Handler mHandler;
 
-    private Context mContext;
+    private WeakReference<Context> mContext;
 
     /**
      * The model from which city data are fetched.
@@ -105,8 +106,8 @@ public final class DataModel {
      * Initializes the data model with the context and shared preferences to be used.
      */
     public void init(Context context, SharedPreferences prefs) {
-        if (mContext != context) {
-            mContext = context.getApplicationContext();
+        if (mContext == null || mContext.get() != context) {
+            mContext = new WeakReference<>(context.getApplicationContext());
 
             final String themeValue = prefs.getString(KEY_THEME, SYSTEM_THEME);
             switch (themeValue) {
@@ -119,12 +120,12 @@ public final class DataModel {
             }
 
             mNotificationModel = new NotificationModel();
-            mRingtoneModel = new RingtoneModel(mContext, prefs);
-            mCityModel = new CityModel(mContext, prefs);
+            mRingtoneModel = new RingtoneModel(mContext.get(), prefs);
+            mCityModel = new CityModel(mContext.get(), prefs);
             mAlarmModel = new AlarmModel(prefs, mRingtoneModel);
-            mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
-            mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, prefs, mRingtoneModel, mNotificationModel);
+            mSilentSettingsModel = new SilentSettingsModel(mContext.get(), mNotificationModel);
+            mStopwatchModel = new StopwatchModel(mContext.get(), prefs, mNotificationModel);
+            mTimerModel = new TimerModel(mContext.get(), prefs, mRingtoneModel, mNotificationModel);
         }
     }
 
@@ -376,7 +377,7 @@ public final class DataModel {
             if (service != null) {
                 expireTimer(service, started);
             } else {
-                mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
+                mContext.get().startService(TimerService.createTimerExpiredIntent(mContext.get(), started));
             }
         }
     }
@@ -662,7 +663,7 @@ public final class DataModel {
      * @return {@code true} if 24 hour time format is selected; {@code false} otherwise
      */
     public boolean is24HourFormat() {
-        return DateFormat.is24HourFormat(mContext);
+        return DateFormat.is24HourFormat(mContext.get());
     }
 
     /**

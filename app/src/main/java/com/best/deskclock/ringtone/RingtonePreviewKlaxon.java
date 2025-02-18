@@ -11,9 +11,11 @@ import android.net.Uri;
 
 import com.best.deskclock.utils.LogUtils;
 
+import java.lang.ref.WeakReference;
+
 public final class RingtonePreviewKlaxon {
 
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
+    private static WeakReference<AsyncRingtonePlayer> sAsyncRingtonePlayerRef;
 
     private RingtonePreviewKlaxon() {
     }
@@ -30,10 +32,10 @@ public final class RingtonePreviewKlaxon {
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+        if (sAsyncRingtonePlayerRef == null || sAsyncRingtonePlayerRef.get() == null) {
+            sAsyncRingtonePlayerRef = new WeakReference<>(new AsyncRingtonePlayer(context.getApplicationContext()));
         }
 
-        return sAsyncRingtonePlayer;
+        return sAsyncRingtonePlayerRef.get();
     }
 }

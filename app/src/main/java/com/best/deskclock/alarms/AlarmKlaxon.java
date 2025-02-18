@@ -20,6 +20,8 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Manages playing alarm ringtones and vibrating the device.
  */
@@ -28,7 +30,7 @@ final class AlarmKlaxon {
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
-    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
+    private static WeakReference<AsyncRingtonePlayer> sAsyncRingtonePlayerRef;
 
     private AlarmKlaxon() {
     }
@@ -77,10 +79,10 @@ final class AlarmKlaxon {
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+        if (sAsyncRingtonePlayerRef == null || sAsyncRingtonePlayerRef.get() == null) {
+            sAsyncRingtonePlayerRef = new WeakReference<>(new AsyncRingtonePlayer(context.getApplicationContext()));
         }
 
-        return sAsyncRingtonePlayer;
+        return sAsyncRingtonePlayerRef.get();
     }
 }
