@@ -9,6 +9,7 @@ package com.best.deskclock.alarms;
 import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
@@ -125,8 +126,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Update the next alarm stored in framework. This value is also displayed in digital widgets
-     * and the clock tab in this app.
+     * Update the next alarm stored in framework. This value is also displayed in digital widgets,
+     * the clock tab and the screensaver in this app.
      */
     private static void updateNextAlarm(Context context) {
         final AlarmInstance nextAlarm = getNextFiringAlarm(context);
@@ -134,6 +135,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         if (nextAlarm != null) {
             setPowerOffAlarm(context, nextAlarm);
         }
+
+        context.sendBroadcast(new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK));
 
         updateNextAlarmInAlarmManager(context, nextAlarm);
     }

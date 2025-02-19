@@ -55,8 +55,6 @@ public class BackupAndRestoreUtils {
                     // ClockSettingsFragment
                     booleans.put(KEY_CLOCK_DISPLAY_SECONDS, prefs.getBoolean(
                             KEY_CLOCK_DISPLAY_SECONDS, DEFAULT_CLOCK_DISPLAY_SECONDS));
-                    booleans.put(KEY_DISPLAY_UPCOMING_ALARM, prefs.getBoolean(
-                            KEY_DISPLAY_UPCOMING_ALARM, DEFAULT_DISPLAY_UPCOMING_ALARM));
                     booleans.put(KEY_AUTO_HOME_CLOCK, prefs.getBoolean(
                             KEY_AUTO_HOME_CLOCK, DEFAULT_AUTO_HOME_CLOCK));
 

@@ -6,12 +6,12 @@
 
 package com.best.deskclock;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.annotation.SuppressLint;
@@ -148,6 +148,7 @@ public final class ClockFragment extends DeskClockFragment {
         return fragmentView;
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onResume() {
         super.onResume();
@@ -159,7 +160,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
-            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CLOCK_CHANGED);
+            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
             } else {

@@ -292,14 +292,8 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mDefaultDateColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-        mDefaultNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-        if (mDefaultNextAlarmColorPref.isEnabled()) {
-            mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(mPrefs));
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
-        } else {
-            mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-            mCustomNextAlarmColorPref.setVisible(false);
-        }
+        mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(mPrefs));
+        mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
     }
 
     private void refresh() {

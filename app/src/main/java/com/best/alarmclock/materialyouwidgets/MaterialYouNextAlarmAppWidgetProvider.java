@@ -2,7 +2,6 @@
 
 package com.best.alarmclock.materialyouwidgets;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -21,6 +20,7 @@ import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_NEXT_ALARM_WID
 import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -431,7 +431,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         if (action != null) {
             switch (action) {
                 case ACTION_CONFIGURATION_CHANGED:
-                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
@@ -465,12 +465,7 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
-        intentFilter.addAction(ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        IntentFilter intentFilter = getIntentFilter();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -478,6 +473,18 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
+    }
+
+    @NonNull
+    private static IntentFilter getIntentFilter() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
+        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
+        intentFilter.addAction(ACTION_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
+        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        return intentFilter;
     }
 
     /**

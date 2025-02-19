@@ -305,14 +305,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultDateColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-        mDefaultNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-        if (mDefaultNextAlarmColorPref.isEnabled()) {
-            mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
-        } else {
-            mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-            mCustomNextAlarmColorPref.setVisible(false);
-        }
+        mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
+        mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
     }
 
     private void refresh() {

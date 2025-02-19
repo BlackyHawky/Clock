@@ -2,13 +2,11 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_UPCOMING_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 
 import android.content.Context;
@@ -34,7 +32,6 @@ public class ClockSettingsFragment extends ScreenFragment
 
     ListPreference mClockStylePref;
     SwitchPreferenceCompat mClockDisplaySecondsPref;
-    SwitchPreferenceCompat mDisplayUpcomingAlarmPref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
     Preference mDateTimePref;
@@ -52,7 +49,6 @@ public class ClockSettingsFragment extends ScreenFragment
 
         mClockStylePref = findPreference(KEY_CLOCK_STYLE);
         mClockDisplaySecondsPref = findPreference(KEY_CLOCK_DISPLAY_SECONDS);
-        mDisplayUpcomingAlarmPref = findPreference(KEY_DISPLAY_UPCOMING_ALARM);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
         mDateTimePref = findPreference(KEY_DATE_TIME);
@@ -92,11 +88,6 @@ public class ClockSettingsFragment extends ScreenFragment
             case KEY_CLOCK_DISPLAY_SECONDS -> {
                 SettingsDAO.setDisplayClockSeconds(mPrefs, (boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_DISPLAY_UPCOMING_ALARM -> {
-                Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED));
             }
 
             case KEY_AUTO_HOME_CLOCK -> {
@@ -143,9 +134,6 @@ public class ClockSettingsFragment extends ScreenFragment
         mClockStylePref.setOnPreferenceChangeListener(this);
 
         mClockDisplaySecondsPref.setOnPreferenceChangeListener(this);
-
-        mDisplayUpcomingAlarmPref.setChecked(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-        mDisplayUpcomingAlarmPref.setOnPreferenceChangeListener(this);
 
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 

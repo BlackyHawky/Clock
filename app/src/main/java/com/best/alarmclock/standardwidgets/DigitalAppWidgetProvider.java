@@ -6,7 +6,6 @@
 
 package com.best.alarmclock.standardwidgets;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
@@ -24,10 +23,10 @@ import static android.view.View.VISIBLE;
 
 import static com.best.alarmclock.WidgetUtils.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.alarmclock.WidgetUtils.ACTION_UPCOMING_ALARM_DISPLAY_CHANGED;
 import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -170,7 +169,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewText(R.id.date, getDateFormat(context));
 
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
+        if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
         } else {
@@ -286,7 +285,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         // Configure the next alarm views to display the next alarm time or be gone.
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
-        if (TextUtils.isEmpty(nextAlarmTime) || !SettingsDAO.isUpcomingAlarmDisplayed(prefs)) {
+        if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
         } else {
@@ -443,13 +442,12 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (action != null) {
             switch (action) {
                 case ACTION_CONFIGURATION_CHANGED:
-                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK:
                 case ACTION_ON_DAY_CHANGE:
                 case ACTION_LANGUAGE_CODE_CHANGED:
-                case ACTION_UPCOMING_ALARM_DISPLAY_CHANGED:
                 case ACTION_WORLD_CITIES_CHANGED:
                 case ACTION_DIGITAL_WIDGET_CUSTOMIZED:
                 case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
@@ -483,14 +481,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
-        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
-        intentFilter.addAction(ACTION_UPCOMING_ALARM_DISPLAY_CHANGED);
-        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
-        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        IntentFilter intentFilter = getIntentFilter();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -498,6 +489,19 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
+    }
+
+    @NonNull
+    private static IntentFilter getIntentFilter() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
+        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
+        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
+        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CUSTOMIZED);
+        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        return intentFilter;
     }
 
     /**

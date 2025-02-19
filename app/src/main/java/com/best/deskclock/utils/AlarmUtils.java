@@ -42,23 +42,25 @@ import java.util.Locale;
 public class AlarmUtils {
 
     /**
+     * Intent action sent when the alarm has been either created or updated in the Clock app.
+     * <p>
+     * This action will display the next alarm of this app only in the clock tab, widgets and screensaver.
+     */
+    public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
+
+    /**
      * @return The next alarm from {@link AlarmManager}
      */
     public static String getNextAlarm(Context context) {
-        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final AlarmManager.AlarmClockInfo info = getNextAlarmClock(am);
-        if (info != null) {
-            final long triggerTime = info.getTriggerTime();
-            final Calendar alarmTime = Calendar.getInstance();
-            alarmTime.setTimeInMillis(triggerTime);
-            return getFormattedTime(context, alarmTime);
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance != null) {
+            Calendar alarmCalendar = Calendar.getInstance();
+            long alarmTime = instance.getAlarmTime().getTimeInMillis();
+            alarmCalendar.setTimeInMillis(alarmTime);
+            return getFormattedTime(context, alarmCalendar);
         }
 
         return null;
-    }
-
-    private static AlarmManager.AlarmClockInfo getNextAlarmClock(AlarmManager am) {
-        return am.getNextAlarmClock();
     }
 
     /**
@@ -82,13 +84,24 @@ public class AlarmUtils {
             return;
         }
 
-        final String alarm = getNextAlarm(context);
-        if (TextUtils.isEmpty(alarm) || !SettingsDAO.isUpcomingAlarmDisplayed(getDefaultSharedPreferences(context))) {
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance == null) {
+            nextAlarmIconView.setVisibility(View.GONE);
+            nextAlarmView.setVisibility(View.GONE);
+            return;
+        }
+
+        Calendar alarmCalendar = Calendar.getInstance();
+        long alarmTime = instance.getAlarmTime().getTimeInMillis();
+        alarmCalendar.setTimeInMillis(alarmTime);
+        String alarmFormattedTime = getFormattedTime(context, alarmCalendar);
+
+        if (TextUtils.isEmpty(alarmFormattedTime)) {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         } else {
-            final String description = context.getString(R.string.next_alarm_description, alarm);
-            nextAlarmView.setText(alarm);
+            String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
+            nextAlarmView.setText(alarmFormattedTime);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);

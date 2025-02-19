@@ -9,7 +9,9 @@ package com.best.deskclock.screensaver;
 import static android.content.Intent.ACTION_BATTERY_CHANGED;
 import static android.os.BatteryManager.EXTRA_PLUGGED;
 
-import android.app.AlarmManager;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,7 +60,7 @@ public class ScreensaverActivity extends AppCompatActivity {
                 case Intent.ACTION_POWER_CONNECTED -> updateWakeLock(true);
                 case Intent.ACTION_POWER_DISCONNECTED -> updateWakeLock(false);
                 case Intent.ACTION_USER_PRESENT -> finish();
-                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED ->
+                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK ->
                         AlarmUtils.refreshAlarm(ScreensaverActivity.this, mContentView);
             }
         }
@@ -104,6 +106,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onStart() {
         super.onStart();
@@ -112,7 +115,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        filter.addAction(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);

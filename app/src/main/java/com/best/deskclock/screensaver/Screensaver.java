@@ -6,7 +6,9 @@
 
 package com.best.deskclock.screensaver;
 
-import android.app.AlarmManager;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +67,7 @@ public final class Screensaver extends DreamService {
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onAttachedToWindow() {
         LOGGER.v("Screensaver attached to window");
@@ -90,11 +93,11 @@ public final class Screensaver extends DreamService {
         setFullscreen(true);
 
         // Setup handlers for time reference changes and date updates.
+        final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(mAlarmChangedReceiver, new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED),
-                    Context.RECEIVER_NOT_EXPORTED);
+            registerReceiver(mAlarmChangedReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            registerReceiver(mAlarmChangedReceiver, new IntentFilter(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED));
+            registerReceiver(mAlarmChangedReceiver, filter);
         }
 
         ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);

@@ -30,15 +30,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:key="key_display_upcoming_alarm"
-            android:layout="@layout/settings_preference_layout"
-            android:title="@string/display_upcoming_alarm_title"
-            android:summary="@string/display_upcoming_alarm_summary"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

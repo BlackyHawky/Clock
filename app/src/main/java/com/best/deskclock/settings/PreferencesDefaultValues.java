@@ -43,7 +43,6 @@ public class PreferencesDefaultValues {
     // Clock
     public static final String DEFAULT_CLOCK_STYLE = "digital";
     public static final boolean DEFAULT_CLOCK_DISPLAY_SECONDS = false;
-    public static final boolean DEFAULT_DISPLAY_UPCOMING_ALARM = true;
     public static final boolean DEFAULT_AUTO_HOME_CLOCK = true;
     public static final String DEFAULT_HOME_TIME_ZONE = null;
 

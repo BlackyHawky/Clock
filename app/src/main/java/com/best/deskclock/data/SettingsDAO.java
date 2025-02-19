@@ -264,15 +264,6 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the upcoming alarm should be displayed next to the date.
-     * {@code false} otherwise.
-     */
-    public static boolean isUpcomingAlarmDisplayed(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_clock.xml
-        return prefs.getBoolean(KEY_DISPLAY_UPCOMING_ALARM, DEFAULT_DISPLAY_UPCOMING_ALARM);
-    }
-
-    /**
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver
      */
     public static ClockStyle getScreensaverClockStyle(SharedPreferences prefs) {

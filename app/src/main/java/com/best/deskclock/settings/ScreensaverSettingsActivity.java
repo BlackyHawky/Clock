@@ -221,26 +221,12 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mBoldDigitalClockPref.setVisible(screensaverClockIndex == 1);
             mItalicDigitalClockPref.setVisible(screensaverClockIndex == 1);
 
-            mBoldNextAlarmPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-            if (!mBoldNextAlarmPref.isEnabled()) {
-                mBoldNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-            }
-
-            mItalicNextAlarmPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-            if (!mItalicNextAlarmPref.isEnabled()) {
-                mItalicNextAlarmPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-            }
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 mClockDynamicColorPref.setVisible(true);
                 mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
                 mClockColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mDateColorPref.setVisible(!mClockDynamicColorPref.isChecked());
                 mNextAlarmColorPref.setVisible(!mClockDynamicColorPref.isChecked());
-                mNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-                if (!mNextAlarmColorPref.isEnabled()) {
-                    mNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-                }
             }
         }
 

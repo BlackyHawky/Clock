@@ -695,12 +695,6 @@
     <string name="clock_style">Style</string>
     <!-- Header for a setting referring to showing seconds on the main clock -->
     <string name="display_clock_seconds_pref">Display time with seconds</string>
-    <!-- Title for switch to hide the upcoming alarm next to date -->
-    <string name="display_upcoming_alarm_title">Display upcoming alarm next to the date</string>
-    <!-- Summary for switch to hide the upcoming alarm next to date -->
-    <string name="display_upcoming_alarm_summary">Disabling this setting hides the upcoming alarm in the Clock tab, screensaver and widgets. This prevents alarms from other apps from being displayed.</string>
-    <!-- Summary for switch to hide the upcoming alarm next to date -->
-    <string name="warning_upcoming_alarm_setting_off">\"Display upcoming alarm next to date\" in Clock settings must be enabled to access this setting</string>
     <!-- Title for preference to change date & time -->
     <string name="open_date_settings">Change date \u0026 time</string>
     <!-- Setting title for changing the clock style to Analog. -->

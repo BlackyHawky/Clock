@@ -29,7 +29,6 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.Utils;
 import com.rarepebble.colorpicker.ColorPreference;
@@ -194,14 +193,8 @@ public class MaterialYouVerticalDigitalWidgetSettingsFragment extends ScreenFrag
         mDefaultDateColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
 
-        mDefaultNextAlarmColorPref.setEnabled(SettingsDAO.isUpcomingAlarmDisplayed(mPrefs));
-        if (mDefaultNextAlarmColorPref.isEnabled()) {
-            mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
-            mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
-        } else {
-            mDefaultNextAlarmColorPref.setSummary(R.string.warning_upcoming_alarm_setting_off);
-            mCustomNextAlarmColorPref.setVisible(false);
-        }
+        mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
+        mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
     }
 
     private void refresh() {
