@@ -571,4 +571,8 @@
     <string name="digital_widget_default_hours_color_title">Использовать стандартные цвета для часов</string>
     <string name="next_alarm_widget_custom_title_color">Пользовательский цвет для плиток \"Следующий будильник\" и \"Нет будильников\"</string>
     <string name="label_default">По умолчанию</string>
+    <string name="alarm_flash">Вспышка</string>
+    <string name="delete_occasional_alarm_after_use_title">Удалить будильник после отмены</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Отменить &amp; Удалить</string>
+    <string name="alarm_alert_off_and_deleted_text">Будильник отключен и удален</string>
 </resources>

@@ -660,8 +660,18 @@
     <string name="alarm_flash">Спалах</string>
     <string name="about_translate_link">Переклад на Codeberg</string>
     <string name="translate_dialog_message">Відвідайте сторінку на Codeberg:\n\n%s</string>
-    <string name="display_upcoming_alarm_summary">Вимкнення цього параметра приховує наступний будильник на вкладці «Годинник», на заставці та у віджетах. Це запобігає відображенню будильників з інших програм.</string>
-    <string name="display_upcoming_alarm_title">Показувати наступний будильник поруч із датою</string>
-    <string name="warning_upcoming_alarm_setting_off">Для доступу до цього налаштування ввімкніть «Показувати наступний будильник поруч із датою»</string>
     <string name="shake_intensity_title">Інтенсивність струшування</string>
+    <string name="settings_language_title">Мова</string>
+    <string name="settings_language_french">Французька</string>
+    <string name="settings_language_german">Німецька</string>
+    <string name="settings_language_estonian">Естонська</string>
+    <string name="settings_language_italian">Італійська</string>
+    <string name="settings_language_polish">Польська</string>
+    <string name="settings_language_portuguese">Португальська</string>
+    <string name="settings_language_serbian">Сербська</string>
+    <string name="settings_language_spanish">Іспанська</string>
+    <string name="settings_language_system">Мова системи</string>
+    <string name="settings_language_ukrainian">Українська</string>
+    <string name="settings_language_chinese_simplified_cn">Китайська (спрощена, КНР)</string>
+    <string name="settings_language_english_us">Англійська (США)</string>
 </resources>

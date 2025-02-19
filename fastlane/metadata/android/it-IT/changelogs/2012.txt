@@ -1,0 +1,3 @@
+A causa di un grave bug causato dalla funzione "Imposta una sveglia per una data specifica", questa è stata rimossa in attesa di trovare la soluzione.
+
+Le altre funzioni della versione 2.10 sono state mantenute e possono essere consultate qui: https://github.com/BlackyHawky/Clock/releases/tag/2.10

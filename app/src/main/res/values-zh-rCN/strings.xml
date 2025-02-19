@@ -623,8 +623,18 @@
     <string name="alarm_flash">闪光灯</string>
     <string name="translate_dialog_message">访问 Codeberg 页面：\n\n%s</string>
     <string name="about_translate_link">在 Codeberg 上翻译</string>
-    <string name="display_upcoming_alarm_summary">禁用此设置会在时钟标签页、屏幕保护程序和微件中隐藏预定的闹钟。这可以防止显示其他应用的闹钟。</string>
-    <string name="display_upcoming_alarm_title">在日期旁边显示预定的闹钟</string>
-    <string name="warning_upcoming_alarm_setting_off">必须启用时钟设置中的“在日期旁边显示预定的闹钟”才能访问此设置</string>
     <string name="shake_intensity_title">摇晃强度</string>
+    <string name="settings_language_title">语言</string>
+    <string name="settings_language_system">系统语言</string>
+    <string name="settings_language_french">法语</string>
+    <string name="settings_language_estonian">爱沙尼亚语</string>
+    <string name="settings_language_italian">意大利语</string>
+    <string name="settings_language_polish">波兰语</string>
+    <string name="settings_language_portuguese">葡萄牙语</string>
+    <string name="settings_language_serbian">塞尔维亚语</string>
+    <string name="settings_language_spanish">西班牙语</string>
+    <string name="settings_language_ukrainian">乌克兰语</string>
+    <string name="settings_language_chinese_simplified_cn">中文（简体）</string>
+    <string name="settings_language_german">德语</string>
+    <string name="settings_language_english_us">英语（美国）</string>
 </resources>

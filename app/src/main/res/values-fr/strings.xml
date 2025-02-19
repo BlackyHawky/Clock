@@ -646,9 +646,6 @@
     <string name="alarm_flash">Flash</string>
     <string name="about_translate_link">Traduire sur Codeberg</string>
     <string name="translate_dialog_message">Visiter la page Codeberg :\n\n%s</string>
-    <string name="display_upcoming_alarm_title">Afficher la prochaine alarme à côté de la date</string>
-    <string name="display_upcoming_alarm_summary">La désactivation de ce paramètre masque la prochaine alarme dans l\'onglet Horloge, l\'économiseur d\'écran et les widgets. Cela empêche d\'afficher les alarmes provenant d\'autres applications.</string>
-    <string name="warning_upcoming_alarm_setting_off">\"Afficher la prochaine alarme à côté de la date\" dans les paramètres Horloge doit être activé pour accéder à ce réglage</string>
     <string name="shake_intensity_title">Intensité des secousses</string>
     <string name="settings_language_french">Français</string>
     <string name="settings_language_system">Langue du système</string>
@@ -661,4 +658,6 @@
     <string name="settings_language_spanish">Espagnol</string>
     <string name="settings_language_ukrainian">Ukrainien</string>
     <string name="settings_language_title">Langue</string>
+    <string name="settings_language_english_us">Anglais (États-Unis)</string>
+    <string name="settings_language_chinese_simplified_cn">Chinois (simplifié, RPC)</string>
 </resources>

@@ -640,8 +640,18 @@
     <string name="alarm_flash">Välklamp</string>
     <string name="translate_dialog_message">Vaata meie lehte Codebergis:\n\n%s</string>
     <string name="about_translate_link">Tõlgi Codebergis</string>
-    <string name="display_upcoming_alarm_title">Näita järgmist äratust kuupäeva kõrval</string>
-    <string name="warning_upcoming_alarm_setting_off">Ligipääsuks sellele eelistusele peab valik „Näita järgmist äratust kuupäeva kõrval“ olema kasutusel</string>
-    <string name="display_upcoming_alarm_summary">Selle eelistuse väljalülitamine peidab järgmise äratuse Kella vahekaardilt, ekraanisäästja vaatest ja vidinatest. Samuti ei näidata teistest rakendustest loodud äratusi.</string>
     <string name="shake_intensity_title">Raputamise tugevus</string>
+    <string name="settings_language_title">Keel</string>
+    <string name="settings_language_system">Süsteemi keel</string>
+    <string name="settings_language_french">prantsuse keel</string>
+    <string name="settings_language_estonian">eesti keel</string>
+    <string name="settings_language_italian">itaalia keel</string>
+    <string name="settings_language_polish">poola keel</string>
+    <string name="settings_language_portuguese">portugali keel</string>
+    <string name="settings_language_german">saksa keel</string>
+    <string name="settings_language_chinese_simplified_cn">hiina keel (lihtsustatud, Hiina RV)</string>
+    <string name="settings_language_english_us">inglise keel (USA)</string>
+    <string name="settings_language_serbian">serbia keel</string>
+    <string name="settings_language_spanish">hispaania keel</string>
+    <string name="settings_language_ukrainian">ukraina keel</string>
 </resources>

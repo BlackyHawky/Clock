@@ -632,7 +632,18 @@
     <string name="alarm_flash">Zaklamp</string>
     <string name="about_translate_link">Vertaal op Codeberg</string>
     <string name="translate_dialog_message">Bezoek de Codeberg-pagina:\n\n%s</string>
-    <string name="warning_upcoming_alarm_setting_off">\"Toon aankomende wekker naast de datum\" in de Klok-instellingen moet hiervoor worden ingeschakeld</string>
-    <string name="display_upcoming_alarm_summary">Door deze instelling uit te schakelen wordt de aankomende wekker in de tab Klok, Screensaver en Widgets verborgen. Dit voorkomt dat wekkers van andere apps worden getoond.</string>
-    <string name="display_upcoming_alarm_title">Toon aankomende wekker naast de datum</string>
+    <string name="shake_intensity_title">Schud-intensiteit</string>
+    <string name="settings_language_title">Taal</string>
+    <string name="settings_language_system">Systeemtaal</string>
+    <string name="settings_language_french">Frans</string>
+    <string name="settings_language_german">Duits</string>
+    <string name="settings_language_estonian">Ests</string>
+    <string name="settings_language_italian">Italiaans</string>
+    <string name="settings_language_polish">Pools</string>
+    <string name="settings_language_portuguese">Portugees</string>
+    <string name="settings_language_serbian">Servisch</string>
+    <string name="settings_language_spanish">Spaans</string>
+    <string name="settings_language_ukrainian">Oekraïens</string>
+    <string name="settings_language_chinese_simplified_cn">Chinees (Vereenvoudigd, PRC)</string>
+    <string name="settings_language_english_us">Engels (VS)</string>
 </resources>

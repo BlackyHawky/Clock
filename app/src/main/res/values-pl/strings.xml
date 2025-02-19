@@ -648,7 +648,8 @@
     <string name="translate_dialog_message">Odwiedź stronę Codeberg:\n\n%s</string>
     <string name="about_translate_link">Przetłumacz na Codeberg</string>
     <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off; \n\n\t\tUnfortunately, this feature may not work on some devices despite the presence of the <i>\"com.qualcomm.qti.poweroffalarm\"</i> system app. \n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Konfigurowalny dzwonek;\n\n• Motyw jasny, ciemny lub systemowy;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Zegar cyfrowy lub analogowy;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• Minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Konfigurowalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowej i przywracanie ustawień;\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
-    <string name="display_upcoming_alarm_title">Wyświetl nadchodzący alarm obok daty</string>
-    <string name="display_upcoming_alarm_summary">Wyłączenie tego ustawienia ukrywa nadchodzący alarm w zakładce Zegar, wygaszaczu ekranu i widżetach. Zapobiega to wyświetlaniu alarmów z innych aplikacji.</string>
-    <string name="warning_upcoming_alarm_setting_off">Aby uzyskać dostęp do tego ustawienia, należy włączyć opcję „Wyświetlaj nadchodzący alarm obok daty” w ustawieniach zegara</string>
+    <string name="shake_intensity_title">Intensywność potrząśnięcia</string>
+    <string name="settings_language_title">Język</string>
+    <string name="settings_language_system">Język systemu</string>
+    <string name="settings_language_polish">Polski</string>
 </resources>

@@ -457,4 +457,11 @@
     <string name="background_color_title">背景顏色</string>
     <string name="permission_management_settings">權限管理</string>
     <string name="standard_category_title">標準</string>
+    <string name="settings_language_title">語言</string>
+    <string name="backup_restore_backup_button_title">備份</string>
+    <string name="backup_restore_restore_button_title">還原</string>
+    <string name="black_accent_color">黑色</string>
+    <string name="purple_accent_color">紫色</string>
+    <string name="yellow_accent_color">黃色</string>
+    <string name="alarm_flash">閃光燈</string>
 </resources>

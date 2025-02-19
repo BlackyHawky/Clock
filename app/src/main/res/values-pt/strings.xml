@@ -31,7 +31,8 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarme desativado"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Soneca"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="one">Snoozing for <xliff:g id="MINUTES">%d</xliff:g> minutes.</item>
+        <item quantity="one">adiado por <xliff:g id="MINUTES">%d</xliff:g> minuto.</item>
+        <item quantity="many">Adiado por <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
         <item quantity="other">Adiado por <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Em soneca até <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -524,7 +525,7 @@
     <string name="pink_accent_color">Rosa</string>
     <string name="occasional_alarm_deleted">Alarme ocasional excluído</string>
     <string name="alarm_created">Alarme criado</string>
-    <string name="about_dialog_message">• Ação de virar e chacoalhar para desativar/adiar o alarme;\n\n• Desligue/adie o alarme com o botão liga/desliga ou com os botões de volume;\n\n• Apenas para alguns dispositivos Snapdragon, o alarme é acionado quando eles são desligados;\n\n• Deslize para excluir um alarme;\n\n• Duplique alarmes;\n\n• Personalização do título do alarme;\n\n• Ringtone personalizável;\n\n• Tema claro, escuro ou do sistema;\n\n• Modo AMOLED para tema escuro;\n\n• Estilo de relógio digital ou analógico;\n\n• Exibir a hora de casa quando estiver viajando;\n\n• Exibir a hora em várias cidades do mundo;\n\n• Timer, cronômetro e hora de dormir <i>(experimental)</i> incluídos;\n\n• Possibilidade de compartilhar o cronômetro com seus contatos;\n\n• Protetor de tela personalizável;\n\n• Widgets modernos;\n\n• - Widgets personalizáveis;\n\n• Backup e restauração de configurações;\n\n• Material design;\n\n• Cores dinâmicas para Android 12+;</string>
+    <string name="about_dialog_message">• Ação de virar e chacoalhar para desativar/adiar o alarme;\n\n• Desligue/adie o alarme com o botão liga/desliga ou com os botões de volume;\n\n• Apenas para alguns dispositivos Snapdragon, o alarme é acionado quando eles são desligados;\n\t\tInfelizmente, esse recurso pode não funcionar em alguns dispositivos, apesar da presença do aplicativo de sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Deslize para excluir um alarme;\n\n• Duplique alarmes;\n\n• Personalização do título do alarme;\n\n• Ringtone personalizável;\n\n• Tema claro, escuro ou do sistema;\n\n• Modo AMOLED para tema escuro;\n\n• Estilo de relógio digital ou analógico;\n\n• Exibir a hora de casa quando estiver viajando;\n\n• Exibir a hora em várias cidades do mundo;\n\n• Timer, cronômetro e hora de dormir <i>(experimental)</i> incluídos;\n\n• Possibilidade de compartilhar o cronômetro com seus contatos;\n\n• Protetor de tela personalizável;\n\n• Widgets modernos;\n\n• Widgets personalizáveis;\n\n• Suporte para blocos em configurações rápidas (para Android 7+);\n\n• Backup e restauração de configurações;\n\n• Material design;\n\n• Cores dinâmicas para Android 12+;</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslize para esquerda ou direita para descartar e deletar alarme</string>
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>
     <string name="first_launch_button_now">Agora</string>
@@ -532,7 +533,7 @@
     <string name="widget_max_clock_font_size_summary">Tamanho máximo da fonte =</string>
     <string name="digital_widget_city_name_custom_color_title">Cor personalizada para o nome da cidade</string>
     <string name="digital_widget_max_clock_font_size_title">Tamanho máximo da fonte do relógio principal</string>
-    <string name="digital_widget_message_summary">Mostrar cidades no widget deve estar desativado para acessar essa configuração</string>
+    <string name="digital_widget_message_summary">\"Mostrar cidades no widget\" deve estar desativado para acessar essa configuração</string>
     <string name="about_title">Sobre</string>
     <string name="background_color_title">Cor do plano de fundo</string>
     <string name="digital_widget_city_title">Mostrar cidades no widget</string>
@@ -552,7 +553,7 @@
     <string name="digital_widget_city_clock_default_color_title">Usar a cor padrão para o relógio da cidade</string>
     <string name="flip_action_title">Ação de virar o dispositivo</string>
     <string name="first_launch_main_feature_link">… e muito mais!</string>
-    <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para deletar um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Claro, escuro ou tema do sistema; &lt;br&gt; &lt;br&gt; ► Protetor de tela personalizável; &lt;br&gt; &lt;br&gt; ► Widgets personalizáveis; &lt;br&gt; &lt;br&gt; ► Suporte para blocos em configurações rápidas (para Android 7+); &lt;br&gt; &lt;br&gt; ► Configurações de backup e restauração &lt;br&gt; &lt;br &gt; ► Material design e cores dinâmicas; &lt;br&gt; &lt;br&gt; ► Deslize para deletar um alarme; &lt;br&gt; &lt;br&gt; ► Duplique um alarme; &lt;br&gt; &lt;br&gt; ► Ação de virar e chacoalhar para desativar/adiar alarme; &lt;br&gt; &lt;br&gt; ► Desligar/adiar o alarme com os botões de ligar ou de volume; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="digital_widget_city_clock_custom_color_title">Cor personalizada do relógio da cidade</string>
     <string name="digital_widget_custom_minutes_color_title">Cor dos minutos personalizada</string>
     <string name="digital_widget_date_default_color_title">Usar a cor padrão para a data</string>
@@ -614,4 +615,32 @@
     <string name="sw_start_pause_action">Iniciar / Pausar</string>
     <string name="timer_buttons_action_summary">Funciona apenas na tela de bloqueio</string>
     <string name="timer_power_button_action_title">Reinicie os timers expirados com o botão de liga/desliga</string>
+    <string name="shake_intensity_title">intensidade de chacoalhar</string>
+    <string name="display_ringtone_title">Exibir título do toque</string>
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_system">Idioma do sistema</string>
+    <string name="settings_language_french">Françês</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polonês</string>
+    <string name="settings_language_estonian">Estoniano</string>
+    <string name="settings_language_portuguese">Português</string>
+    <string name="settings_language_spanish">Espanhol</string>
+    <string name="settings_language_ukrainian">Ucraniano</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Duas vibrações quando o alarme for adiado, e uma vibração quando o alarme for descartado</string>
+    <string name="settings_language_serbian">Sérvio</string>
+    <string name="settings_language_german">Alemão</string>
+    <string name="settings_language_chinese_simplified_cn">Chinês (simplificado, PRC)</string>
+    <string name="settings_language_english_us">Inglês (USA)</string>
+    <string name="purple_accent_color">Roxo</string>
+    <string name="black_accent_color">Preto</string>
+    <string name="day_accent_color_title">Cor de destaque para o modo diurno</string>
+    <string name="yellow_accent_color">Amarelo</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Habilitar vibrações quando o alarme for adiado ou descartado</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Ligue o flash traseiro quando o alarme for disparado</string>
+    <string name="display_warning_before_deleting_timer_title">Exibir um aviso antes de excluir um cronômetro</string>
+    <string name="warning_dialog_title">Deletar cronômetro</string>
+    <string name="warning_dialog_message">Você tem certeza que quer deletar o cronômetro \"%s\"?</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="about_translate_link">Traduza no Codeberg</string>
+    <string name="translate_dialog_message">Visite a página do Codeberg:\n\n%s</string>
 </resources>
