@@ -16,6 +16,7 @@ import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +44,13 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity {
 
@@ -70,10 +79,12 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         MaterialCardView mIgnoreBatteryOptimizationsView;
         MaterialCardView mNotificationView;
         MaterialCardView mFullScreenNotificationsView;
+        MaterialCardView mShowLockscreenView;
 
         ImageView mIgnoreBatteryOptimizationsDetails;
         ImageView mNotificationDetails;
         ImageView mFullScreenNotificationsDetails;
+        ImageView mShowLockscreenDetails;
 
         TextView mIgnoreBatteryOptimizationsStatus;
         TextView mNotificationStatus;
@@ -142,6 +153,23 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsStatus = rootView.findViewById(R.id.FSN_status_text);
 
                 updateFullScreenNotificationsCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
+            }
+
+            if (MiuiCheck.isMiui()) {
+                mShowLockscreenView = rootView.findViewById(R.id.show_lockscreen_view);
+                mShowLockscreenView.setVisibility(View.VISIBLE);
+                mShowLockscreenView.setOnClickListener(v -> grantShowOnLockScreenPermissionXiaomi());
+
+                mShowLockscreenDetails = rootView.findViewById(R.id.show_lockscreen_button);
+                mShowLockscreenDetails.setOnClickListener(v ->
+                        new AlertDialog.Builder(requireContext())
+                                .setTitle(R.string.show_lockscreen_dialog_title)
+                                .setMessage(R.string.show_lockscreen_dialog_text)
+                                .setPositiveButton(R.string.permission_dialog_close_button, null)
+                                .show()
+                );
+
+                updateShowLockscreenCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
             }
 
             return rootView;
@@ -278,6 +306,27 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         }
 
         /**
+         * Grant Show On Lock Screen permission for Xiaomi devices
+         */
+        private void grantShowOnLockScreenPermissionXiaomi() {
+            if (!MiuiCheck.isMiui()) {
+                return;
+            }
+
+            Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+            intent.setClassName("com.miui.securitycenter",
+                    "com.miui.permcenter.permissions.PermissionsEditorActivity");
+            intent.putExtra("extra_pkgname", requireContext().getPackageName());
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Intent fallbackIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                fallbackIntent.setData(Uri.parse("package:" + requireContext().getPackageName()));
+                startActivity(fallbackIntent);
+            }
+        }
+
+        /**
          * Sends the result of a permission request to the calling activity or parent fragment.
          * If the permission is granted, a result indicating success is sent.
          * This can be used by the calling component to perform any subsequent actions based on the permission result.
@@ -396,6 +445,83 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 mFullScreenNotificationsView.setStrokeColor(
                         MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
             }
+        }
+
+        private void updateShowLockscreenCard(boolean isCardBackgroundDisplayed, boolean isCardBorderDisplayed) {
+            if (isCardBackgroundDisplayed) {
+                mShowLockscreenView.setCardBackgroundColor(
+                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK));
+            } else {
+                mShowLockscreenView.setCardBackgroundColor(Color.TRANSPARENT);
+            }
+
+            if (isCardBorderDisplayed) {
+                mShowLockscreenView.setStrokeWidth(ThemeUtils.convertDpToPixels(2, requireContext()));
+                mShowLockscreenView.setStrokeColor(
+                        MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimary, Color.BLACK));
+            }
+        }
+
+    }
+
+    /**
+     * Class called to check if the device is running MIUI.
+     */
+    public static class MiuiCheck {
+
+        /**
+         * Check if the device is running MIUI.
+         * <p>
+         * By default, HyperOS is excluded from verification.
+         * If you want to include HyperOS in the verification, pass excludeHyperOS as false.
+         *
+         * @param excludeHyperOS Indicate whether to exclude HyperOS.
+         * @return {@code true} if the device is running MIUI ; {@code false} otherwise.
+         */
+        public static boolean isMiui(boolean excludeHyperOS) {
+            // Check if the device is from Xiaomi, Redmi or POCO.
+            String brand = Build.BRAND.toLowerCase();
+            Set<String> xiaomiBrands = new HashSet<>(Arrays.asList("xiaomi", "redmi", "poco"));
+            if (!xiaomiBrands.contains(brand)) {
+                return false;
+            }
+
+            // This feature is present in both MIUI and HyperOS.
+            String miuiVersion = getProperty("ro.miui.ui.version.name");
+            boolean isMiui = miuiVersion != null && !miuiVersion.trim().isEmpty();
+            // This feature is exclusive to HyperOS and is not present in MIUI.
+            String hyperOSVersion = getProperty("ro.mi.os.version.name");
+            boolean isHyperOS = hyperOSVersion != null && !hyperOSVersion.trim().isEmpty();
+
+            return isMiui && (!excludeHyperOS || !isHyperOS);
+        }
+
+        /**
+         * Private method to get the value of a system property.
+         */
+        private static String getProperty(String property) {
+            BufferedReader reader = null;
+            try {
+                Process process = Runtime.getRuntime().exec("getprop " + property);
+                reader = new BufferedReader(new InputStreamReader(process.getInputStream()), 1024);
+                return reader.readLine();
+            } catch (IOException ignored) {
+                return null;
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException ignored) {
+                    }
+                }
+            }
+        }
+
+        /**
+         * Overload of isMiui method with excludeHyperOS set to true by default.
+         */
+        public static boolean isMiui() {
+            return isMiui(true);
         }
 
     }
