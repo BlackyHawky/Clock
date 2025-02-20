@@ -7,6 +7,7 @@
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Trillen"</string>
+    <string name="time_picker_dialog_title">Tijd selecteren</string>
     <string name="delete" msgid="5732434972457000541">"Verwijderen"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Standaard wekkergeluid</string>
     <string name="alarm_sound" msgid="8754499591391638405">Wekkergeluid</string>

@@ -7,6 +7,7 @@
     <string name="app_label" msgid="6674495003718166674">"Сат"</string>
     <string name="default_label" msgid="5590025289805630372">"Аларм"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибрација"</string>
+    <string name="time_picker_dialog_title">Изаберите време</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Подразумевани звук аларма"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Звук аларма"</string>

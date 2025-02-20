@@ -7,6 +7,7 @@
     <string name="app_label" msgid="6674495003718166674">"Laikrodis"</string>
     <string name="default_label" msgid="5590025289805630372">"Signalas"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibruoti"</string>
+    <string name="time_picker_dialog_title">Pasirinkite laiką</string>
     <string name="delete" msgid="5732434972457000541">"Ištrinti"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Numatytasis signalo garsas"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Įspėjimo garsas"</string>

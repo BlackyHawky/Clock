@@ -8,6 +8,7 @@ package com.best.deskclock;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.content.Context;
@@ -30,8 +31,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.loader.app.LoaderManager;
@@ -521,11 +524,33 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
-        ShowMaterialTimePicker();
+        if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
+            showSpinnerTimePicker();
+        } else {
+            showMaterialTimePicker();
+        }
     }
 
-    private void ShowMaterialTimePicker() {
+    private void showSpinnerTimePicker() {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.spinner_time_picker, null);
+        final TimePicker timePicker = dialogView.findViewById(R.id.spinner_time_picker);
+        timePicker.setIs24HourView(DateFormat.is24HourFormat(mContext));
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getString(R.string.time_picker_dialog_title))
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int newHour = timePicker.getHour();
+                    int newMinute = timePicker.getMinute();
+                    mAlarmTimeClickHandler.onTimeSet(newHour, newMinute);
+                })
+                .setNegativeButton(android.R.string.cancel, null);
+
+        builder.create().show();
+    }
+
+    private void showMaterialTimePicker() {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
@@ -557,8 +582,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
      * the recyclerview or when the size/position of elements within the recyclerview changes.
      */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
-            implements View.OnLayoutChangeListener {
+    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener implements View.OnLayoutChangeListener {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));

@@ -8,13 +8,18 @@ package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TimePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -172,10 +177,36 @@ public final class AlarmTimeClickHandler {
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
-        ShowMaterialTimePicker(alarm.hour, alarm.minutes);
+        if (SettingsDAO.getMaterialTimePickerStyle(getDefaultSharedPreferences(mContext)).equals(SPINNER_TIME_PICKER_STYLE)) {
+            showSpinnerTimePicker(alarm.hour, alarm.minutes);
+        } else {
+            showMaterialTimePicker(alarm.hour, alarm.minutes);
+        }
     }
 
-    private void ShowMaterialTimePicker(int hour, int minute) {
+    private void showSpinnerTimePicker(int hour, int minutes) {
+        LayoutInflater inflater = mFragment.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.spinner_time_picker, null);
+        final Context context = dialogView.getContext();
+        final TimePicker timePicker = dialogView.findViewById(R.id.spinner_time_picker);
+        timePicker.setIs24HourView(DateFormat.is24HourFormat(mContext));
+        timePicker.setHour(hour);
+        timePicker.setMinute(minutes);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(context.getString(R.string.time_picker_dialog_title))
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int newHour = timePicker.getHour();
+                    int newMinute = timePicker.getMinute();
+                    onTimeSet(newHour, newMinute);
+                })
+                .setNegativeButton(android.R.string.cancel, null);
+
+        builder.create().show();
+    }
+
+    private void showMaterialTimePicker(int hour, int minute) {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mFragment.getContext());
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;

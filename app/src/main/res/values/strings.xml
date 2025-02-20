@@ -19,6 +19,8 @@
     <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
+    <!-- Title of dialog box to choose the alarm time -->
+    <string name="time_picker_dialog_title">Select time</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
     <!-- Label "Default" -->
@@ -701,6 +703,8 @@
     <string name="clock_style_analog">Analog</string>
     <!-- Setting title for changing the clock style to Digital. -->
     <string name="clock_style_digital">Digital</string>
+    <!-- Setting title for changing the clock style to Spinner. -->
+    <string name="clock_style_spinner">Spinner</string>
     <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->

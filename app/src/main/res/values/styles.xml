@@ -125,6 +125,13 @@
         <item name="android:background">@drawable/bg_snackbar</item>
     </style>
 
+    <!-- ======================== -->
+    <!--    SPINNER TIME PICKER   -->
+    <!-- ======================== -->
+    <style name="SpinnerTimePickerStyle">
+        <item name="android:textSize">28sp</item>
+    </style>
+
     <!-- ================= -->
     <!--    TIME PICKER    -->
     <!-- ================= -->
