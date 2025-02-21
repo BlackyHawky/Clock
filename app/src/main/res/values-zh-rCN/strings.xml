@@ -392,7 +392,7 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">创建闹钟时启用振动</string>
     <string name="version_text">版本 <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="notifications_dialog_text">除了设置闹钟外，这款应用还具有定时器和秒表模式。\n\n为了使所有模块的通知都能正确显示，尤其是为了触发闹钟，我们建议为此应用激活通知。</string>
-    <string name="FSN_dialog_text">自 Android 14 以来，为了在屏幕关闭时触发闹钟，必须启用全屏通知权限</string>
+    <string name="FSN_dialog_text">自 Android 14 以来，为了在屏幕关闭时触发闹钟，必须启用“全屏通知”权限。</string>
     <string name="notifications_permission_title">启用通知</string>
     <string name="notifications_dialog_title">通知</string>
     <string name="FSN_permission_title">启用全屏通知</string>
@@ -638,4 +638,8 @@
     <string name="settings_language_chinese_simplified_cn">中文（简体）</string>
     <string name="settings_language_german">德语</string>
     <string name="settings_language_english_us">英语（美国）</string>
+    <string name="permission_info_title">仅适用于小米设备</string>
+    <string name="show_lockscreen_dialog_text">在小米设备上，您应该从设备设置中手动启用“在锁屏上显示”权限，以便应用程序正常工作。</string>
+    <string name="show_lockscreen_permission_title">在锁屏上显示</string>
+    <string name="show_lockscreen_dialog_title">在锁屏上显示</string>
 </resources>

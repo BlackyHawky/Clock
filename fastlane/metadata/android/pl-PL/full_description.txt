@@ -1,0 +1,31 @@
+Zegar to dbająca o prywatność aplikacja zegar typu open source, oparty na AOSP..
+Nie korzysta z uprawnień internetowych, a zatem jest w 100% offline.
+
+Funkcje:
+<ul>
+<li>Przekręć i potrząśnij, aby odrzucić/odłożyć alarm;</li>
+<li>Wyłącz/odłóż alarm za pomocą przycisku zasilania lub przycisków głośności;</li>
+<li>Tylko w przypadku niektórych urządzeń Snapdragon alarm jest uruchamiany po ich wyłączeniu</li>
+<ul>
+<li>Niestety ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>"com.qualcomm.qti.poweroffalarm"</i>.</li>
+</ul>
+<li>Przesuń, aby usunąć alarm;</li>
+<li>Duplikuj alarmy;</li>
+<li>Możliwość dostosowania tytułu alarmu;</li>
+<li>Możliwość dostosowania dzwonka;</li>
+<li>Możliwość wyboru jasnego, ciemnego lub systemowego motywu;</li>
+<li>Tryb AMOLED dla ciemnego motywu;</li>
+<li>Możliwość dostosowania interfejsu;</li>
+<li>Cyfrowy lub styl zegara analogowego;</li>
+<li>Wyświetlanie czasu domowego podczas podróży;</li>
+<li>Wyświetlanie czasu w wielu miastach na całym świecie;</li>
+<li>Dołączony timer i stoper;</li>
+<li>Możliwość udostępniania stopera kontaktom;</li>
+<li>Konfigurowalny wygaszacz ekranu;</li>
+<li>Nowoczesne widżety;</li>
+<li>Konfigurowalne widżety;</li>
+<li>Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);</li>
+<li>Kopia zapasowa i przywracanie ustawień;</li>
+<li>Material design;</li>
+<li>Dynamiczne kolory dla Androida 12+;</li>
+</ul>

@@ -418,7 +418,7 @@
     <string name="first_launch_version">Версія %s</string>
     <string name="first_launch_button_later">Пізніше</string>
     <string name="first_launch_dialog_title">Вихід</string>
-    <string name="FSN_permission_title">Увімкнути повноекранні сповіщення</string>
+    <string name="FSN_permission_title">УВІМКНУТИ ПОВНОЕКРАННІ СПОВІЩЕННЯ</string>
     <string name="notifications_dialog_title">Сповіщення</string>
     <string name="FSN_dialog_title">Повноекранні сповіщення</string>
     <string name="permission_status_title">Стан: </string>
@@ -426,7 +426,7 @@
     <string name="permission_denied">Відхилено</string>
     <string name="permission_dialog_revoke_title">Скасувати доступ</string>
     <string name="permission_dialog_close_button">Закрити</string>
-    <string name="notifications_permission_title">Увімкнути сповіщення</string>
+    <string name="notifications_permission_title">УВІМКНУТИ СПОВІЩЕННЯ</string>
     <string name="selected">Вибрано</string>
     <string name="more_options">Додаткові опції</string>
     <string name="styles_and_colors_category_title">Стиль і кольори</string>
@@ -493,7 +493,7 @@
     <string name="screensaver_settings_summary">Стиль, колір і шрифт заставки</string>
     <string name="first_launch_important_info_title">ВАЖЛИВА ІНФОРМАЦІЯ</string>
     <string name="first_launch_important_info_message">Щоб додаток працював належним чином, необхідно &lt;b&gt;змінити деякі налаштування Вашого пристрою:&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Оптимізація заряду акумулятора;&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;Сповіщення;&lt;/b&gt;&lt;br&gt;&lt;br&gt; %s • &lt;b&gt;Сховище &lt;i&gt;(необов\'язково).&lt;/i&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Залежно від версії Android Вашого пристрою, деякі з цих налаштувань (наприклад, Сповіщення) можуть бути вже оптимізовані.&lt;/i&gt;&lt;br&gt;&lt;br&gt;Ви можете змінити їх зараз або пізніше в налаштуваннях управління дозволами:</string>
-    <string name="ignore_battery_optimizations_title">Ігнорувати оптимізацію заряду</string>
+    <string name="ignore_battery_optimizations_title">ІГНОРУВАТИ ОПТИМІЗАЦІЮ ЗАРЯДУ</string>
     <string name="ignore_battery_optimizations_dialog_title">Оптимізація заряду акумулятора</string>
     <string name="screensaver_bold_date_title">Дата жирним</string>
     <string name="settings_vibration_summary">Впливає лише на деякі кнопки (напр., запуск/пауза таймера або перемикачі)</string>
@@ -513,7 +513,7 @@
     <string name="alarm_missed_channel">Пропущені сигнали</string>
     <string name="alarm_snooze_channel">Відкладені будильники</string>
     <string name="alarm_upcoming_channel">Наступні будильники</string>
-    <string name="first_launch_main_feature_title">Основні функції</string>
+    <string name="first_launch_main_feature_title">ОСНОВНІ ФУНКЦІЇ</string>
     <string name="first_launch_main_feature_link">…і багато іншого!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;ПОВНОЕКРАННІ СПОВІЩЕННЯ;&lt;/b&gt;&lt;br&gt;&lt;br&gt;</string>
     <string name="first_launch_dialog_message">Ви дійсно хочете закрити додаток?</string>
@@ -525,7 +525,7 @@
 \nДля багатьох програм це прийнятно, однак цей додаток є будильником і оптимізація заряду часто спричиняє проблеми. Якщо її увімкнено, Android може в будь-який момент завершити роботу додатка та/або скасувати заплановані будильники, що може негативно вплинути на роботу додатка.
 \n
 \nРекомендуємо вимкнути оптимізацію заряду акумулятора для цього додатка.</string>
-    <string name="FSN_dialog_text">Починаючи з Android 14, щоб будильник спрацював, коли екран вимкнено, необхідно надати дозвіл на повноекранні сповіщення</string>
+    <string name="FSN_dialog_text">Починаючи з Android 14, щоб будильник спрацював, коли екран вимкнено, необхідно надати дозвіл на повноекранні сповіщення.</string>
     <string name="material_time_picker_style_title">Стиль вікна зміни часу</string>
     <string name="seconds_hand_color_title">Колір секундної стрілки</string>
     <string name="alarm_title_color">Колір заголовка будильника</string>
@@ -675,4 +675,8 @@
     <string name="settings_language_ukrainian">Українська</string>
     <string name="settings_language_chinese_simplified_cn">Китайська (спрощена, КНР)</string>
     <string name="settings_language_english_us">Англійська (США)</string>
+    <string name="permission_info_title">Тільки для пристроїв Xiaomi</string>
+    <string name="show_lockscreen_dialog_title">Показувати на заблокованому екрані</string>
+    <string name="show_lockscreen_permission_title">ПОКАЗУВАТИ НА ЗАБЛОКОВАНОМУ ЕКРАНІ</string>
+    <string name="show_lockscreen_dialog_text">На пристроях Xiaomi для коректної роботи додатка необхідно вручну ввімкнути дозвіл «Показувати на заблокованому екрані» в налаштуваннях пристрою.</string>
 </resources>

@@ -563,7 +563,7 @@
     <string name="sort_timer_title">Ordenar temporizadores</string>
     <string name="default_time_to_add_to_timer_title">Tiempo por defecto para añadir al temporizador</string>
     <string name="default_time_to_add_to_timer_6_minutes">6 minutos</string>
-    <string name="first_launch_main_feature_link">... ¡y mucho más!</string>
+    <string name="first_launch_main_feature_link">… ¡y mucho más!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICACIONES A PANTALLA COMPLETA;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_version">Versión %s</string>
     <string name="first_launch_main_feature_message">► Tema claro, oscuro o de sistema; &lt;br&gt; &lt;br&gt; ► Salvapantallas personalizable; &lt;br&gt; &lt;br&gt; ► Widgets personalizables; &lt;br&gt; &lt;br&gt; ► Soporte para azulejos en ajustes rápidos (para Android 7+); &lt;br&gt; &lt;br&gt; ► Copia de seguridad y restauración de ajustes; &lt;br&gt; &lt;br&gt; ► Material design y colores dinámicos; &lt;br&gt; &lt;br&gt; ► Deslizar para borrar una alarma; &lt;br&gt; &lt;br&gt; ► Duplicar una alarma; &lt;br&gt; &lt;br&gt; ► Acción de giro y agitación para desactivar/posponer la alarma; &lt;br&gt; &lt;br&gt; ► Apagar/posponer la alarma con el botón de encendido o los botones de volumen; &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -622,9 +622,6 @@
     <string name="translate_dialog_message">Visitar la página de Codeberg:\n\n%s</string>
     <string name="description_direction_right_for_occasional_alarm">Desliza el dedo hacia la derecha para descartar y borrar la alarma</string>
     <string name="screensaver_next_alarm_color_title">Color de la siguiente alarma</string>
-    <string name="warning_upcoming_alarm_setting_off">Para acceder a esta opción, debe estar activada la opción «Mostrar la próxima alarma junto a la fecha» en los ajustes del reloj</string>
-    <string name="display_upcoming_alarm_title">Mostrar la próxima alarma junto a la fecha</string>
-    <string name="display_upcoming_alarm_summary">Al desactivar esta opción se oculta la próxima alarma en la pestaña Reloj, el salvapantallas y los widgets. Esto evita que se muestren las alarmas de otras aplicaciones.</string>
     <string name="description_direction_left_for_non_repeatable_alarm">Deslizar a la izquierda para descartar</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Desliza el dedo hacia la izquierda para descartar y borrar la alarma</string>
     <string name="description_direction_both_for_occasional_alarm">Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para descartarla y borrarla</string>

@@ -450,7 +450,7 @@
     <string name="screensaver_bold_next_alarm_title">Kuva järgmine äratus paksus kirjas</string>
     <string name="screensaver_italic_next_alarm_title">Kuva järgmine äratus kaldkirjas</string>
     <string name="widget_next_alarm_default_color_title">Kasuta järgmise äratuse jaoks vaikimisi värvi</string>
-    <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste kasutamiseks</string>
+    <string name="FSN_dialog_text">Alates Androidi versioonist 14 on väljalülitatud ekraani puhul äratuste toimimiseks kohustuslik, et lubad sellele rakendusele õigused täisekraaniteavituste (Full Screen Notifications) kasutamiseks.</string>
     <string name="screensaver_daydream_settings">Kasuta ekraanisäästjat</string>
     <string name="screensaver_next_alarm_color_title">Järgmise äratuse värv</string>
     <string name="timer_settings_summary">Määra taimeritele vaikimisi helin, valjus ja järjestus</string>
@@ -655,4 +655,8 @@
     <string name="settings_language_serbian">serbia keel</string>
     <string name="settings_language_spanish">hispaania keel</string>
     <string name="settings_language_ukrainian">ukraina keel</string>
+    <string name="permission_info_title">Vaid Xiaomi seadmete jaoks</string>
+    <string name="show_lockscreen_permission_title">NÄITA LUKUSTUSVAATES</string>
+    <string name="show_lockscreen_dialog_title">Näita lukustusvaates</string>
+    <string name="show_lockscreen_dialog_text">Et see rakendus toimiks korralikult, siis Xiaomi nutiseadmetes palun luba seadistustes „Näita lukustusvaates“ õigused.</string>
 </resources>

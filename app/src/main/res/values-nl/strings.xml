@@ -647,4 +647,8 @@
     <string name="settings_language_ukrainian">Oekraïens</string>
     <string name="settings_language_chinese_simplified_cn">Chinees (Vereenvoudigd, PRC)</string>
     <string name="settings_language_english_us">Engels (VS)</string>
+    <string name="permission_info_title">Enkel voor Xiaomi toestellen</string>
+    <string name="show_lockscreen_dialog_title">Tonen op vergrendelscherm</string>
+    <string name="show_lockscreen_permission_title">TONEN OP VERGRENDELSCHERM</string>
+    <string name="show_lockscreen_dialog_text">Bij Xiami toestellen, moet de \"Toon op vergrendelscherm\" toestemming manueel geactiveerd worden in de instellingen zodat de applicatie normaal kan werken.</string>
 </resources>

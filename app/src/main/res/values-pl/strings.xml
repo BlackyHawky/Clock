@@ -653,4 +653,7 @@
     <string name="settings_language_title">Język</string>
     <string name="settings_language_system">Język systemu</string>
     <string name="settings_language_polish">Polski</string>
+    <string name="show_lockscreen_permission_title">POKAŻ NA EKRANIE BLOKADY</string>
+    <string name="show_lockscreen_dialog_title">Pokaż na ekranie blokady</string>
+    <string name="show_lockscreen_dialog_text">Na urządzeniach Xiaomi należy ręcznie włączyć uprawnienie „Pokaż na ekranie blokady” w ustawieniach urządzenia, aby aplikacja działała prawidłowo.</string>
 </resources>
