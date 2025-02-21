@@ -195,6 +195,7 @@ public final class AlarmTimeClickHandler {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(context.getString(R.string.time_picker_dialog_title))
+                .setIcon(R.drawable.ic_calendar_clock)
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     int newHour = timePicker.getHour();

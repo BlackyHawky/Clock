@@ -539,6 +539,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.time_picker_dialog_title))
+                .setIcon(R.drawable.ic_calendar_clock)
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     int newHour = timePicker.getHour();
