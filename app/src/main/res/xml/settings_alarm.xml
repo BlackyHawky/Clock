@@ -190,8 +190,8 @@
             android:key="key_material_time_picker_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/material_time_picker_style_title"
-            android:entries="@array/clock_style_entries"
-            android:entryValues="@array/clock_style_values"
+            android:entries="@array/time_picker_style_entries"
+            android:entryValues="@array/time_picker_style_values"
             android:defaultValue="analog"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

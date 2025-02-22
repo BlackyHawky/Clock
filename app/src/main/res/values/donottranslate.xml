@@ -343,10 +343,21 @@
     <string-array name="clock_style_entries">
         <item>@string/clock_style_analog</item>
         <item>@string/clock_style_digital</item>
-        <item>@string/clock_style_spinner</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the clock_style_entries above. -->
     <string-array name="clock_style_values" translatable="false">
+        <item>analog</item>
+        <item>digital</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when invoking the time picker style preference. -->
+    <string-array name="time_picker_style_entries">
+        <item>@string/clock_style_analog</item>
+        <item>@string/clock_style_digital</item>
+        <item>@string/clock_style_spinner</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the time_picker_style_entries above. -->
+    <string-array name="time_picker_style_values" translatable="false">
         <item>analog</item>
         <item>digital</item>
         <item>spinner</item>
