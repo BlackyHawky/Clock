@@ -58,9 +58,9 @@
     <string name="alarm_confirmation_toast_3">Alarm ustawiono na <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_4">Alarm włączy się za <xliff:g example="2 dni" id="DAYS">%1$s</xliff:g> i <xliff:g example="2 hours" id="HOURS">%2$s </xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_5">Alarm włączy się za<xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_6">Alarm włączy się za<xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_7">Alarm włączy się za<xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
-    <string name="alarm_confirmation_toast_8">Alarm włączy się za<xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_6">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_7">Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_8">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dni</item>
@@ -389,7 +389,7 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Nieprawidłowy czas w minutniku"</string>
     <string name="invalid_timer" msgid="900957020728335675">"Wybrano nieprawidłowy minutnik"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Nie ma nieaktualnych minutników"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmu na <xliff:g id="ALARM_TIME">%s</xliff:g> nie można jeszcze zamknąć, bo włączy się dopiero za ponad 24 godziny"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarmu nie można jeszcze odrzucić, wciąż pozostało ponad 24 godziny</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">Odrzuć alarm</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Wybierz, który alarm wyłączyć"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Brak aktualnych alarmów"</string>
@@ -656,4 +656,15 @@
     <string name="show_lockscreen_permission_title">POKAŻ NA EKRANIE BLOKADY</string>
     <string name="show_lockscreen_dialog_title">Pokaż na ekranie blokady</string>
     <string name="show_lockscreen_dialog_text">Na urządzeniach Xiaomi należy ręcznie włączyć uprawnienie „Pokaż na ekranie blokady” w ustawieniach urządzenia, aby aplikacja działała prawidłowo.</string>
+    <string name="settings_language_french">Francuski</string>
+    <string name="settings_language_estonian">Estoński</string>
+    <string name="settings_language_italian">Włoski</string>
+    <string name="settings_language_portuguese">Portugalski</string>
+    <string name="settings_language_serbian">Serbski</string>
+    <string name="settings_language_spanish">Hiszpański</string>
+    <string name="settings_language_ukrainian">Ukraiński</string>
+    <string name="settings_language_german">Niemiecki</string>
+    <string name="settings_language_english_us">Angielski (US)</string>
+    <string name="settings_language_chinese_simplified_cn">Chiński (uproszczony, ChRL)</string>
+    <string name="permission_info_title">Tylko dla urządzeń Xiaomi</string>
 </resources>

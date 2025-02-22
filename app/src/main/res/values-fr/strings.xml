@@ -665,4 +665,5 @@
     <string name="show_lockscreen_permission_title">AFFICHER SUR L\'ÉCRAN DE VERROUILLAGE</string>
     <string name="show_lockscreen_dialog_title">Afficher sur l\'écran de verrouillage</string>
     <string name="show_lockscreen_dialog_text">Sur les appareils Xiaomi, vous devez activer manuellement l\'autorisation \"Afficher sur l\'écran de verrouillage\" à partir des paramètres de l\'appareil pour que l\'application fonctionne correctement.</string>
+    <string name="clock_style_spinner">Spinner</string>
 </resources>
