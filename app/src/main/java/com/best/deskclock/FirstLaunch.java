@@ -100,6 +100,7 @@ public class FirstLaunch extends AppCompatActivity {
     private void showDialogToQuit() {
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.first_launch_dialog_title))
+                .setIcon(R.drawable.ic_logout)
                 .setMessage(getString(R.string.first_launch_dialog_message))
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> finishAffinity())
                 .setNegativeButton(android.R.string.no, null)
