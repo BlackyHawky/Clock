@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="vector"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240"
+    tools:ignore="VectorRaster">
+    <path
+        android:name="path"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M120 3C88.9814 3 59.2019 15.3347 37.2683 37.2683 15.3347 59.2019 3 88.9814 3 120s12.3347 60.7981 34.2683 82.7317C59.2019 224.6653 88.9814 237 120 237s60.7981-12.3347 82.7317-34.2683C224.6653 180.7981 237 151.0186 237 120s-12.3347-60.7981-34.2683-82.7317C180.7981 15.3347 151.0186 3 120 3Z"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="4" />
+</vector>
