@@ -456,7 +456,9 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
                 mHintView.setText(hintResId);
                 mHintView.setTextColor(mAlarmTitleColor);
                 if (mHintView.getVisibility() != VISIBLE) {
-                    mRingtoneLayout.setVisibility(GONE);
+                    if (mRingtoneLayout != null) {
+                        mRingtoneLayout.setVisibility(GONE);
+                    }
                     mHintView.setVisibility(VISIBLE);
 
                     ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0f, 1f).start();

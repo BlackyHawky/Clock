@@ -840,7 +840,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 mHintView.setText(hintResId);
                 mHintView.setTextColor(mAlarmTitleColor);
                 if (mHintView.getVisibility() != VISIBLE) {
-                    mRingtoneLayout.setVisibility(GONE);
+                    if (mRingtoneLayout != null) {
+                        mRingtoneLayout.setVisibility(GONE);
+                    }
                     mHintView.setVisibility(VISIBLE);
 
                     ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0f, 1f).start();
