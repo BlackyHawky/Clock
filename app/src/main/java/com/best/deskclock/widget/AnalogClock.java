@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
  */
 
-package com.best.deskclock;
+package com.best.deskclock.widget;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
@@ -34,6 +34,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.best.deskclock.DeskClock;
+import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;

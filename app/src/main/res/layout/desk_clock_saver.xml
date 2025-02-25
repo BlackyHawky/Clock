@@ -22,7 +22,7 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <com.best.deskclock.AnalogClock
+        <com.best.deskclock.widget.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

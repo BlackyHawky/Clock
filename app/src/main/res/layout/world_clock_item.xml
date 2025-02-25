@@ -30,7 +30,7 @@
             tools:ignore="RtlSymmetry"
             tools:text="12:34" />
 
-        <com.best.deskclock.AnalogClock
+        <com.best.deskclock.widget.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="80dp"
             android:layout_height="80dp"

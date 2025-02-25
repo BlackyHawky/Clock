@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.widget.AnalogClock;
 
 public class ScreensaverUtils {
 

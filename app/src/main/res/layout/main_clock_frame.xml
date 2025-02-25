@@ -21,7 +21,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.best.deskclock.AnalogClock
+        <com.best.deskclock.widget.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

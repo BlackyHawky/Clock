@@ -47,6 +47,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
