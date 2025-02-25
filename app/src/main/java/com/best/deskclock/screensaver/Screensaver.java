@@ -78,7 +78,7 @@ public final class Screensaver extends DreamService {
         mContentView = findViewById(R.id.saver_container);
         mMainClockView = mContentView.findViewById(R.id.main_clock);
 
-        ScreensaverUtils.setScreensaverMarginsAndClockStyle(mMainClockView.getContext(), mMainClockView);
+        ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_IMMERSIVE

@@ -13,7 +13,14 @@
     android:layout_gravity="center"
     android:gravity="center">
 
-    <com.google.android.material.textview.MaterialTextView
+    <!--
+        To prevent the error detected by Android Studio when launching the screensaver,
+        do not use com.google.android.material.textview.MaterialTextView.
+        The error message is:
+        View class com.google.android.material.textview.MaterialTextView is an AppCompat widget
+        that can only be used with a Theme.AppCompat theme (or descendant).
+    -->
+    <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +30,7 @@
         android:includeFontPadding="false"
         tools:text="Sa., 01.01." />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/nextAlarmIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +44,7 @@
         tools:paddingStart="8dp"
         tools:paddingEnd="8dp" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/nextAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

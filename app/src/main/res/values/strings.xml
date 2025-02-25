@@ -701,6 +701,8 @@
     <string name="open_date_settings">Change date \u0026 time</string>
     <!-- Setting title for changing the clock style to Analog. -->
     <string name="clock_style_analog">Analog</string>
+    <!-- Setting title for changing the clock style to Analog (Material). -->
+    <string name="clock_style_analog_material">Analog (Material)</string>
     <!-- Setting title for changing the clock style to Digital. -->
     <string name="clock_style_digital">Digital</string>
     <!-- Setting title for changing the clock style to Spinner. -->

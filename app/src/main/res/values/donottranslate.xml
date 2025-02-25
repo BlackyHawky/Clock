@@ -342,11 +342,13 @@
     <!-- Entries listed in the ListPreference when invoking the clock style preference. -->
     <string-array name="clock_style_entries">
         <item>@string/clock_style_analog</item>
+        <item>@string/clock_style_analog_material</item>
         <item>@string/clock_style_digital</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the clock_style_entries above. -->
     <string-array name="clock_style_values" translatable="false">
         <item>analog</item>
+        <item>analog_material</item>
         <item>digital</item>
     </string-array>
 

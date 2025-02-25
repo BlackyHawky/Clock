@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECONDS_HAND_COLOR;
@@ -25,6 +26,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -35,10 +37,14 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
     private int mRecyclerViewPosition = -1;
 
-    ListPreference mAlarmClockStyle;
     String[] mAlarmClockStyleValues;
     String mAnalogClock;
+    String mMaterialAnalogClock;
+    String mDigitalClock;
+
+    ListPreference mAlarmClockStyle;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    ColorPreference mAlarmClockColor;
     ColorPreference mAlarmSecondsHandColorPref;
     ColorPreference mBackgroundColorPref;
     ColorPreference mBackgroundAmoledColorPref;
@@ -62,6 +68,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
+        mAlarmClockColor = findPreference(KEY_ALARM_CLOCK_COLOR);
         mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
         mAlarmClockFontSizePref = findPreference(KEY_ALARM_CLOCK_FONT_SIZE);
         mAlarmTitleFontSizePref = findPreference(KEY_ALARM_TITLE_FONT_SIZE);
@@ -70,6 +77,8 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
         mAnalogClock = mAlarmClockStyleValues[0];
+        mMaterialAnalogClock = mAlarmClockStyleValues[1];
+        mDigitalClock = mAlarmClockStyleValues[2];
 
         setupPreferences();
     }
@@ -100,20 +109,19 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             case KEY_ALARM_CLOCK_STYLE -> {
                 final int clockIndex = mAlarmClockStyle.findIndexOfValue((String) newValue);
                 mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockIndex]);
-                mAlarmClockFontSizePref.setVisible(!newValue.equals(mAnalogClock));
-                mDisplaySecondsPref.setVisible(newValue.equals(mAnalogClock));
+                mAlarmClockColor.setVisible(!newValue.equals(mMaterialAnalogClock));
+                mAlarmClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
+                mDisplaySecondsPref.setVisible(!newValue.equals(mDigitalClock));
                 mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-                mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock)
-                        && mDisplaySecondsPref.isChecked()
-                );
+                mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock) && mDisplaySecondsPref.isChecked());
             }
 
             case KEY_DISPLAY_ALARM_SECONDS_HAND -> {
-                if (mDisplaySecondsPref.getSharedPreferences() != null) {
-                    final boolean isAlarmSecondsHandDisplayed = mDisplaySecondsPref.getSharedPreferences()
-                            .getBoolean(KEY_DISPLAY_ALARM_SECONDS_HAND, true);
-                    mAlarmSecondsHandColorPref.setVisible(!isAlarmSecondsHandDisplayed);
-                }
+                final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs);
+                final DataModel.ClockStyle clockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
+                mAlarmSecondsHandColorPref.setVisible(!isAlarmSecondsHandDisplayed
+                        && clockStyle != DataModel.ClockStyle.ANALOG_MATERIAL);
+
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -153,33 +161,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         return true;
     }
 
-    private void refresh() {
-        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(
-                SettingsDAO.getAlarmClockStyle(mPrefs).toString().toLowerCase());
-        mAlarmClockStyle.setValueIndex(clockStyleIndex);
-        mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockStyleIndex]);
-        mAlarmClockStyle.setOnPreferenceChangeListener(this);
-
-        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
-
-        mAlarmClockFontSizePref.setOnPreferenceChangeListener(this);
-        mAlarmClockFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
-
-        mAlarmTitleFontSizePref.setOnPreferenceChangeListener(this);
-        mAlarmTitleFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
-
-        mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
-
-        mPreviewAlarmPref.setOnPreferenceClickListener(this);
-    }
-
     private void setupPreferences() {
         final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
@@ -189,13 +170,39 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(
                 SettingsDAO.getAlarmClockStyle(mPrefs).toString().toLowerCase());
         // clockStyleIndex == 0 --> analog
-        // clockStyleIndex == 1 --> digital
-        mDisplaySecondsPref.setVisible(clockStyleIndex == 0);
+        // clockStyleIndex == 1 --> analog (Material)
+        // clockStyleIndex == 2 --> digital
+        mAlarmClockColor.setVisible(clockStyleIndex != 1);
+        mDisplaySecondsPref.setVisible(clockStyleIndex != 2);
         mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
-        mAlarmClockFontSizePref.setVisible(clockStyleIndex == 1);
+        mAlarmClockFontSizePref.setVisible(clockStyleIndex == 2);
+    }
+
+    private void refresh() {
+        mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntry());
+        mAlarmClockStyle.setOnPreferenceChangeListener(this);
+
+        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
+        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
         mAlarmClockFontSizePref.setSummary(SettingsDAO.getAlarmClockFontSize(mPrefs));
+        mAlarmClockFontSizePref.setOnPreferenceChangeListener(this);
+        mAlarmClockFontSizePref.setOnBindEditTextListener(editText -> {
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editText.selectAll();
+        });
+
         mAlarmTitleFontSizePref.setSummary(SettingsDAO.getAlarmTitleFontSize(mPrefs));
+        mAlarmTitleFontSizePref.setOnPreferenceChangeListener(this);
+        mAlarmTitleFontSizePref.setOnBindEditTextListener(editText -> {
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            editText.selectAll();
+        });
+
+        mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
+
+        mPreviewAlarmPref.setOnPreferenceClickListener(this);
     }
 
 }

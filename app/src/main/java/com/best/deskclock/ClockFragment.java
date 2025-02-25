@@ -64,8 +64,6 @@ public final class ClockFragment extends DeskClockFragment {
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
 
-    private DataModel.ClockStyle mClockStyle;
-    private boolean mDisplayClockSeconds;
     private TextClock mDigitalClock;
     private AnalogClock mAnalogClock;
     private View mClockFrame;
@@ -76,6 +74,8 @@ public final class ClockFragment extends DeskClockFragment {
     private Context mContext;
 
     public static SharedPreferences mPrefs;
+    public static DataModel.ClockStyle mClockStyle;
+    public static boolean mDisplayClockSeconds;
     public static boolean mIsPortrait;
     public static boolean mIsLandscape;
     public static boolean mIsTablet;
@@ -348,7 +348,7 @@ public final class ClockFragment extends DeskClockFragment {
                 itemView.setBackground(ThemeUtils.cardBackground(context));
 
                 // Configure the digital clock or analog clock depending on the user preference.
-                if (SettingsDAO.getClockStyle(mPrefs) == DataModel.ClockStyle.ANALOG) {
+                if (mClockStyle == DataModel.ClockStyle.ANALOG || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
                     mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
@@ -461,12 +461,10 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
-                DataModel.ClockStyle clockStyle = SettingsDAO.getClockStyle(mPrefs);
-                boolean displayClockSeconds = SettingsDAO.getDisplayClockSeconds(mPrefs);
                 AlarmUtils.refreshAlarm(context, itemView);
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                ClockUtils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);
-                ClockUtils.setClockSecondsEnabled(clockStyle, mDigitalClock, mAnalogClock, displayClockSeconds);
+                ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+                ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
             }
         }
     }

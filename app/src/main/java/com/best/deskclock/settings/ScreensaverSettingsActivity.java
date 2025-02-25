@@ -70,12 +70,14 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
         private int mRecyclerViewPosition = -1;
 
+        String[] mClockStyleValues;
+        String mMaterialAnalogClock;
+        String mDigitalClock;
+
         ColorPreference mClockColorPref;
         ColorPreference mDateColorPref;
         ColorPreference mNextAlarmColorPref;
         ListPreference mClockStyle;
-        String[] mClockStyleValues;
-        String mDigitalClock;
         SeekBarPreference mScreensaverBrightness;
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
@@ -116,7 +118,8 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mScreensaverMainSettings = findPreference(KEY_SCREENSAVER_DAYDREAM_SETTINGS);
 
             mClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
-            mDigitalClock = mClockStyleValues[1];
+            mMaterialAnalogClock = mClockStyleValues[1];
+            mDigitalClock = mClockStyleValues[2];
 
             setupPreferences();
         }
@@ -169,8 +172,17 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 case KEY_SCREENSAVER_CLOCK_STYLE -> {
                     final int clockIndex = mClockStyle.findIndexOfValue((String) newValue);
                     mClockStyle.setSummary(mClockStyle.getEntries()[clockIndex]);
-                    mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
-                    mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        mClockDynamicColorPref.setVisible(!newValue.equals(mMaterialAnalogClock));
+                        mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
+                        mClockColorPref.setVisible(!newValue.equals(mMaterialAnalogClock) && !mClockDynamicColorPref.isChecked());
+                        if (mClockDynamicColorPref.isChecked()) {
+                            mDateColorPref.setVisible(newValue.equals(mMaterialAnalogClock));
+                            mNextAlarmColorPref.setVisible(newValue.equals(mMaterialAnalogClock));
+                        }
+                    } else {
+                        mClockColorPref.setVisible(!newValue.equals(mMaterialAnalogClock));
+                    }
                     mBoldDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                     mItalicDigitalClockPref.setVisible(newValue.equals(mDigitalClock));
                 }
@@ -183,16 +195,10 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                         Utils.setVibrationTime(requireContext(), 50);
 
                 case KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS -> {
-                    if (mClockDynamicColorPref.getSharedPreferences() != null
-                            && mDisplaySecondsPref.getSharedPreferences() != null) {
-
-                        final boolean isNotDynamicColors = mClockDynamicColorPref.getSharedPreferences()
-                                .getBoolean(KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS, false);
-
-                        mClockColorPref.setVisible(isNotDynamicColors);
-                        mDateColorPref.setVisible(isNotDynamicColors);
-                        mNextAlarmColorPref.setVisible(isNotDynamicColors);
-                    }
+                    final boolean areNotDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(mPrefs);
+                    mClockColorPref.setVisible(areNotDynamicColors);
+                    mDateColorPref.setVisible(areNotDynamicColors);
+                    mNextAlarmColorPref.setVisible(areNotDynamicColors);
                     Utils.setVibrationTime(requireContext(), 50);
                 }
 
@@ -216,25 +222,27 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         private void setupPreferences() {
             final int screensaverClockIndex = mClockStyle.findIndexOfValue(
                     SettingsDAO.getScreensaverClockStyle(mPrefs).toString().toLowerCase());
-            mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
-            // screensaverClockIndex == 1 --> digital
-            mBoldDigitalClockPref.setVisible(screensaverClockIndex == 1);
-            mItalicDigitalClockPref.setVisible(screensaverClockIndex == 1);
+            // screensaverClockIndex == 0 --> analog
+            // screensaverClockIndex == 1 --> analog (material)
+            // screensaverClockIndex == 2 --> digital
+            mBoldDigitalClockPref.setVisible(screensaverClockIndex == 2);
+            mItalicDigitalClockPref.setVisible(screensaverClockIndex == 2);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                mClockDynamicColorPref.setVisible(true);
+                mClockDynamicColorPref.setVisible(screensaverClockIndex != 1);
                 mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
-                mClockColorPref.setVisible(!mClockDynamicColorPref.isChecked());
-                mDateColorPref.setVisible(!mClockDynamicColorPref.isChecked());
-                mNextAlarmColorPref.setVisible(!mClockDynamicColorPref.isChecked());
+                mClockColorPref.setVisible(!mClockDynamicColorPref.isChecked() && screensaverClockIndex != 1);
+                mDateColorPref.setVisible(!mClockDynamicColorPref.isChecked()
+                        || (screensaverClockIndex == 1 && mClockDynamicColorPref.isChecked()));
+                mNextAlarmColorPref.setVisible(!mClockDynamicColorPref.isChecked()
+                        || (screensaverClockIndex == 1 && mClockDynamicColorPref.isChecked()));
+            } else {
+                mClockColorPref.setVisible(screensaverClockIndex != 1);
             }
         }
 
         private void refresh() {
-            final int index = mClockStyle.findIndexOfValue(
-                    SettingsDAO.getScreensaverClockStyle(mPrefs).toString().toLowerCase());
-            mClockStyle.setValueIndex(index);
-            mClockStyle.setSummary(mClockStyle.getEntries()[index]);
+            mClockStyle.setSummary(mClockStyle.getEntry());
             mClockStyle.setOnPreferenceChangeListener(this);
 
             mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));

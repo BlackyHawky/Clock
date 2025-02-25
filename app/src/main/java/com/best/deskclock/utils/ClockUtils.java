@@ -43,7 +43,7 @@ public class ClockUtils {
                                               AnalogClock analogClock, boolean displaySeconds) {
 
         switch (clockStyle) {
-            case ANALOG -> {
+            case ANALOG, ANALOG_MATERIAL -> {
                 setTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(displaySeconds);
                 return;
@@ -64,7 +64,7 @@ public class ClockUtils {
      */
     public static void setClockStyle(DataModel.ClockStyle clockStyle, View digitalClock, View analogClock) {
         switch (clockStyle) {
-            case ANALOG -> {
+            case ANALOG, ANALOG_MATERIAL -> {
                 final Context context = analogClock.getContext();
                 // Optimally adjusts the height and the width of the analog clock when displayed
                 // on a tablet or phone in portrait or landscape mode

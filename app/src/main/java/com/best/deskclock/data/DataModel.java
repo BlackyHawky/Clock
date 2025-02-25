@@ -746,7 +746,7 @@ public final class DataModel {
     /**
      * Indicates the display style of clocks.
      */
-    public enum ClockStyle {ANALOG, DIGITAL}
+    public enum ClockStyle {ANALOG, ANALOG_MATERIAL, DIGITAL}
 
     /**
      * Indicates the preferred sort order of cities.

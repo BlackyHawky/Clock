@@ -32,9 +32,10 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.alarms.AlarmActivity;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
@@ -50,6 +51,15 @@ import java.util.TimeZone;
  */
 public class AnalogClock extends FrameLayout {
 
+    // Constants used for the Material analog clock
+    private final String DIAL = "DIAL";
+    private final String HOUR_HAND = "HOUR_HAND";
+    private final String MINUTE_HAND = "MINUTE_HAND";
+    private final String SECOND_HAND = "SECOND_HAND";
+
+    private final Context mContext;
+    private final SharedPreferences mPrefs;
+    private final DataModel.ClockStyle mClockStyle;
     private final ImageView mHourHand;
     private final ImageView mMinuteHand;
     private final ImageView mSecondHand;
@@ -91,78 +101,33 @@ public class AnalogClock extends FrameLayout {
     public AnalogClock(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        mContext = context;
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mClockStyle = getClockStyleForContext();
         mTime = Calendar.getInstance();
-        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
+        mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(mContext)).toLocalizedPattern();
 
-        final SharedPreferences prefs = getDefaultSharedPreferences(context);
-        final int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
-        final int alarmSecondsHandColor = SettingsDAO.getAlarmSecondsHandColor(prefs, context);
-        final int clockColor = context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity
-                ? alarmClockColor
-                : MaterialColors.getColor(context, android.R.attr.textColorPrimary, Color.BLACK);
+        final String accentColor = SettingsDAO.getAccentColor(mPrefs);
+        final int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
+        final int alarmSecondsHandColor = SettingsDAO.getAlarmSecondsHandColor(mPrefs, mContext);
+        final int defaultClockColor = MaterialColors.getColor(mContext, android.R.attr.textColorPrimary, Color.BLACK);
 
-        // Must call mutate on these instances, otherwise the drawables will blur, because they're
-        // sharing their size characteristics with the (smaller) world cities analog clocks.
-        final ImageView dial = new AppCompatImageView(context);
-        dial.setImageResource(R.drawable.clock_analog_dial);
-        dial.getDrawable().mutate();
-        if (!(context instanceof ScreensaverActivity)) {
-            dial.setColorFilter(clockColor);
-        }
+        // Create clock dial
+        final ImageView dial = createClockComponent(accentColor, DIAL, alarmClockColor, defaultClockColor);
+
+        // Create hour hand
+        mHourHand = createClockComponent(accentColor, HOUR_HAND, alarmClockColor, defaultClockColor);
+
+        // Create minute hand
+        mMinuteHand = createClockComponent(accentColor, MINUTE_HAND, alarmClockColor, defaultClockColor);
+
+        // Create second hand
+        mSecondHand = createSecondHand(accentColor, alarmSecondsHandColor);
+
         addView(dial);
-
-        mHourHand = new AppCompatImageView(context);
-        mHourHand.setImageResource(R.drawable.clock_analog_hour);
-        mHourHand.getDrawable().mutate();
-        if (!(context instanceof ScreensaverActivity)) {
-            mHourHand.setColorFilter(clockColor);
-        }
         addView(mHourHand);
-
-        mMinuteHand = new AppCompatImageView(context);
-        mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
-        mMinuteHand.getDrawable().mutate();
-        if (!(context instanceof ScreensaverActivity)) {
-            mMinuteHand.setColorFilter(clockColor);
-        }
         addView(mMinuteHand);
-
-        mSecondHand = new AppCompatImageView(context);
-        mSecondHand.setImageResource(R.drawable.clock_analog_second);
-        mSecondHand.getDrawable().mutate();
-        if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
-            mSecondHand.setColorFilter(alarmSecondsHandColor);
-        } else if (!(context instanceof ScreensaverActivity)) {
-            final boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(prefs);
-            final String accentColor = SettingsDAO.getAccentColor(prefs);
-            final String nightAccentColor = SettingsDAO.getNightAccentColor(prefs);
-            int color = getAccentColor(context, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
-            mSecondHand.setColorFilter(color);
-        }
-
         addView(mSecondHand);
-    }
-
-    private int getAccentColor(Context context, boolean isAutoNightAccentColorEnabled,
-                               String accentColor, String nightAccentColor) {
-
-        String colorKey = isAutoNightAccentColorEnabled
-                ? accentColor
-                : (ThemeUtils.isNight(context.getResources()) ? nightAccentColor : accentColor);
-
-        return switch (colorKey) {
-            case BLACK_ACCENT_COLOR -> context.getColor(R.color.blackColorPrimary);
-            case BLUE_GRAY_ACCENT_COLOR -> context.getColor(R.color.blueGrayColorPrimary);
-            case BROWN_ACCENT_COLOR -> context.getColor(R.color.brownColorPrimary);
-            case GREEN_ACCENT_COLOR -> context.getColor(R.color.greenColorPrimary);
-            case INDIGO_ACCENT_COLOR -> context.getColor(R.color.indigoColorPrimary);
-            case ORANGE_ACCENT_COLOR -> context.getColor(R.color.orangeColorPrimary);
-            case PINK_ACCENT_COLOR -> context.getColor(R.color.pinkColorPrimary);
-            case PURPLE_ACCENT_COLOR -> context.getColor(R.color.purpleColorPrimary);
-            case RED_ACCENT_COLOR -> context.getColor(R.color.redColorPrimary);
-            case YELLOW_ACCENT_COLOR -> context.getColor(R.color.yellowColorPrimary);
-            default -> context.getColor(R.color.md_theme_primary);
-        };
     }
 
     @Override
@@ -174,9 +139,9 @@ public class AnalogClock extends FrameLayout {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getContext().registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+            mContext.registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            getContext().registerReceiver(mIntentReceiver, filter);
+            mContext.registerReceiver(mIntentReceiver, filter);
         }
 
         // Refresh the calendar instance since the time zone may have changed while the receiver
@@ -194,8 +159,222 @@ public class AnalogClock extends FrameLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        getContext().unregisterReceiver(mIntentReceiver);
+        mContext.unregisterReceiver(mIntentReceiver);
         removeCallbacks(mClockTick);
+    }
+
+    /**
+     * Helper method to determine the clock style based on the context.
+     */
+    private DataModel.ClockStyle getClockStyleForContext() {
+        if (mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity) {
+            return SettingsDAO.getAlarmClockStyle(mPrefs);
+        } else if (mContext instanceof ScreensaverActivity) {
+            return SettingsDAO.getScreensaverClockStyle(mPrefs);
+        } else if (mContext instanceof DeskClock) {
+            return SettingsDAO.getClockStyle(mPrefs);
+        } else {
+            // Default for DreamService or other unknown contexts
+            return SettingsDAO.getScreensaverClockStyle(mPrefs);
+        }
+    }
+
+    /**
+     * Helper method to create clock components (dial, hour hand and minute hand).
+     */
+    private ImageView createClockComponent(String accentColor, String componentType, int alarmClockColor,
+                                           int defaultClockColor) {
+
+        ImageView component = new ImageView(mContext);
+
+        // Handle clock style and component color configuration
+        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+            int drawableResId = getMaterialAnalogDrawableResId(componentType);
+            component.setImageDrawable(AppCompatResources.getDrawable(mContext, drawableResId));
+            component.setColorFilter(getMaterialAnalogClockColor(accentColor, componentType));
+        } else {
+            int drawableResId = getAnalogDrawableResId(componentType);
+            component.setImageDrawable(AppCompatResources.getDrawable(mContext, drawableResId));
+            component.setColorFilter(isAlarmContext() ? alarmClockColor : defaultClockColor);
+        }
+
+        // Must call mutate on these instances, otherwise the drawables will blur, because they're
+        // sharing their size characteristics with the (smaller) world cities analog clocks.
+        component.getDrawable().mutate();
+
+        return component;
+    }
+
+    /**
+     * Helper method to create the second hand with a specific color logic.
+     */
+    private ImageView createSecondHand(String accentColor, int alarmSecondsHandColor) {
+
+        ImageView secondHand = new ImageView(mContext);
+
+        if (mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.analog_widget_material_you_clock_second));
+            secondHand.setColorFilter(getMaterialAnalogClockColor(accentColor, SECOND_HAND));
+        } else {
+            secondHand.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.clock_analog_second));
+            boolean isAutoNightAccentColorEnabled = SettingsDAO.isAutoNightAccentColorEnabled(mPrefs);
+            String nightAccentColor = SettingsDAO.getNightAccentColor(mPrefs);
+
+            secondHand.setColorFilter(isAlarmContext()
+                    ? alarmSecondsHandColor
+                    : getAccentColor(isAutoNightAccentColorEnabled, accentColor, nightAccentColor));
+        }
+
+        // Must call mutate on these instances, otherwise the drawables will blur, because they're
+        // sharing their size characteristics with the (smaller) world cities analog clocks.
+        secondHand.getDrawable().mutate();
+
+        return secondHand;
+    }
+
+    /**
+     * Helper method to get the drawable resource ID for material analog components.
+     */
+    private int getMaterialAnalogDrawableResId(String componentType) {
+        return switch (componentType) {
+            case DIAL -> R.drawable.analog_widget_material_you_clock_dial;
+            case HOUR_HAND -> R.drawable.analog_widget_material_you_clock_hour;
+            case MINUTE_HAND -> R.drawable.analog_widget_material_you_clock_minute;
+            default -> 0; // Default, should never happen
+        };
+    }
+
+    /**
+     * Helper method to get the drawable resource ID for analog components (non-material).
+     */
+    private int getAnalogDrawableResId(String componentType) {
+        return switch (componentType) {
+            case DIAL -> R.drawable.clock_analog_dial;
+            case HOUR_HAND -> R.drawable.clock_analog_hour;
+            case MINUTE_HAND -> R.drawable.clock_analog_minute;
+            default -> 0; // Default, should never happen
+        };
+    }
+
+    /**
+     * Helper method to determine if the context is an alarm-related activity.
+     */
+    private boolean isAlarmContext() {
+        return mContext instanceof AlarmActivity || mContext instanceof AlarmDisplayPreviewActivity;
+    }
+
+    /**
+     * Helper method to get the accent color to apply to the second hand of the analog clock.
+     */
+    private int getAccentColor(boolean isAutoNightAccentColorEnabled, String accentColor, String nightAccentColor) {
+        String colorKey = isAutoNightAccentColorEnabled
+                ? accentColor
+                : (ThemeUtils.isNight(mContext.getResources()) ? nightAccentColor : accentColor);
+
+        return switch (colorKey) {
+            case BLACK_ACCENT_COLOR -> mContext.getColor(R.color.blackColorPrimary);
+            case BLUE_GRAY_ACCENT_COLOR -> mContext.getColor(R.color.blueGrayColorPrimary);
+            case BROWN_ACCENT_COLOR -> mContext.getColor(R.color.brownColorPrimary);
+            case GREEN_ACCENT_COLOR -> mContext.getColor(R.color.greenColorPrimary);
+            case INDIGO_ACCENT_COLOR -> mContext.getColor(R.color.indigoColorPrimary);
+            case ORANGE_ACCENT_COLOR -> mContext.getColor(R.color.orangeColorPrimary);
+            case PINK_ACCENT_COLOR -> mContext.getColor(R.color.pinkColorPrimary);
+            case PURPLE_ACCENT_COLOR -> mContext.getColor(R.color.purpleColorPrimary);
+            case RED_ACCENT_COLOR -> mContext.getColor(R.color.redColorPrimary);
+            case YELLOW_ACCENT_COLOR -> mContext.getColor(R.color.yellowColorPrimary);
+            default -> mContext.getColor(R.color.md_theme_primary);
+        };
+    }
+
+    /**
+     * Helper method to get colors to apply to the Material analog clock.
+     */
+    private int getMaterialAnalogClockColor(String accentColor, String componentType) {
+        int colorResId = switch (accentColor) {
+            case BLACK_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.blackColorGray1,
+                    R.color.blackColorSecondary,
+                    R.color.blackColorPrimary,
+                    R.color.blackColorTertiary,
+                    componentType);
+            case BLUE_GRAY_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.blueGraySecondaryContainer,
+                    R.color.blueGrayColorSecondary,
+                    R.color.blueGrayColorPrimary,
+                    R.color.blueGrayColorTertiary,
+                    componentType);
+            case BROWN_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.brownSecondaryContainer,
+                    R.color.brownColorSecondary,
+                    R.color.brownColorPrimary,
+                    R.color.brownColorTertiary,
+                    componentType);
+            case GREEN_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.greenSecondaryContainer,
+                    R.color.greenColorSecondary,
+                    R.color.greenColorPrimary,
+                    R.color.greenColorTertiary,
+                    componentType);
+            case INDIGO_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.indigoSecondaryContainer,
+                    R.color.indigoColorSecondary,
+                    R.color.indigoColorPrimary,
+                    R.color.indigoColorTertiary,
+                    componentType);
+            case ORANGE_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.orangeSecondaryContainer,
+                    R.color.orangeColorSecondary,
+                    R.color.orangeColorPrimary,
+                    R.color.orangeColorTertiary,
+                    componentType);
+            case PINK_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.pinkSecondaryContainer,
+                    R.color.pinkColorSecondary,
+                    R.color.pinkColorPrimary,
+                    R.color.pinkColorTertiary,
+                    componentType);
+            case PURPLE_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.purpleSecondaryContainer,
+                    R.color.purpleColorSecondary,
+                    R.color.purpleColorPrimary,
+                    R.color.purpleColorTertiary,
+                    componentType);
+            case RED_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.redSecondaryContainer,
+                    R.color.redColorSecondary,
+                    R.color.redColorPrimary,
+                    R.color.redColorTertiary,
+                    componentType);
+            case YELLOW_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.yellowSecondaryContainer,
+                    R.color.yellowColorSecondary,
+                    R.color.yellowColorPrimary,
+                    R.color.yellowColorTertiary,
+                    componentType);
+            default -> getColorResourceForComponent(
+                    R.color.md_theme_secondaryContainer,
+                    R.color.md_theme_secondary,
+                    R.color.md_theme_primary,
+                    R.color.md_theme_tertiary,
+                    componentType);
+        };
+
+        return mContext.getColor(colorResId);
+    }
+
+    /**
+     * Helper method to centralize the logic to determine the color of each type of Material analog clock component.
+     */
+    private int getColorResourceForComponent(int dialColorRes, int hourHandColorRes, int minuteHandColorRes,
+                                             int secondHandColorRes, String componentType) {
+
+        return switch (componentType) {
+            case DIAL -> dialColorRes;
+            case HOUR_HAND -> hourHandColorRes;
+            case MINUTE_HAND -> minuteHandColorRes;
+            case SECOND_HAND -> secondHandColorRes;
+            default -> Color.BLACK; // Fallback to black color if the type is unknown
+        };
     }
 
     private void onTimeChanged() {
