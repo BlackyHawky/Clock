@@ -381,18 +381,11 @@ public class AnalogClock extends FrameLayout {
         mTime.setTimeInMillis(System.currentTimeMillis());
 
         // To get closer to a mechanical watch, the hour hand will move according to the minute value
-        float hourAngle = mTime.get(Calendar.HOUR) * 30f;
-        if (mTime.get(Calendar.MINUTE) >= 48) {
-            hourAngle = hourAngle + 24f;
-        } else if (mTime.get(Calendar.MINUTE) >= 36) {
-            hourAngle = hourAngle + 18f;
-        } else if (mTime.get(Calendar.MINUTE) >= 24) {
-            hourAngle = hourAngle + 12f;
-        } else if (mTime.get(Calendar.MINUTE) >= 12) {
-            hourAngle = hourAngle + 6f;
-        } else if (mTime.get(Calendar.MINUTE) <= 11) {
-            hourAngle = hourAngle + 0f;
-        }
+        int hour = mTime.get(Calendar.HOUR);
+        int minute = mTime.get(Calendar.MINUTE);
+        float hourAngle = (hour % 12) * 30f;
+        float minuteFraction = minute * 0.5f;
+        hourAngle += minuteFraction;
         mHourHand.setRotation(hourAngle);
 
         final float minuteAngle = mTime.get(Calendar.MINUTE) * 6f;
