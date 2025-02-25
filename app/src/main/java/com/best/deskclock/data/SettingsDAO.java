@@ -770,7 +770,7 @@ public final class SettingsDAO {
      */
     public static int getAlarmSecondsHandColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, context.getColor(DEFAULT_ALARM_SECONDS_HAND_COLOR));
+        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmSecondsHandColor(context));
     }
 
     /**

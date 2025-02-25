@@ -298,7 +298,7 @@ public class BackupAndRestoreUtils {
                     ints.put(KEY_ALARM_CLOCK_COLOR, prefs.getInt(
                             KEY_ALARM_CLOCK_COLOR, DEFAULT_ALARM_CLOCK_COLOR));
                     ints.put(KEY_ALARM_SECONDS_HAND_COLOR, prefs.getInt(
-                            KEY_ALARM_SECONDS_HAND_COLOR, context.getColor(DEFAULT_ALARM_SECONDS_HAND_COLOR)));
+                            KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmSecondsHandColor(context)));
                     ints.put(KEY_ALARM_TITLE_COLOR, prefs.getInt(
                             KEY_ALARM_TITLE_COLOR, DEFAULT_ALARM_TITLE_COLOR));
                     ints.put(KEY_SNOOZE_BUTTON_COLOR, prefs.getInt(

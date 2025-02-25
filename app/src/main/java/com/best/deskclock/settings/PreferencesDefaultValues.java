@@ -2,9 +2,10 @@
 
 package com.best.deskclock.settings;
 
+import android.content.Context;
 import android.graphics.Color;
 
-import com.best.deskclock.R;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Calendar;
 
@@ -75,7 +76,6 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
     public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.parseColor("#FF000000");
     public static final int DEFAULT_ALARM_CLOCK_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_ALARM_SECONDS_HAND_COLOR = R.color.md_theme_primary; // To be used with "context.getColor()"
     public static final int DEFAULT_ALARM_TITLE_COLOR = Color.parseColor("#FF8A9297");
     public static final int DEFAULT_SNOOZE_BUTTON_COLOR = Color.parseColor("#FF8A9297");
     public static final int DEFAULT_DISMISS_BUTTON_COLOR = Color.parseColor("#FF8A9297");
@@ -84,6 +84,9 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_ALARM_CLOCK_FONT_SIZE = "70";
     public static final String DEFAULT_ALARM_TITLE_FONT_SIZE = "26";
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
+    public static int getDefaultAlarmSecondsHandColor(Context context) {
+        return MaterialColors.getColor(context, android.R.attr.colorPrimary, Color.BLACK);
+    }
 
     // Timer
     public static final String DEFAULT_TIMER_AUTO_SILENCE = "30";

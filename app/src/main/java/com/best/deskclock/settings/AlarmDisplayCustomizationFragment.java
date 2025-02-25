@@ -16,6 +16,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 
@@ -30,6 +31,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.google.android.material.color.MaterialColors;
 import com.rarepebble.colorpicker.ColorPreference;
 
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
@@ -176,6 +178,10 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplaySecondsPref.setVisible(clockStyleIndex != 2);
         mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
+        if (mAlarmSecondsHandColorPref.isVisible()) {
+            mAlarmSecondsHandColorPref.setColor(
+                    MaterialColors.getColor(requireContext(), android.R.attr.colorPrimary, Color.BLACK));
+        }
         mAlarmClockFontSizePref.setVisible(clockStyleIndex == 2);
     }
 
