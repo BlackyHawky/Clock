@@ -480,7 +480,7 @@
     <string name="digital_widget_message_summary">„Städte im Widget anzeigen“ muss deaktiviert sein, um auf diese Einstellung zugreifen zu können</string>
     <string name="digital_widget_max_clock_font_size_title">Schriftgröße der Hauptuhr</string>
     <string name="widget_max_clock_font_size_summary">Maximal =</string>
-    <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für Vollbild-Benachrichtigungen aktiviert sein</string>
+    <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für \"Vollbildbenachrichtigungen\" aktiviert sein.</string>
     <string name="gnu_gpl">GNU General Public Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Clock“ basiert auf AOSP</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
@@ -647,4 +647,8 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">Blitzlicht einschalten, wenn der Alarm ausgelöst wird</string>
     <string name="about_translate_link">Auf Codeberg übersetzen</string>
     <string name="translate_dialog_message">Besuche die Codeberg-Seite:\n\n%s</string>
+    <string name="permission_info_title">Nur für Xiaomi-Geräte</string>
+    <string name="show_lockscreen_dialog_title">Auf dem Sperrbildschirm anzeigen</string>
+    <string name="show_lockscreen_permission_title">AUF DEM SCHLOSSBILDSCHIRM ANZEIGEN</string>
+    <string name="show_lockscreen_dialog_text">Auf Xiaomi-Geräten musst du die Berechtigung \"Auf dem Sperrbildschirm anzeigen\" manuell in den Geräteeinstellungen aktivieren, damit die Anwendung ordnungsgemäß funktioniert.</string>
 </resources>

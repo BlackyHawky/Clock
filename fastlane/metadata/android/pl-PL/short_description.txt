@@ -1,1 +1,1 @@
-Tryb alarmu, zegara, timera i stopera
+Tryb alarmu, zegara, minutnika i stopera

@@ -23,7 +23,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Dzisiaj"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Wyłącz"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Przegapiony alarm"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Uśpiony"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> min</item>
@@ -39,7 +39,7 @@
         <item quantity="other">Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> minuty.</item>
         <item quantity="one">Drzemka przez minutę.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Drzemka do <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">Drzemka do <xliff:g id="TIME">%s</xliff:g></string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchodzący alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zignorowany przez Ciebie alarm został usunięty"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Jeszcze niecała minuta"</string>
@@ -57,7 +57,7 @@
     <string name="alarm_confirmation_toast_2">Alarm ustawiono na <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_3">Alarm ustawiono na <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> od teraz.</string>
     <string name="alarm_confirmation_toast_4">Alarm włączy się za <xliff:g example="2 dni" id="DAYS">%1$s</xliff:g> i <xliff:g example="2 hours" id="HOURS">%2$s </xliff:g> od teraz.</string>
-    <string name="alarm_confirmation_toast_5">Alarm włączy się za<xliff:g id="MINUTES">%3$s</xliff:g>.</string>
+    <string name="alarm_confirmation_toast_5">Alarm włączy się za <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_6">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_7">Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
     <string name="alarm_confirmation_toast_8">Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>.</string>
@@ -197,15 +197,15 @@
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="timer_setup_description" msgid="2488277921227564704">"<xliff:g id="HOURS">%1$s</xliff:g>, <xliff:g id="MINUTES">%2$s</xliff:g>, <xliff:g id="SECONDS">%3$s</xliff:g>"</string>
-    <string name="lap_number_single_digit" msgid="1051159504304610877">"Nr <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
-    <string name="lap_number_double_digit" msgid="2138536756534362037">"Nr <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Mój czas to <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">Nr <xliff:g id="LAPNUMBER">%d</xliff:g></string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">Nr <xliff:g id="LAPNUMBER">%02d</xliff:g></string>
+    <string name="sw_share_main" msgid="7703563468204234405">Mój czas to <xliff:g id="TIME">%s</xliff:g></string>
     <string name="sw_share_laps" msgid="614390674795945007">"Czasy okrążeń:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Okrążenie <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">Okrążenie <xliff:g id="NUMBER">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">"Dodaj minutnik"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Usuń"</string>
-    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Usuń <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">Usuń <xliff:g id="NUMBER_STRING">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Dodaj %s minutę"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Dodaj %s min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
@@ -214,10 +214,10 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Anuluj"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Minutnik anulowany"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Czas minął"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"Minutniki, których czas upłynął: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
-    <string name="timer_multi_missed" msgid="9085073572920385362">"Pominięte minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">Minutniki, których czas upłynął: <xliff:g id="NUM_TIMERS">%d</xliff:g></string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">Pominięte minutniki: <xliff:g id="NUMBER">%d</xliff:g></string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minutnik"</string>
-    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Pominięty minutnik: <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">Pominięty minutnik: <xliff:g id="NAME">%s</xliff:g></string>
     <string name="timer_pause" msgid="3748323712728398743">"Wstrzymaj"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Resetuj wszystko"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
@@ -357,7 +357,7 @@
     <string name="timers_stopped" msgid="3186191253226005149">"Minutniki (<xliff:g id="NUMBER">%d</xliff:g>) wstrzymane"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Dotknij, by wyświetlić minutniki"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minutniki"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Następny minutnik: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">Następny minutnik: <xliff:g id="TIME_REMAINING">%s</xliff:g></string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozwiń alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Zwiń alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"cofnij"</string>
@@ -365,20 +365,20 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> później"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> temu"</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"Za <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">Za <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g></string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> temu"</string>
-    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Jutro. <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="world_hours_yesterday" msgid="4425086322610882745">"Wczoraj, <xliff:g id="TIME">%1$s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Następny alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">Jutro, <xliff:g id="TIME">%1$s</xliff:g></string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">Wczoraj, <xliff:g id="TIME">%1$s</xliff:g></string>
+    <string name="next_alarm_description" msgid="2650244835760747046">Następny alarm: <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="no_alarms" msgid="6429431324842022917">"Brak alarmów"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Nieprawidłowa godzina <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Brak alarmu o <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">Nieprawidłowa godzina <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g></string>
+    <string name="no_alarm_at" msgid="8140632482969193119">Brak alarmu o <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g></string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Brak zaplanowanych alarmów"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nie określono etykiety"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Brak alarmów zawierających etykietę"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Na tę godzinę nie ma żadnego alarmu"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm odrzucony</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm jest ustawiony na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">Alarm jest ustawiony na <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Minutnik został utworzony"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="few">Zostały wyłączone <xliff:g id="NUMBER">%d</xliff:g> minutniki</item>
@@ -393,7 +393,7 @@
     <string name="dismiss_alarm" msgid="7204593078688533541">Odrzuć alarm</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Wybierz, który alarm wyłączyć"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Brak aktualnych alarmów"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm z <xliff:g id="ALARM_TIME">%s</xliff:g> został uśpiony na 10 minut"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">Alarm z <xliff:g id="ALARM_TIME">%s</xliff:g> został uśpiony na 10 minut\"</string>
     <string name="flip_action_title">Reakcja na odwrócenie urządzenia</string>
     <string name="shake_action_title">Reakcja na potrząśnięcie urządzenia</string>
     <string name="alarm_notification_reminder_4_hours">4 godziny przed</string>
@@ -415,7 +415,7 @@
     <string name="backup_restore_restore_button_title">Przywracanie</string>
     <string name="display_background_border_title">Wyświetl obramowanie tła</string>
     <string name="digital_widget_custom_minutes_color_title">Niestandardowy kolor minut</string>
-    <string name="digital_widget_message_summary">Aby uzyskać dostęp do tego ustawienia, opcja Pokaż miasta na widżecie musi być wyłączona</string>
+    <string name="digital_widget_message_summary">Aby uzyskać dostęp do tego ustawienia, opcja \"Pokaż miasta\" na widżecie musi być wyłączona</string>
     <string name="display_ringtone_title">Wyświetl tytuł dzwonka</string>
     <string name="next_alarm_widget">Następny alarm</string>
     <string name="first_launch_button_later">Później</string>
@@ -464,7 +464,7 @@
     <string name="whats_new_title">Co nowego</string>
     <string name="widget_background_title">Wyświetl tło</string>
     <string name="widget_next_alarm_default_color_title">Użyj domyślnego koloru dla następnego alarmu</string>
-    <string name="FSN_dialog_text">Od Androida 14, aby alarm był wyzwalany, gdy ekran jest wyłączony, konieczne jest włączenie uprawnienia Powiadomienia pełnoekranowe</string>
+    <string name="FSN_dialog_text">Od Androida 14, aby alarm był wyzwalany, gdy ekran jest wyłączony, konieczne jest włączenie uprawnienia \"Powiadomienia pełnoekranowe\".</string>
     <string name="yellow_accent_color">Żółty</string>
     <string name="display_background_border_summary">Wyświetla obramowanie tła dla niektórych elementów aplikacji (alarmy, miasta, przycisk timera itp.).</string>
     <string name="alarm_notification_reminder_title">Przypomnienie o powiadomieniu</string>
@@ -648,7 +648,7 @@
     <string name="alarm_flash">Lampa błyskowa</string>
     <string name="translate_dialog_message">Odwiedź stronę Codeberg:\n\n%s</string>
     <string name="about_translate_link">Przetłumacz na Codeberg</string>
-    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• For some Snapdragon devices only, the alarm is triggered when they are switched off; \n\n\t\tUnfortunately, this feature may not work on some devices despite the presence of the <i>\"com.qualcomm.qti.poweroffalarm\"</i> system app. \n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Konfigurowalny dzwonek;\n\n• Motyw jasny, ciemny lub systemowy;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Zegar cyfrowy lub analogowy;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• Minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Konfigurowalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowej i przywracanie ustawień;\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
+    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• Tylko w przypadku niektórych urządzeń Snapdragon alarm jest uruchamiany po ich wyłączeniu;\n\nNiestety, ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Przesuń, aby usunąć alarm;\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Konfigurowalny dzwonek;\n\n• Motyw jasny, ciemny lub systemowy;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Zegar cyfrowy lub analogowy;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• Minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Konfigurowalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowej i przywracanie ustawień;\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
     <string name="shake_intensity_title">Intensywność potrząśnięcia</string>
     <string name="settings_language_title">Język</string>
     <string name="settings_language_system">Język systemu</string>
@@ -667,4 +667,5 @@
     <string name="settings_language_english_us">Angielski (US)</string>
     <string name="settings_language_chinese_simplified_cn">Chiński (uproszczony, ChRL)</string>
     <string name="permission_info_title">Tylko dla urządzeń Xiaomi</string>
+    <string name="clock_style_spinner">Spinner</string>
 </resources>

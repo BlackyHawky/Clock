@@ -18,7 +18,7 @@
     <string name="your_sounds" msgid="1672779351352629681">"マイサウンド"</string>
     <string name="device_sounds" msgid="1584894148222639823">"デバイスのサウンド"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"音声コンテンツにアクセスできません。"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">タイマー終了</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"解除"</string>
@@ -196,7 +196,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"キャンセル"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"タイマーをキャンセルしました"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"タイムアップ"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g>件のタイマーが完了"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g id="NUM_TIMERS">%d</xliff:g>件のタイマーが終了\"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> 件のタイマーが未応答でした"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"タイマー"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"未応答のタイマー: <xliff:g id="NAME">%s</xliff:g>"</string>
@@ -368,14 +368,14 @@
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"タイマーの長さが無効です"</string>
     <string name="invalid_timer" msgid="900957020728335675">"選択したタイマーは無効です"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"期限切れのタイマーはありません"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">終了したタイマーはありません</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームは、まだ24時間以上先なので解除することはできません"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"アラームを解除"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"解除するアラームを選択してください"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"作動中のアラームはありません"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
-    <string name="flip_action_title">端末反転アクション</string>
-    <string name="shake_action_title">端末を振った時の動作</string>
+    <string name="flip_action_title">デバイスを反転した時の動作</string>
+    <string name="shake_action_title">デバイスを振った時の動作</string>
     <string name="duplicate">重複</string>
     <string name="selected">選択済み</string>
     <string name="label_default">デフォルト</string>
@@ -455,4 +455,13 @@
     <string name="permission_management_summary">アプリが正常に動作するための権限を表示</string>
     <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
     <string name="backup_restore_settings_summary">アラーム、タイマー、通知音を除く設定のバックアップまたは復元</string>
+    <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
+    <string name="auto_silence_5_seconds">5秒</string>
+    <string name="auto_silence_20_seconds">20秒</string>
+    <string name="auto_silence_30_seconds">30秒</string>
+    <string name="auto_silence_10_seconds">10秒</string>
+    <string name="timer_power_button_action_title">電源ボタンで終了したタイマーをリセット</string>
+    <string name="timer_buttons_action_summary">ロック画面でのみ動作</string>
+    <string name="timer_shake_action_title">デバイスを振ってタイマーを停止</string>
+    <string name="timer_flip_action_title">デバイスを反転してタイマーを停止</string>
 </resources>

@@ -19,7 +19,7 @@ Funktsionaalsused:
   <li>Digikella või sihverplaadiga kella välimused;</li>
   <li>Reisimisel muudes ajavööndites kuvatakse kellaaega kodus;</li>
   <li>Näita kellaaegu linnades üle maailma;</li>
-  <li>Olemas on ka taimer, stopper ning uneaja vaade <i>(katseline)</i>;</li>
+  <li>Olemas on ka taimer ja stopper;</li>
   <li>Stopperi aja jagamise võimalus oma kontaktidega;</li>
   <li>Kohandatav ekraanisäästja;</li>
   <li>Moodsad vidinad;</li>

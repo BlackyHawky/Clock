@@ -1,0 +1,8 @@
+**Parandused**
+- Parandasime kokkujooksmise, mis tekkis kella või ekraanisäästja seadistustes valides kellatüübiks vurri
+
+**Täiendused**
+- Uuendasime tõlkeid
+
+Muus osas on see versioon sama, kui 2.12 ja tema muudatuste logi on leitav siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

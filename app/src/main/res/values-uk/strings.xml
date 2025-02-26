@@ -679,4 +679,5 @@
     <string name="show_lockscreen_dialog_title">Показувати на заблокованому екрані</string>
     <string name="show_lockscreen_permission_title">ПОКАЗУВАТИ НА ЗАБЛОКОВАНОМУ ЕКРАНІ</string>
     <string name="show_lockscreen_dialog_text">На пристроях Xiaomi для коректної роботи додатка необхідно вручну ввімкнути дозвіл «Показувати на заблокованому екрані» в налаштуваннях пристрою.</string>
+    <string name="clock_style_spinner">Лічильник</string>
 </resources>

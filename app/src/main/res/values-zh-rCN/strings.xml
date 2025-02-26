@@ -642,4 +642,5 @@
     <string name="show_lockscreen_dialog_text">在小米设备上，您应该从设备设置中手动启用“在锁屏上显示”权限，以便应用程序正常工作。</string>
     <string name="show_lockscreen_permission_title">在锁屏上显示</string>
     <string name="show_lockscreen_dialog_title">在锁屏上显示</string>
+    <string name="clock_style_spinner">旋转</string>
 </resources>

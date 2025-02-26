@@ -1,4 +1,4 @@
-Zegar to dbająca o prywatność aplikacja zegar typu open source, oparty na AOSP..
+Zegar to dbająca o prywatność aplikacja typu open source, oparta na AOSP..
 Nie korzysta z uprawnień internetowych, a zatem jest w 100% offline.
 
 Funkcje:
