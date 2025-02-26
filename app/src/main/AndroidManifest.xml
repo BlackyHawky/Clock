@@ -246,6 +246,7 @@
 
         <activity
             android:name="com.best.deskclock.screensaver.ScreensaverActivity"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:taskAffinity=""
