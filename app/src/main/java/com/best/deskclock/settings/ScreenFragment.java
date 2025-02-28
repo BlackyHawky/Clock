@@ -85,17 +85,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                     requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
 
             if (existingFragment == null) {
-                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                    fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
-                            R.anim.fade_in, R.anim.fade_out);
-                } else {
-                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
-                            R.anim.slide_in_left, R.anim.slide_out_right);
-                }
-                fragmentTransaction.replace(R.id.content_frame, new AboutFragment())
-                        .addToBackStack(null)
-                        .commit();
+                animateAndShowFragment(new AboutFragment());
             }
 
             return true;
@@ -205,8 +195,14 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
      * @param fragment The new fragment to be displayed.
      */
     protected void animateAndShowFragment(Fragment fragment) {
+        // Check if animations are disabled in accessibility settings
+        boolean areAnimationsDisabled = android.provider.Settings.Global.getFloat(requireContext().getContentResolver(),
+                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
+
+        if (areAnimationsDisabled) {
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
+        } else if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
                     R.anim.fade_in, R.anim.fade_out);
         } else {
