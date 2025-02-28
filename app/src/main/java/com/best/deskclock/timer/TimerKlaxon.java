@@ -22,8 +22,6 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Manages playing the timer ringtone and vibrating the device.
  */
@@ -32,7 +30,7 @@ public abstract class TimerKlaxon {
     private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
-    private static WeakReference<AsyncRingtonePlayer> sAsyncRingtonePlayerRef;
+    private static AsyncRingtonePlayer sAsyncRingtonePlayer;
 
     private TimerKlaxon() {
     }
@@ -87,10 +85,10 @@ public abstract class TimerKlaxon {
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
-        if (sAsyncRingtonePlayerRef == null || sAsyncRingtonePlayerRef.get() == null) {
-            sAsyncRingtonePlayerRef = new WeakReference<>(new AsyncRingtonePlayer(context.getApplicationContext()));
+        if (sAsyncRingtonePlayer == null) {
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
         }
 
-        return sAsyncRingtonePlayerRef.get();
+        return sAsyncRingtonePlayer;
     }
 }
