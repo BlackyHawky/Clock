@@ -163,7 +163,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
                 activity.registerReceiver(mAlarmChangeReceiver, filter);
             }
@@ -220,7 +220,6 @@ public final class ClockFragment extends DeskClockFragment {
         left.setVisibility(INVISIBLE);
         right.setVisibility(INVISIBLE);
     }
-
 
     /**
      * Refresh the next alarm time.
