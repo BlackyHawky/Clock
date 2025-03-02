@@ -14,7 +14,9 @@ import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_C
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +29,12 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
 
+import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
+import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.DigitalAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.VerticalDigitalAppWidgetProvider;
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AsyncHandler;
@@ -42,7 +50,9 @@ import com.best.deskclock.utils.LogUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -137,8 +147,78 @@ public final class AlarmStateManager extends BroadcastReceiver {
         }
 
         context.sendBroadcast(new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK));
-
+        updateNextAlarmInWidgets(context);
         updateNextAlarmInAlarmManager(context, nextAlarm);
+    }
+
+    /**
+     * Updates all registered app widgets that can display the next alarm.
+     * This method is called whenever the next alarm is updated, either due to a change in the alarm state
+     * or a new alarm being set. It retrieves the widget IDs for each registered widget provider and updates
+     * the corresponding widgets by calling the appropriate update method for each widget type.
+     * <p>
+     * This method is particularly useful for ensuring that the widgets always display/hide
+     * the next alarm time after any updates to the alarm state.
+     */
+    private static void updateNextAlarmInWidgets(Context context) {
+        // Include in this Map only widgets that can display the next alarm.
+        Map<Class<?>, Runnable> widgetActions = new HashMap<>();
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+        widgetActions.put(DigitalAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, DigitalAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                DigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        widgetActions.put(NextAlarmAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, NextAlarmAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                NextAlarmAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        widgetActions.put(VerticalDigitalAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, VerticalDigitalAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                VerticalDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        widgetActions.put(MaterialYouDigitalAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, MaterialYouDigitalAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                MaterialYouDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        widgetActions.put(MaterialYouNextAlarmAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, MaterialYouNextAlarmAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                MaterialYouNextAlarmAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        widgetActions.put(MaterialYouVerticalDigitalAppWidgetProvider.class, () -> {
+            int[] widgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, MaterialYouVerticalDigitalAppWidgetProvider.class));
+            for (int widgetId : widgetIds) {
+                MaterialYouVerticalDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
+            }
+        });
+
+        new Handler(context.getMainLooper()).post(() -> {
+            for (Map.Entry<Class<?>, Runnable> entry : widgetActions.entrySet()) {
+                entry.getValue().run();
+            }
+        });
     }
 
     /**

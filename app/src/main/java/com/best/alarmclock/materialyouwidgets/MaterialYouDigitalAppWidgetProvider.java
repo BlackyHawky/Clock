@@ -23,7 +23,6 @@ import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_DIGITAL_WIDGET
 import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -506,7 +505,6 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_NEXT_ALARM_CHANGED_BY_CLOCK:
                 case ACTION_ON_DAY_CHANGE:
                 case ACTION_LANGUAGE_CODE_CHANGED:
                 case ACTION_WORLD_CITIES_CHANGED:
@@ -556,7 +554,6 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
     private static IntentFilter getIntentFilter() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
         intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);

@@ -317,7 +317,6 @@
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
                 <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -348,7 +347,6 @@
                 <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
                 <action android:name="com.best.alarmclock.VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -376,7 +374,6 @@
                 <action android:name="com.best.alarmclock.NEXT_ALARM_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -426,7 +423,6 @@
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
                 <action android:name="com.best.alarmclock.MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -457,7 +453,6 @@
                 <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
                 <action android:name="com.best.alarmclock.MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -485,7 +480,6 @@
                 <action android:name="com.best.alarmclock.MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED" />
                 <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
-                <action android:name="com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

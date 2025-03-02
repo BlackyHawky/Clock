@@ -8,7 +8,6 @@ package com.best.deskclock.utils;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.app.AlarmManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.camera2.CameraAccessException;
@@ -44,12 +43,12 @@ public class AlarmUtils {
     /**
      * Intent action sent when the alarm has been either created or updated in the Clock app.
      * <p>
-     * This action will display the next alarm of this app only in the clock tab, widgets and screensaver.
+     * This action will display the next alarm of this app only in the clock tab and screensaver.
      */
     public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
 
     /**
-     * @return The next alarm from {@link AlarmManager}
+     * @return The text of the next alarm.
      */
     public static String getNextAlarm(Context context) {
         AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
@@ -64,7 +63,7 @@ public class AlarmUtils {
     }
 
     /**
-     * @return The next alarm title
+     * @return The next alarm title.
      */
     public static String getNextAlarmTitle(Context context) {
         AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
