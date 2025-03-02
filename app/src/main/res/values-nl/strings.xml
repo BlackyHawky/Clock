@@ -460,7 +460,7 @@
     <string name="permission_management_summary">Toon de rechten die nodig zijn om de app goed te laten werken</string>
     <string name="FSN_permission_title">MELDINGEN OP VOLLEDIG SCHERM INSCHAKELEN</string>
     <string name="FSN_dialog_title">Meldingen op volledig scherm</string>
-    <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om meldingen op volledig scherm toe te staan</string>
+    <string name="FSN_dialog_text">Zodat de wekker af kan gaan als het scherm uit staat, is het sinds Android 14 noodzakelijk om het recht \"Meldingen op volledig scherm\" toe te staan.</string>
     <string name="power_button_title">Aan/uit-knop</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
@@ -651,4 +651,6 @@
     <string name="show_lockscreen_dialog_title">Tonen op vergrendelscherm</string>
     <string name="show_lockscreen_permission_title">TONEN OP VERGRENDELSCHERM</string>
     <string name="show_lockscreen_dialog_text">Bij Xiami toestellen, moet de \"Toon op vergrendelscherm\" toestemming manueel geactiveerd worden in de instellingen zodat de applicatie normaal kan werken.</string>
+    <string name="clock_style_analog_material">Analoog (Material)</string>
+    <string name="clock_style_spinner">Spinner</string>
 </resources>

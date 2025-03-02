@@ -668,4 +668,5 @@
     <string name="settings_language_chinese_simplified_cn">Chiński (uproszczony, ChRL)</string>
     <string name="permission_info_title">Tylko dla urządzeń Xiaomi</string>
     <string name="clock_style_spinner">Spinner</string>
+    <string name="clock_style_analog_material">Analogowy (Material)</string>
 </resources>

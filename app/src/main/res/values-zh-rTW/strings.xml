@@ -465,4 +465,12 @@
     <string name="purple_accent_color">紫色</string>
     <string name="yellow_accent_color">黃色</string>
     <string name="alarm_flash">閃光燈</string>
+    <string name="alarm_alert_off_and_deleted_text">鬧鐘已關閉並刪除</string>
+    <string name="material_you_vertical_digital_widget">Material You直式數位時鐘</string>
+    <string name="analog_widget_material_you">Material You指針時鐘</string>
+    <string name="delete_occasional_alarm_after_use_title">關閉後立即刪除鬧鐘</string>
+    <string name="alarm_alert_dismiss_and_delete_text">關閉並刪除</string>
+    <string name="occasional_alarm_alert_predismiss_title">預定的臨時鬧鐘</string>
+    <string name="vertical_digital_widget">直式數位時鐘</string>
+    <string name="next_alarm_widget">下次時鐘</string>
 </resources>

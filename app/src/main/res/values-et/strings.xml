@@ -222,8 +222,8 @@
     <string name="clock_style" msgid="2265011060429742344">"Stiil"</string>
     <string name="display_clock_seconds_pref" msgid="691506643469501643">"Kuva aeg sekundites"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Kuupäeva ja kellaaja muutmine"</string>
-    <string name="clock_style_analog">Analoog</string>
-    <string name="clock_style_digital">Digitaalne</string>
+    <string name="clock_style_analog">Analoogkell</string>
+    <string name="clock_style_digital">Digikell</string>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automaatne kodu kell"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Kui reisite teise ajavööndisse jäävas riigis, siis lisage kell kodu vööndiajaga"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Kodune ajavöönd"</string>
@@ -660,4 +660,5 @@
     <string name="show_lockscreen_dialog_title">Näita lukustusvaates</string>
     <string name="show_lockscreen_dialog_text">Et see rakendus toimiks korralikult, siis Xiaomi nutiseadmetes palun luba seadistustes „Näita lukustusvaates“ õigused.</string>
     <string name="clock_style_spinner">Vurr</string>
+    <string name="clock_style_analog_material">Analoogkell (MD-kujunduskeel)</string>
 </resources>
