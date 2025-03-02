@@ -323,6 +323,8 @@
     <string name="settings_language_spanish">Spanish</string>
     <!-- Setting title for changing the language to Ukrainian. -->
     <string name="settings_language_ukrainian">Ukrainian</string>
+    <!-- Setting title for changing the language to Dutch. -->
+    <string name="settings_language_dutch">Dutch</string>
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->

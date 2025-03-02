@@ -458,6 +458,7 @@
         <item>@string/settings_language_serbian</item>
         <item>@string/settings_language_spanish</item>
         <item>@string/settings_language_ukrainian</item>
+        <item>@string/settings_language_dutch</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
     <string-array name="language_values" translatable="false">
@@ -473,5 +474,6 @@
         <item>sr</item>
         <item>es</item>
         <item>uk</item>
+        <item>nl</item>
     </string-array>
 </resources>
