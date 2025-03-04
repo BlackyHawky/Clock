@@ -29,6 +29,7 @@ import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.collection.ArrayMap;
 import androidx.core.app.ActivityCompat;
@@ -162,8 +163,8 @@ public class ThemeController {
             applyAccentColor(activity, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
 
             if (activity instanceof CollapsingToolbarBaseActivity) {
-                applyNavigationBarColorForCollapsingToolbar(activity, darkMode);
-            } else {
+                applyNavigationBarColorForCollapsingToolbarActivity(activity, darkMode);
+            } else if (activity instanceof AppCompatActivity) {
                 applyNavigationBarColorForRegularActivity(activity, darkMode);
             }
         }
@@ -201,7 +202,7 @@ public class ThemeController {
             }
         }
 
-        private void applyNavigationBarColorForCollapsingToolbar(Activity activity, String darkMode) {
+        private void applyNavigationBarColorForCollapsingToolbarActivity(Activity activity, String darkMode) {
             if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                 activity.getWindow().setNavigationBarColor(Color.BLACK);
                 activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
