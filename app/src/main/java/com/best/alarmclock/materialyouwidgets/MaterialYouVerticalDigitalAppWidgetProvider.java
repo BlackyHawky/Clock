@@ -2,6 +2,7 @@
 
 package com.best.alarmclock.materialyouwidgets;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -15,9 +16,6 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
-import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
@@ -38,7 +36,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -47,6 +44,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.best.alarmclock.DailyWidgetUpdateReceiver;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
@@ -56,8 +54,6 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -215,11 +211,11 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(R.id.date, VISIBLE);
             rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-            rv.setTextViewText(R.id.date, getDateFormat(context));
+            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
         } else {
             rv.setViewVisibility(R.id.date, GONE);
             rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
-            rv.setTextViewText(R.id.dateForCustomColor, getDateFormat(context));
+            rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
             rv.setTextColor(R.id.dateForCustomColor, customDateColor);
         }
 
@@ -263,11 +259,11 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setText(getDateFormat(context));
+            date.setText(WidgetUtils.getDateFormat(context));
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(getDateFormat(context));
+            dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
         }
 
         // Configure the next alarm views to display the next alarm time or be gone.
@@ -405,16 +401,19 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         return measuredSizes;
     }
 
-    /**
-     * @return the locale-specific date pattern
-     */
-    private static String getDateFormat(Context context) {
-        Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat(DateFormat.getBestDateTimePattern(locale, skeleton), locale);
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
 
-        return simpleDateFormat.format(new Date());
+        // Schedule alarm for daily widget update at midnight
+        WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+
+        WidgetUtils.cancelDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
     }
 
     @Override
@@ -433,13 +432,11 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final String action = intent.getAction();
         if (action != null) {
             switch (action) {
+                case ACTION_APPWIDGET_UPDATE:
                 case ACTION_CONFIGURATION_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_LANGUAGE_CODE_CHANGED:
-                case ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
-                case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
@@ -447,6 +444,10 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         }
 
         WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
+
+        if (widgetIds.length > 0) {
+            WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
+        }
     }
 
     /**
@@ -479,10 +480,8 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
     @NonNull
     private static IntentFilter getIntentFilter() {
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_APPWIDGET_UPDATE);
         intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
-        intentFilter.addAction(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
         return intentFilter;
     }
 

@@ -2,9 +2,9 @@
 
 package com.best.deskclock.settings;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.alarmclock.WidgetUtils.ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
@@ -128,7 +128,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                     mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR -> {
@@ -138,7 +137,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomHoursColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
@@ -148,7 +146,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomMinutesColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR -> {
@@ -158,7 +155,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomDateColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
@@ -168,7 +164,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
@@ -176,17 +171,10 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                 digitalWidgetMaxClockFontSizePref.setSummary(
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                 + newValue.toString());
-                requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
             }
-
-            case KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR,
-                 KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR,
-                 KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR,
-                 KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR,
-                 KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR ->
-                    requireContext().sendBroadcast(new Intent(ACTION_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED));
         }
 
+        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
         return true;
     }
 

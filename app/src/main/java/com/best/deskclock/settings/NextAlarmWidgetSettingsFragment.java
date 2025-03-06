@@ -2,9 +2,9 @@
 
 package com.best.deskclock.settings;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
@@ -121,7 +121,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                     mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
@@ -131,7 +130,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                     mCustomTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
@@ -141,7 +139,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                     mCustomAlarmTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
             }
 
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
@@ -151,7 +148,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                     mCustomAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
             }
 
             case KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE -> {
@@ -160,16 +156,10 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                 + newValue.toString()
                 );
-                requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
             }
-
-            case KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR,
-                 KEY_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR,
-                 KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR,
-                 KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR ->
-                    requireContext().sendBroadcast(new Intent(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED));
         }
 
+        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
         return true;
     }
 

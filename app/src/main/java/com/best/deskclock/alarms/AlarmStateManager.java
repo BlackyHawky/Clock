@@ -16,7 +16,6 @@ import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
 
+import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
 import com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
 import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
@@ -48,11 +48,10 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -161,62 +160,22 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the next alarm time after any updates to the alarm state.
      */
     private static void updateNextAlarmInWidgets(Context context) {
-        // Include in this Map only widgets that can display the next alarm.
-        Map<Class<?>, Runnable> widgetActions = new HashMap<>();
+        // List of widget provider classes that need updating
+        List<Class<?>> widgetProviders = Arrays.asList(
+                DigitalAppWidgetProvider.class,
+                NextAlarmAppWidgetProvider.class,
+                VerticalDigitalAppWidgetProvider.class,
+                MaterialYouDigitalAppWidgetProvider.class,
+                MaterialYouNextAlarmAppWidgetProvider.class,
+                MaterialYouVerticalDigitalAppWidgetProvider.class
+        );
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        widgetActions.put(DigitalAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, DigitalAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                DigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
-        widgetActions.put(NextAlarmAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, NextAlarmAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                NextAlarmAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
-        widgetActions.put(VerticalDigitalAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, VerticalDigitalAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                VerticalDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
-        widgetActions.put(MaterialYouDigitalAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, MaterialYouDigitalAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                MaterialYouDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
-        widgetActions.put(MaterialYouNextAlarmAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, MaterialYouNextAlarmAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                MaterialYouNextAlarmAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
-        widgetActions.put(MaterialYouVerticalDigitalAppWidgetProvider.class, () -> {
-            int[] widgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, MaterialYouVerticalDigitalAppWidgetProvider.class));
-            for (int widgetId : widgetIds) {
-                MaterialYouVerticalDigitalAppWidgetProvider.updateAppWidget(context, appWidgetManager, widgetId);
-            }
-        });
-
+        // Loop through all widget providers and update them using the generic method
         new Handler(context.getMainLooper()).post(() -> {
-            for (Map.Entry<Class<?>, Runnable> entry : widgetActions.entrySet()) {
-                entry.getValue().run();
+            for (Class<?> widgetProviderClass : widgetProviders) {
+                WidgetUtils.updateWidget(context, appWidgetManager, widgetProviderClass);
             }
         });
     }

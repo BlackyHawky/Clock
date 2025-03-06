@@ -2,9 +2,9 @@
 
 package com.best.deskclock.settings;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.alarmclock.WidgetUtils.ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR;
@@ -132,10 +132,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED -> {
-                Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
-            }
+            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
                 if (mShowCitiesOnDigitalWidgetPref.getSharedPreferences() != null
@@ -169,7 +166,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     }
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
@@ -179,7 +175,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomClockColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
@@ -189,7 +184,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomDateColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
@@ -199,7 +193,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
@@ -209,7 +202,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomCityClockColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
@@ -219,7 +211,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomCityNameColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
@@ -227,17 +218,10 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 digitalWidgetMaxClockFontSizePref.setSummary(
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                 + newValue.toString());
-                requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
             }
-
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR,
-                 KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_DATE_COLOR,
-                 KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR,
-                 KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR,
-                 KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR ->
-                    requireContext().sendBroadcast(new Intent(ACTION_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED));
         }
 
+        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
         return true;
     }
 

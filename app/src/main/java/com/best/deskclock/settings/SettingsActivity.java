@@ -6,8 +6,7 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
-import static com.best.alarmclock.WidgetUtils.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
 import static com.best.deskclock.settings.PreferencesDefaultValues.LIGHT_THEME;
@@ -22,6 +21,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_SETTIN
 import static com.best.deskclock.settings.PreferencesKeys.KEY_STOPWATCH_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
+import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Context;
 import android.content.Intent;
@@ -144,10 +144,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                             case DARK_THEME ->
                                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         }
-                        // Required to update widgets after a restore.
-                        requireContext().sendBroadcast(new Intent(ACTION_UPDATE_WIDGETS_AFTER_RESTORE));
                         // Required to update Locale after a restore.
                         requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                        // Required to update widgets after a restore.
+                        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
                         ThemeController.setNewSetting();
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),

@@ -6,8 +6,8 @@
 
 package com.best.deskclock.data;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
 import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;

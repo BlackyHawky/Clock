@@ -2,9 +2,9 @@
 
 package com.best.deskclock.settings;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.alarmclock.WidgetUtils.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
@@ -137,10 +137,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS -> {
-                Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
-            }
+            case KEY_DIGITAL_WIDGET_DISPLAY_SECONDS -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 if (mShowBackgroundOnDigitalWidgetPref.getSharedPreferences() != null) {
@@ -149,7 +146,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED -> {
@@ -181,7 +177,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     }
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
@@ -191,7 +186,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomClockColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
@@ -201,7 +195,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomDateColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
@@ -211,7 +204,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
@@ -221,7 +213,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomCityClockColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
@@ -231,7 +222,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomCityNameColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
 
             case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
@@ -239,15 +229,10 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                 digitalWidgetMaxClockFontSizePref.setSummary(
                         requireContext().getString(R.string.widget_max_clock_font_size_summary)
                                 + newValue.toString());
-                requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
             }
-
-            case KEY_DIGITAL_WIDGET_BACKGROUND_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CLOCK_COLOR,
-                 KEY_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR,
-                 KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR, KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR ->
-                    requireContext().sendBroadcast(new Intent(ACTION_DIGITAL_WIDGET_CUSTOMIZED));
         }
 
+        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
         return true;
     }
 

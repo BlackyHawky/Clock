@@ -41,6 +41,11 @@ import java.util.Locale;
 public class Utils {
 
     /**
+     * Action sent by a broadcast when the application language is changed.
+     */
+    public static final String ACTION_LANGUAGE_CODE_CHANGED = "com.best.deskclock.LANGUAGE_CODE_CHANGED";
+
+    /**
      * {@link Uri} signifying the "silent" ringtone.
      */
     public static final Uri RINGTONE_SILENT = Uri.EMPTY;

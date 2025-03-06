@@ -274,6 +274,12 @@
                 android:resource="@xml/screensaver_info" />
         </service>
 
+        <!-- Receiver for handling the daily update of app widgets at midnight
+             and more mainly the widgets that display the date -->
+        <receiver android:name="com.best.alarmclock.DailyWidgetUpdateReceiver"
+            android:directBootAware="true">
+        </receiver>
+
         <!-- ============================================================== -->
         <!-- Standard app widget components.                                -->
         <!-- ============================================================== -->
@@ -313,10 +319,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
-                <action android:name="com.best.alarmclock.DIGITAL_WIDGET_CUSTOMIZED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -344,9 +347,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
-                <action android:name="com.best.alarmclock.VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -370,10 +370,7 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
-                <action android:name="com.best.alarmclock.NEXT_ALARM_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -419,10 +416,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="com.best.alarmclock.ON_DAY_CHANGE" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
                 <action android:name="com.best.alarmclock.WORLD_CITIES_CHANGED" />
-                <action android:name="com.best.alarmclock.MATERIAL_YOU_DIGITAL_WIDGET_CUSTOMIZED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -450,9 +444,6 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
-                <action android:name="com.best.alarmclock.MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -476,10 +467,7 @@
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.best.alarmclock.LANGUAGE_CODE_CHANGED" />
-                <action android:name="com.best.alarmclock.MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZED" />
                 <action android:name="com.best.alarmclock.NEXT_ALARM_LABEL_CHANGED" />
-                <action android:name="com.best.alarmclock.UPDATE_WIDGETS_AFTER_RESTORE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

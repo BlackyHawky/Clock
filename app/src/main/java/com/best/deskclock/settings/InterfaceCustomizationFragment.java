@@ -2,7 +2,7 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.alarmclock.WidgetUtils.ACTION_LANGUAGE_CODE_CHANGED;
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
@@ -15,6 +15,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
+import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
 import android.content.Context;
 import android.content.Intent;
@@ -161,6 +162,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
                 ThemeController.setNewSetting();
             }
 
