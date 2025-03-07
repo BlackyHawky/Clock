@@ -661,4 +661,5 @@
     <string name="show_lockscreen_dialog_text">Et see rakendus toimiks korralikult, siis Xiaomi nutiseadmetes palun luba seadistustes „Näita lukustusvaates“ õigused.</string>
     <string name="clock_style_spinner">Vurr</string>
     <string name="clock_style_analog_material">Analoogkell (MD-kujunduskeel)</string>
+    <string name="settings_language_dutch">hollandi keel</string>
 </resources>

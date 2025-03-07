@@ -681,4 +681,5 @@
     <string name="show_lockscreen_dialog_text">На пристроях Xiaomi для коректної роботи додатка необхідно вручну ввімкнути дозвіл «Показувати на заблокованому екрані» в налаштуваннях пристрою.</string>
     <string name="clock_style_spinner">Лічильник</string>
     <string name="clock_style_analog_material">Аналоговий (Material)</string>
+    <string name="settings_language_dutch">Нідерландська</string>
 </resources>

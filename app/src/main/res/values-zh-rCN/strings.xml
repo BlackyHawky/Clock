@@ -644,4 +644,5 @@
     <string name="show_lockscreen_dialog_title">在锁屏上显示</string>
     <string name="clock_style_spinner">旋转</string>
     <string name="clock_style_analog_material">指针 (Material)</string>
+    <string name="settings_language_dutch">荷兰语</string>
 </resources>

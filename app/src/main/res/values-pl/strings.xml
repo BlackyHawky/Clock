@@ -616,7 +616,7 @@
     <string name="description_direction_both_for_occasional_alarm">Przesuń palcem w lewo, aby włączyć drzemkę lub w prawo, aby odrzucić i usunąć alarm</string>
     <string name="display_warning_before_deleting_timer_title">Wyświetl ostrzeżenie przed usunięciem minutnika</string>
     <string name="warning_dialog_title">Usuń minutnik</string>
-    <string name="warning_dialog_message">Czy na pewno chcesz usunąć minutnik „%s”?</string>
+    <string name="warning_dialog_message">Czy na pewno chcesz usunąć minutnik \"%s\"?</string>
     <string name="permission_dialog_revoke_title">Cofnięcie dostępu</string>
     <string name="sort_timer_manually">Ręcznie (przeciągając)</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;POWIADOMIENIA NA PEŁNYM EKRANIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -669,4 +669,5 @@
     <string name="permission_info_title">Tylko dla urządzeń Xiaomi</string>
     <string name="clock_style_spinner">Spinner</string>
     <string name="clock_style_analog_material">Analogowy (Material)</string>
+    <string name="settings_language_dutch">Holenderski</string>
 </resources>
