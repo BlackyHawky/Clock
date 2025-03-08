@@ -5,12 +5,17 @@
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 -->
 
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/standard_analog_appwidget"
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialLayout="@layout/standard_analog_appwidget_without_second_hand"
     android:minWidth="72dp"
     android:minHeight="72dp"
     android:minResizeWidth="48dp"
     android:minResizeHeight="48dp"
     android:previewImage="@drawable/appwidget_analog_clock_preview"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0" />
+    android:updatePeriodMillis="0"
+    android:widgetFeatures="configuration_optional|reconfigurable"
+    android:configure="com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration"
+    tools:targetApi="p" />

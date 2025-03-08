@@ -143,6 +143,9 @@ public class PreferencesKeys {
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZATION = "key_material_you_vertical_digital_widget_customization";
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOMIZATION = "key_material_you_next_alarm_widget_customization";
 
+    // Analog Widget
+    public static final String KEY_ANALOG_WIDGET_WITH_SECOND_HAND = "key_analog_widget_with_second_hand";
+
     // Digital Widget
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_digital_widget_display_background";
@@ -183,6 +186,9 @@ public class PreferencesKeys {
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_vertical_digital_widget_default_next_alarm_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_digital_widget_custom_next_alarm_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_vertical_digital_widget_max_clock_font_size";
+
+    // Material You Analog Widget
+    public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = "key_material_you_analog_widget_with_second_hand";
 
     // Material You Digital Widget
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED =

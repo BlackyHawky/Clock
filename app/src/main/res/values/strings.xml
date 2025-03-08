@@ -209,6 +209,14 @@
     <string name="loading_widget">Loading\u2026</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget">Analog clock</string>
+    <!-- Title of the analog widget layout choice activity -->
+    <string name="analog_widget_choice_title">Choose your style</string>
+    <!-- Name of the analog widget layout without second hand -->
+    <string name="analog_widget_without_second_hand_title">Without the second hand</string>
+    <!-- Name of the analog widget layout with second hand -->
+    <string name="analog_widget_with_second_hand_title">With the second hand</string>
+    <!-- Text displayed when user wants to configure analog widget with Android version earlier than Android 12 -->
+    <string name="analog_widget_configuration_warning">This widget is only configurable from Android 12</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget_material_you">Analog clock Material You</string>
     <!-- Label for digital clock widget displayed in the widget picker -->

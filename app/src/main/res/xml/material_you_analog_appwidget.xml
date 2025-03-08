@@ -3,12 +3,17 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/material_you_analog_appwidget"
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialLayout="@layout/material_you_analog_appwidget_without_second_hand"
     android:minWidth="72dp"
     android:minHeight="72dp"
     android:minResizeWidth="24dp"
     android:minResizeHeight="24dp"
     android:previewImage="@drawable/appwidget_material_you_analog_clock_preview"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0" />
+    android:updatePeriodMillis="0"
+    android:widgetFeatures="configuration_optional|reconfigurable"
+    android:configure="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration"
+    tools:targetApi="p" />

@@ -5,16 +5,12 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 
-<!-- Hand second only available for Android12+ -->
-<!--suppress ALL -->
-<AnalogClock xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<AnalogClock
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/analogAppwidgetMaterialYou"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:dial="@drawable/analog_widget_material_you_clock_dial"
     android:hand_hour="@drawable/analog_widget_material_you_clock_hour"
     android:hand_minute="@drawable/analog_widget_material_you_clock_minute"
-    android:hand_second="@drawable/analog_widget_material_you_clock_second"
-    android:importantForAccessibility="no"
-    tools:targetApi="s" />
+    android:importantForAccessibility="no" />

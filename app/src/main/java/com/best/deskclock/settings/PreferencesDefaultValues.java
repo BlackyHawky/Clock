@@ -128,6 +128,9 @@ public class PreferencesDefaultValues {
     // ** WIDGETS **
     // **************
 
+    // Analog Widget
+    public static boolean DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND = false;
+
     // DigitalWidgetSettingsFragment
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
@@ -139,6 +142,9 @@ public class PreferencesDefaultValues {
 
     // Vertical Digital Widget
     public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
+
+    // Material You Analog Widget
+    public static boolean DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = false;
 
     // Material You Digital Widget
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;

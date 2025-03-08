@@ -285,6 +285,12 @@
         <!-- ============================================================== -->
 
         <!-- Analog clock -->
+        <activity
+            android:name="com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration"
+            android:excludeFromRecents="true"
+            android:label="@string/analog_widget"
+            android:theme="@style/Theme.DeskClock" />
+
         <receiver
             android:name="com.best.alarmclock.standardwidgets.AnalogAppWidgetProvider"
             android:exported="true"
@@ -292,10 +298,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.oldName"
-                android:value="com.best.deskclock.standardwidgets.AnalogAppWidgetProvider" />
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/standard_analog_appwidget" />
@@ -382,6 +384,12 @@
         <!-- ============================================================== -->
 
         <!-- Analog clock Material You -->
+        <activity
+            android:name="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration"
+            android:excludeFromRecents="true"
+            android:label="@string/analog_widget_material_you"
+            android:theme="@style/Theme.DeskClock" />
+
         <receiver
             android:name="com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetProvider"
             android:exported="true"
