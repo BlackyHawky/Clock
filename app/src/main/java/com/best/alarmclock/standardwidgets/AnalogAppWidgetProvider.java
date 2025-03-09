@@ -42,7 +42,7 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId, boolean isSecondHandDisplayed) {
         final String packageName = context.getPackageName();
         final RemoteViews widget = new RemoteViews(packageName, isSecondHandDisplayed
-                ? R.layout.standard_analog_appwidget_with_second
+                ? R.layout.standard_analog_appwidget_with_second_hand
                 : R.layout.standard_analog_appwidget_without_second_hand);
 
         // Tapping on the widget opens the app (if not on the lock screen).

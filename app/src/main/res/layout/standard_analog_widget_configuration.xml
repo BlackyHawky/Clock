@@ -17,7 +17,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="22dp"
         android:text="@string/analog_widget_choice_title"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,8 @@
         android:layout_height="0dp"
         android:layout_margin="48dp"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_max="800dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/widget_horizontal_guideline"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/analog_widget_without_second_hand_title"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
@@ -59,15 +60,12 @@
             app:layout_constraintBottom_toTopOf="@+id/widget_horizontal_guideline"
             tools:backgroundTint="@color/md_theme_inversePrimary">
 
-            <AnalogClock
-                android:id="@+id/analog_appwidget_without_second_hand"
+            <include
+                layout="@layout/standard_analog_appwidget_without_second_hand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="48dp"
                 android:layout_gravity="center"
-                android:dial="@drawable/appwidget_clock_dial"
-                android:hand_hour="@drawable/clock_analog_hour"
-                android:hand_minute="@drawable/clock_analog_minute" />
+                android:layout_margin="32dp" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -82,17 +80,12 @@
             app:layout_constraintBottom_toTopOf="@+id/title_with_second_hand"
             tools:backgroundTint="@color/md_theme_inversePrimary">
 
-            <AnalogClock
-                android:id="@+id/analog_appwidget_with_second_hand"
+            <include
+                layout="@layout/standard_analog_appwidget_with_second_hand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="48dp"
                 android:layout_gravity="center"
-                android:dial="@drawable/appwidget_clock_dial"
-                android:hand_hour="@drawable/clock_analog_hour"
-                android:hand_minute="@drawable/clock_analog_minute"
-                android:hand_second="@drawable/clock_analog_second"
-                tools:targetApi="s" />
+                android:layout_margin="32dp" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -102,7 +95,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/analog_widget_with_second_hand_title"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/container_with_second_hand"
             app:layout_constraintBottom_toBottomOf="parent" />
 

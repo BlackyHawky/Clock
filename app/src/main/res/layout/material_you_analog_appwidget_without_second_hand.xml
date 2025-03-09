@@ -5,6 +5,7 @@
     SPDX-License-Identifier: Apache-2.0
 -->
 
+<!--suppress ALL -->
 <AnalogClock
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/analogAppwidgetMaterialYou"
