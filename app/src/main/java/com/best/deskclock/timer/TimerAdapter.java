@@ -11,6 +11,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -229,5 +230,20 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             return makeMovementFlags(dragFlags, 0);
         }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder,
+                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+            if (isCurrentlyActive) {
+                viewHolder.itemView.setTranslationZ(20f);
+            } else {
+                viewHolder.itemView.setTranslationZ(0f);
+            }
+        }
     }
+
 }
