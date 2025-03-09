@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.content.Context.ALARM_SERVICE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
@@ -14,7 +15,6 @@ import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_C
 import android.app.AlarmManager;
 import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -28,13 +28,6 @@ import android.widget.Toast;
 
 import androidx.core.app.NotificationManagerCompat;
 
-import com.best.alarmclock.WidgetUtils;
-import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
-import com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
-import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
-import com.best.alarmclock.standardwidgets.DigitalAppWidgetProvider;
-import com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider;
-import com.best.alarmclock.standardwidgets.VerticalDigitalAppWidgetProvider;
 import com.best.deskclock.AlarmAlertWakeLock;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.AsyncHandler;
@@ -48,7 +41,6 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -145,40 +137,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
             setPowerOffAlarm(context, nextAlarm);
         }
 
-        context.sendBroadcast(new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK));
-        updateNextAlarmInWidgets(context);
         updateNextAlarmInAlarmManager(context, nextAlarm);
+
+        // Adding a Handler ensures better fluidity when activating/deactivating the alarm
+        new Handler(context.getMainLooper()).postDelayed(() -> {
+            context.sendBroadcast(new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK));
+            context.sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+        }, 300);
     }
 
-    /**
-     * Updates all registered app widgets that can display the next alarm.
-     * This method is called whenever the next alarm is updated, either due to a change in the alarm state
-     * or a new alarm being set. It retrieves the widget IDs for each registered widget provider and updates
-     * the corresponding widgets by calling the appropriate update method for each widget type.
-     * <p>
-     * This method is particularly useful for ensuring that the widgets always display/hide
-     * the next alarm time after any updates to the alarm state.
-     */
-    private static void updateNextAlarmInWidgets(Context context) {
-        // List of widget provider classes that need updating
-        List<Class<?>> widgetProviders = Arrays.asList(
-                DigitalAppWidgetProvider.class,
-                NextAlarmAppWidgetProvider.class,
-                VerticalDigitalAppWidgetProvider.class,
-                MaterialYouDigitalAppWidgetProvider.class,
-                MaterialYouNextAlarmAppWidgetProvider.class,
-                MaterialYouVerticalDigitalAppWidgetProvider.class
-        );
-
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-        // Loop through all widget providers and update them using the generic method
-        new Handler(context.getMainLooper()).post(() -> {
-            for (Class<?> widgetProviderClass : widgetProviders) {
-                WidgetUtils.updateWidget(context, appWidgetManager, widgetProviderClass);
-            }
-        });
-    }
 
     /**
      * Returns an alarm instance of an alarm that's going to fire next.
