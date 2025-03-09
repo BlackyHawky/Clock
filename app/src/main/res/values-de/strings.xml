@@ -651,4 +651,11 @@
     <string name="show_lockscreen_dialog_title">Auf dem Sperrbildschirm anzeigen</string>
     <string name="show_lockscreen_permission_title">AUF DEM SCHLOSSBILDSCHIRM ANZEIGEN</string>
     <string name="show_lockscreen_dialog_text">Auf Xiaomi-Geräten musst du die Berechtigung \"Auf dem Sperrbildschirm anzeigen\" manuell in den Geräteeinstellungen aktivieren, damit die Anwendung ordnungsgemäß funktioniert.</string>
+    <string name="clock_style_analog_material">Analog (Material)</string>
+    <string name="settings_language_dutch">Niederländisch</string>
+    <string name="analog_widget_choice_title">Wähle deinen Stil</string>
+    <string name="analog_widget_without_second_hand_title">Ohne Sekundenzeiger</string>
+    <string name="analog_widget_with_second_hand_title">Mit Sekundenzeiger</string>
+    <string name="analog_widget_configuration_warning">Dieses Widget ist erst ab Android 12 konfigurierbar</string>
+    <string name="settings_language_russian">Russisch</string>
 </resources>

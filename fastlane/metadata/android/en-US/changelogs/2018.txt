@@ -1,0 +1,11 @@
+**Fixes**
+- Fix status bar display in screensaver (when device is in dark mode and AMOLED mode is selected in settings)
+- Fix widgets refreshing after setting change;
+- Fix automatic date change for digital widgets (now, the date will be updated every day at midnight)
+
+**Improvements**
+- Add ability to show or not second hand for analog widgets (for Android 12+ only)
+- Show shadow when dragging timers
+- Add Russian language to app language setting
+- Improve and clean code
+- Update translations

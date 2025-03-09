@@ -682,4 +682,9 @@
     <string name="clock_style_spinner">Лічильник</string>
     <string name="clock_style_analog_material">Аналоговий (Material)</string>
     <string name="settings_language_dutch">Нідерландська</string>
+    <string name="settings_language_russian">Російська</string>
+    <string name="analog_widget_choice_title">Виберіть стиль</string>
+    <string name="analog_widget_with_second_hand_title">Із секундною стрілкою</string>
+    <string name="analog_widget_configuration_warning">Цей віджет можна налаштувати лише починаючи з Android 12</string>
+    <string name="analog_widget_without_second_hand_title">Без секундної стрілки</string>
 </resources>

@@ -662,4 +662,5 @@
     <string name="clock_style_spinner">Vurr</string>
     <string name="clock_style_analog_material">Analoogkell (MD-kujunduskeel)</string>
     <string name="settings_language_dutch">hollandi keel</string>
+    <string name="settings_language_russian">vene keel</string>
 </resources>
