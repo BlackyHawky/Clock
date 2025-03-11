@@ -18,8 +18,6 @@ import com.best.deskclock.R;
 public class StopwatchSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
-    private int mRecyclerViewPosition = -1;
-
     ListPreference mVolumeUpActionPref;
     ListPreference mVolumeUpActionAfterLongPressPref;
     ListPreference mVolumeDownActionPref;
@@ -46,20 +44,7 @@ public class StopwatchSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override

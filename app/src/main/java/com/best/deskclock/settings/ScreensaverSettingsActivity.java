@@ -68,8 +68,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
     public static class ScreensaverSettingsFragment extends ScreenFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-        private int mRecyclerViewPosition = -1;
-
         String[] mClockStyleValues;
         String mMaterialAnalogClock;
         String mDigitalClock;
@@ -128,20 +126,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         public void onResume() {
             super.onResume();
 
-            if (mRecyclerViewPosition != -1) {
-                mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-                mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-            }
             refresh();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-
-            if (mLinearLayoutManager != null) {
-                mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-            }
         }
 
         @Override

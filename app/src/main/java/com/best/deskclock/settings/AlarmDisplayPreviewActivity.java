@@ -209,15 +209,18 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mPulseAnimator.start();
 
         mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
-        if (mIsFadeTransitionsEnabled) {
-            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                    finish();
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                if (mIsFadeTransitionsEnabled) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                } else {
+                    overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                 }
-            });
-        }
+            }
+        });
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -542,7 +545,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private void finishActivity() {
         finish();
         if (mIsFadeTransitionsEnabled) {
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 

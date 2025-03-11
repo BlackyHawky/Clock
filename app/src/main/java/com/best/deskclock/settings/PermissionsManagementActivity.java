@@ -74,8 +74,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
     public static class PermissionsManagementFragment extends ScreenFragment {
 
-        private int mRecyclerViewPosition = -1;
-
         MaterialCardView mIgnoreBatteryOptimizationsView;
         MaterialCardView mNotificationView;
         MaterialCardView mFullScreenNotificationsView;
@@ -186,20 +184,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         public void onResume() {
             super.onResume();
 
-            if (mRecyclerViewPosition != -1) {
-                mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-                mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-            }
             setStatusText();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-
-            if (mLinearLayoutManager != null) {
-                mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-            }
         }
 
         /**

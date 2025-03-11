@@ -45,7 +45,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
@@ -81,8 +80,6 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
     }
 
     public static class SettingsFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
-
-        private int mRecyclerViewPosition = -1;
 
         Preference mInterfaceCustomizationPref;
         Preference mClockSettingsPref;
@@ -148,7 +145,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                         // Required to update widgets after a restore.
                         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-                        ThemeController.setNewSetting();
+                        recreateActivity();
                         Toast.makeText(requireContext(),
                                 requireContext().getString(R.string.backup_restore_toast_message_for_restore),
                                 Toast.LENGTH_SHORT)
@@ -187,7 +184,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 public void handleOnBackPressed() {
                     requireActivity().finish();
                     if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-                        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        requireActivity().overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                     }
                 }
             });
@@ -197,20 +196,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public void onResume() {
             super.onResume();
 
-            if (mRecyclerViewPosition != -1) {
-                mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-                mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-            }
             refresh();
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-
-            if (mLinearLayoutManager != null) {
-                mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-            }
         }
 
         @Override

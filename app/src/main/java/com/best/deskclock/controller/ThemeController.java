@@ -60,20 +60,10 @@ public class ThemeController {
     }
 
     /**
-     * Allow all activities to be recreated if a setting has been changed
-     */
-    public static void setNewSetting() {
-        for (WeakReference<Activity> activityRef : activities.values()) {
-            Activity activity = activityRef.get();
-            if (activity != null) {
-                ActivityCompat.recreate(activity);
-            }
-        }
-    }
-
-    /**
-     * Allow all activities to be recreated with a short delay if a setting has been changed.
-     * Used for toggle switches so that their animations are performed correctly.
+     * Allow all activities to be recreated with a short delay to have a smooth animation
+     * when a setting has been changed.
+     * <p>
+     * This applies to settings that need to be applied immediately (eg: changing the accent color).
      */
     public static void setNewSettingWithDelay() {
         for (WeakReference<Activity> activityRef : activities.values()) {

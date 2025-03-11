@@ -37,8 +37,6 @@ import com.rarepebble.colorpicker.ColorPreference;
 public class AlarmDisplayCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    private int mRecyclerViewPosition = -1;
-
     String[] mAlarmClockStyleValues;
     String mAnalogClock;
     String mMaterialAnalogClock;
@@ -89,20 +87,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override
@@ -156,7 +141,9 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
             final boolean isFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
             if (isFadeTransitionsEnabled) {
-                requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            } else {
+                requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
             }
         }
 

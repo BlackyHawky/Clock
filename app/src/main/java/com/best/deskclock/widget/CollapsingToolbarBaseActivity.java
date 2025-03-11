@@ -24,6 +24,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+
 import com.best.deskclock.settings.SettingsActivity;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -42,8 +43,6 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
     @Nullable
     private AppBarLayout mAppBarLayout;
 
-    private boolean mIsFadeTransitionEnabled;
-
     /**
      * This method should be implemented by subclasses of CollapsingToolbarBaseActivity
      * to provide the title for the activity's collapsing toolbar.
@@ -57,13 +56,18 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(this);
+        boolean isFadeTransitionEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+
+        if (isFadeTransitionEnabled) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+        }
+
         super.onCreate(savedInstanceState);
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
-
-        final SharedPreferences prefs = getDefaultSharedPreferences(this);
-
-        mIsFadeTransitionEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
 
         final String getDarkMode = SettingsDAO.getDarkMode(prefs);
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -81,18 +85,16 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
 
-        if (mIsFadeTransitionEnabled) {
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
-
         // Exclude SettingsActivity as this is handled in SettingsFragment.
         if (!(this instanceof SettingsActivity)) {
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
                     finish();
-                    if (mIsFadeTransitionEnabled) {
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    if (isFadeTransitionEnabled) {
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
                     }
                 }
             });

@@ -48,8 +48,6 @@ import com.best.deskclock.utils.Utils;
 public class AlarmSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    private int mRecyclerViewPosition = -1;
-
     Preference mAlarmRingtonePref;
     ListPreference mAutoSilencePref;
     ListPreference mAlarmSnoozePref;
@@ -108,20 +106,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override

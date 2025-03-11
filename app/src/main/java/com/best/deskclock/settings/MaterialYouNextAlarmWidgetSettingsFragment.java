@@ -35,7 +35,6 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
-    private int mRecyclerViewPosition = -1;
 
     ColorPreference mCustomTitleColorPref;
     ColorPreference mCustomAlarmTitleColorPref;
@@ -81,21 +80,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
         updateMaterialYouNextAlarmWidget();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override

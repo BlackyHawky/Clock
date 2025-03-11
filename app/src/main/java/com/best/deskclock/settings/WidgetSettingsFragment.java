@@ -26,8 +26,6 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
     Preference mMaterialYouVerticalDigitalWidgetCustomizationPref;
     Preference mMaterialYouNextAlarmWidgetCustomizationPref;
 
-    int mRecyclerViewPosition = -1;
-
     @Override
     protected String getFragmentTitle() {
         return getString(R.string.widgets_settings);
@@ -51,20 +49,7 @@ public class WidgetSettingsFragment extends ScreenFragment implements Preference
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override

@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -47,6 +48,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     RecyclerView mRecyclerView;
     LinearLayoutManager mLinearLayoutManager;
+
+    int mRecyclerViewPosition = -1;
 
     /**
      * This method should be implemented by subclasses of ScreenFragment to provide the title
@@ -117,6 +120,20 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         super.onResume();
 
         mCollapsingToolbarLayout.setTitle(getFragmentTitle());
+
+        if (mRecyclerViewPosition != -1) {
+            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
+            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mLinearLayoutManager != null) {
+            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+        }
     }
 
     @Override
@@ -203,15 +220,31 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         if (areAnimationsDisabled) {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
         } else if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
-            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
+            fragmentTransaction.setCustomAnimations(
+                    R.anim.fade_in, R.anim.fade_out,
                     R.anim.fade_in, R.anim.fade_out);
         } else {
-            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
-                    R.anim.slide_in_left, R.anim.slide_out_right);
+            fragmentTransaction.setCustomAnimations(
+                    R.anim.fragment_slide_from_right, R.anim.fragment_slide_to_left,
+                    R.anim.fragment_slide_from_left, R.anim.fragment_slide_to_right);
         }
         fragmentTransaction.replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
                 .commit();
     }
 
+    /**
+     * Recreate the activity while ensuring smooth animation when resetting the fragment view:
+     * scrolling to the top of the list and expanding the AppBarLayout.
+     * <p>
+     * This applies to settings that need to be applied immediately (eg: changing the accent color).
+     */
+    protected void recreateActivity() {
+        ThemeController.setNewSettingWithDelay();
+
+        mRecyclerView.post(() -> {
+            mLinearLayoutManager.scrollToPosition(0);
+            mAppBarLayout.setExpanded(true, true);
+        });
+    }
 }

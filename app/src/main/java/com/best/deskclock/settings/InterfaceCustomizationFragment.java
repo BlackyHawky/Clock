@@ -29,7 +29,6 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
-import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -40,8 +39,6 @@ import java.util.List;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
-
-    private int mRecyclerViewPosition = -1;
 
     ListPreference mThemePref;
     ListPreference mDarkModePref;
@@ -91,20 +88,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override
@@ -127,7 +111,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 final int darkModeIndex = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[darkModeIndex]);
                 if (isNight) {
-                    ThemeController.setNewSetting();
+                    recreateActivity();
                 }
             }
 
@@ -135,25 +119,25 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 final ListPreference accentColorPref = (ListPreference) pref;
                 final int index = accentColorPref.findIndexOfValue((String) newValue);
                 accentColorPref.setSummary(accentColorPref.getEntries()[index]);
-                ThemeController.setNewSetting();
+                recreateActivity();
             }
 
             case KEY_AUTO_NIGHT_ACCENT_COLOR -> {
-                ThemeController.setNewSettingWithDelay();
+                recreateActivity();
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_CARD_BACKGROUND -> {
                 final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
                 cardBackgroundPref.setChecked(SettingsDAO.isCardBackgroundDisplayed(mPrefs));
-                ThemeController.setNewSettingWithDelay();
+                recreateActivity();
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_CARD_BORDER -> {
                 final TwoStatePreference cardBorderPref = (TwoStatePreference) pref;
                 cardBorderPref.setChecked(SettingsDAO.isCardBorderDisplayed(mPrefs));
-                ThemeController.setNewSettingWithDelay();
+                recreateActivity();
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
@@ -163,7 +147,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 listPreference.setSummary(listPreference.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-                ThemeController.setNewSetting();
+                recreateActivity();
             }
 
             case KEY_VIBRATIONS -> {
@@ -183,7 +167,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             case KEY_FADE_TRANSITIONS -> {
                 final TwoStatePreference fadeTransitionsPref = (TwoStatePreference) pref;
                 fadeTransitionsPref.setChecked(SettingsDAO.isFadeTransitionsEnabled(mPrefs));
-                ThemeController.setNewSettingWithDelay();
+                recreateActivity();
                 Utils.setVibrationTime(requireContext(), 50);
             }
         }

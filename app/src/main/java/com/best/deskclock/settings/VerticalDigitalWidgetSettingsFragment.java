@@ -40,7 +40,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
-    private int mRecyclerViewPosition = -1;
 
     ColorPreference mBackgroundColorPref;
     ColorPreference mCustomHoursColorPref;
@@ -94,21 +93,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        if (mRecyclerViewPosition != -1) {
-            mLinearLayoutManager.scrollToPosition(mRecyclerViewPosition);
-            mAppBarLayout.setExpanded(mRecyclerViewPosition == 0, true);
-        }
         refresh();
         updateVerticalDigitalWidget();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mLinearLayoutManager != null) {
-            mRecyclerViewPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-        }
     }
 
     @Override
