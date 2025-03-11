@@ -88,8 +88,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
     private static final String KEY_EXPANDED_ID = "expandedId";
-    private static final String ARG_HOUR = TAG + "_hour";
-    private static final String ARG_MINUTE = TAG + "_minute";
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -113,8 +111,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
-    private int hour;
-    private int minute;
 
     /**
      * The public no-arg constructor required by all fragments.
@@ -133,11 +129,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
         }
-
-        final Calendar now = Calendar.getInstance();
-        final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
-        hour = args.getInt(ARG_HOUR, now.get(Calendar.HOUR_OF_DAY));
-        minute = args.getInt(ARG_MINUTE, now.get(Calendar.MINUTE));
     }
 
     @Override
@@ -555,6 +546,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
+        final Calendar now = Calendar.getInstance();
         String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(mPrefs);
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
@@ -562,8 +554,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setHour(hour)
-                .setMinute(minute)
+                .setHour(now.get(Calendar.HOUR_OF_DAY))
+                .setMinute(now.get(Calendar.MINUTE))
                 .build();
 
         materialTimePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
