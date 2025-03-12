@@ -9,6 +9,8 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -32,6 +35,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Objects;
 
@@ -105,10 +109,17 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             addButtonText = savedInstanceState.getString(ARG_TIME_BUTTON, addButtonText);
         }
 
+        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top);
+        if (drawable != null) {
+            drawable.setTint(MaterialColors.getColor(
+                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+        }
+
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setIcon(drawable)
+                .setTitle(R.string.timer_button_time_box_title)
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
-                .setTitle(R.string.timer_button_time_box_title)
                 .create();
 
         mAddTimeButtonBox = new AppCompatEditText(requireContext());
@@ -124,8 +135,9 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = ThemeUtils.convertDpToPixels(21, requireContext());
-        dialog.setView(mAddTimeButtonBox, padding, 0, padding, 0);
+        final int paddingLeftRight = ThemeUtils.convertDpToPixels(22, requireContext());
+        final int paddingTopBottom = ThemeUtils.convertDpToPixels(18, requireContext());
+        dialog.setView(mAddTimeButtonBox, paddingLeftRight, paddingTopBottom, paddingLeftRight, paddingTopBottom);
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {

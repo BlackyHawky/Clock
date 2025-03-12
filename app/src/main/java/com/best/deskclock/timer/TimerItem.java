@@ -32,7 +32,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -199,9 +198,13 @@ public class TimerItem extends ConstraintLayout {
 
         // Update the time value to add to timer in the "timer_add_time_button"
         String buttonTime = timer.getButtonTime();
-        long buttonTimeHours = TimeUnit.MINUTES.toHours(Long.parseLong(buttonTime));
-        long buttonTimeMinutes = TimeUnit.MINUTES.toMinutes(Long.parseLong(buttonTime)) % 60;
-        String buttonTimeFormatted = String.format(Locale.US, "%01d:%02d", buttonTimeHours, buttonTimeMinutes);
+        long totalMinutes = Long.parseLong(buttonTime);
+        long buttonTimeHours = totalMinutes / 60;
+        long buttonTimeMinutes = totalMinutes % 60;
+        long buttonTimeSeconds = 0;
+        String buttonTimeFormatted = (buttonTimeHours >= 1)
+                ? String.format(Locale.US, "%01d:%02d:%02d", buttonTimeHours, buttonTimeMinutes, buttonTimeSeconds)
+                : String.format(Locale.US, "%01d:%02d", buttonTimeMinutes, buttonTimeSeconds);
         mAddTimeButton.setText(getContext().getString(R.string.timer_add_custom_time, buttonTimeFormatted));
 
         String buttonContentDescription = getContext().getString(R.string.timer_add_custom_time_description, buttonTime);

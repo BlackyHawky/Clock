@@ -1,6 +1,6 @@
 <!--suppress CheckImageSize -->
 # Clock
-Clock is a privacy-conscious open-source clock, based on AOSP Clock.
+Clock is a customizable and privacy-conscious open-source clock, based on AOSP Clock.
 
 [<img src="/images/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/BlackyHawky/Clock/releases)
 [<img src="/images/badge_f-droid.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.best.deskclock/)
