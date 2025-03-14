@@ -65,18 +65,15 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
 
         setContentView(R.layout.material_you_analog_widget_configuration);
 
-        final boolean isNight = ThemeUtils.isNight(getResources());
-
-        this.getWindow().setNavigationBarColor(isNight && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
+        this.getWindow().setNavigationBarColor(ThemeUtils.isNight(getResources())
+                && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
                 ? Color.TRANSPARENT
                 : MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
 
         MaterialCardView analogClockWithoutSecond = findViewById(R.id.container_without_second_hand);
         MaterialCardView analogClockWithSecond = findViewById(R.id.container_with_second_hand);
 
-        int cardBackgroundColor = getResources().getColor(
-                isNight ? R.color.md_theme_surface
-                        : R.color.md_theme_inversePrimary, null);
+        int cardBackgroundColor = getResources().getColor(R.color.md_theme_inversePrimary, null);
 
         analogClockWithoutSecond.setCardBackgroundColor(cardBackgroundColor);
         analogClockWithSecond.setCardBackgroundColor(cardBackgroundColor);

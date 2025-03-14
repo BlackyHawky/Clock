@@ -57,7 +57,7 @@
     <color name="md_theme_surfaceContainerHighest">#DCE3E9</color>
 
     <!-- WIDGET COLORS -->
-    <color name="digital_widget_background_color">#E0F3FF</color>
+    <color name="widget_background_color">#E0F3FF</color>
     <color name="digital_widget_time_color">#00668B</color>
     <color name="widget_text_color">#1D1B20</color>
     <color name="vertical_digital_widget_hour_color">#4E616C</color>
@@ -66,7 +66,6 @@
     <color name="next_alarm_widget_alarm_color">#00668B</color>
 
     <!--
-
     TO FIND ACCENT COLORS (except for Black colors):
 
     • xxxColorAccent: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°600
