@@ -13,7 +13,7 @@
     android:id="@+id/analogAppwidget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:dial="@drawable/appwidget_clock_dial"
+    android:dial="@drawable/standard_analog_appwidget_clock_dial"
     android:hand_hour="@drawable/clock_analog_hour"
     android:hand_minute="@drawable/clock_analog_minute"
     android:hand_second="@drawable/clock_analog_second"

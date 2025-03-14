@@ -13,8 +13,8 @@
     android:id="@+id/analogAppwidgetMaterialYou"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:dial="@drawable/analog_widget_material_you_clock_dial"
-    android:hand_hour="@drawable/analog_widget_material_you_clock_hour"
-    android:hand_minute="@drawable/analog_widget_material_you_clock_minute"
-    android:hand_second="@drawable/analog_widget_material_you_clock_second"
+    android:dial="@drawable/material_you_analog_widget_clock_dial"
+    android:hand_hour="@drawable/material_you_analog_widget_clock_hour"
+    android:hand_minute="@drawable/material_you_analog_widget_clock_minute"
+    android:hand_second="@drawable/material_you_analog_widget_clock_second"
     android:importantForAccessibility="no" />
