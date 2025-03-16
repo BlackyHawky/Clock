@@ -6,10 +6,13 @@
 
 package com.best.deskclock.utils;
 
-import static com.best.deskclock.bedtime.BedtimeFragment.BEDTIME_LABEL;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.app.AlarmManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -21,7 +24,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
@@ -38,32 +41,34 @@ import java.util.Locale;
 public class AlarmUtils {
 
     /**
-     * @return The next alarm from {@link AlarmManager}
+     * Intent action sent when the alarm has been either created or updated in the Clock app.
+     * <p>
+     * This action will display the next alarm of this app only in the clock tab and screensaver.
+     */
+    public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
+
+    /**
+     * @return The text of the next alarm.
      */
     public static String getNextAlarm(Context context) {
-        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final AlarmManager.AlarmClockInfo info = getNextAlarmClock(am);
-        if (info != null) {
-            final long triggerTime = info.getTriggerTime();
-            final Calendar alarmTime = Calendar.getInstance();
-            alarmTime.setTimeInMillis(triggerTime);
-            return getFormattedTime(context, alarmTime);
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance != null) {
+            Calendar alarmCalendar = Calendar.getInstance();
+            long alarmTime = instance.getAlarmTime().getTimeInMillis();
+            alarmCalendar.setTimeInMillis(alarmTime);
+            return getFormattedTime(context, alarmCalendar);
         }
 
         return null;
     }
 
-    private static AlarmManager.AlarmClockInfo getNextAlarmClock(AlarmManager am) {
-        return am.getNextAlarmClock();
-    }
-
     /**
-     * @return The next alarm title
+     * @return The next alarm title.
      */
     public static String getNextAlarmTitle(Context context) {
         AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
         if (instance != null) {
-            return getAlarmTitle(context, instance);
+            return instance.mLabel.isEmpty() ? "" : instance.mLabel;
         }
         return null;
     }
@@ -78,47 +83,50 @@ public class AlarmUtils {
             return;
         }
 
-        final String alarm = getNextAlarm(context);
-        if (!TextUtils.isEmpty(alarm)) {
-            final String description = context.getString(R.string.next_alarm_description, alarm);
-            nextAlarmView.setText(alarm);
+        AlarmInstance instance = AlarmStateManager.getNextFiringAlarm(context);
+        if (instance == null) {
+            nextAlarmIconView.setVisibility(View.GONE);
+            nextAlarmView.setVisibility(View.GONE);
+            return;
+        }
+
+        Calendar alarmCalendar = Calendar.getInstance();
+        long alarmTime = instance.getAlarmTime().getTimeInMillis();
+        alarmCalendar.setTimeInMillis(alarmTime);
+        String alarmFormattedTime = getFormattedTime(context, alarmCalendar);
+
+        if (TextUtils.isEmpty(alarmFormattedTime)) {
+            nextAlarmView.setVisibility(View.GONE);
+            nextAlarmIconView.setVisibility(View.GONE);
+        } else {
+            String description = context.getString(R.string.next_alarm_description, alarmFormattedTime);
+            nextAlarmView.setText(alarmFormattedTime);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
-        } else {
-            nextAlarmView.setVisibility(View.GONE);
-            nextAlarmIconView.setVisibility(View.GONE);
         }
     }
 
-    public static String getAlarmText(Context context, AlarmInstance instance,
-                                      boolean includeLabel) {
+    public static String getAlarmText(Context context, AlarmInstance instance, boolean includeLabel) {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
-                : alarmTimeStr + " - " + (instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel);
-    }
-
-    public static String getAlarmTitle(Context context, AlarmInstance instance) {
-        return (instance.mLabel.isEmpty())
-                ? ""
-                : instance.mLabel.equals(BEDTIME_LABEL) ? context.getString(R.string.wakeup_alarm_label_visible) : instance.mLabel;
+                : alarmTimeStr + " - " + instance.mLabel;
     }
 
     public static String getFormattedTime(Context context, Calendar time) {
         final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
+            final SharedPreferences prefs = getDefaultSharedPreferences(context);
             // Add a "Thin Space" (\u2009) at the end of the next alarm to prevent its display from being cut off on some devices.
             // (The display of the next alarm is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
-            final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
-            if (isScreensaverDateInItalic) {
+            if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
                 // A "Thin Space" (\u2009) is also added at the beginning to correctly center the date,
                 // alarm icon and next alarm only when the date is in italics.
                 pattern = "\u2009" + DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
-            } else if (isScreensaverNextAlarmInItalic) {
+            } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
                 pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton) + "\u2009";
             }
         }
@@ -181,5 +189,26 @@ public class AlarmUtils {
                 snackbarAnchor.getContext(), alarmTimeDelta);
         SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
         snackbarAnchor.announceForAccessibility(text);
+    }
+
+    /**
+     * @return {@code true} if the device has a back flash. {@code false} otherwise.
+     */
+    public static boolean hasBackFlash(Context context) {
+        CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            for (String cameraId : cameraManager.getCameraIdList()) {
+                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
+                Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                Boolean hasFlash = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+
+                if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK && hasFlash != null && hasFlash) {
+                    return true;
+                }
+            }
+        } catch (CameraAccessException e) {
+            LogUtils.e("AlarmUtils - Failed to access the flash unit", e);
+        }
+        return false;
     }
 }

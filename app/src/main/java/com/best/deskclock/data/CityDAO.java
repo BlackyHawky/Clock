@@ -16,6 +16,7 @@ import android.util.ArrayMap;
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -90,7 +91,8 @@ final class CityDAO {
      * @return the domain of cities from which the user may choose a world clock
      */
     static Map<String, City> getCities(Context context) {
-        final Resources resources = context.getResources();
+        final Context localizedContext = Utils.getLocalizedContext(context);
+        final Resources resources = localizedContext.getResources();
         try (TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids)) {
             final int citiesCount = cityStrings.length();
 

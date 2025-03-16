@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -80,38 +81,6 @@ public final class AlarmUpdateHandler {
     }
 
     /**
-     * Adds a new alarm on the background for the bedtime.
-     *
-     * @param alarm The bedtime alarm to be added.
-     */
-    public void asyncAddAlarmForBedtime(final Alarm alarm) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(() -> {
-            AlarmInstance instance = null;
-            if (alarm != null) {
-                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
-                ContentResolver cr = mAppContext.getContentResolver();
-
-                // Add alarm to db
-                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
-
-                // Create and add instance to db
-                if (newAlarm.enabled) {
-                    instance = setupAlarmInstance(newAlarm);
-                }
-            }
-
-            final AlarmInstance finalInstance = instance;
-            handler.post(() -> {
-                if (finalInstance != null) {
-                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, finalInstance.getAlarmTime().getTimeInMillis());
-                }
-            });
-        });
-    }
-
-    /**
      * Modifies an alarm on the background, and optionally show a toast when done.
      *
      * @param alarm       The alarm to be modified.
@@ -137,11 +106,12 @@ public final class AlarmUpdateHandler {
                     final AlarmInstance newInstance = new AlarmInstance(instance);
                     // Copy over minor change data to the instance; we don't know
                     // exactly which minor field changed, so just copy them all.
+                    newInstance.mLabel = alarm.label;
                     newInstance.mDismissAlarmWhenRingtoneEnds = alarm.dismissAlarmWhenRingtoneEnds;
                     newInstance.mAlarmSnoozeActions = alarm.alarmSnoozeActions;
                     newInstance.mVibrate = alarm.vibrate;
+                    newInstance.mFlash = alarm.flash;
                     newInstance.mRingtone = alarm.alert;
-                    newInstance.mLabel = alarm.label;
                     // Since we copied the mId of the old instance and the mId is used
                     // as the primary key in the AlarmInstance table, this will replace
                     // the existing instance.
@@ -191,6 +161,17 @@ public final class AlarmUpdateHandler {
     }
 
     /**
+     * Show a toast when an alarm is predismissed.
+     *
+     * @param instance Instance being predismissed.
+     */
+    public void showPredismissToast(AlarmInstance instance) {
+        final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
+        final String text = mAppContext.getString(R.string.alarm_is_dismissed, time);
+        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
+    }
+
+    /**
      * Hides any undo toast.
      */
     public void hideUndoBar() {
@@ -200,12 +181,11 @@ public final class AlarmUpdateHandler {
 
     private void showUndoBar() {
         final Alarm deletedAlarm = mDeletedAlarm;
-        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
-                        mAppContext.getString(R.string.alarm_deleted), Snackbar.LENGTH_LONG)
-                .setAction(R.string.alarm_undo, v -> {
-                    mDeletedAlarm = null;
-                    asyncAddAlarm(deletedAlarm);
-                });
+        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, mAppContext.getString(R.string.alarm_deleted),
+                        Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
+                            mDeletedAlarm = null;
+                            asyncAddAlarm(deletedAlarm);
+                        });
         SnackbarManager.show(snackbar);
     }
 

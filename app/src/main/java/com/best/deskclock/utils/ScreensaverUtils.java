@@ -2,7 +2,10 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -13,50 +16,21 @@ import android.view.ViewGroup;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.widget.AnalogClock;
 
 public class ScreensaverUtils {
 
     /**
-     * For screensavers to set whether the digital or analog clock should be displayed.
-     * Returns the view to be displayed.
-     *
-     * @param digitalClock if the view concerned is the digital clock
-     * @param analogClock  if the view concerned is the analog clock
+     * Generic method to apply a color filter to the screensaver.
      */
-    public static void setScreensaverClockStyle(View digitalClock, View analogClock) {
-        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
-        switch (screensaverClockStyle) {
-            case ANALOG -> {
-                final Context context = analogClock.getContext();
-                analogClock.getLayoutParams().height = Utils.toPixel(Utils.isTablet(context) ? 300 : 220, context);
-                analogClock.getLayoutParams().width = Utils.toPixel(Utils.isTablet(context) ? 300 : 220, context);
-                digitalClock.setVisibility(View.GONE);
-                analogClock.setVisibility(View.VISIBLE);
-                return;
-            }
-            case DIGITAL -> {
-                digitalClock.setVisibility(View.VISIBLE);
-                analogClock.setVisibility(View.GONE);
-                return;
-            }
-        }
-
-        throw new IllegalStateException("unexpected clock style: " + screensaverClockStyle);
-    }
-
-    /**
-     * For screensaver, dim the color.
-     */
-    public static void dimScreensaverView(Context context, View view, int color) {
+    private static void applyColorFilter(View view, Context context, int color, PorterDuff.Mode mode) {
         String colorFilter = getScreensaverColorFilter(context, color);
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
-
-        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), PorterDuff.Mode.SRC_IN));
-
+        paint.setColorFilter(new PorterDuffColorFilter(Color.parseColor(colorFilter), mode));
         view.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
@@ -65,10 +39,12 @@ public class ScreensaverUtils {
      *
      * @param color the color selected in the screensaver color picker
      */
-    public static String getScreensaverColorFilter(Context context, int color) {
-        final int brightnessPercentage = DataModel.getDataModel().getScreensaverBrightness();
+    private static String getScreensaverColorFilter(Context context, int color) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(prefs);
 
-        if (areScreensaverClockDynamicColors()) {
+        if (SettingsDAO.areScreensaverClockDynamicColors(prefs)
+                && SettingsDAO.getScreensaverClockStyle(prefs) != DataModel.ClockStyle.ANALOG_MATERIAL) {
             color = context.getColor(R.color.md_theme_inversePrimary);
         }
 
@@ -81,8 +57,18 @@ public class ScreensaverUtils {
         return colorFilter;
     }
 
-    public static boolean areScreensaverClockDynamicColors() {
-        return DataModel.getDataModel().areScreensaverClockDynamicColors();
+    /**
+     * Dim the different views that make up the screensaver.
+     */
+    private static void dimScreensaverView(Context context, View view, int color) {
+        applyColorFilter(view, context, color, PorterDuff.Mode.SRC_IN);
+    }
+
+    /**
+     * Dim the screensaver Material analog clock.
+     */
+    private static void dimMaterialAnalogClock(Context context, View materialAnalogClock) {
+        applyColorFilter(materialAnalogClock, context, Color.parseColor("#FFFFFF"), PorterDuff.Mode.MULTIPLY);
     }
 
     /**
@@ -92,11 +78,12 @@ public class ScreensaverUtils {
      * @param digitalClock if the view concerned is the digital clock
      * @param analogClock  if the view concerned is the analog clock
      */
-    public static void setScreensaverClockSecondsEnabled(TextClock digitalClock, AnalogClock analogClock) {
-        final boolean areScreensaverClockSecondsDisplayed = DataModel.getDataModel().areScreensaverClockSecondsDisplayed();
-        final DataModel.ClockStyle screensaverClockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+    private static void setScreensaverClockSecondsEnabled(Context context, TextClock digitalClock, AnalogClock analogClock) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean areScreensaverClockSecondsDisplayed = SettingsDAO.areScreensaverClockSecondsDisplayed(prefs);
+        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         switch (screensaverClockStyle) {
-            case ANALOG -> {
+            case ANALOG, ANALOG_MATERIAL -> {
                 setScreensaverTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(areScreensaverClockSecondsDisplayed);
                 return;
@@ -117,18 +104,14 @@ public class ScreensaverUtils {
      * @param screensaverDigitalClock TextClock to format
      * @param includeSeconds          whether seconds are displayed or not
      */
-    public static void setScreensaverTimeFormat(TextClock screensaverDigitalClock, boolean includeSeconds) {
-        final boolean isScreensaverDigitalClockInBold = DataModel.getDataModel().isScreensaverDigitalClockInBold();
-        final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
+    private static void setScreensaverTimeFormat(TextClock screensaverDigitalClock, boolean includeSeconds) {
+        final Context context = screensaverDigitalClock.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean isScreensaverDigitalClockInBold = SettingsDAO.isScreensaverDigitalClockInBold(prefs);
+        final boolean isScreensaverDigitalClockInItalic = SettingsDAO.isScreensaverDigitalClockInItalic(prefs);
 
-        if (screensaverDigitalClock == null) {
-            return;
-        }
-
-        screensaverDigitalClock.setFormat12Hour(
-                ClockUtils.get12ModeFormat(screensaverDigitalClock.getContext(), 0.4f, includeSeconds));
-        screensaverDigitalClock.setFormat24Hour(
-                ClockUtils.get24ModeFormat(screensaverDigitalClock.getContext(), includeSeconds));
+        screensaverDigitalClock.setFormat12Hour(ClockUtils.get12ModeFormat(context, 0.4f, includeSeconds));
+        screensaverDigitalClock.setFormat24Hour(ClockUtils.get24ModeFormat(context, includeSeconds));
 
         if (isScreensaverDigitalClockInBold && isScreensaverDigitalClockInItalic) {
             screensaverDigitalClock.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -146,9 +129,10 @@ public class ScreensaverUtils {
      *
      * @param date Date to format
      */
-    public static void setScreensaverDateFormat(TextView date) {
-        final boolean isScreensaverDateInBold = DataModel.getDataModel().isScreensaverDateInBold();
-        final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
+    private static void setScreensaverDateFormat(Context context, TextView date) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean isScreensaverDateInBold = SettingsDAO.isScreensaverDateInBold(prefs);
+        final boolean isScreensaverDateInItalic = SettingsDAO.isScreensaverDateInItalic(prefs);
 
         if (isScreensaverDateInBold && isScreensaverDateInItalic) {
             date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
@@ -166,17 +150,15 @@ public class ScreensaverUtils {
      *
      * @param nextAlarm Next alarm to format
      */
-    public static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
-        final boolean isScreensaverNextAlarmInBold = DataModel.getDataModel().isScreensaverNextAlarmInBold();
-        final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
-        if (nextAlarm == null) {
-            return;
-        }
-        if (isScreensaverNextAlarmInBold && isScreensaverNextAlarmInItalic) {
+    private static void setScreensaverNextAlarmFormat(TextView nextAlarm) {
+        final Context context = nextAlarm.getContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
+
+        if (SettingsDAO.isScreensaverNextAlarmInBold(prefs) && SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        } else if (isScreensaverNextAlarmInBold) {
+        } else if (SettingsDAO.isScreensaverNextAlarmInBold(prefs)) {
             nextAlarm.setTypeface(Typeface.DEFAULT_BOLD);
-        } else if (isScreensaverNextAlarmInItalic) {
+        } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
             nextAlarm.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         } else {
             nextAlarm.setTypeface(Typeface.DEFAULT);
@@ -187,50 +169,65 @@ public class ScreensaverUtils {
      * For screensaver, set the margins and the style of the clock.
      */
     public static void setScreensaverMarginsAndClockStyle(final Context context, final View clock) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final View mainClockView = clock.findViewById(R.id.main_clock);
 
-        // Margins
-        final int mainClockMarginLeft = Utils.toPixel(Utils.isTablet(context) ? 20 : 16, context);
-        final int mainClockMarginRight = Utils.toPixel(Utils.isTablet(context) ? 20 : 16, context);
-        final int mainClockMarginTop = Utils.toPixel(Utils.isTablet(context)
-                ? Utils.isLandscape(context) ? 32 : 48
-                : Utils.isLandscape(context) ? 16 : 24, context);
-        final int mainClockMarginBottom = Utils.toPixel(Utils.isTablet(context) ? 20 : 16, context);
-        final ViewGroup.MarginLayoutParams paramsForMainClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(mainClockMarginLeft, mainClockMarginTop, mainClockMarginRight, mainClockMarginBottom);
-        mainClockView.setLayoutParams(paramsForMainClock);
-
-        final int digitalClockMarginBottom = Utils.toPixel(Utils.isTablet(context) ? -18 : -8, context);
-        final ViewGroup.MarginLayoutParams paramsForDigitalClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(0, 0, 0, digitalClockMarginBottom);
-        mainClockView.setLayoutParams(paramsForDigitalClock);
-
-        final int analogClockMarginBottom = Utils.toPixel(Utils.isLandscape(context)
-                ? 5
-                : Utils.isTablet(context) ? 18 : 14, context);
-        final ViewGroup.MarginLayoutParams paramsForAnalogClock = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
-        paramsForMainClock.setMargins(0, 0, 0, analogClockMarginBottom);
-        mainClockView.setLayoutParams(paramsForAnalogClock);
+        applyMargins(context, clock);
 
         // Style
+        final DataModel.ClockStyle screensaverClockStyle = SettingsDAO.getScreensaverClockStyle(prefs);
         final AnalogClock analogClock = mainClockView.findViewById(R.id.analog_clock);
         final TextClock textClock = mainClockView.findViewById(R.id.digital_clock);
         final TextView date = mainClockView.findViewById(R.id.date);
         final TextView nextAlarmIcon = mainClockView.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = mainClockView.findViewById(R.id.nextAlarm);
-        final int screenSaverClockColorPicker = DataModel.getDataModel().getScreensaverClockColorPicker();
-        final int screensaverDateColorPicker = DataModel.getDataModel().getScreensaverDateColorPicker();
-        final int screensaverNextAlarmColorPicker = DataModel.getDataModel().getScreensaverNextAlarmColorPicker();
+        final int screenSaverClockColorPicker = SettingsDAO.getScreensaverClockColorPicker(prefs);
+        final int screensaverDateColorPicker = SettingsDAO.getScreensaverDateColorPicker(prefs);
+        final int screensaverNextAlarmColorPicker = SettingsDAO.getScreensaverNextAlarmColorPicker(prefs);
 
-        setScreensaverClockStyle(textClock, analogClock);
+        ClockUtils.setClockStyle(screensaverClockStyle, textClock, analogClock);
         dimScreensaverView(context, textClock, screenSaverClockColorPicker);
-        dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
+        if (screensaverClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+            dimMaterialAnalogClock(context, analogClock);
+        } else {
+            dimScreensaverView(context, analogClock, screenSaverClockColorPicker);
+        }
         dimScreensaverView(context, date, screensaverDateColorPicker);
         dimScreensaverView(context, nextAlarmIcon, screensaverNextAlarmColorPicker);
         dimScreensaverView(context, nextAlarm, screensaverNextAlarmColorPicker);
-        setScreensaverClockSecondsEnabled(textClock, analogClock);
-        setScreensaverDateFormat(date);
+        setScreensaverClockSecondsEnabled(context, textClock, analogClock);
+        setScreensaverDateFormat(context, date);
         ClockUtils.setClockIconTypeface(nextAlarmIcon);
         setScreensaverNextAlarmFormat(nextAlarm);
+    }
+
+    /**
+     * Calculate and apply margins.
+     */
+    private static void applyMargins(Context context, View clockView) {
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isLandscape = ThemeUtils.isLandscape();
+        final View mainClockView = clockView.findViewById(R.id.main_clock);
+
+        int marginLeftAndRight = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
+        int marginTop = ThemeUtils.convertDpToPixels(isTablet ? (isLandscape ? 32 : 48) : (isLandscape ? 16 : 24), context);
+        int marginBottom = ThemeUtils.convertDpToPixels(isTablet ? 20 : 16, context);
+
+        // Apply margins
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        params.setMargins(marginLeftAndRight, marginTop, marginLeftAndRight, marginBottom);
+        mainClockView.setLayoutParams(params);
+
+        // Margins for other views (e.g., digital and analog clock)
+        int digitalClockMarginBottom = ThemeUtils.convertDpToPixels(isTablet ? -18 : -8, context);
+        int analogClockMarginBottom = ThemeUtils.convertDpToPixels(isLandscape ? 5 : (isTablet ? 18 : 14), context);
+
+        ViewGroup.MarginLayoutParams digitalClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        digitalClockParams.setMargins(0, 0, 0, digitalClockMarginBottom);
+        mainClockView.setLayoutParams(digitalClockParams);
+
+        ViewGroup.MarginLayoutParams analogClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
+        analogClockParams.setMargins(0, 0, 0, analogClockMarginBottom);
+        mainClockView.setLayoutParams(analogClockParams);
     }
 }

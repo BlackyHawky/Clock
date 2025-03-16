@@ -3,9 +3,9 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/alarm_settings">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/ringtone_category_title"
@@ -113,6 +113,17 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <!-- To be more user-friendly, the default value 16 will be written as 1 and the
+             maximum value 55 will be written as 40. See the AlarmSettingsFragment file. -->
+        <SeekBarPreference
+            android:key="key_shake_intensity"
+            android:layout="@layout/settings_preference_seekbar_layout"
+            android:title="@string/shake_intensity_title"
+            android:defaultValue="16"
+            android:max="55"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -149,10 +160,28 @@
             app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
+            android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
+            android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
+            android:key="key_turn_on_back_flash_for_triggered_alarm"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/turn_on_back_flash_for_triggered_alarm_title"
+            android:summary="@string/alarm_settings_general_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <SwitchPreferenceCompat
             android:key="key_enable_delete_occasional_alarm_by_default"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
-            android:summary="@string/enable_delete_occasional_alarm_by_default_setting_summary"
+            android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
@@ -161,8 +190,8 @@
             android:key="key_material_time_picker_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/material_time_picker_style_title"
-            android:entries="@array/clock_style_entries"
-            android:entryValues="@array/clock_style_values"
+            android:entries="@array/time_picker_style_entries"
+            android:entryValues="@array/time_picker_style_values"
             android:defaultValue="analog"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />

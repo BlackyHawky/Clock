@@ -6,13 +6,20 @@
 
 package com.best.deskclock.alarms;
 
-import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TimePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -20,9 +27,10 @@ import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.LabelDialogFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
@@ -107,6 +115,16 @@ public final class AlarmTimeClickHandler {
         }
     }
 
+    public void setAlarmFlashEnabled(Alarm alarm, boolean newState) {
+        if (newState != alarm.flash) {
+            alarm.flash = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_flash, R.string.label_deskclock);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
+            LOGGER.d("Updating flash state to " + newState);
+            Utils.setVibrationTime(mContext, 50);
+        }
+    }
+
     public void deleteOccasionalAlarmAfterUse(Alarm alarm, boolean newState) {
         if (newState != alarm.deleteAfterUse) {
             alarm.deleteAfterUse = newState;
@@ -121,7 +139,7 @@ public final class AlarmTimeClickHandler {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
 
-        final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
+        final int weekday = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(mContext)).getCalendarDays().get(index);
         alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
 
         // if the change altered the next scheduled alarm time, tell the user
@@ -130,6 +148,14 @@ public final class AlarmTimeClickHandler {
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
 
         Utils.setVibrationTime(mContext, 10);
+    }
+
+    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
+        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
+                AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
+        mContext.startService(dismissIntent);
+        mAlarmUpdateHandler.showPredismissToast(alarmInstance);
+        Utils.setVibrationTime(mContext, 50);
     }
 
     public void onDeleteClicked(AlarmItemHolder itemHolder) {
@@ -151,18 +177,45 @@ public final class AlarmTimeClickHandler {
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
-        ShowMaterialTimePicker(alarm.hour, alarm.minutes);
+        if (SettingsDAO.getMaterialTimePickerStyle(getDefaultSharedPreferences(mContext)).equals(SPINNER_TIME_PICKER_STYLE)) {
+            showSpinnerTimePicker(alarm.hour, alarm.minutes);
+        } else {
+            showMaterialTimePicker(alarm.hour, alarm.minutes);
+        }
     }
 
-    private void ShowMaterialTimePicker(int hour, int minute) {
+    private void showSpinnerTimePicker(int hour, int minutes) {
+        LayoutInflater inflater = mFragment.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.spinner_time_picker, null);
+        final Context context = dialogView.getContext();
+        final TimePicker timePicker = dialogView.findViewById(R.id.spinner_time_picker);
+        timePicker.setIs24HourView(DateFormat.is24HourFormat(mContext));
+        timePicker.setHour(hour);
+        timePicker.setMinute(minutes);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(context.getString(R.string.time_picker_dialog_title))
+                .setIcon(R.drawable.ic_calendar_clock)
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int newHour = timePicker.getHour();
+                    int newMinute = timePicker.getMinute();
+                    onTimeSet(newHour, newMinute);
+                })
+                .setNegativeButton(android.R.string.cancel, null);
+
+        builder.create().show();
+    }
+
+    private void showMaterialTimePicker(int hour, int minute) {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mFragment.getContext());
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(getDefaultSharedPreferences(mContext));
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)
@@ -196,15 +249,15 @@ public final class AlarmTimeClickHandler {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm alarm = new Alarm();
-            final boolean areAlarmVibrationsEnabledByDefault = DataModel.getDataModel().areAlarmVibrationsEnabledByDefault();
-            final boolean isOccasionalAlarmDeletedByDefault = DataModel.getDataModel().isOccasionalAlarmDeletedByDefault();
+            final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
             alarm.hour = hourOfDay;
             alarm.minutes = minute;
             alarm.enabled = true;
             alarm.dismissAlarmWhenRingtoneEnds = false;
             alarm.alarmSnoozeActions = true;
-            alarm.vibrate = areAlarmVibrationsEnabledByDefault;
-            alarm.deleteAfterUse = isOccasionalAlarmDeletedByDefault;
+            alarm.vibrate = SettingsDAO.areAlarmVibrationsEnabledByDefault(prefs);
+            alarm.flash = SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(prefs);
+            alarm.deleteAfterUse = SettingsDAO.isOccasionalAlarmDeletedByDefault(prefs);
             mAlarmUpdateHandler.asyncAddAlarm(alarm);
         } else {
             mSelectedAlarm.hour = hourOfDay;

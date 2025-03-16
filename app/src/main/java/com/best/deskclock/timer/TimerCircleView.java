@@ -17,7 +17,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.color.MaterialColors;
 
@@ -58,10 +58,10 @@ public final class TimerCircleView extends View {
     public TimerCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        final float dotDiameter = Utils.toPixel(10, context);
+        final float dotDiameter = ThemeUtils.convertDpToPixels(10, context);
 
-        mStrokeSize = Utils.toPixel(6, context);
-        mRadiusOffset = Utils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
+        mStrokeSize = ThemeUtils.convertDpToPixels(6, context);
+        mRadiusOffset = ThemeUtils.calculateRadiusOffset(mStrokeSize, dotDiameter, 0);
 
         mRemainderColor = MaterialColors.getColor(
                 context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK);

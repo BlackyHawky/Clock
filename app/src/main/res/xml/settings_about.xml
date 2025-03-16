@@ -3,10 +3,10 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/about_title">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <Preference
         android:key="key_about_title"
@@ -43,6 +43,14 @@
         android:layout="@layout/settings_preference_layout"
         android:title="@string/about_github_link"
         android:icon="@drawable/ic_about_github"
+        app:singleLineTitle="false">
+    </Preference>
+
+    <Preference
+        android:key="key_about_translate"
+        android:layout="@layout/settings_preference_layout"
+        android:title="@string/about_translate_link"
+        android:icon="@drawable/ic_about_translate"
         app:singleLineTitle="false">
     </Preference>
 

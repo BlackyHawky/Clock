@@ -6,11 +6,14 @@
 
 package com.best.deskclock;
 
-import static com.best.deskclock.settings.AlarmSettingsActivity.MATERIAL_TIME_PICKER_ANALOG_STYLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,8 +31,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.loader.app.LoaderManager;
@@ -45,11 +50,13 @@ import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
 import com.best.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.best.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.EmptyViewController;
 import com.best.deskclock.widget.toast.SnackbarManager;
@@ -85,6 +92,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private static final String ARG_MINUTE = TAG + "_minute";
 
     private Context mContext;
+    private SharedPreferences mPrefs;
 
     // Updates "Today/Tomorrow" in the UI when midnight passes.
     private final Runnable mMidnightUpdater = new MidnightRunnable();
@@ -118,6 +126,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+
+        mPrefs = getDefaultSharedPreferences(requireContext());
+
         mCursorLoader = LoaderManager.getInstance(this).initLoader(0, null, this);
         if (savedState != null) {
             mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
@@ -137,12 +148,20 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mMainLayout = v.findViewById(R.id.main);
         mRecyclerView = v.findViewById(R.id.alarms_recycler_view);
         TextView alarmsEmptyView = v.findViewById(R.id.alarms_empty_view);
-        final Drawable noAlarmsIcon = Utils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
-        assert noAlarmsIcon != null;
-        noAlarmsIcon.setTint(MaterialColors.getColor(
-                mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+        final boolean isTablet = ThemeUtils.isTablet();
+        final boolean isPhoneInLandscapeMode = !isTablet && ThemeUtils.isLandscape();
+        final Drawable noAlarmsIcon = ThemeUtils.toScaledBitmapDrawable(mContext, R.drawable.ic_alarm_off, 2.5f);
+        if (noAlarmsIcon != null) {
+            noAlarmsIcon.setTint(MaterialColors.getColor(
+                    mContext, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
+        }
         alarmsEmptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarmsIcon, null, null);
-        alarmsEmptyView.setCompoundDrawablePadding(Utils.toPixel(30, mContext));
+        alarmsEmptyView.setCompoundDrawablePadding(ThemeUtils.convertDpToPixels(30, mContext));
+        // Set a bottom padding for phones in portrait mode and tablets to center correctly
+        // the alarms empty view between the FAB and the top of the screen
+        if (!isPhoneInLandscapeMode) {
+            alarmsEmptyView.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+        }
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, alarmsEmptyView);
         mAlarmUpdateHandler = new AlarmUpdateHandler(mContext, this, mMainLayout);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler);
@@ -160,11 +179,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         };
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-        // Set a bottom padding to prevent alarm list from being hidden by the FAB
-        final int bottomPadding = Utils.isTablet(mContext)
-                ? Utils.toPixel(110, mContext)
-                : Utils.toPixel(95, mContext);
-        mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+        // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
+        // to prevent the alarm list from being hidden by the FAB (e.g. when scrolling down).
+        final int rightPadding = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 85 : 0, mContext);
+        final int bottomPadding = ThemeUtils.convertDpToPixels(isTablet ? 110 : isPhoneInLandscapeMode ? 5 : 95, mContext);
+        mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
 
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
@@ -199,8 +218,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.setAdapter(mItemAdapter);
 
         final ItemAnimator itemAnimator = new ItemAnimator();
-        itemAnimator.setChangeDuration(150L);
-        itemAnimator.setMoveDuration(150L);
+        itemAnimator.setChangeDuration(300L);
+        itemAnimator.setMoveDuration(300L);
         mRecyclerView.setItemAnimator(itemAnimator);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -234,12 +253,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                             viewHolder.itemView.getLeft() + (int) dX,
                             viewHolder.itemView.getBottom()
                     );
-                    background.setCornerRadius(Utils.toPixel(12, mContext));
+                    background.setCornerRadius(ThemeUtils.convertDpToPixels(12, mContext));
                     background.draw(c);
 
                     // Delete icon
                     int deleteIconSize = 0;
-                    int deleteIconHorizontalMargin = Utils.toPixel(16, mContext);
+                    int deleteIconHorizontalMargin = ThemeUtils.convertDpToPixels(16, mContext);
 
                     if (dX > deleteIconHorizontalMargin) {
                         Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
@@ -388,7 +407,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
         for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
             final Alarm alarm = new Alarm(data);
-            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, mAlarmTimeClickHandler);
+            final AlarmInstance alarmInstance = alarm.canPreemptivelyDismiss()
+                    ? new AlarmInstance(data, true)
+                    : null;
+            final AlarmItemHolder itemHolder = new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
         setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
@@ -502,19 +524,42 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
-        ShowMaterialTimePicker();
+        if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
+            showSpinnerTimePicker();
+        } else {
+            showMaterialTimePicker();
+        }
     }
 
-    private void ShowMaterialTimePicker() {
+    private void showSpinnerTimePicker() {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.spinner_time_picker, null);
+        final TimePicker timePicker = dialogView.findViewById(R.id.spinner_time_picker);
+        timePicker.setIs24HourView(DateFormat.is24HourFormat(mContext));
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getString(R.string.time_picker_dialog_title))
+                .setIcon(R.drawable.ic_calendar_clock)
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    int newHour = timePicker.getHour();
+                    int newMinute = timePicker.getMinute();
+                    mAlarmTimeClickHandler.onTimeSet(newHour, newMinute);
+                })
+                .setNegativeButton(android.R.string.cancel, null);
+
+        builder.create().show();
+    }
+
+    private void showMaterialTimePicker() {
         @TimeFormat int clockFormat;
         boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
         clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String materialTimePickerStyle = DataModel.getDataModel().getMaterialTimePickerStyle();
+        String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(mPrefs);
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(clockFormat)
-                .setInputMode(materialTimePickerStyle.equals(MATERIAL_TIME_PICKER_ANALOG_STYLE)
+                .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
                         ? MaterialTimePicker.INPUT_MODE_CLOCK
                         : MaterialTimePicker.INPUT_MODE_KEYBOARD)
                 .setHour(hour)
@@ -538,8 +583,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
      * the recyclerview or when the size/position of elements within the recyclerview changes.
      */
-    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
-            implements View.OnLayoutChangeListener {
+    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener implements View.OnLayoutChangeListener {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));

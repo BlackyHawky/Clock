@@ -2,7 +2,7 @@
 
 package com.best.alarmclock.materialyouwidgets;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -16,8 +16,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -31,12 +30,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -45,14 +44,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.best.alarmclock.DailyWidgetUpdateReceiver;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.Locale;
 
@@ -106,6 +106,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
                                               Bundle options, boolean portrait) {
 
         // Create a remote view for the digital clock.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String packageName = context.getPackageName();
         final RemoteViews rv = new RemoteViews(packageName, R.layout.material_you_vertical_digital_widget);
 
@@ -119,16 +120,14 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         // Apply the color to the next alarm.
         // The default color is defined in the xml files to match the device's day/night theme.
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
-
+        final int customNextAlarmColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs);
         if (TextUtils.isEmpty(nextAlarmTime)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
             rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
         } else {
-            if (isDefaultNextAlarmColor) {
+            if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
                 rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
                 rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -157,8 +156,8 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(Integer.parseInt(maxClockFontSize), context);
+        final String maxClockFontSize = WidgetDAO.getMaterialYouVerticalDigitalWidgetMaxClockFontSize(prefs);
+        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(maxClockFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
@@ -184,10 +183,8 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         // Apply the custom color to the hours.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final boolean isDefaultHoursColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultHoursColor();
-        final int customHoursColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomHoursColor();
-
-        if (isDefaultHoursColor) {
+        final int customHoursColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomHoursColor(prefs);
+        if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultHoursColor(prefs)) {
             rv.setViewVisibility(R.id.clockHours, VISIBLE);
             rv.setViewVisibility(R.id.clockHoursForCustomColor, GONE);
         } else {
@@ -198,10 +195,8 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         // Apply the custom color to the minutes.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final boolean isDefaultMinutesColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultMinutesColor();
-        final int customMinutesColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomMinutesColor();
-
-        if (isDefaultMinutesColor) {
+        final int customMinutesColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomMinutesColor(prefs);
+        if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(prefs)) {
             rv.setViewVisibility(R.id.clockMinutes, VISIBLE);
             rv.setViewVisibility(R.id.clockMinutesForCustomColor, GONE);
         } else {
@@ -212,20 +207,15 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         // Apply the custom color to the date.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final CharSequence dateFormat = getDateFormat(context);
-        final boolean isDefaultDateColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor();
-        final int customDateColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomDateColor();
-
-        if (isDefaultDateColor) {
+        final int customDateColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomDateColor(prefs);
+        if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             rv.setViewVisibility(R.id.date, VISIBLE);
             rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-            rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-            rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
         } else {
             rv.setViewVisibility(R.id.date, GONE);
             rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
-            rv.setCharSequence(R.id.dateForCustomColor, "setFormat12Hour", dateFormat);
-            rv.setCharSequence(R.id.dateForCustomColor, "setFormat24Hour", dateFormat);
+            rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
             rv.setTextColor(R.id.dateForCustomColor, customDateColor);
         }
 
@@ -237,6 +227,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
      * the optimal sizes that fit within the widget bounds are located.
      */
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
@@ -244,9 +235,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         final TextClock hours = sizer.findViewById(R.id.clockHours);
         final TextClock hoursForCustomColor = sizer.findViewById(R.id.clockHoursForCustomColor);
-        final boolean isDefaultHoursColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultClockColor();
-
-        if (isDefaultHoursColor) {
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(prefs)) {
             hours.setVisibility(VISIBLE);
             hoursForCustomColor.setVisibility(GONE);
         } else {
@@ -256,9 +245,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         final TextClock minutes = sizer.findViewById(R.id.clockMinutes);
         final TextClock minutesForCustomColor = sizer.findViewById(R.id.clockMinutesForCustomColor);
-        final boolean isDefaultMinutesColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultMinutesColor();
-
-        if (isDefaultMinutesColor) {
+        if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultMinutesColor(prefs)) {
             minutes.setVisibility(VISIBLE);
             minutesForCustomColor.setVisibility(GONE);
         } else {
@@ -267,21 +254,16 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         }
 
         // Configure the date to display the current date string.
-        final CharSequence dateFormat = getDateFormat(context);
-        final TextClock date = sizer.findViewById(R.id.date);
-        final TextClock dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
-        final boolean isDefaultDateColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultDateColor();
-
-        if (isDefaultDateColor) {
+        final TextView date = sizer.findViewById(R.id.date);
+        final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
+        if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultDateColor(prefs)) {
             date.setVisibility(VISIBLE);
             dateForCustomColor.setVisibility(GONE);
-            date.setFormat12Hour(dateFormat);
-            date.setFormat24Hour(dateFormat);
+            date.setText(WidgetUtils.getDateFormat(context));
         } else {
             date.setVisibility(GONE);
             dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setFormat12Hour(dateFormat);
-            dateForCustomColor.setFormat24Hour(dateFormat);
+            dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
         }
 
         // Configure the next alarm views to display the next alarm time or be gone.
@@ -289,16 +271,14 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor();
-
+        final int customNextAlarmColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs);
         if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
             nextAlarmIconForCustomColor.setVisibility(GONE);
         } else {
-            if (isDefaultNextAlarmColor) {
+            if (WidgetDAO.isMaterialYouVerticalDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarm.setText(nextAlarmTime);
                 nextAlarm.setVisibility(VISIBLE);
                 nextAlarmIcon.setVisibility(VISIBLE);
@@ -356,12 +336,12 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final Sizes measuredSizes = template.newSize();
 
         // Configure the clock to display the widest time string.
-        final TextClock date = sizer.findViewById(R.id.date);
+        final TextView date = sizer.findViewById(R.id.date);
         final TextClock hours = sizer.findViewById(R.id.clockHours);
         final TextClock minutes = sizer.findViewById(R.id.clockMinutes);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
-        final TextClock dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
+        final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
         final TextClock hoursForCustomColor = sizer.findViewById(R.id.clockHoursForCustomColor);
         final TextClock minutesForCustomColor = sizer.findViewById(R.id.clockMinutesForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
@@ -411,23 +391,29 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         if (nextAlarmIconForCustomColor.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIconForCustomColor);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIconForCustomColor);
         }
 
         return measuredSizes;
     }
 
-    /**
-     * @return the locale-specific date pattern
-     */
-    private static String getDateFormat(Context context) {
-        final Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        return DateFormat.getBestDateTimePattern(locale, skeleton);
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+
+        // Schedule alarm for daily widget update at midnight
+        WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+
+        WidgetUtils.cancelDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
     }
 
     @Override
@@ -446,21 +432,22 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final String action = intent.getAction();
         if (action != null) {
             switch (action) {
+                case ACTION_APPWIDGET_UPDATE:
                 case ACTION_CONFIGURATION_CHANGED:
-                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED:
-                case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
             }
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
+
+        if (widgetIds.length > 0) {
+            WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
+        }
     }
 
     /**
@@ -480,10 +467,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        IntentFilter intentFilter = getIntentFilter();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -491,6 +475,14 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
+    }
+
+    @NonNull
+    private static IntentFilter getIntentFilter() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_APPWIDGET_UPDATE);
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        return intentFilter;
     }
 
     /**

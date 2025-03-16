@@ -7,10 +7,11 @@
 package com.best.deskclock.timer;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.TimerSettingsActivity.KEY_SORT_TIMER_MANUALLY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.R;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +39,19 @@ import java.util.Objects;
  */
 public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements TimerListener {
 
+    private final int SINGLE_TIMER = R.layout.timer_single_item;
+    private final int MULTIPLE_TIMERS = R.layout.timer_item;
+
     /** Maps each timer id to the corresponding {@link TimerViewHolder} that draws it. */
     private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
     private final TimerClickHandler mTimerClickHandler;
     private final List<Timer> mTimers;
+    private final Context mContext;
+    private final SharedPreferences mPrefs;
 
-    public TimerAdapter(List<Timer> timers, TimerClickHandler timerClickHandler) {
+    public TimerAdapter(Context context, SharedPreferences sharedPreferences, List<Timer> timers, TimerClickHandler timerClickHandler) {
+        mContext = context;
+        mPrefs = sharedPreferences;
         mTimers = timers;
         mTimerClickHandler = timerClickHandler;
     }
@@ -52,12 +61,26 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return getTimers().size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (mTimers.size() == 1) {
+            return (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) ? SINGLE_TIMER : MULTIPLE_TIMERS;
+        } else {
+            return MULTIPLE_TIMERS;
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        final View view = inflater.inflate(R.layout.timer_item, parent, false);
+        View view;
+        if (viewType == SINGLE_TIMER) {
+            view = inflater.inflate(R.layout.timer_single_item, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.timer_item, parent, false);
+        }
         return new TimerViewHolder(view, mTimerClickHandler);
     }
 
@@ -102,9 +125,9 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public List<Timer> getTimers() {
         List<Timer> timers = DataModel.getDataModel().getTimers();
-        String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
-        if (!timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
-            Collections.sort(timers, Timer.TIMER_STATE_COMPARATOR);
+        String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mPrefs);
+        if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
+            Collections.sort(timers, Timer.createTimerStateComparator(mContext));
         }
         return mTimers;
     }
@@ -187,16 +210,15 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-            final Context context = recyclerView.getContext();
             final int dragFlags;
-            String timerSortingPreference = DataModel.getDataModel().getTimerSortingPreference();
+            String timerSortingPreference = SettingsDAO.getTimerSortingPreference(mAdapter.mPrefs);
 
             // Allow dragging only if timers are sorted manually
-            if (timerSortingPreference.equals(KEY_SORT_TIMER_MANUALLY)) {
-                if (Utils.isTablet(context)) {
+            if (timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
+                if (ThemeUtils.isTablet()) {
                     dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
                 } else {
-                    if (Utils.isLandscape(context)) {
+                    if (ThemeUtils.isLandscape()) {
                         dragFlags = ItemTouchHelper.START | ItemTouchHelper.END;
                     } else {
                         dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
@@ -208,5 +230,20 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             return makeMovementFlags(dragFlags, 0);
         }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder,
+                                float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+            if (isCurrentlyActive) {
+                viewHolder.itemView.setTranslationZ(20f);
+            } else {
+                viewHolder.itemView.setTranslationZ(0f);
+            }
+        }
     }
+
 }

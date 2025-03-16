@@ -19,11 +19,13 @@ Caractéristiques :
   <li>Style d'horloge numérique ou analogique ;</li>
   <li>Affichage de l'heure locale lors des voyages ;</li>
   <li>Afficher l'heure dans de nombreuses villes du monde ;</li>
-  <li>Minuteur, chronomètre et mode coucher <i>(expérimental)</i> inclus;</li>
+  <li>Minuteur et chronomètre inclus;</li>
   <li>Possibilité de partager votre chronomètre avec vos contacts ;</li>
   <li>Écran de veille personnalisable ;</li>
   <li>Widgets modernes ;</li>
   <li>Widgets personnalisables ;</li>
+  <li>Prise en charge des tuiles dans les paramètres rapides (pour Android 7+) ;</li>
+  <li>Sauvegarder et restaurer les paramètres ;</li>
   <li>Design material ;</li>
   <li>Couleurs dynamiques pour Android 12+ ;</li>
 </ul>

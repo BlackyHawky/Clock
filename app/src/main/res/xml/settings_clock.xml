@@ -5,8 +5,7 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/clock_settings">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/style_category_title"
@@ -20,7 +19,7 @@
             android:title="@string/clock_style"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
-            android:defaultValue="@string/default_clock_style"
+            android:defaultValue="digital"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 

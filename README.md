@@ -32,20 +32,21 @@ Clock is a privacy-conscious open-source clock, based on AOSP Clock.
 * Digital or analog clock style;
 * Display home time when traveling;
 * Display the time in many cities around the world;
-* Timer, stopwatch and bedtime _(experimental)_ included;
+* Timer and stopwatch included;
 * Possibility of sharing your stopwatch with your contacts;
 * Customizable interface;
 * Customizable screensaver;
 * Modern widgets;
 * Customizable widgets;
+* Support for tiles in quick settings (for Android 7+);
 * Backup and restore settings;
 * Material design;
 * Dynamic colors for Android 12+;
 * Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).
 
 ## Common Issues
-* Problem encountered with bedtime mode as this is an experimental feature;
-* Maybe other things, but nothing about the alarm's functionality.
+
+Issues may occur on specific devices due to the limited number of devices to test the application.
 
 ⚠ _<b>As I'm not an expert developer, some problems may unfortunately not be solved without help.</b>_ ⚠
 
@@ -93,6 +94,8 @@ Clock is a complex application, when contributing, you must take a step back and
 - **Does not bring any non-free code or proprietary binary blobs**. This also applies to code/binaries with unknown licenses. Make sure you do not introduce any closed-source library from Google.
   If your contribution contains code that is not your own, provide a link to the source.
 - **Complies with the user privacy principle Clock follows**.
+
+Please leave dependency upgrades to the maintainers, unless it's an actual security issue.
 
 # License
 

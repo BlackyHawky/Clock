@@ -6,6 +6,7 @@
 
 package com.best.deskclock.alarms;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_MISSED_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID;
 import static com.best.deskclock.utils.NotificationUtils.ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID;
@@ -31,7 +32,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.best.deskclock.AlarmClockFragment;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
@@ -86,9 +87,13 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying upcoming alarm notification for alarm instance: " + instance.mId);
 
         final Alarm alarm = Alarm.getAlarm(context.getContentResolver(), instance.mAlarmId);
-        assert alarm != null;
-
         final String contentTitle;
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
+            return;
+        }
+
         if (!alarm.daysOfWeek.isRepeating()) {
             if (alarm.deleteAfterUse) {
                 contentTitle = context.getString(R.string.occasional_alarm_alert_predismiss_title);
@@ -399,7 +404,7 @@ public final class AlarmNotifications {
 
         // Setup Snooze Action only if snooze duration has NOT been set to "None" in the settings
         // or if "Enable alarm snooze actions" is enabled in the expanded alarm view
-        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
+        final int snoozeMinutes = SettingsDAO.getSnoozeLength(getDefaultSharedPreferences(service));
         if (instance.mAlarmSnoozeActions && snoozeMinutes != -1) {
             Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
                     AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
@@ -412,7 +417,11 @@ public final class AlarmNotifications {
         // Setup Dismiss Action
         final String dismissActionTitle;
         final Alarm alarm = Alarm.getAlarm(service.getContentResolver(), instance.mAlarmId);
-        assert alarm != null;
+
+        if (alarm == null) {
+            LogUtils.wtf("Failed to retrieve alarm with ID: %d", instance.mAlarmId);
+            return;
+        }
 
         // Setup up dismiss action
         if (!alarm.daysOfWeek.isRepeating()) {
@@ -431,6 +440,8 @@ public final class AlarmNotifications {
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
                 ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         notification.addAction(R.drawable.ic_alarm_off, dismissActionTitle, dismissPendingIntent);
+        // Stop alarm if user clears notification.
+        notification.setDeleteIntent(dismissPendingIntent);
 
         // Setup Content Action
         Intent contentIntent = AlarmInstance.createIntent(service, AlarmActivity.class, instance.mId);

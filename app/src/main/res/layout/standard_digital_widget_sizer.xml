@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="20dp"
+    android:orientation="vertical">
+
+    <TextClock
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:ellipsize="none"
+        android:format12Hour="@string/lock_screen_12_hour_format"
+        android:format24Hour="@string/lock_screen_24_hour_format"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:shadowRadius="2.75"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        tools:text="01:23"
+        tools:textSize="70sp"
+        tools:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="3dp"
+            android:layout_gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text="Sa, Apr 14"
+            tools:textSize="18sp"
+            tools:textColor="@android:color/white" />
+
+        <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
+        <TextView
+            android:id="@+id/nextAlarmIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="@string/clock_emoji"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text=""
+            tools:drawableStart="@drawable/ic_tab_alarm_static"
+            tools:paddingStart="8dp"
+            tools:paddingEnd="8dp"
+            tools:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/nextAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="3dp"
+            android:layout_gravity="center"
+            android:ellipsize="none"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:shadowRadius="2.75"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            tools:text="Mon, 07:30 AM"
+            tools:textSize="18sp"
+            tools:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

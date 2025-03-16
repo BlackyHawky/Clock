@@ -8,8 +8,7 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:title="@string/screensaver_settings_title">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
@@ -20,7 +19,7 @@
             android:key="key_screensaver_clock_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
-            android:defaultValue="@string/default_clock_style"
+            android:defaultValue="digital"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             app:iconSpaceReserved="false"

@@ -6,6 +6,7 @@
 -->
 
 <!-- Guttered content. The gutters are applied in world_clock_item and main_clock_frame. -->
+<!-- Due to the ViewPager and the location of FAB, paddings are set in the ClockFragment.java file. -->
 <androidx.recyclerview.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cities"
@@ -13,7 +14,4 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:clickable="false"
-    android:clipToPadding="false"
-    android:paddingBottom="90dp"
-    android:scrollbarStyle="outsideOverlay"
-    android:scrollbars="vertical" />
+    android:clipToPadding="false" />

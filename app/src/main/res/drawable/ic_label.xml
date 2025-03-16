@@ -9,7 +9,8 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="960"
-    android:viewportHeight="960">
+    android:viewportHeight="960"
+    android:autoMirrored="true">
     <path
         android:fillColor="@android:color/white"
         android:pathData="M160 800q-33 0-56.5-23.5T80 720V240q0-33 23.5-56.5T160 160H600q19 0 36 8.5T664 192L844 432q16 21 16 48t-16 48L664 768q-11 15-28 23.5T600 800H160Zm0-80H600L780 480 600 240H160V720Z" />

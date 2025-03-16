@@ -1,0 +1,7 @@
+**Parandused:**
+* Parandasime kiirlinkide kuvamise rakenduse ikooni pikal puudutusel;
+
+**Täiendused:**
+* Eemaldasime mittevajalike õiguste päringud;
+
+Muudatuste logi asub siin: https://github.com/BlackyHawky/Clock/releases/tag/2.0

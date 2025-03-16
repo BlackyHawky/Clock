@@ -6,6 +6,8 @@
 
 package com.best.deskclock.widget.selector;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.TextTime;
 
 import java.util.Calendar;
@@ -48,7 +50,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
         LayoutInflater inflater = LayoutInflater.from(context);
         View row = inflater.inflate(R.layout.alarm_row, parent, false);
 
-        int alarmRowMarginBottom = Utils.toPixel(Utils.isTablet(context) ? 64 : 8, context);
+        int alarmRowMarginBottom = ThemeUtils.convertDpToPixels(ThemeUtils.isTablet() ? 64 : 8, context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         );
@@ -100,7 +102,7 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
                         context.getResources().getString(R.string.alarm_tomorrow) :
                         context.getResources().getString(R.string.alarm_today);
             } else {
-                final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+                final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
                 daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
             }
 

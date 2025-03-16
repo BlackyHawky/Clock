@@ -5,7 +5,7 @@ Merkmale:
 <ul>
   <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms;</li>
   <li>Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten;</li>
-  <li>Nur bei einigen Snapdragon-Geräten: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
+  <li>Nur bei einigen Snapdragon-Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
     <ul>
       <li>Leider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>"com.qualcomm.qti.poweroffalarm"</i> vorhanden ist.</li>
     </ul>

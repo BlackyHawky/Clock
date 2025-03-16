@@ -6,26 +6,58 @@
 
 package com.best.deskclock.settings;
 
-import static com.best.deskclock.settings.AboutActivity.KEY_ABOUT_TITLE;
-import static com.best.deskclock.settings.AlarmSettingsActivity.KEY_ALARM_VOLUME_SETTING;
-import static com.best.deskclock.settings.ScreensaverSettingsActivity.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_TITLE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_VOLUME_SETTING;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.ThemeUtils;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.Objects;
 
-public class ScreenFragment extends PreferenceFragmentCompat {
+public abstract class ScreenFragment extends PreferenceFragmentCompat {
+
+    SharedPreferences mPrefs;
+    AppBarLayout mAppBarLayout;
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
+    RecyclerView mRecyclerView;
+    LinearLayoutManager mLinearLayoutManager;
+
+    /**
+     * This method should be implemented by subclasses of ScreenFragment to provide the title
+     * for the fragment's collapsing toolbar.
+     * <p>
+     * The title returned by this method will be displayed in the collapsing toolbar layout
+     * and will be correctly translated when changing the language in settings.
+     *
+     * @return The title of the fragment to be displayed in the collapsing toolbar.
+     */
+    protected abstract String getFragmentTitle() ;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -33,14 +65,58 @@ public class ScreenFragment extends PreferenceFragmentCompat {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             getPreferenceManager().setStorageDeviceProtected();
         }
+
+        mPrefs = getDefaultSharedPreferences(requireContext());
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.add(0, Menu.NONE, 0, R.string.about_title)
+                .setIcon(R.drawable.ic_about)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == 0) {
+            Fragment existingFragment =
+                    requireActivity().getSupportFragmentManager().findFragmentByTag(AboutFragment.class.getSimpleName());
+
+            if (existingFragment == null) {
+                animateAndShowFragment(new AboutFragment());
+            }
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mCollapsingToolbarLayout = requireActivity().findViewById(R.id.collapsing_toolbar);
+        mAppBarLayout = requireActivity().findViewById(R.id.app_bar);
+        mAppBarLayout.setExpanded(true, true);
+
+        mRecyclerView = getListView();
+        if (mRecyclerView != null) {
+            int bottomPadding = ThemeUtils.convertDpToPixels(20, requireContext());
+            int topPadding = ThemeUtils.convertDpToPixels(10, requireContext());
+            mRecyclerView.setPadding(0, topPadding, 0, bottomPadding);
+            mRecyclerView.setVerticalScrollBarEnabled(false);
+            mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        int bottomPadding = Utils.toPixel(20, requireContext());
-        int topPadding = Utils.toPixel(10, requireContext());
-        getListView().setPadding(0, topPadding, 0, bottomPadding);
+
+        mCollapsingToolbarLayout.setTitle(getFragmentTitle());
     }
 
     @Override
@@ -53,8 +129,8 @@ public class ScreenFragment extends PreferenceFragmentCompat {
     public void setPreferenceScreen(PreferenceScreen preferenceScreen) {
         super.setPreferenceScreen(preferenceScreen);
 
-        final boolean isCardBackgroundDisplayed = DataModel.getDataModel().isCardBackgroundDisplayed();
-        final boolean isCardBorderDisplayed = DataModel.getDataModel().isCardBorderDisplayed();
+        final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
+        final boolean isCardBorderDisplayed = SettingsDAO.isCardBorderDisplayed(mPrefs);
 
         if (preferenceScreen == null) return;
         int count = preferenceScreen.getPreferenceCount();
@@ -64,7 +140,8 @@ public class ScreenFragment extends PreferenceFragmentCompat {
                 final int subPrefCount = ((PreferenceCategory) pref).getPreferenceCount();
                 for (int j = 0; j < subPrefCount; j++) {
                     if (Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_ALARM_VOLUME_SETTING)
-                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SCREENSAVER_BRIGHTNESS)) {
+                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SCREENSAVER_BRIGHTNESS)
+                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SHAKE_INTENSITY)) {
                         if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
                             ((PreferenceCategory) pref).getPreference(j)
                                     .setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);
@@ -108,6 +185,33 @@ public class ScreenFragment extends PreferenceFragmentCompat {
                 }
             }
         }
+    }
+
+    /**
+     * Initiates a fragment transaction with custom animations to replace the current fragment.
+     * The new fragment is added to the back stack, allowing for back navigation, and custom
+     * slide-in/slide-out or fade_in/fade-out animations are applied to transition between fragments.
+     *
+     * @param fragment The new fragment to be displayed.
+     */
+    protected void animateAndShowFragment(Fragment fragment) {
+        // Check if animations are disabled in accessibility settings
+        boolean areAnimationsDisabled = android.provider.Settings.Global.getFloat(requireContext().getContentResolver(),
+                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f;
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+        if (areAnimationsDisabled) {
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_NONE);
+        } else if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
+                    R.anim.fade_in, R.anim.fade_out);
+        } else {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
+                    R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+        fragmentTransaction.replace(R.id.content_frame, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

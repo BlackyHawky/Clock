@@ -7,8 +7,7 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/settings">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
         android:key="key_permission_message"

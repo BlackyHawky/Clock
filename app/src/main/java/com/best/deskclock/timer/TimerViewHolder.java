@@ -6,6 +6,8 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -17,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerStringFormatter;
 import com.best.deskclock.events.Events;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
@@ -34,9 +38,6 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         super(view);
 
         final Context context = view.getContext();
-
-        view.setBackground(Utils.cardBackground(context));
-
         mTimerItem = (TimerItem) view;
         mTimerClickHandler = timerClickHandler;
 
@@ -81,7 +82,7 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
 
         // If we click on the circular container when the phones (only) are in landscape mode,
         // indicating a title for the timers is not possible so in this case we click on the time text.
-        if (!Utils.isTablet(context) && Utils.isLandscape(context)) {
+        if (!ThemeUtils.isTablet() && ThemeUtils.isLandscape()) {
             view.findViewById(R.id.timer_time_text).setOnClickListener(mPlayPauseListener);
         } else {
             view.findViewById(R.id.circle_container).setOnClickListener(mPlayPauseListener);
@@ -93,15 +94,12 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
         view.findViewById(R.id.delete_timer).setOnClickListener(v -> {
             Utils.setVibrationTime(context, 10);
 
-            final boolean isWarningDisplayedBeforeDeletingTimer =
-                    DataModel.getDataModel().isWarningDisplayedBeforeDeletingTimer();
-
-            if (isWarningDisplayedBeforeDeletingTimer) {
+            if (SettingsDAO.isWarningDisplayedBeforeDeletingTimer(getDefaultSharedPreferences(context))) {
                 final Drawable drawable = AppCompatResources.getDrawable(context, R.drawable.ic_delete);
-                assert drawable != null;
-                drawable.setTint(MaterialColors.getColor(
-                        context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
-                );
+                if (drawable != null) {
+                    drawable.setTint(MaterialColors.getColor(
+                            context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+                }
                 // Get the title of the timer if there is one; otherwise, get the total duration.
                 final String dialogMessage;
                 if (getTimer().getLabel().isEmpty()) {

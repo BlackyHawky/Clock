@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2016 The Android Open Source Project
+    modified
+    SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/desk_clock_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:saveEnabled="false" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:baselineAligned="false"
+            app:layout_behavior="com.best.deskclock.widget.toast.SnackbarSlidingBehavior">
+
+            <!-- Buttons size is set programmatically in the DeskClock.java file. -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/left_button"
+                style="@style/FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fab"
+                app:layout_constraintBottom_toBottomOf="@+id/fab"
+                app:layout_constraintTop_toTopOf="@+id/fab"
+                app:layout_constraintHorizontal_bias="0.6"
+                tools:layout_width="70dp"
+                tools:layout_height="70dp"
+                tools:visibility="visible"
+                tools:src="@drawable/ic_reset"
+                tools:fabCustomSize="70dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                style="@style/FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_width="90dp"
+                tools:layout_height="90dp"
+                tools:src="@drawable/ic_fab_play"
+                tools:fabCustomSize="90dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/right_button"
+                style="@style/FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/fab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/fab"
+                app:layout_constraintBottom_toBottomOf="@id/fab"
+                app:layout_constraintHorizontal_bias="0.4"
+                tools:layout_width="70dp"
+                tools:layout_height="70dp"
+                tools:visibility="visible"
+                tools:src="@drawable/ic_share"
+                tools:fabCustomSize="70dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:menu="@menu/bottom_navigation_menu"
+        app:labelVisibilityMode="labeled"
+        tools:background="@color/md_theme_surface" />
+
+</LinearLayout>

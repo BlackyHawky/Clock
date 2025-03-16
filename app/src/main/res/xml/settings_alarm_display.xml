@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
@@ -12,7 +17,7 @@
             android:key="key_alarm_clock_style"
             android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
-            android:defaultValue="@string/default_clock_style"
+            android:defaultValue="digital"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             app:iconSpaceReserved="false"
@@ -156,4 +161,4 @@
 
     </PreferenceCategory>
 
-</androidx.preference.PreferenceScreen>
+</PreferenceScreen>

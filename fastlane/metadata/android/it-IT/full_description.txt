@@ -21,6 +21,7 @@ Caratteristiche:
   <li>Salvaschermo personalizzabile;</li>
   <li>Widget Moderni;</li>
   <li>Widget personalizzabile;</li>
-  <li>Material design;</li>
+  <li>Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+); <br>
+<li>Backup e ripristino delle impostazioni; </li><li>Material design;</li>
   <li>Colori dinamici per Android 12+;</li>
 </ul>

@@ -9,6 +9,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Arrêter l\'alarme à la fin de la sonnerie</string>
     <string name="enable_alarm_snooze_actions_label">Activer les actions de répétition de l\'alarme</string>
+    <string name="time_picker_dialog_title">Sélectionner l\'heure</string>
     <string name="alarm_label_box_title">Libellé de l\'alarme</string>
     <string name="label_default">Par défaut</string>
     <string name="label_off">Désactivé</string>
@@ -26,10 +27,9 @@
     <string name="device_sounds" msgid="1584894148222639823">"Sons de l\'appareil"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"Impossible d\'accéder au contenu sonore."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Minuteur arrivé à expiration"</string>
-    <string name="alarm_inactive">Désactivée</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Ignorer</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarme manquée"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Répétée"</string>
@@ -224,7 +224,6 @@
     <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horloge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronomètre"</string>
-    <string name="menu_bedtime">Coucher</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ajouter une alarme"</string>
     <string name="button_cities" msgid="4555761857494501363">"Villes"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Trier par heure"</string>
@@ -392,7 +391,7 @@
     <string name="gnu_gpl">Licence publique générale GNU v3.0</string>
     <string name="contributors">Contributeurs</string>
     <string name="credits">Crédits</string>
-    <string name="about_dialog_message">• L\'action de retourner ou de secouer l\'appareil permet d\'arrêter ou de reporter l\'alarme ; \n\n• Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; \n\n• Pour quelques appareils Snapdragon uniquement, l\'alarme se déclenche lorsqu\'ils sont éteints ; \n\n• Glisser pour supprimer une alarme ; \n\n• Possibilité de dupliquer les alarmes ; \n\n• Personnaliser le titre de l\'alarme ; \n\n• Sonnerie personnalisable ; \n\n• Thème clair, sombre ou système ; \n\n• Mode AMOLED pour le thème sombre ; \n\n• Horloge numérique ou analogique ; \n\n• Affichage de l\'heure du domicile en cas de déplacement ; \n\n• Affichage de l\'heure dans de nombreuses villes du monde ; \n\n• Minuteur, chronomètre et heure du coucher <i>(expérimental)</i> inclus ; \n\n• Possibilité de partager votre chronomètre avec vos contacts ; \n\n• Écran de veille personnalisable ; \n\n• Widgets modernes ; \n\n• Widgets personnalisables ; \n\n• Sauvegarder et restaurer les paramètres ; \n\n• Material design ; \n\n• Couleurs dynamiques pour Android 12+ ;</string>
+    <string name="about_dialog_message">• L\'action de retourner ou de secouer l\'appareil permet d\'arrêter ou de reporter l\'alarme ; \n\n• Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; \n\n• Pour quelques appareils Snapdragon uniquement, l\'alarme se déclenche lorsqu\'ils sont éteints ; \n\t\t Malheureusement, cette fonctionnalité peut ne pas fonctionner sur certains appareils malgré la présence de l\'application système <i>\"com.qualcomm.qti.poweroffalarm\"</i>. \n\n• Glisser pour supprimer une alarme ; \n\n• Possibilité de dupliquer les alarmes ; \n\n• Personnaliser le titre de l\'alarme ; \n\n• Sonnerie personnalisable ; \n\n• Thème clair, sombre ou système ; \n\n• Mode AMOLED pour le thème sombre ; \n\n• Horloge numérique ou analogique ; \n\n• Affichage de l\'heure du domicile en cas de déplacement ; \n\n• Affichage de l\'heure dans de nombreuses villes du monde ; \n\n• Minuteur et chronomètre inclus ; \n\n• Possibilité de partager votre chronomètre avec vos contacts ; \n\n• Écran de veille personnalisable ; \n\n• Widgets modernes ; \n\n• Widgets personnalisables ; \n\n• Prise en charge des tuiles dans les paramètres rapides (pour Android 7+) ; \n\n• Sauvegarder et restaurer les paramètres ; \n\n• Material design ; \n\n• Couleurs dynamiques pour Android 12+ ;</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Fermer</string>
     <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nouvelle alarme"</string>
@@ -409,7 +408,6 @@
     <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
-    <string name="bedtime_service_desc">Traite les actions des notifications de l\'heure du coucher.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Glisser vers la droite pour arrêter"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glisser vers la gauche pour répéter"</string>
@@ -441,28 +439,6 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Appuyez pour afficher vos minuteurs."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="wakeup">Réveil</string>
-    <string name="bedtime_reminder_notification">Notification de rappel</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 minutes avant le coucher</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 minutes avant le coucher</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 minutes avant le coucher</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 minutes avant le coucher</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 minutes avant le coucher</string>
-    <string name="bedtime_reminder_notification_1_hour">1 heure avant le coucher</string>
-    <string name="bedtime_reminder_notification_title">L\'heure du coucher commence à <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_reminder_notification_text">L\'heure du coucher s\'arrête à <xliff:g id="wake_time">%1$s</xliff:g> après <xliff:g id="sleep_time">%2$s</xliff:g> de sommeil.</string>
-    <string name="bedtime_notification_title">Le mode \"Heure du coucher\" est activé</string>
-    <string name="bedtime_notification_action_pause">Pause de 30 minutes</string>
-    <string name="bedtime_notification_action_turn_off">Désactiver</string>
-    <string name="bedtime_notification_until">jusqu\'à <xliff:g id="wake_time">%s</xliff:g></string>
-    <string name="bedtime_paused_notification_title">Le mode \"Heure du coucher\" est en pause</string>
-    <string name="bedtime_notification_resume">Reprise le <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_resume_action">Reprendre maintenant</string>
-    <string name="wakeup_alarm_label_visible">Alarme de réveil</string>
-    <string name="new_bedtime_alarm">Alarme de réveil créée</string>
-    <string name="sleeping_time">Temps de sommeil : %1$s</string>
-    <string name="no_bedtime_alarm">Aucune heure de coucher définie</string>
-    <string name="no_wakeup_alarm">Aucun réveil défini</string>
     <string name="screensaver_settings_title">Économiseur d\'écran</string>
     <string name="screensaver_settings_summary">Définit le style, la couleur et la police de caractère de l\'économiseur d\'écran</string>
     <string name="screensaver_daydream_settings">Sélectionner/activer l\'économiseur d\'écran</string>
@@ -528,7 +504,7 @@
     <string name="first_launch_main_feature_title">PRINCIPALES FONCTIONNALITÉS</string>
     <string name="first_launch_button_now">Maintenant</string>
     <string name="first_launch_button_later">Plus tard</string>
-    <string name="first_launch_main_feature_message">► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt; ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt; ► Widgets personnalisables ; &lt;br&gt; &lt;br&gt; ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt; ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt; ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt; ► L\'action de retourner ou de secouer l\'appareil permet d\'arrêter ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt; ► Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Thème clair, sombre ou système ; &lt;br&gt; &lt;br&gt; ► Économiseur d\'écran personnalisable ; &lt;br&gt; &lt;br&gt; ► Widgets personnalisables ; &lt;br&gt; &lt;br&gt; ► Prise en charge des tuiles dans les paramètres rapides (pour Android 7+) ; &lt;br&gt; &lt;br&gt; ► Sauvegarder et restaurer les paramètres ; &lt;br&gt; &lt;br&gt; ► Design Material et couleurs dynamiques ; &lt;br&gt; &lt;br&gt; ► Glisser pour supprimer une alarme ; &lt;br&gt; &lt;br&gt; ► Dupliquer une alarme ; &lt;br&gt; &lt;br&gt; ► L\'action de retourner ou de secouer l\'appareil permet d\'arrêter ou de reporter l\'alarme ; &lt;br&gt; &lt;br&gt; ► Désactiver ou reporter l\'alarme à l\'aide de la touche d\'alimentation ou des touches de volume ; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_main_feature_link">… et bien plus encore !</string>
     <string name="first_launch_important_info_title">INFORMATION IMPORTANTE</string>
     <string name="first_launch_important_info_message">
@@ -556,7 +532,7 @@
     <string name="digital_widget_city_name_custom_color_title">Couleur personalisée du nom des villes</string>
     <string name="digital_widget_max_clock_font_size_title">Taille maximale de la police de l\'horloge principale</string>
     <string name="widget_max_clock_font_size_summary">Taille maximale de la police = </string>
-    <string name="digital_widget_message_summary">Afficher les villes sur le widget doit être désactivé pour accéder à ce paramètre</string>
+    <string name="digital_widget_message_summary">\"Afficher les villes sur le widget\" doit être désactivé pour accéder à ce réglage</string>
     <string name="permission_management_settings">Gestion des autorisations</string>
     <string name="permission_management_summary">Affiche les autorisations nécessaires pour que l\'application fonctionne correctement</string>
     <string name="permission_requirement_title">Exigence : </string>
@@ -575,12 +551,11 @@
         \n\nNous recommandons d\'exclure cette application des optimisations de la batterie.</string>
     <string name="notifications_permission_title">ACTIVER LES NOTIFICATIONS</string>
     <string name="notifications_dialog_title">Notifications</string>
-    <string name="notifications_dialog_text">En plus de définir des alarmes, cette application propose également une minuterie, un chronomètre et un mode \"coucher\".
+    <string name="notifications_dialog_text">En plus de définir des alarmes, cette application propose également une minuterie et un chronomètre.
         \n\nPour que les notifications apparaissent correctement pour tous les modules et surtout pour que l\'alarme soit déclenchée, il est recommandé d\'activer les notifications pour cette application.</string>
     <string name="FSN_permission_title">ACTIVER LES NOTIFICATIONS EN PLEIN ÉCRAN</string>
     <string name="FSN_dialog_title">Notifications en Plein Écran</string>
-    <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation Notifications Plein Écran soit activée.</string>
-    <string name="bedtime_channel">Coucher</string>
+    <string name="FSN_dialog_text">Depuis Android 14, pour que l\'alarme se déclenche lorsque l\'écran est éteint, il est impératif que l\'autorisation \"Notifications Plein Écran\" soit activée.</string>
     <string name="alarm_clock_font_size">Taille de la police de l\'horloge</string>
     <string name="alarm_title_font_size">Taille de la police du titre de l\'alarme</string>
     <string name="github_dialog_message">Visiter la page GitHub du projet :
@@ -626,10 +601,10 @@
     <string name="auto_silence_30_seconds">30 secondes</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Glisser vers la gauche pour arrêter et supprimer l\'alarme</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activer par défaut la suppression automatique des alarmes occasionnelles</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
+    <string name="alarm_settings_general_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
     <string name="description_direction_right_for_occasional_alarm">Glisser vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="delete_occasional_alarm_after_use_title">Supprimer l\'alarme une fois arrêtée</string>
-    <string name="alarm_alert_dismiss_and_delete_text">Quitter &amp; Supprimer</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Ignorer &amp; Supprimer</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme arrêtée et supprimée</string>
     <string name="description_direction_both_for_occasional_alarm">Glisser vers la gauche pour répéter ou vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="description_direction_both_clicked_for_occasional_alarm">Cliquer à gauche pour répéter ou à droite pour arrêter et supprimer l\'alarme</string>
@@ -666,4 +641,36 @@
     <string name="warning_dialog_message">Etes-vous sûr de vouloir supprimer le minuteur \"%s\" ?</string>
     <string name="display_warning_before_deleting_timer_title">Afficher un avertissement avant de supprimer un minuteur</string>
     <string name="display_ringtone_title">Afficher le titre de la sonnerie</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Activer les vibrations lorsque l\'alarme est répétée ou arrêtée</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration lorsque l\'alarme est répétée et simple vibration lorsque l\'alarme est arrêtée</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Allumer le flash arrière lorsque l\'alarme est déclenchée</string>
+    <string name="alarm_flash">Flash</string>
+    <string name="about_translate_link">Traduire sur Codeberg</string>
+    <string name="translate_dialog_message">Visiter la page Codeberg :\n\n%s</string>
+    <string name="shake_intensity_title">Intensité des secousses</string>
+    <string name="settings_language_french">Français</string>
+    <string name="settings_language_system">Langue du système</string>
+    <string name="settings_language_german">Allemand</string>
+    <string name="settings_language_estonian">Estonien</string>
+    <string name="settings_language_italian">Italien</string>
+    <string name="settings_language_polish">Polonais</string>
+    <string name="settings_language_portuguese">Portugais</string>
+    <string name="settings_language_serbian">Serbe</string>
+    <string name="settings_language_spanish">Espagnol</string>
+    <string name="settings_language_ukrainian">Ukrainien</string>
+    <string name="settings_language_title">Langue</string>
+    <string name="settings_language_english_us">Anglais (États-Unis)</string>
+    <string name="settings_language_chinese_simplified_cn">Chinois (simplifié, RPC)</string>
+    <string name="permission_info_title">Pour les appareils Xiaomi uniquement</string>
+    <string name="show_lockscreen_permission_title">AFFICHER SUR L\'ÉCRAN DE VERROUILLAGE</string>
+    <string name="show_lockscreen_dialog_title">Afficher sur l\'écran de verrouillage</string>
+    <string name="show_lockscreen_dialog_text">Sur les appareils Xiaomi, vous devez activer manuellement l\'autorisation \"Afficher sur l\'écran de verrouillage\" à partir des paramètres de l\'appareil pour que l\'application fonctionne correctement.</string>
+    <string name="clock_style_spinner">Spinner</string>
+    <string name="clock_style_analog_material">Analogique (Material)</string>
+    <string name="settings_language_dutch">Néerlandais</string>
+    <string name="settings_language_russian">Russe</string>
+    <string name="analog_widget_without_second_hand_title">Sans l\'aiguille des secondes</string>
+    <string name="analog_widget_with_second_hand_title">Avec l\'aiguille des secondes</string>
+    <string name="analog_widget_configuration_warning">Ce widget n\'est configurable qu\'à partir d\'Android 12</string>
+    <string name="analog_widget_choice_title">Choisissez votre style</string>
 </resources>

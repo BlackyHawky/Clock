@@ -2,7 +2,10 @@
 
 package com.best.deskclock.utils;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -15,12 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import com.best.deskclock.AnalogClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.widget.AnalogClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,7 +43,7 @@ public class ClockUtils {
                                               AnalogClock analogClock, boolean displaySeconds) {
 
         switch (clockStyle) {
-            case ANALOG -> {
+            case ANALOG, ANALOG_MATERIAL -> {
                 setTimeFormat(digitalClock, false);
                 analogClock.enableSeconds(displaySeconds);
                 return;
@@ -57,19 +61,25 @@ public class ClockUtils {
     /**
      * Set whether the digital or analog clock should be displayed in the application.
      * Returns the view to be displayed.
+     *
+     * @param digitalClock if the view concerned is the digital clock
+     * @param analogClock  if the view concerned is the analog clock
      */
     public static void setClockStyle(DataModel.ClockStyle clockStyle, View digitalClock, View analogClock) {
         switch (clockStyle) {
-            case ANALOG -> {
+            case ANALOG, ANALOG_MATERIAL -> {
                 final Context context = analogClock.getContext();
                 // Optimally adjusts the height and the width of the analog clock when displayed
                 // on a tablet or phone in portrait or landscape mode
-                if (Utils.isTablet(context) || Utils.isLandscape(context)) {
+                if (ThemeUtils.isTablet()) {
+                    analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(320, context);
+                    analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(320, context);
+                } else if (ThemeUtils.isLandscape()) {
                     analogClock.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     analogClock.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 } else {
-                    analogClock.getLayoutParams().height = Utils.toPixel(240, context);
-                    analogClock.getLayoutParams().width = Utils.toPixel(240, context);
+                    analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(240, context);
+                    analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(240, context);
                 }
 
                 analogClock.setVisibility(View.VISIBLE);
@@ -119,8 +129,7 @@ public class ClockUtils {
             pattern = pattern.replaceAll("a", "").trim();
         } else {
             if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-                final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
-                if (isScreensaverDigitalClockInItalic) {
+                if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
                     // For screensaver, add a "Hair Space" (\u200A) at the end of the AM/PM to prevent
                     // its display from being cut off on some devices when in italic.
                     pattern = pattern.replaceAll("a", "a" + "\u200A");
@@ -144,8 +153,7 @@ public class ClockUtils {
 
     public static CharSequence get24ModeFormat(Context context, boolean includeSeconds) {
         if (context instanceof ScreensaverActivity || context instanceof Screensaver) {
-            final boolean isScreensaverDigitalClockInItalic = DataModel.getDataModel().isScreensaverDigitalClockInItalic();
-            if (isScreensaverDigitalClockInItalic) {
+            if (SettingsDAO.isScreensaverDigitalClockInItalic(getDefaultSharedPreferences(context))) {
                 // For screensaver, add a "Hair Space" (\u200A) at the end of the time to prevent
                 // its display from being cut off on some devices when in italic.
                 return DateFormat.getBestDateTimePattern(Locale.getDefault(), includeSeconds ? "Hms" : "Hm") + "\u2009";
@@ -169,13 +177,12 @@ public class ClockUtils {
         final Locale l = Locale.getDefault();
         String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
         if (dateDisplay.getContext() instanceof ScreensaverActivity || dateDisplay.getContext() instanceof Screensaver) {
+            final SharedPreferences prefs = getDefaultSharedPreferences(clock.getContext());
             // Add a "Thin Space" (\u2009) at the end of the date to prevent its display from being cut off on some devices.
             // (The display of the date is only cut off at the end if it is defined in italics in the screensaver settings).
-            final boolean isScreensaverDateInItalic = DataModel.getDataModel().isScreensaverDateInItalic();
-            final boolean isScreensaverNextAlarmInItalic = DataModel.getDataModel().isScreensaverNextAlarmInItalic();
-            if (isScreensaverDateInItalic) {
+            if (SettingsDAO.isScreensaverDateInItalic(prefs)) {
                 datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton) + "\u2009";
-            } else if (isScreensaverNextAlarmInItalic) {
+            } else if (SettingsDAO.isScreensaverNextAlarmInItalic(prefs)) {
                 datePattern = "\u2009" + DateFormat.getBestDateTimePattern(l, dateSkeleton);
             }
         }

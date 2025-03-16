@@ -60,6 +60,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             ALARM_SNOOZE_ACTIONS,
             VIBRATE,
+            FLASH,
             LABEL,
             RINGTONE,
             DELETE_AFTER_USE,
@@ -74,6 +75,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ALARM_SNOOZE_ACTIONS,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + FLASH,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
             ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
@@ -89,7 +91,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DISMISS_ALARM_WHEN_RINGTONE_ENDS,
             ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.ALARM_SNOOZE_ACTIONS,
-            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.FLASH
     };
     /**
      * These save calls to cursor.getColumnIndexOrThrow()
@@ -103,25 +106,27 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 5;
     private static final int ALARM_SNOOZE_ACTIONS_INDEX = 6;
     private static final int VIBRATE_INDEX = 7;
-    private static final int LABEL_INDEX = 8;
-    private static final int RINGTONE_INDEX = 9;
-    private static final int DELETE_AFTER_USE_INDEX = 10;
-    private static final int INCREASING_VOLUME_INDEX = 11;
+    private static final int FLASH_INDEX = 8;
+    private static final int LABEL_INDEX = 9;
+    private static final int RINGTONE_INDEX = 10;
+    private static final int DELETE_AFTER_USE_INDEX = 11;
+    private static final int INCREASING_VOLUME_INDEX = 12;
 
-    private static final int INSTANCE_STATE_INDEX = 12;
-    public static final int INSTANCE_ID_INDEX = 13;
-    public static final int INSTANCE_YEAR_INDEX = 14;
-    public static final int INSTANCE_MONTH_INDEX = 15;
-    public static final int INSTANCE_DAY_INDEX = 16;
-    public static final int INSTANCE_HOUR_INDEX = 17;
-    public static final int INSTANCE_MINUTE_INDEX = 18;
-    public static final int INSTANCE_LABEL_INDEX = 19;
-    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 20;
-    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 21;
-    public static final int INSTANCE_VIBRATE_INDEX = 22;
+    private static final int INSTANCE_STATE_INDEX = 13;
+    public static final int INSTANCE_ID_INDEX = 14;
+    public static final int INSTANCE_YEAR_INDEX = 15;
+    public static final int INSTANCE_MONTH_INDEX = 16;
+    public static final int INSTANCE_DAY_INDEX = 17;
+    public static final int INSTANCE_HOUR_INDEX = 18;
+    public static final int INSTANCE_MINUTE_INDEX = 19;
+    public static final int INSTANCE_LABEL_INDEX = 20;
+    public static final int INSTANCE_DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX = 21;
+    public static final int INSTANCE_ALARM_SNOOZE_ACTIONS_INDEX = 22;
+    public static final int INSTANCE_VIBRATE_INDEX = 23;
+    public static final int INSTANCE_FLASH_INDEX = 24;
 
     private static final int COLUMN_COUNT = INCREASING_VOLUME_INDEX + 1;
-    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_VIBRATE_INDEX + 1;
+    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_FLASH_INDEX + 1;
     // Public fields
     public long id;
     public boolean enabled;
@@ -131,6 +136,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public boolean dismissAlarmWhenRingtoneEnds;
     public boolean alarmSnoozeActions;
     public boolean vibrate;
+    public boolean flash;
     public String label;
     public Uri alert;
     public boolean deleteAfterUse;
@@ -150,6 +156,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.dismissAlarmWhenRingtoneEnds = true;
         this.alarmSnoozeActions = true;
         this.vibrate = true;
+        this.flash = true;
         this.daysOfWeek = Weekdays.NONE;
         this.label = "";
         this.alert = DataModel.getDataModel().getAlarmRingtoneUriFromSettings();
@@ -166,6 +173,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         dismissAlarmWhenRingtoneEnds = c.getInt(DISMISS_ALARM_WHEN_RINGTONE_ENDS_INDEX) == 1;
         alarmSnoozeActions = c.getInt(ALARM_SNOOZE_ACTIONS_INDEX) == 1;
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
+        flash = c.getInt(FLASH_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
         increasingVolume = c.getInt(INCREASING_VOLUME_INDEX) == 1;
@@ -194,6 +202,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         dismissAlarmWhenRingtoneEnds = p.readInt() == 1;
         alarmSnoozeActions = p.readInt() == 1;
         vibrate = p.readInt() == 1;
+        flash = p.readInt() == 1;
         label = p.readString();
         alert = p.readParcelable(null);
         deleteAfterUse = p.readInt() == 1;
@@ -213,6 +222,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(DISMISS_ALARM_WHEN_RINGTONE_ENDS, alarm.dismissAlarmWhenRingtoneEnds ? 1 : 0);
         values.put(ALARM_SNOOZE_ACTIONS, alarm.alarmSnoozeActions ? 1 : 0);
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
+        values.put(FLASH, alarm.flash ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse ? 1 : 0);
         values.put(INCREASING_VOLUME, alarm.increasingVolume ? 1 : 0);
@@ -267,8 +277,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static Alarm getAlarm(ContentResolver cr, long alarmId) {
         try (Cursor cursor = cr.query(getContentUri(alarmId), QUERY_COLUMNS, null, null, null)) {
-            assert cursor != null;
-            if (cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToFirst()) {
                 return new Alarm(cursor);
             }
         }
@@ -335,6 +344,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return label.isEmpty() ? context.getString(R.string.default_label) : label;
     }
 
+    /**
+     * Whether the alarm is in a state to show preemptive dismiss. Valid states are
+     * SNOOZE_STATE or NOTIFICATION_STATE.
+     */
+    public boolean canPreemptivelyDismiss() {
+        return instanceState == AlarmInstance.SNOOZE_STATE || instanceState == AlarmInstance.NOTIFICATION_STATE;
+    }
+
     public void writeToParcel(Parcel p, int flags) {
         p.writeLong(id);
         p.writeInt(enabled ? 1 : 0);
@@ -344,6 +361,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeInt(dismissAlarmWhenRingtoneEnds ? 1 : 0);
         p.writeInt(alarmSnoozeActions ? 1 : 0);
         p.writeInt(vibrate ? 1 : 0);
+        p.writeInt(flash ? 1 : 0);
         p.writeString(label);
         p.writeParcelable(alert, flags);
         p.writeInt(deleteAfterUse ? 1 : 0);
@@ -360,6 +378,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         result.mDismissAlarmWhenRingtoneEnds = dismissAlarmWhenRingtoneEnds;
         result.mAlarmSnoozeActions = alarmSnoozeActions;
         result.mVibrate = vibrate;
+        result.mFlash = flash;
         result.mLabel = label;
         result.mRingtone = alert;
         result.mIncreasingVolume = increasingVolume;
@@ -442,20 +461,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", dismissAlarmWhenRingtoneEnds=" + dismissAlarmWhenRingtoneEnds +
                 ", alarmSnoozeActions=" + alarmSnoozeActions +
                 ", vibrate=" + vibrate +
+                ", flash=" + flash +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +
                 ", increasingVolume=" + increasingVolume +
                 '}';
-    }
-
-    public static Alarm getAlarmByLabel(ContentResolver cr, String label) {
-        List<Alarm> alarms = Alarm.getAlarms(cr, LABEL + "=?", label);
-        if (!alarms.isEmpty()) {
-            return alarms.get(0);
-        } else {
-            // Alarm with the given label not found
-            return null;
-        }
     }
 
 }

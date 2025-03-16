@@ -48,10 +48,6 @@
     <color name="md_theme_surfaceContainerHighest">@android:color/system_neutral2_100</color>
 
     <!-- WIDGET COLORS -->
-    <color name="analog_widget_background">@android:color/system_accent2_50</color>
-    <color name="analog_widget_hour_hand_color">@android:color/system_accent2_700</color>
-    <color name="analog_widget_minute_hand_color">@android:color/system_accent1_500</color>
-    <color name="analog_widget_second_hand_color">@android:color/system_accent3_500</color>
     <color name="digital_widget_background_color">@android:color/system_accent2_50</color>
     <color name="digital_widget_time_color">@android:color/system_accent1_600</color>
     <color name="vertical_digital_widget_hour_color">@android:color/system_accent2_600</color>

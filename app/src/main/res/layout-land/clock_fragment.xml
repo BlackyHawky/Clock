@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="@fraction/city_list_end_guide_percent" />
 
     <include
         layout="@layout/main_clock_frame"
@@ -44,13 +44,13 @@
         app:layout_constraintStart_toStartOf="@id/fold_vertical_start_edge">
     </View>
 
+    <!-- Due to the ViewPager and the location of FAB, margins are set programmatically
+         in the ClockFragment.java file. -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
         app:layout_constraintStart_toEndOf="@id/fold_vertical_end_edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

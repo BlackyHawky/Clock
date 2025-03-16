@@ -1,0 +1,13 @@
+Selle versiooniga sai parandatud märgatav viga versioonis 2.13, kus helin ei lõppenud
+
+**Parandused**
+- Helina lõppemine
+- Järgmise äratuse kuvamine/peitmine kellavaates Android 14+ puhul
+- Järgmise äratuse kuvamine/peitmine digividinates
+
+**Täiendused**
+- Eemaldasime mittevajalikud kaameraõigused
+- Seadistuste animatsioonid järgivad nutiseadme ligipääsetavuse reegleid
+- Standardiseerisime analoogkellade suurused
+- Lisaime hollandi keele seadistustesse
+- Tõlgete uuednused

@@ -6,8 +6,10 @@
 
 package com.best.deskclock.uidata;
 
+import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 import static java.util.Calendar.JULY;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -50,11 +52,14 @@ final class FormattedStringModel {
      */
     private Map<Integer, String> mLongWeekdayNames;
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     FormattedStringModel(Context context) {
         // Clear caches affected by locale when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+        localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+            context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
         }

@@ -49,6 +49,7 @@ import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.List;
@@ -195,6 +196,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
+    protected String getActivityTitle() {
+        return getString(R.string.alarm_sound);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -217,7 +223,8 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1);
         mDefaultRingtoneUri = intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
-        mDefaultRingtoneTitle = context.getString(defaultRingtoneTitleId);
+        final Context localizedContext = Utils.getLocalizedContext(context);
+        mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
 
         final LayoutInflater inflater = getLayoutInflater();
         final OnItemClickedListener listener = new ItemClickWatcher();

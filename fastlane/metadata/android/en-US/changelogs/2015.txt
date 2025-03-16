@@ -1,0 +1,8 @@
+**Fix**
+- Fix crash when selecting spinner in Clock or Screensaver settings
+
+**Improvement**
+- Update translations
+
+The other features of version 2.12 are retained and can be consulted here:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

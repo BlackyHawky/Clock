@@ -20,19 +20,19 @@
             android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="80dp">
+            android:layout_gravity="center">
 
             <include layout="@layout/stopwatch_time" />
 
         </FrameLayout>
 
+        <!-- Due to the ViewPager and the location of FAB, paddings are set
+        in the StopwatchFragment.java file and in the LapsAdapter.java file. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/laps_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="80dp" />
+            android:clipToPadding="false" />
 
     </com.best.deskclock.stopwatch.StopwatchLandscapeLayout>
 

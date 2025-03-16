@@ -6,10 +6,13 @@
 
 package com.best.deskclock.timer;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -32,10 +35,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -45,6 +49,8 @@ import java.util.List;
  * with a button in the user interface. All other timer operations are disabled in this activity.
  */
 public class ExpiredTimersActivity extends AppCompatActivity {
+
+    private SharedPreferences mPrefs;
 
     /**
      * Scheduled to update the timers while at least one is expired.
@@ -73,7 +79,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                 if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)
                         || intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                     final boolean isExpiredTimerResetWithPowerButton =
-                            DataModel.getDataModel().isExpiredTimerResetWithPowerButton();
+                            SettingsDAO.isExpiredTimerResetWithPowerButton(mPrefs);
                     if (isExpiredTimerResetWithPowerButton) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
@@ -86,7 +92,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Utils.applyThemeAndAccentColor(this);
+        mPrefs = getDefaultSharedPreferences(this);
 
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
@@ -108,11 +114,9 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
         hideNavigationBar();
 
-        boolean isTimerBackgroundTransparent = DataModel.getDataModel().isTimerBackgroundTransparent();
-
         setContentView(R.layout.expired_timers_activity);
 
-        if (isTimerBackgroundTransparent) {
+        if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             getWindow().setNavigationBarColor(Color.TRANSPARENT);
         }
@@ -129,7 +133,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
 
         // Honor rotation on tablets; fix the orientation on phones.
-        if (!Utils.isLandscape(getApplicationContext())) {
+        if (ThemeUtils.isPortrait()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
@@ -167,7 +171,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                     KeyEvent.KEYCODE_CAMERA, KeyEvent.KEYCODE_FOCUS, KeyEvent.KEYCODE_HEADSETHOOK -> {
                 if (event.getAction() == KeyEvent.ACTION_UP) {
                     final boolean isExpiredTimerResetWithVolumeButtons =
-                            DataModel.getDataModel().isExpiredTimerResetWithVolumeButtons();
+                            SettingsDAO.isExpiredTimerResetWithVolumeButtons(mPrefs);
                     if (isExpiredTimerResetWithVolumeButtons) {
                         DataModel.getDataModel().resetOrDeleteExpiredTimers(R.string.label_hardware_button);
                     }
@@ -212,12 +216,10 @@ public class ExpiredTimersActivity extends AppCompatActivity {
                 getLayoutInflater().inflate(R.layout.timer_item, mExpiredTimersView, false);
         // Store the timer id as a tag on the view so it can be located on delete.
         timerItem.setId(timerId);
-        timerItem.setBackground(Utils.cardBackground(timerItem.getContext()));
         mExpiredTimersView.addView(timerItem);
 
         // Hide the label hint for expired timers.
         final TextView labelView = timerItem.findViewById(R.id.timer_label);
-        labelView.setHint(null);
         labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? View.GONE : View.VISIBLE);
 
         // Add logic to the "Add Minute Or Hour" button.

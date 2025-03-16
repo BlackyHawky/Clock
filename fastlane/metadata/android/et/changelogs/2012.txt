@@ -1,0 +1,3 @@
+Kuna tekkis uuest funktsionaalsusest "Määra äratus kindlaks kuupäevaks" tekkis suurem viga, siis kuni lahenduse leidmiseni eemaldasime ta koodist.
+
+Kõik muud muudatused vastavad versioonile 2.10 ning on kirjas siin: https://github.com/BlackyHawky/Clock/releases/tag/2.10

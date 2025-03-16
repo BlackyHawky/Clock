@@ -9,10 +9,12 @@ package com.best.alarmclock.standardwidgets;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -24,9 +26,11 @@ import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,13 +63,14 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     public DigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
+        final boolean isTablet = ThemeUtils.isTablet();
 
         m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
+                isTablet ? 52 : 32, context.getResources().getDisplayMetrics());
         m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
+                isTablet ? 65 : 40, context.getResources().getDisplayMetrics());
         mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
+                isTablet ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override
@@ -164,7 +169,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     @Override
     public synchronized void onDataSetChanged() {
         // Fetch the data on the main Looper.
-        final RefreshRunnable refreshRunnable = new RefreshRunnable();
+        final RefreshRunnable refreshRunnable = new RefreshRunnable(mContext);
         DataModel.getDataModel().run(refreshRunnable);
 
         // Store the data in local variables.
@@ -175,6 +180,8 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
     }
 
     private void update(RemoteViews rv, City city, int clockId, int labelId, int dayId) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+
         rv.setCharSequence(clockId, "setFormat12Hour",
                 ClockUtils.get12ModeFormat(mContext, 0.4f, false));
         rv.setCharSequence(clockId, "setFormat24Hour",
@@ -207,19 +214,15 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDefaultCityClockColor = DataModel.getDataModel().isDigitalWidgetDefaultCityClockColor();
-        final int customCityClockColor = DataModel.getDataModel().getDigitalWidgetCustomCityClockColor();
-
-        if (isDefaultCityClockColor) {
+        final int customCityClockColor = WidgetDAO.getDigitalWidgetCustomCityClockColor(prefs);
+        if (WidgetDAO.isDigitalWidgetDefaultCityClockColor(prefs)) {
             rv.setTextColor(clockId, Color.WHITE);
         } else {
             rv.setTextColor(clockId, customCityClockColor);
         }
 
-        final boolean isDefaultCityNameColor = DataModel.getDataModel().isDigitalWidgetDefaultCityNameColor();
-        final int customCityNameColor = DataModel.getDataModel().getDigitalWidgetCustomCityNameColor();
-
-        if (isDefaultCityNameColor) {
+        final int customCityNameColor = WidgetDAO.getDigitalWidgetCustomCityNameColor(prefs);
+        if (WidgetDAO.isDigitalWidgetDefaultCityNameColor(prefs)) {
             rv.setTextColor(labelId, Color.WHITE);
             rv.setTextColor(dayId, Color.WHITE);
         } else {
@@ -240,15 +243,20 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
      */
     private static final class RefreshRunnable implements Runnable {
 
+        private final Context mContext;
         private City mHomeCity;
         private List<City> mCities;
         private boolean mShowHomeClock;
+
+        public RefreshRunnable(Context context) {
+            this.mContext = context;
+        }
 
         @Override
         public void run() {
             mHomeCity = DataModel.getDataModel().getHomeCity();
             mCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
-            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
+            mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, getDefaultSharedPreferences(mContext));
         }
     }
 }

@@ -6,11 +6,12 @@
 
 package com.best.deskclock;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.CLOCKS;
+import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.annotation.SuppressLint;
@@ -19,13 +20,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -41,12 +41,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.CityListener;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.events.Events;
-import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
+import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
@@ -64,8 +65,6 @@ public final class ClockFragment extends DeskClockFragment {
     // Updates the UI in response to changes to the scheduled alarm.
     private BroadcastReceiver mAlarmChangeReceiver;
 
-    private DataModel.ClockStyle mClockStyle;
-    private boolean mDisplayClockSeconds;
     private TextClock mDigitalClock;
     private AnalogClock mAnalogClock;
     private View mClockFrame;
@@ -75,7 +74,12 @@ public final class ClockFragment extends DeskClockFragment {
     private String mDateFormatForAccessibility;
     private Context mContext;
 
+    public static SharedPreferences mPrefs;
+    public static DataModel.ClockStyle mClockStyle;
+    public static boolean mDisplayClockSeconds;
     public static boolean mIsPortrait;
+    public static boolean mIsLandscape;
+    public static boolean mIsTablet;
     public static boolean mShowHomeClock;
 
     /**
@@ -101,15 +105,13 @@ public final class ClockFragment extends DeskClockFragment {
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
 
         mContext = requireContext();
-
-        mClockStyle = DataModel.getDataModel().getClockStyle();
-
-        mDisplayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
-
-        mIsPortrait = Utils.isPortrait(mContext);
-
-        mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
-
+        mPrefs = getDefaultSharedPreferences(mContext);
+        mClockStyle = SettingsDAO.getClockStyle(mPrefs);
+        mDisplayClockSeconds = SettingsDAO.getDisplayClockSeconds(mPrefs);
+        mIsPortrait = ThemeUtils.isPortrait();
+        mIsLandscape = ThemeUtils.isLandscape();
+        mIsTablet = ThemeUtils.isTablet();
+        mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, mPrefs);
         mDateFormat = mContext.getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = mContext.getString(R.string.full_wday_month_day_no_year);
 
@@ -121,8 +123,13 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setAdapter(mCityAdapter);
         mCityList.setItemAnimator(null);
         mCityList.addOnScrollListener(scrollPositionWatcher);
-        mCityList.setOnTouchListener(new CityListOnLongClickListener(mContext));
-        fragmentView.setOnLongClickListener(new StartScreenSaverListener());
+        // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
+        // the city list from being hidden by the FAB (e.g. when scrolling down).
+        // Why is it not a round number like in the other fragments??
+        // In any case, the alignment is not perfect but is very correct when compared with
+        // the alarm cards for example.
+        mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
+                mIsTablet && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
 
         // On tablet landscape, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
@@ -142,6 +149,7 @@ public final class ClockFragment extends DeskClockFragment {
         return fragmentView;
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onResume() {
         super.onResume();
@@ -153,9 +161,9 @@ public final class ClockFragment extends DeskClockFragment {
 
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
-            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CLOCK_CHANGED);
+            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+                activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
                 activity.registerReceiver(mAlarmChangeReceiver, filter);
             }
@@ -213,7 +221,6 @@ public final class ClockFragment extends DeskClockFragment {
         right.setVisibility(INVISIBLE);
     }
 
-
     /**
      * Refresh the next alarm time.
      */
@@ -222,51 +229,6 @@ public final class ClockFragment extends DeskClockFragment {
             AlarmUtils.refreshAlarm(getContext(), mClockFrame);
         } else {
             mCityAdapter.refreshAlarm();
-        }
-    }
-
-    /**
-     * Long pressing over the main clock starts the screen saver.
-     */
-    private final class StartScreenSaverListener implements View.OnLongClickListener {
-
-        @Override
-        public boolean onLongClick(View view) {
-            startActivity(new Intent(getActivity(), ScreensaverActivity.class)
-                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
-            return true;
-        }
-    }
-
-    /**
-     * Long pressing over the city list starts the screen saver.
-     */
-    private final class CityListOnLongClickListener extends GestureDetector.SimpleOnGestureListener
-            implements View.OnTouchListener {
-
-        private final GestureDetector mGestureDetector;
-
-        private CityListOnLongClickListener(Context context) {
-            mGestureDetector = new GestureDetector(context, this);
-        }
-
-        @Override
-        public void onLongPress(@NonNull MotionEvent e) {
-            final View view = getView();
-            if (view != null) {
-                view.performLongClick();
-            }
-        }
-
-        @Override
-        public boolean onDown(@NonNull MotionEvent e) {
-            return true;
-        }
-
-        @SuppressLint("ClickableViewAccessibility")
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return mGestureDetector.onTouchEvent(event);
         }
     }
 
@@ -381,10 +343,14 @@ public final class ClockFragment extends DeskClockFragment {
 
             private void bind(Context context, City city) {
                 final String cityTimeZoneId = city.getTimeZone().getID();
+                final boolean isPhoneInLandscapeMode = !mIsTablet && mIsLandscape;
+
+                itemView.setBackground(ThemeUtils.cardBackground(context));
+
                 // Configure the digital clock or analog clock depending on the user preference.
-                if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    mAnalogClock.getLayoutParams().height = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
-                    mAnalogClock.getLayoutParams().width = Utils.toPixel(Utils.isTablet(context) ? 150 : 80, context);
+                if (mClockStyle == DataModel.ClockStyle.ANALOG || mClockStyle == DataModel.ClockStyle.ANALOG_MATERIAL) {
+                    mAnalogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
+                    mAnalogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(mIsTablet ? 150 : 80, context);
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
                     mAnalogClock.setTimeZone(cityTimeZoneId);
@@ -399,18 +365,15 @@ public final class ClockFragment extends DeskClockFragment {
                             ClockUtils.get24ModeFormat(mDigitalClock.getContext(), false));
                 }
 
-                itemView.setBackground(Utils.cardBackground(context));
-
-                // Supply margins dynamically.
+                // Due to the ViewPager and the location of FAB, set margins to prevent
+                // the city list from being hidden by the FAB (e.g. when scrolling down).
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                final int marginLeft = Utils.toPixel(10, context);
-                final int marginRight = Utils.toPixel(10, context);
-                final int marginBottom = DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock
-                        ? Utils.toPixel(8, context)
-                        : Utils.toPixel(0, context);
-                params.setMargins(marginLeft, 0, marginRight, marginBottom);
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                final int leftMargin = ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 0 : 10, context);
+                final int rightMargin =  ThemeUtils.convertDpToPixels(isPhoneInLandscapeMode ? 90 : 10, context);
+                final int bottomMargin = ThemeUtils.convertDpToPixels(
+                        DataModel.getDataModel().getSelectedCities().size() > 1 || mShowHomeClock ? 8 : 0, context);
+                params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
                 itemView.setLayoutParams(params);
 
                 // Bind the city name.
@@ -444,7 +407,8 @@ public final class ClockFragment extends DeskClockFragment {
                             : R.string.world_hours_yesterday, timeString))
                         : timeString);
 
-                if (!mIsPortrait) {
+                // If the device is in landscape mode, center the city name and time offset.
+                if (mIsLandscape) {
                     LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     mName.setLayoutParams(textViewLayoutParams);
@@ -497,12 +461,10 @@ public final class ClockFragment extends DeskClockFragment {
             }
 
             private void bind(Context context, String dateFormat, String dateFormatForAccessibility) {
-                DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
-                boolean displayClockSeconds = DataModel.getDataModel().getDisplayClockSeconds();
                 AlarmUtils.refreshAlarm(context, itemView);
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                ClockUtils.setClockStyle(clockStyle, mDigitalClock, mAnalogClock);
-                ClockUtils.setClockSecondsEnabled(clockStyle, mDigitalClock, mAnalogClock, displayClockSeconds);
+                ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
+                ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
             }
         }
     }

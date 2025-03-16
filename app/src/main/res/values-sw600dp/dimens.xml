@@ -10,4 +10,6 @@
 <resources>
     <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="timer_time_text_size">40sp</dimen>
+
+    <item name="city_list_end_guide_percent" type="fraction">0.65</item>
 </resources>

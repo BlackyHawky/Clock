@@ -1,0 +1,13 @@
+This update fixes a major bug in version 2.13 where the ringtone would not stop
+
+**Fixes**
+- Fix ringtone stop
+- Fix update of next alarm display/hide in the clock tab for Android 14+
+- Fix update of next alarm display/hide in digital widgets
+
+**Improvements**
+- Remove unnecessary camera permission
+- Animations in the settings respect device accessibility settings
+- Standardize the size of analog clocks
+- Add Dutch language to app language setting
+- Update translations

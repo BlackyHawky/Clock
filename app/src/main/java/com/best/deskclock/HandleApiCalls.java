@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.best.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
 import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
 import static com.best.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.provider.AlarmInstance.FIRED_STATE;
 import static com.best.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
@@ -31,6 +32,7 @@ import android.text.format.DateUtils;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.Weekdays;
 import com.best.deskclock.events.Events;
@@ -469,7 +471,8 @@ public class HandleApiCalls extends Activity {
 
         // Create a new timer if one could not be reused.
         if (timer == null) {
-            String defaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
+            String defaultTimeToAddToTimer = String.valueOf(
+                    SettingsDAO.getDefaultTimeToAddToTimer(getDefaultSharedPreferences(mAppContext)));
             timer = DataModel.getDataModel().addTimer(lengthMillis, label, defaultTimeToAddToTimer, skipUi);
             Events.sendTimerEvent(R.string.action_create, R.string.label_intent);
         }

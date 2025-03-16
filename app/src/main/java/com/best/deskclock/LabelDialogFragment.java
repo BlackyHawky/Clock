@@ -11,6 +11,8 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -33,7 +36,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.Objects;
 
@@ -124,14 +128,21 @@ public class LabelDialogFragment extends DialogFragment {
             label = savedInstanceState.getString(ARG_LABEL, label);
         }
 
+        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_label);
+        if (drawable != null) {
+            drawable.setTint(MaterialColors.getColor(
+                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+        }
+
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setPositiveButton(android.R.string.ok, new OkListener())
-                .setNegativeButton(android.R.string.cancel, null)
                 .setTitle(mAlarm != null
                         ? R.string.alarm_label_box_title
                         : mTimerId >= 0
-                            ? R.string.timer_label_box_title
-                            : 0)
+                        ? R.string.timer_label_box_title
+                        : 0)
+                .setIcon(drawable)
+                .setPositiveButton(android.R.string.ok, new OkListener())
+                .setNegativeButton(android.R.string.cancel, null)
                 .create();
 
         mLabelBox = new AppCompatEditText(requireContext());
@@ -147,8 +158,9 @@ public class LabelDialogFragment extends DialogFragment {
 
         // The line at the bottom of EditText is part of its background therefore the padding
         // must be added to its container.
-        final int padding = Utils.toPixel(21, requireContext());
-        dialog.setView(mLabelBox, padding, 0, padding, 0);
+        final int paddingLeftRight = ThemeUtils.convertDpToPixels(22, requireContext());
+        final int paddingTopBottom = ThemeUtils.convertDpToPixels(18, requireContext());
+        dialog.setView(mLabelBox, paddingLeftRight, paddingTopBottom, paddingLeftRight, paddingTopBottom);
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {

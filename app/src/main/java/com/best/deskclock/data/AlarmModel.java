@@ -8,21 +8,17 @@ package com.best.deskclock.data;
 
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Settings;
 
-import com.best.deskclock.data.DataModel.PowerButtonBehavior;
-import com.best.deskclock.data.DataModel.VolumeButtonBehavior;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.settings.AlarmSettingsActivity;
+import com.best.deskclock.settings.PreferencesKeys;
 
 /**
  * All alarm data will eventually be accessed via this model.
  */
 final class AlarmModel {
 
-    /**
-     * The model from which settings are fetched.
-     */
-    private final SettingsModel mSettingsModel;
+    private final SharedPreferences mPrefs;
 
     /**
      * The model from which ringtone data are fetched.
@@ -37,6 +33,11 @@ final class AlarmModel {
     private final SharedPreferences.OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /**
+     * The uri of the default ringtone to use for alarms until the user explicitly chooses one.
+     */
+    private Uri mDefaultAlarmSettingsRingtoneUri;
+
+    /**
      * The uri of the ringtone from settings to play for all alarms.
      */
     private Uri mAlarmRingtoneUriFromSettings;
@@ -46,8 +47,8 @@ final class AlarmModel {
      */
     private String mAlarmRingtoneTitle;
 
-    AlarmModel(SharedPreferences prefs, SettingsModel settingsModel, RingtoneModel ringtoneModel) {
-        mSettingsModel = settingsModel;
+    AlarmModel(SharedPreferences prefs, RingtoneModel ringtoneModel) {
+        mPrefs = prefs;
         mRingtoneModel = ringtoneModel;
 
         // Clear caches affected by system settings when system settings change.
@@ -58,7 +59,10 @@ final class AlarmModel {
      * @return the uri of the default ringtone to play for all alarms when no user selection exists
      */
     Uri getDefaultAlarmRingtoneUriFromSettings() {
-        return mSettingsModel.getDefaultAlarmRingtoneUriFromSettings();
+        if (mDefaultAlarmSettingsRingtoneUri == null) {
+            mDefaultAlarmSettingsRingtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+        }
+        return mDefaultAlarmSettingsRingtoneUri;
     }
 
     /**
@@ -66,7 +70,7 @@ final class AlarmModel {
      */
     Uri getAlarmRingtoneUriFromSettings() {
         if (mAlarmRingtoneUriFromSettings == null) {
-            mAlarmRingtoneUriFromSettings = mSettingsModel.getAlarmRingtoneUriFromSettings();
+            mAlarmRingtoneUriFromSettings = SettingsDAO.getAlarmRingtoneUriFromSettings(mPrefs, getDefaultAlarmRingtoneUriFromSettings());
         }
 
         return mAlarmRingtoneUriFromSettings;
@@ -86,7 +90,7 @@ final class AlarmModel {
      * @param uri the uri of the ringtone from the settings to play for all alarms
      */
     void setAlarmRingtoneUriFromSettings(Uri uri) {
-        mSettingsModel.setAlarmRingtoneUriFromSettings(uri);
+        SettingsDAO.setAlarmRingtoneUriFromSettings(mPrefs, uri);
     }
 
     /**
@@ -95,108 +99,8 @@ final class AlarmModel {
     void setSelectedAlarmRingtoneUri(Uri uri) {
         // Never set the silent ringtone as default; new alarms should always make sound by default.
         if (!Alarm.NO_RINGTONE_URI.equals(uri)) {
-            mSettingsModel.setSelectedAlarmRingtoneUri(uri);
+            SettingsDAO.setSelectedAlarmRingtoneUri(mPrefs, uri);
         }
-    }
-
-    long getAlarmCrescendoDuration() {
-        return mSettingsModel.getAlarmCrescendoDuration();
-    }
-
-    VolumeButtonBehavior getAlarmVolumeButtonBehavior() {
-        return mSettingsModel.getAlarmVolumeButtonBehavior();
-    }
-
-    PowerButtonBehavior getAlarmPowerButtonBehavior() {
-        return mSettingsModel.getAlarmPowerButtonBehavior();
-    }
-
-    int getAlarmTimeout() {
-        return mSettingsModel.getAlarmTimeout();
-    }
-
-    int getSnoozeLength() {
-        return mSettingsModel.getSnoozeLength();
-    }
-
-    int getFlipAction() {
-        return mSettingsModel.getFlipAction();
-    }
-
-    int getShakeAction() {
-        return mSettingsModel.getShakeAction();
-    }
-
-    int getAlarmNotificationReminderTime() {
-        return mSettingsModel.getAlarmNotificationReminderTime();
-    }
-
-    boolean areAlarmVibrationsEnabledByDefault() {
-        return mSettingsModel.areAlarmVibrationsEnabledByDefault();
-    }
-
-    boolean isOccasionalAlarmDeletedByDefault() {
-        return mSettingsModel.isOccasionalAlarmDeletedByDefault();
-    }
-
-    String getMaterialTimePickerStyle() {
-        return mSettingsModel.getMaterialTimePickerStyle();
-    }
-
-    DataModel.ClockStyle getAlarmClockStyle() {
-        return mSettingsModel.getAlarmClockStyle();
-    }
-
-    public boolean isAlarmSecondsHandDisplayed() {
-        return mSettingsModel.isAlarmSecondsHandDisplayed();
-    }
-
-    public int getAlarmBackgroundColor() {
-        return mSettingsModel.getAlarmBackgroundColor();
-    }
-
-    public int getAlarmBackgroundAmoledColor() {
-        return mSettingsModel.getAlarmBackgroundAmoledColor();
-    }
-
-    public int getAlarmClockColor() {
-        return mSettingsModel.getAlarmClockColor();
-    }
-
-    public int getAlarmSecondsHandColor() {
-        return mSettingsModel.getAlarmSecondsHandColor();
-    }
-
-    public int getAlarmTitleColor() {
-        return mSettingsModel.getAlarmTitleColor();
-    }
-
-    public int getSnoozeButtonColor() {
-        return mSettingsModel.getSnoozeButtonColor();
-    }
-
-    public int getDismissButtonColor() {
-        return mSettingsModel.getDismissButtonColor();
-    }
-
-    public int getAlarmButtonColor() {
-        return mSettingsModel.getAlarmButtonColor();
-    }
-
-    public int getPulseColor() {
-        return mSettingsModel.getPulseColor();
-    }
-
-    public String getAlarmClockFontSize() {
-        return mSettingsModel.getAlarmClockFontSize();
-    }
-
-    public String getAlarmTitleFontSize() {
-        return mSettingsModel.getAlarmTitleFontSize();
-    }
-
-    public boolean isRingtoneTitleDisplayed() {
-        return mSettingsModel.isRingtoneTitleDisplayed();
     }
 
     /**
@@ -206,7 +110,7 @@ final class AlarmModel {
     private final class PreferenceListener implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (AlarmSettingsActivity.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
+            if (PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE.equals(key)) {
                 mAlarmRingtoneUriFromSettings = null;
                 mAlarmRingtoneTitle = null;
             }

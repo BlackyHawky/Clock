@@ -6,6 +6,10 @@
 
 package com.best.deskclock.data;
 
+import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +21,7 @@ import android.util.ArraySet;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
-import com.best.deskclock.settings.ClockSettingsActivity;
+import com.best.deskclock.settings.PreferencesKeys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,11 +40,6 @@ final class CityModel {
     private final Context mContext;
 
     private final SharedPreferences mPrefs;
-
-    /**
-     * The model from which settings are fetched.
-     */
-    private final SettingsModel mSettingsModel;
 
     /**
      * Retain a hard reference to the shared preference observer to prevent it from being garbage
@@ -85,15 +84,17 @@ final class CityModel {
      */
     private City mHomeCity;
 
-    CityModel(Context context, SharedPreferences prefs, SettingsModel settingsModel) {
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    CityModel(Context context, SharedPreferences prefs) {
         mContext = context;
         mPrefs = prefs;
-        mSettingsModel = settingsModel;
 
         // Clear caches affected by locale when locale changes.
-        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        final IntentFilter localeBroadcastFilter = new IntentFilter();
+        localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
+        localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
+            mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
         }
@@ -137,7 +138,7 @@ final class CityModel {
     City getHomeCity() {
         if (mHomeCity == null) {
             final String name = mContext.getString(R.string.home_label);
-            final TimeZone timeZone = mSettingsModel.getHomeTimeZone();
+            final TimeZone timeZone = SettingsDAO.getHomeTimeZone(mContext, mPrefs, TimeZone.getDefault());
             mHomeCity = new City(null, -1, null, name, name, timeZone);
         }
 
@@ -210,7 +211,7 @@ final class CityModel {
      * @return a comparator used to locate index positions
      */
     Comparator<City> getCityIndexComparator() {
-        final CitySort citySort = mSettingsModel.getCitySort();
+        final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
             return new City.NameIndexComparator();
         } else if (citySort == CitySort.UTC_OFFSET) {
@@ -220,17 +221,10 @@ final class CityModel {
     }
 
     /**
-     * @return the order in which cities are sorted
-     */
-    CitySort getCitySort() {
-        return mSettingsModel.getCitySort();
-    }
-
-    /**
      * Adjust the order in which cities are sorted.
      */
     void toggleCitySort() {
-        mSettingsModel.toggleCitySort();
+        SettingsDAO.toggleCitySort(mPrefs);
 
         // Clear caches affected by this update.
         mAllCities = null;
@@ -246,7 +240,7 @@ final class CityModel {
     }
 
     private Comparator<City> getCitySortComparator() {
-        final CitySort citySort = mSettingsModel.getCitySort();
+        final CitySort citySort = SettingsDAO.getCitySort(mPrefs);
         if (citySort == CitySort.NAME) {
             return new City.NameComparator();
         } else if (citySort == CitySort.UTC_OFFSET) {
@@ -256,7 +250,7 @@ final class CityModel {
     }
 
     private void fireCitiesChanged() {
-        mContext.sendBroadcast(new Intent(WidgetModel.ACTION_WORLD_CITIES_CHANGED));
+        mContext.sendBroadcast(new Intent(ACTION_WORLD_CITIES_CHANGED));
         for (CityListener cityListener : mCityListeners) {
             cityListener.citiesChanged();
         }
@@ -285,9 +279,9 @@ final class CityModel {
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             if (key != null) {
                 switch (key) {
-                    case ClockSettingsActivity.KEY_HOME_TIME_ZONE:
+                    case PreferencesKeys.KEY_HOME_TIME_ZONE:
                         mHomeCity = null;
-                    case ClockSettingsActivity.KEY_AUTO_HOME_CLOCK:
+                    case PreferencesKeys.KEY_AUTO_HOME_CLOCK:
                         fireCitiesChanged();
                         break;
                 }

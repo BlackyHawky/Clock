@@ -24,24 +24,24 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
+import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 
 public class AlarmVolumePreference extends SeekBarPreference {
 
-    private AlarmSettingsActivity mAlarmSettingsActivity;
     private SeekBar mSeekbar;
+    private boolean mPreviewPlaying = false;
 
     public AlarmVolumePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (context instanceof AlarmSettingsActivity) {
-            mAlarmSettingsActivity = (AlarmSettingsActivity) context;
-        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        final AudioManager audioManager = (AudioManager) holder.itemView.getContext().getSystemService(AUDIO_SERVICE);
+        final Context context = getContext();
+        final AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
 
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
@@ -67,13 +67,13 @@ public class AlarmVolumePreference extends SeekBarPreference {
         mSeekbar.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(@NonNull View v) {
-                v.getContext().getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
+                context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
                         true, volumeObserver);
             }
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
-                v.getContext().getContentResolver().unregisterContentObserver(volumeObserver);
+                context.getContentResolver().unregisterContentObserver(volumeObserver);
             }
         });
 
@@ -92,9 +92,15 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (mAlarmSettingsActivity != null) {
-                    // Start preview if not already running
-                    mAlarmSettingsActivity.startRingtonePreview();
+                if (!mPreviewPlaying) {
+                    // If we are not currently playing, start.
+                    RingtonePreviewKlaxon.start(
+                            context, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
+                    mPreviewPlaying = true;
+                    seekBar.postDelayed(() -> {
+                        stopRingtonePreview(context);
+                        mPreviewPlaying = false;
+                    }, 5000);
                 }
             }
         });
@@ -103,4 +109,11 @@ public class AlarmVolumePreference extends SeekBarPreference {
     private int getMinVolume(AudioManager audioManager) {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
     }
+
+    public void stopRingtonePreview(Context context) {
+        if (mPreviewPlaying) {
+            RingtonePreviewKlaxon.stop(context);
+        }
+    }
+
 }

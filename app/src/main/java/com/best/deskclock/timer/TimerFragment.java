@@ -12,6 +12,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 import android.animation.Animator;
@@ -20,6 +21,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.KeyEvent;
@@ -41,11 +43,13 @@ import com.best.deskclock.DeskClock;
 import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
@@ -61,6 +65,7 @@ public final class TimerFragment extends DeskClockFragment {
 
     private static final String KEY_TIMER_SETUP_STATE = "timer_setup_input";
 
+    private SharedPreferences mPrefs;
     private Context mContext;
     private RecyclerView mRecyclerView;
     private Serializable mTimerSetupState;
@@ -68,6 +73,9 @@ public final class TimerFragment extends DeskClockFragment {
     private TimerAdapter mAdapter;
     private View mTimersView;
     private View mCurrentView;
+    private ItemTouchHelper mItemTouchHelper;
+    private boolean mIsTablet;
+    private boolean mIsLandscape;
     List<Timer> mTimersList;
 
     /**
@@ -104,25 +112,23 @@ public final class TimerFragment extends DeskClockFragment {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
 
         mContext = requireContext();
+        mPrefs = getDefaultSharedPreferences(mContext);
         TimerClickHandler timerClickHandler = new TimerClickHandler(this);
         mTimersList = DataModel.getDataModel().getTimers();
-        mAdapter = new TimerAdapter(mTimersList, timerClickHandler);
+        mAdapter = new TimerAdapter(mContext, mPrefs, mTimersList, timerClickHandler);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
+        mIsTablet = ThemeUtils.isTablet();
+        mIsLandscape = ThemeUtils.isLandscape();
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
-        // Set a bottom padding to prevent the reset button from being hidden by the FAB
-        final int bottomPadding;
-        if (Utils.isTablet(requireContext())) {
-            bottomPadding = Utils.toPixel(110, requireContext());
-        } else {
-            bottomPadding = Utils.isPortrait(requireContext())
-                    ? Utils.toPixel(95, requireContext())
-                    : Utils.toPixel(80, requireContext());
-        }
-        mRecyclerView.setPadding(0, 0, 0, bottomPadding);
+        // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
+        // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
+        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsLandscape ? 4 : 95, requireContext());
+        final int rightPadding = ThemeUtils.convertDpToPixels(!mIsTablet && mIsLandscape ? 85 : 0, requireContext());
+        mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 
         mCreateTimerView.setFabContainer(this);
@@ -132,9 +138,8 @@ public final class TimerFragment extends DeskClockFragment {
 
         mAdapter.loadTimerList(mContext);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new TimerAdapter.TimerItemTouchHelper(mAdapter.getTimers(), mAdapter));
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter.getTimers(), mAdapter));
+        handleItemTouchHelper();
 
         // If timer setup state is present, retrieve it to be later honored.
         if (savedInstanceState != null) {
@@ -261,6 +266,7 @@ public final class TimerFragment extends DeskClockFragment {
                 mCreateTimerView.reset();
                 animateToView(mTimersView, false);
                 left.announceForAccessibility(mContext.getString(R.string.timer_canceled));
+                Utils.setVibrationTime(mContext, 10);
             });
         }
     }
@@ -274,7 +280,7 @@ public final class TimerFragment extends DeskClockFragment {
             try {
                 // Create the new timer.
                 final long timerLength = mCreateTimerView.getTimeInMillis();
-                String defaultTimeToAddToTimer = String.valueOf(DataModel.getDataModel().getDefaultTimeToAddToTimer());
+                String defaultTimeToAddToTimer = String.valueOf(SettingsDAO.getDefaultTimeToAddToTimer(mPrefs));
                 final Timer timer = DataModel.getDataModel().addTimer(timerLength, "",
                         defaultTimeToAddToTimer, false);
                 Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
@@ -282,6 +288,7 @@ public final class TimerFragment extends DeskClockFragment {
                 // Start the new timer.
                 DataModel.getDataModel().startTimer(timer);
                 Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+                Utils.setVibrationTime(mContext, 50);
             } finally {
                 mCreatingTimer = false;
             }
@@ -450,19 +457,25 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (Utils.isTablet(context)) {
-            int columnCount = Utils.isLandscape(context) ? 3 : 2;
-            return new GridLayoutManager(context, columnCount);
+        if (mIsTablet && mTimersList.size() > 1) {
+            return new GridLayoutManager(context, mIsLandscape ? 3 : 2);
         }
 
-        return new LinearLayoutManager(context, Utils.isLandscape(context)
+        return new LinearLayoutManager(context, mIsLandscape
                 ? LinearLayoutManager.HORIZONTAL
                 : LinearLayoutManager.VERTICAL, false);
     }
 
+    private void handleItemTouchHelper() {
+        if (mTimersList.size() > 1) {
+            mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        } else {
+            mItemTouchHelper.attachToRecyclerView(null);
+        }
+    }
+
     private void adjustWakeLock() {
-        final boolean shouldTimerDisplayRemainOn = DataModel.getDataModel().shouldTimerDisplayRemainOn();
-        if (shouldTimerDisplayRemainOn) {
+        if (SettingsDAO.shouldTimerDisplayRemainOn(mPrefs)) {
             requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {
             releaseWakeLock();
@@ -504,6 +517,14 @@ public final class TimerFragment extends DeskClockFragment {
             if (!mCreatingTimer) {
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
+
+            // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
+            if (mIsTablet) {
+                mRecyclerView.setLayoutManager(getLayoutManager(context));
+            }
+
+            // Required to attach the ItemTouchHelper when there is more than one timer.
+            handleItemTouchHelper();
         }
 
         @Override
@@ -517,12 +538,19 @@ public final class TimerFragment extends DeskClockFragment {
 
         @Override
         public void timerRemoved(Timer timer) {
-
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             if (mCurrentView == mTimersView && mAdapter.getItemCount() == 0) {
                 animateToView(mCreateTimerView, false);
             }
+
+            // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
+            if (mIsTablet) {
+                mRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
+            }
+
+            // Required to detach the ItemTouchHelper when there is only one timer left.
+            handleItemTouchHelper();
         }
     }
 }

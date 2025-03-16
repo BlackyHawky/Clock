@@ -1,0 +1,12 @@
+**Parandused**
+- Kokkujooksmine, kui „Näita helina nime“ polnud kasutusel
+- Vaikimisi sekundiseieri värv äratuste puhul
+
+**Täiendused**
+- Kellastiilide all on nüüd analoogkell, mille kujunduskeeleks on Material Design
+- Parandasime tunniosuti liikumist
+- Muutsime ekraanisäästja kasutatavaks ka kolmandate osapoolete rakendustele
+- Puhastasime lähtekoodi
+- Uuendasime tõlkeid
+
+Kõik täiendused on kirjas siin: https://github.com/BlackyHawky/Clock/releases/tag/2.13

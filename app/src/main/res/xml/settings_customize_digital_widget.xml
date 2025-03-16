@@ -3,15 +3,23 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:title="@string/digital_widget">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
         android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false">
+
+        <SwitchPreferenceCompat
+            android:key="key_digital_widget_display_seconds"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/display_clock_seconds_pref"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
 
         <SwitchPreferenceCompat
             android:key="key_digital_widget_display_background"

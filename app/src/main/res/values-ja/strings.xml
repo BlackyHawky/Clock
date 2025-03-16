@@ -7,6 +7,7 @@
     <string name="app_label" msgid="6674495003718166674">"時計"</string>
     <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
+    <string name="time_picker_dialog_title">時間を選択</string>
     <string name="delete" msgid="5732434972457000541">"削除"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"デフォルトのアラーム音"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"アラームの音"</string>
@@ -17,7 +18,7 @@
     <string name="your_sounds" msgid="1672779351352629681">"マイサウンド"</string>
     <string name="device_sounds" msgid="1584894148222639823">"デバイスのサウンド"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"音声コンテンツにアクセスできません。"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">タイマー終了</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"解除"</string>
@@ -195,7 +196,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"キャンセル"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"タイマーをキャンセルしました"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"タイムアップ"</string>
-    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g>件のタイマーが完了"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409"><xliff:g id="NUM_TIMERS">%d</xliff:g>件のタイマーが終了\"</string>
     <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> 件のタイマーが未応答でした"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"タイマー"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"未応答のタイマー: <xliff:g id="NAME">%s</xliff:g>"</string>
@@ -367,17 +368,119 @@
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"タイマーの長さが無効です"</string>
     <string name="invalid_timer" msgid="900957020728335675">"選択したタイマーは無効です"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"期限切れのタイマーはありません"</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">終了したタイマーはありません</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームは、まだ24時間以上先なので解除することはできません"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"アラームを解除"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"解除するアラームを選択してください"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"作動中のアラームはありません"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g>のアラームを10分間スヌーズしました"</string>
-    <string name="flip_action_title">端末反転アクション</string>
-    <string name="shake_action_title">端末を振った時の動作</string>
+    <string name="flip_action_title">デバイスを反転した時の動作</string>
+    <string name="shake_action_title">デバイスを振った時の動作</string>
     <string name="duplicate">重複</string>
     <string name="selected">選択済み</string>
     <string name="label_default">デフォルト</string>
     <string name="alarm_label_box_title">ラベル</string>
     <string name="more_options">その他のオプション</string>
+    <string name="credits">クレジット</string>
+    <string name="sw_settings_summary">音量ボタンの動作設定</string>
+    <string name="sw_volume_up_action_title">音量を上げる</string>
+    <string name="sw_long_press_volume_up_action_title">音量を上げる (長押し)</string>
+    <string name="sw_volume_down_action_title">音量を下げる</string>
+    <string name="sw_start_pause_action">開始 / 一時停止</string>
+    <string name="features_title">主な機能</string>
+    <string name="contributors_dialog_message">%1$sさんのGitHubページはこちら:\n\n%2$s</string>
+    <string name="stopwatch_channel">ストップウォッチ</string>
+    <string name="sw_long_press_volume_down_action_title">音量を下げる (長押し)</string>
+    <string name="version">バージョン</string>
+    <string name="black_accent_color">黒色</string>
+    <string name="purple_accent_color">紫色</string>
+    <string name="yellow_accent_color">黄色</string>
+    <string name="day_accent_color_title">デイモードのアクセントカラー</string>
+    <string name="whats_new_title">更新内容</string>
+    <string name="contributors">貢献者</string>
+    <string name="blue_gray_accent_color">青灰色</string>
+    <string name="dialog_close">閉じる</string>
+    <string name="actions_category_title">動作</string>
+    <string name="title_theme">テーマ</string>
+    <string name="system_theme">システム</string>
+    <string name="light_theme">ライト</string>
+    <string name="dark_theme">ダーク</string>
+    <string name="brown_accent_color">茶色</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="orange_accent_color">オレンジ色</string>
+    <string name="pink_accent_color">ピンク色</string>
+    <string name="red_accent_color">赤色</string>
+    <string name="about_github_link">GitHubで見る</string>
+    <string name="timer_label_box_title">タイマーラベル</string>
+    <string name="permission_dialog_close_button">閉じる</string>
+    <string name="delete_occasional_alarm_after_use_title">アラームを一度停止したら削除する</string>
+    <string name="title_dark_theme_mode">ダークテーマモード</string>
+    <string name="title_accent_color">アクセントカラー</string>
+    <string name="enable_alarm_snooze_actions_label">アラームのスヌーズ操作を有効にする</string>
+    <string name="add_label">ラベルを追加</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="green_accent_color">緑色</string>
+    <string name="indigo_accent_color">藍色</string>
+    <string name="auto_night_accent_color_title">ナイトモードにアクセントカラーを適用</string>
+    <string name="night_accent_color_title">ナイトモードのアクセントカラー</string>
+    <string name="settings_language_title">言語</string>
+    <string name="styles_and_colors_category_title">スタイルと色</string>
+    <string name="permission_highly_recommended">強く推奨</string>
+    <string name="font_category_title">フォント</string>
+    <string name="permission_denied">未付与</string>
+    <string name="material_you_next_alarm_widget">Material You 次のアラーム</string>
+    <string name="next_alarm_widget">次のアラーム</string>
+    <string name="permission_management_settings">権限管理</string>
+    <string name="permission_granted">付与済み</string>
+    <string name="permission_status_title">現在の状態:</string>
+    <string name="vertical_digital_widget">縦型デジタル時計</string>
+    <string name="material_you_vertical_digital_widget">Material You 縦型デジタル時計</string>
+    <string name="material_you_digital_widget">Material You デジタル時計</string>
+    <string name="analog_widget_material_you">Material You アナログ時計</string>
+    <string name="backup_restore_restore_button_title">復元</string>
+    <string name="backup_restore_backup_button_title">バックアップ</string>
+    <string name="widgets_settings">ウィジェット</string>
+    <string name="backup_restore_settings_title">バックアップと復元</string>
+    <string name="backup_restore_dialog_message">ファイルから設定をバックアップまたは復元しますか？</string>
+    <string name="backup_restore_toast_message_for_restore">復元完了</string>
+    <string name="backup_restore_toast_message_for_backup">バックアップ完了</string>
+    <string name="ignore_battery_optimizations_title">バッテリーの最適化を無視</string>
+    <string name="ignore_battery_optimizations_dialog_title">バッテリーの最適化</string>
+    <string name="revoke_permission_dialog_message">この権限を取り消しますか？</string>
+    <string name="settings_permission_message">1つ以上の重要な権限が付与されていません。付与しない場合、不具合が生じる可能性があります。</string>
+    <string name="permission_dialog_revoke_title">アクセスの取り消し</string>
+    <string name="notifications_permission_title">通知の有効化</string>
+    <string name="FSN_permission_title">全画面通知の有効化</string>
+    <string name="permission_requirement_title">要件:</string>
+    <string name="permission_management_summary">アプリが正常に動作するための権限を表示</string>
+    <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
+    <string name="backup_restore_settings_summary">アラーム、タイマー、通知音を除く設定のバックアップまたは復元</string>
+    <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
+    <string name="auto_silence_5_seconds">5秒</string>
+    <string name="auto_silence_20_seconds">20秒</string>
+    <string name="auto_silence_30_seconds">30秒</string>
+    <string name="auto_silence_10_seconds">10秒</string>
+    <string name="timer_power_button_action_title">電源ボタンで終了したタイマーをリセット</string>
+    <string name="timer_buttons_action_summary">ロック画面でのみ動作</string>
+    <string name="timer_shake_action_title">デバイスを振ってアラームを停止</string>
+    <string name="timer_flip_action_title">デバイスを反転してアラームを停止</string>
+    <string name="default_time_to_add_to_timer_6_minutes">6分</string>
+    <string name="default_time_to_add_to_timer_1_hour">1時間</string>
+    <string name="default_time_to_add_to_timer_8_minutes">8分</string>
+    <string name="default_time_to_add_to_timer_7_minutes">7分</string>
+    <string name="default_time_to_add_to_timer_9_minutes">9分</string>
+    <string name="default_time_to_add_to_timer_10_minutes">10分</string>
+    <string name="default_time_to_add_to_timer_1_minute">1分</string>
+    <string name="default_time_to_add_to_timer_2_minutes">2分</string>
+    <string name="default_time_to_add_to_timer_3_minutes">3分</string>
+    <string name="default_time_to_add_to_timer_4_minutes">4分</string>
+    <string name="default_time_to_add_to_timer_5_minutes">5分</string>
+    <string name="default_time_to_add_to_timer_30_minutes">30分</string>
+    <string name="sort_timer_title">タイマーの並べ替え</string>
+    <string name="sort_timer_descending_duration">時間順 (降順)</string>
+    <string name="sort_timer_ascending_duration">時間順 (昇順)</string>
+    <string name="sort_timer_name">名前順</string>
+    <string name="sort_timer_manually">手動 (ドラッグ)</string>
+    <string name="default_time_to_add_to_timer_title">タイマーに追加するデフォルトの時間</string>
+    <string name="keep_timer_screen_on_title">タイマーが表示されている場合、画面をオンのままにする</string>
 </resources>

@@ -2,7 +2,7 @@
 
 package com.best.alarmclock.standardwidgets;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -16,9 +16,8 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_LABEL_CHANGED;
-import static com.best.deskclock.data.WidgetModel.ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
+import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -32,6 +31,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -48,10 +48,11 @@ import androidx.annotation.NonNull;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.Locale;
@@ -77,7 +78,7 @@ import java.util.Locale;
  */
 public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("NextAlarmWdgtProv");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdNextAlarmWdgtProv");
 
     private static boolean sReceiversRegistered;
 
@@ -102,12 +103,15 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
                                               Bundle options, boolean portrait) {
 
+        final Context localizedContext = Utils.getLocalizedContext(context);
+
         // Create a remote view for the next alarm.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnNextAlarmWidget();
+        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(prefs);
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.next_alarm_widget_with_background
-                : R.layout.next_alarm_widget);
+                ? R.layout.standard_next_alarm_widget_with_background
+                : R.layout.standard_next_alarm_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -120,14 +124,14 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         // The default color is defined in the xml files to match the device's day/night theme.
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
-        final String nextAlarmText = context.getString(R.string.next_alarm_widget_text);
-        final String noAlarmTitle = context.getString(R.string.next_alarm_widget_title_no_alarm);
-        final boolean isDefaultTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor();
-        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor();
-        final boolean isDefaultAlarmColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor();
-        final int customTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomTitleColor();
-        final int customAlarmTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmTitleColor();
-        final int customAlarmColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmColor();
+        final String nextAlarmText = localizedContext.getString(R.string.next_alarm_widget_text);
+        final String noAlarmTitle = localizedContext.getString(R.string.next_alarm_widget_title_no_alarm);
+        final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
+        final boolean isDefaultAlarmTitleColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs);
+        final boolean isDefaultAlarmColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs);
+        final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
+        final int customAlarmTitleColor = WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs);
+        final int customAlarmColor = WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
             rv.setViewVisibility(R.id.nextAlarmTitle, GONE);
@@ -172,7 +176,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = DataModel.getDataModel().getNextAlarmWidgetBackgroundColor();
+        int backgroundColor = WidgetDAO.getNextAlarmWidgetBackgroundColor(prefs);
         rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         if (options == null) {
@@ -188,9 +192,8 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String widgetMaxFontSize =
-                DataModel.getDataModel().getNextAlarmWidgetMaxFontSize();
-        final int largestFontSizePx = Utils.toPixel(Integer.parseInt(widgetMaxFontSize), context);
+        final String widgetMaxFontSize = WidgetDAO.getNextAlarmWidgetMaxFontSize(prefs);
+        final int largestFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(widgetMaxFontSize), context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestFontSizePx);
@@ -215,10 +218,13 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
      * the optimal sizes that fit within the widget bounds are located.
      */
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams") final View sizer =
-                inflater.inflate(R.layout.next_alarm_widget_sizer, null);
+                inflater.inflate(R.layout.standard_next_alarm_widget_sizer, null);
+
+        final Context localizedContext = Utils.getLocalizedContext(context);
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final String nextAlarmTitle = AlarmUtils.getNextAlarmTitle(context);
@@ -226,12 +232,12 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmText = sizer.findViewById(R.id.nextAlarmText);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
-        final boolean isDefaultTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultTitleColor();
-        final boolean isDefaultAlarmTitleColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmTitleColor();
-        final boolean isDefaultAlarmColor = DataModel.getDataModel().isNextAlarmWidgetDefaultAlarmColor();
-        final int customTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomTitleColor();
-        final int customAlarmTitleColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmTitleColor();
-        final int customAlarmColor = DataModel.getDataModel().getNextAlarmWidgetCustomAlarmColor();
+        final boolean isDefaultTitleColor = WidgetDAO.isNextAlarmWidgetDefaultTitleColor(prefs);
+        final boolean isDefaultAlarmTitleColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmTitleColor(prefs);
+        final boolean isDefaultAlarmColor = WidgetDAO.isNextAlarmWidgetDefaultAlarmColor(prefs);
+        final int customTitleColor = WidgetDAO.getNextAlarmWidgetCustomTitleColor(prefs);
+        final int customAlarmTitleColor = WidgetDAO.getNextAlarmWidgetCustomAlarmTitleColor(prefs);
+        final int customAlarmColor = WidgetDAO.getNextAlarmWidgetCustomAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime) || TextUtils.isEmpty(nextAlarmTitle)) {
             nextAlarmTitleView.setVisibility(GONE);
@@ -249,7 +255,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         if (TextUtils.isEmpty(nextAlarmTime)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
-            nextAlarmText.setText(context.getString(R.string.next_alarm_widget_title_no_alarm));
+            nextAlarmText.setText(localizedContext.getString(R.string.next_alarm_widget_title_no_alarm));
 
             if (isDefaultTitleColor) {
                 nextAlarmText.setTextColor(Color.WHITE);
@@ -261,7 +267,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarm.setText(nextAlarmTime);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
-            nextAlarmText.setText(context.getString(R.string.next_alarm_widget_text));
+            nextAlarmText.setText(localizedContext.getString(R.string.next_alarm_widget_text));
 
             if (isDefaultTitleColor) {
                 nextAlarmText.setTextColor(Color.WHITE);
@@ -324,7 +330,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
         // On some devices, the text shadow is cut off, so we have to add it to the end of the next alarm text.
         // The result is that next alarm text and the icon are perfectly centered.
-        final int textShadowPadding = Utils.toPixel(3, sizer.getContext());
+        final int textShadowPadding = ThemeUtils.convertDpToPixels(3, sizer.getContext());
 
         // Adjust the font sizes.
         measuredSizes.setNextAlarmFontSizePx(nextAlarmFontSize);
@@ -351,7 +357,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         return measuredSizes;
@@ -373,22 +379,19 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         if (action != null) {
             switch (action) {
+                case ACTION_APPWIDGET_UPDATE:
                 case ACTION_CONFIGURATION_CHANGED:
-                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
-                case ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED:
                 case ACTION_NEXT_ALARM_LABEL_CHANGED:
-                case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
             }
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
     }
 
     /**
@@ -408,11 +411,7 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        IntentFilter intentFilter = getIntentFilter();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -420,6 +419,15 @@ public class NextAlarmAppWidgetProvider extends AppWidgetProvider {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
+    }
+
+    @NonNull
+    private static IntentFilter getIntentFilter() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_APPWIDGET_UPDATE);
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_NEXT_ALARM_LABEL_CHANGED);
+        return intentFilter;
     }
 
     /**

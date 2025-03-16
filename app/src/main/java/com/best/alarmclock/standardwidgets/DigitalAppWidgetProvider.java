@@ -6,9 +6,9 @@
 
 package com.best.alarmclock.standardwidgets;
 
-import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -22,9 +22,8 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
-import static com.best.deskclock.data.WidgetModel.ACTION_DIGITAL_WIDGET_CUSTOMIZED;
-import static com.best.deskclock.data.WidgetModel.ACTION_UPDATE_WIDGETS_AFTER_RESTORE;
-import static com.best.deskclock.data.WidgetModel.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.alarmclock.WidgetUtils.ACTION_WORLD_CITIES_CHANGED;
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -39,6 +38,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -46,7 +46,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,20 +55,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.best.alarmclock.DailyWidgetUpdateReceiver;
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -98,7 +99,7 @@ import java.util.TimeZone;
  */
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DgtlWdgtProv");
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("StdDgtlWdgtProv");
 
     private static boolean sReceiversRegistered;
 
@@ -137,17 +138,20 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                                               Bundle options, boolean portrait) {
 
         // Create a remote view for the digital clock.
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         final String packageName = context.getPackageName();
-        final boolean isBackgroundDisplayedOnWidget = DataModel.getDataModel().isBackgroundDisplayedOnDigitalWidget();
+        final boolean isBackgroundDisplayedOnWidget = WidgetDAO.isBackgroundDisplayedOnDigitalWidget(prefs);
         final RemoteViews rv = new RemoteViews(packageName, isBackgroundDisplayedOnWidget
-                ? R.layout.digital_widget_with_background
-                : R.layout.digital_widget
+                ? R.layout.standard_digital_widget_with_background
+                : R.layout.standard_digital_widget
         );
 
         rv.setCharSequence(R.id.clock, "setFormat12Hour",
-                ClockUtils.get12ModeFormat(context, 0.4f, false));
+                ClockUtils.get12ModeFormat(context, 0.4f,
+                        WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
         rv.setCharSequence(R.id.clock, "setFormat24Hour",
-                ClockUtils.get24ModeFormat(context, false));
+                ClockUtils.get24ModeFormat(context,
+                        WidgetDAO.areSecondsDisplayedOnDigitalWidget(prefs)));
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
@@ -157,9 +161,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        final CharSequence dateFormat = getDateFormat(context);
-        rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-        rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+        rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
 
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime)) {
@@ -176,9 +178,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Fetch the widget size selected by the user.
-        final boolean areWorldCitiesDisplayed = DataModel.getDataModel().areWorldCitiesDisplayedOnDigitalWidget();
+        final boolean areWorldCitiesDisplayed = WidgetDAO.areWorldCitiesDisplayedOnDigitalWidget(prefs);
         List<City> selectedCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
-        final boolean showHomeClock = DataModel.getDataModel().getShowHomeClock();
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, prefs);
         final Resources resources = context.getResources();
         final float density = resources.getDisplayMetrics().density;
         final int minWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_WIDTH));
@@ -187,8 +189,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = DataModel.getDataModel().getDigitalWidgetMaxClockFontSize();
-        final int largestClockFontSizePx = Utils.toPixel(
+        final String maxClockFontSize = WidgetDAO.getDigitalWidgetMaxClockFontSize(prefs);
+        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(
                 !selectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
                     : Integer.parseInt(maxClockFontSize), context);
@@ -209,35 +211,30 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
 
         // Apply the color to the clock.
-        final boolean isDefaultClockColor = DataModel.getDataModel().isDigitalWidgetDefaultClockColor();
-        final int customClockColor = DataModel.getDataModel().getDigitalWidgetCustomClockColor();
-
-        if (isDefaultClockColor) {
+        final int customClockColor = WidgetDAO.getDigitalWidgetCustomClockColor(prefs);
+        if (WidgetDAO.isDigitalWidgetDefaultClockColor(prefs)) {
             rv.setTextColor(R.id.clock, Color.WHITE);
         } else {
             rv.setTextColor(R.id.clock, customClockColor);
         }
 
         // Apply the color to the date.
-        final boolean isDefaultDateColor = DataModel.getDataModel().isDigitalWidgetDefaultDateColor();
-        final int customDateColor = DataModel.getDataModel().getDigitalWidgetCustomDateColor();
-        if (isDefaultDateColor) {
+        final int customDateColor = WidgetDAO.getDigitalWidgetCustomDateColor(prefs);
+        if (WidgetDAO.isDigitalWidgetDefaultDateColor(prefs)) {
             rv.setTextColor(R.id.date, Color.WHITE);
         } else {
             rv.setTextColor(R.id.date, customDateColor);
         }
 
         // Apply the color to the next alarm.
-        final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
-        final int customNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
-
-        if (isDefaultNextAlarmColor) {
+        final int customNextAlarmColor = WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
+        if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
             rv.setTextColor(R.id.nextAlarm, Color.WHITE);
         } else {
             rv.setTextColor(R.id.nextAlarm, customNextAlarmColor);
         }
 
-        final int smallestWorldCityListSizePx = Utils.toPixel(80, context);
+        final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
 
         if (sizes.getListHeight() <= smallestWorldCityListSizePx || !areWorldCitiesDisplayed) {
             // Insufficient space; hide the world city list.
@@ -259,7 +256,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the color to the digital widget background.
-        int backgroundColor = DataModel.getDataModel().getDigitalWidgetBackgroundColor();
+        int backgroundColor = WidgetDAO.getDigitalWidgetBackgroundColor(prefs);
         rv.setInt(R.id.digitalWidgetBackground, "setBackgroundColor", backgroundColor);
 
         return rv;
@@ -270,15 +267,15 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      * the optimal sizes that fit within the widget bounds are located.
      */
     private static Sizes optimizeSizes(Context context, Sizes template, String nextAlarmTime) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(context);
         // Inflate a test layout to compute sizes at different font sizes.
         final LayoutInflater inflater = LayoutInflater.from(context);
-        @SuppressLint("InflateParams") final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null);
+        @SuppressLint("InflateParams")
+        final View sizer = inflater.inflate(R.layout.standard_digital_widget_sizer, null);
 
         // Configure the date to display the current date string.
-        final CharSequence dateFormat = getDateFormat(context);
-        final TextClock date = sizer.findViewById(R.id.date);
-        date.setFormat12Hour(dateFormat);
-        date.setFormat24Hour(dateFormat);
+        final TextView date = sizer.findViewById(R.id.date);
+        date.setText(WidgetUtils.getDateFormat(context));
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
@@ -292,10 +289,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setVisibility(VISIBLE);
             nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
             // Apply the color to the next alarm icon.
-            final boolean isDefaultNextAlarmColor = DataModel.getDataModel().isDigitalWidgetDefaultNextAlarmColor();
-            final int customNextAlarmColor = DataModel.getDataModel().getDigitalWidgetCustomNextAlarmColor();
-
-            if (isDefaultNextAlarmColor) {
+            final int customNextAlarmColor = WidgetDAO.getDigitalWidgetCustomNextAlarmColor(prefs);
+            if (WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarmIcon.setTextColor(Color.WHITE);
             } else {
                 nextAlarmIcon.setTextColor(customNextAlarmColor);
@@ -332,10 +327,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         return low;
     }
 
-    private static AlarmManager getAlarmManager(Context context) {
-        return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-    }
-
     /**
      * Compute all font and icon sizes based on the given {@code clockFontSize} and apply them to
      * the offscreen {@code sizer} view. Measure the {@code sizer} view and return the resulting
@@ -346,14 +337,14 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final Sizes measuredSizes = template.newSize();
 
         // Configure the clock to display the widest time string.
-        final TextClock date = sizer.findViewById(R.id.date);
+        final TextView date = sizer.findViewById(R.id.date);
         final TextClock clock = sizer.findViewById(R.id.clock);
         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
 
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSize);
-        clock.setText(getLongestTimeString(clock));
+        clock.setText(WidgetUtils.getLongestTimeString(clock));
         clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
         date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
@@ -376,31 +367,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // If an alarm icon is required, generate one from the TextView with the special font.
         if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+            measuredSizes.mIconBitmap = ThemeUtils.createBitmap(nextAlarmIcon);
         }
 
         return measuredSizes;
-    }
-
-    /**
-     * @return "11:59" or "23:59" in the current locale
-     */
-    private static CharSequence getLongestTimeString(TextClock clock) {
-        final CharSequence format = clock.is24HourModeEnabled()
-                ? ClockUtils.get24ModeFormat(clock.getContext(), false)
-                : ClockUtils.get12ModeFormat(clock.getContext(), 0.4f, false);
-        final Calendar longestPMTime = Calendar.getInstance();
-        longestPMTime.set(0, 0, 0, 23, 59);
-        return DateFormat.format(format, longestPMTime);
-    }
-
-    /**
-     * @return the locale-specific date pattern
-     */
-    private static String getDateFormat(Context context) {
-        final Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        return DateFormat.getBestDateTimePattern(locale, skeleton);
     }
 
     @Override
@@ -409,6 +379,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Schedule the day-change callback if necessary.
         updateDayChangeCallback(context);
+
+        // Schedule alarm for daily widget update at midnight
+        WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
     }
 
     @Override
@@ -417,6 +390,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Remove any scheduled day-change callback.
         removeDayChangeCallback(context);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+
+        WidgetUtils.cancelDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
     }
 
     @Override
@@ -435,26 +415,24 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         if (action != null) {
             switch (action) {
+                case ACTION_APPWIDGET_UPDATE:
                 case ACTION_CONFIGURATION_CHANGED:
-                case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 case ACTION_LOCALE_CHANGED:
                 case ACTION_TIME_CHANGED:
                 case ACTION_TIMEZONE_CHANGED:
                 case ACTION_ON_DAY_CHANGE:
                 case ACTION_WORLD_CITIES_CHANGED:
-                case ACTION_DIGITAL_WIDGET_CUSTOMIZED:
-                case ACTION_UPDATE_WIDGETS_AFTER_RESTORE:
                     for (int widgetId : widgetIds) {
                         relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                     }
             }
         }
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_digital_widget);
 
         if (widgetIds.length > 0) {
             updateDayChangeCallback(context);
+            WidgetUtils.scheduleDailyWidgetUpdate(context, DailyWidgetUpdateReceiver.class);
         }
     }
 
@@ -475,12 +453,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     private static void registerReceivers(Context context, BroadcastReceiver receiver) {
         if (sReceiversRegistered) return;
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
-        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
-        intentFilter.addAction(ACTION_DIGITAL_WIDGET_CUSTOMIZED);
-        intentFilter.addAction(ACTION_UPDATE_WIDGETS_AFTER_RESTORE);
+        IntentFilter intentFilter = getIntentFilter();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getApplicationContext().registerReceiver(receiver, intentFilter, Context.RECEIVER_EXPORTED);
@@ -488,6 +461,16 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             context.getApplicationContext().registerReceiver(receiver, intentFilter);
         }
         sReceiversRegistered = true;
+    }
+
+    @NonNull
+    private static IntentFilter getIntentFilter() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_APPWIDGET_UPDATE);
+        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+        intentFilter.addAction(ACTION_ON_DAY_CHANGE);
+        intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+        return intentFilter;
     }
 
     /**
@@ -508,7 +491,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private void updateDayChangeCallback(Context context) {
         final DataModel dm = DataModel.getDataModel();
         final List<City> selectedCities = dm.getSelectedCities();
-        final boolean showHomeClock = dm.getShowHomeClock();
+        final boolean showHomeClock = SettingsDAO.getShowHomeClock(context, getDefaultSharedPreferences(context));
         if (selectedCities.isEmpty() && !showHomeClock) {
             // Remove the existing day-change callback.
             removeDayChangeCallback(context);
@@ -529,7 +512,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         // Schedule the next day-change callback; at least one city is displayed.
         final PendingIntent pi =
                 PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        getAlarmManager(context).setExact(AlarmManager.RTC, Objects.requireNonNull(nextDay).getTime(), pi);
+        WidgetUtils.getAlarmManager(context).setExact(AlarmManager.RTC, Objects.requireNonNull(nextDay).getTime(), pi);
     }
 
     /**
@@ -539,7 +522,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final PendingIntent pi =
                 PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_NO_CREATE | PendingIntent.FLAG_IMMUTABLE);
         if (pi != null) {
-            getAlarmManager(context).cancel(pi);
+            WidgetUtils.getAlarmManager(context).cancel(pi);
             pi.cancel();
         }
     }

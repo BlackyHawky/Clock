@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
     Copyright (C) 2016 The Android Open Source Project
     modified
     SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+--><resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="C1" msgid="3622720549928625541">"あ<xliff:g id="SEPARATOR">=</xliff:g>アビジャン<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
     <string name="C2" msgid="9073993995416728918">"あ<xliff:g id="SEPARATOR">=</xliff:g>アクラ<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
     <string name="C3" msgid="5172979423931428620">"あ<xliff:g id="SEPARATOR">=</xliff:g>アジスアベバ<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
@@ -346,4 +344,5 @@
     <string name="C346" msgid="2947674392768816097">"や<xliff:g id="SEPARATOR">=</xliff:g>ヤウンデ<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
     <string name="C347" msgid="6291282205599716861">"や<xliff:g id="SEPARATOR">=</xliff:g>ヤレン地区<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"あ<xliff:g id="SEPARATOR">=</xliff:g>エレバン<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
+    <string name="C349">は<xliff:g id="separator">=</xliff:g>ポンタ デルガーダ<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
 </resources>

@@ -1,0 +1,14 @@
+**Parandused**
+- Järgmiste äratuste kuvamine muudest ralendustest
+- Olukord, kus käivitunud äratus polnud näha lukustatud MIUI seadmetes
+
+**Täiendused**
+- Eemaldasime unearvestuse vaate
+- Paanide tugi kiirseadistuste vaates
+- Võimalus äratuse ajal tagumise välklambi sisselülitamiseks
+- Võimalus sättida raputamise intensiivsust
+- Võimalus muuta rakenduse keelt
+- Rõhtvaate kasutatavus telefonides
+
+Kõik muudatused on kirjas siin:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

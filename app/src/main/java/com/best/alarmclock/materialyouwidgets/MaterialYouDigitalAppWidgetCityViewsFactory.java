@@ -9,10 +9,12 @@ package com.best.alarmclock.materialyouwidgets;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -23,9 +25,11 @@ import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.data.WidgetDAO;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
-import com.best.deskclock.utils.Utils;
+import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,13 +62,14 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
     public MaterialYouDigitalAppWidgetCityViewsFactory(Context context, Intent intent) {
         mContext = context;
         mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
+        final boolean isTablet = ThemeUtils.isTablet();
 
         m12HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 52 : 32, context.getResources().getDisplayMetrics());
+                isTablet ? 52 : 32, context.getResources().getDisplayMetrics());
         m24HourFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 65 : 40, context.getResources().getDisplayMetrics());
+                isTablet ? 65 : 40, context.getResources().getDisplayMetrics());
         mCityAndDayFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                Utils.isTablet(context) ? 20 : 12, context.getResources().getDisplayMetrics());
+                isTablet ? 20 : 12, context.getResources().getDisplayMetrics());
     }
 
     @Override
@@ -163,7 +168,7 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
     @Override
     public synchronized void onDataSetChanged() {
         // Fetch the data on the main Looper.
-        final RefreshRunnable refreshRunnable = new RefreshRunnable();
+        final RefreshRunnable refreshRunnable = new RefreshRunnable(mContext);
         DataModel.getDataModel().run(refreshRunnable);
 
         // Store the data in local variables.
@@ -174,6 +179,8 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
     }
 
     private void update(RemoteViews rv, City city, int clockId, int labelId, int dayId) {
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+
         rv.setCharSequence(clockId, "setFormat12Hour",
                 ClockUtils.get12ModeFormat(mContext, 0.4f, false)
         );
@@ -208,19 +215,15 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
         rv.setViewVisibility(clockId, View.VISIBLE);
         rv.setViewVisibility(labelId, View.VISIBLE);
 
-        final boolean isDefaultCityClockColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityClockColor();
-        final int customCityClockColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomCityClockColor();
-
-        if (isDefaultCityClockColor) {
+        final int customCityClockColor = WidgetDAO.getMaterialYouDigitalWidgetCustomCityClockColor(prefs);
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultCityClockColor(prefs)) {
             rv.setTextColor(clockId, mContext.getColor(R.color.digital_widget_time_color));
         } else {
             rv.setTextColor(clockId, customCityClockColor);
         }
 
-        final boolean isDefaultCityNameColor = DataModel.getDataModel().isMaterialYouDigitalWidgetDefaultCityNameColor();
-        final int customCityNameColor = DataModel.getDataModel().getMaterialYouDigitalWidgetCustomCityNameColor();
-
-        if (isDefaultCityNameColor) {
+        final int customCityNameColor = WidgetDAO.getMaterialYouDigitalWidgetCustomCityNameColor(prefs);
+        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultCityNameColor(prefs)) {
             rv.setTextColor(labelId, mContext.getColor(R.color.widget_text_color));
             rv.setTextColor(dayId, mContext.getColor(R.color.widget_text_color));
         } else {
@@ -241,15 +244,20 @@ public class MaterialYouDigitalAppWidgetCityViewsFactory implements RemoteViewsF
      */
     private static final class RefreshRunnable implements Runnable {
 
+        private final Context mContext;
         private City mHomeCity;
         private List<City> mCities;
         private boolean mShowHomeClock;
+
+        public RefreshRunnable(Context context) {
+            this.mContext = context;
+        }
 
         @Override
         public void run() {
             mHomeCity = DataModel.getDataModel().getHomeCity();
             mCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
-            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
+            mShowHomeClock = SettingsDAO.getShowHomeClock(mContext, getDefaultSharedPreferences(mContext));
         }
     }
 }

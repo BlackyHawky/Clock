@@ -11,12 +11,16 @@
     <string name="default_label">Alarm</string>
     <!-- Setting labels on Set alarm screen: Vibration on or off -->
     <string name="alarm_vibrate">Vibrate</string>
+    <!-- Setting labels on Set alarm screen: Flash on or off -->
+    <string name="alarm_flash">Flash</string>
     <!-- Setting labels on Set alarm screen: Dismiss alarm when ringtone ends on or off -->
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Dismiss alarm when ringtone ends</string>
     <!-- Setting labels on Set alarm screen: Enable alarm snooze actions on or off -->
     <string name="enable_alarm_snooze_actions_label">Enable alarm snooze actions</string>
     <!-- Setting labels on Set alarm screen: Delete alarm once dismissed on or off -->
     <string name="delete_occasional_alarm_after_use_title">Delete alarm once dismissed</string>
+    <!-- Title of dialog box to choose the alarm time -->
+    <string name="time_picker_dialog_title">Select time</string>
     <!-- Title of dialog box for editing alarm label -->
     <string name="alarm_label_box_title">Alarm label</string>
     <!-- Label "Default" -->
@@ -51,8 +55,6 @@
     <string name="custom_ringtone_lost_permissions">The sound content cannot be accessed.</string>
     <!-- Title of default ringtone played when a timer expires. -->
     <string name="default_timer_ringtone_title">Timer Expired</string>
-    <!-- Label shown when alarm is inactive -->
-    <string name="alarm_inactive">Turned off</string>
     <!-- Label shown when user is setting up non-repeating alarm for tomorrow -->
     <string name="alarm_tomorrow">Tomorrow</string>
     <!-- Label shown when user is setting up non-repeating alarm for later today -->
@@ -207,6 +209,14 @@
     <string name="loading_widget">Loading\u2026</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget">Analog clock</string>
+    <!-- Title of the analog widget layout choice activity -->
+    <string name="analog_widget_choice_title">Choose your style</string>
+    <!-- Name of the analog widget layout without second hand -->
+    <string name="analog_widget_without_second_hand_title">Without the second hand</string>
+    <!-- Name of the analog widget layout with second hand -->
+    <string name="analog_widget_with_second_hand_title">With the second hand</string>
+    <!-- Text displayed when user wants to configure analog widget with Android version earlier than Android 12 -->
+    <string name="analog_widget_configuration_warning">This widget is only configurable from Android 12</string>
     <!-- Label for analog clock widget displayed in the widget picker -->
     <string name="analog_widget_material_you">Analog clock Material You</string>
     <!-- Label for digital clock widget displayed in the widget picker -->
@@ -295,6 +305,36 @@
     <string name="display_background_border_title">Display background borders</string>
     <!-- Setting summary about background border display. -->
     <string name="display_background_border_summary">Displays a background border for some application elements (alarms, cities, timer button, etc.)</string>
+    <!-- Setting title to choose the language. -->
+    <string name="settings_language_title">Language</string>
+    <!-- Setting title for changing the language to system language. -->
+    <string name="settings_language_system">System language</string>
+    <!-- Setting title for changing the language to English (US). -->
+    <string name="settings_language_english_us">English (US)</string>
+    <!-- Setting title for changing the language to French. -->
+    <string name="settings_language_french">French</string>
+    <!-- Setting title for changing the language to German. -->
+    <string name="settings_language_german">German</string>
+    <!-- Setting title for changing the language to Chinese (simplified, PRC). -->
+    <string name="settings_language_chinese_simplified_cn">Chinese (simplified, PRC)</string>
+    <!-- Setting title for changing the language to Estonian. -->
+    <string name="settings_language_estonian">Estonian</string>
+    <!-- Setting title for changing the language to Italian. -->
+    <string name="settings_language_italian">Italian</string>
+    <!-- Setting title for changing the language to Polish. -->
+    <string name="settings_language_polish">Polish</string>
+    <!-- Setting title for changing the language to Portuguese. -->
+    <string name="settings_language_portuguese">Portuguese</string>
+    <!-- Setting title for changing the language to Serbian. -->
+    <string name="settings_language_serbian">Serbian</string>
+    <!-- Setting title for changing the language to Spanish. -->
+    <string name="settings_language_spanish">Spanish</string>
+    <!-- Setting title for changing the language to Ukrainian. -->
+    <string name="settings_language_ukrainian">Ukrainian</string>
+    <!-- Setting title for changing the language to Dutch. -->
+    <string name="settings_language_dutch">Dutch</string>
+    <!-- Setting title for changing the language to Russian. -->
+    <string name="settings_language_russian">Russian</string>
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->
@@ -325,12 +365,18 @@
     <string name="alarm_notification_reminder_12_hours">12 hours before</string>
     <!-- Setting title to enable vibrations when creating alarms -->
     <string name="enable_alarm_vibrations_by_default_setting_title">Enable vibrations when creating alarms</string>
+    <!-- Setting title to enable vibrations when alarm is snoozed or dismissed -->
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Enable vibrations when alarm is snoozed or dismissed</string>
+    <!-- Setting summary about vibrations when alarm is snoozed or dismissed -->
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Double vibration when alarm is snoozed and single vibration when alarm is dismissed</string>
+    <!-- Setting title to turn on flash when alarm is triggered -->
+    <string name="turn_on_back_flash_for_triggered_alarm_title">Turn on back flash when alarm is triggered</string>
     <!-- Setting title to display the button for deleting single alarms in the expanded alarm view -->
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Enable automatic deletion of occasional alarms by default</string>
-    <!-- Setting summary about the button for deleting single alarms in the expanded alarm view -->
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for changing the time picker style. -->
     <string name="material_time_picker_style_title">Time picker style</string>
+    <!-- Setting summary to indicate that this setting can be changed for each alarm -->
+    <string name="alarm_settings_general_summary">This setting can be changed for each alarm in the expanded alarm view</string>
     <!-- Setting title for customizing the alarm display. -->
     <string name="alarm_display_customization_title">Customize alarm display</string>
     <!-- Setting title for customizing the alarm title color. -->
@@ -516,8 +562,6 @@
     <string name="menu_clock">Clock</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
-    <!-- Describes the purpose of the tab button which which switches the activity to the Bedtime page -->
-    <string name="menu_bedtime">Bedtime</string>
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
     <string name="button_alarms">Add alarm</string>
@@ -669,8 +713,12 @@
     <string name="open_date_settings">Change date \u0026 time</string>
     <!-- Setting title for changing the clock style to Analog. -->
     <string name="clock_style_analog">Analog</string>
+    <!-- Setting title for changing the clock style to Analog (Material). -->
+    <string name="clock_style_analog_material">Analog (Material)</string>
     <!-- Setting title for changing the clock style to Digital. -->
     <string name="clock_style_digital">Digital</string>
+    <!-- Setting title for changing the clock style to Spinner. -->
+    <string name="clock_style_spinner">Spinner</string>
     <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
@@ -883,6 +931,10 @@
     <string name="about_github_link">View on GitHub</string>
     <!-- Github dialog message in about screen -->
     <string name="github_dialog_message">Visit the project GitHub page:\n\n%s</string>
+    <!-- Translate link for about screen -->
+    <string name="about_translate_link">Translate on Codeberg</string>
+    <!-- Translate dialog message in about screen -->
+    <string name="translate_dialog_message">Visit the Codeberg page:\n\n%s</string>
     <!-- License for about screen -->
     <string name="license">Open-source license</string>
     <!-- License dialog message in about screen -->
@@ -910,11 +962,12 @@
         \n\n• Digital or analog clock style;
         \n\n• Display home time when traveling;
         \n\n• Display the time in many cities around the world;
-        \n\n• Timer, stopwatch and bedtime <i>(experimental)</i> included;
+        \n\n• Timer and stopwatch included;
         \n\n• Possibility of sharing your stopwatch with your contacts;
         \n\n• Customizable screensaver;
         \n\n• Modern widgets;
         \n\n• Customizable widgets;
+        \n\n• Support for tiles in quick settings (for Android 7+);
         \n\n• Backup and restore settings;
         \n\n• Material design;
         \n\n• Dynamic colors for Android 12+;
@@ -959,8 +1012,6 @@
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
     <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
-    <!-- Describes the service that processes actions originating from bedtime notifications. -->
-    <string name="bedtime_service_desc">Processes actions from bedtime notifications.</string>
     <!-- Description for the paused stop watch -->
     <string name="swn_paused">Paused</string>
     <!-- Text instruction to dismiss alarm on alarm lock screen. The dismiss button will still
@@ -1242,41 +1293,13 @@
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
     -->
-    <!-- Bedtime button to create an alarm -->
     <string name="alarm_is_snoozed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm snoozed for 10 minutes</string>
-    <string name="wakeup">Wake Up</string>
-    <string name="bedtime_reminder_notification">Reminder Notification</string>
-    <!-- Setting title for changing the bedtime reminder notification to 10 minutes before bedtime. -->
-    <string name="bedtime_reminder_notification_10_minutes">10 minutes before bedtime</string>
-    <!-- Setting title for changing the bedtime reminder notification to 15 minutes before bedtime. -->
-    <string name="bedtime_reminder_notification_15_minutes">15 minutes before bedtime</string>
-    <!-- Setting title for changing the bedtime reminder notification to 20 minutes before bedtime. -->
-    <string name="bedtime_reminder_notification_20_minutes">20 minutes before bedtime</string>
-    <!-- Setting title for changing the bedtime reminder notification to 30 minutes before bedtime. -->
-    <string name="bedtime_reminder_notification_30_minutes">30 minutes before bedtime</string>
-    <!-- Setting title for changing the bedtime reminder notification to 45 minutes before bedtime. -->
-    <string name="bedtime_reminder_notification_45_minutes">45 minutes before bedtime</string>
-    <!-- Setting title for changing the bedtime reminder notification to 1 hour before bedtime. -->
-    <string name="bedtime_reminder_notification_1_hour">1 hour before bedtime</string>
-    <!-- Bedtime -->
-    <string name="bedtime_reminder_notification_title">Your bedtime starts at <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_reminder_notification_text">Your bedtime stops at <xliff:g id="wake_time">%1$s</xliff:g> after <xliff:g id="sleep_time">%2$s</xliff:g> of sleep.</string>
-    <string name="bedtime_notification_title">\"Bedtime\" mode is on</string>
-    <string name="bedtime_notification_action_pause">Pause for 30 min</string>
-    <string name="bedtime_notification_action_turn_off">Turn off</string>
-    <string name="bedtime_notification_until">until <xliff:g id="wake_time">%s</xliff:g></string>
-    <string name="bedtime_paused_notification_title">\"Bedtime\" mode is paused</string>
-    <string name="bedtime_notification_resume">Resume on <xliff:g id="time">%1$s</xliff:g></string>
-    <string name="bedtime_notification_resume_action">Resume now</string>
-    <string name="wakeup_alarm_label_visible">Wake-up alarm</string>
-    <string name="new_bedtime_alarm">Wake-up alarm created</string>
-    <string name="sleeping_time">Sleeping time: %1$s</string>
-    <string name="no_bedtime_alarm">No bedtime set</string>
-    <string name="no_wakeup_alarm">No wake-up alarm set</string>
     <!-- Setting title for the flip action setting. -->
     <string name="flip_action_title">Device flip action</string>
     <!-- Setting title for the shake action setting. -->
     <string name="shake_action_title">Device shake action</string>
+    <!-- Setting title for the shake intensity setting. -->
+    <string name="shake_intensity_title">Shake intensity</string>
     <!-- Strings for notification channel. -->
     <string name="firing_alarms_timers_channel">Firing alarms &amp; timers</string>
     <string name="alarm_missed_channel">Missed alarms</string>
@@ -1284,7 +1307,6 @@
     <string name="alarm_upcoming_channel">Upcoming alarms</string>
     <string name="stopwatch_channel">Stopwatch</string>
     <string name="timer_channel">Timer</string>
-    <string name="bedtime_channel">Bedtime</string>
     <!--
     First launch
     -->
@@ -1296,6 +1318,8 @@
         ► Light, dark or system theme; &lt;br&gt; &lt;br&gt;
         ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
         ► Customizable widgets; &lt;br&gt; &lt;br&gt;
+        ► Support for tiles in quick settings (for Android 7+); &lt;br&gt; &lt;br&gt;
+        ► Backup and restore settings; &lt;br&gt; &lt;br&gt;
         ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
         ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
         ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;
@@ -1361,7 +1385,7 @@
     <!-- Summary about the font size of the clock in the digital widget. -->
     <string name="widget_max_clock_font_size_summary">Maximum font size = </string>
     <!-- Summary about the font size of the clock when cities are shown -->
-    <string name="digital_widget_message_summary">Show cities on widget must be disabled to access this setting</string>
+    <string name="digital_widget_message_summary">\"Show cities on widget\" must be disabled to access this setting</string>
     <!-- Title to set the default color of the next alarm title in the next alarm widget. -->
     <string name="next_alarm_widget_default_title_color">Use default color for \"Next alarm\" and \"No upcoming alarm\" titles</string>
     <!-- Title to set the custom color of the "Next alarm" and "No upcoming alarm" titles in the next alarm widget. -->
@@ -1384,6 +1408,7 @@
     <string name="permission_requirement_title">Requirement: </string>
     <string name="permission_highly_recommended">Highly recommended</string>
     <string name="permission_status_title">Status: </string>
+    <string name="permission_info_title">For Xiaomi devices only</string>
     <string name="permission_granted">Granted</string>
     <string name="permission_denied">Denied</string>
     <!-- Denied permission label on long press on warning icon -->
@@ -1400,12 +1425,16 @@
     <!-- Notifications Permission -->
     <string name="notifications_permission_title">ENABLE NOTIFICATIONS</string>
     <string name="notifications_dialog_title">Notifications</string>
-    <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer, stopwatch, and bedtime mode.
+    <string name="notifications_dialog_text">In addition to setting alarms, this app also has a timer and a stopwatch mode.
         \n\nIn order for notifications to appear correctly for all modules and especially for the alarm to be triggered, we recommend activating notifications for this application.</string>
     <!-- Full screen notifications permission -->
     <string name="FSN_permission_title">ENABLE FULL SCREEN NOTIFICATIONS</string>
     <string name="FSN_dialog_title">Full Screen Notifications</string>
-    <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that Full Screen Notifications permission is enabled</string>
+    <string name="FSN_dialog_text">Since Android 14, in order for the alarm to be triggered when the screen is off, it\'s imperative that \"Full Screen Notifications\" permission is enabled.</string>
+    <!-- Shown on lockscreen permission (Xiaomi) -->
+    <string name="show_lockscreen_permission_title">SHOW ON LOCKSCREEN</string>
+    <string name="show_lockscreen_dialog_title">Show on lockscreen</string>
+    <string name="show_lockscreen_dialog_text">On Xiaomi devices, you should manually enable the \"Show on Lock screen\" permission from the device settings in order for the application to work properly.</string>
     <!--
     Backup & Restore
     -->

@@ -7,6 +7,7 @@
     <string name="app_label" msgid="6674495003718166674">"Сат"</string>
     <string name="default_label" msgid="5590025289805630372">"Аларм"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибрација"</string>
+    <string name="time_picker_dialog_title">Изаберите време</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Подразумевани звук аларма"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Звук аларма"</string>
@@ -392,24 +393,13 @@
     <string name="screensaver_bold_date_title">Подебљани датум</string>
     <string name="screensaver_bold_next_alarm_title">Подебљани следећи аларм</string>
     <string name="screensaver_italic_date_title">Коси датум</string>
-    <string name="bedtime_notification_resume_action">Настави одмах</string>
-    <string name="wakeup_alarm_label_visible">Аларм за буђење</string>
-    <string name="new_bedtime_alarm">Аларм за буђење креиран</string>
-    <string name="no_bedtime_alarm">Нема постављеног времена за спавање</string>
-    <string name="wakeup">Пробудите се</string>
-    <string name="sleeping_time">Време спавања: %1$s</string>
     <string name="more_options">Више опција</string>
     <string name="dialog_close">Затвори</string>
-    <string name="no_wakeup_alarm">Нема постављеног аларма за буђење</string>
     <string name="settings_permission_message">Једна или више основних дозвола није одобрена. Неодобравање може довести до неправилности у раду.</string>
     <string name="duplicate">Дуплирај</string>
     <string name="selected">Изабрано</string>
-    <string name="alarm_inactive">Искључено</string>
     <string name="add_label">Додај ознаку</string>
     <string name="screensaver_preview_summary">Покреће чувар екрана одмах</string>
-    <string name="bedtime_notification_title">Режим \"Време за спавање\" је укључено</string>
-    <string name="bedtime_notification_action_pause">Пауза за 30 мин</string>
-    <string name="bedtime_notification_action_turn_off">Искључи</string>
     <string name="screensaver_daydream_settings_summary">Отвара главна подешавања чувара екрана за Android</string>
     <string name="version">Верзија</string>
     <string name="app_slogan">100% FOSS сат, заснован на AOSP</string>
@@ -423,28 +413,20 @@
     <string name="about_github_link">Погледај на GitHub-у</string>
     <string name="gnu_gpl">GNU Генерална Јавна Лиценца v3.0</string>
     <string name="contributors">Доприносиоци</string>
-    <string name="bedtime_service_desc">Обрађује акције из обавештења о времену за спавање.</string>
     <string name="screensaver_settings_summary">Поставите стил, боју и фонт чувара екрана</string>
-    <string name="menu_bedtime">Време за спавање</string>
     <string name="screensaver_daydream_settings">Изаберите/омогућите чувар екрана</string>
-    <string name="bedtime_paused_notification_title">Режим \"Време за спавање\" је паузиран</string>
     <string name="settings_vibration_title">Омогућити вибрације</string>
     <string name="settings_vibration_summary">Само нека дугмад интерфејса су погођена (нпр.: дугме за пуштање/паузу тајмера или прекидачи)</string>
     <string name="credits">Захвалнице</string>
     <string name="alarm_created">Аларм креирано</string>
-    <string name="bedtime_reminder_notification">Обавештење о подсетнику</string>
-    <string name="bedtime_reminder_notification_title">Ваше време за спавање почиње у <xliff:g id="bed_time">%1$s</xliff:g></string>
-    <string name="bedtime_reminder_notification_text">Ваше време за спавање престаје у <xliff:g id="wake_time">%1$s</xliff:g> након <xliff:g id="sleep_time">%2$s</xliff:g> сна.</string>
-    <string name="bedtime_notification_resume">Настави укључено <xliff:g id="time">%1$s</xliff:g></string>
     <string name="title_theme">Тема</string>
     <string name="display_card_background_title">Приказ позадина картица</string>
     <string name="display_card_background_summary">Приказује позадину за неке елементе апликације (аларми, градови, дугме за тајмер, итд.)</string>
     <string name="display_background_border_title">Приказ граница позадине</string>
     <string name="display_background_border_summary">Приказује границу позадине за неке елементе апликације (аларми, градови, дугме за тајмер, итд.)</string>
-    <string name="about_dialog_message">• Окретање и протрести акција да одбаците/одложите аларм; \n\n• Искључи/одложи аларм са дугметом за укључивање или дугметима за јачину звука; \n\n• Само за неке Snapdragon уређаје, аларм се активира када су искључено; \n\n• Превуците да обришете аларм; \n\n• Дуплирај аларме; \n\n• Прилагодите наслов аларма; \n\n• Прилагодљива мелодија; \n\n• Светла, тамно или систем тема; \n\n• AMOLED режим за тамно тему; \n\n• Дигитални или аналогни сат стил; \n\n• Приказ почетна време када путујете; \n\n• Приказ времена у многим градовима широм света; \n\n• Тајмер, штоперица и време за спавање <i>(експериментално)</i> укључено; \n\n• Могућност дељења ваша штоперица са вашим контактима; \n\n• Прилагодљив чувар екрана; \n\n• Модерни виџети; \n\n• Прилагодљиви виџети; \n\n• Резервна копија и обнови подешавања; \n\n• Материјал дизајн; \n\n• Динамичне боје за Android 12+;</string>
+    <string name="about_dialog_message">• Окрените и протресите акције за одбацивање/одлагање аларма; \n\n• Искључите/одложите аларм помоћу дугмета за напајање или дугмади за јачину звука; \n\n• За неке Snapdragon уређаје, аларм се активира само када су укључени; \n\t\t Нажалост, ова функција можда не ради на неким уређајима упркос присуству <i>\"com.qualcomm.qti.poweroffalarm\"</i> системске апликације. \n\n• Превуците да бришете аларм; \n\n• Дуплирајте аларме; \n\n• Прилагодите наслов аларма; \n\n• Прилагодљива мелодија; \n\n• Светла, тамна или системска тема; \n\n• AMOLED режим за тамну тему; \n\n• Дигитални или аналогни стил сата; \n\n• Приказујте почетно време када путујете; \n\n• Приказујте време у многим градовима широм света; \n\n• Тајмер, штоперица и време за спавање <i>(експериментално)</i> укључени; \n\n• Могућност делjenja ваше штоперице са вашим контактима; \n\n• Прилагодљив чувар екрана; \n\n• Модерни виџети; \n\n• Прилагодљиви виџети; \n\n• Резервна копија и обнова подешавања; \n\n• Материјални дизајн; \n\n• Динамичне боје за Android 12+;</string>
     <string name="screensaver_italic_next_alarm_title">Коси следећи аларм</string>
     <string name="screensaver_bold_digital_clock_title">Подебљани дигитални сат</string>
-    <string name="bedtime_notification_until">до <xliff:g id="wake_time">%s</xliff:g></string>
     <string name="screensaver_clock_dynamic_colors_title">Динамичне боје сата</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИШИ ОПТИМИЗАЦИЈЕ БАТЕРИЈЕ</string>
     <string name="permission_dialog_close_button">Затвори</string>
@@ -512,12 +494,7 @@
     <string name="alarm_clock_font_size">Величина фонта сата аларма</string>
     <string name="alarm_title_font_size">Величина фонта наслова аларма</string>
     <string name="preview_title">Преглед</string>
-    <string name="bedtime_reminder_notification_15_minutes">15 минута пре времена за спавање</string>
     <string name="timer_channel">Тајмер</string>
-    <string name="bedtime_reminder_notification_20_minutes">20 минута пре времена за спавање</string>
-    <string name="bedtime_reminder_notification_30_minutes">30 минута пре времена за спавање</string>
-    <string name="bedtime_reminder_notification_45_minutes">45 минута пре времена за спавање</string>
-    <string name="bedtime_reminder_notification_1_hour">1 сат пре времена за спавање</string>
     <string name="next_alarm_widget_custom_title_color">Прилагођена боја за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
     <string name="next_alarm_widget_default_alarm_title_color">Употребити подразумевану боју за наслов аларма</string>
     <string name="FSN_dialog_title">Обавештења пуног екрана</string>
@@ -576,7 +553,6 @@
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Превуците лево или десно да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Кликните лево или десно да одбаците</string>
     <string name="occasional_alarm_deleted">Повремени аларм уклоњен</string>
-    <string name="bedtime_reminder_notification_10_minutes">10 минута пре времена за спавање</string>
     <string name="first_launch_dialog_message">Да ли сте сигурни да желите да напустите апликацију?</string>
     <string name="FSN_dialog_text">Од Android 14, да би се аларм активирао када је екран искључен, неопходно је да је омогућена дозвола за обавештења пуног екрана</string>
     <string name="digital_widget_date_custom_color_title">Прилагођена боја датума</string>
@@ -603,7 +579,6 @@
     <string name="screensaver_next_alarm_color_title">Боја следећег аларма</string>
     <string name="transparent_background_for_expired_timer_title">Транспарентна позадина када тајмери истекну</string>
     <string name="screensaver_date_color_title">Боја датума</string>
-    <string name="bedtime_channel">Време за спавање</string>
     <string name="alarm_missed_channel">Пропуштени аларми</string>
     <string name="settings_fade_transitions_title">Омогућити прелазе са бледењем када се мењају екрани</string>
     <string name="digital_widget_clock_custom_color_title">Прилагођена боја главног сата</string>
@@ -621,7 +596,7 @@
     <string name="next_alarm_widget_default_title_color">Употребити подразумевану боју за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
     <string name="ignore_battery_optimizations_dialog_text">По подразумеваном, Android систем конфигурише све кориснички инсталиране апликације да буду оптимизоване за уштеду батерије. \n\nДок је ово прихватљиво за многе апликације, ова апликација је аларм апликација и често узрокује проблеме ако је конфигурисана за оптимизацију батерије. Када је омогућена, Android систем може убити апликацију у било ком тренутку и/или отказати аларме које је заказала, што би негативно утицало на рад апликације. \n\nПрепоручујемо да ставите ову апликацију на белу листу од оптимизација батерије.</string>
     <string name="alarm_notification_reminder_title">Подсетник обавештења</string>
-    <string name="enable_delete_occasional_alarm_by_default_setting_summary">Ово подешавање може бити промењено за сваки аларм у проширеном приказу аларма</string>
+    <string name="alarm_settings_general_summary">Ово подешавање може бити промењено за сваки аларм у проширеном приказу аларма</string>
     <string name="widgets_settings_summary">Поставити стил, боје и величину фонта виџета</string>
     <string name="first_launch_main_feature_message">► Светла, тамна или системска тема; &lt;br&gt; &lt;br&gt; ► Прилагодљив чувар екрана; &lt;br&gt; &lt;br&gt; ► Прилагодљиви виџети; &lt;br&gt; &lt;br&gt; ► Материјални дизајн и динамичне боје; &lt;br&gt; &lt;br&gt; ► Дуплирај аларм; &lt;br&gt; &lt;br&gt; ► Акција окретања трешења да одбаците/одложите аларм; &lt;br&gt; &lt;br&gt; ► Искључите/одложите аларм са дугметом за укључивање или дугметима за јачину звука; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Да бисте осигурали да апликација ради исправно, &lt;b&gt;нека од ваших подешавања уређаја морају бити промењена:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЈА БАТЕРИЈЕ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОБАВЕШТЕЊА;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;У зависности од Android верзије вашег уређаја, нека од ових подешавања су већ оптимизована (нпр. обавештења).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Можете их променити одмах или касније у подешавањима за управљање дозволама:</string>

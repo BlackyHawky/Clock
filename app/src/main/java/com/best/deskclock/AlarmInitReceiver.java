@@ -6,6 +6,8 @@
 
 package com.best.deskclock;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -17,6 +19,7 @@ import com.best.deskclock.alarms.AlarmNotifications;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.controller.Controller;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
@@ -65,7 +68,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         wl.acquire(10000L);
 
         // We need to increment the global id out of the async task to prevent race conditions
-        DataModel.getDataModel().updateGlobalIntentId();
+        SettingsDAO.updateGlobalIntentId(getDefaultSharedPreferences(context));
 
         // Updates stopwatch and timer data after a device reboot so they are as accurate as
         // possible.

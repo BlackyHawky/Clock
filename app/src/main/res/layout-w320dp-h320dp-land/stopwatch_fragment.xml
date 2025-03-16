@@ -6,7 +6,6 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
@@ -21,8 +20,7 @@
             android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="80dp">
+            android:layout_gravity="center">
 
             <include layout="@layout/stopwatch_time" />
 
@@ -30,17 +28,17 @@
             <com.best.deskclock.stopwatch.StopwatchCircleView
                 android:id="@+id/stopwatch_circle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="InconsistentLayout" />
+                android:layout_height="match_parent" />
 
         </com.best.deskclock.stopwatch.StopwatchCircleFrameLayout>
 
+        <!-- Due to the ViewPager and the location of FAB, paddings are set
+             in the StopwatchFragment.java file and in the LapsAdapter.java file. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/laps_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="80dp" />
+            android:clipToPadding="false" />
 
     </com.best.deskclock.stopwatch.StopwatchLandscapeLayout>
 

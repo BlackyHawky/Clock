@@ -6,23 +6,54 @@
 
 package com.best.alarmclock.standardwidgets;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_WITH_SECOND_HAND;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
 import com.best.alarmclock.WidgetUtils;
 import com.best.deskclock.DeskClock;
 import com.best.deskclock.R;
-import com.best.deskclock.data.DataModel;
 
 /**
- * Simple widget to show an analog clock.
+ * Simple widget to show an analog clock (with or without the second hand for Android12+).
  */
 public class AnalogAppWidgetProvider extends AppWidgetProvider {
+
+    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        final boolean isSecondHandDisplayed =
+                prefs.getBoolean(KEY_ANALOG_WIDGET_WITH_SECOND_HAND, DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND);
+        final RemoteViews views = isSecondHandDisplayed
+                ? relayoutWidget(context, wm, widgetId, true)
+                : relayoutWidget(context, wm, widgetId, false);
+
+        wm.updateAppWidget(widgetId, views);
+    }
+
+    private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId, boolean isSecondHandDisplayed) {
+        final String packageName = context.getPackageName();
+        final RemoteViews widget = new RemoteViews(packageName, isSecondHandDisplayed
+                ? R.layout.standard_analog_appwidget_with_second_hand
+                : R.layout.standard_analog_appwidget_without_second_hand);
+
+        // Tapping on the widget opens the app (if not on the lock screen).
+        if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
+            final Intent openApp = new Intent(context, DeskClock.class);
+            final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
+            widget.setOnClickPendingIntent(R.id.analogAppwidget, pi);
+        }
+
+        return widget;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,8 +68,7 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
         final ComponentName provider = new ComponentName(context, getClass());
         final int widgetCount = wm.getAppWidgetIds(provider).length;
 
-        final DataModel dm = DataModel.getDataModel();
-        dm.updateWidgetCount(getClass(), widgetCount, R.string.category_analog_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetCount, R.string.category_analog_widget);
     }
 
     /**
@@ -49,17 +79,16 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, wm, widgetIds);
 
         for (int widgetId : widgetIds) {
-            final String packageName = context.getPackageName();
-            final RemoteViews widget = new RemoteViews(packageName, R.layout.analog_appwidget);
-
-            // Tapping on the widget opens the app (if not on the lock screen).
-            if (WidgetUtils.isWidgetClickable(wm, widgetId)) {
-                final Intent openApp = new Intent(context, DeskClock.class);
-                final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, PendingIntent.FLAG_IMMUTABLE);
-                widget.setOnClickPendingIntent(R.id.analogAppwidget, pi);
-            }
-
-            wm.updateAppWidget(widgetId, widget);
+            updateAppWidget(context, wm, widgetId);
         }
     }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+
+        SharedPreferences prefs = getDefaultSharedPreferences(context);
+        prefs.edit().remove(KEY_ANALOG_WIDGET_WITH_SECOND_HAND).apply();
+    }
+
 }

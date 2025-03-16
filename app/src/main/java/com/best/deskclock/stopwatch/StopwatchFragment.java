@@ -11,17 +11,20 @@ import static android.R.attr.state_pressed;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_LAP;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_RESET;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_SHARE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_ACTION_START_PAUSE;
-import static com.best.deskclock.settings.StopwatchSettingsActivity.KEY_SW_DEFAULT_ACTION;
+
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SW_ACTION;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_LAP;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_RESET;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_SHARE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.SW_ACTION_START_PAUSE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -44,6 +47,7 @@ import com.best.deskclock.DeskClockFragment;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Lap;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
@@ -52,6 +56,7 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.uidata.UiDataModel.Tab;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
 
@@ -140,8 +145,9 @@ public final class StopwatchFragment extends DeskClockFragment {
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
     private String mVolumeDownActionAfterLongPress;
-    private boolean isVolumeUpLongPressed;
-    private boolean isVolumeDownLongPressed;
+    private boolean mIsVolumeUpLongPressed;
+    private boolean mIsVolumeDownLongPressed;
+    private boolean mIsLandscape;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -149,6 +155,9 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsLayoutManager = new LinearLayoutManager(getContext());
 
         mContext = requireContext();
+        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mIsLandscape = ThemeUtils.isLandscape();
+        final boolean isTablet = ThemeUtils.isTablet();
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -158,7 +167,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
-        if (Utils.isLandscape(mContext)) {
+        if (mIsLandscape) {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
@@ -172,6 +181,13 @@ public final class StopwatchFragment extends DeskClockFragment {
         mHundredthsTimeText = v.findViewById(R.id.stopwatch_hundredths_text);
         mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
         mStopwatchWrapper = v.findViewById(R.id.stopwatch_time_wrapper);
+        // Set a bottom padding for tablets in landscape mode to center correctly the stopwatch
+        // between the FAB and the top of the screen.
+        // A bottom padding is also set for the laps list to prevent it from being hidden by the FAB.
+        if (isTablet && mIsLandscape) {
+            mLapsList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(110, mContext));
+            mStopwatchWrapper.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(80, mContext));
+        }
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
@@ -188,10 +204,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
 
-        mVolumeUpAction = DataModel.getDataModel().getVolumeUpActionForStopwatch();
-        mVolumeUpActionAfterLongPress = DataModel.getDataModel().getVolumeUpActionAfterLongPressForStopwatch();
-        mVolumeDownAction = DataModel.getDataModel().getVolumeDownActionForStopwatch();
-        mVolumeDownActionAfterLongPress = DataModel.getDataModel().getVolumeDownActionAfterLongPressForStopwatch();
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(prefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(prefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
 
         return v;
     }
@@ -201,19 +217,19 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_UP:
-                    if (mVolumeUpAction.equals(KEY_SW_DEFAULT_ACTION)
-                            && mVolumeUpActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                    if (mVolumeUpAction.equals(DEFAULT_SW_ACTION)
+                            && mVolumeUpActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
-                    isVolumeUpLongPressed = event.getRepeatCount() >= 2;
+                    mIsVolumeUpLongPressed = event.getRepeatCount() >= 2;
                     return true;
 
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    if (mVolumeDownAction.equals(KEY_SW_DEFAULT_ACTION)
-                            && mVolumeDownActionAfterLongPress.equals(KEY_SW_DEFAULT_ACTION)) {
+                    if (mVolumeDownAction.equals(DEFAULT_SW_ACTION)
+                            && mVolumeDownActionAfterLongPress.equals(DEFAULT_SW_ACTION)) {
                         return false;
                     }
-                    isVolumeDownLongPressed = event.getRepeatCount() >= 2;
+                    mIsVolumeDownLongPressed = event.getRepeatCount() >= 2;
                     return true;
             }
         }
@@ -225,14 +241,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-                if (isVolumeUpLongPressed) {
+                if (mIsVolumeUpLongPressed) {
                     getVolumeUpActionAfterLongPress();
                 } else {
                     getVolumeUpAction();
                 }
                 return true;
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-                if (isVolumeDownLongPressed) {
+                if (mIsVolumeDownLongPressed) {
                     getVolumeDownActionAfterLongPress();
                 } else {
                     getVolumeDownAction();
@@ -468,10 +484,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
 
-        if (Utils.isPortrait(mContext)) {
+        if (!mIsLandscape) {
             // When the lap list is visible, it includes the bottom padding. When it is absent the
             // appropriate bottom padding must be applied to the container.
-            final int bottom = lapsVisible ? 0 : Utils.toPixel(80, mContext);
+            final int bottom = ThemeUtils.convertDpToPixels(lapsVisible ? 0 : 80, mContext);
             final int top = sceneRoot.getPaddingTop();
             final int left = sceneRoot.getPaddingLeft();
             final int right = sceneRoot.getPaddingRight();
@@ -603,24 +619,24 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private void getVolumeButtonsActions(String volumeAction) {
         switch (volumeAction) {
-            case KEY_SW_ACTION_START_PAUSE -> {
+            case SW_ACTION_START_PAUSE -> {
                 if (getStopwatch().isReset() || getStopwatch().isPaused()) {
                     doStart();
                 } else {
                     doPause();
                 }
             }
-            case KEY_SW_ACTION_RESET -> {
+            case SW_ACTION_RESET -> {
                 if (getStopwatch().isRunning() || getStopwatch().isPaused()) {
                     doReset();
                 }
             }
-            case KEY_SW_ACTION_LAP -> {
+            case SW_ACTION_LAP -> {
                 if (getStopwatch().isRunning()) {
                     doAddLap();
                 }
             }
-            case KEY_SW_ACTION_SHARE -> {
+            case SW_ACTION_SHARE -> {
                 if (getStopwatch().isRunning()) {
                     doPause();
                     doShare();

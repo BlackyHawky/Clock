@@ -18,7 +18,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
-import androidx.recyclerview.widget.RecyclerView.State;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
@@ -148,50 +147,24 @@ public class ItemAnimator extends SimpleItemAnimator {
     }
 
     @Override
-    public boolean animateChange(@NonNull final ViewHolder oldHolder,
-                                 @NonNull final ViewHolder newHolder, @NonNull ItemHolderInfo preInfo,
-                                 @NonNull ItemHolderInfo postInfo) {
+    public boolean animateChange(@NonNull final ViewHolder oldHolder, @NonNull final ViewHolder newHolder,
+                                 @NonNull ItemHolderInfo preInfo, @NonNull ItemHolderInfo postInfo) {
+
         endAnimation(oldHolder);
         endAnimation(newHolder);
 
-        final long changeDuration = getChangeDuration();
-        List<Object> payloads = preInfo instanceof PayloadItemHolderInfo
-                ? ((PayloadItemHolderInfo) preInfo).getPayloads() : null;
-
         if (oldHolder == newHolder) {
-            final Animator animator = ((OnAnimateChangeListener) newHolder)
-                    .onAnimateChange(payloads, preInfo.left, preInfo.top, preInfo.right,
-                            preInfo.bottom, changeDuration);
-            if (animator == null) {
-                dispatchChangeFinished(newHolder, false);
-                return false;
-            }
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animator) {
-                    dispatchChangeStarting(newHolder, false);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animator) {
-                    animator.removeAllListeners();
-                    mAnimators.remove(newHolder);
-                    dispatchChangeFinished(newHolder, false);
-                }
-            });
-            mChangeAnimatorsList.add(animator);
-            mAnimators.put(newHolder, animator);
-            return true;
-        } else if (!(oldHolder instanceof OnAnimateChangeListener) ||
-                !(newHolder instanceof OnAnimateChangeListener)) {
+            dispatchChangeFinished(newHolder, false);
+            return false;
+        } else if (!(oldHolder instanceof OnAnimateChangeListener) || !(newHolder instanceof OnAnimateChangeListener)) {
             // Both holders must implement OnAnimateChangeListener in order to animate.
             dispatchChangeFinished(oldHolder, true);
             dispatchChangeFinished(newHolder, true);
             return false;
         }
 
-        final Animator oldChangeAnimator = ((OnAnimateChangeListener) oldHolder)
-                .onAnimateChange(oldHolder, newHolder, changeDuration);
+        final long changeDuration = getChangeDuration();
+        final Animator oldChangeAnimator = ((OnAnimateChangeListener) oldHolder).onAnimateChange(oldHolder, newHolder, changeDuration);
         if (oldChangeAnimator != null) {
             oldChangeAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -212,8 +185,7 @@ public class ItemAnimator extends SimpleItemAnimator {
             dispatchChangeFinished(oldHolder, true);
         }
 
-        final Animator newChangeAnimator = ((OnAnimateChangeListener) newHolder)
-                .onAnimateChange(oldHolder, newHolder, changeDuration);
+        final Animator newChangeAnimator = ((OnAnimateChangeListener) newHolder).onAnimateChange(oldHolder, newHolder, changeDuration);
         if (newChangeAnimator != null) {
             newChangeAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -238,9 +210,8 @@ public class ItemAnimator extends SimpleItemAnimator {
     }
 
     @Override
-    public boolean animateChange(ViewHolder oldHolder,
-                                 ViewHolder newHolder, int fromLeft, int fromTop, int toLeft, int toTop) {
-        /* Unused */
+    public boolean animateChange(ViewHolder oldHolder, ViewHolder newHolder, int fromLeft, int fromTop, int toLeft, int toTop) {
+        // Unused
         throw new IllegalStateException("This method should not be used");
     }
 
@@ -319,27 +290,7 @@ public class ItemAnimator extends SimpleItemAnimator {
     }
 
     @Override
-    public @NonNull
-    ItemHolderInfo recordPreLayoutInformation(@NonNull State state,
-                                              @NonNull ViewHolder viewHolder, @AdapterChanges int changeFlags,
-                                              @NonNull List<Object> payloads) {
-        final ItemHolderInfo itemHolderInfo = super.recordPreLayoutInformation(state, viewHolder,
-                changeFlags, payloads);
-        if (itemHolderInfo instanceof PayloadItemHolderInfo) {
-            ((PayloadItemHolderInfo) itemHolderInfo).setPayloads(payloads);
-        }
-        return itemHolderInfo;
-    }
-
-    @NonNull
-    @Override
-    public ItemHolderInfo obtainHolderInfo() {
-        return new PayloadItemHolderInfo();
-    }
-
-    @Override
-    public boolean canReuseUpdatedViewHolder(@NonNull ViewHolder viewHolder,
-                                             @NonNull List<Object> payloads) {
+    public boolean canReuseUpdatedViewHolder(@NonNull ViewHolder viewHolder, @NonNull List<Object> payloads) {
         final boolean defaultReusePolicy = super.canReuseUpdatedViewHolder(viewHolder, payloads);
         // Whenever we have a payload, this is an in-place animation.
         return !payloads.isEmpty() || defaultReusePolicy;
@@ -347,21 +298,5 @@ public class ItemAnimator extends SimpleItemAnimator {
 
     public interface OnAnimateChangeListener {
         Animator onAnimateChange(ViewHolder oldHolder, ViewHolder newHolder, long duration);
-
-        Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
-                                 int fromBottom, long duration);
-    }
-
-    private static final class PayloadItemHolderInfo extends ItemHolderInfo {
-        private final List<Object> mPayloads = new ArrayList<>();
-
-        List<Object> getPayloads() {
-            return mPayloads;
-        }
-
-        void setPayloads(List<Object> payloads) {
-            mPayloads.clear();
-            mPayloads.addAll(payloads);
-        }
     }
 }
