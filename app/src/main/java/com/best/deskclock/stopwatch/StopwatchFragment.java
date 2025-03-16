@@ -151,13 +151,12 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
-        mLapsAdapter = new LapsAdapter(getContext());
-        mLapsLayoutManager = new LinearLayoutManager(getContext());
-
         mContext = requireContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
         mIsLandscape = ThemeUtils.isLandscape();
         final boolean isTablet = ThemeUtils.isTablet();
+        mLapsAdapter = new LapsAdapter(mContext);
+        mLapsLayoutManager = new LinearLayoutManager(mContext);
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = v.findViewById(R.id.stopwatch_circle);
@@ -316,14 +315,16 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     private void updateFab(@NonNull ImageView fab) {
-        if (getStopwatch().isRunning()) {
-            fab.setImageResource(R.drawable.ic_fab_pause);
-            fab.setContentDescription(fab.getResources().getString(R.string.sw_pause_button));
-        } else {
-            fab.setImageResource(R.drawable.ic_fab_play);
-            fab.setContentDescription(fab.getResources().getString(R.string.sw_start_button));
+        if (mContext != null) {
+            if (getStopwatch().isRunning()) {
+                fab.setImageResource(R.drawable.ic_fab_pause);
+                fab.setContentDescription(mContext.getString(R.string.sw_pause_button));
+            } else {
+                fab.setImageResource(R.drawable.ic_fab_play);
+                fab.setContentDescription(mContext.getString(R.string.sw_start_button));
+            }
+            fab.setVisibility(VISIBLE);
         }
-        fab.setVisibility(VISIBLE);
     }
 
     @Override
@@ -341,33 +342,35 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onUpdateFabButtons(@NonNull ImageView left, @NonNull ImageView right) {
-        left.setClickable(true);
-        left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_reset));
-        left.setContentDescription(mContext.getString(R.string.sw_reset_button));
-        left.setOnClickListener(v -> doReset());
+        if (mContext != null) {
+            left.setClickable(true);
+            left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_reset));
+            left.setContentDescription(mContext.getString(R.string.sw_reset_button));
+            left.setOnClickListener(v -> doReset());
 
-        switch (getStopwatch().getState()) {
-            case RESET -> {
-                left.setVisibility(INVISIBLE);
-                right.setClickable(true);
-                right.setVisibility(INVISIBLE);
-            }
-            case RUNNING -> {
-                left.setVisibility(VISIBLE);
-                final boolean canRecordLaps = canRecordMoreLaps();
-                right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_tab_stopwatch_static));
-                right.setContentDescription(mContext.getString(R.string.sw_lap_button));
-                right.setClickable(canRecordLaps);
-                right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
-                right.setOnClickListener(v -> doAddLap());
-            }
-            case PAUSED -> {
-                left.setVisibility(VISIBLE);
-                right.setClickable(true);
-                right.setVisibility(VISIBLE);
-                right.setImageDrawable(AppCompatResources.getDrawable(right.getContext(), R.drawable.ic_share));
-                right.setContentDescription(mContext.getString(R.string.sw_share_button));
-                right.setOnClickListener(v -> doShare());
+            switch (getStopwatch().getState()) {
+                case RESET -> {
+                    left.setVisibility(INVISIBLE);
+                    right.setClickable(true);
+                    right.setVisibility(INVISIBLE);
+                }
+                case RUNNING -> {
+                    left.setVisibility(VISIBLE);
+                    final boolean canRecordLaps = canRecordMoreLaps();
+                    right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_tab_stopwatch_static));
+                    right.setContentDescription(mContext.getString(R.string.sw_lap_button));
+                    right.setClickable(canRecordLaps);
+                    right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
+                    right.setOnClickListener(v -> doAddLap());
+                }
+                case PAUSED -> {
+                    left.setVisibility(VISIBLE);
+                    right.setClickable(true);
+                    right.setVisibility(VISIBLE);
+                    right.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_share));
+                    right.setContentDescription(mContext.getString(R.string.sw_share_button));
+                    right.setOnClickListener(v -> doShare());
+                }
             }
         }
     }

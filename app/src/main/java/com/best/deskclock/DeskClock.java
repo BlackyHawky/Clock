@@ -225,8 +225,6 @@ public class DeskClock extends AppCompatActivity
 
         mSnackbarAnchor = findViewById(R.id.content);
 
-        showTabFromNotifications();
-
         // Configure the buttons shared by the tabs.
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isPortrait = ThemeUtils.isPortrait();

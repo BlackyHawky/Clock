@@ -123,11 +123,11 @@ public final class TimerFragment extends DeskClockFragment {
         mIsLandscape = ThemeUtils.isLandscape();
 
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(getLayoutManager(view.getContext()));
+        mRecyclerView.setLayoutManager(getLayoutManager(mContext));
         // Due to the ViewPager and the location of FAB, set a bottom padding and/or a right padding
         // to prevent the reset button from being hidden by the FAB (e.g. when scrolling down).
-        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsLandscape ? 4 : 95, requireContext());
-        final int rightPadding = ThemeUtils.convertDpToPixels(!mIsTablet && mIsLandscape ? 85 : 0, requireContext());
+        final int bottomPadding = ThemeUtils.convertDpToPixels(mIsTablet ? 110 : mIsLandscape ? 4 : 95, mContext);
+        final int rightPadding = ThemeUtils.convertDpToPixels(!mIsTablet && mIsLandscape ? 85 : 0, mContext);
         mRecyclerView.setPadding(0, 0, rightPadding, bottomPadding);
         mRecyclerView.setClipToPadding(false);
 
@@ -217,21 +217,23 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private void updateFab(@NonNull ImageView fab) {
-        if (mCurrentView == mTimersView) {
-            fab.setImageResource(R.drawable.ic_add);
-            fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
-            fab.setVisibility(VISIBLE);
-            adjustWakeLock();
-        } else if (mCurrentView == mCreateTimerView) {
-            if (mCreateTimerView.hasValidInput()) {
-                fab.setImageResource(R.drawable.ic_fab_play);
-                fab.setContentDescription(mContext.getString(R.string.timer_start));
+        if (mContext != null) {
+            if (mCurrentView == mTimersView) {
+                fab.setImageResource(R.drawable.ic_add);
+                fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
                 fab.setVisibility(VISIBLE);
-            } else {
-                fab.setContentDescription(null);
-                fab.setVisibility(INVISIBLE);
+                adjustWakeLock();
+            } else if (mCurrentView == mCreateTimerView) {
+                if (mCreateTimerView.hasValidInput()) {
+                    fab.setImageResource(R.drawable.ic_fab_play);
+                    fab.setContentDescription(mContext.getString(R.string.timer_start));
+                    fab.setVisibility(VISIBLE);
+                } else {
+                    fab.setContentDescription(null);
+                    fab.setVisibility(INVISIBLE);
+                }
+                releaseWakeLock();
             }
-            releaseWakeLock();
         }
     }
 
@@ -258,7 +260,7 @@ public final class TimerFragment extends DeskClockFragment {
             right.setVisibility(INVISIBLE);
 
             left.setClickable(true);
-            left.setImageDrawable(AppCompatResources.getDrawable(left.getContext(), R.drawable.ic_cancel));
+            left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_cancel));
             left.setContentDescription(mContext.getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
@@ -546,7 +548,7 @@ public final class TimerFragment extends DeskClockFragment {
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
             if (mIsTablet) {
-                mRecyclerView.setLayoutManager(getLayoutManager(requireContext()));
+                mRecyclerView.setLayoutManager(getLayoutManager(mContext));
             }
 
             // Required to detach the ItemTouchHelper when there is only one timer left.
