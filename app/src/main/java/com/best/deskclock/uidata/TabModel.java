@@ -12,6 +12,8 @@ import static com.best.deskclock.uidata.UiDataModel.Tab;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.best.deskclock.data.SettingsDAO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -113,7 +115,10 @@ final class TabModel {
         final Tab oldSelectedTab = getSelectedTab();
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;
-            TabDAO.setSelectedTab(mPrefs, tab);
+            int tabIndex = SettingsDAO.getTabToDisplay(mPrefs);
+            if (tabIndex == -1) {
+                TabDAO.setSelectedTab(mPrefs, tab);
+            }
 
             // Notify of the tab change.
             for (TabListener tl : mTabListeners) {

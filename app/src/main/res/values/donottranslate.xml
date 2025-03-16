@@ -373,7 +373,7 @@
         <item>@string/sort_timer_name</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
- the sort_timer_entries above. -->
+         the sort_timer_entries above. -->
     <string-array name="sort_timer_values" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -397,7 +397,7 @@
         <item>@string/default_time_to_add_to_timer_1_hour</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
-     the timer_minutes_to_add_entries above. -->
+         the timer_minutes_to_add_entries above. -->
     <string-array name="default_time_to_add_to_timer_values" translatable="false">
         <item>1</item>
         <item>2</item>
@@ -427,7 +427,7 @@
         <item>@string/jocular_content_message_10</item>
     </string-array>
 
-    <!-- Entries listed in the ListPreference when invoking the notification reminder preference. -->
+    <!-- Entries listed in the ListPreference when invoking the stopwatch actions preference. -->
     <string-array name="stopwatch_actions_entries">
         <item>@string/button_action_nothing</item>
         <item>@string/sw_start_pause_action</item>
@@ -435,13 +435,31 @@
         <item>@string/sw_lap_button</item>
         <item>@string/sw_share_button</item>
     </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the alarm_notification_reminder_entries above. -->
+    <!-- Values that are retrieved from the ListPreference. These must match the stopwatch_actions_entries above. -->
     <string-array name="stopwatch_actions_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+    </string-array>
+
+    <!-- Entries listed in the ListPreference when selecting the default tab to display. -->
+    <string-array name="tab_entries">
+        <item>@string/last_tab_used_title</item>
+        <item>@string/menu_alarm</item>
+        <item>@string/menu_clock</item>
+        <item>@string/menu_timer</item>
+        <item>@string/menu_stopwatch</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the tab entries above
+         and respect the order of the bottom navigation menu. -->
+    <string-array name="tab_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <!-- Entries listed in the ListPreference when selecting the language. -->
@@ -461,7 +479,7 @@
         <item>@string/settings_language_dutch</item>
         <item>@string/settings_language_russian</item>
     </string-array>
-    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
         <item>system_language_code</item>
         <item>en_US</item>

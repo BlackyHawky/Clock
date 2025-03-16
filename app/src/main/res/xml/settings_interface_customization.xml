@@ -106,6 +106,16 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            android:key="key_tab_to_display"
+            android:layout="@layout/settings_preference_layout"
+            android:title="@string/settings_tab_to_display"
+            android:defaultValue="-1"
+            android:entries="@array/tab_entries"
+            android:entryValues="@array/tab_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
         <SwitchPreferenceCompat
             android:key="key_vibrations"
             android:layout="@layout/settings_preference_layout"

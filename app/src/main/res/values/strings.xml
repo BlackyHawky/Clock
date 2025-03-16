@@ -335,6 +335,10 @@
     <string name="settings_language_dutch">Dutch</string>
     <!-- Setting title for changing the language to Russian. -->
     <string name="settings_language_russian">Russian</string>
+    <!-- Setting title for changing the tab to display when opening the application. -->
+    <string name="settings_tab_to_display">Tab to display when opening the application</string>
+    <!-- Setting title to switch to last tab used -->
+    <string name="last_tab_used_title">Last tab used</string>
     <!-- Setting title to activate vibrations on some buttons. -->
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->

@@ -224,6 +224,12 @@ public final class SettingsDAO {
         return prefs.getString(KEY_CUSTOM_LANGUAGE_CODE, DEFAULT_SYSTEM_LANGUAGE_CODE);
     }
 
+    public static int getTabToDisplay(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        final String tabToDisplay = prefs.getString(KEY_TAB_TO_DISPLAY, DEFAULT_TAB_TO_DISPLAY);
+        return Integer.parseInt(tabToDisplay);
+    }
+
     /**
      * @return whether or not the vibrations are enabled for the buttons.
      */

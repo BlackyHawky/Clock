@@ -10,6 +10,8 @@ import static com.best.deskclock.uidata.UiDataModel.Tab;
 
 import android.content.SharedPreferences;
 
+import com.best.deskclock.data.SettingsDAO;
+
 /**
  * This class encapsulates the storage of tab data in {@link SharedPreferences}.
  */
@@ -27,8 +29,13 @@ final class TabDAO {
      * @return an enumerated value indicating the currently selected primary tab
      */
     static Tab getSelectedTab(SharedPreferences prefs) {
-        final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
-        return Tab.values()[ordinal];
+        int tabIndex = SettingsDAO.getTabToDisplay(prefs);
+        if (tabIndex == -1) {
+            final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
+            return Tab.values()[ordinal];
+        } else {
+            return Tab.values()[tabIndex];
+        }
     }
 
     /**

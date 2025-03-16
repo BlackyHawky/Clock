@@ -10,6 +10,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
@@ -48,6 +49,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     SwitchPreferenceCompat mCardBackgroundPref;
     SwitchPreferenceCompat mCardBorderPref;
     ListPreference mCustomLanguageCodePref;
+    ListPreference mTabToDisplayPref;
     SwitchPreferenceCompat mVibrationPref;
     SwitchPreferenceCompat mTabIndicatorPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
@@ -71,6 +73,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mCardBackgroundPref = findPreference(KEY_CARD_BACKGROUND);
         mCardBorderPref = findPreference(KEY_CARD_BORDER);
         mCustomLanguageCodePref = findPreference(KEY_CUSTOM_LANGUAGE_CODE);
+        mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
         mVibrationPref = findPreference(KEY_VIBRATIONS);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
@@ -150,6 +153,14 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 recreateActivity();
             }
 
+            case KEY_TAB_TO_DISPLAY -> {
+                final ListPreference listPreference = (ListPreference) pref;
+                final int index = listPreference.findIndexOfValue((String) newValue);
+                listPreference.setSummary(listPreference.getEntries()[index]);
+                // Set result so DeskClock knows to refresh itself
+                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
+            }
+
             case KEY_VIBRATIONS -> {
                 final TwoStatePreference vibrationsPref = (TwoStatePreference) pref;
                 vibrationsPref.setChecked(SettingsDAO.isVibrationsEnabled(mPrefs));
@@ -212,6 +223,9 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntry());
         mCustomLanguageCodePref.setOnPreferenceChangeListener(this);
+
+        mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntry());
+        mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
         mVibrationPref.setOnPreferenceChangeListener(this);
 

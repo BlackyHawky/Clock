@@ -196,6 +196,8 @@ public class BackupAndRestoreUtils {
                             KEY_ACCENT_COLOR, DEFAULT_ACCENT_COLOR));
                     strings.put(KEY_NIGHT_ACCENT_COLOR, prefs.getString(
                             KEY_NIGHT_ACCENT_COLOR, DEFAULT_NIGHT_ACCENT_COLOR));
+                    strings.put(KEY_TAB_TO_DISPLAY, prefs.getString(
+                            KEY_TAB_TO_DISPLAY, DEFAULT_TAB_TO_DISPLAY));
 
                     // ClockSettingsFragment
                     strings.put(KEY_CLOCK_STYLE, prefs.getString(
