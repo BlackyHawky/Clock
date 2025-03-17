@@ -634,6 +634,10 @@
     <string name="timer_label_box_title">Timer label</string>
     <!-- Title of dialog box to edit button for adding time to timer. -->
     <string name="timer_button_time_box_title">Minutes to add to the timer</string>
+    <!-- Text of dialog box to edit button for adding time to timer. -->
+    <string name="timer_button_time_warning_box_text">Enter a value between 1 and 120 minutes</string>
+    <!-- Title of dialog box to edit button for adding time to timer if the entered value is incorrect. -->
+    <string name="timer_button_time_warning_box_title">Incorrect value entered</string>
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
     <!-- Describes the purpose of the button to begin or continue running a timer -->
