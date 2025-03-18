@@ -156,23 +156,23 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         String savedOrder = sharedPreferences.getString("timerOrder", null);
 
         if (savedOrder != null) {
-            List<Timer> sortedTimers = new ArrayList<>();
             String[] timerIds = savedOrder.split(",");
 
-            // Fill the list according to the saved order
+            List<Timer> tempList = new ArrayList<>(mTimers);
+            mTimers.clear();
+
+            // Fill mTimers according to the saved order
             for (String id : timerIds) {
                 int timerId = Integer.parseInt(id);
-                for (Timer timer : mTimers) {
+                for (Timer timer : tempList) {
                     if (timer.getId() == timerId) {
-                        sortedTimers.add(timer);
+                        mTimers.add(timer);
                         break;
                     }
                 }
             }
 
-            // Update list and notify adapter
-            mTimers.clear();
-            mTimers.addAll(sortedTimers);
+            // Notify adapter
             notifyDataSetChanged();
         }
     }
