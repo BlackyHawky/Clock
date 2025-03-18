@@ -654,4 +654,9 @@
     <string name="clock_style_analog_material">Analoog (Material)</string>
     <string name="clock_style_spinner">Spinner</string>
     <string name="settings_language_dutch">Nederlands</string>
+    <string name="settings_language_russian">Russisch</string>
+    <string name="analog_widget_without_second_hand_title">Zonder de secondewijzer</string>
+    <string name="analog_widget_with_second_hand_title">Met de secondewijzer</string>
+    <string name="analog_widget_choice_title">Kies je stijl</string>
+    <string name="analog_widget_configuration_warning">Deze widget is alleen configureerbaar vanaf Android 12</string>
 </resources>

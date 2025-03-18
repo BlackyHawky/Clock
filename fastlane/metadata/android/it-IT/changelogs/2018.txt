@@ -1,0 +1,11 @@
+**Correzioni**
+- Correzione della visualizzazione della barra di stato nello screensaver (quando il dispositivo è in modalità scura e la modalità AMOLED è selezionata nelle impostazioni).
+- Correggere il refresh dei widget dopo la modifica delle impostazioni;
+- Correggere il cambio automatico della data per i widget digitali (ora la data verrà aggiornata ogni giorno a mezzanotte).
+
+**Miglioramenti**
+- Aggiunta della possibilità di mostrare o meno la lancetta dei secondi per i widget analogici (solo per Android 12+)
+- Mostra l'ombra quando si trascinano i timer
+- Aggiunta della lingua russa alle impostazioni della lingua dell'app
+- Migliorare e pulire il codice
+- Aggiornare le traduzioni

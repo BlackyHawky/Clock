@@ -1,0 +1,12 @@
+**Fixes**
+- Fix hours and minutes displayed in the alarm time picker
+- Fix a possible error when deleting a timer
+
+**Improvements**
+- Ability to choose which tab to display when opening the app
+- Improve the time displayed on the "Add 1 minute" button
+- Set a range for the custom number of minutes to add to the timer to avoid app crashing
+- Readjust the color of the Material analog widget dial
+- Improve window animations
+- Clean and improve code
+- Update translations

@@ -1,0 +1,13 @@
+Questo aggiornamento risolve un grave bug della versione 2.13 per cui la suoneria non si fermava.
+
+**Correzioni**
+- Correzione dell'arresto della suoneria
+- Correggere l'aggiornamento della visualizzazione/nascondere della prossima sveglia nella scheda dell'orologio per Android 14+.
+- Correggere l'aggiornamento della visualizzazione/nascondiglio della prossima sveglia nei widget digitali.
+
+**Miglioramenti**
+- Rimuovere i permessi della fotocamera non necessari
+- Le animazioni nelle impostazioni rispettano le impostazioni di accessibilità del dispositivo
+- Standardizzare le dimensioni degli orologi analogici
+- Aggiungere la lingua olandese alle impostazioni della lingua dell'app
+- Aggiornare le traduzioni

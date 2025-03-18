@@ -8,8 +8,8 @@ android {
         applicationId "com.best.deskclock"
         minSdk 23
         targetSdk 34
-        versionCode 2018
-        versionName '2.15'
+        versionCode 2019
+        versionName '2.16'
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }

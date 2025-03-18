@@ -52,13 +52,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"rimanente"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"rimanenti"</string>
     <string name="alarm_confirmation_toast_1">"La sveglia sarà attivata tra meno di 1 minuto."</string>
-    <string name="alarm_confirmation_toast_2">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_3">"La sveglia sarà attivata tra <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_4">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="HOURS">%2$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_5">"La sveglia sarà attivata tra <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_6">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_7">"La sveglia sarà attivata tra <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
-    <string name="alarm_confirmation_toast_8">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
+    <string name="alarm_confirmation_toast_2">Sveglia impostata fra <xliff:g example="2 giorni" id="DAYS">%1$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_3">Sveglia impostata fra <xliff:g example="2 ore" id="HOURS">%2$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_4">Sveglia impostata fra <xliff:g example="2 giorni" id="DAYS">%1$s</xliff:g> e <xliff:g example="2 ore" id="HOURS">%2$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_5">Sveglia imposta fra <xliff:g example="2 minuti" id="MINUTES">%3$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_6">La sveglia sarà attivata tra <xliff:g example="2 giorni" id="DAYS">%1$s</xliff:g> e <xliff:g example="2 minuti" id="MINUTES">%3$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_7">Sveglia impostata fra <xliff:g example="2 ore" id="HOURS">%2$s</xliff:g> e <xliff:g example="2 minuti" id="MINUTES">%3$s</xliff:g> da adesso.</string>
+    <string name="alarm_confirmation_toast_8">Sveglia impostata fra <xliff:g example="2 giorni" id="DAYS">%1$s</xliff:g>, <xliff:g example="2 ore" id="HOURS">%2$s</xliff:g>, e <xliff:g example="2 minuti" id="MINUTES">%3$s</xliff:g> da adesso.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="one">1 giorno</item>
         <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> di giorni</item>
@@ -448,7 +448,7 @@
     <string name="permission_requirement_title">Necessarie:</string>
     <string name="permission_management_summary">Mostra le autorizzazioni necessarie per il corretto funzionamento dell\'applicazione</string>
     <string name="permission_management_settings">Gestione autorizzazioni</string>
-    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.; \n\n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro e ora di andare a dormire <i>(sperimentale)</i> inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
+    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.;\n\t\t Sfortunatamente, questa cartteristica potrebbe non funzionare su alcuni dispositivi per via della presenza della app di sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i> . \n \n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
     <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
@@ -475,7 +475,7 @@
     <string name="FSN_permission_title">ABILITA NOTIFICHE A SCHERMO INTERO</string>
     <string name="FSN_dialog_title">Notifiche a Schermo Intero</string>
     <string name="notifications_dialog_text">Oltre all\'impostazione delle sveglie, questa applicazione dispone anche di un timer, di un cronometro. \n\nAffinché le notifiche vengano visualizzate correttamente per tutti i moduli e soprattutto per l\'attivazione della sveglia, si consiglia di attivare le notifiche per questa applicazione.</string>
-    <string name="FSN_dialog_text">Da Android 14, affinché la sveglia venga attivata quando lo schermo è spento, è necessario che l\'autorizzazione Notifiche a schermo intero sia abilitata</string>
+    <string name="FSN_dialog_text">Da Android 14, affinché la sveglia venga attivata quando lo schermo è spento, è necessario che l\'autorizzazione \"Notifiche a schermo intero\" sia abilitata.</string>
     <string name="screensaver_bold_digital_clock_title">Orologio digitale in grassetto</string>
     <string name="about_title">Info</string>
     <string name="first_launch_important_info_message">Per essere sicuri che l\'applicazione funzioni correttamente, &lt;b&gt;alcune impostazioni del tuo dispositivo devono essere cambiate:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OTTIMIZZAZIONE BATTERIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NOTIFICHE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;In base alla versione Android del tuo dispositivo, alcune di queste impostazioni sono già ottimizzate (es. notifiche).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Puoi modificarle adesso o più tardi nella gestione delle impostazioni delle autorizzazioni:</string>
@@ -653,4 +653,16 @@
     <string name="about_translate_link">Traduci su Codeberg</string>
     <string name="translate_dialog_message">Visita la pagina su Codeberg:\n\n%s</string>
     <string name="warning_dialog_message">Si è sicuri di voler rimuovere il timer \"%s\"?</string>
+    <string name="clock_style_spinner">Rotativo</string>
+    <string name="clock_style_analog_material">Analogico (Material)</string>
+    <string name="show_lockscreen_dialog_text">Sui dispositivi Xiaomi, è necessario abilitare manualmente l\'autorizzazione \"Mostra sulla schermata di blocco\" dalle impostazioni del dispositivo affinché l\'applicazione funzioni correttamente.</string>
+    <string name="settings_language_dutch">Olandese</string>
+    <string name="settings_language_russian">Russo</string>
+    <string name="analog_widget_without_second_hand_title">Senza lancetta dei secondi</string>
+    <string name="analog_widget_with_second_hand_title">Con lancetta dei secondi</string>
+    <string name="analog_widget_choice_title">Scegli il tuo stile</string>
+    <string name="analog_widget_configuration_warning">Questo widget è configurabile solo da Android 12</string>
+    <string name="permission_info_title">Solo per i dispositivi Xiaomi</string>
+    <string name="show_lockscreen_dialog_title">Mostra su schermata di blocco</string>
+    <string name="show_lockscreen_permission_title">MOSTRA SU SCHERMATA DI BLOCCO</string>
 </resources>

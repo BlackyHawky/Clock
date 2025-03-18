@@ -1,0 +1,12 @@
+**Correzioni**
+- Correzione dell'arresto anomalo quando l'impostazione "Visualizza titolo suoneria" è disattivata
+- Correzione dell'impostazione predefinita del colore della lancetta dei secondi per gli allarmi
+
+**Miglioramenti
+- Aggiunta dell'orologio analogico materiale agli stili di orologio
+- Miglioramento della rotazione della lancetta delle ore
+- Rendere disponibile lo screensaver per le app di terze parti
+- Pulire il codice
+- Aggiornamento delle traduzioni
+
+Per vedere tutti i miglioramenti, visitare: https://github.com/BlackyHawky/Clock/releases/tag/2.13

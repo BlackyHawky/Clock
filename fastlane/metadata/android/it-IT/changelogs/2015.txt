@@ -1,0 +1,8 @@
+**Fix**
+- Correzione dell'arresto anomalo quando si seleziona lo spinner nelle impostazioni dell'orologio o del salvaschermo.
+
+**Miglioramento**
+- Aggiornamento delle traduzioni
+
+Le altre caratteristiche della versione 2.12 sono state mantenute e possono essere consultate qui:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

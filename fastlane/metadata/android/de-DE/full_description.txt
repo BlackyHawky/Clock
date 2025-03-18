@@ -5,7 +5,7 @@ Merkmale:
 <ul>
   <li>Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms;</li>
   <li>Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten;</li>
-  <li>Nur bei einigen Snapdragon-Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
+  <li>Nur bei Snapdragon-Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind;</li>
     <ul>
       <li>Leider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>"com.qualcomm.qti.poweroffalarm"</i> vorhanden ist.</li>
     </ul>
@@ -19,11 +19,13 @@ Merkmale:
   <li>Digitaler oder analoger Uhrenstil;</li>
   <li>Anzeige der Heimatzeit auf Reisen;</li>
   <li>Anzeige der Uhrzeit von vielen Städten der Welt;</li>
-  <li>Timer, Stoppuhr und Bettzeit-Modus <i>(experimentell)</i> enthalten;</li>
+  <li>Timer und Stoppuhr enthalten;</li>
   <li>Möglichkeit, die Stoppuhr-Zeiten mit Adressbuch-Kontakten zu teilen;</li>
   <li>Anpassbarer Bildschirmschoner;</li>
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
+  <li>Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+) </li>
+  <li>Speichern und Wiederherstellen von Einstellungen</li>
   <li>Material You Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

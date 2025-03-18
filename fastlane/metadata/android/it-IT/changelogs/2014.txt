@@ -1,0 +1,14 @@
+**Correzioni**
+- Correzione della visualizzazione degli allarmi imminenti da altre app
+- Correzione dell'allarme attivato che non viene visualizzato quando il dispositivo è bloccato per i dispositivi MIUI
+
+**Miglioramenti
+- Rimuovere la modalità Bedtime
+- Supporto per le piastrelle nel pannello delle impostazioni rapide
+- Possibilità di attivare il flash posteriore quando viene attivato l'allarme
+- Possibilità di regolare l'intensità della scossa
+- Possibilità di cambiare la lingua dell'applicazione
+- Migliorare l'usabilità della modalità orizzontale per i telefoni
+
+Molte altre modifiche sono elencate nella pagina github:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

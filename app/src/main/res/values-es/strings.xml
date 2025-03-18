@@ -15,7 +15,7 @@
     <string name="add_new_sound" msgid="2546936797351540244">"Añadir nuevo"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Quitar"</string>
     <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Las alarmas y los temporizadores que usen este sonido reproducirán en su lugar la melodía predeterminada."</string>
-    <string name="your_sounds" msgid="1672779351352629681">"Tus sonidos"</string>
+    <string name="your_sounds" msgid="1672779351352629681">Sus sonidos</string>
     <string name="device_sounds" msgid="1584894148222639823">"Sonidos del dispositivo"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"No se ha podido acceder a este tono."</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizador agotado"</string>
@@ -23,7 +23,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
-    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g>-<xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="one">1 min</item>
@@ -337,9 +337,9 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesa acciones de notificaciones del temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesa acciones de notificaciones del cronómetro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Desliza hacia la derecha para descartar"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Desliza hacia la izquierda para posponer"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">Deslice hacia la derecha para descartar</string>
+    <string name="description_direction_left" msgid="7448141043674998679">Deslice hacia la izquierda para posponer</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Deslice el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizadores"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibración del temporizador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporizador pausado"</string>
@@ -386,17 +386,17 @@
     <string name="alarm_label_box_title">Etiqueta para la alarma</string>
     <string name="duplicate">Duplicar</string>
     <string name="selected">Seleccionado</string>
-    <string name="more_options">Mas opciones</string>
+    <string name="more_options">Más opciones</string>
     <string name="vertical_digital_widget">Reloj digital vertical</string>
-    <string name="standard_category_title">Estandar</string>
+    <string name="standard_category_title">Estándar</string>
     <string name="interface_customization_summary">Estilo y color aplicados a la aplicación</string>
     <string name="display_card_background_title">Mostrar fondo de tarjetas</string>
     <string name="display_card_background_summary">Muestra un fondo para algunos elementos de la aplicación (alarmas, ciudades, botón temporizador, etc.)</string>
     <string name="display_background_border_title">Mostrar bordes en el fondo</string>
     <string name="ringtone_category_title">Tono de llamada</string>
     <string name="actions_category_title">Acciones</string>
-    <string name="interface_customization_settings">Interfase</string>
-    <string name="settings_permission_message">Uno o mas permisos esenciales no han sido concedidos. No concederlos puede llevar a problemas de funcionamiento.</string>
+    <string name="interface_customization_settings">Interfaz</string>
+    <string name="settings_permission_message">No se han concedido uno o más permisos esenciales. No concederlos puede causar problemas de funcionamiento.</string>
     <string name="style_category_title">Estilo</string>
     <string name="styles_and_colors_category_title">Estilo y colores</string>
     <string name="font_category_title">Tipo de letra</string>
@@ -405,8 +405,8 @@
     <string name="title_accent_color">Color de resalte</string>
     <string name="title_dark_theme_mode">Tema oscuro</string>
     <string name="next_alarm_widget">Próxima alarma</string>
-    <string name="settings_permission_summary">Pulse aquí para mostrar la pagina de gestión de permisos.</string>
-    <string name="label_default">Por defecto</string>
+    <string name="settings_permission_summary">Pulse aquí para mostrar la página de gestión de permisos.</string>
+    <string name="label_default">Predeterminado</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Cancelar alarma cuando el tono termine</string>
     <string name="alarm_alert_dismiss_and_delete_text">Descartar y Borrar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarma apagada y borrada</string>
@@ -417,7 +417,7 @@
     <string name="alarm_notification_reminder_10_hours">10 horas antes</string>
     <string name="digital_widget_custom_minutes_color_title">Color personalizado de los minutos</string>
     <string name="digital_widget_date_default_color_title">Utilizar el color por defecto para la fecha</string>
-    <string name="digital_widget_message_summary">\"Mostrar ciudades en el widget\" debe estar desactivado para acceder a este ajuste</string>
+    <string name="digital_widget_message_summary">«Mostrar ciudades en el widget» debe desactivarse para acceder a esta configuración</string>
     <string name="digital_widget_clock_custom_color_title">Color personalizado del reloj principal</string>
     <string name="digital_widget_default_minutes_color_title">Utilizar el color por defecto para los minutos</string>
     <string name="backup_restore_restore_button_title">Restaurar</string>
@@ -438,7 +438,7 @@
     <string name="contributors">Colaboradores</string>
     <string name="whats_new_title">Qué hay de nuevo</string>
     <string name="about_github_link">Ver en GitHub</string>
-    <string name="features_title">Características principales</string>
+    <string name="features_title">Funcionalidades principales</string>
     <string name="alarm_notification_reminder_12_hours">12 horas antes</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Activar vibraciones al crear alarmas</string>
     <string name="settings_vibration_title">Activar vibraciones</string>
@@ -488,7 +488,7 @@
     <string name="widget_next_alarm_default_color_title">Utilizar el color por defecto para la alarma siguiente</string>
     <string name="widget_next_alarm_custom_color_title">Color personalizado para alarma siguiente</string>
     <string name="backup_restore_settings_title">Copia de seguridad y restauración</string>
-    <string name="widget_max_clock_font_size_summary">Tamaño máximo de fuente =</string>
+    <string name="widget_max_clock_font_size_summary">Tamaño máximo de letra =</string>
     <string name="backup_restore_settings_summary">Hacer copia de seguridad o restaurar ajustes, excepto alarmas, temporizadores y tonos de llamada</string>
     <string name="backup_restore_dialog_message">¿Quieres hacer una copia de seguridad o restaurar los ajustes desde un archivo?</string>
     <string name="backup_restore_toast_message_for_backup">Copia de seguridad completada</string>
@@ -507,7 +507,7 @@
     <string name="green_accent_color">Verde</string>
     <string name="orange_accent_color">Naranja</string>
     <string name="dark_theme">Oscuro</string>
-    <string name="blue_gray_accent_color">Azul Gris</string>
+    <string name="blue_gray_accent_color">Azul grisáceo</string>
     <string name="brown_accent_color">Marrón</string>
     <string name="indigo_accent_color">Añil</string>
     <string name="analog_widget_material_you">Reloj análogo Material You</string>
@@ -516,7 +516,7 @@
     <string name="next_alarm_widget_default_title_color">Utiliza el color predeterminado para los títulos «Próxima alarma» y «Sin próxima alarma»</string>
     <string name="next_alarm_widget_custom_alarm_title_color">Color personalizado del título de la alarma</string>
     <string name="next_alarm_widget_max_font_size_title">Tamaño máximo de la fuente del widget</string>
-    <string name="next_alarm_widget_default_alarm_title_color">Utilizar el color por defecto para el título de la alarma</string>
+    <string name="next_alarm_widget_default_alarm_title_color">Utilizar color predeterminado para el título de la alarma</string>
     <string name="first_launch_important_info_title">INFORMACIÓN IMPORTANTE</string>
     <string name="timer_volume_buttons_action_title">Reinicia los temporizadores caducados con los botones de volumen</string>
     <string name="timer_power_button_action_title">Reinicia los temporizadores caducados con el botón de encendido</string>
@@ -524,10 +524,10 @@
     <string name="screensaver_brightness_title">Brillo</string>
     <string name="sw_settings_summary">Establecer acciones para los botones de volumen</string>
     <string name="sw_volume_up_action_title">Subir volumen</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Haz clic a la izquierda para posponer la alarma o a la derecha para descartarla y borrarla</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Desliza el dedo a izquierda o derecha para descartar y borrar la alarma</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Haga clic a la izquierda o a la derecha para descartar</string>
-    <string name="timer_buttons_action_summary">Sólo funciona en la pantalla de bloqueo</string>
+    <string name="description_direction_both_clicked_for_occasional_alarm">Pulse a la izquierda para posponer la alarma o a la derecha para descartarla y eliminarla</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslice el dedo a izquierda o derecha para descartar y eliminar la alarma</string>
+    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Pulse a la izquierda o a la derecha para descartar</string>
+    <string name="timer_buttons_action_summary">Solo funciona en la pantalla de bloqueo</string>
     <string name="screensaver_italic_next_alarm_title">Próxima alarma en cursiva</string>
     <string name="screensaver_bold_next_alarm_title">Próxima alarma en negrita</string>
     <string name="screensaver_preview_summary">Inicia el salvapantallas inmediatamente</string>
@@ -537,7 +537,7 @@
     <string name="timer_settings_summary">Configurar el tono, el volumen y el temporizador por defecto</string>
     <string name="first_launch_main_feature_title">FUNCIONES PRINCIPALES</string>
     <string name="screensaver_italic_date_title">Fecha en cursiva</string>
-    <string name="purple_accent_color">Purpura</string>
+    <string name="purple_accent_color">Púrpura</string>
     <string name="sw_start_pause_action">Iniciar / Pausar</string>
     <string name="denied_permission_label">Permiso denegado</string>
     <string name="yellow_accent_color">Amarillo</string>
@@ -558,10 +558,10 @@
     <string name="firing_alarms_timers_channel">Alarmas y temporizadores</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Activar las vibraciones cuando la alarma se activa o desactiva</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Vibración doble cuando la alarma se activa y vibración única cuando se desactiva</string>
-    <string name="description_direction_both_clicked">Haz clic a la izquierda para posponer o a la derecha para cancelar</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Haga clic a la izquierda o a la derecha para descartar y borrar la alarma</string>
+    <string name="description_direction_both_clicked">Pulse a la izquierda para posponer o a la derecha para descartar</string>
+    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Pulse a la izquierda o a la derecha para descartar y eliminar la alarma</string>
     <string name="sort_timer_title">Ordenar temporizadores</string>
-    <string name="default_time_to_add_to_timer_title">Tiempo por defecto para añadir al temporizador</string>
+    <string name="default_time_to_add_to_timer_title">Tiempo predeterminado que sumar al temporizador</string>
     <string name="default_time_to_add_to_timer_6_minutes">6 minutos</string>
     <string name="first_launch_main_feature_link">… ¡y mucho más!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICACIONES A PANTALLA COMPLETA;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
@@ -578,7 +578,7 @@
     <string name="screensaver_clock_dynamic_colors_title">Colores dinámicos del reloj</string>
     <string name="occasional_alarm_alert_predismiss_title">Próxima alarma ocasional</string>
     <string name="sort_timer_ascending_duration">Por duración (orden ascendente)</string>
-    <string name="preview_title">Vista previa</string>
+    <string name="preview_title">Previsualización</string>
     <string name="permission_requirement_title">Requerido:</string>
     <string name="permission_granted">Concedido</string>
     <string name="permission_dialog_revoke_title">Revocar acceso</string>
@@ -587,8 +587,8 @@
     <string name="permission_management_settings">Gestión de permisos</string>
     <string name="permission_management_summary">Mostrar los permisos necesarios para que la aplicación funcione correctamente</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">Enciende el flash trasero cuando se activa la alarma</string>
-    <string name="swipe_action_title">Desliza el dedo para desactivar o posponer las alarmas</string>
-    <string name="revoke_permission_dialog_message">¿Está seguro de que desea revocar este permiso?</string>
+    <string name="swipe_action_title">Deslice el dedo para desactivar o posponer las alarmas</string>
+    <string name="revoke_permission_dialog_message">¿Confirma que quiere revocar este permiso?</string>
     <string name="ignore_battery_optimizations_title">IGNORAR LAS OPTIMIZACIONES DE LA BATERÍA</string>
     <string name="sort_timer_descending_duration">Por duración (orden descendente)</string>
     <string name="sort_timer_name">Por nombre</string>
@@ -604,11 +604,11 @@
     <string name="seconds_hand_color_title">Color del segundero</string>
     <string name="screensaver_bold_digital_clock_title">Reloj digital en negrita</string>
     <string name="display_warning_before_deleting_timer_title">Mostrar un aviso antes de borrar un temporizador</string>
-    <string name="warning_dialog_title">Borrar temporizador</string>
-    <string name="warning_dialog_message">¿Estás seguro de que quieres borrar el temporizador «%s»?</string>
+    <string name="warning_dialog_title">Eliminar temporizador</string>
+    <string name="warning_dialog_message">¿Confirma que quiere eliminar el temporizador «%s»?</string>
     <string name="sort_timer_manually">Manualmente (arrastrando)</string>
     <string name="alarm_flash">Flash</string>
-    <string name="description_direction_both_for_non_repeatable_alarm">Desliza el dedo a izquierda o derecha para descartar</string>
+    <string name="description_direction_both_for_non_repeatable_alarm">Deslice el dedo a izquierda o derecha para descartar</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minutos</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minutos</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 minutos</string>
@@ -620,11 +620,11 @@
     <string name="timer_button_time_box_title">Minutos a añadir al temporizador</string>
     <string name="about_translate_link">Traducir en Codeberg</string>
     <string name="translate_dialog_message">Visitar la página de Codeberg:\n\n%s</string>
-    <string name="description_direction_right_for_occasional_alarm">Desliza el dedo hacia la derecha para descartar y borrar la alarma</string>
+    <string name="description_direction_right_for_occasional_alarm">Deslice el dedo hacia la derecha para descartar y eliminar la alarma</string>
     <string name="screensaver_next_alarm_color_title">Color de la siguiente alarma</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Deslizar a la izquierda para descartar</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Desliza el dedo hacia la izquierda para descartar y borrar la alarma</string>
-    <string name="description_direction_both_for_occasional_alarm">Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para descartarla y borrarla</string>
+    <string name="description_direction_left_for_non_repeatable_alarm">Deslice a la izquierda para descartar</string>
+    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Deslice el dedo hacia la izquierda para descartar y eliminar la alarma</string>
+    <string name="description_direction_both_for_occasional_alarm">Deslice el dedo hacia la izquierda para posponer la alarma o hacia la derecha para descartarla y eliminarla</string>
     <string name="default_time_to_add_to_timer_5_minutes">5 minutos</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minutos</string>
     <string name="default_time_to_add_to_timer_1_hour">1 hora</string>
@@ -636,4 +636,28 @@
     <string name="alarm_settings_summary">Configura el tono predeterminado, el volumen, las acciones para descartar o posponer las alarmas, el primer día de la semana y la hora de notificación del recordatorio</string>
     <string name="occasional_alarm_deleted">Alarma ocasional borrada</string>
     <string name="permission_denied">Denegado</string>
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_system">Idioma del sistema</string>
+    <string name="settings_language_french">Francés</string>
+    <string name="settings_language_estonian">Estonio</string>
+    <string name="settings_language_italian">Italiano</string>
+    <string name="settings_language_polish">Polaco</string>
+    <string name="settings_language_portuguese">Portugués</string>
+    <string name="settings_language_serbian">Serbio</string>
+    <string name="settings_language_dutch">Neerlandés</string>
+    <string name="clock_style_analog_material">Análogo (Material)</string>
+    <string name="settings_language_german">Alemán</string>
+    <string name="settings_language_english_us">Inglés (EE. UU.)</string>
+    <string name="settings_language_russian">Ruso</string>
+    <string name="analog_widget_without_second_hand_title">Sin la segunda manecilla</string>
+    <string name="analog_widget_with_second_hand_title">Con la segunda manecilla</string>
+    <string name="analog_widget_choice_title">Elija su estilo</string>
+    <string name="analog_widget_configuration_warning">Este «widget» solo puede configurarse a partir de Android 12</string>
+    <string name="permission_info_title">Solo para dispositivos Xiaomi</string>
+    <string name="show_lockscreen_permission_title">MOSTRAR EN PANTALLA DE BLOQUEO</string>
+    <string name="show_lockscreen_dialog_title">Mostrar en pantalla de bloqueo</string>
+    <string name="show_lockscreen_dialog_text">En dispositivos Xiaomi, para que funcione adecuadamente la aplicación debe activar manualmente el permiso «Mostrar en pantalla de bloqueo» en la Configuración del dispositivo.</string>
+    <string name="settings_language_chinese_simplified_cn">Chino (simplificado, RPC)</string>
+    <string name="settings_language_spanish">Español</string>
+    <string name="settings_language_ukrainian">Ucraniano</string>
 </resources>
