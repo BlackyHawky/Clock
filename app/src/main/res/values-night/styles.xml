@@ -79,20 +79,6 @@
     <!--    THEMES    -->
     <!-- ============ -->
 
-    <!-- DEFAULT ACCENT COLOR -->
-    <style name="DefaultColor">
-        <item name="android:colorBackground">@color/md_theme_background</item>
-        <item name="colorBackgroundFloating">@color/md_theme_surface</item>
-        <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
-        <item name="colorAccent">@color/md_theme_primary</item>
-        <item name="colorPrimary">@color/md_theme_primary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
-        <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
-        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
-        <item name="colorSurface">@color/md_theme_surface</item>
-    </style>
-
     <!-- AMOLED THEME -->
     <style name="AmoledTheme">
         <item name="android:colorBackground">@android:color/black</item>

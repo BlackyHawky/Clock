@@ -148,6 +148,7 @@ public class Utils {
      * @param customLanguageCode The custom language code (e.g., "en", "fr")
      *                           or a special keyword for the system language.
      */
+    @SuppressLint("AppBundleLocaleChanges")
     public static void applySpecificLocale(Context context, String customLanguageCode) {
         Locale locale;
 

@@ -101,7 +101,7 @@ public final class Controller {
 
     public void updateShortcuts() {
         enforceMainLooper();
-        if (mShortcutController != null) {
+        if (mShortcutController != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             mShortcutController.updateShortcuts();
         }
     }

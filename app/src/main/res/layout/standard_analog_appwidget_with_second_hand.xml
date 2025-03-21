@@ -10,7 +10,7 @@
 <AnalogClock
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/analogAppwidget"
+    android:id="@+id/analogAppwidgetWithSecondHand"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:dial="@drawable/standard_analog_appwidget_clock_dial"

@@ -141,8 +141,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Adding a Handler ensures better fluidity when activating/deactivating the alarm
         new Handler(context.getMainLooper()).postDelayed(() -> {
-            context.sendBroadcast(new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK));
-            context.sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+            Intent nextAlarmChangedIntent = new Intent(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
+            nextAlarmChangedIntent.setPackage(context.getPackageName());
+            context.sendBroadcast(nextAlarmChangedIntent);
+
+            Intent appwidgetUpdateIntent = new Intent(ACTION_APPWIDGET_UPDATE);
+            appwidgetUpdateIntent.setPackage(context.getPackageName());
+            context.sendBroadcast(appwidgetUpdateIntent);
         }, 300);
     }
 

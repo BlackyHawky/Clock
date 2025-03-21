@@ -6,12 +6,12 @@
 
 package com.best.deskclock.events;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.util.ArraySet;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.R;
@@ -19,7 +19,7 @@ import com.best.deskclock.uidata.UiDataModel;
 
 import java.util.Set;
 
-@TargetApi(Build.VERSION_CODES.N_MR1)
+@RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class ShortcutEventTracker implements EventTracker {
 
     private final ShortcutManager mShortcutManager;

@@ -6,7 +6,6 @@
 
 package com.best.deskclock.controller;
 
-import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.os.Build;
 import android.os.UserManager;
 import android.provider.AlarmClock;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.DeskClock;
@@ -36,7 +36,7 @@ import com.best.deskclock.utils.LogUtils;
 import java.util.Arrays;
 import java.util.Collections;
 
-@TargetApi(Build.VERSION_CODES.N_MR1)
+@RequiresApi(Build.VERSION_CODES.N_MR1)
 class ShortcutController {
 
     private final Context mContext;
