@@ -98,6 +98,18 @@
     <color name="blackColorGray2">#EEEEEE</color>
     <color name="blackColorGray3">#BDBDBD</color>
 
+    <!-- BLUE COLORS -->
+    <color name="blueColorAccent">#1E88E5</color>
+    <color name="blueColorPrimary">#1E88E5</color>
+    <color name="bluePrimaryInverse">#90CAF9</color>
+    <color name="bluePrimaryContainer">#BBDEFB</color>
+    <color name="blueOnPrimary">#FFFFFF</color>
+    <color name="blueSecondaryContainer">#BCDFFB</color>
+    <color name="blueColorSurface">#E3F2FD</color>
+    <color name="blueColorBackground">#FCFCFF</color>
+    <color name="blueColorSecondary">#5B606C</color>
+    <color name="blueColorTertiary">#3C74A9</color>
+
     <!-- BLUE GRAY COLORS -->
     <color name="blueGrayColorAccent">#546E7A</color>
     <color name="blueGrayColorPrimary">#546E7A</color>

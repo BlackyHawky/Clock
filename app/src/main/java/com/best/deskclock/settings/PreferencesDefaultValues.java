@@ -32,6 +32,7 @@ public class PreferencesDefaultValues {
     public static final String BLACK_ACCENT_COLOR = "8";
     public static final String PURPLE_ACCENT_COLOR = "9";
     public static final String YELLOW_ACCENT_COLOR = "10";
+    public static final String BLUE_ACCENT_COLOR = "11";
     public static final boolean DEFAULT_AUTO_NIGHT_ACCENT_COLOR = true;
     public static final String DEFAULT_NIGHT_ACCENT_COLOR = "0";
     public static final boolean DEFAULT_CARD_BACKGROUND = true;

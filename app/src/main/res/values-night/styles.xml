@@ -107,6 +107,22 @@
         <item name="colorTertiary">@color/blackColorTertiary</item>
     </style>
 
+    <!-- BLUE THEME -->
+    <style name="BlueAccentColor">
+        <item name="android:colorBackground">@color/blueColorBackground</item>
+        <item name="colorBackgroundFloating">@color/blueColorSurface</item>
+        <item name="android:textColorHighlight">@color/bluePrimaryInverse</item>
+        <item name="colorAccent">@color/blueColorAccent</item>
+        <item name="colorPrimary">@color/blueColorPrimary</item>
+        <item name="colorPrimaryContainer">@color/bluePrimaryContainer</item>
+        <item name="colorPrimaryInverse">@color/bluePrimaryInverse</item>
+        <item name="colorOnPrimary">@color/blueOnPrimary</item>
+        <item name="colorSecondaryContainer">@color/blueSecondaryContainer</item>
+        <item name="colorSurface">@color/blueColorSurface</item>
+        <item name="colorSecondary">@color/blueColorSecondary</item>
+        <item name="colorTertiary">@color/blueColorTertiary</item>
+    </style>
+
     <!-- BLUE GRAY THEME -->
     <style name="BlueGrayAccentColor">
         <item name="android:navigationBarColor">@color/blueGrayColorSurface</item>

@@ -10,6 +10,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.GREEN_ACCENT_COLOR;
@@ -275,6 +276,7 @@ public class AnalogClock extends FrameLayout {
 
         return switch (colorKey) {
             case BLACK_ACCENT_COLOR -> mContext.getColor(R.color.blackColorPrimary);
+            case BLUE_ACCENT_COLOR -> mContext.getColor(R.color.blueColorPrimary);
             case BLUE_GRAY_ACCENT_COLOR -> mContext.getColor(R.color.blueGrayColorPrimary);
             case BROWN_ACCENT_COLOR -> mContext.getColor(R.color.brownColorPrimary);
             case GREEN_ACCENT_COLOR -> mContext.getColor(R.color.greenColorPrimary);
@@ -298,6 +300,12 @@ public class AnalogClock extends FrameLayout {
                     R.color.blackColorSecondary,
                     R.color.blackColorPrimary,
                     R.color.blackColorTertiary,
+                    componentType);
+            case BLUE_ACCENT_COLOR -> getColorResourceForComponent(
+                    R.color.blueSecondaryContainer,
+                    R.color.blueColorSecondary,
+                    R.color.blueColorPrimary,
+                    R.color.blueColorTertiary,
                     componentType);
             case BLUE_GRAY_ACCENT_COLOR -> getColorResourceForComponent(
                     R.color.blueGraySecondaryContainer,

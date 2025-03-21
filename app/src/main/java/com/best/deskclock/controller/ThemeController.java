@@ -4,6 +4,7 @@ package com.best.deskclock.controller;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLACK_ACCENT_COLOR;
+import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BLUE_GRAY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.BROWN_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DARK_THEME;
@@ -180,6 +181,7 @@ public class ThemeController {
 
             switch (color) {
                 case BLACK_ACCENT_COLOR -> activity.setTheme(R.style.BlackAccentColor);
+                case BLUE_ACCENT_COLOR -> activity.setTheme(R.style.BlueAccentColor);
                 case BLUE_GRAY_ACCENT_COLOR -> activity.setTheme(R.style.BlueGrayAccentColor);
                 case BROWN_ACCENT_COLOR -> activity.setTheme(R.style.BrownAccentColor);
                 case GREEN_ACCENT_COLOR -> activity.setTheme(R.style.GreenAccentColor);
