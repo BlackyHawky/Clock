@@ -107,12 +107,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mIgnoreBatteryOptimizationsDetails = rootView.findViewById(R.id.IBO_details_button);
             mIgnoreBatteryOptimizationsDetails.setOnClickListener(v ->
-                    new AlertDialog.Builder(requireContext())
-                            .setTitle(R.string.ignore_battery_optimizations_dialog_title)
-                            .setMessage(R.string.ignore_battery_optimizations_dialog_text)
-                            .setPositiveButton(R.string.permission_dialog_close_button, null)
-                            .show()
-            );
+                    displayPermissionDetailsDialog(
+                            R.drawable.ic_battery_settings,
+                            R.string.ignore_battery_optimizations_dialog_title,
+                            R.string.ignore_battery_optimizations_dialog_text));
 
             mIgnoreBatteryOptimizationsStatus = rootView.findViewById(R.id.IBO_status_text);
 
@@ -121,12 +119,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             mNotificationDetails = rootView.findViewById(R.id.notification_details_button);
             mNotificationDetails.setOnClickListener(v ->
-                    new AlertDialog.Builder(requireContext())
-                            .setTitle(R.string.notifications_dialog_title)
-                            .setMessage(R.string.notifications_dialog_text)
-                            .setPositiveButton(R.string.permission_dialog_close_button, null)
-                            .show()
-            );
+                    displayPermissionDetailsDialog(
+                            R.drawable.ic_notifications,
+                            R.string.notifications_dialog_title,
+                            R.string.notifications_dialog_text));
 
             mNotificationStatus = rootView.findViewById(R.id.notification_status_text);
 
@@ -142,12 +138,11 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                 mFullScreenNotificationsDetails = rootView.findViewById(R.id.FSN_details_button);
                 mFullScreenNotificationsDetails.setOnClickListener(v ->
-                        new AlertDialog.Builder(requireContext())
-                                .setTitle(R.string.FSN_dialog_title)
-                                .setMessage(R.string.FSN_dialog_text)
-                                .setPositiveButton(R.string.permission_dialog_close_button, null)
-                                .show()
-                );
+                        displayPermissionDetailsDialog(
+                                R.drawable.ic_fullscreen,
+                                R.string.FSN_dialog_title,
+                                R.string.FSN_dialog_text));
+
                 mFullScreenNotificationsStatus = rootView.findViewById(R.id.FSN_status_text);
 
                 updateFullScreenNotificationsCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
@@ -160,12 +155,10 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
                 mShowLockscreenDetails = rootView.findViewById(R.id.show_lockscreen_button);
                 mShowLockscreenDetails.setOnClickListener(v ->
-                        new AlertDialog.Builder(requireContext())
-                                .setTitle(R.string.show_lockscreen_dialog_title)
-                                .setMessage(R.string.show_lockscreen_dialog_text)
-                                .setPositiveButton(R.string.permission_dialog_close_button, null)
-                                .show()
-                );
+                        displayPermissionDetailsDialog(
+                                R.drawable.ic_screen_lock,
+                                R.string.show_lockscreen_dialog_title,
+                                R.string.show_lockscreen_dialog_text));
 
                 updateShowLockscreenCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
             }
@@ -202,15 +195,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 startActivity(intentGrant);
                 sendPermissionResult();
             } else {
-                new AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.permission_dialog_revoke_title)
-                        .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                            startActivity(intentRevoke);
-                            sendPermissionResult();
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                displayRevocationDialog(intentRevoke);
             }
         }
 
@@ -225,15 +210,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
             if (areNotificationsEnabled(requireContext())) {
-                new AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.permission_dialog_revoke_title)
-                        .setMessage(R.string.revoke_permission_dialog_message)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            startActivity(intent);
-                            sendPermissionResult();
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
                 new AlertDialog.Builder(requireContext())
                         .setTitle(R.string.notifications_dialog_title)
@@ -267,15 +244,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     startActivity(intent);
                     sendPermissionResult();
                 } else {
-                    new AlertDialog.Builder(requireContext())
-                            .setTitle(R.string.permission_dialog_revoke_title)
-                            .setMessage(R.string.revoke_permission_dialog_message)
-                            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                                startActivity(intent);
-                                sendPermissionResult();
-                            })
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .show();
+                    displayRevocationDialog(intent);
                 }
             }
         }
@@ -309,6 +278,34 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 fallbackIntent.setData(Uri.parse("package:" + requireContext().getPackageName()));
                 startActivity(fallbackIntent);
             }
+        }
+
+        /**
+         * Display dialog when user wants to read the permission details.
+         */
+        private void displayPermissionDetailsDialog(int iconId, int titleId, int messageId) {
+            new AlertDialog.Builder(requireContext())
+                    .setIcon(iconId)
+                    .setTitle(titleId)
+                    .setMessage(messageId)
+                    .setPositiveButton(R.string.permission_dialog_close_button, null)
+                    .show();
+        }
+
+        /**
+         * Display dialog when user wants to revoke permission.
+         */
+        private void displayRevocationDialog(Intent intent) {
+            new AlertDialog.Builder(requireContext())
+                    .setIcon(R.drawable.ic_key_off)
+                    .setTitle(R.string.permission_dialog_revoke_title)
+                    .setMessage(R.string.revoke_permission_dialog_message)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        startActivity(intent);
+                        sendPermissionResult();
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
         }
 
         /**

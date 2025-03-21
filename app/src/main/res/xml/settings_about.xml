@@ -73,28 +73,28 @@
             android:key="key_about_blackyhawky"
             android:layout="@layout/settings_preference_layout"
             android:title="BlackyHawky"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_person">
         </Preference>
 
         <Preference
             android:key="key_about_qw123wh"
             android:layout="@layout/settings_preference_layout"
             android:title="qw123wh"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_person">
         </Preference>
 
         <Preference
             android:key="key_about_odmfl"
             android:layout="@layout/settings_preference_layout"
             android:title="odmfl"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_person">
         </Preference>
 
         <Preference
             android:key="key_about_nilsu11"
             android:layout="@layout/settings_preference_layout"
             android:title="Nilsu11"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_person">
         </Preference>
 
     </PreferenceCategory>
@@ -109,14 +109,14 @@
             android:key="key_about_lineageos"
             android:layout="@layout/settings_preference_layout"
             android:title="LineageOS"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_groups">
         </Preference>
 
         <Preference
             android:key="key_about_crdroid"
             android:layout="@layout/settings_preference_layout"
             android:title="crDroid Android"
-            app:iconSpaceReserved="false">
+            android:icon="@drawable/ic_groups">
         </Preference>
 
     </PreferenceCategory>

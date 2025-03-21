@@ -101,17 +101,8 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
                 if (BuildConfig.DEBUG) {
                     version = version.replace("-debug", "");
                 }
-
                 final String link = "https://github.com/BlackyHawky/Clock/releases/tag/" + version;
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setIcon(R.drawable.ic_about_update)
-                        .setTitle(R.string.whats_new_title)
-                        .setMessage(requireContext().getString(R.string.whats_new_dialog_message, link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
+                displayLinkDialog(R.drawable.ic_about_update, R.string.whats_new_title, R.string.whats_new_dialog_message, link);
             }
 
             case KEY_ABOUT_FEATURES -> {
@@ -126,111 +117,64 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
 
             case KEY_ABOUT_VIEW_ON_GITHUB -> {
                 final String link = "https://github.com/BlackyHawky/Clock";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setIcon(R.drawable.ic_about_github)
-                        .setTitle(R.string.about_github_link)
-                        .setMessage(requireContext().getString(R.string.github_dialog_message, link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
+                displayLinkDialog(R.drawable.ic_about_github, R.string.about_github_link, R.string.github_dialog_message, link);
             }
 
             case KEY_ABOUT_TRANSLATE -> {
                 final String link = "https://translate.codeberg.org/projects/clock";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setIcon(R.drawable.ic_about_translate)
-                        .setTitle(R.string.about_translate_link)
-                        .setMessage(requireContext().getString(R.string.translate_dialog_message, link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
+                displayLinkDialog(R.drawable.ic_about_translate, R.string.about_translate_link, R.string.translate_dialog_message, link);
             }
 
             case KEY_ABOUT_READ_LICENCE -> {
                 final String link = "https://github.com/BlackyHawky/Clock/blob/main/LICENSE-GPL-3";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setIcon(R.drawable.ic_about_license)
-                        .setTitle(R.string.license)
-                        .setMessage(requireContext().getString(R.string.license_dialog_message, link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
+                displayLinkDialog(R.drawable.ic_about_license, R.string.license, R.string.license_dialog_message, link);
             }
 
-            case KEY_ABOUT_BLACKYHAWKY -> {
-                final String link = "https://github.com/BlackyHawky";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "BlackyHawky", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_BLACKYHAWKY ->
+                displayContributorDialog(R.drawable.ic_person, "BlackyHawky", "https://github.com/BlackyHawky");
 
-            case KEY_ABOUT_QW123WH -> {
-                final String link = "https://github.com/qw123wh";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "qw123wh", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_QW123WH ->
+                displayContributorDialog(R.drawable.ic_person, "qw123wh", "https://github.com/qw123wh");
 
-            case KEY_ABOUT_ODMFL -> {
-                final String link = "https://github.com/odmfl";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "odmfl", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_ODMFL ->
+                displayContributorDialog(R.drawable.ic_person, "odmfl", "https://github.com/odmfl");
 
-            case KEY_ABOUT_NILSU11 -> {
-                final String link = "https://github.com/Nilsu11";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "Nilsu11", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_NILSU11 ->
+                displayContributorDialog(R.drawable.ic_person, "Nilsu11", "https://github.com/Nilsu11");
 
-            case KEY_ABOUT_LINEAGEOS -> {
-                final String link = "https://github.com/LineageOS";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "LineageOS", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_LINEAGEOS ->
+                displayContributorDialog(R.drawable.ic_groups, "LineageOS", "https://github.com/LineageOS");
 
-            case KEY_ABOUT_CRDROID -> {
-                final String link = "https://github.com/crdroidandroid";
-                final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
-                        .setMessage(requireContext().getString(R.string.contributors_dialog_message, "crDroid Android", link))
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .create();
-                builder.show();
-            }
+            case KEY_ABOUT_CRDROID ->
+                displayContributorDialog(R.drawable.ic_groups, "crDroid Android", "https://github.com/crdroidandroid");
+
         }
 
         return true;
+    }
+
+    private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
+        final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        final AlertDialog builder = new AlertDialog.Builder(requireContext())
+                .setIcon(iconId)
+                .setTitle(titleId)
+                .setMessage(requireContext().getString(messageId, link))
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        builder.show();
+    }
+
+    private void displayContributorDialog(int iconId, String projectName, String url) {
+        final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        final AlertDialog builder = new AlertDialog.Builder(requireContext())
+                .setIcon(iconId)
+                .setTitle(R.string.contributors_dialog_title)
+                .setMessage(requireContext().getString(R.string.contributors_dialog_message, projectName, url))
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
+                .setNegativeButton(android.R.string.cancel, null)
+                .create();
+        builder.show();
     }
 
     private void setupTitle() {

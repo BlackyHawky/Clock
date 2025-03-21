@@ -953,6 +953,8 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <!-- Contributors title -->
     <string name="contributors">Contributors</string>
+    <!-- Contributors dialog title in about screen -->
+    <string name="contributors_dialog_title">View profile</string>
     <!-- Contributors dialog message in about screen -->
     <string name="contributors_dialog_message">Visit %1$s\'s GitHub page:\n\n%2$s</string>
     <!-- Credits title -->
