@@ -5,203 +5,204 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/ringtone_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <Preference
             android:key="key_default_alarm_ringtone"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/default_alarm_ringtone_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_auto_silence"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/auto_silence_title"
             android:entries="@array/auto_silence_entries"
             android:entryValues="@array/auto_silence_values"
             android:defaultValue="10"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_snooze_duration"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_duration_title"
             android:entries="@array/snooze_duration_entries"
             android:entryValues="@array/snooze_duration_values"
             android:defaultValue="10"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.best.deskclock.settings.AlarmVolumePreference
             android:key="key_volume_setting"
-            android:layout="@layout/settings_preference_seekbar_layout"
             android:title="@string/alarm_volume_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
 
         <ListPreference
             android:key="key_alarm_crescendo_duration"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
             android:entries="@array/crescendo_entries"
             android:entryValues="@array/crescendo_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/actions_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_swipe_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/swipe_action_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_volume_button_setting"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/volume_button_setting_title"
             android:entries="@array/volume_button_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="-1"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_power_button"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/power_button_title"
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/side_button_setting_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_flip_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/flip_action_title"
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/side_button_setting_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_shake_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/shake_action_title"
             android:entries="@array/action_setting_entries"
             android:entryValues="@array/side_button_setting_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <!-- To be more user-friendly, the default value 16 will be written as 1 and the
              maximum value 55 will be written as 40. See the AlarmSettingsFragment file. -->
         <SeekBarPreference
             android:key="key_shake_intensity"
-            android:layout="@layout/settings_preference_seekbar_layout"
             android:title="@string/shake_intensity_title"
             android:defaultValue="16"
             android:max="55"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_week_start"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/week_start_title"
             android:entries="@array/week_start_entries"
             android:entryValues="@array/week_start_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_alarm_notification_reminder_time"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_notification_reminder_title"
             android:entries="@array/alarm_notification_reminder_entries"
             android:entryValues="@array/alarm_notification_reminder_values"
             android:defaultValue="30"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_enable_alarm_vibrations_by_default"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_alarm_vibrations_by_default_setting_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_enable_snoozed_or_dismissed_alarm_vibrations"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_snoozed_or_dismissed_alarm_vibrations_title"
             android:summary="@string/enable_snoozed_or_dismissed_alarm_vibrations_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_turn_on_back_flash_for_triggered_alarm"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/turn_on_back_flash_for_triggered_alarm_title"
             android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_enable_delete_occasional_alarm_by_default"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
             android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_material_time_picker_style"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/material_time_picker_style_title"
             android:entries="@array/time_picker_style_entries"
             android:entryValues="@array/time_picker_style_values"
             android:defaultValue="analog"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <Preference
             android:key="key_alarm_display_customization"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_display_customization_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

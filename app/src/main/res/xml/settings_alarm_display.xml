@@ -5,159 +5,160 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_alarm_clock_style"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
             android:defaultValue="digital"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_display_alarm_seconds_hand"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_background_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF191C1E"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_background_amoled_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#FF000000"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_clock_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_color_title"
             android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_seconds_hand_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/seconds_hand_color_title"
             android:defaultValue="?colorPrimary"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_title_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_title_color"
             android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_snooze_button_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/snooze_button_color"
             android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_dismiss_button_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/dismiss_button_color"
             android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_button_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_button_color"
             android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_pulse_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/pulse_color"
             android:defaultValue="#FFC0C7CD"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/font_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <EditTextPreference
             android:key="key_alarm_clock_font_size"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_clock_font_size"
             android:defaultValue="70"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <EditTextPreference
             android:key="key_alarm_title_font_size"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/alarm_title_font_size"
             android:defaultValue="26"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_display_ringtone_title"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_ringtone_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <Preference
             android:key="key_preview_alarm"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/preview_title"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

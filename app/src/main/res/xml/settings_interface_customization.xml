@@ -10,128 +10,128 @@
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_theme"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/title_theme"
             android:defaultValue="0"
             android:entries="@array/array_theme"
             android:entryValues="@array/theme_setting_entries"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_dark_mode"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/title_dark_theme_mode"
             android:defaultValue="0"
             android:entries="@array/dark_theme_mode_array_theme"
             android:entryValues="@array/dark_theme_mode_setting_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_accent_color"
-            android:layout="@layout/settings_preference_layout"
             android:defaultValue="0"
             android:entries="@array/array_accent_color"
             android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:title="@string/title_accent_color" />
+            tools:title="@string/title_accent_color"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_auto_night_accent_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/auto_night_accent_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_night_accent_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/night_accent_color_title"
             android:defaultValue="0"
             android:entries="@array/array_accent_color"
             android:entryValues="@array/accent_color_setting_entries"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_card_background"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_card_background_title"
             android:summary="@string/display_card_background_summary"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_card_border"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_background_border_title"
             android:summary="@string/display_background_border_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_tab_indicator"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_tab_indicator_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_custom_language_code"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_language_title"
             android:defaultValue="system_language_code"
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_tab_to_display"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_tab_to_display"
             android:defaultValue="-1"
             android:entries="@array/tab_entries"
             android:entryValues="@array/tab_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_vibrations"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_vibration_title"
             android:summary="@string/settings_vibration_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_fade_transitions"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/settings_fade_transitions_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

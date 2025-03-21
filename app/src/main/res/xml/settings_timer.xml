@@ -5,142 +5,143 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/ringtone_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <Preference
             android:key="key_timer_ringtone"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_sound"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_timer_auto_silence"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/auto_silence_title"
             android:entries="@array/timer_auto_silence_entries"
             android:entryValues="@array/timer_auto_silence_values"
             android:defaultValue="30"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_timer_crescendo_duration"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/crescendo_duration_title"
             android:entries="@array/crescendo_entries"
             android:entryValues="@array/crescendo_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_timer_vibrate"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_vibrate_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/actions_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_timer_volume_buttons_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_volume_buttons_action_title"
             android:summary="@string/timer_buttons_action_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_timer_power_button_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_power_button_action_title"
             android:summary="@string/timer_buttons_action_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_timer_flip_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_flip_action_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_timer_shake_action"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/timer_shake_action_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_sort_timer"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/sort_timer_title"
             android:entries="@array/sort_timer_entries"
             android:entryValues="@array/sort_timer_values"
             android:defaultValue="0"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_default_time_to_add_to_timer"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/default_time_to_add_to_timer_title"
             android:entries="@array/default_time_to_add_to_timer_entries"
             android:entryValues="@array/default_time_to_add_to_timer_values"
             android:defaultValue="1"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_keep_timer_screen_on"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/keep_timer_screen_on_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_transparent_background_for_expired_timer"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/transparent_background_for_expired_timer_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_display_warning_before_deleting_timer"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_warning_before_deleting_timer_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

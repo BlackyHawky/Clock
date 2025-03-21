@@ -5,118 +5,119 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/styles_and_colors_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_display_background"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/widget_background_title"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_vertical_digital_widget_background_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/background_color_title"
             android:defaultValue="#70000000"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_default_hours_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_default_hours_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_vertical_digital_widget_custom_hours_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_custom_hours_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_default_minutes_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_default_minutes_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_vertical_digital_widget_custom_minutes_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_custom_minutes_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_default_date_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_date_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_vertical_digital_widget_custom_date_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_date_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_default_next_alarm_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/widget_next_alarm_default_color_title"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_vertical_digital_widget_custom_next_alarm_color"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/widget_next_alarm_custom_color_title"
             android:defaultValue="#FFFFFF"
             app:colorpicker_showAlpha="false"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/font_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <EditTextPreference
             android:key="key_vertical_digital_widget_max_clock_font_size"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/digital_widget_max_clock_font_size_title"
             android:defaultValue="70"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

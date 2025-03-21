@@ -5,63 +5,64 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         android:title="@string/style_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <ListPreference
             android:key="key_clock_style"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/clock_style"
             android:entries="@array/clock_style_entries"
             android:entryValues="@array/clock_style_values"
             android:defaultValue="digital"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
             android:key="key_display_clock_seconds"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/display_clock_seconds_pref"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/miscellaneous_category_title"
-        android:layout="@layout/settings_preference_category_layout"
         app:allowDividerAbove="false"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
 
         <SwitchPreferenceCompat
             android:key="key_automatic_home_clock"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <ListPreference
             android:key="key_home_time_zone"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/home_time_zone"
             android:entries="@array/timezone_labels"
             android:entryValues="@array/timezone_values"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
         <Preference
             android:key="key_date_time"
-            android:layout="@layout/settings_preference_layout"
             android:title="@string/open_date_settings"
             app:iconSpaceReserved="false"
-            app:singleLineTitle="false" />
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>
 

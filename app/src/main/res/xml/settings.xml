@@ -7,85 +7,86 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <Preference
         android:key="key_permission_message"
-        android:layout="@layout/settings_preference_layout"
         android:summary="@string/settings_permission_summary"
         android:icon="@drawable/ic_error"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_interface_customization"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/interface_customization_settings"
         android:summary="@string/interface_customization_summary"
         android:icon="@drawable/ic_palette"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_clock_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/clock_settings"
         android:summary="@string/clock_settings_summary"
         android:icon="@drawable/ic_tab_clock_static"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_alarm_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/alarm_settings"
         android:summary="@string/alarm_settings_summary"
         android:icon="@drawable/ic_tab_alarm_static"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_timer_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/timer_settings"
         android:summary="@string/timer_settings_summary"
         android:icon="@drawable/ic_tab_timer_static"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_stopwatch_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/menu_stopwatch"
         android:summary="@string/sw_settings_summary"
         android:icon="@drawable/ic_tab_stopwatch_static"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_screensaver_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/screensaver_settings_title"
         android:summary="@string/screensaver_settings_summary"
         android:icon="@drawable/ic_screensaver"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_widgets_settings"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/widgets_settings"
         android:summary="@string/widgets_settings_summary"
         android:icon="@drawable/ic_widget"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_permissions_management"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/permission_management_settings"
         android:summary="@string/permission_management_summary"
         android:icon="@drawable/ic_key"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
     <Preference
         android:key="key_backup_restore_preferences"
-        android:layout="@layout/settings_preference_layout"
         android:title="@string/backup_restore_settings_title"
         android:summary="@string/backup_restore_settings_summary"
         android:icon="@drawable/ic_backup_restore"
-        app:singleLineTitle="false" />
+        app:singleLineTitle="false"
+        tools:layout="@layout/settings_preference_layout" />
 
 </PreferenceScreen>

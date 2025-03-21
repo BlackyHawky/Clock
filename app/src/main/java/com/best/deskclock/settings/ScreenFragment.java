@@ -153,38 +153,33 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         int count = preferenceScreen.getPreferenceCount();
         for (int i = 0; i < count; i++) {
             final Preference pref = preferenceScreen.getPreference(i);
-            if (pref instanceof PreferenceCategory) {
-                final int subPrefCount = ((PreferenceCategory) pref).getPreferenceCount();
+            if (pref instanceof PreferenceCategory category) {
+                category.setLayoutResource(R.layout.settings_preference_category_layout);
+
+                final int subPrefCount = category.getPreferenceCount();
                 for (int j = 0; j < subPrefCount; j++) {
-                    if (Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_ALARM_VOLUME_SETTING)
-                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SCREENSAVER_BRIGHTNESS)
-                            || Objects.equals(((PreferenceCategory) pref).getPreference(j).getKey(), KEY_SHAKE_INTENSITY)) {
+                    Preference subPref = category.getPreference(j);
+                    if (Objects.equals(subPref.getKey(), KEY_ALARM_VOLUME_SETTING)
+                            || Objects.equals(subPref.getKey(), KEY_SCREENSAVER_BRIGHTNESS)
+                            || Objects.equals(subPref.getKey(), KEY_SHAKE_INTENSITY)) {
                         if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);
+                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_bordered);
                         } else if (isCardBackgroundDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_seekbar_layout);
+                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout);
                         } else if (isCardBorderDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent_bordered);
+                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent_bordered);
                         } else {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent);
+                            subPref.setLayoutResource(R.layout.settings_preference_seekbar_layout_transparent);
                         }
                     } else {
                         if (isCardBackgroundDisplayed && isCardBorderDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_layout_bordered);
+                            subPref.setLayoutResource(R.layout.settings_preference_layout_bordered);
                         } else if (isCardBackgroundDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_layout);
+                            subPref.setLayoutResource(R.layout.settings_preference_layout);
                         } else if (isCardBorderDisplayed) {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
+                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent_bordered);
                         } else {
-                            ((PreferenceCategory) pref).getPreference(j)
-                                    .setLayoutResource(R.layout.settings_preference_layout_transparent);
+                            subPref.setLayoutResource(R.layout.settings_preference_layout_transparent);
                         }
                     }
                 }
