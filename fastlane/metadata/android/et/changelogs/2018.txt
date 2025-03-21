@@ -1,0 +1,11 @@
+**Parandused**
+- Olekuriba kuvamine ekraanisäästjas (tumedas kujunduses koos AMOLEDi süsimusta kasutamisega)
+- Vidinate värskendamine peale muutmist;
+- Automaatne kuupäeva muutmine digividinates (nüüdsest on uuendus iga päev kesköösel)
+
+**Täiendused**
+- Lisavõimalus analoogvidinates teise seieri näitamiseks/petmiseks (vaid Android 12+ puhul)
+- Taimerite lohistamisel näitame varjutust
+- Vene keel rakenduse seadistustes
+- Lähtekoodi korrastused
+- Uuendatud tõlked

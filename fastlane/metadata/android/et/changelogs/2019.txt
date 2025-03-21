@@ -1,0 +1,12 @@
+**Parandused**
+- Tundide ja minutite kuvamine äratuse ajavalijas
+- Võimalik viga taimeri kustutamisel
+
+**Täiendused**
+- Võimalus valida rakenduse avamisel kuvatavat vahekaarti
+- „Lisa 1 minut“ nupust muudetud aeg kuvatakse nüüd korrektsemalt
+- Vältimaks rakenduse kokkujooksmist saab valida taimerile lisatavate minutite vahemikku
+- Analoogkella vidina värvide kohendused
+- Parem rakenduste animatsioon
+- Lähtekoodi korrastused
+- Uuendatud tõlked

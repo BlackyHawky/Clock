@@ -464,7 +464,7 @@
     <string name="power_button_title">Aan/uit-knop</string>
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
-    <string name="material_time_picker_style_title">Tijdselectie stijl</string>
+    <string name="material_time_picker_style_title">Tijdselectie</string>
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, snooze-acties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="description_direction_left_for_non_repeatable_alarm">Naar links vegen om te negeren</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
@@ -659,4 +659,8 @@
     <string name="analog_widget_with_second_hand_title">Met de secondewijzer</string>
     <string name="analog_widget_choice_title">Kies je stijl</string>
     <string name="analog_widget_configuration_warning">Deze widget is alleen configureerbaar vanaf Android 12</string>
+    <string name="settings_tab_to_display">Tabblad om weer te geven bij het openen van de applicatie</string>
+    <string name="timer_button_time_warning_box_text">Voer een waarde in tussen 1 en 120 minuten</string>
+    <string name="last_tab_used_title">Laatst gebruikte tabblad</string>
+    <string name="timer_button_time_warning_box_title">Onjuiste waarde ingevoerd</string>
 </resources>

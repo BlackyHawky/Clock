@@ -14,7 +14,7 @@
     <string name="timer_sound" msgid="896163086604894735">"타이머 소리"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"새로 추가"</string>
     <string name="remove_sound" msgid="2064643204455734239">"삭제"</string>
-    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"이 사운드를 사용하는 알람 및 타이머에서 대신 기본 사운드를 사용합니다."</string>
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">이 벨소리를 사용하는 알람 및 타이머는 이제 기존 벨소리를 사용합니다.</string>
     <string name="your_sounds" msgid="1672779351352629681">"내 벨소리"</string>
     <string name="device_sounds" msgid="1584894148222639823">"기기 벨소리"</string>
     <string name="custom_ringtone_lost_permissions" msgid="3406310054255354331">"소리 콘텐츠에 액세스할 수 없습니다."</string>
@@ -24,7 +24,7 @@
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"알람 해제"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"부재중 알람"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> - <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"일시 중지됨"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">일시중지됨</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
         <item quantity="one">1분</item>
@@ -32,10 +32,9 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"알람 끄기"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"다시 울림"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g>분 동안 알림 일시 중지</item>
-        <item quantity="one">1분 동안 알림 일시 중지</item>
+        <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g>분 동안 알람을 일시중지합니다.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g>에 다시 울림"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550"><xliff:g id="time">%s</xliff:g>에 다시 울림</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"예정된 알람"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"부재중 알람이 삭제되었습니다."</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"1분 미만 남음"</string>
@@ -49,14 +48,14 @@
     <string name="timer_accessibility_custom_time_added" msgid="6096646178998456004">"타이머에 %1$s분 추가됨, <xliff:g id="TIME">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"남음"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"남음"</string>
-    <string name="alarm_confirmation_toast_1">"알람 시간이 지금으로부터 1분 이내입니다."</string>
-    <string name="alarm_confirmation_toast_2">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_3">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_4">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_5">"지금부터 <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_6">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_7">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</string>
-    <string name="alarm_confirmation_toast_8">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정되었습니다."</string>
+    <string name="alarm_confirmation_toast_1">지금부터 1분 이내에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_2">지금부터 <xliff:g id="DAYS">%1$s</xliff:g> 뒤에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_3">지금부터 <xliff:g id="HOURS">%2$s</xliff:g> 뒤로 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_4">지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> 뒤에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_5">지금부터 <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_6">지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_7">지금부터 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
+    <string name="alarm_confirmation_toast_8">지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 뒤에 알람이 울립니다.</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>일</item>
         <item quantity="one">1일</item>
@@ -83,11 +82,11 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"매일"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"로드 중…"</string>
+    <string name="loading_widget" msgid="5306242862476796500">불러오는 중…</string>
     <string name="analog_widget" msgid="1670505720837152766">"아날로그 시계"</string>
     <string name="digital_widget" msgid="2326954556720571358">"디지털 시계"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"다시 울림 간격"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">알람 일시중지 시간</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"볼륨 점점 크게"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -140,18 +139,18 @@
     <string name="snooze_duration_28_minutes">28분</string>
     <string name="snooze_duration_29_minutes">29분</string>
     <string name="snooze_duration_30_minutes">30분</string>
-    <string name="week_start_title" msgid="4268917518596832096">"1주일 시작일:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">한 주의 시작 요일</string>
     <string name="week_start_saturday">토요일</string>
     <string name="week_start_sunday">일요일</string>
     <string name="week_start_monday">월요일</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"알람 볼륨"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"무음"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"알 수 없음"</string>
-    <string name="alarm_volume_muted" msgid="6658289289695673569">"알람 볼륨이 음소거되었습니다."</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">알람 볼륨을 음소거했습니다.</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"음소거 해제"</string>
-    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"기본 알람 벨소리: 무음"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">기본 알람 벨소리가 무음입니다.</string>
     <string name="change_setting_action" msgid="1224356633832430160">"변경"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"기기가 모두 차단으로 설정됨"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">기기가 방해 금지 모드이거나 완전 무음 상태입니다.</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string name="button_action_snooze">다시 울림</string>
     <string name="button_action_dismiss">알람 해제</string>
@@ -331,8 +330,8 @@
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"스톱워치 알림에서 작업 처리"</string>
     <string name="swn_paused" msgid="6364358842808263589">"일시중지됨"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"오른쪽으로 스와이프하여 해제"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"왼쪽으로 스와이프하여 일시 중지"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"왼쪽으로 스와이프하여 일시 중지하거나 오른쪽으로 스와이프하여 해제"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">왼쪽으로 스와이프하여 일시중지</string>
+    <string name="description_direction_both" msgid="1841309486023845685">왼쪽으로 스와이프하여 일시중지하거나 오른쪽으로 스와이프하여 해제</string>
     <string name="timer_settings" msgid="7955522143086154795">"타이머"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"타이머 진동"</string>
     <string name="timer_paused" msgid="5941160896040771462">"타이머가 일시중지됨"</string>
@@ -361,25 +360,120 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"이 시간에 예약된 알람 없음"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람 제거됨"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"알람 설정 시간: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="timer_created" msgid="4381027137335885547">"타이머가 생성됨"</string>
+    <string name="timer_created" msgid="4381027137335885547">타이머를 만들었습니다.</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
-        <item quantity="other">타이머 <xliff:g id="NUMBER">%d</xliff:g>개 취소됨</item>
-        <item quantity="one">타이머 취소됨</item>
+        <item quantity="other">타이머 <xliff:g id="NUMBER">%d</xliff:g>개를 취소했습니다.</item>
     </plurals>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"타이머 기간이 잘못됨"</string>
-    <string name="invalid_timer" msgid="900957020728335675">"타이머 선택이 잘못됨"</string>
-    <string name="no_expired_timers" msgid="4624192298397846876">"만료된 타이머 없음"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"알람 시간이 아직 24시간 이상 남아 있으므로 <xliff:g id="ALARM_TIME">%s</xliff:g> 알람을 아직 취소할 수 없습니다."</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">타이머 기간이 잘못되었습니다.</string>
+    <string name="invalid_timer" msgid="900957020728335675">잘못된 타이머를 선택했습니다.</string>
+    <string name="no_expired_timers" msgid="4624192298397846876">만료된 타이머가 없습니다.</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">알람 시간이 아직 24시간 이상 남아 있으므로 <xliff:g id="ALARM_TIME">%s</xliff:g> 알람을 아직 취소할 수 없습니다.</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"알람 해제"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"취소할 알람 선택"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"실행 중인 알람 없음"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람이 10분 동안 일시 중지됨"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846"><xliff:g id="ALARM_TIME">%s</xliff:g>에 울린 알람을 10분 동안 일시중지했습니다.</string>
     <string name="flip_action_title">기기 뒤집을 때 동작</string>
     <string name="shake_action_title">기기 흔들 때 동작</string>
     <string name="firing_alarms_timers_channel">알람 및 타이머 시작</string>
     <string name="alarm_missed_channel">부재 중 알람</string>
-    <string name="alarm_snooze_channel">일시 중지된 알람</string>
+    <string name="alarm_snooze_channel">일시중지된 알람</string>
     <string name="alarm_upcoming_channel">예정된 알람</string>
     <string name="stopwatch_channel">스톱워치</string>
     <string name="timer_channel">타이머</string>
+    <string name="snooze_button_color">일시중지 버튼 색상</string>
+    <string name="auto_silence_at_the_end_of_the_ringtone">벨소리가 끝났을 때</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">알람을 일시중지했을 때 두 번, 해제했을 때 한 번 진동</string>
+    <string name="alarm_notification_reminder_6_hours">6시간 전</string>
+    <string name="first_launch_button_later">나중에</string>
+    <string name="auto_silence_30_seconds">30초</string>
+    <string name="sw_start_pause_action">시작/일시중지</string>
+    <string name="settings_language_system">시스템 언어</string>
+    <string name="settings_language_estonian">에스토니아어</string>
+    <string name="settings_language_italian">이탈리아어</string>
+    <string name="settings_language_polish">폴란드어</string>
+    <string name="settings_language_german">독일어</string>
+    <string name="settings_language_dutch">네덜란드어</string>
+    <string name="alarm_notification_reminder_4_hours">4시간 전</string>
+    <string name="alarm_notification_reminder_8_hours">8시간 전</string>
+    <string name="alarm_notification_reminder_10_hours">10시간 전</string>
+    <string name="material_time_picker_style_title">시간 선택 도구 스타일</string>
+    <string name="auto_silence_10_seconds">10초</string>
+    <string name="auto_silence_20_seconds">20초</string>
+    <string name="settings_language_russian">러시아어</string>
+    <string name="alarm_notification_reminder_12_hours">12시간 전</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">알람을 일시중지하거나 해제했을 때 진동</string>
+    <string name="analog_widget_choice_title">스타일 선택</string>
+    <string name="miscellaneous_category_title">기타</string>
+    <string name="ringtone_category_title">벨소리</string>
+    <string name="material_you_category_title">Material You</string>
+    <string name="interface_customization_settings">인터페이스</string>
+    <string name="interface_customization_summary">애플리케이션에 사용할 스타일 및 색상 설정</string>
+    <string name="light_theme">라이트</string>
+    <string name="dark_theme">다크</string>
+    <string name="title_accent_color">강조 색상</string>
+    <string name="title_dark_theme_mode">다크 테마 모드</string>
+    <string name="amoled_dark_theme_mode">AMOLED</string>
+    <string name="display_card_background_title">카드 배경 표시</string>
+    <string name="display_card_background_summary">알람, 도시, 타이머 버튼 등 일부 요소에 배경 표시</string>
+    <string name="display_background_border_title">배경 테두리 표시</string>
+    <string name="display_background_border_summary">알람, 도시, 타이머 버튼 등 일부 요소에 배경 테두리 표시</string>
+    <string name="settings_language_title">언어(Language)</string>
+    <string name="settings_language_english_us">영어(US)</string>
+    <string name="settings_language_french">프랑스어</string>
+    <string name="settings_language_chinese_simplified_cn">간체 중국어</string>
+    <string name="settings_language_portuguese">포르투갈어</string>
+    <string name="settings_language_serbian">세르비아어</string>
+    <string name="settings_language_spanish">스페인어</string>
+    <string name="settings_language_ukrainian">우크라니아어</string>
+    <string name="alarm_display_customization_title">알람 스타일 사용자 정의</string>
+    <string name="alarm_title_color">알람 제목 색상</string>
+    <string name="alarm_clock_font_size">알람 시계 폰트 크기</string>
+    <string name="display_ringtone_title">벨소리 제목 표시</string>
+    <string name="pulse_color">펄스 색상</string>
+    <string name="auto_silence_5_seconds">5초</string>
+    <string name="snooze_duration_none">없음</string>
+    <string name="first_launch_version">버전 %s</string>
+    <string name="first_launch_button_now">지금 설정</string>
+    <string name="widgets_settings">위젯</string>
+    <string name="widgets_settings_summary">위젯 스타일, 색상, 폰트 크기 설정</string>
+    <string name="widget_background_title">배경 표시</string>
+    <string name="background_color_title">배경 색상</string>
+    <string name="digital_widget_city_title">위젯에 도시 이름 표시</string>
+    <string name="digital_widget_clock_default_color_title">메인 시계에 기본 색상 사용</string>
+    <string name="digital_widget_clock_custom_color_title">메인 시계 색상</string>
+    <string name="next_alarm_widget_text">다음 알람</string>
+    <string name="swipe_action_title">스와이프로 알람 일시중지 또는 해제</string>
+    <string name="alarm_title_font_size">알람 제목 폰트 크기</string>
+    <string name="day_accent_color_title">주간 모드 강조 색상</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">벨소리가 끝나면 알람 해제</string>
+    <string name="dismiss_button_color">해제 버튼 색상</string>
+    <string name="alarm_button_color">알람 버튼 색상</string>
+    <string name="label_default">기본값</string>
+    <string name="duplicate">복제</string>
+    <string name="system_theme">시스템</string>
+    <string name="title_theme">테마</string>
+    <string name="alarm_notification_reminder_1_hour">1시간 전</string>
+    <string name="material_you_next_alarm_widget">다음 알람 Material You</string>
+    <string name="next_alarm_widget">다음 알람</string>
+    <string name="auto_night_accent_color_title">야간 모드에 강조 색상 적용</string>
+    <string name="night_accent_color_title">야간 모드 강조 색상</string>
+    <string name="alarm_notification_reminder_30_minutes">30분 전</string>
+    <string name="alarm_notification_reminder_2_hours">2시간 전</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">알람을 만들었을 때 진동 사용</string>
+    <string name="alarm_flash">플래시</string>
+    <string name="add_label">라벨 추가</string>
+    <string name="first_launch_main_feature_title">주요 기능</string>
+    <string name="alarm_label_box_title">알람 라벨</string>
+    <string name="selected">선택됨</string>
+    <string name="more_options">추가 옵션</string>
+    <string name="alarm_alert_dismiss_and_delete_text">알람 해제 및 삭제</string>
+    <string name="material_you_digital_widget">디지털 시계 Material You</string>
+    <string name="vertical_digital_widget">세로형 디지털 시계</string>
+    <string name="material_you_vertical_digital_widget">세로형 디지털 시계 Material You</string>
+    <string name="settings_permission_message">허용하지 않은 필수 권한이 있습니다. 권한을 허용하지 않으면 앱이 정상적으로 동작하지 않을 수 있습니다.</string>
+    <string name="settings_permission_summary">여기를 눌러 권한 관리 페이지를 열 수 있습니다.</string>
+    <string name="style_category_title">스타일</string>
+    <string name="styles_and_colors_category_title">스타일 및 색상</string>
+    <string name="font_category_title">폰트</string>
+    <string name="power_button_title">전원 버튼</string>
 </resources>

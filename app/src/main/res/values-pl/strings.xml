@@ -454,8 +454,8 @@
     <string name="purple_accent_color">Fioletowy</string>
     <string name="backup_restore_settings_title">Kopia zapasowa i przywracanie</string>
     <string name="black_accent_color">Czarny</string>
-    <string name="display_card_background_summary">Wyświetla tło dla niektórych elementów aplikacji (alarmy, miasta, przycisk timera itp.).</string>
-    <string name="settings_vibration_summary">Dotyczy tylko niektórych przycisków interfejsu (np. przycisku odtwarzania/pauzy timera lub przełączników).</string>
+    <string name="display_card_background_summary">Wyświetla tło dla niektórych elementów aplikacji (alarmy, miasta, przycisk minutnika itp.)</string>
+    <string name="settings_vibration_summary">Dotyczy tylko niektórych przycisków interfejsu (np. przycisku odtwarzania/pauzy minutnika lub przełączników)</string>
     <string name="day_accent_color_title">Kolor w trybie dziennym</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Włącz domyślnie automatyczne usuwanie okazjonalnych alarmów</string>
     <string name="auto_silence_10_seconds">10 sekund</string>
@@ -466,7 +466,7 @@
     <string name="widget_next_alarm_default_color_title">Użyj domyślnego koloru dla następnego alarmu</string>
     <string name="FSN_dialog_text">Od Androida 14, aby alarm był wyzwalany, gdy ekran jest wyłączony, konieczne jest włączenie uprawnienia \"Powiadomienia pełnoekranowe\".</string>
     <string name="yellow_accent_color">Żółty</string>
-    <string name="display_background_border_summary">Wyświetla obramowanie tła dla niektórych elementów aplikacji (alarmy, miasta, przycisk timera itp.).</string>
+    <string name="display_background_border_summary">Wyświetla obramowanie tła dla niektórych elementów aplikacji (alarmy, miasta, przycisk minutnika itp.)</string>
     <string name="alarm_notification_reminder_title">Przypomnienie o powiadomieniu</string>
     <string name="alarm_notification_reminder_30_minutes">30 minut przed</string>
     <string name="alarm_notification_reminder_1_hour">1 godzinę przed</string>
@@ -675,4 +675,8 @@
     <string name="analog_widget_with_second_hand_title">Z sekundnikiem</string>
     <string name="analog_widget_configuration_warning">Ten widżet można konfigurować tylko w systemie Android 12</string>
     <string name="analog_widget_choice_title">Wybierz swój styl</string>
+    <string name="settings_tab_to_display">Karta wyświetlana podczas otwierania aplikacji</string>
+    <string name="last_tab_used_title">Ostatnio używana karta</string>
+    <string name="timer_button_time_warning_box_text">Wprowadź wartość od 1 do 120 minut</string>
+    <string name="timer_button_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
 </resources>
