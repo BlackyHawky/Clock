@@ -982,6 +982,10 @@
         \n\n• Material design;
         \n\n• Dynamic colors for Android 12+;
     </string>
+    <!-- Title button to reset all settings -->
+    <string name="reset_settings_title">Reset settings</string>
+    <!-- Confirmation message to reset all settings -->
+    <string name="reset_settings_message">Are you sure you want to reset all app settings?</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters

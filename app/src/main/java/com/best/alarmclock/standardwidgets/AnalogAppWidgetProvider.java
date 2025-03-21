@@ -6,6 +6,7 @@
 
 package com.best.alarmclock.standardwidgets;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ANALOG_WIDGET_WITH_SECOND_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_WITH_SECOND_HAND;
@@ -64,11 +65,18 @@ public class AnalogAppWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        // Send events for newly created/deleted widgets.
         final ComponentName provider = new ComponentName(context, getClass());
-        final int widgetCount = wm.getAppWidgetIds(provider).length;
+        final int[] widgetIds = wm.getAppWidgetIds(provider);
+        final String action = intent.getAction();
+        if (action != null) {
+            if (action.equals(ACTION_APPWIDGET_UPDATE)) {
+                for (int widgetId : widgetIds) {
+                    updateAppWidget(context, wm, widgetId);
+                }
+            }
+        }
 
-        WidgetUtils.updateWidgetCount(context, getClass(), widgetCount, R.string.category_analog_widget);
+        WidgetUtils.updateWidgetCount(context, getClass(), widgetIds.length, R.string.category_analog_widget);
     }
 
     /**
