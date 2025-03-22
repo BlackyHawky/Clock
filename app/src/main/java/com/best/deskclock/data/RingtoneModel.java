@@ -163,6 +163,10 @@ final class RingtoneModel {
 
     String getRingtoneTitle(Uri uri) {
         final Context localizedContext = Utils.getLocalizedContext(mContext);
+        // Special case: "random"
+        if (uri.toString().equals("random")) {
+            return mContext.getString(R.string.random_ringtone_title);
+        }
 
         // Special case: no ringtone has a title of "Silent".
         if (Alarm.NO_RINGTONE_URI.equals(uri)) {

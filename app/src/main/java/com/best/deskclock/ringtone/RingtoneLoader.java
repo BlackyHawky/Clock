@@ -91,6 +91,9 @@ class RingtoneLoader extends AsyncTaskLoader<List<ItemAdapter.ItemHolder<Uri>>> 
                 itemHolders.add(new SystemRingtoneHolder(ringtoneUri, null));
             }
 
+            // Add an item holder for random ringtones.
+            itemHolders.add(new SystemRingtoneHolder(Uri.parse("random"), null));
+
             return itemHolders;
         } catch (Exception e) {
             LogUtils.e("Could not get system ringtone cursor");
