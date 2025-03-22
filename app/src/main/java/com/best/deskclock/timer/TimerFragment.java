@@ -150,8 +150,8 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         boolean createTimer = false;
         int showTimerId = -1;
