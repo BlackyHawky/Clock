@@ -23,7 +23,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WIDGETS_SETTINGS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -45,7 +44,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -107,9 +108,9 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         return;
                     }
 
-                    backupPreferences(requireContext(), uri);
+                    backupPreferences(uri);
                     Toast.makeText(requireContext(),
-                            requireContext().getString(R.string.backup_restore_toast_message_for_backup),
+                            requireContext().getString(R.string.toast_message_for_backup),
                             Toast.LENGTH_SHORT)
                             .show();
                 });
@@ -130,7 +131,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                     }
 
                     try {
-                        restorePreferences(requireContext(), uri);
+                        restorePreferences(uri);
                         // This is to ensure that the interface theme loads correctly after the restore.
                         String getTheme = SettingsDAO.getTheme(mPrefs);
                         switch (getTheme) {
@@ -145,9 +146,15 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                         requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                         // Required to update widgets after a restore.
                         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+                        // Required to update the timer list after a restore.
+                        DataModel.getDataModel().loadTimers();
+                        // Required to update the tab to display after a restore.
+                        if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
+                            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
+                        }
                         recreateActivity();
                         Toast.makeText(requireContext(),
-                                requireContext().getString(R.string.backup_restore_toast_message_for_restore),
+                                requireContext().getString(R.string.toast_message_for_restore),
                                 Toast.LENGTH_SHORT)
                                 .show();
                     } catch (FileNotFoundException e) {
@@ -223,10 +230,10 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_BACKUP_RESTORE_PREFERENCES -> {
                     final AlertDialog builder = new AlertDialog.Builder(requireContext())
                             .setIcon(R.drawable.ic_backup_restore)
-                            .setTitle(R.string.backup_restore_settings_title)
+                            .setTitle(R.string.backup_restore_title)
                             .setMessage(R.string.backup_restore_dialog_message)
                             .setPositiveButton(android.R.string.cancel, null)
-                            .setNegativeButton(R.string.backup_restore_backup_button_title, (dialog, which) -> {
+                            .setNegativeButton(R.string.backup_button_title, (dialog, which) -> {
                                 String currentDateAndTime = DateFormat.format("yyyy_MM_dd_HH-mm-ss", new Date()).toString();
                                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
@@ -235,7 +242,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                         .setType("application/json");
                                 backupToFile.launch(intent);
                             })
-                            .setNeutralButton(R.string.backup_restore_restore_button_title, (dialog, which) -> {
+                            .setNeutralButton(R.string.restore_button_title, (dialog, which) -> {
                                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT)
                                         .addCategory(Intent.CATEGORY_OPENABLE)
                                         .setType("application/json");
@@ -288,17 +295,17 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mBackupRestorePref.setOnPreferenceClickListener(this);
         }
 
-        private void backupPreferences(Context context, Uri uri) {
-            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
-                BackupAndRestoreUtils.settingsToJsonStream(mPrefs.getAll(), outputStream, mPrefs, context);
+        private void backupPreferences(Uri uri) {
+            try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
+                BackupAndRestoreUtils.settingsToJsonStream(mPrefs.getAll(), outputStream, mPrefs);
             } catch (IOException e) {
                 LogUtils.wtf("Error during backup");
             }
         }
 
-        private void restorePreferences(Context context, Uri uri) throws FileNotFoundException {
-            InputStream inputStream = context.getContentResolver().openInputStream(uri);
-            BackupAndRestoreUtils.readJsonLines(inputStream, mPrefs);
+        private void restorePreferences(Uri uri) throws FileNotFoundException {
+            InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
+            BackupAndRestoreUtils.readJson(requireContext(), inputStream, mPrefs);
         }
     }
 

@@ -53,7 +53,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -76,7 +75,6 @@ public final class TimerFragment extends DeskClockFragment {
     private ItemTouchHelper mItemTouchHelper;
     private boolean mIsTablet;
     private boolean mIsLandscape;
-    List<Timer> mTimersList;
 
     /**
      * Scheduled to update the timers while at least one is running.
@@ -113,9 +111,7 @@ public final class TimerFragment extends DeskClockFragment {
 
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
-        TimerClickHandler timerClickHandler = new TimerClickHandler(this);
-        mTimersList = DataModel.getDataModel().getTimers();
-        mAdapter = new TimerAdapter(mContext, mPrefs, mTimersList, timerClickHandler);
+        mAdapter = new TimerAdapter(mContext, mPrefs, new TimerClickHandler(this));
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mTimersView = view.findViewById(R.id.timer_view);
         mCreateTimerView = view.findViewById(R.id.timer_setup);
@@ -136,9 +132,9 @@ public final class TimerFragment extends DeskClockFragment {
         DataModel.getDataModel().addTimerListener(mAdapter);
         DataModel.getDataModel().addTimerListener(mTimerWatcher);
 
-        mAdapter.loadTimerList(mContext);
+        mAdapter.loadTimerList();
 
-        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter.getTimers(), mAdapter));
+        mItemTouchHelper = new ItemTouchHelper(new TimerAdapter.TimerItemTouchHelper(mAdapter));
         handleItemTouchHelper();
 
         // If timer setup state is present, retrieve it to be later honored.
@@ -459,7 +455,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private RecyclerView.LayoutManager getLayoutManager(Context context) {
-        if (mIsTablet && mTimersList.size() > 1) {
+        if (mIsTablet && mAdapter.getItemCount() > 1) {
             return new GridLayoutManager(context, mIsLandscape ? 3 : 2);
         }
 
@@ -469,7 +465,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private void handleItemTouchHelper() {
-        if (mTimersList.size() > 1) {
+        if (mAdapter.getItemCount() > 1) {
             mItemTouchHelper.attachToRecyclerView(mRecyclerView);
         } else {
             mItemTouchHelper.attachToRecyclerView(null);
@@ -512,7 +508,7 @@ public final class TimerFragment extends DeskClockFragment {
      */
     private class TimerWatcher implements TimerListener {
         @Override
-        public void timerAdded(Context context, Timer timer) {
+        public void timerAdded(Timer timer) {
             // If the timer is being created via this fragment avoid adjusting the fab.
             // Timer setup view is about to be animated away in response to this timer creation.
             // Changes to the fab immediately preceding that animation are jarring.
@@ -522,7 +518,7 @@ public final class TimerFragment extends DeskClockFragment {
 
             // Required to adjust the layout for tablets that use either a GridLayoutManager or a LinearLayoutManager.
             if (mIsTablet) {
-                mRecyclerView.setLayoutManager(getLayoutManager(context));
+                mRecyclerView.setLayoutManager(getLayoutManager(mContext));
             }
 
             // Required to attach the ItemTouchHelper when there is more than one timer.

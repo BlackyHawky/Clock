@@ -428,7 +428,7 @@
     <string name="next_alarm_widget_text">Sveglia successiva</string>
     <string name="next_alarm_widget_title_no_alarm">Nessuna sveglia in programma</string>
     <string name="notifications_permission_title">ABILITA NOTIFICHE</string>
-    <string name="backup_restore_toast_message_for_restore">Ripristino completato</string>
+    <string name="toast_message_for_restore">Ripristino completato</string>
     <string name="alarm_settings_summary">Imposta la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
     <string name="analog_widget_material_you">Orologio analogico Material You</string>
     <string name="material_you_digital_widget">Orologio digitale Material You</string>
@@ -596,11 +596,11 @@
     <string name="next_alarm_widget_default_title_color">Usa il colore predefinito per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>
     <string name="next_alarm_widget">Sveglia successiva</string>
     <string name="backup_restore_dialog_message">Si desidera eseguire il salvataggio o il ripristino delle impostazioni da un file?</string>
-    <string name="backup_restore_backup_button_title">Salvataggio</string>
-    <string name="backup_restore_settings_title">Salvataggio e Ripristino</string>
-    <string name="backup_restore_settings_summary">Salva o ripristina le impostazioni, ad eccezione di sveglie, timer e suonerie</string>
-    <string name="backup_restore_restore_button_title">Ripristino</string>
-    <string name="backup_restore_toast_message_for_backup">Salvataggio completato</string>
+    <string name="backup_button_title">Salvataggio</string>
+    <string name="backup_restore_title">Salvataggio e Ripristino</string>
+    <string name="backup_restore_summary">Salva o ripristina le impostazioni, ad eccezione di sveglie, timer e suonerie</string>
+    <string name="restore_button_title">Ripristino</string>
+    <string name="toast_message_for_backup">Salvataggio completato</string>
     <string name="sort_timer_descending_duration">Per durata (ordine decrescente)</string>
     <string name="default_time_to_add_to_timer_1_hour">1 ora</string>
     <string name="keep_timer_screen_on_title">Tieni lo schermo acceso se è visualizzato un timer</string>

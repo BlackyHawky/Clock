@@ -39,7 +39,7 @@ Clock is a customizable and privacy-conscious open-source clock, based on AOSP C
 * Modern widgets;
 * Customizable widgets;
 * Support for tiles in quick settings (for Android 7+);
-* Backup and restore settings;
+* Backup and restore application data (except alarms and custom ringtones);
 * Material design;
 * Dynamic colors for Android 12+;
 * Support for [Reproducible Builds](https://reproducible-builds.org/). See the discussion [here](https://github.com/BlackyHawky/Clock/issues/140).

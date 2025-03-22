@@ -321,6 +321,13 @@ public final class DataModel {
     }
 
     /**
+     * Load timers from SharedPreferences after a restore or reset of settings
+     */
+    public void loadTimers() {
+        mTimerModel.loadTimers();
+    }
+
+    /**
      * @return a list of expired timers for display
      */
     public List<Timer> getExpiredTimers() {

@@ -19,30 +19,27 @@ import java.util.Set;
  * This class encapsulates the transfer of data between {@link CustomRingtone} domain objects and
  * their permanent storage in {@link SharedPreferences}.
  */
-final class CustomRingtoneDAO {
+public final class CustomRingtoneDAO {
 
     /**
      * Key to a preference that stores the set of all custom ringtone ids.
      */
-    private static final String RINGTONE_IDS = "ringtone_ids";
+    public static final String RINGTONE_IDS = "ringtone_ids";
 
     /**
      * Key to a preference that stores the next unused ringtone id.
      */
-    private static final String NEXT_RINGTONE_ID = "next_ringtone_id";
+    public static final String NEXT_RINGTONE_ID = "next_ringtone_id";
 
     /**
      * Prefix for a key to a preference that stores the URI associated with the ringtone id.
      */
-    private static final String RINGTONE_URI = "ringtone_uri_";
+    public static final String RINGTONE_URI = "ringtone_uri_";
 
     /**
      * Prefix for a key to a preference that stores the title associated with the ringtone id.
      */
-    private static final String RINGTONE_TITLE = "ringtone_title_";
-
-    private CustomRingtoneDAO() {
-    }
+    public static final String RINGTONE_TITLE = "ringtone_title_";
 
     /**
      * @param uri   points to an audio file located on the file system

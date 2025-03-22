@@ -22,12 +22,12 @@ import java.util.Set;
  * This class encapsulates the transfer of data between {@link Timer} domain objects and their
  * permanent storage in {@link SharedPreferences}.
  */
-final class TimerDAO {
+public final class TimerDAO {
 
     /**
      * Key to a preference that stores the set of timer ids.
      */
-    private static final String TIMER_IDS = "timers_list";
+    public static final String TIMER_IDS = "timers_list";
 
     /**
      * Key to a preference that stores the id to assign to the next timer.

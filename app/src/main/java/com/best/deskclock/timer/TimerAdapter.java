@@ -6,7 +6,6 @@
 
 package com.best.deskclock.timer;
 
-import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SORT_TIMER_MANUALLY;
 
 import android.content.Context;
@@ -45,14 +44,12 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     /** Maps each timer id to the corresponding {@link TimerViewHolder} that draws it. */
     private final Map<Integer, TimerViewHolder> mHolders = new ArrayMap<>();
     private final TimerClickHandler mTimerClickHandler;
-    private final List<Timer> mTimers;
     private final Context mContext;
     private final SharedPreferences mPrefs;
 
-    public TimerAdapter(Context context, SharedPreferences sharedPreferences, List<Timer> timers, TimerClickHandler timerClickHandler) {
+    public TimerAdapter(Context context, SharedPreferences sharedPreferences, TimerClickHandler timerClickHandler) {
         mContext = context;
         mPrefs = sharedPreferences;
-        mTimers = timers;
         mTimerClickHandler = timerClickHandler;
     }
 
@@ -63,7 +60,7 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        if (mTimers.size() == 1) {
+        if (getTimers().size() == 1) {
             return (ThemeUtils.isTablet() || ThemeUtils.isPortrait()) ? SINGLE_TIMER : MULTIPLE_TIMERS;
         } else {
             return MULTIPLE_TIMERS;
@@ -92,14 +89,15 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Override
-    public void timerAdded(Context context, Timer timer) {
-        saveTimerList(context);
+    public void timerAdded(Timer timer) {
+        saveTimerList();
         notifyDataSetChanged();
     }
 
     @Override
     public void timerRemoved(Timer timer) {
         mHolders.remove(timer.getId());
+        saveTimerList();
         notifyDataSetChanged();
     }
 
@@ -129,44 +127,47 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (!timerSortingPreference.equals(DEFAULT_SORT_TIMER_MANUALLY)) {
             Collections.sort(timers, Timer.createTimerStateComparator(mContext));
         }
-        return mTimers;
+        return timers;
     }
 
-    public void saveTimerList(Context context) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    public void saveTimerList() {
+        SharedPreferences.Editor editor = mPrefs.edit();
 
-        // Convert list of IDs to string
-        StringBuilder sb = new StringBuilder();
-        for (Timer timer : mTimers) {
-            sb.append(timer.getId()).append(",");
+        if (getTimers().isEmpty()) {
+            editor.remove("timerOrder");
+        } else {
+            // Convert list of IDs to string
+            StringBuilder sb = new StringBuilder();
+            for (Timer timer : getTimers()) {
+                sb.append(timer.getId()).append(",");
+            }
+
+            // Delete the last comma
+            if (sb.length() > 0) {
+                sb.setLength(sb.length() - 1);
+            }
+
+            editor.putString("timerOrder", sb.toString());
         }
 
-        // Delete the last comma
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
-
-        editor.putString("timerOrder", sb.toString());
         editor.apply();
     }
 
-    public void loadTimerList(Context context) {
-        SharedPreferences sharedPreferences = getDefaultSharedPreferences(context);
-        String savedOrder = sharedPreferences.getString("timerOrder", null);
+    public void loadTimerList() {
+        String savedOrder = mPrefs.getString("timerOrder", null);
 
         if (savedOrder != null) {
             String[] timerIds = savedOrder.split(",");
 
-            List<Timer> tempList = new ArrayList<>(mTimers);
-            mTimers.clear();
+            List<Timer> tempList = new ArrayList<>(getTimers());
+            getTimers().clear();
 
             // Fill mTimers according to the saved order
             for (String id : timerIds) {
                 int timerId = Integer.parseInt(id);
                 for (Timer timer : tempList) {
                     if (timer.getId() == timerId) {
-                        mTimers.add(timer);
+                        getTimers().add(timer);
                         break;
                     }
                 }
@@ -179,11 +180,9 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public static class TimerItemTouchHelper extends ItemTouchHelper.Callback {
 
-        private final List<Timer> mTimers;
         private final TimerAdapter mAdapter;
 
-        public TimerItemTouchHelper(List<Timer> timers, TimerAdapter adapter) {
-            mTimers = timers;
+        public TimerItemTouchHelper(TimerAdapter adapter) {
             mAdapter = adapter;
         }
 
@@ -195,10 +194,10 @@ public class TimerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             int fromPosition = viewHolder.getBindingAdapterPosition();
             int toPosition = target.getBindingAdapterPosition();
 
-            Collections.swap(mTimers, fromPosition, toPosition);
+            Collections.swap(DataModel.getDataModel().getTimers(), fromPosition, toPosition);
             Objects.requireNonNull(recyclerView.getAdapter()).notifyItemMoved(fromPosition, toPosition);
 
-            mAdapter.saveTimerList(recyclerView.getContext());
+            mAdapter.saveTimerList();
 
             return true;
         }

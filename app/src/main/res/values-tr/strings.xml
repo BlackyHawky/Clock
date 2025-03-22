@@ -474,8 +474,8 @@
     <string name="next_alarm_widget_custom_title_color">\"Sonraki alarm\" ve \"Yaklaşan alarm yok\" başlıkları için özel renk</string>
     <string name="show_lockscreen_dialog_title">Kilit ekranında göster</string>
     <string name="show_lockscreen_dialog_text">Uygulamanın Xiaomi cihazlarda sorunsuz çalışabilmesi için \"Kilit ekranında göster\" iznini cihaz ayarlarından elle etkinleştirmelisiniz.</string>
-    <string name="backup_restore_settings_summary">Alarmlar, zamanlayıcılar ve zil sesleri dışındaki ayarları yedekleyin veya geri yükleyin</string>
-    <string name="backup_restore_restore_button_title">Geri yükle</string>
+    <string name="backup_restore_summary">Alarmlar, zamanlayıcılar ve zil sesleri dışındaki ayarları yedekleyin veya geri yükleyin</string>
+    <string name="restore_button_title">Geri yükle</string>
     <string name="digital_widget_custom_hours_color_title">Saatler için özel renk</string>
     <string name="title_dark_theme_mode">Karanlık tema modu</string>
     <string name="settings_vibration_summary">Sadece bazı butonlar etkilenecek (Örneğin: zamanlayıcı başlat/duraklat butonu veya açma kapama butonları)</string>
@@ -525,7 +525,7 @@
     <string name="background_color_title">Arka plan rengi</string>
     <string name="digital_widget_city_name_custom_color_title">Şehir ismi için özel renk</string>
     <string name="digital_widget_max_clock_font_size_title">Ana saatin maksimum yazı boyutu</string>
-    <string name="backup_restore_settings_title">Yedekle &amp; Geri Yükle</string>
+    <string name="backup_restore_title">Yedekle &amp; Geri Yükle</string>
     <string name="settings_language_german">Almanca</string>
     <string name="settings_language_english_us">İngilizce (ABD)</string>
     <string name="settings_language_chinese_simplified_cn">Çince (Basitleştirilmiş)</string>
@@ -615,9 +615,9 @@
     <string name="denied_permission_label">İzin reddedildi</string>
     <string name="FSN_dialog_title">Tam Ekran Bildirimler</string>
     <string name="backup_restore_dialog_message">Ayarlarınızı bir dosya ile mi yedeklemek veya geri yüklemek istiyorsunuz?</string>
-    <string name="backup_restore_backup_button_title">Yedekle</string>
-    <string name="backup_restore_toast_message_for_backup">Yedekleme tamamlandı</string>
-    <string name="backup_restore_toast_message_for_restore">Geri yükleme tamamlandı</string>
+    <string name="backup_button_title">Yedekle</string>
+    <string name="toast_message_for_backup">Yedekleme tamamlandı</string>
+    <string name="toast_message_for_restore">Geri yükleme tamamlandı</string>
     <string name="first_launch_important_info_title">ÖNEMLİ BİLGİLENDİRME</string>
     <string name="first_launch_dialog_title">Çıkış</string>
     <string name="digital_widget_clock_custom_color_title">Ana saat için özel renk</string>

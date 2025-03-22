@@ -6,8 +6,6 @@
 
 package com.best.deskclock.data;
 
-import android.content.Context;
-
 /**
  * The interface through which interested parties are notified of changes to one of the timers.
  */
@@ -16,7 +14,7 @@ public interface TimerListener {
     /**
      * @param timer the timer that was added
      */
-    void timerAdded(Context context, Timer timer);
+    void timerAdded(Timer timer);
 
     /**
      * @param before the timer state before the update

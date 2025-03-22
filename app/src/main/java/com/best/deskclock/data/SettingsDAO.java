@@ -59,7 +59,7 @@ public final class SettingsDAO {
     /**
      * Key to a preference that stores the ringtone of an existing alarm.
      */
-    private static final String KEY_SELECTED_ALARM_RINGTONE_URI = "selected_alarm_ringtone_uri";
+    public static final String KEY_SELECTED_ALARM_RINGTONE_URI = "selected_alarm_ringtone_uri";
 
     /**
      * Key to a preference that stores the global broadcast id.

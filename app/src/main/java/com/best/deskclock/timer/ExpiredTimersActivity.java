@@ -331,7 +331,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
      */
     private class TimerChangeWatcher implements TimerListener {
         @Override
-        public void timerAdded(Context context, Timer timer) {
+        public void timerAdded(Timer timer) {
             if (timer.isExpired()) {
                 addTimer(timer);
             }

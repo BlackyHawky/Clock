@@ -519,8 +519,8 @@
     <string name="alarm_notification_reminder_10_hours">10 uur van te voren</string>
     <string name="alarm_notification_reminder_12_hours">12 uur van te voren</string>
     <string name="backup_restore_dialog_message">Wil je een back-up maken, of instellingen herstellen uit een bestand?</string>
-    <string name="backup_restore_backup_button_title">Back-up</string>
-    <string name="backup_restore_restore_button_title">Herstel</string>
+    <string name="backup_button_title">Back-up</string>
+    <string name="restore_button_title">Herstel</string>
     <string name="alarm_notification_reminder_8_hours">8 uur van te voren</string>
     <string name="snooze_button_color">Kleur snoozeknop</string>
     <string name="auto_silence_20_seconds">20 seconden</string>
@@ -583,10 +583,10 @@
     <string name="material_you_next_alarm_widget">Volgende wekker Material You</string>
     <string name="settings_fade_transitions_title">Vervagingsovergangen inschakelen bij het wisselen van scherm</string>
     <string name="next_alarm_widget">Volgende wekker</string>
-    <string name="backup_restore_settings_summary">Back-up of herstel instellingen behalve wekkers, timers en ringtoon</string>
-    <string name="backup_restore_settings_title">Back-up &amp; Herstel</string>
-    <string name="backup_restore_toast_message_for_backup">Backup voltooid</string>
-    <string name="backup_restore_toast_message_for_restore">Herstel voltooid</string>
+    <string name="backup_restore_summary">Back-up of herstel instellingen behalve wekkers, timers en ringtoon</string>
+    <string name="backup_restore_title">Back-up &amp; Herstel</string>
+    <string name="toast_message_for_backup">Backup voltooid</string>
+    <string name="toast_message_for_restore">Herstel voltooid</string>
     <string name="timer_flip_action_title">Apparaat omdraaien om timer uit te zetten</string>
     <string name="timer_shake_action_title">Apparaat schudden om timer uit te zetten</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 minuten</string>

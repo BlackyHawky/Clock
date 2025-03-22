@@ -253,7 +253,7 @@ final class TimerModel {
 
         // Notify listeners of the change.
         for (TimerListener timerListener : mTimerListeners) {
-            timerListener.timerAdded(mContext, timer);
+            timerListener.timerAdded(timer);
         }
 
         return timer;
@@ -487,6 +487,13 @@ final class TimerModel {
         }
 
         return mTimers;
+    }
+
+    /**
+     * Load timers from SharedPreferences after a restore or reset of settings
+     */
+    public void loadTimers() {
+        mTimers = TimerDAO.getTimers(mPrefs);
     }
 
     private List<Timer> getMutableExpiredTimers() {

@@ -589,7 +589,7 @@
     <string name="alarm_alert_off_and_deleted_text">Alarm ausgeschaltet und gelöscht</string>
     <string name="digital_widget_default_hours_color_title">Standardfarbe für Stunden verwenden</string>
     <string name="next_alarm_widget_max_font_size_title">Schriftgröße des Widgets</string>
-    <string name="backup_restore_toast_message_for_restore">Wiederherstellung abgeschlossen</string>
+    <string name="toast_message_for_restore">Wiederherstellung abgeschlossen</string>
     <string name="black_accent_color">Schwarz</string>
     <string name="sw_volume_up_action_title">Lauter-Taste</string>
     <string name="sw_long_press_volume_up_action_title">Lauter-Taste (lange drücken)</string>
@@ -609,12 +609,12 @@
     <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Links oder rechts tippen zum Ausschalten und Löschen des Alarms</string>
     <string name="occasional_alarm_alert_predismiss_title">Anstehender einmaliger Alarm</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Nach links wischen, um den Alarm auszuschalten und zu löschen</string>
-    <string name="backup_restore_backup_button_title">Sichern</string>
-    <string name="backup_restore_restore_button_title">Wiederherstellen</string>
-    <string name="backup_restore_settings_title">Sichern &amp; Wiederherstellen</string>
-    <string name="backup_restore_settings_summary">Sichern oder Wiederherstellen von Einstellungen (mit Ausnahme von Alarmen, Timern und Signaltönen)</string>
+    <string name="backup_button_title">Sichern</string>
+    <string name="restore_button_title">Wiederherstellen</string>
+    <string name="backup_restore_title">Sichern &amp; Wiederherstellen</string>
+    <string name="backup_restore_summary">Sichern oder Wiederherstellen von Einstellungen (mit Ausnahme von Alarmen, Timern und Signaltönen)</string>
     <string name="backup_restore_dialog_message">Möchten Sie die Einstellungen sichern oder aus einer Datei wiederherstellen?</string>
-    <string name="backup_restore_toast_message_for_backup">Sicherung abgeschlossen</string>
+    <string name="toast_message_for_backup">Sicherung abgeschlossen</string>
     <string name="seconds_hand_color_title">Farbe des Sekundenzeigers</string>
     <string name="auto_night_accent_color_title">Akzentfarbe im Nacht-Modus anwenden</string>
     <string name="night_accent_color_title">Akzentfarbe für Nacht-Modus</string>

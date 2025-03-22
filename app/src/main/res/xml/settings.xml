@@ -83,8 +83,8 @@
 
     <Preference
         android:key="key_backup_restore_preferences"
-        android:title="@string/backup_restore_settings_title"
-        android:summary="@string/backup_restore_settings_summary"
+        android:title="@string/backup_restore_title"
+        android:summary="@string/backup_restore_summary"
         android:icon="@drawable/ic_backup_restore"
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout" />

@@ -982,14 +982,18 @@
         \n\n• Modern widgets;
         \n\n• Customizable widgets;
         \n\n• Support for tiles in quick settings (for Android 7+);
-        \n\n• Backup and restore settings;
+        \n\n• Backup and restore application data (except alarms and custom ringtones);
         \n\n• Material design;
         \n\n• Dynamic colors for Android 12+;
     </string>
     <!-- Title button to reset all settings -->
     <string name="reset_settings_title">Reset settings</string>
     <!-- Confirmation message to reset all settings -->
-    <string name="reset_settings_message">Are you sure you want to reset all app settings?</string>
+    <string name="reset_settings_message">Are you sure you want to reset all app settings?
+        \n\nNote: alarms and custom ringtones will not be reset.
+    </string>
+    <!-- Toast message when reset is complete -->
+    <string name="toast_message_for_reset">Reset completed</string>
     <!-- Button to close a dialog where neither "ok" nor "cancel" are suitable -->
     <string name="dialog_close">Close</string>
     <!-- Short label for a shortcut to create a new alarm. The maximum length is ~10 characters
@@ -1337,7 +1341,7 @@
         ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
         ► Customizable widgets; &lt;br&gt; &lt;br&gt;
         ► Support for tiles in quick settings (for Android 7+); &lt;br&gt; &lt;br&gt;
-        ► Backup and restore settings; &lt;br&gt; &lt;br&gt;
+        ► Backup and restore application data (except alarms and custom ringtones); &lt;br&gt; &lt;br&gt;
         ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
         ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
         ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;
@@ -1457,17 +1461,17 @@
     Backup & Restore
     -->
     <!-- Backup & Restore preference title in the settings. -->
-    <string name="backup_restore_settings_title">Backup &amp; Restore</string>
+    <string name="backup_restore_title">Backup &amp; Restore</string>
     <!-- Backup & Restore preference summary in the settings. -->
-    <string name="backup_restore_settings_summary">Backup or restore settings except alarms, timers and ringtones</string>
+    <string name="backup_restore_summary">Backup or restore application data except alarms and custom ringtones</string>
     <!-- Backup & Restore dialog message -->
-    <string name="backup_restore_dialog_message">Do you want to backup or restore settings from a file?</string>
+    <string name="backup_restore_dialog_message">Do you want to backup or restore application data?</string>
     <!-- Backup button in the Backup and Restore dialog -->
-    <string name="backup_restore_backup_button_title">Backup</string>
+    <string name="backup_button_title">Backup</string>
     <!-- Restore button in the Backup and Restore dialog -->
-    <string name="backup_restore_restore_button_title">Restore</string>
+    <string name="restore_button_title">Restore</string>
     <!-- Toast message when backup is complete -->
-    <string name="backup_restore_toast_message_for_backup">Backup completed</string>
+    <string name="toast_message_for_backup">Backup completed</string>
     <!-- Toast message when restore is complete -->
-    <string name="backup_restore_toast_message_for_restore">Restore completed</string>
+    <string name="toast_message_for_restore">Restore completed</string>
 </resources>

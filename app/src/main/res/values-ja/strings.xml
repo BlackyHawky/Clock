@@ -437,13 +437,13 @@
     <string name="material_you_vertical_digital_widget">Material You 縦型デジタル時計</string>
     <string name="material_you_digital_widget">Material You デジタル時計</string>
     <string name="analog_widget_material_you">Material You アナログ時計</string>
-    <string name="backup_restore_restore_button_title">復元</string>
-    <string name="backup_restore_backup_button_title">バックアップ</string>
+    <string name="restore_button_title">復元</string>
+    <string name="backup_button_title">バックアップ</string>
     <string name="widgets_settings">ウィジェット</string>
-    <string name="backup_restore_settings_title">バックアップと復元</string>
+    <string name="backup_restore_title">バックアップと復元</string>
     <string name="backup_restore_dialog_message">ファイルから設定をバックアップまたは復元しますか？</string>
-    <string name="backup_restore_toast_message_for_restore">復元完了</string>
-    <string name="backup_restore_toast_message_for_backup">バックアップ完了</string>
+    <string name="toast_message_for_restore">復元完了</string>
+    <string name="toast_message_for_backup">バックアップ完了</string>
     <string name="ignore_battery_optimizations_title">バッテリーの最適化を無視</string>
     <string name="ignore_battery_optimizations_dialog_title">バッテリーの最適化</string>
     <string name="revoke_permission_dialog_message">この権限を取り消しますか？</string>
@@ -454,7 +454,7 @@
     <string name="permission_requirement_title">要件:</string>
     <string name="permission_management_summary">アプリが正常に動作するための権限を表示</string>
     <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
-    <string name="backup_restore_settings_summary">アラーム、タイマー、通知音を除く設定のバックアップまたは復元</string>
+    <string name="backup_restore_summary">アラーム、タイマー、通知音を除く設定のバックアップまたは復元</string>
     <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
     <string name="auto_silence_5_seconds">5秒</string>
     <string name="auto_silence_20_seconds">20秒</string>
