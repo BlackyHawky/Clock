@@ -260,8 +260,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         mActivity = requireActivity();
         final Intent intent = mActivity.getIntent();
