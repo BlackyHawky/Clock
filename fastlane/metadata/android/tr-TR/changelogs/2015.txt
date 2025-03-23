@@ -1,0 +1,8 @@
+**Düzeltmeler**
+- Saat veya Ekran koruyucu ayarlarında kaydırmalı seçicinin çökme sorunu
+
+**Geliştirmeler**
+- Çeviri güncellemeleri
+
+Sürüm 2.12'nin diğer özelliklerine ulaşabileceğiniz sayfa:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

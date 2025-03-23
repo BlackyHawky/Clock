@@ -1,0 +1,7 @@
+**Geliştirmeler**
+ - Zaman seçicide varsayılan stili seçme;
+ - Ayarlarda gezinirken solma efekti;
+ - Alarm animasyonunu özelleştirme;
+ - Ses tuşlarına "Hiçbir şey" eylemi eklendi;
+ - Çeviri güncellemeleri;
+ - Bütün geliştirmeleri görmek için: https://github.com/BlackyHawky/Clock/releases/tag/2.7

@@ -1,0 +1,14 @@
+**İyileştirmeler**
+- Diğer uygulamalardaki yaklaşan alarmları gösterme
+- MIUI cihazlarda ekran kilitliyken çalan alarm görünmeme sorunu
+
+**Geliştirmeler**
+- Uyku vakti modu kaldırıldı
+- Hızlı Ayarlar panelinde kutucuk desteği
+- Alarm çalarken flaşı açma
+- Sallama şiddetini ayarlama
+- Uygulamanın dilini değiştirme
+- Telefonlarda yatay mod kullanım geliştirmeleri
+
+Diğer güncellemeler GitHub sayfasında:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

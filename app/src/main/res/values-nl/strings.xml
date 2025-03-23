@@ -170,7 +170,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sorteren op naam"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Geselecteerde plaatsen"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Hervatten"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Resetten"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">Terugzetten</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pauze"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Ronde"</string>
@@ -192,7 +192,7 @@
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s min. toevoegen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stoppen"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Alle timers stoppen"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Resetten"</string>
+    <string name="timer_reset" msgid="7848424809190171640">Terugzetten</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Annuleren"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Timer geannuleerd"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"De tijd is om"</string>
@@ -201,7 +201,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Gemiste timer: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Pauzeren"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Alle timers resetten"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">Alle timers terugzetten</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
@@ -399,7 +399,7 @@
     <string name="about_title">Over</string>
     <string name="contributors">Bijdragers</string>
     <string name="credits">Credits</string>
-    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten, wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
+    <string name="about_dialog_message">• Omdraaien en schudden om wekker uit te zetten/stellen \n\n• Wekker uitzetten/uitstellen met de aan/uit-knop of volumeknoppen \n\n• Alleen voor Snapdragon apparaten: wekker af laten gaan als het toestel is uitgeschakeld \n\n• Veeg om wekker te verwijderen \n\n• Wekkers dupliceren \n\n• Wekkertitel aanpassen \n\n• Wekkergeluid aanpassen \n\n• Licht, donker of systeemthema \n\n• AMOLED-modus voor donker thema \n\n• Digitale of analoge klokstijl \n\n• Klok voor thuis tijdens het reizen \n\n• Bekijk de tijd in vele steden rond de wereld \n\n• Bevat timer, stopwatch en bedtijd \n\n• Mogelijkheid om stopwatchtijden te delen met contacten \n\n• Aanpasbare screensaver \n\n• Moderne widgets \n\n• Aanpasbare widgets\n\n• Ondersteuning voor tegels in de snelle instellingen (Android 7+); \n\n• Back-up en herstel instellingen \n\n• Material design \n\n• Dynamische kleuren voor Android 12+</string>
     <string name="screensaver_daydream_settings">Screensaver selecteren/inschakelen</string>
     <string name="screensaver_daydream_settings_summary">Opent de systeeminstellingen voor screensavers</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische klokkleuren</string>
@@ -494,13 +494,13 @@
     <string name="digital_widget_city_title">Toon steden op widget</string>
     <string name="digital_widget_clock_default_color_title">Standaardkleur voor klok</string>
     <string name="digital_widget_date_default_color_title">Standaardkleur voor datum</string>
-    <string name="widget_next_alarm_custom_color_title">Volgende wekker kleur aanpassen</string>
+    <string name="widget_next_alarm_custom_color_title">Kleur volgende wekker aanpassen</string>
     <string name="digital_widget_city_clock_default_color_title">Standaardkleur voor stedenklok</string>
-    <string name="digital_widget_city_clock_custom_color_title">Stedenklok kleur aanpassen</string>
-    <string name="digital_widget_date_custom_color_title">Datum kleur aanpassen</string>
-    <string name="digital_widget_clock_custom_color_title">Klok kleur aanpassen</string>
+    <string name="digital_widget_city_clock_custom_color_title">Kleur stedenklok aanpassen</string>
+    <string name="digital_widget_date_custom_color_title">Kleur datum aanpassen</string>
+    <string name="digital_widget_clock_custom_color_title">Kleur klok aanpassen</string>
     <string name="digital_widget_city_name_default_color_title">Standaardkleur voor stadsnaam</string>
-    <string name="digital_widget_city_name_custom_color_title">Stadsnaam kleur aanpassen</string>
+    <string name="digital_widget_city_name_custom_color_title">Kleur stadsnaam aanpassen</string>
     <string name="digital_widget_max_clock_font_size_title">Maximum lettergrootte van de klok</string>
     <string name="widget_max_clock_font_size_summary">Maximum lettergrootte = </string>
     <string name="styles_and_colors_category_title">Stijl en kleuren</string>
@@ -512,7 +512,7 @@
     <string name="delete_occasional_alarm_after_use_title">Wekker verwijderen na uitzetten</string>
     <string name="alarm_alert_dismiss_and_delete_text">Uitzetten &amp; Verwijderen</string>
     <string name="alarm_alert_off_and_deleted_text">Wekker uit en verwijderd</string>
-    <string name="timer_volume_buttons_action_title">Verlopen timers op nul zetten met volumeknoppen</string>
+    <string name="timer_volume_buttons_action_title">Verlopen timers terugzetten met volumeknoppen</string>
     <string name="timer_buttons_action_summary">Werkt alleen op een vergrendeld scherm</string>
     <string name="alarm_notification_reminder_4_hours">4 uur van te voren</string>
     <string name="alarm_notification_reminder_6_hours">6 uur van te voren</string>
@@ -525,7 +525,7 @@
     <string name="snooze_button_color">Kleur snoozeknop</string>
     <string name="auto_silence_20_seconds">20 seconden</string>
     <string name="digital_widget_custom_minutes_color_title">Aangepaste kleuren voor minuten</string>
-    <string name="next_alarm_widget_default_title_color">Standaardkleur voor \"Volgende wekker\" en \"Geen volgende wekker\" titels</string>
+    <string name="next_alarm_widget_default_title_color">Standaardkleur voor titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
     <string name="denied_permission_label">Toestemming geweigerd</string>
     <string name="sort_timer_title">Timers sorteren</string>
     <string name="next_alarm_widget_text">Volgende wekker</string>
@@ -560,7 +560,7 @@
     <string name="dark_theme">Donker</string>
     <string name="alarm_notification_reminder_30_minutes">30 minuten van te voren</string>
     <string name="next_alarm_widget_default_alarm_title_color">Standaardkleur voor wekkerlabel</string>
-    <string name="next_alarm_widget_custom_title_color">Aangepaste kleur voor \"Volgende wekker\" en \"Geen volgende wekker\" titels</string>
+    <string name="next_alarm_widget_custom_title_color">Aangepaste kleur voor titels \"Volgende wekker\" en \"Geen volgende wekker\"</string>
     <string name="digital_widget_custom_hours_color_title">Aangepaste kleuren voor uren</string>
     <string name="digital_widget_default_minutes_color_title">Standaardkleuren voor minuten</string>
     <string name="digital_widget_default_hours_color_title">Standaardkleuren voor uren</string>
@@ -596,8 +596,8 @@
     <string name="default_time_to_add_to_timer_8_minutes">8 minuten</string>
     <string name="default_time_to_add_to_timer_9_minutes">9 minuten</string>
     <string name="alarm_title_color">Kleur wekkerlabel</string>
-    <string name="auto_night_accent_color_title">Accentkleur op nachtmodus toepassen</string>
-    <string name="night_accent_color_title">Accentkleur voor nachtmodus</string>
+    <string name="auto_night_accent_color_title">Accentkleur op donkere modus toepassen</string>
+    <string name="night_accent_color_title">Accentkleur voor donkere modus</string>
     <string name="blue_gray_accent_color">Blauwgrijs</string>
     <string name="brown_accent_color">Bruin</string>
     <string name="red_accent_color">Rood</string>
@@ -612,7 +612,7 @@
     <string name="auto_silence_10_seconds">10 seconden</string>
     <string name="auto_silence_30_seconds">30 seconden</string>
     <string name="sort_timer_manually">Handmatig (door te slepen)</string>
-    <string name="timer_power_button_action_title">Verlopen timers op nul zetten met de aan/uit-knop</string>
+    <string name="timer_power_button_action_title">Verlopen timers terugzetten met de aan/uit-knop</string>
     <string name="sw_settings_summary">Actie voor volumeknoppen instellen</string>
     <string name="sw_volume_up_action_title">Volume omhoog</string>
     <string name="sw_long_press_volume_up_action_title">Volume omhoog (lang indrukken)</string>
@@ -663,4 +663,9 @@
     <string name="timer_button_time_warning_box_text">Voer een waarde in tussen 1 en 120 minuten</string>
     <string name="last_tab_used_title">Laatst gebruikte tabblad</string>
     <string name="timer_button_time_warning_box_title">Onjuiste waarde ingevoerd</string>
+    <string name="settings_language_turkish">Turks</string>
+    <string name="contributors_dialog_title">Profiel bekijken</string>
+    <string name="reset_settings_title">Instellingen opnieuw instellen</string>
+    <string name="reset_settings_message">Weet je zeker dat je alle instellingen opnieuw wilt instellen?</string>
+    <string name="blue_accent_color">Blauw</string>
 </resources>

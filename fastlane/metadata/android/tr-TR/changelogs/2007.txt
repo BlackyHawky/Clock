@@ -1,0 +1,10 @@
+**İyileştirmeler**
+ - Zamanlayıcı özetindeki"Sesi kademeli arttır" düzeltildi
+
+**Geliştirmeler**
+ - Gereksiz izinleri kaldırma;
+ - Alarm ve zamanlayıcı geliştirmeleri;
+ - Bütün geliştirmeleri görmek için: https://github.com/BlackyHawky/Clock/releases/tag/2.6
+
+ **Not:**
+ Veritabanındaki değişikliklerden dolayı uygulamayı yeniden kurmalısınız.

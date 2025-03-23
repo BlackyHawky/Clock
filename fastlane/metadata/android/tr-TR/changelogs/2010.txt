@@ -1,0 +1,15 @@
+**İyileştirmeler**
+- Sekme vurgu rengi
+- Saat sekmesinde saniye çubuğu rengi
+- Cihaz ayarlarında ekran koruyucuyu görüntülerken oluşan hata
+
+**Geliştirmeler**
+- Ayarları yedekleme ve geri yükleme
+- Zamanlayıcıları sıralama ve yeni ayarlar
+- Vurgu renklerini gece ve gündüz için ayırma
+- Karanlık tema vurgu rengi güncellemesi
+- Çeviri güncellemesi
+
+Bütün geliştirmeler için: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Not: "Bildirim hatırlatıcısı" ayarlarını sıfırlamanız gerekiyor

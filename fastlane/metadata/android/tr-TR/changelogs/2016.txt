@@ -1,0 +1,12 @@
+**İyileştirmeler**
+- "Zil sesi başlığını göster" ayarı devre dışı bırakılınca çökme düzeltildi
+- Alarmlar için varsayılan saniye çubuğu rengi ayarı
+
+**Geliştirmeler**
+- Saat stillerine Materyal analog eklemesi
+- Saat çubuğu yönü geliştirmesi
+- Üçüncü parti uygulamalar için ekran koruyucuyu erişilebilir
+- Kod temizliği
+- Çeviri güncellemeleri
+
+Tüm geliştirmeleri görmek için: https://github.com/BlackyHawky/Clock/releases/tag/2.13

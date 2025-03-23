@@ -1,0 +1,3 @@
+"Alarm için özel tarih ayarlama" özelliği büyük bir hataya neden olduğundan dolayı çözüm bulunana kadar kaldırıldı.
+
+Sürüm 2.10'un diğer özelliklerinin tutulduğu ve ulaşılabileceği sayfa: https://github.com/BlackyHawky/Clock/releases/tag/2.10

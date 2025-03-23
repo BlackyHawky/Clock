@@ -1,0 +1,7 @@
+**Düzeltme:**
+* Uygulama simgesine uzun basınca kısayolları göster;
+
+**Geliştirmeler:**
+* Gereksiz izinleri kaldır;
+
+Temel değişiklikler için: https://github.com/BlackyHawky/Clock/releases/tag/2.0

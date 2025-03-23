@@ -415,7 +415,7 @@
     <string name="restore_button_title">Przywracanie</string>
     <string name="display_background_border_title">Wyświetl obramowanie tła</string>
     <string name="digital_widget_custom_minutes_color_title">Niestandardowy kolor minut</string>
-    <string name="digital_widget_message_summary">Aby uzyskać dostęp do tego ustawienia, opcja \"Pokaż miasta\" na widżecie musi być wyłączona</string>
+    <string name="digital_widget_message_summary">Aby uzyskać dostęp do tego ustawienia, opcja \"Pokaż miasta na widżecie\" musi być wyłączona</string>
     <string name="display_ringtone_title">Wyświetl tytuł dzwonka</string>
     <string name="next_alarm_widget">Następny alarm</string>
     <string name="first_launch_button_later">Później</string>
@@ -679,4 +679,9 @@
     <string name="last_tab_used_title">Ostatnio używana karta</string>
     <string name="timer_button_time_warning_box_text">Wprowadź wartość od 1 do 120 minut</string>
     <string name="timer_button_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
+    <string name="settings_language_turkish">Turecki</string>
+    <string name="reset_settings_title">Zresetuj ustawienia</string>
+    <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?</string>
+    <string name="contributors_dialog_title">Wyświetl profil</string>
+    <string name="blue_accent_color">Niebieski</string>
 </resources>

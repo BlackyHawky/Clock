@@ -1,0 +1,40 @@
+**İyileştirmeler:**
+* Android 14 için alarmın başlama sorunu;
+* Kronometre ve zamanlayıcı bildirimleri;
+* Ekran döndürüldüğünde veya alarm kurulmadığında uyku vakti için kapatmaya zorla;
+* Uyku vakti modunda düzgün çalışmama durumları;
+* Android 13+'te ekran koruyucunun çalışmaması;
+* Android 12+'de dijital widget'ı görüntüleme ve yenileme;
+* Ayarlarda alarm sesi kurma sorunu;
+* Alt gezinme çubuğu arka plan rengi düzelymesi (tabletler için);
+
+**Geliştirmeler:**
+* Material tasarım (butonlar, zaman seçici, yuvarlak köşeli simgeler, kart görünümü,...);
+* Dinamik renkler;
+* Karanlık teması için AMOLED modu;
+* Yeni izin yönetimi;
+* Siyah beyaz simge;
+* Küçültülebilir araç çubuğu;
+* Material You analog ve dijital widget'ları;
+* "Uyku Vakti" modu (@Nilsu11);
+* Simgeleri köşeleri yuvarlak simgelerle değiştirme;
+* Uygulamayı ilk başlatınca temel özelliklerin ve izin yönetiminin gösterilmesi;
+* Uygulamanın düzgün çalıştığını anlamak için temel izinlerin sağlandığına dair onay penceresi;
+* Normal sürümün yanına hata ayıklama sürümünü kurma izni;
+* Ayarlarda alarmlar için varsayılan zil sesini atama;
+* Ekran koruyucu görüntüleme seçenekleri;
+* Saate uzun basarak ekran koruyucuyu etkinleştirme;
+* Ekran koruyucu animasyonunu 30 saniyeye düşürme;
+* Menülerde simgeleri gösterme;
+* Ayarlara daha modern bir görünüm;
+* Ayarlara "Hakkında" kısmı;
+* Hareketli uyku vakti simgesi;
+* Alarmı düzenlerken klavyenin otomatik olarak gözükmesi;
+* Alarmı kaydırarak silerken "Sil" metni ve simgesi;
+* Alarmı çoğalt butonu (Yatma zamanı hatırlatıcısı hariç);
+* Alarm oluşturunca veya önceden oluşturulmuş alarmlarda titreşimi etkinleştirme;
+* Alarm başlayınca titreşim süresini arttırma;
+* Alarm başlama ekranında analog saati göster;
+* AndroidX kullanan için Fragment kodunu güncelle;
+* Lisans başlıklarını güncelle;
+* Gereksiz dosyaları ve kodu sil;

@@ -691,4 +691,9 @@
     <string name="settings_tab_to_display">Вкладка, на якій відкриватиметься додаток</string>
     <string name="timer_button_time_warning_box_title">Введено неправильне значення</string>
     <string name="timer_button_time_warning_box_text">Введіть значення від 1 до 120 хвилин</string>
+    <string name="settings_language_turkish">Турецька</string>
+    <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?</string>
+    <string name="reset_settings_title">Скинути налаштування</string>
+    <string name="contributors_dialog_title">Переглянути профіль</string>
+    <string name="blue_accent_color">Синій</string>
 </resources>

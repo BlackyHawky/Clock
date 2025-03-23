@@ -1,0 +1,12 @@
+**İyileştirmeler**
+- Alarm saati seçerken saat ve dakika gösterme sorunu
+- Zamanlayıcı silerken oluşabilecek hatalar
+
+**Geliştirmeler**
+- Uygulama açılışında hangi sekme gösterilecek seçeneği
+- "1 dakika ekle" butonu görünümünde iyileştirmeler
+- Uygulamanın çökmesini önlemek için zamanlayıcıya özel dakika girme aralığı
+- Material analog widget'ın rengi düzeltildi
+- Pencere animasyonları iyileştirildi
+- Kod temizliği ve geliştirmesi
+- Çeviri güncellemeleri

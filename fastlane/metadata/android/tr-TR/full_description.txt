@@ -1,0 +1,31 @@
+Saat uygulaması gizliliği önemseyen açık kaynaklı, AOSP tabanlıdır.
+İnternet izni istemez ve %100 çevrim dışı çalışır.
+
+Özellikler:
+<ul>
+  <li>Alarmı kapatmak/ertelemek için ters çevir ve salla hareketi;</li>
+  <li>Güç butonu veya ses butonlarıyla alarmı kapat/ertele;</li>
+  <li>Sadece bazı Snapdragon işlemcili cihazlarda alarmlar kapatıldığında çalar</li>
+    <ul>
+      <li>Maalesef bu özellik <i>"com.qualcomm.qti.poweroffalarm"</i> sistem uygulaması olmasına rağmen bazı cihazlarda çalışmayabilir. </li>
+    </ul>
+  <li>Alarm silmek için kaydır;</li>
+  <li>Alarmları çoğalt;</li>
+  <li>Özelleştirilebilir alarm başlığı;</li>
+  <li>Özelleştirilebilir  zil sesi;</li>
+  <li>Aydınlık, karanlık veya sistem teması;</li>
+  <li>Karanlık team için AMOLED modu;</li>
+  <li>Özelleştirilebilir arayüz;</li>
+  <li>Dijital veya analog saat stili;</li>
+  <li>Seyahat ederken ev saatini göster;</li>
+  <li>Dünya şehirlerinin saatlerini göster;</li>
+  <li>Zamanlayıcı ve kronometre dahil edildi;</li>
+  <li>Kronometrenizi rehberinizle paylaşma imkanı;</li>
+  <li>Özelleştirilebilir ekran koruyucu;</li>
+  <li>Modern widget'lar;</li>
+  <li>Özelleştirilebilir widget'lar;</li>
+  <li>Hızlı ayarlarda kutucuk desteği (Android 7+ için);</li>
+  <li>Yedekleme ve geri alma ayarları;</li>
+  <li>Material tasarım;</li>
+  <li>Android 12+ için dinamik renkler;</li>
+</ul>

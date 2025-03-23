@@ -671,4 +671,9 @@
     <string name="timer_button_time_warning_box_text">Sisesta väärtus 1 ja 120 minuti vahemikust</string>
     <string name="timer_button_time_warning_box_title">Sisestasid vigase väärtuse</string>
     <string name="settings_tab_to_display">Rakenduse avamisel kuvatav vahekaart</string>
+    <string name="settings_language_turkish">türgi keel</string>
+    <string name="reset_settings_title">Lähtesta seadistused</string>
+    <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?</string>
+    <string name="blue_accent_color">Sinine</string>
+    <string name="contributors_dialog_title">Vaata profiili</string>
 </resources>

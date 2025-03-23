@@ -1,0 +1,12 @@
+**İyileştirmeler**
+ - Bazı Android sürümlerinde dijital widget gösterme sorunu;
+ - Telefonlardaki yatay modda zamanlayıcının ismini tekrar girme sorunu;
+
+**Geliştirmeler**
+ - Uygulama açılma geliştirmeleri;
+ - Alarmları ertelemek/kapatmak için kaydır ya da dokun;
+ - Ekran koruyucu için ren seçici ve dijital widget ayarları;
+ - Bütün geliştirmeler için: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+ **Not:**
+ Ayarlardaki değişiklerden dolayı "Karanlık tema modu" ayarlarını tekrar yapmalısınız.

@@ -1,0 +1,13 @@
+Bu güncelleme 2.13 sürümünde büyük bir hataya neden olan zil sesinin durmama sorununu düzeltti
+
+**İyileştirmeler**
+- Zil sesi durmaması
+- Android 14+ için saat sekmesinde sonraki alarmı göster/gizle güncellemesi
+- Dijital widget'larda sonraki alarmı göster/gizle
+
+**Geliştirmeler**
+- Gereksiz kamera izinlerini kaldırma
+- Animasyonlar erişebilirlik ayarlarını takip eder
+- Analog saatlerin boyutunu standartlaştırma
+- Hollandaca dili eklemesi
+- Çeviri güncellemeleri

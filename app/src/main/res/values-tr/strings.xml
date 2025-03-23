@@ -659,4 +659,8 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Etkinlik alarmlarının otomatik silinmesini varsayılan olarak etkinleştir</string>
     <string name="screensaver_bold_digital_clock_title">Kalın dijital saat</string>
     <string name="occasional_alarm_alert_predismiss_title">Yaklaşan etkinlik alarmı</string>
+    <string name="settings_language_turkish">Türkçe</string>
+    <string name="reset_settings_title">Ayarları sıfırla</string>
+    <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?</string>
+    <string name="contributors_dialog_title">Profili görüntüle</string>
 </resources>

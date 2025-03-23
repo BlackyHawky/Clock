@@ -1,0 +1,13 @@
+**İyileştirmeler**
+- Alarm ayarlarında zil sesi ön izlemesini durdurma
+
+**Geliştirmeler**
+- Zamanlayıcıyı silerken uyarı gösterme
+- Zamanlayıcıdaki `X` simgesi çöp kutusu simgesiyle değiştirildi
+- Alarm başladığında zil sesi başlığını gösterme
+- Readme'de IzzyOnDroid rozeti
+- Kopyalanabilir inşa desteği
+- Çeviri güncellemesi
+- Kod geliştirmeleri
+
+Bütün geliştirmeleri görmek için: https://github.com/BlackyHawky/Clock/releases/tag/2.11

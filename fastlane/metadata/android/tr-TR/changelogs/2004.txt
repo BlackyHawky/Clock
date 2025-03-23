@@ -1,0 +1,11 @@
+**Düzeltme**
+ - Fransızca için zamanlayıcının dakika rengi;
+ - Android 14+ için "Ertelemek için salla";
+
+**Geliştirmeler**
+ - Weblate çevirileri için Readme dosyasına açıklamalar;
+ - Alarm kapatılmış olsa bile yaklaşan alarm günlerini her zaman göster;
+ - Zamanlayıcı durdurulduğunda küçültme (dikey moddaki telefonlar için);
+ - Kalan süreye dokunarak zamanlayıcıyı başlat/duraklat;
+ - Bazı çeviri güncellemeleri;
+ - Ekran görüntüleri (F-Droid için) güncellendi. Detaylı bilgi için konuya göz atabilirsiniz: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

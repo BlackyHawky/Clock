@@ -1,0 +1,13 @@
+**İyileştirmeler**
+- Zamanlayıcı 5 saniyenin altına kurulduysa devam etme sorunu
+- Cihazın karanlık/aydınlık temasını takip etmeyen Material You renkleri
+- Bazı cihazlarda Saat ayarlarının uygulanmaması
+
+**Geliştirmeler**
+- 2 adet yeni widget
+- Solma efekti varsayılan oalrak devre dışı
+ 
+- Bütün geliştirmeleri görmek için ziyaret edin: https://github.com/BlackyHawky/Clock/releases/tag/2.8
+
+ **Not:**
+Widget'larda yaptığını değişiklikler yüzünden yeniden başlatmanız gerekebilir

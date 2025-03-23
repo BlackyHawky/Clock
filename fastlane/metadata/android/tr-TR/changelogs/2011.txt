@@ -1,0 +1,15 @@
+**İyileştirmeler**
+- Yatay modda sürükleme sorunu
+- Saat sekmesinde saat çubuğu rengi
+
+**Geliştirmeler**
+- Alarmı detaylı tarihe kurma
+- Tarih seçici stili
+- "Siyah", "Mor", "Sarı" temalar
+- Sona ermiş zamanlayıcıları ses ve güc tuşlarıyla sıfırlama
+- Zamanlayıcı için ses tuşlarına eylem atama
+- Vektör simgeleri optimizasyonu ve güncellemesi
+- Çeviri güncellemesi
+- Kod geliştirmesi
+
+Bütün geliştirmeler için ziyaret edin: https://github.com/BlackyHawky/Clock/releases/tag/2.10

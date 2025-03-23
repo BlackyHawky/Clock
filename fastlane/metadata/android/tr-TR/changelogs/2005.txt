@@ -1,0 +1,9 @@
+**Düzeltme**
+ - Android 13+ için dijital widget güncellemesi;
+
+**Geliştirmeler**
+ - Dijital widget'lar özelleştirilebilir:
+  • Bütün öğelerin rengi değiştirilebilir;
+  • Ana saat için yazı boyutu değiştirilebilir (Şehir seçilmediyse kullanılabilir);
+  • Android 9+ için dijital widget'a uzun basarak düzenleme;
+ - Bazı çeviri güncellemeleri;

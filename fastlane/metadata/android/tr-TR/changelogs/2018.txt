@@ -1,0 +1,11 @@
+**İyileştirmeler**
+- Durum çubuğunda ekran koruyucu (cihaz karanlık mod ve AMOLED modundayken)
+- Değişikliklerden sonra widget yenileme sorunu;
+- Dijital widget'larda otomatik tarih değişimi (tarih her gün gece yarısı güncellenecek)
+
+**Geliştirmeler**
+- Analog widger'lar için saniye çubuğunu göster/gizle (sadece Android 12+ için)
+- Zamanlayıcıları sürüklerken gölge göster
+- Rusça dili eklemesi
+- Kod geliştirmesi ve temizlemesi
+- Çeviri güncellemeleri
