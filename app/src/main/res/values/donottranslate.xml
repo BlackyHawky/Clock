@@ -481,6 +481,7 @@
         <item>@string/settings_language_dutch</item>
         <item>@string/settings_language_russian</item>
         <item>@string/settings_language_turkish</item>
+        <item>@string/settings_language_korean</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
@@ -499,5 +500,6 @@
         <item>nl</item>
         <item>ru</item>
         <item>tr</item>
+        <item>ko</item>
     </string-array>
 </resources>
