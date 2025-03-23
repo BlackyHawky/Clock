@@ -213,6 +213,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
                 new AlertDialog.Builder(requireContext())
+                        .setIcon(R.drawable.ic_notifications)
                         .setTitle(R.string.notifications_dialog_title)
                         .setMessage(R.string.notifications_dialog_text)
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
