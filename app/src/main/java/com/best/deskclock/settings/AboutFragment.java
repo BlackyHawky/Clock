@@ -9,7 +9,6 @@ import static com.best.deskclock.data.CustomRingtoneDAO.NEXT_RINGTONE_ID;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_IDS;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_TITLE;
 import static com.best.deskclock.data.CustomRingtoneDAO.RINGTONE_URI;
-import static com.best.deskclock.data.SettingsDAO.KEY_SELECTED_ALARM_RINGTONE_URI;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_BLACKYHAWKY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_CRDROID;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ABOUT_FEATURES;
@@ -42,10 +41,13 @@ import androidx.preference.Preference;
 
 import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 
+import java.util.List;
 import java.util.Map;
 
 public class AboutFragment extends ScreenFragment implements Preference.OnPreferenceClickListener {
@@ -248,33 +250,36 @@ public class AboutFragment extends ScreenFragment implements Preference.OnPrefer
 
             for (Map.Entry<String, ?> entry : settings.entrySet()) {
                 // Do not reset the KEY_IS_FIRST_LAUNCH key to prevent the "FirstLaunch" activity from reappearing.
-                // Also, exclude keys corresponding to custom ringtones and the selected alarm ringtone,
-                // as this causes bugs for alarms.
+                // Also, exclude keys corresponding to custom ringtones as this causes bugs for alarms.
                 if (!entry.getKey().equals(KEY_IS_FIRST_LAUNCH) &&
                         !entry.getKey().startsWith(RINGTONE_URI) &&
                         !entry.getKey().equals(RINGTONE_IDS) &&
                         !entry.getKey().equals(NEXT_RINGTONE_ID) &&
-                        !entry.getKey().startsWith(RINGTONE_TITLE) &&
-                        !entry.getKey().equals(KEY_SELECTED_ALARM_RINGTONE_URI)) {
+                        !entry.getKey().startsWith(RINGTONE_TITLE)) {
                     editor.remove(entry.getKey());
                 }
             }
             editor.apply();
 
-            // Required to update Locale after a reset.
+            // Required to update Locale.
             requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-            // Required to update widgets after a reset.
+            // Required to update widgets.
             requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-            // Required to update the timer list after a reset.
+            // Required to update the timer list.
             DataModel.getDataModel().loadTimers();
-            // Required to update the tab to display after a reset.
+            // Required to update the tab to display.
             UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.CLOCKS);
+            // Delete all alarms.
+            final List<Alarm> alarms = Alarm.getAlarms(requireContext().getContentResolver(), null);
+            for (Alarm alarm : alarms) {
+                AlarmStateManager.deleteAllInstances(requireContext(), alarm.id);
+                Alarm.deleteAlarm(requireContext().getContentResolver(), alarm.id);
+            }
 
             ThemeController.setNewSettingWithDelay();
-            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_reset),
-                    Toast.LENGTH_SHORT).show();
-        }, 400);
 
+            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_reset), Toast.LENGTH_SHORT).show();
+        }, 500);
     }
 
 }

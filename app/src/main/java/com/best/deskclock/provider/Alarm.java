@@ -164,6 +164,25 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.increasingVolume = false;
     }
 
+    public Alarm(long id, boolean enabled, int hour, int minutes, boolean dismissAlarmWhenRingtoneEnds,
+                 boolean alarmSnoozeActions, boolean vibrate, boolean flash, Weekdays daysOfWeek,
+                 String label, String alert, boolean deleteAfterUse, boolean increasingVolume) {
+
+        this.id = id;
+        this.enabled = enabled;
+        this.hour = hour;
+        this.minutes = minutes;
+        this.dismissAlarmWhenRingtoneEnds = dismissAlarmWhenRingtoneEnds;
+        this.alarmSnoozeActions = alarmSnoozeActions;
+        this.vibrate = vibrate;
+        this.flash = flash;
+        this.daysOfWeek = daysOfWeek;
+        this.label = label;
+        this.alert = Uri.parse(alert);
+        this.deleteAfterUse = deleteAfterUse;
+        this.increasingVolume = increasingVolume;
+    }
+
     public Alarm(Cursor c) {
         id = c.getLong(ID_INDEX);
         enabled = c.getInt(ENABLED_INDEX) == 1;

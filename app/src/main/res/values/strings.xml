@@ -984,7 +984,7 @@
         \n\n• Modern widgets;
         \n\n• Customizable widgets;
         \n\n• Support for tiles in quick settings (for Android 7+);
-        \n\n• Backup and restore application data (except alarms and custom ringtones);
+        \n\n• Backup and restore application data (except custom ringtones);
         \n\n• Material design;
         \n\n• Dynamic colors for Android 12+;
     </string>
@@ -992,7 +992,7 @@
     <string name="reset_settings_title">Reset settings</string>
     <!-- Confirmation message to reset all settings -->
     <string name="reset_settings_message">Are you sure you want to reset all app settings?
-        \n\nNote: alarms and custom ringtones will not be reset.
+        \n\nNote: custom ringtones will not be reset.
     </string>
     <!-- Toast message when reset is complete -->
     <string name="toast_message_for_reset">Reset completed</string>
@@ -1343,7 +1343,7 @@
         ► Customizable screensaver; &lt;br&gt; &lt;br&gt;
         ► Customizable widgets; &lt;br&gt; &lt;br&gt;
         ► Support for tiles in quick settings (for Android 7+); &lt;br&gt; &lt;br&gt;
-        ► Backup and restore application data (except alarms and custom ringtones); &lt;br&gt; &lt;br&gt;
+        ► Backup and restore application data (except custom ringtones); &lt;br&gt; &lt;br&gt;
         ► Material design and dynamic colors; &lt;br&gt; &lt;br&gt;
         ► Swipe to delete an alarm; &lt;br&gt; &lt;br&gt;
         ► Duplicate an alarm; &lt;br&gt; &lt;br&gt;
@@ -1465,7 +1465,7 @@
     <!-- Backup & Restore preference title in the settings. -->
     <string name="backup_restore_title">Backup &amp; Restore</string>
     <!-- Backup & Restore preference summary in the settings. -->
-    <string name="backup_restore_summary">Backup or restore application data except alarms and custom ringtones</string>
+    <string name="backup_restore_summary">Backup or restore application data except custom ringtones</string>
     <!-- Backup & Restore dialog message -->
     <string name="backup_restore_dialog_message">Do you want to backup or restore application data?</string>
     <!-- Backup button in the Backup and Restore dialog -->

@@ -15,6 +15,7 @@ import static com.best.deskclock.data.TimerDAO.TIMER_IDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_ALARM_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -23,6 +24,10 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmStateManager;
+import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.provider.AlarmInstance;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,10 +40,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,7 +57,8 @@ public class BackupAndRestoreUtils {
     /**
      * Read and export values in SharedPreferences to a file.
      */
-    public static void settingsToJsonStream(Map<String, ?> settings, OutputStream out, SharedPreferences prefs) {
+    public static void settingsToJsonStream(Context context, SharedPreferences prefs,
+                                            Map<String, ?> settings, OutputStream out) {
 
         Map<String, Boolean> booleans = new HashMap<>();
         Map<String, String> strings = new HashMap<>();
@@ -108,6 +116,29 @@ public class BackupAndRestoreUtils {
             // Convert the Map of timers IDs to a JSONArray
             jsonObject.put("Timers IDs", new JSONArray(timerIds));
 
+            JSONArray alarmsArray = new JSONArray();
+            List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
+            for (Alarm alarm : alarms) {
+                JSONObject alarmObject = new JSONObject();
+                alarmObject.put("id", alarm.id);
+                alarmObject.put("enabled", alarm.enabled);
+                alarmObject.put("hour", alarm.hour);
+                alarmObject.put("minutes", alarm.minutes);
+                alarmObject.put("dismissAlarmWhenRingtoneEnds", alarm.dismissAlarmWhenRingtoneEnds);
+                alarmObject.put("alarmSnoozeActions", alarm.alarmSnoozeActions);
+                alarmObject.put("vibrate", alarm.vibrate);
+                alarmObject.put("flash", alarm.flash);
+                alarmObject.put("daysOfWeek", alarm.daysOfWeek.getBits());
+                alarmObject.put("label", alarm.label);
+                alarmObject.put("alert", alarm.alert);
+                alarmObject.put("deleteAfterUse", alarm.deleteAfterUse);
+                alarmObject.put("increasingVolume", alarm.increasingVolume);
+
+                alarmsArray.put(alarmObject);
+            }
+
+            jsonObject.put("Alarms", alarmsArray);
+
             out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
             out.close();
         } catch (JSONException e) {
@@ -146,7 +177,7 @@ public class BackupAndRestoreUtils {
     /**
      * Read and apply values to restore in SharedPreferences.
      */
-    public static void readJson(Context context, InputStream inputStream, SharedPreferences prefs) {
+    public static void readJson(Context context, SharedPreferences prefs, InputStream inputStream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -227,6 +258,58 @@ public class BackupAndRestoreUtils {
             }
 
             editor.apply();
+
+            if (jsonObject.has("Alarms")) {
+                // Clear the alarm list before restoring to avoid adding duplicates
+                final ContentResolver contentResolver = context.getContentResolver();
+                final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
+                for (Alarm alarm : alarms) {
+                    AlarmStateManager.deleteAllInstances(context, alarm.id);
+                    Alarm.deleteAlarm(contentResolver, alarm.id);
+                }
+
+                JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
+                for (int i = 0; i < alarmsArray.length(); i++) {
+                    JSONObject alarmObject = alarmsArray.getJSONObject(i);
+
+                    // Create an Alarm object from JSON data
+                    long id = alarmObject.getLong("id");
+                    boolean enabled = alarmObject.getBoolean("enabled");
+                    int hour = alarmObject.getInt("hour");
+                    int minutes = alarmObject.getInt("minutes");
+                    boolean dismissAlarmWhenRingtoneEnds = alarmObject.getBoolean("dismissAlarmWhenRingtoneEnds");
+                    boolean alarmSnoozeActions = alarmObject.getBoolean("alarmSnoozeActions");
+                    boolean vibrate = alarmObject.getBoolean("vibrate");
+                    boolean flash = alarmObject.getBoolean("flash");
+                    int daysOfWeek = alarmObject.getInt("daysOfWeek");
+                    String label = alarmObject.getString("label");
+                    String alert = alarmObject.getString("alert");
+                    boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
+                    boolean increasingVolume = alarmObject.getBoolean("increasingVolume");
+
+                    String alarmRingtone = isNotSystemRingtone(Uri.parse(alert))
+                            ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()
+                            : alert;
+
+                    Alarm restoredAlarm = new Alarm(id, enabled, hour, minutes, dismissAlarmWhenRingtoneEnds,
+                            alarmSnoozeActions, vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone,
+                            deleteAfterUse, increasingVolume);
+
+                    Alarm.addAlarm(contentResolver, restoredAlarm);
+
+                    if (restoredAlarm.enabled) {
+                        // Create the next alarm instance to schedule.
+                        AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
+
+                        // Add the next alarm instance to the database.
+                        AlarmInstance.addInstance(contentResolver, alarmInstance);
+
+                        // Schedule the next alarm instance in AlarmManager.
+                        AlarmStateManager.registerInstance(context, alarmInstance, true);
+                        LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
+                    }
+                }
+            }
         } catch (IOException | JSONException e) {
             LogUtils.e("Error during restore", e);
         } finally {

@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -132,31 +133,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
                     try {
                         restorePreferences(uri);
-                        // This is to ensure that the interface theme loads correctly after the restore.
-                        String getTheme = SettingsDAO.getTheme(mPrefs);
-                        switch (getTheme) {
-                            case SYSTEM_THEME ->
-                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                            case LIGHT_THEME ->
-                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                            case DARK_THEME ->
-                                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        }
-                        // Required to update Locale after a restore.
-                        requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-                        // Required to update widgets after a restore.
-                        requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
-                        // Required to update the timer list after a restore.
-                        DataModel.getDataModel().loadTimers();
-                        // Required to update the tab to display after a restore.
-                        if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
-                            UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
-                        }
-                        recreateActivity();
-                        Toast.makeText(requireContext(),
-                                requireContext().getString(R.string.toast_message_for_restore),
-                                Toast.LENGTH_SHORT)
-                                .show();
+                        applySettingsAfterRestore();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
@@ -297,7 +274,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void backupPreferences(Uri uri) {
             try (OutputStream outputStream = requireContext().getContentResolver().openOutputStream(uri)) {
-                BackupAndRestoreUtils.settingsToJsonStream(mPrefs.getAll(), outputStream, mPrefs);
+                BackupAndRestoreUtils.settingsToJsonStream(requireContext(), mPrefs, mPrefs.getAll(), outputStream);
             } catch (IOException e) {
                 LogUtils.wtf("Error during backup");
             }
@@ -305,7 +282,39 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
 
         private void restorePreferences(Uri uri) throws FileNotFoundException {
             InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
-            BackupAndRestoreUtils.readJson(requireContext(), inputStream, mPrefs);
+            BackupAndRestoreUtils.readJson(requireContext(), mPrefs, inputStream);
+        }
+
+        private void applySettingsAfterRestore() {
+            // Required to load the night mode.
+            String getTheme = SettingsDAO.getTheme(mPrefs);
+            switch (getTheme) {
+                case SYSTEM_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                case LIGHT_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                case DARK_THEME ->
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+
+            new Handler(requireContext().getMainLooper()).postDelayed(() -> {
+                // Required to update Locale.
+                requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
+                // Required to update widgets.
+                requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+            }, 300);
+
+            // Required to update the timer list.
+            DataModel.getDataModel().loadTimers();
+            // Required to update the tab to display.
+            if (SettingsDAO.getTabToDisplay(mPrefs) != -1) {
+                UiDataModel.getUiDataModel().setSelectedTab(UiDataModel.Tab.values()[SettingsDAO.getTabToDisplay(mPrefs)]);
+            }
+
+            recreateActivity();
+
+            Toast.makeText(requireContext(), requireContext().getString(R.string.toast_message_for_restore),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
