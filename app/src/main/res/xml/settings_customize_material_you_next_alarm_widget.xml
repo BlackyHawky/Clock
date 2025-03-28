@@ -80,6 +80,7 @@
             android:key="key_material_you_next_alarm_widget_max_font_size"
             android:title="@string/next_alarm_widget_max_font_size_title"
             android:defaultValue="70"
+            android:dialogLayout="@layout/dialog_edit_text"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

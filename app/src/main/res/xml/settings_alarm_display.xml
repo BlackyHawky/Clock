@@ -125,6 +125,7 @@
             android:key="key_alarm_clock_font_size"
             android:title="@string/alarm_clock_font_size"
             android:defaultValue="70"
+            android:dialogLayout="@layout/dialog_edit_text"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
@@ -133,6 +134,7 @@
             android:key="key_alarm_title_font_size"
             android:title="@string/alarm_title_font_size"
             android:defaultValue="26"
+            android:dialogLayout="@layout/dialog_edit_text"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

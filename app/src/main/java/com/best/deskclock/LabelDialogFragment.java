@@ -14,20 +14,19 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,7 +35,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
-import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Objects;
@@ -56,7 +54,7 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String ARG_TIMER_ID = "arg_timer_id";
     private static final String ARG_TAG = "arg_tag";
 
-    private AppCompatEditText mLabelBox;
+    private EditText mEditLabel;
     private Alarm mAlarm;
     private int mTimerId;
     private String mTag;
@@ -110,8 +108,8 @@ public class LabelDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as the label box exists, save its state.
-        if (mLabelBox != null) {
-            outState.putString(ARG_LABEL, Objects.requireNonNull(mLabelBox.getText()).toString());
+        if (mEditLabel != null) {
+            outState.putString(ARG_LABEL, Objects.requireNonNull(mEditLabel.getText()).toString());
         }
     }
 
@@ -134,6 +132,18 @@ public class LabelDialogFragment extends DialogFragment {
                     requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
         }
 
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_text, null);
+
+        mEditLabel = view.findViewById(android.R.id.edit);
+        mEditLabel.setText(label);
+        mEditLabel.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        mEditLabel.selectAll();
+        mEditLabel.requestFocus();
+        mEditLabel.setOnEditorActionListener(new ImeDoneListener());
+
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
+
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setTitle(mAlarm != null
                         ? R.string.alarm_label_box_title
@@ -141,26 +151,10 @@ public class LabelDialogFragment extends DialogFragment {
                         ? R.string.timer_label_box_title
                         : 0)
                 .setIcon(drawable)
+                .setView(view)
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
-
-        mLabelBox = new AppCompatEditText(requireContext());
-        mLabelBox.requestFocus();
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mInput.showSoftInput(mLabelBox, InputMethodManager.SHOW_IMPLICIT);
-        mLabelBox.setOnEditorActionListener(new ImeDoneListener());
-        mLabelBox.addTextChangedListener(new TextChangeListener());
-        mLabelBox.setSingleLine();
-        mLabelBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        mLabelBox.setText(label);
-        mLabelBox.selectAll();
-
-        // The line at the bottom of EditText is part of its background therefore the padding
-        // must be added to its container.
-        final int paddingLeftRight = ThemeUtils.convertDpToPixels(22, requireContext());
-        final int paddingTopBottom = ThemeUtils.convertDpToPixels(18, requireContext());
-        dialog.setView(mLabelBox, paddingLeftRight, paddingTopBottom, paddingLeftRight, paddingTopBottom);
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {
@@ -175,14 +169,14 @@ public class LabelDialogFragment extends DialogFragment {
         super.onDestroyView();
 
         // Stop callbacks from the IME since there is no view to process them.
-        mLabelBox.setOnEditorActionListener(null);
+        mEditLabel.setOnEditorActionListener(null);
     }
 
     /**
      * Sets the new label into the timer or alarm.
      */
     private void setLabel() {
-        String label = Objects.requireNonNull(mLabelBox.getText()).toString();
+        String label = Objects.requireNonNull(mEditLabel.getText()).toString();
         if (label.trim().isEmpty()) {
             // Don't allow user to input label with only whitespace.
             label = "";
@@ -200,24 +194,6 @@ public class LabelDialogFragment extends DialogFragment {
 
     public interface AlarmLabelDialogHandler {
         void onDialogLabelSet(Alarm alarm, String label, String tag);
-    }
-
-    /**
-     * Alters the UI to indicate when input is valid or invalid.
-     */
-    private class TextChangeListener implements TextWatcher {
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            mLabelBox.setActivated(!TextUtils.isEmpty(s));
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-        }
     }
 
     /**

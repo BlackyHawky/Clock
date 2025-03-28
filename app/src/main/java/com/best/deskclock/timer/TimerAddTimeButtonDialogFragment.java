@@ -10,25 +10,24 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -37,8 +36,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
-import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
@@ -54,12 +53,12 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
     private static final String ARG_TIME_BUTTON = "arg_time_button";
     private static final String ARG_TIMER_ID = "arg_timer_id";
-    private static final String ARG_DIALOG_TITLE = "arg_dialog_title";
-    private static final String ARG_DIALOG_ICON = "arg_dialog_icon";
 
-    private AppCompatEditText mAddTimeButtonBox;
+    private TextInputLayout mLabelInputLayout;
+    private EditText mEditAddTimeButton;
     private int mTimerId;
     private InputMethodManager mInput;
+
 
     public static TimerAddTimeButtonDialogFragment newInstance(Timer timer) {
         final Bundle args = new Bundle();
@@ -98,8 +97,8 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         // As long as the add time button box exists, save its state.
-        if (mAddTimeButtonBox != null) {
-            outState.putString(ARG_TIME_BUTTON, Objects.requireNonNull(mAddTimeButtonBox.getText()).toString());
+        if (mEditAddTimeButton != null) {
+            outState.putString(ARG_TIME_BUTTON, Objects.requireNonNull(mEditAddTimeButton.getText()).toString());
         }
     }
 
@@ -114,45 +113,41 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
             addButtonText = savedInstanceState.getString(ARG_TIME_BUTTON, addButtonText);
         }
 
-        String dialogTitle = args.getString(ARG_DIALOG_TITLE, getString(R.string.timer_button_time_box_title));
-        int dialogIconResId = args.getInt(ARG_DIALOG_ICON, R.drawable.ic_hourglass_top);
+        View view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_text, null);
 
-        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), dialogIconResId);
+        mLabelInputLayout = view.findViewById(R.id.dialog_input_layout);
+        mLabelInputLayout.setHelperText(getString(R.string.timer_button_time_warning_box_text));
+
+        mEditAddTimeButton = view.findViewById(android.R.id.edit);
+        mEditAddTimeButton.setText(addButtonText);
+        mEditAddTimeButton.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mEditAddTimeButton.selectAll();
+        mEditAddTimeButton.requestFocus();
+        mEditAddTimeButton.setOnEditorActionListener(new ImeDoneListener());
+        mEditAddTimeButton.addTextChangedListener(new TextChangeListener());
+
+        String inputText = mEditAddTimeButton.getText().toString();
+        if (isInvalidInput(inputText)) {
+            mLabelInputLayout.setBoxStrokeColor(ContextCompat.getColor(requireContext(), R.color.md_theme_error));
+        }
+
+        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInput.showSoftInput(mEditAddTimeButton, InputMethodManager.SHOW_IMPLICIT);
+
+        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), isInvalidInput(inputText)
+                ? R.drawable.ic_error
+                : R.drawable.ic_hourglass_top);
         if (drawable != null) {
             drawable.setTint(MaterialColors.getColor(
                     requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
         }
 
-        final int paddingLeftRight = ThemeUtils.convertDpToPixels(22, requireContext());
-        final int paddingTopBottom = ThemeUtils.convertDpToPixels(18, requireContext());
-
-        final TextView textView = new TextView(requireContext());
-        textView.setText(getString(R.string.timer_button_time_warning_box_text));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        textView.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-        textView.setPadding(0, paddingTopBottom, 0, paddingTopBottom);
-
-        mAddTimeButtonBox = new AppCompatEditText(requireContext());
-        mAddTimeButtonBox.requestFocus();
-        mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        mInput.showSoftInput(mAddTimeButtonBox, InputMethodManager.SHOW_IMPLICIT);
-        mAddTimeButtonBox.setOnEditorActionListener(new ImeDoneListener());
-        mAddTimeButtonBox.addTextChangedListener(new TextChangeListener());
-        mAddTimeButtonBox.setSingleLine();
-        mAddTimeButtonBox.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mAddTimeButtonBox.setText(addButtonText);
-        mAddTimeButtonBox.selectAll();
-
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(paddingLeftRight, paddingTopBottom, paddingLeftRight, paddingTopBottom);
-        layout.addView(textView);
-        layout.addView(mAddTimeButtonBox);
-
         final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setIcon(drawable)
-                .setTitle(dialogTitle)
-                .setView(layout)
+                .setTitle(isInvalidInput(inputText)
+                        ? getString(R.string.timer_button_time_warning_box_title)
+                        : getString(R.string.timer_button_time_box_title))
+                .setView(view)
                 .setPositiveButton(android.R.string.ok, new OkListener())
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
@@ -170,14 +165,14 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         super.onDestroyView();
 
         // Stop callbacks from the IME since there is no view to process them.
-        mAddTimeButtonBox.setOnEditorActionListener(null);
+        mEditAddTimeButton.setOnEditorActionListener(null);
     }
 
     /**
      * Sets the new time into the timer add button.
      */
     private void setAddButtonText() {
-        String addButtonText = Objects.requireNonNull(mAddTimeButtonBox.getText()).toString();
+        String addButtonText = Objects.requireNonNull(mEditAddTimeButton.getText()).toString();
 
         if (mTimerId >= 0) {
             final Timer timer = DataModel.getDataModel().getTimer(mTimerId);
@@ -188,44 +183,72 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
     }
 
     /**
-     * Create a new dialog if the entered valued is incorrect.
-     */
-    private void createNewDialog() {
-        // Close the old AlertDialog
-        if (requireDialog().isShowing()) {
-            dismiss();
-        }
-
-        final TimerAddTimeButtonDialogFragment newFragment = new TimerAddTimeButtonDialogFragment();
-
-        Bundle args = getArguments();
-        if (args == null) {
-            args = new Bundle();
-        }
-        args.putString(ARG_DIALOG_TITLE, getString(R.string.timer_button_time_warning_box_title));
-        args.putInt(ARG_DIALOG_ICON, R.drawable.ic_error);
-        newFragment.setArguments(args);
-
-        newFragment.show(getParentFragmentManager(), TAG);
-    }
-
-    /**
      * Alters the UI to indicate when input is valid or invalid.
      */
     private class TextChangeListener implements TextWatcher {
+
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            mAddTimeButtonBox.setActivated(!TextUtils.isEmpty(s));
+        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+            String inputText = charSequence.toString();
+            if (isInvalidInput(inputText)) {
+                updateDialogForInvalidInput();
+            } else {
+                updateDialogForValidInput();
+            }
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
         }
     }
+
+    /**
+     * @return {@code true} if the entry is empty, less than 1 minute or greater than 120 minutes.
+     * {@code false} otherwise.
+     */
+    private boolean isInvalidInput(String inputText) {
+        if (inputText.isEmpty()) {
+            return true;
+        }
+
+        int minutes = Integer.parseInt(inputText);
+        return minutes < 1 || minutes > 120;
+    }
+
+    /**
+     * Update the dialog icon and title for invalid entries. The outline color of the edit box is also changed.
+     */
+    private void updateDialogForInvalidInput() {
+        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_error);
+        if (drawable != null) {
+            drawable.setTint(MaterialColors.getColor(
+                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+        }
+        AlertDialog alertDialog = (AlertDialog) requireDialog();
+        alertDialog.setIcon(drawable);
+        alertDialog.setTitle(getString(R.string.timer_button_time_warning_box_title));
+        mLabelInputLayout.setBoxStrokeColor(ContextCompat.getColor(requireContext(), R.color.md_theme_error));
+    }
+
+    /**
+     * Update the dialog icon and title for valid entries. The outline color of the edit box is also changed.
+     */
+    private void updateDialogForValidInput() {
+        final Drawable drawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_hourglass_top);
+        if (drawable != null) {
+            drawable.setTint(MaterialColors.getColor(
+                    requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
+        }
+        AlertDialog alertDialog = (AlertDialog) requireDialog();
+        alertDialog.setIcon(drawable);
+        alertDialog.setTitle(getString(R.string.timer_button_time_box_title));
+        mLabelInputLayout.setBoxStrokeColor(ContextCompat.getColor(requireContext(), R.color.md_theme_primary));
+    }
+
 
     /**
      * Handles completing the add time button edit from the IME keyboard.
@@ -235,19 +258,13 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String inputText = Objects.requireNonNull(mAddTimeButtonBox.getText()).toString();
-                if (inputText.isEmpty()) {
-                    createNewDialog();
+                String inputText = Objects.requireNonNull(mEditAddTimeButton.getText()).toString();
+                if (isInvalidInput(inputText)) {
+                    updateDialogForInvalidInput();
                 } else {
-                    int minutes = Integer.parseInt(inputText);
-                    if (minutes >= 1 && minutes <= 120) {
-                        setAddButtonText();
-                        dismiss();
-                    } else {
-                        createNewDialog();
-                    }
+                    setAddButtonText();
+                    dismiss();
                 }
-
                 return true;
             }
 
@@ -263,17 +280,12 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
-            String inputText = Objects.requireNonNull(mAddTimeButtonBox.getText()).toString();
-            if (inputText.isEmpty()) {
-                createNewDialog();
+            String inputText = Objects.requireNonNull(mEditAddTimeButton.getText()).toString();
+            if (isInvalidInput(inputText)) {
+                updateDialogForInvalidInput();
             } else {
-                int minutes = Integer.parseInt(inputText);
-                if (minutes >= 1 && minutes <= 120) {
-                    setAddButtonText();
-                    dismiss();
-                } else {
-                    createNewDialog();
-                }
+                setAddButtonText();
+                dismiss();
             }
         }
     }

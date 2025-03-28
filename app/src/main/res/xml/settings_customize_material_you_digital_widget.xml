@@ -132,6 +132,7 @@
             android:key="key_material_you_digital_widget_max_clock_font_size"
             android:title="@string/digital_widget_max_clock_font_size_title"
             android:defaultValue="80"
+            android:dialogLayout="@layout/dialog_edit_text"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
