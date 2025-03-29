@@ -397,6 +397,7 @@
         <item>@string/default_time_to_add_to_timer_10_minutes</item>
         <item>@string/default_time_to_add_to_timer_30_minutes</item>
         <item>@string/default_time_to_add_to_timer_1_hour</item>
+        <item>@string/default_time_to_add_to_timer_2_hours</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match
          the timer_minutes_to_add_entries above. -->
@@ -413,6 +414,7 @@
         <item>10</item>
         <item>30</item>
         <item>60</item>
+        <item>120</item>
     </string-array>
 
     <!-- Jocular content that user may append when sharing the lap times -->

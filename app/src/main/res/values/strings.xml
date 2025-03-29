@@ -1127,6 +1127,8 @@
     <string name="default_time_to_add_to_timer_30_minutes">30 minutes</string>
     <!-- Setting title for changing the default time to add to 1 hour. -->
     <string name="default_time_to_add_to_timer_1_hour">1 hour</string>
+    <!-- Setting title for changing the default time to add to 2 hours. -->
+    <string name="default_time_to_add_to_timer_2_hours">2 hours</string>
     <!-- Title of Keep screen on preference in timer settings -->
     <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
