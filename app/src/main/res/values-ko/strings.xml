@@ -199,7 +199,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"타이머"</string>
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"부재중 타이머: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"일시중지"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"모든 타이머 재설정"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">모든 타이머 초기화</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
     <!-- no translation found for seconds (6550091082396571898) -->
@@ -340,7 +340,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"알람 접기"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"실행취소"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">실행 취소</string>
     <string name="alarm_deleted" msgid="6131529309389084785">알람을 삭제했습니다.</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652"><xliff:g id="TIME">%1$s</xliff:g> 빠름</string>
@@ -406,7 +406,7 @@
     <string name="ringtone_category_title">벨소리</string>
     <string name="material_you_category_title">Material You</string>
     <string name="interface_customization_settings">인터페이스</string>
-    <string name="interface_customization_summary">애플리케이션에 사용할 스타일 및 색상 설정</string>
+    <string name="interface_customization_summary">앱에 사용할 스타일 및 색상 설정</string>
     <string name="light_theme">라이트</string>
     <string name="dark_theme">다크</string>
     <string name="title_accent_color">강조 색상</string>
@@ -494,7 +494,7 @@
     <string name="show_lockscreen_dialog_title">잠금 화면에 표시</string>
     <string name="show_lockscreen_dialog_text">Xiaomi 기기에서는 앱이 정상적으로 작동하도록 \"잠금 화면에 표시\" 권한을 설정에서 직접 허용해야 합니다.</string>
     <string name="toast_message_for_backup">백업을 마쳤습니다.</string>
-    <string name="backup_restore_summary">알람, 타이머, 벨소리를 제외한 설정 백업 및 복원</string>
+    <string name="backup_restore_summary">사용자 정의 벨소리를 제외한 설정 백업 및 복원</string>
     <string name="timer_power_button_action_title">전원 버튼으로 만료된 타이머 초기화</string>
     <string name="default_time_to_add_to_timer_8_minutes">8분</string>
     <string name="next_alarm_widget_max_font_size_title">위젯 폰트 최대 크기</string>
@@ -507,7 +507,7 @@
     <string name="widget_next_alarm_default_color_title">다음 알람에 기본 색상 사용</string>
     <string name="default_time_to_add_to_timer_title">타이머 기본 설정 시간</string>
     <string name="default_time_to_add_to_timer_4_minutes">4분</string>
-    <string name="reset_settings_message">정말 모든 앱 설정을 초기화할까요?</string>
+    <string name="reset_settings_message">정말 모든 앱 설정을 초기화할까요?\n\n사용자 정의 벨소리는 초기화되지 않습니다.</string>
     <string name="contributors_dialog_title">프로필 보기</string>
     <string name="description_direction_both_clicked_for_occasional_alarm">왼쪽을 눌러 잠시 미루거나 오른쪽을 눌러 알람 삭제</string>
     <string name="description_direction_right_for_occasional_alarm">오른쪽으로 스와이프하여 해제 및 알람 삭제</string>
@@ -536,7 +536,7 @@
     <string name="screensaver_preview_summary">화면 보호기 지금 시작</string>
     <string name="sort_timer_title">타이머 정렬</string>
     <string name="toast_message_for_restore">복원을 마쳤습니다.</string>
-    <string name="permission_management_summary">애플리케이션 사용에 필요한 권한 확인</string>
+    <string name="permission_management_summary">앱 사용에 필요한 권한 확인</string>
     <string name="about_title">정보</string>
     <string name="screensaver_bold_digital_clock_title">디지털 시계 굵게</string>
     <string name="default_time_to_add_to_timer_5_minutes">5분</string>
@@ -545,16 +545,16 @@
     <string name="keep_timer_screen_on_title">타이머가 진행 중일 때 화면 켜짐 유지</string>
     <string name="digital_widget_custom_hours_color_title">시간 텍스트 색상</string>
     <string name="backup_restore_title">백업 및 복원</string>
-    <string name="backup_restore_dialog_message">정말 설정을 파일로 백업하거나 파일에서 복원할까요?</string>
+    <string name="backup_restore_dialog_message">정말 앱 데이터를 백업 또는 복원할까요?</string>
     <string name="restore_button_title">복원</string>
     <string name="backup_button_title">백업</string>
     <string name="analog_widget_without_second_hand_title">초침 없음</string>
     <string name="analog_widget_with_second_hand_title">초침 있음</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">왼쪽으로 스와이프하여 해제 및 알람 삭제</string>
     <string name="timer_settings_summary">기본 벨소리, 볼륨, 타이머 정렬 설정</string>
-    <string name="first_launch_dialog_message">정말 애플리케이션을 종료할까요?</string>
+    <string name="first_launch_dialog_message">정말 앱을 종료할까요?</string>
     <string name="digital_widget_default_hours_color_title">시간 텍스트에 기본 색상 사용</string>
-    <string name="first_launch_main_feature_message">► 라이트, 다크, 시스템 테마 사용 &lt;br&gt; &lt;br&gt; ► 화면 보호기 꾸미기&lt;br&gt; &lt;br&gt; ► 위젯 스타일 설정&lt;br&gt; &lt;br&gt; ► 빠른 설정 타일 지원 (Android 7 이상) &lt;br&gt; &lt;br&gt; ► 설정 백업 및 복원 &lt;br&gt; &lt;br&gt; ► Material 디자인 및 적응형 색상 지원 &lt;br&gt; &lt;br&gt; ► 스와이프로 알람 삭제 &lt;br&gt; &lt;br&gt; ► 알람 복제 &lt;br&gt; &lt;br&gt; ► 기기를 뒤집거나 흔들어 알람 제어 &lt;br&gt; &lt;br&gt; ► 전원 버튼 및 볼륨 버튼으로 알람 제어 &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► 라이트, 다크, 시스템 테마 사용 &lt;br&gt; &lt;br&gt; ► 화면 보호기 꾸미기&lt;br&gt; &lt;br&gt; ► 위젯 스타일 설정&lt;br&gt; &lt;br&gt; ► 빠른 설정 타일 지원(Android 7 이상) &lt;br&gt; &lt;br&gt; ► 설정 백업 및 복원(사용자 정의 벨소리 제외) &lt;br&gt; &lt;br&gt; ► Material 디자인 및 적응형 색상 지원 &lt;br&gt; &lt;br&gt; ► 스와이프로 알람 삭제 &lt;br&gt; &lt;br&gt; ► 알람 복제 &lt;br&gt; &lt;br&gt; ► 기기를 뒤집거나 흔들어 알람 제어 &lt;br&gt; &lt;br&gt; ► 전원 버튼 및 볼륨 버튼으로 알람 제어 &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="description_direction_left_for_non_repeatable_alarm">왼쪽으로 스와이프하여 해제</string>
     <string name="screensaver_italic_date_title">날짜 기울임꼴</string>
     <string name="permission_status_title">상태:</string>
@@ -623,4 +623,43 @@
     <string name="digital_widget_message_summary">이 설정을 변경하려면 \"위젯에 도시 이름 표시\" 옵션이 꺼져 있어야 합니다.</string>
     <string name="alarm_alert_off_and_deleted_text">알람을 끄고 삭제했습니다.</string>
     <string name="analog_widget_material_you">아날로그 시계 Material You</string>
+    <string name="settings_language_turkish">튀르키예어</string>
+    <string name="settings_language_korean">한국어</string>
+    <string name="alarm_notification_reminder_title">알람 시작 전 알림</string>
+    <string name="settings_tab_indicator_title">아래쪽 탐색 메뉴에 현재 탭 하이라이트</string>
+    <string name="settings_tab_to_display">앱 시작 시 보여줄 탭</string>
+    <string name="last_tab_used_title">마지막으로 사용한 탭</string>
+    <string name="settings_vibration_summary">타이머 시작/일시중지, 스위치 등 일부 인터페이스 버튼에만 적용됩니다.</string>
+    <string name="settings_fade_transitions_title">앱 내에서 화면 변경 시 페이드 효과 사용</string>
+    <string name="settings_vibration_title">진동 사용</string>
+    <string name="timer_add_custom_time">+ %s</string>
+    <string name="timer_button_time_box_title">타이머에 추가할 시간(분)</string>
+    <string name="sw_volume_down_action_title">볼륨 아래</string>
+    <string name="timer_label_box_title">타이머 라벨</string>
+    <string name="blue_accent_color">파란색</string>
+    <string name="toast_message_for_reset">초기화를 완료했습니다.</string>
+    <string name="timer_button_time_warning_box_text">1분에서 120분 사이의 시간을 입력할 수 있습니다.</string>
+    <string name="timer_button_time_warning_box_title">잘못된 값 입력됨</string>
+    <string name="sw_long_press_volume_up_action_title">볼륨 위(길게 눌렀을 때)</string>
+    <string name="analog_widget_configuration_warning">이 위젯은 Android 12 이상에서만 설정할 수 있습니다.</string>
+    <string name="actions_category_title">동작</string>
+    <string name="standard_category_title">일반</string>
+    <string name="black_accent_color">검은색</string>
+    <string name="orange_accent_color">오렌지색</string>
+    <string name="red_accent_color">빨간색</string>
+    <string name="alarm_settings_general_summary">이 옵션은 각 알람을 펼쳤을 때 나오는 화면에서도 설정할 수 있습니다.</string>
+    <string name="yellow_accent_color">노란색</string>
+    <string name="sw_volume_up_action_title">볼륨 위</string>
+    <string name="purple_accent_color">보라색</string>
+    <string name="brown_accent_color">갈색</string>
+    <string name="green_accent_color">초록색</string>
+    <string name="indigo_accent_color">군청색</string>
+    <string name="blue_gray_accent_color">청회색</string>
+    <string name="pink_accent_color">핑크색</string>
+    <string name="turn_on_back_flash_for_triggered_alarm_title">알람이 울렸을 때 손전등 켜기</string>
+    <string name="sw_long_press_volume_down_action_title">볼륨 아래(길게 눌렀을 때)</string>
+    <string name="sw_settings_summary">볼륨 버튼 작업 설정</string>
+    <string name="enable_delete_occasional_alarm_by_default_setting_title">일회성 알람 자동 삭제를 기본값으로 켜기</string>
+    <string name="occasional_alarm_deleted">일회성 알람을 삭제했습니다.</string>
+    <string name="occasional_alarm_alert_predismiss_title">예정된 일회성 알람</string>
 </resources>

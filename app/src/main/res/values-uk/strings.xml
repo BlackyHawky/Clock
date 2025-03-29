@@ -31,7 +31,7 @@
         <item quantity="many"><xliff:g id="number">%d</xliff:g> хвилин</item>
         <item quantity="other"><xliff:g id="number">%d</xliff:g> хвилин</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Вимкнено"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">Будильник вимкнено</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Відкласти"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="one">Відкладено на <xliff:g id="minutes">%d</xliff:g> хвилину.</item>
@@ -186,7 +186,7 @@
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Сортувати за часом"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сортувати за назвою"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Вибрані міста"</string>
-    <string name="sw_resume_button" msgid="2569360966002022248">"Відновити"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">Продовжити</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Скинути"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Почати"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Призупинити"</string>
@@ -448,7 +448,7 @@
     <string name="ringtone_category_title">Сигнал</string>
     <string name="enable_alarm_vibrations_by_default_setting_title">Увімкнути вібрацію під час налаштування будильників</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">Після відтворення сигналу</string>
-    <string name="alarm_notification_reminder_title">Нагадування про сповіщення за</string>
+    <string name="alarm_notification_reminder_title">Нагадування про сповіщення</string>
     <string name="about_github_link">Подивитися на GitHub</string>
     <string name="credits">Подяка</string>
     <string name="digital_widget_date_custom_color_title">Власний колір дати</string>
@@ -464,12 +464,12 @@
     <string name="digital_widget_city_clock_default_color_title">Колір за замовчуванням для додаткового годинника</string>
     <string name="digital_widget_city_name_default_color_title">Колір за замовчуванням для назви міста</string>
     <string name="screensaver_next_alarm_color_title">Колір наступного будильника</string>
-    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;\n\n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;\n\n• Тільки для деяких пристроїв на Snapdragon — будильник спрацьовує, коли вони вимкнені;\n\t\tНа жаль, ця функція може не працювати на деяких пристроях, незважаючи на наявність системного додатка <i>com.qualcomm.qti.poweroffalarm</i>.\n\n• Провести пальцем, щоб видалити будильник;\n\n• Дублювання будильників;\n\n• Налаштовуваний заголовок будильника;\n\n• Вибір мелодії сигналу;\n\n• Світла, темна або системна тема;\n\n• Режим AMOLED для темної теми;\n\n• Цифровий або аналоговий стиль годинника;\n\n• Відображення домашнього часу під час подорожі;\n\n• Відображення часу в багатьох містах світу;\n\n• Таймер і секундомір;\n\n• Можливість ділитися своїм секундоміром з контактами;\n\n• Налаштовувана заставка;\n\n• Сучасні віджети;\n\n• Налаштовувані віджети;\n\n• Підтримка плиток у швидких налаштуваннях (для Android 7+);\n\n• Резервне копіювання та відновлення налаштувань\n\n• Material design;\n\n• Динамічні кольори для Android 12 і новіших;</string>
+    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;\n\n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;\n\n• Тільки для деяких пристроїв на Snapdragon — будильник спрацьовує, коли вони вимкнені;\n\t\tНа жаль, ця функція може не працювати на деяких пристроях, незважаючи на наявність системного додатка <i>com.qualcomm.qti.poweroffalarm</i>.\n\n• Провести пальцем, щоб видалити будильник;\n\n• Дублювання будильників;\n\n• Налаштовуваний заголовок будильника;\n\n• Вибір мелодії сигналу;\n\n• Світла, темна або системна тема;\n\n• Режим AMOLED для темної теми;\n\n• Цифровий або аналоговий стиль годинника;\n\n• Відображення домашнього часу під час подорожі;\n\n• Відображення часу в багатьох містах світу;\n\n• Таймер і секундомір;\n\n• Можливість ділитися своїм секундоміром з контактами;\n\n• Налаштовувана заставка;\n\n• Сучасні віджети;\n\n• Налаштовувані віджети;\n\n• Підтримка плиток у швидких налаштуваннях (для Android 7+);\n\n• Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій)\n\n• Material design;\n\n• Динамічні кольори для Android 12 і новіших;</string>
     <string name="shake_action_title">Дія струшування пристрою</string>
     <string name="notifications_dialog_text">Окрім встановлення будильників, цей додаток також має режими таймера та секундоміра. \n \nЩоб сповіщення коректно відображалися для всіх модулів, а особливо щоб спрацьовував будильник, рекомендуємо активувати сповіщення для цього додатка.</string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
     <string name="widget_next_alarm_custom_color_title">Власний колір наступного будильника</string>
-    <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Підтримка плиток у швидких налаштуваннях (для Android 7+);&lt;br&gt;&lt;br&gt;► Резервне копіювання та відновлення налаштувань;&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
+    <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Підтримка плиток у швидких налаштуваннях (для Android 7+);&lt;br&gt;&lt;br&gt;► Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій);&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Натисніть ліворуч або праворуч, щоб вимкнути</string>
@@ -585,14 +585,14 @@
     <string name="system_theme">Системна</string>
     <string name="light_theme">Світла</string>
     <string name="label_default">За замовчуванням</string>
-    <string name="alarm_notification_reminder_30_minutes">30 хвилин</string>
-    <string name="alarm_notification_reminder_1_hour">1 годину</string>
-    <string name="alarm_notification_reminder_2_hours">2 години</string>
-    <string name="alarm_notification_reminder_4_hours">4 години</string>
-    <string name="alarm_notification_reminder_6_hours">6 годин</string>
-    <string name="alarm_notification_reminder_8_hours">8 годин</string>
-    <string name="alarm_notification_reminder_10_hours">10 годин</string>
-    <string name="alarm_notification_reminder_12_hours">12 годин</string>
+    <string name="alarm_notification_reminder_30_minutes">за 30 хвилин</string>
+    <string name="alarm_notification_reminder_1_hour">за 1 годину</string>
+    <string name="alarm_notification_reminder_2_hours">за 2 години</string>
+    <string name="alarm_notification_reminder_4_hours">за 4 години</string>
+    <string name="alarm_notification_reminder_6_hours">за 6 годин</string>
+    <string name="alarm_notification_reminder_8_hours">за 8 годин</string>
+    <string name="alarm_notification_reminder_10_hours">за 10 годин</string>
+    <string name="alarm_notification_reminder_12_hours">за 12 годин</string>
     <string name="snooze_duration_none">Немає</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 хвилини</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 хвилини</string>
@@ -614,7 +614,7 @@
     <string name="auto_silence_30_seconds">30 секунд</string>
     <string name="auto_silence_5_seconds">5 секунд</string>
     <string name="alarm_alert_dismiss_and_delete_text">Вимкнути і видалити</string>
-    <string name="alarm_alert_off_and_deleted_text">Вимкнено і видалено</string>
+    <string name="alarm_alert_off_and_deleted_text">Будильник вимкнено і видалено</string>
     <string name="description_direction_right_for_occasional_alarm">Проведіть пальцем праворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_left_for_occasional_non_repeatable_alarm">Проведіть пальцем ліворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_both_for_occasional_alarm">Проведіть пальцем ліворуч, щоб відкласти, або праворуч, щоб вимкнути і видалити будильник</string>
@@ -627,10 +627,10 @@
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>
     <string name="occasional_alarm_deleted">Нерегулярний будильник видалено</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>
-    <string name="backup_restore_dialog_message">Створити резервну копію чи відновити налаштування з файлу?</string>
+    <string name="backup_restore_dialog_message">Бажаєте створити резервну копію чи відновити дані додатка?</string>
     <string name="backup_button_title">Створити</string>
     <string name="restore_button_title">Відновити</string>
-    <string name="backup_restore_summary">Резервне копіювання або відновлення налаштувань (крім будильників, таймерів та мелодій сигналу) з наявної резервної копії</string>
+    <string name="backup_restore_summary">Резервне копіювання або відновлення даних додатка (крім користувацьких мелодій)</string>
     <string name="toast_message_for_backup">Резервну копію створено</string>
     <string name="toast_message_for_restore">Відновлення завершено</string>
     <string name="timer_shake_action_title">Зупиняти будильник струшуванням пристрою</string>
@@ -692,8 +692,10 @@
     <string name="timer_button_time_warning_box_title">Введено неправильне значення</string>
     <string name="timer_button_time_warning_box_text">Введіть значення від 1 до 120 хвилин</string>
     <string name="settings_language_turkish">Турецька</string>
-    <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?</string>
+    <string name="reset_settings_message">Ви дійсно хочете скинути всі налаштування додатка?\n\nЗауважте, що користувацькі мелодії не скидаються.</string>
     <string name="reset_settings_title">Скинути налаштування</string>
     <string name="contributors_dialog_title">Переглянути профіль</string>
     <string name="blue_accent_color">Синій</string>
+    <string name="toast_message_for_reset">Скидання завершено</string>
+    <string name="settings_language_korean">Корейська</string>
 </resources>

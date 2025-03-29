@@ -8,7 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Wibracje"</string>
     <string name="time_picker_dialog_title">Określ czas</string>
-    <string name="delete" msgid="5732434972457000541">"Usuń"</string>
+    <string name="delete" msgid="5732434972457000541">Kasuj</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Domyślny dźwięk alarmu"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Dźwięk alarmu"</string>
     <string name="timer_sound" msgid="896163086604894735">"Dźwięk minutnika"</string>
@@ -204,7 +204,7 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">Okrążenie <xliff:g id="NUMBER">%d</xliff:g></string>
     <string name="timer_add_timer" msgid="862733633862574752">"Dodaj minutnik"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Usuń"</string>
+    <string name="timer_delete" msgid="8699122001991909302">Kasuj</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">Usuń <xliff:g id="NUMBER_STRING">%s</xliff:g></string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Dodaj %s minutę"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Dodaj %s min"</string>
@@ -401,7 +401,7 @@
     <string name="timer_shake_action_title">Potrząśnij urządzeniem, aby wyłączyć alarm</string>
     <string name="notifications_dialog_title">Powiadomienia</string>
     <string name="backup_button_title">Kopia zapasowa</string>
-    <string name="backup_restore_dialog_message">Czy chcesz wykonać kopię zapasową lub przywrócić ustawienia z pliku?</string>
+    <string name="backup_restore_dialog_message">Czy chcesz wykonać kopię zapasową lub przywrócić dane aplikacji?</string>
     <string name="timer_volume_buttons_action_title">Resetowanie wygasłych minutników za pomocą przycisków głośności</string>
     <string name="sw_start_pause_action">Start / Pauza</string>
     <string name="sw_volume_up_action_title">Zwiększenie głośności</string>
@@ -425,7 +425,7 @@
     <string name="keep_timer_screen_on_title">Ekran pozostaje włączony, jeśli wyświetlany jest licznik czasu</string>
     <string name="transparent_background_for_expired_timer_title">Przezroczyste tło po wygaśnięciu minutników</string>
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
-    <string name="snooze_button_color">Kolor przycisku drzemki</string>
+    <string name="snooze_button_color">Kolor przycisku Drzemka</string>
     <string name="alarm_title_color">Kolor tytułu alarmu</string>
     <string name="alarm_settings_general_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
     <string name="auto_silence_5_seconds">5 sekund</string>
@@ -437,14 +437,14 @@
     <string name="sw_settings_summary">Ustaw akcje dla przycisków głośności</string>
     <string name="settings_vibration_title">Włącz wibracje</string>
     <string name="screensaver_settings_summary">Ustaw styl, kolor i czcionkę wygaszacza ekranu</string>
-    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Konfigurowalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Konfigurowalne widżety; &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Jasny, ciemny lub systemowy motyw; &lt;br&gt; &lt;br&gt; ► Dostosowywalny wygaszacz ekranu; &lt;br&gt; &lt;br&gt; ► Dostosowywalne widżety; &lt;br&gt; &lt;br&gt; ► Obsługa kafelków w szybkich ustawieniach (dla Androida 7+); &lt;br&gt; &lt;br&gt; ► Tworzenie kopii zapasowej i przywracanie danych aplikacji (z wyjątkiem niestandardowych dzwonków); &lt;br&gt; &lt;br&gt; ► Material design i dynamiczne kolory; &lt;br&gt; &lt;br&gt; ► Przesuń, aby usunąć alarm; &lt;br&gt; &lt;br&gt; ► Duplikuj alarm; &lt;br&gt; &lt;br&gt; ► Odrzuć/odłóż alarm, obracając i potrząsając; &lt;br&gt; &lt;br&gt; ► Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="timer_label_box_title">Etykieta minutnika</string>
     <string name="app_slogan">Zegar w 100% FOSS, oparty na AOSP</string>
     <string name="screensaver_preview_summary">Uruchamia wygaszacz ekranu</string>
     <string name="firing_alarms_timers_channel">Uruchamianie alarmów i minutników</string>
     <string name="digital_widget_city_name_custom_color_title">Niestandardowy kolor nazwy miasta</string>
     <string name="notifications_dialog_text">Oprócz ustawiania alarmów, aplikacja ta posiada również minutnik i stoper. \n\nAby powiadomienia były wyświetlane poprawnie dla wszystkich modułów, a zwłaszcza aby alarm był uruchamiany, zalecamy aktywowanie powiadomień dla tej aplikacji.</string>
-    <string name="backup_restore_summary">Tworzenie kopii zapasowych lub przywracanie ustawień z wyjątkiem alarmów, timerów i dzwonków</string>
+    <string name="backup_restore_summary">Tworzenie kopii zapasowych lub przywracanie ustawień z wyjątkiem niestandardowych dzwonków</string>
     <string name="ignore_battery_optimizations_dialog_text">Domyślnie system Android konfiguruje wszystkie aplikacje zainstalowane przez użytkownika tak, aby były zoptymalizowane pod kątem oszczędzania baterii. \n\nChociaż jest to akceptowalne dla wielu aplikacji, ta aplikacja jest aplikacją alarmową i często powoduje problemy, jeśli jest skonfigurowana do optymalizacji baterii. Po jej włączeniu system Android może w dowolnym momencie wyłączyć aplikację i/lub anulować zaplanowane przez nią alarmy, co negatywnie wpłynie na jej działanie. \n\nZalecamy wyłączenie tej aplikacji z optymalizacji baterii.</string>
     <string name="snooze_duration_none">Brak</string>
     <string name="dialog_close">Zamknij</string>
@@ -482,7 +482,7 @@
     <string name="revoke_permission_dialog_message">Czy na pewno chcesz cofnąć to pozwolenie?</string>
     <string name="alarm_display_customization_title">Dostosuj wyświetlanie alarmu</string>
     <string name="dismiss_button_color">Kolor przycisku Odrzuć</string>
-    <string name="alarm_button_color">Kolor przycisku alarmu</string>
+    <string name="alarm_button_color">Kolor przycisku Alarm</string>
     <string name="power_button_title">Przycisk zasilania</string>
     <string name="FSN_dialog_title">Powiadomienia pełnoekranowe</string>
     <string name="license">Licencja Open-source</string>
@@ -648,7 +648,7 @@
     <string name="alarm_flash">Lampa błyskowa</string>
     <string name="translate_dialog_message">Odwiedź stronę Codeberg:\n\n%s</string>
     <string name="about_translate_link">Przetłumacz na Codeberg</string>
-    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• Tylko w przypadku niektórych urządzeń Snapdragon alarm jest uruchamiany po ich wyłączeniu;\n\nNiestety, ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Przesuń, aby usunąć alarm;\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Konfigurowalny dzwonek;\n\n• Motyw jasny, ciemny lub systemowy;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Zegar cyfrowy lub analogowy;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• Minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Konfigurowalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowej i przywracanie ustawień;\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
+    <string name="about_dialog_message">• Odwróć i potrząśnij, aby odrzucić/odłożyć alarm;\n\n• Wyłącz/odłóż alarm przyciskiem zasilania lub przyciskami głośności;\n\n• Tylko w przypadku niektórych urządzeń Snapdragon alarm włącza się po ich wyłączeniu;\nNiestety, ta funkcja może nie działać na niektórych urządzeniach, pomimo obecności aplikacji systemowej <i>\"com.qualcomm.qti.poweroffalarm\"</i>.\n\n• Przesuń, aby usunąć alarm;\n\n• Duplikuj alarmy;\n\n• Dostosuj tytuł alarmu;\n\n• Dostosowywalny dzwonek;\n\n• Jasny, ciemny lub systemowy motyw;\n\n• Tryb AMOLED dla ciemnego motywu;\n\n• Styl zegara cyfrowego lub analogowego;\n\n• Wyświetlaj czas domowy podczas podróży;\n\n• Wyświetlaj czas w wielu miastach na całym świecie;\n\n• W zestawie minutnik i stoper;\n\n• Możliwość udostępniania stopera kontaktom;\n\n• Dostosowywalny wygaszacz ekranu;\n\n• Nowoczesne widżety;\n\n• Możliwość dostosowania widżetów;\n\n• Obsługa kafelków w szybkich ustawieniach (dla Androida 7+);\n\n• Tworzenie kopii zapasowych i przywracanie danych aplikacji (oprócz niestandardowych dzwonków);\n\n• Material design;\n\n• Dynamiczne kolory dla Androida 12+;</string>
     <string name="shake_intensity_title">Intensywność potrząśnięcia</string>
     <string name="settings_language_title">Język</string>
     <string name="settings_language_system">Język systemu</string>
@@ -681,7 +681,9 @@
     <string name="timer_button_time_warning_box_title">Wprowadzono nieprawidłową wartość</string>
     <string name="settings_language_turkish">Turecki</string>
     <string name="reset_settings_title">Zresetuj ustawienia</string>
-    <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?</string>
+    <string name="reset_settings_message">Czy na pewno chcesz zresetować wszystkie ustawienia aplikacji?\n\nUwaga: dzwonki niestandardowe nie zostaną zresetowane.</string>
     <string name="contributors_dialog_title">Wyświetl profil</string>
     <string name="blue_accent_color">Niebieski</string>
+    <string name="toast_message_for_reset">Resetowanie zakończone</string>
+    <string name="settings_language_korean">Koreański</string>
 </resources>

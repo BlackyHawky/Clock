@@ -326,7 +326,7 @@
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Stoppuhr anhalten"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Bildschirmschoner"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Bildschirmschoner starten"</string>
-    <string name="alarm_settings" msgid="2947147071388290814">Alarm</string>
+    <string name="alarm_settings" msgid="2947147071388290814">Alarme</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Verarbeitet Aktionen von Timer-Benachrichtigungen."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verarbeitet Aktionen von Stoppuhr-Benachrichtigungen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Angehalten"</string>
@@ -480,11 +480,11 @@
     <string name="digital_widget_message_summary">„Städte im Widget anzeigen“ muss deaktiviert sein, um auf diese Einstellung zugreifen zu können</string>
     <string name="digital_widget_max_clock_font_size_title">Schriftgröße der Hauptuhr</string>
     <string name="widget_max_clock_font_size_summary">Maximal =</string>
-    <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für \"Vollbildbenachrichtigungen\" aktiviert sein.</string>
+    <string name="FSN_dialog_text">Damit der Alarm bei ausgeschaltetem Bildschirm ausgelöst werden kann, muss seit Android 14 die Berechtigung für \"Vollbild-​Benachrichtigungen\" aktiviert sein.</string>
     <string name="gnu_gpl">GNU General Public Lizenz v3.0</string>
     <string name="app_slogan">100% FOSS; „Clock“ basiert auf AOSP</string>
     <string name="version_text">Version <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="notifications_dialog_text">Neben dem Einstellen von Alarmen verfügt diese App auch über einen Timer und einen Stoppuhrmodus. \n \nDamit die Benachrichtigungen für alle Module korrekt angezeigt werden und insbesondere der Alarm ausgelöst wird, empfehlen wir, die Benachrichtigungen für diese Anwendung zu aktivieren.</string>
+    <string name="notifications_dialog_text">Neben dem Einstellen von Alarmen verfügt diese App auch über einen Timer- und einen Stoppuhr-Modus. \n \nDamit die Benachrichtigungen für alle Module korrekt angezeigt werden und insbesondere der Alarm ausgelöst wird, empfehlen wir, die Benachrichtigungen für diese Anwendung zu aktivieren.</string>
     <string name="title_dark_theme_mode">Dunkel-Modus</string>
     <string name="version">Version</string>
     <string name="permission_granted">Gewährt</string>
@@ -504,9 +504,9 @@
     <string name="digital_widget_city_title">Städte im Widget anzeigen</string>
     <string name="digital_widget_clock_default_color_title">Standardfarbe für Hauptuhr verwenden</string>
     <string name="FSN_dialog_title">Vollbild-​Benachrichtigungen</string>
-    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+); &lt;br&gt; &lt;br&gt; ► Einstellungen sichern und wiederherstellen; &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Helles, dunkles oder System-Thema; &lt;br&gt; &lt;br&gt; ► Anpassbarer Bildschirmschoner; &lt;br&gt; &lt;br&gt; ► Anpassbare Widgets; &lt;br&gt; &lt;br&gt; ► Unterstützung für Kacheln in den Schnelleinstellungen (für Android 7+); &lt;br&gt; &lt;br&gt; ► Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Signaltöne); &lt;br&gt; &lt;br&gt; ► Material-Design und dynamische Farben; &lt;br&gt; &lt;br&gt; ► Wischen, um einen Alarm zu löschen; &lt;br&gt; &lt;br&gt; ► Duplizieren eines Alarms; &lt;br&gt; &lt;br&gt; ► Kippen und Schütteln zum Ausschalten/Aufschieben eines Alarms; &lt;br&gt; &lt;br&gt; ► Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert, &lt;b&gt;müssen einige Ihrer Geräteeinstellungen geändert werden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;AKKU-OPTIMIERUNG;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BENACHRICHTIGUNGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Abhängig von der Android-Version Ihres Geräts sind einige dieser Einstellungen bereits optimiert (z. B. Benachrichtigungen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Sie können sie jetzt oder später in den Einstellungen zur Berechtigungsverwaltung ändern:</string>
-    <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-​Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind; \n\t\tLeider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>\"com.qualcomm.qti.poweroffalarm\"</i> vorhanden ist. \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Signaltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit von vielen Städten der Welt; \n \n• Timer und Stoppuhr enthalten; \n \n• Möglichkeit, die Stoppuhr-​Zeiten mit Adressbuch-Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n\n• Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+); \n \n• Einstellungen sichern und wiederherstellen; \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
+    <string name="about_dialog_message">• Kippen und Schütteln zum Ausschalten/Aufschieben des Alarms; \n \n• Ausschalten/Aufschieben des Alarms mit der Power- oder den Lautstärketasten; \n \n• Nur bei Snapdragon-​Smartphones: Der Alarm wird auch ausgelöst, wenn sie ausgeschaltet sind; \n\t\tLeider funktioniert dies auf einigen Geräten nicht, obwohl die System-App <i>\"com.qualcomm.qti.poweroffalarm\"</i> vorhanden ist. \n \n• Wischen, um einen Alarm zu beenden; \n \n• Möglichkeit, Alarme zu duplizieren; \n \n• Alarm-Titel erstellen und ändern; \n \n• Individuell anpassbare Signaltöne; \n \n• Helles, dunkles oder System-Thema; \n \n• AMOLED-Modus für dunkles Thema; \n \n• Digitaler oder analoger Uhrenstil; \n \n• Anzeige der Heimatzeit auf Reisen; \n \n• Anzeige der Uhrzeit von vielen Städten der Welt; \n \n• Timer und Stoppuhr enthalten; \n \n• Möglichkeit, die Stoppuhr-​Zeiten mit Adressbuch-Kontakten zu teilen; \n \n• Anpassbarer Bildschirmschoner; \n \n• Moderne Widgets; \n \n• Anpassbare Widgets; \n\n• Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+); \n \n• App-Einstellungen sichern und wiederherstellen (mit Ausnahme von benutzerdefinierten Signaltönen); \n\n• Material You Design; \n \n• Dynamische Farben für Android 12+;</string>
     <string name="material_time_picker_style_title">Zeitauswahl-Stil</string>
     <string name="material_you_vertical_digital_widget">Vertikale \'Material You\' Digitaluhr</string>
     <string name="snooze_button_color">Farbe des Schlummer-Buttons</string>
@@ -612,7 +612,7 @@
     <string name="backup_button_title">Sichern</string>
     <string name="restore_button_title">Wiederherstellen</string>
     <string name="backup_restore_title">Sichern &amp; Wiederherstellen</string>
-    <string name="backup_restore_summary">Sichern oder Wiederherstellen von Einstellungen (mit Ausnahme von Alarmen, Timern und Signaltönen)</string>
+    <string name="backup_restore_summary">Sichern oder Wiederherstellen von App-Einstellungen (mit Ausnahme von benutzerdefinierten Signaltönen)</string>
     <string name="backup_restore_dialog_message">Möchten Sie die Einstellungen sichern oder aus einer Datei wiederherstellen?</string>
     <string name="toast_message_for_backup">Sicherung abgeschlossen</string>
     <string name="seconds_hand_color_title">Farbe des Sekundenzeigers</string>
@@ -666,6 +666,8 @@
     <string name="settings_language_turkish">Türkisch</string>
     <string name="reset_settings_title">Einstellungen zurücksetzen</string>
     <string name="contributors_dialog_title">Profil ansehen</string>
-    <string name="reset_settings_message">Sind Sie sicher, dass Sie alle App-Einstellungen zurücksetzen wollen?</string>
+    <string name="reset_settings_message">Sind Sie sicher, dass Sie alle App-Einstellungen zurücksetzen wollen?\n\nHinweis: Benutzerdefinierte Signaltöne werden nicht zurückgesetzt.</string>
     <string name="blue_accent_color">Blau</string>
+    <string name="toast_message_for_reset">Zurücksetzen abgeschlossen</string>
+    <string name="settings_language_korean">Koreanisch</string>
 </resources>

@@ -190,7 +190,7 @@
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Numbri <xliff:g id="NUMBER_STRING">%s</xliff:g> kustutamine"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"Lisa %s minut"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"Lisa %s min"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Peata"</string>
+    <string name="timer_stop" msgid="3361154678667736722">Lõpeta</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Kõigi taimerite peatamine"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Lähtesta"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Tühista"</string>
@@ -435,7 +435,7 @@
     <string name="widget_next_alarm_custom_color_title">Sinu valitud värv järgmise äratuse jaoks</string>
     <string name="screensaver_daydream_settings_summary">Järgnevaga avame Androidi ekraanisäästja seadistused</string>
     <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
-    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Seadistuste varundamine ja taastamine; &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="keep_timer_screen_on_title">Taimeri kuvamisel ära lülita ekraani välja</string>
@@ -486,7 +486,7 @@
 \nEnamuse rakenduste jaoks see ongi sobilik, aga meie rakendus on mõeldud äratuste jaoks ning akukasutuse optimeerimine segab seda tööd. Näiteks sel puhul võib Android rakenduse töö suvalisel hetkel lõpetada ja sellega enam ei toimi ka ajastatud äratused.
 \n
 \nMeie soovitame, et sa selle rakenduse puhul ei kasuta akukasutuse optimeerimist.</string>
-    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n \t\tKahjuks see funktsionaalsus ei toimi kõikidel juhtudel isegi siis, kui süsteemne rakendus <i>\"com.qualcomm.qti.poweroffalarm\"</i> on olemas. \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on taimer ja stopper; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Paanide tugi kiirseadistustes (alates Androidi versioonist 7); \n\n• Seadistuste varundamine ja taastamine; \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
+    <string name="about_dialog_message">• Pööramise ja raputamisega saad äratuse katkestada või edasi lükata; \n \n• Toitenupu ja helivaljuse nuppudega saad äratuse välja lülitada või edasi lükata; \n \n• Mõnedes Snapdragoni-põhistes nutiseadmetes äratus käivitub ka siis, kui seade on väljalülitatud; \n \t\tKahjuks see funktsionaalsus ei toimi kõikidel juhtudel isegi siis, kui süsteemne rakendus <i>\"com.qualcomm.qti.poweroffalarm\"</i> on olemas. \n \n• Viipamisega saad äratuse kustutada; \n \n• Äratusest saad teha koopiaid; \n \n• Äratuse nime saad kohendada; \n \n• Äratuse helinat saad kohendada; \n \n• Hele, tume ja süsteemne kujundus; \n \n• AMOLED-režiim tumedas kujunduses; \n \n• Digikella või sihverplaadiga kella välimused; \n \n• Reisimisel muudes ajavööndites kuvatakse kellaaega kodus; \n \n• Näita kellaaegu linnades üle maailma; \n \n• Olemas on taimer ja stopper; \n \n• Stopperi aja jagamise võimalus oma kontaktidega; \n \n• Kohandatav ekraanisäästja; \n \n• Moodsad vidinad; \n \n• Kohandatavad vidinad; \n\n• Paanide tugi kiirseadistustes (alates Androidi versioonist 7); \n\n• Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); \n \n• Material design; \n \n• Dünaamilised värvid Android 12+ puhul;</string>
     <string name="FSN_permission_title">LUBA TÄISEKRAANITEAVITUSED</string>
     <string name="permission_requirement_title">Vajadus: </string>
     <string name="permission_denied">Keelatud</string>
@@ -606,11 +606,11 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Vaikimisi kasuta juhuslike äratuste automaatset kustutamist</string>
     <string name="occasional_alarm_alert_predismiss_title">Tulevane juhuäratus</string>
     <string name="occasional_alarm_deleted">Juhuäratus on kustutatud</string>
-    <string name="backup_restore_dialog_message">Kas sa soovid seadistusi varundada faili või neid taastada sealt?</string>
+    <string name="backup_restore_dialog_message">Kas sa soovid rakenduse andmeid varundada faili või neid taastada sealt?</string>
     <string name="backup_button_title">Varunda</string>
     <string name="restore_button_title">Taasta</string>
     <string name="backup_restore_title">Varundus ja taastamine</string>
-    <string name="backup_restore_summary">Varunda ja taasta seadistusi, aga mitte äratusi, taimereid ja helinaid</string>
+    <string name="backup_restore_summary">Varunda ja taasta seadistusi, aga mitte kohandatud helinaid</string>
     <string name="toast_message_for_backup">Varukoopia on tehtud</string>
     <string name="toast_message_for_restore">Varukoopiast taastamine on lõppenud</string>
     <string name="timer_flip_action_title">Äratuse peatamiseks pööra nutiseade teistpidi</string>
@@ -673,7 +673,9 @@
     <string name="settings_tab_to_display">Rakenduse avamisel kuvatav vahekaart</string>
     <string name="settings_language_turkish">türgi keel</string>
     <string name="reset_settings_title">Lähtesta seadistused</string>
-    <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?</string>
+    <string name="reset_settings_message">Kas sa oled kindel, et soovid kõik rakenduse seadistused muuta algolekusse?\n\nMärkus: see ei puuduta kohandatud helinaid.</string>
     <string name="blue_accent_color">Sinine</string>
     <string name="contributors_dialog_title">Vaata profiili</string>
+    <string name="toast_message_for_reset">Lähtestamine on tehtud</string>
+    <string name="settings_language_korean">korea keel</string>
 </resources>

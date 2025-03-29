@@ -401,8 +401,8 @@
     <string name="analog_widget_material_you">指针时钟 Material You</string>
     <string name="settings_permission_message">一个或多个基本权限被拒绝。不授予它们可能会导致故障。</string>
     <string name="display_card_background_summary">显示某些应用程序元素（闹钟、城市、定时器按钮等）的背景</string>
-    <string name="about_dialog_message">• 翻转和摇晃操作可关闭/推迟闹钟；\n\n• 使用电源按钮或音量按钮关闭/推迟闹钟；\n\n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟；\n\t\t遗憾的是，尽管存在<i>“com.qualcomm.qti.poweroffalarm”</i>系统应用，但此功能可能无法在某些设备上运行。\n\n• 滑动删除闹钟；\n\n• 重复闹钟；\n\n• 自定义闹钟标题；\n\n• 可自定义铃声；\n\n• 浅色、深色或系统主题；\n\n• 深色主题的 AMOLED 模式；\n\n• 数字或指针时钟样式；\n\n• 旅行时显示家中时间；\n\n• 显示世界各地许多城市的时间；\n\n• 包括定时器和秒表；\n\n• 可与联系人分享秒表；\n\n• 可自定义的屏幕保护程序；\n\n• 现代微件；\n\n• 可自定义的微件；\n\n• 支持快捷设置中的图块（适用于 Android 7+）；\n\n• 备份和还原设置；\n\n• Material 设计；\n\n• 适用于 Android 12+ 的动态配色；</string>
-    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► 支持快捷设置中的图块（适用于 Android 7+）；&lt;br&gt; &lt;br&gt; ► 备份和还原设置；&lt;br&gt; &lt;br&gt; ► Material 设计和动态配色；&lt;br&gt; &lt;br&gt; ► 滑动删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇晃操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="about_dialog_message">• 翻转和摇晃操作可关闭/推迟闹钟；\n\n• 使用电源按钮或音量按钮关闭/推迟闹钟；\n\n• 仅适用于某些骁龙处理器设备，设备关机时会触发闹钟；\n\t\t遗憾的是，尽管存在<i>“com.qualcomm.qti.poweroffalarm”</i>系统应用，但此功能可能无法在某些设备上运行。\n\n• 滑动删除闹钟；\n\n• 重复闹钟；\n\n• 自定义闹钟标题；\n\n• 可自定义铃声；\n\n• 浅色、深色或系统主题；\n\n• 深色主题的 AMOLED 模式；\n\n• 数字或指针时钟样式；\n\n• 旅行时显示家中时间；\n\n• 显示世界各地许多城市的时间；\n\n• 包括定时器和秒表；\n\n• 可与联系人分享秒表；\n\n• 可自定义的屏幕保护程序；\n\n• 现代微件；\n\n• 可自定义的微件；\n\n• 支持快捷设置中的图块（适用于 Android 7+）；\n\n• 备份和还原应用程序数据（自定义铃声除外）；\n\n• Material 设计；\n\n• 适用于 Android 12+ 的动态配色；</string>
+    <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► 支持快捷设置中的图块（适用于 Android 7+）；&lt;br&gt; &lt;br&gt; ► 备份和还原应用程序数据（自定义铃声除外）；&lt;br&gt; &lt;br&gt; ► Material 设计和动态配色；&lt;br&gt; &lt;br&gt; ► 滑动删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇晃操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
@@ -590,8 +590,8 @@
     <string name="alarm_settings_general_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
     <string name="occasional_alarm_deleted">临时闹钟已删除</string>
     <string name="backup_restore_title">备份和还原</string>
-    <string name="backup_restore_summary">备份或还原设置，闹钟、定时器和铃声除外</string>
-    <string name="backup_restore_dialog_message">是否要从文件中备份或还原设置？</string>
+    <string name="backup_restore_summary">备份或还原应用程序数据，自定义铃声除外</string>
+    <string name="backup_restore_dialog_message">是否要备份或还原应用程序数据？</string>
     <string name="backup_button_title">备份</string>
     <string name="restore_button_title">还原</string>
     <string name="toast_message_for_backup">备份已完成</string>
@@ -656,7 +656,9 @@
     <string name="timer_button_time_warning_box_text">请输入介于 1 和 120 分钟之间的值</string>
     <string name="settings_language_turkish">土耳其语</string>
     <string name="reset_settings_title">重置设置</string>
-    <string name="reset_settings_message">是否确定要重置所有应用设置？</string>
+    <string name="reset_settings_message">是否确定要重置所有应用设置？\n\n注意：不会重置自定义铃声。</string>
     <string name="contributors_dialog_title">查看资料</string>
     <string name="blue_accent_color">蓝色</string>
+    <string name="toast_message_for_reset">重置已完成</string>
+    <string name="settings_language_korean">韩语</string>
 </resources>
