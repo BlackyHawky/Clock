@@ -49,6 +49,14 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_material_you_digital_widget_display_date"
+            android:title="@string/display_date_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_material_you_digital_widget_default_date_color"
             android:title="@string/digital_widget_date_default_color_title"
             android:defaultValue="true"

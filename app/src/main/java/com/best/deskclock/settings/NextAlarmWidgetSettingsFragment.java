@@ -5,6 +5,8 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_DEFAULT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
@@ -103,7 +105,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND -> {
                 if (mShowBackgroundOnNextAlarmWidgetPref.getSharedPreferences() != null) {
                     final boolean isNotBackgroundDisplayed = mShowBackgroundOnNextAlarmWidgetPref.getSharedPreferences()
-                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, false);
+                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND, DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND);
                     mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -112,7 +114,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
                 if (mDefaultTitleColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true);
+                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -121,7 +123,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
                 if (mDefaultAlarmTitleColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultAlarmTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true);
+                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomAlarmTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -130,7 +132,7 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
                 if (mDefaultAlarmColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultAlarmColorPref.getSharedPreferences()
-                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true);
+                            .getBoolean(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);

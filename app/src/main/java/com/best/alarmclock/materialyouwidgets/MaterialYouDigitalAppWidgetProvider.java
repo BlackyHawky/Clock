@@ -15,7 +15,6 @@ import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 
@@ -152,10 +151,10 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
-            rv.setViewVisibility(R.id.nextAlarm, INVISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIcon, INVISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmForCustomColor, INVISIBLE);
-            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, INVISIBLE);
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
+            rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIconForCustomColor, GONE);
         } else {
             if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
@@ -239,16 +238,20 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Apply the custom color to the date.
         // The default color is defined in the xml files to match the device's day/night theme.
-        final int customDateColor = WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(prefs);
-        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
-            rv.setViewVisibility(R.id.date, VISIBLE);
-            rv.setViewVisibility(R.id.dateForCustomColor, GONE);
-            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+        if (WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(prefs)) {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
+                rv.setViewVisibility(R.id.date, VISIBLE);
+                rv.setViewVisibility(R.id.dateForCustomColor, GONE);
+                rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+            } else {
+                rv.setViewVisibility(R.id.date, GONE);
+                rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
+                rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
+                rv.setTextColor(R.id.dateForCustomColor, WidgetDAO.getMaterialYouDigitalWidgetCustomDateColor(prefs));
+            }
         } else {
             rv.setViewVisibility(R.id.date, GONE);
-            rv.setViewVisibility(R.id.dateForCustomColor, VISIBLE);
-            rv.setTextViewText(R.id.dateForCustomColor, WidgetUtils.getDateFormat(context));
-            rv.setTextColor(R.id.dateForCustomColor, customDateColor);
+            rv.setViewVisibility(R.id.dateForCustomColor, GONE);
         }
 
         final int smallestWorldCityListSizePx = ThemeUtils.convertDpToPixels(80, context);
@@ -298,14 +301,19 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         // Configure the date to display the current date string.
         final TextView date = sizer.findViewById(R.id.date);
         final TextView dateForCustomColor = sizer.findViewById(R.id.dateForCustomColor);
-        if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
-            date.setVisibility(VISIBLE);
-            dateForCustomColor.setVisibility(GONE);
-            date.setText(WidgetUtils.getDateFormat(context));
+        if (WidgetDAO.isDateDisplayedOnMaterialYouDigitalWidget(prefs)) {
+            if (WidgetDAO.isMaterialYouDigitalWidgetDefaultDateColor(prefs)) {
+                date.setVisibility(VISIBLE);
+                dateForCustomColor.setVisibility(GONE);
+                date.setText(WidgetUtils.getDateFormat(context));
+            } else {
+                date.setVisibility(GONE);
+                dateForCustomColor.setVisibility(VISIBLE);
+                dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
+            }
         } else {
             date.setVisibility(GONE);
-            dateForCustomColor.setVisibility(VISIBLE);
-            dateForCustomColor.setText(WidgetUtils.getDateFormat(context));
+            dateForCustomColor.setVisibility(GONE);
         }
 
         // Configure the next alarm views to display the next alarm time or be gone.
@@ -316,10 +324,10 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
         if (TextUtils.isEmpty(nextAlarmTime)) {
-            nextAlarm.setVisibility(INVISIBLE);
-            nextAlarmIcon.setVisibility(INVISIBLE);
-            nextAlarmForCustomColor.setVisibility(INVISIBLE);
-            nextAlarmIconForCustomColor.setVisibility(INVISIBLE);
+            nextAlarm.setVisibility(GONE);
+            nextAlarmIcon.setVisibility(GONE);
+            nextAlarmForCustomColor.setVisibility(GONE);
+            nextAlarmIconForCustomColor.setVisibility(GONE);
         } else {
             if (WidgetDAO.isMaterialYouDigitalWidgetDefaultNextAlarmColor(prefs)) {
                 nextAlarm.setText(nextAlarmTime);
@@ -646,7 +654,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
 
         private void setClockFontSizePx(int clockFontSizePx) {
             mClockFontSizePx = clockFontSizePx;
-            mFontSizePx = max(1, round(clockFontSizePx / 5f));
+            mFontSizePx = max(1, round(clockFontSizePx / 4f));
             mIconFontSizePx = (int) (mFontSizePx * 1.4f);
             mIconPaddingPx = mFontSizePx / 3;
         }

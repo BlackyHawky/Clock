@@ -92,6 +92,13 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the date is displayed on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isDateDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_DATE, DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE);
+    }
+
+    /**
      * @return {@code true} if the default color is applied to the date in the digital widget; {@code false} otherwise.
      */
     public static boolean isDigitalWidgetDefaultDateColor(SharedPreferences prefs) {
@@ -203,6 +210,13 @@ public final class WidgetDAO {
      */
     public static int getVerticalDigitalWidgetCustomMinutesColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the date is displayed on the vertical digital widget; {@code false} otherwise.
+     */
+    public static boolean isDateDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE, DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
     }
 
     /**
@@ -350,6 +364,13 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the date is displayed on the Material You digital widget; {@code false} otherwise.
+     */
+    public static boolean isDateDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE, DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE);
+    }
+
+    /**
      * @return {@code true} if the default color is applied to the date in the Material You digital widget;
      * {@code false} otherwise.
      */
@@ -448,6 +469,15 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouVerticalDigitalWidgetCustomMinutesColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_MINUTES_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the date is displayed on the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isDateDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE,
+                DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
     }
 
     /**

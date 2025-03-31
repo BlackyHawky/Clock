@@ -5,6 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_DEFAULT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
@@ -97,7 +98,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
                 if (mDefaultTitleColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR, true);
+                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR,
+                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -106,7 +108,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
                 if (mDefaultAlarmTitleColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultAlarmTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR, true);
+                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR,
+                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomAlarmTitleColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -115,7 +118,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
                 if (mDefaultAlarmColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultAlarmColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR, true);
+                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR,
+                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);

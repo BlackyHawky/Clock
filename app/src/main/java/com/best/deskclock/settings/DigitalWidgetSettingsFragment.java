@@ -5,6 +5,10 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_DEFAULT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR;
@@ -17,6 +21,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEF
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
@@ -57,6 +62,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     ColorPreference mCustomCityNameColorPref;
     EditTextPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
     SwitchPreferenceCompat mDefaultClockColorPref;
@@ -77,6 +83,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         addPreferencesFromResource(R.xml.settings_customize_digital_widget);
 
         mDisplaySecondsPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_SECONDS);
+        mDisplayDatePref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_DATE);
         mShowBackgroundOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
         mBackgroundColorPref = findPreference(KEY_DIGITAL_WIDGET_BACKGROUND_COLOR);
         mShowCitiesOnDigitalWidgetPref = findPreference(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
@@ -128,7 +135,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
                 if (mShowBackgroundOnDigitalWidgetPref.getSharedPreferences() != null) {
                     final boolean isNotBackgroundDisplayed = mShowBackgroundOnDigitalWidgetPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, false);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND, DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
                     mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -140,13 +147,13 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                         && mDefaultCityNameColorPref.getSharedPreferences() != null) {
 
                     final boolean areCitiesDisplayed = mShowCitiesOnDigitalWidgetPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED, DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED);
 
                     final boolean isCityClockDefaultColors = mDefaultCityClockColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
 
                     final boolean isCityNameDefaultColor = mDefaultCityNameColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
 
                     mDefaultCityClockColorPref.setVisible(!areCitiesDisplayed);
                     mCustomCityClockColorPref.setVisible(!areCitiesDisplayed && !isCityClockDefaultColors);
@@ -168,8 +175,18 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR -> {
                 if (mDefaultClockColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultClockColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomClockColorPref.setVisible(isNotDefaultColors);
+                }
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_DIGITAL_WIDGET_DISPLAY_DATE -> {
+                if (mDisplayDatePref.getSharedPreferences() != null) {
+                    final boolean isDateHidden = mDisplayDatePref.getSharedPreferences()
+                            .getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_DATE, DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE);
+                    mDefaultDateColorPref.setVisible(!isDateHidden);
+                    mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !mDefaultDateColorPref.isChecked());
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -177,7 +194,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR -> {
                 if (mDefaultDateColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultDateColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_DATE_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomDateColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -186,7 +203,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
                 if (mDefaultNextAlarmColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultNextAlarmColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -195,7 +212,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR -> {
                 if (mDefaultCityClockColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultCityClockColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_CLOCK_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomCityClockColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -204,7 +221,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
             case KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR -> {
                 if (mDefaultCityNameColorPref.getSharedPreferences() != null) {
                     final boolean isNotDefaultColors = mDefaultCityNameColorPref.getSharedPreferences()
-                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, true);
+                            .getBoolean(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
                     mCustomCityNameColorPref.setVisible(isNotDefaultColors);
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -273,8 +290,11 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultClockColor(mPrefs));
         mCustomClockColorPref.setVisible(!mDefaultClockColorPref.isChecked());
 
+        mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnDigitalWidget(mPrefs));
+        mDefaultDateColorPref.setVisible(mDisplayDatePref.isChecked());
+
         mDefaultDateColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultDateColor(mPrefs));
-        mCustomDateColorPref.setVisible(!mDefaultDateColorPref.isChecked());
+        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !mDefaultDateColorPref.isChecked());
 
         mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
@@ -283,6 +303,8 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     private void refresh() {
         mDisplaySecondsPref.setChecked(WidgetDAO.areSecondsDisplayedOnDigitalWidget(mPrefs));
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+        mDisplayDatePref.setOnPreferenceChangeListener(this);
 
         mShowBackgroundOnDigitalWidgetPref.setOnPreferenceChangeListener(this);
 

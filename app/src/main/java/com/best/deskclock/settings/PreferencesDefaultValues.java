@@ -135,6 +135,7 @@ public class PreferencesDefaultValues {
 
     // DigitalWidgetSettingsFragment
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
+    public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
     public static final String DEFAULT_DIGITAL_WIDGET_FONT_SIZE = "80";
@@ -144,14 +145,19 @@ public class PreferencesDefaultValues {
 
     // Vertical Digital Widget
     public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
+    public static final boolean DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = true;
 
     // Material You Analog Widget
     public static final boolean DEFAULT_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = false;
 
     // Material You Digital Widget
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
+    public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
     public static final String DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_FONT_SIZE = "80";
+
+    // Material You Vertical Digital Widget
+    public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = true;
 
     // Common widget values
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;

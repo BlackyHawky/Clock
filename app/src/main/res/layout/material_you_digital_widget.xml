@@ -11,8 +11,9 @@
     android:id="@+id/material_you_digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/material_you_digital_widget_background"
+    android:layout_gravity="center"
     android:gravity="center"
+    android:background="@drawable/material_you_digital_widget_background"
     android:orientation="vertical">
 
     <TextView
@@ -41,7 +42,7 @@
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
+        android:includeFontPadding="true"
         android:ellipsize="none"
         android:maxLines="1"
         android:textColor="@color/digital_widget_time_color"
@@ -53,7 +54,7 @@
         android:id="@+id/clockForCustomColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
+        android:includeFontPadding="true"
         android:ellipsize="none"
         android:maxLines="1"
         tools:visibility="gone" />
@@ -70,9 +71,9 @@
         <ImageView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             android:tint="@color/widget_text_color"
             tools:src="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
@@ -81,15 +82,15 @@
         <ImageView
             android:id="@+id/nextAlarmIconForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             tools:visibility="gone" />
 
         <TextView
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"
@@ -101,7 +102,7 @@
         <TextView
             android:id="@+id/nextAlarmForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:ellipsize="none"
             android:includeFontPadding="false"

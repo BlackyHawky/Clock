@@ -11,15 +11,15 @@
     android:id="@+id/material_you_vertical_digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/material_you_vertical_digital_widget_background"
+    android:layout_gravity="center"
     android:gravity="center"
+    android:background="@drawable/material_you_vertical_digital_widget_background"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:ellipsize="none"
         android:includeFontPadding="false"
         android:maxLines="1"
@@ -31,7 +31,6 @@
         android:id="@+id/dateForCustomColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:ellipsize="none"
         android:includeFontPadding="false"
         android:maxLines="1"
@@ -89,7 +88,6 @@
         android:id="@+id/digitalWidgetBottomView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:gravity="center">
 
         <!-- Do not use the App tint attribute, otherwise the icon will not
@@ -97,9 +95,9 @@
         <ImageView
             android:id="@+id/nextAlarmIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             android:tint="@color/widget_text_color"
             tools:src="@drawable/ic_tab_alarm_static"
             tools:paddingHorizontal="3dp"
@@ -108,9 +106,9 @@
         <ImageView
             android:id="@+id/nextAlarmIconForCustomColor"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="fitCenter"
+            android:scaleType="centerInside"
             tools:visibility="gone" />
 
         <TextView

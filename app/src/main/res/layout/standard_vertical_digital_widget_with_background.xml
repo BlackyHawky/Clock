@@ -22,9 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true">
+        android:orientation="vertical">
 
         <!-- A horizontal padding is added because on some devices
         the text shadow is cut off. -->
@@ -32,7 +30,6 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:paddingHorizontal="3dp"
             android:ellipsize="none"
             android:includeFontPadding="false"
@@ -84,7 +81,6 @@
             android:id="@+id/digitalWidgetBottomView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:gravity="center">
 
             <!-- Do not use the App tint attribute, otherwise the icon will not

@@ -161,7 +161,12 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+        if (WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
+            rv.setViewVisibility(R.id.date, VISIBLE);
+            rv.setTextViewText(R.id.date, WidgetUtils.getDateFormat(context));
+        } else {
+            rv.setViewVisibility(R.id.date, GONE);
+        }
 
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime)) {
@@ -275,7 +280,12 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Configure the date to display the current date string.
         final TextView date = sizer.findViewById(R.id.date);
-        date.setText(WidgetUtils.getDateFormat(context));
+        if (WidgetDAO.isDateDisplayedOnDigitalWidget(prefs)) {
+            date.setVisibility(VISIBLE);
+            date.setText(WidgetUtils.getDateFormat(context));
+        } else {
+            date.setVisibility(GONE);
+        }
 
         // Configure the next alarm views to display the next alarm time or be gone.
         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);

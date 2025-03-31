@@ -149,6 +149,7 @@ public class PreferencesKeys {
 
     // Digital Widget
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_SECONDS = "key_digital_widget_display_seconds";
+    public static final String KEY_DIGITAL_WIDGET_DISPLAY_DATE = "key_digital_widget_display_date";
     public static final String KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_digital_widget_display_background";
     public static final String KEY_DIGITAL_WIDGET_BACKGROUND_COLOR = "key_digital_widget_background_color";
     public static final String KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = "key_digital_widget_world_cities_displayed";
@@ -177,6 +178,7 @@ public class PreferencesKeys {
 
     // Vertical Digital Widget
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_digital_widget_display_background";
+    public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = "key_vertical_digital_widget_display_date";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR = "key_vertical_digital_widget_background_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR = "key_vertical_digital_widget_default_hours_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR = "key_vertical_digital_widget_custom_hours_color";
@@ -194,6 +196,8 @@ public class PreferencesKeys {
     // Material You Digital Widget
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED =
             "key_material_you_digital_widget_seconds_displayed";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE =
+            "key_material_you_digital_widget_display_date";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED =
             "key_material_you_digital_widget_world_cities_displayed";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CLOCK_COLOR =
@@ -220,6 +224,8 @@ public class PreferencesKeys {
             "key_material_you_digital_widget_max_clock_font_size";
 
     // Material You Vertical Digital Widget
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE =
+            "key_material_you_vertical_digital_widget_display_date";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR =
             "key_material_you_vertical_digital_widget_default_hours_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR =

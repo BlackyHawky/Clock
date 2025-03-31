@@ -1390,6 +1390,8 @@
     <string name="digital_widget_default_minutes_color_title">Use default color for minutes</string>
     <!-- Title to set the custom color of minutes in the vertical digital widget. -->
     <string name="digital_widget_custom_minutes_color_title">Custom minutes color</string>
+    <!-- Title to display the date on the digital widget. -->
+    <string name="display_date_title">Display date on the widget</string>
     <!-- Title to set the default color of the date in the digital widget. -->
     <string name="digital_widget_date_default_color_title">Use default color for date</string>
     <!-- Title to set the custom color of the date in the digital widget. -->
