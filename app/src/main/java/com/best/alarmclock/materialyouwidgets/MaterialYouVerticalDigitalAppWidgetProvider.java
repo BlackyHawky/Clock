@@ -156,8 +156,8 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = WidgetDAO.getMaterialYouVerticalDigitalWidgetMaxClockFontSize(prefs);
-        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(maxClockFontSize), context);
+        final int maxClockFontSize = WidgetDAO.getMaterialYouVerticalDigitalWidgetMaxClockFontSize(prefs);
+        final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(maxClockFontSize, context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);

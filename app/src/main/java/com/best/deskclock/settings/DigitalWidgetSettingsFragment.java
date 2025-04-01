@@ -23,17 +23,15 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DEF
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_DATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_DISPLAY_SECONDS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -60,7 +58,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
     ColorPreference mCustomNextAlarmColorPref;
     ColorPreference mCustomCityClockColorPref;
     ColorPreference mCustomCityNameColorPref;
-    EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+    CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mShowBackgroundOnDigitalWidgetPref;
@@ -97,7 +95,7 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mCustomCityClockColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR);
         mDefaultCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
         mCustomCityNameColorPref = findPreference(KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR);
-        mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+        mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE);
 
         setupPreferences();
 
@@ -161,12 +159,9 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                     mCustomCityNameColorPref.setVisible(!areCitiesDisplayed && !isCityNameDefaultColor);
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(areCitiesDisplayed);
                     if (!areCitiesDisplayed) {
-                        mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                requireContext().getString(R.string.digital_widget_message_summary));
+                        mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
                     } else {
-                        mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                        + WidgetDAO.getDigitalWidgetMaxClockFontSize(mPrefs));
+                        mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
                     }
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -226,13 +221,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
-                final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
-                digitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + newValue.toString());
-            }
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -272,19 +260,14 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
 
             if (mShowCitiesOnDigitalWidgetPref.isChecked()) {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
-                mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.digital_widget_message_summary));
+                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-                mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + WidgetDAO.getDigitalWidgetMaxClockFontSize(mPrefs));
+                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
             }
         } else {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-            mDigitalWidgetMaxClockFontSizePref.setSummary(
-                    requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                            + WidgetDAO.getDigitalWidgetMaxClockFontSize(mPrefs));
+            mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
         }
 
         mDefaultClockColorPref.setChecked(WidgetDAO.isDigitalWidgetDefaultClockColor(mPrefs));
@@ -331,12 +314,6 @@ public class DigitalWidgetSettingsFragment extends ScreenFragment implements Pre
         mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
 
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
-
-        mDigitalWidgetMaxClockFontSizePref.setOnPreferenceChangeListener(this);
-        mDigitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
     }
 
     private void updateDigitalWidget() {

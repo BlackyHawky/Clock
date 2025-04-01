@@ -7,7 +7,6 @@
 package com.best.deskclock.settings;
 
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_SCREENSAVER_CLOCK_SECONDS;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_COLOR_PICKER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_DYNAMIC_COLORS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_CLOCK_STYLE;
@@ -31,7 +30,6 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -76,7 +74,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
         ColorPreference mDateColorPref;
         ColorPreference mNextAlarmColorPref;
         ListPreference mClockStyle;
-        SeekBarPreference mScreensaverBrightness;
         SwitchPreferenceCompat mDisplaySecondsPref;
         SwitchPreferenceCompat mBoldDigitalClockPref;
         SwitchPreferenceCompat mClockDynamicColorPref;
@@ -105,7 +102,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
             mClockColorPref = findPreference(KEY_SCREENSAVER_CLOCK_COLOR_PICKER);
             mDateColorPref = findPreference(KEY_SCREENSAVER_DATE_COLOR_PICKER);
             mNextAlarmColorPref = findPreference(KEY_SCREENSAVER_NEXT_ALARM_COLOR_PICKER);
-            mScreensaverBrightness = findPreference(KEY_SCREENSAVER_BRIGHTNESS);
             mBoldDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD);
             mItalicDigitalClockPref = findPreference(KEY_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC);
             mBoldDatePref = findPreference(KEY_SCREENSAVER_DATE_IN_BOLD);
@@ -186,12 +182,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                     mNextAlarmColorPref.setVisible(areNotDynamicColors);
                     Utils.setVibrationTime(requireContext(), 50);
                 }
-
-                case KEY_SCREENSAVER_BRIGHTNESS -> {
-                    final SeekBarPreference clockBrightness = (SeekBarPreference) pref;
-                    final String progress = newValue + "%";
-                    clockBrightness.setSummary(progress);
-                }
             }
 
             return true;
@@ -232,12 +222,6 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             mClockDynamicColorPref.setChecked(SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
             mClockDynamicColorPref.setOnPreferenceChangeListener(this);
-
-            final int brightnessPercentage = SettingsDAO.getScreensaverBrightness(mPrefs);
-            mScreensaverBrightness.setValue(brightnessPercentage);
-            mScreensaverBrightness.setSummary(brightnessPercentage + "%");
-            mScreensaverBrightness.setOnPreferenceChangeListener(this);
-            mScreensaverBrightness.setUpdatesContinuously(true);
 
             mDisplaySecondsPref.setChecked(SettingsDAO.areScreensaverClockSecondsDisplayed(mPrefs));
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);

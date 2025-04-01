@@ -246,8 +246,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 ? SettingsDAO.getAlarmBackgroundAmoledColor(prefs)
                 : SettingsDAO.getAlarmBackgroundColor(prefs);
         int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
-        float alarmClockFontSize = Float.parseFloat(SettingsDAO.getAlarmClockFontSize(prefs));
-        mAlarmTitleFontSize = Float.parseFloat(SettingsDAO.getAlarmTitleFontSize(prefs));
+        float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(prefs);
+        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(prefs);
         mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(prefs);
         int snoozeButtonColor = SettingsDAO.getSnoozeButtonColor(prefs);
         int dismissButtonColor = SettingsDAO.getDismissButtonColor(prefs);
@@ -311,7 +311,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
         ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
         ClockUtils.setTimeFormat(digitalClock, false);
-        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmClockFontSize);
+        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
         digitalClock.setTextColor(alarmClockColor);
 
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);

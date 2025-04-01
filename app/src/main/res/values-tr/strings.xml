@@ -560,7 +560,6 @@
     <string name="description_direction_right_for_occasional_alarm">Alarmı kapatmak ve silmek için sağa kaydırın</string>
     <string name="screensaver_date_color_title">Tarih rengi</string>
     <string name="screensaver_brightness_title">Parlaklık</string>
-    <string name="widget_max_clock_font_size_summary">Maksimum yazı boyutu =</string>
     <string name="digital_widget_message_summary">Bu ayara erişim için \"Widget\'ta şehirleri göster\" devre dışı bırakılmalı</string>
     <string name="alarm_notification_reminder_title">Bildirim hatırlatıcısı</string>
     <string name="digital_widget_default_hours_color_title">Saatler için varsayılan rengi kullan</string>

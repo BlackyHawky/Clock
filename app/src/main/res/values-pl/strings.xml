@@ -596,7 +596,6 @@
     <string name="screensaver_bold_next_alarm_title">Pogrubiona informacja o nadchodzącym alarmie</string>
     <string name="settings_fade_transitions_title">Włącz przejścia podczas przełączania ekranów</string>
     <string name="screensaver_italic_next_alarm_title">Pochylona informacja o nadchodzącym alarmie</string>
-    <string name="widget_max_clock_font_size_summary">Maksymalny rozmiar czcionki =</string>
     <string name="toast_message_for_backup">Kopia zapasowa zakończona</string>
     <string name="toast_message_for_restore">Przywracanie zakończone</string>
     <string name="alarm_missed_channel">Pominięte alarmy</string>

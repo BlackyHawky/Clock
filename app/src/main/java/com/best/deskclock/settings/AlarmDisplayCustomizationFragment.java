@@ -6,10 +6,9 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECONDS_HAND_COLOR;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECONDS_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
@@ -18,10 +17,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
@@ -48,8 +45,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     ColorPreference mAlarmSecondsHandColorPref;
     ColorPreference mBackgroundColorPref;
     ColorPreference mBackgroundAmoledColorPref;
-    EditTextPreference mAlarmClockFontSizePref;
-    EditTextPreference mAlarmTitleFontSizePref;
+    CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
     Preference mPreviewAlarmPref;
 
@@ -70,8 +66,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
         mAlarmClockColor = findPreference(KEY_ALARM_CLOCK_COLOR);
         mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
-        mAlarmClockFontSizePref = findPreference(KEY_ALARM_CLOCK_FONT_SIZE);
-        mAlarmTitleFontSizePref = findPreference(KEY_ALARM_TITLE_FONT_SIZE);
+        mAlarmDigitalClockFontSizePref = findPreference(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
         mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
@@ -97,7 +92,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 final int clockIndex = mAlarmClockStyle.findIndexOfValue((String) newValue);
                 mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntries()[clockIndex]);
                 mAlarmClockColor.setVisible(!newValue.equals(mMaterialAnalogClock));
-                mAlarmClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
+                mAlarmDigitalClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
                 mDisplaySecondsPref.setVisible(!newValue.equals(mDigitalClock));
                 mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
                 mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock) && mDisplaySecondsPref.isChecked());
@@ -110,11 +105,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                         && clockStyle != DataModel.ClockStyle.ANALOG_MATERIAL);
 
                 Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_ALARM_CLOCK_FONT_SIZE, KEY_ALARM_TITLE_FONT_SIZE -> {
-                final EditTextPreference alarmFontSizePref = (EditTextPreference) pref;
-                alarmFontSizePref.setSummary(newValue.toString());
             }
 
             case KEY_DISPLAY_RINGTONE_TITLE -> Utils.setVibrationTime(requireContext(), 50);
@@ -169,7 +159,7 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
             mAlarmSecondsHandColorPref.setColor(
                     MaterialColors.getColor(requireContext(), android.R.attr.colorPrimary, Color.BLACK));
         }
-        mAlarmClockFontSizePref.setVisible(clockStyleIndex == 2);
+        mAlarmDigitalClockFontSizePref.setVisible(clockStyleIndex == 2);
     }
 
     private void refresh() {
@@ -178,20 +168,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
-
-        mAlarmClockFontSizePref.setSummary(SettingsDAO.getAlarmClockFontSize(mPrefs));
-        mAlarmClockFontSizePref.setOnPreferenceChangeListener(this);
-        mAlarmClockFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
-
-        mAlarmTitleFontSizePref.setSummary(SettingsDAO.getAlarmTitleFontSize(mPrefs));
-        mAlarmTitleFontSizePref.setOnPreferenceChangeListener(this);
-        mAlarmTitleFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
 
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 

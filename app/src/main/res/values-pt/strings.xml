@@ -531,7 +531,6 @@
     <string name="auto_night_accent_color_title">Aplicar cor de destaque para o modo noturno</string>
     <string name="first_launch_button_now">Agora</string>
     <string name="widget_next_alarm_custom_color_title">Cor personalizada para próximo alarme</string>
-    <string name="widget_max_clock_font_size_summary">Tamanho máximo da fonte =</string>
     <string name="digital_widget_city_name_custom_color_title">Cor personalizada para o nome da cidade</string>
     <string name="digital_widget_max_clock_font_size_title">Tamanho máximo da fonte do relógio principal</string>
     <string name="digital_widget_message_summary">\"Mostrar cidades no widget\" deve estar desativado para acessar essa configuração</string>

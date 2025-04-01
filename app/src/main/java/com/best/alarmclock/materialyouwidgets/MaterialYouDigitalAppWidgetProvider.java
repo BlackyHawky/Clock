@@ -188,11 +188,11 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String maxClockFontSize = WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(prefs);
+        final int maxClockFontSize = WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(prefs);
         final int largestClockFontSizePx = ThemeUtils.convertDpToPixels(
                 !selectedCities.isEmpty() && areWorldCitiesDisplayed || showHomeClock && areWorldCitiesDisplayed
                     ? 80
-                    : Integer.parseInt(maxClockFontSize), context);
+                    : maxClockFontSize, context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);

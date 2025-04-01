@@ -83,8 +83,8 @@ public class PreferencesDefaultValues {
     public static final int DEFAULT_DISMISS_BUTTON_COLOR = Color.parseColor("#FF8A9297");
     public static final int DEFAULT_ALARM_BUTTON_COLOR = Color.parseColor("#FF8A9297");
     public static final int DEFAULT_PULSE_COLOR = Color.parseColor("#FFC0C7CD");
-    public static final String DEFAULT_ALARM_CLOCK_FONT_SIZE = "70";
-    public static final String DEFAULT_ALARM_TITLE_FONT_SIZE = "26";
+    public static final int DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE = 70;
+    public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
     public static int getDefaultAlarmSecondsHandColor(Context context) {
         return MaterialColors.getColor(context, android.R.attr.colorPrimary, Color.BLACK);
@@ -138,7 +138,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_DIGITAL_WIDGET_DISPLAY_BACKGROUND = false;
     public static final boolean DEFAULT_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
-    public static final String DEFAULT_DIGITAL_WIDGET_FONT_SIZE = "80";
 
     // NextAlarmWidgetSettingsFragment
     public static final boolean DEFAULT_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = false;
@@ -154,7 +153,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_SECONDS = false;
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE = true;
     public static final boolean DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED = true;
-    public static final String DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_FONT_SIZE = "80";
 
     // Material You Vertical Digital Widget
     public static final boolean DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE = true;
@@ -163,6 +161,6 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
     public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.parseColor("#FFFFFF");
-    public static final String DEFAULT_WIDGETS_FONT_SIZE = "70";
+    public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
 
 }

@@ -93,14 +93,15 @@
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <EditTextPreference
-            android:key="key_next_alarm_widget_max_font_size"
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_next_alarm_widget_maximum_font_size"
             android:title="@string/next_alarm_widget_max_font_size_title"
+            android:summary="@string/label_default"
             android:defaultValue="70"
-            android:dialogLayout="@layout/dialog_edit_text"
+            android:max="200"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
+            tools:layout="@layout/settings_preference_seekbar_layout" />
 
     </PreferenceCategory>
 

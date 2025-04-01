@@ -15,16 +15,13 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -44,7 +41,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     ColorPreference mCustomTitleColorPref;
     ColorPreference mCustomAlarmTitleColorPref;
     ColorPreference mCustomAlarmColorPref;
-    EditTextPreference mNextAlarmWidgetMaxFontSizePref;
     SwitchPreferenceCompat mShowBackgroundOnNextAlarmWidgetPref;
     SwitchPreferenceCompat mDefaultTitleColorPref;
     SwitchPreferenceCompat mDefaultAlarmTitleColorPref;
@@ -69,7 +65,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mCustomAlarmTitleColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR);
         mDefaultAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR);
         mCustomAlarmColorPref = findPreference(KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR);
-        mNextAlarmWidgetMaxFontSizePref = findPreference(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE);
 
         setupPreferences();
 
@@ -137,14 +132,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE -> {
-                final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
-                digitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + newValue.toString()
-                );
-            }
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -161,10 +148,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mShowBackgroundOnNextAlarmWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnNextAlarmWidget(mPrefs));
         mBackgroundColorPref.setVisible(mShowBackgroundOnNextAlarmWidgetPref.isChecked());
-
-        mNextAlarmWidgetMaxFontSizePref.setSummary(
-                requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                        + WidgetDAO.getNextAlarmWidgetMaxFontSize(mPrefs));
 
         mDefaultTitleColorPref.setChecked(WidgetDAO.isNextAlarmWidgetDefaultTitleColor(mPrefs));
         mCustomTitleColorPref.setVisible(!mDefaultTitleColorPref.isChecked());
@@ -192,12 +175,6 @@ public class NextAlarmWidgetSettingsFragment extends ScreenFragment
         mDefaultAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mNextAlarmWidgetMaxFontSizePref.setOnPreferenceChangeListener(this);
-        mNextAlarmWidgetMaxFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
     }
 
     private void updateNextAlarmWidget() {

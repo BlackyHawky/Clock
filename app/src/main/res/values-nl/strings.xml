@@ -502,7 +502,6 @@
     <string name="digital_widget_city_name_default_color_title">Standaardkleur voor stadsnaam</string>
     <string name="digital_widget_city_name_custom_color_title">Kleur stadsnaam aanpassen</string>
     <string name="digital_widget_max_clock_font_size_title">Maximum lettergrootte van de klok</string>
-    <string name="widget_max_clock_font_size_summary">Maximum lettergrootte = </string>
     <string name="styles_and_colors_category_title">Stijl en kleuren</string>
     <string name="miscellaneous_category_title">Overig</string>
     <string name="ringtone_category_title">Ringtoon</string>

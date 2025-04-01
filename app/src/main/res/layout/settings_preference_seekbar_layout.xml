@@ -63,6 +63,7 @@
                     android:layout_below="@android:id/title"
                     android:layout_alignStart="@android:id/title"
                     android:layout_gravity="start"
+                    android:paddingVertical="4dp"
                     android:textAlignment="viewStart"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="?android:attr/textColorSecondary"
@@ -74,10 +75,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingStart="0dp"
-                android:paddingEnd="16dp"
                 android:clipChildren="false"
                 android:clipToPadding="false">
+
+                <ImageView
+                    android:id="@+id/seekbar_minus_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    app:maxWidth="48dp"
+                    app:maxHeight="48dp"
+                    tools:src="@drawable/ic_text_decrease" />
 
                 <SeekBar
                     android:id="@+id/seekbar"
@@ -89,6 +99,17 @@
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:background="@null" />
+
+                <ImageView
+                    android:id="@+id/seekbar_plus_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    app:maxWidth="48dp"
+                    app:maxHeight="48dp"
+                    tools:src="@drawable/ic_text_increase" />
 
                 <TextView
                     android:id="@+id/seekbar_value"
@@ -102,9 +123,25 @@
                     android:textAppearance="?android:attr/textAppearanceListItem"
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
-                    android:scrollbars="none"/>
+                    android:scrollbars="none" />
 
             </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/reset_seekbar_value"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_reset_settings"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/reset"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textColor="?colorAccent"
+                app:drawableTint="?colorAccent" />
 
         </LinearLayout>
 

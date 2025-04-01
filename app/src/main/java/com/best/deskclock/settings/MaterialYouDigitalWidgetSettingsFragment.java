@@ -19,7 +19,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGIT
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_DATE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_SECONDS_DISPLAYED;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_DIGITAL_WIDGET_WORLD_CITIES_DISPLAYED;
 
@@ -27,10 +27,8 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -57,7 +55,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
     ColorPreference mCustomNextAlarmColorPref;
     ColorPreference mCustomCityClockColorPref;
     ColorPreference mCustomCityNameColorPref;
-    EditTextPreference mDigitalWidgetMaxClockFontSizePref;
+    CustomSeekbarPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mDisplaySecondsPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mShowCitiesOnDigitalWidgetPref;
@@ -91,7 +89,7 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mCustomCityClockColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR);
         mDefaultCityNameColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR);
         mCustomCityNameColorPref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR);
-        mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
+        mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE);
 
         setupPreferences();
 
@@ -150,12 +148,9 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                     mCustomCityNameColorPref.setVisible(!areCitiesDisplayed && !isCityNameDefaultColor);
                     mDigitalWidgetMaxClockFontSizePref.setEnabled(areCitiesDisplayed);
                     if (!areCitiesDisplayed) {
-                        mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                requireContext().getString(R.string.digital_widget_message_summary));
+                        mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
                     } else {
-                        mDigitalWidgetMaxClockFontSizePref.setSummary(
-                                requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                        + WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(mPrefs));
+                        mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
                     }
                 }
                 Utils.setVibrationTime(requireContext(), 50);
@@ -215,13 +210,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
-                final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
-                digitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + newValue.toString());
-            }
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -258,19 +246,14 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
 
             if (mShowCitiesOnDigitalWidgetPref.isChecked()) {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(false);
-                mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.digital_widget_message_summary));
+                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_message_summary);
             } else {
                 mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-                mDigitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(mPrefs));
+                mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
             }
         } else {
             mDigitalWidgetMaxClockFontSizePref.setEnabled(true);
-            mDigitalWidgetMaxClockFontSizePref.setSummary(
-                    requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                            + WidgetDAO.getMaterialYouDigitalWidgetMaxClockFontSize(mPrefs));
+            mDigitalWidgetMaxClockFontSizePref.setTitle(R.string.digital_widget_max_clock_font_size_title);
         }
 
         mDefaultClockColorPref.setChecked(WidgetDAO.isMaterialYouDigitalWidgetDefaultClockColor(mPrefs));
@@ -313,12 +296,6 @@ public class MaterialYouDigitalWidgetSettingsFragment extends ScreenFragment
         mDefaultCityNameColorPref.setOnPreferenceChangeListener(this);
 
         mCustomCityNameColorPref.setOnPreferenceChangeListener(this);
-
-        mDigitalWidgetMaxClockFontSizePref.setOnPreferenceChangeListener(this);
-        mDigitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
     }
 
     private void updateMaterialYouDigitalWidget() {

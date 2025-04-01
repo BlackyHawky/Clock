@@ -44,6 +44,7 @@
         <com.best.deskclock.settings.AlarmVolumePreference
             android:key="key_volume_setting"
             android:title="@string/alarm_volume_title"
+            android:summary="0"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_seekbar_layout" />

@@ -517,7 +517,6 @@
     <string name="digital_widget_city_clock_default_color_title">도시 시계에 기본 색상 사용</string>
     <string name="digital_widget_city_clock_custom_color_title">도시 시계 색상</string>
     <string name="digital_widget_city_name_default_color_title">도시 이름에 기본 색상 사용</string>
-    <string name="widget_max_clock_font_size_summary">현재 폰트 최대 크기:</string>
     <string name="next_alarm_widget_default_title_color">\"다음 알람\" 및 \"예정된 알람 없음\" 제목에 기본 색상 사용</string>
     <string name="permission_management_settings">권한 관리</string>
     <string name="next_alarm_widget_title_no_alarm">예정된 알람 없음</string>

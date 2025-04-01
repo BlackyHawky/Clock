@@ -201,8 +201,8 @@ public class MaterialYouNextAlarmAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final String widgetMaxFontSize = WidgetDAO.getMaterialYouNextAlarmWidgetMaxFontSize(prefs);
-        final int largestFontSizePx = ThemeUtils.convertDpToPixels(Integer.parseInt(widgetMaxFontSize), context);
+        final int widgetMaxFontSize = WidgetDAO.getMaterialYouNextAlarmWidgetMaxFontSize(prefs);
+        final int largestFontSizePx = ThemeUtils.convertDpToPixels(widgetMaxFontSize, context);
 
         // Create a size template that describes the widget bounds.
         final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestFontSizePx);

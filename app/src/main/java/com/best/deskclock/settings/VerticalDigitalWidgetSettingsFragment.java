@@ -19,16 +19,13 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_W
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.annotation.NonNull;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -50,7 +47,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     ColorPreference mCustomMinutesColorPref;
     ColorPreference mCustomDateColorPref;
     ColorPreference mCustomNextAlarmColorPref;
-    EditTextPreference mDigitalWidgetMaxClockFontSizePref;
     SwitchPreferenceCompat mShowBackgroundOnVerticalDigitalWidgetPref;
     SwitchPreferenceCompat mDisplayDatePref;
     SwitchPreferenceCompat mDefaultHoursColorPref;
@@ -80,7 +76,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         mCustomDateColorPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR);
         mDefaultNextAlarmColorPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR);
         mCustomNextAlarmColorPref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR);
-        mDigitalWidgetMaxClockFontSizePref = findPreference(KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE);
 
         setupPreferences();
 
@@ -168,13 +163,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
                 }
                 Utils.setVibrationTime(requireContext(), 50);
             }
-
-            case KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE -> {
-                final EditTextPreference digitalWidgetMaxClockFontSizePref = (EditTextPreference) pref;
-                digitalWidgetMaxClockFontSizePref.setSummary(
-                        requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                                + newValue.toString());
-            }
         }
 
         requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -191,10 +179,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     private void setupPreferences() {
         mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
         mBackgroundColorPref.setVisible(mShowBackgroundOnVerticalDigitalWidgetPref.isChecked());
-
-        mDigitalWidgetMaxClockFontSizePref.setSummary(
-                requireContext().getString(R.string.widget_max_clock_font_size_summary)
-                        + WidgetDAO.getVerticalDigitalWidgetMaxClockFontSize(mPrefs));
 
         mDefaultHoursColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(mPrefs));
         mCustomHoursColorPref.setVisible(!mDefaultHoursColorPref.isChecked());
@@ -234,12 +218,6 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
-
-        mDigitalWidgetMaxClockFontSizePref.setOnPreferenceChangeListener(this);
-        mDigitalWidgetMaxClockFontSizePref.setOnBindEditTextListener(editText -> {
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-            editText.selectAll();
-        });
     }
 
     private void updateVerticalDigitalWidget() {

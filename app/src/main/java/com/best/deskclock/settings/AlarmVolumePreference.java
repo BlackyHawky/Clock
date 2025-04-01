@@ -8,6 +8,7 @@ package com.best.deskclock.settings;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.media.AudioManager.STREAM_ALARM;
+import static android.view.View.GONE;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -16,10 +17,12 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
@@ -27,8 +30,11 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
 
+import java.util.Locale;
+
 public class AlarmVolumePreference extends SeekBarPreference {
 
+    private Context mContext;
     private SeekBar mSeekbar;
     private boolean mPreviewPlaying = false;
 
@@ -40,15 +46,11 @@ public class AlarmVolumePreference extends SeekBarPreference {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        final Context context = getContext();
-        final AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+        mContext = getContext();
+        final AudioManager audioManager = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
 
         // Disable click feedback for this preference.
         holder.itemView.setClickable(false);
-
-        // Hide the value of the seekbar located to the right of it to have a seekbar that fills the screen
-        final TextView seekBarValue = (TextView) holder.findViewById(R.id.seekbar_value);
-        seekBarValue.setVisibility(View.GONE);
 
         // Minimum volume for alarm is not 0, calculate it.
         int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM) - getMinVolume(audioManager);
@@ -56,24 +58,53 @@ public class AlarmVolumePreference extends SeekBarPreference {
         mSeekbar.setMax(maxVolume);
         mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
 
+        final TextView seekBarSummary = (TextView) holder.findViewById(android.R.id.summary);
+        updateSeekBarSummary(audioManager, seekBarSummary);
+
+        final ImageView seekBarMinus = (ImageView) holder.findViewById(R.id.seekbar_minus_icon);
+        seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_down));
+        seekBarMinus.setOnClickListener(v -> {
+            int currentProgress = mSeekbar.getProgress();
+            if (currentProgress > 0) {
+                mSeekbar.setProgress(currentProgress - 1);
+                updateVolume(audioManager);
+                startRingtonePreview();
+            }
+        });
+
+        final ImageView seekBarPlus = (ImageView) holder.findViewById(R.id.seekbar_plus_icon);
+        seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_volume_up));
+        seekBarPlus.setOnClickListener(v -> {
+            int currentProgress = mSeekbar.getProgress();
+            if (currentProgress < mSeekbar.getMax()) {
+                mSeekbar.setProgress(currentProgress + 1);
+                updateVolume(audioManager);
+                startRingtonePreview();
+            }
+        });
+
+        final TextView resetSeekBar = (TextView) holder.findViewById(R.id.reset_seekbar_value);
+        resetSeekBar.setVisibility(GONE);
+
         final ContentObserver volumeObserver = new ContentObserver(mSeekbar.getHandler()) {
             @Override
             public void onChange(boolean selfChange) {
                 // Volume was changed elsewhere, update our slider.
                 mSeekbar.setProgress(audioManager.getStreamVolume(STREAM_ALARM) - getMinVolume(audioManager));
+                updateSeekBarSummary(audioManager, seekBarSummary);
             }
         };
 
         mSeekbar.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(@NonNull View v) {
-                context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
+                mContext.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI,
                         true, volumeObserver);
             }
 
             @Override
             public void onViewDetachedFromWindow(@NonNull View v) {
-                context.getContentResolver().unregisterContentObserver(volumeObserver);
+                mContext.getContentResolver().unregisterContentObserver(volumeObserver);
             }
         });
 
@@ -83,6 +114,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
                 if (fromUser) {
                     int newVolume = progress + getMinVolume(audioManager);
                     audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
+                    updateSeekBarSummary(audioManager, seekBarSummary);
                 }
             }
 
@@ -92,22 +124,41 @@ public class AlarmVolumePreference extends SeekBarPreference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (!mPreviewPlaying) {
-                    // If we are not currently playing, start.
-                    RingtonePreviewKlaxon.start(
-                            context, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
-                    mPreviewPlaying = true;
-                    seekBar.postDelayed(() -> {
-                        stopRingtonePreview(context);
-                        mPreviewPlaying = false;
-                    }, 5000);
-                }
+                startRingtonePreview();
             }
         });
     }
 
+    private void updateSeekBarSummary(AudioManager audioManager, TextView seekBarSummary) {
+        int currentVolume = audioManager.getStreamVolume(STREAM_ALARM);
+        int maxVolume = audioManager.getStreamMaxVolume(STREAM_ALARM);
+        int volumePercentage = (int) (((float) currentVolume / maxVolume) * 100);
+
+        String formattedText = String.format(Locale.getDefault(), "%d%%", volumePercentage);
+        seekBarSummary.post(() -> seekBarSummary.setText(formattedText));
+    }
+
+    private void updateVolume(AudioManager audioManager) {
+        int newVolume = mSeekbar.getProgress() + getMinVolume(audioManager);
+        audioManager.setStreamVolume(STREAM_ALARM, newVolume, 0);
+    }
+
     private int getMinVolume(AudioManager audioManager) {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
+    }
+
+    public void startRingtonePreview() {
+        if (!mPreviewPlaying) {
+            // If we are not currently playing, start.
+            RingtonePreviewKlaxon.start(mContext, DataModel.getDataModel().getAlarmRingtoneUriFromSettings());
+            mPreviewPlaying = true;
+
+            // Stop the preview after 5 seconds
+            mSeekbar.postDelayed(() -> {
+                stopRingtonePreview(mContext);
+                mPreviewPlaying = false;
+            }, 5000);
+        }
     }
 
     public void stopRingtonePreview(Context context) {

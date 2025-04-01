@@ -820,19 +820,19 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the font size applied to the alarm clock.
+     * @return the font size applied to the alarm digital clock.
      */
-    public static String getAlarmClockFontSize(SharedPreferences prefs) {
+    public static int getAlarmDigitalClockFontSize(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getString(KEY_ALARM_CLOCK_FONT_SIZE, DEFAULT_ALARM_CLOCK_FONT_SIZE);
+        return prefs.getInt(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE, DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE);
     }
 
     /**
      * @return the font size applied to the alarm title.
      */
-    public static String getAlarmTitleFontSize(SharedPreferences prefs) {
+    public static int getAlarmTitleFontSize(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getString(KEY_ALARM_TITLE_FONT_SIZE, DEFAULT_ALARM_TITLE_FONT_SIZE);
+        return prefs.getInt(KEY_ALARM_TITLE_FONT_SIZE_PREF, DEFAULT_ALARM_TITLE_FONT_SIZE_PREF);
     }
 
     /**

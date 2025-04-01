@@ -73,8 +73,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the clock in the digital widget.
      */
-    public static String getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_DIGITAL_WIDGET_FONT_SIZE);
+    public static int getDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**
@@ -178,8 +178,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the hours in the vertical digital widget.
      */
-    public static String getVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    public static int getVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**
@@ -270,8 +270,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the Next alarm widget.
      */
-    public static String getNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    public static int getNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**
@@ -344,8 +344,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the clock in the Material You digital widget.
      */
-    public static String getMaterialYouDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_FONT_SIZE);
+    public static int getMaterialYouDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**
@@ -437,8 +437,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the hours in the Material You vertical digital widget.
      */
-    public static String getMaterialYouVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    public static int getMaterialYouVerticalDigitalWidgetMaxClockFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**
@@ -517,8 +517,8 @@ public final class WidgetDAO {
     /**
      * @return the font size applied to the Material You Next alarm widget.
      */
-    public static String getMaterialYouNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
-        return prefs.getString(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
+    public static int getMaterialYouNextAlarmWidgetMaxFontSize(SharedPreferences prefs) {
+        return prefs.getInt(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE, DEFAULT_WIDGETS_FONT_SIZE);
     }
 
     /**

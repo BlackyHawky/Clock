@@ -494,7 +494,6 @@
     <string name="digital_widget_max_clock_font_size_title">Dimensione massima caratteri dell\'orologio principale</string>
     <string name="widget_next_alarm_custom_color_title">Colore della prossima sveglia personalizzato</string>
     <string name="digital_widget_city_clock_default_color_title">Usa colore predefinito per orologio della città</string>
-    <string name="widget_max_clock_font_size_summary">Dimensione massima dei caratteri =</string>
     <string name="duplicate">Duplica</string>
     <string name="display_background_border_summary">Visualizza un bordo di sfondo per alcuni elementi dell\'applicazione (sveglie, città, pulsante del timer, ecc.)</string>
     <string name="settings_vibration_title">Abilita vibrazioni</string>

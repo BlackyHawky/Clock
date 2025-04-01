@@ -561,7 +561,6 @@
     <string name="digital_widget_city_name_custom_color_title">Прилагођена боја имена града</string>
     <string name="digital_widget_max_clock_font_size_title">Максимална величина фонта главног сата</string>
     <string name="digital_widget_message_summary">Приказивање градова на виџету мора бити онемогућено да бисте приступили овом подешавању</string>
-    <string name="widget_max_clock_font_size_summary">Максимална величина фонта = </string>
     <string name="widget_next_alarm_default_color_title">Употребити подразумевану боју за следећи аларм</string>
     <string name="widget_next_alarm_custom_color_title">Прилагођена боја за следећи аларм</string>
     <string name="analog_widget_material_you">Аналогни сат Material You</string>

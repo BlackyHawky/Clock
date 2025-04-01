@@ -89,8 +89,8 @@ public class PreferencesKeys {
     public static final String KEY_DISMISS_BUTTON_COLOR = "key_dismiss_button_color";
     public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
     public static final String KEY_PULSE_COLOR = "key_pulse_color";
-    public static final String KEY_ALARM_CLOCK_FONT_SIZE = "key_alarm_clock_font_size";
-    public static final String KEY_ALARM_TITLE_FONT_SIZE = "key_alarm_title_font_size";
+    public static final String KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE = "key_alarm_digital_clock_font_size";
+    public static final String KEY_ALARM_TITLE_FONT_SIZE_PREF = "key_alarm_title_font_size_pref";
     public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
@@ -163,7 +163,7 @@ public class PreferencesKeys {
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_CLOCK_COLOR = "key_digital_widget_custom_city_clock_color";
     public static final String KEY_DIGITAL_WIDGET_DEFAULT_CITY_NAME_COLOR = "key_digital_widget_default_city_name_color";
     public static final String KEY_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR = "key_digital_widget_custom_city_name_color";
-    public static final String KEY_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_digital_widget_max_clock_font_size";
+    public static final String KEY_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_digital_widget_maximum_clock_font_size";
 
     // Next Alarm Widget
     public static final String KEY_NEXT_ALARM_WIDGET_DISPLAY_BACKGROUND = "key_next_alarm_widget_display_background";
@@ -174,7 +174,7 @@ public class PreferencesKeys {
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR = "key_next_alarm_widget_custom_alarm_title_color";
     public static final String KEY_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR = "key_next_alarm_widget_default_alarm_color";
     public static final String KEY_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR = "key_next_alarm_widget_custom_alarm_color";
-    public static final String KEY_NEXT_ALARM_WIDGET_MAX_FONT_SIZE = "key_next_alarm_widget_max_font_size";
+    public static final String KEY_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE = "key_next_alarm_widget_maximum_font_size";
 
     // Vertical Digital Widget
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND = "key_vertical_digital_widget_display_background";
@@ -188,7 +188,7 @@ public class PreferencesKeys {
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR = "key_vertical_digital_widget_custom_date_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR = "key_vertical_digital_widget_default_next_alarm_color";
     public static final String KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR = "key_vertical_digital_widget_custom_next_alarm_color";
-    public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE = "key_vertical_digital_widget_max_clock_font_size";
+    public static final String KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE = "key_vertical_digital_widget_maximum_clock_font_size";
 
     // Material You Analog Widget
     public static final String KEY_MATERIAL_YOU_ANALOG_WIDGET_WITH_SECOND_HAND = "key_material_you_analog_widget_with_second_hand";
@@ -220,8 +220,8 @@ public class PreferencesKeys {
             "key_material_you_digital_widget_default_city_name_color";
     public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_CUSTOM_CITY_NAME_COLOR =
             "key_material_you_digital_widget_custom_city_name_color";
-    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
-            "key_material_you_digital_widget_max_clock_font_size";
+    public static final String KEY_MATERIAL_YOU_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE =
+            "key_material_you_digital_widget_maximum_clock_font_size";
 
     // Material You Vertical Digital Widget
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE =
@@ -242,8 +242,8 @@ public class PreferencesKeys {
             "key_material_you_vertical_digital_widget_default_next_alarm_color";
     public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_NEXT_ALARM_COLOR =
             "key_material_you_vertical_digital_widget_custom_next_alarm_color";
-    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAX_CLOCK_FONT_SIZE =
-            "key_material_you_vertical_digital_widget_max_clock_font_size";
+    public static final String KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE =
+            "key_material_you_vertical_digital_widget_maximum_clock_font_size";
 
     // Material You Next Alarm Widget
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR =
@@ -258,7 +258,7 @@ public class PreferencesKeys {
             "key_material_you_next_alarm_widget_default_alarm_color";
     public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR =
             "key_material_you_next_alarm_widget_custom_alarm_color";
-    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAX_FONT_SIZE =
-            "key_material_you_next_alarm_widget_max_font_size";
+    public static final String KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_MAXIMUM_FONT_SIZE =
+            "key_material_you_next_alarm_widget_maximum_font_size";
 
 }
