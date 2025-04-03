@@ -2,7 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_NIGHT_ACCENT_COLOR;
@@ -18,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +29,13 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 import androidx.preference.TwoStatePreference;
 
+import com.best.alarmclock.WidgetUtils;
+import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
+import com.best.alarmclock.materialyouwidgets.MaterialYouNextAlarmAppWidgetProvider;
+import com.best.alarmclock.materialyouwidgets.MaterialYouVerticalDigitalAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.DigitalAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.NextAlarmAppWidgetProvider;
+import com.best.alarmclock.standardwidgets.VerticalDigitalAppWidgetProvider;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
@@ -40,6 +47,8 @@ import java.util.List;
 
 public class InterfaceCustomizationFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener {
+
+    private static boolean isLanguageChanged = false;
 
     ListPreference mThemePref;
     ListPreference mDarkModePref;
@@ -92,6 +101,11 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         super.onResume();
 
         refresh();
+
+        if (isLanguageChanged) {
+            updateAllDigitalWidgets(requireContext());
+            isLanguageChanged = false;
+        }
     }
 
     @Override
@@ -149,7 +163,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 final int index = listPreference.findIndexOfValue((String) newValue);
                 listPreference.setSummary(listPreference.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
-                requireContext().sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
+                isLanguageChanged = true;
                 recreateActivity();
             }
 
@@ -275,6 +289,20 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 listPreference.setEntryValues(sortedValues);
             }
         }
+    }
+
+    /**
+     * Helper method to update all digital widgets.
+     */
+    private void updateAllDigitalWidgets(Context context) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+        WidgetUtils.updateWidget(context, appWidgetManager, DigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, appWidgetManager, NextAlarmAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, appWidgetManager, VerticalDigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouDigitalAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouNextAlarmAppWidgetProvider.class);
+        WidgetUtils.updateWidget(context, appWidgetManager, MaterialYouVerticalDigitalAppWidgetProvider.class);
     }
 
     /**
