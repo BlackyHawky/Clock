@@ -373,4 +373,14 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"برخاست کرنے کیلیے الارم منتخب کریں"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"کوئی فائرنگ الارم نہیں"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم 10 منٹ کیلئے اسنوز ہوگیا"</string>
+    <string name="delete_occasional_alarm_after_use_title">برخاست ہونے کے بعد الارم کو حذف کریں</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">رنگ ٹون ختم ہونے پر الارم کو برخاست کریں</string>
+    <string name="enable_alarm_snooze_actions_label">الارم اسنوز ایکشنز کو فعال کریں</string>
+    <string name="alarm_label_box_title">الارم لیبل</string>
+    <string name="alarm_alert_dismiss_and_delete_text">برخاست کریں اور حذف کریں</string>
+    <string name="duplicate">نقل</string>
+    <string name="alarm_flash">فلیش</string>
+    <string name="label_default">طے شدہ</string>
+    <string name="selected">منتخب</string>
+    <string name="more_options">مزید اختیارات</string>
 </resources>

@@ -345,4 +345,5 @@
     <string name="C347" msgid="6291282205599716861">"Я<xliff:g id="SEPARATOR">=</xliff:g>Ярен<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"Е<xliff:g id="SEPARATOR">=</xliff:g>Ереван<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
     <string name="C349">P<xliff:g id="separator">=</xliff:g>Понта-Дельгада<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
+    <string name="C350">U<xliff:g id="separator">=</xliff:g>Время по Гринвичу<xliff:g id="timezone">|UTC</xliff:g></string>
 </resources>

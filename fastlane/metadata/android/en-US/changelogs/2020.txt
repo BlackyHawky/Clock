@@ -1,0 +1,14 @@
+**Fixes**
+- Fix creating timer, starting or pausing stopwatch from app shortcut
+
+**Improvements**
+- Alarms, timers, cities and system ringtones can be backed up and restored
+- Ability to display/hide date in digital widgets
+- Add the "Blue" theme
+- Add UTC time to the city list
+- Add Turkish & Korean languages to app language setting
+- Update translations
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+DELETE YOUR OLD BACKUP AND CREATE A NEW ONE AFTER UPDATING
