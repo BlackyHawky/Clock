@@ -127,6 +127,22 @@
 
             </LinearLayout>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/reset_seekbar_value"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_reset_settings"
+                android:paddingStart="0dp"
+                android:paddingEnd="4dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/reset"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textColor="?colorAccent"
+                app:drawableTint="?colorAccent" />
+
         </LinearLayout>
 
     </LinearLayout>
