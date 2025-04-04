@@ -437,7 +437,7 @@
     <string name="description_direction_right_for_occasional_alarm">Scorri verso destra per fermare e rimuovere la sveglia</string>
     <string name="widget_next_alarm_default_color_title">Usa colore predefinito per la prossima sveglia</string>
     <string name="ignore_battery_optimizations_dialog_text">Per impostazione predefinita, il sistema Android configura tutte le app installate dall\'utente in modo che siano ottimizzate per risparmiare la durata della batteria. \n\nSebbene ciò sia accettabile per molte applicazioni, questa app è un\'applicazione per le sveglie e spesso causa problemi se configurata per ottimizzare la batteria. Una volta abilitata, il sistema Android può disattivare l\'app in qualsiasi momento e/o annullare le sveglie programmate, il che influisce negativamente sul funzionamento dell\'app. \n\nSi consiglia di escludere questa app dall\'ottimizzazione della batteria.</string>
-    <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Supporto per le piastrelle nelle impostazioni rapide (per Android 7+); &lt;br&gt; &lt;br&gt; ► Backup e ripristino delle impostazioni; &lt;br&gt; &lt;br&gt; ►Material design e colori dinamici; &lt;br&gt; &lt;br&gt;► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Supporto per le piastrelle nelle impostazioni rapide (per Android 7+); &lt;br&gt; &lt;br&gt; ► Backup e ripristino delle impostazioni (tranne suonerie personalizzate); &lt;br&gt; &lt;br&gt; ►Material design e colori dinamici; &lt;br&gt; &lt;br&gt;► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="denied_permission_label">Autorizzazione negata</string>
     <string name="sort_timer_title">Ordina timer</string>
     <string name="widget_background_title">Mostra sfondo</string>
@@ -448,7 +448,7 @@
     <string name="permission_requirement_title">Necessarie:</string>
     <string name="permission_management_summary">Mostra le autorizzazioni necessarie per il corretto funzionamento dell\'applicazione</string>
     <string name="permission_management_settings">Gestione autorizzazioni</string>
-    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.;\n\t\t Sfortunatamente, questa cartteristica potrebbe non funzionare su alcuni dispositivi per via della presenza della app di sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i> . \n \n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni; \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
+    <string name="about_dialog_message">• Ruota e scuoti per disattivare/rimandare la sveglia; \n\n• Spegni/rimanda la sceglia coi pulsante di accensione o volume; \n\n• Solo per alcuni dispositivi Snapdragon, la sveglia si attiva anche quando sono spenti.;\n\t\t Sfortunatamente, questa caratteristica potrebbe non funzionare su alcuni dispositivi per via della presenza della app di sistema <i>\"com.qualcomm.qti.poweroffalarm\"</i> . \n \n• Scorri per rimuovere una sveglia; \n\n• Duplica sveglia; \n\n• Personalizza titolo sveglia; \n\n• Suoneria personalizzabile; \n\n• Tema chiaro, scuro o di sistema; \n\n• Modalità AMOLED per il tema scuro; \n\n• Stile orologio digitale o analogico; \n\n• Visualizza l\'ora di casa quando si è in viaggio; \n\n• Visualizza l\'ora in molte città del mondo; \n\n• Timer, cronometro inclusi; \n\n• Possibilità di condividere il cronometro con i propri contatti; \n\n• Salvaschermo personalizzabile; \n\n• Widget Moderni; \n\n• Widget personalizzabili; \n\n• Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+);\n\n• Salvataggio e ripristino delle impostazioni (tranne le suonerie personalizzate); \n\n• Material design; \n\n• Colori dinamici per Android 12+;</string>
     <string name="credits">Riconoscimenti</string>
     <string name="dialog_close">Chiudi</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Disattiva la sveglia al termine della suoneria</string>
@@ -594,10 +594,10 @@
     <string name="digital_widget_city_name_custom_color_title">Colore personalizzato nome città</string>
     <string name="next_alarm_widget_default_title_color">Usa il colore predefinito per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>
     <string name="next_alarm_widget">Sveglia successiva</string>
-    <string name="backup_restore_dialog_message">Si desidera eseguire il salvataggio o il ripristino delle impostazioni da un file?</string>
+    <string name="backup_restore_dialog_message">Si desidera eseguire il salvataggio o il ripristino delle impostazioni?</string>
     <string name="backup_button_title">Salvataggio</string>
     <string name="backup_restore_title">Salvataggio e Ripristino</string>
-    <string name="backup_restore_summary">Salva o ripristina le impostazioni, ad eccezione di sveglie, timer e suonerie</string>
+    <string name="backup_restore_summary">Salva o ripristina le impostazioni, ad eccezione di suonerie personalizzate</string>
     <string name="restore_button_title">Ripristino</string>
     <string name="toast_message_for_backup">Salvataggio completato</string>
     <string name="sort_timer_descending_duration">Per durata (ordine decrescente)</string>
@@ -664,4 +664,16 @@
     <string name="permission_info_title">Solo per i dispositivi Xiaomi</string>
     <string name="show_lockscreen_dialog_title">Mostra su schermata di blocco</string>
     <string name="show_lockscreen_permission_title">MOSTRA SU SCHERMATA DI BLOCCO</string>
+    <string name="settings_language_turkish">Turco</string>
+    <string name="reset_settings_title">Ripristina impostazioni</string>
+    <string name="contributors_dialog_title">Mostra profilo</string>
+    <string name="reset_settings_message">Siete sicuri di voler ripristinare tutte le impostazioni dell\'app? \n\nNota: le suonerie personalizzate non verranno ripristinate.</string>
+    <string name="blue_accent_color">Blu</string>
+    <string name="settings_language_korean">Coreano</string>
+    <string name="timer_button_time_warning_box_text">Inserisci un valore tra 1 e 120 minuti</string>
+    <string name="timer_button_time_warning_box_title">Valore inserito non valido</string>
+    <string name="toast_message_for_reset">Ripristino completato</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 ore</string>
+    <string name="settings_tab_to_display">Scheda da visualizzare all\'apertura dell\'applicazione</string>
+    <string name="last_tab_used_title">Ultima scheda utilizzata</string>
 </resources>

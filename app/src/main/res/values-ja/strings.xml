@@ -454,7 +454,7 @@
     <string name="permission_requirement_title">要件:</string>
     <string name="permission_management_summary">アプリが正常に動作するための権限を表示</string>
     <string name="settings_permission_summary">ここをクリックして権限管理画面を表示</string>
-    <string name="backup_restore_summary">アラーム、タイマー、通知音を除く設定のバックアップまたは復元</string>
+    <string name="backup_restore_summary">通知音を除くデータのバックアップまたは復元</string>
     <string name="timer_volume_buttons_action_title">音量ボタンで終了したタイマーをリセット</string>
     <string name="auto_silence_5_seconds">5秒</string>
     <string name="auto_silence_20_seconds">20秒</string>

@@ -677,4 +677,6 @@
     <string name="contributors_dialog_title">Vaata profiili</string>
     <string name="toast_message_for_reset">Lähtestamine on tehtud</string>
     <string name="settings_language_korean">korea keel</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 tundi</string>
+    <string name="display_date_title">Näita vidinas kuupäeva</string>
 </resources>

@@ -697,4 +697,6 @@
     <string name="blue_accent_color">Синій</string>
     <string name="toast_message_for_reset">Скидання завершено</string>
     <string name="settings_language_korean">Корейська</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 години</string>
+    <string name="display_date_title">Показувати дату у віджеті</string>
 </resources>

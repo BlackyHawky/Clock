@@ -458,7 +458,7 @@
     <string name="digital_widget_city_clock_default_color_title">Utilizar color por defecto para el reloj de ciudad</string>
     <string name="contributors_dialog_message">Visitar la página de Github de %1$s\n\n%2$s</string>
     <string name="credits">Créditos</string>
-    <string name="about_dialog_message">• Acción de girar y agitar para descartar/posponer alarma; \n\n• Apagar/posponer la alarma con el botón de encendido o los botones de volumen; \n\nFor some Snapdragon devices only, the alarm is triggered when they are switched off; \n\t\tLamentablemente, es posible que esta función no funcione en algunos dispositivos a pesar de la presencia de la aplicación del sistema <i>«com.qualcomm.qti.poweroffalarm»</i>. \n\n• Desliza para borrar una alarma; \n\n• Duplicar alarmas; \n\n• Personalizar el título de la alarma; \n\n• Tono personalizable; \n\n• Tema claro, oscuro o de sistema; \n\n• Modo AMOLED para el tema oscuro; \n\n• Estilo de reloj digital o analógico; \n\n• Muestra la hora en casa cuando viajas; \n\n• Muestra la hora en muchas ciudades del mundo; \n\n• Temporizador, cronómetro y hora de dormir <i>(experimental)</i> incluidos; \n\n• Posibilidad de compartir tu cronómetro con tus contactos; \n\n• Salvapantallas personalizable; \n\n• Widgets modernos; \n\n• Widgets personalizables; \n\n• Soporte para azulejos en ajustes rápidos (para Android 7+); \n\n• Copia de seguridad y restauración de la configuración; \n\n• Material design; \n\n• Colores dinámicos para Android 12+;</string>
+    <string name="about_dialog_message">• Acción de girar y agitar para descartar/posponer alarma; \n\n• Apagar/posponer la alarma con el botón de encendido o los botones de volumen; \n\nFor some Snapdragon devices only, the alarm is triggered when they are switched off; \n\t\tLamentablemente, es posible que esta función no funcione en algunos dispositivos a pesar de la presencia de la aplicación del sistema <i>«com.qualcomm.qti.poweroffalarm»</i>. \n\n• Desliza para borrar una alarma; \n\n• Duplicar alarmas; \n\n• Personalizar el título de la alarma; \n\n• Tono personalizable; \n\n• Tema claro, oscuro o de sistema; \n\n• Modo AMOLED para el tema oscuro; \n\n• Estilo de reloj digital o analógico; \n\n• Muestra la hora en casa cuando viajas; \n\n• Muestra la hora en muchas ciudades del mundo; \n\n• Temporizador, cronómetro y hora de dormir <i>(experimental)</i> incluidos; \n\n• Posibilidad de compartir tu cronómetro con tus contactos; \n\n• Salvapantallas personalizable; \n\n• Widgets modernos; \n\n• Widgets personalizables; \n\n• Soporte para azulejos en ajustes rápidos (para Android 7+); \n\n• Copia de seguridad y restauración de la configuración (excepto tonos personalizados); \n\n• Material design; \n\n• Colores dinámicos para Android 12+;</string>
     <string name="alarm_notification_reminder_title">Notificación de recordatorio</string>
     <string name="alarm_notification_reminder_30_minutes">30 minutos antes</string>
     <string name="alarm_title_color">Color del título de la alarma</string>
@@ -475,7 +475,7 @@
     <string name="first_launch_dialog_title">Salir</string>
     <string name="notifications_dialog_title">Notificaciones</string>
     <string name="FSN_permission_title">PERMITIR NOTIFICACIONES DE PANTALLA COMPLETA</string>
-    <string name="FSN_dialog_text">Desde Android 14, para que la alarma se active cuando la pantalla está apagada, es imprescindible que el permiso de Notificaciones de Pantalla Completa esté activado</string>
+    <string name="FSN_dialog_text">Desde Android 14, para que la alarma se active cuando la pantalla está apagada, es imprescindible que el permiso de \"Notificaciones de Pantalla Completa\" esté activado.</string>
     <string name="dialog_close">Cerrar</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activar borrado automático de alarmas ocasionales por defecto</string>
     <string name="alarm_settings_general_summary">Este ajuste puede ser cambiado para cada alarma en la vista ampliada de la alarma</string>
@@ -488,8 +488,8 @@
     <string name="widget_next_alarm_default_color_title">Utilizar el color por defecto para la alarma siguiente</string>
     <string name="widget_next_alarm_custom_color_title">Color personalizado para alarma siguiente</string>
     <string name="backup_restore_title">Copia de seguridad y restauración</string>
-    <string name="backup_restore_summary">Hacer copia de seguridad o restaurar ajustes, excepto alarmas, temporizadores y tonos de llamada</string>
-    <string name="backup_restore_dialog_message">¿Quieres hacer una copia de seguridad o restaurar los ajustes desde un archivo?</string>
+    <string name="backup_restore_summary">Hacer copia de seguridad o restaurar ajustes, excepto tonos de llamada</string>
+    <string name="backup_restore_dialog_message">¿Quieres hacer una copia de seguridad o restaurar los datos de la aplicación?</string>
     <string name="toast_message_for_backup">Copia de seguridad completada</string>
     <string name="toast_message_for_restore">Restauración completada</string>
     <string name="alarm_upcoming_channel">Alarmas próximas</string>
@@ -565,7 +565,7 @@
     <string name="first_launch_main_feature_link">… ¡y mucho más!</string>
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICACIONES A PANTALLA COMPLETA;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_version">Versión %s</string>
-    <string name="first_launch_main_feature_message">► Tema claro, oscuro o de sistema; &lt;br&gt; &lt;br&gt; ► Salvapantallas personalizable; &lt;br&gt; &lt;br&gt; ► Widgets personalizables; &lt;br&gt; &lt;br&gt; ► Soporte para azulejos en ajustes rápidos (para Android 7+); &lt;br&gt; &lt;br&gt; ► Copia de seguridad y restauración de ajustes; &lt;br&gt; &lt;br&gt; ► Material design y colores dinámicos; &lt;br&gt; &lt;br&gt; ► Deslizar para borrar una alarma; &lt;br&gt; &lt;br&gt; ► Duplicar una alarma; &lt;br&gt; &lt;br&gt; ► Acción de giro y agitación para desactivar/posponer la alarma; &lt;br&gt; &lt;br&gt; ► Apagar/posponer la alarma con el botón de encendido o los botones de volumen; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Tema claro, oscuro o de sistema; &lt;br&gt; &lt;br&gt; ► Salvapantallas personalizable; &lt;br&gt; &lt;br&gt; ► Widgets personalizables; &lt;br&gt; &lt;br&gt; ► Soporte para azulejos en ajustes rápidos (para Android 7+); &lt;br&gt; &lt;br&gt; ► Copia de seguridad y restauración de ajustes (excepto tonos personalizados); &lt;br&gt; &lt;br&gt; ► Material design y colores dinámicos; &lt;br&gt; &lt;br&gt; ► Deslizar para borrar una alarma; &lt;br&gt; &lt;br&gt; ► Duplicar una alarma; &lt;br&gt; &lt;br&gt; ► Acción de giro y agitación para desactivar/posponer la alarma; &lt;br&gt; &lt;br&gt; ► Apagar/posponer la alarma con el botón de encendido o los botones de volumen; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="ignore_battery_optimizations_dialog_text">Por defecto, el sistema Android configura todas las aplicaciones instaladas por el usuario para que estén optimizadas para ahorrar batería. \n\nSi bien esto es aceptable para muchas aplicaciones, esta aplicación es una aplicación de alarma y a menudo causa problemas si se configura para optimizar la batería. Una vez activada, el sistema Android puede desactivar la aplicación en cualquier momento y/o cancelar las alarmas programadas, lo que afectaría negativamente al funcionamiento de la aplicación.. \n\nRecomendamos excluir esta aplicación de las optimizaciones de batería.</string>
     <string name="pink_accent_color">Rosa</string>
     <string name="red_accent_color">Rojo</string>
@@ -659,4 +659,18 @@
     <string name="settings_language_chinese_simplified_cn">Chino (simplificado, RPC)</string>
     <string name="settings_language_spanish">Español</string>
     <string name="settings_language_ukrainian">Ucraniano</string>
+    <string name="last_tab_used_title">Última pestaña abierta</string>
+    <string name="settings_language_turkish">Turco</string>
+    <string name="settings_tab_to_display">Pestaña a mostrar cuando se abre la aplicación</string>
+    <string name="reset_settings_title">Reiniciar configuraciones</string>
+    <string name="reset_settings_message">Estás seguro que deseas reiniciar todas las configuraciones?\n\nNota: los tonos personalizados no sé reiniciaran.</string>
+    <string name="contributors_dialog_title">Ver perfil</string>
+    <string name="blue_accent_color">Azul</string>
+    <string name="settings_language_korean">Coreano</string>
+    <string name="timer_button_time_warning_box_text">Ingresa un valor entre 1 y 120 minutos</string>
+    <string name="toast_message_for_reset">Reinicio completo</string>
+    <string name="shake_intensity_title">Intensidad de sacudida</string>
+    <string name="clock_style_spinner">Spinner</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 horas</string>
+    <string name="timer_button_time_warning_box_title">Valor incorrecto ingresado</string>
 </resources>

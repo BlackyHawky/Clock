@@ -471,4 +471,14 @@
     <string name="dark_theme">અંધારું</string>
     <string name="blue_gray_accent_color">વાદળી રાખોડી</string>
     <string name="settings_language_chinese_simplified_cn">ચીની(સિમ્પલઇફીડ, PRC)</string>
+    <string name="backup_restore_summary">કસ્ટમ રિંગટન ના સિવાય અપ નો ડેટા બેકઅપ કે પુનઃપ્રાપ્ત કરો</string>
+    <string name="backup_restore_title">બેકઅપ અને પુનઃપ્રાપ્તિ</string>
+    <string name="toast_message_for_backup">બેકઅપ સંપન્ન</string>
+    <string name="restore_button_title">પુનઃપ્રાપ્તિ</string>
+    <string name="backup_button_title">બેકઅપ</string>
+    <string name="toast_message_for_restore">­પુનઃસ્થાપન સંપન્ન</string>
+    <string name="backup_restore_dialog_message">તમને અપ નો ડેટા બેકઅપ કે પુનઃપ્રાપ્ત કરવો છે?</string>
+    <string name="notifications_dialog_title">સૂચનાઓ</string>
+    <string name="show_lockscreen_dialog_title">લોકસ્ક્રીન પર દેખાડો</string>
+    <string name="FSN_dialog_title">પૂર્ણ સ્ક્રીન સૂચનાઓ</string>
 </resources>

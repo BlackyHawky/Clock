@@ -661,4 +661,5 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">일회성 알람 자동 삭제를 기본값으로 켜기</string>
     <string name="occasional_alarm_deleted">일회성 알람을 삭제했습니다.</string>
     <string name="occasional_alarm_alert_predismiss_title">예정된 일회성 알람</string>
+    <string name="default_time_to_add_to_timer_2_hours">2시간</string>
 </resources>

@@ -1,0 +1,12 @@
+**Correzioni**
+- Correzione delle ore e dei minuti visualizzati nel selezionatore dell'ora dell'allarme
+- Correzione di un possibile errore durante l'eliminazione di un timer
+
+**Miglioramenti
+- Possibilità di scegliere quale scheda visualizzare all'apertura dell'applicazione
+- Miglioramento dell'ora visualizzata sul pulsante "Aggiungi 1 minuto".
+- Impostazione di un intervallo per il numero personalizzato di minuti da aggiungere al timer per evitare che l'app si blocchi.
+- Regolazione del colore del quadrante analogico del Materiale
+- Migliorare le animazioni delle finestre
+- Pulire e migliorare il codice
+- Aggiornare le traduzioni

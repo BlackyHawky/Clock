@@ -683,4 +683,6 @@
     <string name="blue_accent_color">Bleu</string>
     <string name="toast_message_for_reset">Réinitialisation terminée</string>
     <string name="settings_language_korean">Coréen</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 heures</string>
+    <string name="display_date_title">Afficher la date sur le widget</string>
 </resources>

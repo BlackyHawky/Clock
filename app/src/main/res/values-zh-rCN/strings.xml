@@ -660,4 +660,6 @@
     <string name="blue_accent_color">蓝色</string>
     <string name="toast_message_for_reset">重置已完成</string>
     <string name="settings_language_korean">韩语</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 小时</string>
+    <string name="display_date_title">在微件上显示日期</string>
 </resources>

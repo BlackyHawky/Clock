@@ -685,4 +685,6 @@
     <string name="blue_accent_color">Niebieski</string>
     <string name="toast_message_for_reset">Resetowanie zakończone</string>
     <string name="settings_language_korean">Koreański</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 godziny</string>
+    <string name="display_date_title">Wyświetl datę na widżecie</string>
 </resources>
