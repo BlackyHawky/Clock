@@ -6,6 +6,8 @@
 
 package com.best.deskclock.widget.toast;
 
+import com.best.deskclock.R;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.ref.WeakReference;
@@ -17,11 +19,11 @@ public final class SnackbarManager {
 
     private static WeakReference<Snackbar> sSnackbar = null;
 
-    private SnackbarManager() {
-    }
-
     public static void show(Snackbar snackbar) {
         sSnackbar = new WeakReference<>(snackbar);
+        if (ThemeUtils.isTablet() || (!ThemeUtils.isTablet() && ThemeUtils.isPortrait())) {
+            snackbar.setAnchorView(R.id.button_layout);
+        }
         snackbar.show();
     }
 

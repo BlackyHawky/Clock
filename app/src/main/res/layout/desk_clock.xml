@@ -26,11 +26,11 @@
             android:saveEnabled="false" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:baselineAligned="false"
-            app:layout_behavior="com.best.deskclock.widget.toast.SnackbarSlidingBehavior">
+            android:baselineAligned="false">
 
             <!-- Buttons size is set programmatically in the DeskClock.java file. -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
