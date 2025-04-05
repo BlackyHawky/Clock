@@ -14,27 +14,25 @@
     android:baselineAligned="true"
     android:duplicateParentState="true"
     android:layoutDirection="ltr"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <com.best.deskclock.widget.AutoSizingTextView
         android:id="@+id/stopwatch_time_text"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:duplicateParentState="true"
-        android:paddingStart="30dp"
-        android:paddingEnd="3dp"
+        android:includeFontPadding="false"
         android:textSize="70sp"
-        tools:text="1" />
+        tools:text="01" />
 
     <com.best.deskclock.widget.AutoSizingTextView
         android:id="@+id/stopwatch_hundredths_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:duplicateParentState="true"
-        android:paddingStart="3dp"
-        android:paddingEnd="30dp"
-        android:textSize="30sp"
+        android:includeFontPadding="false"
+        android:textSize="40sp"
         tools:text="23" />
 
 </LinearLayout>

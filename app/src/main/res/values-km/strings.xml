@@ -204,8 +204,6 @@
     <string name="timer_reset_all" msgid="7530633132757866087">"កំណត់ការកំណត់ពេលទាំងអស់ឡើងវិញ"</string>
     <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%1$d</xliff:g>:<xliff:g id="MINUTES">%2$02d</xliff:g>:<xliff:g id="SECONDS">%3$02d</xliff:g>"</string>
     <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%1$d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
-    <!-- no translation found for seconds (6550091082396571898) -->
-    <skip/>
     <string name="jocular_content_message_1">"អ្នក​កំពុង​ស្ថិត​ក្នុង​ល្បឿន​ដ៏​អស្ចារ្យ។"</string>
     <string name="jocular_content_message_2">"រីករាយ​ជាមួយ​លទ្ធផល​ការងារ​របស់​អ្នក។"</string>
     <string name="jocular_content_message_3">"Androids គឺ​លឿន ប៉ុន្តែ​មិន​លឿន​ដូច​អ្នក​ទេ!"</string>
