@@ -76,6 +76,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        if (isShakeIntensityPreference() && progress < MIN_SHAKE_INTENSITY_VALUE) {
+                            seekBar.setProgress(MIN_SHAKE_INTENSITY_VALUE);
+                        } else if (!isScreensaverBrightnessPreference() && progress < MIN_FONT_SIZE_VALUE) {
+                            seekBar.setProgress(MIN_FONT_SIZE_VALUE);
+                        }
+                    }
+
                     updateSeekBarSummary(seekBarSummary, progress);
                 }
             }
@@ -142,24 +150,40 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(formattedText);
             }
         } else if (isShakeIntensityPreference()) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_SHAKE_INTENSITY_VALUE) {
+                return;
+            }
+
             if (progress == DEFAULT_SHAKE_INTENSITY) {
                 seekBarSummary.setText(R.string.label_default);
             } else {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isAlarmDigitalClockFontSizePreference()) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+                return;
+            }
+
             if (progress == DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE) {
                 seekBarSummary.setText(R.string.label_default);
             } else {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isAlarmTitleFontSizePreference()) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+                return;
+            }
+
             if (progress == DEFAULT_ALARM_TITLE_FONT_SIZE_PREF) {
                 seekBarSummary.setText(R.string.label_default);
             } else {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+                return;
+            }
+
             if (progress == DEFAULT_WIDGETS_FONT_SIZE) {
                 seekBarSummary.setText(R.string.label_default);
             } else {
