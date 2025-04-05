@@ -134,7 +134,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_reset_settings"
                 android:paddingStart="0dp"
-                android:paddingEnd="4dp"
+                android:paddingEnd="2dp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:text="@string/reset"
