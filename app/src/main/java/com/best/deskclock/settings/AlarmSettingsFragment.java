@@ -34,7 +34,6 @@ import android.os.Vibrator;
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
@@ -58,7 +57,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
     ListPreference mShakeActionPref;
-    SeekBarPreference mShakeIntensityPref;
+    CustomSeekbarPreference mShakeIntensityPref;
     ListPreference mWeekStartPref;
     ListPreference mAlarmNotificationReminderTimePref;
     SwitchPreferenceCompat mEnableAlarmVibrationsByDefaultPref;
@@ -154,15 +153,6 @@ public class AlarmSettingsFragment extends ScreenFragment
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
-
-            case KEY_SHAKE_INTENSITY -> {
-                final int progress = (int) newValue;
-                if (progress == 16) {
-                    mShakeIntensityPref.setSummary(R.string.label_default);
-                } else {
-                    mShakeIntensityPref.setSummary(String.valueOf(progress - 15));
-                }
-            }
         }
 
         return true;
@@ -205,11 +195,6 @@ public class AlarmSettingsFragment extends ScreenFragment
             // shakeActionIndex == 2 --> Nothing
             final int shakeActionIndex = mShakeActionPref.findIndexOfValue(String.valueOf(SettingsDAO.getShakeAction(mPrefs)));
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
-            mShakeIntensityPref.setMin(16);
-            if (mShakeIntensityPref.getMin() == 16) {
-                mShakeIntensityPref.setSummary(R.string.label_default);
-            }
-
         }
 
         mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
@@ -237,16 +222,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
-
-        final int intensity = SettingsDAO.getShakeIntensity(mPrefs);
-        mShakeIntensityPref.setValue(intensity);
-        if (intensity == 16) {
-            mShakeIntensityPref.setSummary(R.string.label_default);
-        } else {
-            mShakeIntensityPref.setSummary(String.valueOf(intensity - 15));
-        }
-        mShakeIntensityPref.setOnPreferenceChangeListener(this);
-        mShakeIntensityPref.setUpdatesContinuously(true);
 
         // Set the default first day of the week programmatically
         final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);

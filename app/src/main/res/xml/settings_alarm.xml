@@ -117,9 +117,10 @@
 
         <!-- To be more user-friendly, the default value 16 will be written as 1 and the
              maximum value 55 will be written as 40. See the AlarmSettingsFragment file. -->
-        <SeekBarPreference
+        <com.best.deskclock.settings.CustomSeekbarPreference
             android:key="key_shake_intensity"
             android:title="@string/shake_intensity_title"
+            android:summary="@string/label_default"
             android:defaultValue="16"
             android:max="55"
             app:iconSpaceReserved="false"

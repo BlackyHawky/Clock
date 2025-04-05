@@ -8,10 +8,12 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_TITLE_FONT_SIZE_PREF;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_BRIGHTNESS;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +36,9 @@ import java.util.Locale;
 
 public class CustomSeekbarPreference extends SeekBarPreference {
 
-    private static final int MIN_SEEKBAR_VALUE = 20;
+    private static final int MIN_FONT_SIZE_VALUE = 20;
+    private static final int MIN_SHAKE_INTENSITY_VALUE = DEFAULT_SHAKE_INTENSITY;
+    private static final int MIN_BRIGHTNESS_VALUE = 0;
 
     private Context mContext;
     private SharedPreferences mPrefs;
@@ -91,11 +95,16 @@ public class CustomSeekbarPreference extends SeekBarPreference {
 
     /**
      * For Android Oreo and above, sets the minimum value of the SeekBar based on the preference type.
-     * If the preference is not related to screensaver brightness, the minimum value is 20.
      */
     private void configureSeekBarMinValue() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isScreensaverBrightnessPreference()) {
-            mSeekBar.setMin(MIN_SEEKBAR_VALUE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (isScreensaverBrightnessPreference()) {
+                mSeekBar.setMin(MIN_BRIGHTNESS_VALUE);
+            } else if (isShakeIntensityPreference()) {
+                mSeekBar.setMin(MIN_SHAKE_INTENSITY_VALUE);
+            } else {
+                mSeekBar.setMin(MIN_FONT_SIZE_VALUE);
+            }
         }
     }
 
@@ -107,6 +116,8 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         int currentProgress;
         if (isScreensaverBrightnessPreference()) {
             currentProgress = getScreensaverBrightnessPreferenceValue();
+        } else if (isShakeIntensityPreference()) {
+            currentProgress = getShakeIntensityPreferenceValue();
         } else if (isAlarmDigitalClockFontSizePreference()) {
             currentProgress = getAlarmDigitalClockFontSizeValue();
         } else if (isAlarmTitleFontSizePreference()) {
@@ -129,6 +140,12 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             } else {
                 String formattedText = String.format(Locale.getDefault(), "%d%%", progress);
                 seekBarSummary.setText(formattedText);
+            }
+        } else if (isShakeIntensityPreference()) {
+            if (progress == DEFAULT_SHAKE_INTENSITY) {
+                seekBarSummary.setText(R.string.label_default);
+            } else {
+                seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isAlarmDigitalClockFontSizePreference()) {
             if (progress == DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE) {
@@ -161,6 +178,9 @@ public class CustomSeekbarPreference extends SeekBarPreference {
         if (isScreensaverBrightnessPreference()) {
             seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_decrease));
             seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_increase));
+        } else if (isShakeIntensityPreference()) {
+            seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_low));
+            seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_sensor_high));
         } else {
             seekBarMinus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_decrease));
             seekBarPlus.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_text_increase));
@@ -178,9 +198,10 @@ public class CustomSeekbarPreference extends SeekBarPreference {
     private void configureSeekBarButton(ImageView button, final int delta, final TextView seekBarSummary) {
         button.setOnClickListener(v -> {
             int currentSeekBarValue = mSeekBar.getProgress();
-            int newSeekBarValue = Math.min(Math.max(currentSeekBarValue + delta, isScreensaverBrightnessPreference()
-                    ? 0
-                    : MIN_SEEKBAR_VALUE), mSeekBar.getMax());
+            int newSeekBarValue = Math.min(Math.max(currentSeekBarValue + delta,
+                    isScreensaverBrightnessPreference() ? MIN_BRIGHTNESS_VALUE
+                    : isShakeIntensityPreference() ? MIN_SHAKE_INTENSITY_VALUE
+                    : MIN_FONT_SIZE_VALUE), mSeekBar.getMax());
             mSeekBar.setProgress(newSeekBarValue);
             updateSeekBarSummary(seekBarSummary, newSeekBarValue);
             saveSeekBarValue(newSeekBarValue);
@@ -207,6 +228,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private void sendBroadcastUpdateIfNeeded() {
         if (!isScreensaverBrightnessPreference()
+                && !isShakeIntensityPreference()
                 && !isAlarmDigitalClockFontSizePreference()
                 && !isAlarmTitleFontSizePreference()) {
             mContext.sendBroadcast(new Intent(ACTION_APPWIDGET_UPDATE));
@@ -227,6 +249,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private int getScreensaverBrightnessPreferenceValue() {
         return mPrefs.getInt(getKey(), DEFAULT_SCREENSAVER_BRIGHTNESS);
+    }
+
+    /**
+     * Retrieves the current value of the SeekBar related to the shake intensity from
+     * the SharedPreferences.
+     */
+    private int getShakeIntensityPreferenceValue() {
+        return mPrefs.getInt(getKey(), DEFAULT_SHAKE_INTENSITY);
     }
 
     /**
@@ -251,6 +281,14 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      */
     private boolean isScreensaverBrightnessPreference() {
         return getKey().equals(KEY_SCREENSAVER_BRIGHTNESS);
+    }
+
+    /**
+     * @return {@code true} if the current preference is related to shake intensity.
+     * {@code false} otherwise.
+     */
+    private boolean isShakeIntensityPreference() {
+        return getKey().equals(KEY_SHAKE_INTENSITY);
     }
 
     /**
