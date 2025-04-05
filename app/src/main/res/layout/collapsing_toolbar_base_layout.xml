@@ -10,15 +10,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="?android:attr/colorBackground">
+        android:background="@null">
 
         <!-- Don't use the app:maxLines="" attribute as it is an experimental feature
              that may cause bugs (eg: restoring the position of a Recycler View in settings)
@@ -26,12 +25,15 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            app:contentScrim="?colorSurface"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:fitsSystemWindows="true"
+            android:clipToPadding="false"
+            app:forceApplySystemWindowInsetTop="true"
+            app:statusBarScrim="@null"
+            app:contentScrim="?android:attr/colorBackground"
+            app:scrimAnimationDuration="?attr/motionDurationMedium2"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:scrimAnimationDuration="300"
-            app:scrimVisibleHeightTrigger="120dp"
-            app:titleCollapseMode="fade"
+            app:titleCollapseMode="scale"
             app:collapsedTitleTextAppearance="@style/CollapsingToolbarTitle.Collapsed"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitle.Expanded"
             app:expandedTitleMarginStart="24dp"

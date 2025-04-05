@@ -37,9 +37,13 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
@@ -58,6 +62,7 @@ import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.toast.SnackbarManager;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
@@ -110,27 +115,6 @@ public class DeskClock extends AppCompatActivity
      */
     private final OnSilentSettingsListener mSilentSettingChangeWatcher = new SilentSettingChangeWatcher();
 
-    private final NavigationBarView.OnItemSelectedListener mNavigationListener = item -> {
-        UiDataModel.Tab tab = null;
-        int itemId = item.getItemId();
-        if (itemId == R.id.page_alarm) {
-            tab = UiDataModel.Tab.ALARMS;
-        } else if (itemId == R.id.page_clock) {
-            tab = UiDataModel.Tab.CLOCKS;
-        } else if (itemId == R.id.page_timer) {
-            tab = UiDataModel.Tab.TIMERS;
-        } else if (itemId == R.id.page_stopwatch) {
-            tab = UiDataModel.Tab.STOPWATCH;
-        }
-
-        if (tab != null) {
-            UiDataModel.getUiDataModel().setSelectedTab(tab);
-            return true;
-        }
-
-        return false;
-    };
-
     /**
      * Displays a snackbar explaining why alarms may not fire or may fire silently.
      */
@@ -160,6 +144,21 @@ public class DeskClock extends AppCompatActivity
      * The button right of the {@link #mFab} shared across all tabs in the user interface.
      */
     private ImageView mRightButton;
+
+    /**
+     * The view that displays the Toolbar.
+     */
+    private AppBarLayout mAppBarLayout;
+
+    /**
+     * The Toolbar to display the title of the different tabs.
+     */
+    private Toolbar mToolbar;
+
+    /**
+     * The layout that displays the floating action buttons.
+     */
+    private ConstraintLayout mButtonsLayout;
 
     /**
      * The ViewPager that pages through the fragments representing the content of the tabs.
@@ -225,24 +224,32 @@ public class DeskClock extends AppCompatActivity
 
         mSnackbarAnchor = findViewById(R.id.content);
 
+        mAppBarLayout = findViewById(R.id.app_bar_layout);
+
+        // Configure the toolbar.
+        mToolbar = mAppBarLayout.findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        mButtonsLayout = findViewById(R.id.button_layout);
+
         // Configure the buttons shared by the tabs.
         final boolean isTablet = ThemeUtils.isTablet();
         final boolean isPortrait = ThemeUtils.isPortrait();
         final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
         final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
-        mFab = findViewById(R.id.fab);
+        mFab = mButtonsLayout.findViewById(R.id.fab);
         mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
 
-        mLeftButton = findViewById(R.id.left_button);
+        mLeftButton = mButtonsLayout.findViewById(R.id.left_button);
         mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
 
-        mRightButton = findViewById(R.id.right_button);
+        mRightButton = mButtonsLayout.findViewById(R.id.right_button);
         mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
@@ -312,28 +319,21 @@ public class DeskClock extends AppCompatActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Mirror changes made to the selected tab into UiDataModel.
-        final String darkMode = SettingsDAO.getDarkMode(mPrefs);
         final int primaryColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorPrimary, Color.BLACK);
         final int surfaceColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
         final int onBackgroundColor = MaterialColors.getColor(
                 this, com.google.android.material.R.attr.colorOnBackground, Color.BLACK);
-        final boolean isTabIndicatorDisplayed = SettingsDAO.isTabIndicatorDisplayed(mPrefs);
 
         mBottomNavigation = findViewById(R.id.bottom_view);
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
-        mBottomNavigation.setItemActiveIndicatorEnabled(isTabIndicatorDisplayed);
-
-        if (!isTabIndicatorDisplayed) {
-            final int bottomNavigationMenuPadding = ThemeUtils.convertDpToPixels(4, this);
-            mBottomNavigation.setPadding(0, bottomNavigationMenuPadding, 0, bottomNavigationMenuPadding);
-        }
+        mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
 
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, onBackgroundColor}));
-        if (ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+        if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
@@ -353,6 +353,8 @@ public class DeskClock extends AppCompatActivity
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                     new int[]{primaryColor, primaryColor, onBackgroundColor}));
         }
+
+        applyWindowInsets();
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
@@ -503,6 +505,61 @@ public class DeskClock extends AppCompatActivity
         return false;
     }
 
+    private final NavigationBarView.OnItemSelectedListener mNavigationListener = item -> {
+        UiDataModel.Tab tab = null;
+        int itemId = item.getItemId();
+        if (itemId == R.id.page_alarm) {
+            tab = UiDataModel.Tab.ALARMS;
+        } else if (itemId == R.id.page_clock) {
+            tab = UiDataModel.Tab.CLOCKS;
+        } else if (itemId == R.id.page_timer) {
+            tab = UiDataModel.Tab.TIMERS;
+        } else if (itemId == R.id.page_stopwatch) {
+            tab = UiDataModel.Tab.STOPWATCH;
+        }
+
+        if (tab != null) {
+            UiDataModel.getUiDataModel().setSelectedTab(tab);
+            return true;
+        }
+
+        return false;
+    };
+
+    /**
+     * This method adjusts the spacing of the Toolbar, buttons layout, and content to take into
+     * account system insets, so that they are not obscured by system elements (status bar,
+     * navigation bar or cutout).
+     */
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(mAppBarLayout, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(mSnackbarAnchor, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, 0, bars.right, 0);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(mButtonsLayout, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, 0, bars.right, 0);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
     /**
      * Displays the right tab if the application has been closed and then reopened from the notification.
      */
@@ -545,10 +602,7 @@ public class DeskClock extends AppCompatActivity
             }
         }
 
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(selectedTab.getLabelResId());
-        }
+        mToolbar.setTitle(selectedTab.getLabelResId());
     }
 
     /**

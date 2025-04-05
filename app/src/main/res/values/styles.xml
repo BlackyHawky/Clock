@@ -13,7 +13,7 @@
              the navigation bar is defined programmatically -->
         <item name="android:navigationBarColor">?android:colorBackground</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
-        <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+
         <item name="colorAccent">@color/md_theme_primary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
@@ -192,11 +192,6 @@
     <!-- ============ -->
     <!--    THEMES    -->
     <!-- ============ -->
-
-    <style name="Theme.DeskClock.Actionbar" parent="@style/Theme.DeskClock">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
-    </style>
 
     <style name="Theme.DeskClock.Wallpaper">
         <item name="android:windowFullscreen">true</item>

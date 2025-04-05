@@ -39,7 +39,7 @@
         android:label="${appName}"
         android:requiredForAllUsers="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DeskClock.Actionbar"
+        android:theme="@style/Theme.DeskClock"
         tools:targetApi="s">
 
         <!-- ============================================================== -->

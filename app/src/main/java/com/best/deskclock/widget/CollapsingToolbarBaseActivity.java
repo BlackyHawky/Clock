@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -21,6 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -84,6 +88,8 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         final Toolbar toolbar = findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
+
+        applyWindowInsets();
 
         // Exclude SettingsActivity as this is handled in SettingsFragment.
         if (!(this instanceof SettingsActivity)) {
@@ -174,4 +180,33 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
                 });
         params.setBehavior(behavior);
     }
+
+
+    /**
+     * This method adjusts the spacing of the Toolbar and content to take into account system insets,
+     * so that they are not obscured by system elements (status bar, navigation bar or cutout).
+     */
+    private void applyWindowInsets() {
+        if (mAppBarLayout != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mAppBarLayout, (v, insets) -> {
+                Insets bars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
+                );
+                v.setPadding(bars.left, bars.top, bars.right, 0);
+
+                return WindowInsetsCompat.CONSUMED;
+            });
+        }
+
+        FrameLayout frameLayout = findViewById(R.id.content_frame);
+        ViewCompat.setOnApplyWindowInsetsListener(frameLayout, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, 0, bars.right, bars.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+    }
+
 }

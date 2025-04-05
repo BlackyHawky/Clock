@@ -115,9 +115,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         mRecyclerView = getListView();
         if (mRecyclerView != null) {
-            int bottomPadding = ThemeUtils.convertDpToPixels(20, requireContext());
-            int topPadding = ThemeUtils.convertDpToPixels(10, requireContext());
-            mRecyclerView.setPadding(0, topPadding, 0, bottomPadding);
+            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
+            mRecyclerView.setPadding(0, padding, 0, padding);
             mRecyclerView.setVerticalScrollBarEnabled(false);
             mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         }

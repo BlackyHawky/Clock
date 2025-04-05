@@ -7,11 +7,13 @@
 
     <style name="Theme.DeskClock" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- For the settings page, ringtone selection and city selection, the color of
              the navigation bar is defined programmatically -->
         <item name="android:navigationBarColor">?android:colorBackground</item>
-        <item name="bottomNavigationStyle">@style/Widget.Material3.BottomNavigationView</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+
         <item name="colorAccent">@color/md_theme_primary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textColorHighlight">@color/md_theme_inversePrimary</item>
