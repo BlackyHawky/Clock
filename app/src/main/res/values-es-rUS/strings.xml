@@ -27,12 +27,14 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> min</item>
         <item quantity="one">1 min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma des."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="other">Pospuesta por <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
+        <item quantity="many">Pospuesta por <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
         <item quantity="one">Pospuesta por 1 minuto</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta: <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -59,26 +61,32 @@
     <string name="alarm_confirmation_toast_8">"La alarma sonará en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> días</item>
         <item quantity="one">1 día</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
         <item quantity="one">1 hora</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> h</item>
         <item quantity="one">1 h</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
         <item quantity="one">1 minuto</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min</item>
         <item quantity="one">1 min</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
+        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> segundos</item>
         <item quantity="one">1 segundo</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos los días"</string>
@@ -92,6 +100,7 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
+        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
         <item quantity="one">1 minuto</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
@@ -364,6 +373,7 @@
     <string name="timer_created" msgid="4381027137335885547">"Se creó el temporizador"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="other">Se descartaron <xliff:g id="NUMBER">%d</xliff:g> temporizadores</item>
+        <item quantity="many">Se descartaron <xliff:g id="NUMBER">%d</xliff:g> temporizadores</item>
         <item quantity="one">Se descartó el temporizador</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"La duración del temporizador no es válida"</string>

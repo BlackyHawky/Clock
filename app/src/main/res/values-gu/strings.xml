@@ -78,7 +78,7 @@
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> મિનિટ</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
-        <item quantity="one">૧ સેકંડ</item>
+        <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> સેકંડ</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> સેકંડ</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"દરરોજ"</string>

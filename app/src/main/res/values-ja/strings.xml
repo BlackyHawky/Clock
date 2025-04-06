@@ -27,13 +27,11 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"スヌーズ"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>分</item>
-        <item quantity="one">1分</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"アラームOFF"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g>分後に再通知します。</item>
-        <item quantity="one">1分後に再通知します。</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"スヌーズ終了時刻: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"次のアラーム"</string>
@@ -59,27 +57,21 @@
     <string name="alarm_confirmation_toast_8">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>と<xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>後に設定されています"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>日</item>
-        <item quantity="one">1日</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
-        <item quantity="one">1時間</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
-        <item quantity="one">1時間</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
-        <item quantity="one">1分</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
-        <item quantity="one">1分</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>秒</item>
-        <item quantity="one">1秒</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"毎日"</string>
     <string name="day_concat" msgid="971998564991636532">"、 "</string>
@@ -92,7 +84,6 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g>分</item>
-        <item quantity="one">1分</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
     <string name="auto_silence_1_minute">1分</string>
@@ -364,7 +355,6 @@
     <string name="timer_created" msgid="4381027137335885547">"タイマーを作成しました"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 件のタイマーを解除しました</item>
-        <item quantity="one">タイマーを解除しました</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"タイマーの長さが無効です"</string>
     <string name="invalid_timer" msgid="900957020728335675">"選択したタイマーは無効です"</string>

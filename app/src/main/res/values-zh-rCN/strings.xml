@@ -355,7 +355,6 @@
     <string name="timer_created" msgid="4381027137335885547">"已创建定时器"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="other">已关闭 <xliff:g id="NUMBER">%d</xliff:g> 个定时器</item>
-        <item quantity="one">已关闭 1 个定时器</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"定时器时长无效"</string>
     <string name="invalid_timer" msgid="900957020728335675">"选择的定时器无效"</string>

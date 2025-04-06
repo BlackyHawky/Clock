@@ -27,13 +27,11 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"បាន​ផ្អាក"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> នាទី</item>
-        <item quantity="one">1 នាទី</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"បិទសំឡេងរោទ៍"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ផ្អាក"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="other">ផ្អាក <xliff:g id="MINUTES">%d</xliff:g> នាទី។</item>
-        <item quantity="one">ផ្អាក 1 នាទី</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ផ្អាក​រហូតដល់ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ម៉ោងរោទ៍បន្ទាប់"</string>
@@ -59,27 +57,21 @@
     <string name="alarm_confirmation_toast_8">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ថ្ងៃ</item>
-        <item quantity="one">1 ថ្ងៃ</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ម៉ោង</item>
-        <item quantity="one">1 ម៉ោង</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ម៉ោង</item>
-        <item quantity="one">1 ម៉ោង</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> នាទី</item>
-        <item quantity="one">1 នាទី</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> នាទី</item>
-        <item quantity="one">1 នាទី</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> វិនាទី</item>
-        <item quantity="one">1 វិនាទី</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"រាល់ថ្ងៃ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -92,7 +84,6 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"បិទ​សំឡេង​បន្ទាប់ពី"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> នាទី</item>
-        <item quantity="one">1 នាទី</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"កុំឲ្យសោះ"</string>
     <string name="auto_silence_1_minute">១​នាទី</string>
@@ -364,7 +355,6 @@
     <string name="timer_created" msgid="4381027137335885547">"បានបង្កើតកម្មវិធីកំណត់ម៉ោង"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="other">បាន​ច្រាន​ចោល​​កម្មវិធីកំណត់​ម៉ោង <xliff:g id="NUMBER">%d</xliff:g></item>
-        <item quantity="one">បាន​ច្រាន​ចោល​​កម្មវិធីកំណត់​ម៉ោង</item>
     </plurals>
     <string name="invalid_timer_length" msgid="3104567893212932487">"រយៈពេលនៃកម្មវិធីកំណត់ម៉ោងមិនត្រឹមត្រូវ"</string>
     <string name="invalid_timer" msgid="900957020728335675">"បាន​ជ្រើសរើស​កម្មវិធី​កំណត់ម៉ោងមិន​ត្រឹមត្រូវ"</string>

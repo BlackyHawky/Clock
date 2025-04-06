@@ -27,7 +27,6 @@
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"מצב נודניק"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
         <item quantity="two"><xliff:g id="NUMBER">%d</xliff:g> דקות</item>
-        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> דקות</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> דקות</item>
         <item quantity="one">דקה אחת</item>
     </plurals>
@@ -35,7 +34,6 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"נודניק"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
         <item quantity="two">עובר למצב נודניק למשך <xliff:g id="MINUTES">%d</xliff:g> דקות.</item>
-        <item quantity="many">עובר למצב נודניק למשך <xliff:g id="MINUTES">%d</xliff:g> דקות.</item>
         <item quantity="other">עובר למצב נודניק למשך <xliff:g id="MINUTES">%d</xliff:g> דקות.</item>
         <item quantity="one">עובר למצב נודניק למשך דקה אחת.</item>
     </plurals>
@@ -63,37 +61,31 @@
     <string name="alarm_confirmation_toast_8">"ההתראה הוגדרה לעוד <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ו-<xliff:g id="MINUTES">%3$s</xliff:g> מעכשיו."</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> ימים</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ימים</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ימים</item>
         <item quantity="one">יום אחד</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> שעות</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> שעות</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> שעות</item>
         <item quantity="one">שעה אחת</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> שע‘</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> שע‘</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> שע‘</item>
         <item quantity="one">שעה אחת</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
         <item quantity="one">דקה אחת</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> דק‘</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> דק‘</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> דק‘</item>
         <item quantity="one">דקה אחת</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> שניות</item>
-        <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> שניות</item>
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> שניות</item>
         <item quantity="one">שנייה אחת</item>
     </plurals>
@@ -108,7 +100,6 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"השתק לאחר"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
         <item quantity="two"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
-        <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
         <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
         <item quantity="one">דקה אחת</item>
     </plurals>
@@ -382,7 +373,6 @@
     <string name="timer_created" msgid="4381027137335885547">"הטיימר נוצר"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
         <item quantity="two"><xliff:g id="NUMBER">%d</xliff:g> טיימרים הופסקו</item>
-        <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> טיימרים הופסקו</item>
         <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> טיימרים הופסקו</item>
         <item quantity="one">טיימר הופסק</item>
     </plurals>
