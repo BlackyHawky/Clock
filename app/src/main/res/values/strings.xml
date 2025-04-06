@@ -693,7 +693,7 @@
     <string name="timer_reset_all">Reset all timers</string>
     <string name="hours_minutes_seconds"><xliff:g example="2" id="hours">%1$d</xliff:g>:<xliff:g example="3" id="minutes">%2$02d</xliff:g>:<xliff:g example="44" id="seconds">%3$02d</xliff:g></string>
     <string name="minutes_seconds"><xliff:g example="3" id="minutes">%1$d</xliff:g>:<xliff:g example="44" id="seconds">%2$02d</xliff:g></string>
-    <string name="seconds"><xliff:g example="44" id="seconds">%d</xliff:g></string>
+    <string name="seconds"><xliff:g example="44" id="seconds">%1$02d</xliff:g></string>
     <!-- Jocular content that user may append when sharing the lap times - Message 1 -->
     <string name="jocular_content_message_1">You\'re quite the speed demon.</string>
     <!-- Jocular content that user may append when sharing the lap times - Message 2 -->
