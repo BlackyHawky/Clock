@@ -26,8 +26,8 @@
     <string name="alarm_missed_text" msgid="6585658367289194023"><xliff:g id="alarm_time">%1$s</xliff:g> - <xliff:g id="alarm_label">%2$s</xliff:g></string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Schlummern"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-        <item quantity="one">1 min</item>
-        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> min</item>
+        <item quantity="one">1 Min.</item>
+        <item quantity="other"><xliff:g example="7" id="number">%d</xliff:g> Min.</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">Alarm ausgeschaltet</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Schlummern"</string>
@@ -66,16 +66,16 @@
         <item quantity="one">1 Stunde</item>
     </plurals>
     <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> h</item>
-        <item quantity="one">1 h</item>
+        <item quantity="one">1 Std.</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Std.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Minuten</item>
         <item quantity="one">1 Minute</item>
     </plurals>
     <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
-        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min</item>
-        <item quantity="one">1 min</item>
+        <item quantity="one">1 Min.</item>
+        <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Min.</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> Sekunden</item>
@@ -345,9 +345,9 @@
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">Alarm gelöscht</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
-    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> vor</string>
+    <string name="world_time_ahead" msgid="625559988238637652"><xliff:g example="6 hours" id="time">%1$s</xliff:g> voraus</string>
     <string name="world_time_behind" msgid="5395771290726167865"><xliff:g example="4 hours" id="time">%1$s</xliff:g> zurück</string>
-    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> vor</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377"><xliff:g example="6 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> voraus</string>
     <string name="world_hours_minutes_behind" msgid="8978567362140923698"><xliff:g example="4 hr" id="hours">%1$s</xliff:g> <xliff:g example="30 min" id="minutes">%2$s</xliff:g> zurück</string>
     <string name="world_hours_tomorrow" msgid="2504465609269004794">Morgen, <xliff:g example="6 hours ahead" id="time">%1$s</xliff:g></string>
     <string name="world_hours_yesterday" msgid="4425086322610882745">Gestern, <xliff:g example="4 hours behind" id="time">%1$s</xliff:g></string>

@@ -222,7 +222,7 @@
     <string name="open_date_settings" msgid="7712226973337806152">"날짜 및 시간 변경"</string>
     <string name="clock_style_analog">아날로그</string>
     <string name="clock_style_digital">디지털</string>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시간대 시계"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">기본 시간대 시계 자동 추가</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시간대 시계 추가"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"기본 시간대"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> 선택됨"</string>
@@ -434,7 +434,7 @@
     <string name="first_launch_version">버전 %s</string>
     <string name="first_launch_button_now">지금 설정</string>
     <string name="widgets_settings">위젯</string>
-    <string name="widgets_settings_summary">위젯 스타일, 색상, 폰트 크기 설정</string>
+    <string name="widgets_settings_summary">위젯 스타일, 색상, 폰트 설정</string>
     <string name="widget_background_title">배경 표시</string>
     <string name="background_color_title">배경 색상</string>
     <string name="digital_widget_city_title">위젯에 도시 이름 표시</string>
@@ -458,7 +458,7 @@
     <string name="night_accent_color_title">야간 모드 강조 색상</string>
     <string name="alarm_notification_reminder_30_minutes">30분 전</string>
     <string name="alarm_notification_reminder_2_hours">2시간 전</string>
-    <string name="enable_alarm_vibrations_by_default_setting_title">알람을 만들었을 때 진동 사용</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">알람을 만들었을 때 진동</string>
     <string name="alarm_flash">플래시</string>
     <string name="add_label">라벨 추가</string>
     <string name="first_launch_main_feature_title">주요 기능</string>
@@ -590,7 +590,7 @@
     <string name="warning_dialog_title">타이머 삭제</string>
     <string name="warning_dialog_message">정말 \"%s\" 타이머를 삭제할까요?</string>
     <string name="clock_color_title">시계 색상</string>
-    <string name="screensaver_settings_summary">화면 보호기 스타일, 색상, 폰트 등 설정</string>
+    <string name="screensaver_settings_summary">화면 보호기 스타일, 색상, 폰트 설정</string>
     <string name="screensaver_daydream_settings_summary">Android 화면 보호기 설정을 엽니다.</string>
     <string name="screensaver_clock_dynamic_colors_title">적응형 시계 색상</string>
     <string name="screensaver_brightness_title">밝기</string>
@@ -606,7 +606,7 @@
     <string name="first_launch_important_info_message">앱이 정상적으로 작동하려면 &lt;b&gt;기기의 일부 설정을 변경해야 합니다.&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;배터리 사용량 최적화&lt;/b&gt;&lt;br&gt; &lt;br&gt; • &lt;b&gt;알림&lt;/b&gt; &lt;br&gt; &lt;br&gt;%s&lt;i&gt;사용 중인 Android 버전에 따라 알림 등 일부 설정은 이미 최적화되어 있을 수 있습니다.&lt;/i&gt;&lt;br&gt;&lt;br&gt;이 설정은 나중에 권한 관리 설정에서도 변경할 수 있습니다.</string>
     <string name="about_translate_link">Codeberg에서 앱 번역</string>
     <string name="translate_dialog_message">Codeberg 페이지를 엽니다.\n\n%s</string>
-    <string name="alarm_settings_summary">기본 벨소리, 볼륨, 알람 해제, 잠시 미루기 등 설정</string>
+    <string name="alarm_settings_summary">기본 벨소리, 볼륨, 알람 해제, 잠시 미루기 설정</string>
     <string name="dialog_close">닫기</string>
     <string name="license">오픈 소스 라이선스</string>
     <string name="alarm_created">알람을 만들었습니다.</string>
