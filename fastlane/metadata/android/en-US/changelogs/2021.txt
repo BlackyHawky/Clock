@@ -1,0 +1,13 @@
+**Fixes**
+- Fix Seekbar bug for the "Shake intensity" setting
+
+**Improvements**
+- Improve SeekBar behavior for Android versions lower than Android 8
+- Display stopwatch time like in the Google app
+- Update to SDK 35
+- Update translations
+- Improve and clean code
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+REMINDER: AFTER v2.17, DELETE YOUR OLD BACKUP AND CREATE A NEW ONE

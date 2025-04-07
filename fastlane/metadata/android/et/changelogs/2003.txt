@@ -1,0 +1,11 @@
+**Parandused**
+ - Markeri suurus stopperi vaates;
+
+**Täiendused**
+ - Võimalus muuta aktsentvärvi;
+ - Võimalus näidata/peita kaardi tausta (ei kehti seadistustes);
+ - Võimalus näidata/peita kaardi taustaääriseid (ei kehti seadistustes);
+ - Võimalus lülitada värinat mõnede kasutajaliidese elementide puhul sisse/välja (kui nutiseadmes on vastav raudvara olemas);
+ - Värinad seadistuste liugurlülitute kasutamisel (kui nutiseadmes on vastav raudvara olemas);
+ - Eemaldasime oluliste õiguste kontrolli rakenduse käivitamisel: nüüd kuvame õiguste puudumisel vastavat teadet seadistuste ülaosas;
+ - Uuemad ekraanitõmmised (eelkõige F-Droidi jaoks) vastavalt vestlusele siin: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

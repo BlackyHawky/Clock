@@ -1,0 +1,14 @@
+**Parandused**
+- Taimer lisamisel või stopperi käivitamisel/peatamisel lingist
+
+**Täiendused**
+- Äratused, taimerid, valitud ajavööndid ja süsteemi helinad on nüüd varundatavad ja taastatavad
+- Võimalus näidata/peita digividinates kuupäeva
+- Täiendav sinine kujundus
+- UTC kellaaeg linnade loendis
+- Türgi ja korea keeled rakenduse seadistustes
+- Tõlgete uuendused
+
+Kõik parandused on siin: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+PEALE UUENDAMIST KUSTUTA VANA VARUKOOPIA JA TEE UUS

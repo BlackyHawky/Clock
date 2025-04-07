@@ -1,0 +1,11 @@
+**Parandused**
+ - Taimeri minutite värvid prantsuse keeles;
+ - „Uinumiseks raputa“ toiming Android 14+;
+
+**Täiendused**
+ - Loemind faili täiendus: Weblate tõlkimiseks;
+ - Järgmiste äratuste päevad on alati näha, ka mittekasutusel olekus;
+ - Napim taimeri vaade peatamisel (vaid püstvaates seadmed);
+ - Taimeri peatamine/jätkamine ajale klõpsides;
+ - Tõlgete uuendused;
+ - Uued ekraanipildid (enamuses F-Droidi jaoks): https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357
