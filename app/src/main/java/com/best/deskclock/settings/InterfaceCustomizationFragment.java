@@ -9,6 +9,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
@@ -62,6 +63,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     ListPreference mTabToDisplayPref;
     SwitchPreferenceCompat mVibrationPref;
     SwitchPreferenceCompat mToolbarTitlePref;
+    ListPreference mTabTitleVisibilityPref;
     SwitchPreferenceCompat mTabIndicatorPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
 
@@ -87,6 +89,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
         mVibrationPref = findPreference(KEY_VIBRATIONS);
         mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
+        mTabTitleVisibilityPref = findPreference(KEY_TAB_TITLE_VISIBILITY);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
 
@@ -189,6 +192,13 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
+            case KEY_TAB_TITLE_VISIBILITY -> {
+                final int index = mTabTitleVisibilityPref.findIndexOfValue((String) newValue);
+                mTabTitleVisibilityPref.setSummary(mTabTitleVisibilityPref.getEntries()[index]);
+                // Set result so DeskClock knows to refresh itself
+                requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
+            }
+
             case KEY_TAB_INDICATOR -> {
                 final TwoStatePreference tabIndicatorPref = (TwoStatePreference) pref;
                 tabIndicatorPref.setChecked(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
@@ -252,6 +262,9 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mToolbarTitlePref.setOnPreferenceChangeListener(this);
+
+        mTabTitleVisibilityPref.setSummary(mTabToDisplayPref.getEntry());
+        mTabTitleVisibilityPref.setOnPreferenceChangeListener(this);
 
         mTabIndicatorPref.setOnPreferenceChangeListener(this);
 

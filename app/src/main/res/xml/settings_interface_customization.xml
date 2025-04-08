@@ -88,6 +88,16 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <ListPreference
+            android:key="key_tab_title_visibility"
+            android:title="@string/settings_tab_title_visibility_title"
+            android:defaultValue="0"
+            android:entries="@array/tab_title_visibility_entries"
+            android:entryValues="@array/tab_title_visibility_values"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <SwitchPreferenceCompat
             android:key="key_tab_indicator"
             android:title="@string/settings_tab_indicator_title"

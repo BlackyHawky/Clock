@@ -14,6 +14,8 @@ import static com.best.alarmclock.WidgetUtils.ACTION_NEXT_ALARM_LABEL_CHANGED;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PermissionsManagementActivity.PermissionsManagementFragment.areEssentialPermissionsNotGranted;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TAB_TITLE_VISIBILITY;
+import static com.best.deskclock.settings.PreferencesDefaultValues.TAB_TITLE_VISIBILITY_NEVER;
 import static com.best.deskclock.utils.AnimatorUtils.getScaleAnimator;
 
 import android.animation.Animator;
@@ -330,9 +332,18 @@ public class DeskClock extends AppCompatActivity
         mBottomNavigation.setOnItemSelectedListener(mNavigationListener);
         mBottomNavigation.setItemActiveIndicatorEnabled(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
 
+        if (SettingsDAO.getTabTitleVisibility(mPrefs).equals(DEFAULT_TAB_TITLE_VISIBILITY)) {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
+        } else if (SettingsDAO.getTabTitleVisibility(mPrefs).equals(TAB_TITLE_VISIBILITY_NEVER)) {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_UNLABELED);
+        } else {
+            mBottomNavigation.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+        }
+
         mBottomNavigation.setItemIconTintList(new ColorStateList(
                 new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
                 new int[]{primaryColor, primaryColor, onBackgroundColor}));
+
         if (ThemeUtils.isNight(getResources()) && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)) {
             mBottomNavigation.setBackgroundColor(Color.BLACK);
             mBottomNavigation.setItemTextColor(new ColorStateList(

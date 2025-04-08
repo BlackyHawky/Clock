@@ -124,6 +124,19 @@
         <item>1</item>
     </string-array>
 
+    <!-- Entries listed in the ListPreference when selecting the tab title visibility. -->
+    <string-array name="tab_title_visibility_entries">
+        <item>@string/tab_title_visibility_always</item>
+        <item>@string/tab_title_visibility_never</item>
+        <item>@string/tab_title_visibility_when_selected</item>
+    </string-array>
+    <!-- Values that are retrieved from the ListPreference. These must match the theme entries above. -->
+    <string-array name="tab_title_visibility_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
     <string-array name="alarm_set">
         <item>@string/alarm_confirmation_toast_1</item>

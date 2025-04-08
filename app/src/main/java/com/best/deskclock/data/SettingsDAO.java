@@ -247,6 +247,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the tab title visibility.
+     */
+    public static String getTabTitleVisibility(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getString(KEY_TAB_TITLE_VISIBILITY, DEFAULT_TAB_TITLE_VISIBILITY);
+    }
+
+    /**
      * @return whether or not the tab indicator is displayed in the bottom navigation menu.
      */
     public static boolean isTabIndicatorDisplayed(SharedPreferences prefs) {

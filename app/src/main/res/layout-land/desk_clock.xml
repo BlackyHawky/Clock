@@ -113,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
-        app:labelVisibilityMode="labeled"
-        tools:background="@color/md_theme_surface" />
+        tools:background="@color/md_theme_surface"
+        tools:labelVisibilityMode="labeled" />
 
 </LinearLayout>

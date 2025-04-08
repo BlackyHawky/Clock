@@ -353,6 +353,14 @@
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
     <!-- Setting title to display the toolbar title. -->
     <string name="settings_toolbar_title">Display the title in the toolbar</string>
+    <!-- Setting title to change the tab title visibility. -->
+    <string name="settings_tab_title_visibility_title">Display the tab titles</string>
+    <!-- Setting title to always display tab titles. -->
+    <string name="tab_title_visibility_always">Always</string>
+    <!-- Setting title to never display tab titles. -->
+    <string name="tab_title_visibility_never">Never</string>
+    <!-- Setting title to display tab titles when selected. -->
+    <string name="tab_title_visibility_when_selected">When selected</string>
     <!-- Setting title to display the tab indicator in the bottom navigation menu. -->
     <string name="settings_tab_indicator_title">Display the tab indicator in the bottom navigation menu</string>
     <!-- Setting title to enable fade transitions when switching screens. -->
