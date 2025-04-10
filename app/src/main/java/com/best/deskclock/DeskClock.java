@@ -602,7 +602,11 @@ public class DeskClock extends AppCompatActivity
             }
         }
 
-        mToolbar.setTitle(selectedTab.getLabelResId());
+        if (SettingsDAO.isToolbarTitleDisplayed(mPrefs)) {
+            mToolbar.setTitle(selectedTab.getLabelResId());
+        } else {
+            mToolbar.setTitle(null);
+        }
     }
 
     /**

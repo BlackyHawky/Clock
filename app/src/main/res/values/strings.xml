@@ -351,6 +351,8 @@
     <string name="settings_vibration_title">Enable vibrations</string>
     <!-- Setting summary about vibrations. -->
     <string name="settings_vibration_summary">Only some interface buttons are affected (e.g.: the timer play/pause button or switches)</string>
+    <!-- Setting title to display the toolbar title. -->
+    <string name="settings_toolbar_title">Display the title in the toolbar</string>
     <!-- Setting title to display the tab indicator in the bottom navigation menu. -->
     <string name="settings_tab_indicator_title">Display the tab indicator in the bottom navigation menu</string>
     <!-- Setting title to enable fade transitions when switching screens. -->

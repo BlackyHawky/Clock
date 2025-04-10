@@ -40,6 +40,7 @@ public class PreferencesDefaultValues {
     public static final String DEFAULT_SYSTEM_LANGUAGE_CODE = "system_language_code";
     public static final String DEFAULT_TAB_TO_DISPLAY = "-1";
     public static final boolean DEFAULT_VIBRATIONS = false;
+    public static final boolean DEFAULT_TOOLBAR_TITLE = true;
     public static final boolean DEFAULT_TAB_INDICATOR = true;
     public static final boolean DEFAULT_FADE_TRANSITIONS = false;
 

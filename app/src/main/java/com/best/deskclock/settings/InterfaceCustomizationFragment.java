@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_NIGHT_ACCENT_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_INDICATOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_THEME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TOOLBAR_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VIBRATIONS;
 import static com.best.deskclock.utils.Utils.ACTION_LANGUAGE_CODE_CHANGED;
 
@@ -60,6 +61,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     ListPreference mCustomLanguageCodePref;
     ListPreference mTabToDisplayPref;
     SwitchPreferenceCompat mVibrationPref;
+    SwitchPreferenceCompat mToolbarTitlePref;
     SwitchPreferenceCompat mTabIndicatorPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
 
@@ -84,6 +86,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mCustomLanguageCodePref = findPreference(KEY_CUSTOM_LANGUAGE_CODE);
         mTabToDisplayPref = findPreference(KEY_TAB_TO_DISPLAY);
         mVibrationPref = findPreference(KEY_VIBRATIONS);
+        mToolbarTitlePref = findPreference(KEY_TOOLBAR_TITLE);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
 
@@ -181,6 +184,11 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
+            case KEY_TOOLBAR_TITLE -> {
+                mToolbarTitlePref.setChecked(SettingsDAO.isToolbarTitleDisplayed(mPrefs));
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
             case KEY_TAB_INDICATOR -> {
                 final TwoStatePreference tabIndicatorPref = (TwoStatePreference) pref;
                 tabIndicatorPref.setChecked(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
@@ -242,6 +250,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
         mVibrationPref.setOnPreferenceChangeListener(this);
+
+        mToolbarTitlePref.setOnPreferenceChangeListener(this);
 
         mTabIndicatorPref.setOnPreferenceChangeListener(this);
 

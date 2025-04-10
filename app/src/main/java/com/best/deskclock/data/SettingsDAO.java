@@ -239,6 +239,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return whether or not the toolbar title is displayed.
+     */
+    public static boolean isToolbarTitleDisplayed(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getBoolean(KEY_TOOLBAR_TITLE, DEFAULT_TOOLBAR_TITLE);
+    }
+
+    /**
      * @return whether or not the tab indicator is displayed in the bottom navigation menu.
      */
     public static boolean isTabIndicatorDisplayed(SharedPreferences prefs) {

@@ -81,6 +81,14 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_toolbar_title"
+            android:title="@string/settings_toolbar_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_tab_indicator"
             android:title="@string/settings_tab_indicator_title"
             android:defaultValue="true"
