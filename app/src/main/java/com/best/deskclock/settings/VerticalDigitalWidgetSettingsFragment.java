@@ -5,9 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_DEFAULT_COLOR;
+
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_BACKGROUND_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_HOURS_COLOR;
@@ -94,7 +92,8 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        refresh();
+        saveCheckedPreferenceStates();
+
         updateVerticalDigitalWidget();
     }
 
@@ -109,58 +108,34 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND -> {
-                if (mShowBackgroundOnVerticalDigitalWidgetPref.getSharedPreferences() != null) {
-                    final boolean isNotBackgroundDisplayed = mShowBackgroundOnVerticalDigitalWidgetPref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND,
-                                    DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_BACKGROUND);
-                    mBackgroundColorPref.setVisible(!isNotBackgroundDisplayed);
-                }
+                mBackgroundColorPref.setVisible((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR -> {
-                if (mDefaultHoursColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultHoursColorPref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_HOURS_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomHoursColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomHoursColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR -> {
-                if (mDefaultMinutesColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultMinutesColorPref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_MINUTES_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomMinutesColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomMinutesColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE -> {
-                if (mDisplayDatePref.getSharedPreferences() != null) {
-                    final boolean isDateHidden = mDisplayDatePref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE, DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_DATE);
-                    mDefaultDateColorPref.setVisible(!isDateHidden);
-                    mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !mDefaultDateColorPref.isChecked());
-                }
+                mDefaultDateColorPref.setVisible((boolean) newValue);
+                mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
+                        && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR -> {
-                if (mDefaultDateColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultDateColorPref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DATE_DEFAULT_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomDateColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomDateColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR -> {
-                if (mDefaultNextAlarmColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultNextAlarmColorPref.getSharedPreferences()
-                            .getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DEFAULT_NEXT_ALARM_COLOR, DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomNextAlarmColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomNextAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
         }
@@ -177,47 +152,44 @@ public class VerticalDigitalWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
-        mBackgroundColorPref.setVisible(mShowBackgroundOnVerticalDigitalWidgetPref.isChecked());
-
-        mDefaultHoursColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(mPrefs));
-        mCustomHoursColorPref.setVisible(!mDefaultHoursColorPref.isChecked());
-
-        mDefaultMinutesColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
-        mCustomMinutesColorPref.setVisible(!mDefaultMinutesColorPref.isChecked());
-
-        mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
-        mDefaultDateColorPref.setVisible(mDisplayDatePref.isChecked());
-
-        mDefaultDateColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
-        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible() && !mDefaultDateColorPref.isChecked());
-
-        mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
-        mCustomNextAlarmColorPref.setVisible(!mDefaultNextAlarmColorPref.isChecked());
-    }
-
-    private void refresh() {
-        mDisplayDatePref.setOnPreferenceChangeListener(this);
-
         mShowBackgroundOnVerticalDigitalWidgetPref.setOnPreferenceChangeListener(this);
 
+        mBackgroundColorPref.setVisible(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
         mBackgroundColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultHoursColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomHoursColorPref.setVisible(!WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(mPrefs));
         mCustomHoursColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultMinutesColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomMinutesColorPref.setVisible(!WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
         mCustomMinutesColorPref.setOnPreferenceChangeListener(this);
 
+        mDisplayDatePref.setOnPreferenceChangeListener(this);
+
+        mDefaultDateColorPref.setVisible(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
         mDefaultDateColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomDateColorPref.setVisible(mDefaultDateColorPref.isVisible()
+                && !WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
         mCustomDateColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultNextAlarmColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomNextAlarmColorPref.setVisible(!WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
         mCustomNextAlarmColorPref.setOnPreferenceChangeListener(this);
+
+    }
+
+    private void saveCheckedPreferenceStates() {
+        mShowBackgroundOnVerticalDigitalWidgetPref.setChecked(WidgetDAO.isBackgroundDisplayedOnVerticalDigitalWidget(mPrefs));
+        mDefaultHoursColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultHoursColor(mPrefs));
+        mDefaultMinutesColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultMinutesColor(mPrefs));
+        mDisplayDatePref.setChecked(WidgetDAO.isDateDisplayedOnVerticalDigitalWidget(mPrefs));
+        mDefaultDateColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultDateColor(mPrefs));
+        mDefaultNextAlarmColorPref.setChecked(WidgetDAO.isVerticalDigitalWidgetDefaultNextAlarmColor(mPrefs));
     }
 
     private void updateVerticalDigitalWidget() {

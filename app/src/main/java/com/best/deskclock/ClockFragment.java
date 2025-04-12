@@ -76,7 +76,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     public static SharedPreferences mPrefs;
     public static DataModel.ClockStyle mClockStyle;
-    public static boolean mDisplayClockSeconds;
+    public static boolean mAreClockSecondsDisplayed;
     public static boolean mIsPortrait;
     public static boolean mIsLandscape;
     public static boolean mIsTablet;
@@ -107,7 +107,7 @@ public final class ClockFragment extends DeskClockFragment {
         mContext = requireContext();
         mPrefs = getDefaultSharedPreferences(mContext);
         mClockStyle = SettingsDAO.getClockStyle(mPrefs);
-        mDisplayClockSeconds = SettingsDAO.getDisplayClockSeconds(mPrefs);
+        mAreClockSecondsDisplayed = SettingsDAO.areClockSecondsDisplayed(mPrefs);
         mIsPortrait = ThemeUtils.isPortrait();
         mIsLandscape = ThemeUtils.isLandscape();
         mIsTablet = ThemeUtils.isTablet();
@@ -140,7 +140,7 @@ public final class ClockFragment extends DeskClockFragment {
             ClockUtils.setClockIconTypeface(mClockFrame);
             ClockUtils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
             ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
+            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
         }
 
         // Schedule a runnable to update the date every quarter hour.
@@ -172,7 +172,7 @@ public final class ClockFragment extends DeskClockFragment {
         // Resume can be invoked after changing the clock style or seconds display.
         if (mDigitalClock != null && mAnalogClock != null) {
             ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
+            ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
         }
 
         final View view = getView();
@@ -464,7 +464,7 @@ public final class ClockFragment extends DeskClockFragment {
                 AlarmUtils.refreshAlarm(context, itemView);
                 ClockUtils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
                 ClockUtils.setClockStyle(mClockStyle, mDigitalClock, mAnalogClock);
-                ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mDisplayClockSeconds);
+                ClockUtils.setClockSecondsEnabled(mClockStyle, mDigitalClock, mAnalogClock, mAreClockSecondsDisplayed);
             }
         }
     }

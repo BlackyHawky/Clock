@@ -29,11 +29,9 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.Utils;
 
@@ -86,13 +84,13 @@ public class TimerSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        refresh();
+        mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
     }
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_TIMER_RINGTONE -> pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            case KEY_TIMER_RINGTONE -> mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
 
             case KEY_TIMER_AUTO_SILENCE, KEY_TIMER_CRESCENDO_DURATION, KEY_DEFAULT_TIME_TO_ADD_TO_TIMER -> {
                 final ListPreference preference = (ListPreference) pref;
@@ -100,24 +98,16 @@ public class TimerSettingsFragment extends ScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_TIMER_VIBRATE -> {
-                final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
-                SettingsDAO.setTimerVibrate(mPrefs, timerVibratePref.isChecked());
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
             case KEY_SORT_TIMER -> {
-                final ListPreference preference = (ListPreference) pref;
-                final int index = preference.findIndexOfValue((String) newValue);
-                preference.setSummary(preference.getEntries()[index]);
+                final int index = mSortTimerPref.findIndexOfValue((String) newValue);
+                mSortTimerPref.setSummary(mSortTimerPref.getEntries()[index]);
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
-            case KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
+            case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
                  KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_KEEP_TIMER_SCREEN_ON,
-                 KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
-                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
+                 KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
                     Utils.setVibrationTime(requireContext(), 50);
         }
 
@@ -139,8 +129,21 @@ public class TimerSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mTimerRingtonePref.setOnPreferenceClickListener(this);
+
+        mTimerAutoSilencePref.setOnPreferenceChangeListener(this);
+        mTimerAutoSilencePref.setSummary(mTimerAutoSilencePref.getEntry());
+
+        mTimerCrescendoPref.setOnPreferenceChangeListener(this);
+        mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());
+
         final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
         mTimerVibratePref.setVisible(hasVibrator);
+        mTimerVibratePref.setOnPreferenceChangeListener(this);
+
+        mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
+
+        mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
 
         SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {
@@ -149,28 +152,9 @@ public class TimerSettingsFragment extends ScreenFragment
             mTimerFlipActionPref.setVisible(false);
             mTimerShakeActionPref.setVisible(false);
         } else {
-            mTimerFlipActionPref.setChecked(SettingsDAO.isFlipActionForTimersEnabled(mPrefs));
             mTimerFlipActionPref.setOnPreferenceChangeListener(this);
-            mTimerShakeActionPref.setChecked(SettingsDAO.isShakeActionForTimersEnabled(mPrefs));
             mTimerShakeActionPref.setOnPreferenceChangeListener(this);
         }
-    }
-
-    private void refresh() {
-        mTimerRingtonePref.setOnPreferenceClickListener(this);
-        mTimerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-
-        mTimerAutoSilencePref.setOnPreferenceChangeListener(this);
-        mTimerAutoSilencePref.setSummary(mTimerAutoSilencePref.getEntry());
-
-        mTimerCrescendoPref.setOnPreferenceChangeListener(this);
-        mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());
-
-        mTimerVibratePref.setOnPreferenceChangeListener(this);
-
-        mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);
-
-        mTimerPowerButtonActionPref.setOnPreferenceChangeListener(this);
 
         mSortTimerPref.setOnPreferenceChangeListener(this);
         mSortTimerPref.setSummary(mSortTimerPref.getEntry());
@@ -178,13 +162,10 @@ public class TimerSettingsFragment extends ScreenFragment
         mDefaultMinutesToAddToTimerPref.setOnPreferenceChangeListener(this);
         mDefaultMinutesToAddToTimerPref.setSummary(mDefaultMinutesToAddToTimerPref.getEntry());
 
-        mKeepTimerScreenOnPref.setChecked(SettingsDAO.shouldTimerDisplayRemainOn(mPrefs));
         mKeepTimerScreenOnPref.setOnPreferenceChangeListener(this);
 
-        mTransparentBackgroundPref.setChecked(SettingsDAO.isTimerBackgroundTransparent(mPrefs));
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 
-        mDisplayWarningBeforeDeletingTimerPref.setChecked(SettingsDAO.isWarningDisplayedBeforeDeletingTimer(mPrefs));
         mDisplayWarningBeforeDeletingTimerPref.setOnPreferenceChangeListener(this);
     }
 

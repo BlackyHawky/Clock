@@ -53,7 +53,7 @@ public class PreferencesKeys {
 
     // Clock
     public static final String KEY_CLOCK_STYLE = "key_clock_style";
-    public static final String KEY_CLOCK_DISPLAY_SECONDS = "key_display_clock_seconds";
+    public static final String KEY_DISPLAY_CLOCK_SECONDS = "key_display_clock_seconds";
     public static final String KEY_AUTO_HOME_CLOCK = "key_automatic_home_clock";
     public static final String KEY_HOME_TIME_ZONE = "key_home_time_zone";
     public static final String KEY_DATE_TIME = "key_date_time";

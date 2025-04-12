@@ -29,7 +29,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.preference.TwoStatePreference;
 
 import com.best.alarmclock.WidgetUtils;
 import com.best.alarmclock.materialyouwidgets.MaterialYouDigitalAppWidgetProvider;
@@ -106,8 +105,6 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        refresh();
-
         if (isLanguageChanged) {
             updateAllDigitalWidgets(requireContext());
             isLanguageChanged = false;
@@ -119,9 +116,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         final boolean isNight = ThemeUtils.isNight(requireActivity().getResources());
         switch (pref.getKey()) {
             case KEY_THEME -> {
-                final ListPreference themePref = (ListPreference) pref;
-                final int index = themePref.findIndexOfValue((String) newValue);
-                themePref.setSummary(themePref.getEntries()[index]);
+                final int index = mThemePref.findIndexOfValue((String) newValue);
+                mThemePref.setSummary(mThemePref.getEntries()[index]);
                 switch (index) {
                     case 0 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     case 1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -139,58 +135,33 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             }
 
             case KEY_ACCENT_COLOR -> {
-                final ListPreference accentColorPref = (ListPreference) pref;
-                final int index = accentColorPref.findIndexOfValue((String) newValue);
-                accentColorPref.setSummary(accentColorPref.getEntries()[index]);
+                final int index = mAccentColorPref.findIndexOfValue((String) newValue);
+                mAccentColorPref.setSummary(mAccentColorPref.getEntries()[index]);
                 recreateActivity();
             }
 
-            case KEY_AUTO_NIGHT_ACCENT_COLOR -> {
-                recreateActivity();
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_CARD_BACKGROUND -> {
-                final TwoStatePreference cardBackgroundPref = (TwoStatePreference) pref;
-                cardBackgroundPref.setChecked(SettingsDAO.isCardBackgroundDisplayed(mPrefs));
-                recreateActivity();
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_CARD_BORDER -> {
-                final TwoStatePreference cardBorderPref = (TwoStatePreference) pref;
-                cardBorderPref.setChecked(SettingsDAO.isCardBorderDisplayed(mPrefs));
+            case KEY_AUTO_NIGHT_ACCENT_COLOR, KEY_CARD_BACKGROUND, KEY_CARD_BORDER,
+                 KEY_FADE_TRANSITIONS -> {
                 recreateActivity();
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_CUSTOM_LANGUAGE_CODE -> {
-                final ListPreference listPreference = (ListPreference) pref;
-                final int index = listPreference.findIndexOfValue((String) newValue);
-                listPreference.setSummary(listPreference.getEntries()[index]);
+                final int index = mCustomLanguageCodePref.findIndexOfValue((String) newValue);
+                mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntries()[index]);
                 requireContext().sendBroadcast(new Intent(ACTION_LANGUAGE_CODE_CHANGED));
                 isLanguageChanged = true;
                 recreateActivity();
             }
 
             case KEY_TAB_TO_DISPLAY -> {
-                final ListPreference listPreference = (ListPreference) pref;
-                final int index = listPreference.findIndexOfValue((String) newValue);
-                listPreference.setSummary(listPreference.getEntries()[index]);
+                final int index = mTabToDisplayPref.findIndexOfValue((String) newValue);
+                mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntries()[index]);
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
-            case KEY_VIBRATIONS -> {
-                final TwoStatePreference vibrationsPref = (TwoStatePreference) pref;
-                vibrationsPref.setChecked(SettingsDAO.isVibrationsEnabled(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
-            }
-
-            case KEY_TOOLBAR_TITLE -> {
-                mToolbarTitlePref.setChecked(SettingsDAO.isToolbarTitleDisplayed(mPrefs));
-                Utils.setVibrationTime(requireContext(), 50);
-            }
+            case KEY_VIBRATIONS, KEY_TOOLBAR_TITLE -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_TAB_TITLE_VISIBILITY -> {
                 final int index = mTabTitleVisibilityPref.findIndexOfValue((String) newValue);
@@ -200,40 +171,17 @@ public class InterfaceCustomizationFragment extends ScreenFragment
             }
 
             case KEY_TAB_INDICATOR -> {
-                final TwoStatePreference tabIndicatorPref = (TwoStatePreference) pref;
-                tabIndicatorPref.setChecked(SettingsDAO.isTabIndicatorDisplayed(mPrefs));
                 Utils.setVibrationTime(requireContext(), 50);
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
-            case KEY_FADE_TRANSITIONS -> {
-                final TwoStatePreference fadeTransitionsPref = (TwoStatePreference) pref;
-                fadeTransitionsPref.setChecked(SettingsDAO.isFadeTransitionsEnabled(mPrefs));
-                recreateActivity();
-                Utils.setVibrationTime(requireContext(), 50);
-            }
         }
 
         return true;
     }
 
     private void setupPreferences() {
-        final Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        mVibrationPref.setVisible(vibrator.hasVibrator());
-
-        mAutoNightAccentColorPref.setChecked(SettingsDAO.isAutoNightAccentColorEnabled(mPrefs));
-        mNightAccentColorPref.setVisible(!mAutoNightAccentColorPref.isChecked());
-        if (mAutoNightAccentColorPref.isChecked()) {
-            mAccentColorPref.setTitle(requireContext().getString(R.string.title_accent_color));
-            mAccentColorPref.setDialogTitle(requireContext().getString(R.string.title_accent_color));
-        } else {
-            mAccentColorPref.setTitle(requireContext().getString(R.string.day_accent_color_title));
-            mAccentColorPref.setDialogTitle(requireContext().getString(R.string.day_accent_color_title));
-        }
-    }
-
-    private void refresh() {
         mThemePref.setSummary(mThemePref.getEntry());
         mThemePref.setOnPreferenceChangeListener(this);
 
@@ -242,10 +190,17 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mAccentColorPref.setSummary(mAccentColorPref.getEntry());
         mAccentColorPref.setOnPreferenceChangeListener(this);
+        if (SettingsDAO.isAutoNightAccentColorEnabled(mPrefs)) {
+            mAccentColorPref.setTitle(requireContext().getString(R.string.title_accent_color));
+            mAccentColorPref.setDialogTitle(requireContext().getString(R.string.title_accent_color));
+        } else {
+            mAccentColorPref.setTitle(requireContext().getString(R.string.day_accent_color_title));
+            mAccentColorPref.setDialogTitle(requireContext().getString(R.string.day_accent_color_title));
+        }
 
-        mAutoNightAccentColorPref.setChecked(SettingsDAO.isAutoNightAccentColorEnabled(mPrefs));
         mAutoNightAccentColorPref.setOnPreferenceChangeListener(this);
 
+        mNightAccentColorPref.setVisible(!SettingsDAO.isAutoNightAccentColorEnabled(mPrefs));
         mNightAccentColorPref.setSummary(mNightAccentColorPref.getEntry());
         mNightAccentColorPref.setOnPreferenceChangeListener(this);
 
@@ -253,20 +208,22 @@ public class InterfaceCustomizationFragment extends ScreenFragment
 
         mCardBorderPref.setOnPreferenceChangeListener(this);
 
+        mToolbarTitlePref.setOnPreferenceChangeListener(this);
+
+        mTabTitleVisibilityPref.setSummary(mTabTitleVisibilityPref.getEntry());
+        mTabTitleVisibilityPref.setOnPreferenceChangeListener(this);
+
+        mTabIndicatorPref.setOnPreferenceChangeListener(this);
+
         mCustomLanguageCodePref.setSummary(mCustomLanguageCodePref.getEntry());
         mCustomLanguageCodePref.setOnPreferenceChangeListener(this);
 
         mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntry());
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
+        final Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        mVibrationPref.setVisible(vibrator.hasVibrator());
         mVibrationPref.setOnPreferenceChangeListener(this);
-
-        mToolbarTitlePref.setOnPreferenceChangeListener(this);
-
-        mTabTitleVisibilityPref.setSummary(mTabToDisplayPref.getEntry());
-        mTabTitleVisibilityPref.setOnPreferenceChangeListener(this);
-
-        mTabIndicatorPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);
     }

@@ -60,7 +60,7 @@ public abstract class TimerKlaxon {
             getAsyncRingtonePlayer(context).play(uri, crescendoDuration);
         }
 
-        if (SettingsDAO.getTimerVibrate(prefs)) {
+        if (SettingsDAO.isTimerVibrate(prefs)) {
             final Vibrator vibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)

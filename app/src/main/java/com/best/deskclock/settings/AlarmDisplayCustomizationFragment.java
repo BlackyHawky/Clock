@@ -79,13 +79,6 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh();
-    }
-
-    @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_ALARM_CLOCK_STYLE -> {
@@ -94,15 +87,13 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 mAlarmClockColor.setVisible(!newValue.equals(mMaterialAnalogClock));
                 mAlarmDigitalClockFontSizePref.setVisible(newValue.equals(mDigitalClock));
                 mDisplaySecondsPref.setVisible(!newValue.equals(mDigitalClock));
-                mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-                mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock) && mDisplaySecondsPref.isChecked());
+                mAlarmSecondsHandColorPref.setVisible(newValue.equals(mAnalogClock)
+                        && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
             }
 
             case KEY_DISPLAY_ALARM_SECONDS_HAND -> {
-                final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs);
-                final DataModel.ClockStyle clockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
-                mAlarmSecondsHandColorPref.setVisible(!isAlarmSecondsHandDisplayed
-                        && clockStyle != DataModel.ClockStyle.ANALOG_MATERIAL);
+                mAlarmSecondsHandColorPref.setVisible((boolean) newValue
+                        && SettingsDAO.getAlarmClockStyle(mPrefs) != DataModel.ClockStyle.ANALOG_MATERIAL);
 
                 Utils.setVibrationTime(requireContext(), 50);
             }
@@ -141,33 +132,28 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
-        mBackgroundAmoledColorPref.setVisible(isAmoledMode);
-        mBackgroundColorPref.setVisible(!mBackgroundAmoledColorPref.isShown());
+        mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntry());
+        mAlarmClockStyle.setOnPreferenceChangeListener(this);
 
-        final int clockStyleIndex = mAlarmClockStyle.findIndexOfValue(
-                SettingsDAO.getAlarmClockStyle(mPrefs).toString().toLowerCase());
-        // clockStyleIndex == 0 --> analog
-        // clockStyleIndex == 1 --> analog (Material)
-        // clockStyleIndex == 2 --> digital
-        mAlarmClockColor.setVisible(clockStyleIndex != 1);
-        mDisplaySecondsPref.setVisible(clockStyleIndex != 2);
-        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-        mAlarmSecondsHandColorPref.setVisible(clockStyleIndex == 0 && mDisplaySecondsPref.isChecked());
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources())
+                && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE);
+        mBackgroundAmoledColorPref.setVisible(isAmoledMode);
+
+        mBackgroundColorPref.setVisible(!isAmoledMode);
+
+        mAlarmClockColor.setVisible(!mAlarmClockStyle.getValue().equals(mMaterialAnalogClock));
+
+        mDisplaySecondsPref.setVisible(!mAlarmClockStyle.getValue().equals(mDigitalClock));
+        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+
+        mAlarmSecondsHandColorPref.setVisible(mAlarmClockStyle.getValue().equals(mAnalogClock)
+                && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
         if (mAlarmSecondsHandColorPref.isVisible()) {
             mAlarmSecondsHandColorPref.setColor(
                     MaterialColors.getColor(requireContext(), android.R.attr.colorPrimary, Color.BLACK));
         }
-        mAlarmDigitalClockFontSizePref.setVisible(clockStyleIndex == 2);
-    }
 
-    private void refresh() {
-        mAlarmClockStyle.setSummary(mAlarmClockStyle.getEntry());
-        mAlarmClockStyle.setOnPreferenceChangeListener(this);
-
-        mDisplaySecondsPref.setChecked(SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-        mDisplaySecondsPref.setOnPreferenceChangeListener(this);
+        mAlarmDigitalClockFontSizePref.setVisible(mAlarmClockStyle.getValue().equals(mDigitalClock));
 
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
 

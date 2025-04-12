@@ -108,7 +108,7 @@ public final class SettingsDAO {
      * @return {@code true} if a clock for the user's home timezone should be automatically
      * displayed when it doesn't match the current timezone
      */
-    static boolean getAutoShowHomeClock(SharedPreferences prefs) {
+    public static boolean getAutoShowHomeClock(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml
         return prefs.getBoolean(KEY_AUTO_HOME_CLOCK, DEFAULT_AUTO_HOME_CLOCK);
     }
@@ -201,7 +201,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the background should be displayed in a view.
+     * @return {@code true} if the background should be displayed in a view. {@code false} otherwise.
      */
     public static boolean isCardBackgroundDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -209,7 +209,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the border should be displayed in a view.
+     * @return {@code true} if the border should be displayed in a view. {@code false} otherwise.
      */
     public static boolean isCardBorderDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -231,7 +231,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the vibrations are enabled for the buttons.
+     * @return {@code true} if the vibrations are enabled for the buttons. {@code false} otherwise.
      */
     public static boolean isVibrationsEnabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -239,7 +239,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the toolbar title is displayed.
+     * @return {@code true} if the toolbar title is displayed. {@code false} otherwise.
      */
     public static boolean isToolbarTitleDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -255,7 +255,8 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the tab indicator is displayed in the bottom navigation menu.
+     * @return {@code true} if the tab indicator is displayed in the bottom navigation menu.
+     * {@code false} otherwise.
      */
     public static boolean isTabIndicatorDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -263,7 +264,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether or not the fade transitions are enabled.
+     * @return {@code true} if the fade transitions are enabled. {@code false} otherwise.
      */
     public static boolean isFadeTransitionsEnabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_interface_customization.xml
@@ -271,29 +272,24 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating whether analog or digital clocks are displayed in the app
+     * @return {@code true} if the seconds are displayed on the analog or digital clock.
+     * {@code false} otherwise.
      */
-    public static boolean getDisplayClockSeconds(SharedPreferences prefs) {
+    public static boolean areClockSecondsDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_clock.xml
-        return prefs.getBoolean(KEY_CLOCK_DISPLAY_SECONDS, DEFAULT_CLOCK_DISPLAY_SECONDS);
+        return prefs.getBoolean(KEY_DISPLAY_CLOCK_SECONDS, DEFAULT_DISPLAY_CLOCK_SECONDS);
     }
 
     /**
-     * @param displaySeconds whether or not to display seconds on main clock
-     */
-    public static void setDisplayClockSeconds(SharedPreferences prefs, boolean displaySeconds) {
-        prefs.edit().putBoolean(KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
-    }
-
-    /**
-     * @return a value indicating whether analog or digital clocks are displayed on the screensaver
+     * @return a value indicating whether analog or digital clocks are displayed on the screensaver.
      */
     public static ClockStyle getScreensaverClockStyle(SharedPreferences prefs) {
         return getClockStyle(prefs, KEY_SCREENSAVER_CLOCK_STYLE);
     }
 
     /**
-     * @return a value indicating whether analog or digital clock dynamic colors are displayed
+     * @return {@code true} if dynamic colors are applied to analog or digital clock.
+     * {@code false} otherwise.
      */
     public static boolean areScreensaverClockDynamicColors(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -325,7 +321,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code int} the screen saver brightness level at night
+     * @return {@code int} the screensaver brightness level at night
      */
     public static int getScreensaverBrightness(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -333,7 +329,8 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating whether analog or digital clock seconds are displayed
+     * @return {@code true} if the seconds are displayed on the analog or digital clock in the screensaver.
+     * {@code false} otherwise.
      */
     public static boolean areScreensaverClockSecondsDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -341,7 +338,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the clock in bold
+     * @return {@code true} if the screensaver should show the clock in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -349,7 +346,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the clock in italic
+     * @return {@code true} if the screensaver should show the clock in italic. {@code false} otherwise.
      */
     public static boolean isScreensaverDigitalClockInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -357,7 +354,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the date in bold
+     * @return {@code true} if the screensaver should show the date in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverDateInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -365,7 +362,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the date in italic
+     * @return {@code true} if the screensaver should show the date in italic. {@code false} otherwise.
      */
     public static boolean isScreensaverDateInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -373,7 +370,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the next alarm in bold
+     * @return {@code true} if the screensaver should show the next alarm in bold. {@code false} otherwise.
      */
     public static boolean isScreensaverNextAlarmInBold(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -381,7 +378,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the screen saver should show the next alarm in italic
+     * @return {@code true} if the screensaver should show the next alarm in italic. {@code false} otherwise.
      */
     public static boolean isScreensaverNextAlarmInItalic(SharedPreferences prefs) {
         // Default value must match the one in res/xml/screensaver_settings.xml
@@ -390,7 +387,7 @@ public final class SettingsDAO {
 
     /**
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
-     * has yet been made
+     * has yet been made.
      */
     static Uri getTimerRingtoneUri(SharedPreferences prefs, Uri defaultUri) {
         final String uriString = prefs.getString(KEY_TIMER_RINGTONE, null);
@@ -398,7 +395,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return the duration for which a timer can ring before expiring and being reset
+     * @return the duration for which a timer can ring before expiring and being reset.
      */
     static long getTimerAutoSilenceDuration(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
@@ -407,22 +404,15 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether timer vibration is enabled. {@code false} otherwise.
+     * @return {@code true} if the timer vibrations are enabled. {@code false} otherwise.
      */
-    public static boolean getTimerVibrate(SharedPreferences prefs) {
+    public static boolean isTimerVibrate(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
         return prefs.getBoolean(KEY_TIMER_VIBRATE, DEFAULT_TIMER_VIBRATE);
     }
 
     /**
-     * @param enabled whether vibration will be turned on for all timers.
-     */
-    public static void setTimerVibrate(SharedPreferences prefs, boolean enabled) {
-        prefs.edit().putBoolean(KEY_TIMER_VIBRATE, enabled).apply();
-    }
-
-    /**
-     * @return whether the expired timer is reset with the volume buttons. {@code false} otherwise.
+     * @return {@code true} if the expired timer is reset with the volume buttons. {@code false} otherwise.
      */
     public static boolean isExpiredTimerResetWithVolumeButtons(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
@@ -430,7 +420,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether the expired timer is reset with the power button. {@code false} otherwise.
+     * @return {@code true} if the expired timer is reset with the power button. {@code false} otherwise.
      */
     public static boolean isExpiredTimerResetWithPowerButton(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
@@ -438,7 +428,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether flip action for timers is enabled. {@code false} otherwise.
+     * @return {@code true} if the flip action for timers is enabled. {@code false} otherwise.
      */
     public static boolean isFlipActionForTimersEnabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
@@ -446,7 +436,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return whether shake action for timers is enabled. {@code false} otherwise.
+     * @return {@code true} if the shake action for timers is enabled. {@code false} otherwise.
      */
     public static boolean isShakeActionForTimersEnabled(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_timer.xml
@@ -567,7 +557,7 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return {@code true} if the restore process (of backup and restore) has completed
+     * @return {@code true} if the restore process (of backup and restore) has completed. {@code false} otherwise.
      */
     public static boolean isRestoreBackupFinished(SharedPreferences prefs) {
         return prefs.getBoolean(KEY_RESTORE_BACKUP_FINISHED, false);
@@ -756,7 +746,8 @@ public final class SettingsDAO {
     }
 
     /**
-     * @return a value indicating whether analog clock seconds hand is displayed on the alarm.
+     * @return {@code true} if the second hand is displayed on analog clock for the alarm.
+     * {@code false} otherwise.
      */
     public static boolean isAlarmSecondsHandDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml

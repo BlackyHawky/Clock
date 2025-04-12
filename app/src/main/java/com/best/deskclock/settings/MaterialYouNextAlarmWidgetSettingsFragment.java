@@ -5,7 +5,7 @@ package com.best.deskclock.settings;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_WIDGETS_DEFAULT_COLOR;
+
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_ALARM_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_CUSTOM_TITLE_COLOR;
@@ -76,7 +76,8 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        refresh();
+        saveCheckedPreferenceStates();
+
         updateMaterialYouNextAlarmWidget();
     }
 
@@ -91,32 +92,17 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR -> {
-                if (mDefaultTitleColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_TITLE_COLOR,
-                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomTitleColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR -> {
-                if (mDefaultAlarmTitleColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultAlarmTitleColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_TITLE_COLOR,
-                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomAlarmTitleColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomAlarmTitleColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
             case KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR -> {
-                if (mDefaultAlarmColorPref.getSharedPreferences() != null) {
-                    final boolean isNotDefaultColors = mDefaultAlarmColorPref.getSharedPreferences()
-                            .getBoolean(KEY_MATERIAL_YOU_NEXT_ALARM_WIDGET_DEFAULT_ALARM_COLOR,
-                                    DEFAULT_WIDGETS_DEFAULT_COLOR);
-                    mCustomAlarmColorPref.setVisible(isNotDefaultColors);
-                }
+                mCustomAlarmColorPref.setVisible(!(boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
         }
@@ -133,28 +119,26 @@ public class MaterialYouNextAlarmWidgetSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
-        mDefaultTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs));
-        mCustomTitleColorPref.setVisible(!mDefaultTitleColorPref.isChecked());
-
-        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
-        mCustomAlarmTitleColorPref.setVisible(!mDefaultAlarmTitleColorPref.isChecked());
-
-        mDefaultAlarmColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmColor(mPrefs));
-        mCustomAlarmColorPref.setVisible(!mDefaultAlarmColorPref.isChecked());
-    }
-
-    private void refresh() {
         mDefaultTitleColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomTitleColorPref.setVisible(!WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs));
         mCustomTitleColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultAlarmTitleColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomAlarmTitleColorPref.setVisible(!WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
         mCustomAlarmTitleColorPref.setOnPreferenceChangeListener(this);
 
         mDefaultAlarmColorPref.setOnPreferenceChangeListener(this);
 
+        mCustomAlarmColorPref.setVisible(!WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmColor(mPrefs));
         mCustomAlarmColorPref.setOnPreferenceChangeListener(this);
+    }
+
+    private void saveCheckedPreferenceStates() {
+        mDefaultTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultTitleColor(mPrefs));
+        mDefaultAlarmTitleColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmTitleColor(mPrefs));
+        mDefaultAlarmColorPref.setChecked(WidgetDAO.isMaterialYouNextAlarmWidgetDefaultAlarmColor(mPrefs));
     }
 
     private void updateMaterialYouNextAlarmWidget() {

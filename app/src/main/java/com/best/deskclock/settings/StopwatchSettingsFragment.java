@@ -38,13 +38,8 @@ public class StopwatchSettingsFragment extends ScreenFragment
         mVolumeUpActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_UP_ACTION_AFTER_LONG_PRESS);
         mVolumeDownActionPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION);
         mVolumeDownActionAfterLongPressPref = findPreference(KEY_SW_VOLUME_DOWN_ACTION_AFTER_LONG_PRESS);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh();
+        setupPreferences();
     }
 
     @Override
@@ -63,7 +58,7 @@ public class StopwatchSettingsFragment extends ScreenFragment
         return true;
     }
 
-    private void refresh() {
+    private void setupPreferences() {
         mVolumeUpActionPref.setOnPreferenceChangeListener(this);
         mVolumeUpActionPref.setSummary(mVolumeUpActionPref.getEntry());
 

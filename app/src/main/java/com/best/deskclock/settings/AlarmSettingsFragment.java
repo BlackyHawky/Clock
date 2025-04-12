@@ -105,7 +105,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     public void onResume() {
         super.onResume();
 
-        refresh();
+        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
     }
 
     @Override
@@ -118,9 +118,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
         switch (pref.getKey()) {
-            case KEY_DEFAULT_ALARM_RINGTONE ->
-                    pref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
-
             case KEY_AUTO_SILENCE -> {
                 final String delay = (String) newValue;
                 updateAutoSnoozeSummary((ListPreference) pref, delay);
@@ -139,17 +136,15 @@ public class AlarmSettingsFragment extends ScreenFragment
             }
 
             case KEY_SHAKE_ACTION -> {
-                final ListPreference shakeActionPref = (ListPreference) pref;
-                final int index = shakeActionPref.findIndexOfValue((String) newValue);
-                shakeActionPref.setSummary(shakeActionPref.getEntries()[index]);
+                final int index = mShakeActionPref.findIndexOfValue((String) newValue);
+                mShakeActionPref.setSummary(mShakeActionPref.getEntries()[index]);
                 // index == 2 --> Nothing
                 mShakeIntensityPref.setVisible(index != 2);
             }
 
             case KEY_WEEK_START -> {
-                final ListPreference preference = (ListPreference) pref;
-                final int index = preference.findIndexOfValue((String) newValue);
-                preference.setSummary(preference.getEntries()[index]);
+                final int index = mWeekStartPref.findIndexOfValue((String) newValue);
+                mWeekStartPref.setSummary(mWeekStartPref.getEntries()[index]);
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
@@ -176,6 +171,26 @@ public class AlarmSettingsFragment extends ScreenFragment
     }
 
     private void setupPreferences() {
+        mAlarmRingtonePref.setOnPreferenceClickListener(this);
+
+        String delay = mAutoSilencePref.getValue();
+        updateAutoSnoozeSummary(mAutoSilencePref, delay);
+        mAutoSilencePref.setOnPreferenceChangeListener(this);
+
+        mAlarmSnoozePref.setOnPreferenceChangeListener(this);
+        mAlarmSnoozePref.setSummary(mAlarmSnoozePref.getEntry());
+
+        mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
+        mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
+
+        mSwipeActionPref.setOnPreferenceChangeListener(this);
+
+        mVolumeButtonsPref.setOnPreferenceChangeListener(this);
+        mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());
+
+        mPowerButtonPref.setOnPreferenceChangeListener(this);
+        mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
+
         final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
         mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
         mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(hasVibrator);
@@ -197,32 +212,6 @@ public class AlarmSettingsFragment extends ScreenFragment
             mShakeIntensityPref.setVisible(shakeActionIndex != 2);
         }
 
-        mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
-    }
-
-    private void refresh() {
-        mAlarmRingtonePref.setOnPreferenceClickListener(this);
-        mAlarmRingtonePref.setSummary(DataModel.getDataModel().getAlarmRingtoneTitle());
-
-        String delay = mAutoSilencePref.getValue();
-        updateAutoSnoozeSummary(mAutoSilencePref, delay);
-        mAutoSilencePref.setOnPreferenceChangeListener(this);
-
-        mAlarmSnoozePref.setOnPreferenceChangeListener(this);
-        mAlarmSnoozePref.setSummary(mAlarmSnoozePref.getEntry());
-
-        mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
-        mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
-
-        mSwipeActionPref.setChecked(SettingsDAO.isSwipeActionEnabled(mPrefs));
-        mSwipeActionPref.setOnPreferenceChangeListener(this);
-
-        mVolumeButtonsPref.setOnPreferenceChangeListener(this);
-        mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());
-
-        mPowerButtonPref.setOnPreferenceChangeListener(this);
-        mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
-
         // Set the default first day of the week programmatically
         final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(mPrefs);
         final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
@@ -235,16 +224,13 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmNotificationReminderTimePref.setOnPreferenceChangeListener(this);
         mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntry());
 
-        mEnableAlarmVibrationsByDefaultPref.setChecked(SettingsDAO.areAlarmVibrationsEnabledByDefault(mPrefs));
         mEnableAlarmVibrationsByDefaultPref.setOnPreferenceChangeListener(this);
 
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setChecked(SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs));
         mEnableSnoozedOrDismissedAlarmVibrationsPref.setOnPreferenceChangeListener(this);
 
-        mTurnOnBackFlashForTriggeredAlarmPref.setChecked(SettingsDAO.shouldTurnOnBackFlashForTriggeredAlarm(mPrefs));
+        mTurnOnBackFlashForTriggeredAlarmPref.setVisible(AlarmUtils.hasBackFlash(requireContext()));
         mTurnOnBackFlashForTriggeredAlarmPref.setOnPreferenceChangeListener(this);
 
-        mDeleteOccasionalAlarmByDefaultPref.setChecked(SettingsDAO.isOccasionalAlarmDeletedByDefault(mPrefs));
         mDeleteOccasionalAlarmByDefaultPref.setOnPreferenceChangeListener(this);
 
         mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);

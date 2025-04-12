@@ -161,7 +161,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionMessage = findPreference(KEY_PERMISSION_MESSAGE);
             mBackupRestorePref = findPreference(KEY_BACKUP_RESTORE_PREFERENCES);
 
-            hidePreferences();
+            setupPreferences();
 
             requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
@@ -180,7 +180,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
         public void onResume() {
             super.onResume();
 
-            refresh();
+            displayWarningIfEssentialPermissionAreNotGranted();
         }
 
         @Override
@@ -233,25 +233,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             return true;
         }
 
-        private void hidePreferences() {
+        private void setupPreferences() {
             mPermissionMessage.setVisible(areEssentialPermissionsNotGranted(requireContext()));
-        }
-
-        private void refresh() {
-            mPermissionMessage.setVisible(areEssentialPermissionsNotGranted(requireContext()));
-            if (mPermissionMessage.isShown()) {
-                final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
-                final String messagePermission = requireContext().getString(R.string.settings_permission_message);
-                final Spannable spannableMessagePermission = new SpannableString(messagePermission);
-                spannableMessagePermission.setSpan(
-                        new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
-                        0, messagePermission.length(), 0);
-                spannableMessagePermission.setSpan(
-                        new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
-                builderPermissionMessage.append(spannableMessagePermission);
-                mPermissionMessage.setTitle(builderPermissionMessage);
-                mPermissionMessage.setOnPreferenceClickListener(this);
-            }
 
             mInterfaceCustomizationPref.setOnPreferenceClickListener(this);
 
@@ -270,6 +253,25 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
             mPermissionsManagement.setOnPreferenceClickListener(this);
 
             mBackupRestorePref.setOnPreferenceClickListener(this);
+        }
+
+        private void displayWarningIfEssentialPermissionAreNotGranted() {
+            if (areEssentialPermissionsNotGranted(requireContext())) {
+                mPermissionMessage.setVisible(true);
+                final SpannableStringBuilder builderPermissionMessage = new SpannableStringBuilder();
+                final String messagePermission = requireContext().getString(R.string.settings_permission_message);
+                final Spannable spannableMessagePermission = new SpannableString(messagePermission);
+                spannableMessagePermission.setSpan(
+                        new ForegroundColorSpan(requireContext().getColor(R.color.colorAlert)),
+                        0, messagePermission.length(), 0);
+                spannableMessagePermission.setSpan(
+                        new StyleSpan(Typeface.BOLD), 0, messagePermission.length(), 0);
+                builderPermissionMessage.append(spannableMessagePermission);
+                mPermissionMessage.setTitle(builderPermissionMessage);
+                mPermissionMessage.setOnPreferenceClickListener(this);
+            } else {
+                mPermissionMessage.setVisible(false);
+            }
         }
 
         private void backupPreferences(Uri uri) {

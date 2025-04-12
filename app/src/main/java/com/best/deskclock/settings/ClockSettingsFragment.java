@@ -4,9 +4,9 @@ package com.best.deskclock.settings;
 
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_AUTO_HOME_CLOCK;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_DISPLAY_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DATE_TIME;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_CLOCK_SECONDS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_HOME_TIME_ZONE;
 
 import android.content.Context;
@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
-import androidx.preference.TwoStatePreference;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
@@ -29,7 +28,7 @@ public class ClockSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     ListPreference mClockStylePref;
-    SwitchPreferenceCompat mClockDisplaySecondsPref;
+    SwitchPreferenceCompat mDisplayClockSecondsPref;
     SwitchPreferenceCompat mAutoHomeClockPref;
     ListPreference mHomeTimeZonePref;
     Preference mDateTimePref;
@@ -46,19 +45,12 @@ public class ClockSettingsFragment extends ScreenFragment
         addPreferencesFromResource(R.xml.settings_clock);
 
         mClockStylePref = findPreference(KEY_CLOCK_STYLE);
-        mClockDisplaySecondsPref = findPreference(KEY_CLOCK_DISPLAY_SECONDS);
+        mDisplayClockSecondsPref = findPreference(KEY_DISPLAY_CLOCK_SECONDS);
         mAutoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
         mHomeTimeZonePref = findPreference(KEY_HOME_TIME_ZONE);
         mDateTimePref = findPreference(KEY_DATE_TIME);
 
-        loadTimeZoneList();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh();
+        setupPreferences();
     }
 
     @Override
@@ -70,14 +62,10 @@ public class ClockSettingsFragment extends ScreenFragment
                 preference.setSummary(preference.getEntries()[index]);
             }
 
-            case KEY_CLOCK_DISPLAY_SECONDS -> {
-                SettingsDAO.setDisplayClockSeconds(mPrefs, (boolean) newValue);
-                Utils.setVibrationTime(requireContext(), 50);
-            }
+            case KEY_DISPLAY_CLOCK_SECONDS -> Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_AUTO_HOME_CLOCK -> {
-                final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
-                mHomeTimeZonePref.setEnabled(!autoHomeClockEnabled);
+                mHomeTimeZonePref.setEnabled((boolean) newValue);
                 Utils.setVibrationTime(requireContext(), 50);
             }
         }
@@ -104,25 +92,19 @@ public class ClockSettingsFragment extends ScreenFragment
         return false;
     }
 
-    /**
-     * Reconstruct the timezone list.
-     */
-    private void loadTimeZoneList() {
-        final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis());
-        mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
-        mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
-        mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
-    }
-
-    private void refresh() {
+    private void setupPreferences() {
         mClockStylePref.setSummary(mClockStylePref.getEntry());
         mClockStylePref.setOnPreferenceChangeListener(this);
 
-        mClockDisplaySecondsPref.setOnPreferenceChangeListener(this);
+        mDisplayClockSecondsPref.setOnPreferenceChangeListener(this);
 
         mAutoHomeClockPref.setOnPreferenceChangeListener(this);
 
-        mHomeTimeZonePref.setEnabled(mAutoHomeClockPref.isChecked());
+        mHomeTimeZonePref.setEnabled(SettingsDAO.getAutoShowHomeClock(mPrefs));
+        // Reconstruct the timezone list.
+        final TimeZones timezones = SettingsDAO.getTimeZones(requireContext(), System.currentTimeMillis());
+        mHomeTimeZonePref.setEntryValues(timezones.getTimeZoneIds());
+        mHomeTimeZonePref.setEntries(timezones.getTimeZoneNames());
         mHomeTimeZonePref.setSummary(mHomeTimeZonePref.getEntry());
         mHomeTimeZonePref.setOnPreferenceChangeListener(this);
 
