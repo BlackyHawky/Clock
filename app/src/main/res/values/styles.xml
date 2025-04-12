@@ -105,7 +105,7 @@
         <item name="autoSizeStepGranularity">1sp</item>
     </style>
 
-    <style name="CollapsingToolbarTitle.Collapsed" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+    <style name="CollapsingToolbarTitle.Collapsed" parent="@style/TextAppearance.Material3.ActionBar.Title">
         <item name="android:textSize">20sp</item>
     </style>
 

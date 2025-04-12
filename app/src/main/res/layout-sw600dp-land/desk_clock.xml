@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             app:titleMarginStart="14dp"
             app:titleTextAppearance="@style/CollapsingToolbarTitle.Collapsed"
-            tools:ignore="RtlSymmetry">
+            tools:ignore="RtlSymmetry"
+            tools:title="Alarm">
 
         </androidx.appcompat.widget.Toolbar>
 
