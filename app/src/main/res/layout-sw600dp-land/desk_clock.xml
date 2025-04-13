@@ -113,6 +113,7 @@
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         app:menu="@menu/bottom_navigation_menu"
         tools:background="@color/md_theme_surface"
         tools:labelVisibilityMode="labeled" />
