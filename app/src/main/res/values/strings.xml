@@ -367,6 +367,10 @@
     <string name="settings_tab_indicator_title">Display the tab indicator in the bottom navigation menu</string>
     <!-- Setting title to enable fade transitions when switching screens. -->
     <string name="settings_fade_transitions_title">Enable fade transitions when switching screens</string>
+    <!-- Setting title to keep the screen on. -->
+    <string name="settings_keep_screen_on_title">Keep the screen on</string>
+    <!-- Setting summary about keeping the screen on. -->
+    <string name="settings_keep_screen_on_summary">Note: The screen will always be on if a timer or stopwatch is running and the corresponding tab is displayed, regardless of the status of this setting</string>
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
     <!-- Setting title for changing the notification reminder. -->
@@ -1143,8 +1147,6 @@
     <string name="default_time_to_add_to_timer_1_hour">1 hour</string>
     <!-- Setting title for changing the default time to add to 2 hours. -->
     <string name="default_time_to_add_to_timer_2_hours">2 hours</string>
-    <!-- Title of Keep screen on preference in timer settings -->
-    <string name="keep_timer_screen_on_title">Keep the screen on if a timer is displayed</string>
     <!-- Title for setting transparent background when timers expires in timer settings -->
     <string name="transparent_background_for_expired_timer_title">Transparent background when timers expire</string>
     <!-- Setting title to display a warning before deleting a timer -->

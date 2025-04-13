@@ -432,7 +432,6 @@
     <string name="default_time_to_add_to_timer_10_minutes">10 minutes</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minutes</string>
     <string name="default_time_to_add_to_timer_1_hour">1 heure</string>
-    <string name="keep_timer_screen_on_title">Maintenir l\'écran allumé si un minuteur est affiché</string>
     <string name="transparent_background_for_expired_timer_title">Arrière-plan transparent à l\'expiration des minuteurs</string>
     <string name="timer_paused" msgid="5941160896040771462">"Minuteur interrompu"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs interrompus"</string>

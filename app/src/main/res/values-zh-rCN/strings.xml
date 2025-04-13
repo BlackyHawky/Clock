@@ -411,7 +411,6 @@
     <string name="whats_new_title">更新日志</string>
     <string name="alarm_created">闹钟已创建</string>
     <string name="first_launch_important_info_message">为了确保应用程序正常工作，&lt;b&gt;必须更改某些设备设置：&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;电池优化；&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;根据设备的 Android 版本，其中一些设置已经过优化（例如通知）。&lt;/i&gt; &lt;br&gt; &lt;br&gt; 您可以现在或以后在权限管理设置中更改它们：</string>
-    <string name="keep_timer_screen_on_title">如果显示定时器，请保持屏幕打开</string>
     <string name="first_launch_main_feature_link">…还有更多！</string>
     <string name="screensaver_italic_date_title">斜体日期</string>
     <string name="background_color_title">背景颜色</string>

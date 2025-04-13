@@ -422,7 +422,6 @@
     <string name="timer_channel">Minutnik</string>
     <string name="timer_power_button_action_title">Resetowanie wygasłych minutników za pomocą przycisku zasilania</string>
     <string name="alarm_created">Alarm utworzony</string>
-    <string name="keep_timer_screen_on_title">Ekran pozostaje włączony, jeśli wyświetlany jest licznik czasu</string>
     <string name="transparent_background_for_expired_timer_title">Przezroczyste tło po wygaśnięciu minutników</string>
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
     <string name="snooze_button_color">Kolor przycisku Drzemka</string>

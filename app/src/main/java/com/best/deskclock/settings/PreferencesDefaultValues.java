@@ -45,6 +45,7 @@ public class PreferencesDefaultValues {
     public static final String TAB_TITLE_VISIBILITY_NEVER = "1";
     public static final boolean DEFAULT_TAB_INDICATOR = true;
     public static final boolean DEFAULT_FADE_TRANSITIONS = false;
+    public static final boolean DEFAULT_KEEP_SCREEN_ON = false;
 
     // Clock
     public static final String DEFAULT_CLOCK_STYLE = "digital";
@@ -106,7 +107,6 @@ public class PreferencesDefaultValues {
     public static final String SORT_TIMER_BY_DESCENDING_DURATION = "2";
     public static final String SORT_TIMER_BY_NAME = "3";
     public static final String DEFAULT_TIME_TO_ADD_TO_TIMER = "1";
-    public static final boolean DEFAULT_KEEP_TIMER_SCREEN_ON = true;
     public static final boolean DEFAULT_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = false;
     public static final boolean DEFAULT_DISPLAY_WARNING_BEFORE_DELETING_TIMER = false;
 

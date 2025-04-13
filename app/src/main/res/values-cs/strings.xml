@@ -502,7 +502,6 @@
     <string name="default_time_to_add_to_timer_2_minutes">2 minuty</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minut</string>
     <string name="default_time_to_add_to_timer_1_hour">1 hodina</string>
-    <string name="keep_timer_screen_on_title">Ponechat obrazovku zapnutou, pokud je zobrazen časovač</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minuty</string>
     <string name="default_time_to_add_to_timer_9_minutes">9 minut</string>
     <string name="screensaver_brightness_title">Jas</string>

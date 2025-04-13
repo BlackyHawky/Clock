@@ -272,6 +272,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the screen should remain on. {@code false} otherwise.
+     */
+    public static boolean shouldScreenRemainOn(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_interface_customization.xml
+        return prefs.getBoolean(KEY_KEEP_SCREEN_ON, DEFAULT_KEEP_SCREEN_ON);
+    }
+
+    /**
      * @return {@code true} if the seconds are displayed on the analog or digital clock.
      * {@code false} otherwise.
      */
@@ -458,14 +466,6 @@ public final class SettingsDAO {
         // Default value must match the one in res/xml/settings_timer.xml
         final String string = prefs.getString(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER, DEFAULT_TIME_TO_ADD_TO_TIMER);
         return Integer.parseInt(string);
-    }
-
-    /**
-     * @return {@code true} if the timer display must remain on. {@code false} otherwise.
-     */
-    public static boolean shouldTimerDisplayRemainOn(SharedPreferences pref) {
-        // Default value must match the one in res/xml/settings_timer.xml
-        return pref.getBoolean(KEY_KEEP_TIMER_SCREEN_ON, DEFAULT_KEEP_TIMER_SCREEN_ON);
     }
 
     /**

@@ -50,6 +50,7 @@ public class PreferencesKeys {
     public static final String KEY_TAB_TITLE_VISIBILITY = "key_tab_title_visibility";
     public static final String KEY_TAB_INDICATOR = "key_tab_indicator";
     public static final String KEY_FADE_TRANSITIONS = "key_fade_transitions";
+    public static final String KEY_KEEP_SCREEN_ON = "key_keep_screen_on";
 
     // Clock
     public static final String KEY_CLOCK_STYLE = "key_clock_style";
@@ -107,7 +108,6 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
-    public static final String KEY_KEEP_TIMER_SCREEN_ON = "key_keep_timer_screen_on";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
     public static final String KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER = "key_display_warning_before_deleting_timer";
 

@@ -321,6 +321,19 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if at least one timer is running, paused, or has expired.
+     * {@code false} otherwise.
+     */
+    public boolean hasActiveTimer() {
+        for (Timer timer : getTimers()) {
+            if (!timer.isReset()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Load timers from SharedPreferences after a restore or reset of settings
      */
     public void loadTimers() {

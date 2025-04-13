@@ -419,7 +419,6 @@
     <string name="swipe_action_title">Deslize para dispensar ou para soneca</string>
     <string name="label_default">Padrão</string>
     <string name="sort_timer_title">Classificar timers</string>
-    <string name="keep_timer_screen_on_title">Mantenha a tela ligada se um timer for exibido</string>
     <string name="transparent_background_for_expired_timer_title">Fundo transparente quando os timers expiram</string>
     <string name="default_time_to_add_to_timer_title">Tempo padrão para adicionar ao timer</string>
     <string name="preview_title">Prévia</string>

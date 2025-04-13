@@ -472,5 +472,4 @@
     <string name="sort_timer_name">名前順</string>
     <string name="sort_timer_manually">手動 (ドラッグ)</string>
     <string name="default_time_to_add_to_timer_title">タイマーに追加するデフォルトの時間</string>
-    <string name="keep_timer_screen_on_title">タイマーが表示されている場合、画面をオンのままにする</string>
 </resources>

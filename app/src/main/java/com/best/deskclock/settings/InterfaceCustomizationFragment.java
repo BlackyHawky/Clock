@@ -9,6 +9,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BACKGROUND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CARD_BORDER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_CUSTOM_LANGUAGE_CODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DARK_MODE;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_SCREEN_ON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TITLE_VISIBILITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TAB_TO_DISPLAY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FADE_TRANSITIONS;
@@ -65,6 +66,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
     ListPreference mTabTitleVisibilityPref;
     SwitchPreferenceCompat mTabIndicatorPref;
     SwitchPreferenceCompat mFadeTransitionsPref;
+    SwitchPreferenceCompat mKeepScreenOnPref;
 
     @Override
     protected String getFragmentTitle() {
@@ -91,6 +93,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mTabTitleVisibilityPref = findPreference(KEY_TAB_TITLE_VISIBILITY);
         mTabIndicatorPref = findPreference(KEY_TAB_INDICATOR);
         mFadeTransitionsPref = findPreference(KEY_FADE_TRANSITIONS);
+        mKeepScreenOnPref = findPreference(KEY_KEEP_SCREEN_ON);
 
         setupPreferences();
 
@@ -170,7 +173,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
-            case KEY_TAB_INDICATOR -> {
+            case KEY_TAB_INDICATOR, KEY_KEEP_SCREEN_ON -> {
                 Utils.setVibrationTime(requireContext(), 50);
                 // Set result so DeskClock knows to refresh itself
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
@@ -226,6 +229,8 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);
+
+        mKeepScreenOnPref.setOnPreferenceChangeListener(this);
     }
 
     private void sortListPreference(ListPreference listPreference) {

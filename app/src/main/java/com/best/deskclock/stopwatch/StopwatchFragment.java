@@ -33,7 +33,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,9 +50,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.data.StopwatchListener;
 import com.best.deskclock.events.Events;
-import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
-import com.best.deskclock.uidata.UiDataModel.Tab;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -76,11 +73,6 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Milliseconds between redraws while paused.
      */
     private static final int REDRAW_PERIOD_PAUSED = 500;
-
-    /**
-     * Keep the screen on when this tab is selected.
-     */
-    private final TabListener mTabWatcher = new TabWatcher();
 
     /**
      * Scheduled to update the stopwatch time and current lap time while stopwatch is running.
@@ -141,6 +133,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     private Activity mActivity;
     private Context mContext;
+    private SharedPreferences mPrefs;
     private String mVolumeUpAction;
     private String mVolumeUpActionAfterLongPress;
     private String mVolumeDownAction;
@@ -152,7 +145,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mContext = requireContext();
-        final SharedPreferences prefs = getDefaultSharedPreferences(mContext);
+        mPrefs = getDefaultSharedPreferences(mContext);
         mIsLandscape = ThemeUtils.isLandscape();
         final boolean isTablet = ThemeUtils.isTablet();
         mLapsAdapter = new LapsAdapter(mContext);
@@ -203,10 +196,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         mMainTimeText.setTextColor(timeTextColor);
         mHundredthsTimeText.setTextColor(timeTextColor);
 
-        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(prefs);
-        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(prefs);
-        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(prefs);
-        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(prefs);
+        mVolumeUpAction = SettingsDAO.getVolumeUpActionForStopwatch(mPrefs);
+        mVolumeUpActionAfterLongPress = SettingsDAO.getVolumeUpActionAfterLongPressForStopwatch(mPrefs);
+        mVolumeDownAction = SettingsDAO.getVolumeDownActionForStopwatch(mPrefs);
+        mVolumeDownActionAfterLongPress = SettingsDAO.getVolumeDownActionAfterLongPressForStopwatch(mPrefs);
 
         return v;
     }
@@ -284,8 +277,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Synchronize the user interface with the data model.
         updateUI(FAB_AND_BUTTONS_IMMEDIATE);
 
-        // Start watching for page changes away from this fragment.
-        UiDataModel.getUiDataModel().addTabListener(mTabWatcher);
+        //adjustWakeLock();
     }
 
     @Override
@@ -294,12 +286,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Stop all updates while the fragment is not visible.
         stopUpdatingTime();
-
-        // Stop watching for page changes away from this fragment.
-        UiDataModel.getUiDataModel().removeTabListener(mTabWatcher);
-
-        // Release the wake lock if it is currently held.
-        releaseWakeLock();
     }
 
     @Override
@@ -499,16 +485,11 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     private void adjustWakeLock() {
-        final boolean appInForeground = DataModel.getDataModel().isApplicationInForeground();
-        if (getStopwatch().isRunning() && isTabSelected() && appInForeground) {
-            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (getStopwatch().isRunning() || SettingsDAO.shouldScreenRemainOn(mPrefs)) {
+            ThemeUtils.keepScreenOn(mActivity);
         } else {
-            releaseWakeLock();
+            ThemeUtils.releaseKeepScreenOn(mActivity);
         }
-    }
-
-    private void releaseWakeLock() {
-        mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**
@@ -568,8 +549,6 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Synchronize the UI state with the model data.
      */
     private void updateUI(@UpdateFabFlag int updateTypes) {
-        adjustWakeLock();
-
         // Draw the latest stopwatch and current lap times.
         updateTime();
 
@@ -688,23 +667,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     /**
-     * Acquire or release the wake lock based on the tab state.
-     */
-    private final class TabWatcher implements TabListener {
-        @Override
-        public void selectedTabChanged(Tab newSelectedTab) {
-            adjustWakeLock();
-        }
-    }
-
-    /**
      * Update the user interface in response to a stopwatch change.
      */
     private class StopwatchWatcher implements StopwatchListener {
         @Override
         public void stopwatchUpdated(Stopwatch after) {
+            adjustWakeLock();
+
             if (after.isReset()) {
-                // Ensure the drop shadow is hidden when the stopwatch is reset.
                 setTabScrolledToTop(true);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);

@@ -630,7 +630,6 @@
     <string name="default_time_to_add_to_timer_5_minutes">5 minutos</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minutos</string>
     <string name="default_time_to_add_to_timer_1_hour">1 hora</string>
-    <string name="keep_timer_screen_on_title">Mantener la pantalla encendida si aparece un temporizador</string>
     <string name="transparent_background_for_expired_timer_title">Fondo transparente cuando expiran los temporizadores</string>
     <string name="screensaver_bold_date_title">Fecha en negrita</string>
     <string name="alarm_created">Alarma creada</string>

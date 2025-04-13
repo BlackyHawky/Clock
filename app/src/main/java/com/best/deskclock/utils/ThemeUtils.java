@@ -9,10 +9,12 @@ package com.best.deskclock.utils;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
+import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -33,6 +35,14 @@ import com.best.deskclock.data.SettingsDAO;
 import com.google.android.material.color.MaterialColors;
 
 public class ThemeUtils {
+
+    public static void keepScreenOn(Activity activity) {
+        activity.getWindow().addFlags(FLAG_KEEP_SCREEN_ON);
+    }
+
+    public static void releaseKeepScreenOn(Activity activity) {
+        activity.getWindow().clearFlags(FLAG_KEEP_SCREEN_ON);
+    }
 
     /**
      * @return {@code true} if the device is in dark mode. {@code false} otherwise.

@@ -428,7 +428,6 @@
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Ausschalten links oder rechts tippen</string>
     <string name="timer_settings_summary">Standardsignalton, -lautstärke und Timer-Sortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
-    <string name="keep_timer_screen_on_title">Den Bildschirm eingeschaltet lassen, wenn ein Timer angezeigt wird</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
     <string name="screensaver_daydream_settings_summary">Öffnet die Android-Einstellungen für den Bildschirmschoner</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamische Uhrenfarben</string>

@@ -534,7 +534,6 @@
     <string name="default_time_to_add_to_timer_5_minutes">5분</string>
     <string name="default_time_to_add_to_timer_10_minutes">10분</string>
     <string name="screensaver_italic_digital_clock_title">디지털 시계 기울임꼴</string>
-    <string name="keep_timer_screen_on_title">타이머가 진행 중일 때 화면 켜짐 유지</string>
     <string name="digital_widget_custom_hours_color_title">시간 텍스트 색상</string>
     <string name="backup_restore_title">백업 및 복원</string>
     <string name="backup_restore_dialog_message">정말 앱 데이터를 백업 또는 복원할까요?</string>

@@ -151,6 +151,15 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_keep_screen_on"
+            android:title="@string/settings_keep_screen_on_title"
+            android:summary="@string/settings_keep_screen_on_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

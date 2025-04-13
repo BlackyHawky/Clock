@@ -384,6 +384,8 @@ public class DeskClock extends AppCompatActivity
 
         // ViewPager does not save state; this honors the selected tab in the user interface.
         updateCurrentTab();
+
+        updateKeepScreenOn(UiDataModel.getUiDataModel().getSelectedTab());
     }
 
     @Override
@@ -631,6 +633,40 @@ public class DeskClock extends AppCompatActivity
     }
 
     /**
+     * Update screen state based on selected tab and user preferences.
+     * <p>
+     * If the active tab requires the screen to remain on (e.g. timer in progress, stopwatch active,
+     * or user preference enabled), apply the {@code FLAG_KEEP_SCREEN_ON} flag.
+     *
+     * @param selectedTab The currently selected tab.
+     */
+    private void updateKeepScreenOn(UiDataModel.Tab selectedTab) {
+        final boolean screenShouldStayOn;
+
+        switch (selectedTab) {
+            case ALARMS, CLOCKS ->
+                screenShouldStayOn = SettingsDAO.shouldScreenRemainOn(mPrefs);
+
+            case TIMERS ->
+                screenShouldStayOn = DataModel.getDataModel().hasActiveTimer()
+                        || SettingsDAO.shouldScreenRemainOn(mPrefs);
+
+            case STOPWATCH ->
+                screenShouldStayOn = DataModel.getDataModel().getStopwatch().isRunning()
+                        || SettingsDAO.shouldScreenRemainOn(mPrefs);
+
+            default -> screenShouldStayOn = false;
+
+        }
+
+        if (screenShouldStayOn) {
+            ThemeUtils.keepScreenOn(this);
+        } else {
+            ThemeUtils.releaseKeepScreenOn(this);
+        }
+    }
+
+    /**
      * @return the DeskClockFragment that is currently selected according to UiDataModel
      */
     private DeskClockFragment getSelectedDeskClockFragment() {
@@ -802,6 +838,8 @@ public class DeskClock extends AppCompatActivity
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.
             if (DataModel.getDataModel().isApplicationInForeground()) {
+                updateKeepScreenOn(newSelectedTab);
+
                 switch (newSelectedTab) {
                     case ALARMS -> Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
                     case CLOCKS -> Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);

@@ -29,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -188,9 +187,6 @@ public final class TimerFragment extends DeskClockFragment {
 
         // Stop updating the timers when this fragment is no longer visible.
         stopUpdatingTime();
-
-        // Release the wake lock if it is currently held.
-        releaseWakeLock();
     }
 
     @Override
@@ -218,7 +214,6 @@ public final class TimerFragment extends DeskClockFragment {
                 fab.setImageResource(R.drawable.ic_add);
                 fab.setContentDescription(mContext.getString(R.string.timer_add_timer));
                 fab.setVisibility(VISIBLE);
-                adjustWakeLock();
             } else if (mCurrentView == mCreateTimerView) {
                 if (mCreateTimerView.hasValidInput()) {
                     fab.setImageResource(R.drawable.ic_fab_play);
@@ -228,7 +223,6 @@ public final class TimerFragment extends DeskClockFragment {
                     fab.setContentDescription(null);
                     fab.setVisibility(INVISIBLE);
                 }
-                releaseWakeLock();
             }
         }
     }
@@ -473,15 +467,11 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     private void adjustWakeLock() {
-        if (SettingsDAO.shouldTimerDisplayRemainOn(mPrefs)) {
-            requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (DataModel.getDataModel().hasActiveTimer() || SettingsDAO.shouldScreenRemainOn(mPrefs)) {
+            ThemeUtils.keepScreenOn(requireActivity());
         } else {
-            releaseWakeLock();
+            ThemeUtils.releaseKeepScreenOn(requireActivity());
         }
-    }
-
-    private void releaseWakeLock() {
-        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**
@@ -532,6 +522,8 @@ public final class TimerFragment extends DeskClockFragment {
                 startUpdatingTime();
                 Objects.requireNonNull(mRecyclerView.getLayoutManager()).scrollToPosition(mAdapter.getTimers().indexOf(before));
             }
+
+            adjustWakeLock();
         }
 
         @Override
@@ -549,6 +541,8 @@ public final class TimerFragment extends DeskClockFragment {
 
             // Required to detach the ItemTouchHelper when there is only one timer left.
             handleItemTouchHelper();
+
+            adjustWakeLock();
         }
     }
 }

@@ -120,14 +120,6 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
-            android:key="key_keep_timer_screen_on"
-            android:title="@string/keep_timer_screen_on_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
             android:key="key_transparent_background_for_expired_timer"
             android:title="@string/transparent_background_for_expired_timer_title"
             android:defaultValue="false"

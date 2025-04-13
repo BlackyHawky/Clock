@@ -602,7 +602,6 @@
     <string name="toast_message_for_backup">Salvataggio completato</string>
     <string name="sort_timer_descending_duration">Per durata (ordine decrescente)</string>
     <string name="default_time_to_add_to_timer_1_hour">1 ora</string>
-    <string name="keep_timer_screen_on_title">Tieni lo schermo acceso se è visualizzato un timer</string>
     <string name="screensaver_clock_dynamic_colors_title">Colori orologio dinamici</string>
     <string name="next_alarm_widget_custom_alarm_title_color">Colore personalizzato per il titolo della sveglia</string>
     <string name="next_alarm_widget_max_font_size_title">Dimensione massima caratteri del widget</string>

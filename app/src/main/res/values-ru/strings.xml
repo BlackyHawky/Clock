@@ -426,7 +426,6 @@
     <string name="analog_widget_material_you">Аналоговые часы Material You</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Выбрать стиль, часовой пояс и изменить дату и время девайса</string>
-    <string name="keep_timer_screen_on_title">Оставлять экран включённым, если таймер отображается на экране</string>
     <string name="screensaver_next_alarm_color_title">Следующий цвет будильника</string>
     <string name="alarm_created">Будильник создан</string>
     <string name="first_launch_important_info_message">Чтобы убедиться в правильной работе приложения, &lt;b&gt;некоторые настройки вашего девайса должны быть изменены:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;ОПТИМИЗАЦИЯ БАТАРЕИ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;УВЕДОМЛЕНИЯ;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;В зависимости от версии Android вашего девайса, некоторые из этих настроек уже оптимизированы (такие как уведомления).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Вы можете изменить их сейчас или позже в настройках управления разрешениями:</string>

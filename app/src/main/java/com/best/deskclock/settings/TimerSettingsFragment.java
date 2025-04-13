@@ -7,7 +7,6 @@ import static android.content.Context.VIBRATOR_SERVICE;
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_KEEP_TIMER_SCREEN_ON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SORT_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_AUTO_SILENCE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_CRESCENDO_DURATION;
@@ -48,7 +47,6 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTimerPowerButtonActionPref;
     SwitchPreferenceCompat mTimerFlipActionPref;
     SwitchPreferenceCompat mTimerShakeActionPref;
-    SwitchPreferenceCompat mKeepTimerScreenOnPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
 
@@ -73,7 +71,6 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
-        mKeepTimerScreenOnPref = findPreference(KEY_KEEP_TIMER_SCREEN_ON);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
         mDisplayWarningBeforeDeletingTimerPref = findPreference(KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER);
 
@@ -106,8 +103,8 @@ public class TimerSettingsFragment extends ScreenFragment
             }
 
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
-                 KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_KEEP_TIMER_SCREEN_ON,
-                 KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER, KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
+                 KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
+                 KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
                     Utils.setVibrationTime(requireContext(), 50);
         }
 
@@ -161,8 +158,6 @@ public class TimerSettingsFragment extends ScreenFragment
 
         mDefaultMinutesToAddToTimerPref.setOnPreferenceChangeListener(this);
         mDefaultMinutesToAddToTimerPref.setSummary(mDefaultMinutesToAddToTimerPref.getEntry());
-
-        mKeepTimerScreenOnPref.setOnPreferenceChangeListener(this);
 
         mTransparentBackgroundPref.setOnPreferenceChangeListener(this);
 

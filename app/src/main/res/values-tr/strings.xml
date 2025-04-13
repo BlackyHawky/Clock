@@ -489,7 +489,6 @@
     <string name="license_dialog_message">Lisansı oku:\n\n%s</string>
     <string name="gnu_gpl">GNU Genel Kamu Lisansı v3.0</string>
     <string name="default_time_to_add_to_timer_title">Zamanlayıcıya eklenecek varsayılan süre</string>
-    <string name="keep_timer_screen_on_title">Zamanlayıcıyı görüntülerken ekranı açık tut</string>
     <string name="digital_widget_city_title">Widget\'ta şehirleri göster</string>
     <string name="digital_widget_clock_default_color_title">Ana saatte varsayılan rengi kullan</string>
     <string name="widget_next_alarm_custom_color_title">Sonraki alarm için özel renk</string>

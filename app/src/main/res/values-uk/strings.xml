@@ -441,7 +441,6 @@
     <string name="clock_color_title">Колір годинника</string>
     <string name="screensaver_date_color_title">Колір дати</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Щоб вимкнути, проведіть пальцем ліворуч або праворуч</string>
-    <string name="keep_timer_screen_on_title">Не вимикати екран, якщо відображається таймер</string>
     <string name="default_time_to_add_to_timer_title">Час за замовчуванням, який додається до таймера</string>
     <string name="miscellaneous_category_title">Різне</string>
     <string name="actions_category_title">Дії</string>

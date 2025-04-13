@@ -488,7 +488,6 @@
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Tik links of rechts om uit te zetten</string>
     <string name="timer_settings_summary">Standaard ringtoon, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
-    <string name="keep_timer_screen_on_title">Scherm aanhouden als kookwekker getoond wordt</string>
     <string name="widget_background_title">Achtergrond tonen</string>
     <string name="background_color_title">Achtergrondkleur</string>
     <string name="digital_widget_city_title">Toon steden op widget</string>
