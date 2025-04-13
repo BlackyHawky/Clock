@@ -28,6 +28,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +37,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.collection.ArrayMap;
 import androidx.core.app.ActivityCompat;
 
+import com.best.alarmclock.materialyouwidgets.MaterialYouAnalogAppWidgetConfiguration;
+import com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration;
+import com.best.deskclock.FirstLaunch;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
@@ -88,6 +93,13 @@ public class ThemeController {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 onActivityPreCreated(activity, savedInstanceState);
                 onActivityPostCreated(activity, savedInstanceState);
+            } else {
+                // Specifying "activity instanceof AppCompatActivity" is necessary for the
+                // screensaver to launch.
+                if (activity instanceof AppCompatActivity) {
+                    EdgeToEdge.enable((ComponentActivity) activity);
+                    activity.getWindow().setNavigationBarContrastEnforced(false);
+                }
             }
         }
 
@@ -154,9 +166,9 @@ public class ThemeController {
             applyAccentColor(activity, isAutoNightAccentColorEnabled, accentColor, nightAccentColor);
 
             if (activity instanceof CollapsingToolbarBaseActivity) {
-                applyNavigationBarColorForCollapsingToolbarActivity(activity, darkMode);
+                applyNavBarAndBackgroundColorsForCollapsingToolbarActivity(activity, darkMode);
             } else if (activity instanceof AppCompatActivity) {
-                applyNavigationBarColorForRegularActivity(activity, darkMode);
+                applyNavBarAndBackgroundColorsForRegularActivity(activity, darkMode);
             }
         }
 
@@ -194,20 +206,57 @@ public class ThemeController {
             }
         }
 
-        private void applyNavigationBarColorForCollapsingToolbarActivity(Activity activity, String darkMode) {
-            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
-                activity.getWindow().setNavigationBarColor(Color.BLACK);
-                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+        /**
+         * Applies a color to windows and the navigation bar for activities that extend "CollapsingToolbarBaseActivity".
+         * <p>
+         * Note: For Android 10+, the color of the navigation bar is ensured by {@systemProperty setNavigationBarContrastEnforced(false)}
+         * and by the insets defined in the activities.
+         */
+        private void applyNavBarAndBackgroundColorsForCollapsingToolbarActivity(Activity activity, String darkMode) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                activity.getWindow().setNavigationBarContrastEnforced(false);
+
+                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+                }
             } else {
-                activity.getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
+                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+                    activity.getWindow().setNavigationBarColor(Color.BLACK);
+                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+                } else {
+                    activity.getWindow().setNavigationBarColor(
+                            MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
+                }
             }
         }
 
-        private void applyNavigationBarColorForRegularActivity(Activity activity, String darkMode) {
-            if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
-                activity.getWindow().setNavigationBarColor(Color.BLACK);
-                activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+        /**
+         * Applies a color to windows and the navigation bar for activities that extend "AppCompatActivity".
+         * <p>
+         * Note: For Android 10+, the color of the navigation bar is ensured by the insets defined in the activities
+         * or by the {@systemProperty android:fitsSystemWindows="true"} attribute in the xml files.
+         */
+        private void applyNavBarAndBackgroundColorsForRegularActivity(Activity activity, String darkMode) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+                }
+            } else {
+                if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
+                    activity.getWindow().setNavigationBarColor(Color.BLACK);
+                    activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+                } else if (activity instanceof AnalogAppWidgetConfiguration
+                        || activity instanceof MaterialYouAnalogAppWidgetConfiguration
+                        || activity instanceof FirstLaunch) {
+                    activity.getWindow().setNavigationBarColor(
+                            MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK));
+                } else {
+                    boolean isPhoneInLandscapeMode = !ThemeUtils.isTablet() && ThemeUtils.isLandscape();
+                    activity.getWindow().setNavigationBarColor(
+                            MaterialColors.getColor(activity, isPhoneInLandscapeMode
+                                    ? android.R.attr.colorBackground
+                                    : com.google.android.material.R.attr.colorSurface, Color.BLACK));
+                }
             }
         }
 

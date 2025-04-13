@@ -35,28 +35,30 @@ import com.google.android.material.color.MaterialColors;
 public class ThemeUtils {
 
     /**
-     * @return {@code true} if the device is in dark mode.
+     * @return {@code true} if the device is in dark mode. {@code false} otherwise.
      */
     public static boolean isNight(final Resources res) {
         return (res.getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 
     /**
-     * @return {@code true} if the device is currently in portrait or reverse portrait orientation
+     * @return {@code true} if the device is currently in portrait or reverse portrait orientation.
+     * {@code false} otherwise.
      */
     public static boolean isPortrait() {
         return Resources.getSystem().getConfiguration().orientation == ORIENTATION_PORTRAIT;
     }
 
     /**
-     * @return {@code true} if the device is currently in landscape or reverse landscape orientation
+     * @return {@code true} if the device is currently in landscape or reverse landscape orientation.
+     * {@code false} otherwise.
      */
     public static boolean isLandscape() {
         return Resources.getSystem().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     }
 
     /**
-     * @return {@code true} if the device is a tablet. {@code false} otherwise
+     * @return {@code true} if the device is a tablet. {@code false} otherwise.
      */
     public static boolean isTablet() {
         return Resources.getSystem().getConfiguration().smallestScreenWidthDp >= 600;

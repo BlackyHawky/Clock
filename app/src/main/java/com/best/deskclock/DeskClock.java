@@ -35,6 +35,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -353,12 +354,8 @@ public class DeskClock extends AppCompatActivity
             final boolean isCardBackgroundDisplayed = SettingsDAO.isCardBackgroundDisplayed(mPrefs);
             if (isCardBackgroundDisplayed) {
                 mBottomNavigation.setBackgroundColor(surfaceColor);
-                this.getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK));
             } else {
                 mBottomNavigation.setBackgroundColor(Color.TRANSPARENT);
-                this.getWindow().setNavigationBarColor(
-                        MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
             }
             mBottomNavigation.setItemTextColor(new ColorStateList(
                     new int[][]{{android.R.attr.state_selected}, {android.R.attr.state_pressed}, {}},
@@ -538,9 +535,9 @@ public class DeskClock extends AppCompatActivity
     };
 
     /**
-     * This method adjusts the spacing of the Toolbar, buttons layout, and content to take into
-     * account system insets, so that they are not obscured by system elements (status bar,
-     * navigation bar or cutout).
+     * This method adjusts the spacing of the Toolbar, the buttons layout, the bottom navigation view
+     * and the content to take into account system insets, so that they are not obscured by system
+     * elements (status bar, navigation bar or cutout).
      */
     private void applyWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(mAppBarLayout, (v, insets) -> {
@@ -566,6 +563,19 @@ public class DeskClock extends AppCompatActivity
                     WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
             );
             v.setPadding(bars.left, 0, bars.right, 0);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(mBottomNavigation, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(bars.left, 0, bars.right, 0);
+            v.setLayoutParams(params);
+            v.setPadding(0, 0, 0, bars.bottom);
 
             return WindowInsetsCompat.CONSUMED;
         });

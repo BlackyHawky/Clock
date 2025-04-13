@@ -80,11 +80,7 @@ public final class Screensaver extends DreamService {
 
         ScreensaverUtils.setScreensaverMarginsAndClockStyle(this, mMainClockView);
 
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        ScreensaverUtils.hideScreensaverSystemBars(getWindow(), mContentView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
 

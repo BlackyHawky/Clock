@@ -9,8 +9,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- For the settings page, ringtone selection and city selection, the color of
-             the navigation bar is defined programmatically -->
+        <!-- The navigation bar color is also set programmatically in the ThemeController.java file -->
         <item name="android:navigationBarColor">?android:colorBackground</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
 
@@ -82,7 +81,6 @@
     <!-- AMOLED THEME -->
     <style name="AmoledTheme">
         <item name="android:colorBackground">@android:color/black</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
         <item name="colorBackgroundFloating">@color/md_theme_surfaceContainerLowest</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
@@ -125,7 +123,6 @@
 
     <!-- BLUE GRAY THEME -->
     <style name="BlueGrayAccentColor">
-        <item name="android:navigationBarColor">@color/blueGrayColorSurface</item>
         <item name="android:colorBackground">@color/blueGrayColorBackground</item>
         <item name="colorBackgroundFloating">@color/blueGrayColorSurface</item>
         <item name="android:textColorHighlight">@color/blueGrayPrimaryInverse</item>
@@ -142,7 +139,6 @@
 
     <!-- BROWN THEME -->
     <style name="BrownAccentColor">
-        <item name="android:navigationBarColor">@color/brownColorSurface</item>
         <item name="android:colorBackground">@color/brownColorBackground</item>
         <item name="colorBackgroundFloating">@color/brownColorSurface</item>
         <item name="android:textColorHighlight">@color/brownPrimaryInverse</item>
@@ -159,7 +155,6 @@
 
     <!-- GREEN THEME -->
     <style name="GreenAccentColor">
-        <item name="android:navigationBarColor">@color/greenColorSurface</item>
         <item name="android:colorBackground">@color/greenColorBackground</item>
         <item name="colorBackgroundFloating">@color/greenColorSurface</item>
         <item name="android:textColorHighlight">@color/greenPrimaryInverse</item>
@@ -176,7 +171,6 @@
 
     <!-- INDIGO THEME -->
     <style name="IndigoAccentColor">
-        <item name="android:navigationBarColor">@color/indigoColorSurface</item>
         <item name="android:colorBackground">@color/indigoColorBackground</item>
         <item name="colorBackgroundFloating">@color/indigoColorSurface</item>
         <item name="android:textColorHighlight">@color/indigoPrimaryInverse</item>
@@ -193,7 +187,6 @@
 
     <!-- ORANGE THEME -->
     <style name="OrangeAccentColor">
-        <item name="android:navigationBarColor">@color/orangeColorSurface</item>
         <item name="android:colorBackground">@color/orangeColorBackground</item>
         <item name="colorBackgroundFloating">@color/orangeColorSurface</item>
         <item name="android:textColorHighlight">@color/orangePrimaryInverse</item>
@@ -210,7 +203,6 @@
 
     <!-- PINK THEME -->
     <style name="PinkAccentColor">
-        <item name="android:navigationBarColor">@color/pinkColorSurface</item>
         <item name="android:colorBackground">@color/pinkColorBackground</item>
         <item name="colorBackgroundFloating">@color/pinkColorSurface</item>
         <item name="android:textColorHighlight">@color/pinkPrimaryInverse</item>
@@ -243,7 +235,6 @@
 
     <!-- RED THEME -->
     <style name="RedAccentColor">
-        <item name="android:navigationBarColor">@color/redColorSurface</item>
         <item name="android:colorBackground">@color/redColorBackground</item>
         <item name="colorBackgroundFloating">@color/redColorSurface</item>
         <item name="android:textColorHighlight">@color/redPrimaryInverse</item>

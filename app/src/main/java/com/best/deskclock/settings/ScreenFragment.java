@@ -30,6 +30,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -115,8 +118,8 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
         mRecyclerView = getListView();
         if (mRecyclerView != null) {
-            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
-            mRecyclerView.setPadding(0, padding, 0, padding);
+            applyWindowInsets();
+            mRecyclerView.setClipToPadding(false);
             mRecyclerView.setVerticalScrollBarEnabled(false);
             mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         }
@@ -212,6 +215,18 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
                 }
             }
         }
+    }
+
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(mRecyclerView, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
+            v.setPadding(bars.left, padding, bars.right, bars.bottom + padding);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     /**

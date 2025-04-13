@@ -55,6 +55,7 @@ import androidx.core.view.animation.PathInterpolatorCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
@@ -114,8 +115,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
-        // Hide navigation bar to minimize accidental tap on Home key
-        hideNavigationBar();
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
         final String getDarkMode = SettingsDAO.getDarkMode(prefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
@@ -314,12 +314,6 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         }
 
         return true;
-    }
-
-    private void hideNavigationBar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     private void hintSnooze() {

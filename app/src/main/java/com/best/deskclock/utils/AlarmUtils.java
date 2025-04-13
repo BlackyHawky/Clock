@@ -13,14 +13,20 @@ import android.content.SharedPreferences;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
@@ -46,6 +52,30 @@ public class AlarmUtils {
      * This action will display the next alarm of this app only in the clock tab and screensaver.
      */
     public static final String ACTION_NEXT_ALARM_CHANGED_BY_CLOCK = "com.best.deskclock.NEXT_ALARM_CHANGED_BY_CLOCK";
+
+    /**
+     * Hide system bars when alarm goes off or timer expires.
+     */
+    public static void hideSystemBarsOfTriggeredAlarms(Window window, View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            WindowInsetsControllerCompat windowInsetsController =
+                    WindowCompat.getInsetsController(window, view);
+            windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+
+            ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+                if (insets.isVisible(WindowInsetsCompat.Type.statusBars())
+                        || insets.isVisible(WindowInsetsCompat.Type.navigationBars())) {
+                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+                }
+
+                return ViewCompat.onApplyWindowInsets(v, insets);
+            });
+        } else {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
 
     /**
      * @return The text of the next alarm.

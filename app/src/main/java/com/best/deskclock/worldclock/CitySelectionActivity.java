@@ -34,7 +34,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
@@ -112,7 +115,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         addMenuProvider(mSearchMenuItemController);
         mCitiesList = findViewById(R.id.cities_list);
         mCitiesList.setAdapter(mCitiesAdapter);
-
+        applyWindowInsets();
         updateFastScrolling();
     }
 
@@ -166,6 +169,17 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(mCitiesList, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, 0, bars.right, bars.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     private int getMenuTitle() {

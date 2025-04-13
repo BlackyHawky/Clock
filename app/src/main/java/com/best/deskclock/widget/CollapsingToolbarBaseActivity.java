@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -197,16 +196,6 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
                 return WindowInsetsCompat.CONSUMED;
             });
         }
-
-        FrameLayout frameLayout = findViewById(R.id.content_frame);
-        ViewCompat.setOnApplyWindowInsetsListener(frameLayout, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, 0, bars.right, bars.bottom);
-
-            return WindowInsetsCompat.CONSUMED;
-        });
     }
 
 }

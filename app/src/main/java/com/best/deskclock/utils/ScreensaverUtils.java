@@ -11,10 +11,17 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextClock;
 import android.widget.TextView;
+
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -229,5 +236,31 @@ public class ScreensaverUtils {
         ViewGroup.MarginLayoutParams analogClockParams = (ViewGroup.MarginLayoutParams) mainClockView.getLayoutParams();
         analogClockParams.setMargins(0, 0, 0, analogClockMarginBottom);
         mainClockView.setLayoutParams(analogClockParams);
+    }
+
+    /**
+     * Hide system bars when the screensaver is active.
+     */
+    public static void hideScreensaverSystemBars(Window window, View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            WindowInsetsControllerCompat windowInsetsController =
+                    WindowCompat.getInsetsController(window, view);
+            windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+
+            ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+                if (insets.isVisible(WindowInsetsCompat.Type.statusBars())
+                        || insets.isVisible(WindowInsetsCompat.Type.navigationBars())) {
+                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+                }
+
+                return ViewCompat.onApplyWindowInsets(v, insets);
+            });
+        } else {
+            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
     }
 }

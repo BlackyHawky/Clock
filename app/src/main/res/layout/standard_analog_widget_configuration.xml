@@ -9,9 +9,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_config_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingHorizontal="16dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/title"
@@ -28,7 +28,8 @@
         android:id="@+id/center_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="48dp"
+        android:layout_marginHorizontal="64dp"
+        android:layout_marginVertical="48dp"
         app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_max="800dp">

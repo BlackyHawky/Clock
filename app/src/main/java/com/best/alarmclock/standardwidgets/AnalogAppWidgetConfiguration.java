@@ -6,7 +6,6 @@ import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ANALOG_WIDGET_WITH_SECOND_HAND;
 
 import android.appwidget.AppWidgetManager;
@@ -19,9 +18,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
-import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.card.MaterialCardView;
@@ -37,6 +39,7 @@ public class AnalogAppWidgetConfiguration extends AppCompatActivity {
 
     private int mAppWidgetId = INVALID_APPWIDGET_ID;
 
+    private ConstraintLayout mWidgetConfigLayout;
     SharedPreferences mPrefs;
 
     @Override
@@ -65,16 +68,14 @@ public class AnalogAppWidgetConfiguration extends AppCompatActivity {
 
         setContentView(R.layout.standard_analog_widget_configuration);
 
-        final boolean isNight = ThemeUtils.isNight(getResources());
+        mWidgetConfigLayout = findViewById(R.id.widget_config_layout);
 
-        this.getWindow().setNavigationBarColor(isNight && SettingsDAO.getDarkMode(mPrefs).equals(AMOLED_DARK_MODE)
-                ? Color.TRANSPARENT
-                : MaterialColors.getColor(this, android.R.attr.colorBackground, Color.BLACK));
+        applyWindowInsets();
 
         MaterialCardView analogClockWithoutSecond = findViewById(R.id.container_without_second_hand);
         MaterialCardView analogClockWithSecond = findViewById(R.id.container_with_second_hand);
 
-        int cardBackgroundColor = isNight
+        int cardBackgroundColor = ThemeUtils.isNight(getResources())
                 ? MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondaryContainer, Color.BLACK)
                 : MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
 
@@ -83,6 +84,17 @@ public class AnalogAppWidgetConfiguration extends AppCompatActivity {
 
         analogClockWithoutSecond.setOnClickListener(v -> onWidgetContainerClicked(false));
         analogClockWithSecond.setOnClickListener(v -> onWidgetContainerClicked(true));
+    }
+
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(mWidgetConfigLayout, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     private void onWidgetContainerClicked(boolean isSecondHandDisplayed) {

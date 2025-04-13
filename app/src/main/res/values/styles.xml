@@ -9,8 +9,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- For the settings page, ringtone selection and city selection, the color of
-             the navigation bar is defined programmatically -->
+        <!-- The navigation bar color is also set programmatically in the ThemeController.java file -->
         <item name="android:navigationBarColor">?android:colorBackground</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 

@@ -35,6 +35,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
@@ -102,6 +105,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
      * Stores the set of ItemHolders that wrap the selectable ringtones.
      */
     private ItemAdapter<ItemAdapter.ItemHolder<Uri>> mRingtoneAdapter;
+
+    /**
+     * Displays a set of selectable ringtones.
+     */
+    RecyclerView mRingtoneContent;
 
     /**
      * The title of the default ringtone.
@@ -237,12 +245,11 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
                 .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_SYSTEM_SOUND)
                 .withViewTypes(ringtoneFactory, listener, VIEW_TYPE_CUSTOM_SOUND);
 
-        // Displays a set of selectable ringtones.
-        RecyclerView ringtone_content = findViewById(R.id.ringtone_content);
-        ringtone_content.setLayoutManager(new LinearLayoutManager(context));
-        ringtone_content.setAdapter(mRingtoneAdapter);
-        ringtone_content.setItemAnimator(null);
-
+        mRingtoneContent = findViewById(R.id.ringtone_content);
+        mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
+        mRingtoneContent.setAdapter(mRingtoneAdapter);
+        mRingtoneContent.setItemAnimator(null);
+        applyWindowInsets();
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(mTitleResourceId));
 
@@ -335,6 +342,17 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<ItemAdapter.ItemHolder<Uri>>> loader) {
+    }
+
+    private void applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(mRingtoneContent, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, 0, bars.right, bars.bottom);
+
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     private void onItemRemovedClicked(int indexOfRingtoneToRemove) {
