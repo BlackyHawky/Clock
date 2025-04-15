@@ -6,14 +6,12 @@
 
 package com.best.deskclock.alarms;
 
-import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -47,7 +45,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextClock;
@@ -75,8 +72,6 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.widget.CircleView;
-
-import java.util.List;
 
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -120,7 +115,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
      * Whether the AlarmService is currently bound
      */
     private boolean mServiceBound;
-    private AccessibilityManager mAccessibilityManager;
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
     private TextView mAlertInfoView;
@@ -235,8 +229,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
-
-        mAccessibilityManager = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
 
         setContentView(R.layout.alarm_activity);
 
@@ -437,9 +429,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
         LOGGER.v("onClick: %s", view);
 
-        // If in accessibility mode or if alarm swiping is disabled in settings,
-        // allow snooze/dismiss by tapping on respective icons.
-        if (isAccessibilityEnabled() || !isSwipeActionEnabled) {
+        // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective icons.
+        if (!isSwipeActionEnabled) {
             if (view == mSnoozeButton) {
                 snooze();
             } else if (view == mDismissButton) {
@@ -542,25 +533,6 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
 
         return true;
-    }
-
-    /**
-     * Returns {@code true} if accessibility is enabled, to enable alternate behavior for click
-     * handling, etc.
-     */
-    private boolean isAccessibilityEnabled() {
-        if (mAccessibilityManager == null || !mAccessibilityManager.isEnabled()) {
-            // Accessibility is unavailable or disabled.
-            return false;
-        } else if (mAccessibilityManager.isTouchExplorationEnabled()) {
-            // TalkBack's touch exploration mode is enabled.
-            return true;
-        }
-
-        // Check if "Switch Access" is enabled.
-        final List<AccessibilityServiceInfo> enabledAccessibilityServices =
-                mAccessibilityManager.getEnabledAccessibilityServiceList(FEEDBACK_GENERIC);
-        return !enabledAccessibilityServices.isEmpty();
     }
 
     private void hintSnooze() {

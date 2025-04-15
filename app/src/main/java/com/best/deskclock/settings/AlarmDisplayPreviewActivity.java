@@ -80,6 +80,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
+    private boolean isSwipeActionEnabled;
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
     private TextView mAlertInfoView;
@@ -192,7 +193,12 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         final CircleView pulseView = mContentView.findViewById(R.id.pulse);
         pulseView.setFillColor(pulseColor);
 
-        mAlarmButton.setOnTouchListener(this);
+        isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(prefs);
+        if (isSwipeActionEnabled) {
+            mAlarmButton.setOnTouchListener(this);
+        } else {
+            mAlarmButton.setOnClickListener(this);
+        }
         mSnoozeButton.setOnClickListener(this);
         mDismissButton.setOnClickListener(this);
 
@@ -233,6 +239,18 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
+        // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective icons.
+        if (!isSwipeActionEnabled) {
+            if (view == mSnoozeButton) {
+                snooze();
+            } else if (view == mDismissButton) {
+                dismiss();
+            } else if (view == mAlarmButton) {
+                hintAlarmAction();
+            }
+            return;
+        }
+
         if (view == mSnoozeButton) {
             hintSnooze();
         } else if (view == mDismissButton) {
