@@ -1,0 +1,12 @@
+**Fixes**
+ - Fix the display of digital widgets for some versions of Android;
+ - For phones in landscape mode only, the timer text title can be re-entered;
+
+**Improvements**
+ - Improve app opening;
+ - Dismiss or snooze alarms by swiping or tapping;
+ - Add color picker to screensaver and digital widgets settings;
+ - To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.5
+
+ **Note:**
+ Due to a change in settings, you will need to redefine the "Dark theme mode" setting.

@@ -1,0 +1,13 @@
+**Correzioni**
+- Correzione del bug della Seekbar per l'impostazione "Intensità scuotimento".
+
+**Miglioramenti
+- Miglioramento del comportamento della SeekBar per le versioni di Android inferiori ad Android 8
+- Visualizzazione del tempo del cronometro come nell'app Google
+- Aggiornamento all'SDK 35
+- Aggiornamento delle traduzioni
+- Miglioramento e pulizia del codice
+
+Per vedere tutti i miglioramenti, visitate: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+RICORDA: DOPO la versione 2.17, CANCELLARE IL VECCHIO BACKUP E CREARNE UNO NUOVO

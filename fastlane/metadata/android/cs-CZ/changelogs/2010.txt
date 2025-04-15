@@ -1,0 +1,15 @@
+**Fixes**
+- Fix tab indicator color
+- Fix the color of the seconds hand in the Clock tab
+- Fix display bug when launching screensaver from device settings
+
+**Improvements**
+- Add backup and restore settings
+- Sort timers and new settings added
+- Separate accent colors for day and night modes
+- Update night accent color
+- Update translations
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.9
+
+Note: you need to reset the "Notification reminder" setting

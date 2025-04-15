@@ -63,6 +63,9 @@ Before opening a new issue, be sure to check the following:
   Note that issues that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, or addressing multiple topics).
 
 ## Translation
+
+### _Thank you to everyone who contributes to the translation of the app._ 🙏
+
 Translations can be added using [Weblate](https://translate.codeberg.org/projects/clock/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
 Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
 

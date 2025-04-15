@@ -1,0 +1,12 @@
+**Fixes**
+- Fix crash when the "Display ringtone title" setting is disabled
+- Fix default seconds hand color setting for alarms
+
+**Improvements**
+- Add Material analog clock to clock styles
+- Improve hour hand rotation
+- Make screensaver available for third-party apps
+- Clean code
+- Update translations
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.13

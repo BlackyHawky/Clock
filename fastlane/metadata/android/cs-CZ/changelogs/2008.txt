@@ -1,0 +1,7 @@
+**Improvements**
+ - Choose the default style for the time picker;
+ - Add a fade transition when browsing settings;
+ - Customize alarm animation display;
+ - Add a "Nothing" action to the volume buttons;
+ - Update translations;
+ - To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.7

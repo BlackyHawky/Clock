@@ -1,0 +1,11 @@
+**Fix**
+ - Fix the color of the timer minutes for the French language;
+ - Fix "Shake to snooze" action for Android 14+;
+
+**Improvements**
+ - Update Readme to clarify the use of Weblate for translations;
+ - Upcoming alarm days always displayed, even if the alarm is deactivated;
+ - Timer display is reduced when stopped (only phones in portrait mode are affected);
+ - Play/pause the timer by clicking on the remaining time;
+ - Some translations updated;
+ - Screenshots updated (mainly for F-Droid) as discussed here: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

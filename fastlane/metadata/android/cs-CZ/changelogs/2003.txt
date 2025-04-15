@@ -1,0 +1,11 @@
+**Fix**
+ - Fix the size of the marker in the stopwatch circle;
+
+**Improvements**
+ - Add the ability to change the accent color;
+ - Add the ability to hide/display card backgrounds (does not apply to settings);
+ - Add the ability to hide/display background borders (does not apply to settings);
+ - Add the ability to enable/disable vibrations to some UI elements (only devices equipped with a vibrator are affected);
+ - Vibrations are added to the settings switches (only devices equipped with a vibrator are affected);
+ - Remove essential permissions check when opening the app: now, if essential permissions are not granted, a message appears at the top of the settings;
+ - Screenshots updated (mainly for F-Droid) as discussed here: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

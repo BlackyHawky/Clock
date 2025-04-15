@@ -1,0 +1,9 @@
+**Fix**
+ - Fix digital widgets update for Android13+;
+
+**Improvements**
+ - Digital widgets are customizable:
+  • The color of all elements can be changed;
+  • Font size can be changed for the main clock (only possible if no city is displayed);
+  • Configure digital widgets on long press for Android 9+;
+ - Some translations updated;

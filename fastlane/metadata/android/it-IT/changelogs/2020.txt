@@ -1,0 +1,26 @@
+**Correzioni**
+- Correzione della creazione di un timer, dell'avvio o della messa in pausa del cronometro dalla scorciatoia dell'app
+
+**Miglioramenti
+- È possibile eseguire il backup e il ripristino di allarmi, timer, città e suonerie di sistema.
+- Possibilità di visualizzare/nascondere la data nei widget digitali
+- Aggiunta del tema "Blu
+- Aggiunta dell'ora UTC all'elenco delle città
+- Aggiunta delle lingue turca e coreana all'impostazione della lingua dell'app
+- Aggiornamento delle traduzioni
+
+Per vedere tutti i miglioramenti, visitate: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+CANCELLARE IL VECCHIO BACKUP E CREARNE UNO NUOVO DOPO L'AGGIORNAMENTO**Correzioni**
+- Correzione del bug della Seekbar per l'impostazione "Intensità di scuotimento".
+
+**Miglioramenti
+- Miglioramento del comportamento della SeekBar per le versioni di Android inferiori ad Android 8
+- Visualizzazione del tempo del cronometro come nell'app Google
+- Aggiornamento all'SDK 35
+- Aggiornamento delle traduzioni
+- Miglioramento e pulizia del codice
+
+Per vedere tutti i miglioramenti, visitate: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+RICORDA: DOPO la versione 2.17, CANCELLARE IL VECCHIO BACKUP E CREARNE UNO NUOVO

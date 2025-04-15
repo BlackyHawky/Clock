@@ -345,4 +345,5 @@
     <string name="C347" msgid="6291282205599716861">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yaren, distretto<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"E<xliff:g id="SEPARATOR">=</xliff:g>Erevan<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
     <string name="C349">P<xliff:g id="separator">=</xliff:g>Ponta Delgada<xliff:g id="timezone">|Atlantico/Azzore</xliff:g></string>
+    <string name="C350">U<xliff:g id="separator">=</xliff:g>Orario UTC<xliff:g id="timezone">|UTC</xliff:g></string>
 </resources>

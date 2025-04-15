@@ -1,0 +1,7 @@
+**Opgelost:**
+* Weergave van snelkoppelingen repareren wanneer je het app-pictogram lang indrukt;
+
+**Verbetering:**
+* Onnodige rechten verwijderen;
+
+De belangrijkste wijzigingen zijn hier te vinden: https://github.com/BlackyHawky/Clock/releases/tag/2.0

@@ -392,7 +392,7 @@
     <string name="font_category_title">Lettertype</string>
     <string name="title_accent_color">Accentkleur</string>
     <string name="display_card_background_summary">Gebruikt een achtergrond voor sommige elementen (wekkers, steden, kookwekkerknoppen, etc.)</string>
-    <string name="title_dark_theme_mode">Donker themastijl</string>
+    <string name="title_dark_theme_mode">Donkere themastijl</string>
     <string name="display_card_background_title">Kaartachtergronden tonen</string>
     <string name="settings_vibration_summary">Alleen van toepassing op sommige elementen (bijv. de start/pauze knop van de kookwekker)</string>
     <string name="ignore_battery_optimizations_dialog_title">Batterijoptimalisaties</string>
@@ -486,7 +486,7 @@
     <string name="description_direction_both_clicked">Tik links om te sluimeren of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarm_clicked">Tik links of rechts om uit te zetten</string>
-    <string name="timer_settings_summary">Standaard ringtoon, volume en kookwekker sorteren</string>
+    <string name="timer_settings_summary">Standaard ringtoon, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
     <string name="keep_timer_screen_on_title">Scherm aanhouden als kookwekker getoond wordt</string>
     <string name="widget_background_title">Achtergrond tonen</string>

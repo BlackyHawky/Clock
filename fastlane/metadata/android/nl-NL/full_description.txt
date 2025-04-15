@@ -1,0 +1,31 @@
+Clock is een privacybewuste open-sourceklok, gebaseerd op AOSP.
+Maakt geen gebruik van internetpermissies en is dus 100% offline.
+
+Functies:
+<ul>
+<li>Omdraaien en schudden om het alarm te negeren/uit te stellen;</li>
+<li>Het alarm uitschakelen/uitstellen met de aan/uit-knop of volumeknoppen;</li>
+<li>Alleen bij sommige Snapdragon-apparaten wordt het alarm geactiveerd wanneer ze worden uitgeschakeld.</li>
+<ul>
+<li>Helaas werkt deze functie mogelijk niet op sommige apparaten, ondanks de aanwezigheid van de systeem-app <i>"com.qualcomm.qti.poweroffalarm"</i>.</li>
+</ul>
+<li>Vegen om een alarm te verwijderen;</li>
+<li>Alarmen dupliceren;</li>
+<li>Aanpasbare alarmtitel;</li>
+<li>Aanpasbare beltoon;</li>
+<li>Licht, donker of systeemthema;</li>
+<li>AMOLED-modus voor donker thema;</li>
+<li>Aanpasbare interface;</li>
+<li>Digitale of analoge klokstijl;</li>
+<li>Toon de tijd thuis tijdens het reizen;</li>
+<li>Toon de tijd in veel steden wereldwijd;</li>
+<li>Timer en stopwatch inbegrepen;</li>
+<li>Mogelijkheid om je stopwatch te delen met je contacten;</li>
+<li>Aanpasbare screensaver;</li>
+<li>Moderne widgets;</li>
+<li>Aanpasbare widgets;</li>
+<li>Ondersteuning voor tegels in de snelle instellingen (voor Android 7+);</li>
+<li>Back-up en herstel van instellingen;</li>
+<li>Materiaalontwerp;</li>
+<li>Dynamische kleuren voor Android 12+;</li>
+</ul>

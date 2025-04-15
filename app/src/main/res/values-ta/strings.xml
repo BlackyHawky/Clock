@@ -373,4 +373,42 @@
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"விலக்க வேண்டிய அலாரத்தைத் தேர்வுசெய்க"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"இயக்கத்தில் உள்ள அலாரங்கள் எதுவுமில்லை"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> அலாரம் 10 நிமிடங்களுக்கு உறக்கநிலையில் வைக்கப்பட்டது"</string>
+    <string name="red_accent_color">சிவப்பு</string>
+    <string name="blue_accent_color">நீலம்</string>
+    <string name="amoled_dark_theme_mode">அமோல்ட்</string>
+    <string name="settings_language_german">ஜெர்மன்</string>
+    <string name="settings_language_title">மொழி</string>
+    <string name="settings_language_system">சாதன மொழி</string>
+    <string name="settings_language_french">பிரெஞ்சு</string>
+    <string name="settings_language_italian">இத்தாலியன்</string>
+    <string name="alarm_notification_reminder_30_minutes">30 நிமிடங்களுக்கு முன்பு</string>
+    <string name="alarm_notification_reminder_4_hours">4 மணி நேரத்திற்கு முன்</string>
+    <string name="alarm_notification_reminder_8_hours">8 மணி நேரத்திற்கு முன்</string>
+    <string name="settings_language_english_us">ஆங்கிலம்(யுஎஸ்)</string>
+    <string name="settings_language_chinese_simplified_cn">சீனம் (எளிமைப்படுத்தப்பட்டது, PRC)</string>
+    <string name="alarm_notification_reminder_12_hours">12 மணி நேரத்திற்கு முன்</string>
+    <string name="enable_alarm_vibrations_by_default_setting_title">அலாரங்களை உருவாக்கும்போது அதிர்வுகளை இயக்கு</string>
+    <string name="alarm_notification_reminder_6_hours">6 மணி நேரத்திற்கு முன்</string>
+    <string name="alarm_notification_reminder_10_hours">10 மணி நேரத்திற்கு முன்</string>
+    <string name="analog_widget_choice_title">உங்கள் பாணியைத் தேர்வுசெய்க</string>
+    <string name="orange_accent_color">ஆரஞ்சு</string>
+    <string name="blue_gray_accent_color">நீல சாம்பல்</string>
+    <string name="brown_accent_color">பழுப்பு</string>
+    <string name="green_accent_color">பச்சை</string>
+    <string name="indigo_accent_color">இண்டிகோ</string>
+    <string name="pink_accent_color">இளஞ்சிவப்பு</string>
+    <string name="black_accent_color">கருப்பு</string>
+    <string name="alarm_notification_reminder_1_hour">1 மணி நேரத்திற்கு முன்</string>
+    <string name="alarm_notification_reminder_2_hours">2 மணி நேரத்திற்கு முன்</string>
+    <string name="purple_accent_color">ஊதா</string>
+    <string name="yellow_accent_color">மஞ்சள்</string>
+    <string name="font_category_title">எழுத்து</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">அலாரம் உறக்கநிலைக்கு மாற்றப்படும்போது அல்லது நிராகரிக்கப்படும்போது அதிர்வுகளை இயக்கு</string>
+    <string name="title_dark_theme_mode">டார்க் தீம் பயன்முறை</string>
+    <string name="selected">தேர்ந்தெடுக்கப்பட்டவை</string>
+    <string name="next_alarm_widget">அடுத்த அலாரம்</string>
+    <string name="settings_vibration_title">அதிர்வுகளை இயக்கு</string>
+    <string name="alarm_notification_reminder_title">அறிவிப்பு நினைவூட்டல்</string>
+    <string name="alarm_alert_dismiss_and_delete_text">நிராகரி &amp; நீக்கு</string>
+    <string name="vertical_digital_widget">செங்குத்து டிஜிட்டல் கடிகாரம்</string>
 </resources>

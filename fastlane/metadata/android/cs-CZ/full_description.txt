@@ -1,0 +1,31 @@
+Hodiny jsou open-source aplikace zaměřené na soukromí, založená na AOSP.
+Nepoužívá oprávnění k internetu, a je tedy 100% offline.
+
+Funkce:
+<ul>
+  <li>Otočením nebo zatřesením telefonu odložíte/zrušíte budík;</li>
+  <li>Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti;</li>
+  <li>Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení</li>
+    <ul>
+      <li>Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>.</li>
+    </ul>
+  <li>Odstranění budíku přejetím prstem;</li>
+  <li>Duplikování budíků;</li>
+  <li>Přizpůsobitelný název budíku;</li>
+  <li>Přizpůsobitelné vyzvánění budíku;</li>
+  <li>Světlý, tmavý nebo systémový motiv;</li>
+  <li>AMOLED režim pro tmavý motiv;</li>
+  <li>Přizpůsobitelné rozhraní;</li>
+  <li>Digitální nebo analogový styl hodin;</li>
+  <li>Zobrazení domácího času při cestování;</li>
+  <li>Zobrazení času ve více městech po celém světě;</li>
+  <li>Obsahuje časovač a stopky;</li>
+  <li>Možnost sdílení stopek s kontakty;</li>
+  <li>Přizpůsobitelný spořič obrazovky;</li>
+  <li>Moderní widgety;</li>
+  <li>Přizpůsobitelné widgety;</li>
+  <li>Podpora dlaždic v rychlém nastavení (pro Android 7+);</li>
+  <li>Zálohování a obnovení nastavení;</li>
+  <li>Material Design;</li>
+  <li>Dynamické barvy pro Android 12+;</li>
+</ul>

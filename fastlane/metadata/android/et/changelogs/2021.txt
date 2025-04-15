@@ -1,0 +1,13 @@
+**Parandused**
+- Otsinguriba viga „Raputamise tugevus“ seadistuse kontekstis
+
+**Täiendused**
+- Parem otsinguriba toimimine Androidi versioonides, mis on vanemad, kui versioon 8
+- Stopperi aeg, nagu Google'i rakenduses 
+- Uuendus SDK 35-ni
+- Tõlgete uuendused
+- Koodihaldus
+
+Kõik muudatused: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+MEELDETULETUS: PEALE 2.17 VERSIOONI, PALUN KUSTUTA VANA VARUKOOPIA JA LOO UUS

@@ -25,7 +25,7 @@ Features:
   <li>Modern widgets;</li>
   <li>Customizable widgets;</li>
   <li>Support for tiles in quick settings (for Android 7+);</li>
-  <li>Backup and restore settings;</li>
+  <li>Backup and restore application data (except custom ringtones);</li>
   <li>Material design;</li>
   <li>Dynamic colors for Android 12+;</li>
 </ul>

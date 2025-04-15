@@ -1,0 +1,14 @@
+**Fixes**
+- Fix display of upcoming alarms from other apps
+- Fix triggered alarm not showing when device is locked for MIUI devices
+
+**Improvements**
+- Remove Bedtime mode
+- Tile support in Quick Settings panel
+- Ability to turn on back flash when alarm is triggered
+- Ability to adjust the shake intensity
+- Ability to change application language
+- Improve landscape mode usability for phones
+
+Many other changes are listed on the github page:
+https://github.com/BlackyHawky/Clock/releases/tag/2.12

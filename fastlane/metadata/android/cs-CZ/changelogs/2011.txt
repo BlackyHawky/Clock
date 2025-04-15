@@ -1,0 +1,15 @@
+**Fixes**
+- Fix dragging when phone is in landscape mode
+- Fix the color of the seconds hand in the Clock tab
+
+**Improvements**
+- Set alarms for a specific date
+- Choose date picker style
+- Add the "Black", "Purple" and "Yellow" themes
+- Reset expired timer with volume and power buttons
+- Add actions to volume buttons for stopwatch
+- Optimize and update vector icons
+- Update translations
+- Improve code
+
+To see all the improvements, visit: https://github.com/BlackyHawky/Clock/releases/tag/2.10
