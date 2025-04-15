@@ -121,7 +121,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         // The default color is defined in the xml files to match the device's day/night theme.
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final int customNextAlarmColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs);
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(prefs)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -281,7 +281,7 @@ public class MaterialYouVerticalDigitalAppWidgetProvider extends AppWidgetProvid
         final TextView nextAlarmIconForCustomColor = sizer.findViewById(R.id.nextAlarmIconForCustomColor);
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
         final int customNextAlarmColor = WidgetDAO.getMaterialYouVerticalDigitalWidgetCustomNextAlarmColor(prefs);
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(prefs)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);

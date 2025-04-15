@@ -113,6 +113,13 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the next alarm is displayed on the digital widget; {@code false} otherwise.
+     */
+    public static boolean isNextAlarmDisplayedOnDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM, DEFAULT_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+    }
+
+    /**
      * @return {@code true} if the default color is applied to the next alarm in the digital widget;
      * {@code false} otherwise.
      */
@@ -232,6 +239,14 @@ public final class WidgetDAO {
      */
     public static int getVerticalDigitalWidgetCustomDateColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the next alarm is displayed on the vertical digital widget; {@code false} otherwise.
+     */
+    public static boolean isNextAlarmDisplayedOnVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
+                DEFAULT_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
     }
 
     /**
@@ -386,6 +401,14 @@ public final class WidgetDAO {
     }
 
     /**
+     * @return {@code true} if the next alarm is displayed on the Material You digital widget; {@code false} otherwise.
+     */
+    public static boolean isNextAlarmDisplayedOnMaterialYouDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
+                DEFAULT_MATERIAL_YOU_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
+    }
+
+    /**
      * @return {@code true} if the default color is applied to the next alarm in the Material You digital widget;
      * {@code false} otherwise.
      */
@@ -493,6 +516,15 @@ public final class WidgetDAO {
      */
     public static int getMaterialYouVerticalDigitalWidgetCustomDateColor(SharedPreferences prefs) {
         return prefs.getInt(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_CUSTOM_DATE_COLOR, DEFAULT_WIDGETS_CUSTOM_COLOR);
+    }
+
+    /**
+     * @return {@code true} if the next alarm is displayed on the Material You vertical digital widget;
+     * {@code false} otherwise.
+     */
+    public static boolean isNextAlarmDisplayedOnMaterialYouVerticalDigitalWidget(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM,
+                DEFAULT_MATERIAL_YOU_VERTICAL_DIGITAL_WIDGET_DISPLAY_NEXT_ALARM);
     }
 
     /**

@@ -94,6 +94,14 @@
             tools:layout="@layout/settings_preference_layout" />
 
         <SwitchPreferenceCompat
+            android:key="key_vertical_digital_widget_display_next_alarm"
+            android:title="@string/display_next_alarm_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <SwitchPreferenceCompat
             android:key="key_vertical_digital_widget_default_next_alarm_color"
             android:title="@string/widget_next_alarm_default_color_title"
             android:defaultValue="true"

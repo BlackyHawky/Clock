@@ -1412,6 +1412,8 @@
     <string name="digital_widget_date_default_color_title">Use default color for date</string>
     <!-- Title to set the custom color of the date in the digital widget. -->
     <string name="digital_widget_date_custom_color_title">Date custom color</string>
+    <!-- Title to display the next alarm on the digital widget. -->
+    <string name="display_next_alarm_title">Display next alarm on the widget</string>
     <!-- Title to set the default color of the next alarm in the digital widget. -->
     <string name="widget_next_alarm_default_color_title">Use default color for next alarm</string>
     <!-- Title to set the custom color of the next alarm in the digital widget. -->

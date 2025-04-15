@@ -150,7 +150,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final String nextAlarmTime = AlarmUtils.getNextAlarm(context);
         final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(prefs)) {
             rv.setViewVisibility(R.id.nextAlarm, GONE);
             rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
             rv.setViewVisibility(R.id.nextAlarmForCustomColor, GONE);
@@ -323,7 +323,7 @@ public class MaterialYouDigitalAppWidgetProvider extends AppWidgetProvider {
         final TextView nextAlarmForCustomColor = sizer.findViewById(R.id.nextAlarmForCustomColor);
         final int customNextAlarmColor = WidgetDAO.getMaterialYouDigitalWidgetCustomNextAlarmColor(prefs);
 
-        if (TextUtils.isEmpty(nextAlarmTime)) {
+        if (TextUtils.isEmpty(nextAlarmTime) || !WidgetDAO.isNextAlarmDisplayedOnMaterialYouDigitalWidget(prefs)) {
             nextAlarm.setVisibility(GONE);
             nextAlarmIcon.setVisibility(GONE);
             nextAlarmForCustomColor.setVisibility(GONE);
