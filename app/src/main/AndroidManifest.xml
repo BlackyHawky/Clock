@@ -522,5 +522,17 @@
             </intent-filter>
         </service>
 
+        <!-- Screensaver tile -->
+        <service
+            android:name="com.best.deskclock.tiles.ScreensaverTileService"
+            android:exported="true"
+            android:label="@string/screensaver_settings_title"
+            android:icon="@drawable/ic_screensaver"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
     </application>
 </manifest>
