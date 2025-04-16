@@ -40,8 +40,8 @@
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@id/fold_vertical_end_edge"
-        app:layout_constraintStart_toStartOf="@id/fold_vertical_start_edge">
+        app:layout_constraintStart_toEndOf="@id/fold_vertical_start_edge"
+        app:layout_constraintEnd_toStartOf="@id/fold_vertical_end_edge">
     </View>
 
     <!-- Due to the ViewPager and the location of FAB, margins are set programmatically

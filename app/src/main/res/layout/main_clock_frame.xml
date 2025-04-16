@@ -16,31 +16,24 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.best.deskclock.widget.AnalogClock
+        android:id="@+id/analog_clock"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        tools:visibility="gone" />
 
-        <com.best.deskclock.widget.AnalogClock
-            android:id="@+id/analog_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            tools:visibility="gone" />
-
-        <com.best.deskclock.widget.AutoSizingTextClock
-            android:id="@+id/digital_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="none"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:textSize="70sp"
-            tools:text="12:34" />
-
-    </FrameLayout>
+    <com.best.deskclock.widget.AutoSizingTextClock
+        android:id="@+id/digital_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="none"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textSize="70sp"
+        tools:text="12:34" />
 
     <include layout="@layout/date_and_next_alarm_time" />
 
