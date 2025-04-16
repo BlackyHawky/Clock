@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Zamanlayıcı bildirimlerinden gelen etkinlikleri işler."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Kronometre bildirimlerinden gelen etkinlikleri işler."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Duraklatıldı"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Kapatmak için sağa kaydırın</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Ertelemek için hızlıca sola kaydırın"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Ertelemek için sola, kapatmak için sağa hızlıca kaydırın"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Zamanlayıcılar"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Zamanlayıcı titreşimi"</string>
@@ -457,7 +455,6 @@
     <string name="styles_and_colors_category_title">Stil ve renkler</string>
     <string name="clock_settings_summary">Stili, zaman dilimini ve cihazın tarih ve zamanını ayarlayın</string>
     <string name="description_direction_both_for_occasional_alarm">Alarmı ertelemek için sola, kapatıp silmek için sağa kaydırın</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Alarmı ertelemek için sola, kapatıp silmek için sağa tıklayın</string>
     <string name="clock_color_title">Saat rengi</string>
     <string name="alarm_settings_general_summary">Bu ayar genişletilmiş alarm görünümünde her alarm için ayrı olarak değiştirilebilir</string>
     <string name="alarm_notification_reminder_4_hours">4 saat önce</string>
@@ -503,8 +500,6 @@
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Alarm ertelendiğinde veya kapatıldığında titreşimi etkinleştir</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Alarm kapatıldığında bir kere titreşir, ertelendiğinde iki kere titreşir</string>
     <string name="alarm_display_customization_title">Alarm görünümünü özelleştir</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Alarmı kapatmak için sola veya sağa tıklayın</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Alarmı kapatmak ve silmek için sağa veya sola tıklayın</string>
     <string name="sort_timer_title">Zamanlayıcıları sırala</string>
     <string name="sort_timer_ascending_duration">Süreye göre (artan)</string>
     <string name="sort_timer_name">İsme göre</string>
@@ -544,11 +539,9 @@
     <string name="alarm_notification_reminder_12_hours">12 saat önce</string>
     <string name="settings_tab_to_display">Uygulama açıldığında gösterliecek sekme</string>
     <string name="last_tab_used_title">Son kullanılan sekme</string>
-    <string name="pulse_color">Vurgu rengi</string>
     <string name="alarm_clock_font_size">Alarm saati yazı boyutu</string>
     <string name="alarm_title_font_size">Alarm başlığı yazı boyutu</string>
     <string name="license">Açık kaynak lisansı</string>
-    <string name="description_direction_both_clicked">Alarmı ertelemek için sola, kapatmak için sağa tıklayın</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Alarmı kapatmak ve silmek için sağa veya sola kaydırın</string>
     <string name="sort_timer_descending_duration">Süreye göre (azalan)</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 dakika</string>
@@ -556,7 +549,6 @@
     <string name="default_time_to_add_to_timer_1_hour">1 saat</string>
     <string name="contributors">Katkıda bulunanlar</string>
     <string name="alarm_settings_summary">Varsayılan zil sesi, ses düzeyi, alarmı kapatmak veya ertelemek için hareketleri, haftanın ilk gününü ve hatırlatıcı bildirim süresini ayarlayın</string>
-    <string name="description_direction_right_for_occasional_alarm">Alarmı kapatmak ve silmek için sağa kaydırın</string>
     <string name="screensaver_date_color_title">Tarih rengi</string>
     <string name="screensaver_brightness_title">Parlaklık</string>
     <string name="digital_widget_message_summary">Bu ayara erişim için \"Widget\'ta şehirleri göster\" devre dışı bırakılmalı</string>
@@ -600,8 +592,6 @@
     <string name="display_warning_before_deleting_timer_title">Zamanlayıcıyı silerken uyarı penceresi göster</string>
     <string name="warning_dialog_title">Zamanlayıcıyı sil</string>
     <string name="sort_timer_manually">Elle (sürükleyerek)</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Alarmı kapatmak için sola kaydırın</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Alarmı kapatmak ve silmek için sola kaydırın</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 dakika</string>
     <string name="default_time_to_add_to_timer_10_minutes">10 dakika</string>
     <string name="screensaver_settings_summary">Ekran koruyucunun stilini, rengini ve yazı tipini ayarlayın</string>

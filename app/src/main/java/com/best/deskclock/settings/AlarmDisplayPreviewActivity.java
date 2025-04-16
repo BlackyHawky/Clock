@@ -8,7 +8,6 @@ package com.best.deskclock.settings;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 
@@ -17,15 +16,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Rect;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -41,16 +37,16 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.view.animation.PathInterpolatorCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -60,56 +56,54 @@ import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.AnalogClock;
-import com.best.deskclock.widget.CircleView;
+import com.best.deskclock.widget.PillView;
+import com.google.android.material.button.MaterialButton;
 
 public class AlarmDisplayPreviewActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
 
-    private static final TimeInterpolator PULSE_INTERPOLATOR =
-            PathInterpolatorCompat.create(0.4f, 0.0f, 0.2f, 1.0f);
-    private static final TimeInterpolator REVEAL_INTERPOLATOR =
-            PathInterpolatorCompat.create(0.0f, 0.0f, 0.2f, 1.0f);
-    private static final int PULSE_DURATION_MILLIS = 1000;
-    private static final int ALARM_BOUNCE_DURATION_MILLIS = 500;
+    private static final float TEXT_FADE_START_THRESHOLD = 0.5f;
+    private static final int TRANSLATION_DURATION_START_DELAY = 1000;
+    private static final int TRANSLATION_DURATION_DELAY = 400;
+    private static final int TRANSLATION_DURATION_MILLIS = 1000;
+    private static final int ALPHA_DURATION_MILLIS = 400;
     private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
-    private static final int ALERT_FADE_DURATION_MILLIS = 500;
-    private static final int ALERT_DISMISS_DELAY_MILLIS = 2000;
-    private static final float BUTTON_SCALE_DEFAULT = 0.7f;
-    private static final int BUTTON_DRAWABLE_ALPHA_DEFAULT = 255;
+    private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
+
+    private SharedPreferences mPrefs;
     private final Handler mHandler = new Handler();
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
-    private boolean isSwipeActionEnabled;
+    private boolean mIsSwipeActionEnabled;
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
     private TextView mAlertInfoView;
-    private LinearLayout mRingtoneLayout;
     private TextView mRingtoneTitle;
     private ImageView mRingtoneIcon;
     private ViewGroup mContentView;
-    private ImageView mAlarmButton;
-    private ImageView mSnoozeButton;
-    private ImageView mDismissButton;
-    private TextView mHintView;
-    private ValueAnimator mAlarmAnimator;
-    private ValueAnimator mSnoozeAnimator;
-    private ValueAnimator mDismissAnimator;
-    private ValueAnimator mPulseAnimator;
+    private ConstraintLayout mSlideZoneLayout;
+    private PillView mPillView;
+    private MaterialButton mAlarmButton;
+    private MaterialButton mSnoozeButton;
+    private MaterialButton mDismissButton;
+    private TextView mSnoozeActionText;
+    private TextView mDismissActionText;
+    private Animator mTranslationAnimator;
     private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
+    private float mInitialTouchX = 0;
     private Vibrator mVibrator;
     private boolean mAreSnoozedOrDismissedAlarmVibrationsEnabled;
     private boolean mIsFadeTransitionsEnabled;
-    private boolean mIsRingtoneTitleDisplayed;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final SharedPreferences prefs = getDefaultSharedPreferences(this);
+        mPrefs = getDefaultSharedPreferences(this);
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(prefs);
+        mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
 
         // Honor rotation on tablets; fix the orientation on phones.
         if (ThemeUtils.isPortrait()) {
@@ -118,60 +112,46 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
-        final String getDarkMode = SettingsDAO.getDarkMode(prefs);
-        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
-        int alarmBackgroundColor = isAmoledMode
-                ? SettingsDAO.getAlarmBackgroundAmoledColor(prefs)
-                : SettingsDAO.getAlarmBackgroundColor(prefs);
-        int alarmClockColor = SettingsDAO.getAlarmClockColor(prefs);
-        float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(prefs);
-        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(prefs);
-        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(prefs);
-        int snoozeButtonColor = SettingsDAO.getSnoozeButtonColor(prefs);
-        int dismissButtonColor = SettingsDAO.getDismissButtonColor(prefs);
-        int alarmButtonColor = SettingsDAO.getAlarmButtonColor(prefs);
-        int pulseColor = SettingsDAO.getPulseColor(prefs);
-
         setContentView(R.layout.alarm_activity);
 
+        final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
+        final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
+        int alarmBackgroundColor = isAmoledMode
+                ? SettingsDAO.getAlarmBackgroundAmoledColor(mPrefs)
+                : SettingsDAO.getAlarmBackgroundColor(mPrefs);
+        int alarmClockColor = SettingsDAO.getAlarmClockColor(mPrefs);
+
         getWindow().setBackgroundDrawable(new ColorDrawable(alarmBackgroundColor));
+
+        mSnoozeMinutes = SettingsDAO.getSnoozeLength(mPrefs);
+        mIsSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
+        mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
+        float alarmDigitalClockFontSize = SettingsDAO.getAlarmDigitalClockFontSize(mPrefs);
+        mAlarmTitleFontSize = SettingsDAO.getAlarmTitleFontSize(mPrefs);
+        mAlarmTitleColor = SettingsDAO.getAlarmTitleColor(mPrefs);
 
         mAlertView = findViewById(R.id.alert);
         mAlertTitleView = mAlertView.findViewById(R.id.alert_title);
         mAlertInfoView = mAlertView.findViewById(R.id.alert_info);
 
         mContentView = findViewById(R.id.content);
-        mAlarmButton = mContentView.findViewById(R.id.alarm);
-        mSnoozeButton = mContentView.findViewById(R.id.snooze);
-        mDismissButton = mContentView.findViewById(R.id.dismiss);
-        mHintView = mContentView.findViewById(R.id.hint);
+        mSnoozeButton = mContentView.findViewById(R.id.snooze_button);
+        mDismissButton = mContentView.findViewById(R.id.dismiss_button);
+        mSlideZoneLayout = mContentView.findViewById(R.id.slide_zone_layout);
+        mAlarmButton = mSlideZoneLayout.findViewById(R.id.alarm_button);
+        mSnoozeActionText = mSlideZoneLayout.findViewById(R.id.snooze_text);
+        mDismissActionText = mSlideZoneLayout.findViewById(R.id.dismiss_text);
+        mPillView = mSlideZoneLayout.findViewById(R.id.pill);
 
-        mIsRingtoneTitleDisplayed = SettingsDAO.isRingtoneTitleDisplayed(prefs);
-        if (mIsRingtoneTitleDisplayed) {
-            mRingtoneLayout = mContentView.findViewById(R.id.ringtone_layout);
-            mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
-            mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
-            displayRingtoneTitle();
-            mContentView.setOnClickListener(this);
-        }
-
-        mAlarmButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
-                mAlarmButton.getContext(), R.drawable.ic_tab_alarm_static, 2.5f)
-        );
-        mAlarmButton.setColorFilter(alarmButtonColor);
-
-        mDismissButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
-                mDismissButton.getContext(), R.drawable.ic_alarm_off, 2f)
-        );
-        mDismissButton.setColorFilter(dismissButtonColor);
-        mDismissButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
-
-        mSnoozeMinutes = SettingsDAO.getSnoozeLength(prefs);
-        mSnoozeButton.setImageDrawable(ThemeUtils.toScaledBitmapDrawable(
-                mSnoozeButton.getContext(), R.drawable.ic_snooze, 2f)
-        );
-        mSnoozeButton.setColorFilter(snoozeButtonColor);
-        mSnoozeButton.setBackgroundTintList(ColorStateList.valueOf(pulseColor));
+        final AnalogClock analogClock = findViewById(R.id.analog_clock);
+        final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
+        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(mPrefs);
+        final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs);
+        ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
+        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
+        ClockUtils.setTimeFormat(digitalClock, false);
+        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
+        digitalClock.setTextColor(alarmClockColor);
 
         final TextView titleView = mContentView.findViewById(R.id.alarm_title);
         titleView.setText(R.string.app_label);
@@ -180,41 +160,128 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
         titleView.setSelected(true);
 
-        final AnalogClock analogClock = findViewById(R.id.analog_clock);
-        final TextClock digitalClock = mContentView.findViewById(R.id.digital_clock);
-        final DataModel.ClockStyle alarmClockStyle = SettingsDAO.getAlarmClockStyle(prefs);
-        final boolean isAlarmSecondsHandDisplayed = SettingsDAO.isAlarmSecondsHandDisplayed(prefs);
-        ClockUtils.setClockStyle(alarmClockStyle, digitalClock, analogClock);
-        ClockUtils.setClockSecondsEnabled(alarmClockStyle, digitalClock, analogClock, isAlarmSecondsHandDisplayed);
-        ClockUtils.setTimeFormat(digitalClock, false);
-        digitalClock.setTextSize(TypedValue.COMPLEX_UNIT_SP, alarmDigitalClockFontSize);
-        digitalClock.setTextColor(alarmClockColor);
+        if (mIsSwipeActionEnabled) {
+            mSlideZoneLayout.setVisibility(VISIBLE);
+            mSnoozeButton.setVisibility(GONE);
+            mDismissButton.setVisibility(GONE);
 
-        final CircleView pulseView = mContentView.findViewById(R.id.pulse);
-        pulseView.setFillColor(pulseColor);
+            int snoozeTitleColor = SettingsDAO.getSnoozeTitleColor(mPrefs);
+            int dismissTitleColor = SettingsDAO.getDismissTitleColor(mPrefs);
+            int alarmButtonColor = SettingsDAO.getAlarmButtonColor(mPrefs, this);
+            int slideZoneColor = SettingsDAO.getSlideZoneColor(mPrefs);
 
-        isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(prefs);
-        if (isSwipeActionEnabled) {
+            final Drawable alarmSlideZoneBackground = AppCompatResources.getDrawable(this, R.drawable.bg_alarm_slide_zone);
+            if (alarmSlideZoneBackground != null) {
+                alarmSlideZoneBackground.setColorFilter(slideZoneColor, PorterDuff.Mode.SRC_IN);
+            }
+            mSlideZoneLayout.setBackground(alarmSlideZoneBackground);
+
+            mAlarmButton.setBackgroundColor(alarmButtonColor);
             mAlarmButton.setOnTouchListener(this);
+            mAlarmButton.setContentDescription(getString(R.string.description_direction_both));
+
+            mSnoozeActionText.setTextColor(snoozeTitleColor);
+            mDismissActionText.setTextColor(dismissTitleColor);
+
+            mPillView.setFillColor(ColorUtils.setAlphaComponent(alarmButtonColor, 128));
+            mPillView.post(() -> {
+                mPillView.setPillHeight(mAlarmButton.getHeight() - mAlarmButton.getInsetTop() - mAlarmButton.getInsetBottom());
+                final float pillStretchWidth = getAvailableSlideZoneWidth() / 2f;
+                final int originalFillColor = mPillView.getFillColor();
+
+                // Move to left
+                AnimatorSet toLeftAnimator = new AnimatorSet();
+                toLeftAnimator.playTogether(
+                        translationAnimator(mPillView, pillStretchWidth,
+                                mPillView.getPillCenterX() - pillStretchWidth / 2),
+                        alphaAnimator(mPillView, originalFillColor)
+                );
+                toLeftAnimator.setStartDelay(TRANSLATION_DURATION_START_DELAY);
+                toLeftAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
+
+                // Apply alpha
+                Animator alphaLeft = alphaAnimator(mPillView, ColorUtils.setAlphaComponent(originalFillColor, 0));
+                alphaLeft.setDuration(ALPHA_DURATION_MILLIS);
+
+                // Reset position and alpha
+                AnimatorSet resetAndRestoreLeft = new AnimatorSet();
+                resetAndRestoreLeft.playTogether(
+                        translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                        alphaAnimator(mPillView, originalFillColor)
+                );
+                resetAndRestoreLeft.setDuration(0);
+
+                // Move to right
+                Animator toRightAnimator = translationAnimator(mPillView, pillStretchWidth,
+                        mPillView.getPillCenterX() + pillStretchWidth / 2);
+                toRightAnimator.setStartDelay(TRANSLATION_DURATION_DELAY);
+                toRightAnimator.setDuration(TRANSLATION_DURATION_MILLIS);
+
+                // Apply alpha
+                Animator alphaRight = alphaAnimator(mPillView, ColorUtils.setAlphaComponent(originalFillColor, 0));
+                alphaRight.setDuration(ALPHA_DURATION_MILLIS);
+
+                // Reset position and alpha
+                AnimatorSet resetAndRestoreRight = new AnimatorSet();
+                resetAndRestoreRight.playTogether(
+                        translationAnimator(mPillView, 0, mPillView.getPillCenterX()),
+                        alphaAnimator(mPillView, originalFillColor)
+                );
+                resetAndRestoreRight.setDuration(0);
+
+                // Sequence
+                AnimatorSet translationSequence = new AnimatorSet();
+                translationSequence.playSequentially(toLeftAnimator, alphaLeft, resetAndRestoreLeft,
+                        toRightAnimator, alphaRight, resetAndRestoreRight);
+                translationSequence.setInterpolator(new AccelerateDecelerateInterpolator());
+                // Listener to repeat animation if needed
+                translationSequence.addListener(new AnimatorListenerAdapter() {
+
+                    private boolean wasCancelled = false;
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        mPillView.setFillColor(Color.TRANSPARENT);
+
+                        wasCancelled = true;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (!wasCancelled && mTranslationAnimator == animation) {
+                            mTranslationAnimator.start();
+                        }
+
+                        wasCancelled = false;
+                    }
+                });
+
+                mTranslationAnimator = translationSequence;
+                mTranslationAnimator.start();
+            });
         } else {
-            mAlarmButton.setOnClickListener(this);
+            mSlideZoneLayout.setVisibility(GONE);
+            mSnoozeButton.setVisibility(VISIBLE);
+            mDismissButton.setVisibility(VISIBLE);
+            mSnoozeButton.setOnClickListener(this);
+            mDismissButton.setOnClickListener(this);
+            mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
+            mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
+            mSnoozeButton.setText(R.string.alarm_alert_snooze_text);
+            mDismissButton.setText(R.string.alarm_alert_dismiss_text);
+            mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
+            mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
+            // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+            mSnoozeButton.setSelected(true);
+            mDismissButton.setSelected(true);
         }
-        mSnoozeButton.setOnClickListener(this);
-        mDismissButton.setOnClickListener(this);
 
-        mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
-        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, snoozeButtonColor);
-        mDismissAnimator = getButtonAnimator(mDismissButton, dismissButtonColor);
-        mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
-                PropertyValuesHolder.ofFloat(CircleView.RADIUS, 0.0f, pulseView.getRadius()),
-                PropertyValuesHolder.ofObject(CircleView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR,
-                        ColorUtils.setAlphaComponent(pulseView.getFillColor(), 0)));
-        mPulseAnimator.setDuration(PULSE_DURATION_MILLIS);
-        mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
-        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        mPulseAnimator.start();
-
-        mIsFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
+        boolean isRingtoneTitleDisplayed = SettingsDAO.isRingtoneTitleDisplayed(mPrefs);
+        if (isRingtoneTitleDisplayed) {
+            mRingtoneTitle = mContentView.findViewById(R.id.ringtone_title);
+            mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
+            displayRingtoneTitle();
+        }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -229,7 +296,6 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         });
     }
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onResume() {
         super.onResume();
@@ -239,28 +305,13 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective icons.
-        if (!isSwipeActionEnabled) {
+        // If alarm swiping is disabled in settings, allow snooze/dismiss by tapping on respective buttons.
+        if (!mIsSwipeActionEnabled) {
             if (view == mSnoozeButton) {
                 snooze();
             } else if (view == mDismissButton) {
                 dismiss();
-            } else if (view == mAlarmButton) {
-                hintAlarmAction();
             }
-            return;
-        }
-
-        if (view == mSnoozeButton) {
-            hintSnooze();
-        } else if (view == mDismissButton) {
-            hintDismiss();
-        } else if (view == mAlarmButton) {
-            hintAlarmAction();
-        } else if (view == mContentView && mIsRingtoneTitleDisplayed && mHintView.getVisibility() != GONE) {
-            mHintView.setVisibility(GONE);
-            mRingtoneLayout.setVisibility(VISIBLE);
-            ObjectAnimator.ofFloat(mRingtoneLayout, View.ALPHA, 0f, 1f).start();
         }
     }
 
@@ -268,18 +319,27 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         final int action = event.getActionMasked();
+
         if (action == MotionEvent.ACTION_DOWN) {
             // Track the pointer that initiated the touch sequence.
             mInitialPointerIndex = event.getPointerId(event.getActionIndex());
 
-            // Stop the pulse, allowing the last pulse to finish.
-            mPulseAnimator.setRepeatCount(0);
+            // Stop the translation
+            if (mTranslationAnimator != null && (mTranslationAnimator.isRunning() || mTranslationAnimator.isStarted())) {
+                mTranslationAnimator.cancel();
+            }
+
+            final int[] contentLocation = {0, 0};
+            mContentView.getLocationOnScreen(contentLocation);
+
+            mInitialTouchX = event.getRawX() - contentLocation[0];
         } else if (action == MotionEvent.ACTION_CANCEL) {
             // Clear the pointer index.
             mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
 
             // Reset everything.
             resetAnimations();
+            return true;
         }
 
         final int actionIndex = event.getActionIndex();
@@ -293,40 +353,40 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         mContentView.getLocationOnScreen(contentLocation);
 
         final float x = event.getRawX() - contentLocation[0];
-        final float y = event.getRawY() - contentLocation[1];
 
-        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
-        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        float deltaX = x - mInitialTouchX;
 
-        final float snoozeFraction, dismissFraction;
-        if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-            snoozeFraction = getFraction(alarmRight, mSnoozeButton.getLeft(), x);
-            dismissFraction = getFraction(alarmLeft, mDismissButton.getRight(), x);
-        } else {
-            snoozeFraction = getFraction(alarmLeft, mSnoozeButton.getRight(), x);
-            dismissFraction = getFraction(alarmRight, mDismissButton.getLeft(), x);
+        // Limit movement within the parent
+        float maxDeltaX = (getAvailableSlideZoneWidth() - mAlarmButton.getWidth()) / 2f;
+        deltaX = Math.max(-maxDeltaX, Math.min(deltaX, maxDeltaX));
+        mAlarmButton.setTranslationX(deltaX);
+
+        if (Math.abs(deltaX) >= maxDeltaX) {
+            if (mTranslationAnimator != null && (mTranslationAnimator.isRunning() || mTranslationAnimator.isStarted())) {
+                mTranslationAnimator.cancel();
+            }
         }
-        setAnimatedFractions(snoozeFraction, dismissFraction);
+
+        updateTextAlpha(deltaX);
 
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
             mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
-            if (snoozeFraction == 1.0f) {
-                snooze();
-            } else if (dismissFraction == 1.0f) {
-                dismiss();
-            } else {
-                if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
-                    // Animate back to the initial state.
-                    AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
-                } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
-                    // The alarm action hint is displayed after the user touches the alarm button.
-                    hintAlarmAction();
-                }
 
-                // Restart the pulse.
-                mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                if (!mPulseAnimator.isStarted()) {
-                    mPulseAnimator.start();
+            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                if (deltaX <= -maxDeltaX) {
+                    dismiss(); // Left = Dismiss in RTL
+                } else if (deltaX >= maxDeltaX) {
+                    snooze(); // Right = Snooze en RTL
+                } else {
+                    resetAnimations();
+                }
+            } else {
+                if (deltaX >= maxDeltaX) {
+                    dismiss(); // Right = Dismiss in RTL
+                } else if (deltaX <= -maxDeltaX) {
+                    snooze(); // Left = snooze in LTR
+                } else {
+                    resetAnimations();
                 }
             }
         }
@@ -334,58 +394,82 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         return true;
     }
 
-    private void hintSnooze() {
-        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
-        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintLeftResId = R.string.description_direction_left;
-        final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
-                + Math.min(mSnoozeButton.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, hintLeftResId).start();
-    }
-
-    private void hintDismiss() {
-        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
-        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final int hintRightResId = R.string.description_direction_right;
-        final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
-                + Math.min(mDismissButton.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, hintRightResId).start();
-    }
-
-    private void hintAlarmAction() {
-        final int hintAlarmButtonResId;
-        hintAlarmButtonResId = R.string.description_direction_both;
-        getAlarmBounceAnimator(0, hintAlarmButtonResId).start();
+    /**
+     * Returns the width available for animations or interactions in the slide area,
+     * excluding the left and right paddings of the layout.
+     */
+    private float getAvailableSlideZoneWidth() {
+        return mSlideZoneLayout.getWidth() - mSlideZoneLayout.getPaddingStart() - mSlideZoneLayout.getPaddingEnd();
     }
 
     /**
-     * Set animators to initial values and restart pulse on alarm button.
+     * Helper method to create a translation animation.
+     */
+    private Animator translationAnimator(View view, float targetWidth, float targetCenterX) {
+        return ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofFloat(PillView.PILL_WIDTH, targetWidth),
+                PropertyValuesHolder.ofFloat(PillView.PILL_CENTER_X, targetCenterX));
+    }
+
+    /**
+     * Helper method to create an alpha color change animation.
+     */
+    private Animator alphaAnimator(View view, int alphaColor) {
+        return ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofObject(PillView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR, alphaColor));
+    }
+
+    /**
+     * Apply transparency to "Snooze" and "Dismiss" texts based on movement direction.
+     */
+    private void updateTextAlpha(float deltaX) {
+        final View parentView = (View) mAlarmButton.getParent();
+        int parentPaddingHorizontal = parentView.getPaddingStart() + parentView.getPaddingLeft();
+        int parentWidth = parentView.getWidth() - (parentPaddingHorizontal);
+        float maxDeltaX = parentWidth - mAlarmButton.getWidth();
+        maxDeltaX /= 2f; // since the displacement is centered
+
+        float threshold = TEXT_FADE_START_THRESHOLD * maxDeltaX;
+        float absDeltaX = Math.abs(deltaX);
+
+        if (absDeltaX <= threshold) {
+            mSnoozeActionText.setAlpha(1.0f);
+            mDismissActionText.setAlpha(1.0f);
+            return;
+        }
+
+        float fadeFraction = (absDeltaX - threshold) / (maxDeltaX - threshold);
+        fadeFraction = Math.min(fadeFraction, 1.0f);
+        float alpha = 1.0f - fadeFraction;
+
+        boolean isRTL = mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+
+        if ((deltaX > 0 && !isRTL) || (deltaX < 0 && isRTL)) {
+            // Swipe right (Dismiss right side in LTR, left in RTL)
+            mDismissActionText.setAlpha(alpha);
+            mSnoozeActionText.setAlpha(1.0f);
+        } else {
+            // Swipe left (Snooze left in LTR, right in RTL)
+            mSnoozeActionText.setAlpha(alpha);
+            mDismissActionText.setAlpha(1.0f);
+        }
+    }
+
+    /**
+     * Set animators to initial values, reset text transparency and restart translation on pill view.
      */
     private void resetAnimations() {
-        // Set the animators to their initial values.
-        setAnimatedFractions(0.0f, 0.0f);
-        // Restart the pulse.
-        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        if (!mPulseAnimator.isStarted()) {
-            mPulseAnimator.start();
-        }
-    }
+        mSnoozeActionText.setAlpha(1.0f);
+        mDismissActionText.setAlpha(1.0f);
 
-    /**
-     * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
-     */
-    private void displayRingtoneTitle() {
-        final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
-        final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
-        if (musicIcon != null) {
-            musicIcon.setTint(mAlarmTitleColor);
+        mAlarmButton.animate()
+                .translationX(0)
+                .setDuration(200)
+                .start();
+
+        if (mTranslationAnimator != null && !mTranslationAnimator.isRunning()) {
+            mTranslationAnimator.start();
         }
-        mRingtoneIcon.setImageDrawable(musicIcon);
-        mRingtoneTitle.setText(ringtone.getTitle(this));
-        mRingtoneTitle.setTextColor(mAlarmTitleColor);
-        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
-        mRingtoneTitle.setSelected(true);
     }
 
     /**
@@ -395,11 +479,10 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
             performDoubleVibration();
         }
-        setAnimatedFractions(1.0f, 0.0f);
 
         final String infoText = getResources().getQuantityString(
                     R.plurals.alarm_alert_snooze_duration, mSnoozeMinutes, mSnoozeMinutes);
-        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText).start();
+        showAlert(R.string.alarm_alert_snoozed_text, infoText);
     }
 
     /**
@@ -409,8 +492,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         if (mAreSnoozedOrDismissedAlarmVibrationsEnabled) {
             performSingleVibration();
         }
-        setAnimatedFractions(0.0f, 1.0f);
-        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null).start();
+        showAlert(R.string.alarm_alert_off_text, null);
     }
 
     /**
@@ -437,121 +519,52 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         }
     }
 
-    private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
-        final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
-        mAlarmAnimator.setCurrentFraction(alarmFraction);
-        mSnoozeAnimator.setCurrentFraction(snoozeFraction);
-        mDismissAnimator.setCurrentFraction(dismissFraction);
+    /**
+     * Display ringtone title if enabled in <i>"Customize alarm display"</i> settings.
+     */
+    private void displayRingtoneTitle() {
+        final Uri ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final Ringtone ringtone = RingtoneManager.getRingtone(this, ringtoneUri);
+        final Drawable musicIcon = AppCompatResources.getDrawable(this, R.drawable.ic_music_note);
+        final int ringtoneTitleColor = SettingsDAO.getRingtoneTitleColor(mPrefs);
+
+        if (musicIcon != null) {
+            musicIcon.setTint(ringtoneTitleColor);
+        }
+        mRingtoneIcon.setImageDrawable(musicIcon);
+        mRingtoneTitle.setText(ringtone.getTitle(this));
+        mRingtoneTitle.setTextColor(ringtoneTitleColor);
+        // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
+        mRingtoneTitle.setSelected(true);
     }
 
-    private float getFraction(float x0, float x1, float x) {
-        return Math.max(Math.min((x - x0) / (x1 - x0), 1.0f), 0.0f);
-    }
+    /**
+     * Show alert after alarm has been snoozed or dismissed.
+     */
+    private void showAlert(final int titleResId, final String infoText) {
+        mAlertView.setVisibility(VISIBLE);
 
-    private ValueAnimator getButtonAnimator(ImageView button, int tintColor) {
-        return ObjectAnimator.ofPropertyValuesHolder(button,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, BUTTON_SCALE_DEFAULT, 1.0f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, BUTTON_SCALE_DEFAULT, 1.0f),
-                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255),
-                PropertyValuesHolder.ofInt(AnimatorUtils.DRAWABLE_ALPHA,
-                        BUTTON_DRAWABLE_ALPHA_DEFAULT, 255),
-                PropertyValuesHolder.ofObject(AnimatorUtils.DRAWABLE_TINT,
-                        AnimatorUtils.ARGB_EVALUATOR, Color.WHITE, tintColor)
-        );
-    }
+        mAlertTitleView.setText(titleResId);
+        mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+        mAlertTitleView.setTextColor(mAlarmTitleColor);
+        mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
 
-    private ValueAnimator getAlarmBounceAnimator(float translationX, final int hintResId) {
-        final ValueAnimator bounceAnimator = ObjectAnimator.ofFloat(mAlarmButton,
-                View.TRANSLATION_X, mAlarmButton.getTranslationX(), translationX, 0.0f);
-        bounceAnimator.setInterpolator(AnimatorUtils.DECELERATE_ACCELERATE_INTERPOLATOR);
-        bounceAnimator.setDuration(ALARM_BOUNCE_DURATION_MILLIS);
-        bounceAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                mHintView.setText(hintResId);
-                mHintView.setTextColor(mAlarmTitleColor);
-                if (mHintView.getVisibility() != VISIBLE) {
-                    if (mRingtoneLayout != null) {
-                        mRingtoneLayout.setVisibility(GONE);
-                    }
-                    mHintView.setVisibility(VISIBLE);
+        if (infoText != null) {
+            mAlertInfoView.setVisibility(VISIBLE);
+            mAlertInfoView.setText(infoText);
+            mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
+            mAlertInfoView.setTextColor(mAlarmTitleColor);
+            mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
+        }
 
-                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0f, 1f).start();
-                }
-            }
-        });
+        mContentView.setVisibility(GONE);
 
-        return bounceAnimator;
-    }
-
-    private Animator getAlertAnimator(final View source, final int titleResId, final String infoText) {
-
-        final ViewGroup containerView = findViewById(android.R.id.content);
-
-        final Rect sourceBounds = new Rect(0, 0, source.getHeight(), source.getWidth());
-        containerView.offsetDescendantRectToMyCoords(source, sourceBounds);
-
-        final int centerX = sourceBounds.centerX();
-        final int centerY = sourceBounds.centerY();
-
-        final int xMax = Math.max(centerX, containerView.getWidth() - centerX);
-        final int yMax = Math.max(centerY, containerView.getHeight() - centerY);
-
-        final float startRadius = Math.max(sourceBounds.width(), sourceBounds.height()) / 2.0f;
-        final float endRadius = (float) Math.sqrt(xMax * xMax + yMax * yMax);
-
-        final CircleView revealView = new CircleView(this)
-                .setCenterX(centerX)
-                .setCenterY(centerY)
-                .setFillColor(Color.TRANSPARENT);
-        containerView.addView(revealView);
-
-        // TODO: Fade out source icon over the reveal (like LOLLIPOP version).
-
-        final Animator revealAnimator = ObjectAnimator.ofFloat(revealView, CircleView.RADIUS, startRadius, endRadius);
-        revealAnimator.setDuration(ALERT_REVEAL_DURATION_MILLIS);
-        revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
-        revealAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mAlertView.setVisibility(View.VISIBLE);
-                mAlertTitleView.setText(titleResId);
-                mAlertTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-                mAlertTitleView.setTextColor(mAlarmTitleColor);
-                mAlertTitleView.setTypeface(Typeface.DEFAULT_BOLD);
-
-                if (infoText != null) {
-                    mAlertInfoView.setVisibility(View.VISIBLE);
-                    mAlertInfoView.setText(infoText);
-                    mAlertInfoView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mAlarmTitleFontSize);
-                    mAlertInfoView.setTextColor(mAlarmTitleColor);
-                    mAlertInfoView.setTypeface(Typeface.DEFAULT_BOLD);
-                }
-                mContentView.setVisibility(View.GONE);
-            }
-        });
-
-        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
-        fadeAnimator.setDuration(ALERT_FADE_DURATION_MILLIS);
-
-        fadeAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                containerView.removeView(revealView);
-            }
-        });
-
-        final AnimatorSet alertAnimator = new AnimatorSet();
-        alertAnimator.play(revealAnimator).before(fadeAnimator);
-
-        alertAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mHandler.postDelayed(() -> finishActivity(), ALERT_DISMISS_DELAY_MILLIS);
-            }
-        });
-
-        return alertAnimator;
+        mAlertView.setAlpha(0f);
+        mAlertView.animate()
+                .alpha(1f)
+                .setDuration(ALERT_REVEAL_DURATION_MILLIS)
+                .withEndAction(() -> mHandler.postDelayed(this::finishActivity, ALERT_DISMISS_DELAY_MILLIS))
+                .start();
     }
 
     private void finishActivity() {

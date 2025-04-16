@@ -348,8 +348,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Spracuje akcie z upozornení časovača."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Spracuje akcie z upozornení stopiek."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pozastavené"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Prejdením prstom doprava budík zrušíte"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Prejdením prstom doľava budík odložíte"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Prejdením prstom doľava budík odložíte, prejdením prstom doprava ho zrušíte"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Časovače"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrovanie časovača"</string>

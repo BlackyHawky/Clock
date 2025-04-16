@@ -347,8 +347,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Обробляє дії зі сповіщень таймера."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обробляє дії зі сповіщень секундоміра."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Призупинено"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Щоб вимкнути, проведіть пальцем праворуч</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Щоб відкласти, проведіть пальцем ліворуч"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Проведіть пальцем ліворуч, щоб відкласти, або праворуч, щоб вимкнути"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймери"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вібросигнал таймера"</string>
@@ -470,7 +468,6 @@
     <string name="first_launch_main_feature_message">► Світла, темна або системна тема;&lt;br&gt;&lt;br&gt;► Налаштовувана заставка;&lt;br&gt;&lt;br&gt;► Налаштовувані віджети;&lt;br&gt;&lt;br&gt;► Підтримка плиток у швидких налаштуваннях (для Android 7+);&lt;br&gt;&lt;br&gt;► Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій);&lt;br&gt;&lt;br&gt;► Material design і динамічні кольори;&lt;br&gt;&lt;br&gt;► Провести пальцем, щоб видалити будильник;&lt;br&gt;&lt;br&gt;► Дублювання будильників;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;&lt;br&gt;&lt;br&gt;► Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;&lt;br&gt;&lt;br&gt;► %s</string>
     <string name="digital_widget_city_name_custom_color_title">Власний колір назви міста</string>
     <string name="digital_widget_clock_custom_color_title">Власний колір основного годинника</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Натисніть ліворуч або праворуч, щоб вимкнути</string>
     <string name="display_card_background_summary">Відображає фон для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
     <string name="display_background_border_title">Рамки фону</string>
     <string name="display_background_border_summary">Відображає рамки фону для деяких елементів (будильники, міста, кнопка таймера тощо)</string>
@@ -504,8 +501,6 @@
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="contributors">Автори</string>
     <string name="alarm_settings_summary">Сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Щоб вимкнути, проведіть пальцем ліворуч</string>
-    <string name="description_direction_both_clicked">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути</string>
     <string name="flip_action_title">Дія перевертання пристрою</string>
     <string name="firing_alarms_timers_channel">Сигнали і таймери</string>
     <string name="alarm_missed_channel">Пропущені сигнали</string>
@@ -530,7 +525,6 @@
     <string name="snooze_button_color">Колір кнопки «Відкласти»</string>
     <string name="dismiss_button_color">Колір кнопки «Вимкнути»</string>
     <string name="alarm_button_color">Колір кнопки «Будильник»</string>
-    <string name="pulse_color">Колір пульсу</string>
     <string name="transparent_background_for_expired_timer_title">Прозорий фон, коли час таймерів вичерпано</string>
     <string name="alarm_display_customization_title">Налаштування вигляду будильника</string>
     <string name="alarm_clock_font_size">Розмір шрифту будильника</string>
@@ -613,14 +607,10 @@
     <string name="auto_silence_5_seconds">5 секунд</string>
     <string name="alarm_alert_dismiss_and_delete_text">Вимкнути і видалити</string>
     <string name="alarm_alert_off_and_deleted_text">Будильник вимкнено і видалено</string>
-    <string name="description_direction_right_for_occasional_alarm">Проведіть пальцем праворуч, щоб вимкнути і видалити будильник</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Проведіть пальцем ліворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_both_for_occasional_alarm">Проведіть пальцем ліворуч, щоб відкласти, або праворуч, щоб вимкнути і видалити будильник</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Натисніть ліворуч, щоб відкласти, або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Проведіть пальцем ліворуч або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Увімкнути за замовчуванням автоматичне видалення нерегулярних будильників</string>
     <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Натисніть ліворуч або праворуч, щоб вимкнути і видалити будильник</string>
     <string name="delete_occasional_alarm_after_use_title">Видалити будильник після вимкнення</string>
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>
     <string name="occasional_alarm_deleted">Нерегулярний будильник видалено</string>

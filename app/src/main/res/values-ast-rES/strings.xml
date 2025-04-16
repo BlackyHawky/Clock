@@ -299,8 +299,6 @@
     <string name="timer_service_desc">Procesa les aiciones de los avisos del temporizador.</string>
     <string name="stopwatch_service_desc">Procesa les aiciones de los avisos del cronómetru.</string>
     <string name="swn_paused">Posáu</string>
-    <string name="description_direction_right">Esliza pa la drecha pa escartar</string>
-    <string name="description_direction_left">Esliza pa la esquierda pa posponer</string>
     <string name="description_direction_both">Esliza\'l deu a manzorga pa posponer l\'alarma o a mandrecha pa inorala</string>
     <string name="timer_settings">Temporizadores</string>
     <string name="timer_vibrate_title">Temporizador en vibración</string>

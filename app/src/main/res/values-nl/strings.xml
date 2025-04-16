@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">Verwerkt acties van kookwekkermeldingen.</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">Verwerkt acties van stopklokmeldingen.</string>
     <string name="swn_paused" msgid="6364358842808263589">"Onderbroken"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Veeg naar rechts om uit te zetten"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Veeg naar links om te sluimeren</string>
     <string name="description_direction_both" msgid="1841309486023845685">Veeg naar links om te sluimeren of naar rechts om te sluiten</string>
     <string name="timer_settings" msgid="7955522143086154795">Kookwekkers</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">Trillen voor kookwekker</string>
@@ -466,7 +464,6 @@
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie</string>
     <string name="alarm_settings_summary">Standaard wekkergeluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Naar links vegen om te negeren</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">\"Toon steden op widget\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Sluimeracties inschakelen</string>
@@ -483,9 +480,7 @@
     <string name="timer_button_time_box_title">Minuten om aan de kookwekker toe te voegen</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="clock_settings_summary">Stijl, tijdzone en systeemtijd aanpassen</string>
-    <string name="description_direction_both_clicked">Tik links om te sluimeren of rechts om uit te zetten</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Veeg naar links of rechts om uit te zetten</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Tik links of rechts om uit te zetten</string>
     <string name="timer_settings_summary">Standaard ringtoon, volume en kookwekkers sorteren</string>
     <string name="default_time_to_add_to_timer_title">Standaardtijd om aan kookwekker toe te voegen</string>
     <string name="widget_background_title">Achtergrond tonen</string>
@@ -566,12 +561,8 @@
     <string name="vertical_digital_widget">Verticale digitale klok</string>
     <string name="alarm_notification_reminder_1_hour">1 uur van te voren</string>
     <string name="alarm_notification_reminder_2_hours">2 uur van te voren</string>
-    <string name="description_direction_right_for_occasional_alarm">Veeg naar rechts om wekker uit te zetten en te verwijderen</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Veeg naar links om wekker uit te zetten en te verwijderen</string>
     <string name="description_direction_both_for_occasional_alarm">Veeg naar links om te sluimeren of naar rechts om wekker uit te zetten en te verwijderen</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Tik links om wekker te sluimeren of rechts om uit te zetten en te verwijderen</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Veeg naar links of rechts om wekker uit te zetten en te verwijderen</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Tik links of rechts om wekker uit te zetten en te verwijderen</string>
     <string name="occasional_alarm_deleted">Gelegenheidswekker verwijderd</string>
     <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
     <string name="standard_category_title">Standaard</string>
@@ -605,7 +596,6 @@
     <string name="alarm_display_customization_title">Wekkeruiterlijk aanpassen</string>
     <string name="dismiss_button_color">Kleur uitzetknop</string>
     <string name="alarm_button_color">Kleur wekkerknop</string>
-    <string name="pulse_color">Kleur pulseren</string>
     <string name="auto_silence_5_seconds">5 seconden</string>
     <string name="auto_silence_10_seconds">10 seconden</string>
     <string name="auto_silence_30_seconds">30 seconden</string>

@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"టైమర్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"స్టాప్‌వాచ్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
     <string name="swn_paused" msgid="6364358842808263589">"పాజ్ చేయబడింది"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"తీసివేయడానికి కుడి వైపుకి స్వైప్ చేయండి"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"తాత్కాలికంగా ఆపివేయడానికి ఎడమ వైపుకి స్వైప్ చేయండి"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"తాత్కాలికంగా ఆపివేయడానికి ఎడమవైపుకు, తీసివేయడానికి కుడి వైపుకు స్వైప్ చేయండి"</string>
     <string name="timer_settings" msgid="7955522143086154795">"టైమర్‌లు"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"టైమర్ వైబ్రేషన్"</string>

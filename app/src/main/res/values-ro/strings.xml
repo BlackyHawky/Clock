@@ -339,8 +339,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesează acțiunile din notificările de la temporizator."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesează acțiunile din notificările de la cronometru."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Întrerupt"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Glisează spre dreapta pentru a închide</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Glisează spre stânga pentru a amâna</string>
     <string name="description_direction_both" msgid="1841309486023845685">Glisează spre stânga pentru a amâna sau spre dreapta pentru a închide</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizatoare"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrare pentru temporizator"</string>

@@ -348,8 +348,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Zpracovává akce z oznámení časovače."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Zpracovává akce z oznámení stopek."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pozastaveno"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Přejetím prstem vpravo budík zrušíte</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Přejetím prsem vlevo budík odložíte</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Přejetím vlevo budík odložíte, přejetím vpravo jej zrušíte"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Časovače"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrace časovače"</string>
@@ -474,7 +472,6 @@
     <string name="transparent_background_for_expired_timer_title">Průhledné pozadí při vypršení časovače</string>
     <string name="widgets_settings_summary">Nastavení stylu, barev a velikosti písma widgetů</string>
     <string name="reset_settings_title">Resetovat nastavení</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Klepněte vlevo nebo vpravo pro zrušení a odstranění budíku</string>
     <string name="sw_volume_up_action_title">Zvýšení hlasitosti</string>
     <string name="screensaver_italic_date_title">Datum kurzívou</string>
     <string name="material_you_vertical_digital_widget">Vertikální digitální hodiny Material You</string>
@@ -493,12 +490,9 @@
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
     <string name="contributors_dialog_title">Zobrazit profil</string>
     <string name="reset_settings_message">Opravdu chcete resetovat všechna nastavení aplikace?\n\nPoznámka: vlastní zvuky budíku nebudou resetovány.</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Přejeďte prstem doleva pro zrušení</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Přejeďte prstem doleva pro zrušení a odstranění budíku</string>
     <string name="sort_timer_ascending_duration">Podle času (vzestupně)</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
     <string name="default_time_to_add_to_timer_title">Výchozí čas, který přidat k časovači</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Klepněte vlevo pro odložení nebo vpravo pro zrušení a odstranění budíku</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minuty</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minut</string>
     <string name="default_time_to_add_to_timer_1_hour">1 hodina</string>
@@ -575,7 +569,6 @@
     <string name="alarm_title_color">Barva názvu budíku</string>
     <string name="dismiss_button_color">Barva tlačítka zrušení</string>
     <string name="alarm_button_color">Barva tlačítka budíku</string>
-    <string name="pulse_color">Barva pulzování</string>
     <string name="alarm_clock_font_size">Velikost písma hodin budíku</string>
     <string name="timer_shake_action_title">Zatřeste zařízením pro zastavení budíku</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
@@ -606,10 +599,8 @@
     <string name="title_dark_theme_mode">Režim tmavého motivu</string>
     <string name="display_card_background_summary">Zobrazí pozadí u některých prvků aplikace (budíky, města, tlačítko časovače apod.)</string>
     <string name="about_dialog_message">• Otočením nebo zatřesením telefonu odložíte/zrušíte budík; \n\n• Vypnutí/odložení budíku pomocí tlačítka napájení nebo tlačítek hlasitosti; \n\n• Na některých zařízeních s procesorem Snapdragon je budík spuštěn i při vypnutém zařízení; \n\t\t Bohužel tato funkce nemusí fungovat na všech zařízeních, i když je přítomna systémová aplikace <i>„com.qualcomm.qti.poweroffalarm“</i>. \n\n• Odstranění budíku přejetím prstem; \n\n• Duplikování budíků; \n\n• Přizpůsobitelný název budíku; \n\n• Přizpůsobitelné vyzvánění budíku; \n\n• Světlý, tmavý nebo systémový motiv; \n\n• AMOLED režim pro tmavý motiv; \n\n• Digitální nebo analogový styl hodin; \n\n• Zobrazení domácího času při cestování; \n\n• Zobrazení času ve více městech po celém světě; \n\n• Obsahuje časovač a stopky; \n\n• Možnost sdílení stopek s kontakty; \n\n• Přizpůsobitelný spořič obrazovky; \n\n• Moderní widgety; \n\n• Přizpůsobitelné widgety; \n\n• Podpora dlaždic v rychlém nastavení (pro Android 7+); \n\n• Zálohování a obnovení nastavení; \n\n• Material Design; \n\n• Dynamické barvy pro Android 12+;</string>
-    <string name="description_direction_both_clicked">Klepněte vlevo pro odložení nebo vpravo pro zrušení</string>
     <string name="first_launch_main_feature_title">HLAVNÍ FUNKCE</string>
     <string name="sw_long_press_volume_up_action_title">Zvýšení hlasitosti (dlouhé stisknutí)</string>
-    <string name="description_direction_right_for_occasional_alarm">Přejeďte prstem doprava pro zrušení a odstranění budíku</string>
     <string name="screensaver_bold_date_title">Datum tučně</string>
     <string name="next_alarm_widget_custom_alarm_title_color">Vlastní barva názvu budíku</string>
     <string name="next_alarm_widget_max_font_size_title">Maximální velikost písma widgetu</string>
@@ -647,7 +638,6 @@
     <string name="alarm_title_font_size">Velikost písma názvu budíku</string>
     <string name="add_label">Přidat štítek</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení a odstranění budíku</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Klepněte vlevo nebo vpravo pro zrušení</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Přejeďte prstem doleva nebo doprava pro zrušení</string>
     <string name="next_alarm_widget_default_title_color">Použít výchozí barvu pro názvy „Další budík“ a „Žádný nadcházející budík“</string>
     <string name="permission_management_settings">Správa oprávnění</string>

@@ -339,8 +339,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Обрађује радње из обавештења тајмера."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обрађује радње из обавештења штоперице."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Паузирано"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Превуците надесно за одбацивање"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Превуците налево за одлагање"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Превуците налево да бисте одложили или надесно да бисте одбацили"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Тајмери"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибрација тајмера"</string>
@@ -446,7 +444,6 @@
     <string name="permission_highly_recommended">Високо препоручено</string>
     <string name="alarm_settings_summary">Поставите подразумевану мелодију, јачину звука, акције за одбацивање или одлагање аларма, први дан у недељи и време обавештења подсетника</string>
     <string name="timer_settings_summary">Поставите подразумевану мелодију, јачину звука и редослед тајмера</string>
-    <string name="description_direction_both_clicked">Кликните лево да одложите или десно да одбаците</string>
     <string name="default_time_to_add_to_timer_title">Подразумевано време за додавање тајмеру</string>
     <string name="alarm_snooze_channel">Одложени аларми</string>
     <string name="alarm_upcoming_channel">Надолазећи аларми</string>
@@ -520,7 +517,6 @@
     <string name="alarm_title_color">Боја наслова аларма</string>
     <string name="snooze_button_color">Боја дугмета за одлагање</string>
     <string name="alarm_button_color">Боја дугмета аларма</string>
-    <string name="pulse_color">Боја пулса</string>
     <string name="auto_silence_5_seconds">5 секунди</string>
     <string name="auto_silence_10_seconds">10 секунди</string>
     <string name="auto_silence_20_seconds">20 секунди</string>
@@ -543,14 +539,9 @@
     <string name="digital_widget_custom_minutes_color_title">Прилагођена боја минута</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Омогућити аутоматских брисање повремених аларма од подразумевани</string>
     <string name="occasional_alarm_alert_predismiss_title">Надолазећи повремени аларм</string>
-    <string name="description_direction_right_for_occasional_alarm">Превуците десно да одбаците и обришете аларм</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Превуците лево да одбаците</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Превуците лево да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_occasional_alarm">Превуците лево да одложите или десно да одбаците и обришете аларм</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Кликните лево да одложите или десно да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Превуците лево или десно да одбаците</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Превуците лево или десно да одбаците и обришете аларм</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Кликните лево или десно да одбаците</string>
     <string name="occasional_alarm_deleted">Повремени аларм уклоњен</string>
     <string name="first_launch_dialog_message">Да ли сте сигурни да желите да напустите апликацију?</string>
     <string name="FSN_dialog_text">Од Android 14, да би аларм био активиран када је екран искључен, неопходно је да буде омогућена дозвола \"Обавештења у целом екрану\".</string>
@@ -589,7 +580,6 @@
     <string name="digital_widget_default_hours_color_title">Употреба подразумеване боје за сате</string>
     <string name="digital_widget_custom_hours_color_title">Прилагођена боја сати</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Кликните лево или десно да одбаците и обришете аларм</string>
     <string name="digital_widget_clock_default_color_title">Употреба подразумеване боје за главни сат</string>
     <string name="next_alarm_widget_default_title_color">Употребити подразумевану боју за наслове \"Следећи аларм\" и \"Нема надолазећег аларма\"</string>
     <string name="ignore_battery_optimizations_dialog_text">По подразумеваном, Android систем конфигурише све кориснички инсталиране апликације да буду оптимизоване за уштеду батерије. \n\nДок је ово прихватљиво за многе апликације, ова апликација је аларм апликација и често узрокује проблеме ако је конфигурисана за оптимизацију батерије. Када је омогућена, Android систем може убити апликацију у било ком тренутку и/или отказати аларме које је заказала, што би негативно утицало на рад апликације. \n\nПрепоручујемо да ставите ову апликацију на белу листу од оптимизација батерије.</string>

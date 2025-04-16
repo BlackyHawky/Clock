@@ -339,8 +339,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesa acciones de notificaciones del temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesa acciones de notificaciones del cronómetro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Deslice hacia la derecha para descartar</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Deslice hacia la izquierda para posponer</string>
     <string name="description_direction_both" msgid="1841309486023845685">Deslice el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporizadores"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibración del temporizador"</string>
@@ -447,7 +445,6 @@
     <string name="settings_vibration_title">Activar vibraciones</string>
     <string name="settings_vibration_summary">Sólo algunos botones de la interfaz se ven afectados (e.g.: el botón de reanudar/pausar del temporizador o los interruptores)</string>
     <string name="dismiss_button_color">Color del botón de descartar</string>
-    <string name="pulse_color">Color de pulsación</string>
     <string name="alarm_button_color">Color del botón de la alarma</string>
     <string name="alarm_display_customization_title">Personaliza la apariencia de la alarma</string>
     <string name="digital_widget_clock_default_color_title">Utilizar el color por defecto para el reloj principal</string>
@@ -526,9 +523,7 @@
     <string name="screensaver_brightness_title">Brillo</string>
     <string name="sw_settings_summary">Establecer acciones para los botones de volumen</string>
     <string name="sw_volume_up_action_title">Subir volumen</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Pulse a la izquierda para posponer la alarma o a la derecha para descartarla y eliminarla</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Deslice el dedo a izquierda o derecha para descartar y eliminar la alarma</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Pulse a la izquierda o a la derecha para descartar</string>
     <string name="timer_buttons_action_summary">Solo funciona en la pantalla de bloqueo</string>
     <string name="screensaver_italic_next_alarm_title">Próxima alarma en cursiva</string>
     <string name="screensaver_bold_next_alarm_title">Próxima alarma en negrita</string>
@@ -560,8 +555,6 @@
     <string name="firing_alarms_timers_channel">Alarmas y temporizadores</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Activar las vibraciones cuando la alarma se activa o desactiva</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Vibración doble cuando la alarma se activa y vibración única cuando se desactiva</string>
-    <string name="description_direction_both_clicked">Pulse a la izquierda para posponer o a la derecha para descartar</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Pulse a la izquierda o a la derecha para descartar y eliminar la alarma</string>
     <string name="sort_timer_title">Ordenar temporizadores</string>
     <string name="default_time_to_add_to_timer_title">Tiempo predeterminado que sumar al temporizador</string>
     <string name="default_time_to_add_to_timer_6_minutes">6 minutos</string>
@@ -622,10 +615,7 @@
     <string name="timer_button_time_box_title">Minutos a añadir al temporizador</string>
     <string name="about_translate_link">Traducir en Codeberg</string>
     <string name="translate_dialog_message">Visitar la página de Codeberg:\n\n%s</string>
-    <string name="description_direction_right_for_occasional_alarm">Deslice el dedo hacia la derecha para descartar y eliminar la alarma</string>
     <string name="screensaver_next_alarm_color_title">Color de la siguiente alarma</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Deslice a la izquierda para descartar</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Deslice el dedo hacia la izquierda para descartar y eliminar la alarma</string>
     <string name="description_direction_both_for_occasional_alarm">Deslice el dedo hacia la izquierda para posponer la alarma o hacia la derecha para descartarla y eliminarla</string>
     <string name="default_time_to_add_to_timer_5_minutes">5 minutos</string>
     <string name="default_time_to_add_to_timer_30_minutes">30 minutos</string>

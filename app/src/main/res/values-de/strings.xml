@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Verarbeitet Aktionen von Timer-Benachrichtigungen."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verarbeitet Aktionen von Stoppuhr-Benachrichtigungen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Angehalten"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Zum Ausschalten nach rechts wischen</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Zum Schlummern nach links wischen"</string>
     <string name="description_direction_both" msgid="1841309486023845685">Zum Schlummern nach links oder zum Ausschalten nach rechts wischen</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrationsalarm des Timers"</string>
@@ -386,7 +384,6 @@
     <string name="selected">Ausgewählt</string>
     <string name="alarm_label_box_title">Alarm-Name</string>
     <string name="alarm_settings_summary">Standardsignalton, Lautstärke, Aktionen zum Ausschalten oder Schlummern von Alarmen, erster Wochentag und Benachrichtigung über anstehende Alarme einstellen</string>
-    <string name="description_direction_both_clicked">Zum Schlummern links oder zum Ausschalten rechts tippen</string>
     <string name="alarm_created">Alarm eingestellt</string>
     <string name="first_launch_button_later">Später</string>
     <string name="first_launch_button_now">Jetzt</string>
@@ -423,9 +420,7 @@
     <string name="about_github_link">Auf GitHub ansehen</string>
     <string name="license">Open-Source-Lizenz</string>
     <string name="dialog_close">Schließen</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Zum Ausschalten nach links wischen</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Zum Ausschalten nach links oder rechts wischen</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Zum Ausschalten links oder rechts tippen</string>
     <string name="timer_settings_summary">Standardsignalton, -lautstärke und Timer-Sortierung festlegen</string>
     <string name="default_time_to_add_to_timer_title">Standardzeit zur Verlängerung des Timers</string>
     <string name="screensaver_daydream_settings">Bildschirmschoner auswählen/aktivieren</string>
@@ -510,7 +505,6 @@
     <string name="snooze_button_color">Farbe des Schlummer-Buttons</string>
     <string name="dismiss_button_color">Farbe des Stopp-Buttons</string>
     <string name="alarm_button_color">Farbe des Alarm-Buttons</string>
-    <string name="pulse_color">Farbe des Impulses</string>
     <string name="alarm_clock_font_size">Schriftgröße der Alarm-Zeit</string>
     <string name="alarm_title_font_size">Schriftgröße des Alarm-Namens</string>
     <string name="standard_category_title">Standard</string>
@@ -600,13 +594,9 @@
     <string name="delete_occasional_alarm_after_use_title">Alarm löschen, sobald er beendet wurde</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Automatisches Löschen von Alarmen standardmäßig aktivieren</string>
     <string name="alarm_settings_general_summary">Diese Einstellung kann für jeden Alarm in der erweiterten Alarmansicht geändert werden</string>
-    <string name="description_direction_right_for_occasional_alarm">Nach rechts wischen, um den Alarm auszuschalten und zu löschen</string>
     <string name="description_direction_both_for_occasional_alarm">Zum Schlummern nach links oder zum Ausschalten und Löschen des Alarms nach rechts wischen</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Links tippen zum Schlummern oder rechts tippen zum Ausschalten und Löschen des Alarms</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Nach links oder rechts wischen, um den Alarm auszuschalten und zu löschen</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Links oder rechts tippen zum Ausschalten und Löschen des Alarms</string>
     <string name="occasional_alarm_alert_predismiss_title">Anstehender einmaliger Alarm</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Nach links wischen, um den Alarm auszuschalten und zu löschen</string>
     <string name="backup_button_title">Sichern</string>
     <string name="restore_button_title">Wiederherstellen</string>
     <string name="backup_restore_title">Sichern &amp; Wiederherstellen</string>

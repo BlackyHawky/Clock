@@ -21,12 +21,9 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 public class AnimatorUtils {
-
-    public static final Interpolator DECELERATE_ACCELERATE_INTERPOLATOR = x -> 0.5f + 4.0f * (x - 0.5f) * (x - 0.5f) * (x - 0.5f);
 
     public static final Interpolator INTERPOLATOR_FAST_OUT_SLOW_IN = new FastOutSlowInInterpolator();
 
@@ -47,36 +44,6 @@ public class AnimatorUtils {
                 }
             };
 
-    public static final Property<ImageView, Integer> DRAWABLE_ALPHA = new Property<>(Integer.class, "drawable.alpha") {
-                @Override
-                public Integer get(ImageView view) {
-                    return view.getDrawable().getAlpha();
-                }
-
-                @Override
-                public void set(ImageView view, Integer value) {
-                    view.getDrawable().setAlpha(value);
-                }
-            };
-
-    public static final Property<ImageView, Integer> DRAWABLE_TINT = new Property<>(Integer.class, "drawable.tint") {
-                @Override
-                public Integer get(ImageView view) {
-                    return null;
-                }
-
-                @Override
-                public void set(ImageView view, Integer value) {
-                    // Ensure the drawable is wrapped using DrawableCompat.
-                    final Drawable drawable = view.getDrawable();
-                    final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
-                    if (wrappedDrawable != drawable) {
-                        view.setImageDrawable(wrappedDrawable);
-                    }
-                    // Set the new tint value via DrawableCompat.
-                    DrawableCompat.setTint(wrappedDrawable, value);
-                }
-            };
 
     @SuppressWarnings("unchecked")
     public static final TypeEvaluator<Integer> ARGB_EVALUATOR = new ArgbEvaluator();
@@ -142,16 +109,6 @@ public class AnimatorUtils {
             background = ((LayerDrawable) background).getDrawable(0);
         }
         background.setAlpha(value);
-    }
-
-    public static void reverse(ValueAnimator... animators) {
-        for (ValueAnimator animator : animators) {
-            final float fraction = animator.getAnimatedFraction();
-            if (fraction > 0.0f) {
-                animator.reverse();
-                animator.setCurrentFraction(1.0f - fraction);
-            }
-        }
     }
 
     public static ValueAnimator getScaleAnimator(View view, float... values) {

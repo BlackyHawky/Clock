@@ -783,7 +783,7 @@ public final class SettingsDAO {
      */
     public static int getAlarmSecondsHandColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmSecondsHandColor(context));
+        return prefs.getInt(KEY_ALARM_SECONDS_HAND_COLOR, getDefaultAlarmInversePrimaryColor(context));
     }
 
     /**
@@ -795,35 +795,51 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return a value indicating the slide zone color.
+     */
+    public static int getSlideZoneColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SLIDE_ZONE_COLOR, DEFAULT_SLIDE_ZONE_COLOR);
+    }
+
+    /**
+     * @return a value indicating the color of "Snooze" title.
+     */
+    public static int getSnoozeTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_SNOOZE_TITLE_COLOR, DEFAULT_SNOOZE_TITLE_COLOR);
+    }
+
+    /**
      * @return a value indicating the snooze button color.
      */
-    public static int getSnoozeButtonColor(SharedPreferences prefs) {
+    public static int getSnoozeButtonColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_SNOOZE_BUTTON_COLOR, DEFAULT_SNOOZE_BUTTON_COLOR);
+        return prefs.getInt(KEY_SNOOZE_BUTTON_COLOR, getDefaultAlarmInversePrimaryColor(context));
+    }
+
+    /**
+     * @return a value indicating the color of "Dismiss" title.
+     */
+    public static int getDismissTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_DISMISS_TITLE_COLOR, DEFAULT_DISMISS_TITLE_COLOR);
     }
 
     /**
      * @return a value indicating the dismiss button color.
      */
-    public static int getDismissButtonColor(SharedPreferences prefs) {
+    public static int getDismissButtonColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_DISMISS_BUTTON_COLOR, DEFAULT_DISMISS_BUTTON_COLOR);
+        return prefs.getInt(KEY_DISMISS_BUTTON_COLOR, getDefaultAlarmInversePrimaryColor(context));
     }
 
     /**
      * @return a value indicating the alarm button color.
      */
-    public static int getAlarmButtonColor(SharedPreferences prefs) {
+    public static int getAlarmButtonColor(SharedPreferences prefs, Context context) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_ALARM_BUTTON_COLOR, DEFAULT_ALARM_BUTTON_COLOR);
-    }
-
-    /**
-     * @return a value indicating the pulse color.
-     */
-    public static int getPulseColor(SharedPreferences prefs) {
-        // Default value must match the one in res/xml/settings_alarm_display.xml
-        return prefs.getInt(KEY_PULSE_COLOR, DEFAULT_PULSE_COLOR);
+        return prefs.getInt(KEY_ALARM_BUTTON_COLOR, getDefaultAlarmInversePrimaryColor(context));
     }
 
     /**
@@ -849,6 +865,14 @@ public final class SettingsDAO {
     public static boolean isRingtoneTitleDisplayed(SharedPreferences prefs) {
         // Default value must match the one in res/xml/settings_alarm_display.xml
         return prefs.getBoolean(KEY_DISPLAY_RINGTONE_TITLE, DEFAULT_DISPLAY_RINGTONE_TITLE);
+    }
+
+    /**
+     * @return a value indicating the ringtone title color.
+     */
+    public static int getRingtoneTitleColor(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings_alarm_display.xml
+        return prefs.getInt(KEY_RINGTONE_TITLE_COLOR, DEFAULT_RINGTONE_TITLE_COLOR);
     }
 
     private static ClockStyle getClockStyle(SharedPreferences prefs, String key) {

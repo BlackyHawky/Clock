@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις χρονοδιακόπτη."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις του χρονομέτρου."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Σε παύση"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Σύρετε δεξιά για παράβλεψη"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Σύρετε αριστερά για αναβολή"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Σύρετε το δάχτυλό σας προς τα αριστερά για αναβολή ή προς τα δεξιά για απόρριψη"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Χρονόμετρα"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Δόνηση χρονοδιακόπτη"</string>

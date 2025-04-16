@@ -321,8 +321,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"ធ្វើដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ដំណើរការសកម្មភាពពីការជូនដំណឹងម៉ោងបញ្ឈប់"</string>
     <string name="swn_paused" msgid="6364358842808263589">"បានផ្អាក"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"អូស​ទៅ​ស្ដាំ​ដើម្បី​បដិសេធ"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"អូស​ទៅ​ឆ្វេង​ដើម្បី​ផ្អាក"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"អូសទៅឆ្វេងដើម្បីផ្អាក ឬទៅស្តាំដើម្បីបញ្ឈប់"</string>
     <string name="timer_settings" msgid="7955522143086154795">"កម្មវិធីកំណត់ពេល"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ការញ័រនៃកម្មវិធីកំណត់ម៉ោង"</string>

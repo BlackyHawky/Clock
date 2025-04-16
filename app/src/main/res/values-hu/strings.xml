@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Feldolgozza az időzítő értesítéseiből származó műveleteket."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Feldolgozza a stopperóra értesítéseiből származó műveleteket."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Szüneteltetve"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Az elvetéshez csúsztassa jobbra"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"A szundihoz csúsztassa balra"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"A szundihoz csúsztassa gyorsan balra, az elvetéshez pedig jobbra"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Időzítők"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Időzítő rezgése"</string>
@@ -386,7 +384,6 @@
     <string name="settings_vibration_title">Rezgések bekapcsolása</string>
     <string name="dialog_close">Bezárás</string>
     <string name="font_category_title">Betűtípus</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Húzd jobbra a kikapcsoláshoz</string>
     <string name="license">Nyílt-forráskódú Felhasználás</string>
     <string name="title_theme">Téma</string>
     <string name="add_label">Címke hozzáadása</string>

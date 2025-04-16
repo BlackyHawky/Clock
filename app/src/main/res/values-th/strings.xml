@@ -321,8 +321,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกานับถอยหลัง"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ดำเนินการทำงานจากการแจ้งเตือนของนาฬิกาจับเวลา"</string>
     <string name="swn_paused" msgid="6364358842808263589">"หยุดชั่วคราวแล้ว"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"เลื่อนไปทางขวาเพื่อปิด"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราว"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"เลื่อนไปทางซ้ายเพื่อปิดเสียงเตือนชั่วคราวหรือไปทางขวาเพื่อปิด"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ตัวจับเวลา"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ตัวจับเวลาสั่น"</string>

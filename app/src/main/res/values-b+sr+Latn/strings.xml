@@ -338,8 +338,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Obrađuje radnje iz obaveštenja tajmera."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Obrađuje radnje iz obaveštenja štoperice."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pauzirano"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Prevucite nadesno za odbacivanje"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Prevucite nalevo za odlaganje"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Prevucite nalevo da biste odložili ili nadesno da biste odbacili"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Tajmeri"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibracija tajmera"</string>

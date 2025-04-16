@@ -22,35 +22,28 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_vertical_start_guide"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_vertical_center_guide"
+            android:id="@+id/alarm_vertical_middle_guide"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintGuide_percent="0.5" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_vertical_end_guide"
+            android:id="@+id/alarm_landscape_vertical_end_guide"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_horizontal_middle_guide"
+            android:id="@+id/alarm_landscape_horizontal_start_guide"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/alarm_horizontal_end_guide"
+            android:id="@+id/alarm_landscape_horizontal_end_guide"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,14 +52,16 @@
         <!-- Clock view -->
         <FrameLayout
             android:id="@+id/clock_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/alarm_vertical_middle_guide"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_title">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.best.deskclock.widget.AnalogClock
                 android:id="@+id/analog_clock"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 tools:visibility="gone" />
@@ -80,7 +75,7 @@
                 android:includeFontPadding="false"
                 android:singleLine="true"
                 tools:text="12:34"
-                tools:textSize="70sp"
+                tools:textSize="50sp"
                 tools:textColor="@android:color/white" />
 
         </FrameLayout>
@@ -97,9 +92,10 @@
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            app:layout_constraintStart_toStartOf="@+id/alarm_vertical_start_guide"
-            app:layout_constraintEnd_toEndOf="@+id/alarm_vertical_end_guide"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_middle_guide"
+            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_middle_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/alarm_landscape_horizontal_start_guide"
             tools:text="@string/menu_alarm"
             tools:textSize="26sp"
             tools:textColor="@android:color/white" />
@@ -110,16 +106,16 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginHorizontal="12dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/alarm_vertical_center_guide"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
+            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_middle_guide"
+            app:layout_constraintEnd_toStartOf="@+id/alarm_landscape_vertical_end_guide"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
             tools:text="@string/alarm_alert_snooze_text"
             tools:visibility="gone" />
 
@@ -129,28 +125,30 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginHorizontal="12dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_center_guide"
+            app:layout_constraintStart_toEndOf="@+id/alarm_landscape_vertical_end_guide"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
             tools:text="@string/alarm_alert_dismiss_text"
             tools:visibility="gone" />
 
         <!-- Slide zone -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/slide_zone_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:paddingHorizontal="12dp"
             android:clipToPadding="false"
-            app:layout_constraintBottom_toTopOf="@+id/alarm_horizontal_end_guide"
+            app:layout_constraintStart_toEndOf="@+id/alarm_vertical_middle_guide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
             tools:background="@drawable/bg_alarm_slide_zone">
 
             <!-- Snooze text -->
@@ -162,7 +160,7 @@
                 android:paddingEnd="6dp"
                 android:paddingVertical="10dp"
                 android:text="@string/alarm_alert_snooze_text"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:gravity="start|center_vertical"
                 android:textStyle="bold"
                 android:singleLine="true"
@@ -181,7 +179,7 @@
                 android:paddingEnd="@null"
                 android:paddingVertical="10dp"
                 android:text="@string/alarm_alert_dismiss_text"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:gravity="end|center_vertical"
                 android:textStyle="bold"
                 android:singleLine="true"
@@ -233,8 +231,8 @@
             android:orientation="horizontal"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="@+id/slide_zone_layout"
-            app:layout_constraintEnd_toEndOf="@+id/slide_zone_layout"
+            app:layout_constraintStart_toStartOf="@+id/alarm_vertical_middle_guide"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView

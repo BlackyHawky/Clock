@@ -321,8 +321,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Xử lý các tác vụ từ thông báo bộ hẹn giờ."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Xử lý các tác vụ từ thông báo đồng hồ bấm giờ."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Đã tạm dừng"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Vuốt sang phải để loại bỏ"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Vuốt sang trái để báo lại hoặc phải để bỏ qua"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Bộ hẹn giờ"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Bộ hẹn giờ rung"</string>

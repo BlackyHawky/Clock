@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Таймер эскертмелериндеги аракеттерди иштетет."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Секундомер эскертмелериндеги аракеттерди иштетет."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Тындырылды"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Койгуңуз келбесе оңго сүрүңүз"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Тындыруу үчүн солго сүрүңүз."</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Тындыруу үчүн солго же этибарга албоо үчүн оңго серпиңиз"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймерлер"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Таймер дирилдөөсү"</string>

@@ -348,8 +348,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Przetwarza działania z powiadomień minutnika."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Przetwarza działania z powiadomień stopera."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Wstrzymano"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Przesuń w prawo, by wyłączyć"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Przesuń w lewo, by uśpić"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Przesuń w lewo, by odłożyć, lub w prawo, by zamknąć"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minutniki"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Wibracje minutnika"</string>
@@ -497,7 +495,6 @@
     <string name="about_title">O</string>
     <string name="sort_timer_name">Według nazwy</string>
     <string name="default_time_to_add_to_timer_1_minute">1 minuta</string>
-    <string name="description_direction_both_clicked">Kliknij w lewo, aby włączyć drzemkę lub w prawo, aby ją wyłączyć</string>
     <string name="sort_timer_ascending_duration">Według czasu trwania (kolejność rosnąca)</string>
     <string name="sort_timer_descending_duration">Według czasu trwania (kolejność malejąca)</string>
     <string name="default_time_to_add_to_timer_3_minutes">3 minuty</string>
@@ -573,11 +570,8 @@
     <string name="ringtone_category_title">Dzwonek</string>
     <string name="actions_category_title">Akcje</string>
     <string name="title_accent_color">Kolor</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Kliknij w lewo, aby włączyć drzemkę lub w prawo, aby odrzucić i usunąć alarm</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Przesuń palcem w lewo lub w prawo, aby odrzucić</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Przesuń w lewo lub w prawo, aby odrzucić i usunąć alarm</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Kliknij w lewo lub w prawo, aby odrzucić</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Kliknij w lewo lub w prawo, aby odrzucić lub usunąć alarm</string>
     <string name="timer_settings_summary">Ustaw domyślny dzwonek, głośność i sortowanie minutnika</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minuty</string>
     <string name="first_launch_dialog_message">Czy na pewno chcesz wyjść z aplikacji?</string>
@@ -608,9 +602,6 @@
     <string name="red_accent_color">Czerwony</string>
     <string name="title_dark_theme_mode">Tryb ciemnego motywu</string>
     <string name="amoled_dark_theme_mode">AMOLED</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Przesuń w lewo, aby odrzucić</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Przesuń w lewo, aby odrzucić i usunąć alarm</string>
-    <string name="description_direction_right_for_occasional_alarm">Przesuń w prawo, aby odrzucić i usunąć alarm</string>
     <string name="description_direction_both_for_occasional_alarm">Przesuń palcem w lewo, aby włączyć drzemkę lub w prawo, aby odrzucić i usunąć alarm</string>
     <string name="display_warning_before_deleting_timer_title">Wyświetl ostrzeżenie przed usunięciem minutnika</string>
     <string name="warning_dialog_title">Usuń minutnik</string>
@@ -636,7 +627,6 @@
     <string name="digital_widget_city_clock_custom_color_title">Niestandardowy kolor zegara miejskiego</string>
     <string name="digital_widget_city_name_default_color_title">Użyj domyślnego koloru dla nazwy miasta</string>
     <string name="credits">Uznania</string>
-    <string name="pulse_color">Kolor impulsu</string>
     <string name="timer_add_custom_time">+ %s</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">Włącz wibracje, gdy alarm jest uśpiony lub odrzucony</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">Podwójna wibracja, gdy alarm jest uśpiony i pojedyncza wibracja, gdy alarm jest odrzucony</string>

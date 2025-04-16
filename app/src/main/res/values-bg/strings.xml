@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Обработва действията от известията на таймера."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обработва действията от известията на хронометъра."</string>
     <string name="swn_paused" msgid="6364358842808263589">"На пауза"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Прекарайте пръст надясно, за да отхвърлите"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Прекарайте пръст наляво, за да отложите"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Прекарайте пръст наляво, за да отложите, или надясно за отхвърляне"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймери"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибриране на таймера"</string>

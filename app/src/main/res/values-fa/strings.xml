@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"کنش‌ها را از اعلان‌های تایمر پردازش می‌کند."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"کنش‌ها را از اعلان‌های کرونومتر پردازش می‌کند."</string>
     <string name="swn_paused" msgid="6364358842808263589">"متوقف شد"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"برای ردکردن، انگشتتان را روی صفحه تند به راست بکشید"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"برای تعویق، انگشتتان را روی صفحه تند به چپ بکشید"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"برای تعویق، انگشتتان را روی صفحه به چپ و برای رد کردن به راست بکشید"</string>
     <string name="timer_settings" msgid="7955522143086154795">"تایمرها"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"لرزش تایمر"</string>

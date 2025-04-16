@@ -32,6 +32,14 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <SwitchPreferenceCompat
+            android:key="key_swipe_action"
+            android:title="@string/swipe_action_title"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_background_color"
             android:title="@string/background_color_title"
@@ -53,7 +61,7 @@
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_clock_color"
             android:title="@string/clock_color_title"
-            android:defaultValue="#FF8A9297"
+            android:defaultValue="#FFFFFFFF"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -62,34 +70,15 @@
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_seconds_hand_color"
             android:title="@string/seconds_hand_color_title"
-            android:defaultValue="?colorPrimary"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_alarm_title_color"
-            android:title="@string/alarm_title_color"
-            android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_snooze_button_color"
-            android:title="@string/snooze_button_color"
-            android:defaultValue="#FF8A9297"
-            app:colorpicker_selectNoneButtonText="@string/label_default"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_dismiss_button_color"
-            android:title="@string/dismiss_button_color"
-            android:defaultValue="#FF8A9297"
+            android:key="key_slide_zone_color"
+            android:title="@string/slide_zone_color_title"
+            android:defaultValue="#FF2E3337"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -98,16 +87,49 @@
         <com.rarepebble.colorpicker.ColorPreference
             android:key="key_alarm_button_color"
             android:title="@string/alarm_button_color"
-            android:defaultValue="#FF8A9297"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="key_pulse_color"
-            android:title="@string/pulse_color"
-            android:defaultValue="#FFC0C7CD"
+            android:key="key_snooze_title_color"
+            android:title="@string/snooze_title_color"
+            android:defaultValue="#FFFFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_snooze_button_color"
+            android:title="@string/snooze_button_color"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_dismiss_title_color"
+            android:title="@string/dismiss_title_color"
+            android:defaultValue="#FFFFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_dismiss_button_color"
+            android:title="@string/dismiss_button_color"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_alarm_title_color"
+            android:title="@string/alarm_title_color"
+            android:defaultValue="#FFFFFFFF"
             app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
@@ -153,6 +175,15 @@
             android:key="key_display_ringtone_title"
             android:title="@string/display_ringtone_title"
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <com.rarepebble.colorpicker.ColorPreference
+            android:key="key_ringtone_title_color"
+            android:title="@string/ringtone_title_color"
+            android:defaultValue="#FFFFFFFF"
+            app:colorpicker_selectNoneButtonText="@string/label_default"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

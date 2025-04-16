@@ -20,7 +20,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICK
 import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_INTENSITY;
-import static com.best.deskclock.settings.PreferencesKeys.KEY_SWIPE_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
@@ -52,7 +51,6 @@ public class AlarmSettingsFragment extends ScreenFragment
     ListPreference mAlarmSnoozePref;
     AlarmVolumePreference mAlarmVolumePreference;
     ListPreference mAlarmCrescendoPref;
-    SwitchPreferenceCompat mSwipeActionPref;
     ListPreference mVolumeButtonsPref;
     ListPreference mPowerButtonPref;
     ListPreference mFlipActionPref;
@@ -83,7 +81,6 @@ public class AlarmSettingsFragment extends ScreenFragment
         mAlarmSnoozePref = findPreference(KEY_ALARM_SNOOZE_DURATION);
         mAlarmVolumePreference = findPreference(KEY_ALARM_VOLUME_SETTING);
         mAlarmCrescendoPref = findPreference(KEY_ALARM_CRESCENDO_DURATION);
-        mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mVolumeButtonsPref = findPreference(KEY_VOLUME_BUTTONS);
         mPowerButtonPref = findPreference(KEY_POWER_BUTTON);
         mFlipActionPref = findPreference(KEY_FLIP_ACTION);
@@ -123,7 +120,7 @@ public class AlarmSettingsFragment extends ScreenFragment
                 updateAutoSnoozeSummary((ListPreference) pref, delay);
             }
 
-            case KEY_SWIPE_ACTION, KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
+            case KEY_ENABLE_ALARM_VIBRATIONS_BY_DEFAULT, KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS,
                  KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM, KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT ->
                     Utils.setVibrationTime(requireContext(), 50);
 
@@ -182,8 +179,6 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mAlarmCrescendoPref.setOnPreferenceChangeListener(this);
         mAlarmCrescendoPref.setSummary(mAlarmCrescendoPref.getEntry());
-
-        mSwipeActionPref.setOnPreferenceChangeListener(this);
 
         mVolumeButtonsPref.setOnPreferenceChangeListener(this);
         mVolumeButtonsPref.setSummary(mVolumeButtonsPref.getEntry());

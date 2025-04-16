@@ -80,18 +80,18 @@ public class PreferencesDefaultValues {
     // Alarm Display Customization
     public static final boolean DEFAULT_DISPLAY_ALARM_SECONDS_HAND = true;
     public static final int DEFAULT_ALARM_BACKGROUND_COLOR = Color.parseColor("#FF191C1E");
-    public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.parseColor("#FF000000");
-    public static final int DEFAULT_ALARM_CLOCK_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_ALARM_TITLE_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_SNOOZE_BUTTON_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_DISMISS_BUTTON_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_ALARM_BUTTON_COLOR = Color.parseColor("#FF8A9297");
-    public static final int DEFAULT_PULSE_COLOR = Color.parseColor("#FFC0C7CD");
+    public static final int DEFAULT_ALARM_BACKGROUND_AMOLED_COLOR = Color.BLACK;
+    public static final int DEFAULT_SLIDE_ZONE_COLOR = Color.parseColor("#FF2E3337");
+    public static final int DEFAULT_ALARM_CLOCK_COLOR = Color.WHITE;
+    public static final int DEFAULT_ALARM_TITLE_COLOR = Color.WHITE;
+    public static final int DEFAULT_SNOOZE_TITLE_COLOR = Color.WHITE;
+    public static final int DEFAULT_DISMISS_TITLE_COLOR = Color.WHITE;
     public static final int DEFAULT_ALARM_DIGITAL_CLOCK_FONT_SIZE = 70;
     public static final int DEFAULT_ALARM_TITLE_FONT_SIZE_PREF = 30;
     public static final boolean DEFAULT_DISPLAY_RINGTONE_TITLE = false;
-    public static int getDefaultAlarmSecondsHandColor(Context context) {
-        return MaterialColors.getColor(context, android.R.attr.colorPrimary, Color.BLACK);
+    public static final int DEFAULT_RINGTONE_TITLE_COLOR = Color.WHITE;
+    public static int getDefaultAlarmInversePrimaryColor(Context context) {
+        return MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
     }
 
     // Timer
@@ -120,7 +120,7 @@ public class PreferencesDefaultValues {
     // Screensaver
     public static final boolean DEFAULT_DISPLAY_SCREENSAVER_CLOCK_SECONDS = false;
     public static final boolean DEFAULT_SCREENSAVER_CLOCK_DYNAMIC_COLORS = false;
-    public static final int DEFAULT_SCREENSAVER_CUSTOM_COLOR = Color.parseColor("#FFFFFF");
+    public static final int DEFAULT_SCREENSAVER_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_SCREENSAVER_BRIGHTNESS = 40;
     public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_BOLD = false;
     public static final boolean DEFAULT_SCREENSAVER_DIGITAL_CLOCK_IN_ITALIC = false;
@@ -167,7 +167,7 @@ public class PreferencesDefaultValues {
     // Common widget values
     public static final boolean DEFAULT_WIDGETS_DEFAULT_COLOR = true;
     public static final int DEFAULT_WIDGETS_BACKGROUND_COLOR = Color.parseColor("#70000000");
-    public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.parseColor("#FFFFFF");
+    public static final int DEFAULT_WIDGETS_CUSTOM_COLOR = Color.WHITE;
     public static final int DEFAULT_WIDGETS_FONT_SIZE = 70;
 
 }

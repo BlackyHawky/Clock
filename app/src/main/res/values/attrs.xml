@@ -6,18 +6,19 @@
 -->
 
 <resources>
-
-    <declare-styleable name="CircleView">
+    <declare-styleable name="PillView">
         <!-- Sets the center/radius of the circle relative to the view's bounds. -->
         <attr name="android:gravity" />
         <!-- The ARGB fill color of the circle. -->
-        <attr name="fillColor" format="color" />
+        <attr name="pillFillColor" format="color" />
         <!-- The center x-coordinate of the circle. -->
-        <attr name="centerX" format="dimension" />
+        <attr name="pillCenterX" format="dimension" />
         <!-- The center y-coordinate of the circle. -->
-        <attr name="centerY" format="dimension" />
-        <!-- The radius of the circle. -->
-        <attr name="radius" format="dimension" />
+        <attr name="pillCenterY" format="dimension" />
+        <!-- The width of the pill. -->
+        <attr name="pillWidth" format="dimension" />
+        <!-- The height of the pill. -->
+        <attr name="pillHeight" format="dimension" />
     </declare-styleable>
 
     <attr name="onStateTransition">

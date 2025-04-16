@@ -67,14 +67,6 @@
         app:iconSpaceReserved="false"
         tools:layout="@layout/settings_preference_category_layout">
 
-        <SwitchPreferenceCompat
-            android:key="key_swipe_action"
-            android:title="@string/swipe_action_title"
-            android:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
         <ListPreference
             android:key="key_volume_button_setting"
             android:title="@string/volume_button_setting_title"

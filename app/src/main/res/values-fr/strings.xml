@@ -144,7 +144,6 @@
     <string name="snooze_button_color">Couleur du bouton Répéter</string>
     <string name="dismiss_button_color">Couleur du bouton Arrêter</string>
     <string name="alarm_button_color">Couleur du bouton Alarme</string>
-    <string name="pulse_color">Couleur de la pulsation</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -409,13 +408,8 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Glisser vers la droite pour arrêter"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Glisser vers la gauche pour répéter"</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Glisser vers la gauche pour arrêter</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Glisser vers la gauche pour répéter ou vers la droite pour arrêter"</string>
-    <string name="description_direction_both_clicked">Cliquer à gauche pour répéter ou à droite pour arrêter</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Cliquer à gauche ou à droite pour arrêter</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
     <string name="timer_settings_summary">Définit la sonnerie par défaut, le volume et le tri des minuteurs</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Minuteur en mode vibreur"</string>
@@ -597,17 +591,13 @@
     <string name="auto_silence_10_seconds">10 secondes</string>
     <string name="auto_silence_20_seconds">20 secondes</string>
     <string name="auto_silence_30_seconds">30 secondes</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Glisser vers la gauche pour arrêter et supprimer l\'alarme</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Activer par défaut la suppression automatique des alarmes occasionnelles</string>
     <string name="alarm_settings_general_summary">Ce réglage peut être modifié pour chaque alarme dans la vue étendue des alarmes</string>
-    <string name="description_direction_right_for_occasional_alarm">Glisser vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="delete_occasional_alarm_after_use_title">Supprimer l\'alarme une fois arrêtée</string>
     <string name="alarm_alert_dismiss_and_delete_text">Ignorer &amp; Supprimer</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme arrêtée et supprimée</string>
     <string name="description_direction_both_for_occasional_alarm">Glisser vers la gauche pour répéter ou vers la droite pour arrêter et supprimer l\'alarme</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Cliquer à gauche pour répéter ou à droite pour arrêter et supprimer l\'alarme</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter et supprimer l\'alarme</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Cliquer à gauche ou à droite pour arrêter et supprimer l\'alarme</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarme occasionnelle imminente</string>
     <string name="occasional_alarm_deleted">Alarme occasionnelle supprimée</string>
     <string name="backup_restore_title">Sauvegarde &amp; Restauration</string>

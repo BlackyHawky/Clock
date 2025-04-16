@@ -339,8 +339,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Glissez vers la droite pour supprimer"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Glissez vers la gauche pour répéter"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Glisser le doigt vers la gauche pour répéter, ou vers la droite pour ignorer"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteries"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibration du minuteur"</string>

@@ -348,8 +348,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Обрабатывает действия из уведомлений таймера."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обрабатывает действия из уведомлений секундомера."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Приостановлено"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Пролистните вправо, чтобы отключить сигнал"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Пролистните влево, чтобы отложить сигнал"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Проведите влево, чтобы отложить сигнал, или вправо, чтобы отменить его"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймеры"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибросигнал таймера"</string>
@@ -419,7 +417,6 @@
     <string name="FSN_dialog_text">С Android 14, чтобы позволить будильнику сработать с выключенным экраном, необходимо, чтобы разрешение \"Полноэкранных уведомлений\" было включено.</string>
     <string name="style_category_title">Стиль</string>
     <string name="alarm_settings_summary">Выбрать стандартный рингтон, звук, действия для отключения или откладывания будильников, первый день недели и время напоминания в уведомлениях</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Смахните влево, чтобы отключить</string>
     <string name="styles_and_colors_category_title">Стиль и цвета</string>
     <string name="gnu_gpl">Общая публичная лицензия GNU версии 3.0</string>
     <string name="clock_color_title">Цвет часов</string>
@@ -450,9 +447,7 @@
     <string name="features_title">Основные функции</string>
     <string name="about_github_link">Посмотреть на Github</string>
     <string name="license">Лицензия открытого кода</string>
-    <string name="description_direction_both_clicked">Нажмите влево, чтобы отложить или вправо, чтобы отключить</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Смахните влево или вправо, чтобы отключить</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Нажмите влево или вправо, чтобы отключить</string>
     <string name="timer_settings_summary">Установить рингтон, громкость и сортировку по умолчанию для таймеров</string>
     <string name="screensaver_date_color_title">Цвет даты</string>
     <string name="first_launch_version">Версия %s</string>
@@ -554,7 +549,6 @@
     <string name="settings_fade_transitions_title">Включить затихающие переходы при переключении между экранами</string>
     <string name="dismiss_button_color">Цвет кнопки отклонить</string>
     <string name="alarm_button_color">Цвет кнопки будильника</string>
-    <string name="pulse_color">Цвет пульса</string>
     <string name="next_alarm_widget_default_alarm_title_color">Использовать стандартный цвет для плитки будильников</string>
     <string name="next_alarm_widget_default_title_color">Использовать стандартный цвет для плиток \"Следующий будильник\" и \"Нет будильников\"</string>
     <string name="digital_widget_default_minutes_color_title">Использовать стандартные цвета для минут</string>
@@ -645,9 +639,6 @@
     <string name="backup_button_title">Резервная копия</string>
     <string name="restore_button_title">Восстановление</string>
     <string name="auto_silence_30_seconds">30 секунд</string>
-    <string name="description_direction_right_for_occasional_alarm">Проведите вправо для отключения и удаления будильника</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Проведите влево для выключения и удаления будильника</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Нажать слева чтобы отложить или справа чтобы выключить и удалить будильник</string>
     <string name="timer_buttons_action_summary">Работает только на заблокированном экране</string>
     <string name="sort_timer_ascending_duration">По длительности (возрастание)</string>
     <string name="shake_intensity_title">Интенсивность тряски</string>
@@ -662,7 +653,6 @@
     <string name="sw_long_press_volume_up_action_title">Громкость + (после долгого нажатия)</string>
     <string name="sw_volume_down_action_title">Громкость -</string>
     <string name="sw_long_press_volume_down_action_title">Громкость - (после долгого нажатия)</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Нажать слева или права чтобы выключить и удалить будильник</string>
     <string name="timer_shake_action_title">Потрясти устройство чтобы выключить будильник</string>
     <string name="default_time_to_add_to_timer_4_minutes">4 минуты</string>
     <string name="default_time_to_add_to_timer_5_minutes">5 минут</string>

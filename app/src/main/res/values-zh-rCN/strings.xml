@@ -321,8 +321,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">处理来自定时器通知的操作。</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">处理来自秒表通知的操作。</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暂停"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">向右滑动以关闭</string>
-    <string name="description_direction_left" msgid="7448141043674998679">向左滑动以暂停</string>
     <string name="description_direction_both" msgid="1841309486023845685">向左滑动以暂停，向右滑动以关闭</string>
     <string name="timer_settings" msgid="7955522143086154795">"定时器"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"定时器振动"</string>
@@ -405,7 +403,6 @@
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
     <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">向左滑动以关闭</string>
     <string name="material_time_picker_style_title">时间选择器样式</string>
     <string name="timer_label_box_title">定时器标签</string>
     <string name="whats_new_title">更新日志</string>
@@ -431,7 +428,6 @@
     <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑动以关闭</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">点击左侧或右侧以关闭</string>
     <string name="timer_settings_summary">设置默认铃声、音量和定时器排序</string>
     <string name="default_time_to_add_to_timer_title">添加到定时器的默认时间</string>
     <string name="screensaver_settings_summary">设置屏幕保护程序的样式、颜色和字体</string>
@@ -446,7 +442,6 @@
     <string name="screensaver_bold_date_title">粗体日期</string>
     <string name="preview_title">预览</string>
     <string name="screensaver_preview_summary">立即启动屏幕保护程序</string>
-    <string name="description_direction_both_clicked">点击左侧以暂停，点击右侧以关闭</string>
     <string name="screensaver_next_alarm_color_title">下次闹钟颜色</string>
     <string name="screensaver_bold_next_alarm_title">粗体下次闹钟</string>
     <string name="screensaver_italic_next_alarm_title">斜体下次闹钟</string>
@@ -496,7 +491,6 @@
     <string name="snooze_button_color">暂停按钮颜色</string>
     <string name="dismiss_button_color">关闭按钮颜色</string>
     <string name="alarm_button_color">闹钟按钮颜色</string>
-    <string name="pulse_color">脉冲颜色</string>
     <string name="transparent_background_for_expired_timer_title">定时器结束时的透明背景</string>
     <string name="alarm_title_color">闹钟标题颜色</string>
     <string name="seconds_hand_color_title">秒针颜色</string>
@@ -575,13 +569,9 @@
     <string name="auto_silence_5_seconds">5 秒</string>
     <string name="alarm_alert_dismiss_and_delete_text">关闭并删除</string>
     <string name="description_direction_both_for_occasional_alarm">向左滑动以暂停，向右滑动以关闭并删除闹钟</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">点击左侧以暂停，点击右侧以关闭并删除闹钟</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">向左或向右滑动以关闭并删除闹钟</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">点击左侧或右侧以关闭并删除闹钟</string>
     <string name="delete_occasional_alarm_after_use_title">关闭后立即删除闹钟</string>
-    <string name="description_direction_right_for_occasional_alarm">向右滑动以关闭并删除闹钟</string>
     <string name="alarm_alert_off_and_deleted_text">闹钟已关闭并删除</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">向左滑动以关闭并删除闹钟</string>
     <string name="occasional_alarm_alert_predismiss_title">预定的临时闹钟</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">默认启用自动删除临时闹钟</string>
     <string name="alarm_settings_general_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>

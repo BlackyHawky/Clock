@@ -338,8 +338,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Processa ações de notificações do timer."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processa ações de notificações do cronômetro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pausado"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Deslize para a direita para dispensar"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Deslize para a esquerda para adiar"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Deslize para a esquerda para adiar ou para a direita para dispensar"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">Timer com vibração</string>
@@ -429,7 +427,6 @@
     <string name="timer_label_box_title">Etiqueta de Timer</string>
     <string name="timer_button_time_box_title">Minutos para adicionar ao timer</string>
     <string name="alarm_settings_summary">Definir toque padrão, volume, ações para ignorar ou adiar alarmes, o primeiro dia da semana e a hora da notificação do lembrete</string>
-    <string name="description_direction_both_clicked">Clique na esquerda para soneca ou direita para descartar</string>
     <string name="app_slogan">Relógio 100% FOSS, baseado em AOSP</string>
     <string name="orange_accent_color">Laranja</string>
     <string name="indigo_accent_color">Índigo</string>
@@ -447,7 +444,6 @@
     <string name="snooze_button_color">Cor do botão de Soneca</string>
     <string name="dismiss_button_color">Cor do botão Dispensar</string>
     <string name="alarm_button_color">Cor do botão de Alarme</string>
-    <string name="pulse_color">Cor de Pulsação</string>
     <string name="alarm_title_font_size">Tamanho da fonte do título do alarme</string>
     <string name="alarm_clock_font_size">Tamanho da fonte do relógio de alarme</string>
     <string name="version">Versão</string>
@@ -495,11 +491,7 @@
     <string name="delete_occasional_alarm_after_use_title">Delete alarme quando dispensado</string>
     <string name="alarm_alert_dismiss_and_delete_text">Dispensar &amp; Deletar</string>
     <string name="alarm_alert_off_and_deleted_text">Alarme desativado e deletado</string>
-    <string name="description_direction_right_for_occasional_alarm">Deslize para a direita para descartar e deletar alarme</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Deslize para esquerda para descartar</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Deslize para esquerda para descartar e deletar alarme</string>
     <string name="description_direction_both_for_occasional_alarm">Deslize para esquerda para soneca ou direita para descartar e deletar alarme</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Clique na esquerda para soneca ou direita para descartar e deletar alarme</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Deslize para esquerda ou direita para descartar</string>
     <string name="system_theme">Sistema</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarme ocasional próximo</string>
@@ -510,8 +502,6 @@
     <string name="auto_silence_20_seconds">20 segundos</string>
     <string name="auto_silence_30_seconds">30 segundos</string>
     <string name="snooze_duration_none">Nenhum</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Clique na esquerda ou direita para descartar</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Clique na esquerda ou direita para descartar e deletar alarme</string>
     <string name="about_github_link">Veja no GitHub</string>
     <string name="vertical_digital_widget">Relógio digital vertical</string>
     <string name="material_you_vertical_digital_widget">Relógio digital vertical Material You</string>

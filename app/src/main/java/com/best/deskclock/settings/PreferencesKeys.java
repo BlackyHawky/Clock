@@ -85,16 +85,19 @@ public class PreferencesKeys {
     public static final String KEY_DISPLAY_ALARM_SECONDS_HAND = "key_display_alarm_seconds_hand";
     public static final String KEY_ALARM_BACKGROUND_COLOR = "key_alarm_background_color";
     public static final String KEY_ALARM_BACKGROUND_AMOLED_COLOR = "key_alarm_background_amoled_color";
+    public static final String KEY_SLIDE_ZONE_COLOR = "key_slide_zone_color";
     public static final String KEY_ALARM_CLOCK_COLOR = "key_alarm_clock_color";
     public static final String KEY_ALARM_SECONDS_HAND_COLOR = "key_alarm_seconds_hand_color";
     public static final String KEY_ALARM_TITLE_COLOR = "key_alarm_title_color";
+    public static final String KEY_SNOOZE_TITLE_COLOR = "key_snooze_title_color";
     public static final String KEY_SNOOZE_BUTTON_COLOR = "key_snooze_button_color";
+    public static final String KEY_DISMISS_TITLE_COLOR = "key_dismiss_title_color";
     public static final String KEY_DISMISS_BUTTON_COLOR = "key_dismiss_button_color";
     public static final String KEY_ALARM_BUTTON_COLOR = "key_alarm_button_color";
-    public static final String KEY_PULSE_COLOR = "key_pulse_color";
     public static final String KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE = "key_alarm_digital_clock_font_size";
     public static final String KEY_ALARM_TITLE_FONT_SIZE_PREF = "key_alarm_title_font_size_pref";
     public static final String KEY_DISPLAY_RINGTONE_TITLE = "key_display_ringtone_title";
+    public static final String KEY_RINGTONE_TITLE_COLOR = "key_ringtone_title_color";
     public static final String KEY_PREVIEW_ALARM = "key_preview_alarm";
 
     // Timer

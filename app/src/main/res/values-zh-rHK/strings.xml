@@ -320,8 +320,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"計時器通知的處理操作。"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"秒錶通知的處理操作。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暫停"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"向右快速滑動可關閉鬧鐘"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"向左快速滑動可延後"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"向左快速滑動以延後，或向右關閉"</string>
     <string name="timer_settings" msgid="7955522143086154795">"倒數計時器"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>

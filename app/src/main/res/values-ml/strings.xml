@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"ടൈമർ അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"സ്റ്റോപ്പ്‌വാച്ച് അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
     <string name="swn_paused" msgid="6364358842808263589">"താല്‍ക്കാലം നിര്‍ത്തി"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ടോ നിരസിക്കാൻ വലത്തോട്ടോ സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ടൈമറുകൾ"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ടൈമർ വൈബ്രേഷൻ"</string>

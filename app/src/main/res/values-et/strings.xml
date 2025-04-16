@@ -330,8 +330,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Töötleb taimeri märguannete toiminguid."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Töötleb stopperi märguannete toiminguid."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Peatatud"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">Loobumiseks viipa paremale</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Edasilükkamiseks viipa vasakule</string>
     <string name="description_direction_both" msgid="1841309486023845685">Edasilükkamiseks viipa vasakule ja loobumiseks paremale</string>
     <string name="timer_settings" msgid="7955522143086154795">"Taimerid"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Taimeri vibratsioon"</string>
@@ -438,10 +436,7 @@
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
     <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
-    <string name="description_direction_both_clicked">Edasilükkamiseks klõpsi vasakule ja loobumiseks paremale</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Loobumiseks viipa vasakule</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Loobumiseks viipa vasakule või paremale</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Loobumiseks klikka vasakule või paremale</string>
     <string name="default_time_to_add_to_timer_title">Taimerile lisatav vaikimisi aeg</string>
     <string name="screensaver_clock_dynamic_colors_title">Kella dünaamilised värvid</string>
     <string name="clock_color_title">Kella värv</string>
@@ -510,7 +505,6 @@
     <string name="snooze_button_color">Uinu-nupu värv</string>
     <string name="dismiss_button_color">Äratuse lõpetamise nupu värv</string>
     <string name="alarm_button_color">Äratuse nupu värv</string>
-    <string name="pulse_color">Pulseeruva vaate värv</string>
     <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
     <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
     <string name="transparent_background_for_expired_timer_title">Taimerite aegumisel kuva läbipaistev taust</string>
@@ -594,12 +588,8 @@
     <string name="alarm_alert_dismiss_and_delete_text">Loobu ja kustuta</string>
     <string name="alarm_alert_off_and_deleted_text">Loobusid äratusest ja kustutasid ta</string>
     <string name="alarm_settings_general_summary">Seda seadistust saad iga äratuse puhul muuta äratuse laiendatud vaates</string>
-    <string name="description_direction_right_for_occasional_alarm">Viipa paremale äratuse kustutamiseks peale loobumist</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Viipa vasakule äratuse kustutamiseks peale loobumist</string>
     <string name="description_direction_both_for_occasional_alarm">Edasilükkamiseks viipa vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Edasilükkamiseks klõpsi vasakule ja äratusest loobumiseks ning tema kustutamiseks paremale</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Äratusest loobumiseks ning tema kustutamiseks viipa vasakule või paremale</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Äratusest loobumiseks ning tema kustutamiseks klõpsi vasakule või paremale</string>
     <string name="delete_occasional_alarm_after_use_title">Kustuta äratus peale loobumist</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Vaikimisi kasuta juhuslike äratuste automaatset kustutamist</string>
     <string name="occasional_alarm_alert_predismiss_title">Tulevane juhuäratus</string>

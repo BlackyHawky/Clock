@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Pinoproseso ang mga pagkilos mula sa mga notification sa timer."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Pinoproseso ang mga pagkilos mula sa mga notification sa stopwatch."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Naka-pause"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Mag-swipe pakanan upang i-dismiss"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Mag-swipe pakaliwa upang mag-snooze"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Mag-swipe pakaliwa upang i-snooze o pakanan upang i-dismiss"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Mga Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Pag-vibrate ng timer"</string>

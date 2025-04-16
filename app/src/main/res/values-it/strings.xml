@@ -340,8 +340,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Consente di elaborare le azioni derivanti dalle notifiche relative al timer."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Consente di elaborare le azioni derivanti dalle notifiche relative al cronometro."</string>
     <string name="swn_paused" msgid="6364358842808263589">"In pausa"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Fai scorrere a destra per eliminare"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">Fai scorrere a sinistra per rimandare</string>
     <string name="description_direction_both" msgid="1841309486023845685">Fai scorrere a sinistra per rimandarla o a destra per chiuderla</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibrazione timer"</string>
@@ -410,7 +408,6 @@
     <string name="sw_volume_down_action_title">Abbassa volume</string>
     <string name="sw_long_press_volume_down_action_title">Abbassa volume (dopo pressione prolungata)</string>
     <string name="sw_start_pause_action">Avvio / Pausa</string>
-    <string name="description_direction_left_for_non_repeatable_alarm">Scorri a sinistra per fermare</string>
     <string name="timer_power_button_action_title">Azzera i timer scaduti con il pulsante di accensione</string>
     <string name="timer_buttons_action_summary">Funzionamento solo sul blocco schermo</string>
     <string name="screensaver_bold_date_title">Data in grassetto</string>
@@ -434,7 +431,6 @@
     <string name="material_you_digital_widget">Orologio digitale Material You</string>
     <string name="alarm_notification_reminder_12_hours">12 ore prima</string>
     <string name="sw_settings_summary">Imposta azione dei pulsanti del volume</string>
-    <string name="description_direction_right_for_occasional_alarm">Scorri verso destra per fermare e rimuovere la sveglia</string>
     <string name="widget_next_alarm_default_color_title">Usa colore predefinito per la prossima sveglia</string>
     <string name="ignore_battery_optimizations_dialog_text">Per impostazione predefinita, il sistema Android configura tutte le app installate dall\'utente in modo che siano ottimizzate per risparmiare la durata della batteria. \n\nSebbene ciò sia accettabile per molte applicazioni, questa app è un\'applicazione per le sveglie e spesso causa problemi se configurata per ottimizzare la batteria. Una volta abilitata, il sistema Android può disattivare l\'app in qualsiasi momento e/o annullare le sveglie programmate, il che influisce negativamente sul funzionamento dell\'app. \n\nSi consiglia di escludere questa app dall\'ottimizzazione della batteria.</string>
     <string name="first_launch_main_feature_message">► Tema chiaro, scuro o di sistema; &lt;br&gt; &lt;br&gt; ► Salvaschermo personalizzabile; &lt;br&gt; &lt;br&gt; ► Widget personalizzabili; &lt;br&gt; &lt;br&gt; ► Supporto per le piastrelle nelle impostazioni rapide (per Android 7+); &lt;br&gt; &lt;br&gt; ► Backup e ripristino delle impostazioni (tranne suonerie personalizzate); &lt;br&gt; &lt;br&gt; ►Material design e colori dinamici; &lt;br&gt; &lt;br&gt;► Scorri per eliminare una sceglia; &lt;br&gt; &lt;br&gt; ► Duplicazione di una sveglia; &lt;br&gt; &lt;br&gt; ► Azione \"Ruota e scuoti\" per disattivare/rimandare una sveglia; &lt;br&gt; &lt;br&gt; ► Disattivare/rimanda la sveglia con il pulsante di accensione o i pulsanti del volume; &lt;br&gt; &lt;br&gt; ► %s</string>
@@ -528,7 +524,6 @@
     <string name="first_launch_important_info_message_for_SDK34">• &lt;b&gt;NOTIFICHE A SCHERMO INTERO;&lt;/b&gt; &lt;br&gt; &lt;br&gt;</string>
     <string name="first_launch_dialog_title">Esci</string>
     <string name="first_launch_dialog_message">Vuoi davvero uscire dall\'applicazione?</string>
-    <string name="description_direction_both_clicked">Clicca a sinistra per rimandare o a destra per fermare</string>
     <string name="permission_denied">Negate</string>
     <string name="whats_new_dialog_message">Scopri le novità:\n\n%s</string>
     <string name="features_title">Caratteristiche principali</string>
@@ -566,9 +561,6 @@
     <string name="gnu_gpl">Licenza pubblica generale GNU v3.0</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Scorri a destra o a sinistra per fermare</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Scorri a destra o a sinistra per fermare e rimuovere la sveglia</string>
-    <string name="description_direction_both_for_non_repeatable_alarm_clicked">Clicca a sinistra o a destra per fermare</string>
-    <string name="description_direction_both_for_occasional_non_repeatable_alarm_clicked">Clicca a sinistra o a destra per fermare e rimuovere la sveglia</string>
-    <string name="description_direction_both_clicked_for_occasional_alarm">Clicca a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
     <string name="vertical_digital_widget">Orologio digitale verticale</string>
     <string name="material_you_vertical_digital_widget">Orologio digitale verticale Material You</string>
     <string name="settings_permission_summary">Premi qui per visualizzare la pagina di gestione delle autorizzazioni.</string>
@@ -612,7 +604,6 @@
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Abilita la rimozione automatica delle sveglie occasionali per impostazione predefinita</string>
     <string name="alarm_settings_general_summary">Questa impostazione può essere modificata per ogni sveglia nella visualizzazione dettagliata delle sveglie</string>
     <string name="material_time_picker_style_title">Stile di selezione orario</string>
-    <string name="pulse_color">Colore impulsi</string>
     <string name="alarm_clock_font_size">Dimensione caratteri della sveglia</string>
     <string name="alarm_title_font_size">Dimensione carattere del titolo della sveglia</string>
     <string name="auto_silence_5_seconds">5 secondi</string>
@@ -620,7 +611,6 @@
     <string name="auto_silence_20_seconds">20 secondi</string>
     <string name="auto_silence_30_seconds">30 secondi</string>
     <string name="snooze_duration_none">Nessuno</string>
-    <string name="description_direction_left_for_occasional_non_repeatable_alarm">Scorri a sinistra per fermare e rimuovere la sveglia</string>
     <string name="description_direction_both_for_occasional_alarm">Scorri a sinistra per rimandare o a destra per fermare e rimuovere la sveglia</string>
     <string name="sort_timer_manually">Manualmente (trascinandoli)</string>
     <string name="black_accent_color">Nero</string>

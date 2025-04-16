@@ -366,8 +366,6 @@
     <string name="timer_service_desc">Mae\'n prosesu gweithredoedd o hysbysiadau amseru.</string>
     <string name="stopwatch_service_desc">Mae\'n prosesu gweithredoedd o hysbysiadau stopwats.</string>
     <string name="swn_paused">Wedi seibio</string>
-    <string name="description_direction_right">Llusga i\'r dde i\'w ddiystyru</string>
-    <string name="description_direction_left">Llusga i\'r chwith i hepian</string>
     <string name="description_direction_both">Llusga i\'r chwith i hepian neu i\'r dde i ddiystyru</string>
     <string name="timer_settings">Amseryddion</string>
     <string name="timer_vibrate_title">Dirgryniad amserydd</string>

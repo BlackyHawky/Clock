@@ -328,8 +328,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"ଟାଇମର୍ ବିଜ୍ଞପ୍ତିରୁ କାର୍ଯ୍ୟ ପ୍ରକ୍ରିୟା କରିଥାଏ।"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ଷ୍ଟପୱାଚ୍ ବିଜ୍ଞପ୍ତିଗୁଡ଼ିକରୁ କାର୍ଯ୍ୟ ପ୍ରକ୍ରିୟା କରିଥାଏ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"ପଜ୍‌ କରାଯାଇଛି"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"ଖାରଜ କରିବା ପାଇଁ ଡାହାଣକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"ସ୍ନୁଜ୍ କରିବା ପାଇଁ ବାମକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"ସ୍ନୁଜ୍ ପାଇଁ ବାମକୁ କିମ୍ୱା ଖାରଜ କରିବା ପାଇଁ ଡାହାଣକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ଟାଇମର୍‌"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ଟାଇମର୍ କମ୍ପନ"</string>

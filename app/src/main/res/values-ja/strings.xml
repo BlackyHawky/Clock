@@ -321,8 +321,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"タイマーの通知からの操作を処理します。"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ストップウォッチの通知からの操作を処理します。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"一時停止しました"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"右にスワイプすると解除できます"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"左にスワイプでスヌーズを設定、右にスワイプで解除できます"</string>
     <string name="timer_settings" msgid="7955522143086154795">"タイマー"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"タイマーのバイブレーション"</string>

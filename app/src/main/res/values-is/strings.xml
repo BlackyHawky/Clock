@@ -329,8 +329,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Vinnur úr aðgerðum með tilkynningum frá teljara."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Vinnur úr aðgerðum með tilkynningum frá skeiðklukku."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Í bið"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Strjúktu til hægri til að hunsa"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Strjúktu til vinstri til að þagga tímabundið"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Strjúktu til vinstri til að blunda eða til hægri til að hunsa"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Teljarar"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Teljari með titringi"</string>

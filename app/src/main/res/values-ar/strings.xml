@@ -366,8 +366,6 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"لمعالجة الإجراءات من إشعارات الموقِّت."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"لمعالجة الإجراءات من إشعارات ساعة الإيقاف."</string>
     <string name="swn_paused" msgid="6364358842808263589">"تم الإيقاف مؤقتًا"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"مرر بسرعة إلى اليسار للإلغاء"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"مرر بسرعة إلى اليمين لإجراء غفوة"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"مرر يسارًا للغفوة أو يمينًا للتجاهل"</string>
     <string name="timer_settings" msgid="7955522143086154795">"الموقتات"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"اهتزاز الموقت"</string>

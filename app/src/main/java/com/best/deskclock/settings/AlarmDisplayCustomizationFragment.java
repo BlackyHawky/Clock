@@ -5,13 +5,21 @@ package com.best.deskclock.settings;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BUTTON_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CLOCK_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_SECONDS_HAND_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_BUTTON_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_DISMISS_TITLE_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_ALARM_SECONDS_HAND;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_RINGTONE_TITLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_PREVIEW_ALARM;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_RINGTONE_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SLIDE_ZONE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_BUTTON_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SNOOZE_TITLE_COLOR;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_SWIPE_ACTION;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,12 +49,20 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
     ListPreference mAlarmClockStyle;
     SwitchPreferenceCompat mDisplaySecondsPref;
+    SwitchPreferenceCompat mSwipeActionPref;
     ColorPreference mAlarmClockColor;
     ColorPreference mAlarmSecondsHandColorPref;
+    ColorPreference mSlideZoneColorPref;
+    ColorPreference mAlarmButtonColorPref;
+    ColorPreference mSnoozeTitleColorPref;
+    ColorPreference mSnoozeButtonColorPref;
+    ColorPreference mDismissTitleColorPref;
+    ColorPreference mDismissButtonColorPref;
     ColorPreference mBackgroundColorPref;
     ColorPreference mBackgroundAmoledColorPref;
     CustomSeekbarPreference mAlarmDigitalClockFontSizePref;
     SwitchPreferenceCompat mDisplayRingtoneTitlePref;
+    ColorPreference mRingtoneTitleColorPref;
     Preference mPreviewAlarmPref;
 
     @Override
@@ -62,12 +78,20 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         mAlarmClockStyle = findPreference(KEY_ALARM_CLOCK_STYLE);
         mDisplaySecondsPref = findPreference(KEY_DISPLAY_ALARM_SECONDS_HAND);
+        mSwipeActionPref = findPreference(KEY_SWIPE_ACTION);
         mBackgroundColorPref = findPreference(KEY_ALARM_BACKGROUND_COLOR);
         mBackgroundAmoledColorPref = findPreference(KEY_ALARM_BACKGROUND_AMOLED_COLOR);
         mAlarmClockColor = findPreference(KEY_ALARM_CLOCK_COLOR);
         mAlarmSecondsHandColorPref = findPreference(KEY_ALARM_SECONDS_HAND_COLOR);
+        mSlideZoneColorPref = findPreference(KEY_SLIDE_ZONE_COLOR);
+        mAlarmButtonColorPref = findPreference(KEY_ALARM_BUTTON_COLOR);
+        mSnoozeTitleColorPref = findPreference(KEY_SNOOZE_TITLE_COLOR);
+        mSnoozeButtonColorPref = findPreference(KEY_SNOOZE_BUTTON_COLOR);
+        mDismissTitleColorPref = findPreference(KEY_DISMISS_TITLE_COLOR);
+        mDismissButtonColorPref = findPreference(KEY_DISMISS_BUTTON_COLOR);
         mAlarmDigitalClockFontSizePref = findPreference(KEY_ALARM_DIGITAL_CLOCK_FONT_SIZE);
         mDisplayRingtoneTitlePref = findPreference(KEY_DISPLAY_RINGTONE_TITLE);
+        mRingtoneTitleColorPref = findPreference(KEY_RINGTONE_TITLE_COLOR);
         mPreviewAlarmPref = findPreference(KEY_PREVIEW_ALARM);
 
         mAlarmClockStyleValues = getResources().getStringArray(R.array.clock_style_values);
@@ -98,7 +122,22 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
                 Utils.setVibrationTime(requireContext(), 50);
             }
 
-            case KEY_DISPLAY_RINGTONE_TITLE -> Utils.setVibrationTime(requireContext(), 50);
+            case KEY_SWIPE_ACTION -> {
+                mSlideZoneColorPref.setVisible((boolean) newValue);
+                mSnoozeTitleColorPref.setVisible((boolean) newValue);
+                mSnoozeButtonColorPref.setVisible(!(boolean) newValue);
+                mDismissTitleColorPref.setVisible((boolean) newValue);
+                mDismissButtonColorPref.setVisible(!(boolean) newValue);
+                mAlarmButtonColorPref.setVisible((boolean) newValue);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
+            case KEY_DISPLAY_RINGTONE_TITLE -> {
+                mRingtoneTitleColorPref.setVisible((boolean) newValue);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
         }
 
         return true;
@@ -146,16 +185,34 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
         mDisplaySecondsPref.setVisible(!mAlarmClockStyle.getValue().equals(mDigitalClock));
         mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
+        mSwipeActionPref.setOnPreferenceChangeListener(this);
+
+        int color = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorPrimaryInverse, Color.BLACK);
         mAlarmSecondsHandColorPref.setVisible(mAlarmClockStyle.getValue().equals(mAnalogClock)
                 && SettingsDAO.isAlarmSecondsHandDisplayed(mPrefs));
-        if (mAlarmSecondsHandColorPref.isVisible()) {
-            mAlarmSecondsHandColorPref.setColor(
-                    MaterialColors.getColor(requireContext(), android.R.attr.colorPrimary, Color.BLACK));
-        }
+        mAlarmSecondsHandColorPref.setDefaultValue(color);
+
+        boolean isSwipeActionEnabled = SettingsDAO.isSwipeActionEnabled(mPrefs);
+        mSlideZoneColorPref.setVisible(isSwipeActionEnabled);
+
+        mSnoozeTitleColorPref.setVisible(isSwipeActionEnabled);
+
+        mSnoozeButtonColorPref.setVisible(!isSwipeActionEnabled);
+        mSnoozeButtonColorPref.setDefaultValue(color);
+
+        mDismissTitleColorPref.setVisible(isSwipeActionEnabled);
+
+        mDismissButtonColorPref.setVisible(!isSwipeActionEnabled);
+        mDismissButtonColorPref.setDefaultValue(color);
+
+        mAlarmButtonColorPref.setVisible(isSwipeActionEnabled);
+        mAlarmButtonColorPref.setDefaultValue(color);
 
         mAlarmDigitalClockFontSizePref.setVisible(mAlarmClockStyle.getValue().equals(mDigitalClock));
 
         mDisplayRingtoneTitlePref.setOnPreferenceChangeListener(this);
+
+        mRingtoneTitleColorPref.setVisible(SettingsDAO.isRingtoneTitleDisplayed(mPrefs));
 
         mPreviewAlarmPref.setOnPreferenceClickListener(this);
     }
