@@ -9,6 +9,31 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
+        android:title="@string/style_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <Preference
+            android:key="key_alarm_display_customization"
+            android:title="@string/alarm_display_customization_title"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+        <ListPreference
+            android:key="key_material_time_picker_style"
+            android:title="@string/material_time_picker_style_title"
+            android:entries="@array/time_picker_style_entries"
+            android:entryValues="@array/time_picker_style_values"
+            android:defaultValue="analog"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/ringtone_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
@@ -177,23 +202,6 @@
             android:title="@string/enable_delete_occasional_alarm_by_default_setting_title"
             android:summary="@string/alarm_settings_general_summary"
             android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <ListPreference
-            android:key="key_material_time_picker_style"
-            android:title="@string/material_time_picker_style_title"
-            android:entries="@array/time_picker_style_entries"
-            android:entryValues="@array/time_picker_style_values"
-            android:defaultValue="analog"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <Preference
-            android:key="key_alarm_display_customization"
-            android:title="@string/alarm_display_customization_title"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />

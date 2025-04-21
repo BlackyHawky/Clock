@@ -258,7 +258,7 @@
     <!-- Interface customization title in the settings -->
     <string name="interface_customization_settings">Interface</string>
     <!-- Interface preference summary -->
-    <string name="interface_customization_summary">Set the style and color applied to the application</string>
+    <string name="interface_customization_summary">Set style and color applied to the application</string>
     <!-- Settings theme title -->
     <string name="title_theme">Theme</string>
     <!-- Setting title to switch to system theme -->
@@ -1055,7 +1055,7 @@
     <!-- Alarm preferences title in the settings -->
     <string name="alarm_settings">Alarms</string>
     <!-- Alarm preferences summary in the settings -->
-    <string name="alarm_settings_summary">Set default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
+    <string name="alarm_settings_summary">Set style, default ringtone, volume, actions to dismiss or snooze alarms, first day of the week and reminder notification time</string>
     <!-- Describes the service that processes actions originating from timer notifications. -->
     <string name="timer_service_desc">Processes actions from timer notifications.</string>
     <!-- Describes the service that processes actions originating from stopwatch notifications. -->
@@ -1153,7 +1153,7 @@
     <!-- Header in the preferences settings for the section pertaining to screensaver -->
     <string name="screensaver_settings_title">Screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
-    <string name="screensaver_settings_summary">Set the style, color and font of the screensaver</string>
+    <string name="screensaver_settings_summary">Set style, color and font of the screensaver</string>
     <!-- Label for the screensaver settings in settings -->
     <string name="screensaver_daydream_settings">Select/enable screensaver</string>
     <!-- Summary for the screensaver settings in settings -->
@@ -1372,7 +1372,7 @@
     <!-- Widgets preference title in the settings. -->
     <string name="widgets_settings">Widgets</string>
     <!-- Widgets preference summary in the settings. -->
-    <string name="widgets_settings_summary">Set the style, colors and font size of the widgets</string>
+    <string name="widgets_settings_summary">Set style, colors and font size of the widgets</string>
     <!-- Title to display the background on the digital widget. -->
     <string name="widget_background_title">Display background</string>
     <!-- Title to set the background color on the digital widget. -->

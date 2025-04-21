@@ -9,6 +9,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
+        android:title="@string/style_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <SwitchPreferenceCompat
+            android:key="key_transparent_background_for_expired_timer"
+            android:title="@string/transparent_background_for_expired_timer_title"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/ringtone_category_title"
         app:allowDividerAbove="false"
         app:iconSpaceReserved="false"
@@ -115,14 +131,6 @@
             android:entries="@array/default_time_to_add_to_timer_entries"
             android:entryValues="@array/default_time_to_add_to_timer_values"
             android:defaultValue="1"
-            app:iconSpaceReserved="false"
-            app:singleLineTitle="false"
-            tools:layout="@layout/settings_preference_layout" />
-
-        <SwitchPreferenceCompat
-            android:key="key_transparent_background_for_expired_timer"
-            android:title="@string/transparent_background_for_expired_timer_title"
-            android:defaultValue="false"
             app:iconSpaceReserved="false"
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
