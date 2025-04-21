@@ -7,7 +7,7 @@
   <li>按下電源鍵或音量鍵以關閉 / 延後鬧鐘</li>
   <li>關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置</li>
     <ul>
-      <li>請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。</li>
+      <li>請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i>系統元件的裝置上仍有可能無法運作。</li>
     </ul>
   <li>滑動刪除鬧鐘</li>
   <li>複製鬧鐘</li>
