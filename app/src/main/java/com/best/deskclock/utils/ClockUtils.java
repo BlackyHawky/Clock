@@ -14,15 +14,16 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmActivity;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.screensaver.Screensaver;
 import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.settings.AlarmDisplayPreviewActivity;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.widget.AnalogClock;
 
@@ -69,17 +70,27 @@ public class ClockUtils {
         switch (clockStyle) {
             case ANALOG, ANALOG_MATERIAL -> {
                 final Context context = analogClock.getContext();
-                // Optimally adjusts the height and the width of the analog clock when displayed
+                int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+
+                // Optimally adjust the height and the width of the analog clock when displayed
                 // on a tablet or phone in portrait or landscape mode
-                if (ThemeUtils.isTablet()) {
-                    analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(320, context);
-                    analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(320, context);
-                } else if (ThemeUtils.isLandscape()) {
-                    analogClock.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    analogClock.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                if (context instanceof AlarmActivity || context instanceof AlarmDisplayPreviewActivity) {
+                    if (ThemeUtils.isTablet()) {
+                        analogClock.getLayoutParams().height = ThemeUtils.isLandscape()
+                                ? screenHeight / 2 : screenHeight / 4;
+                        analogClock.getLayoutParams().width = ThemeUtils.isLandscape()
+                                ? screenHeight / 2 : screenHeight / 4;
+                    } else {
+                        analogClock.getLayoutParams().height = ThemeUtils.isLandscape()
+                                ? (int) (screenHeight / 1.6) : (int) (screenHeight / 3.2);
+                        analogClock.getLayoutParams().width = ThemeUtils.isLandscape()
+                                ? (int) (screenHeight / 1.6) : (int) (screenHeight / 3.2);
+                    }
                 } else {
-                    analogClock.getLayoutParams().height = ThemeUtils.convertDpToPixels(240, context);
-                    analogClock.getLayoutParams().width = ThemeUtils.convertDpToPixels(240, context);
+                    analogClock.getLayoutParams().height = ThemeUtils.isLandscape()
+                            ? (int) (screenHeight / 2.6) : (int) (screenHeight / 3.8);
+                    analogClock.getLayoutParams().width = ThemeUtils.isLandscape()
+                            ? (int) (screenHeight / 2.6) : (int) (screenHeight / 3.8);
                 }
 
                 analogClock.setVisibility(View.VISIBLE);

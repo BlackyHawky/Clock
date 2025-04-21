@@ -125,16 +125,14 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.addOnScrollListener(scrollPositionWatcher);
         // Due to the ViewPager and the location of FAB, set a bottom padding to prevent
         // the city list from being hidden by the FAB (e.g. when scrolling down).
-        // Why is it not a round number like in the other fragments??
-        // In any case, the alignment is not perfect but is very correct when compared with
-        // the alarm cards for example.
         mCityList.setPadding(0, 0, 0, ThemeUtils.convertDpToPixels(
                 mIsTablet && mIsPortrait ? 106 : mIsPortrait ? 91 : 0, mContext));
 
-        // On tablet landscape, the clock frame will be a distinct view.
+        // On landscape mode, the clock frame will be a distinct view.
         // Otherwise, it'll be added on as a header to the main listview.
         mClockFrame = fragmentView.findViewById(R.id.main_clock_left_panel);
         if (mClockFrame != null) {
+            mClockFrame.setPadding(0, 0, 0, 0);
             mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
             ClockUtils.setClockIconTypeface(mClockFrame);
