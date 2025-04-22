@@ -498,6 +498,7 @@
         <item>@string/settings_language_turkish</item>
         <item>@string/settings_language_korean</item>
         <item>@string/settings_language_czech</item>
+        <item>@string/settings_language_chinese_traditional_tw</item>
     </string-array>
     <!-- Values that are retrieved from the ListPreference. These must match the language_entries above. -->
     <string-array name="language_values" translatable="false">
@@ -518,5 +519,6 @@
         <item>tr</item>
         <item>ko</item>
         <item>cs</item>
+        <item>zh_TW</item>
     </string-array>
 </resources>

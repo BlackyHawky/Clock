@@ -345,6 +345,8 @@
     <string name="settings_language_korean">Korean</string>
     <!-- Setting title for changing the language to Czech. -->
     <string name="settings_language_czech">Czech</string>
+    <!-- Setting title for changing the language to Chinese (traditional, Taiwan). -->
+    <string name="settings_language_chinese_traditional_tw">Chinese (traditional, Taiwan)</string>
     <!-- Setting title for changing the tab to display when opening the application. -->
     <string name="settings_tab_to_display">Tab to display when opening the application</string>
     <!-- Setting title to switch to last tab used -->
