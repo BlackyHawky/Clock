@@ -213,7 +213,7 @@ public class TimerItem extends ConstraintLayout {
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
             final Context context = getContext();
-            final String resetDesc = context.getString(R.string.timer_reset);
+            final String resetDesc = context.getString(R.string.reset);
             mResetButton.setVisibility(VISIBLE);
             mResetButton.setContentDescription(resetDesc);
             mAddTimeButton.setVisibility(VISIBLE);

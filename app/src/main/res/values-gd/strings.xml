@@ -149,7 +149,7 @@
     <string name="menu_item_sort_by_name">Seòrsaich a-rèir ainm</string>
     <string name="selected_cities_label">Na bailtean a thagh thu</string>
     <string name="sw_resume_button">Lean air</string>
-    <string name="sw_reset_button">Ath-shuidhich</string>
+    <string name="reset">Ath-shuidhich</string>
     <string name="sw_start_button">Tòisich</string>
     <string name="sw_pause_button">Cuir ’na stad</string>
     <string name="sw_lap_button">Cuairt</string>
@@ -162,14 +162,11 @@
     <string name="sw_notification_lap_number">Cuairt <xliff:g id="number">%d</xliff:g></string>
     <string name="timer_add_timer">Cuir tìmear ris</string>
     <string name="timer_start">Tòisich</string>
-    <string name="timer_delete">Sguab às</string>
     <string name="timer_descriptive_delete">Sguab às <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description">Cuir mionaid %s</string>
     <string name="timer_add_custom_time_for_notification">Cuir mionaid %s</string>
     <string name="timer_stop">Cuir stad air</string>
     <string name="timer_stop_all">Cuir stad air gach tìmear</string>
-    <string name="timer_reset">Ath-shuidhich</string>
-    <string name="timer_cancel">Sguir dheth</string>
     <string name="timer_canceled">Chaidh sgur dhen tìmear</string>
     <string name="timer_times_up">Tha an ùine seachad</string>
     <string name="timer_multi_times_up">Dh’fhalbh an ùine air tìmearan (<xliff:g example="2" id="NUM_TIMERS">%d</xliff:g>)</string>

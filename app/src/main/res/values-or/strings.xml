@@ -168,7 +168,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"ନାମ ଅନୁସାରେ ସର୍ଟ କରନ୍ତୁ"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ଚୟନିତ ସହର"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ପୁଣି ଚାଲୁ କରନ୍ତୁ"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"ରିସେଟ୍‌ କରନ୍ତୁ"</string>
+    <string name="reset" msgid="6616804728322906117">"ରିସେଟ୍‌ କରନ୍ତୁ"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ଆରମ୍ଭ କରନ୍ତୁ"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"ପଜ୍‍ କରନ୍ତୁ"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ଲାପ୍"</string>
@@ -184,14 +184,11 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ଲାପ୍ <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"ଟାଇମର୍ ଯୋଡ଼ନ୍ତୁ"</string>
     <string name="timer_start" msgid="6158486445614356442">"ଆରମ୍ଭ କରନ୍ତୁ"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"ଡିଲିଟ୍ କରନ୍ତୁ"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g>କୁ ଡିଲିଟ୍ କରନ୍ତୁ"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s ମିନିଟ୍ ଯୋଡ଼ନ୍ତୁ"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s ମିନିଟ୍ ଯୋଡ଼ନ୍ତୁ"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ବନ୍ଦ କରନ୍ତୁ"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"ସବୁ ଟାଇମର୍‌କୁ ବନ୍ଦ କରନ୍ତୁ"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"ରିସେଟ୍‌ କରନ୍ତୁ"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"କ୍ୟାନ୍ସଲ୍‍ କରନ୍ତୁ"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ଟାଇମର୍‌କୁ କ୍ୟାନ୍ସଲ୍ କରାଯାଇଛି"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ସମୟ ସମାପ୍ତ"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ଟାଇମର୍ ସମାପ୍ତ ହୋଇଯାଇଛି"</string>

@@ -146,7 +146,7 @@
     <string name="menu_item_sort_by_name">Ordenar por nome</string>
     <string name="selected_cities_label">Ciudaes esbillaes</string>
     <string name="sw_resume_button">Reanudar</string>
-    <string name="sw_reset_button">Llimpiar</string>
+    <string name="reset">Llimpiar</string>
     <string name="sw_start_button">Aniciar</string>
     <string name="sw_pause_button">Posar</string>
     <string name="sw_lap_button">Amestar vuelta</string>
@@ -159,14 +159,11 @@
     <string name="sw_notification_lap_number">Fase <xliff:g id="NUMBER">%d</xliff:g></string>
     <string name="timer_add_timer">Amestar temporizador</string>
     <string name="timer_start">Aniciar</string>
-    <string name="timer_delete">Desaniciar</string>
     <string name="timer_descriptive_delete">Desaniciar <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description">Amestar %s minutu</string>
     <string name="timer_add_custom_time_for_notification">Añadir %s min</string>
     <string name="timer_stop">Detener</string>
     <string name="timer_stop_all">Parar tolos temporizadores</string>
-    <string name="timer_reset">Llimpiar</string>
-    <string name="timer_cancel">Encaboxar</string>
     <string name="timer_canceled">Encaboxóse\'l temporizador</string>
     <string name="timer_times_up">Tiempu agotáu</string>
     <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> temporizadores deteníos</string>

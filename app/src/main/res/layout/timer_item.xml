@@ -45,7 +45,7 @@
         android:src="@drawable/ic_delete"
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/timer_delete"
+        android:contentDescription="@string/delete"
         app:tint="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -119,7 +119,7 @@
         android:src="@drawable/ic_reset"
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/timer_reset"
+        android:contentDescription="@string/reset"
         app:tint="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

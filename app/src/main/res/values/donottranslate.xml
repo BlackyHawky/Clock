@@ -448,7 +448,7 @@
     <string-array name="stopwatch_actions_entries">
         <item>@string/button_action_nothing</item>
         <item>@string/sw_start_pause_action</item>
-        <item>@string/sw_reset_button</item>
+        <item>@string/reset</item>
         <item>@string/sw_lap_button</item>
         <item>@string/sw_share_button</item>
     </string-array>

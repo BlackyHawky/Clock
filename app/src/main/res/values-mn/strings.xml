@@ -169,7 +169,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Нэрээр эрэмбэлэх"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Сонгогдсон хотууд"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Үргэлжлүүлэх"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Бүгдийг цэвэрлэх"</string>
+    <string name="reset" msgid="6616804728322906117">"Бүгдийг цэвэрлэх"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Эхлэх"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Түр зогсоох"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Тойрог"</string>
@@ -185,14 +185,11 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Тойрог <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Цаг хэмжигч нэмэх"</string>
     <string name="timer_start" msgid="6158486445614356442">"Эхлэх"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Устгах"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Устгах <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"%s Минут нэмэх"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"%s мин нэмэх"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Зогсоох"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Бүх цаг хэмжигчийг зогсоо"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Бүгдийг цэвэрлэх"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"Цуцлах"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Цаг хэмжигчийг цуцалсан"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Цаг дууслаа"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> цаг хэмжигч хүчингүй"</string>

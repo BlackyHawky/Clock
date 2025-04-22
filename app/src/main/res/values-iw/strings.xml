@@ -179,7 +179,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"מיין לפי שם"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ערים נבחרות"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"המשך"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"איפוס"</string>
+    <string name="reset" msgid="6616804728322906117">"איפוס"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"התחל"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"השהה"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"הקפה"</string>
@@ -195,14 +195,11 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"הקפה <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"הוספת טיימר"</string>
     <string name="timer_start" msgid="6158486445614356442">"התחל"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"מחיקה"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"מחק את <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_add_custom_time_description" msgid="6631211310420106116">"להוסיף דקה %s"</string>
     <string name="timer_add_custom_time_for_notification" msgid="8645224089494875062">"הוספת דקה %s"</string>
     <string name="timer_stop" msgid="3361154678667736722">"עצור"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"הפסק את כל הטיימרים"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"איפוס"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ביטול"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"הטיימר בוטל"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"נגמר הזמן"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"הפעולה של <xliff:g id="NUM_TIMERS">%d</xliff:g> טיימרים הושלמה"</string>

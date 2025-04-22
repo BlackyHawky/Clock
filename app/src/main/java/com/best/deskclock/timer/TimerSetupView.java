@@ -346,7 +346,7 @@ public class TimerSetupView extends LinearLayout implements View.OnClickListener
                     R.string.timer_descriptive_delete,
                     UiDataModel.getUiDataModel().getFormattedNumber(mInput[0])));
         } else {
-            mDeleteButton.setContentDescription(getContext().getString(R.string.timer_delete));
+            mDeleteButton.setContentDescription(getContext().getString(R.string.delete));
         }
 
         // Update the fab, delete, and divider when we no longer have valid input.

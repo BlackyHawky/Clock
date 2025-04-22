@@ -331,7 +331,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         if (mContext != null) {
             left.setClickable(true);
             left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_reset));
-            left.setContentDescription(mContext.getString(R.string.sw_reset_button));
+            left.setContentDescription(mContext.getString(R.string.reset));
             left.setOnClickListener(v -> doReset());
 
             switch (getStopwatch().getState()) {

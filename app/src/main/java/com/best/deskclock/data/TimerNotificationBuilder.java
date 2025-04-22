@@ -124,7 +124,7 @@ class TimerNotificationBuilder {
                         .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 @DrawableRes final int icon2 = R.drawable.ic_reset;
-                final CharSequence title2 = context.getText(R.string.sw_reset_button);
+                final CharSequence title2 = context.getText(R.string.reset);
                 final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
                 actions.add(new Action.Builder(icon2, title2, intent2).build());
             }
@@ -344,7 +344,7 @@ class TimerNotificationBuilder {
                     .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
             @DrawableRes final int icon1 = R.drawable.ic_reset;
-            final CharSequence title1 = res.getText(R.string.timer_reset);
+            final CharSequence title1 = res.getText(R.string.reset);
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
             action = new Action.Builder(icon1, title1, intent1).build();
         } else {

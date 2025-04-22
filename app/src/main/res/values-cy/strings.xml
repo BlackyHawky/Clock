@@ -207,7 +207,7 @@
     <string name="menu_item_sort_by_name">Trefnu\'n ôl enw</string>
     <string name="selected_cities_label">Dinasoedd a Ddewiswyd</string>
     <string name="sw_resume_button">Parhau</string>
-    <string name="sw_reset_button">Ailosod</string>
+    <string name="reset">Ailosod</string>
     <string name="sw_start_button">Dechrau</string>
     <string name="sw_pause_button">Saib</string>
     <string name="sw_lap_button">Lap</string>
@@ -223,14 +223,11 @@
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
     <string name="timer_add_timer">Ychwanegu Amserydd</string>
     <string name="timer_start">Dechrau</string>
-    <string name="timer_delete">Dileu</string>
     <string name="timer_descriptive_delete">Dileu <xliff:g id="number_string">%s</xliff:g></string>
     <string name="timer_add_custom_time_description">Ychwanegu %s Munud</string>
     <string name="timer_add_custom_time_for_notification">Ychwanegu %s munud</string>
     <string name="timer_stop">Stopio</string>
     <string name="timer_stop_all">Stopio pob amserydd</string>
-    <string name="timer_reset">Ailosod</string>
-    <string name="timer_cancel">Diddymu</string>
     <string name="timer_canceled">Diddymwyd yr amserydd</string>
     <string name="timer_times_up">Amser ar ben</string>
     <string name="timer_multi_times_up"><xliff:g example="2" id="NUM_TIMERS">%d</xliff:g> amserydd wedi dod i ben</string>

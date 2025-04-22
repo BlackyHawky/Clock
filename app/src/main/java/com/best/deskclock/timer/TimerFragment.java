@@ -251,7 +251,7 @@ public final class TimerFragment extends DeskClockFragment {
 
             left.setClickable(true);
             left.setImageDrawable(AppCompatResources.getDrawable(mContext, R.drawable.ic_cancel));
-            left.setContentDescription(mContext.getString(R.string.timer_cancel));
+            left.setContentDescription(mContext.getString(android.R.string.cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
             left.setOnClickListener(v -> {

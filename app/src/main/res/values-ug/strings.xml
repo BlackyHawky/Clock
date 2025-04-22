@@ -53,7 +53,7 @@
     <string name="menu_item_sort_by_name">ئات بويىچە تەرتىپلە</string>
     <string name="selected_cities_label">تاللانغان شەھەرلەر</string>
     <string name="sw_resume_button">داۋاملاشتۇر</string>
-    <string name="sw_reset_button">ئەسلىگە قايتۇر</string>
+    <string name="reset">ئەسلىگە قايتۇر</string>
     <string name="sw_start_button">باشلا</string>
     <string name="sw_lap_button">ئايلانما</string>
     <string name="sw_share_button">ھەمبەھىر</string>
@@ -65,12 +65,9 @@
     <string name="sw_notification_lap_number"><xliff:g id="NUMBER">%d</xliff:g> ئايلانما</string>
     <string name="timer_add_timer">ۋاقىت خاتىرىلىگۈچنى قوش</string>
     <string name="timer_start">باشلا</string>
-    <string name="timer_delete">ئۆچۈر</string>
     <string name="timer_add_custom_time_description">%s مىنۇت قوش</string>
     <string name="timer_add_custom_time_for_notification">%s مىنۇت قوش</string>
     <string name="timer_stop">توختا</string>
-    <string name="timer_reset">ئەسلىگە قايتۇر</string>
-    <string name="timer_cancel">ۋاز كەچ</string>
     <string name="timer_times_up">ۋاقىت توشتى</string>
     <string name="timer_notification_label">ۋاقىت خاتىرىلىگۈچ</string>
     <string name="jocular_content_message_1">چاقماق پەلۋاندەك تېزكەنسىز.</string>

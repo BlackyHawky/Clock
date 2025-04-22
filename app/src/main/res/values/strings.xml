@@ -25,11 +25,9 @@
     <string name="alarm_label_box_title">Alarm label</string>
     <!-- Label "Default" -->
     <string name="label_default">Default</string>
-    <!-- Label "Reset" -->
-    <string name="reset" translatable="false">@string/sw_reset_button</string>
     <!-- Label "Off" -->
     <string name="label_off">Off</string>
-    <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
+    <!-- Label "Delete" -->
     <string name="delete">Delete</string>
     <!-- Setting labels on Set alarm screen: Duplicate -->
     <string name="duplicate">Duplicate</string>
@@ -613,13 +611,8 @@
     <!-- Stopwatch and Timer shared strings -->
     <!-- Describes the purpose of the button to resume running timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
-    <!--
-        Describes the purpose of the button
-            for stopwatch: return stopwatch to zero and remove the lap times.
-            for timer: return timer to originally set duration.
-        [CHAR LIMIT=15]
-    -->
-    <string name="sw_reset_button">Reset</string>
+    <!-- Label "Reset" -->
+    <string name="reset">Reset</string>
     <!-- Stopwatch strings -->
     <!-- Stopwatch preference summary in the settings -->
     <string name="sw_settings_summary">Set actions for volume buttons</string>
@@ -674,8 +667,6 @@
     <string name="timer_add_timer">Add Timer</string>
     <!-- Describes the purpose of the button to begin or continue running a timer -->
     <string name="timer_start">Start</string>
-    <!-- Describes the purpose of the button to delete a timer. -->
-    <string name="timer_delete">Delete</string>
     <!-- Talkback description for deleting a number. -->
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
@@ -688,10 +679,6 @@
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
     <string name="timer_stop_all">Stop all timers</string>
-    <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
-    <string name="timer_reset">Reset</string>
-    <!-- Describes the purpose of the button to discard the current dialog values. Will also close the dialog if other time's exist -->
-    <string name="timer_cancel">Cancel</string>
     <!-- Accessibility announcement when a timer is canceled. -->
     <string name="timer_canceled">Timer canceled</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
