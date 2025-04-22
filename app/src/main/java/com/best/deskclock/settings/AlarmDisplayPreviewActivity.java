@@ -180,6 +180,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             mAlarmButton.setOnTouchListener(this);
             mAlarmButton.setContentDescription(getString(R.string.description_direction_both));
 
+            mSnoozeActionText.setText(getString(R.string.button_action_snooze));
             mSnoozeActionText.setTextColor(snoozeTitleColor);
             mDismissActionText.setTextColor(dismissTitleColor);
 
@@ -267,7 +268,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             mDismissButton.setOnClickListener(this);
             mSnoozeButton.setBackgroundColor(SettingsDAO.getSnoozeButtonColor(mPrefs, this));
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
-            mSnoozeButton.setText(R.string.button_action_snooze);
+            mSnoozeButton.setText(getString(R.string.button_action_snooze));
             mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
             mDismissButton.setContentDescription(getString(R.string.description_dismiss_button));
             // Allow text scrolling (all other attributes are indicated in the "alarm_activity.xml" file)
