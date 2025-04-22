@@ -383,7 +383,7 @@
     <string name="auto_silence_30_seconds">30 saniye</string>
     <string name="sw_long_press_volume_down_action_title">Ses kısma (uzun basınca)</string>
     <string name="timer_button_time_warning_box_text">1 ile 120 dakika arasında bir değer girin</string>
-    <string name="clock_style_analog_material">Analog (Material)</string>
+    <string name="clock_style_analog_material">Analog (Materyal)</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Zil sesi sona erince alarmı kapat</string>
     <string name="enable_alarm_snooze_actions_label">Alarm erteleme eylemlerini etkinleştir</string>
     <string name="alarm_label_box_title">Alarm etiketi</string>
@@ -427,7 +427,7 @@
     <string name="night_accent_color_title">Karanlık modu vurgu rengi</string>
     <string name="blue_gray_accent_color">Soğuk Gri</string>
     <string name="brown_accent_color">Kahverengi</string>
-    <string name="indigo_accent_color">Mavi</string>
+    <string name="indigo_accent_color">Çivit mavisi</string>
     <string name="orange_accent_color">Turuncu</string>
     <string name="pink_accent_color">Pembe</string>
     <string name="alarm_flash">Flaş</string>
@@ -441,9 +441,9 @@
     <string name="style_category_title">Stil</string>
     <string name="actions_category_title">Eylemler</string>
     <string name="standard_category_title">Standart</string>
-    <string name="material_you_category_title">Material You</string>
+    <string name="material_you_category_title">Materyal Siz</string>
     <string name="interface_customization_settings">Arayüz</string>
-    <string name="interface_customization_summary">Uygulamanın stilini ve rengini ayarlayın</string>
+    <string name="interface_customization_summary">Uygulamadaki stil ve rengi ayarla</string>
     <string name="swipe_action_title">Alarmları kapatmak veya ertelemek için kaydır</string>
     <string name="power_button_title">Güç tuşu</string>
     <string name="add_label">Etiket ekle</string>
@@ -471,7 +471,7 @@
     <string name="next_alarm_widget_custom_title_color">\"Sonraki alarm\" ve \"Yaklaşan alarm yok\" başlıkları için özel renk</string>
     <string name="show_lockscreen_dialog_title">Kilit ekranında göster</string>
     <string name="show_lockscreen_dialog_text">Uygulamanın Xiaomi cihazlarda sorunsuz çalışabilmesi için \"Kilit ekranında göster\" iznini cihaz ayarlarından elle etkinleştirmelisiniz.</string>
-    <string name="backup_restore_summary">Alarmlar, zamanlayıcılar ve zil sesleri dışındaki ayarları yedekleyin veya geri yükleyin</string>
+    <string name="backup_restore_summary">Özel zil sesleri dışındaki ayarları yedekleyin veya geri yükleyin</string>
     <string name="restore_button_title">Geri yükle</string>
     <string name="digital_widget_custom_hours_color_title">Saatler için özel renk</string>
     <string name="title_dark_theme_mode">Karanlık tema modu</string>
@@ -548,7 +548,7 @@
     <string name="default_time_to_add_to_timer_30_minutes">30 dakika</string>
     <string name="default_time_to_add_to_timer_1_hour">1 saat</string>
     <string name="contributors">Katkıda bulunanlar</string>
-    <string name="alarm_settings_summary">Varsayılan zil sesi, ses düzeyi, alarmı kapatmak veya ertelemek için hareketleri, haftanın ilk gününü ve hatırlatıcı bildirim süresini ayarlayın</string>
+    <string name="alarm_settings_summary">Stil, varsayılan zil sesi, ses düzeyi, alarmı kapatma veya erteleme eylemleri, haftanın ilk gününü ve hatırlatıcı bildirim süresini ayarlayın</string>
     <string name="screensaver_date_color_title">Tarih rengi</string>
     <string name="screensaver_brightness_title">Parlaklık</string>
     <string name="digital_widget_message_summary">Bu ayara erişim için \"Widget\'ta şehirleri göster\" devre dışı bırakılmalı</string>
@@ -559,7 +559,7 @@
     <string name="amoled_dark_theme_mode">AMOLED</string>
     <string name="alarm_button_color">Alarm butonu rengi</string>
     <string name="alarm_title_color">Alarm başlık rengi</string>
-    <string name="snooze_button_color">Erteleme butonu rengi</string>
+    <string name="snooze_button_color">\"Erteleme\" butonu rengi</string>
     <string name="dismiss_button_color">Alarm kapatma butonu rengi</string>
     <string name="next_alarm_widget_text">Sonraki alarm</string>
     <string name="screensaver_clock_dynamic_colors_title">Dinamik saat renkleri</string>
@@ -631,7 +631,7 @@
     <string name="show_lockscreen_permission_title">KİLİT EKRANINDA GÖSTER</string>
     <string name="ignore_battery_optimizations_dialog_text">Android pil tasarrufu yapmak için bütün kullanıcı uygulamalarını varsayılan olarak optimize eder. \n\nBu durum çoğu uygulama için kabul edilebilir ancak bu bir alarm uygulamasıdır ve pil optimizasyonu sık sorun çıkarabilir. Etkinleştirilirse Android uygulamayı herhangi bir anda sonlandırarak, kurulmuş alarmları iptal ederek uygulamanın çalışmasını kötü yönde etkileyebilir. \n\nUygulamayı pil optimizasyonunda beyaz listeye almanızı tavsiye ederiz.</string>
     <string name="version_text">Sürüm <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
-    <string name="first_launch_main_feature_message">► Aydınlık, karanlık veya sistem teması; &lt;br&gt; &lt;br&gt; ► Özelleştirilebilir ekran koruyucu; &lt;br&gt; &lt;br&gt; ► Özelleştirilebilir widget\'lar; &lt;br&gt; &lt;br&gt; ► Hızlı ayarlarda kutucuk desteği (Android 7+); &lt;br&gt; &lt;br&gt; ► Uygulama verilerini yedekle ve geri yükle (alarmlar ve özel zil sesleri hariç); &lt;br&gt; &lt;br&gt; ► Material tasarım ve dinamik renkler; &lt;br&gt; &lt;br&gt; ► Alarm silmek için kaydır; &lt;br&gt; &lt;br&gt; ► Alarm çoğaltma; &lt;br&gt; &lt;br&gt; ► Alarmı kapatmak/ertelemek için ters çevirme ve sallama hareketi; &lt;br&gt; &lt;br&gt; ► Alarmı güç tuşu veya ses tuşlarıyla kapat/ertele; &lt;br&gt; &lt;br&gt; ► %s</string>
+    <string name="first_launch_main_feature_message">► Aydınlık, karanlık veya sistem teması; &lt;br&gt; &lt;br&gt; ► Özelleştirilebilir ekran koruyucu; &lt;br&gt; &lt;br&gt; ► Özelleştirilebilir widget\'lar; &lt;br&gt; &lt;br&gt; ► Hızlı ayarlarda kutucuk desteği (Android 7+); &lt;br&gt; &lt;br&gt; ► Uygulama verilerini yedekle ve geri yükle (özel zil sesleri hariç); &lt;br&gt; &lt;br&gt; ► Material tasarım ve dinamik renkler; &lt;br&gt; &lt;br&gt; ► Alarm silmek için kaydır; &lt;br&gt; &lt;br&gt; ► Alarm çoğaltma; &lt;br&gt; &lt;br&gt; ► Alarmı kapatmak/ertelemek için ters çevirme ve sallama hareketi; &lt;br&gt; &lt;br&gt; ► Alarmı güç tuşu veya ses tuşlarıyla kapat/ertele; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="first_launch_important_info_message">Uygulamanın sorunsuz çalışmasını sağlamak için &lt;b&gt;bazı cihaz ayarlarınızın değişmesi gerekiyor:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;PİL OPTİMİZASYONU;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BİLDİRİMLER;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Cihazınızın Android sürümüne bağlı olarak bazı ayarlar zaten optimize edilmiştir (örn. bildirimler).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Şimdi veya daha sonra izin yönetimi ayarlarından değiştirebilirsiniz:</string>
     <string name="notifications_dialog_text">Alarm ayarlarına ek olarak bu uygulamanın aynı zamanda zamanlayıcı ve kronomotre modu da vardır. \n\nÖzellikle alarmın çalışması ve bütün modüllerin bildirimlerinin gözükmesi için uygulamanın bildirimlerini etkinleştirmenizi tavsiye ederiz.</string>
     <string name="display_card_background_title">Kart görünümünü göster</string>
@@ -642,15 +642,34 @@
     <string name="screensaver_italic_date_title">İtalik tarih</string>
     <string name="screensaver_italic_next_alarm_title">İtalik sonraki alarm</string>
     <string name="occasional_alarm_deleted">Etkinlik alarmı silindi</string>
-    <string name="about_dialog_message">• Alarmı kapatmak/ertelemek için ters çevir ve salla hareketi; \n\n• Güç butonu veya ses butonlarıyla alarmı kapat/ertele; \n\n• Sadece bazı Snapdragon işlemcili cihazlarda alarmlar kapatıldığında çalar; \n\t\t Maalesef bu özellik <i>\"com.qualcomm.qti.poweroffalarm\"</i> sistem uygulaması olmasına rağmen bazı cihazlarda çalışmayabilir. \n\n• Alarm silmek için kaydır; \n\n• Alarmları çoğalt; \n\n• Alarm başlığını özelleştir; \n\n• Özelleştirilebilir zil sesi; \n\n• Aydınlık, karanlık veya sistem teması; \n\n• Karanlık team için AMOLED modu; \n\n• Dijital veya analog saat stili; \n\n• Seyahat ederken ev saatini göster; \n\n• Dünya şehirlerinin saatlerini göster; \n\n• Zamanlayıcı ve kronometre dahil edildi; \n\n• Kronometrenizi rehberinizle paylaşma imkanı; \n\n• Özelleştirilebilir ekran koruyucu; \n\n• Modern widget\'lar; \n\n• Özelleştirilebilir widget\'lar; \n\n• Hızlı ayarlarda kutucuk desteği (Android 7+ için); \n\n• Uygulama verilerini yedekleme ve geri yükleme (alarmlar ve özel zil sesleri hariç)\n\n• Material tasarım; \n\n• Android 12+ için dinamik renkler;</string>
+    <string name="about_dialog_message">• Alarmı kapatmak/ertelemek için ters çevir ve salla hareketi; \n\n• Güç butonu veya ses butonlarıyla alarmı kapat/ertele; \n\n• Sadece bazı Snapdragon işlemcili cihazlarda alarmlar kapatıldığında çalar; \n\t\t Maalesef bu özellik <i>\"com.qualcomm.qti.poweroffalarm\"</i> sistem uygulaması olmasına rağmen bazı cihazlarda çalışmayabilir. \n\n• Alarm silmek için kaydır; \n\n• Alarmları çoğalt; \n\n• Alarm başlığını özelleştir; \n\n• Özelleştirilebilir zil sesi; \n\n• Aydınlık, karanlık veya sistem teması; \n\n• Karanlık team için AMOLED modu; \n\n• Dijital veya analog saat stili; \n\n• Seyahat ederken ev saatini göster; \n\n• Dünya şehirlerinin saatlerini göster; \n\n• Zamanlayıcı ve kronometre dahil edildi; \n\n• Kronometrenizi rehberinizle paylaşma imkanı; \n\n• Özelleştirilebilir ekran koruyucu; \n\n• Modern widget\'lar; \n\n• Özelleştirilebilir widget\'lar; \n\n• Hızlı ayarlarda kutucuk desteği (Android 7+ için); \n\n• Uygulama verilerini yedekleme ve geri yükleme (özel zil sesleri hariç)\n\n• Material tasarım; \n\n• Android 12+ için dinamik renkler;</string>
     <string name="screensaver_bold_next_alarm_title">Kalın sonraki alarm</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Etkinlik alarmlarının otomatik silinmesini varsayılan olarak etkinleştir</string>
     <string name="screensaver_bold_digital_clock_title">Kalın dijital saat</string>
     <string name="occasional_alarm_alert_predismiss_title">Yaklaşan etkinlik alarmı</string>
     <string name="settings_language_turkish">Türkçe</string>
     <string name="reset_settings_title">Ayarları sıfırla</string>
-    <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?\n\nNot: alarmlar ve özel zil sesleri sıfırlanmayacak.</string>
+    <string name="reset_settings_message">Uygulamanın bütün ayarlarını sıfırlamak istediğinize emin misiniz?\n\nNot: özel zil sesleri sıfırlanmayacak.</string>
     <string name="contributors_dialog_title">Profili görüntüle</string>
     <string name="toast_message_for_reset">Sıfırlama tamamlandı</string>
     <string name="settings_language_korean">Korece</string>
+    <string name="blue_accent_color">Mavi</string>
+    <string name="default_time_to_add_to_timer_2_hours">2 saat</string>
+    <string name="display_date_title">Araçta tarihi görüntüle</string>
+    <string name="settings_toolbar_title">Araç çubuğunda başlığı görüntüle</string>
+    <string name="settings_tab_title_visibility_title">Sekme başlıklarını görüntüle</string>
+    <string name="tab_title_visibility_always">Daima</string>
+    <string name="tab_title_visibility_never">Hiçbir zaman</string>
+    <string name="tab_title_visibility_when_selected">Seçildiğinde</string>
+    <string name="settings_language_czech">Çek</string>
+    <string name="settings_keep_screen_on_title">Ekranı açık tut</string>
+    <string name="settings_keep_screen_on_summary">Not: Bu ayarın durumundan bağımsız olarak, bir zamanlayıcı veya kronometre çalışıyorsa ve ilgili sekme gösteriliyorsa, ekran her zaman açık kalacaktır</string>
+    <string name="slide_zone_color_title">Sürgü alanı rengi</string>
+    <string name="snooze_title_color">\"Sürgü\" başlığı rengi</string>
+    <string name="dismiss_title_color">\"Alarm Kapatma\" başlığı rengi</string>
+    <string name="ringtone_title_color">Zil sesi başlığı rengi</string>
+    <string name="description_dismiss_button">Alarmı kapatmak için tıklayın</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Alarmı kapatmak ve silmek için tıklayın</string>
+    <string name="display_next_alarm_title">Widget\'taki bir sonraki alarmı görüntüle</string>
+    <string name="description_snooze_button">Alarmı ertelemek için tıklayın</string>
 </resources>

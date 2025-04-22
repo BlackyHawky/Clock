@@ -25,7 +25,7 @@ Funkce:
   <li>Moderní widgety;</li>
   <li>Přizpůsobitelné widgety;</li>
   <li>Podpora dlaždic v rychlém nastavení (pro Android 7+);</li>
-  <li>Zálohování a obnovení nastavení;</li>
+  <li>Zálohování a obnovení dat aplikace (kromě vlastních vyzvánění);</li>
   <li>Material Design;</li>
   <li>Dynamické barvy pro Android 12+;</li>
 </ul>

@@ -25,7 +25,7 @@ Merkmale:
   <li>Moderne Widgets;</li>
   <li>Anpassbare Widgets;</li>
   <li>Unterstützung für Kacheln in den Schnelleinstellungen (Android 7+) </li>
-  <li>Speichern und Wiederherstellen von Einstellungen</li>
+  <li>Sichern und Wiederherstellen von Einstellungen (außer benutzerdefinierte Signaltöne)</li>
   <li>Material You Design;</li>
   <li>Dynamische Farben für Android 12+;</li>
 </ul>

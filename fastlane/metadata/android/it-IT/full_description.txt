@@ -22,6 +22,7 @@ Caratteristiche:
   <li>Widget Moderni;</li>
   <li>Widget personalizzabile;</li>
   <li>Supporto per le scorciatoie nelle impostazioni rapide (per Android 7+); <br>
-<li>Backup e ripristino delle impostazioni; </li><li>Material design;</li>
+<li>Salvataggio e ripristino dei dati dell'applicazione (tranne le suonerie personali); </li>
+<li>Material design;</li>
   <li>Colori dinamici per Android 12+;</li>
 </ul>

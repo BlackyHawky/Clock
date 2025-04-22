@@ -660,4 +660,12 @@
     <string name="settings_language_korean">Koreaans</string>
     <string name="default_time_to_add_to_timer_2_hours">2 uur</string>
     <string name="display_date_title">Datum op widget tonen</string>
+    <string name="tab_title_visibility_never">Nooit</string>
+    <string name="settings_language_czech">Tsjechisch</string>
+    <string name="settings_toolbar_title">Titel in navigatiemenu tonen</string>
+    <string name="settings_tab_title_visibility_title">Toon titels van de tabbladen</string>
+    <string name="tab_title_visibility_always">Altijd</string>
+    <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
+    <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
+    <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt getoond, ongeacht deze instelling</string>
 </resources>

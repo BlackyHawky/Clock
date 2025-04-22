@@ -2,10 +2,10 @@
  - Kronometre çemberindeki göstergenin boyutu düzeltildi;
 
 **Geliştirmeler**
- - Vurgu rengini dğeiştirebilme;
+ - Vurgu rengini değiştirebilme;
  - Kart görünümünü gösterip gizleyebilme;
  - Kenarlıkları gösterip gizleyebilme;
  - Bazı arayüz öğelerinde titreşimi etkinleştirip devre dışı bırakabilme (titreşim özelliği olan cihazlar için);
- - Ayarlarda geçiş yaparken titreşim (titreşim özelliği olan cihazlar için);
+ - Ayarlarda geçiş yaparken titreşim (özelliği olan cihazlar için);
  - Uygulama açılırken temel izin kontrolünü kaldırma. Temel izinler verilmediyse ayarlar ekranının üstünde mesaj görünecek;
  - Ekran görüntüleri güncellendi (F-Droid için). Buradaki konuda detaylar mevcut: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

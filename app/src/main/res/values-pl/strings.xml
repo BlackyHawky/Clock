@@ -676,4 +676,12 @@
     <string name="settings_language_korean">Koreański</string>
     <string name="default_time_to_add_to_timer_2_hours">2 godziny</string>
     <string name="display_date_title">Wyświetl datę na widżecie</string>
+    <string name="settings_language_czech">Czeski</string>
+    <string name="settings_toolbar_title">Wyświetl tytuł na pasku narzędzi</string>
+    <string name="settings_tab_title_visibility_title">Wyświetl tytuły kart</string>
+    <string name="tab_title_visibility_always">Zawsze</string>
+    <string name="tab_title_visibility_never">Nigdy</string>
+    <string name="tab_title_visibility_when_selected">Gdy wybrane</string>
+    <string name="settings_keep_screen_on_title">Pozostaw ekran włączony</string>
+    <string name="settings_keep_screen_on_summary">Uwaga: Ekran będzie zawsze włączony, jeśli uruchomiony jest minutnik lub stoper i wyświetlana jest odpowiednia karta, niezależnie od stanu tego ustawienia</string>
 </resources>

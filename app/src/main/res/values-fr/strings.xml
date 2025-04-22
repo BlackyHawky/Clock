@@ -141,9 +141,9 @@
     <string name="material_time_picker_style_title">Style de sélection de l\'heure</string>
     <string name="alarm_display_customization_title">Personnaliser l\'affichage de l\'alarme</string>
     <string name="alarm_title_color">Couleur du titre de l\'alarme</string>
-    <string name="snooze_button_color">Couleur du bouton Répéter</string>
-    <string name="dismiss_button_color">Couleur du bouton Arrêter</string>
-    <string name="alarm_button_color">Couleur du bouton Alarme</string>
+    <string name="snooze_button_color">Couleur du bouton \"Répéter\"</string>
+    <string name="dismiss_button_color">Couleur du bouton \"Ignorer\"</string>
+    <string name="alarm_button_color">Couleur du bouton d\'alarme</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -404,7 +404,7 @@
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Économ. d\'écran"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'éco. d\'écran"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="alarm_settings_summary">Définit la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
+    <string name="alarm_settings_summary">Définit le style, la sonnerie par défaut, le volume, les actions pour reporter ou arrêter les alarmes, le premier jour de la semaine et l\'heure de la notification du rappel</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
@@ -674,4 +674,20 @@
     <string name="settings_language_korean">Coréen</string>
     <string name="default_time_to_add_to_timer_2_hours">2 heures</string>
     <string name="display_date_title">Afficher la date sur le widget</string>
+    <string name="settings_toolbar_title">Afficher le titre dans la barre d\'outils</string>
+    <string name="settings_tab_title_visibility_title">Afficher le titre des onglets</string>
+    <string name="tab_title_visibility_always">Toujours</string>
+    <string name="tab_title_visibility_never">Jamais</string>
+    <string name="tab_title_visibility_when_selected">Lorsqu\'ils sont sélectionnés</string>
+    <string name="settings_language_czech">Tchèque</string>
+    <string name="settings_keep_screen_on_title">Maintenir l\'écran allumé</string>
+    <string name="settings_keep_screen_on_summary">Remarque : l\'écran sera toujours allumé si un minuteur ou un chronomètre est en cours d\'exécution et que l\'onglet correspondant est affiché, quel que soit l\'état de ce paramètre</string>
+    <string name="slide_zone_color_title">Couleur de la zone de glissement</string>
+    <string name="snooze_title_color">Couleur du titre \"Répéter\"</string>
+    <string name="dismiss_title_color">Couleur du titre \"Ignorer\"</string>
+    <string name="ringtone_title_color">Couleur du titre de la sonnerie</string>
+    <string name="description_snooze_button">Cliquer pour répéter l\'alarme</string>
+    <string name="description_dismiss_button">Cliquer pour ignorer l\'alarme</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Cliquer pour ignorer et supprimer l\'alarme</string>
+    <string name="display_next_alarm_title">Afficher la prochaine alarme sur le widget</string>
 </resources>

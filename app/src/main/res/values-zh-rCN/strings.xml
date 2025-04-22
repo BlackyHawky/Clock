@@ -402,7 +402,7 @@
     <string name="first_launch_main_feature_message">► 浅色、深色或系统主题；&lt;br&gt; &lt;br&gt; ► 可自定义的屏幕保护程序；&lt;br&gt; &lt;br&gt; ► 可自定义的微件；&lt;br&gt; &lt;br&gt; ► 支持快捷设置中的图块（适用于 Android 7+）；&lt;br&gt; &lt;br&gt; ► 备份和还原应用程序数据（自定义铃声除外）；&lt;br&gt; &lt;br&gt; ► Material 设计和动态配色；&lt;br&gt; &lt;br&gt; ► 滑动删除闹钟；&lt;br&gt; &lt;br&gt; ► 重复闹钟；&lt;br&gt; &lt;br&gt; ► 翻转和摇晃操作可关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► 使用电源按钮或音量按钮关闭/推迟闹钟；&lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="alarm_notification_reminder_title">通知提醒</string>
     <string name="about_github_link">在 GitHub 查看</string>
-    <string name="alarm_settings_summary">设置默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
+    <string name="alarm_settings_summary">设置样式、默认铃声、音量、关闭或暂停闹钟的操作、每周的第一天和提醒通知时间</string>
     <string name="material_time_picker_style_title">时间选择器样式</string>
     <string name="timer_label_box_title">定时器标签</string>
     <string name="whats_new_title">更新日志</string>
@@ -423,7 +423,7 @@
     <string name="timer_button_time_box_title">添加到定时器的分钟数</string>
     <string name="features_title">主要特点</string>
     <string name="license">开放源代码许可</string>
-    <string name="gnu_gpl">GNU 通用公共许可证 v3.0</string>
+    <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="contributors">贡献者</string>
     <string name="credits">致谢</string>
     <string name="dialog_close">关闭</string>
@@ -488,8 +488,8 @@
     <string name="permission_status_title">状态： </string>
     <string name="permission_granted">已授予</string>
     <string name="alarm_display_customization_title">自定义闹钟显示</string>
-    <string name="snooze_button_color">暂停按钮颜色</string>
-    <string name="dismiss_button_color">关闭按钮颜色</string>
+    <string name="snooze_button_color">“暂停”按钮的颜色</string>
+    <string name="dismiss_button_color">“关闭”按钮的颜色</string>
     <string name="alarm_button_color">闹钟按钮颜色</string>
     <string name="transparent_background_for_expired_timer_title">定时器结束时的透明背景</string>
     <string name="alarm_title_color">闹钟标题颜色</string>
@@ -650,4 +650,20 @@
     <string name="settings_language_korean">韩语</string>
     <string name="default_time_to_add_to_timer_2_hours">2 小时</string>
     <string name="display_date_title">在微件上显示日期</string>
+    <string name="settings_keep_screen_on_title">保持屏幕开启</string>
+    <string name="settings_toolbar_title">在工具栏中显示标题</string>
+    <string name="settings_tab_title_visibility_title">显示标签页标题</string>
+    <string name="tab_title_visibility_always">始终</string>
+    <string name="tab_title_visibility_never">从不</string>
+    <string name="tab_title_visibility_when_selected">选择时</string>
+    <string name="settings_language_czech">捷克语</string>
+    <string name="settings_keep_screen_on_summary">注意：无论此设置的状态如何，如果定时器或秒表正在运行，并且显示了相应的标签页，则屏幕将始终开启</string>
+    <string name="dismiss_title_color">“关闭”标题的颜色</string>
+    <string name="description_dismiss_button">点击即可关闭闹钟</string>
+    <string name="description_dismiss_button_for_occasional_alarm">点击即可关闭并删除闹钟</string>
+    <string name="ringtone_title_color">铃声标题颜色</string>
+    <string name="slide_zone_color_title">滑动区域颜色</string>
+    <string name="snooze_title_color">“暂停”标题的颜色</string>
+    <string name="description_snooze_button">点击即可暂停闹钟</string>
+    <string name="display_next_alarm_title">在微件上显示下次闹钟</string>
 </resources>

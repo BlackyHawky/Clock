@@ -1,0 +1,11 @@
+**Opgelost**
+- De grootte van de markering in de stopwatchcirkel is aangepast;
+
+**Verbeteringen**
+- De mogelijkheid om de accentkleur te wijzigen is toegevoegd;
+- De mogelijkheid om kaartachtergronden te verbergen/weer te geven is toegevoegd (niet van toepassing op instellingen);
+- De mogelijkheid om achtergrondranden te verbergen/weer te geven is toegevoegd (niet van toepassing op instellingen);
+- De mogelijkheid om trillingen voor sommige UI-elementen in/uit te schakelen is toegevoegd (alleen apparaten met een trilfunctie zijn van toepassing);
+- Trillingen zijn toegevoegd aan de schakelaars in de instellingen (alleen apparaten met een trilfunctie zijn van toepassing);
+- De controle op essentiële machtigingen is verwijderd bij het openen van de app: als essentiële machtigingen niet zijn toegekend, verschijnt er nu een melding bovenaan de instellingen;
+- Screenshots zijn bijgewerkt (voornamelijk voor F-Droid) zoals hier besproken: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

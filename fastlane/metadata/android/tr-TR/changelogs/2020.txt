@@ -1,0 +1,14 @@
+**Düzeltmeler**
+- Uygulama kısayolundan zamanlayıcı yaratma, kronometre başlatma ve durdurma
+
+**İyileştirmeler**
+- Alarmlar, zamanlayıcılar, şehirler ve sistem zil sesleri yedeklenebilir ve geri yüklenebilir
+- Dijital araçların (widget) görüntülenebilmesi ve gizlenebilmesi
+- "Mavi" tema eklenmesi
+- Şehir listesine UTC zamanı eklenmesi
+- Uygulama ayarlarına Türkçe ve Korece dillerinin eklenmesi
+- Çeviri güncellemeleri
+
+İyileştirmelerin tamamı için: https://github.com/BlackyHawky/Clock/releases/tag/2.17
+
+GÜNCELLEMEDEN SONRA ESKİ YEDEĞİNİZİ SİLİP YENİ BİR TANE OLUŞTURUN

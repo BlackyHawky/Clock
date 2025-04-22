@@ -1,0 +1,13 @@
+**Düzeltmeler**
+- Arama çubuğundaki "Sallama hassaslığı" ayarı hatasının düzeltilmesi
+
+**İyileştirmeler**
+- Arama çubuğu davranışının Android 8'den eski sürünler için iyileştirilmesi
+- Kronometre zamanının Google uygulamasındaki gibi gösterilmesi
+- SDK 35'e güncelleme
+- Çeviri güncellemeleri
+- Kod iyileştirilmesi ve düzenlemesi
+
+Bütün iyileştirmeleri görmek için: https://github.com/BlackyHawky/Clock/releases/tag/2.18
+
+UYARI: 2.17 SÜRÜMÜNDEN SONRA, ESKİ YEDEĞİNİZİ SİLİP YENİ BİR TANE OLUŞTURUN

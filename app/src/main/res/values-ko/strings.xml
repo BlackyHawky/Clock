@@ -644,4 +644,11 @@
     <string name="occasional_alarm_deleted">일회성 알람을 삭제했습니다.</string>
     <string name="occasional_alarm_alert_predismiss_title">예정된 일회성 알람</string>
     <string name="default_time_to_add_to_timer_2_hours">2시간</string>
+    <string name="settings_language_czech">체코어</string>
+    <string name="settings_tab_title_visibility_title">탭 제목 표시</string>
+    <string name="tab_title_visibility_always">항상</string>
+    <string name="tab_title_visibility_never">표시 안함</string>
+    <string name="tab_title_visibility_when_selected">선택했을 때만</string>
+    <string name="settings_keep_screen_on_title">화면 켜짐 유지</string>
+    <string name="settings_keep_screen_on_summary">타이머 또는 스톱워치가 실행 중이고 그 탭이 켜져 있는 경우, 이 설정과 관계 없이 화면 켜짐이 유지됩니다.</string>
 </resources>

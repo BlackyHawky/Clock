@@ -460,7 +460,7 @@
     <string name="digital_widget_city_clock_default_color_title">Колір за замовчуванням для додаткового годинника</string>
     <string name="digital_widget_city_name_default_color_title">Колір за замовчуванням для назви міста</string>
     <string name="screensaver_next_alarm_color_title">Колір наступного будильника</string>
-    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;\n\n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;\n\n• Тільки для деяких пристроїв на Snapdragon — будильник спрацьовує, коли вони вимкнені;\n\t\tНа жаль, ця функція може не працювати на деяких пристроях, незважаючи на наявність системного додатка <i>com.qualcomm.qti.poweroffalarm</i>.\n\n• Провести пальцем, щоб видалити будильник;\n\n• Дублювання будильників;\n\n• Налаштовуваний заголовок будильника;\n\n• Вибір мелодії сигналу;\n\n• Світла, темна або системна тема;\n\n• Режим AMOLED для темної теми;\n\n• Цифровий або аналоговий стиль годинника;\n\n• Відображення домашнього часу під час подорожі;\n\n• Відображення часу в багатьох містах світу;\n\n• Таймер і секундомір;\n\n• Можливість ділитися своїм секундоміром з контактами;\n\n• Налаштовувана заставка;\n\n• Сучасні віджети;\n\n• Налаштовувані віджети;\n\n• Підтримка плиток у швидких налаштуваннях (для Android 7+);\n\n• Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій)\n\n• Material design;\n\n• Динамічні кольори для Android 12 і новіших;</string>
+    <string name="about_dialog_message">• Вимкнення/відкладення будильника перевертанням або струшуванням пристрою;\n\n• Вимкнення/відкладення будильника за допомогою кнопки живлення або кнопок гучності;\n\n• Тільки для деяких пристроїв на Snapdragon — будильник спрацьовує, коли вони вимкнені;\n\t\tНа жаль, ця функція може не працювати на деяких пристроях, незважаючи на наявність системного додатка <i>com.qualcomm.qti.poweroffalarm</i>.\n\n• Провести пальцем, щоб видалити будильник;\n\n• Дублювання будильників;\n\n• Налаштовуваний заголовок будильника;\n\n• Вибір мелодії сигналу;\n\n• Світла, темна або системна тема;\n\n• Режим AMOLED для темної теми;\n\n• Цифровий або аналоговий стиль годинника;\n\n• Відображення домашнього часу під час подорожі;\n\n• Відображення часу в багатьох містах світу;\n\n• Таймер і секундомір;\n\n• Можливість ділитися своїм секундоміром із контактами;\n\n• Налаштовувана заставка;\n\n• Сучасні віджети;\n\n• Налаштовувані віджети;\n\n• Підтримка плиток у швидких налаштуваннях (для Android 7+);\n\n• Резервне копіювання і відновлення даних додатка (крім користувацьких мелодій)\n\n• Material design;\n\n• Динамічні кольори для Android 12 і новіших;</string>
     <string name="shake_action_title">Дія струшування пристрою</string>
     <string name="notifications_dialog_text">Окрім встановлення будильників, цей додаток також має режими таймера та секундоміра. \n \nЩоб сповіщення коректно відображалися для всіх модулів, а особливо щоб спрацьовував будильник, рекомендуємо активувати сповіщення для цього додатка.</string>
     <string name="digital_widget_max_clock_font_size_title">Максимальний розмір шрифту для основного годинника</string>
@@ -500,7 +500,7 @@
     <string name="timer_button_time_box_title">Хвилини для додавання до таймера</string>
     <string name="license">Ліцензія з відкритим кодом</string>
     <string name="contributors">Автори</string>
-    <string name="alarm_settings_summary">Сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
+    <string name="alarm_settings_summary">Стиль, сигнал за замовчуванням, гучність, дії для вимкнення або відкладення будильника, початок тижня і час нагадування</string>
     <string name="flip_action_title">Дія перевертання пристрою</string>
     <string name="firing_alarms_timers_channel">Сигнали і таймери</string>
     <string name="alarm_missed_channel">Пропущені сигнали</string>
@@ -688,4 +688,20 @@
     <string name="settings_language_korean">Корейська</string>
     <string name="default_time_to_add_to_timer_2_hours">2 години</string>
     <string name="display_date_title">Показувати дату у віджеті</string>
+    <string name="settings_tab_title_visibility_title">Показувати заголовки вкладок</string>
+    <string name="settings_toolbar_title">Показувати заголовок панелі інструментів</string>
+    <string name="settings_language_czech">Чеська</string>
+    <string name="tab_title_visibility_always">Завжди</string>
+    <string name="tab_title_visibility_never">Ніколи</string>
+    <string name="tab_title_visibility_when_selected">Коли вибрана</string>
+    <string name="settings_keep_screen_on_title">Тримати дисплей увімкненим</string>
+    <string name="settings_keep_screen_on_summary">Примітка: екран завжди буде ввімкнений, якщо працює таймер або секундомір і відображається відповідна вкладка, незалежно від стану цього параметра</string>
+    <string name="snooze_title_color">Колір заголовка «Відкласти»</string>
+    <string name="description_dismiss_button">Натисніть, щоб вимкнути будильник</string>
+    <string name="dismiss_title_color">Колір заголовка «Вимкнути»</string>
+    <string name="slide_zone_color_title">Колір слайд-зони</string>
+    <string name="description_snooze_button">Натисніть, щоб відкласти будильник</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Натисніть, щоб вимкнути і видалити будильник</string>
+    <string name="display_next_alarm_title">Показувати наступний будильник у віджеті</string>
+    <string name="ringtone_title_color">Колір назви мелодії сигналу</string>
 </resources>

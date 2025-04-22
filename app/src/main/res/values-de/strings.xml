@@ -660,4 +660,12 @@
     <string name="settings_language_korean">Koreanisch</string>
     <string name="default_time_to_add_to_timer_2_hours">2 Stunden</string>
     <string name="display_date_title">Datum im Widget anzeigen</string>
+    <string name="settings_toolbar_title">Titel in der Symbolleiste anzeigen</string>
+    <string name="settings_tab_title_visibility_title">Tab-Titel anzeigen</string>
+    <string name="tab_title_visibility_always">Immer</string>
+    <string name="tab_title_visibility_never">Nie</string>
+    <string name="tab_title_visibility_when_selected">Wenn ausgewählt</string>
+    <string name="settings_language_czech">Tschechisch</string>
+    <string name="settings_keep_screen_on_title">Bildschirm eingeschaltet lassen</string>
+    <string name="settings_keep_screen_on_summary">Hinweis: Der Bildschirm ist immer eingeschaltet, wenn ein Timer oder eine Stoppuhr läuft und der entsprechende Tab angezeigt wird, unabhängig vom Status dieser Einstellung</string>
 </resources>

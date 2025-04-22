@@ -1,0 +1,9 @@
+**Opgelost**
+- Update voor digitale widgets voor Android 13+;
+
+**Verbeteringen**
+- Digitale widgets zijn aanpasbaar:
+• De kleur van alle elementen kan worden gewijzigd;
+• De lettergrootte van de hoofdklok kan worden gewijzigd (alleen mogelijk als er geen stad wordt weergegeven);
+• Digitale widgets configureren bij lang indrukken voor Android 9+;
+- Sommige vertalingen bijgewerkt;

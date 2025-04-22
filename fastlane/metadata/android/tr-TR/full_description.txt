@@ -25,7 +25,7 @@ Saat uygulaması gizliliği önemseyen açık kaynaklı, AOSP tabanlıdır.
   <li>Modern widget'lar;</li>
   <li>Özelleştirilebilir widget'lar;</li>
   <li>Hızlı ayarlarda kutucuk desteği (Android 7+ için);</li>
-  <li>Yedekleme ve geri alma ayarları;</li>
+  <li>Yedekleme ve geri alma ayarları (özel zil sesleri hariç);</li>
   <li>Material tasarım;</li>
   <li>Android 12+ için dinamik renkler;</li>
 </ul>

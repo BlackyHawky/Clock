@@ -1,0 +1,11 @@
+**Opgelost**
+- De kleur van de minuten van de timer is aangepast voor de Franse taal;
+- De actie "Schudden om te snoozen" is aangepast voor Android 14+;
+
+**Verbeteringen**
+- Leesmij-bestand bijgewerkt om het gebruik van Weblate voor vertalingen te verduidelijken;
+- Aankomende alarmdagen worden altijd weergegeven, zelfs als het alarm is gedeactiveerd;
+- De timerweergave is kleiner wanneer deze wordt gestopt (alleen telefoons in portretmodus worden beïnvloed);
+- De timer kan worden afgespeeld/gepauzeerd door op de resterende tijd te klikken;
+- Sommige vertalingen zijn bijgewerkt;
+- Screenshots zijn bijgewerkt (voornamelijk voor F-Droid) zoals hier besproken: https://github.com/BlackyHawky/Clock/discussions/23#discussioncomment-9346357

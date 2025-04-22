@@ -322,7 +322,7 @@
     <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Loo uus taimer"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Alustamine"</string>
     <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Käivita stopper"</string>
-    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Peatamine"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">Peata</string>
     <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Peata stopper"</string>
     <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Ekr-säästja"</string>
     <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Käivita ekraanisäästja"</string>
@@ -435,7 +435,7 @@
     <string name="notifications_dialog_text">Lisaks äratamisele saad seda rakendust kasutada ka taimerina ja stopperina. \n \nEt kõik teavitused toimiksid korrektsel kõikide nende valikute, eriti aga äratuste, puhul, siis palun luba rakendusel kuvada teavitusi.</string>
     <string name="first_launch_main_feature_message">► Hele, tume või süsteemi poolt määratud kujundus; &lt;br&gt; &lt;br&gt; ► Kohandatav ekraanisäästja; &lt;br&gt; &lt;br&gt; ► Kohandatavad vidinad; &lt;br&gt; &lt;br&gt; ► Paanide tugi kiirseadistustes (alates Androidi versioonist 7); &lt;br&gt; &lt;br&gt; ► Rakenduse andmete varundamine ja taastamine (v.a. kohandatud helinad); &lt;br&gt; &lt;br&gt; ► Material design ja dünaamilised värvid; &lt;br&gt; &lt;br&gt; ► Äratuse kustutamiseks viipa; &lt;br&gt; &lt;br&gt; ► Saad teha äratusest koopa; &lt;br&gt; &lt;br&gt; ► Kasuta pööramist ja raputamist äratusest loobumiseks või tema edasilükkamiseks; &lt;br&gt; &lt;br&gt; ► Saad lülitada äratuse välja või ta edasi lükata toimetnupuga või helivaljuse nuppudega; &lt;br&gt; &lt;br&gt; ► %s</string>
     <string name="enable_alarm_snooze_actions_label">Võta kasutusele äratuste edasilükkamisega seotud toimingud</string>
-    <string name="alarm_settings_summary">Seadista vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
+    <string name="alarm_settings_summary">Seadista välimust, vaikimisi helinat, valjust, tegevusi äratuste edasilükkamiseks või katkestamiseks, nädala alguspäeva ja meeldetuletuste teavituse aega</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Loobumiseks viipa vasakule või paremale</string>
     <string name="default_time_to_add_to_timer_title">Taimerile lisatav vaikimisi aeg</string>
     <string name="screensaver_clock_dynamic_colors_title">Kella dünaamilised värvid</string>
@@ -502,8 +502,8 @@
     <string name="digital_widget_message_summary">Selle seadistuse jaoks peab „Näita vidinas linnu“ olema välja lülitatud</string>
     <string name="notifications_dialog_title">Teavitused</string>
     <string name="alarm_display_customization_title">Kohenda äratuse vaadet</string>
-    <string name="snooze_button_color">Uinu-nupu värv</string>
-    <string name="dismiss_button_color">Äratuse lõpetamise nupu värv</string>
+    <string name="snooze_button_color">„Lükka edasi“ nupu värv</string>
+    <string name="dismiss_button_color">„Loobu“ nupu värv</string>
     <string name="alarm_button_color">Äratuse nupu värv</string>
     <string name="alarm_clock_font_size">Äratuskella kirjatüübi suurus</string>
     <string name="alarm_title_font_size">Äratuse nime kirjatüübi suurus</string>
@@ -668,4 +668,20 @@
     <string name="settings_language_korean">korea keel</string>
     <string name="default_time_to_add_to_timer_2_hours">2 tundi</string>
     <string name="display_date_title">Näita vidinas kuupäeva</string>
+    <string name="settings_toolbar_title">Näita tööriistaribal pealkirja</string>
+    <string name="settings_tab_title_visibility_title">Näita vahekaartide pealkirju</string>
+    <string name="tab_title_visibility_always">Alati</string>
+    <string name="tab_title_visibility_never">Mitte kunagi</string>
+    <string name="tab_title_visibility_when_selected">Kui on valitud</string>
+    <string name="settings_language_czech">tšehhi keel</string>
+    <string name="settings_keep_screen_on_title">Hoia ekraan sisselülitatuna</string>
+    <string name="settings_keep_screen_on_summary">Märkus: Kui stopper töötab ja vahekaart on kuvatud, siis on ekraan alati sisselülitatud sõltumata selle seadistuse olekust</string>
+    <string name="dismiss_title_color">„Loobu“ nupu pealkiri</string>
+    <string name="slide_zone_color_title">Viipamisala värv</string>
+    <string name="ringtone_title_color">Helina pealkirja värv</string>
+    <string name="description_dismiss_button">Klõpsi äratusest loobumiseks</string>
+    <string name="description_snooze_button">Klõpsi äratuse edasilükkamiseks</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Klõpsi äratusest loobumiseks ja tema kustutamiseks</string>
+    <string name="display_next_alarm_title">Näita vidinas järgmist äratust</string>
+    <string name="snooze_title_color">„Lükka edasi“ nupu pealkiri</string>
 </resources>

@@ -574,7 +574,7 @@
     <string name="title_theme">Tema</string>
     <string name="title_accent_color">Colore accento</string>
     <string name="material_you_category_title">Materiale You</string>
-    <string name="settings_tab_indicator_title">Mostra l\'indicatore di scheda nel menu di navigazione inferiore</string>
+    <string name="settings_tab_indicator_title">Mostra l\'indicatore di scheda nel menu di navigazione in basso</string>
     <string name="material_you_next_alarm_widget">Sveglia successiva Material You</string>
     <string name="display_card_background_summary">Visualizza uno sfondo per alcuni elementi dell\'applicazione (sveglie, città, pulsante del timer, ecc.)</string>
     <string name="display_background_border_title">Mostra bordi sfondo</string>
@@ -582,7 +582,7 @@
     <string name="screensaver_italic_date_title">Data in corsivo</string>
     <string name="timer_button_time_box_title">Minuti da aggiungere al timer</string>
     <string name="timer_add_custom_time">+ %s</string>
-    <string name="settings_fade_transitions_title">Abilita le transizioni in dissolvenza quando si passa da una schermata all\'altra</string>
+    <string name="settings_fade_transitions_title">Abilita le transizioni in dissolvenza quando si cambia schermata</string>
     <string name="digital_widget_city_name_custom_color_title">Colore personalizzato nome città</string>
     <string name="next_alarm_widget_default_title_color">Usa il colore predefinito per i titoli \"Prossima sveglia\" e \"Nessuna sveglia in programma\"</string>
     <string name="next_alarm_widget">Sveglia successiva</string>
@@ -665,4 +665,13 @@
     <string name="default_time_to_add_to_timer_2_hours">2 ore</string>
     <string name="settings_tab_to_display">Scheda da visualizzare all\'apertura dell\'applicazione</string>
     <string name="last_tab_used_title">Ultima scheda utilizzata</string>
+    <string name="display_date_title">Mostra data nel widget</string>
+    <string name="settings_toolbar_title">Mostra il titolo nella barra degli strumenti</string>
+    <string name="settings_tab_title_visibility_title">Mostra i titoli delle schede</string>
+    <string name="tab_title_visibility_always">Sempre</string>
+    <string name="tab_title_visibility_never">Mai</string>
+    <string name="tab_title_visibility_when_selected">Quando selezionata</string>
+    <string name="settings_language_czech">Ceco</string>
+    <string name="settings_keep_screen_on_title">Tieni lo schermo acceso</string>
+    <string name="settings_keep_screen_on_summary">Nota: lo schermo sarà sempre acceso se è in funzione un contaminuti o un cronometro e se è visualizzata la scheda corrispondente, indipendentemente dallo stato di questa impostazione</string>
 </resources>

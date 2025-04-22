@@ -485,7 +485,7 @@
     <string name="sw_long_press_volume_down_action_title">Snížení hlasitosti (dlouhé stisknutí)</string>
     <string name="sw_start_pause_action">Spustit / pozastavit</string>
     <string name="timer_button_time_warning_box_text">Zadejte hodnotu mezi 1 a 120 minutami</string>
-    <string name="alarm_settings_summary">Nastavení výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
+    <string name="alarm_settings_summary">Nastavení stylu, výchozího vyzvánění, hlasitosti, akcí pro zrušení nebo odložení budíku, prvního dne týdnu a času oznámení s připomínkou</string>
     <string name="whats_new_title">Co je nového</string>
     <string name="whats_new_dialog_message">Podívejte se, co je nového:\n\n%s</string>
     <string name="contributors_dialog_title">Zobrazit profil</string>
@@ -567,7 +567,7 @@
     <string name="last_tab_used_title">Naposledy použitá karta</string>
     <string name="alarm_settings_general_summary">Toto nastavení lze změnit u každého budíku v rozbaleném zobrazení budíku</string>
     <string name="alarm_title_color">Barva názvu budíku</string>
-    <string name="dismiss_button_color">Barva tlačítka zrušení</string>
+    <string name="dismiss_button_color">Barva tlačítka „Zrušit“</string>
     <string name="alarm_button_color">Barva tlačítka budíku</string>
     <string name="alarm_clock_font_size">Velikost písma hodin budíku</string>
     <string name="timer_shake_action_title">Zatřeste zařízením pro zastavení budíku</string>
@@ -604,7 +604,7 @@
     <string name="screensaver_bold_date_title">Datum tučně</string>
     <string name="next_alarm_widget_custom_alarm_title_color">Vlastní barva názvu budíku</string>
     <string name="next_alarm_widget_max_font_size_title">Maximální velikost písma widgetu</string>
-    <string name="snooze_button_color">Barva tlačítka odložení</string>
+    <string name="snooze_button_color">Barva tlačítka „Odložit“</string>
     <string name="screensaver_date_color_title">Barva data</string>
     <string name="first_launch_main_feature_link">… a spousta dalšího!</string>
     <string name="first_launch_important_info_title">DŮLEŽITÉ INFORMACE</string>
@@ -676,4 +676,20 @@
     <string name="settings_language_spanish">Španělština</string>
     <string name="settings_language_ukrainian">Ukrajinština</string>
     <string name="clock_settings_summary">Nastavení stylu, časového pásma a změna data a času zařízení</string>
+    <string name="settings_toolbar_title">Zobrazit název v panelu nástrojů</string>
+    <string name="settings_tab_title_visibility_title">Zobrazit názvy karet</string>
+    <string name="tab_title_visibility_always">Vždy</string>
+    <string name="tab_title_visibility_never">Nikdy</string>
+    <string name="tab_title_visibility_when_selected">Při výběru</string>
+    <string name="settings_language_czech">Čeština</string>
+    <string name="settings_keep_screen_on_summary">Poznámka: obrazovka bude ponechána zapnuta vždy, když běží stopky nebo časovač a je zobrazena odpovídající karta, nezávisle na stavu tohoto nastavení</string>
+    <string name="settings_keep_screen_on_title">Ponechat obrazovku zapnutou</string>
+    <string name="slide_zone_color_title">Barva posuvné zóny</string>
+    <string name="snooze_title_color">Barva názvu „Odložit“</string>
+    <string name="ringtone_title_color">Barva názvu vyzvánění</string>
+    <string name="description_snooze_button">Klepněte pro odložení budíku</string>
+    <string name="description_dismiss_button">Klepněte pro zrušení budíku</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Klepněte pro zrušení a odstranění budíku</string>
+    <string name="dismiss_title_color">Barva názvu „Zrušit“</string>
+    <string name="display_next_alarm_title">Zobrazit další budík ve widgetu</string>
 </resources>
