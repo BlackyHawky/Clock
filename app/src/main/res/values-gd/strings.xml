@@ -298,7 +298,6 @@
     <string name="next_timer_notif">An t-ath-thìmear: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="expand_alarm">Leudaich a’ chaismeachd</string>
     <string name="collapse_alarm">Co-theannaich a’ chaismeachd</string>
-    <string name="alarm_undo">neo-dhèan</string>
     <string name="alarm_deleted">Chaidh a’ chaismeachd a sguabadh às</string>
     <string name="world_day_of_week_label">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="next_alarm_description">An ath-chaismeachd: <xliff:g example="Wed 8:00am" id="alarm_time">%s</xliff:g></string>

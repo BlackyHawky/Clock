@@ -348,7 +348,6 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Nākamais taimeris: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Izvēršanas signāls"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sakļaušanas signāls"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"atsaukt"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Signāls ir izdzēsts"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="LABEL">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> uz priekšu"</string>

@@ -182,7 +182,7 @@ public final class AlarmUpdateHandler {
     private void showUndoBar() {
         final Alarm deletedAlarm = mDeletedAlarm;
         final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, mAppContext.getString(R.string.alarm_deleted),
-                        Snackbar.LENGTH_LONG).setAction(R.string.alarm_undo, v -> {
+                        Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> {
                             mDeletedAlarm = null;
                             asyncAddAlarm(deletedAlarm);
                         });

@@ -331,7 +331,6 @@
     <string name="next_timer_notif" msgid="6136454740115613653">下一个定时器：<xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="expand_alarm" msgid="7392616528943305020">"展开闹钟"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">收起闹钟</string>
-    <string name="alarm_undo" msgid="5710042601177655254">撤销</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"闹钟已删除"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead" msgid="625559988238637652">早 <xliff:g example="6 hours" id="time">%1$s</xliff:g></string>

@@ -125,6 +125,7 @@
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_marginHorizontal="12dp"
+            android:text="@string/button_action_dismiss"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
@@ -135,7 +136,6 @@
             app:layout_constraintStart_toEndOf="@+id/alarm_landscape_vertical_end_guide"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/alarm_landscape_horizontal_end_guide"
-            tools:text="@string/alarm_alert_dismiss_text"
             tools:visibility="gone" />
 
         <!-- Slide zone -->
@@ -159,7 +159,6 @@
                 android:paddingStart="@null"
                 android:paddingEnd="6dp"
                 android:paddingVertical="10dp"
-                android:text="@string/alarm_alert_snooze_text"
                 android:textSize="20sp"
                 android:gravity="start|center_vertical"
                 android:textStyle="bold"
@@ -168,6 +167,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/alarm_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="@string/button_action_snooze"
                 tools:textColor="@android:color/white" />
 
             <!-- Dismiss text -->
@@ -178,7 +178,7 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="@null"
                 android:paddingVertical="10dp"
-                android:text="@string/alarm_alert_dismiss_text"
+                android:text="@string/button_action_dismiss"
                 android:textSize="20sp"
                 android:gravity="end|center_vertical"
                 android:textStyle="bold"

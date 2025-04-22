@@ -376,7 +376,6 @@
     <string name="next_timer_notif">Amserydd nesaf: <xliff:g example="2 minutes remaining" id="time_remaining">%s</xliff:g></string>
     <string name="expand_alarm">Ehangu\'r larwm</string>
     <string name="collapse_alarm">Lleihau\'r larwm</string>
-    <string name="alarm_undo">dad-wneud</string>
     <string name="alarm_deleted">Dilëwyd y larwm</string>
     <string name="world_day_of_week_label">/ <xliff:g id="label">%s</xliff:g></string>
     <string name="world_time_ahead"><xliff:g example="6 hours" id="time">%1$s</xliff:g> ymlaen</string>

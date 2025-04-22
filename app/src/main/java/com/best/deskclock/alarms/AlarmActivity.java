@@ -306,7 +306,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             }
 
             mSnoozeActionText.setText(mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions
-                    ? getString(R.string.alarm_alert_dismiss_text) : getString(R.string.alarm_alert_snooze_text));
+                    ? getString(R.string.button_action_dismiss) : getString(R.string.button_action_snooze));
             mSnoozeActionText.setTextColor(snoozeTitleColor);
 
             mDismissActionText.setTextColor(dismissTitleColor);
@@ -398,7 +398,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             mDismissButton.setBackgroundColor(SettingsDAO.getDismissButtonColor(mPrefs, this));
 
             if (mSnoozeMinutes == -1 || !mAlarmInstance.mAlarmSnoozeActions) {
-                mSnoozeButton.setText(getString(R.string.alarm_alert_dismiss_text));
+                mSnoozeButton.setText(getString(R.string.button_action_dismiss));
 
                 if (isOccasionalAlarmDeletedAfterUse()) {
                     mSnoozeButton.setContentDescription(getString(
@@ -408,11 +408,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                                 R.string.description_dismiss_button));
                 }
             } else {
-                mSnoozeButton.setText(getString(R.string.alarm_alert_snooze_text));
+                mSnoozeButton.setText(getString(R.string.button_action_snooze));
                 mSnoozeButton.setContentDescription(getString(R.string.description_snooze_button));
             }
-
-            mDismissButton.setText(getString(R.string.alarm_alert_dismiss_text));
 
             if (isOccasionalAlarmDeletedAfterUse()) {
                 mDismissButton.setContentDescription(getString(R.string.description_dismiss_button_for_occasional_alarm));

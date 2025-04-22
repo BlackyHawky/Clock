@@ -1171,17 +1171,17 @@
     <!-- Title of slider for selecting clock brightness -->
     <string name="screensaver_brightness_title">Brightness</string>
     <!-- Title for switch to pick if the clock text is displayed in bold -->
-    <string name="screensaver_bold_digital_clock_title">Bold digital clock</string>
+    <string name="screensaver_bold_digital_clock_title">Digital clock in bold</string>
     <!-- Title for switch to pick if the clock text is displayed in italic -->
-    <string name="screensaver_italic_digital_clock_title">Italic digital clock</string>
+    <string name="screensaver_italic_digital_clock_title">Digital clock in italics</string>
     <!-- Title for switch to pick if the date is displayed in bold -->
-    <string name="screensaver_bold_date_title">Bold date</string>
+    <string name="screensaver_bold_date_title">Date in bold</string>
     <!-- Title for switch to pick if the date text is displayed in italic -->
-    <string name="screensaver_italic_date_title">Italic date</string>
+    <string name="screensaver_italic_date_title">Date in italics</string>
     <!-- Title for switch to pick if the next alarm is displayed in bold -->
-    <string name="screensaver_bold_next_alarm_title">Bold next alarm</string>
-    <!-- Title for switch to pick if the next alarm is displayed in italic -->
-    <string name="screensaver_italic_next_alarm_title">Italic next alarm</string>
+    <string name="screensaver_bold_next_alarm_title">Next alarm in bold</string>
+    <!-- Title for switch to pick if the next alarm is displayed in italics -->
+    <string name="screensaver_italic_next_alarm_title">Next alarm in italics</string>
     <!-- Label for the preview in settings -->
     <string name="preview_title">Preview</string>
     <!-- Summary for the screensaver preview in settings -->
@@ -1190,8 +1190,6 @@
     <string name="expand_alarm">Expand alarm</string>
     <!-- Description of the up caret in the alarm alert screen to collapse the alarm content to summary perspective. [CHAR LIMIT=NONE] -->
     <string name="collapse_alarm">Collapse alarm</string>
-    <!-- Description of the button to undo change to alarm -->
-    <string name="alarm_undo">undo</string>
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
     <!-- Toast content when an occasional alarm was deleted  -->
