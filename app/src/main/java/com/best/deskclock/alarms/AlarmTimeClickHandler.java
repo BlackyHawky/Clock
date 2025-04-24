@@ -129,7 +129,7 @@ public final class AlarmTimeClickHandler {
         if (newState != alarm.deleteAfterUse) {
             alarm.deleteAfterUse = newState;
             Events.sendAlarmEvent(R.string.action_delete_alarm_after_use, R.string.label_deskclock);
-            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+            mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LOGGER.d("Delete alarm after use state to " + newState);
             Utils.setVibrationTime(mContext, 50);
         }
