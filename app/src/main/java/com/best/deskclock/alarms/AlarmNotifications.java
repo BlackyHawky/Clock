@@ -123,12 +123,8 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         final int id = instance.hashCode();
         final String dismissActionTitle;
-        if (!alarm.daysOfWeek.isRepeating()) {
-            if (alarm.deleteAfterUse) {
-                dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_and_delete_text);
-            } else {
-                dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_text);
-            }
+        if (!alarm.daysOfWeek.isRepeating() && alarm.deleteAfterUse) {
+            dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_and_delete_text);
         } else {
             dismissActionTitle = context.getString(R.string.alarm_alert_dismiss_text);
         }

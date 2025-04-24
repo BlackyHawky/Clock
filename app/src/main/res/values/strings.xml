@@ -1247,6 +1247,10 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_dismissed"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed</string>
+    <!-- Toast content when an occasional alarm is dismissed and deleted.
+    %s represents alarm time, e.g. 14:20
+    -->
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm dismissed and deleted</string>
     <!-- String that represents that the user has dismissed an alarm through a voice action.
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]

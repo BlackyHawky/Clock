@@ -161,13 +161,15 @@ public final class AlarmUpdateHandler {
     }
 
     /**
-     * Show a toast when an alarm is predismissed.
+     * Show a toast when an alarm is predismissed or predidmissed and deleted.
      *
      * @param instance Instance being predismissed.
      */
-    public void showPredismissToast(AlarmInstance instance) {
+    public void showPredismissToast(Alarm alarm, AlarmInstance instance) {
         final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
-        final String text = mAppContext.getString(R.string.alarm_is_dismissed, time);
+        final String text = alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()
+                ? mAppContext.getString(R.string.alarm_is_dismissed_and_deleted, time)
+                : mAppContext.getString(R.string.alarm_is_dismissed, time);
         SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
     }
 

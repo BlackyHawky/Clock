@@ -101,7 +101,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         preemptiveDismissButton.setOnClickListener(v -> {
             final AlarmInstance alarmInstance = getItemHolder().getAlarmInstance();
             if (alarmInstance != null) {
-                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
+                getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(getItemHolder().item, alarmInstance);
             }
         });
     }
@@ -166,6 +166,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
                     ? context.getString(R.string.alarm_alert_snooze_until,
                     AlarmUtils.getAlarmText(context, alarmInstance, false))
+                    : alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()
+                    ? context.getString(R.string.alarm_alert_dismiss_and_delete_text)
                     : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
             if (!getItemHolder().isExpanded()) {

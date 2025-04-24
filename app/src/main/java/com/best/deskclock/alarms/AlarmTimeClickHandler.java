@@ -150,11 +150,11 @@ public final class AlarmTimeClickHandler {
         Utils.setVibrationTime(mContext, 10);
     }
 
-    public void dismissAlarmInstance(AlarmInstance alarmInstance) {
+    public void dismissAlarmInstance(Alarm alarm, AlarmInstance alarmInstance) {
         final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(mContext,
                 AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance, AlarmInstance.PREDISMISSED_STATE);
         mContext.startService(dismissIntent);
-        mAlarmUpdateHandler.showPredismissToast(alarmInstance);
+        mAlarmUpdateHandler.showPredismissToast(alarm, alarmInstance);
         Utils.setVibrationTime(mContext, 50);
     }
 

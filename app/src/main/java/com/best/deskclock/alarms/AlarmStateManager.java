@@ -226,7 +226,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
             if (alarm.deleteAfterUse) {
                 LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
-                Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted), Toast.LENGTH_LONG).show();
+                if (!DataModel.getDataModel().isApplicationInForeground()) {
+                    Toast.makeText(context, context.getString(R.string.occasional_alarm_deleted), Toast.LENGTH_LONG).show();
+                }
             } else {
                 LogUtils.i("Disabling parent alarm: " + alarm.id);
                 alarm.enabled = false;
