@@ -19,6 +19,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.toast.SnackbarManager;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -166,10 +167,11 @@ public final class AlarmUpdateHandler {
      * @param instance Instance being predismissed.
      */
     public void showPredismissToast(Alarm alarm, AlarmInstance instance) {
+        final Context localizedContext = Utils.getLocalizedContext(mAppContext);
         final String time = DateFormat.getTimeFormat(mAppContext).format(instance.getAlarmTime().getTime());
         final String text = alarm.deleteAfterUse && !alarm.daysOfWeek.isRepeating()
-                ? mAppContext.getString(R.string.alarm_is_dismissed_and_deleted, time)
-                : mAppContext.getString(R.string.alarm_is_dismissed, time);
+                ? localizedContext.getString(R.string.alarm_is_dismissed_and_deleted, time)
+                : localizedContext.getString(R.string.alarm_is_dismissed, time);
         SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
     }
 
@@ -182,12 +184,13 @@ public final class AlarmUpdateHandler {
     }
 
     private void showUndoBar() {
+        final Context localizedContext = Utils.getLocalizedContext(mAppContext);
         final Alarm deletedAlarm = mDeletedAlarm;
-        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, mAppContext.getString(R.string.alarm_deleted),
-                        Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> {
-                            mDeletedAlarm = null;
-                            asyncAddAlarm(deletedAlarm);
-                        });
+        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor, localizedContext.getString(R.string.alarm_deleted),
+                Snackbar.LENGTH_LONG).setAction(android.R.string.cancel, v -> {
+                    mDeletedAlarm = null;
+                    asyncAddAlarm(deletedAlarm);
+                });
         SnackbarManager.show(snackbar);
     }
 
