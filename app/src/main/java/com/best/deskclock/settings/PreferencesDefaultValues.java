@@ -102,6 +102,7 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_TIMER_POWER_BUTTON_ACTION = false;
     public static final boolean DEFAULT_TIMER_FLIP_ACTION = false;
     public static final boolean DEFAULT_TIMER_SHAKE_ACTION = false;
+    public static final int DEFAULT_TIMER_SHAKE_INTENSITY = 16;
     public static final String DEFAULT_SORT_TIMER_MANUALLY = "0";
     public static final String SORT_TIMER_BY_ASCENDING_DURATION = "1";
     public static final String SORT_TIMER_BY_DESCENDING_DURATION = "2";

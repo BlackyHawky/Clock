@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_FLIP_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_POWER_BUTTON_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_RINGTONE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENSITY;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VIBRATE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_VOLUME_BUTTONS_ACTION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER;
@@ -31,6 +32,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.Utils;
 
@@ -47,6 +49,7 @@ public class TimerSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTimerPowerButtonActionPref;
     SwitchPreferenceCompat mTimerFlipActionPref;
     SwitchPreferenceCompat mTimerShakeActionPref;
+    CustomSeekbarPreference mTimerShakeIntensityPref;
     SwitchPreferenceCompat mTransparentBackgroundPref;
     SwitchPreferenceCompat mDisplayWarningBeforeDeletingTimerPref;
 
@@ -69,6 +72,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerPowerButtonActionPref = findPreference(KEY_TIMER_POWER_BUTTON_ACTION);
         mTimerFlipActionPref = findPreference(KEY_TIMER_FLIP_ACTION);
         mTimerShakeActionPref = findPreference(KEY_TIMER_SHAKE_ACTION);
+        mTimerShakeIntensityPref = findPreference(KEY_TIMER_SHAKE_INTENSITY);
         mSortTimerPref = findPreference(KEY_SORT_TIMER);
         mDefaultMinutesToAddToTimerPref = findPreference(KEY_DEFAULT_TIME_TO_ADD_TO_TIMER);
         mTransparentBackgroundPref = findPreference(KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER);
@@ -102,8 +106,14 @@ public class TimerSettingsFragment extends ScreenFragment
                 requireActivity().setResult(REQUEST_CHANGE_SETTINGS);
             }
 
+            case KEY_TIMER_SHAKE_ACTION -> {
+                mTimerShakeIntensityPref.setVisible((boolean) newValue);
+
+                Utils.setVibrationTime(requireContext(), 50);
+            }
+
             case KEY_TIMER_VIBRATE, KEY_TIMER_VOLUME_BUTTONS_ACTION, KEY_TIMER_POWER_BUTTON_ACTION,
-                 KEY_TIMER_FLIP_ACTION, KEY_TIMER_SHAKE_ACTION, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
+                 KEY_TIMER_FLIP_ACTION, KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER,
                  KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER ->
                     Utils.setVibrationTime(requireContext(), 50);
         }
@@ -151,6 +161,7 @@ public class TimerSettingsFragment extends ScreenFragment
         } else {
             mTimerFlipActionPref.setOnPreferenceChangeListener(this);
             mTimerShakeActionPref.setOnPreferenceChangeListener(this);
+            mTimerShakeIntensityPref.setVisible(SettingsDAO.isShakeActionForTimersEnabled(mPrefs));
         }
 
         mSortTimerPref.setOnPreferenceChangeListener(this);

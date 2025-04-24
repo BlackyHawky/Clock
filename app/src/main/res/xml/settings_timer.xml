@@ -107,6 +107,16 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <com.best.deskclock.settings.CustomSeekbarPreference
+            android:key="key_timer_shake_intensity"
+            android:title="@string/shake_intensity_title"
+            android:summary="@string/label_default"
+            android:defaultValue="16"
+            android:max="55"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_seekbar_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -452,6 +452,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return the shake intensity value for timers.
+     */
+    public static int getTimerShakeIntensity(SharedPreferences pref) {
+        // Default value must match the one in res/xml/settings_timer.xml
+        return pref.getInt(KEY_TIMER_SHAKE_INTENSITY, DEFAULT_TIMER_SHAKE_INTENSITY);
+    }
+
+    /**
      * @return the timer sorting manually, in ascending order of duration, in descending order of duration or by name
      */
     public static String getTimerSortingPreference(SharedPreferences prefs) {

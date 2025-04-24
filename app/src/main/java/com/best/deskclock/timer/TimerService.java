@@ -110,6 +110,8 @@ public final class TimerService extends Service {
                 .setAction(ACTION_UPDATE_NOTIFICATION);
     }
 
+    private SharedPreferences mPrefs;
+
     private SensorManager mSensorManager;
     private boolean mIsFlipActionEnabled;
     private boolean mIsShakeActionEnabled;
@@ -123,11 +125,11 @@ public final class TimerService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        SharedPreferences prefs = getDefaultSharedPreferences(this);
+        mPrefs = getDefaultSharedPreferences(this);
         // Set up for flip and shake actions
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(prefs);
-        mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(prefs);
+        mIsFlipActionEnabled = SettingsDAO.isFlipActionForTimersEnabled(mPrefs);
+        mIsShakeActionEnabled = SettingsDAO.isShakeActionForTimersEnabled(mPrefs);
     }
 
     @Override
@@ -273,7 +275,6 @@ public final class TimerService extends Service {
     };
 
     private final SensorEventListener mShakeListener = new SensorEventListener() {
-        private static final float SENSITIVITY = 16;
         private static final int BUFFER = 5;
         private final float[] gravity = new float[3];
         private float average = 0;
@@ -294,11 +295,13 @@ public final class TimerService extends Service {
             float y = event.values[1] - gravity[1];
             float z = event.values[2] - gravity[2];
 
+            float sensitivity = SettingsDAO.getTimerShakeIntensity(mPrefs);
+
             if (fill <= BUFFER) {
                 average += Math.abs(x) + Math.abs(y) + Math.abs(z);
                 fill++;
             } else {
-                if (average / BUFFER >= SENSITIVITY) {
+                if (average / BUFFER >= sensitivity) {
                     handleAction(mIsShakeActionEnabled);
                 }
                 average = 0;

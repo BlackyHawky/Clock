@@ -132,8 +132,6 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
-        <!-- To be more user-friendly, the default value 16 will be written as 1 and the
-             maximum value 55 will be written as 40. See the AlarmSettingsFragment file. -->
         <com.best.deskclock.settings.CustomSeekbarPreference
             android:key="key_shake_intensity"
             android:title="@string/shake_intensity_title"

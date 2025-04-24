@@ -109,6 +109,7 @@ public class PreferencesKeys {
     public static final String KEY_TIMER_POWER_BUTTON_ACTION = "key_timer_power_button_action";
     public static final String KEY_TIMER_FLIP_ACTION = "key_timer_flip_action";
     public static final String KEY_TIMER_SHAKE_ACTION = "key_timer_shake_action";
+    public static final String KEY_TIMER_SHAKE_INTENSITY = "key_timer_shake_intensity";
     public static final String KEY_SORT_TIMER = "key_sort_timer";
     public static final String KEY_DEFAULT_TIME_TO_ADD_TO_TIMER = "key_default_time_to_add_to_timer";
     public static final String KEY_TRANSPARENT_BACKGROUND_FOR_EXPIRED_TIMER = "key_transparent_background_for_expired_timer";
