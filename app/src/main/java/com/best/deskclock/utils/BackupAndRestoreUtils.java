@@ -287,9 +287,10 @@ public class BackupAndRestoreUtils {
                     boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
                     boolean increasingVolume = alarmObject.getBoolean("increasingVolume");
 
-                    String alarmRingtone = isNotSystemRingtone(Uri.parse(alert))
-                            ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()
-                            : alert;
+                    // Restore only the system ringtone if available; otherwise restore the default system ringtone
+                    String alarmRingtone = !isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)
+                            ? alert
+                            : RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
 
                     Alarm restoredAlarm = new Alarm(id, enabled, hour, minutes, dismissAlarmWhenRingtoneEnds,
                             alarmSnoozeActions, vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone,
@@ -353,17 +354,16 @@ public class BackupAndRestoreUtils {
             try {
                 if ("content".equals(ringtoneUri.getScheme())) {
                     // For URI content:// (managed by ContentResolver)
-                    String[] projection = { MediaStore.Audio.Media.DATA };
-                    Cursor cursor = context.getContentResolver().query(ringtoneUri, projection,
-                            null, null, null);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        int columnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
+                    try (Cursor cursor = context.getContentResolver().query(ringtoneUri, null,
+                            null, null, null)) {
+                        if (cursor != null && cursor.moveToFirst()) {
+                            int columnIndex = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
 
-                        if (columnIndex != -1) {
-                            String filePath = cursor.getString(columnIndex);
-                            File file = new File(filePath);
-                            cursor.close();
-                            return file.exists();
+                            if (columnIndex != -1) {
+                                String filePath = cursor.getString(columnIndex);
+                                File file = new File(filePath);
+                                return file.exists();
+                            }
                         }
                     }
                 } else if ("file".equals(ringtoneUri.getScheme())) {
