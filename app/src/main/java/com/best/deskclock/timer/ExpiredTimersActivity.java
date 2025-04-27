@@ -8,6 +8,7 @@ package com.best.deskclock.timer;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -113,6 +114,30 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             return;
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setTurnScreenOn(true);
+            setShowWhenLocked(true);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                    | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                    | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                    | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+        }
+
+        // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
+            keyguardManager.requestDismissKeyguard(this, null);
+        }
+
+        // Honor rotation on tablets; fix the orientation on phones.
+        if (ThemeUtils.isPortrait()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        }
+
         AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
 
         setContentView(R.layout.expired_timers_activity);
@@ -125,18 +150,6 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
         mExpiredTimersScrollView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
-
-
-        // Honor rotation on tablets; fix the orientation on phones.
-        if (ThemeUtils.isPortrait()) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        }
 
         // Create views for each of the expired timers.
         for (Timer timer : expiredTimers) {

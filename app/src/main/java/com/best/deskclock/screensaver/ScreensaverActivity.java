@@ -12,6 +12,7 @@ import static android.os.BatteryManager.EXTRA_PLUGGED;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,14 +39,6 @@ import java.util.Objects;
 public class ScreensaverActivity extends AppCompatActivity {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
-
-    /**
-     * These flags keep the screen on if the device is plugged in.
-     */
-    private static final int WINDOW_FLAGS = WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private String mDateFormat;
@@ -158,18 +151,61 @@ public class ScreensaverActivity extends AppCompatActivity {
     }
 
     /**
-     * @param pluggedIn {@code true} iff the device is currently plugged in to a charger
+     * @param pluggedIn {@code true} if the device is currently plugged in to a charger
      */
     private void updateWakeLock(boolean pluggedIn) {
         final Window win = getWindow();
         final WindowManager.LayoutParams winParams = win.getAttributes();
+
         winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
+        int flags = getWindowFlags();
+
         if (pluggedIn) {
-            winParams.flags |= WINDOW_FLAGS;
+            winParams.flags |= flags;
         } else {
-            winParams.flags &= (~WINDOW_FLAGS);
+            winParams.flags &= ~flags;
         }
+
         win.setAttributes(winParams);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(pluggedIn);
+            setTurnScreenOn(pluggedIn);
+        }
+
+        // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
+            keyguardManager.requestDismissKeyguard(this, null);
+        }
+    }
+
+    /**
+     * Returns the flags to apply for modern versions of Android (API 27 and above).
+     * <p>
+     * Use official methods like {@link #setShowWhenLocked(boolean)} and {@link #setTurnScreenOn(boolean)}
+     * to manage lock screen display and screen wake-up.
+     *
+     * @return the flags to apply to the window to keep the screen active.
+     */
+    private static int getWindowFlags() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            return WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                    | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
+        } else {
+            return getLegacyWindowFlags();
+        }
+    }
+
+    /**
+     * @return the flags to apply to the window to keep the screen active (before API 27).
+     */
+    private static int getLegacyWindowFlags() {
+        return WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
     }
 
     /**
