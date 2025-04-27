@@ -6,10 +6,21 @@
 
 package com.best.deskclock.utils;
 
-import android.os.Build;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.best.deskclock.BuildConfig;
+import com.best.deskclock.DeskClockApplication;
+import com.best.deskclock.data.SettingsDAO;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class LogUtils {
 
@@ -50,91 +61,166 @@ public class LogUtils {
         DEFAULT_LOGGER.wtf(e);
     }
 
-    public record Logger(String logTag) {
-
-            /**
-             * Log everything for debug builds or if running on a dev device.
-             */
-            public final static boolean DEBUG = BuildConfig.DEBUG
-                    || "eng".equals(Build.TYPE)
-                    || "userdebug".equals(Build.TYPE);
-
-        public boolean isVerboseLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.VERBOSE);
+    /**
+     * Retrieve locally saved custom logs via LogUtils.
+     * These logs are usually stored in an internal file of the application.
+     */
+    public static String getSavedLocalLogs(Context context) {
+        File localLogFile = getLocalLogFile(context);
+        if (!localLogFile.exists()) return "";
+        StringBuilder builder = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(localLogFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append("\n");
             }
+        } catch (IOException e) {
+            Log.e("LogUtils", "Error reading local log file", e);
+        }
+        return builder.toString();
+    }
 
-            public boolean isDebugLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.DEBUG);
-            }
-
-            public boolean isInfoLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.INFO);
-            }
-
-            public boolean isWarnLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.WARN);
-            }
-
-            public boolean isErrorLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.ERROR);
-            }
-
-            public boolean isWtfLoggable() {
-                return DEBUG || Log.isLoggable(logTag, Log.ASSERT);
-            }
-
-            public void v(String message, Object... args) {
-                if (isVerboseLoggable()) {
-                    Log.v(logTag, args == null || args.length == 0
-                            ? message : String.format(message, args));
-                }
-            }
-
-            public void d(String message, Object... args) {
-                if (isDebugLoggable()) {
-                    Log.d(logTag, args == null || args.length == 0 ? message
-                            : String.format(message, args));
-                }
-            }
-
-            public void i(String message, Object... args) {
-                if (isInfoLoggable()) {
-                    Log.i(logTag, args == null || args.length == 0 ? message
-                            : String.format(message, args));
-                }
-            }
-
-            public void w(String message, Object... args) {
-                if (isWarnLoggable()) {
-                    Log.w(logTag, args == null || args.length == 0 ? message
-                            : String.format(message, args));
-                }
-            }
-
-            public void e(String message, Object... args) {
-                if (isErrorLoggable()) {
-                    Log.e(logTag, args == null || args.length == 0 ? message
-                            : String.format(message, args));
-                }
-            }
-
-            public void e(String message, Throwable e) {
-                if (isErrorLoggable()) {
-                    Log.e(logTag, message, e);
-                }
-            }
-
-            public void wtf(String message, Object... args) {
-                if (isWtfLoggable()) {
-                    Log.wtf(logTag, args == null || args.length == 0 ? message
-                            : String.format(message, args));
-                }
-            }
-
-            public void wtf(Throwable e) {
-                if (isWtfLoggable()) {
-                    Log.wtf(logTag, e);
-                }
+    /**
+     * Delete the local file where custom logs are saved.
+     */
+    public static void clearSavedLocalLogs(Context context) {
+        File localLogFile = getLocalLogFile(context);
+        if (localLogFile.exists()) {
+            boolean deleted = localLogFile.delete();
+            if (!deleted) {
+                Log.e("LogUtils", "Failed to delete local log file");
             }
         }
+    }
+
+    /**
+     * Return the local file where custom logs are saved.
+     * The file is located in the application's private directory (accessible via getFilesDir()).
+     */
+    private static File getLocalLogFile(Context context) {
+        return new File(context.getFilesDir(), "log_utils_logs.txt");
+    }
+
+    /**
+     * Add a line of text to the end of the custom log file.
+     */
+    private static void appendToFile(Context context, String logLine) {
+        try (FileWriter writer = new FileWriter(getLocalLogFile(context), true)) {
+            writer.write(logLine + "\n");
+        } catch (IOException e) {
+            Log.e("LogUtils", "Error writing to local log file", e);
+        }
+    }
+
+    public record Logger(String logTag) {
+
+        private boolean isLoggingEnabled() {
+            Context context = DeskClockApplication.getContext();
+            if (context == null) return false;
+
+            SharedPreferences prefs = DeskClockApplication.getDefaultSharedPreferences(context);
+            return Utils.isDebugConfig() || SettingsDAO.isDebugSettingsDisplayed(prefs);
+        }
+
+        private String format(String level, String message, Object... args) {
+            String formatted = (args == null || args.length == 0) ? message : String.format(message, args);
+            String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+            return timestamp + " [" + level + "] " + logTag + ": " + formatted;
+        }
+
+        public void v(String message, Object... args) {
+            if (isVerboseLoggable()) {
+                String log = format("VERBOSE", message, args);
+                Log.v(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void d(String message, Object... args) {
+            if (isDebugLoggable()) {
+                String log = format("DEBUG", message, args);
+                Log.d(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void i(String message, Object... args) {
+            if (isInfoLoggable()) {
+                String log = format("INFO", message, args);
+                Log.i(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void w(String message, Object... args) {
+            if (isWarnLoggable()) {
+                String log = format("WARN", message, args);
+                Log.w(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void e(String message, Object... args) {
+            if (isErrorLoggable()) {
+                String log = format("ERROR", message, args);
+                Log.e(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void e(String message, Throwable e) {
+            if (isErrorLoggable()) {
+                String log = format("ERROR", message) + " — " + Log.getStackTraceString(e);
+                Log.e(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void wtf(String message, Object... args) {
+            if (isWtfLoggable()) {
+                String log = format("WTF", message, args);
+                Log.wtf(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        public void wtf(Throwable e) {
+            if (isWtfLoggable()) {
+                String log = format("WTF", "Exception") + " — " + Log.getStackTraceString(e);
+                Log.wtf(logTag, log);
+                appendToFileCompat(log);
+            }
+        }
+
+        private void appendToFileCompat(String log) {
+            Context context = DeskClockApplication.getContext();
+            if (context != null) {
+                appendToFile(context, log);
+            }
+        }
+
+        public boolean isVerboseLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.VERBOSE);
+        }
+
+        public boolean isDebugLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.DEBUG);
+        }
+
+        public boolean isInfoLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.INFO);
+        }
+
+        public boolean isWarnLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.WARN);
+        }
+
+        public boolean isErrorLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.ERROR);
+        }
+
+        public boolean isWtfLoggable() {
+            return isLoggingEnabled() || Log.isLoggable(logTag, Log.ASSERT);
+        }
+    }
 }

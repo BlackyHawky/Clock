@@ -15,6 +15,9 @@ public class PreferencesDefaultValues {
     // ** SETTINGS **
     // **************
 
+    // About
+    public static final boolean DEFAULT_DISPLAY_DEBUG_SETTINGS = false;
+
     // Interface
     public static final String SYSTEM_THEME = "0";
     public static final String LIGHT_THEME = "1";

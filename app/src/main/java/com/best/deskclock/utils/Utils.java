@@ -30,6 +30,7 @@ import android.view.View;
 
 import androidx.annotation.AnyRes;
 
+import com.best.deskclock.BuildConfig;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
@@ -49,6 +50,14 @@ public class Utils {
      * {@link Uri} signifying the "silent" ringtone.
      */
     public static final Uri RINGTONE_SILENT = Uri.EMPTY;
+
+    /**
+     * @return {@code true} if the application is in development mode (debug, eng or userdebug).
+     * {@code false} otherwise.
+     */
+    public static boolean isDebugConfig() {
+        return BuildConfig.DEBUG || "eng".equals(Build.TYPE) || "userdebug".equals(Build.TYPE);
+    }
 
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {

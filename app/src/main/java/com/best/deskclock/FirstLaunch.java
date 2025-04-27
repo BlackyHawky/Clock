@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.settings.PermissionsManagementActivity;
+import com.best.deskclock.utils.Utils;
 
 public class FirstLaunch extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class FirstLaunch extends AppCompatActivity {
      * Automatically sets the application title according to whether it's the debug version or not.
      */
     private void setupTitle() {
-        if (BuildConfig.DEBUG) {
+        if (Utils.isDebugConfig()) {
             mAppTitle.setText(R.string.about_debug_app_title);
         } else {
             mAppTitle.setText(R.string.app_label);

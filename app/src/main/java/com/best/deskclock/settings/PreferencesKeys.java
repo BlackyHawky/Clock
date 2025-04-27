@@ -34,6 +34,9 @@ public class PreferencesKeys {
     public static final String KEY_ABOUT_NILSU11 = "key_about_nilsu11";
     public static final String KEY_ABOUT_LINEAGEOS = "key_about_lineageos";
     public static final String KEY_ABOUT_CRDROID = "key_about_crdroid";
+    public static final String KEY_DISPLAY_DEBUG_SETTINGS = "key_display_debug_settings";
+    public static final String KEY_DEBUG_CATEGORY = "key_debug_category";
+    public static final String KEY_ENABLE_LOCAL_LOGGING = "key_enable_local_logging";
 
     // Interface
     public static final String KEY_THEME = "key_theme";

@@ -19,7 +19,6 @@
         android:title="@string/version"
         android:summary="@string/version_text"
         android:icon="@drawable/ic_about"
-        android:selectable="false"
         app:singleLineTitle="false"
         tools:layout="@layout/settings_preference_layout"
         tools:summary="1.0" />
@@ -108,6 +107,24 @@
             android:key="key_about_crdroid"
             android:title="crDroid Android"
             android:icon="@drawable/ic_groups"
+            tools:layout="@layout/settings_preference_layout" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="key_debug_category"
+        android:title="@string/debug_category_title"
+        app:allowDividerAbove="false"
+        app:iconSpaceReserved="false"
+        tools:layout="@layout/settings_preference_category_layout">
+
+        <SwitchPreferenceCompat
+            android:key="key_enable_local_logging"
+            android:title="@string/enable_local_logging_title"
+            android:summary="@string/enable_local_logging_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
     </PreferenceCategory>

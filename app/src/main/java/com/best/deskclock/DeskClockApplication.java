@@ -6,6 +6,7 @@
 
 package com.best.deskclock;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,11 +27,14 @@ import java.util.Objects;
 
 public class DeskClockApplication extends Application {
 
+    @SuppressLint("StaticFieldLeak")
+    private static Context applicationContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        final Context applicationContext = getApplicationContext();
+        applicationContext = getApplicationContext();
         final SharedPreferences prefs = getDefaultSharedPreferences(applicationContext);
 
         ThemeController.initialize(this);
@@ -39,6 +43,10 @@ public class DeskClockApplication extends Application {
         Controller.getController().setContext(applicationContext);
         Controller.getController().addEventTracker(new LogEventTracker(applicationContext));
         Controller.getController().updateShortcuts();
+    }
+
+    public static Context getContext() {
+        return applicationContext;
     }
 
     /**

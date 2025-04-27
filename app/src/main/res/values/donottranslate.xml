@@ -65,6 +65,18 @@
     <string name="label_hardware_button">HardwareButton</string>
     <string name="label_shortcut">Shortcut</string>
 
+    <!-- Label names for Debug mode. -->
+    <string name="app_label_debug">Clock debug</string>
+    <string name="debug_category_title">Debug</string>
+    <string name="toast_message_debug_displayed">Debug settings displayed</string>
+    <string name="toast_message_debug_hidden">Debug settings hidden</string>
+    <string name="toast_message_log_deleted">Log deleted</string>
+    <string name="log_backup_icon_title">Log backup</string>
+    <string name="log_dialog_title">Backup completed</string>
+    <string name="log_dialog_message">Do you want to delete local log entries after backup?</string>
+    <string name="enable_local_logging_title">Enable local logging</string>
+    <string name="enable_local_logging_summary">This setting may cause slowdowns; disable it to remove Debug mode</string>
+
     <!-- ************************** -->
     <!-- **     STRING-ARRAY     ** -->
     <!-- ************************** -->

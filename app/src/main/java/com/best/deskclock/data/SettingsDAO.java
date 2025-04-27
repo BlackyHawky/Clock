@@ -154,6 +154,14 @@ public final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the Debug settings are displayed for release versions.
+     * {@code false} otherwise.
+     */
+    public static boolean isDebugSettingsDisplayed(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_DISPLAY_DEBUG_SETTINGS, DEFAULT_DISPLAY_DEBUG_SETTINGS);
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     public static ClockStyle getClockStyle(SharedPreferences prefs) {
