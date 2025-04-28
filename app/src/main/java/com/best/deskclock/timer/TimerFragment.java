@@ -173,6 +173,7 @@ public final class TimerFragment extends DeskClockFragment {
 
             if (mTimerSetupState != null) {
                 mCreateTimerView.setState(mTimerSetupState);
+                updateFab(FAB_AND_BUTTONS_IMMEDIATE);
                 mTimerSetupState = null;
             }
         } else {
