@@ -125,6 +125,10 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="AmPmStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <!-- ================= -->
     <!--    TIME PICKER    -->
     <!-- ================= -->

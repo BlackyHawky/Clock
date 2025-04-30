@@ -31,10 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.loader.app.LoaderManager;
@@ -45,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
+import com.best.deskclock.alarms.CustomSpinnerTimePickerDialog;
 import com.best.deskclock.alarms.ScrollHandler;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
@@ -516,30 +515,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
         if (SettingsDAO.getMaterialTimePickerStyle(mPrefs).equals(SPINNER_TIME_PICKER_STYLE)) {
-            showSpinnerTimePicker();
+            showCustomSpinnerTimePicker();
         } else {
             showMaterialTimePicker();
         }
     }
 
-    private void showSpinnerTimePicker() {
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.spinner_time_picker, null);
-        final TimePicker timePicker = dialogView.findViewById(R.id.spinner_time_picker);
-        timePicker.setIs24HourView(DateFormat.is24HourFormat(mContext));
+    private void showCustomSpinnerTimePicker() {
+        final Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(getString(R.string.time_picker_dialog_title))
-                .setIcon(R.drawable.ic_calendar_clock)
-                .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    int newHour = timePicker.getHour();
-                    int newMinute = timePicker.getMinute();
-                    mAlarmTimeClickHandler.onTimeSet(newHour, newMinute);
-                })
-                .setNegativeButton(android.R.string.cancel, null);
-
-        builder.create().show();
+        CustomSpinnerTimePickerDialog.show(mContext, this, currentHour, currentMinute,
+                (hourOfDay, minute) -> mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute));
     }
 
     private void showMaterialTimePicker() {
