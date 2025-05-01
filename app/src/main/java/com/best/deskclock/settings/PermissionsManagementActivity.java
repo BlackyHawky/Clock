@@ -34,7 +34,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
@@ -42,8 +41,10 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -212,7 +213,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             if (areNotificationsEnabled(requireContext())) {
                 displayRevocationDialog(intent);
             } else if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
-                new AlertDialog.Builder(requireContext())
+                new MaterialAlertDialogBuilder(requireContext())
                         .setIcon(R.drawable.ic_notifications)
                         .setTitle(R.string.notifications_dialog_title)
                         .setMessage(R.string.notifications_dialog_text)
@@ -285,7 +286,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Display dialog when user wants to read the permission details.
          */
         private void displayPermissionDetailsDialog(int iconId, int titleId, int messageId) {
-            new AlertDialog.Builder(requireContext())
+            new MaterialAlertDialogBuilder(requireContext())
                     .setIcon(iconId)
                     .setTitle(titleId)
                     .setMessage(messageId)
@@ -297,7 +298,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Display dialog when user wants to revoke permission.
          */
         private void displayRevocationDialog(Intent intent) {
-            new AlertDialog.Builder(requireContext())
+            new MaterialAlertDialogBuilder(requireContext())
                     .setIcon(R.drawable.ic_key_off)
                     .setTitle(R.string.permission_dialog_revoke_title)
                     .setMessage(R.string.revoke_permission_dialog_message)

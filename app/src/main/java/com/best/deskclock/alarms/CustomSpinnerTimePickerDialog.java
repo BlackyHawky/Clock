@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 
 import com.best.deskclock.R;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Locale;
@@ -62,13 +64,14 @@ public class CustomSpinnerTimePickerDialog {
 
         setupNumberPickers(context, dialogView, hour, minute, is24Hour, hourPicker, minutePicker, amPmPicker);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.time_picker_dialog_title)
                 .setIcon(R.drawable.ic_calendar_clock)
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
+                .setNegativeButton(android.R.string.cancel, null);
+
+        AlertDialog alertDialog = dialogBuilder.create();
 
         alertDialog.setOnShowListener(dialog -> {
             Button okButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);

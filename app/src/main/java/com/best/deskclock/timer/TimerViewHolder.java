@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +26,7 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class TimerViewHolder extends RecyclerView.ViewHolder {
 
@@ -108,15 +108,14 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                     dialogMessage = context.getString(R.string.warning_dialog_message, getTimer().getLabel());
                 }
 
-                final AlertDialog dialog = new AlertDialog.Builder(context)
+                new MaterialAlertDialogBuilder(context)
                         .setIcon(drawable)
                         .setTitle(R.string.warning_dialog_title)
                         .setMessage(dialogMessage)
                         .setPositiveButton(android.R.string.yes, (dialog1, which) ->
                                 DataModel.getDataModel().removeTimer(getTimer()))
                         .setNegativeButton(android.R.string.no, null)
-                        .create();
-                dialog.show();
+                        .show();
             } else {
                 DataModel.getDataModel().removeTimer(getTimer());
             }

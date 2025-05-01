@@ -34,7 +34,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -54,6 +53,8 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -456,18 +457,17 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                     ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);
 
+            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(requireContext())
+                    .setPositiveButton(R.string.remove_sound, okListener)
+                    .setNegativeButton(android.R.string.cancel, null);
+
             if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
-                return new AlertDialog.Builder(requireActivity())
-                        .setPositiveButton(R.string.remove_sound, okListener)
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .setMessage(R.string.confirm_remove_custom_ringtone)
-                        .create();
+                dialogBuilder.setMessage(R.string.confirm_remove_custom_ringtone);
             } else {
-                return new AlertDialog.Builder(requireActivity())
-                        .setPositiveButton(R.string.remove_sound, okListener)
-                        .setMessage(R.string.custom_ringtone_lost_permissions)
-                        .create();
+                dialogBuilder.setMessage(R.string.custom_ringtone_lost_permissions);
             }
+
+            return dialogBuilder.create();
         }
     }
 

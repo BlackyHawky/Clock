@@ -35,7 +35,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
+
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
@@ -144,17 +146,19 @@ public class LabelDialogFragment extends DialogFragment {
         mInput = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         mInput.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
 
-        final AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setTitle(mAlarm != null
-                        ? R.string.alarm_label_box_title
-                        : mTimerId >= 0
-                        ? R.string.timer_label_box_title
-                        : 0)
-                .setIcon(drawable)
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, new OkListener())
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
+        final MaterialAlertDialogBuilder dialogBuilder =
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(mAlarm != null
+                                ? R.string.alarm_label_box_title
+                                : mTimerId >= 0
+                                ? R.string.timer_label_box_title
+                                : 0)
+                        .setIcon(drawable)
+                        .setView(view)
+                        .setPositiveButton(android.R.string.ok, new OkListener())
+                        .setNegativeButton(android.R.string.cancel, null);
+
+        final AlertDialog dialog = dialogBuilder.create();
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {

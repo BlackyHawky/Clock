@@ -36,7 +36,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
+
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -142,15 +144,17 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
                     requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK));
         }
 
-        final AlertDialog dialog = new AlertDialog.Builder(requireContext())
-                .setIcon(drawable)
-                .setTitle(isInvalidInput(inputText)
-                        ? getString(R.string.timer_button_time_warning_box_title)
-                        : getString(R.string.timer_button_time_box_title))
-                .setView(view)
-                .setPositiveButton(android.R.string.ok, new OkListener())
-                .setNegativeButton(android.R.string.cancel, null)
-                .create();
+        final MaterialAlertDialogBuilder dialogBuilder =
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setIcon(drawable)
+                        .setTitle(isInvalidInput(inputText)
+                                ? getString(R.string.timer_button_time_warning_box_title)
+                                : getString(R.string.timer_button_time_box_title))
+                        .setView(view)
+                        .setPositiveButton(android.R.string.ok, new OkListener())
+                        .setNegativeButton(android.R.string.cancel, null);
+
+        final AlertDialog dialog = dialogBuilder.create();
 
         final Window alertDialogWindow = dialog.getWindow();
         if (alertDialogWindow != null) {

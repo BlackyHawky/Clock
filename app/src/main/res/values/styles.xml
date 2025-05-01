@@ -62,20 +62,21 @@
         <item name="colorSurfaceContainerLowest">@color/md_theme_surfaceContainerLowest</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
-        <item name="android:dialogCornerRadius" tools:targetApi="p">28dp</item>
-        <item name="colorBackgroundFloating">@color/md_theme_surface</item>
+        <item name="alertDialogTheme">@style/AppAlertDialogTheme</item>
+        <item name="materialAlertDialogTheme">@style/AppAlertDialogTheme</item>
 
-        <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
+        <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
 
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
-        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
+        <item name="materialTimePickerTheme">@style/AppMaterialTimePickerTheme</item>
         <!-- Todo: This is currently not used but may be useful to resolve issue #4 -->
-        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+        <item name="materialCalendarTheme">@style/AppMaterialCalendarTheme</item>
     </style>
 
-    <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
-        <item name="switchPreferenceCompatStyle">@style/AppSwitchPreference</item>
+    <style name="AppAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">?colorSurface</item>
+        <item name="dialogCornerRadius">28dp</item>
     </style>
 
     <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
@@ -132,9 +133,9 @@
     <!-- ================= -->
     <!--    TIME PICKER    -->
     <!-- ================= -->
-    <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+    <style name="AppMaterialTimePickerTheme" parent="ThemeOverlay.MaterialComponents.TimePicker">
         <!-- For dialog -->
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearanceMediumComponent</item>
         <!-- For hour and minute fields -->
         <item name="chipStyle">@style/MaterialTimePickerChipStyle</item>
         <!-- For AM/PM button -->
@@ -152,13 +153,13 @@
     <!-- ================= -->
     <!--    DATE PICKER    -->
     <!-- ================= -->
-    <style name="ThemeOverlay.App.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+    <style name="AppMaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="materialCalendarStyle">@style/MaterialCalendarStyle</item>
         <item name="materialCalendarHeaderLayout">@style/MaterialCalendarHeaderLayout</item>
         <item name="materialCalendarHeaderTitle">@style/MaterialCalendarHeaderTitle</item>
         <item name="materialCalendarHeaderToggleButton">@style/MaterialCalendarHeaderToggleButton</item>
         <item name="materialCalendarHeaderSelection">@style/MaterialCalendarHeaderSelection</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearanceMediumComponent</item>
         <item name="elevationOverlayEnabled">false</item>
     </style>
 
@@ -182,7 +183,7 @@
         <item name="android:tint">?attr/colorOnSurfaceVariant</item>
     </style>
 
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearanceMediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">28dp</item>
     </style>
 
@@ -202,7 +203,6 @@
     <style name="BlackAccentColor">
         <item name="android:colorBackground">@color/blackColorBackground</item>
         <item name="colorOnBackground">@color/blackColorAccent</item>
-        <item name="colorBackgroundFloating">@color/blackColorGray2</item>
         <item name="android:textColorHighlight">@color/blackColorGray1</item>
         <item name="colorAccent">@color/blackColorAccent</item>
         <item name="colorPrimary">@color/blackColorPrimary</item>
@@ -221,7 +221,6 @@
     <!-- BLUE THEME -->
     <style name="BlueAccentColor">
         <item name="android:colorBackground">@color/blueColorBackground</item>
-        <item name="colorBackgroundFloating">@color/blueColorSurface</item>
         <item name="android:textColorHighlight">@color/bluePrimaryInverse</item>
         <item name="colorAccent">@color/blueColorAccent</item>
         <item name="colorPrimary">@color/blueColorPrimary</item>
@@ -237,7 +236,6 @@
     <!-- BLUE GRAY THEME -->
     <style name="BlueGrayAccentColor">
         <item name="android:colorBackground">@color/blueGrayColorBackground</item>
-        <item name="colorBackgroundFloating">@color/blueGrayColorSurface</item>
         <item name="android:textColorHighlight">@color/blueGrayPrimaryInverse</item>
         <item name="colorAccent">@color/blueGrayColorAccent</item>
         <item name="colorPrimary">@color/blueGrayColorPrimary</item>
@@ -253,7 +251,6 @@
     <!-- BROWN THEME -->
     <style name="BrownAccentColor">
         <item name="android:colorBackground">@color/brownColorBackground</item>
-        <item name="colorBackgroundFloating">@color/brownColorSurface</item>
         <item name="android:textColorHighlight">@color/brownPrimaryInverse</item>
         <item name="colorAccent">@color/brownColorAccent</item>
         <item name="colorPrimary">@color/brownColorPrimary</item>
@@ -269,7 +266,6 @@
     <!-- GREEN THEME -->
     <style name="GreenAccentColor">
         <item name="android:colorBackground">@color/greenColorBackground</item>
-        <item name="colorBackgroundFloating">@color/greenColorSurface</item>
         <item name="android:textColorHighlight">@color/greenPrimaryInverse</item>
         <item name="colorAccent">@color/greenColorAccent</item>
         <item name="colorPrimary">@color/greenColorPrimary</item>
@@ -285,7 +281,6 @@
     <!-- INDIGO THEME -->
     <style name="IndigoAccentColor">
         <item name="android:colorBackground">@color/indigoColorBackground</item>
-        <item name="colorBackgroundFloating">@color/indigoColorSurface</item>
         <item name="android:textColorHighlight">@color/indigoPrimaryInverse</item>
         <item name="colorAccent">@color/indigoColorAccent</item>
         <item name="colorPrimary">@color/indigoColorPrimary</item>
@@ -301,7 +296,6 @@
     <!-- ORANGE THEME -->
     <style name="OrangeAccentColor">
         <item name="android:colorBackground">@color/orangeColorBackground</item>
-        <item name="colorBackgroundFloating">@color/orangeColorSurface</item>
         <item name="android:textColorHighlight">@color/orangePrimaryInverse</item>
         <item name="colorAccent">@color/orangeColorAccent</item>
         <item name="colorPrimary">@color/orangeColorPrimary</item>
@@ -317,7 +311,6 @@
     <!-- PINK THEME -->
     <style name="PinkAccentColor">
         <item name="android:colorBackground">@color/pinkColorBackground</item>
-        <item name="colorBackgroundFloating">@color/pinkColorSurface</item>
         <item name="android:textColorHighlight">@color/pinkPrimaryInverse</item>
         <item name="colorAccent">@color/pinkColorAccent</item>
         <item name="colorPrimary">@color/pinkColorPrimary</item>
@@ -333,7 +326,6 @@
     <!-- PURPLE THEME -->
     <style name="PurpleAccentColor">
         <item name="android:colorBackground">@color/purpleColorBackground</item>
-        <item name="colorBackgroundFloating">@color/purpleColorSurface</item>
         <item name="android:textColorHighlight">@color/purplePrimaryInverse</item>
         <item name="colorAccent">@color/purpleColorAccent</item>
         <item name="colorPrimary">@color/purpleColorPrimary</item>
@@ -349,7 +341,6 @@
     <!-- RED THEME -->
     <style name="RedAccentColor">
         <item name="android:colorBackground">@color/redColorBackground</item>
-        <item name="colorBackgroundFloating">@color/redColorSurface</item>
         <item name="android:textColorHighlight">@color/redPrimaryInverse</item>
         <item name="colorAccent">@color/redColorAccent</item>
         <item name="colorPrimary">@color/redColorPrimary</item>
@@ -365,7 +356,6 @@
     <!-- YELLOW THEME -->
     <style name="YellowAccentColor">
         <item name="android:colorBackground">@color/yellowColorBackground</item>
-        <item name="colorBackgroundFloating">@color/yellowColorSurface</item>
         <item name="android:textColorHighlight">@color/yellowPrimaryInverse</item>
         <item name="colorAccent">@color/yellowColorAccent</item>
         <item name="colorPrimary">@color/yellowColorPrimary</item>

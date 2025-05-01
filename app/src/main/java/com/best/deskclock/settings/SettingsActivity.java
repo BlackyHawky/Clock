@@ -40,7 +40,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
 
@@ -51,6 +50,8 @@ import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.BackupAndRestoreUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -204,8 +205,8 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                 case KEY_PERMISSION_MESSAGE, KEY_PERMISSIONS_MANAGEMENT ->
                     animateAndShowFragment(new PermissionsManagementActivity.PermissionsManagementFragment());
 
-                case KEY_BACKUP_RESTORE_PREFERENCES -> {
-                    final AlertDialog builder = new AlertDialog.Builder(requireContext())
+                case KEY_BACKUP_RESTORE_PREFERENCES ->
+                    new MaterialAlertDialogBuilder(requireContext())
                             .setIcon(R.drawable.ic_backup_restore)
                             .setTitle(R.string.backup_restore_title)
                             .setMessage(R.string.backup_restore_dialog_message)
@@ -225,9 +226,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
                                         .setType("application/json");
                                 restoreFromFile.launch(intent);
                             })
-                            .create();
-                    builder.show();
-                }
+                            .show();
             }
 
             return true;

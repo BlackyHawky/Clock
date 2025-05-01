@@ -43,7 +43,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -59,6 +58,8 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -180,14 +181,13 @@ public class AboutFragment extends ScreenFragment
 
             return true;
         } else if (item.getItemId() == 2) {
-            final AlertDialog builder = new AlertDialog.Builder(requireContext())
+            new MaterialAlertDialogBuilder(requireContext())
                     .setIcon(R.drawable.ic_reset_settings)
                     .setTitle(R.string.reset_settings_title)
                     .setMessage(R.string.reset_settings_message)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> resetPreferences())
                     .setNegativeButton(android.R.string.cancel, null)
-                    .create();
-            builder.show();
+                    .show();
 
             return true;
         }
@@ -219,15 +219,13 @@ public class AboutFragment extends ScreenFragment
                 displayLinkDialog(R.drawable.ic_about_update, R.string.whats_new_title, R.string.whats_new_dialog_message, link);
             }
 
-            case KEY_ABOUT_FEATURES -> {
-                final AlertDialog builder = new AlertDialog.Builder(requireContext())
+            case KEY_ABOUT_FEATURES ->
+                new MaterialAlertDialogBuilder(requireContext())
                         .setIcon(R.drawable.ic_about_features)
                         .setTitle(R.string.features_title)
                         .setMessage(R.string.about_dialog_message)
                         .setPositiveButton(R.string.dialog_close, null)
-                        .create();
-                builder.show();
-            }
+                        .show();
 
             case KEY_ABOUT_VIEW_ON_GITHUB -> {
                 final String link = "https://github.com/BlackyHawky/Clock";
@@ -290,26 +288,24 @@ public class AboutFragment extends ScreenFragment
 
     private void displayLinkDialog(int iconId, int titleId, int messageId, String link) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-        final AlertDialog builder = new AlertDialog.Builder(requireContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setIcon(iconId)
                 .setTitle(titleId)
                 .setMessage(requireContext().getString(messageId, link))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
                 .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        builder.show();
+                .show();
     }
 
     private void displayContributorDialog(int iconId, String projectName, String url) {
         final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        final AlertDialog builder = new AlertDialog.Builder(requireContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setIcon(iconId)
                 .setTitle(R.string.contributors_dialog_title)
                 .setMessage(requireContext().getString(R.string.contributors_dialog_message, projectName, url))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(browserIntent))
                 .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        builder.show();
+                .show();
     }
 
     private void setupPreferences() {
@@ -463,7 +459,7 @@ public class AboutFragment extends ScreenFragment
      * Inform that the log export was successful and allow it to delete local log after export.
      */
     private void displayExportCompleteDialog() {
-        final AlertDialog builder = new AlertDialog.Builder(requireContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setIcon(R.drawable.ic_bug_report)
                 .setTitle(R.string.log_dialog_title)
                 .setMessage(requireContext().getString(R.string.log_dialog_message))
@@ -473,8 +469,7 @@ public class AboutFragment extends ScreenFragment
                             R.string.toast_message_log_deleted), Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
-                .create();
-        builder.show();
+                .show();
     }
 
 }

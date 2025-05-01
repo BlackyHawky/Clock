@@ -15,11 +15,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.settings.PermissionsManagementActivity;
 import com.best.deskclock.utils.Utils;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FirstLaunch extends AppCompatActivity {
 
@@ -99,7 +100,7 @@ public class FirstLaunch extends AppCompatActivity {
      * Shows a dialog asking the user whether or not to quit the application.
      */
     private void showDialogToQuit() {
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.first_launch_dialog_title))
                 .setIcon(R.drawable.ic_logout)
                 .setMessage(getString(R.string.first_launch_dialog_message))
