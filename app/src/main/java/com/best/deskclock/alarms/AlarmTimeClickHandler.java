@@ -7,14 +7,12 @@
 package com.best.deskclock.alarms;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,15 +28,13 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.Utils;
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
 
 /**
  * Click handler for an alarm time item.
  */
-public final class AlarmTimeClickHandler {
+public final class AlarmTimeClickHandler implements OnTimeSetListener {
 
     private static final String TAG = "AlarmTimeClickHandler";
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger(TAG);
@@ -181,31 +177,13 @@ public final class AlarmTimeClickHandler {
     }
 
     private void showCustomSpinnerTimePicker(int hour, int minutes) {
-        CustomSpinnerTimePickerDialog.show(mFragment.requireContext(), mFragment, hour, minutes, this::onTimeSet);
+        CustomSpinnerTimePickerDialog.show(mFragment.requireContext(), mFragment, hour, minutes, this);
     }
 
-    private void showMaterialTimePicker(int hour, int minute) {
-        @TimeFormat int clockFormat;
-        boolean isSystem24Hour = DateFormat.is24HourFormat(mFragment.getContext());
-        clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(getDefaultSharedPreferences(mContext));
-
-        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(clockFormat)
-                .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
-                        ? MaterialTimePicker.INPUT_MODE_CLOCK
-                        : MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setHour(hour)
-                .setMinute(minute)
-                .build();
+    private void showMaterialTimePicker(int hour, int minutes) {
         Context context = mFragment.requireContext();
-        materialTimePicker.show(((AppCompatActivity) context).getSupportFragmentManager(), TAG);
-
-        materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
-            int newHour = materialTimePicker.getHour();
-            int newMinute = materialTimePicker.getMinute();
-            onTimeSet(newHour, newMinute);
-        });
+        MaterialTimePickerDialog.show(context, ((AppCompatActivity) context).getSupportFragmentManager(),
+                TAG, hour, minutes, getDefaultSharedPreferences(mContext), this);
     }
 
     public void onRingtoneClicked(Context context, Alarm alarm) {
@@ -222,6 +200,7 @@ public final class AlarmTimeClickHandler {
         LabelDialogFragment.show(mFragment.getParentFragmentManager(), fragment);
     }
 
+    @Override
     public void onTimeSet(int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.

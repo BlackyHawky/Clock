@@ -7,7 +7,6 @@
 package com.best.deskclock;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
-import static com.best.deskclock.settings.PreferencesDefaultValues.DEFAULT_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesDefaultValues.SPINNER_TIME_PICKER_STYLE;
 import static com.best.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
@@ -24,7 +23,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextPaint;
-import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +42,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.alarms.AlarmTimeClickHandler;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.alarms.CustomSpinnerTimePickerDialog;
+import com.best.deskclock.alarms.MaterialTimePickerDialog;
+import com.best.deskclock.alarms.OnTimeSetListener;
 import com.best.deskclock.alarms.ScrollHandler;
 import com.best.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.best.deskclock.alarms.dataadapter.AlarmItemViewHolder;
@@ -62,8 +62,6 @@ import com.best.deskclock.widget.toast.SnackbarManager;
 import com.best.deskclock.widget.toast.ToastManager;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,7 +72,7 @@ import java.util.Objects;
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler {
+        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler, OnTimeSetListener {
 
     private static final String TAG = "AlarmClockFragment";
 
@@ -511,6 +509,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         right.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void onTimeSet(int hour, int minute) {
+        mAlarmTimeClickHandler.onTimeSet(hour, minute);
+    }
+
     public void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
@@ -526,33 +529,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
 
-        CustomSpinnerTimePickerDialog.show(mContext, this, currentHour, currentMinute,
-                (hourOfDay, minute) -> mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute));
+        CustomSpinnerTimePickerDialog.show(mContext, this, currentHour, currentMinute, this);
     }
 
     private void showMaterialTimePicker() {
-        @TimeFormat int clockFormat;
-        boolean isSystem24Hour = DateFormat.is24HourFormat(mContext);
-        clockFormat = isSystem24Hour ? TimeFormat.CLOCK_24H : TimeFormat.CLOCK_12H;
-        final Calendar now = Calendar.getInstance();
-        String materialTimePickerStyle = SettingsDAO.getMaterialTimePickerStyle(mPrefs);
+        final Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
 
-        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(clockFormat)
-                .setInputMode(materialTimePickerStyle.equals(DEFAULT_TIME_PICKER_STYLE)
-                        ? MaterialTimePicker.INPUT_MODE_CLOCK
-                        : MaterialTimePicker.INPUT_MODE_KEYBOARD)
-                .setHour(now.get(Calendar.HOUR_OF_DAY))
-                .setMinute(now.get(Calendar.MINUTE))
-                .build();
-
-        materialTimePicker.show(((AppCompatActivity) mContext).getSupportFragmentManager(), TAG);
-
-        materialTimePicker.addOnPositiveButtonClickListener(dialog -> {
-            int newHour = materialTimePicker.getHour();
-            int newMinute = materialTimePicker.getMinute();
-            mAlarmTimeClickHandler.onTimeSet(newHour, newMinute);
-        });
+        MaterialTimePickerDialog.show(mContext, ((AppCompatActivity) mContext).getSupportFragmentManager(),
+                TAG, currentHour, currentMinute, mPrefs, this);
     }
 
     public void removeItem(AlarmItemHolder itemHolder) {

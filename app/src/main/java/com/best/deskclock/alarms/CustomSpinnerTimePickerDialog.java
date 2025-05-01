@@ -39,13 +39,6 @@ import java.util.Locale;
 public class CustomSpinnerTimePickerDialog {
 
     /**
-     * Method called when the user confirms their hour and minute selection.
-     */
-    public interface OnTimeSetListener {
-        void onTimeSet(int hourOfDay, int minute);
-    }
-
-    /**
      * Displays the time selection dialog.
      */
     public static void show(Context context, Fragment fragment, int hour, int minute, OnTimeSetListener listener) {
