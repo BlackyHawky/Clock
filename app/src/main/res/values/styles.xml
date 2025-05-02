@@ -132,12 +132,20 @@
     <!-- ======================= -->
     <!--   SPINNER TIME PICKER   -->
     <!-- ======================= -->
-    <style name="SpinnerTimePickerStyle">
+    <style name="SpinnerDialogTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AppMaterialTimePickerTitleStyle</item>
+    </style>
+
+    <style name="NumberPickerStyle">
         <item name="android:textSize">28sp</item>
+        <item name="android:colorControlNormal">?colorPrimary</item>
     </style>
 
     <style name="AmPmStyle">
         <item name="android:textSize">16sp</item>
+        <item name="android:colorControlNormal">?colorPrimary</item>
     </style>
 
     <!-- ================= -->

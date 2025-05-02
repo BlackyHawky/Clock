@@ -64,9 +64,8 @@ public class CustomSpinnerTimePickerDialog {
 
         setupNumberPickers(context, dialogView, hour, minute, is24Hour, hourPicker, minutePicker, amPmPicker);
 
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context, R.style.SpinnerDialogTheme)
                 .setTitle(R.string.time_picker_dialog_title)
-                .setIcon(R.drawable.ic_calendar_clock)
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, null)
                 .setNegativeButton(android.R.string.cancel, null);
