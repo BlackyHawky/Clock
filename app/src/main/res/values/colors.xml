@@ -75,6 +75,10 @@
     • xxxOnPrimary: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FFFFFF
     • xxxSecondaryContainer: https://mdigi.tools/lighten-color/ : Lighten the color n°200 by 40%.
     • xxxColorSurface: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : n°50
+    • xxxColorSurfaceHighest: https://colorffy.com/color-scheme-generator
+        - Color: xxxColorSurface
+        - Mixing colors: Move the cursor to the end which makes 20 tones appear
+        - Select the 4th tone
     • xxxColorBackground: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FCFCFF
     • xxxColorSecondary: https://colorffy.com/dark-theme-generator :
         - Primary color: xxxColorAccent
@@ -106,6 +110,7 @@
     <color name="blueOnPrimary">#FFFFFF</color>
     <color name="blueSecondaryContainer">#BCDFFB</color>
     <color name="blueColorSurface">#E3F2FD</color>
+    <color name="blueSurfaceContainerHighest">#D3DFE7</color>
     <color name="blueColorBackground">#FCFCFF</color>
     <color name="blueColorSecondary">#5B606C</color>
     <color name="blueColorTertiary">#3C74A9</color>
@@ -118,6 +123,7 @@
     <color name="blueGrayOnPrimary">#FFFFFF</color>
     <color name="blueGraySecondaryContainer">#D0D8DC</color>
     <color name="blueGrayColorSurface">#ECEFF1</color>
+    <color name="blueGraySurfaceContainerHighest">#DBDDDF</color>
     <color name="blueGrayColorBackground">#FCFCFF</color>
     <color name="blueGrayColorSecondary">#5A5D5F</color>
     <color name="blueGrayColorTertiary">#57656C</color>
@@ -130,6 +136,7 @@
     <color name="brownOnPrimary">#FFFFFF</color>
     <color name="brownSecondaryContainer">#D7CCC8</color>
     <color name="brownColorSurface">#EFEBE9</color>
+    <color name="brownSurfaceContainerHighest">#DDD9D8</color>
     <color name="brownColorBackground">#FCFCFF</color>
     <color name="brownColorSecondary">#5D5857</color>
     <color name="brownColorTertiary">#64524C</color>
@@ -142,6 +149,7 @@
     <color name="greenOnPrimary">#FFFFFF</color>
     <color name="greenSecondaryContainer">#C9E6CA</color>
     <color name="greenColorSurface">#E8F5E9</color>
+    <color name="greenSurfaceContainerHighest">#D8E2D9</color>
     <color name="greenColorBackground">#FCFCFF</color>
     <color name="greenColorSecondary">#5A6458</color>
     <color name="greenColorTertiary">#508351</color>
@@ -154,6 +162,7 @@
     <color name="indigoOnPrimary">#FFFFFF</color>
     <color name="indigoSecondaryContainer">#C5CBE9</color>
     <color name="indigoColorSurface">#E8EAF6</color>
+    <color name="indigoSurfaceContainerHighest">#D5D7E2</color>
     <color name="indigoColorBackground">#FCFCFF</color>
     <color name="indigoColorSecondary">#595865</color>
     <color name="indigoColorTertiary">#495188</color>
@@ -166,6 +175,7 @@
     <color name="orangeOnPrimary">#FFFFFF</color>
     <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorSurface">#FFF3E0</color>
+    <color name="orangeSurfaceContainerHighest">#EAE0D0</color>
     <color name="orangeColorBackground">#FCFCFF</color>
     <color name="orangeColorSecondary">#726154</color>
     <color name="orangeColorTertiary">#B6752B</color>
@@ -178,6 +188,7 @@
     <color name="pinkOnPrimary">#FFFFFF</color>
     <color name="pinkSecondaryContainer">#F8BCD0</color>
     <color name="pinkColorSurface">#FCE4EC</color>
+    <color name="pinkSurfaceContainerHighest">#E7D3DA</color>
     <color name="pinkColorBackground">#FCFCFF</color>
     <color name="pinkColorSecondary">#6D585B</color>
     <color name="pinkColorTertiary">#A43A5F</color>
@@ -190,6 +201,7 @@
     <color name="purpleOnPrimary">#FFFFFF</color>
     <color name="purpleSecondaryContainer">#E2BEE8</color>
     <color name="purpleColorSurface">#F3E5F5</color>
+    <color name="purpleSurfaceContainerHighest">#E0D4E2</color>
     <color name="purpleColorBackground">#FCFCFF</color>
     <color name="purpleColorSecondary">#635665</color>
     <color name="purpleColorTertiary">#783E87</color>
@@ -202,6 +214,7 @@
     <color name="redOnPrimary">#FFFFFF</color>
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorSurface">#FFEBEE</color>
+    <color name="redSurfaceContainerHighest">#EAD9DC</color>
     <color name="redColorBackground">#FCFCFF</color>
     <color name="redColorSecondary">#705A56</color>
     <color name="redColorTertiary">#AB4946</color>
@@ -214,6 +227,7 @@
     <color name="yellowOnPrimary">#FFFFFF</color>
     <color name="yellowSecondaryContainer">#FFF9C4</color>
     <color name="yellowColorSurface">#FFFDE7</color>
+    <color name="yellowSurfaceContainerHighest">#EAE8D7</color>
     <color name="yellowColorBackground">#FCFCFF</color>
     <color name="yellowColorSecondary">#706A59</color>
     <color name="yellowColorTertiary">#B6A147</color>

@@ -69,6 +69,8 @@
 
         <item name="snackbarStyle">@style/SnackBarStyle</item>
 
+        <item name="elevationOverlayEnabled">false</item>
+
         <item name="materialTimePickerTheme">@style/AppMaterialTimePickerTheme</item>
         <!-- Todo: This is currently not used but may be useful to resolve issue #4 -->
         <item name="materialCalendarTheme">@style/AppMaterialCalendarTheme</item>
@@ -96,6 +98,7 @@
         <item name="colorOnPrimary">@color/blackColorBackground</item>
         <item name="colorSecondaryContainer">@color/blackColorGray1</item>
         <item name="colorSurface">@color/blackColorGray2</item>
+        <item name="colorSurfaceContainerHighest">@color/blackColorGray1</item>
         <item name="colorOnSurface">@color/blackColorAccent</item>
         <item name="colorOnSurfaceVariant">@color/blackColorAccent</item>
         <item name="colorOutline">@color/blackColorAccent</item>
@@ -114,6 +117,7 @@
         <item name="colorOnPrimary">@color/blueOnPrimary</item>
         <item name="colorSecondaryContainer">@color/blueSecondaryContainer</item>
         <item name="colorSurface">@color/blueColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/blueSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/blueColorSecondary</item>
         <item name="colorTertiary">@color/blueColorTertiary</item>
     </style>
@@ -129,6 +133,7 @@
         <item name="colorOnPrimary">@color/blueGrayOnPrimary</item>
         <item name="colorSecondaryContainer">@color/blueGraySecondaryContainer</item>
         <item name="colorSurface">@color/blueGrayColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/blueGraySurfaceContainerHighest</item>
         <item name="colorSecondary">@color/blueGrayColorSecondary</item>
         <item name="colorTertiary">@color/blueGrayColorTertiary</item>
     </style>
@@ -144,6 +149,7 @@
         <item name="colorOnPrimary">@color/brownOnPrimary</item>
         <item name="colorSecondaryContainer">@color/brownSecondaryContainer</item>
         <item name="colorSurface">@color/brownColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/brownSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/brownColorSecondary</item>
         <item name="colorTertiary">@color/brownColorTertiary</item>
     </style>
@@ -159,6 +165,7 @@
         <item name="colorOnPrimary">@color/greenOnPrimary</item>
         <item name="colorSecondaryContainer">@color/greenSecondaryContainer</item>
         <item name="colorSurface">@color/greenColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/greenSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/greenColorSecondary</item>
         <item name="colorTertiary">@color/greenColorTertiary</item>
     </style>
@@ -174,6 +181,7 @@
         <item name="colorOnPrimary">@color/indigoOnPrimary</item>
         <item name="colorSecondaryContainer">@color/indigoSecondaryContainer</item>
         <item name="colorSurface">@color/indigoColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/indigoSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/indigoColorSecondary</item>
         <item name="colorTertiary">@color/indigoColorTertiary</item>
     </style>
@@ -189,6 +197,7 @@
         <item name="colorOnPrimary">@color/orangeOnPrimary</item>
         <item name="colorSecondaryContainer">@color/orangeSecondaryContainer</item>
         <item name="colorSurface">@color/orangeColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/orangeSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/orangeColorSecondary</item>
         <item name="colorTertiary">@color/orangeColorTertiary</item>
     </style>
@@ -204,6 +213,7 @@
         <item name="colorOnPrimary">@color/pinkOnPrimary</item>
         <item name="colorSecondaryContainer">@color/pinkSecondaryContainer</item>
         <item name="colorSurface">@color/pinkColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/pinkSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/pinkColorSecondary</item>
         <item name="colorTertiary">@color/pinkColorTertiary</item>
     </style>
@@ -219,6 +229,7 @@
         <item name="colorOnPrimary">@color/purpleOnPrimary</item>
         <item name="colorSecondaryContainer">@color/purpleSecondaryContainer</item>
         <item name="colorSurface">@color/purpleColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/purpleSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/purpleColorSecondary</item>
         <item name="colorTertiary">@color/purpleColorTertiary</item>
     </style>
@@ -234,6 +245,7 @@
         <item name="colorOnPrimary">@color/redOnPrimary</item>
         <item name="colorSecondaryContainer">@color/redSecondaryContainer</item>
         <item name="colorSurface">@color/redColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/redSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/redColorSecondary</item>
         <item name="colorTertiary">@color/redColorTertiary</item>
     </style>
@@ -249,6 +261,7 @@
         <item name="colorOnPrimary">@color/yellowOnPrimary</item>
         <item name="colorSecondaryContainer">@color/yellowSecondaryContainer</item>
         <item name="colorSurface">@color/yellowColorSurface</item>
+        <item name="colorSurfaceContainerHighest">@color/yellowSurfaceContainerHighest</item>
         <item name="colorSecondary">@color/yellowColorSecondary</item>
         <item name="colorTertiary">@color/yellowColorTertiary</item>
     </style>
