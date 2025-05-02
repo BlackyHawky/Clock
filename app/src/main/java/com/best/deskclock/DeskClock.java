@@ -223,6 +223,8 @@ public class DeskClock extends AppCompatActivity
             return;
         }
 
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         setContentView(R.layout.desk_clock);
 
         mSnackbarAnchor = findViewById(R.id.content);

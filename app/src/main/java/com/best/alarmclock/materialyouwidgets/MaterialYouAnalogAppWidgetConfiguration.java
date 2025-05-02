@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
 
 /**
@@ -54,6 +55,8 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
                 mAppWidgetId = extras.getInt(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
             }
         }
+
+        ThemeUtils.allowDisplayCutout(getWindow());
 
         // As the second hand display is only available for Android12+, just complete the activity
         // for earlier versions and add the analog widget without this second hand.

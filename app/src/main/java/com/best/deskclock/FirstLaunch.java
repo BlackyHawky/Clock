@@ -18,6 +18,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.settings.PermissionsManagementActivity;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -38,6 +39,8 @@ public class FirstLaunch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
+
+        ThemeUtils.allowDisplayCutout(getWindow());
 
         setContentView(R.layout.first_launch_activity);
 

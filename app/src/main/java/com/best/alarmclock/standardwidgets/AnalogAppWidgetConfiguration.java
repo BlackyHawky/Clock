@@ -58,6 +58,8 @@ public class AnalogAppWidgetConfiguration extends AppCompatActivity {
             }
         }
 
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         // As the second hand display is only available for Android12+, just complete the activity
         // for earlier versions and add the analog widget without this second hand.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {

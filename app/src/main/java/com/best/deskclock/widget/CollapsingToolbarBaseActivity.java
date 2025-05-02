@@ -70,6 +70,8 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        ThemeUtils.allowDisplayCutout(getWindow());
+
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
 
         final String getDarkMode = SettingsDAO.getDarkMode(prefs);

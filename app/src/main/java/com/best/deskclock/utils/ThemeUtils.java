@@ -25,8 +25,11 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
@@ -36,12 +39,42 @@ import com.google.android.material.color.MaterialColors;
 
 public class ThemeUtils {
 
+    /**
+     * Prevent the screen from turning off while activity is visible.
+     * <p>
+     * This method adds the WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON flag to the
+     * activity's window, which keeps the screen on (prevents automatic sleep).
+     *
+     * @param activity The activity for which the screen should remain on.
+     */
     public static void keepScreenOn(Activity activity) {
         activity.getWindow().addFlags(FLAG_KEEP_SCREEN_ON);
     }
 
+    /**
+     * Allow automatic screen timeout again.
+     * <p>
+     * This method removes the WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON flag from the
+     * activity window, allowing the screen to turn off according to the system settings.
+     *
+     * @param activity The activity for which the screen can be automatically turned off.
+     */
     public static void releaseKeepScreenOn(Activity activity) {
         activity.getWindow().clearFlags(FLAG_KEEP_SCREEN_ON);
+    }
+
+    /**
+     * Configure the activity to allow display in the cutout area (notch/front camera).
+     *
+     * @param window The activity window (via getWindow()).
+     */
+    public static void allowDisplayCutout(Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            window.setAttributes(layoutParams);
+        }
     }
 
     /**
