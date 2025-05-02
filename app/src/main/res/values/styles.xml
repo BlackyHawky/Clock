@@ -76,11 +76,6 @@
         <item name="materialCalendarTheme">@style/AppMaterialCalendarTheme</item>
     </style>
 
-    <style name="AppAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="android:background">?colorSurface</item>
-        <item name="dialogCornerRadius">28dp</item>
-    </style>
-
     <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
         <item name="widgetLayout">@layout/settings_switch_material</item>
     </style>
@@ -121,9 +116,22 @@
         <item name="android:background">@drawable/bg_snackbar</item>
     </style>
 
-    <!-- ======================== -->
-    <!--    SPINNER TIME PICKER   -->
-    <!-- ======================== -->
+    <!-- ========== -->
+    <!--   DIALOG   -->
+    <!-- ========== -->
+    <style name="AppAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">?colorSurface</item>
+        <item name="dialogCornerRadius">28dp</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AppMaterialAlertDialogTitleTextStyle</item>
+    </style>
+
+    <style name="AppMaterialAlertDialogTitleTextStyle" parent="@style/MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- ======================= -->
+    <!--   SPINNER TIME PICKER   -->
+    <!-- ======================= -->
     <style name="SpinnerTimePickerStyle">
         <item name="android:textSize">28sp</item>
     </style>
@@ -142,8 +150,14 @@
         <item name="colorOnPrimaryContainer">?colorPrimary</item>
         <!-- AM/PM selected background -->
         <item name="colorTertiaryContainer">?colorPrimaryContainer</item>
-        <!-- Selected AM/PM text color-->
+        <!-- Selected AM/PM text color -->
         <item name="colorOnTertiaryContainer">?colorPrimary</item>
+        <!-- Dialog title -->
+        <item name="materialTimePickerTitleStyle">@style/AppMaterialTimePickerTitleStyle</item>
+    </style>
+
+    <style name="AppMaterialTimePickerTitleStyle" parent="@style/TextAppearance.Material3.MaterialTimePicker.Title">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!-- ================= -->
