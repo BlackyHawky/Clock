@@ -9,59 +9,59 @@
     Source: https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md
     Converted to hex value
     -->
-    <color name="md_theme_primary">#76D1FF</color>
-    <color name="md_theme_onPrimary">#003549</color>
-    <color name="md_theme_primaryContainer">#004C69</color>
-    <color name="md_theme_onPrimaryContainer">#C1E8FF</color>
-    <color name="md_theme_inversePrimary">#00668B</color>
-    <color name="md_theme_primaryFixed">#C1E8FF</color>
-    <color name="md_theme_primaryFixedDim">#76D1FF</color>
-    <color name="md_theme_onPrimaryFixed">#001E2C</color>
-    <color name="md_theme_onPrimaryFixedVariant">#004C69</color>
+    <color name="md_theme_primary">#B0C6FF</color>
+    <color name="md_theme_onPrimary">#152E60</color>
+    <color name="md_theme_primaryContainer">#2F4578</color>
+    <color name="md_theme_onPrimaryContainer">#D9E2FF</color>
+    <color name="md_theme_inversePrimary">#475D92</color>
+    <color name="md_theme_primaryFixed">#D9E2FF</color>
+    <color name="md_theme_primaryFixedDim">#B0C6FF</color>
+    <color name="md_theme_onPrimaryFixed">#001945</color>
+    <color name="md_theme_onPrimaryFixedVariant">#2F4578</color>
 
-    <color name="md_theme_secondary">#B5CAD7</color>
-    <color name="md_theme_onSecondary">#20333D</color>
-    <color name="md_theme_secondaryContainer">#374955</color>
-    <color name="md_theme_onSecondaryContainer">#D1E5F4</color>
-    <color name="md_theme_secondaryFixed">#D1E5F4</color>
-    <color name="md_theme_secondaryFixedDim">#B5CAD7</color>
-    <color name="md_theme_onSecondaryFixed">#091E28</color>
-    <color name="md_theme_onSecondaryFixedVariant">#374955</color>
+    <color name="md_theme_secondary">#C0C6DC</color>
+    <color name="md_theme_onSecondary">#2A3042</color>
+    <color name="md_theme_secondaryContainer">#404659</color>
+    <color name="md_theme_onSecondaryContainer">#DCE2F9</color>
+    <color name="md_theme_secondaryFixed">#DCE2F9</color>
+    <color name="md_theme_secondaryFixedDim">#C0C6DC</color>
+    <color name="md_theme_onSecondaryFixed">#151B2C</color>
+    <color name="md_theme_onSecondaryFixedVariant">#404659</color>
 
-    <color name="md_theme_tertiary">#CAC1EA</color>
-    <color name="md_theme_onTertiary">#322C4C</color>
-    <color name="md_theme_tertiaryContainer">#484264</color>
-    <color name="md_theme_onTertiaryContainer">#E6DEFF</color>
-    <color name="md_theme_tertiaryFixed">#E6DEFF</color>
-    <color name="md_theme_tertiaryFixedDim">#CAC1EA</color>
-    <color name="md_theme_onTertiaryFixed">#1D1736</color>
-    <color name="md_theme_onTertiaryFixedVariant">#484264</color>
+    <color name="md_theme_tertiary">#E0BBDD</color>
+    <color name="md_theme_onTertiary">#412742</color>
+    <color name="md_theme_tertiaryContainer">#593D59</color>
+    <color name="md_theme_onTertiaryContainer">#FDD7FA</color>
+    <color name="md_theme_tertiaryFixed">#FDD7FA</color>
+    <color name="md_theme_tertiaryFixedDim">#E0BBDD</color>
+    <color name="md_theme_onTertiaryFixed">#2A122C</color>
+    <color name="md_theme_onTertiaryFixedVariant">#593D59</color>
 
     <color name="md_theme_error">#FFB4AB</color>
     <color name="md_theme_onError">#690005</color>
     <color name="md_theme_errorContainer">#93000A</color>
     <color name="md_theme_onErrorContainer">#FFDAD6</color>
-    <color name="md_theme_outline">#8A9297</color>
-    <color name="md_theme_outlineVariant">#40484D</color>
-    <color name="md_theme_background">#191C1E</color>
-    <color name="md_theme_onBackground">#E1E3E5</color>
-    <color name="md_theme_surface">#2A3136</color>
-    <color name="md_theme_onSurface">#E1E3E5</color>
-    <color name="md_theme_surfaceVariant">#40484D</color>
-    <color name="md_theme_onSurfaceVariant">#C0C7CD</color>
-    <color name="md_theme_inverseSurface">#E1E3E5</color>
-    <color name="md_theme_inverseOnSurface">#2E3133</color>
-    <color name="md_theme_surfaceContainerLowest">#161C20</color>
-    <color name="md_theme_surfaceContainerHighest">#211F26</color>
+    <color name="md_theme_outline">#8F9099</color>
+    <color name="md_theme_outlineVariant">#44464F</color>
+    <color name="md_theme_background">#1A1B20</color>
+    <color name="md_theme_onBackground">#E2E2E9</color>
+    <color name="md_theme_surface">#2E3038</color>
+    <color name="md_theme_onSurface">#E2E2E9</color>
+    <color name="md_theme_surfaceVariant">#44464F</color>
+    <color name="md_theme_onSurfaceVariant">#C5C6D0</color>
+    <color name="md_theme_inverseSurface">#E2E2E9</color>
+    <color name="md_theme_inverseOnSurface">#2F3036</color>
+    <color name="md_theme_surfaceContainerLowest">#191B23</color>
+    <color name="md_theme_surfaceContainerHighest">#44464F</color>
 
     <!-- WIDGET COLORS -->
-    <color name="widget_background_color">#20333D</color>
-    <color name="digital_widget_time_color">#D1E5F4</color>
+    <color name="widget_background_color">#2A3042</color>
+    <color name="digital_widget_time_color">#DCE2F9</color>
     <color name="widget_text_color">#E6E1E8</color>
-    <color name="vertical_digital_widget_hour_color">#D1E5F4</color>
-    <color name="vertical_digital_widget_minute_color">#C1E8FF</color>
-    <color name="next_alarm_widget_title_color">#D1E5F4</color>
-    <color name="next_alarm_widget_alarm_color">#C1E8FF</color>
+    <color name="vertical_digital_widget_hour_color">#DCE2F9</color>
+    <color name="vertical_digital_widget_minute_color">#D9E2FF</color>
+    <color name="next_alarm_widget_title_color">#DCE2F9</color>
+    <color name="next_alarm_widget_alarm_color">#D9E2FF</color>
 
     <!--
     TO FIND ACCENT COLORS (except for Black colors):

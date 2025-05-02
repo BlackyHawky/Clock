@@ -11,59 +11,59 @@
     Source: https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md
     Converted to hex value
     -->
-    <color name="md_theme_primary">#00668B</color>
+    <color name="md_theme_primary">#475D92</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
-    <color name="md_theme_primaryContainer">#C1E8FF</color>
-    <color name="md_theme_onPrimaryContainer">#001E2C</color>
-    <color name="md_theme_inversePrimary">#76D1FF</color>
-    <color name="md_theme_primaryFixed">#C1E8FF</color>
-    <color name="md_theme_primaryFixedDim">#76D1FF</color>
-    <color name="md_theme_onPrimaryFixed">#001E2C</color>
-    <color name="md_theme_onPrimaryFixedVariant">#004C69</color>
+    <color name="md_theme_primaryContainer">#D9E2FF</color>
+    <color name="md_theme_onPrimaryContainer">#001945</color>
+    <color name="md_theme_inversePrimary">#B0C6FF</color>
+    <color name="md_theme_primaryFixed">#D9E2FF</color>
+    <color name="md_theme_primaryFixedDim">#B0C6FF</color>
+    <color name="md_theme_onPrimaryFixed">#001945</color>
+    <color name="md_theme_onPrimaryFixedVariant">#2F4578</color>
 
-    <color name="md_theme_secondary">#4E616C</color>
+    <color name="md_theme_secondary">#575E71</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
-    <color name="md_theme_secondaryContainer">#D1E5F4</color>
-    <color name="md_theme_onSecondaryContainer">#091E28</color>
-    <color name="md_theme_secondaryFixed">#D1E5F4</color>
-    <color name="md_theme_secondaryFixedDim">#B5CAD7</color>
-    <color name="md_theme_onSecondaryFixed">#091E28</color>
-    <color name="md_theme_onSecondaryFixedVariant">#374955</color>
+    <color name="md_theme_secondaryContainer">#DCE2F9</color>
+    <color name="md_theme_onSecondaryContainer">#151B2C</color>
+    <color name="md_theme_secondaryFixed">#DCE2F9</color>
+    <color name="md_theme_secondaryFixedDim">#C0C6DC</color>
+    <color name="md_theme_onSecondaryFixed">#151B2C</color>
+    <color name="md_theme_onSecondaryFixedVariant">#404659</color>
 
-    <color name="md_theme_tertiary">#605A7C</color>
+    <color name="md_theme_tertiary">#725572</color>
     <color name="md_theme_onTertiary">#FFFFFF</color>
-    <color name="md_theme_tertiaryContainer">#E6DEFF</color>
-    <color name="md_theme_onTertiaryContainer">#1D1736</color>
-    <color name="md_theme_tertiaryFixed">#E6DEFF</color>
-    <color name="md_theme_tertiaryFixedDim">#CAC1EA</color>
-    <color name="md_theme_onTertiaryFixed">#1D1736</color>
-    <color name="md_theme_onTertiaryFixedVariant">#484264</color>
+    <color name="md_theme_tertiaryContainer">#FDD7FA</color>
+    <color name="md_theme_onTertiaryContainer">#2A122C</color>
+    <color name="md_theme_tertiaryFixed">#FDD7FA</color>
+    <color name="md_theme_tertiaryFixedDim">#E0BBDD</color>
+    <color name="md_theme_onTertiaryFixed">#2A122C</color>
+    <color name="md_theme_onTertiaryFixedVariant">#593D59</color>
 
     <color name="md_theme_error">#B3261E</color>
     <color name="md_theme_onError">#FFFFFF</color>
     <color name="md_theme_errorContainer">#F9DEDC</color>
     <color name="md_theme_onErrorContainer">#410E0B</color>
-    <color name="md_theme_outline">#70777C</color>
-    <color name="md_theme_outlineVariant">#C0C7CD</color>
-    <color name="md_theme_background">#FCFCFF</color>
-    <color name="md_theme_onBackground">#191C1E</color>
-    <color name="md_theme_surface">#EBF1F8</color>
-    <color name="md_theme_onSurface">#191C1E</color>
-    <color name="md_theme_surfaceVariant">#DCE3E9</color>
-    <color name="md_theme_onSurfaceVariant">#40484D</color>
-    <color name="md_theme_inverseSurface">#2E3133</color>
-    <color name="md_theme_inverseOnSurface">#F0F0F3</color>
+    <color name="md_theme_outline">#757780</color>
+    <color name="md_theme_outlineVariant">#C5C6D0</color>
+    <color name="md_theme_background">#FEFBFF</color>
+    <color name="md_theme_onBackground">#1A1B20</color>
+    <color name="md_theme_surface">#F0F0FA</color>
+    <color name="md_theme_onSurface">#1A1B20</color>
+    <color name="md_theme_surfaceVariant">#E1E2EC</color>
+    <color name="md_theme_onSurfaceVariant">#44464F</color>
+    <color name="md_theme_inverseSurface">#2F3036</color>
+    <color name="md_theme_inverseOnSurface">#F1F0F7</color>
     <color name="md_theme_surfaceContainerLowest">#FFFFFF</color>
-    <color name="md_theme_surfaceContainerHighest">#DCE3E9</color>
+    <color name="md_theme_surfaceContainerHighest">#E1E2EC</color>
 
     <!-- WIDGET COLORS -->
-    <color name="widget_background_color">#E0F3FF</color>
-    <color name="digital_widget_time_color">#00668B</color>
+    <color name="widget_background_color">#EEF0FF</color>
+    <color name="digital_widget_time_color">#475D92</color>
     <color name="widget_text_color">#1D1B20</color>
-    <color name="vertical_digital_widget_hour_color">#4E616C</color>
-    <color name="vertical_digital_widget_minute_color">#00668B</color>
-    <color name="next_alarm_widget_title_color">#4E616C</color>
-    <color name="next_alarm_widget_alarm_color">#00668B</color>
+    <color name="vertical_digital_widget_hour_color">#575E71</color>
+    <color name="vertical_digital_widget_minute_color">#475D92</color>
+    <color name="next_alarm_widget_title_color">#575E71</color>
+    <color name="next_alarm_widget_alarm_color">#475D92</color>
 
     <!--
     TO FIND ACCENT COLORS (except for Black colors):
@@ -79,7 +79,7 @@
         - Color: xxxColorSurface
         - Mixing colors: Move the cursor to the end which makes 20 tones appear
         - Select the 4th tone
-    • xxxColorBackground: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FCFCFF
+    • xxxColorBackground: https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors : #FEFBFF
     • xxxColorSecondary: https://colorffy.com/dark-theme-generator :
         - Primary color: xxxColorAccent
         - Dark color: #000000
@@ -111,7 +111,7 @@
     <color name="blueSecondaryContainer">#BCDFFB</color>
     <color name="blueColorSurface">#E3F2FD</color>
     <color name="blueSurfaceContainerHighest">#D3DFE7</color>
-    <color name="blueColorBackground">#FCFCFF</color>
+    <color name="blueColorBackground">#FEFBFF</color>
     <color name="blueColorSecondary">#5B606C</color>
     <color name="blueColorTertiary">#3C74A9</color>
 
@@ -124,7 +124,7 @@
     <color name="blueGraySecondaryContainer">#D0D8DC</color>
     <color name="blueGrayColorSurface">#ECEFF1</color>
     <color name="blueGraySurfaceContainerHighest">#DBDDDF</color>
-    <color name="blueGrayColorBackground">#FCFCFF</color>
+    <color name="blueGrayColorBackground">#FEFBFF</color>
     <color name="blueGrayColorSecondary">#5A5D5F</color>
     <color name="blueGrayColorTertiary">#57656C</color>
 
@@ -137,7 +137,7 @@
     <color name="brownSecondaryContainer">#D7CCC8</color>
     <color name="brownColorSurface">#EFEBE9</color>
     <color name="brownSurfaceContainerHighest">#DDD9D8</color>
-    <color name="brownColorBackground">#FCFCFF</color>
+    <color name="brownColorBackground">#FEFBFF</color>
     <color name="brownColorSecondary">#5D5857</color>
     <color name="brownColorTertiary">#64524C</color>
 
@@ -150,7 +150,7 @@
     <color name="greenSecondaryContainer">#C9E6CA</color>
     <color name="greenColorSurface">#E8F5E9</color>
     <color name="greenSurfaceContainerHighest">#D8E2D9</color>
-    <color name="greenColorBackground">#FCFCFF</color>
+    <color name="greenColorBackground">#FEFBFF</color>
     <color name="greenColorSecondary">#5A6458</color>
     <color name="greenColorTertiary">#508351</color>
 
@@ -163,7 +163,7 @@
     <color name="indigoSecondaryContainer">#C5CBE9</color>
     <color name="indigoColorSurface">#E8EAF6</color>
     <color name="indigoSurfaceContainerHighest">#D5D7E2</color>
-    <color name="indigoColorBackground">#FCFCFF</color>
+    <color name="indigoColorBackground">#FEFBFF</color>
     <color name="indigoColorSecondary">#595865</color>
     <color name="indigoColorTertiary">#495188</color>
 
@@ -176,7 +176,7 @@
     <color name="orangeSecondaryContainer">#FFE0B3</color>
     <color name="orangeColorSurface">#FFF3E0</color>
     <color name="orangeSurfaceContainerHighest">#EAE0D0</color>
-    <color name="orangeColorBackground">#FCFCFF</color>
+    <color name="orangeColorBackground">#FEFBFF</color>
     <color name="orangeColorSecondary">#726154</color>
     <color name="orangeColorTertiary">#B6752B</color>
 
@@ -189,7 +189,7 @@
     <color name="pinkSecondaryContainer">#F8BCD0</color>
     <color name="pinkColorSurface">#FCE4EC</color>
     <color name="pinkSurfaceContainerHighest">#E7D3DA</color>
-    <color name="pinkColorBackground">#FCFCFF</color>
+    <color name="pinkColorBackground">#FEFBFF</color>
     <color name="pinkColorSecondary">#6D585B</color>
     <color name="pinkColorTertiary">#A43A5F</color>
 
@@ -202,7 +202,7 @@
     <color name="purpleSecondaryContainer">#E2BEE8</color>
     <color name="purpleColorSurface">#F3E5F5</color>
     <color name="purpleSurfaceContainerHighest">#E0D4E2</color>
-    <color name="purpleColorBackground">#FCFCFF</color>
+    <color name="purpleColorBackground">#FEFBFF</color>
     <color name="purpleColorSecondary">#635665</color>
     <color name="purpleColorTertiary">#783E87</color>
 
@@ -215,7 +215,7 @@
     <color name="redSecondaryContainer">#F5C2C2</color>
     <color name="redColorSurface">#FFEBEE</color>
     <color name="redSurfaceContainerHighest">#EAD9DC</color>
-    <color name="redColorBackground">#FCFCFF</color>
+    <color name="redColorBackground">#FEFBFF</color>
     <color name="redColorSecondary">#705A56</color>
     <color name="redColorTertiary">#AB4946</color>
 
@@ -228,7 +228,7 @@
     <color name="yellowSecondaryContainer">#FFF9C4</color>
     <color name="yellowColorSurface">#FFFDE7</color>
     <color name="yellowSurfaceContainerHighest">#EAE8D7</color>
-    <color name="yellowColorBackground">#FCFCFF</color>
+    <color name="yellowColorBackground">#FEFBFF</color>
     <color name="yellowColorSecondary">#706A59</color>
     <color name="yellowColorTertiary">#B6A147</color>
 
