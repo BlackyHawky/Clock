@@ -42,6 +42,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -135,7 +136,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
 
             updateCardViews(isCardBackgroundDisplayed, isCardBorderDisplayed);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (SdkUtils.isAtLeastAndroid14()) {
                 mFullScreenNotificationsView = rootView.findViewById(R.id.FSN_view);
                 mFullScreenNotificationsView.setVisibility(View.VISIBLE);
                 mFullScreenNotificationsView.setOnClickListener(v -> grantOrRevokeFullScreenNotificationsPermission());
@@ -216,7 +217,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Grant or revoke Notifications permission
          */
         private void grantOrRevokeNotificationsPermission() {
-            Intent intent = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            Intent intent = SdkUtils.isAtLeastAndroid8()
                     ? new Intent(ACTION_APP_NOTIFICATION_SETTINGS).putExtra(EXTRA_APP_PACKAGE, requireContext().getPackageName())
                     .addFlags(FLAG_ACTIVITY_NEW_TASK)
                     : new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -236,7 +237,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                         .setNegativeButton(android.R.string.cancel, null)
                         .show();
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (SdkUtils.isAtLeastAndroid13()) {
                     requireActivity().requestPermissions(new String[]{POST_NOTIFICATIONS}, 0);
                 } else {
                     startActivity(intent);
@@ -250,7 +251,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * Grant or revoke Full Screen Notifications permission
          */
         private void grantOrRevokeFullScreenNotificationsPermission() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (SdkUtils.isAtLeastAndroid14()) {
                 final Intent intent = new Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT)
                         .setData(Uri.fromParts("package", requireContext().getPackageName(), null)).addFlags(FLAG_ACTIVITY_NEW_TASK);
 
@@ -353,7 +354,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                     ? requireContext().getColor(R.color.colorGranted)
                     : requireContext().getColor(R.color.colorAlert));
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (SdkUtils.isAtLeastAndroid14()) {
                 mFullScreenNotificationsStatus.setText(areFullScreenNotificationsEnabled(requireContext())
                         ? R.string.permission_granted
                         : R.string.permission_denied);
@@ -375,7 +376,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * @return {@code true} when Notifications permission is granted; {@code false} otherwise
          */
         public static boolean areNotificationsEnabled(Context context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (SdkUtils.isAtLeastAndroid13()) {
                 return ContextCompat.checkSelfPermission(context, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
             } else {
                 return NotificationManagerCompat.from(context).areNotificationsEnabled();
@@ -386,7 +387,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
          * @return {@code true} when Full Screen Notifications permission is granted; {@code false} otherwise
          */
         public static boolean areFullScreenNotificationsEnabled(Context context) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (SdkUtils.isAtLeastAndroid14()) {
                 final NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
                 return notificationManager.canUseFullScreenIntent();
             }
@@ -399,7 +400,7 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
         public static boolean areEssentialPermissionsNotGranted(Context context) {
             return !isIgnoringBatteryOptimizations(context)
                     || !areNotificationsEnabled(context)
-                    || Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && !areFullScreenNotificationsEnabled(context);
+                    || SdkUtils.isAtLeastAndroid14() && !areFullScreenNotificationsEnabled(context);
         }
 
         private void updateCardViews(boolean isCardBackgroundDisplayed, boolean isCardBorderDisplayed) {

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
@@ -50,7 +51,8 @@ public class TextTime extends AppCompatTextView {
     private int mHour;
     private int mMinute;
 
-    private final ContentObserver mFormatChangeObserver = new ContentObserver(new Handler()) {
+    private final ContentObserver mFormatChangeObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
+
         @Override
         public void onChange(boolean selfChange) {
             chooseFormat();
@@ -83,12 +85,6 @@ public class TextTime extends AppCompatTextView {
         chooseFormat();
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public CharSequence getFormat12Hour() {
-        return mFormat12;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
     public void setFormat12Hour(CharSequence format) {
         mFormat12 = format;
 
@@ -96,12 +92,6 @@ public class TextTime extends AppCompatTextView {
         updateTime();
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public CharSequence getFormat24Hour() {
-        return mFormat24;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
     public void setFormat24Hour(CharSequence format) {
         mFormat24 = format;
 

@@ -20,7 +20,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENS
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -33,6 +32,7 @@ import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SeekBarPreference;
 
 import com.best.deskclock.R;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Locale;
 
@@ -79,7 +79,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    if (SdkUtils.isAtLeastAndroid8()) {
                         if (isShakeIntensityPreference() && progress < MIN_SHAKE_INTENSITY_VALUE) {
                             seekBar.setProgress(MIN_SHAKE_INTENSITY_VALUE);
                         } else if (isTimerShakeIntensityPreference() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
@@ -110,7 +110,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
      * For Android Oreo and above, sets the minimum value of the SeekBar based on the preference type.
      */
     private void configureSeekBarMinValue() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             if (isScreensaverBrightnessPreference()) {
                 mSeekBar.setMin(MIN_BRIGHTNESS_VALUE);
             } else if (isShakeIntensityPreference()) {
@@ -159,7 +159,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(formattedText);
             }
         } else if (isShakeIntensityPreference()) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_SHAKE_INTENSITY_VALUE) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_SHAKE_INTENSITY_VALUE) {
                 return;
             }
 
@@ -169,7 +169,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isTimerShakeIntensityPreference()) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_TIMER_SHAKE_INTENSITY_VALUE) {
                 return;
             }
 
@@ -179,7 +179,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isAlarmDigitalClockFontSizePreference()) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
                 return;
             }
 
@@ -189,7 +189,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else if (isAlarmTitleFontSizePreference()) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
                 return;
             }
 
@@ -199,7 +199,7 @@ public class CustomSeekbarPreference extends SeekBarPreference {
                 seekBarSummary.setText(String.valueOf(progress));
             }
         } else {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && progress < MIN_FONT_SIZE_VALUE) {
+            if (SdkUtils.isBeforeAndroid8() && progress < MIN_FONT_SIZE_VALUE) {
                 return;
             }
 

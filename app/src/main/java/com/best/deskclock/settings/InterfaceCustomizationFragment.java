@@ -24,7 +24,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
@@ -224,8 +223,7 @@ public class InterfaceCustomizationFragment extends ScreenFragment
         mTabToDisplayPref.setSummary(mTabToDisplayPref.getEntry());
         mTabToDisplayPref.setOnPreferenceChangeListener(this);
 
-        final Vibrator vibrator = (Vibrator) requireActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        mVibrationPref.setVisible(vibrator.hasVibrator());
+        mVibrationPref.setVisible(Utils.hasVibrator(requireContext()));
         mVibrationPref.setOnPreferenceChangeListener(this);
 
         mFadeTransitionsPref.setOnPreferenceChangeListener(this);

@@ -17,7 +17,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -41,6 +40,7 @@ import com.best.deskclock.data.Timer;
 import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import java.util.List;
@@ -99,7 +99,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
         } else {
             registerReceiver(PowerBtnReceiver, filter);
@@ -114,7 +114,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             return;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -128,7 +128,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         }
 
         // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
             keyguardManager.requestDismissKeyguard(this, null);
         }
@@ -144,12 +144,10 @@ public class ExpiredTimersActivity extends AppCompatActivity {
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            getWindow().setNavigationBarColor(Color.TRANSPARENT);
         }
 
         mExpiredTimersView = findViewById(R.id.expired_timers_list);
         mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
-        mExpiredTimersScrollView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         // Create views for each of the expired timers.
         for (Timer timer : expiredTimers) {

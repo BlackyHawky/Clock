@@ -15,11 +15,11 @@ import static com.best.deskclock.utils.NotificationUtils.TIMER_MODEL_NOTIFICATIO
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
@@ -34,6 +34,7 @@ import com.best.deskclock.timer.ExpiredTimersActivity;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -161,7 +162,9 @@ class TimerNotificationBuilder {
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setContentIntent(pendingShowApp)
-                .setPriority(Notification.PRIORITY_LOW)
+                .setPriority(SdkUtils.isAtLeastAndroid7()
+                        ? NotificationManager.IMPORTANCE_LOW
+                        : Notification.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setSmallIcon(R.drawable.ic_tab_timer_static)
                 .setSortKey(nm.getTimerNotificationSortKey())
@@ -173,7 +176,7 @@ class TimerNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base, running, titleText, stateText))
                     .setGroup(nm.getTimerNotificationGroupKey());
         } else {
@@ -213,7 +216,7 @@ class TimerNotificationBuilder {
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
         }
         return notification.build();
@@ -280,7 +283,9 @@ class TimerNotificationBuilder {
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setContentIntent(contentIntent)
-                .setPriority(Notification.PRIORITY_HIGH)
+                .setPriority(SdkUtils.isAtLeastAndroid7()
+                        ? NotificationManager.IMPORTANCE_HIGH
+                        : Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setSmallIcon(R.drawable.ic_tab_timer_static)
                 .setFullScreenIntent(pendingFullScreen, true)
@@ -291,7 +296,7 @@ class TimerNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, titleText, stateText));
         } else {
             final CharSequence contentTextPreN = count == 1
@@ -301,7 +306,7 @@ class TimerNotificationBuilder {
             notification.setContentTitle(titleText).setContentText(contentTextPreN);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, FIRING_NOTIFICATION_CHANNEL_ID);
         }
 
@@ -374,7 +379,9 @@ class TimerNotificationBuilder {
                 .setShowWhen(false)
                 .setAutoCancel(false)
                 .setContentIntent(pendingShowApp)
-                .setPriority(Notification.PRIORITY_HIGH)
+                .setPriority(SdkUtils.isAtLeastAndroid7()
+                        ? NotificationManager.IMPORTANCE_HIGH
+                        : Notification.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setSmallIcon(R.drawable.ic_tab_timer_static)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -383,7 +390,7 @@ class TimerNotificationBuilder {
                 .addAction(action)
                 .setColor(context.getColor(R.color.md_theme_primary));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             notification.setCustomContentView(buildChronometer(context.getPackageName(), base, true, titleText, stateText))
                     .setGroup(nm.getTimerNotificationGroupKey());
         } else {
@@ -391,7 +398,7 @@ class TimerNotificationBuilder {
             notification.setContentTitle(titleText).setContentText(contentText);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, TIMER_MODEL_NOTIFICATION_CHANNEL_ID);
         }
         return notification.build();
@@ -401,7 +408,7 @@ class TimerNotificationBuilder {
                                          CharSequence stateText) {
 
         final RemoteViews content = new RemoteViews(packageName, R.layout.chronometer_notif_content);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             content.setChronometerCountDown(R.id.chronometer, true);
         }
         content.setChronometer(R.id.chronometer, base, null, running);

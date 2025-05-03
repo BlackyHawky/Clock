@@ -36,6 +36,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.provider.Alarm;
 
+import com.best.deskclock.utils.SdkUtils;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -119,7 +120,9 @@ public class LabelDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
-        mAlarm = args.getParcelable(ARG_ALARM);
+        mAlarm = SdkUtils.isAtLeastAndroid13()
+                ? args.getParcelable(ARG_ALARM, Alarm.class)
+                : args.getParcelable(ARG_ALARM);
         mTimerId = args.getInt(ARG_TIMER_ID, -1);
         mTag = args.getString(ARG_TAG);
 
@@ -221,7 +224,7 @@ public class LabelDialogFragment extends DialogFragment {
     private class OkListener implements DialogInterface.OnClickListener {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            mInput.showSoftInput(mEditLabel, InputMethodManager.SHOW_IMPLICIT);
             setLabel();
             dismiss();
         }

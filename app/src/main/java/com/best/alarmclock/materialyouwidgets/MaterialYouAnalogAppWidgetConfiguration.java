@@ -11,7 +11,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_YOU_ANALO
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
 
@@ -60,7 +60,7 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
 
         // As the second hand display is only available for Android12+, just complete the activity
         // for earlier versions and add the analog widget without this second hand.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+        if (SdkUtils.isBeforeAndroid12()) {
             Toast.makeText(this, R.string.analog_widget_configuration_warning, Toast.LENGTH_LONG).show();
             onWidgetContainerClicked(false);
             finish();

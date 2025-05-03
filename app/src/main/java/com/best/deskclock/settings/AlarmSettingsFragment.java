@@ -2,8 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.content.Context.VIBRATOR_SERVICE;
-
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_CRESCENDO_DURATION;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_DISPLAY_CUSTOMIZATION;
@@ -28,7 +26,6 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
@@ -186,9 +183,8 @@ public class AlarmSettingsFragment extends ScreenFragment
         mPowerButtonPref.setOnPreferenceChangeListener(this);
         mPowerButtonPref.setSummary(mPowerButtonPref.getEntry());
 
-        final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-        mEnableAlarmVibrationsByDefaultPref.setVisible(hasVibrator);
-        mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(hasVibrator);
+        mEnableAlarmVibrationsByDefaultPref.setVisible(Utils.hasVibrator(requireContext()));
+        mEnableSnoozedOrDismissedAlarmVibrationsPref.setVisible(Utils.hasVibrator(requireContext()));
 
         SensorManager sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) {

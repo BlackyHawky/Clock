@@ -22,12 +22,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.VisibleForTesting;
 
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -53,7 +54,7 @@ final class PeriodicCallbackModel {
 
         // Reschedules callbacks when the device time changes.
         BroadcastReceiver mTimeChangedReceiver = new TimeChangedReceiver();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             context.registerReceiver(mTimeChangedReceiver, timeChangedBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             context.registerReceiver(mTimeChangedReceiver, timeChangedBroadcastFilter);
@@ -106,7 +107,7 @@ final class PeriodicCallbackModel {
     private static Handler getHandler() {
         enforceMainLooper();
         if (sHandler == null) {
-            sHandler = new Handler();
+            sHandler = new Handler(Looper.getMainLooper());
         }
         return sHandler;
     }

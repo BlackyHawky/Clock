@@ -27,8 +27,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.util.ArraySet;
 
@@ -42,6 +42,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.timer.TimerKlaxon;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -168,7 +169,7 @@ final class TimerModel {
 
         // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
@@ -699,7 +700,7 @@ final class TimerModel {
         } else if (nextExpiringTimer.getRemainingTime() < 5000) {
             PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(mContext);
             wl.acquire(nextExpiringTimer.getRemainingTime());
-            new Handler().postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
+            new Handler(Looper.getMainLooper()).postDelayed(this::updateAlarmManager, nextExpiringTimer.getRemainingTime());
         } else {
             // Update the existing timer expiration callback.
             final PendingIntent pi = PendingIntent.getService(mContext,
@@ -742,7 +743,7 @@ final class TimerModel {
      * Stop timer ringing after a duration selected in Timers settings.
      */
     private void stopRingtoneAfterDelay() {
-        Handler handler = new Handler();
+        Handler handler = new Handler(Looper.getMainLooper());
         long duration;
 
         // Timer silence has been set to "Never"

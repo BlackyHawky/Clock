@@ -11,7 +11,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -242,7 +241,7 @@ public class ScreensaverUtils {
      * Hide system bars when the screensaver is active.
      */
     public static void hideScreensaverSystemBars(Window window, View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (SdkUtils.isAtLeastAndroid10()) {
             WindowInsetsControllerCompat windowInsetsController =
                     WindowCompat.getInsetsController(window, view);
             windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);

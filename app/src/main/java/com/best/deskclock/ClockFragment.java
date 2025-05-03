@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.Gravity;
@@ -45,6 +44,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.AnalogClock;
@@ -160,7 +160,7 @@ public final class ClockFragment extends DeskClockFragment {
         // Watch for system events that effect clock time or format.
         if (mAlarmChangeReceiver != null) {
             final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (SdkUtils.isAtLeastAndroid13()) {
                 activity.registerReceiver(mAlarmChangeReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
                 activity.registerReceiver(mAlarmChangeReceiver, filter);

@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.ActivityCompat;
@@ -38,6 +37,7 @@ import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -141,7 +141,7 @@ public final class AlarmNotifications {
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID);
         }
         final Notification notification = builder.build();
@@ -216,7 +216,7 @@ public final class AlarmNotifications {
 
         Notification summary = getActiveGroupSummaryNotification(context, UPCOMING_GROUP_KEY);
         if (summary == null || !Objects.equals(summary.contentIntent, firstUpcoming.contentIntent)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.createChannel(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID);
             }
             summary = new NotificationCompat.Builder(context, ALARM_UPCOMING_NOTIFICATION_CHANNEL_ID)
@@ -253,7 +253,7 @@ public final class AlarmNotifications {
 
         Notification summary = getActiveGroupSummaryNotification(context, MISSED_GROUP_KEY);
         if (summary == null || !Objects.equals(summary.contentIntent, firstMissed.contentIntent)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.createChannel(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID);
             }
             summary = new NotificationCompat.Builder(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID)
@@ -313,7 +313,7 @@ public final class AlarmNotifications {
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID);
         }
         final Notification notification = builder.build();
@@ -365,7 +365,7 @@ public final class AlarmNotifications {
                 showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, ALARM_MISSED_NOTIFICATION_CHANNEL_ID);
         }
         final Notification notification = builder.build();
@@ -453,7 +453,7 @@ public final class AlarmNotifications {
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE), true);
         notification.setPriority(NotificationCompat.PRIORITY_HIGH);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(service, FIRING_NOTIFICATION_CHANNEL_ID);
         }
         clearNotification(service, instance);

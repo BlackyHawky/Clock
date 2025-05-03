@@ -6,7 +6,6 @@
 
 package com.best.deskclock.provider;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -24,6 +23,7 @@ import androidx.loader.content.CursorLoader;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -211,7 +211,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
     }
 
-    @SuppressLint("ParcelClassLoader")
     Alarm(Parcel p) {
         id = p.readLong();
         enabled = p.readInt() == 1;
@@ -223,7 +222,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         vibrate = p.readInt() == 1;
         flash = p.readInt() == 1;
         label = p.readString();
-        alert = p.readParcelable(null);
+        alert = SdkUtils.isAtLeastAndroid13()
+                ? p.readParcelable(getClass().getClassLoader(), Uri.class)
+                : p.readParcelable(getClass().getClassLoader());
         deleteAfterUse = p.readInt() == 1;
         increasingVolume = p.readInt() == 1;
     }

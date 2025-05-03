@@ -24,7 +24,6 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -38,6 +37,7 @@ import com.best.deskclock.events.Events;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -288,7 +288,7 @@ public class AlarmService extends Service {
         // Register the broadcast receiver
         final IntentFilter filter = new IntentFilter(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mActionsReceiver, filter, Context.RECEIVER_EXPORTED);
         } else {
             registerReceiver(mActionsReceiver, filter);
@@ -300,7 +300,7 @@ public class AlarmService extends Service {
         mFlipAction = SettingsDAO.getFlipAction(mPrefs);
         mShakeAction = SettingsDAO.getShakeAction(mPrefs);
 
-        mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        mVibrator = getSystemService(Vibrator.class);
         mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
 
         getBackCameraId();
@@ -434,7 +434,11 @@ public class AlarmService extends Service {
         AlarmKlaxon.stop(this);
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
-        stopForeground(true);
+        if (SdkUtils.isAtLeastAndroid7()) {
+            stopForeground(Service.STOP_FOREGROUND_REMOVE);
+        } else {
+            stopForeground(true);
+        }
 
         mCurrentAlarm = null;
         detachListeners();
@@ -452,7 +456,7 @@ public class AlarmService extends Service {
 
         AlarmKlaxon.stop(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             mVibrator.vibrate(new long[]{700, 500}, -1);
@@ -460,7 +464,11 @@ public class AlarmService extends Service {
 
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
-        stopForeground(true);
+        if (SdkUtils.isAtLeastAndroid7()) {
+            stopForeground(Service.STOP_FOREGROUND_REMOVE);
+        } else {
+            stopForeground(true);
+        }
 
         mCurrentAlarm = null;
         detachListeners();
@@ -478,7 +486,7 @@ public class AlarmService extends Service {
 
         AlarmKlaxon.stop(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             mVibrator.vibrate(new long[]{700, 200, 100, 500}, -1);
@@ -486,7 +494,11 @@ public class AlarmService extends Service {
 
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
 
-        stopForeground(true);
+        if (SdkUtils.isAtLeastAndroid7()) {
+            stopForeground(Service.STOP_FOREGROUND_REMOVE);
+        } else {
+            stopForeground(true);
+        }
 
         mCurrentAlarm = null;
         detachListeners();

@@ -14,9 +14,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.util.ArrayMap;
 import android.util.SparseArray;
+
+import com.best.deskclock.utils.SdkUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,7 +59,7 @@ final class FormattedStringModel {
         final IntentFilter localeBroadcastFilter = new IntentFilter();
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
         localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             context.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);

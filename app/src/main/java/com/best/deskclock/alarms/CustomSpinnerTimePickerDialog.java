@@ -62,7 +62,7 @@ public class CustomSpinnerTimePickerDialog {
         NumberPicker minutePicker = dialogView.findViewById(R.id.minute);
         NumberPicker amPmPicker = dialogView.findViewById(R.id.amPm);
 
-        setupNumberPickers(context, dialogView, hour, minute, is24Hour, hourPicker, minutePicker, amPmPicker);
+        setupNumberPickers(dialogView, hour, minute, is24Hour, hourPicker, minutePicker, amPmPicker);
 
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(context, R.style.SpinnerDialogTheme)
                 .setTitle(R.string.time_picker_dialog_title)
@@ -108,7 +108,7 @@ public class CustomSpinnerTimePickerDialog {
      * It also manages the layout of the AM/PM picker and the navigation behavior between fields,
      * as well as the logic to prevent the hour from changing when the minutes change from 59 to 0 or vice versa.
      */
-    private static void setupNumberPickers(Context context, View dialogView, int hour, int minute, boolean is24Hour,
+    private static void setupNumberPickers(View dialogView, int hour, int minute, boolean is24Hour,
                                            NumberPicker hourPicker, NumberPicker minutePicker, NumberPicker amPmPicker) {
 
         // Hours setup
@@ -152,7 +152,7 @@ public class CustomSpinnerTimePickerDialog {
 
             amPmPicker.setMinValue(Calendar.AM);
             amPmPicker.setMaxValue(Calendar.PM);
-            amPmPicker.setDisplayedValues(getAmPmStrings(context));
+            amPmPicker.setDisplayedValues(getAmPmStrings());
             amPmPicker.setValue(hour >= 12 ? Calendar.PM : Calendar.AM);
             amPmPicker.setVisibility(View.VISIBLE);
 
@@ -187,9 +187,8 @@ public class CustomSpinnerTimePickerDialog {
      * (if available) are used when applicable. If no narrow forms are available, the standard AM/PM strings
      * are returned.
      */
-    static String[] getAmPmStrings(Context context) {
-        Locale locale = context.getResources().getConfiguration().locale;
-        DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
+    static String[] getAmPmStrings() {
+        DateFormatSymbols dfs = DateFormatSymbols.getInstance(Locale.getDefault());
         String[] amPm = dfs.getAmPmStrings();
 
         String[] result = new String[2];

@@ -10,11 +10,11 @@ import static com.best.deskclock.utils.Utils.enforceMainLooper;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.StringRes;
 
 import com.best.deskclock.events.EventTracker;
+import com.best.deskclock.utils.SdkUtils;
 
 /**
  * Interactions with Android framework components responsible for part of the user experience are
@@ -53,7 +53,7 @@ public final class Controller {
             mContext = context.getApplicationContext();
             mEventController = new EventController();
             mVoiceController = new VoiceController();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            if (SdkUtils.isAtLeastAndroid71()) {
                 mShortcutController = new ShortcutController(mContext);
             }
         }
@@ -101,7 +101,7 @@ public final class Controller {
 
     public void updateShortcuts() {
         enforceMainLooper();
-        if (mShortcutController != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+        if (mShortcutController != null && SdkUtils.isAtLeastAndroid71()) {
             mShortcutController.updateShortcuts();
         }
     }

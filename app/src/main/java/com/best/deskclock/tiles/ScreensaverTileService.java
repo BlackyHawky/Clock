@@ -14,6 +14,7 @@ import android.service.quicksettings.TileService;
 import androidx.annotation.RequiresApi;
 
 import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.utils.SdkUtils;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class ScreensaverTileService extends TileService {
@@ -27,7 +28,7 @@ public class ScreensaverTileService extends TileService {
                 .addFlags(FLAG_ACTIVITY_NEW_TASK)
                 .addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));
         } else {
             startActivityAndCollapse(intent);

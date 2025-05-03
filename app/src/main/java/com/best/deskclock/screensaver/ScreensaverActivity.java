@@ -17,11 +17,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Objects;
 
@@ -107,7 +109,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mIntentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mIntentReceiver, filter);
@@ -124,7 +126,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         startPositionUpdater();
         UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
 
-        final Intent intent = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        final Intent intent = SdkUtils.isAtLeastAndroid13()
                 ? registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
                 : registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
         final boolean pluggedIn = intent != null && intent.getIntExtra(EXTRA_PLUGGED, 0) != 0;
@@ -157,6 +159,18 @@ public class ScreensaverActivity extends AppCompatActivity {
         final Window win = getWindow();
         final WindowManager.LayoutParams winParams = win.getAttributes();
 
+        if (SdkUtils.isAtLeastAndroid11()) {
+            WindowInsetsController insetsController = win.getInsetsController();
+            if (insetsController != null) {
+                insetsController.hide(WindowInsets.Type.statusBars());
+                insetsController.setSystemBarsBehavior(
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                );
+            }
+        } else {
+            winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        }
+
         winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
         int flags = getWindowFlags();
@@ -169,13 +183,13 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         win.setAttributes(winParams);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (SdkUtils.isAtLeastAndroid81()) {
             setShowWhenLocked(pluggedIn);
             setTurnScreenOn(pluggedIn);
         }
 
         // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
             keyguardManager.requestDismissKeyguard(this, null);
         }
@@ -190,7 +204,7 @@ public class ScreensaverActivity extends AppCompatActivity {
      * @return the flags to apply to the window to keep the screen active.
      */
     private static int getWindowFlags() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (SdkUtils.isAtLeastAndroid81()) {
             return WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON;
         } else {

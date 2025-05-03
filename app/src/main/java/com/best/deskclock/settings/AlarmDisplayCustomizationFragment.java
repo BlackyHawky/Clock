@@ -2,6 +2,7 @@
 
 package com.best.deskclock.settings;
 
+import static android.app.Activity.OVERRIDE_TRANSITION_OPEN;
 import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_AMOLED_COLOR;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ALARM_BACKGROUND_COLOR;
@@ -34,6 +35,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.google.android.material.color.MaterialColors;
@@ -159,11 +161,21 @@ public class AlarmDisplayCustomizationFragment extends ScreenFragment
 
         if (pref.getKey().equals(KEY_PREVIEW_ALARM)) {
             startActivity(new Intent(context, AlarmDisplayPreviewActivity.class));
-            final boolean isFadeTransitionsEnabled = SettingsDAO.isFadeTransitionsEnabled(mPrefs);
-            if (isFadeTransitionsEnabled) {
-                requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            if (SettingsDAO.isFadeTransitionsEnabled(mPrefs)) {
+                if (SdkUtils.isAtLeastAndroid14()) {
+                    requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                            R.anim.fade_in, R.anim.fade_out);
+                } else {
+                    requireActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
             } else {
-                requireActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                if (SdkUtils.isAtLeastAndroid14()) {
+                    requireActivity().overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                            R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                } else {
+                    requireActivity().overridePendingTransition(
+                            R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+                }
             }
         }
 

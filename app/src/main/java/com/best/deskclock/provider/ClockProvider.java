@@ -21,13 +21,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -129,7 +129,7 @@ public class ClockProvider extends ContentProvider {
     public boolean onCreate() {
         final Context context = getContext();
         final Context storageContext;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             // All N devices have split storage areas, but we may need to
             // migrate existing database into the new device encrypted
             // storage area, which is where our data lives from now on.

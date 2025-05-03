@@ -2,8 +2,6 @@
 
 package com.best.deskclock.settings;
 
-import static android.content.Context.VIBRATOR_SERVICE;
-
 import static com.best.deskclock.DeskClock.REQUEST_CHANGE_SETTINGS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DEFAULT_TIME_TO_ADD_TO_TIMER;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_DISPLAY_WARNING_BEFORE_DELETING_TIMER;
@@ -23,7 +21,6 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
@@ -144,8 +141,7 @@ public class TimerSettingsFragment extends ScreenFragment
         mTimerCrescendoPref.setOnPreferenceChangeListener(this);
         mTimerCrescendoPref.setSummary(mTimerCrescendoPref.getEntry());
 
-        final boolean hasVibrator = ((Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-        mTimerVibratePref.setVisible(hasVibrator);
+        mTimerVibratePref.setVisible(Utils.hasVibrator(requireContext()));
         mTimerVibratePref.setOnPreferenceChangeListener(this);
 
         mTimerVolumeButtonsActionPref.setOnPreferenceChangeListener(this);

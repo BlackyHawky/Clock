@@ -25,11 +25,11 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
 import com.best.deskclock.data.DataModel.SilentSetting;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ final class SilentSettingsModel {
         cr.registerContentObserver(VOLUME_URI, false, contentChangeWatcher);
         cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, contentChangeWatcher);
         final IntentFilter filter = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             context.registerReceiver(new DoNotDisturbChangeReceiver(), filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             context.registerReceiver(new DoNotDisturbChangeReceiver(), filter);
@@ -202,7 +202,7 @@ final class SilentSettingsModel {
      */
     private final class ContentChangeWatcher extends ContentObserver {
         private ContentChangeWatcher() {
-            super(new Handler());
+            super(new Handler(Looper.getMainLooper()));
         }
 
         @Override

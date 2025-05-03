@@ -25,7 +25,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -69,7 +68,7 @@ public class ThemeUtils {
      * @param window The activity window (via getWindow()).
      */
     public static void allowDisplayCutout(Window window) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (SdkUtils.isAtLeastAndroid9()) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
             layoutParams.layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;

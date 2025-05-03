@@ -16,12 +16,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.Build;
 import android.util.ArraySet;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel.CitySort;
 import com.best.deskclock.settings.PreferencesKeys;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -93,7 +93,7 @@ final class CityModel {
         final IntentFilter localeBroadcastFilter = new IntentFilter();
         localeBroadcastFilter.addAction(Intent.ACTION_LOCALE_CHANGED);
         localeBroadcastFilter.addAction(ACTION_LANGUAGE_CODE_CHANGED);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter, Context.RECEIVER_EXPORTED);
         } else {
             mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
@@ -171,7 +171,7 @@ final class CityModel {
     }
 
     /**
-     * {@link ArraySet} is @hide prior to {@link Build.VERSION_CODES#M}.
+     * Creates a new instance of {@link ArraySet} containing all the elements of the provided collection.
      */
     public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
         final ArraySet<E> arraySet = new ArraySet<>(collection.size());

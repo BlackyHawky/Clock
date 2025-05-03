@@ -13,7 +13,6 @@ import static android.view.View.GONE;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
-import android.os.Build;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
@@ -29,6 +28,7 @@ import androidx.preference.SeekBarPreference;
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.ringtone.RingtonePreviewKlaxon;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Locale;
 
@@ -144,7 +144,7 @@ public class AlarmVolumePreference extends SeekBarPreference {
     }
 
     private int getMinVolume(AudioManager audioManager) {
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
+        return SdkUtils.isAtLeastAndroid9() ? audioManager.getStreamMinVolume(STREAM_ALARM) : 0;
     }
 
     public void startRingtonePreview() {

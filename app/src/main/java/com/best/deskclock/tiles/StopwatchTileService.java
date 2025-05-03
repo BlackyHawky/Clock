@@ -21,6 +21,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Stopwatch;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.SdkUtils;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class StopwatchTileService extends TileService {
@@ -51,7 +52,7 @@ public class StopwatchTileService extends TileService {
             Events.sendStopwatchEvent(R.string.action_start, label);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));
         } else {
             startActivityAndCollapse(intent);
@@ -80,17 +81,17 @@ public class StopwatchTileService extends TileService {
 
         if (stopwatch.isReset()) {
             tile.setState(Tile.STATE_INACTIVE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 tile.setSubtitle(getString(R.string.shortcut_start_stopwatch_short));
             }
         } else {
             tile.setState(Tile.STATE_ACTIVE);
             if (stopwatch.isRunning()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (SdkUtils.isAtLeastAndroid10()) {
                     tile.setSubtitle(getString(R.string.shortcut_pause_stopwatch_short));
                 }
             } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                if (SdkUtils.isAtLeastAndroid10()) {
                     tile.setSubtitle(getString(R.string.shortcut_start_stopwatch_short));
                 }
             }

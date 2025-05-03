@@ -24,9 +24,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
@@ -42,6 +42,7 @@ import com.best.alarmclock.standardwidgets.AnalogAppWidgetConfiguration;
 import com.best.deskclock.FirstLaunch;
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -75,7 +76,7 @@ public class ThemeController {
         for (WeakReference<Activity> activityRef : activities.values()) {
             Activity activity = activityRef.get();
             if (activity != null) {
-                new Handler().postDelayed(() -> ActivityCompat.recreate(activity), 300);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> ActivityCompat.recreate(activity), 300);
             }
         }
     }
@@ -90,16 +91,16 @@ public class ThemeController {
 
         @Override
         public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                onActivityPreCreated(activity, savedInstanceState);
-                onActivityPostCreated(activity, savedInstanceState);
-            } else {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 // Specifying "activity instanceof AppCompatActivity" is necessary for the
                 // screensaver to launch.
                 if (activity instanceof AppCompatActivity) {
                     EdgeToEdge.enable((ComponentActivity) activity);
                     activity.getWindow().setNavigationBarContrastEnforced(false);
                 }
+            } else {
+                onActivityPreCreated(activity, savedInstanceState);
+                onActivityPostCreated(activity, savedInstanceState);
             }
         }
 
@@ -115,7 +116,7 @@ public class ThemeController {
 
         @Override
         public void onActivityDestroyed(@NonNull Activity activity) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (SdkUtils.isBeforeAndroid10()) {
                 onActivityPreDestroyed(activity);
             }
         }
@@ -213,7 +214,7 @@ public class ThemeController {
          * and by the insets defined in the activities.
          */
         private void applyNavBarAndBackgroundColorsForCollapsingToolbarActivity(Activity activity, String darkMode) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 activity.getWindow().setNavigationBarContrastEnforced(false);
 
                 if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
@@ -237,7 +238,7 @@ public class ThemeController {
          * or by the {@systemProperty android:fitsSystemWindows="true"} attribute in the xml files.
          */
         private void applyNavBarAndBackgroundColorsForRegularActivity(Activity activity, String darkMode) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 if (ThemeUtils.isNight(activity.getResources()) && darkMode.equals(AMOLED_DARK_MODE)) {
                     activity.getWindow().getDecorView().setBackgroundColor(Color.BLACK);
                 }

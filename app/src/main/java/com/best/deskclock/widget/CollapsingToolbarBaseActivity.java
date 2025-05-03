@@ -29,6 +29,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 
 import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -63,9 +64,18 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
         boolean isFadeTransitionEnabled = SettingsDAO.isFadeTransitionsEnabled(prefs);
 
         if (isFadeTransitionEnabled) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            if (SdkUtils.isAtLeastAndroid14()) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out);
+            } else {
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
         } else {
-            overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+            if (SdkUtils.isAtLeastAndroid14()) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN,
+                        R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+            } else {
+                overridePendingTransition(R.anim.activity_slide_from_right, R.anim.activity_slide_to_left);
+            }
         }
 
         super.onCreate(savedInstanceState);
@@ -99,9 +109,20 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
                 public void handleOnBackPressed() {
                     finish();
                     if (isFadeTransitionEnabled) {
-                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        if (SdkUtils.isAtLeastAndroid14()) {
+                            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                    R.anim.fade_in, R.anim.fade_out);
+                        } else {
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
                     } else {
-                        overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                        if (SdkUtils.isAtLeastAndroid14()) {
+                            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                        } else {
+                            overridePendingTransition(
+                                    R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                        }
                     }
                 }
             });

@@ -21,6 +21,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.Timer;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class TimerTileService extends TileService {
 
         UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));
         } else {
             startActivityAndCollapse(intent);
@@ -86,7 +87,7 @@ public class TimerTileService extends TileService {
             tile.setState(Tile.STATE_ACTIVE);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (SdkUtils.isAtLeastAndroid10()) {
             tile.setSubtitle(getString(R.string.timers_in_use, count));
         }
 

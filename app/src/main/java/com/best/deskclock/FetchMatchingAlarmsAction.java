@@ -23,7 +23,6 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Returns a list of alarms that are specified by the intent
@@ -66,19 +65,18 @@ class FetchMatchingAlarmsAction implements Runnable {
                 final int hour = mIntent.getIntExtra(AlarmClock.EXTRA_HOUR, -1);
                 // if minutes weren't specified default to 0
                 final int minutes = mIntent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
-                final Boolean isPm = (Boolean) Objects.requireNonNull(mIntent.getExtras()).get(AlarmClock.EXTRA_IS_PM);
-                boolean badInput = isPm != null && hour > 12 && isPm;
-                badInput |= hour < 0 || hour > 23;
-                badInput |= minutes < 0 || minutes > 59;
+                final boolean isPm = mIntent.getBooleanExtra(AlarmClock.EXTRA_IS_PM, false);
+                boolean badInput = hour < 0 || hour > 23 || minutes < 0 || minutes > 59;
+                badInput |= (isPm && hour > 12);
                 if (badInput) {
                     final String[] ampm = new DateFormatSymbols().getAmPmStrings();
-                    final String amPm = isPm == null ? "" : (isPm ? ampm[1] : ampm[0]);
+                    final String amPm = isPm ? ampm[1] : ampm[0];
                     final String reason = mContext.getString(R.string.invalid_time, hour, minutes,
                             amPm);
                     notifyFailureAndLog(reason, mActivity);
                     return;
                 }
-                final int hour24 = Boolean.TRUE.equals(isPm) && hour < 12 ? (hour + 12) : hour;
+                final int hour24 = isPm && hour < 12 ? (hour + 12) : hour;
 
                 // there might me multiple alarms at the same time
                 for (Alarm alarm : mAlarms) {

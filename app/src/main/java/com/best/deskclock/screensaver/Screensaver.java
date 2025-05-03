@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.service.dreams.DreamService;
 import android.view.View;
 import android.view.ViewTreeObserver.OnPreDrawListener;
@@ -25,6 +24,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.ScreensaverUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 public final class Screensaver extends DreamService {
 
@@ -90,7 +90,7 @@ public final class Screensaver extends DreamService {
 
         // Setup handlers for time reference changes and date updates.
         final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CHANGED_BY_CLOCK);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(mAlarmChangedReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
             registerReceiver(mAlarmChangedReceiver, filter);

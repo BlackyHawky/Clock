@@ -23,7 +23,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_SCREENSAVER_PREVIE
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
@@ -36,6 +35,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.screensaver.ScreensaverActivity;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 import com.rarepebble.colorpicker.ColorPreference;
@@ -146,7 +146,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
                 case KEY_SCREENSAVER_CLOCK_STYLE -> {
                     final int clockIndex = mClockStyle.findIndexOfValue((String) newValue);
                     mClockStyle.setSummary(mClockStyle.getEntries()[clockIndex]);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (SdkUtils.isAtLeastAndroid12()) {
                         mClockDynamicColorPref.setVisible(!newValue.equals(mMaterialAnalogClock));
                         mClockColorPref.setVisible(!newValue.equals(mMaterialAnalogClock)
                                 && !SettingsDAO.areScreensaverClockDynamicColors(mPrefs));
@@ -192,7 +192,7 @@ public final class ScreensaverSettingsActivity extends CollapsingToolbarBaseActi
 
             mDisplaySecondsPref.setOnPreferenceChangeListener(this);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (SdkUtils.isAtLeastAndroid12()) {
                 final boolean areScreensaverClockDynamicColors = SettingsDAO.areScreensaverClockDynamicColors(mPrefs);
                 mClockDynamicColorPref.setVisible(!mClockStyle.getValue().equals(mMaterialAnalogClock));
                 mClockDynamicColorPref.setOnPreferenceChangeListener(this);

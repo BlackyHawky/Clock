@@ -22,7 +22,6 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TIMER_SHAKE_INTENS
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VERTICAL_DIGITAL_WIDGET_MAXIMUM_CLOCK_FONT_SIZE;
 
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +45,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -77,7 +77,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             getPreferenceManager().setStorageDeviceProtected();
         }
 

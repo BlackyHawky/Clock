@@ -17,20 +17,18 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.TypedValue;
@@ -47,6 +45,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -54,6 +53,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.AnalogClock;
 import com.best.deskclock.widget.PillView;
@@ -71,7 +71,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2500;
 
     private SharedPreferences mPrefs;
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
     private float mAlarmTitleFontSize;
     private int mAlarmTitleColor;
     private int mSnoozeMinutes;
@@ -102,7 +102,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
-        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        mVibrator = getSystemService(Vibrator.class);
         mAreSnoozedOrDismissedAlarmVibrationsEnabled = SettingsDAO.areSnoozedOrDismissedAlarmVibrationsEnabled(mPrefs);
 
         // Honor rotation on tablets; fix the orientation on phones.
@@ -172,7 +172,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
             final Drawable alarmSlideZoneBackground = AppCompatResources.getDrawable(this, R.drawable.bg_alarm_slide_zone);
             if (alarmSlideZoneBackground != null) {
-                alarmSlideZoneBackground.setColorFilter(slideZoneColor, PorterDuff.Mode.SRC_IN);
+                DrawableCompat.setTint(alarmSlideZoneBackground, slideZoneColor);
             }
             mSlideZoneLayout.setBackground(alarmSlideZoneBackground);
 
@@ -288,9 +288,20 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             public void handleOnBackPressed() {
                 finish();
                 if (mIsFadeTransitionsEnabled) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.fade_in, R.anim.fade_out);
+                    } else {
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
                 } else {
-                    overridePendingTransition(R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    if (SdkUtils.isAtLeastAndroid14()) {
+                        overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    } else {
+                        overridePendingTransition(
+                                R.anim.activity_slide_from_left, R.anim.activity_slide_to_right);
+                    }
                 }
             }
         });
@@ -499,7 +510,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
      * Perform single vibration if alarm is dismissed.
      */
     private void performSingleVibration() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(
                     new long[]{700, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
@@ -511,7 +522,7 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
      * Perform double vibration if alarm is snoozed.
      */
     private void performDoubleVibration() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             mVibrator.vibrate(VibrationEffect.createWaveform(
                     new long[]{700, 200, 100, 500}, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
@@ -570,7 +581,11 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
     private void finishActivity() {
         finish();
         if (mIsFadeTransitionsEnabled) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            if (SdkUtils.isAtLeastAndroid14()) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out);
+            } else {
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
         }
     }
 

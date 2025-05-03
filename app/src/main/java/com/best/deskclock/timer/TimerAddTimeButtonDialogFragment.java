@@ -283,7 +283,7 @@ public class TimerAddTimeButtonDialogFragment extends DialogFragment {
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            mInput.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            mInput.showSoftInput(mEditAddTimeButton, InputMethodManager.SHOW_IMPLICIT);
             String inputText = Objects.requireNonNull(mEditAddTimeButton.getText()).toString();
             if (isInvalidInput(inputText)) {
                 updateDialogForInvalidInput();

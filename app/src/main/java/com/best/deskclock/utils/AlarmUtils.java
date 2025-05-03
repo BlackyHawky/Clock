@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
-import android.os.Build;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -57,7 +56,7 @@ public class AlarmUtils {
      * Hide system bars when alarm goes off or timer expires.
      */
     public static void hideSystemBarsOfTriggeredAlarms(Window window, View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (SdkUtils.isAtLeastAndroid10()) {
             WindowInsetsControllerCompat windowInsetsController =
                     WindowCompat.getInsetsController(window, view);
             windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);

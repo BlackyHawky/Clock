@@ -48,6 +48,7 @@ import com.best.deskclock.data.TimerListener;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -138,7 +139,9 @@ public final class TimerFragment extends DeskClockFragment {
 
         // If timer setup state is present, retrieve it to be later honored.
         if (savedInstanceState != null) {
-            mTimerSetupState = savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
+            mTimerSetupState = SdkUtils.isAtLeastAndroid13()
+                    ? savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE, int[].class)
+                    : savedInstanceState.getSerializable(KEY_TIMER_SETUP_STATE);
         }
 
         return view;

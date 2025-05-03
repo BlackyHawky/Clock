@@ -21,6 +21,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmStateManager;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.AlarmUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class AlarmTileService extends TileService {
@@ -42,7 +43,7 @@ public class AlarmTileService extends TileService {
 
         UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        if (SdkUtils.isAtLeastAndroid14()) {
             startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE));
         } else {
             startActivityAndCollapse(intent);
@@ -69,12 +70,12 @@ public class AlarmTileService extends TileService {
 
         if (AlarmStateManager.getNextFiringAlarm(this) == null) {
             tile.setState(Tile.STATE_INACTIVE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 tile.setSubtitle(getString(R.string.no_scheduled_alarms));
             }
         } else {
             tile.setState(Tile.STATE_ACTIVE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (SdkUtils.isAtLeastAndroid10()) {
                 tile.setSubtitle(AlarmUtils.getNextAlarm(this));
             }
         }

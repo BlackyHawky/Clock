@@ -11,7 +11,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.preference.PreferenceManager;
 
@@ -21,6 +20,7 @@ import com.best.deskclock.data.DataModel;
 import com.best.deskclock.events.LogEventTracker;
 import com.best.deskclock.uidata.UiDataModel;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.io.File;
 import java.util.Objects;
@@ -55,7 +55,7 @@ public class DeskClockApplication extends Application {
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
         final Context storageContext;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (SdkUtils.isAtLeastAndroid7()) {
             // All N devices have split storage areas. Migrate the existing preferences into the new
             // device encrypted storage area if that has not yet occurred.
             storageContext = context.createDeviceProtectedStorageContext();

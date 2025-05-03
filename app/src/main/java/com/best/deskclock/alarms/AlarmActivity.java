@@ -27,15 +27,14 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -52,6 +51,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -65,6 +65,7 @@ import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.AnimatorUtils;
 import com.best.deskclock.utils.ClockUtils;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.AnalogClock;
@@ -96,7 +97,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
     };
 
     private SharedPreferences mPrefs;
-    private final Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
     private VolumeButtonBehavior mVolumeBehavior;
@@ -178,7 +179,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (SdkUtils.isAtLeastAndroid13()) {
             registerReceiver(PowerBtnReceiver, filter, Context.RECEIVER_EXPORTED);
         } else {
             registerReceiver(PowerBtnReceiver, filter);
@@ -206,7 +207,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         // Get the power button behavior setting
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+        if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);
             setShowWhenLocked(true);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -220,7 +221,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
 
         // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
             keyguardManager.requestDismissKeyguard(this, null);
         }
@@ -291,7 +292,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
             final Drawable alarmSlideZoneBackground = AppCompatResources.getDrawable(this, R.drawable.bg_alarm_slide_zone);
             if (alarmSlideZoneBackground != null) {
-                alarmSlideZoneBackground.setColorFilter(slideZoneColor, PorterDuff.Mode.SRC_IN);
+                DrawableCompat.setTint(alarmSlideZoneBackground, slideZoneColor);
             }
             mSlideZoneLayout.setBackground(alarmSlideZoneBackground);
 
@@ -467,7 +468,7 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
             filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
             filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (SdkUtils.isAtLeastAndroid13()) {
                 registerReceiver(mReceiver, filter, Context.RECEIVER_EXPORTED);
             } else {
                 registerReceiver(mReceiver, filter);

@@ -6,7 +6,6 @@
 
 package com.best.deskclock.alarms.dataadapter;
 
-import static android.content.Context.VIBRATOR_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -22,7 +21,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -556,7 +554,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         public Factory(Context context) {
             mLayoutInflater = LayoutInflater.from(context);
-            mHasVibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            mHasVibrator = Utils.hasVibrator(context);
             mHasFlash = AlarmUtils.hasBackFlash(context);
         }
 

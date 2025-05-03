@@ -11,7 +11,6 @@ import static android.view.View.GONE;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +43,7 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
 
         final ImageView imageView = itemView.findViewById(R.id.ringtone_image);
         imageView.setImageDrawable(AppCompatResources.getDrawable(context, R.drawable.ic_add));
-        imageView.getDrawable().setColorFilter(MaterialColors.getColor(
-                context, android.R.attr.colorBackground, Color.BLACK), PorterDuff.Mode.SRC_IN);
+        imageView.getDrawable().setTint(MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK));
         imageView.setBackgroundResource(R.drawable.bg_circle);
         imageView.setBackgroundTintList(ColorStateList.valueOf(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK))

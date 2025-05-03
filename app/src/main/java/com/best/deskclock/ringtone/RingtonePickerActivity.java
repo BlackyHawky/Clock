@@ -51,6 +51,7 @@ import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
@@ -222,15 +223,21 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
 
         if (savedInstanceState != null) {
             mIsPlaying = savedInstanceState.getBoolean(STATE_KEY_PLAYING);
-            mSelectedRingtoneUri = savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
+            mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
+                    ? savedInstanceState.getParcelable(EXTRA_RINGTONE_URI, Uri.class)
+                    : savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
         }
 
         if (mSelectedRingtoneUri == null) {
-            mSelectedRingtoneUri = intent.getParcelableExtra(EXTRA_RINGTONE_URI);
+            mSelectedRingtoneUri = SdkUtils.isAtLeastAndroid13()
+                    ? intent.getParcelableExtra(EXTRA_RINGTONE_URI, Uri.class)
+                    : intent.getParcelableExtra(EXTRA_RINGTONE_URI);
         }
 
         mAlarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1);
-        mDefaultRingtoneUri = intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
+        mDefaultRingtoneUri = SdkUtils.isAtLeastAndroid13()
+                ? intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI, Uri.class)
+                : intent.getParcelableExtra(EXTRA_DEFAULT_RINGTONE_URI);
         final int defaultRingtoneTitleId = intent.getIntExtra(EXTRA_DEFAULT_RINGTONE_NAME, 0);
         final Context localizedContext = Utils.getLocalizedContext(context);
         mDefaultRingtoneTitle = localizedContext.getString(defaultRingtoneTitleId);
@@ -452,7 +459,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Bundle arguments = requireArguments();
-            final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+            final Uri toRemove = SdkUtils.isAtLeastAndroid13()
+                    ? arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE, Uri.class)
+                    : arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
 
             final DialogInterface.OnClickListener okListener = (dialog, which) ->
                     ((RingtonePickerActivity) requireActivity()).removeCustomRingtoneAsync(toRemove);

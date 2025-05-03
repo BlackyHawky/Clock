@@ -16,7 +16,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -33,6 +32,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -251,9 +251,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     if (dX > deleteIconHorizontalMargin) {
                         Drawable deleteIcon = AppCompatResources.getDrawable(mContext, R.drawable.ic_delete);
                         if (deleteIcon != null) {
-                            deleteIcon.setColorFilter(MaterialColors.getColor(
-                                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK),
-                                    PorterDuff.Mode.SRC_IN);
+                            DrawableCompat.setTint(deleteIcon, MaterialColors.getColor(
+                                    mContext, com.google.android.material.R.attr.colorOnError, Color.BLACK));
                             deleteIconSize = deleteIcon.getIntrinsicHeight();
                             int halfIcon = deleteIconSize / 2;
                             int top = viewHolder.itemView.getTop()

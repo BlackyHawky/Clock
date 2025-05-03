@@ -6,7 +6,6 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -18,6 +17,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.best.deskclock.settings.PermissionsManagementActivity;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
@@ -107,8 +107,8 @@ public class FirstLaunch extends AppCompatActivity {
                 .setTitle(getString(R.string.first_launch_dialog_title))
                 .setIcon(R.drawable.ic_logout)
                 .setMessage(getString(R.string.first_launch_dialog_message))
-                .setPositiveButton(android.R.string.yes, (dialog, which) -> finishAffinity())
-                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> finishAffinity())
+                .setNegativeButton(android.R.string.cancel, null)
                 .setCancelable(false)
                 .show();
     }
@@ -120,8 +120,13 @@ public class FirstLaunch extends AppCompatActivity {
         String link = ("<a href=\"https://github.com/BlackyHawky/Clock#features-\">"
                 + getString(R.string.first_launch_main_feature_link) + "</a>");
 
-        Spanned mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link));
-
+        Spanned mainFeaturesMessage;
+        if (SdkUtils.isAtLeastAndroid7()) {
+            mainFeaturesMessage = Html.fromHtml(
+                    getString(R.string.first_launch_main_feature_message, link), Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            mainFeaturesMessage = Html.fromHtml(getString(R.string.first_launch_main_feature_message, link));
+        }
         mMainFeaturesText.setText(mainFeaturesMessage);
         mMainFeaturesText.setMovementMethod(LinkMovementMethod.getInstance());
     }
@@ -130,11 +135,21 @@ public class FirstLaunch extends AppCompatActivity {
      * Define an important message for the first launch.
      */
     private void setupImportantInfoMessage() {
-        String android14message = "";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        String android14message;
+        if (SdkUtils.isAtLeastAndroid14()) {
             android14message = getString(R.string.first_launch_important_info_message_for_SDK34);
+        } else {
+            android14message = "";
         }
-        Spanned importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
+
+        Spanned importantInfoMessage;
+        if (SdkUtils.isAtLeastAndroid7()) {
+            importantInfoMessage = Html.fromHtml(
+                    getString(R.string.first_launch_important_info_message, android14message), Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            importantInfoMessage = Html.fromHtml(getString(R.string.first_launch_important_info_message, android14message));
+        }
+
         mImportantInfoText.setText(importantInfoMessage);
     }
 

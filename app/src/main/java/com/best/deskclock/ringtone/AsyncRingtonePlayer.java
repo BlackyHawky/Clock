@@ -2,18 +2,15 @@
 
 package com.best.deskclock.ringtone;
 
-import static android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-import static android.media.AudioManager.STREAM_ALARM;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioAttributes;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -24,6 +21,7 @@ import androidx.annotation.NonNull;
 
 import com.best.deskclock.R;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.lang.reflect.Method;
@@ -84,7 +82,7 @@ public final class AsyncRingtonePlayer {
      */
     private static boolean isInTelephoneCall(AudioManager audioManager) {
           final int audioMode = audioManager.getMode();
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+          if (SdkUtils.isAtLeastAndroid13()) {
               return audioMode == AudioManager.MODE_IN_COMMUNICATION ||
                       audioMode == AudioManager.MODE_COMMUNICATION_REDIRECT ||
                       audioMode == AudioManager.MODE_CALL_REDIRECT ||
@@ -203,7 +201,9 @@ public final class AsyncRingtonePlayer {
                 switch (msg.what) {
                     case EVENT_PLAY:
                         final Bundle data = msg.getData();
-                        final Uri ringtoneUri = data.getParcelable(RINGTONE_URI_KEY);
+                        final Uri ringtoneUri = SdkUtils.isAtLeastAndroid13()
+                                ? data.getParcelable(RINGTONE_URI_KEY, Uri.class)
+                                : data.getParcelable(RINGTONE_URI_KEY);
                         final long crescendoDuration = data.getLong(CRESCENDO_DURATION_KEY);
                         if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
                             scheduleVolumeAdjustment();
@@ -410,7 +410,18 @@ public final class AsyncRingtonePlayer {
                 scheduleVolumeAdjustment = true;
             }
 
-            mAudioManager.requestAudioFocus(null, STREAM_ALARM, AUDIOFOCUS_GAIN_TRANSIENT);
+            if (SdkUtils.isAtLeastAndroid8()) {
+                AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                        .setAudioAttributes(new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build())
+                        .build();
+
+                mAudioManager.requestAudioFocus(focusRequest);
+            } else {
+                mAudioManager.requestAudioFocus(null, AudioManager.STREAM_ALARM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+            }
 
             mRingtone.play();
 
@@ -451,7 +462,18 @@ public final class AsyncRingtonePlayer {
             mRingtone = null;
 
             if (mAudioManager != null) {
-                mAudioManager.abandonAudioFocus(null);
+                if (SdkUtils.isAtLeastAndroid8()) {
+                    AudioFocusRequest focusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                            .setAudioAttributes(new AudioAttributes.Builder()
+                                    .setUsage(AudioAttributes.USAGE_ALARM)
+                                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                    .build())
+                            .build();
+
+                    mAudioManager.abandonAudioFocusRequest(focusRequest);
+                } else {
+                    mAudioManager.abandonAudioFocus(null);
+                }
             }
         }
 

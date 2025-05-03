@@ -12,7 +12,6 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager.WakeLock;
 
 import com.best.deskclock.alarms.AlarmNotifications;
@@ -23,6 +22,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -43,7 +43,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * When running on N devices, we're interested in the boot completed event that is sent while
      * the user is still locked, so that we can schedule alarms.
      */
-    private static final String ACTION_BOOT_COMPLETED = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+    private static final String ACTION_BOOT_COMPLETED = SdkUtils.isAtLeastAndroid7()
             ? Intent.ACTION_LOCKED_BOOT_COMPLETED : Intent.ACTION_BOOT_COMPLETED;
 
     /**
@@ -84,7 +84,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (SdkUtils.isAtLeastAndroid8()) {
                 NotificationUtils.updateNotificationChannels(context);
             }
         }

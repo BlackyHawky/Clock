@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.widget.selector.AlarmSelection;
 import com.best.deskclock.widget.selector.AlarmSelectionAdapter;
 
@@ -61,7 +62,9 @@ public class AlarmSelectionActivity extends AppCompatActivity implements AlarmSe
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final Intent intent = getIntent();
-        final Parcelable[] alarmsFromIntent = intent.getParcelableArrayExtra(EXTRA_ALARMS);
+        final Parcelable[] alarmsFromIntent = SdkUtils.isAtLeastAndroid13()
+                ? intent.getParcelableArrayExtra(EXTRA_ALARMS, Alarm.class)
+                : intent.getParcelableArrayExtra(EXTRA_ALARMS);
         mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
 
         // reading alarms from intent

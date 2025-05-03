@@ -11,10 +11,10 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.utils.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.SystemClock;
 import android.widget.RemoteViews;
 
@@ -29,6 +29,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.events.Events;
 import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.utils.NotificationUtils;
+import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
 
 import java.util.ArrayList;
@@ -124,7 +125,9 @@ class StopwatchNotificationBuilder {
                 .setCustomContentView(content)
                 .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
-                .setPriority(Notification.PRIORITY_LOW)
+                .setPriority(SdkUtils.isAtLeastAndroid7()
+                        ? NotificationManager.IMPORTANCE_LOW
+                        : Notification.PRIORITY_LOW)
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_static)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setColor(context.getColor(R.color.md_theme_primary))
@@ -134,7 +137,7 @@ class StopwatchNotificationBuilder {
             notification.addAction(action);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SdkUtils.isAtLeastAndroid8()) {
             NotificationUtils.createChannel(context, STOPWATCH_NOTIFICATION_CHANNEL_ID);
         }
         return notification.build();

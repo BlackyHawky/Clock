@@ -112,9 +112,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
                         .setIcon(drawable)
                         .setTitle(R.string.warning_dialog_title)
                         .setMessage(dialogMessage)
-                        .setPositiveButton(android.R.string.yes, (dialog1, which) ->
+                        .setPositiveButton(android.R.string.ok, (dialog1, which) ->
                                 DataModel.getDataModel().removeTimer(getTimer()))
-                        .setNegativeButton(android.R.string.no, null)
+                        .setNegativeButton(android.R.string.cancel, null)
                         .show();
             } else {
                 DataModel.getDataModel().removeTimer(getTimer());

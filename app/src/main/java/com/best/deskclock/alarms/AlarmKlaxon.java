@@ -10,7 +10,6 @@ import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreference
 
 import android.content.Context;
 import android.media.AudioAttributes;
-import android.os.Build;
 import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -19,6 +18,7 @@ import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.provider.AlarmInstance;
 import com.best.deskclock.ringtone.AsyncRingtonePlayer;
 import com.best.deskclock.utils.LogUtils;
+import com.best.deskclock.utils.SdkUtils;
 
 /**
  * Manages playing alarm ringtones and vibrating the device.
@@ -38,7 +38,8 @@ final class AlarmKlaxon {
             LogUtils.v("AlarmKlaxon.stop()");
             sStarted = false;
             getAsyncRingtonePlayer(context).stop();
-            ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).cancel();
+            final Vibrator vibrator = context.getSystemService(Vibrator.class);
+            vibrator.cancel();
         }
     }
 
@@ -53,22 +54,22 @@ final class AlarmKlaxon {
         }
 
         if (instance.mVibrate) {
-            final Vibrator vibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
+            final Vibrator vibrator = context.getSystemService(Vibrator.class);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ALARM)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33 and above
+            if (SdkUtils.isAtLeastAndroid13()) {
                 VibrationAttributes vibrationAttributes = new VibrationAttributes.Builder()
                         .setUsage(VibrationAttributes.USAGE_ALARM)
                         .build();
                 VibrationEffect vibrationEffect = VibrationEffect.createWaveform(VIBRATE_PATTERN, 0);
                 vibrator.vibrate(vibrationEffect, vibrationAttributes);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // API 26 to 32
+            } else if (SdkUtils.isAtLeastAndroid8()) {
                 VibrationEffect vibrationEffect = VibrationEffect.createWaveform(VIBRATE_PATTERN, 0);
                 vibrator.vibrate(vibrationEffect, audioAttributes);
-            } else { // Before API 26
+            } else {
                 vibrator.vibrate(VIBRATE_PATTERN, 0, audioAttributes);
             }
         }

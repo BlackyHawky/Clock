@@ -162,7 +162,11 @@ public class Utils {
         Locale locale;
 
         if (DEFAULT_SYSTEM_LANGUAGE_CODE.equals(customLanguageCode)) {
-            locale = Resources.getSystem().getConfiguration().locale;
+            if (SdkUtils.isAtLeastAndroid7()) {
+                locale = Resources.getSystem().getConfiguration().getLocales().get(0);
+            } else {
+                locale = Resources.getSystem().getConfiguration().locale;
+            }
         } else {
             String[] parts = customLanguageCode.split("_");
             if (parts.length == 2) {
@@ -191,6 +195,14 @@ public class Utils {
     }
 
     /**
+     * @return {@code true} if a vibrator is available on the device. {@code false} otherwise.
+     */
+    public static boolean hasVibrator(Context context) {
+        Vibrator vibrator = context.getSystemService(Vibrator.class);
+        return vibrator != null && vibrator.hasVibrator();
+    }
+
+    /**
      * Set the vibration duration if the device is equipped with a vibrator and if vibrations are enabled in the settings.
      *
      * @param context to define whether the device is equipped with a vibrator.
@@ -198,9 +210,9 @@ public class Utils {
      */
     public static void setVibrationTime(Context context, long milliseconds) {
         final boolean isVibrationsEnabled = SettingsDAO.isVibrationsEnabled(getDefaultSharedPreferences(context));
-        final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibrator = context.getSystemService(Vibrator.class);
         if (isVibrationsEnabled) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (SdkUtils.isAtLeastAndroid8()) {
                 vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
                 vibrator.vibrate(milliseconds);
