@@ -459,14 +459,14 @@
     <string name="gnu_gpl">GNU General Public License v3.0</string>
     <string name="first_launch_important_info_message">Om zeker te zijn dat de app goed werkt, &lt;b&gt;moeten sommige instellingen van je apparaat veranderd worden:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;NIET STOREN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;BATTERIJOPTIMALISATIE;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;MELDINGEN;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;Afhankelijk van de Androidversie van je apparaat zijn sommige instellingen al geoptimaliseerd (bijv. meldingen).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Je kan ze nu of later veranderen in de rechtenbeheer-instellingen:</string>
     <string name="material_time_picker_style_title">Tijdselectie</string>
-    <string name="alarm_settings_summary">Standaard wekkergeluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
+    <string name="alarm_settings_summary">Uiterlijk, standaard wekkergeluid, volume, sluimeracties, eerste weekdag, herinneringstijd aanpassen</string>
     <string name="widget_next_alarm_default_color_title">Standaardkleur voor volgende wekker</string>
     <string name="digital_widget_message_summary">\"Toon steden op widget\" moet uitgeschakeld zijn voor deze optie</string>
     <string name="enable_alarm_snooze_actions_label">Sluimeracties inschakelen</string>
     <string name="alarm_label_box_title">Wekkerlabel</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Wekker uitzetten als wekkergeluid eindigt</string>
     <string name="actions_category_title">Acties</string>
-    <string name="interface_customization_summary">Uiterlijk en de kleur van de app aanpassen</string>
+    <string name="interface_customization_summary">Uiterlijk en kleur van de app aanpassen</string>
     <string name="swipe_action_title">Veeg om wekkers te sluimeren of uit te zetten</string>
     <string name="clock_color_title">Kleur klok</string>
     <string name="screensaver_next_alarm_color_title">Kleur volgende wekker</string>
@@ -559,7 +559,7 @@
     <string name="alarm_notification_reminder_2_hours">2 uur van te voren</string>
     <string name="description_direction_both_for_occasional_alarm">Veeg naar links om te sluimeren of naar rechts om wekker uit te zetten en te verwijderen</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Veeg naar links of rechts om wekker uit te zetten en te verwijderen</string>
-    <string name="occasional_alarm_deleted">Gelegenheidswekker verwijderd</string>
+    <string name="occasional_alarm_deleted">Gelegenheidswekker <xliff:g example="14:20" id="alarm_time">%s</xliff:g> verwijderd</string>
     <string name="material_you_vertical_digital_widget">Verticale digitale klok Material You</string>
     <string name="standard_category_title">Standaard</string>
     <string name="material_you_category_title">Material You</string>
@@ -664,4 +664,14 @@
     <string name="tab_title_visibility_when_selected">Wanneer geselecteerd</string>
     <string name="settings_keep_screen_on_title">Scherm aanhouden</string>
     <string name="settings_keep_screen_on_summary">Let op: Het scherm zal altijd aanblijven als een kookwekker of stopklok loopt en het overeenkomstige tabblad wordt getoond, ongeacht deze instelling</string>
+    <string name="slide_zone_color_title">Kleur veeggebied</string>
+    <string name="dismiss_title_color">Kleur uitzettitel</string>
+    <string name="ringtone_title_color">Kleur ringtoontitel</string>
+    <string name="description_snooze_button">Tik om wekker te sluimeren</string>
+    <string name="description_dismiss_button">Tik om wekker uit te zetten</string>
+    <string name="display_next_alarm_title">Volgende wekker op widget tonen</string>
+    <string name="snooze_title_color">Kleur sluimertitel</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Tik om wekker uit te zetten en te verwijderen</string>
+    <string name="settings_language_chinese_traditional_tw">Chinees (traditioneel, Taiwan)</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> wekker uitgezet en verwijderd</string>
 </resources>

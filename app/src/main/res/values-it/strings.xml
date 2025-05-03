@@ -408,11 +408,11 @@
     <string name="timer_buttons_action_summary">Funzionamento solo sul blocco schermo</string>
     <string name="screensaver_bold_date_title">Data in grassetto</string>
     <string name="screensaver_bold_next_alarm_title">Prossima sveglia in grassetto</string>
-    <string name="occasional_alarm_deleted">Sveglia occasionale rimossa</string>
+    <string name="occasional_alarm_deleted">Sveglia delle <xliff:g example="14:20" id="alarm_time">%s</xliff:g> occasionale rimossa</string>
     <string name="first_launch_button_later">Dopo</string>
     <string name="first_launch_button_now">Adesso</string>
     <string name="first_launch_main_feature_link">… ed altro ancora!</string>
-    <string name="widgets_settings_summary">Imposta lo stile, colori e dimensione carattere del widget</string>
+    <string name="widgets_settings_summary">Imposta stile, colori e dimensione carattere del widget</string>
     <string name="digital_widget_custom_hours_color_title">Colore delle ore personalizzato</string>
     <string name="digital_widget_default_minutes_color_title">Usa colore predefinito per i minuti</string>
     <string name="digital_widget_date_custom_color_title">Colore della data personalizzato</string>
@@ -422,7 +422,7 @@
     <string name="next_alarm_widget_title_no_alarm">Nessuna sveglia in programma</string>
     <string name="notifications_permission_title">ABILITA NOTIFICHE</string>
     <string name="toast_message_for_restore">Ripristino completato</string>
-    <string name="alarm_settings_summary">Imposta la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
+    <string name="alarm_settings_summary">Imposta lo stile, la suoneria predefinita, il volume, le azioni per disattivare o rimandare le sveglie, il primo giorno della settimana e l\'ora di notifica del promemoria</string>
     <string name="analog_widget_material_you">Orologio analogico Material You</string>
     <string name="material_you_digital_widget">Orologio digitale Material You</string>
     <string name="alarm_notification_reminder_12_hours">12 ore prima</string>
@@ -450,9 +450,9 @@
     <string name="font_category_title">Carattere</string>
     <string name="alarm_display_customization_title">Personalizzazione visualizzazione sveglia</string>
     <string name="alarm_title_color">Colore titolo sveglia</string>
-    <string name="dismiss_button_color">Colore tasto di spegnimento</string>
-    <string name="snooze_button_color">Colore pulsante rimando</string>
-    <string name="screensaver_settings_summary">Imposta lo stile, il colore e il carattere del salvaschermo</string>
+    <string name="dismiss_button_color">Colore del tasto \"Disattiva\"</string>
+    <string name="snooze_button_color">Colore pulsante \"Rimanda\"</string>
+    <string name="screensaver_settings_summary">Imposta stile, colore e carattere del salvaschermo</string>
     <string name="clock_color_title">Colore orologio</string>
     <string name="seconds_hand_color_title">Colore lancetta dei secondi</string>
     <string name="screensaver_daydream_settings">Seleziona/abilita salvaschermo</string>
@@ -566,7 +566,7 @@
     <string name="actions_category_title">Azioni</string>
     <string name="standard_category_title">Predefinito</string>
     <string name="interface_customization_settings">Interfaccia</string>
-    <string name="interface_customization_summary">Imposta lo stile e il colore applicati all\'applicazione</string>
+    <string name="interface_customization_summary">Imposta stile e colore applicati all\'applicazione</string>
     <string name="title_theme">Tema</string>
     <string name="title_accent_color">Colore accento</string>
     <string name="material_you_category_title">Materiale You</string>
@@ -670,4 +670,14 @@
     <string name="settings_language_czech">Ceco</string>
     <string name="settings_keep_screen_on_title">Tieni lo schermo acceso</string>
     <string name="settings_keep_screen_on_summary">Nota: lo schermo sarà sempre acceso se è in funzione un contaminuti o un cronometro e se è visualizzata la scheda corrispondente, indipendentemente dallo stato di questa impostazione</string>
+    <string name="alarm_is_dismissed_and_deleted">Sveglia delle <xliff:g example="14:20" id="alarm_time">%s</xliff:g> disattivata e cancellata</string>
+    <string name="slide_zone_color_title">Colore zona di scorrimento</string>
+    <string name="snooze_title_color">Colore del titolo \"Rimanda\"</string>
+    <string name="description_snooze_button">Clicca per rimandare la sveglia</string>
+    <string name="display_next_alarm_title">Mostra la prossima sveglia sul widget</string>
+    <string name="settings_language_chinese_traditional_tw">Cinese (tradizionale, Taiwan)</string>
+    <string name="dismiss_title_color">Colore del titolo \"Disattiva\"</string>
+    <string name="ringtone_title_color">Colore titolo suoneria</string>
+    <string name="description_dismiss_button">Clicca per posticipare la sveglia</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Clicca per disattivare e cancellare la sveglia</string>
 </resources>

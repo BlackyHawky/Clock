@@ -344,5 +344,6 @@
     <string name="C346" msgid="2947674392768816097">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>雅溫德<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
     <string name="C347" msgid="6291282205599716861">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>亞連區<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>葉里溫<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
-    <string name="C349">P<xliff:g id="separator">=</xliff:g>蓬塔德爾加達<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
+    <string name="C349">15 劃<xliff:g id="separator">=</xliff:g>蓬塔德爾加達<xliff:g id="timezone">|Atlantic/Azores</xliff:g></string>
+    <string name="C350">5 劃<xliff:g id="separator">=</xliff:g>世界協調時間<xliff:g id="timezone">|UTC</xliff:g></string>
 </resources>

@@ -1,0 +1,16 @@
+**Fixes**
+- Fix toolbar title color
+- Fix date and next alarm display
+- Fix alarms ringtone after a restore
+… and more
+
+**Improvements**
+- Enable edge-to-edge for Android 10+
+- Ability to export logs
+- Slide to dismiss/snooze alarm like Google app
+- Ability to adjust the shake intensity of expired timers
+- Update translations
+- Improve and clean code
+… and more
+
+All fixes and improvements are listed here: https://github.com/BlackyHawky/Clock/releases/tag/2.19

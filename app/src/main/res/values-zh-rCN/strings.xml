@@ -405,7 +405,7 @@
     <string name="alarm_created">闹钟已创建</string>
     <string name="first_launch_important_info_message">为了确保应用程序正常工作，&lt;b&gt;必须更改某些设备设置：&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;电池优化；&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;通知；&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;根据设备的 Android 版本，其中一些设置已经过优化（例如通知）。&lt;/i&gt; &lt;br&gt; &lt;br&gt; 您可以现在或以后在权限管理设置中更改它们：</string>
     <string name="first_launch_main_feature_link">…还有更多！</string>
-    <string name="screensaver_italic_date_title">斜体日期</string>
+    <string name="screensaver_italic_date_title">日期以斜体显示</string>
     <string name="background_color_title">背景颜色</string>
     <string name="digital_widget_city_title">在微件上显示城市</string>
     <string name="digital_widget_city_clock_custom_color_title">城市时钟自定义颜色</string>
@@ -433,14 +433,14 @@
     <string name="clock_color_title">时钟颜色</string>
     <string name="screensaver_date_color_title">日期颜色</string>
     <string name="screensaver_brightness_title">亮度</string>
-    <string name="screensaver_bold_digital_clock_title">粗体数字时钟</string>
-    <string name="screensaver_italic_digital_clock_title">斜体数字时钟</string>
-    <string name="screensaver_bold_date_title">粗体日期</string>
+    <string name="screensaver_bold_digital_clock_title">数字时钟以粗体显示</string>
+    <string name="screensaver_italic_digital_clock_title">数字时钟以斜体显示</string>
+    <string name="screensaver_bold_date_title">日期以粗体显示</string>
     <string name="preview_title">预览</string>
     <string name="screensaver_preview_summary">立即启动屏幕保护程序</string>
     <string name="screensaver_next_alarm_color_title">下次闹钟颜色</string>
-    <string name="screensaver_bold_next_alarm_title">粗体下次闹钟</string>
-    <string name="screensaver_italic_next_alarm_title">斜体下次闹钟</string>
+    <string name="screensaver_bold_next_alarm_title">下次闹钟以粗体显示</string>
+    <string name="screensaver_italic_next_alarm_title">下次闹钟以斜体显示</string>
     <string name="first_launch_version">版本 %s</string>
     <string name="first_launch_important_info_title">重要信息</string>
     <string name="first_launch_dialog_title">退出</string>
@@ -571,7 +571,7 @@
     <string name="occasional_alarm_alert_predismiss_title">预定的临时闹钟</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">默认启用自动删除临时闹钟</string>
     <string name="alarm_settings_general_summary">可以在扩展闹钟视图中为每个闹钟更改此设置</string>
-    <string name="occasional_alarm_deleted">临时闹钟已删除</string>
+    <string name="occasional_alarm_deleted">已删除 <xliff:g example="14:20" id="alarm_time">%s</xliff:g> 的临时闹钟</string>
     <string name="backup_restore_title">备份和还原</string>
     <string name="backup_restore_summary">备份或还原应用程序数据，自定义铃声除外</string>
     <string name="backup_restore_dialog_message">是否要备份或还原应用程序数据？</string>
@@ -662,4 +662,6 @@
     <string name="snooze_title_color">“暂停”标题的颜色</string>
     <string name="description_snooze_button">点击即可暂停闹钟</string>
     <string name="display_next_alarm_title">在微件上显示下次闹钟</string>
+    <string name="settings_language_chinese_traditional_tw">中文（繁体）</string>
+    <string name="alarm_is_dismissed_and_deleted">已关闭并删除 <xliff:g example="14:20" id="alarm_time">%s</xliff:g> 的闹钟</string>
 </resources>

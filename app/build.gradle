@@ -1,17 +1,18 @@
-//file:noinspection GroovyConstructorNamedArguments
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    compileSdk 35
+    compileSdk = 35
 
     defaultConfig {
-        applicationId "com.best.deskclock"
-        minSdk 23
-        targetSdk 35
-        versionCode 2021
-        versionName '2.18'
+        applicationId = "com.best.deskclock"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 2022
+        versionName = '2.19'
         ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+            abiFilters = ['armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64']
         }
     }
 
@@ -36,20 +37,20 @@ android {
 
     buildTypes {
         release {
-            debuggable false
+            debuggable = false
             manifestPlaceholders = [appName: "@string/app_label"]
             if (keystorePropertiesFile.exists()) {
-                signingConfig signingConfigs.findByName("release")
+                signingConfig = signingConfigs.findByName("release")
             } else {
-                signingConfig null
+                signingConfig = null
             }
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        debug  {
+        debug {
             manifestPlaceholders = [appName: "@string/app_label_debug"]
-            versionNameSuffix "-debug"
-            applicationIdSuffix ".debug"
+            versionNameSuffix = "-debug"
+            applicationIdSuffix = ".debug"
         }
     }
 
@@ -57,17 +58,17 @@ android {
         variant.outputs.configureEach { output ->
             def suffix = variant.buildType.versionNameSuffix ?:
                     keystorePropertiesFile.exists() ? "-release" : "-unsigned"
-            output.outputFileName = "Clock_${defaultConfig.versionName}${suffix}.apk"
+            outputFileName = "Clock_${defaultConfig.versionName}${suffix}.apk"
         }
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError = false
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
@@ -79,9 +80,9 @@ android {
         includeInBundle = false
     }
 
-    ndkVersion '27.2.12479018'
+    ndkVersion = '27.2.12479018'
 
-    namespace 'com.best.deskclock'
+    namespace = 'com.best.deskclock'
 }
 
 dependencies {

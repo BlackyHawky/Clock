@@ -609,7 +609,7 @@
     <string name="alarm_settings_general_summary">Це налаштування можна змінити для кожного будильника в розгорнутому перегляді будильника</string>
     <string name="delete_occasional_alarm_after_use_title">Видалити будильник після вимкнення</string>
     <string name="occasional_alarm_alert_predismiss_title">Наступний нерегулярний будильник</string>
-    <string name="occasional_alarm_deleted">Нерегулярний будильник видалено</string>
+    <string name="occasional_alarm_deleted">Нерегулярний будильник <xliff:g example="14:20" id="alarm_time">%s</xliff:g> видалено</string>
     <string name="backup_restore_title">Резервне копіювання та відновлення</string>
     <string name="backup_restore_dialog_message">Бажаєте створити резервну копію чи відновити дані додатка?</string>
     <string name="backup_button_title">Створити</string>
@@ -700,4 +700,6 @@
     <string name="description_dismiss_button_for_occasional_alarm">Натисніть, щоб вимкнути і видалити будильник</string>
     <string name="display_next_alarm_title">Показувати наступний будильник у віджеті</string>
     <string name="ringtone_title_color">Колір назви мелодії сигналу</string>
+    <string name="settings_language_chinese_traditional_tw">Китайська (традиційна, Тайвань)</string>
+    <string name="alarm_is_dismissed_and_deleted">Будильник <xliff:g example="14:20" id="alarm_time">%s</xliff:g> вимкнено і видалено</string>
 </resources>

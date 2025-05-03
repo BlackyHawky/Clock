@@ -45,7 +45,7 @@
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Répétition jusqu\'à <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarme imminente"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Votre alarme manquée a été supprimée."</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">Votre alarme manquée a été supprimée</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Dans moins d\'une minute"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
@@ -142,7 +142,7 @@
     <string name="alarm_display_customization_title">Personnaliser l\'affichage de l\'alarme</string>
     <string name="alarm_title_color">Couleur du titre de l\'alarme</string>
     <string name="snooze_button_color">Couleur du bouton \"Répéter\"</string>
-    <string name="dismiss_button_color">Couleur du bouton \"Ignorer\"</string>
+    <string name="dismiss_button_color">Couleur du bouton \"Arrêter\"</string>
     <string name="alarm_button_color">Couleur du bouton d\'alarme</string>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Augmenter le volume progressivement"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter l\'alarme après"</string>
@@ -209,7 +209,7 @@
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"La sonnerie d\'alarme par défaut est silencieuse."</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Modifier"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"L\'appareil est défini sur \"Aucune interruption\"."</string>
-    <string name="swipe_action_title">Glisser pour répéter ou arrêter les alarmes</string>
+    <string name="swipe_action_title">Glisser pour arrêter ou répéter les alarmes</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string name="button_action_snooze">Répéter</string>
     <string name="button_action_dismiss">Arrêter</string>
@@ -405,7 +405,7 @@
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions issues des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions issues des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Glisser vers la gauche pour répéter ou vers la droite pour arrêter"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">Glisser vers la gauche pour répéter ou vers la droite pour arrêter</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter</string>
     <string name="timer_settings" msgid="7955522143086154795">"Minuteurs"</string>
     <string name="timer_settings_summary">Définit la sonnerie par défaut, le volume et le tri des minuteurs</string>
@@ -462,11 +462,11 @@
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Heure non valide <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Aucune alarme définie à <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>."</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Aucune alarme n\'est programmée."</string>
-    <string name="no_label_specified" msgid="2008482054428460626">"Aucun libellé spécifié."</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">Aucune alarme n\'est programmée</string>
+    <string name="no_label_specified" msgid="2008482054428460626">Aucun libellé spécifié</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Aucune alarme ne comporte le libellé"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Aucune alarme n\'est programmée à cette heure."</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"L\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> a été ignorée."</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">L\'alarme de <xliff:g id="alarm_time">%s</xliff:g> a été ignorée</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarme à <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="timer_created" msgid="4381027137335885547">"Le minuteur a bien été créé."</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
@@ -476,7 +476,7 @@
     <string name="invalid_timer_length" msgid="3104567893212932487">"Durée de minuteur incorrecte."</string>
     <string name="invalid_timer" msgid="900957020728335675">"Minuteur non valide sélectionné"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Aucun minuteur expiré"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Impossible d\'arrêter l\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> pour le moment, car celle-ci est prévue pour dans plus de 24 heures.</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">Impossible d\'arrêter l\'alarme de <xliff:g id="ALARM_TIME">%s</xliff:g> pour le moment, car celle-ci est prévue pour dans plus de 24 heures.</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">Arrêter l\'alarme</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Veuillez sélectionner l\'alarme que vous souhaitez arrêter</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Aucune alarme n\'a été déclenchée."</string>
@@ -595,7 +595,7 @@
     <string name="description_direction_both_for_occasional_alarm">Glisser vers la gauche pour répéter ou vers la droite pour arrêter et supprimer l\'alarme</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Glisser vers la gauche ou la droite pour arrêter et supprimer l\'alarme</string>
     <string name="occasional_alarm_alert_predismiss_title">Alarme occasionnelle imminente</string>
-    <string name="occasional_alarm_deleted">Alarme occasionnelle supprimée</string>
+    <string name="occasional_alarm_deleted">Alarme occasionnelle de <xliff:g example="14:20" id="alarm_time">%s</xliff:g> supprimée</string>
     <string name="backup_restore_title">Sauvegarde &amp; Restauration</string>
     <string name="backup_restore_dialog_message">Voulez-vous sauvegarder ou restaurer les données de l\'application ?</string>
     <string name="backup_button_title">Sauvegarder</string>
@@ -680,10 +680,12 @@
     <string name="settings_keep_screen_on_summary">Remarque : l\'écran sera toujours allumé si un minuteur ou un chronomètre est en cours d\'exécution et que l\'onglet correspondant est affiché, quel que soit l\'état de ce paramètre</string>
     <string name="slide_zone_color_title">Couleur de la zone de glissement</string>
     <string name="snooze_title_color">Couleur du titre \"Répéter\"</string>
-    <string name="dismiss_title_color">Couleur du titre \"Ignorer\"</string>
+    <string name="dismiss_title_color">Couleur du titre \"Arrêter\"</string>
     <string name="ringtone_title_color">Couleur du titre de la sonnerie</string>
     <string name="description_snooze_button">Cliquer pour répéter l\'alarme</string>
-    <string name="description_dismiss_button">Cliquer pour ignorer l\'alarme</string>
-    <string name="description_dismiss_button_for_occasional_alarm">Cliquer pour ignorer et supprimer l\'alarme</string>
+    <string name="description_dismiss_button">Cliquer pour arrêter l\'alarme</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Cliquer pour arrêter et supprimer l\'alarme</string>
     <string name="display_next_alarm_title">Afficher la prochaine alarme sur le widget</string>
+    <string name="settings_language_chinese_traditional_tw">Chinois (traditionnel, Taïwan)</string>
+    <string name="alarm_is_dismissed_and_deleted">L\'alarme de <xliff:g example="14:20" id="alarm_time">%s</xliff:g> a été ignorée et supprimée</string>
 </resources>

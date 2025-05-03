@@ -48,13 +48,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"還剩下"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"還剩下"</string>
     <string name="alarm_confirmation_toast_1">"已將鬧鐘設定在 1 分鐘內啟動。"</string>
-    <string name="alarm_confirmation_toast_2">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_3">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_4">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>又 <xliff:g id="HOURS">%2$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_5">"已將鬧鐘設定在 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_6">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_7">"已將鬧鐘設定在 <xliff:g id="HOURS">%2$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</string>
-    <string name="alarm_confirmation_toast_8">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>又 <xliff:g id="MINUTES">%3$s</xliff:g>後啟動。"</string>
+    <string name="alarm_confirmation_toast_2">鬧鐘已設定為從現在起 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_3">鬧鐘已設定為從現在起 <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_4">鬧鐘已設定為從現在起 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_5">鬧鐘已設定為從現在起 <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_6">鬧鐘已設定為從現在起 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_7">鬧鐘已設定為從現在起 <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>後。</string>
+    <string name="alarm_confirmation_toast_8">鬧鐘已設定為從現在起 <xliff:g example="2 days" id="DAYS">%1$s</xliff:g> <xliff:g example="2 hours" id="HOURS">%2$s</xliff:g> <xliff:g example="2 minutes" id="MINUTES">%3$s</xliff:g>後。</string>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
         <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> 天</item>
     </plurals>
@@ -460,7 +460,7 @@
     <string name="alarm_notification_reminder_4_hours">4 小時前</string>
     <string name="settings_language_turkish">土耳其</string>
     <string name="enable_snoozed_or_dismissed_alarm_vibrations_title">延後或關閉鬧鐘時震動</string>
-    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">延後鬧鐘時震動兩次\n關閉鬧鐘時震動一次</string>
+    <string name="enable_snoozed_or_dismissed_alarm_vibrations_summary">延後鬧鐘時震動兩次，關閉鬧鐘時震動一次</string>
     <string name="turn_on_back_flash_for_triggered_alarm_title">鬧鐘鈴響時啟用後置閃光燈</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">啟用自動刪除誤設鬧鐘</string>
     <string name="alarm_settings_general_summary">您可展開鬧鐘面板並各別設定</string>
@@ -468,7 +468,7 @@
     <string name="timer_label_box_title">計時器名稱</string>
     <string name="timer_button_time_warning_box_title">數值無效</string>
     <string name="warning_dialog_title">刪除計時器</string>
-    <string name="occasional_alarm_deleted">已刪除誤設鬧鐘</string>
+    <string name="occasional_alarm_deleted">已刪除誤設鬧鐘「<xliff:g example="14:20" id="alarm_time">%s</xliff:g>」</string>
     <string name="first_launch_main_feature_title">主要功能</string>
     <string name="firing_alarms_timers_channel">配置鬧鐘與計時器</string>
     <string name="reset_settings_title">重設</string>
@@ -485,7 +485,7 @@
     <string name="timer_button_time_box_title">將分鐘加入至計時器</string>
     <string name="screensaver_clock_dynamic_colors_title">動態時間色彩</string>
     <string name="toast_message_for_reset">重設完成</string>
-    <string name="alarm_settings_summary">設定預設鈴聲、音量、延後及關閉鬧鐘動作，每週起始日和提醒時間</string>
+    <string name="alarm_settings_summary">設定樣式、預設鈴聲、音量、延後及關閉鬧鐘動作，每週起始日和提醒時間</string>
     <string name="display_warning_before_deleting_timer_title">刪除計時器前警告</string>
     <string name="digital_widget_clock_custom_color_title">自訂主時鐘色彩</string>
     <string name="denied_permission_label">權限遭拒</string>
@@ -513,7 +513,7 @@
     <string name="seconds_hand_color_title">秒針色彩</string>
     <string name="sort_timer_manually">手動 (拖曳)</string>
     <string name="settings_language_german">德文</string>
-    <string name="settings_language_chinese_simplified_cn">簡體中文</string>
+    <string name="settings_language_chinese_simplified_cn">中文 (簡體，中國)</string>
     <string name="settings_language_english_us">英文</string>
     <string name="settings_language_dutch">荷蘭</string>
     <string name="clock_style_spinner">下拉式選單</string>
@@ -523,7 +523,7 @@
     <string name="backup_restore_summary">備份或還原應用程式資料 (不含自訂鈴聲)</string>
     <string name="default_time_to_add_to_timer_2_hours">2 小時</string>
     <string name="warning_dialog_message">您要刪除計時器「%s」嗎？</string>
-    <string name="screensaver_settings_summary">設定螢幕保護程式樣式、色彩及字型</string>
+    <string name="screensaver_settings_summary">設定螢幕保護程式外觀、色彩及字型</string>
     <string name="screensaver_preview_summary">立即啟動螢幕保護程式</string>
     <string name="alarm_notification_reminder_6_hours">6 小時前</string>
     <string name="alarm_notification_reminder_8_hours">8 小時前</string>
@@ -569,14 +569,14 @@
     <string name="settings_keep_screen_on_title">保持螢幕開啟</string>
     <string name="sw_start_pause_action">開始 / 暫停</string>
     <string name="next_alarm_widget_text">下個鬧鐘</string>
-    <string name="settings_permission_message">存取遭拒。\n如果不授予權限，將無法正常運作。</string>
+    <string name="settings_permission_message">多項存取遭拒，若不授予權限將無法正常運作。</string>
     <string name="settings_keep_screen_on_summary">請注意：當計時器或碼表正在執行並停留於相應頁面時，螢幕不會進入休眠，不受這個選項影響</string>
     <string name="description_direction_both_for_occasional_alarm">向左滑動延後或向右滑動關閉並刪除鬧鐘</string>
     <string name="widgets_settings_summary">設定小工具樣式、色彩與字型</string>
     <string name="FSN_dialog_text">Android 14 以上必須授予「全螢幕通知」權限，才能在休眠狀態啟動鬧鐘。</string>
     <string name="first_launch_important_info_message">您必須&lt;b&gt;變更部分裝置設定&lt;/b&gt;，才能使應用程式正常運作。&lt;br&gt; &lt;br&gt; • &lt;b&gt;電池效能最佳化&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;通知&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;部分內容可能有所變化 (例如通知)，依您裝置的 Android 版本而定。&lt;/i&gt; &lt;br&gt; &lt;br&gt; 您可立即變更或稍後前往權限管理頁面：</string>
-    <string name="snooze_button_color">延後按鍵色彩</string>
-    <string name="dismiss_button_color">關閉按鍵色彩</string>
+    <string name="snooze_button_color">「延後」按鍵色彩</string>
+    <string name="dismiss_button_color">「關閉」按鍵色彩</string>
     <string name="alarm_button_color">鬧鐘按鍵色彩</string>
     <string name="alarm_clock_font_size">鬧鐘時間大小</string>
     <string name="screensaver_bold_digital_clock_title">粗體數位時鐘</string>
@@ -627,7 +627,7 @@
     <string name="about_translate_link">Codeberg 翻譯</string>
     <string name="translate_dialog_message">造訪 Codeberg 頁面：\n\n%s</string>
     <string name="description_direction_both_for_non_repeatable_alarm">向左或向右滑動關閉</string>
-    <string name="about_dialog_message">• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
+    <string name="about_dialog_message">• 翻轉或搖動裝置以關閉 / 延後鬧鐘\n\n• 按下電源鍵或音量鍵以關閉 / 延後鬧鐘\n• 關機狀態觸發鬧鐘，僅支援部分搭載 Snapdragon 處理器的裝置\n\t\t 請注意，這項功能在某些預裝<i>「com.qualcomm.qti.poweroffalarm」</i> 系統元件的裝置上仍有可能無法運作。\n\n• 滑動刪除鬧鐘\n\n• 複製鬧鐘\n\n• 自訂鬧鐘標題\n\n• 自訂鈴聲\n\n• 淺色、深色及系統主題\n\n• AMOLED 螢幕專用深色模式\n\n• 數位及類比時鐘樣式\n\n• 旅行時主頁顯示當地時間\n\n• 顯示世界多個城市時間\n\n• 計時器與碼表\n\n• 與您的聯絡人分享碼表\n\n• 自訂螢幕保護程式\n\n• 現代小工具\n\n• 自訂小工具\n\n• 快速設定方塊 (Android 7 以上)\n\n• 備份與還原資料 (不含自訂鈴聲)\n\n• Material 外觀\n\n• 動態色彩樣式 (Android 12 以上)</string>
     <string name="timer_volume_buttons_action_title">音量鍵重設到期的計時器</string>
     <string name="timer_flip_action_title">翻轉裝置停止鬧鐘</string>
     <string name="timer_shake_action_title">搖動裝置停止鬧鐘</string>
@@ -650,4 +650,14 @@
     <string name="ignore_battery_optimizations_dialog_text">Android 系統預設為所有已安裝的應用程式套用最佳化以節省電力。\n\n這對多數應用程式有所助益，但對於仰賴通知的鬧鐘容易造成問題。\n最佳化將使系統能夠隨時停止處理程序或取消通知，使相關功能無法發揮作用。\n\n我們建議將本應用程式加入電池效能最佳化白名單。</string>
     <string name="styles_and_colors_category_title">色彩與樣式</string>
     <string name="blue_gray_accent_color">藍灰色</string>
+    <string name="slide_zone_color_title">滑動區域色彩</string>
+    <string name="snooze_title_color">「延後」標題色彩</string>
+    <string name="dismiss_title_color">「關閉」標題色彩</string>
+    <string name="ringtone_title_color">鈴聲標題色彩</string>
+    <string name="display_next_alarm_title">小工具顯示下個鬧鐘</string>
+    <string name="settings_language_chinese_traditional_tw">中文 (正體，台灣)</string>
+    <string name="description_dismiss_button">輕觸即可關閉鬧鐘</string>
+    <string name="description_dismiss_button_for_occasional_alarm">輕觸即可關閉並刪除鬧鐘</string>
+    <string name="description_snooze_button">輕觸即可延後鬧鐘</string>
+    <string name="alarm_is_dismissed_and_deleted">已關閉並刪除誤設鬧鐘「<xliff:g example="14:20" id="alarm_time">%s</xliff:g>」</string>
 </resources>

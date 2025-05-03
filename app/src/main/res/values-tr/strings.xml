@@ -637,7 +637,7 @@
     <string name="screensaver_bold_date_title">Kalın tarih</string>
     <string name="screensaver_italic_date_title">İtalik tarih</string>
     <string name="screensaver_italic_next_alarm_title">İtalik sonraki alarm</string>
-    <string name="occasional_alarm_deleted">Etkinlik alarmı silindi</string>
+    <string name="occasional_alarm_deleted">Zaman zaman kullanılan <xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarmı silindi</string>
     <string name="about_dialog_message">• Alarmı kapatmak/ertelemek için ters çevir ve salla hareketi; \n\n• Güç butonu veya ses butonlarıyla alarmı kapat/ertele; \n\n• Sadece bazı Snapdragon işlemcili cihazlarda alarmlar kapatıldığında çalar; \n\t\t Maalesef bu özellik <i>\"com.qualcomm.qti.poweroffalarm\"</i> sistem uygulaması olmasına rağmen bazı cihazlarda çalışmayabilir. \n\n• Alarm silmek için kaydır; \n\n• Alarmları çoğalt; \n\n• Alarm başlığını özelleştir; \n\n• Özelleştirilebilir zil sesi; \n\n• Aydınlık, karanlık veya sistem teması; \n\n• Karanlık team için AMOLED modu; \n\n• Dijital veya analog saat stili; \n\n• Seyahat ederken ev saatini göster; \n\n• Dünya şehirlerinin saatlerini göster; \n\n• Zamanlayıcı ve kronometre dahil edildi; \n\n• Kronometrenizi rehberinizle paylaşma imkanı; \n\n• Özelleştirilebilir ekran koruyucu; \n\n• Modern widget\'lar; \n\n• Özelleştirilebilir widget\'lar; \n\n• Hızlı ayarlarda kutucuk desteği (Android 7+ için); \n\n• Uygulama verilerini yedekleme ve geri yükleme (özel zil sesleri hariç)\n\n• Material tasarım; \n\n• Android 12+ için dinamik renkler;</string>
     <string name="screensaver_bold_next_alarm_title">Kalın sonraki alarm</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Etkinlik alarmlarının otomatik silinmesini varsayılan olarak etkinleştir</string>
@@ -668,4 +668,6 @@
     <string name="description_dismiss_button_for_occasional_alarm">Alarmı kapatmak ve silmek için tıklayın</string>
     <string name="display_next_alarm_title">Widget\'taki bir sonraki alarmı görüntüle</string>
     <string name="description_snooze_button">Alarmı ertelemek için tıklayın</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarmı susturuldu ve silindi</string>
+    <string name="settings_language_chinese_traditional_tw">Çince (geleneksel, Tayvan)</string>
 </resources>

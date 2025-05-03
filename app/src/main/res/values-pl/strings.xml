@@ -418,7 +418,7 @@
     <string name="alarm_created">Alarm utworzony</string>
     <string name="transparent_background_for_expired_timer_title">Przezroczyste tło po wygaśnięciu minutników</string>
     <string name="alarm_alert_dismiss_and_delete_text">Odrzuć i usuń</string>
-    <string name="snooze_button_color">Kolor przycisku Drzemka</string>
+    <string name="snooze_button_color">Kolor przycisku \"Drzemka\"</string>
     <string name="alarm_title_color">Kolor tytułu alarmu</string>
     <string name="alarm_settings_general_summary">Ustawienie to można zmienić dla każdego alarmu w rozszerzonym widoku alarmów</string>
     <string name="auto_silence_5_seconds">5 sekund</string>
@@ -474,7 +474,7 @@
     <string name="widgets_settings_summary">Ustaw styl, kolory i rozmiar czcionki widżetów</string>
     <string name="revoke_permission_dialog_message">Czy na pewno chcesz cofnąć to pozwolenie?</string>
     <string name="alarm_display_customization_title">Dostosuj wyświetlanie alarmu</string>
-    <string name="dismiss_button_color">Kolor przycisku Odrzuć</string>
+    <string name="dismiss_button_color">Kolor przycisku \"Odrzuć\"</string>
     <string name="alarm_button_color">Kolor przycisku Alarm</string>
     <string name="power_button_title">Przycisk zasilania</string>
     <string name="FSN_dialog_title">Powiadomienia pełnoekranowe</string>
@@ -509,7 +509,7 @@
     <string name="alarm_clock_font_size">Rozmiar czcionki alarmu</string>
     <string name="alarm_title_font_size">Rozmiar czcionki tytułu alarmu</string>
     <string name="screensaver_daydream_settings">Wybór/włączenie wygaszacza ekranu</string>
-    <string name="alarm_settings_summary">Ustaw domyślny dźwięk dzwonka, głośność, akcje odrzucania lub drzemki alarmów, pierwszy dzień tygodnia i godzinę powiadomienia o przypomnieniu</string>
+    <string name="alarm_settings_summary">Ustaw styl, domyślny dźwięk dzwonka, głośność, akcje odrzucania lub drzemki alarmów, pierwszy dzień tygodnia i godzinę powiadomienia o przypomnieniu</string>
     <string name="swipe_action_title">Przesuń, aby odrzucić lub wyciszyć alarmy</string>
     <string name="version_text">Wersja <xliff:g id="VERSION_NUMBER" example="1.0">%1$s</xliff:g></string>
     <string name="first_launch_version">Wersja %s</string>
@@ -526,11 +526,11 @@
     <string name="screensaver_brightness_title">Jasność</string>
     <string name="screensaver_clock_dynamic_colors_title">Dynamiczne kolory zegara</string>
     <string name="clock_color_title">Kolor zegara</string>
-    <string name="screensaver_italic_date_title">Pochylona data</string>
-    <string name="screensaver_italic_digital_clock_title">Pochylona godzina</string>
+    <string name="screensaver_italic_date_title">Data pochylona</string>
+    <string name="screensaver_italic_digital_clock_title">Zegar cyfrowy pochylony</string>
     <string name="seconds_hand_color_title">Kolor wskazówki sekundnika</string>
-    <string name="screensaver_bold_date_title">Pogrubiona data</string>
-    <string name="screensaver_bold_digital_clock_title">Pogrubiona godzina</string>
+    <string name="screensaver_bold_date_title">Data pogrubiona</string>
+    <string name="screensaver_bold_digital_clock_title">Zegar cyfrowy pogrubiony</string>
     <string name="first_launch_main_feature_link">… i wiele więcej!</string>
     <string name="first_launch_important_info_title">WAŻNE INFORMACJE</string>
     <string name="first_launch_important_info_message">Aby aplikacja działała prawidłowo, &lt;b&gt;należy zmienić niektóre ustawienia urządzenia:&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;OPTYMALIZACJA BATERII;&lt;/b&gt; &lt;br&gt; &lt;br&gt; • &lt;b&gt;POWIADOMIENIA;&lt;/b&gt; &lt;br&gt; &lt;br&gt; %s &lt;i&gt;W zależności od wersji systemu Android na urządzeniu niektóre z tych ustawień są już zoptymalizowane (np. powiadomienia).&lt;/i&gt; &lt;br&gt; &lt;br&gt; Możesz je zmienić teraz lub później w ustawieniach zarządzania uprawnieniami:</string>
@@ -571,7 +571,7 @@
     <string name="timer_settings_summary">Ustaw domyślny dzwonek, głośność i sortowanie minutnika</string>
     <string name="default_time_to_add_to_timer_2_minutes">2 minuty</string>
     <string name="first_launch_dialog_message">Czy na pewno chcesz wyjść z aplikacji?</string>
-    <string name="occasional_alarm_deleted">Okazjonalny alarm usunięty</string>
+    <string name="occasional_alarm_deleted">Okazjonalny alarm <xliff:g example="14:20" id="alarm_time">%s</xliff:g> usunięty</string>
     <string name="material_you_digital_widget">Zegar cyfrowy Material You</string>
     <string name="analog_widget_material_you">Zegar analogowy Material You</string>
     <string name="vertical_digital_widget">Zegar cyfrowy pionowy</string>
@@ -582,9 +582,9 @@
     <string name="material_you_next_alarm_widget">Następny alarm Material You</string>
     <string name="alarm_upcoming_channel">Nadchodzące alarmy</string>
     <string name="stopwatch_channel">Stoper</string>
-    <string name="screensaver_bold_next_alarm_title">Pogrubiona informacja o nadchodzącym alarmie</string>
+    <string name="screensaver_bold_next_alarm_title">Następny alarm pogrubiony</string>
     <string name="settings_fade_transitions_title">Włącz przejścia podczas przełączania ekranów</string>
-    <string name="screensaver_italic_next_alarm_title">Pochylona informacja o nadchodzącym alarmie</string>
+    <string name="screensaver_italic_next_alarm_title">Następny alarm pochylony</string>
     <string name="toast_message_for_backup">Kopia zapasowa zakończona</string>
     <string name="toast_message_for_restore">Przywracanie zakończone</string>
     <string name="alarm_missed_channel">Pominięte alarmy</string>
@@ -680,4 +680,14 @@
     <string name="tab_title_visibility_when_selected">Gdy wybrane</string>
     <string name="settings_keep_screen_on_title">Pozostaw ekran włączony</string>
     <string name="settings_keep_screen_on_summary">Uwaga: Ekran będzie zawsze włączony, jeśli uruchomiony jest minutnik lub stoper i wyświetlana jest odpowiednia karta, niezależnie od stanu tego ustawienia</string>
+    <string name="slide_zone_color_title">Kolor strefy slajdu</string>
+    <string name="dismiss_title_color">Kolor tytułu „Odrzuć”</string>
+    <string name="ringtone_title_color">Kolor tytułu dzwonka</string>
+    <string name="description_snooze_button">Kliknij, aby uśpić alarm</string>
+    <string name="description_dismiss_button">Kliknij, aby odrzucić alarm</string>
+    <string name="display_next_alarm_title">Wyświetl następny alarm na widżecie</string>
+    <string name="snooze_title_color">Kolor tytułu „Drzemka”</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Kliknij, aby odrzucić i usunąć alarm</string>
+    <string name="settings_language_chinese_traditional_tw">Chiński (tradycyjny, Tajwan)</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> alarm odrzucony i usunięty</string>
 </resources>

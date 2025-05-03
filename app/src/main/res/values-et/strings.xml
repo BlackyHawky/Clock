@@ -353,7 +353,7 @@
     <string name="no_label_specified" msgid="2008482054428460626">"Silti pole määratud"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">Ühelgi äratusel pole seda silti</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">Selleks kellaajaks ei ole äratust määratud</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">Äratusest kellaajaks <xliff:g id="ALARM_TIME">%s</xliff:g> loobuti</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">Äratusest kellaajast <xliff:g id="ALARM_TIME">%s</xliff:g> loobuti</string>
     <string name="alarm_is_set" msgid="5503226382620011088">Äratus on seatud – <xliff:g id="ALARM_TIME">%s</xliff:g></string>
     <string name="timer_created" msgid="4381027137335885547">"Taimer on loodud"</string>
     <plurals name="expired_timers_dismissed" formatted="false" msgid="1294953410988488149">
@@ -589,7 +589,7 @@
     <string name="delete_occasional_alarm_after_use_title">Kustuta äratus peale loobumist</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">Vaikimisi kasuta juhuslike äratuste automaatset kustutamist</string>
     <string name="occasional_alarm_alert_predismiss_title">Tulevane juhuäratus</string>
-    <string name="occasional_alarm_deleted">Juhuäratus on kustutatud</string>
+    <string name="occasional_alarm_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> juhuäratus on kustutatud</string>
     <string name="backup_restore_dialog_message">Kas sa soovid rakenduse andmeid varundada faili või neid taastada sealt?</string>
     <string name="backup_button_title">Varunda</string>
     <string name="restore_button_title">Taasta</string>
@@ -680,4 +680,6 @@
     <string name="description_dismiss_button_for_occasional_alarm">Klõpsi äratusest loobumiseks ja tema kustutamiseks</string>
     <string name="display_next_alarm_title">Näita vidinas järgmist äratust</string>
     <string name="snooze_title_color">„Lükka edasi“ nupu pealkiri</string>
+    <string name="settings_language_chinese_traditional_tw">hiina keel (traditsiooniline, Taivan)</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> äratusest on loobutud ja ta on kustutatud</string>
 </resources>

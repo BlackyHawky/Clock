@@ -21,7 +21,7 @@
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Časovač vypršel"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Zítra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Dnes"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Zrušit</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">Konec</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%1$s</xliff:g> – <xliff:g id="ALARM_LABEL">%2$s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Odloženo"</string>
@@ -172,7 +172,7 @@
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Zařízení je nastaveno na úplné ticho"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačítka hlasitosti"</string>
     <string name="button_action_snooze">Odložit zvonění</string>
-    <string name="button_action_dismiss">Zrušit</string>
+    <string name="button_action_dismiss">Konec</string>
     <string name="button_action_control_volume">Ovládání hlasitosti</string>
     <string name="button_action_nothing">Nedělat nic</string>
     <string name="label_description" msgid="8736179296142915727">"Štítek"</string>
@@ -384,8 +384,8 @@
     <string name="invalid_timer" msgid="900957020728335675">"Byl vybrán neplatný časovač"</string>
     <string name="no_expired_timers" msgid="4624192298397846876">"Žádné uplynulé časovače"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> zatím nelze zrušit, protože do jeho aktivování zbývá více než 24 hodin"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Zrušit budík"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Vyberte, který budík chcete zrušit</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">Ukončit budík</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">Vyberte, který budík chcete ukončit</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Žádné zvonící budíky"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> byl odložen o 10 minut"</string>
     <string name="flip_action_title">Akce při otočení zařízení</string>
@@ -396,7 +396,7 @@
     <string name="alarm_upcoming_channel">Nadcházející budíky</string>
     <string name="stopwatch_channel">Stopky</string>
     <string name="timer_channel">Časovač</string>
-    <string name="alarm_alert_dismiss_and_delete_text">Zrušit a smazat</string>
+    <string name="alarm_alert_dismiss_and_delete_text">Ukončit a smazat</string>
     <string name="alarm_alert_off_and_deleted_text">Alarm vypnut a vymazán</string>
     <string name="standard_category_title">Standardní</string>
     <string name="black_accent_color">Černá</string>
@@ -411,7 +411,7 @@
     <string name="font_category_title">Font</string>
     <string name="more_options">Více možností</string>
     <string name="red_accent_color">Červená</string>
-    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Zrušit budík po jeho ukončení</string>
+    <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Ukončit budík po skončení vyzvánění</string>
     <string name="enable_alarm_snooze_actions_label">Povolit odložení budíku</string>
     <string name="alarm_label_box_title">Štítek budíku</string>
     <string name="ringtone_category_title">Vyzvánění</string>
@@ -563,7 +563,7 @@
     <string name="last_tab_used_title">Naposledy použitá karta</string>
     <string name="alarm_settings_general_summary">Toto nastavení lze změnit u každého budíku v rozbaleném zobrazení budíku</string>
     <string name="alarm_title_color">Barva názvu budíku</string>
-    <string name="dismiss_button_color">Barva tlačítka „Zrušit“</string>
+    <string name="dismiss_button_color">Barva tlačítka „Konec“</string>
     <string name="alarm_button_color">Barva tlačítka budíku</string>
     <string name="alarm_clock_font_size">Velikost písma hodin budíku</string>
     <string name="timer_shake_action_title">Zatřeste zařízením pro zastavení budíku</string>
@@ -658,7 +658,7 @@
     <string name="about_translate_link">Přeložit na Codebergu</string>
     <string name="translate_dialog_message">Navštivte stránku na Codebergu:\n\n%s</string>
     <string name="license_dialog_message">Přečtěte si licenci:\n\n%s</string>
-    <string name="occasional_alarm_deleted">Příležitostný budík odstraněn</string>
+    <string name="occasional_alarm_deleted">Příležitostný budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> odstraněn</string>
     <string name="sort_timer_name">Podle názvu</string>
     <string name="digital_widget_custom_hours_color_title">Vlastní barva hodin</string>
     <string name="next_alarm_widget_title_no_alarm">Žádný nadcházející budík</string>
@@ -686,6 +686,8 @@
     <string name="description_snooze_button">Klepněte pro odložení budíku</string>
     <string name="description_dismiss_button">Klepněte pro zrušení budíku</string>
     <string name="description_dismiss_button_for_occasional_alarm">Klepněte pro zrušení a odstranění budíku</string>
-    <string name="dismiss_title_color">Barva názvu „Zrušit“</string>
+    <string name="dismiss_title_color">Barva názvu „Konec“</string>
     <string name="display_next_alarm_title">Zobrazit další budík ve widgetu</string>
+    <string name="settings_language_chinese_traditional_tw">Čínština (tradiční, Tchaj-wan)</string>
+    <string name="alarm_is_dismissed_and_deleted">Budík v <xliff:g example="14:20" id="alarm_time">%s</xliff:g> zrušen a odstraněn</string>
 </resources>

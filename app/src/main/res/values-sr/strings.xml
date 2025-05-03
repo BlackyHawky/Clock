@@ -383,10 +383,10 @@
     <string name="title_accent_color">Акцент боја</string>
     <string name="title_dark_theme_mode">Тамни режим теме</string>
     <string name="about_title">О</string>
-    <string name="screensaver_italic_digital_clock_title">Коси дигитални сат</string>
-    <string name="screensaver_bold_date_title">Подебљани датум</string>
-    <string name="screensaver_bold_next_alarm_title">Подебљани следећи аларм</string>
-    <string name="screensaver_italic_date_title">Коси датум</string>
+    <string name="screensaver_italic_digital_clock_title">Дигитални сат у италику</string>
+    <string name="screensaver_bold_date_title">Датум у подебљаном</string>
+    <string name="screensaver_bold_next_alarm_title">Следећи аларм у подебљаном</string>
+    <string name="screensaver_italic_date_title">Датум у италику</string>
     <string name="more_options">Више опција</string>
     <string name="dialog_close">Затвори</string>
     <string name="settings_permission_message">Једна или више основних дозвола није одобрена. Неодобравање може довести до неправилности у раду.</string>
@@ -407,7 +407,7 @@
     <string name="about_github_link">Погледај на GitHub-у</string>
     <string name="gnu_gpl">GNU Генерална Јавна Лиценца v3.0</string>
     <string name="contributors">Доприносиоци</string>
-    <string name="screensaver_settings_summary">Поставите стил, боју и фонт чувара екрана</string>
+    <string name="screensaver_settings_summary">Поставити стил, боју и фонт чувара екрана</string>
     <string name="screensaver_daydream_settings">Изаберите/омогућите чувар екрана</string>
     <string name="settings_vibration_title">Омогућити вибрације</string>
     <string name="settings_vibration_summary">Само нека дугмад интерфејса су погођена (нпр.: дугме за пуштање/паузу тајмера или прекидачи)</string>
@@ -419,8 +419,8 @@
     <string name="display_background_border_title">Приказ граница позадине</string>
     <string name="display_background_border_summary">Приказује границу позадине за неке елементе апликације (аларми, градови, дугме за тајмер, итд.)</string>
     <string name="about_dialog_message">• Окрените и протресите уређај да одложите/одбијете аларм; \n\n• Искључите/одложите аларм помоћу дугмета за напајање или дугмета за јачину звука; \n\n• За неке Snapdragon уређаје, аларм се активира када су они искључени; \n\t\t Нажалост, ова функција можда не ради на неким уређајима упркос присуству <i>\"com.qualcomm.qti.poweroffalarm\"</i> системске апликације. \n\n• Превуците да обришете аларм; \n\n• Дуплирајте аларме; \n\n• Прилагодите наслов аларма; \n\n• Прилагођена мелодија; \n\n• Светла, тамна или системска тема; \n\n• AMOLED режим за тамну тему; \n\n• Дигитални или аналогни стил сата; \n\n• Приказујте локално време када путујете; \n\n• Приказујте време у многим градовима широм света; \n\n• Тајмер и штоперицу укључени; \n\n• Могућност да делите вашу штоперицу са вашим контактима; \n\n• Прилагодљив чувар екрана; \n\n• Модерни виџети; \n\n• Прилагодљиви виџети; \n\n• Подршка за плочице у брзим подешавањима (за Android 7+); \n\n• Резервна копија и обнова података апликације (осим прилагођених мелодија); \n\n• Материјални дизајн; \n\n• Динамичне боје за Android 12+;</string>
-    <string name="screensaver_italic_next_alarm_title">Коси следећи аларм</string>
-    <string name="screensaver_bold_digital_clock_title">Подебљани дигитални сат</string>
+    <string name="screensaver_italic_next_alarm_title">Следећи аларм у италику</string>
+    <string name="screensaver_bold_digital_clock_title">Дигитални сат у подебљаном</string>
     <string name="screensaver_clock_dynamic_colors_title">Динамичне боје сата</string>
     <string name="ignore_battery_optimizations_title">ИГНОРИШИ ОПТИМИЗАЦИЈЕ БАТЕРИЈЕ</string>
     <string name="permission_dialog_close_button">Затвори</string>
@@ -429,7 +429,7 @@
     <string name="ignore_battery_optimizations_dialog_title">Оптимизације батерије</string>
     <string name="notifications_permission_title">ОМОГУЋИ ОБАВЕШТЕЊА</string>
     <string name="revoke_permission_dialog_message">Да ли сте сигурни да желите да опозовете ову дозволу?</string>
-    <string name="interface_customization_summary">Поставите стил и боју примењену на апликацију</string>
+    <string name="interface_customization_summary">Поставити стил и боју примењену на апликацију</string>
     <string name="auto_silence_at_the_end_of_the_ringtone">Крај мелодије</string>
     <string name="dismiss_alarm_ringtone_when_ringtone_ends_label">Одбаците аларм када мелодија заврши</string>
     <string name="enable_alarm_snooze_actions_label">Омогућити акције одлагања аларма</string>
@@ -438,7 +438,7 @@
     <string name="digital_widget_default_minutes_color_title">Употреба подразумеване боје за минуте</string>
     <string name="sort_timer_title">Сортирај тајмере</string>
     <string name="permission_highly_recommended">Високо препоручено</string>
-    <string name="alarm_settings_summary">Поставите подразумевану мелодију, јачину звука, акције за одбацивање или одлагање аларма, први дан у недељи и време обавештења подсетника</string>
+    <string name="alarm_settings_summary">Поставити стил, подразумевану мелодију, јачину звука, акције за одбацивање или одлагање аларма, први дан недеље и време обавештења подсетника</string>
     <string name="timer_settings_summary">Поставите подразумевану мелодију, јачину звука и редослед тајмера</string>
     <string name="default_time_to_add_to_timer_title">Подразумевано време за додавање тајмеру</string>
     <string name="alarm_snooze_channel">Одложени аларми</string>
@@ -454,7 +454,7 @@
     <string name="permission_requirement_title">Захтев: </string>
     <string name="firing_alarms_timers_channel">Активирање аларма и тајмера</string>
     <string name="label_default">Подразумевано</string>
-    <string name="dismiss_button_color">Боја дугмета за одбацивање</string>
+    <string name="dismiss_button_color">Боја дугмета \"Одбаци\"</string>
     <string name="snooze_duration_none">Нема</string>
     <string name="clock_settings_summary">Поставите стил, временску зону и промените датум и време уређаја</string>
     <string name="default_time_to_add_to_timer_8_minutes">8 минута</string>
@@ -511,7 +511,7 @@
     <string name="enable_alarm_vibrations_by_default_setting_title">Омогућити вибрације када стварате аларме</string>
     <string name="alarm_display_customization_title">Прилагодите приказ аларма</string>
     <string name="alarm_title_color">Боја наслова аларма</string>
-    <string name="snooze_button_color">Боја дугмета за одлагање</string>
+    <string name="snooze_button_color">Боја дугмета \"Одложи\"</string>
     <string name="alarm_button_color">Боја дугмета аларма</string>
     <string name="auto_silence_5_seconds">5 секунди</string>
     <string name="auto_silence_10_seconds">10 секунди</string>
@@ -538,7 +538,7 @@
     <string name="description_direction_both_for_occasional_alarm">Превуците лево да одложите или десно да одбаците и обришете аларм</string>
     <string name="description_direction_both_for_non_repeatable_alarm">Превуците лево или десно да одбаците</string>
     <string name="description_direction_both_for_occasional_non_repeatable_alarm">Превуците лево или десно да одбаците и обришете аларм</string>
-    <string name="occasional_alarm_deleted">Повремени аларм уклоњен</string>
+    <string name="occasional_alarm_deleted">Повремени <xliff:g example="14:20" id="alarm_time">%s</xliff:g> аларм уклоњен</string>
     <string name="first_launch_dialog_message">Да ли сте сигурни да желите да напустите апликацију?</string>
     <string name="FSN_dialog_text">Од Android 14, да би аларм био активиран када је екран искључен, неопходно је да буде омогућена дозвола \"Обавештења у целом екрану\".</string>
     <string name="digital_widget_date_custom_color_title">Прилагођена боја датума</string>
@@ -661,4 +661,23 @@
     <string name="turn_on_back_flash_for_triggered_alarm_title">Укључите задњу светлост када се аларм активира</string>
     <string name="alarm_flash">Светло</string>
     <string name="permission_info_title">Само за Xiaomi уређаје</string>
+    <string name="alarm_is_dismissed_and_deleted"><xliff:g example="14:20" id="alarm_time">%s</xliff:g> аларм одбачен и уклоњен</string>
+    <string name="display_date_title">Приказати датум на виџету</string>
+    <string name="settings_toolbar_title">Приказати наслов на алатној траци</string>
+    <string name="settings_tab_title_visibility_title">Приказати наслове картица</string>
+    <string name="tab_title_visibility_always">Увек</string>
+    <string name="tab_title_visibility_never">Никада</string>
+    <string name="tab_title_visibility_when_selected">Када је изабрано</string>
+    <string name="settings_language_czech">Чешки</string>
+    <string name="settings_keep_screen_on_title">Држати екран укљученим</string>
+    <string name="settings_keep_screen_on_summary">Пажња: Екран ће увек бити укључен ако је тајмер или штоперица активна и одговарајућа картица је приказана, без обзира на статус овог подешавања</string>
+    <string name="slide_zone_color_title">Боја зоне клизања</string>
+    <string name="snooze_title_color">Боја наслова \"Одложи\"</string>
+    <string name="dismiss_title_color">Боја наслова \"Одбаци\"</string>
+    <string name="ringtone_title_color">Боја наслова мелодије</string>
+    <string name="display_next_alarm_title">Приказати следећи аларм на виџету</string>
+    <string name="settings_language_chinese_traditional_tw">Кинески (традиционални, Тајван)</string>
+    <string name="description_snooze_button">Кликните да одложите аларм</string>
+    <string name="description_dismiss_button">Кликните да одбаците аларм</string>
+    <string name="description_dismiss_button_for_occasional_alarm">Кликните да одбаците и обришете аларм</string>
 </resources>

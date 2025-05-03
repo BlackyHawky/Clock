@@ -621,7 +621,7 @@
     <string name="alarm_created">Alarma creada</string>
     <string name="clock_settings_summary">Definir el estilo, la zona horaria y cambiar la fecha y hora del dispositivo</string>
     <string name="alarm_settings_summary">Configura el tono predeterminado, el volumen, las acciones para descartar o posponer las alarmas, el primer día de la semana y la hora de notificación del recordatorio</string>
-    <string name="occasional_alarm_deleted">Alarma ocasional borrada</string>
+    <string name="occasional_alarm_deleted">Alarma ocasional de las <xliff:g example="14:20" id="alarm_time">%s</xliff:g> borrada</string>
     <string name="permission_denied">Denegado</string>
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_system">Idioma del sistema</string>

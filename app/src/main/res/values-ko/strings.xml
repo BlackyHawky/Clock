@@ -586,7 +586,7 @@
     <string name="first_launch_important_info_message">앱이 정상적으로 작동하려면 &lt;b&gt;기기의 일부 설정을 변경해야 합니다.&lt;/b&gt;&lt;br&gt;&lt;br&gt; • &lt;b&gt;배터리 사용량 최적화&lt;/b&gt;&lt;br&gt; &lt;br&gt; • &lt;b&gt;알림&lt;/b&gt; &lt;br&gt; &lt;br&gt;%s&lt;i&gt;사용 중인 Android 버전에 따라 알림 등 일부 설정은 이미 최적화되어 있을 수 있습니다.&lt;/i&gt;&lt;br&gt;&lt;br&gt;이 설정은 나중에 권한 관리 설정에서도 변경할 수 있습니다.</string>
     <string name="about_translate_link">Codeberg에서 앱 번역</string>
     <string name="translate_dialog_message">Codeberg 페이지를 엽니다.\n\n%s</string>
-    <string name="alarm_settings_summary">기본 벨소리, 볼륨, 알람 해제, 잠시 미루기 설정</string>
+    <string name="alarm_settings_summary">스타일, 기본 벨소리, 볼륨, 알람 해제, 잠시 미루기 설정</string>
     <string name="dialog_close">닫기</string>
     <string name="license">오픈 소스 라이선스</string>
     <string name="alarm_created">알람을 만들었습니다.</string>
@@ -637,7 +637,6 @@
     <string name="sw_long_press_volume_down_action_title">볼륨 아래(길게 눌렀을 때)</string>
     <string name="sw_settings_summary">볼륨 버튼 작업 설정</string>
     <string name="enable_delete_occasional_alarm_by_default_setting_title">일회성 알람 자동 삭제를 기본값으로 켜기</string>
-    <string name="occasional_alarm_deleted">일회성 알람을 삭제했습니다.</string>
     <string name="occasional_alarm_alert_predismiss_title">예정된 일회성 알람</string>
     <string name="default_time_to_add_to_timer_2_hours">2시간</string>
     <string name="settings_language_czech">체코어</string>
@@ -647,4 +646,15 @@
     <string name="tab_title_visibility_when_selected">선택했을 때만</string>
     <string name="settings_keep_screen_on_title">화면 켜짐 유지</string>
     <string name="settings_keep_screen_on_summary">타이머 또는 스톱워치가 실행 중이고 그 탭이 켜져 있는 경우, 이 설정과 관계 없이 화면 켜짐이 유지됩니다.</string>
+    <string name="display_date_title">위젯에 날짜 표시</string>
+    <string name="settings_toolbar_title">도구 모음에 제목 표시</string>
+    <string name="ringtone_title_color">벨소리 제목 색상</string>
+    <string name="settings_language_chinese_traditional_tw">중국어(번체, 대만)</string>
+    <string name="snooze_title_color">잠시 미루기 제목 색상</string>
+    <string name="dismiss_title_color">해제 제목 색상</string>
+    <string name="slide_zone_color_title">스와이프 영역 색상</string>
+    <string name="description_dismiss_button">눌러서 알람 해제</string>
+    <string name="description_dismiss_button_for_occasional_alarm">눌러서 알람 해제 및 삭제</string>
+    <string name="display_next_alarm_title">위젯에 다음 알람 표시</string>
+    <string name="description_snooze_button">눌러서 알람 잠시 미루기</string>
 </resources>
