@@ -22,13 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
 
 import com.best.deskclock.settings.SettingsActivity;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -46,6 +47,8 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
     @Nullable
     private AppBarLayout mAppBarLayout;
+
+    protected CoordinatorLayout mCoordinatorLayout;
 
     /**
      * This method should be implemented by subclasses of CollapsingToolbarBaseActivity
@@ -80,9 +83,14 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         ThemeUtils.allowDisplayCutout(getWindow());
 
         super.setContentView(R.layout.collapsing_toolbar_base_layout);
+
+        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
 
         final String getDarkMode = SettingsDAO.getDarkMode(prefs);
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
@@ -209,16 +217,13 @@ public abstract class CollapsingToolbarBaseActivity extends AppCompatActivity {
      * so that they are not obscured by system elements (status bar, navigation bar or cutout).
      */
     private void applyWindowInsets() {
-        if (mAppBarLayout != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(mAppBarLayout, (v, insets) -> {
-                Insets bars = insets.getInsets(
-                        WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
-                );
-                v.setPadding(bars.left, bars.top, bars.right, 0);
+        InsetsUtils.doOnApplyWindowInsets(mAppBarLayout, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
 
-                return WindowInsetsCompat.CONSUMED;
-            });
-        }
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+        });
     }
 
 }

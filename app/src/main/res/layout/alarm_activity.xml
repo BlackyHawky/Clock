@@ -12,7 +12,6 @@
     android:id="@+id/alarm_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
     tools:background="#191C1E">
 

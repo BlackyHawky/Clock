@@ -16,7 +16,6 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="@null"
         app:elevation="0dp">
 
@@ -27,9 +26,7 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            android:fitsSystemWindows="true"
             android:clipToPadding="false"
-            app:forceApplySystemWindowInsetTop="true"
             app:statusBarScrim="@null"
             app:contentScrim="?android:attr/colorBackground"
             app:scrimAnimationDuration="?attr/motionDurationMedium2"

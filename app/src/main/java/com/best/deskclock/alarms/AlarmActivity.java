@@ -52,6 +52,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.WindowCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -206,6 +207,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
         // Get the power button behavior setting
         mPowerBehavior = SettingsDAO.getAlarmPowerButtonBehavior(mPrefs);
+
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         if (SdkUtils.isAtLeastAndroid81()) {
             setTurnScreenOn(true);

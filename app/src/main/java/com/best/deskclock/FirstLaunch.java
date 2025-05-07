@@ -10,13 +10,18 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.settings.PermissionsManagementActivity;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
@@ -26,6 +31,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class FirstLaunch extends AppCompatActivity {
 
     public static final String KEY_IS_FIRST_LAUNCH = "key_is_first_launch";
+
+    View mFirstLaunchRootView;
+    View mFirstLaunchContent;
 
     TextView mAppTitle;
     TextView mAppVersion;
@@ -40,10 +48,15 @@ public class FirstLaunch extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         ThemeUtils.allowDisplayCutout(getWindow());
 
         setContentView(R.layout.first_launch_activity);
 
+        mFirstLaunchRootView = findViewById(R.id.first_launch_root_view);
+        mFirstLaunchContent = findViewById(R.id.first_launch_content);
         mAppTitle = findViewById(R.id.first_launch_app_title);
         mAppVersion = findViewById(R.id.first_launch_app_version);
         mMainFeaturesText = findViewById(R.id.first_launch_main_features_text);
@@ -72,11 +85,30 @@ public class FirstLaunch extends AppCompatActivity {
             startActivity(new Intent(this, DeskClock.class));
         });
 
+        applyWindowInsets();
+
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 showDialogToQuit();
             }
+        });
+    }
+
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
+    private void applyWindowInsets() {
+        InsetsUtils.doOnApplyWindowInsets(mFirstLaunchRootView, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
+
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+
+            mFirstLaunchContent.setPadding(0, 0, 0, bars.bottom);
         });
     }
 

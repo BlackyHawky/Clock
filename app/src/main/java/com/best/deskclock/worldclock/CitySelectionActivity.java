@@ -36,13 +36,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.City;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.InsetsUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
 
 import java.util.ArrayList;
@@ -93,7 +95,11 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(R.layout.cities_activity);
+
         mSearchMenuItemController =
                 new SearchMenuItemController(Objects.requireNonNull(getSupportActionBar()).getThemedContext(),
                         new SearchView.OnQueryTextListener() {
@@ -112,10 +118,14 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                         savedInstanceState);
 
         mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
+
         addMenuProvider(mSearchMenuItemController);
+
         mCitiesList = findViewById(R.id.cities_list);
         mCitiesList.setAdapter(mCitiesAdapter);
+
         applyWindowInsets();
+
         updateFastScrolling();
     }
 
@@ -159,6 +169,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         if (item.getItemId() == 1) {
             // Save the new sort order.
             DataModel.getDataModel().toggleCitySort();
+
             item.setTitle(getMenuTitle());
 
             // Section headers are influenced by sort order and must be cleared.
@@ -171,14 +182,21 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
     private void applyWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(mCitiesList, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, 0, bars.right, bars.bottom);
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
 
-            return WindowInsetsCompat.CONSUMED;
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+
+            int bottomPadding = ThemeUtils.convertDpToPixels(10, this);
+            mCitiesList.setPadding(0, 0, 0, bars.bottom + bottomPadding);
         });
     }
 
@@ -253,34 +271,42 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
          * The 24-hour time pattern for the current locale.
          */
         private final String mPattern24;
+
         /**
          * A calendar used to format time in a particular timezone.
          */
         private final Calendar mCalendar;
+
         /**
          * A mutable set of cities currently selected by the user.
          */
         private final Set<City> mUserSelectedCities = new ArraySet<>();
+
         /**
          * Menu item controller for search. Search query is maintained here.
          */
         private final SearchMenuItemController mSearchMenuItemController;
+
         /**
          * {@code true} time should honor {@link #mPattern24}; {@link #mPattern12} otherwise.
          */
         private boolean mIs24HoursMode;
+
         /**
          * The list of cities which may be filtered by a search term.
          */
         private List<City> mFilteredCities = Collections.emptyList();
+
         /**
          * The number of user selections at the top of the adapter to avoid indexing.
          */
         private int mOriginalUserSelectionCount;
+
         /**
          * The precomputed section headers.
          */
         private String[] mSectionHeaders;
+
         /**
          * The corresponding location of each precomputed section header.
          */
@@ -295,15 +321,18 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
 
             final Locale locale = Locale.getDefault();
+
             mPattern24 = DateFormat.getBestDateTimePattern(locale, "Hm");
 
             String pattern12 = DateFormat.getBestDateTimePattern(locale, "hma");
+
             if (TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL) {
                 // There's an RTL layout bug that causes jank when fast-scrolling through
                 // the list in 12-hour mode in an RTL locale. We can work around this by
                 // ensuring the strings are the same length by using "hh" instead of "h".
                 pattern12 = pattern12.replaceAll("h", "hh");
             }
+
             mPattern12 = pattern12;
         }
 
@@ -317,6 +346,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         public City getItem(int position) {
             if (hasHeader()) {
                 final int itemViewType = getItemViewType(position);
+
                 return switch (itemViewType) {
                     case VIEW_TYPE_SELECTED_CITIES_HEADER -> null;
                     case VIEW_TYPE_CITY -> mFilteredCities.get(position - 1);
@@ -335,6 +365,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         @Override
         public View getView(int position, View view, ViewGroup parent) {
             final int itemViewType = getItemViewType(position);
+
             switch (itemViewType) {
                 case VIEW_TYPE_SELECTED_CITIES_HEADER -> {
                     if (view == null) {
@@ -343,11 +374,13 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                     }
                     return view;
                 }
+
                 case VIEW_TYPE_CITY -> {
                     final City city = getItem(position);
                     if (city == null) {
                         throw new IllegalStateException("The desired city does not exist");
                     }
+
                     final TimeZone timeZone = city.getTimeZone();
 
                     // Inflate a new view if necessary.
@@ -368,8 +401,10 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                     holder.selected.setOnCheckedChangeListener(this);
                     holder.name.setText(city.getName(), TextView.BufferType.SPANNABLE);
                     holder.time.setText(getTimeCharSequence(timeZone));
+
                     final boolean showIndex = getShowIndex(position);
                     holder.index.setVisibility(showIndex ? View.VISIBLE : View.INVISIBLE);
+
                     if (showIndex) {
                         switch (getCitySort()) {
                             case NAME -> {
@@ -406,6 +441,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
         @Override
         public void onCheckedChanged(CompoundButton b, boolean checked) {
             final City city = (City) b.getTag();
+
             if (checked) {
                 mUserSelectedCities.add(city);
                 b.announceForAccessibility(mContext.getString(R.string.city_checked, city.getName()));
@@ -442,6 +478,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                         if (city == null) {
                             throw new IllegalStateException("The desired city does not exist");
                         }
+
                         switch (getCitySort()) {
                             case NAME -> sections.add(city.getIndexString());
                             case UTC_OFFSET -> {
@@ -449,13 +486,16 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
                                 sections.add(getGMTHourOffset(timezone, false));
                             }
                         }
+
                         positions.add(position);
                     }
                 }
 
                 mSectionHeaders = sections.toArray(new String[0]);
+
                 mSectionHeaderPositions = positions.toArray(new Integer[0]);
             }
+
             return mSectionHeaders;
         }
 
@@ -515,8 +555,10 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
 
             // Refresh the user selections.
             final List<City> selected = DataModel.getDataModel().getSelectedCities();
+
             mUserSelectedCities.clear();
             mUserSelectedCities.addAll(selected);
+
             mOriginalUserSelectionCount = selected.size();
 
             // Recompute section headers.
@@ -531,15 +573,18 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
          */
         private void filter(String queryText) {
             mSearchMenuItemController.setQueryText(queryText);
+
             final String query = City.removeSpecialCharacters(queryText.toUpperCase());
 
             // Compute the filtered list of cities.
             final List<City> filteredCities;
+
             if (TextUtils.isEmpty(query)) {
                 filteredCities = DataModel.getDataModel().getAllCities();
             } else {
                 final List<City> unselected = DataModel.getDataModel().getUnselectedCities();
                 filteredCities = new ArrayList<>(unselected.size());
+
                 for (City city : unselected) {
                     if (city.matches(query)) {
                         filteredCities.add(city);
@@ -549,6 +594,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
 
             // Swap in the filtered list of cities and notify of the data change.
             mFilteredCities = filteredCities;
+
             notifyDataSetChanged();
         }
 
@@ -608,6 +654,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
             // Otherwise compare the city with its predecessor to test if it is a header.
             final City priorCity = getItem(position - 1);
             final City city = getItem(position);
+
             return getCitySortComparator().compare(priorCity, city) != 0;
         }
 
@@ -636,6 +683,7 @@ public final class CitySelectionActivity extends CollapsingToolbarBaseActivity {
 
         public SearchMenuItemController(Context context, SearchView.OnQueryTextListener queryListener,
                                         Bundle savedState) {
+
             mContext = context;
             mSearchModeChangeListener = new SearchModeChangeListener();
             mQueryListener = queryListener;

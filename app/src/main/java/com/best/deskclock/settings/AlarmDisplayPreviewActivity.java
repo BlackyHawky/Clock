@@ -46,6 +46,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.WindowCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -110,7 +111,8 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         setContentView(R.layout.alarm_activity);
 

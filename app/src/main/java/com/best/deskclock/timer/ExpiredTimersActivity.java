@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.DataModel;
@@ -95,6 +96,9 @@ public class ExpiredTimersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mPrefs = getDefaultSharedPreferences(this);
+
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Register Power button (screen off) intent receiver
         IntentFilter filter = new IntentFilter();

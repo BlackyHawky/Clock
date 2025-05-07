@@ -37,11 +37,11 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.CollapsingToolbarBaseActivity;
@@ -57,6 +57,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Manage the permissions required to ensure the application runs properly.
+ */
 public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity {
 
     @Override
@@ -78,6 +81,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
     }
 
     public static class PermissionsManagementFragment extends ScreenFragment {
+
+        View mPermissionContainerView;
 
         MaterialCardView mIgnoreBatteryOptimizationsView;
         MaterialCardView mNotificationView;
@@ -106,6 +111,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                                  @Nullable Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.permissions_management_activity, container, false);
+
+            mPermissionContainerView = rootView.findViewById(R.id.permission_container);
 
             mIgnoreBatteryOptimizationsView = rootView.findViewById(R.id.IBO_view);
             mIgnoreBatteryOptimizationsView.setOnClickListener(v -> launchIgnoreBatteryOptimizationsSettings());
@@ -168,15 +175,6 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
                 updateShowLockscreenCard(isCardBackgroundDisplayed, isCardBorderDisplayed);
             }
 
-            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
-                Insets bars = insets.getInsets(
-                        WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-                );
-                v.setPadding(bars.left, 0, bars.right, bars.bottom);
-
-                return WindowInsetsCompat.CONSUMED;
-            });
-
             return rootView;
         }
 
@@ -185,6 +183,8 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             super.onViewCreated(view, savedInstanceState);
 
             grantPowerOffPermission();
+
+            applyWindowInsets();
         }
 
         @Override
@@ -192,6 +192,23 @@ public class PermissionsManagementActivity extends CollapsingToolbarBaseActivity
             super.onResume();
 
             setStatusText();
+        }
+
+        /**
+         * This method adjusts the space occupied by system elements (such as the status bar,
+         * navigation bar or screen notch) and adjust the display of the application interface
+         * accordingly.
+         */
+        private void applyWindowInsets() {
+            InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+                // Get the system bar and notch insets
+                Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                        WindowInsetsCompat.Type.displayCutout());
+
+                v.setPadding(bars.left, bars.top, bars.right, 0);
+
+                mPermissionContainerView.setPadding(0, 0, 0, bars.bottom);
+            });
         }
 
         /**

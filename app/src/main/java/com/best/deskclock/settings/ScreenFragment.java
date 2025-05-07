@@ -30,8 +30,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,6 +46,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.best.deskclock.R;
 import com.best.deskclock.controller.ThemeController;
 import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 
@@ -56,6 +58,7 @@ import java.util.Objects;
 public abstract class ScreenFragment extends PreferenceFragmentCompat {
 
     SharedPreferences mPrefs;
+    CoordinatorLayout mCoordinatorLayout;
     AppBarLayout mAppBarLayout;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     RecyclerView mRecyclerView;
@@ -84,6 +87,9 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         mPrefs = getDefaultSharedPreferences(requireContext());
 
         setHasOptionsMenu(true);
+
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().getWindow(), false);
     }
 
     @Override
@@ -113,6 +119,7 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mCoordinatorLayout = requireActivity().findViewById(R.id.coordinator_layout);
         mCollapsingToolbarLayout = requireActivity().findViewById(R.id.collapsing_toolbar);
         mAppBarLayout = requireActivity().findViewById(R.id.app_bar);
         mAppBarLayout.setExpanded(true, true);
@@ -219,15 +226,24 @@ public abstract class ScreenFragment extends PreferenceFragmentCompat {
         }
     }
 
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     * <p>
+     * Note: Not applicable for the {@link PermissionsManagementActivity.PermissionsManagementFragment}
+     * fragment because it does not have a RecyclerView. Therefore, this fragment has its own method.
+     */
     private void applyWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(mRecyclerView, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
-            v.setPadding(bars.left, padding, bars.right, bars.bottom + padding);
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
 
-            return WindowInsetsCompat.CONSUMED;
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+
+            int padding = ThemeUtils.convertDpToPixels(10, requireContext());
+            mRecyclerView.setPadding(0, padding, 0, bars.bottom + padding);
         });
     }
 

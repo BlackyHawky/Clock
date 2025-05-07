@@ -234,8 +234,8 @@ public class ThemeController {
         /**
          * Applies a color to windows and the navigation bar for activities that extend "AppCompatActivity".
          * <p>
-         * Note: For Android 10+, the color of the navigation bar is ensured by the insets defined in the activities
-         * or by the {@systemProperty android:fitsSystemWindows="true"} attribute in the xml files.
+         * Note: For Android 10+, the color of the navigation bar is ensured by the insets defined
+         * in the activities.
          */
         private void applyNavBarAndBackgroundColorsForRegularActivity(Activity activity, String darkMode) {
             if (SdkUtils.isAtLeastAndroid10()) {

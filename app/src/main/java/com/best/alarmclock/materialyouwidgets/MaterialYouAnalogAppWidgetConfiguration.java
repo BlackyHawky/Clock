@@ -18,11 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.best.deskclock.R;
 
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.card.MaterialCardView;
@@ -56,6 +57,9 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
             }
         }
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         ThemeUtils.allowDisplayCutout(getWindow());
 
         // As the second hand display is only available for Android12+, just complete the activity
@@ -70,8 +74,6 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
 
         mWidgetConfigLayout = findViewById(R.id.widget_config_layout);
 
-        applyWindowInsets();
-
         MaterialCardView analogClockWithoutSecond = findViewById(R.id.container_without_second_hand);
         MaterialCardView analogClockWithSecond = findViewById(R.id.container_with_second_hand);
 
@@ -82,16 +84,22 @@ public class MaterialYouAnalogAppWidgetConfiguration extends AppCompatActivity {
 
         analogClockWithoutSecond.setOnClickListener(v -> onWidgetContainerClicked(false));
         analogClockWithSecond.setOnClickListener(v -> onWidgetContainerClicked(true));
+
+        applyWindowInsets();
     }
 
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
     private void applyWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(mWidgetConfigLayout, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+        InsetsUtils.doOnApplyWindowInsets(mWidgetConfigLayout, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
 
-            return WindowInsetsCompat.CONSUMED;
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
         });
     }
 

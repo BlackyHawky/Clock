@@ -35,7 +35,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -50,6 +50,7 @@ import com.best.deskclock.R;
 import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.provider.Alarm;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.LogUtils;
 import com.best.deskclock.utils.SdkUtils;
 import com.best.deskclock.utils.Utils;
@@ -214,6 +215,9 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(R.layout.ringtone_picker);
 
         setVolumeControlStream(AudioManager.STREAM_ALARM);
@@ -257,11 +261,13 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
         mRingtoneContent.setLayoutManager(new LinearLayoutManager(context));
         mRingtoneContent.setAdapter(mRingtoneAdapter);
         mRingtoneContent.setItemAnimator(null);
-        applyWindowInsets();
+
         mTitleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(mTitleResourceId));
 
         LoaderManager.getInstance(this).initLoader(0, null, this);
+
+        applyWindowInsets();
     }
 
     @Override
@@ -352,14 +358,20 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
     public void onLoaderReset(@NonNull Loader<List<ItemAdapter.ItemHolder<Uri>>> loader) {
     }
 
+    /**
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
+     */
     private void applyWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(mRingtoneContent, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, 0, bars.right, bars.bottom);
+        InsetsUtils.doOnApplyWindowInsets(mCoordinatorLayout, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
 
-            return WindowInsetsCompat.CONSUMED;
+            v.setPadding(bars.left, bars.top, bars.right, 0);
+
+            mRingtoneContent.setPadding(0, 0, 0, bars.bottom);
         });
     }
 

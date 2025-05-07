@@ -34,7 +34,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -42,10 +41,9 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -63,9 +61,10 @@ import com.best.deskclock.stopwatch.StopwatchService;
 import com.best.deskclock.timer.TimerService;
 import com.best.deskclock.uidata.TabListener;
 import com.best.deskclock.uidata.UiDataModel;
+import com.best.deskclock.utils.InsetsUtils;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.toast.SnackbarManager;
-import com.google.android.material.appbar.AppBarLayout;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.navigation.NavigationBarView;
@@ -124,6 +123,11 @@ public class DeskClock extends AppCompatActivity
     private Runnable mShowSilentSettingSnackbarRunnable;
 
     /**
+     * The main activity view.
+     */
+    private View mDeskClockRootView;
+
+    /**
      * The view to which snackbar items are anchored.
      */
     private View mSnackbarAnchor;
@@ -149,19 +153,9 @@ public class DeskClock extends AppCompatActivity
     private ImageView mRightButton;
 
     /**
-     * The view that displays the Toolbar.
-     */
-    private AppBarLayout mAppBarLayout;
-
-    /**
      * The Toolbar to display the title of the different tabs.
      */
     private Toolbar mToolbar;
-
-    /**
-     * The layout that displays the floating action buttons.
-     */
-    private ConstraintLayout mButtonsLayout;
 
     /**
      * The ViewPager that pages through the fragments representing the content of the tabs.
@@ -223,19 +217,20 @@ public class DeskClock extends AppCompatActivity
             return;
         }
 
+        // To manually manage insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         ThemeUtils.allowDisplayCutout(getWindow());
 
         setContentView(R.layout.desk_clock);
 
+        mDeskClockRootView = findViewById(R.id.desk_clock_root_view);
+
         mSnackbarAnchor = findViewById(R.id.content);
 
-        mAppBarLayout = findViewById(R.id.app_bar_layout);
-
         // Configure the toolbar.
-        mToolbar = mAppBarLayout.findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
-        mButtonsLayout = findViewById(R.id.button_layout);
 
         // Configure the buttons shared by the tabs.
         final boolean isTablet = ThemeUtils.isTablet();
@@ -243,18 +238,18 @@ public class DeskClock extends AppCompatActivity
         final int fabSize = isTablet ? 90 : isPortrait ? 75 : 60;
         final int leftOrRightButtonSize = isTablet ? 70 : isPortrait ? 55 : 50;
 
-        mFab = mButtonsLayout.findViewById(R.id.fab);
+        mFab = findViewById(R.id.fab);
         mFab.getLayoutParams().height = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.getLayoutParams().width = ThemeUtils.convertDpToPixels(fabSize, this);
         mFab.setScaleType(ImageView.ScaleType.CENTER);
         mFab.setOnClickListener(view -> getSelectedDeskClockFragment().onFabClick(mFab));
 
-        mLeftButton = mButtonsLayout.findViewById(R.id.left_button);
+        mLeftButton = findViewById(R.id.left_button);
         mLeftButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mLeftButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mLeftButton.setScaleType(ImageView.ScaleType.CENTER);
 
-        mRightButton = mButtonsLayout.findViewById(R.id.right_button);
+        mRightButton = findViewById(R.id.right_button);
         mRightButton.getLayoutParams().height = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.getLayoutParams().width = ThemeUtils.convertDpToPixels(leftOrRightButtonSize, this);
         mRightButton.setScaleType(ImageView.ScaleType.CENTER);
@@ -539,49 +534,19 @@ public class DeskClock extends AppCompatActivity
     };
 
     /**
-     * This method adjusts the spacing of the Toolbar, the buttons layout, the bottom navigation view
-     * and the content to take into account system insets, so that they are not obscured by system
-     * elements (status bar, navigation bar or cutout).
+     * This method adjusts the space occupied by system elements (such as the status bar,
+     * navigation bar or screen notch) and adjust the display of the application interface
+     * accordingly.
      */
     private void applyWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(mAppBarLayout, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
-            );
+        InsetsUtils.doOnApplyWindowInsets(mDeskClockRootView, (v, insets, initialPadding) -> {
+            // Get the system bar and notch insets
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() |
+                    WindowInsetsCompat.Type.displayCutout());
+
             v.setPadding(bars.left, bars.top, bars.right, 0);
 
-            return WindowInsetsCompat.CONSUMED;
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(mSnackbarAnchor, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, 0, bars.right, 0);
-
-            return WindowInsetsCompat.CONSUMED;
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(mButtonsLayout, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            v.setPadding(bars.left, 0, bars.right, 0);
-
-            return WindowInsetsCompat.CONSUMED;
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(mBottomNavigation, (v, insets) -> {
-            Insets bars = insets.getInsets(
-                    WindowInsetsCompat.Type.navigationBars() | WindowInsetsCompat.Type.displayCutout()
-            );
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(bars.left, 0, bars.right, 0);
-            v.setLayoutParams(params);
-            v.setPadding(0, 0, 0, bars.bottom);
-
-            return WindowInsetsCompat.CONSUMED;
+            mBottomNavigation.setPadding(0, 0, 0, bars.bottom);
         });
     }
 
