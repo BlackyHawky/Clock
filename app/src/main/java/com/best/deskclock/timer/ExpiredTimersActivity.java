@@ -138,16 +138,16 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
-
         setContentView(R.layout.expired_timers_activity);
+
+        mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
+        mExpiredTimersView = findViewById(R.id.expired_timers_list);
+
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), mExpiredTimersScrollView);
 
         if (SettingsDAO.isTimerBackgroundTransparent(mPrefs)) {
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
-        mExpiredTimersView = findViewById(R.id.expired_timers_list);
-        mExpiredTimersScrollView = findViewById(R.id.expired_timers_scroll);
 
         // Create views for each of the expired timers.
         for (Timer timer : expiredTimers) {

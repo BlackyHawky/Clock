@@ -231,9 +231,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
-        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), getWindow().getDecorView());
-
         setContentView(R.layout.alarm_activity);
+
+        View alarmRootView = findViewById(R.id.alarm_root_view);
 
         final String darkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && darkMode.equals(AMOLED_DARK_MODE);
@@ -439,6 +439,8 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
             mRingtoneIcon = mContentView.findViewById(R.id.ringtone_icon);
             displayRingtoneTitle();
         }
+
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), alarmRootView);
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")

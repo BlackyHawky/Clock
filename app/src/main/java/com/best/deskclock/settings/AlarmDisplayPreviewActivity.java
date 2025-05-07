@@ -114,6 +114,8 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
 
         setContentView(R.layout.alarm_activity);
 
+        View alarmRootView = findViewById(R.id.alarm_root_view);
+
         final String getDarkMode = SettingsDAO.getDarkMode(mPrefs);
         final boolean isAmoledMode = ThemeUtils.isNight(getResources()) && getDarkMode.equals(AMOLED_DARK_MODE);
         int alarmBackgroundColor = isAmoledMode
@@ -305,6 +307,8 @@ public class AlarmDisplayPreviewActivity extends AppCompatActivity
                 }
             }
         });
+
+        AlarmUtils.hideSystemBarsOfTriggeredAlarms(getWindow(), alarmRootView);
     }
 
     @Override

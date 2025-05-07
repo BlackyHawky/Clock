@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.VisibleForTesting;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -57,22 +56,17 @@ public class AlarmUtils {
      */
     public static void hideSystemBarsOfTriggeredAlarms(Window window, View view) {
         if (SdkUtils.isAtLeastAndroid10()) {
-            WindowInsetsControllerCompat windowInsetsController =
-                    WindowCompat.getInsetsController(window, view);
-            windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-
-            ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-                if (insets.isVisible(WindowInsetsCompat.Type.statusBars())
-                        || insets.isVisible(WindowInsetsCompat.Type.navigationBars())) {
-                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
-                }
-
-                return ViewCompat.onApplyWindowInsets(v, insets);
-            });
+            WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(window, view);
+            controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+            controller.hide(WindowInsetsCompat.Type.systemBars());
         } else {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            view.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            );
         }
     }
 
