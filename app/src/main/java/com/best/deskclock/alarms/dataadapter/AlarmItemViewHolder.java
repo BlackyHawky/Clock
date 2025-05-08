@@ -58,7 +58,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
             1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
 
-    public final TextView editLabel;
     public final ImageView arrow;
     public final TextTime clock;
     public final CompoundButton onOff;
@@ -71,7 +70,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public AlarmItemViewHolder(View itemView) {
         super(itemView);
 
-        editLabel = itemView.findViewById(R.id.edit_label);
         arrow = itemView.findViewById(R.id.arrow);
         clock = itemView.findViewById(R.id.digital_clock);
         onOff = itemView.findViewById(R.id.onoff);
@@ -86,9 +84,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(rippleColor),
                 ThemeUtils.cardBackground(context), null);
         itemView.setBackground(rippleDrawable);
-
-        // Edit label handler
-        editLabel.setOnClickListener(view -> getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item));
 
         // Clock handler
         clock.setOnClickListener(v -> getAlarmTimeClickHandler().onClockClicked(getItemHolder().item));
@@ -111,26 +106,12 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Alarm alarm = itemHolder.item;
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
-        bindEditLabel(context, alarm);
         bindClock(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAnnotations(alarm);
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
-    }
-
-    protected void bindEditLabel(Context context, Alarm alarm) {
-        if (alarm.label.isEmpty()) {
-            editLabel.setText(context.getString(R.string.add_label));
-            editLabel.setTypeface(Typeface.DEFAULT);
-        } else {
-            editLabel.setText(alarm.label);
-            editLabel.setContentDescription(alarm.label != null && !alarm.label.isEmpty()
-                    ? context.getString(R.string.label_description) + " " + alarm.label
-                    : context.getString(R.string.no_label_specified));
-            editLabel.setTypeface(Typeface.DEFAULT_BOLD);
-        }
     }
 
     protected void bindOnOffSwitch(Alarm alarm) {
@@ -181,11 +162,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         }
     }
 
-    public void bindAnnotations(Alarm alarm) {
+    private void bindAnnotations(Alarm alarm) {
         annotationsAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
 
-        ObjectAnimator editLabelAlphaAnimator = ObjectAnimator.ofFloat(editLabel,
-                View.ALPHA, editLabel.getAlpha(), annotationsAlpha).setDuration(300);
         ObjectAnimator clockAlphaAnimator = ObjectAnimator.ofFloat(clock,
                 View.ALPHA, clock.getAlpha(), annotationsAlpha).setDuration(300);
         ObjectAnimator daysOfWeekAlphaAnimator = ObjectAnimator.ofFloat(daysOfWeek,
@@ -194,7 +173,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                 View.ALPHA, preemptiveDismissButton.getAlpha(), annotationsAlpha).setDuration(300);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(editLabelAlphaAnimator, daysOfWeekAlphaAnimator, clockAlphaAnimator,
+        animatorSet.playTogether(daysOfWeekAlphaAnimator, clockAlphaAnimator,
                 preemptiveDismissButtonAlphaAnimator);
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -208,7 +187,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     protected void setChangingViewsAlpha(float alpha) {
-        editLabel.setAlpha(alpha);
         daysOfWeek.setAlpha(alpha);
         preemptiveDismissButton.setAlpha(alpha);
     }

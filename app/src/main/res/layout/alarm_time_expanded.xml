@@ -30,12 +30,12 @@
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:focusable="true"
+        android:hint="@string/add_label"
         android:textSize="16sp"
         app:drawableTint="?colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/arrow"
-        tools:hint="@string/add_label" />
+        app:layout_constraintEnd_toStartOf="@+id/arrow" />
 
     <ImageButton
         android:id="@+id/arrow"
@@ -55,7 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:gravity="center"
         android:background="?attr/selectableItemBackground"
         android:textSize="38sp"
         android:includeFontPadding="false"
