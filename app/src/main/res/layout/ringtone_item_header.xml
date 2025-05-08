@@ -6,15 +6,13 @@
 -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ringtone_item_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:gravity="start"
-    android:paddingStart="15dp"
-    android:paddingTop="16dp"
-    android:paddingEnd="15dp"
-    android:paddingBottom="16dp"
+    android:padding="16dp"
     android:textAlignment="viewStart"
-    android:textSize="15sp"
-    android:textColor="?colorAccent"/>
+    android:textSize="18sp"
+    android:textColor="?colorAccent"
+    tools:text="Device sounds" />

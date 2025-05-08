@@ -8,6 +8,9 @@ package com.best.deskclock.ringtone;
 
 import static android.view.View.GONE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -21,6 +24,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.ItemAdapter.ItemViewHolder;
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
+import com.best.deskclock.utils.ThemeUtils;
 import com.google.android.material.color.MaterialColors;
 
 final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtoneHolder>
@@ -48,6 +53,16 @@ final class AddCustomRingtoneViewHolder extends ItemViewHolder<AddCustomRingtone
         imageView.setBackgroundTintList(ColorStateList.valueOf(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLACK))
         );
+
+        final int backgroundColor;
+        if (ThemeUtils.isNight(context.getResources())
+                && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+            backgroundColor = Color.BLACK;
+        } else {
+            backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
+        }
+
+        itemView.setBackground(ThemeUtils.rippleDrawable(context, backgroundColor));
     }
 
     @Override

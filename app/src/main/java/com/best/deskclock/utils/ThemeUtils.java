@@ -17,6 +17,7 @@ import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_M
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,11 +26,13 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableKt;
 
@@ -136,6 +139,20 @@ public class ThemeUtils {
         }
 
         return gradientDrawable;
+    }
+
+    /**
+     * Convenience method to create ripple drawable.
+     */
+    public static RippleDrawable rippleDrawable(Context context, @ColorInt int color) {
+        final GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setCornerRadius(convertDpToPixels(18, context));
+        gradientDrawable.setColor(color);
+
+        int rippleColor = MaterialColors.getColor(context,
+                com.google.android.material.R.attr.colorControlHighlight, Color.BLACK);
+
+        return new RippleDrawable(ColorStateList.valueOf(rippleColor), gradientDrawable, null);
     }
 
     /**

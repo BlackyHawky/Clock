@@ -10,12 +10,16 @@ import static android.view.View.GONE;
 import static android.view.View.OnClickListener;
 import static android.view.View.VISIBLE;
 
+import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
+import static com.best.deskclock.settings.PreferencesDefaultValues.AMOLED_DARK_MODE;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +27,9 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.best.deskclock.ItemAdapter;
 import com.best.deskclock.R;
+import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.utils.AnimatorUtils;
+import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.utils.Utils;
 
 import com.google.android.material.color.MaterialColors;
@@ -40,7 +46,7 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
     private final View mSelectedView;
     private final TextView mNameView;
     private final ImageView mImageView;
-    private final ImageView mDeleteRingtone;
+    private final ImageButton mDeleteRingtone;
 
     private RingtoneViewHolder(View itemView) {
         super(itemView);
@@ -90,15 +96,20 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
         mSelectedView.setVisibility(itemHolder.isSelected() ? VISIBLE : GONE);
 
-        final int bgColorId = itemHolder.isSelected()
-                ? MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK)
-                : context.getColor(android.R.color.transparent);
-        itemView.setBackgroundColor(bgColorId);
+        final int backgroundColor;
+        if (itemHolder.isSelected()) {
+            backgroundColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        } else if (ThemeUtils.isNight(context.getResources())
+                && SettingsDAO.getDarkMode(getDefaultSharedPreferences(context)).equals(AMOLED_DARK_MODE)) {
+            backgroundColor = Color.BLACK;
+        } else {
+            backgroundColor = MaterialColors.getColor(context, android.R.attr.colorBackground, Color.BLACK);
+        }
+
+        itemView.setBackground(ThemeUtils.rippleDrawable(context, backgroundColor));
 
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             mDeleteRingtone.setVisibility(VISIBLE);
-            mDeleteRingtone.getDrawable().setTint(MaterialColors.getColor(
-                            context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.BLACK));
             mDeleteRingtone.setOnClickListener(v -> notifyItemClicked(RingtoneViewHolder.CLICK_REMOVE));
         }
     }
