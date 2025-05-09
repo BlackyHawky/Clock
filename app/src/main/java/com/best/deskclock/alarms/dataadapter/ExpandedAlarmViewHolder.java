@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     private final SharedPreferences mPrefs;
+    private final ImageView editLabelIcon;
     private final TextView editLabel;
     private final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
@@ -79,6 +81,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         mHasVibrator = hasVibrator;
         mHasFlash = hasFlash;
 
+        editLabelIcon = itemView.findViewById(R.id.edit_label_icon);
         editLabel = itemView.findViewById(R.id.edit_label);
         repeatDays = itemView.findViewById(R.id.repeat_days);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
@@ -93,6 +96,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // Collapse handler
         itemView.setOnClickListener(v -> {
             Events.sendAlarmEvent(R.string.action_collapse_implied, R.string.label_deskclock);
+            getItemHolder().collapse();
+        });
+
+        // Arrow handler
+        arrow.setOnClickListener(v -> {
+            Events.sendAlarmEvent(R.string.action_collapse, R.string.label_deskclock);
             getItemHolder().collapse();
         });
 
@@ -111,11 +120,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             repeatDays.addView(dayButtonFrame);
             dayButtons[i] = dayButton;
         }
-
-        arrow.setOnClickListener(v -> {
-            Events.sendAlarmEvent(R.string.action_collapse, R.string.label_deskclock);
-            getItemHolder().collapse();
-        });
 
         // Day buttons handler
         for (int i = 0; i < dayButtons.length; i++) {
@@ -189,11 +193,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         // the animation listeners won't do the showing and therefore lead to unwanted
         // half-visible state
         arrow.setVisibility(VISIBLE);
-        editLabel.setVisibility(VISIBLE);
-        editLabel.setAlpha(1f);
         clock.setVisibility(VISIBLE);
         onOff.setVisibility(VISIBLE);
         daysOfWeek.setVisibility(VISIBLE);
+        editLabelIcon.setAlpha(1f);
+        // Necessary so that the hint keeps its own alpha value
+        // and to avoid flickering when turning the alarm on/off
+        final boolean labelIsEmpty = alarm.label == null || alarm.label.isEmpty();
+        editLabel.setAlpha(labelIsEmpty || alarm.enabled ? 1f : editLabel.getAlpha());
         repeatDays.setAlpha(1f);
         ringtone.setAlpha(1f);
         dismissAlarmWhenRingtoneEnds.setAlpha(1f);
@@ -207,10 +214,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindEditLabel(Context context, Alarm alarm) {
+        final boolean alarmLabelIsEmpty = alarm.label == null || alarm.label.isEmpty();
+
         editLabel.setText(alarm.label);
-        editLabel.setContentDescription(alarm.label != null && !alarm.label.isEmpty()
-                ? context.getString(R.string.label_description) + " " + alarm.label
-                : context.getString(R.string.no_label_specified));
+        editLabel.setTypeface(alarmLabelIsEmpty || !alarm.enabled ? Typeface.DEFAULT : Typeface.DEFAULT_BOLD);
+        editLabel.setContentDescription(alarmLabelIsEmpty
+                ? context.getString(R.string.no_label_specified)
+                : context.getString(R.string.label_description) + " " + alarm.label);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
@@ -291,19 +301,41 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindEditLabelAnnotations(Alarm alarm) {
+        final boolean labelIsEmpty = alarm.label == null || alarm.label.isEmpty();
+        final float labelAlpha = labelIsEmpty ? 1f : editLabel.getAlpha();
         annotationsAlpha = alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA;
 
-        if (alarm.label != null && !alarm.label.isEmpty()) {
+        if (!labelIsEmpty) {
             ObjectAnimator editLabelAlphaAnimator = ObjectAnimator.ofFloat(editLabel,
-                    View.ALPHA, editLabel.getAlpha(), annotationsAlpha).setDuration(300);
+                    View.ALPHA, labelAlpha, annotationsAlpha).setDuration(300);
 
             final AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.play(editLabelAlphaAnimator);
+
             animatorSet.addListener(new AnimatorListenerAdapter() {
+
                 @Override
                 public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
-                    editLabel.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+                    // Prevent the alarm item from collapsing while this animation is running
+                    // to avoid display bugs
+                    itemView.setOnClickListener(null);
+                    arrow.setOnClickListener(null);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    super.onAnimationEnd(animator);
+
+                    itemView.setOnClickListener(v -> {
+                        Events.sendAlarmEvent(R.string.action_collapse_implied, R.string.label_deskclock);
+                        getItemHolder().collapse();
+                    });
+
+                    arrow.setOnClickListener(v -> {
+                        Events.sendAlarmEvent(R.string.action_collapse, R.string.label_deskclock);
+                        getItemHolder().collapse();
+                    });
                 }
             });
 
@@ -318,12 +350,15 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isExpanding = this == newHolder;
+
         AnimatorUtils.setBackgroundAlpha(itemView, isExpanding ? 0 : 255);
+
         setChangingViewsAlpha(isExpanding ? 0f : annotationsAlpha);
 
         final Animator changeAnimatorSet = isExpanding
                 ? createExpandingAnimator((AlarmItemViewHolder) oldHolder, duration)
                 : createCollapsingAnimator((AlarmItemViewHolder) newHolder, duration);
+
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
 
             @Override
@@ -354,26 +389,40 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator ellipseAnimator = getBoundsAnimator(daysOfWeek, newHolder.daysOfWeek, duration);
 
         final long shortDuration = (long) (duration * ANIM_SHORT_DURATION_MULTIPLIER);
+
+        final Animator editLabelIconAnimation = ObjectAnimator.ofFloat(editLabelIcon, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
         final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator dismissAlarmWhenRingtoneEndsAnimation = ObjectAnimator.ofFloat(
                 dismissAlarmWhenRingtoneEnds, View.ALPHA, 0f).setDuration(shortDuration);
+
         final Animator alarmSnoozeActionsAnimation = ObjectAnimator.ofFloat(alarmSnoozeActions, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator flashAnimation = ObjectAnimator.ofFloat(flash, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
                 deleteOccasionalAlarmAfterUse, View.ALPHA, 0f).setDuration(shortDuration);
+
         final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
                 View.ALPHA, 0f).setDuration(shortDuration);
+
         final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 0f)
                 .setDuration(shortDuration);
+
         final Animator duplicateAnimation = ObjectAnimator.ofFloat(duplicate, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
@@ -390,42 +439,58 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean alarmSnoozeActionsVisible = alarmSnoozeActions.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
-        duplicateAnimation.setStartDelay(startDelay);
-        deleteAnimation.setStartDelay(startDelay);
+        editLabelIconAnimation.setStartDelay(startDelay);
+
         editLabelAnimation.setStartDelay(startDelay);
+
+        duplicateAnimation.setStartDelay(startDelay);
+
+        deleteAnimation.setStartDelay(startDelay);
+
         if (preemptiveDismissButtonVisible) {
             startDelay += delayIncrement;
             dismissAnimation.setStartDelay(startDelay);
         }
+
         if (deleteOccasionalAlarmAfterUseVisible) {
             startDelay += delayIncrement;
             deleteOccasionalAlarmAfterUseAnimation.setStartDelay(startDelay);
         }
+
         if (flashVisible) {
             startDelay += delayIncrement;
             flashAnimation.setStartDelay(startDelay);
         }
+
         if (vibrateVisible) {
             startDelay += delayIncrement;
             vibrateAnimation.setStartDelay(startDelay);
         }
+
         if (alarmSnoozeActionsVisible) {
             startDelay += delayIncrement;
             alarmSnoozeActionsAnimation.setStartDelay(startDelay);
         }
+
         if (dismissAlarmWhenRingtoneEndsVisible) {
             startDelay += delayIncrement;
             dismissAlarmWhenRingtoneEndsAnimation.setStartDelay(startDelay);
         }
+
         ringtoneAnimation.setStartDelay(startDelay);
+
         repeatDaysAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation, editLabelAnimation,
-                flashAnimation, dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
-                vibrateAnimation, ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
-                alarmSnoozeActionsAnimation, switchAnimator, clockAnimator, ellipseAnimator);
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation,
+                editLabelAnimation, editLabelIconAnimation, flashAnimation,
+                dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
+                vibrateAnimation, ringtoneAnimation, deleteAnimation, duplicateAnimation,
+                dismissAnimation, alarmSnoozeActionsAnimation, switchAnimator, clockAnimator,
+                ellipseAnimator);
+
         animatorSet.addListener(new AnimatorListenerAdapter() {
+
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
@@ -465,6 +530,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         setChangingViewsAlpha(0f);
 
         final View newView = itemView;
+
         final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldHolder.itemView, newView);
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
@@ -474,30 +540,46 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         backgroundAnimator.setDuration(duration);
 
         final long longDuration = (long) (duration * ANIM_LONG_DURATION_MULTIPLIER);
-        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
-                .setDuration(longDuration);
-        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
-                .setDuration(longDuration);
-        final Animator dismissAlarmWhenRingtoneEndsAnimation = ObjectAnimator.ofFloat(
-                dismissAlarmWhenRingtoneEnds, View.ALPHA, 1f).setDuration(longDuration);
-        final Animator alarmSnoozeActionsAnimation = ObjectAnimator.ofFloat(
-                alarmSnoozeActions, View.ALPHA, 1f).setDuration(longDuration);
-        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f)
-                .setDuration(longDuration);
-        final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
-                deleteOccasionalAlarmAfterUse, View.ALPHA, 1f).setDuration(longDuration);
-        final Animator flashAnimation = ObjectAnimator.ofFloat(flash, View.ALPHA, 1f)
-                .setDuration(longDuration);
-        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 1f)
-                .setDuration(longDuration);
+
         final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 1f)
                 .setDuration(longDuration);
+
+        final Animator editLabelIconAnimation = ObjectAnimator.ofFloat(editLabelIcon, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator dismissAlarmWhenRingtoneEndsAnimation = ObjectAnimator.ofFloat(
+                dismissAlarmWhenRingtoneEnds, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator alarmSnoozeActionsAnimation = ObjectAnimator.ofFloat(
+                alarmSnoozeActions, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator flashAnimation = ObjectAnimator.ofFloat(flash, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator deleteOccasionalAlarmAfterUseAnimation = ObjectAnimator.ofFloat(
+                deleteOccasionalAlarmAfterUse, View.ALPHA, 1f).setDuration(longDuration);
+
+        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
         final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 1f)
                 .setDuration(longDuration);
+
         final Animator duplicateAnimation = ObjectAnimator.ofFloat(duplicate, View.ALPHA, 1f)
                 .setDuration(longDuration);
+
         final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f)
                 .setDuration(duration);
+
         arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
         // Set the stagger delays; delay the first by the amount of time it takes for the collapse
@@ -512,13 +594,19 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean alarmSnoozeActionsVisible = alarmSnoozeActions.getVisibility() == VISIBLE;
         final boolean preemptiveDismissButtonVisible = preemptiveDismissButton.getVisibility() == VISIBLE;
 
-        repeatDaysAnimation.setStartDelay(startDelay);
-        ringtoneAnimation.setStartDelay(startDelay);
+        editLabelIconAnimation.setStartDelay(startDelay);
+
         editLabelAnimation.setStartDelay(startDelay);
+
+        repeatDaysAnimation.setStartDelay(startDelay);
+
+        ringtoneAnimation.setStartDelay(startDelay);
+
         if (dismissAlarmWhenRingtoneEndsVisible) {
             dismissAlarmWhenRingtoneEndsAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
         }
+
         if (alarmSnoozeActionsVisible) {
             alarmSnoozeActionsAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
@@ -527,27 +615,35 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             vibrateAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
         }
+
         if (flashVisible) {
             flashAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
         }
+
         if (deleteOccasionalAlarmAfterUseVisible) {
             deleteOccasionalAlarmAfterUseAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
         }
+
         if (preemptiveDismissButtonVisible) {
             dismissAnimation.setStartDelay(startDelay);
             startDelay += delayIncrement;
         }
+
         deleteAnimation.setStartDelay(startDelay);
+
         duplicateAnimation.setStartDelay(startDelay);
 
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation, editLabelAnimation, flashAnimation,
-                dismissAlarmWhenRingtoneEndsAnimation, vibrateAnimation, deleteOccasionalAlarmAfterUseAnimation,
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatDaysAnimation,
+                editLabelAnimation, editLabelIconAnimation, flashAnimation, vibrateAnimation,
+                dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
                 ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
                 alarmSnoozeActionsAnimation, arrowAnimation);
+
         animatorSet.addListener(new AnimatorListenerAdapter() {
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -567,21 +663,27 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         if (preemptiveDismissButton.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         if (dismissAlarmWhenRingtoneEnds.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         if (alarmSnoozeActions.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         if (vibrate.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         if (flash.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         if (deleteOccasionalAlarmAfterUse.getVisibility() == VISIBLE) {
             numberOfItems++;
         }
+
         return numberOfItems;
     }
 

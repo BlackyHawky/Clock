@@ -12,7 +12,6 @@ import static android.view.View.VISIBLE;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -106,11 +105,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Alarm alarm = itemHolder.item;
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
+
         bindClock(alarm);
         bindOnOffSwitch(alarm);
         bindRepeatText(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
         bindAnnotations(alarm);
+
         itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
@@ -122,6 +123,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     protected void bindClock(Alarm alarm) {
         clock.setTime(alarm.hour, alarm.minutes);
+        clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
     protected void bindRepeatText(Context context, Alarm alarm) {
@@ -138,10 +140,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                     : context.getString(R.string.alarm_today);
             daysOfWeek.setText(labelText);
         }
+
+        daysOfWeek.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
     }
 
     protected void bindPreemptiveDismissButton(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
+
         if (canBind) {
             preemptiveDismissButton.setVisibility(VISIBLE);
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
@@ -151,11 +156,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                     ? context.getString(R.string.alarm_alert_dismiss_and_delete_text)
                     : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
+
             if (!getItemHolder().isExpanded()) {
                 bottomPaddingView.setVisibility(GONE);
             }
         } else {
             preemptiveDismissButton.setVisibility(GONE);
+
             if (!getItemHolder().isExpanded()) {
                 bottomPaddingView.setVisibility(VISIBLE);
             }
@@ -175,13 +182,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(daysOfWeekAlphaAnimator, clockAlphaAnimator,
                 preemptiveDismissButtonAlphaAnimator);
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
-                clock.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-            }
-        });
 
         animatorSet.start();
     }
@@ -195,7 +195,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Animator animator = AnimatorUtils
                 .getBoundsAnimator(from, from, to)
                 .setDuration(duration);
+
         animator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
         return animator;
     }
 

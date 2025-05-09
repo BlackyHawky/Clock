@@ -17,23 +17,32 @@
     android:importantForAccessibility="no"
     tools:background="@drawable/card_background_for_preview">
 
+    <ImageView
+        android:id="@+id/edit_label_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_label"
+        app:tint="?colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_label"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_label"/>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/edit_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="12dp"
         android:minHeight="48dp"
         android:paddingVertical="10dp"
         android:background="?attr/selectableItemBackground"
-        android:drawableStart="@drawable/ic_label"
-        android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:focusable="true"
         android:hint="@string/add_label"
         android:textSize="16sp"
-        app:drawableTint="?colorOnSurfaceVariant"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_label_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/arrow" />
 
