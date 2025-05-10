@@ -24,17 +24,17 @@
         android:layout_marginEnd="12dp"
         android:background="?attr/selectableItemBackground"
         android:drawablePadding="8dp"
+        android:hint="@string/add_label"
+        android:gravity="center_vertical"
         android:textSize="16sp"
         android:ellipsize="end"
-        android:gravity="center_vertical"
         android:maxLines="1"
         android:focusable="true"
         app:drawableStartCompat="@drawable/ic_label"
         app:drawableTint="?colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_timer"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:hint="@string/add_label" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/delete_timer"

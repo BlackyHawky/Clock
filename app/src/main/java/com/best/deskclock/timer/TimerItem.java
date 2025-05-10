@@ -168,9 +168,8 @@ public class TimerItem extends ConstraintLayout {
         // Update the label if it changed.
         final String label = timer.getLabel();
         if (label.isEmpty()) {
-            mLabelView.setText(getContext().getString(R.string.add_label));
+            mLabelView.setText(null);
             mLabelView.setTypeface(Typeface.DEFAULT);
-            mLabelView.setAlpha(0.63f);
         } else {
             mLabelView.setText(label);
             mLabelView.setTypeface(Typeface.DEFAULT_BOLD);
