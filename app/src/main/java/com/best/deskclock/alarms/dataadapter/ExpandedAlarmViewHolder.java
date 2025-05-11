@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,10 @@ import com.best.deskclock.utils.Utils;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.color.MaterialColors;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A ViewHolder containing views for an alarm item in expanded state.
@@ -61,6 +65,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final TextView editLabel;
     private final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
+    private final View emptyView;
+    private final TextView scheduleAlarm;
+    private final TextView selectedDate;
+    private final ImageView addDate;
+    private final ImageView removeDate;
     private final TextView ringtone;
     private final CheckBox dismissAlarmWhenRingtoneEnds;
     private final CheckBox alarmSnoozeActions;
@@ -84,6 +93,11 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabelIcon = itemView.findViewById(R.id.edit_label_icon);
         editLabel = itemView.findViewById(R.id.edit_label);
         repeatDays = itemView.findViewById(R.id.repeat_days);
+        emptyView = itemView.findViewById(R.id.empty_view);
+        scheduleAlarm = itemView.findViewById(R.id.schedule_alarm);
+        selectedDate = itemView.findViewById(R.id.selected_date);
+        addDate = itemView.findViewById(R.id.add_date);
+        removeDate = itemView.findViewById(R.id.remove_date);
         ringtone = itemView.findViewById(R.id.choose_ringtone);
         dismissAlarmWhenRingtoneEnds = itemView.findViewById(R.id.dismiss_alarm_when_ringtone_ends_onoff);
         alarmSnoozeActions = itemView.findViewById(R.id.alarm_snooze_actions_onoff);
@@ -130,6 +144,18 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                         isChecked, buttonIndex);
             });
         }
+
+        // Schedule date handler
+        scheduleAlarm.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        // Selected date handler
+        selectedDate.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        // Add date handler
+        addDate.setOnClickListener(v -> getAlarmTimeClickHandler().onDateClicked(getItemHolder().item));
+
+        // Remove date handler
+        removeDate.setOnClickListener(v -> getAlarmTimeClickHandler().removeDate(getItemHolder().item));
 
         // Ringtone editor handler
         ringtone.setOnClickListener(v -> getAlarmTimeClickHandler().onRingtoneClicked(context, getItemHolder().item));
@@ -180,6 +206,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
         bindDaysOfWeekButtons(alarm, context);
+        bindScheduleAlarm(alarm);
+        bindSelectedDate(alarm);
         bindRingtone(context, alarm);
         bindDismissAlarmWhenRingtoneEnds(alarm);
         bindAlarmSnoozeActions(alarm);
@@ -202,6 +230,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean labelIsEmpty = alarm.label == null || alarm.label.isEmpty();
         editLabel.setAlpha(labelIsEmpty || alarm.enabled ? 1f : editLabel.getAlpha());
         repeatDays.setAlpha(1f);
+        scheduleAlarm.setAlpha(1f);
+        selectedDate.setAlpha(1f);
+        addDate.setAlpha(1f);
+        removeDate.setAlpha(1f);
         ringtone.setAlpha(1f);
         dismissAlarmWhenRingtoneEnds.setAlpha(1f);
         alarmSnoozeActions.setAlpha(1f);
@@ -231,10 +263,67 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dayButton.setChecked(true);
                 dayButton.setTextColor(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorOnSurfaceInverse, Color.BLACK));
+
+                selectedDate.setVisibility(GONE);
             } else {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(MaterialColors.getColor(
                         context, com.google.android.material.R.attr.colorSurfaceInverse, Color.BLACK));
+
+                selectedDate.setVisibility(VISIBLE);
+            }
+        }
+    }
+
+    private void bindScheduleAlarm(Alarm alarm) {
+        if (alarm.daysOfWeek.isRepeating()) {
+            scheduleAlarm.setVisibility(GONE);
+        } else {
+            scheduleAlarm.setVisibility(VISIBLE);
+        }
+    }
+
+    private void bindSelectedDate(Alarm alarm) {
+        int year = alarm.year;
+        int month = alarm.month;
+        int dayOfMonth = alarm.day;
+        Calendar calendar = Calendar.getInstance();
+        boolean isCurrentYear = year == calendar.get(Calendar.YEAR);
+
+        calendar.set(year, month, dayOfMonth);
+
+        String pattern = DateFormat.getBestDateTimePattern(
+                Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        String formattedDate = dateFormat.format(calendar.getTime());
+
+        if (alarm.daysOfWeek.isRepeating()) {
+            repeatDays.setVisibility(VISIBLE);
+            emptyView.setVisibility(GONE);
+            selectedDate.setVisibility(GONE);
+            addDate.setVisibility(GONE);
+            removeDate.setVisibility(GONE);
+        } else {
+            if (alarm.isSpecifiedDate()) {
+                if (alarm.isDateInThePast()) {
+                    repeatDays.setVisibility(VISIBLE);
+                    emptyView.setVisibility(GONE);
+                    selectedDate.setVisibility(GONE);
+                    addDate.setVisibility(VISIBLE);
+                    removeDate.setVisibility(GONE);
+                } else {
+                    repeatDays.setVisibility(GONE);
+                    emptyView.setVisibility(VISIBLE);
+                    selectedDate.setText(formattedDate);
+                    addDate.setVisibility(GONE);
+                    removeDate.setVisibility(VISIBLE);
+                }
+            } else {
+                repeatDays.setVisibility(VISIBLE);
+                emptyView.setVisibility(GONE);
+                selectedDate.setVisibility(GONE);
+                addDate.setVisibility(VISIBLE);
+                removeDate.setVisibility(GONE);
             }
         }
     }
@@ -399,6 +488,18 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
+        final Animator scheduleAlarmAnimation = ObjectAnimator.ofFloat(scheduleAlarm, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
+        final Animator selectedDateAnimation = ObjectAnimator.ofFloat(selectedDate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
+        final Animator addDateAnimation = ObjectAnimator.ofFloat(addDate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
+        final Animator removeDateAnimation = ObjectAnimator.ofFloat(removeDate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
         final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 0f)
                 .setDuration(shortDuration);
 
@@ -477,6 +578,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             dismissAlarmWhenRingtoneEndsAnimation.setStartDelay(startDelay);
         }
 
+        scheduleAlarmAnimation.setStartDelay(startDelay);
+
+        selectedDateAnimation.setStartDelay(startDelay);
+
+        addDateAnimation.setStartDelay(startDelay);
+
+        removeDateAnimation.setStartDelay(startDelay);
+
         ringtoneAnimation.setStartDelay(startDelay);
 
         repeatDaysAnimation.setStartDelay(startDelay);
@@ -487,7 +596,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
                 vibrateAnimation, ringtoneAnimation, deleteAnimation, duplicateAnimation,
                 dismissAnimation, alarmSnoozeActionsAnimation, switchAnimator, clockAnimator,
-                ellipseAnimator);
+                ellipseAnimator, scheduleAlarmAnimation, selectedDateAnimation, addDateAnimation,
+                removeDateAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
 
@@ -518,6 +628,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         clock.setVisibility(INVISIBLE);
         onOff.setVisibility(INVISIBLE);
         daysOfWeek.setVisibility(INVISIBLE);
+        scheduleAlarm.setAlpha(0f);
+        selectedDate.setAlpha(0f);
+        addDate.setAlpha(0f);
+        removeDate.setAlpha(0f);
         ringtone.setAlpha(0f);
         preemptiveDismissButton.setAlpha(0f);
         dismissAlarmWhenRingtoneEnds.setAlpha(0f);
@@ -545,6 +659,18 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 .setDuration(longDuration);
 
         final Animator editLabelIconAnimation = ObjectAnimator.ofFloat(editLabelIcon, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator scheduleAlarmAnimation = ObjectAnimator.ofFloat(scheduleAlarm, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator selectedDateAnimation = ObjectAnimator.ofFloat(selectedDate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator addDateAnimation = ObjectAnimator.ofFloat(addDate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+
+        final Animator removeDateAnimation = ObjectAnimator.ofFloat(removeDate, View.ALPHA, 1f)
                 .setDuration(longDuration);
 
         final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
@@ -600,6 +726,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         repeatDaysAnimation.setStartDelay(startDelay);
 
+        scheduleAlarmAnimation.setStartDelay(startDelay);
+
+        selectedDateAnimation.setStartDelay(startDelay);
+
+        addDateAnimation.setStartDelay(startDelay);
+
+        removeDateAnimation.setStartDelay(startDelay);
+
         ringtoneAnimation.setStartDelay(startDelay);
 
         if (dismissAlarmWhenRingtoneEndsVisible) {
@@ -640,7 +774,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 editLabelAnimation, editLabelIconAnimation, flashAnimation, vibrateAnimation,
                 dismissAlarmWhenRingtoneEndsAnimation, deleteOccasionalAlarmAfterUseAnimation,
                 ringtoneAnimation, deleteAnimation, duplicateAnimation, dismissAnimation,
-                alarmSnoozeActionsAnimation, arrowAnimation);
+                alarmSnoozeActionsAnimation, arrowAnimation, scheduleAlarmAnimation,
+                selectedDateAnimation, addDateAnimation, removeDateAnimation);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
 

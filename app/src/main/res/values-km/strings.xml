@@ -8,6 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"សំឡេង​រោទ៍"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"ញ័រ"</string>
     <string name="time_picker_dialog_title">ជ្រើស​ម៉ោង</string>
+    <string name="date_picker_dialog_title">្រើសរើស​កាល​បរិច្ឆេទ</string>
     <string name="delete" msgid="5732434972457000541">"លុប"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"សំឡេងម៉ោងរោទិ៍លំនាំដើម"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"សំឡេងម៉ោងរោទ៍"</string>

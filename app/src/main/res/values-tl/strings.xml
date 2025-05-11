@@ -8,6 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"I-vibrate"</string>
     <string name="time_picker_dialog_title">Pumili ng oras</string>
+    <string name="date_picker_dialog_title">Pumili ng Petsa</string>
     <string name="delete" msgid="5732434972457000541">"I-delete"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Default na tunog ng alarm"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Tunog ng alarm"</string>

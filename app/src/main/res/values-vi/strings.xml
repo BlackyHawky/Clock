@@ -8,6 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Báo thức"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Rung"</string>
     <string name="time_picker_dialog_title">Chọn thời gian</string>
+    <string name="date_picker_dialog_title">Chọn ngày</string>
     <string name="delete" msgid="5732434972457000541">"Xóa"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Âm thanh báo thức mặc định"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Âm thanh báo thức"</string>

@@ -75,15 +75,23 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_14 = 15;
 
+    /**
+     * Add the ability to set an alarm on a specific date
+     */
+    private static final int VERSION_15 = 16;
+
     private static final String SELECTED_CITIES_TABLE_NAME = "selected_cities";
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_14);
+        super(context, DATABASE_NAME, null, VERSION_15);
     }
 
     private static void createAlarmsTable(SQLiteDatabase db, String alarmsTableName) {
         db.execSQL("CREATE TABLE " + alarmsTableName + " (" +
                 ClockContract.AlarmsColumns._ID + " INTEGER PRIMARY KEY," +
+                ClockContract.AlarmsColumns.YEAR + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.MONTH + " INTEGER NOT NULL, " +
+                ClockContract.AlarmsColumns.DAY + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.HOUR + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.MINUTES + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.DAYS_OF_WEEK + " INTEGER NOT NULL, " +
@@ -159,7 +167,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             try (Cursor cursor = db.query(OLD_ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
                     null, null, null, null, null)) {
                 final Calendar currentTime = Calendar.getInstance();
-                while (cursor != null && cursor.moveToNext()) {
+                while (cursor.moveToNext()) {
                     final Alarm alarm = new Alarm();
                     alarm.id = cursor.getLong(0);
                     alarm.hour = cursor.getInt(1);
@@ -229,7 +237,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             try (Cursor cursor = db.query(ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
                     null, null, null, null, null)) {
                 final Calendar currentTime = Calendar.getInstance();
-                while (cursor != null && cursor.moveToNext()) {
+                while (cursor.moveToNext()) {
                     final Alarm alarm = new Alarm(cursor);
                     // Save new version of alarm and create alarm instance for it
                     db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
@@ -284,7 +292,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             try (Cursor cursor = db.query(ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
                     null, null, null, null, null)) {
                 final Calendar currentTime = Calendar.getInstance();
-                while (cursor != null && cursor.moveToNext()) {
+                while (cursor.moveToNext()) {
                     final Alarm alarm = new Alarm(cursor);
                     // Save new version of alarm and create alarm instance for it
                     db.insert(TEMP_ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
@@ -307,6 +315,18 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion < VERSION_14) {
             db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN flash" + " INTEGER NOT NULL DEFAULT 0;");
             db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN flash" + " INTEGER NOT NULL DEFAULT 0;");
+        }
+
+        if (oldVersion < VERSION_15) {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
+            int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN year INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN month INTEGER NOT NULL DEFAULT 0;");
+            db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN day INTEGER NOT NULL DEFAULT 0;");
+
+            db.execSQL("UPDATE " + ALARMS_TABLE_NAME + " SET year = " + year + ", month = " + month + ", day = " + day + ";");
         }
     }
 

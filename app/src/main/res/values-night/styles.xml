@@ -72,7 +72,7 @@
         <item name="elevationOverlayEnabled">false</item>
 
         <item name="materialTimePickerTheme">@style/AppMaterialTimePickerTheme</item>
-        <!-- Todo: This is currently not used but may be useful to resolve issue #4 -->
+
         <item name="materialCalendarTheme">@style/AppMaterialCalendarTheme</item>
     </style>
 

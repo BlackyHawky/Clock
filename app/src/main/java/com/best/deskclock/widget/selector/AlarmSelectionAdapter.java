@@ -9,6 +9,7 @@ package com.best.deskclock.widget.selector;
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,10 @@ import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.TextTime;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAdapter.ViewHolder> {
 
@@ -95,18 +98,49 @@ public class AlarmSelectionAdapter extends RecyclerView.Adapter<AlarmSelectionAd
             alarmTime.setTime(alarm.hour, alarm.minutes);
             alarmLabel.setText(alarm.label);
 
-            // find days when alarm is firing
-            final String daysOfWeek;
-            if (!alarm.daysOfWeek.isRepeating()) {
-                daysOfWeek = Alarm.isTomorrow(alarm, Calendar.getInstance()) ?
-                        context.getResources().getString(R.string.alarm_tomorrow) :
-                        context.getResources().getString(R.string.alarm_today);
-            } else {
+            // Find days when alarm is firing
+            if (alarm.daysOfWeek.isRepeating()) {
                 final Weekdays.Order weekdayOrder = SettingsDAO.getWeekdayOrder(getDefaultSharedPreferences(context));
-                daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
-            }
+                final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
+                daysOfWeekView.setText(daysOfWeekText);
 
-            daysOfWeekView.setText(daysOfWeek);
+                final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+                daysOfWeekView.setContentDescription(string);
+            } else {
+                Calendar calendar = Calendar.getInstance();
+
+                if (Alarm.isTomorrow(alarm, calendar) && !alarm.isSpecifiedDate()) {
+                    daysOfWeekView.setText(context.getResources().getString(R.string.alarm_tomorrow));
+                } else if (alarm.isSpecifiedDate()) {
+                    if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+                        daysOfWeekView.setText(context.getResources().getString(R.string.alarm_tomorrow));
+                    } else if (alarm.isDateInThePast()) {
+                        // If the date has passed, the new alarm will be scheduled either the same day
+                        // or the next day depending on the time; the text is therefore updated accordingly.
+                        if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
+                                || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
+                                || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
+                            daysOfWeekView.setText(context.getString(R.string.alarm_tomorrow));
+                        } else {
+                            daysOfWeekView.setText(context.getString(R.string.alarm_today));
+                        }
+                    } else {
+                        int year = alarm.year;
+                        int month = alarm.month;
+                        int dayOfMonth = alarm.day;
+
+                        calendar.set(year, month, dayOfMonth);
+
+                        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyyMMMMd");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                        String formattedDate = dateFormat.format(calendar.getTime());
+
+                        daysOfWeekView.setText(context.getResources().getString(R.string.alarm_scheduled_for, formattedDate));
+                    }
+                } else {
+                    daysOfWeekView.setText(context.getResources().getString(R.string.alarm_today));
+                }
+            }
         }
     }
 }

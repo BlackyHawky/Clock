@@ -3,6 +3,7 @@ Does not use internet permission, and thus is 100% offline.
 
 Features:
 <ul>
+  <li>Set the alarms to a specific date;</li>
   <li>Flip and shake action to dismiss/postpone alarm;</li>
   <li>Turn off/postpone the alarm with the power button or volume buttons;</li>
   <li>For some Snapdragon devices only, the alarm is triggered when they are switched off</li>

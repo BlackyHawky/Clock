@@ -14,6 +14,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_ALARM_VIBRA
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_ENABLE_SNOOZED_OR_DISMISSED_ALARM_VIBRATIONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_FLIP_ACTION;
+import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_DATE_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_MATERIAL_TIME_PICKER_STYLE;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_POWER_BUTTON;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_SHAKE_ACTION;
@@ -65,6 +66,7 @@ public class AlarmSettingsFragment extends ScreenFragment
     SwitchPreferenceCompat mTurnOnBackFlashForTriggeredAlarmPref;
     SwitchPreferenceCompat mDeleteOccasionalAlarmByDefaultPref;
     ListPreference mMaterialTimePickerStylePref;
+    ListPreference mMaterialDatePickerStylePref;
     Preference mAlarmDisplayCustomizationPref;
 
     @Override
@@ -95,6 +97,7 @@ public class AlarmSettingsFragment extends ScreenFragment
         mTurnOnBackFlashForTriggeredAlarmPref = findPreference(KEY_TURN_ON_BACK_FLASH_FOR_TRIGGERED_ALARM);
         mDeleteOccasionalAlarmByDefaultPref = findPreference(KEY_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT);
         mMaterialTimePickerStylePref = findPreference(KEY_MATERIAL_TIME_PICKER_STYLE);
+        mMaterialDatePickerStylePref = findPreference(KEY_MATERIAL_DATE_PICKER_STYLE);
         mAlarmDisplayCustomizationPref = findPreference(KEY_ALARM_DISPLAY_CUSTOMIZATION);
 
         setupPreferences();
@@ -127,7 +130,8 @@ public class AlarmSettingsFragment extends ScreenFragment
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
-                 KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE -> {
+                 KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE,
+                 KEY_MATERIAL_DATE_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
@@ -245,6 +249,9 @@ public class AlarmSettingsFragment extends ScreenFragment
 
         mMaterialTimePickerStylePref.setOnPreferenceChangeListener(this);
         mMaterialTimePickerStylePref.setSummary(mMaterialTimePickerStylePref.getEntry());
+
+        mMaterialDatePickerStylePref.setOnPreferenceChangeListener(this);
+        mMaterialDatePickerStylePref.setSummary(mMaterialDatePickerStylePref.getEntry());
 
         mAlarmDisplayCustomizationPref.setOnPreferenceClickListener(this);
     }

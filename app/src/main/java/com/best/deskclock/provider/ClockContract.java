@@ -116,6 +116,27 @@ public final class ClockContract {
         Uri ALARMS_WITH_INSTANCES_URI = Uri.parse("content://" + AUTHORITY + "/alarms_with_instances");
 
         /**
+         * Alarm year.
+         *
+         * <p>Type: INTEGER</p>
+         */
+        String YEAR = "year";
+
+        /**
+         * Alarm month in year.
+         *
+         * <p>Type: INTEGER</p>
+         */
+        String MONTH = "month";
+
+        /**
+         * Alarm day in month.
+         *
+         * <p>Type: INTEGER</p>
+         */
+        String DAY = "day";
+
+        /**
          * Hour in 24-hour localtime 0 - 23.
          * <p>Type: INTEGER</p>
          */

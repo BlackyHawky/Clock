@@ -19,6 +19,7 @@ Clock is a customizable and privacy-conscious open-source clock, based on AOSP C
 - [Credits](#credits)
 
 # Features
+* Set the alarms to a specific date;
 * Flip and shake action to dismiss/postpone alarm;
 * Turn off/postpone the alarm with the power button or volume buttons;
 * For some Snapdragon devices only, the alarm is triggered when they are switched off;

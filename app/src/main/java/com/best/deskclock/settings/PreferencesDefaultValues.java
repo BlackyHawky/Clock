@@ -79,6 +79,9 @@ public class PreferencesDefaultValues {
     public static final boolean DEFAULT_ENABLE_DELETE_OCCASIONAL_ALARM_BY_DEFAULT = false;
     public static final String DEFAULT_TIME_PICKER_STYLE = "analog";
     public static final String SPINNER_TIME_PICKER_STYLE = "spinner";
+    public static final String DEFAULT_DATE_PICKER_STYLE = "calendar";
+    public static final String SPINNER_DATE_PICKER_STYLE = "spinner";
+
 
     // Alarm Display Customization
     public static final boolean DEFAULT_DISPLAY_ALARM_SECONDS_HAND = true;

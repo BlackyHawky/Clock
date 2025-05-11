@@ -116,10 +116,14 @@ public class BackupAndRestoreUtils {
             // Convert the Map of timers IDs to a JSONArray
             jsonObject.put("Timers IDs", new JSONArray(timerIds));
 
+            // Convert the alarms to a JSONArray
             JSONArray alarmsArray = new JSONArray();
+            JSONArray alarmsWithDateArray = new JSONArray();
+
             List<Alarm> alarms = Alarm.getAlarms(context.getContentResolver(), null);
             for (Alarm alarm : alarms) {
                 JSONObject alarmObject = new JSONObject();
+
                 alarmObject.put("id", alarm.id);
                 alarmObject.put("enabled", alarm.enabled);
                 alarmObject.put("hour", alarm.hour);
@@ -134,10 +138,20 @@ public class BackupAndRestoreUtils {
                 alarmObject.put("deleteAfterUse", alarm.deleteAfterUse);
                 alarmObject.put("increasingVolume", alarm.increasingVolume);
 
-                alarmsArray.put(alarmObject);
+                if (alarm.daysOfWeek.isRepeating() || !alarm.isSpecifiedDate()) {
+                    alarmsArray.put(alarmObject);
+                } else {
+                    alarmObject.put("year", alarm.year);
+                    alarmObject.put("month", alarm.month);
+                    alarmObject.put("day", alarm.day);
+
+                    alarmsWithDateArray.put(alarmObject);
+                }
             }
 
             jsonObject.put("Alarms", alarmsArray);
+
+            jsonObject.put("Alarms with specified date", alarmsWithDateArray);
 
             out.write(jsonObject.toString(4).getBytes(StandardCharsets.UTF_8));
             out.close();
@@ -259,56 +273,27 @@ public class BackupAndRestoreUtils {
 
             editor.apply();
 
-            if (jsonObject.has("Alarms")) {
-                // Clear the alarm list before restoring to avoid adding duplicates
-                final ContentResolver contentResolver = context.getContentResolver();
-                final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
-                for (Alarm alarm : alarms) {
-                    AlarmStateManager.deleteAllInstances(context, alarm.id);
-                    Alarm.deleteAlarm(contentResolver, alarm.id);
-                }
+            final ContentResolver contentResolver = context.getContentResolver();
+            // Clear the alarm list before restoring to avoid adding duplicates
+            final List<Alarm> alarms = Alarm.getAlarms(contentResolver, null);
+            for (Alarm alarm : alarms) {
+                AlarmStateManager.deleteAllInstances(context, alarm.id);
+                Alarm.deleteAlarm(contentResolver, alarm.id);
+            }
 
+            if (jsonObject.has("Alarms")) {
                 JSONArray alarmsArray = jsonObject.getJSONArray("Alarms");
                 for (int i = 0; i < alarmsArray.length(); i++) {
                     JSONObject alarmObject = alarmsArray.getJSONObject(i);
+                    restoreAlarm(context, contentResolver, alarmObject, false);
+                }
+            }
 
-                    // Create an Alarm object from JSON data
-                    long id = alarmObject.getLong("id");
-                    boolean enabled = alarmObject.getBoolean("enabled");
-                    int hour = alarmObject.getInt("hour");
-                    int minutes = alarmObject.getInt("minutes");
-                    boolean dismissAlarmWhenRingtoneEnds = alarmObject.getBoolean("dismissAlarmWhenRingtoneEnds");
-                    boolean alarmSnoozeActions = alarmObject.getBoolean("alarmSnoozeActions");
-                    boolean vibrate = alarmObject.getBoolean("vibrate");
-                    boolean flash = alarmObject.getBoolean("flash");
-                    int daysOfWeek = alarmObject.getInt("daysOfWeek");
-                    String label = alarmObject.getString("label");
-                    String alert = alarmObject.getString("alert");
-                    boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
-                    boolean increasingVolume = alarmObject.getBoolean("increasingVolume");
-
-                    // Restore only the system ringtone if available; otherwise restore the default system ringtone
-                    String alarmRingtone = !isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)
-                            ? alert
-                            : RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
-
-                    Alarm restoredAlarm = new Alarm(id, enabled, hour, minutes, dismissAlarmWhenRingtoneEnds,
-                            alarmSnoozeActions, vibrate, flash, Weekdays.fromBits(daysOfWeek), label, alarmRingtone,
-                            deleteAfterUse, increasingVolume);
-
-                    Alarm.addAlarm(contentResolver, restoredAlarm);
-
-                    if (restoredAlarm.enabled) {
-                        // Create the next alarm instance to schedule.
-                        AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
-
-                        // Add the next alarm instance to the database.
-                        AlarmInstance.addInstance(contentResolver, alarmInstance);
-
-                        // Schedule the next alarm instance in AlarmManager.
-                        AlarmStateManager.registerInstance(context, alarmInstance, true);
-                        LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
-                    }
+            if (jsonObject.has("Alarms with specified date")) {
+                JSONArray alarmsWithDateArray = jsonObject.getJSONArray("Alarms with specified date");
+                for (int i = 0; i < alarmsWithDateArray.length(); i++) {
+                    JSONObject alarmObject = alarmsWithDateArray.getJSONObject(i);
+                    restoreAlarm(context, contentResolver, alarmObject, true);
                 }
             }
         } catch (IOException | JSONException e) {
@@ -319,6 +304,62 @@ public class BackupAndRestoreUtils {
             } catch (IOException e) {
                 LogUtils.e("Error closing reader", e);
             }
+        }
+    }
+
+    /**
+     * Restore alarm data.
+     * If the alarm is enabled, a future instance will be scheduled.
+     */
+    private static void restoreAlarm(Context context, ContentResolver contentResolver,
+                                     JSONObject alarmObject, boolean hasSpecifiedDate) throws JSONException {
+
+        long id = alarmObject.getLong("id");
+        boolean enabled = alarmObject.getBoolean("enabled");
+        int hour = alarmObject.getInt("hour");
+        int minutes = alarmObject.getInt("minutes");
+        boolean dismissAlarmWhenRingtoneEnds = alarmObject.getBoolean("dismissAlarmWhenRingtoneEnds");
+        boolean alarmSnoozeActions = alarmObject.getBoolean("alarmSnoozeActions");
+        boolean vibrate = alarmObject.getBoolean("vibrate");
+        boolean flash = alarmObject.getBoolean("flash");
+        int daysOfWeek = alarmObject.getInt("daysOfWeek");
+        String label = alarmObject.getString("label");
+        String alert = alarmObject.getString("alert");
+        boolean deleteAfterUse = alarmObject.getBoolean("deleteAfterUse");
+        boolean increasingVolume = alarmObject.getBoolean("increasingVolume");
+
+        String alarmRingtone = !isNotSystemRingtone(Uri.parse(alert)) && isRingtoneAvailable(context, alert)
+                ? alert
+                : RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+
+        Alarm restoredAlarm;
+
+        int year;
+        int month;
+        int day;
+
+        if (hasSpecifiedDate) {
+            year = alarmObject.getInt("year");
+            month = alarmObject.getInt("month");
+            day = alarmObject.getInt("day");
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        restoredAlarm = new Alarm(id, enabled, year, month, day, hour, minutes,
+                dismissAlarmWhenRingtoneEnds, alarmSnoozeActions, vibrate, flash,
+                Weekdays.fromBits(daysOfWeek), label, alarmRingtone, deleteAfterUse, increasingVolume);
+
+        Alarm.addAlarm(contentResolver, restoredAlarm);
+
+        if (restoredAlarm.enabled) {
+            AlarmInstance alarmInstance = restoredAlarm.createInstanceAfter(Calendar.getInstance());
+            AlarmInstance.addInstance(contentResolver, alarmInstance);
+            AlarmStateManager.registerInstance(context, alarmInstance, true);
+            LogUtils.i("BackupAndRestoreUtils scheduled alarm instance: %s", alarmInstance);
         }
     }
 

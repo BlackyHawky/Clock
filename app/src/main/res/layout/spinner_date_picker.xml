@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
+<DatePicker xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinner_date_picker"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:paddingTop="20dp"
+    android:calendarViewShown="false"
+    android:datePickerMode="spinner"
+    android:theme="@style/SpinnerDateTheme" />

@@ -31,6 +31,16 @@
             app:singleLineTitle="false"
             tools:layout="@layout/settings_preference_layout" />
 
+        <ListPreference
+            android:key="key_material_date_picker_style"
+            android:title="@string/date_picker_style_title"
+            android:entries="@array/date_picker_style_entries"
+            android:entryValues="@array/date_picker_style_values"
+            android:defaultValue="calendar"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false"
+            tools:layout="@layout/settings_preference_layout" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

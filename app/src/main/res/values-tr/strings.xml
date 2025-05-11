@@ -8,6 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Titreşim"</string>
     <string name="time_picker_dialog_title">Zamanı seçin</string>
+    <string name="date_picker_dialog_title">Tarih Seçin</string>
     <string name="delete" msgid="5732434972457000541">"Sil"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Varsayılan alarm sesi"</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Alarm sesi"</string>

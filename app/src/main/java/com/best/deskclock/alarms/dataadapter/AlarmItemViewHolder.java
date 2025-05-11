@@ -19,6 +19,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.RippleDrawable;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -38,7 +39,9 @@ import com.best.deskclock.utils.ThemeUtils;
 import com.best.deskclock.widget.TextTime;
 import com.google.android.material.color.MaterialColors;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -135,10 +138,41 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
             daysOfWeek.setContentDescription(string);
         } else {
-            final String labelText = Alarm.isTomorrow(alarm, Calendar.getInstance())
-                    ? context.getString(R.string.alarm_tomorrow)
-                    : context.getString(R.string.alarm_today);
-            daysOfWeek.setText(labelText);
+            Calendar calendar = Calendar.getInstance();
+
+            if (Alarm.isTomorrow(alarm, calendar) && !alarm.isSpecifiedDate()) {
+                daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+            } else if (alarm.isSpecifiedDate()) {
+                if (Alarm.isSpecifiedDateTomorrow(alarm.year, alarm.month, alarm.day)) {
+                    daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+                } else if (alarm.isDateInThePast()) {
+                    // If the date has passed, the new alarm will be scheduled either the same day
+                    // or the next day depending on the time; the text is therefore updated accordingly.
+                    if (alarm.hour < calendar.get(Calendar.HOUR_OF_DAY)
+                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes < calendar.get(Calendar.MINUTE))
+                            || (alarm.hour == calendar.get(Calendar.HOUR_OF_DAY) && alarm.minutes == calendar.get(Calendar.MINUTE))) {
+                        daysOfWeek.setText(context.getString(R.string.alarm_tomorrow));
+                    } else {
+                        daysOfWeek.setText(context.getString(R.string.alarm_today));
+                    }
+                } else {
+                    int year = alarm.year;
+                    int month = alarm.month;
+                    int dayOfMonth = alarm.day;
+                    boolean isCurrentYear = year == calendar.get(Calendar.YEAR);
+
+                    calendar.set(year, month, dayOfMonth);
+
+                    String pattern = DateFormat.getBestDateTimePattern(
+                            Locale.getDefault(), isCurrentYear ? "MMMMd" : "yyyyMMMMd");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+                    String formattedDate = dateFormat.format(calendar.getTime());
+
+                    daysOfWeek.setText(context.getString(R.string.alarm_scheduled_for, formattedDate));
+                }
+            } else {
+                daysOfWeek.setText(context.getString(R.string.alarm_today));
+            }
         }
 
         daysOfWeek.setTypeface(alarm.enabled ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);

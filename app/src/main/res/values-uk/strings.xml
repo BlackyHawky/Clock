@@ -8,6 +8,7 @@
     <string name="default_label" msgid="5590025289805630372">"Будильник"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вібросигнал"</string>
     <string name="time_picker_dialog_title">Виберіть час</string>
+    <string name="date_picker_dialog_title">Виберіть дату</string>
     <string name="delete" msgid="5732434972457000541">"Видалити"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">Сигнал за замовчуванням</string>
     <string name="alarm_sound" msgid="8754499591391638405">"Сигнал будильника"</string>
