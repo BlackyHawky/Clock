@@ -12,7 +12,6 @@ import static android.os.BatteryManager.EXTRA_PLUGGED;
 import static com.best.deskclock.utils.AlarmUtils.ACTION_NEXT_ALARM_CHANGED_BY_CLOCK;
 
 import android.annotation.SuppressLint;
-import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -187,12 +186,6 @@ public class ScreensaverActivity extends AppCompatActivity {
             setShowWhenLocked(pluggedIn);
             setTurnScreenOn(pluggedIn);
         }
-
-        // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
-        if (SdkUtils.isAtLeastAndroid8()) {
-            KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
-            keyguardManager.requestDismissKeyguard(this, null);
-        }
     }
 
     /**
@@ -216,8 +209,7 @@ public class ScreensaverActivity extends AppCompatActivity {
      * @return the flags to apply to the window to keep the screen active (before API 27).
      */
     private static int getLegacyWindowFlags() {
-        return WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+        return WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
     }

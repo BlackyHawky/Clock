@@ -8,7 +8,6 @@ package com.best.deskclock.timer;
 
 import static com.best.deskclock.DeskClockApplication.getDefaultSharedPreferences;
 
-import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -127,14 +126,7 @@ public class ExpiredTimersActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                     | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                     | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                    | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                     | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
-        }
-
-        // Requests that the Keyguard (lock screen) be dismissed if it is currently showing.
-        if (SdkUtils.isAtLeastAndroid8()) {
-            KeyguardManager keyguardManager = getSystemService(KeyguardManager.class);
-            keyguardManager.requestDismissKeyguard(this, null);
         }
 
         // Honor rotation on tablets; fix the orientation on phones.
