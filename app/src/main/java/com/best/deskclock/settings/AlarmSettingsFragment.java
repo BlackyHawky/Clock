@@ -22,6 +22,7 @@ import static com.best.deskclock.settings.PreferencesKeys.KEY_TURN_ON_BACK_FLASH
 import static com.best.deskclock.settings.PreferencesKeys.KEY_VOLUME_BUTTONS;
 import static com.best.deskclock.settings.PreferencesKeys.KEY_WEEK_START;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -33,12 +34,16 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.best.deskclock.R;
+import com.best.deskclock.alarms.AlarmUpdateHandler;
 import com.best.deskclock.data.DataModel;
 import com.best.deskclock.data.SettingsDAO;
 import com.best.deskclock.data.Weekdays;
+import com.best.deskclock.provider.Alarm;
 import com.best.deskclock.ringtone.RingtonePickerActivity;
 import com.best.deskclock.utils.AlarmUtils;
 import com.best.deskclock.utils.Utils;
+
+import java.util.List;
 
 public class AlarmSettingsFragment extends ScreenFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -122,11 +127,25 @@ public class AlarmSettingsFragment extends ScreenFragment
                     Utils.setVibrationTime(requireContext(), 50);
 
             case KEY_ALARM_SNOOZE_DURATION, KEY_ALARM_CRESCENDO_DURATION, KEY_VOLUME_BUTTONS,
-                 KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_ALARM_NOTIFICATION_REMINDER_TIME,
-                 KEY_MATERIAL_TIME_PICKER_STYLE -> {
+                 KEY_POWER_BUTTON, KEY_FLIP_ACTION, KEY_MATERIAL_TIME_PICKER_STYLE -> {
                 final ListPreference preference = (ListPreference) pref;
                 final int index = preference.findIndexOfValue((String) newValue);
                 preference.setSummary(preference.getEntries()[index]);
+            }
+
+            case KEY_ALARM_NOTIFICATION_REMINDER_TIME -> {
+                final int index = mAlarmNotificationReminderTimePref.findIndexOfValue((String) newValue);
+                mAlarmNotificationReminderTimePref.setSummary(mAlarmNotificationReminderTimePref.getEntries()[index]);
+
+                ContentResolver cr = requireContext().getContentResolver();
+                AlarmUpdateHandler alarmUpdateHandler = new AlarmUpdateHandler(requireContext(), null, null);
+                List<Alarm> alarms = Alarm.getAlarms(cr, null);
+
+                for (Alarm alarm : alarms) {
+                    if (alarm.enabled) {
+                        alarmUpdateHandler.asyncUpdateAlarm(alarm, false, false);
+                    }
+                }
             }
 
             case KEY_SHAKE_ACTION -> {
