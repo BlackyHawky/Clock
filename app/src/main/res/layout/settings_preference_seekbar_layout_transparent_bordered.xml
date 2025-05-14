@@ -16,7 +16,7 @@
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="18dp"
     app:strokeWidth="2dp"
-    app:strokeColor="?colorPrimary">
+    app:strokeColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,8 +140,8 @@
                 android:text="@string/reset"
                 android:singleLine="true"
                 android:textStyle="bold"
-                android:textColor="?colorAccent"
-                app:drawableTint="?colorAccent" />
+                android:textColor="?attr/colorAccent"
+                app:drawableTint="?attr/colorAccent" />
 
         </LinearLayout>
 

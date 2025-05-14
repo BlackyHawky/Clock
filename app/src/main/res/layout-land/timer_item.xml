@@ -30,7 +30,7 @@
         android:maxLines="1"
         android:focusable="true"
         app:drawableStartCompat="@drawable/ic_label"
-        app:drawableTint="?colorOnSurfaceVariant"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_timer"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:src="@drawable/ic_delete"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
-        app:tint="?colorPrimary"
+        app:tint="?attr/colorPrimary"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +102,7 @@
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/reset"
-        app:tint="?colorPrimary"
+        app:tint="?attr/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/play_pause"

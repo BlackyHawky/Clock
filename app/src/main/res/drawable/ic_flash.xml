@@ -11,6 +11,6 @@
     android:viewportWidth="960"
     android:viewportHeight="960">
     <path
-        android:fillColor="?colorOnSurfaceVariant"
+        android:fillColor="?attr/colorOnSurfaceVariant"
         android:pathData="M695 454q21-30 3.5-62T645 360H600l57-200q8-30-11.5-55T594 80H360q-33 0-56.5 23.5T280 160V480q0 33 23.5 56.5T360 560h40V784q0 11 6 18.5T421 813t34-12L695 454ZM480 624V480H360V160H574L494 440H608L480 624Z"/>
 </vector>

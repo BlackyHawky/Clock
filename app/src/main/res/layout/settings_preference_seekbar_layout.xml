@@ -140,8 +140,8 @@
                 android:text="@string/reset"
                 android:singleLine="true"
                 android:textStyle="bold"
-                android:textColor="?colorAccent"
-                app:drawableTint="?colorAccent" />
+                android:textColor="?attr/colorAccent"
+                app:drawableTint="?attr/colorAccent" />
 
         </LinearLayout>
 

@@ -31,7 +31,7 @@
         android:maxLines="1"
         android:focusable="true"
         app:drawableStartCompat="@drawable/ic_label"
-        app:drawableTint="?colorOnSurfaceVariant"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/delete_timer"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
-        app:tint="?colorPrimary"
+        app:tint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +93,7 @@
         android:drawablePadding="8dp"
         android:visibility="gone"
         app:drawableStartCompat="@drawable/ic_hourglass_top"
-        app:drawableTint="?colorOnSurfaceVariant"
+        app:drawableTint="?attr/colorOnSurfaceVariant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/play_pause"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +120,7 @@
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/reset"
-        app:tint="?colorPrimary"
+        app:tint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/play_pause"

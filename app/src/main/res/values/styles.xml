@@ -10,7 +10,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- The navigation bar color is also set programmatically in the ThemeController.java file -->
-        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
         <item name="colorAccent">@color/md_theme_primary</item>
@@ -82,7 +82,7 @@
 
     <style name="TimerSetupDigit" parent="@style/Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton</item>
-        <item name="backgroundTint">?colorSurface</item>
+        <item name="backgroundTint">?attr/colorSurface</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:layout_margin">4dp</item>
         <item name="android:padding">5dp</item>
@@ -105,7 +105,7 @@
     </style>
 
     <style name="FloatingActionButton" parent="@style/Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">?colorAccent</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
         <!-- Remove animation when floating action button is pressed -->
         <item name="pressedTranslationZ">0dp</item>
         <!-- color used by the icon -->
@@ -120,7 +120,7 @@
     <!--   DIALOG   -->
     <!-- ========== -->
     <style name="AppAlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="android:background">?colorSurface</item>
+        <item name="android:background">?attr/colorSurface</item>
         <item name="dialogCornerRadius">28dp</item>
         <item name="materialAlertDialogTitleTextStyle">@style/AppMaterialAlertDialogTitleTextStyle</item>
     </style>
@@ -140,12 +140,12 @@
 
     <style name="NumberPickerStyle">
         <item name="android:textSize">28sp</item>
-        <item name="android:colorControlNormal">?colorPrimary</item>
+        <item name="android:colorControlNormal">?attr/colorPrimary</item>
     </style>
 
     <style name="AmPmStyle">
         <item name="android:textSize">16sp</item>
-        <item name="android:colorControlNormal">?colorPrimary</item>
+        <item name="android:colorControlNormal">?attr/colorPrimary</item>
     </style>
 
     <!-- ================= -->
@@ -153,13 +153,13 @@
     <!-- ================= -->
     <style name="AppMaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
         <!-- Dialog background -->
-        <item name="colorSurfaceContainerHigh">?colorSurface</item>
+        <item name="colorSurfaceContainerHigh">?attr/colorSurface</item>
         <!-- Selected hour/minute text color -->
-        <item name="colorOnPrimaryContainer">?colorPrimary</item>
+        <item name="colorOnPrimaryContainer">?attr/colorPrimary</item>
         <!-- AM/PM selected background -->
-        <item name="colorTertiaryContainer">?colorPrimaryContainer</item>
+        <item name="colorTertiaryContainer">?attr/colorPrimaryContainer</item>
         <!-- Selected AM/PM text color -->
-        <item name="colorOnTertiaryContainer">?colorPrimary</item>
+        <item name="colorOnTertiaryContainer">?attr/colorPrimary</item>
         <!-- Dialog title -->
         <item name="materialTimePickerTitleStyle">@style/AppMaterialTimePickerTitleStyle</item>
     </style>

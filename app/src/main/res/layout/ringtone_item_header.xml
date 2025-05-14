@@ -14,5 +14,5 @@
     android:padding="16dp"
     android:textAlignment="viewStart"
     android:textSize="18sp"
-    android:textColor="?colorAccent"
+    android:textColor="?attr/colorAccent"
     tools:text="Device sounds" />
